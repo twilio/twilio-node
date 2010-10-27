@@ -1,0 +1,4 @@
+module.exports.Credentials = {
+    sid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+    authToken: 'dcXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+};
