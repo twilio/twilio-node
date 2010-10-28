@@ -6,12 +6,19 @@ function debug(msg) {
 }
 var c = new Client(credentials.sid, credentials.authToken);
 
-c.getAccountInfo(function(response) {
-    debug('Successfully got account credentials');
-    debug('Dump: ' + JSON.stringify(response));
-});
+function r(type) {
+    return function(response) {
+        debug(type + ': ' + JSON.stringify(response));
+    };
+}
 
-c.setAccountInfo({FriendlyName: 'Foobar!'}, function(response) {
-    debug('Successfully set account FriendlyName');
-    debug('Response dump: ' + JSON.stringify(response));
-});
+//c.getAccountInfo(r('Get account credentials'));
+c.getSMSList(null, r('Get message list'));
+
+/*
+c.sendSMS({
+    From: credentials.outgoingId,
+    To: credentials.testToNumber,
+    Body: 'SMS Test! Woo!'
+}, r('Send SMS'));
+*/
