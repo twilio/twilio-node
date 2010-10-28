@@ -1,4 +1,6 @@
 module.exports.Credentials = {
     sid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-    authToken: 'dcXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+    authToken: 'dcXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+    outgoingId: '+1XXXXXXXXX',
+    testToNumber: '+XXXXXXXXXXX'
 };
