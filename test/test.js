@@ -4,7 +4,7 @@ var Client = require('../lib').Client,
 function debug(msg) {
     console.log(msg + '\n');
 }
-var c = new Client(credentials.sid, credentials.authToken);
+var c = new Client(credentials.sid, credentials.authToken, {hostname: credentials.hostname});
 
 function r(type) {
     return function(response) {
@@ -22,3 +22,8 @@ c.sendSMS({
     Body: 'SMS Test! Woo!'
 }, r('Send SMS'));
 */
+
+c.addIncomingCallCallback(credentials.outgoingId, function(req, res) {
+    res.send('<?xml version="1.0" encoding="UTF-8" ?>' +
+             '<Response><Dial>' + credentials.testToNumber + '</Dial><Say>So long!</Say></Response>');
+});
