@@ -23,7 +23,20 @@ c.sendSMS({
 }, r('Send SMS'));
 */
 
-c.addIncomingCallCallback(credentials.outgoingId, function(req, res) {
-    res.send('<?xml version="1.0" encoding="UTF-8" ?>' +
-             '<Response><Dial>' + credentials.testToNumber + '</Dial><Say>So long!</Say></Response>');
+// Get a new phone number object
+var phone = c.getPhoneNumber('+18674451795');
+
+// Update the phone number
+phone.update({FriendlyName: 'Yellowknife Number'});
+
+// Handle incoming calls
+phone.on('IncomingCall', function(req, res) {
 });
+
+phone.on('IncomingSms', function(req, res) {
+
+});
+
+phone.sendSms(to, body);
+phone.makeCall(from, to);
+
