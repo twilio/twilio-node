@@ -143,4 +143,26 @@ c.getOutgoingCallerIdList(null, t('getOutgoingCallerIdList', {
     }
 }));
 
-
+c.getIncomingNumbers(null, t('getIncomingNumbers', {
+    uri: /.*/
+}, function(res) {
+    if(res.incoming_phone_numbers && res.incoming_phone_numbers.length > 0) {
+        var inSid = res.incoming_phone_numbers[0].sid;
+        c.getIncomingNumber(inSid, t('getIncomingNumber',
+            {
+                sid: inSid,
+                account_sid: /AC.*/
+            }
+        ));
+        c.updateIncomingNumber(inSid, {FriendlyName: 'sjwalter-node-test'}, t(
+            'updateIncomingNumber',
+            {
+                friendly_name: 'sjwalter-node-test'
+            }
+        ));
+    } else {
+        error('Unable to test incoming phone number instance. ' +
+              'There are no incoming phone numbers associated with this account'
+        );
+    }
+}));
