@@ -4,13 +4,18 @@ var Client = require('../lib').Client,
 function debug(msg) {
     console.log(msg + '\n');
 }
-var c = new Client(credentials.sid, credentials.authToken, {hostname: credentials.hostname});
 
-function r(type) {
-    return function(response) {
-        debug(type + ': ' + JSON.stringify(response));
-    };
+function ok(msg) {
+    debug('OK: ' + msg);
 }
+
+function error(msg) {
+    debug('!: ' + msg);
+}
+
+function runTest(func, 
+
+var c = new Client(credentials.sid, credentials.authToken, {hostname: credentials.hostname});
 
 //c.getAccountInfo(r('Get account credentials'));
 c.getSMSList(null, r('Get message list'));
