@@ -185,3 +185,16 @@ c.getCallList(t('getCallList', {
 c.getRecordingList(null, t('getRecordingList', {
     uri: /.*/
 }));
+
+c.getNotificationList(null, t('getNotificationList', {
+    uri: /.*/
+}, function(res) {
+    if(res.notifications && res.notifications.length > 0) {
+        c.getNotificationInstance(res.notifications[0].sid, t('getNotificationInstance', {
+            sid: res.notifications[0].sid,
+            account_sid: /AC.*/,
+            log: /.*/,
+            request_method: /.*/
+        }));
+    }
+}));
