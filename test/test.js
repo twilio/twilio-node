@@ -166,3 +166,22 @@ c.getIncomingNumbers(null, t('getIncomingNumbers', {
         );
     }
 }));
+
+c.getCallList(t('getCallList', {
+    uri: /.*/
+}, function(res) {
+    if(res.calls && res.calls.length > 0) {
+        c.getCallInstance(res.calls[0].sid, null, t('getCallInstance',
+            {
+                sid: res.calls[0].sid,
+                to: /.*/,
+                from: /.*/,
+                direction: /.*/
+            })
+        );
+    }
+}));
+
+c.getRecordingList(null, t('getRecordingList', {
+    uri: /.*/
+}));
