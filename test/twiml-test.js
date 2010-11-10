@@ -1,6 +1,8 @@
 var Say = require('../lib/twiml').Say,
     Dial = require('../lib/twiml').Dial,
-    Gather = require('../lib/twiml').Gather;
+    Gather = require('../lib/twiml').Gather,
+    Sms = require('../lib/twiml').Sms,
+    Num = require('../lib/twiml').Num;
 
 function testOk(t, msg) {
     if(t) {
@@ -37,3 +39,10 @@ ok = false;
 p = new Say('Hey there');
 j = new Gather(p, {action: 'process.php'});
 console.log(j.toString());
+
+s = new Sms('Get soup', {from: '+18674451795', to: '+19954454455'});
+console.log(s.toString());
+
+d = new Dial();
+d.append(new Num('+18674451795', {sendDigits: '45'}));
+console.log(d.toString());
