@@ -1,8 +1,4 @@
-var Say = require('../lib/twiml').Say,
-    Dial = require('../lib/twiml').Dial,
-    Gather = require('../lib/twiml').Gather,
-    Sms = require('../lib/twiml').Sms,
-    Num = require('../lib/twiml').Num;
+var twiml = require('../lib/twiml');
 
 function testOk(t, msg) {
     if(t) {
@@ -12,37 +8,212 @@ function testOk(t, msg) {
     }
 }
 
-var p = new Say('Hello');
-testOk(p.toString().match('Say'), 'Say.toString()');
+function testSay() {
+    var ok = false,
+        s = new twiml.Say('Hello, there');
 
-p = new Say('Hello', {
-    voice: 'man',
-    language: 'en',
-    loop: 1
-});
-console.log(p.toString());
+    // Sanity
+    testOk(s.toString().match(/<Say>[\s\S]*Hello, there[\s\S]*<\/Say>/),
+        'Say sanity');
 
-var ok = false;
-try {
-    p = new Say('Should not work', {illegal: 'attribute'});
-} catch(err) {
-    ok = true;
-    testOk(true, 'Disallow illegal attributes');
-}
+    // Throw on no body
+    try {
+        var n = new twiml.Say();
+    } catch (err) {
+        ok = true;
+    }
+    testOk(ok, 'Say throw on no body');
 
-if(!ok) {
-    testOk(false, 'Disallow illegal attributes');
-}
+    // Shouldn't nest anything
+    ok = false;
+    try {
+        s.append((new twiml.Say('Not gonna happen')));
+    } catch (err) {
+        try {
+            s.append((new twiml.Dial('+18674451795')));
+        } catch (err) {
+            ok = true;
+        }
+    }
+    testOk(ok, 'Say correctly does not accept nestables');
+    
+    // Adding attrs
+    s.attr('test', 'ignored');
+    testOk(s.toString().match('test="ignored"'), 'Say add attr');
 
-ok = false;
+    delete s;
+};
 
-p = new Say('Hey there');
-j = new Gather(p, {action: 'process.php'});
-console.log(j.toString());
+function testPlay() {
+    var ok = false,
+        p = new twiml.Play('http://google.com/');
 
-s = new Sms('Get soup', {from: '+18674451795', to: '+19954454455'});
-console.log(s.toString());
+    // Sanity
+    testOk(p.toString().match(/<Play>[\S\s]*google.com[\S\s]*<\/Play>/), 
+        'Play sanity');
 
-d = new Dial();
-d.append(new Num('+18674451795', {sendDigits: '45'}));
-console.log(d.toString());
+    // Throw on no body
+    try {
+        var n = new twiml.Play();
+    } catch (err) {
+        ok = true;
+    }
+    testOk(ok, 'Play throw on no body');
+
+    // Adding attrs
+    p.attr('test', 'ignored');
+    testOk(p.toString().match('test="ignored"'), 'Play add attr');
+};
+
+function testGather() {
+    var ok = false,
+        g = new twiml.Gather();
+
+    // Sanity
+    testOk(g.toString().match(/<Gather\/>/), 'Gather sanity');
+
+    // Append a play
+    g.append(new twiml.Play('http://google.com'));
+    testOk(g.toString().match(
+        /<Gather>[\s\S]*<Play>[\s\S]*google[\s\S]*<\/Play>[\s\S]*<\/Gather>/),
+        'Gather nests play');
+    
+    // Fail to append a Dial
+    try {
+        g.append(new twiml.Dial('+19058926737'));
+    } catch (err) {
+        ok = true;
+    }
+    testOk(ok, 'Gather does not append Dial');
+
+    delete g;
+};
+
+function testRecord() {
+    
+};
+
+function testSms() {
+    
+};
+
+function testDial() {
+    
+};
+
+function testNum() {
+    
+};
+
+function testConference() {
+    
+};
+
+function testHangup() {
+    var ok = false,
+        r = new twiml.Hangup();
+    
+    // Sanity
+    testOk(r.toString() == '<Hangup/>', 'Hangup sanity');
+    
+    // With attributes passed into constructor
+    r = new twiml.Hangup({test: 'aiight'});
+    testOk(r.toString().match('test="aiight"'), 'Hangup with attributes');
+    
+    // Should throw nesting anything
+    ok = false;
+    try {
+        r.append((new twiml.Say('Not gonna happen')));
+    } catch (err) {
+        try {
+            r.append((new twiml.Dial('+18674451795')));
+        } catch (err) {
+            ok = true;
+        }
+    }
+    testOk(ok, 'Hangup correctly does not accept nestables');
+    
+    r.attr('this', 'is ignored');
+    testOk(r.toString().match('this="is ignored"'), 'Hangup adds attr');
+    
+    delete r;
+
+};
+
+function testRedirect() {
+    var ok = false,
+        r = new twiml.Redirect('http://google.com');
+    
+    // Sanity
+    testOk(r.toString().match(/<Redirect>[\s\S]*google.com[\s\S]*<\/Redirect>/),
+        'Redirect sanity');
+    
+    // Should throw on empty uri
+    try {
+        r = new twiml.Redirect();
+    } catch (err) {
+        ok = true;
+    }
+    testOk(ok, 'Redirect throws on empty body');
+
+    // With attributes passed into constructor
+    r = new twiml.Redirect('http://google.com', {test: 'aiight'});
+    testOk(r.toString().match('test="aiight"'), 'Redirect with attributes');
+    
+
+    // Should throw nesting anything
+    ok = false;
+    try {
+        r.append((new twiml.Say('Not gonna happen')));
+    } catch (err) {
+        try {
+            r.append((new twiml.Dial('+18674451795')));
+        } catch (err) {
+            ok = true;
+        }
+    }
+    testOk(ok, 'Redirect correctly does not accept nestables');
+    
+    r.attr('this', 'is ignored');
+    testOk(r.toString().match('this="is ignored"'), 'Redirect adds attr');
+    
+    delete r;
+};
+
+function testReject() {
+    var ok = false,
+        r = new twiml.Reject();
+
+    // Sanity
+    testOk(r.toString() == '<Reject/>', 'Reject sanity');
+
+    // Show throw nesting anything
+    try {
+        r.append((new twiml.Say('Not gonna happen')));
+    } catch (err) {
+        try {
+            r.append((new twiml.Dial('+18674451795')));
+        } catch (err) {
+            ok = true;
+        }
+    }
+    testOk(ok, 'Reject correctly does not accept nestables');
+    
+    // Adding an attribute
+    r.attr('this', 'is ignored');
+    testOk(r.toString().match('this="is ignored"'), 'Reject with attr');
+    
+    delete r;
+};
+
+testSay();
+testPlay();
+testGather();
+testReject();
+testSms();
+testDial();
+testNum();
+testConference();
+testHangup();
+testRedirect();
+testReject();

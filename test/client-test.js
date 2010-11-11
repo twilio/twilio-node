@@ -1,4 +1,4 @@
-var Client = require('../lib').Client,
+var Client = require('../lib').RestClient,
     credentials = require('./config').Credentials,
     errors = 0,
     passes = 0;
