@@ -51,16 +51,17 @@ var TwilioClient = require('../../lib/twilio').Client,
     currentWinnerMessage = '';
 
 var phone = client.getIncomingPhoneNumber(creds.incoming);
+
 phone.setup(function() {
     phone.on('incomingCall', function(reqParams, res) {
         var intro = new Twiml.Say(
-            'Welcome to Stephen\'s weird Canadian trivia game. It works like so. ' +
+            /*'Welcome to Stephen\'s weird Canadian trivia game. It works like so. ' +
             'You will be asked a multiple choice question. Each answer is ' +
             'preceeded by a number. Choose an answer, and press that number on ' +
             'your phone. If you answer correctly, you get to replace the ' +
-            'winner\'s message with your own.'),
+            'winner\'s message with your own.'),*/
+            'hey'),
             q = choose(questions),
-            question = new Twiml.Say('Your question is. ' + q.q),
             playMessage = currentWinnerMessage ? new Twiml.Play(currentWinnerMessage) : null;
         
         res.append(intro);
@@ -72,10 +73,23 @@ phone.setup(function() {
                 append(playMessage);
         }
         
-        var getAnswer = new Twiml.Gather(null, {numDigits: 1});
+        // Build the question text
+        var questionText = 'Here is your question. ' + q.q + '. ',
+            cur = 1;
+
+        // Add the multiple choice answers
+        while(q.answers[cur]) {
+            questionText +=  cur + '. ' + q.answers[cur] + '. ';
+            cur++;
+        }
+
+        var question = new Twiml.Say(questionText),
+            getAnswer = new Twiml.Gather(null, {numDigits: 1});
+
         getAnswer.append(question);
+
         getAnswer.on('gathered', function(reqParams, resp) {
-            if(reqParams.Digits == answer) {
+            if(reqParams.Digits == q.correct) {
                 // Woohoo, correct
                 resp.append(new Twiml.Say('Correct'));
             } else {
@@ -84,6 +98,7 @@ phone.setup(function() {
             resp.send();
         });
         res.append(getAnswer);
+        console.log(res.toString());
         res.send();
 
     });
@@ -140,16 +155,6 @@ twilio.addIncomingCallCallback(creds.incoming, function(req, res) {
     };
         
     var onGatherUri = twilio.getGenericCallbackUri(onGather),
-        questionText = 'Here is your question. ' + q.q + '. ',
-        cur = 1;
-
-    console.log('Record: ' + onRecordUri + ' Gather: ' + onGatherUri);
-
-    while(q.answers[cur]) {
-        questionText +=  cur + '. ' + q.answers[cur] + '. ';
-        cur++;
-    }
-
     resp.append(new Twiml.Gather(
         new Twiml.Say(questionText),
         {
