@@ -91,9 +91,26 @@ phone.setup(function() {
         getAnswer.on('gathered', function(reqParams, resp) {
             if(reqParams.Digits == q.correct) {
                 // Woohoo, correct
-                resp.append(new Twiml.Say('Correct'));
+                resp.append(new Twiml.Say('That is correct! You are brilliant! ' +
+                    'You may now record a message for the next participant. ' +
+                    'Press pound when you are done recording.'));
+                
+                var rec = new Twiml.Record({maxLength: 10, finishOnKey: '#'});
+                
+                rec.on('recorded', function(reqParams, resp) {
+                    // Save the uri
+                    currentWinnerMessage = reqParams.RecordingUrl;
+
+                    resp.append(new Twiml.Say('Thanks for playing. Goodbye')).
+                        append(new Twiml.Hangup());
+                    resp.send();
+                });
+
+                resp.append(rec);
             } else {
-                resp.append(new Twiml.Say('Incorrect'));
+                resp.append(new Twiml.Say('That is incorrect! Brush up on ' +
+                    'your Canadeeyawna! Thanks for playing. Goodbye')).
+                    append(new Twiml.Hangup());
             }
             resp.send();
         });
@@ -103,66 +120,3 @@ phone.setup(function() {
 
     });
 });
-/*
-twilio.addIncomingCallCallback(creds.incoming, function(req, res) {
-    
-    resp.append(intro);
-    
-    if(playMessage) {
-        resp.append(playMessage);
-    }
-    
-    function onRecord(req, res) {
-        currentWinnerMessage = req.body.RecordingUrl || 
-            currentWinnerMessage || '';
-        var congrats = new Twiml.Response();
-        congrats.append(new Twiml.Say('Thanks for playing!'));
-        congrats.append(new Twiml.Hangup());
-        res.send(congrats.toString());
-    };
-
-    var onRecordUri = twilio.getGenericCallbackUri(onRecord);
-    
-    function onGather(req, res) {
-        console.log('onGather');
-        console.log('Digits: ' + req.body.Digits);
-        if(req.body.Digits[0] == q.correct) {
-            var correctResp = new Twiml.Response();
-            
-            correctResp.append(new Twiml.Say('You are correct! Way to go! ' + 
-                'You may now record a message for new participants! ' + 
-                'Press pound when you are done recording.'));
-            
-            correctResp.append(new Twiml.Record({
-                action: onRecordUri,
-                method: 'POST',
-                maxLength: 10,
-                transcribe: true,
-                finishOnKey: '#'
-            }));
-            correctResp.append(new Twiml.Say('Goodbye'));
-            correctResp.append(new Twiml.Hangup());
-            console.log(correctResp.toString());
-            res.send(correctResp.toString());
-        } else {
-            var incorrectResp = new Twiml.Response();
-
-            incorrectResp.append(new Twiml.Say('You are incorrect. I hope ' +
-                'you feel really bad about this.'));
-            incorrectResp.append(new Twiml.Hangup());
-            res.send(incorrectResp.toString());
-        }
-    };
-        
-    var onGatherUri = twilio.getGenericCallbackUri(onGather),
-    resp.append(new Twiml.Gather(
-        new Twiml.Say(questionText),
-        {
-            action: onGatherUri,
-            method: 'POST',
-            numDigits: 1
-        }
-    ));
-    console.log(resp.toString());
-    res.send(resp.toString());
-});*/
