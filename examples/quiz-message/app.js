@@ -60,7 +60,7 @@ phone.setup(function() {
             'your phone. If you answer correctly, you get to replace the ' +
             'winner\'s message with your own.'),
             q = choose(questions),
-            question = new Twiml.Say(q.q),
+            question = new Twiml.Say('Your question is. ' + q.q),
             playMessage = currentWinnerMessage ? new Twiml.Play(currentWinnerMessage) : null;
         
         res.append(intro);
@@ -72,8 +72,18 @@ phone.setup(function() {
                 append(playMessage);
         }
         
-        res.append(new Twiml.Say('Your question is: ')).
-            append(question);
+        var getAnswer = new Twiml.Gather(null, {numDigits: 1});
+        getAnswer.append(question);
+        getAnswer.on('gathered', function(reqParams, resp) {
+            if(reqParams.Digits == answer) {
+                // Woohoo, correct
+                resp.append(new Twiml.Say('Correct'));
+            } else {
+                resp.append(new Twiml.Say('Incorrect'));
+            }
+            resp.send();
+        });
+        res.append(getAnswer);
         res.send();
 
     });
