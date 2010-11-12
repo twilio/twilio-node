@@ -1,5 +1,5 @@
 var TwilioClient = require('../../lib/twilio').Client,
-    Twiml = require('../../lib/twiml').Twiml,
+    Twiml = require('../../lib/twiml'),
     creds = require('./config').Credentials,
     client = new TwilioClient(creds.sid, creds.authToken, creds.hostname),
     questions = [
