@@ -1,7 +1,7 @@
-var twiml = require('../../lib/twiml'),
-    Client = require('../../lib/rest-client'),
+var TwilioClient = require('../../lib/twilio').Client,
+    Twiml = require('../../lib/twiml').Twiml,
     creds = require('./config').Credentials,
-    twilio = new Client(creds.sid, creds.authToken, {hostname: creds.hostname}),
+    client = new TwilioClient(creds.sid, creds.authToken, creds.hostname),
     questions = [
         {
             q: 'The population of Canada is roughly:', 
@@ -50,17 +50,36 @@ var twiml = require('../../lib/twiml'),
     },
     currentWinnerMessage = '';
 
+var phone = client.getIncomingPhoneNumber(creds.incoming);
+phone.setup(function() {
+    phone.on('incomingCall', function(reqParams, res) {
+        var intro = new Twiml.Say(
+            'Welcome to Stephen\'s weird Canadian trivia game. It works like so. ' +
+            'You will be asked a multiple choice question. Each answer is ' +
+            'preceeded by a number. Choose an answer, and press that number on ' +
+            'your phone. If you answer correctly, you get to replace the ' +
+            'winner\'s message with your own.'),
+            q = choose(questions),
+            question = new Twiml.Say(q.q),
+            playMessage = currentWinnerMessage ? new Twiml.Play(currentWinnerMessage) : null;
+        
+        res.append(intro);
+
+        if(!playMessage) {
+            res.append(new Twiml.Say('Nobody has won yet.'));
+        } else {
+            res.append(new Twiml.Say('The previous winner said.')).
+                append(playMessage);
+        }
+        
+        res.append(new Twiml.Say('Your question is: ')).
+            append(question);
+        res.send();
+
+    });
+});
+/*
 twilio.addIncomingCallCallback(creds.incoming, function(req, res) {
-    var intro = new twiml.Say(
-        'Welcome to Stephen\'s weird Canadian trivia game. It works like so. ' +
-        'You will be asked a multiple choice question. Each answer is ' +
-        'preceeded by a number. Choose an answer, and press that number on ' +
-        'your phone. If you answer correctly, you get to replace the ' +
-        'winner\'s message with your own. The last winner recorded this:'),
-        q = choose(questions),
-        question = new twiml.Say(q.q),
-        playMessage = currentWinnerMessage ? new twiml.Play(currentWinnerMessage) : null,
-        resp = new twiml.Response();
     
     resp.append(intro);
     
@@ -71,9 +90,9 @@ twilio.addIncomingCallCallback(creds.incoming, function(req, res) {
     function onRecord(req, res) {
         currentWinnerMessage = req.body.RecordingUrl || 
             currentWinnerMessage || '';
-        var congrats = new twiml.Response();
-        congrats.append(new twiml.Say('Thanks for playing!'));
-        congrats.append(new twiml.Hangup());
+        var congrats = new Twiml.Response();
+        congrats.append(new Twiml.Say('Thanks for playing!'));
+        congrats.append(new Twiml.Hangup());
         res.send(congrats.toString());
     };
 
@@ -83,29 +102,29 @@ twilio.addIncomingCallCallback(creds.incoming, function(req, res) {
         console.log('onGather');
         console.log('Digits: ' + req.body.Digits);
         if(req.body.Digits[0] == q.correct) {
-            var correctResp = new twiml.Response();
+            var correctResp = new Twiml.Response();
             
-            correctResp.append(new twiml.Say('You are correct! Way to go! ' + 
+            correctResp.append(new Twiml.Say('You are correct! Way to go! ' + 
                 'You may now record a message for new participants! ' + 
                 'Press pound when you are done recording.'));
             
-            correctResp.append(new twiml.Record({
+            correctResp.append(new Twiml.Record({
                 action: onRecordUri,
                 method: 'POST',
                 maxLength: 10,
                 transcribe: true,
                 finishOnKey: '#'
             }));
-            correctResp.append(new twiml.Say('Goodbye'));
-            correctResp.append(new twiml.Hangup());
+            correctResp.append(new Twiml.Say('Goodbye'));
+            correctResp.append(new Twiml.Hangup());
             console.log(correctResp.toString());
             res.send(correctResp.toString());
         } else {
-            var incorrectResp = new twiml.Response();
+            var incorrectResp = new Twiml.Response();
 
-            incorrectResp.append(new twiml.Say('You are incorrect. I hope ' +
+            incorrectResp.append(new Twiml.Say('You are incorrect. I hope ' +
                 'you feel really bad about this.'));
-            incorrectResp.append(new twiml.Hangup());
+            incorrectResp.append(new Twiml.Hangup());
             res.send(incorrectResp.toString());
         }
     };
@@ -121,8 +140,8 @@ twilio.addIncomingCallCallback(creds.incoming, function(req, res) {
         cur++;
     }
 
-    resp.append(new twiml.Gather(
-        new twiml.Say(questionText),
+    resp.append(new Twiml.Gather(
+        new Twiml.Say(questionText),
         {
             action: onGatherUri,
             method: 'POST',
@@ -131,4 +150,4 @@ twilio.addIncomingCallCallback(creds.incoming, function(req, res) {
     ));
     console.log(resp.toString());
     res.send(resp.toString());
-});
+});*/
