@@ -46,9 +46,9 @@ First, we want to instantiate a new Twilo client object.
 The constructor takes three parameters: the account SID and auth token, as well as
 the hostname of the application server. (This is used to construct URIs to give Twilio.)
 
-var sys = require('sys'),
-    TwilioClient = require('twiliode').Client,
-    client = new TwilioClient(ACCOUNT_SID, AUTH_TOKEN, MY_HOSTNAME);
+    var sys = require('sys'),
+        TwilioClient = require('twiliode').Client,
+        client = new TwilioClient(ACCOUNT_SID, AUTH_TOKEN, MY_HOSTNAME);
 
 Now that we have our client, let's get a PhoneNumber object using one of the 
 phone numbers that we've provisioned through some other channel.
@@ -57,50 +57,50 @@ The phone number used here can be any sort of Twilio number. If it's an outgoing
 caller ID, the object will only be able to make outgoing phone calls/SMS. If it's
 a regular incoming number, it will be able to make/receive phone calls and SMS.
 
-var phone = client.getPhoneNumber('+16269239971');
+    var phone = client.getPhoneNumber('+16269239971');
 
 We'll now setup our phone number. This goes out and requests the phone number
 instance resource and fills in a data structure with this phone number's details.
 
-phone.setup(function() {
-    // Alright, our phone number is set up. Let's, say, make a call:
-    phone.makeCall('+18674451795', null, function(call) {
-        // 'call' is an OutgoingCall object. This object is an event emitter.
-        // It emits two events: 'answered' and 'ended'
-        call.on('answered', function(reqParams, res) {
-            // reqParams is the body of the request Twilio makes on call pickup.
-            // For instance, reqParams.CallSid, reqParams.CallStatus.
-            // See: http://www.twilio.com/docs/api/2010-04-01/twiml/twilio_request
-            // res is a Twiml.Response object. This object handles generating
-            // a compliant Twiml response.
-            
-            console.log('Call answered');
-
-            // We'll append a single Say object to the response:
-            res.append(new Twiml.Say('Hello, there!'));
-
-            // And now we'll send it.
+    phone.setup(function() {
+        // Alright, our phone number is set up. Let's, say, make a call:
+        phone.makeCall('+18674451795', null, function(call) {
+            // 'call' is an OutgoingCall object. This object is an event emitter.
+            // It emits two events: 'answered' and 'ended'
+            call.on('answered', function(reqParams, res) {
+                // reqParams is the body of the request Twilio makes on call pickup.
+                // For instance, reqParams.CallSid, reqParams.CallStatus.
+                // See: http://www.twilio.com/docs/api/2010-04-01/twiml/twilio_request
+                // res is a Twiml.Response object. This object handles generating
+                // a compliant Twiml response.
+                
+                console.log('Call answered');
+    
+                // We'll append a single Say object to the response:
+                res.append(new Twiml.Say('Hello, there!'));
+    
+                // And now we'll send it.
+                res.send();
+            });
+            call.on('ended', function(reqParams) {
+                console.log('Call ended');
+            });
+        });
+    
+        // But wait! What if our number receives an incoming SMS?
+        phone.on('incomingSms', function(reqParams, res) {
+            // As above, reqParams contains the Twilio request parameters.
+            // Res is a Twiml.Response object.
+            console.log('Received incoming SMS with text: ' + reqParams.Body);
+            console.log('From: ' + reqParams.From);
+        });
+    
+        // Oh, and what if we get an incoming call?
+        phone.on('incomingCall', function(reqParams, res) {
+            res.append(new Twiml.Say('Thanks for calling! I think you are beautiful!'));
             res.send();
         });
-        call.on('ended', function(reqParams) {
-            console.log('Call ended');
-        });
     });
-
-    // But wait! What if our number receives an incoming SMS?
-    phone.on('incomingSms', function(reqParams, res) {
-        // As above, reqParams contains the Twilio request parameters.
-        // Res is a Twiml.Response object.
-        console.log('Received incoming SMS with text: ' + reqParams.Body);
-        console.log('From: ' + reqParams.From);
-    });
-
-    // Oh, and what if we get an incoming call?
-    phone.on('incomingCall', function(reqParams, res) {
-        res.append(new Twiml.Say('Thanks for calling! I think you are beautiful!'));
-        res.send();
-    });
-});
 
 #### Notes
 
