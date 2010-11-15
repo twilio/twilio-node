@@ -42,23 +42,26 @@ Then, you'd have to go out and ensure than UriForCallback is a real, provisioned
 
 `node-twilio`, however, takes care of all of that provisioning for you, and represents all Twilio interacts as EventEmitters. Again, this is awesome. Here's an example:
 
-// First, we want to instantiate a new Twilo client object.
-// The constructor takes three parameters: the account SID and auth token, as well as
-// the hostname of the application server. (This is used to construct URIs to give Twilio.)
+First, we want to instantiate a new Twilo client object.
+The constructor takes three parameters: the account SID and auth token, as well as
+the hostname of the application server. (This is used to construct URIs to give Twilio.)
+
 var sys = require('sys'),
     TwilioClient = require('twiliode').Client,
     client = new TwilioClient(ACCOUNT_SID, AUTH_TOKEN, MY_HOSTNAME);
 
-// Now that we have our client, let's get a PhoneNumber object using one of the 
-// phone numbers that we've provisioned through some other channel.
-// (Note: You can provision phone numbers very simply via the Low-Level REST API)
-// The phone number used here can be any sort of Twilio number. If it's an outgoing
-// caller ID, the object will only be able to make outgoing phone calls/SMS. If it's
-// a regular incoming number, it will be able to make/receive phone calls and SMS.
+Now that we have our client, let's get a PhoneNumber object using one of the 
+phone numbers that we've provisioned through some other channel.
+(Note: You can provision phone numbers very simply via the Low-Level REST API)
+The phone number used here can be any sort of Twilio number. If it's an outgoing
+caller ID, the object will only be able to make outgoing phone calls/SMS. If it's
+a regular incoming number, it will be able to make/receive phone calls and SMS.
+
 var phone = client.getPhoneNumber('+16269239971');
 
-// We'll now setup our phone number. This goes out and requests the phone number
-// instance resource and fills in a data structure with this phone number's details.
+We'll now setup our phone number. This goes out and requests the phone number
+instance resource and fills in a data structure with this phone number's details.
+
 phone.setup(function() {
     // Alright, our phone number is set up. Let's, say, make a call:
     phone.makeCall('+18674451795', null, function(call) {
@@ -102,3 +105,25 @@ phone.setup(function() {
 #### Notes
 
 More documentation is forthcoming.
+
+# License (MIT License)
+
+Copyright (c) 2010 Stephen J. Walters <stephenwalters@gmail.com>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
