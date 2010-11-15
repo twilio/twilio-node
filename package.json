@@ -1,0 +1,13 @@
+{
+    "name": "twiliode",
+    "description": "A Twilio helper library for Node.js",
+    "version": "0.1.0",
+    "author": "Stephen Walters (http://github.com/sjwalter)",
+    "repository": {
+        "type": "git",
+        "url": "http;//github.com/sjwalter/node-twilio.git"
+    },
+    "directories": { "lib": "./lib" },
+    "main": "./lib/twilio",
+    "engines": {"node" : ">=0.1.90"}
+}

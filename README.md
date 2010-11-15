@@ -8,11 +8,11 @@ Parts of node-twilio depend on [`express`](http://expressjs.com).
 
 To install via nom:
     
-    npm install twilio
+    npm install twiliode
 
 To install by hand, download the module and create a symlink in `~/.node_libraries`
 
-    $ ln -s /path/to/node-twilio ~/.node-libraries/twilio
+    $ ln -s /path/to/node-twilio ~/.node-libraries/twiliode
 
 ## Usage
 
@@ -46,7 +46,7 @@ Then, you'd have to go out and ensure than UriForCallback is a real, provisioned
 // The constructor takes three parameters: the account SID and auth token, as well as
 // the hostname of the application server. (This is used to construct URIs to give Twilio.)
 var sys = require('sys'),
-    TwilioClient = require('twilio').Client,
+    TwilioClient = require('twiliode').Client,
     client = new TwilioClient(ACCOUNT_SID, AUTH_TOKEN, MY_HOSTNAME);
 
 // Now that we have our client, let's get a PhoneNumber object using one of the 
