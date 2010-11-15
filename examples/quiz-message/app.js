@@ -50,7 +50,7 @@ var TwilioClient = require('../../lib/twilio').Client,
     },
     currentWinnerMessage = '';
 
-var phone = client.getIncomingPhoneNumber(creds.incoming);
+var phone = client.getPhoneNumber(creds.incoming);
 
 phone.setup(function() {
     phone.on('incomingCall', function(reqParams, res) {
