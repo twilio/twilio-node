@@ -206,6 +206,12 @@ function testReject() {
     delete r;
 };
 
+function testResponse() {
+    var r = new twiml.Response();
+    r.append(new twiml.Say('Hello, there! Enter your ATM card PIN')).append(new twiml.Gather());
+    console.log(r.toString());
+};
+
 testSay();
 testPlay();
 testGather();
@@ -217,3 +223,4 @@ testConference();
 testHangup();
 testRedirect();
 testReject();
+testResponse();

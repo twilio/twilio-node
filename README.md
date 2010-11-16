@@ -18,6 +18,8 @@ To install by hand, download the module and create a symlink in `~/.node_librari
 
 To start, you'll need to obtain a Twilio account. (http://twilio.com). This will give you a Twilio Account Sid and a Twilio Auth Key. Using these, you may start using node for complex, awesome telephony applications.
 
+To really get down to business, check out [`the documentation`](https://github.com/sjwalter/node-twilio/wiki).
+
 ### API
 
 #### Low-Level REST Api Client
@@ -101,6 +103,8 @@ instance resource and fills in a data structure with this phone number's details
             res.send();
         });
     });
+
+To get going beyond the basics, check out [`the documentation`](https://github.com/sjwalter/node-twilio/wiki).
 
 #### Notes
 
