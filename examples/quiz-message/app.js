@@ -1,5 +1,5 @@
-var TwilioClient = require('../../lib/twilio').Client,
-    Twiml = require('../../lib/twiml'),
+var TwilioClient = require('../../lib').Client,
+    Twiml = require('../../lib').Twiml,
     creds = require('./config').Credentials,
     client = new TwilioClient(creds.sid, creds.authToken, creds.hostname),
     questions = [
@@ -55,12 +55,11 @@ var phone = client.getPhoneNumber(creds.incoming);
 phone.setup(function() {
     phone.on('incomingCall', function(reqParams, res) {
         var intro = new Twiml.Say(
-            /*'Welcome to Stephen\'s weird Canadian trivia game. It works like so. ' +
+            'Welcome to Stephen\'s weird Canadian trivia game. It works like so. ' +
             'You will be asked a multiple choice question. Each answer is ' +
             'preceeded by a number. Choose an answer, and press that number on ' +
             'your phone. If you answer correctly, you get to replace the ' +
-            'winner\'s message with your own.'),*/
-            'hey'),
+            'winner\'s message with your own.'),
             q = choose(questions),
             playMessage = currentWinnerMessage ? new Twiml.Play(currentWinnerMessage) : null;
         
