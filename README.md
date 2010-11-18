@@ -6,13 +6,18 @@ A Node.js Twilio helper library.
 
 Parts of node-twilio depend on [`express`](http://expressjs.com).
 
-To install via nom:
+To install via npm:
     
-    npm install twiliode
+    npm install twilio
 
 To install by hand, download the module and create a symlink in `~/.node_libraries`
 
-    $ ln -s /path/to/node-twilio ~/.node-libraries/twiliode
+    $ ln -s /path/to/node-twilio ~/.node-libraries/twilio
+
+Note: Previously, the npm package named `twilio` referred to 
+[Aaron Blohowiak's Twilio helper library](http://github.com/aaronblohowiak/Twilio-Node). 
+Due to Aaron's time constraints, he has let this package use the `twilio` name while he is
+unable to work on that implementation.
 
 ## Usage
 
@@ -49,7 +54,7 @@ The constructor takes three parameters: the account SID and auth token, as well 
 the hostname of the application server. (This is used to construct URIs to give Twilio.)
 
     var sys = require('sys'),
-        TwilioClient = require('twiliode').Client,
+        TwilioClient = require('twilio').Client,
         client = new TwilioClient(ACCOUNT_SID, AUTH_TOKEN, MY_HOSTNAME);
 
 Now that we have our client, let's get a PhoneNumber object using one of the 
@@ -65,11 +70,14 @@ We'll now setup our phone number. This goes out and requests the phone number
 instance resource and fills in a data structure with this phone number's details.
 
     phone.setup(function() {
+        
         // Alright, our phone number is set up. Let's, say, make a call:
         phone.makeCall('+18674451795', null, function(call) {
+            
             // 'call' is an OutgoingCall object. This object is an event emitter.
             // It emits two events: 'answered' and 'ended'
             call.on('answered', function(reqParams, res) {
+                
                 // reqParams is the body of the request Twilio makes on call pickup.
                 // For instance, reqParams.CallSid, reqParams.CallStatus.
                 // See: http://www.twilio.com/docs/api/2010-04-01/twiml/twilio_request
@@ -84,6 +92,7 @@ instance resource and fills in a data structure with this phone number's details
                 // And now we'll send it.
                 res.send();
             });
+            
             call.on('ended', function(reqParams) {
                 console.log('Call ended');
             });
@@ -91,20 +100,23 @@ instance resource and fills in a data structure with this phone number's details
     
         // But wait! What if our number receives an incoming SMS?
         phone.on('incomingSms', function(reqParams, res) {
+            
             // As above, reqParams contains the Twilio request parameters.
             // Res is a Twiml.Response object.
+            
             console.log('Received incoming SMS with text: ' + reqParams.Body);
             console.log('From: ' + reqParams.From);
         });
     
         // Oh, and what if we get an incoming call?
         phone.on('incomingCall', function(reqParams, res) {
+            
             res.append(new Twiml.Say('Thanks for calling! I think you are beautiful!'));
             res.send();
         });
     });
 
-To get going beyond the basics, check out [`the documentation`](https://github.com/sjwalter/node-twilio/wiki).
+To get going beyond the basics, check out [the documentation](https://github.com/sjwalter/node-twilio/wiki).
 
 #### Notes
 
