@@ -1,0 +1,7 @@
+module.exports.Credentials = {
+    sid: 'ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+    authToken: 'dcXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+    incoming: '+18888238895',
+    outgoing: '+18674451795',
+    hostname: 'example.com'
+};
