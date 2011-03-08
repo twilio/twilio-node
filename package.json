@@ -1,7 +1,7 @@
 {
     "name": "twilio",
     "description": "A Twilio helper library",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "author": "Stephen Walters (http://github.com/sjwalter)",
     "repository": {
         "type": "git",
