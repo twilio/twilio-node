@@ -1,11 +1,14 @@
 {
     "name": "twilio",
     "description": "A Twilio helper library",
-    "version": "0.3.1",
+    "version": "0.3.2",
     "author": "Stephen Walters (http://github.com/sjwalter)",
     "repository": {
         "type": "git",
         "url": "https://github.com/sjwalter/node-twilio.git"
+    },
+    "dependencies": {
+        "express": ">= 2.0.0"
     },
     "modules": {
         "client": "./lib/twilio",
