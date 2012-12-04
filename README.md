@@ -15,4 +15,4 @@ New development, working toward an eventual 1.0 release, will be on the master b
 
 Questions? Contact [kwhinnery@twilio.com](mailto:kwhinnery@twilio.com).
 
-Looking for 0.3.x documentation?  That's [here](README-0-3-x.md).
+Looking for 0.3.x documentation?  That's [here](https://github.com/kwhinnery/twilio-node/blob/master/README-0-3-x.md).
