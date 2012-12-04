@@ -1,11 +1,14 @@
 {
     "name": "twilio",
     "description": "A Twilio helper library",
-    "version": "0.3.2",
-    "author": "Stephen Walters (http://github.com/sjwalter)",
+    "version": "0.4.1",
+    "author": "Kevin Whinnery <kevin.whinnery@gmail.com>",
+	"contributors": [
+		{"name":"Stephen Walters", "email":""}
+	],
     "repository": {
         "type": "git",
-        "url": "https://github.com/sjwalter/node-twilio.git"
+        "url": "https://github.com/kwhinnery/twilio-node.git"
     },
     "dependencies": {
         "express": ">= 2.0.0"
@@ -15,5 +18,7 @@
         "twiml": "./lib/twiml"
     },
     "main": "./lib",
-    "engines": {"node" : ">=0.4.0"}
+    "engines": {
+		"node" : ">=0.4.0"
+	}
 }
