@@ -1,2 +1,3 @@
-test/config.js
-examples/*/config.js
+.DS_Store
+config.js
+node_modules

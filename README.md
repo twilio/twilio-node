@@ -1,6 +1,9 @@
 # node-twilio
 
-A Node.js Twilio helper library.  This client library is under active development and is not yet fully supported by Twilio.
+A Node.js Twilio helper library.  This client library is under active development and is not yet fully supported by Twilio.  Until we move to the 0.5.x release, please check out one of the other modules that have been updated more recently:
+
+* [https://npmjs.org/package/twilio-js](https://npmjs.org/package/twilio-js)
+* [https://npmjs.org/package/twilio-api](https://npmjs.org/package/twilio-api)
 
 ## Roadmap
 
