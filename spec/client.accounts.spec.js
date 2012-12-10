@@ -12,7 +12,7 @@ describe('The Twilio REST Client Accounts resource', function() {
 		});
 	});
 	
-	var newAccountSidOne, newAccountSidTwo; //close them after creation
+	var newAccountSidOne, newAccountSidTwo; //store so we can close them after creation
 	
 	it('allows for the creation of subaccounts', function(done) {
 		client.Accounts.create({
@@ -56,45 +56,4 @@ describe('The Twilio REST Client Accounts resource', function() {
 		});
 	});
 	
-	/*
-	it('gets a list of accounts using query filter parameters', function(done) {
-		client.Accounts.get({
-			Status:'active'
-		}, function(err, data, response) {
-			console.log(data);
-			done();
-		});
-	});
-	
-	it('gets information about a specific account', function(done) {
-		client.Accounts(config.accountSid).get(function(err, data, response) {
-			console.log(data);
-			done();
-		});
-	});
-	
-	it('Uses "post", "put", or "update" to update information about a specific account', function(done) {
-		var methods = [
-			'put',
-			'post',
-			'update'
-		];
-		var idx = Math.floor(Math.random()*methods.length);
-		
-		client.Accounts(config.accountSid)[methods[idx]]({
-			FriendlyName:'Node.js\'s most execellent account ('+methods[idx]+')'
-		},function(err, data, response) {
-			console.log(data);
-			done();
-		});
-	});
-	
-	it('defines Twilio REST namespaces on the default account', function() {
-		expect(client.Accounts.AvailablePhoneNumbers).toBeDefined();
-	});
-	
-	it('defines Twilio REST namespaces on a specific account', function() {
-		expect(client.Accounts(config.accountSid).AvailablePhoneNumbers).toBeDefined();
-	});
-	*/
 });
