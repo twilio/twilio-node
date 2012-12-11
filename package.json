@@ -1,25 +1,28 @@
 {
-    "name": "twilio",
-    "description": "A Twilio helper library",
-    "version": "0.5.0",
-    "author": "Kevin Whinnery <kevin.whinnery@gmail.com>",
-	"contributors": [
-		{"name":"Stephen Walters", "email":""}
-	],
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/kwhinnery/twilio-node.git"
+    "name":"twilio",
+    "description":"A Twilio helper library",
+    "version":"0.5.0",
+    "author":"Kevin Whinnery <kevin.whinnery@gmail.com>",
+    "contributors":[
+        {
+            "name":"Stephen Walters",
+            "email":""
+        }
+    ],
+    "repository":{
+        "type":"git",
+        "url":"https://github.com/kwhinnery/twilio-node.git"
     },
-    "dependencies": {
-        "request": "2.x",
-		"pkginfo": "0.2.x",
-        "underscore": "1.x"
+    "dependencies":{
+        "request":"2.x",
+        "pkginfo":"0.2.x",
+        "underscore":"1.x"
     },
-	"scripts": {
-	    "test": "jasmine-node spec"
-	},
-    "main": "./lib",
-    "engines": {
-		"node" : ">=0.6.0"
-	}
+    "scripts":{
+        "test":"jasmine-node spec"
+    },
+    "main":"./lib",
+    "engines":{
+        "node":">=0.6.0"
+    }
 }
