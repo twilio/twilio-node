@@ -2,6 +2,6 @@
 module.exports = {
     accountSid:'ACXXX',
     authToken:'XXX',
-    From:'+16512223333', //The Twilio number you've bought or configured
-    To:'+16513334444' //The number you would like to send messages to for testing
+    from:'+16512223333', //The Twilio number you've bought or configured
+    to:'+16513334444' //The number you would like to send messages to for testing
 };
