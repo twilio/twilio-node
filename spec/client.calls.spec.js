@@ -27,6 +27,26 @@ describe('The Twilio REST Client Calls resource', function () {
         });
     });
 
+    it('uses shorthand to make a call, then list calls by a specific number', function(done) {
+        var shorthandSid;
+
+        client.call({
+            to:config.to,
+            from:config.from,
+            url:'https://demo.twilio.com/welcome/voice'
+        }, function(err, data) {
+            expect(err).toBeFalsy();
+            expect(data.sid).toBeDefined();
+            shorthandSid = data.sid;
+            client.listCalls({
+                from:config.from
+            }, function(err2, data2) {
+                expect(data2.calls[0].from).toBe(config.from);
+                done();
+            });
+        });
+    });
+
     it('gets a list of calls for a specific number', function(done) {
         client.account.calls.get({
             from:config.from
