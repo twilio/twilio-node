@@ -243,6 +243,12 @@
         <li>- <a href="#outgoingCallerIds">outgoingCallerIds</a></li>
         <li>- <a href="#incomingPhoneNumbers">incomingPhoneNumbers</a></li>
         <li>- <a href="#smsMessages">sms.messages</a></li>
+        <li>- <a href="#shortCodes">sms.shortCodes</a></li>
+        <li>- <a href="#applications">applications</a></li>
+        <li>- <a href="#connectApps">connectApps</a></li>
+        <li>- <a href="#authorizedConnectApps">authorizedConnectApps</a></li>
+        <li>- <a href="#calls">calls</a></li>
+        <li>- <a href="#conferences">conferences</a></li>
     </ul>
 
     <a class="toc_title" href="#links">
@@ -352,8 +358,8 @@ client.sms({
             <tt>RestClient</tt> exposes the REST API of Twilio, but takes care of content negotiation and
             HTTP requests for you. The client object is intended to mirror the API pretty directly, so the existing
             <a href="http://www.twilio.com/docs/api/rest">REST API reference</a> will be a good source of information
-            on what each function does. The major resources of the REST API will be described here, along with shorthand
-            where it exists.
+            on what each function does. The major resources and available methods for the REST API will be described here,
+            along with shorthand where it exists.
         </p>
 
         <p id="structure">
@@ -551,14 +557,14 @@ client.accounts('AC...').calls.get(function (err, responseData) {
                     <li><tt>client.account('someSid').get</tt></li>
                     <li><tt>client.account('someSid').post</tt></li>
                     <li><tt>client.account('someSid').put</tt></li>
-                    <li><tt>client.account('someSid').update</tt> (maps to put)</li>
+                    <li><tt>client.account('someSid').update</tt> (alias for put)</li>
                 </ul>
 
                 <b>List Functions:</b>
                 <ul>
                     <li><tt>client.accounts.get</tt></li>
                     <li><tt>client.accounts.post</tt></li>
-                    <li><tt>client.accounts.create</tt> (maps to post)</li>
+                    <li><tt>client.accounts.create</tt> (alias for post)</li>
                 </ul>
             </p>
         </p>
@@ -577,7 +583,9 @@ client.account.create({
 });
 
 //Update details for a subaccount with SID 'AC...'
-client.accounts('AC...').update(function(err, data) {
+client.accounts('AC...').update({
+   friendlyName:'Something New'
+}, function(err, data) {
     //work with response data
 });
 </pre>
@@ -623,14 +631,14 @@ client.account.availablePhoneNumbers('US').tollFree.get(function(err, data) {
                     <li><tt>client.account.outgoingCallerIds('someSid').post</tt></li>
                     <li><tt>client.account.outgoingCallerIds('someSid').put</tt></li>
                     <li><tt>client.account.outgoingCallerIds('someSid').delete</tt></li>
-                    <li><tt>client.account.outgoingCallerIds('someSid').update</tt> (maps to put)</li>
+                    <li><tt>client.account.outgoingCallerIds('someSid').update</tt> (alias for put)</li>
                 </ul>
 
                 <b>List Functions:</b>
                 <ul>
                     <li><tt>client.account.outgoingCallerIds.get</tt></li>
                     <li><tt>client.account.outgoingCallerIds.post</tt></li>
-                    <li><tt>client.account.outgoingCallerIds.create</tt> (maps to post)</li>
+                    <li><tt>client.account.outgoingCallerIds.create</tt> (alias for post)</li>
                 </ul>
             </p>
         </p>
@@ -661,20 +669,20 @@ client.account.outgoingCallerIds('callerIdSid').update({
             <li><tt>client.account.incomingPhoneNumbers('someSid').post</tt></li>
             <li><tt>client.account.incomingPhoneNumbers('someSid').put</tt></li>
             <li><tt>client.account.incomingPhoneNumbers('someSid').delete</tt></li>
-            <li><tt>client.account.incomingPhoneNumbers('someSid').update</tt> (maps to put)</li>
+            <li><tt>client.account.incomingPhoneNumbers('someSid').update</tt> (alias for put)</li>
         </ul>
 
         <b>List Functions:</b>
         <ul>
             <li><tt>client.account.incomingPhoneNumbers.get</tt></li>
             <li><tt>client.account.incomingPhoneNumbers.post</tt></li>
-            <li><tt>client.account.incomingPhoneNumbers.create</tt> (maps to post)</li>
+            <li><tt>client.account.incomingPhoneNumbers.create</tt> (alias for post)</li>
             <li><tt>client.account.incomingPhoneNumbers.local.get</tt></li>
             <li><tt>client.account.incomingPhoneNumbers.local.post</tt></li>
-            <li><tt>client.account.incomingPhoneNumbers.local.create</tt> (maps to local.post)</li>
+            <li><tt>client.account.incomingPhoneNumbers.local.create</tt> (alias for local.post)</li>
             <li><tt>client.account.incomingPhoneNumbers.tollFree.get</tt></li>
             <li><tt>client.account.incomingPhoneNumbers.tollFree.post</tt></li>
-            <li><tt>client.account.incomingPhoneNumbers.tollFree.create</tt> (maps to tollFree.post)</li>
+            <li><tt>client.account.incomingPhoneNumbers.tollFree.create</tt> (alias for tollFree.post)</li>
         </ul>
         </p>
         </p>
@@ -712,9 +720,9 @@ client.account.incomingPhoneNumbers.create({
             <ul>
                 <li><tt>client.account.sms.messages.get</tt></li>
                 <li><tt>client.account.sms.messages.post</tt></li>
-                <li><tt>client.account.sms.messages.create</tt> (maps to post)</li>
-                <li><tt>client.sms</tt> (maps to post)</li>
-                <li><tt>client.listSms</tt> (maps to get)</li>
+                <li><tt>client.account.sms.messages.create</tt> (alias for post)</li>
+                <li><tt>client.sms</tt> (alias for post)</li>
+                <li><tt>client.listSms</tt> (alias for get)</li>
             </ul>
         </p>
         </p>
@@ -733,6 +741,240 @@ client.sms({
 client.accounts('someAccountSid').sms.messages.get(function(err, data) {
     //work with response data
 });
+</pre>
+
+        <p id="shortCodes">
+            <b class="header">sms.shortCodes</b><code>client.account.sms.shortCodes([messageSid])</code>
+            <br/>
+
+            Accesses <a href="http://www.twilio.com/docs/api/rest/short-codes">SMS/ShortCodes</a>
+            resources via the REST interface.
+            <p>
+                <b>Instance Functions:</b>
+            <ul>
+                <li><tt>client.account.sms.shortCodes('someSid').get</tt></li>
+                <li><tt>client.account.sms.shortCodes('someSid').post</tt></li>
+                <li><tt>client.account.sms.shortCodes('someSid').update</tt> (alias for post)</li>
+            </ul>
+
+            <b>List Functions:</b>
+            <ul>
+                <li><tt>client.account.sms.shortCodes.get</tt></li>
+            </ul>
+            </p>
+        </p>
+        <p>Examples:</p>
+<pre>
+//Get a list of SMS short codes used by a given account
+client.accounts('someAccountSid').sms.shortCodes.get(function(err, data) {
+    //work with response data
+});
+</pre>
+
+        <p id="applications">
+            <b class="header">applications</b><code>client.account.applications([applicationSid])</code>
+            <br/>
+
+            Accesses <a href="http://www.twilio.com/docs/api/rest/applications">Applications</a>
+            resources via the REST interface.
+        <p>
+            <b>Instance Functions:</b>
+            <ul>
+                <li><tt>client.account.applications('someSid').get</tt></li>
+                <li><tt>client.account.applications('someSid').post</tt></li>
+                <li><tt>client.account.applications('someSid').delete</tt></li>
+                <li><tt>client.account.applications('someSid').update</tt> (alias for post)</li>
+            </ul>
+
+            <b>List Functions:</b>
+            <ul>
+                <li><tt>client.account.applications.get</tt></li>
+                <li><tt>client.account.applications.post</tt></li>
+                <li><tt>client.account.applications.create</tt> (alias for post)</li>
+            </ul>
+            </p>
+        </p>
+        <p>Examples:</p>
+<pre>
+//Get a list of TwiML applications for the client's default account
+client.account.applications.get(function(err, data) {
+    //work with response data
+});
+
+//Update a TwiML application for the client's default account
+client.account.applications('someSid').update({
+    friendlyName:'Something new',
+    VoiceUrl:'http://example.com/twiml.php'
+}, function(err, data) {
+    //work with response data
+});
+</pre>
+
+        <p id="connectApps">
+            <b class="header">connectApps</b><code>client.account.connectApps([applicationSid])</code>
+            <br/>
+
+            Accesses <a href="http://www.twilio.com/docs/api/rest/connect-apps">Connect Apps</a>
+            resources via the REST interface.
+        <p>
+            <b>Instance Functions:</b>
+            <ul>
+                <li><tt>client.account.connectApps('someSid').get</tt></li>
+                <li><tt>client.account.connectApps('someSid').post</tt></li>
+                <li><tt>client.account.connectApps('someSid').update</tt> (alias for post)</li>
+            </ul>
+
+            <b>List Functions:</b>
+            <ul>
+                <li><tt>client.account.connectApps.get</tt></li>
+            </ul>
+            </p>
+        </p>
+        <p>Examples:</p>
+<pre>
+//Get a list of Twilio Connect applications for the client's default account
+client.account.connectApps.get(function(err, data) {
+    //work with response data
+});
+
+//Update a Connect application for the client's default account
+client.account.connectApps('someSid').update({
+    friendlyName:'Something new'
+}, function(err, data) {
+    //work with response data
+});
+</pre>
+
+        <p id="authorizedConnectApps">
+            <b class="header">authorizedConnectApps</b><code>client.account.authorizedConnectApps([applicationSid])</code>
+            <br/>
+
+            Accesses <a href="http://www.twilio.com/docs/api/rest/authorized-connect-apps">Authorized Connect Apps</a>
+            resources via the REST interface.
+            <p>
+                <b>Instance Functions:</b>
+            <ul>
+                <li><tt>client.account.authorizedConnectApps('someSid').get</tt></li>
+            </ul>
+
+            <b>List Functions:</b>
+            <ul>
+                <li><tt>client.account.authorizedConnectApps.get</tt></li>
+            </ul>
+            </p>
+        </p>
+        <p>Examples:</p>
+<pre>
+//Get a list of authorized Twilio Connect applications for the client's default account
+client.account.authorizedConnectApps.get(function(err, data) {
+    //work with response data
+});
+
+//Get data about a specific authorized connect app
+client.account.authorizedConnectApps('someSid').get(function(err, data) {
+    //work with response data
+});
+</pre>
+
+        <p id="calls">
+            <b class="header">calls</b><code>client.account.calls([callSid])</code>
+            <br/>
+
+            Accesses <a href="http://www.twilio.com/docs/api/rest/call">Calls</a>
+            resources via the REST interface.
+            <p>
+                <b>Instance Functions:</b>
+            <ul>
+                <li><tt>client.account.calls('someSid').get</tt></li>
+                <li><tt>client.account.calls('someSid').post</tt></li>
+                <li><tt>client.account.calls('someSid').update</tt> (alias for post)</li>
+                <li><tt>client.account.calls('someSid').recordings.get</tt></li>
+                <li><tt>client.account.calls('someSid').notifications.get</tt></li>
+                <li><tt>client.getCall('someSid', callback)</tt> (shorthand for get)</li>
+            </ul>
+
+            <b>List Functions:</b>
+            <ul>
+                <li><tt>client.account.calls.get</tt></li>
+                <li><tt>client.account.calls.post</tt></li>
+                <li><tt>client.account.calls.create</tt> (alias for post)</li>
+                <li><tt>client.call</tt> (alias for post)</li>
+                <li><tt>client.listCalls</tt> (alias for get)</li>
+            </ul>
+            </p>
+        </p>
+        <p>Examples:</p>
+<pre>
+//Place a call
+client.call({
+    to:'+16512223344',
+    from:'+14503334455',
+    url:'http://yourapp.com/twiml.jsp' // you're using JSP, right? :P
+}, function(err, data) {
+    //work with response data
+});
+
+//Get a list of recordings for a specifc call
+client.account.calls('someSid').recordings.get(function(err, data) {
+    //work with response data
+});
+</pre>
+
+        <p id="conferences">
+            <b class="header">conferences</b><code>client.account.conferences([conferenceSid])</code>
+            <br/>
+
+            Accesses <a href="http://www.twilio.com/docs/api/rest/conference">Conference</a>
+            resources via the REST interface.
+        <p>
+            <b>Instance Functions:</b>
+        <ul>
+            <li><tt>client.account.conferences('someSid').get</tt></li>
+            <li><tt>client.account.conferences('someSid').participants.get</tt></li>
+        </ul>
+
+        <b>List Functions:</b>
+        <ul>
+            <li><tt>client.account.conferences.get</tt></li>
+        </ul>
+        </p>
+        </p>
+        <p>Examples:</p>
+<pre>
+//Get a list of in-progress conferences for the master account
+client.account.conferences.get({
+    status:'in-progress'
+}, function(err, data) {
+    //work with response data
+});
+</pre>
+
+        <p id="queues">
+            <b class="header">queues</b><code>client.account.queues([queueSid])</code>
+            <br/>
+
+            Accesses <a href="http://www.twilio.com/docs/api/rest/queues">Queues</a>
+            resources via the REST interface.
+        <p>
+            <b>Instance Functions:</b>
+        <ul>
+            <li><tt>client.account.queues('someSid').get</tt></li>
+            <li><tt>client.account.queues('someSid').post</tt></li>
+            <li><tt>client.account.queues('someSid').delete</tt></li>
+            <li><tt>client.account.queues('someSid').update</tt> (alias for post)</li>
+        </ul>
+
+        <b>List Functions:</b>
+        <ul>
+            <li><tt>client.account.queues.get</tt></li>
+            <li><tt>client.account.queues.post</tt></li>
+            <li><tt>client.account.queues.create</tt> (alias for post)</li>
+        </ul>
+        </p>
+        </p>
+        <p>Examples:</p>
+<pre>
+
 </pre>
 
         <h2 id="links">Links &amp; Additional Resources</h2>
