@@ -249,6 +249,12 @@
         <li>- <a href="#authorizedConnectApps">authorizedConnectApps</a></li>
         <li>- <a href="#calls">calls</a></li>
         <li>- <a href="#conferences">conferences</a></li>
+        <li>- <a href="#queues">queues</a></li>
+        <li>- <a href="#recordings">recordings</a></li>
+        <li>- <a href="#transcriptions">transcriptions</a></li>
+        <li>- <a href="#notifications">notifications</a></li>
+        <li>- <a href="#usageRecords">usage.records</a></li>
+        <li>- <a href="#usageTriggers">usage.triggers</a></li>
     </ul>
 
     <a class="toc_title" href="#links">
@@ -974,7 +980,194 @@ client.account.conferences.get({
         </p>
         <p>Examples:</p>
 <pre>
+//Get a list of queues for the master account
+client.account.queues.get(function(err, data) {
+    //work with response data
+});
 
+//Create a call queue
+client.account.queues.create({
+    friendlyName:'Barbie Queue',
+    maxSize:456
+}, function(err, data) {
+    //work with response data
+});
+</pre>
+
+        <p id="recordings">
+            <b class="header">recordings</b><code>client.account.recordings([recordingSid])</code>
+            <br/>
+
+            Accesses <a href="http://www.twilio.com/docs/api/rest/recording">Recordings</a>
+            resources via the REST interface.
+        <p>
+            <b>Instance Functions:</b>
+        <ul>
+            <li><tt>client.account.recordings('someSid').get</tt></li>
+            <li><tt>client.account.recordings('someSid').delete</tt></li>
+            <li><tt>client.account.recordings('someSid').transcriptions.get</tt></li>
+        </ul>
+
+        <b>List Functions:</b>
+        <ul>
+            <li><tt>client.account.recordings.get</tt></li>
+        </ul>
+        </p>
+        </p>
+        <p>Examples:</p>
+<pre>
+//Get a list of recordings for the master account, for dates after September 11, 2010
+client.account.recordings.get({
+    'dateCreated>':'2010-09-11'
+}, function(err, data) {
+    //work with response data
+});
+</pre>
+
+        <p id="transcriptions">
+            <b class="header">transcriptions</b><code>client.account.transcriptions([transcriptionSid])</code>
+            <br/>
+
+            Accesses <a href="http://www.twilio.com/docs/api/rest/transcription">Transcriptions</a>
+            resources via the REST interface.
+        <p>
+            <b>Instance Functions:</b>
+        <ul>
+            <li><tt>client.account.transcriptions('someSid').get</tt></li>
+        </ul>
+
+        <b>List Functions:</b>
+        <ul>
+            <li><tt>client.account.transcriptions.get</tt></li>
+        </ul>
+        </p>
+        </p>
+        <p>Examples:</p>
+<pre>
+//Get a list of transcriptions, with paging info, sorted by date updated
+client.account.transcriptions.get(function(err, data) {
+    //work with response data
+    if (!err) {
+        for (var i = 0, l = data.transcriptions.length; i < l; i++) {
+            console.log(data.transcriptions[i].transcription_text);
+        }
+    }
+});
+</pre>
+
+        <p id="notifications">
+            <b class="header">notifications</b><code>client.account.notifications([notificationSid])</code>
+            <br/>
+
+            Accesses <a href="http://www.twilio.com/docs/api/rest/notification">Notification</a>
+            resources via the REST interface.
+        <p>
+            <b>Instance Functions:</b>
+        <ul>
+            <li><tt>client.account.notifications('someSid').get</tt></li>
+            <li><tt>client.account.notifications('someSid').delete</tt></li>
+        </ul>
+
+        <b>List Functions:</b>
+        <ul>
+            <li><tt>client.account.notifications.get</tt></li>
+        </ul>
+        </p>
+        </p>
+        <p>Examples:</p>
+<pre>
+//Get a list of notifications at the ERROR level, useful for debugging Twilio requests
+client.account.notifications.get({
+    log:0
+}, function(err, data) {
+    //work with response data
+    if (!err) {
+        for (var i = 0, l = data.notifications.length; i < l; i++) {
+            console.log(data.notifications[i].message_text);
+        }
+    }
+});
+</pre>
+
+        <p id="usageRecords">
+            <b class="header">usage.records</b><code>client.account.usage.records([recordSid])</code>
+            <br/>
+
+            Accesses <a href="http://www.twilio.com/docs/api/rest/usage-records">Usage Records</a>
+            resources via the REST interface.
+        <p>
+            <b>Instance Functions:</b>
+        <ul>
+            <li><tt>client.account.usage.records('someSid').get</tt></li>
+        </ul>
+
+        <b>List Functions:</b>
+        <ul>
+            <li><tt>client.account.usage.records.get</tt></li>
+        </ul>
+        </p>
+        </p>
+        <p>Examples:</p>
+<pre>
+//Get a list of usage records for all SMS messages for the default account
+client.account.usage.records.get({
+    category:'sms'
+}, function(err, data) {
+    //work with response data
+    if (!err) {
+        for (var i = 0, l = data.usage_records.length; i < l; i++) {
+            console.log(data.usage_records[i].count);
+        }
+    }
+});
+</pre>
+
+        <p id="usageTriggers">
+            <b class="header">usage.triggers</b><code>client.account.usage.triggers([triggerSid])</code>
+            <br/>
+
+            Accesses <a href="http://www.twilio.com/docs/api/rest/usage-triggers">Usage Triggers</a>
+            resources via the REST interface.
+        <p>
+            <b>Instance Functions:</b>
+        <ul>
+            <li><tt>client.account.usage.triggers('someSid').get</tt></li>
+            <li><tt>client.account.usage.triggers('someSid').post</tt></li>
+            <li><tt>client.account.usage.triggers('someSid').delete</tt></li>
+            <li><tt>client.account.usage.triggers('someSid').update</tt> (alias for post)</li>
+        </ul>
+
+        <b>List Functions:</b>
+        <ul>
+            <li><tt>client.account.usage.triggers.get</tt></li>
+            <li><tt>client.account.usage.triggers.post</tt></li>
+            <li><tt>client.account.usage.triggers.create</tt> (alias for post)</li>
+        </ul>
+        </p>
+        </p>
+        <p>Examples:</p>
+<pre>
+//Get a list of usage triggers recurring daily
+client.account.usage.triggers.get({
+    recurring:'daily'
+}, function(err, data) {
+    //work with response data
+    if (!err) {
+        for (var i = 0, l = data.usage_triggers.length; i < l; i++) {
+            console.log(data.usage_triggers[i].friendly_name);
+        }
+    }
+});
+
+//Create a new one-time usage trigger for SMS messages over 1,000
+client.account.usage.triggers.create({
+    usageCategory:'sms',
+    triggerValue:1000,
+    callbackUrl:'http://example.com/tellMeWhenIHitOneThousand'
+}, function(err, data) {
+    assert(!err);
+    console.log(data.sid);
+});
 </pre>
 
         <h2 id="links">Links &amp; Additional Resources</h2>
@@ -996,10 +1189,10 @@ client.account.conferences.get({
 
         <p>
             <b class="header">0.5.0</b> &mdash;
-            <small><i>Dec. 18, 2012</i></small> &mdash; <br/>
+            <small><i>Dec. 19, 2012</i></small> &mdash; <br/>
             <ul>
                 <li>
-                    Initial refactor release, exposes REST client API.
+                    Initial refactor release, exposes basic REST client API.
                 </li>
             </ul>
         </p>
