@@ -15,7 +15,6 @@
     },
     "dependencies":{
         "request":"2.x",
-        "pkginfo":"0.2.x",
         "underscore":"1.x"
     },
     "scripts":{
