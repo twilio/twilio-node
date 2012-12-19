@@ -417,7 +417,6 @@ client.account.sms.messages.post({
 
 // Delete a TwiML application
 // DELETE /2010-04-01/Accounts/ACCOUNT_SID/Applications/APP...
-// (client.account.sms.messages.create is aliased to the "post" function for this resource)
 client.account.applications('APP...').delete(function(err, responseData, nodeResponse) {
     //delete sends back a 204 on complete, with no error
     assert(!err);
