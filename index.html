@@ -256,6 +256,16 @@
         <li>- <a href="#usageTriggers">usage.triggers</a></li>
     </ul>
 
+    <a class="toc_title" href="#twimlResponse">
+        TwimlResponse
+    </a>
+    <ul class="toc_section">
+        <li>- <a href="#twimlResponse">Constructor</a></li>
+        <li>- <a href="#twimlBasic">TwiML Basics</a></li>
+        <li>- <a href="#twimlChained">Chaining Syntax</a></li>
+        <li>- <a href="#twimlNesting">Nesting Syntax</a></li>
+    </ul>
+
     <a class="toc_title" href="#links">
         Links
     </a>
@@ -345,6 +355,19 @@ client.sms({
         console.log(nodeResponse.statusCode); //outputs "200" if the request was successful
 
     }
+});
+
+//Place a phone call, and respond with TwiML instructions from the given URL
+client.call({
+
+    to:'+16515556677', // Any number Twilio can call
+    from: '+14506667788', // A number you bought from Twilio and can use for outbound communication
+    url: 'http://www.example.com/twiml.php' // A URL that produces an XML document (TwiML) which contains instructions for the call
+
+}, function(err, responseData, nodeResponse) {
+
+    //executed when the call has been initiated.
+
 });
 
 </pre>
@@ -1168,6 +1191,189 @@ client.account.usage.triggers.create({
 });
 </pre>
 
+        <h2 id="twimlResponse">TwimlResponse</h2>
+
+        <p>
+            When your Twilio application needs to respond to an incoming SMS message or
+            voice call input, the developer gives Twilio instructions on what to do using a
+            special XML instruction set called "TwiML".  The <tt>TwimlResponse</tt> object
+            makes creating a proper TwiML XML string very easy.  The resulting TwiML string
+            can be rendered to the end user using the node.js HTTP server APIs directly, or
+            using a higher level web framework like <a href="http://expressjs.com">express</a>.
+        </p>
+
+        <p >
+            <b class="header">Constructor</b><code>new twilio.TwimlResponse()</code>
+            <br/>
+
+            Create a <a href="http://www.twilio.com/docs/api/twiml">TwiML</a>
+            response, which can later be serialized to XML.
+        <p>
+        <p>Example:</p>
+<pre>
+var twilio = require('twilio');
+var resp = new twilio.TwimlResponse();
+</pre>
+
+        <p id="twimlBasic">
+            <b class="header">TwiML Basics</b>
+            <br/>
+            
+            The <tt>TwimlResponse</tt> object provides JavaScript functions to construct the
+            <a href="http://www.twilio.com/docs/api/twiml">TwiML verbs</a> that are appropriate
+            for the given parent node.  Each JavaScript function takes the following arguments, in any order:
+            <ul>
+                <li>an <tt>Object</tt> hash containing the attributes for the verb, if any</li>
+                <li>a <tt>String</tt> containing the content of the XML node (as in a <tt>&lt;Say&gt;</tt> verb)</li>
+                <li>if a string is not specified, a <tt>Function</tt> which will build child nodes of this node</li>
+            </ul>
+        </p>
+<pre>
+var twilio = require('twilio');
+var resp = new twilio.TwimlResponse();
+
+resp.say('Welcome to Twilio!');
+resp.say('Please let us know if we can help during your development.', {
+    voice:'woman',
+    language:'en-gb'
+});
+
+console.log(resp.toString());
+/**
+Outputs the following:
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;Response&gt;
+    &lt;Say&gt;Welcome to Twilio!&lt;/Say&gt;
+    &lt;Say voice="woman" language="en-gb"&gt;Please let us know if we can help during your development.&lt;/Say&gt;
+&lt;/Response&gt;
+*/
+</pre>
+
+        <p>
+            Rendering the actual XML document is done with the <tt>toString</tt> function.  The following node
+            program would render a TwiML document when a request was received to the HTTP server running on port
+            1337:
+        </p>
+
+<pre>
+var http = require('http'),
+    twilio = require('twilio');
+
+http.createServer(function (req, res) {
+    //Create TwiML response
+    var twiml = new twilio.TwimlResponse();
+    twiml.say('Hello World!');
+
+    res.writeHead(200, {'Content-Type': 'text/xml'});
+    res.end(twiml.toString());
+
+}).listen(1337, '127.0.0.1');
+
+console.log('TwiML servin\' server running at http://127.0.0.1:1337/');
+</pre>
+
+        <p id="twimlChained">
+            <b class="header">Chaining Syntax</b>
+            <br/>
+            You can add multiple nodes to a TwiML document in a single statement by chaining function calls:
+        </p>
+
+<pre>
+var twilio = require('twilio');
+var resp = new twilio.TwimlResponse();
+
+resp.say('Welcome to Twilio!')
+    .pause({ length:3 })
+    .say('Please let us know if we can help during your development.', {
+        voice:'woman',
+        language:'en-gb'
+    })
+    .play('http://www.example.com/some_sound.mp3');
+
+console.log(resp.toString());
+/**
+Outputs the following:
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;Response&gt;
+    &lt;Say&gt;Welcome to Twilio!&lt;/Say&gt;
+    &lt;Pause length="3"&gt;&lt;/Pause&gt;
+    &lt;Say voice="woman" language="en-gb"&gt;Please let us know if we can help during your development.&lt;/Say&gt;
+    &lt;Play&gt;http://www.example.com/some_sound.mp3&lt;/Play&gt;
+&lt;/Response&gt;
+*/
+</pre>
+
+        <p id="twimlNesting">
+            <b class="header">Nesting TwiML Nodes</b>
+            <br/>
+            Some TwiML verbs have other nouns or verbs nested within them.  You can create these nested structures
+            by passing a function to a parent node, which will be executed in the context of the parent node.
+            Within this callback function, <tt>this</tt> will refer to the parent node, which will have JavaScript
+            functions that map to the allowed syntax for child nodes of the parent:
+        </p>
+
+<pre>
+var twilio = require('twilio');
+var resp = new twilio.TwimlResponse();
+
+resp.say('Welcome to Acme Customer Service!')
+    .gather({
+        action:'http://www.example.com/callFinished.php',
+        finishOnKey:'*'
+    }, function() {
+        this.say('Press 1 for customer service')
+            .say('Press 2 for British customer service', { language:'en-gb' });
+    });
+
+console.log(resp.toString());
+/**
+Outputs the following:
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;Response&gt;
+    &lt;Say&gt;Welcome to Acme Customer Service!&lt;/Say&gt;
+    &lt;Gather action="http://www.example.com/callFinished.php" finishOnKey="*"&gt;
+        &lt;Say&gt;Press 1 for customer service.&lt;/Say&gt;
+        &lt;Say language="en-gb"&gt;Press 2 for British customer service.&lt;/Say&gt;
+    &lt;/Gather&gt;
+&lt;/Response&gt;
+*/
+</pre>
+
+        <p>
+            Alternately, the first argument to the child node building function is also a reference to the parent
+            node, so the following code is equivalent:
+        </p>
+
+<pre>
+var twilio = require('twilio');
+var resp = new twilio.TwimlResponse();
+
+resp.say('Welcome to Acme Customer Service!')
+    .gather({
+        action:'http://www.example.com/callFinished.php',
+        finishOnKey:'*'
+    }, function(node) { //note the use of the "node" variable in the anonymous function
+
+        //Now you can use this reference as well, if using "this" wrankles you
+        node.say('Press 1 for customer service')
+            .say('Press 2 for British customer service', { language:'en-gb' });
+
+    });
+
+console.log(resp.toString());
+/**
+Outputs the following:
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;Response&gt;
+    &lt;Say&gt;Welcome to Acme Customer Service!&lt;/Say&gt;
+    &lt;Gather action="http://www.example.com/callFinished.php" finishOnKey="*"&gt;
+        &lt;Say&gt;Press 1 for customer service.&lt;/Say&gt;
+        &lt;Say language="en-gb"&gt;Press 2 for British customer service.&lt;/Say&gt;
+    &lt;/Gather&gt;
+&lt;/Response&gt;
+*/
+</pre>
+
         <h2 id="links">Links &amp; Additional Resources</h2>
         <p>
             Usage of the Twilio platform requires a valid account SID and auth token.  You can sign up
@@ -1184,6 +1390,16 @@ client.account.usage.triggers.create({
         </p>
 
         <h2 id="changelog">Change Log</h2>
+
+        <p>
+            <b class="header">0.6.0</b> &mdash;
+            <small><i>Dec. 20, 2012</i></small> &mdash; <br/>
+        <ul>
+            <li>
+                Minor updates to the RestClient to remove dependency on pkginfo
+            </li>
+        </ul>
+        </p>
 
         <p>
             <b class="header">0.5.0</b> &mdash;
