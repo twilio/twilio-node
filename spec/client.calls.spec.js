@@ -8,7 +8,7 @@ describe('The Twilio REST Client Calls resource', function () {
     var instanceSid;
 
     it('initiates a call from a purchased twilio number', function(done) {
-        client.account.calls.create({
+        client.calls.create({
             to:config.to,
             from:config.from,
             url:'https://demo.twilio.com/welcome/voice'
@@ -21,7 +21,7 @@ describe('The Twilio REST Client Calls resource', function () {
     });
 
     it('gets information about a specific call', function(done) {
-        client.account.calls(instanceSid).get(function(err,data) {
+        client.calls(instanceSid).get(function(err,data) {
             expect(data.sid).toBe(instanceSid);
             done();
         });
@@ -48,7 +48,7 @@ describe('The Twilio REST Client Calls resource', function () {
     });
 
     it('gets a list of calls for a specific number', function(done) {
-        client.account.calls.get({
+        client.calls.get({
             from:config.from
         }, function(err, data) {
             expect(data.calls[0].from).toBe(config.from);

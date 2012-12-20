@@ -12,7 +12,7 @@ describe('The Twilio REST Client Applications resource', function () {
     };
 
     it('creates a new application, configured with voice and SMS urls', function(done) {
-        client.account.applications.create(app, function(err, data) {
+        client.applications.create(app, function(err, data) {
             expect(data.voice_url).toBe(app.VoiceUrl);
             instanceSid = data.sid;
             done();
@@ -20,14 +20,14 @@ describe('The Twilio REST Client Applications resource', function () {
     });
 
     it('gets information about an app with a specific sid', function(done) {
-        client.account.applications(instanceSid).get(function(err,data) {
+        client.applications(instanceSid).get(function(err,data) {
             expect(data.sid).toBe(instanceSid);
             done();
         });
     });
 
     it('lists all apps with the friendly name we created (should be one)', function(done) {
-        client.account.applications.get({
+        client.applications.get({
             friendlyName:app.FriendlyName
         }, function(err, data) {
             expect(data.applications.length).toBe(1);
@@ -37,7 +37,7 @@ describe('The Twilio REST Client Applications resource', function () {
     });
 
     it('updates details about an existing app', function(done) {
-        client.account.applications(instanceSid).update({
+        client.applications(instanceSid).update({
             voiceUrl:'http://lame.com/lameo'
         }, function(err, data) {
             expect(data.voice_url).toBe('http://lame.com/lameo');
@@ -46,7 +46,7 @@ describe('The Twilio REST Client Applications resource', function () {
     });
 
     it('deletes a created app', function(done) {
-        client.account.applications(instanceSid).delete(function(err, data) {
+        client.applications(instanceSid).delete(function(err, data) {
             expect(err).toBeFalsy();
             if (!err) {
                 client.account.applications(instanceSid).get(function(err2, data2, httpResponse) {
