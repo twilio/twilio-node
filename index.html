@@ -447,6 +447,46 @@ client.applications('APP...').delete(function(err, responseData, nodeResponse) {
 
 </pre>
 
+        <p>
+            Any resource request you make can be done for a specific
+            <a href="http://www.twilio.com/docs/api/rest/subaccounts">subaccount</a> as well.
+            This lets you track usage of calls, text messages, etc. for different users of your
+            application.  By default, all requests are made using the "master" account, but using
+            the "accounts" resource allows you to make all the same requests, but for a specific account
+        </p>
+
+<pre>
+var client = require('twilio')('ACCOUNT_SID', 'AUTH_TOKEN'),
+    SOME_SUBACCOUNT_SID = 'AC...';
+
+//Send a text message, associated with the given subaccount
+client.accounts(SOME_SUBACCOUNT_SID).sms.messages.create({
+    to:'+16512223333',
+    from:'+14505556677',
+    body:'word to your subaccount mother.'
+}, function(err, data) {
+    //do something when text is sent
+});
+
+//This REST call using the master/default account for the client...
+client.makeCall({
+    to:'+16512223333',
+    from:'+14505556677',
+    url:'http://example.com/someTwiml.php'
+}, function(err, data) {
+    //handle response
+});
+
+//...is the same as...
+client.accounts(ACCOUNT_SID).calls.create({
+    to:'+16512223333',
+    from:'+14505556677',
+    url:'http://example.com/someTwiml.php'
+}, function(err, data) {
+    //handle response
+});
+</pre>
+
         <p id="constructor">
             <b class="header">twilio.RestClient</b><code>twilio.RestClient(accountSid, authToken[, clientOptions])</code>
             <br/>
