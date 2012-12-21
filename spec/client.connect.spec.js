@@ -8,7 +8,7 @@ describe('The Twilio REST Connect Apps resource', function () {
     var instanceSid;
 
     it('gets a list of all connect apps', function(done) {
-        client.account.connectApps.get(function(err, data) {
+        client.accounts.connectApps.get(function(err, data) {
             expect(data.connect_apps.length).toBeGreaterThan(0);
             instanceSid = data.connect_apps[0].sid;
             done();
@@ -17,7 +17,7 @@ describe('The Twilio REST Connect Apps resource', function () {
 
     it('updates information about a connect app by SID', function(done) {
         var newName = 'Friendly'+new Date().getTime();
-        client.account.connectApps(instanceSid).update({
+        client.accounts.connectApps(instanceSid).update({
             friendlyName:newName
         }, function(err, data) {
             expect(data.friendly_name).toBe(newName);

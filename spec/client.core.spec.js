@@ -36,4 +36,13 @@ describe('The Twilio REST Client constructor', function () {
             done();
         });
     });
+
+    it('should initialize a new RestClient with a single line', function(done) {
+        var oneLiner = require('../index')(config.accountSid, config.authToken);
+        expect(oneLiner.getBaseUrl()).toBe('https://' + config.accountSid + ':' + config.authToken + '@' + 'api.twilio.com/2010-04-01');
+        oneLiner.accounts(config.accountSid).get(function(err, data) {
+            expect(data.sid).toBe(config.accountSid);
+            done();
+        });
+    });
 });

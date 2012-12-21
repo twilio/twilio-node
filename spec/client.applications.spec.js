@@ -49,7 +49,7 @@ describe('The Twilio REST Client Applications resource', function () {
         client.applications(instanceSid).delete(function(err, data) {
             expect(err).toBeFalsy();
             if (!err) {
-                client.account.applications(instanceSid).get(function(err2, data2, httpResponse) {
+                client.accounts.applications(instanceSid).get(function(err2, data2, httpResponse) {
                     expect(err2).toBeTruthy();
                     expect(err2.status).toBe(404);
                     done();

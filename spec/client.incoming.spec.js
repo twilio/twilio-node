@@ -9,7 +9,7 @@ describe('The Twilio REST Client IncomingPhoneNumbers resource', function () {
     var instanceSid, purchasedSid;
 
     it('gets a list of already purchased incoming phone numbers', function(done) {
-        client.account.incomingPhoneNumbers.get(function(err, data) {
+        client.accounts.incomingPhoneNumbers.get(function(err, data) {
             expect(data.incoming_phone_numbers.length).toBeGreaterThan(0);
             instanceSid = data.incoming_phone_numbers[0].sid;
             expect(instanceSid).toMatch(/^PN.*/);
@@ -18,7 +18,7 @@ describe('The Twilio REST Client IncomingPhoneNumbers resource', function () {
     });
 
     it('gets details about a specific number, by sid', function(done) {
-        client.account.incomingPhoneNumbers(instanceSid).get(function(err, data) {
+        client.incomingPhoneNumbers(instanceSid).get(function(err, data) {
             expect(data.sid).toBe(instanceSid);
             done();
         });
@@ -26,7 +26,7 @@ describe('The Twilio REST Client IncomingPhoneNumbers resource', function () {
 
     it('updates information about a number with a given sid', function(done){
         var randUrl = 'http://myapp.com/awesome/'+new Date().getTime();
-        client.account.incomingPhoneNumbers(instanceSid).update({
+        client.accounts.incomingPhoneNumbers(instanceSid).update({
             voiceUrl:randUrl,
             SmsUrl:randUrl
         }, function(err, data) {
@@ -38,7 +38,7 @@ describe('The Twilio REST Client IncomingPhoneNumbers resource', function () {
 
     //requires at least one toll free number in the test account
     it('gets a list of Toll Free numbers for the given account', function(done) {
-        client.account.incomingPhoneNumbers.tollFree.get(function(err, data) {
+        client.incomingPhoneNumbers.tollFree.get(function(err, data) {
             expect(data.incoming_phone_numbers.length).toBeGreaterThan(0);
             expect(data.incoming_phone_numbers[0].phone_number).toMatch(/^\+18.*$/);
             done();
@@ -46,14 +46,14 @@ describe('The Twilio REST Client IncomingPhoneNumbers resource', function () {
     });
 
     it('gets a list of local numbers for the given account', function(done) {
-        client.account.incomingPhoneNumbers.local.get(function(err, data) {
+        client.incomingPhoneNumbers.local.get(function(err, data) {
             expect(data.incoming_phone_numbers.length).toBeGreaterThan(0);
             done();
         });
     });
 
-    xit('allows for the purchase of new phone numbers', function(done) {
-        client.account.availablePhoneNumbers('US').local.get({
+    it('allows for the purchase of new phone numbers', function(done) {
+        client.accounts.availablePhoneNumbers('US').local.get({
             areaCode:'651'
         }, function(err, data) {
             expect(data.available_phone_numbers.length).toBeGreaterThan(0);
@@ -61,7 +61,7 @@ describe('The Twilio REST Client IncomingPhoneNumbers resource', function () {
             expect(available).toMatch(/\+1651.*/);
 
             var randUrl = 'http://myapp.com/awesome/'+new Date().getTime();
-            client.account.incomingPhoneNumbers.create({
+            client.incomingPhoneNumbers.create({
                 VoiceUrl:randUrl,
                 phoneNumber:available
             }, function(err2, data2) {
@@ -73,16 +73,16 @@ describe('The Twilio REST Client IncomingPhoneNumbers resource', function () {
         });
     });
 
-    xit('deletes a purchased phone number', function(done) {
-        client.account.incomingPhoneNumbers(purchasedSid).delete(function(err,data,httpResponse) {
+    it('deletes a purchased phone number', function(done) {
+        client.incomingPhoneNumbers(purchasedSid).delete(function(err,data,httpResponse) {
             expect(httpResponse.statusCode).toBe(204);
             expect(err).toBeNull();
             done();
         });
     });
 
-    xit('allows for the purchase of new phone numbers using the subresource', function(done) {
-        client.account.availablePhoneNumbers('US').local.get({
+    it('allows for the purchase of new phone numbers using the subresource', function(done) {
+        client.availablePhoneNumbers('US').local.get({
             areaCode:'651'
         }, function(err, data) {
             expect(data.available_phone_numbers.length).toBeGreaterThan(0);
@@ -90,7 +90,7 @@ describe('The Twilio REST Client IncomingPhoneNumbers resource', function () {
             expect(available).toMatch(/\+1651.*/);
 
             var randUrl = 'http://myapp.com/awesome/'+new Date().getTime();
-            client.account.incomingPhoneNumbers.local.create({
+            client.accounts.incomingPhoneNumbers.local.create({
                 VoiceUrl:randUrl,
                 phoneNumber:available
             }, function(err2, data2) {
@@ -98,7 +98,7 @@ describe('The Twilio REST Client IncomingPhoneNumbers resource', function () {
                 expect(data2.phone_number).toBe(available);
                 purchasedSid = data2.sid;
                 //cleanup, can be done async
-                client.account.incomingPhoneNumbers(purchasedSid).delete(function(err,data,httpResponse) {
+                client.accounts.incomingPhoneNumbers(purchasedSid).delete(function(err,data,httpResponse) {
                     //test number deleted, no op for now
                 });
                 done();
@@ -107,8 +107,8 @@ describe('The Twilio REST Client IncomingPhoneNumbers resource', function () {
     });
 
     //repeat, but with toll free numbers using the sub resource
-    xit('allows for the purchase of new toll free phone numbers, using a sub resource', function(done) {
-        client.account.availablePhoneNumbers('US').tollFree.get({
+    it('allows for the purchase of new toll free phone numbers, using a sub resource', function(done) {
+        client.availablePhoneNumbers('US').tollFree.get({
             areaCode:'866'
         }, function(err, data) {
             expect(data.available_phone_numbers.length).toBeGreaterThan(0);
@@ -116,7 +116,7 @@ describe('The Twilio REST Client IncomingPhoneNumbers resource', function () {
             expect(available).toMatch(/\+1866.*/);
 
             var randUrl = 'http://myapp.com/awesome/'+new Date().getTime();
-            client.account.incomingPhoneNumbers.tollFree.post({
+            client.accounts.incomingPhoneNumbers.tollFree.post({
                 VoiceUrl:randUrl,
                 phoneNumber:available
             }, function(err2, data2) {
@@ -124,7 +124,7 @@ describe('The Twilio REST Client IncomingPhoneNumbers resource', function () {
                 expect(data2.phone_number).toBe(available);
                 purchasedSid = data2.sid;
                 //cleanup, can be done async
-                client.account.incomingPhoneNumbers(purchasedSid).delete(function(err,data,httpResponse) {
+                client.accounts.incomingPhoneNumbers(purchasedSid).delete(function(err,data,httpResponse) {
                     //test number deleted, no op for now
                 });
                 done();

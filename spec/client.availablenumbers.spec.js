@@ -6,14 +6,14 @@ describe('The Twilio REST Client AvailablePhoneNumbers resource', function () {
     var client = new twilio.RestClient(config.accountSid, config.authToken);
 
     it('gets a list of available phone numbers for a given country, with no filter', function (done) {
-        client.account.availablePhoneNumbers('GB').local.get(function (err, data) {
+        client.accounts.availablePhoneNumbers('GB').local.get(function (err, data) {
             expect(data.available_phone_numbers[0].phone_number).toMatch(/^\+44.*/);
             done();
         });
     });
 
     it('gets a list of available phone numbers for a given country, with an area code filter', function (done) {
-        client.account.availablePhoneNumbers('US').local.get({
+        client.accounts.availablePhoneNumbers('US').local.get({
             areaCode:651
         }, function (err, data) {
             expect(data.available_phone_numbers[0].phone_number).toMatch(/^\+1651.*/);
@@ -22,14 +22,14 @@ describe('The Twilio REST Client AvailablePhoneNumbers resource', function () {
     });
 
     it('gets a list of available TOLL FREE phone numbers for a given country, with no filter', function (done) {
-        client.account.availablePhoneNumbers('US').tollFree.get(function (err, data) {
+        client.accounts.availablePhoneNumbers('US').tollFree.get(function (err, data) {
             expect(data.available_phone_numbers[0].phone_number).toMatch(/^\+18.*/);
             done();
         });
     });
 
     it('gets a list of available TOLL FREE phone numbers for a given country, with a filter', function (done) {
-        client.account.availablePhoneNumbers('US').tollFree.get({
+        client.accounts.availablePhoneNumbers('US').tollFree.get({
             Contains:'866******9'
         }, function (err, data) {
             expect(data.available_phone_numbers[0].phone_number).toMatch(/^\+1866.*9$/);
