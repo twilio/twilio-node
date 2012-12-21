@@ -8,7 +8,7 @@ describe('The Twilio REST Client SMS resource', function () {
     var instanceSid;
 
     it('sends an SMS message using a Twilio number', function(done) {
-        client.sms({
+        client.sendSms({
             To:config.to,
             from:config.from,
             body:'the current time in milliseconds is '+new Date().getTime()

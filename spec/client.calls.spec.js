@@ -30,7 +30,7 @@ describe('The Twilio REST Client Calls resource', function () {
     it('uses shorthand to make a call, then list calls by a specific number', function(done) {
         var shorthandSid;
 
-        client.call({
+        client.makeCall({
             to:config.to,
             from:config.from,
             url:'https://demo.twilio.com/welcome/voice'
