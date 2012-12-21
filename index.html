@@ -475,10 +475,10 @@ client.applications('APP...').delete(function(err, responseData, nodeResponse) {
 <pre>
 //Two-liner
 var twilio = require('twilio');
-var client = new twilio.RestClient('<account sid>', '<auth token>');
+var client = new twilio.RestClient('ACCOUNT_SID', 'AUTH_TOKEN');
 
 //One-liner
-var client = require('twilio')('<account sid>', '<auth token>');
+var client = require('twilio')('ACCOUNT_SID', 'AUTH_TOKEN');
 </pre>
 
         <p id="request">
