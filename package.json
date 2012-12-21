@@ -5,6 +5,10 @@
     "author":"Kevin Whinnery <kevin.whinnery@gmail.com>",
     "contributors":[
         {
+            "name":"Carter Rabasa",
+            "email":"carter@twilio.com"
+        },
+        {
             "name":"Stephen Walters",
             "email":""
         }
