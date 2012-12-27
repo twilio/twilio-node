@@ -48,7 +48,7 @@ describe('The Twilio REST Client Calls resource', function () {
     });
 
     it('gets a list of calls for a specific number', function(done) {
-        client.calls.get({
+        client.calls.list({
             from:config.from
         }, function(err, data) {
             expect(data.calls[0].from).toBe(config.from);

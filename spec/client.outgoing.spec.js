@@ -21,7 +21,7 @@ describe('The Twilio REST Client OutgoingCallerIds resource', function () {
 
     //requires a verified caller ID in an account
     it('gets a list of verified caller IDs', function(done) {
-        client.accounts.outgoingCallerIds.get(function(err, data) {
+        client.accounts.outgoingCallerIds.list(function(err, data) {
             expect(data.outgoing_caller_ids.length).toBeGreaterThan(0);
             instanceSid = data.outgoing_caller_ids[0].sid;
             expect(instanceSid).toMatch(/^PN.*/);

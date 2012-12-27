@@ -8,7 +8,7 @@ describe('The Twilio REST Connect Apps resource', function () {
     var instanceSid;
 
     it('gets a list of all connect apps', function(done) {
-        client.accounts.connectApps.get(function(err, data) {
+        client.accounts.connectApps.list(function(err, data) {
             expect(data.connect_apps.length).toBeGreaterThan(0);
             instanceSid = data.connect_apps[0].sid;
             done();

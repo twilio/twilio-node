@@ -6,7 +6,7 @@ describe('The Twilio REST Client Accounts resource', function () {
     var client = new twilio.RestClient(config.accountSid, config.authToken);
 
     it('gets an unfiltered list of Accounts associated with this master account', function (done) {
-        client.accounts.get(function (err, data, response) {
+        client.accounts.list(function (err, data, response) {
             expect(data.accounts.length).toBeGreaterThan(0);
             done();
         });

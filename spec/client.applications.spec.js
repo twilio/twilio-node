@@ -27,7 +27,7 @@ describe('The Twilio REST Client Applications resource', function () {
     });
 
     it('lists all apps with the friendly name we created (should be one)', function(done) {
-        client.applications.get({
+        client.applications.list({
             friendlyName:app.FriendlyName
         }, function(err, data) {
             expect(data.applications.length).toBe(1);

@@ -9,7 +9,7 @@ describe('The Twilio REST Client IncomingPhoneNumbers resource', function () {
     var instanceSid, purchasedSid;
 
     it('gets a list of already purchased incoming phone numbers', function(done) {
-        client.accounts.incomingPhoneNumbers.get(function(err, data) {
+        client.accounts.incomingPhoneNumbers.list(function(err, data) {
             expect(data.incoming_phone_numbers.length).toBeGreaterThan(0);
             instanceSid = data.incoming_phone_numbers[0].sid;
             expect(instanceSid).toMatch(/^PN.*/);
