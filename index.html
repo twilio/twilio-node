@@ -211,7 +211,7 @@
 <div id="sidebar" class="interface">
 
     <span class="toc_title">
-        twilio-node <span class="version">(0.6.1)</span>
+        twilio-node <span class="version">(0.6.2)</span>
     </span>
 
     <a class="toc_title" href="#">
@@ -402,13 +402,13 @@ var client = new twilio.RestClient('ACCOUNT_SID', 'AUTH_TOKEN');
 
 //Get a list of calls made by this account
 // GET /2010-04-01/Accounts/ACCOUNT_SID/Calls
-client.calls.get(function(err, responseData) {
+client.calls.list(function(err, responseData) {
     //work with call list in responseData
 });
 
 //Get a list of calls made by this account, from this phone number
 // GET /2010-04-01/Accounts/ACCOUNT_SID/Calls?From=+16513334455
-client.calls.get({
+client.calls.list({
     from:'+16513334455'
 }, function(err, responseData) {
     //work with call list in responseData
@@ -428,8 +428,7 @@ client.accounts('AC...').calls('abc123...').get(function(err, responseData) {
 
 // Create (send) an SMS message
 // POST /2010-04-01/Accounts/ACCOUNT_SID/SMS/Messages
-// (client.sms.messages.create is aliased to the "post" function for this resource)
-client.sms.messages.post({
+client.sms.messages.create({
     to:'+16515559999',
     from:'+14503334455',
     body:'word to your mother.'
@@ -535,13 +534,14 @@ var client = require('twilio')('ACCOUNT_SID', 'AUTH_TOKEN');
                 </li>
                 <li>
                     <b>[optional] callback:</b> {function} a callback function which receives the following
-                    three arguments, in order, after a request completes:
+                    arguments, in order, after a request completes:
                     <ul>
                         <li><b>error:</b> An error object, if an error is received</li>
                         <li><b>responseData:</b>A JavaScript object, <tt>JSON.parse</tt>'d response from the Twilio HTTP response</li>
                         <li>
                             <b>nodeClientResponse:</b>A node <tt>http.ClientResponse</tt> object
-                            (<a href="http://nodejs.org/api/http.html#http_http_clientresponse">reference</a>)
+                            (<a href="http://nodejs.org/api/http.html#http_http_clientresponse">reference</a>).  This is also available
+                            in responseData.nodeClientResponse.
                         </li>
                     </ul>
                 </li>
@@ -617,7 +617,6 @@ client.accounts('AC...').calls.get(function (err, responseData) {
 
         <p id="accounts">
             <b class="header">accounts</b><code>client.accounts([accountSid])</code>
-            <span class="alias">Alias: <b>account</b></span>
             <br/>
 
             Accesses <a href="http://www.twilio.com/docs/api/rest/account">Account</a> resources via the REST interface.
@@ -627,6 +626,7 @@ client.accounts('AC...').calls.get(function (err, responseData) {
                     <li><tt>client.accounts('someSid').get</tt></li>
                     <li><tt>client.accounts('someSid').post</tt></li>
                     <li><tt>client.accounts('someSid').put</tt></li>
+                    <li><tt>client.accounts('someSid').list</tt> (alias for get)</li>
                     <li><tt>client.accounts('someSid').update</tt> (alias for put)</li>
                 </ul>
 
@@ -634,6 +634,7 @@ client.accounts('AC...').calls.get(function (err, responseData) {
                 <ul>
                     <li><tt>client.accounts.get</tt></li>
                     <li><tt>client.accounts.post</tt></li>
+                    <li><tt>client.accounts.list</tt> (alias for get)</li>
                     <li><tt>client.accounts.create</tt> (alias for post)</li>
                 </ul>
             </p>
@@ -641,7 +642,7 @@ client.accounts('AC...').calls.get(function (err, responseData) {
         <p>Examples:</p>
 <pre>
 //Get a list of subaccounts for this master account
-client.accounts.get(function(err, data) {
+client.accounts.list(function(err, data) {
     //work with response data
 });
 
@@ -672,18 +673,20 @@ client.accounts('AC...').update({
                 <ul>
                     <li><tt>client.availablePhoneNumbers('US').local.get</tt></li>
                     <li><tt>client.availablePhoneNumbers('GB').tollFree.get</tt></li>
+                    <li><tt>client.availablePhoneNumbers('US').local.list</tt> (alias for get)</li>
+                    <li><tt>client.availablePhoneNumbers('GB').tollFree.list</tt> (alias for get)</li>
                 </ul>
             </p>
         </p>
         <p>Examples:</p>
 <pre>
 //Get a list of available local numbers for Canada
-client.availablePhoneNumbers('CA').local.get(function(err, data) {
+client.availablePhoneNumbers('CA').local.list(function(err, data) {
     //work with response data
 });
 
 //Get a list of available toll-free numbers for the United States
-client.availablePhoneNumbers('US').tollFree.get(function(err, data) {
+client.availablePhoneNumbers('US').tollFree.list(function(err, data) {
     //work with response data
 });
 </pre>
@@ -701,6 +704,7 @@ client.availablePhoneNumbers('US').tollFree.get(function(err, data) {
                     <li><tt>client.outgoingCallerIds('someSid').post</tt></li>
                     <li><tt>client.outgoingCallerIds('someSid').put</tt></li>
                     <li><tt>client.outgoingCallerIds('someSid').delete</tt></li>
+                    <li><tt>client.outgoingCallerIds('someSid').list</tt> (alias for get)</li>
                     <li><tt>client.outgoingCallerIds('someSid').update</tt> (alias for put)</li>
                 </ul>
 
@@ -708,6 +712,7 @@ client.availablePhoneNumbers('US').tollFree.get(function(err, data) {
                 <ul>
                     <li><tt>client.outgoingCallerIds.get</tt></li>
                     <li><tt>client.outgoingCallerIds.post</tt></li>
+                    <li><tt>client.outgoingCallerIds.list</tt> (alias for get)</li>
                     <li><tt>client.outgoingCallerIds.create</tt> (alias for post)</li>
                 </ul>
             </p>
@@ -715,7 +720,7 @@ client.availablePhoneNumbers('US').tollFree.get(function(err, data) {
         <p>Examples:</p>
 <pre>
 //Get a list of outgoing caller IDs for the master account
-client.outgoingCallerIds.get(function(err, data) {
+client.outgoingCallerIds.list(function(err, data) {
     //work with response data
 });
 
@@ -739,6 +744,7 @@ client.outgoingCallerIds('callerIdSid').update({
             <li><tt>client.incomingPhoneNumbers('someSid').post</tt></li>
             <li><tt>client.incomingPhoneNumbers('someSid').put</tt></li>
             <li><tt>client.incomingPhoneNumbers('someSid').delete</tt></li>
+            <li><tt>client.incomingPhoneNumbers('someSid').list</tt> (alias for get)</li>
             <li><tt>client.incomingPhoneNumbers('someSid').update</tt> (alias for put)</li>
         </ul>
 
@@ -746,12 +752,15 @@ client.outgoingCallerIds('callerIdSid').update({
         <ul>
             <li><tt>client.incomingPhoneNumbers.get</tt></li>
             <li><tt>client.incomingPhoneNumbers.post</tt></li>
+            <li><tt>client.incomingPhoneNumbers.list</tt> (alias for get)</li>
             <li><tt>client.incomingPhoneNumbers.create</tt> (alias for post)</li>
             <li><tt>client.incomingPhoneNumbers.local.get</tt></li>
             <li><tt>client.incomingPhoneNumbers.local.post</tt></li>
+            <li><tt>client.incomingPhoneNumbers.local.list</tt> (alias for local.get)</li>
             <li><tt>client.incomingPhoneNumbers.local.create</tt> (alias for local.post)</li>
             <li><tt>client.incomingPhoneNumbers.tollFree.get</tt></li>
             <li><tt>client.incomingPhoneNumbers.tollFree.post</tt></li>
+            <li><tt>client.incomingPhoneNumbers.tollFree.list</tt> (alias for tollFree.get)</li>
             <li><tt>client.incomingPhoneNumbers.tollFree.create</tt> (alias for tollFree.post)</li>
         </ul>
         </p>
@@ -759,7 +768,7 @@ client.outgoingCallerIds('callerIdSid').update({
         <p>Examples:</p>
 <pre>
 //Get a list of purchased (incoming) local numbers for an account, containing the digits 867
-client.incomingPhoneNumbers.local.get({
+client.incomingPhoneNumbers.local.list({
     phoneNumber:867
 }, function(err, data) {
     //work with response data
@@ -790,6 +799,7 @@ client.incomingPhoneNumbers.create({
             <ul>
                 <li><tt>client.sms.messages.get</tt></li>
                 <li><tt>client.sms.messages.post</tt></li>
+                <li><tt>client.sms.messages.list</tt> (alias for get)</li>
                 <li><tt>client.sms.messages.create</tt> (alias for post)</li>
                 <li><tt>client.sendSms</tt> (alias for post)</li>
                 <li><tt>client.listSms</tt> (alias for get)</li>
@@ -808,7 +818,7 @@ client.sendSms({
 });
 
 //Get a list of SMS messages sent from a given subaccount
-client.accounts('someAccountSid').sms.messages.get(function(err, data) {
+client.accounts('someAccountSid').sms.messages.list(function(err, data) {
     //work with response data
 });
 </pre>
@@ -824,19 +834,21 @@ client.accounts('someAccountSid').sms.messages.get(function(err, data) {
             <ul>
                 <li><tt>client.sms.shortCodes('someSid').get</tt></li>
                 <li><tt>client.sms.shortCodes('someSid').post</tt></li>
+                <li><tt>client.sms.shortCodes('someSid').list</tt> (alias for get)</li>
                 <li><tt>client.sms.shortCodes('someSid').update</tt> (alias for post)</li>
             </ul>
 
             <b>List Functions:</b>
             <ul>
                 <li><tt>client.sms.shortCodes.get</tt></li>
+                <li><tt>client.sms.shortCodes.list</tt> (alias for get)</li>
             </ul>
             </p>
         </p>
         <p>Examples:</p>
 <pre>
 //Get a list of SMS short codes used by a given account
-client.accounts('someAccountSid').sms.shortCodes.get(function(err, data) {
+client.accounts('someAccountSid').sms.shortCodes.list(function(err, data) {
     //work with response data
 });
 </pre>
@@ -853,6 +865,7 @@ client.accounts('someAccountSid').sms.shortCodes.get(function(err, data) {
                 <li><tt>client.applications('someSid').get</tt></li>
                 <li><tt>client.applications('someSid').post</tt></li>
                 <li><tt>client.applications('someSid').delete</tt></li>
+                <li><tt>client.applications('someSid').list</tt> (alias for get)</li>
                 <li><tt>client.applications('someSid').update</tt> (alias for post)</li>
             </ul>
 
@@ -860,6 +873,7 @@ client.accounts('someAccountSid').sms.shortCodes.get(function(err, data) {
             <ul>
                 <li><tt>client.applications.get</tt></li>
                 <li><tt>client.applications.post</tt></li>
+                <li><tt>client.applications.list</tt> (alias for get)</li>
                 <li><tt>client.applications.create</tt> (alias for post)</li>
             </ul>
             </p>
@@ -867,7 +881,7 @@ client.accounts('someAccountSid').sms.shortCodes.get(function(err, data) {
         <p>Examples:</p>
 <pre>
 //Get a list of TwiML applications for the client's default account
-client.applications.get(function(err, data) {
+client.applications.list(function(err, data) {
     //work with response data
 });
 
@@ -891,19 +905,21 @@ client.applications('someSid').update({
             <ul>
                 <li><tt>client.connectApps('someSid').get</tt></li>
                 <li><tt>client.connectApps('someSid').post</tt></li>
+                <li><tt>client.connectApps('someSid').list</tt> (alias for get)</li>
                 <li><tt>client.connectApps('someSid').update</tt> (alias for post)</li>
             </ul>
 
             <b>List Functions:</b>
             <ul>
                 <li><tt>client.connectApps.get</tt></li>
+                <li><tt>client.connectApps.list</tt> (alias for get)</li>
             </ul>
             </p>
         </p>
         <p>Examples:</p>
 <pre>
 //Get a list of Twilio Connect applications for the client's default account
-client.connectApps.get(function(err, data) {
+client.connectApps.list(function(err, data) {
     //work with response data
 });
 
@@ -930,13 +946,14 @@ client.connectApps('someSid').update({
             <b>List Functions:</b>
             <ul>
                 <li><tt>client.authorizedConnectApps.get</tt></li>
+                <li><tt>client.authorizedConnectApps.list</tt> (alias for get)</li>
             </ul>
             </p>
         </p>
         <p>Examples:</p>
 <pre>
 //Get a list of authorized Twilio Connect applications for the client's default account
-client.authorizedConnectApps.get(function(err, data) {
+client.authorizedConnectApps.list(function(err, data) {
     //work with response data
 });
 
@@ -967,6 +984,7 @@ client.authorizedConnectApps('someSid').get(function(err, data) {
             <ul>
                 <li><tt>client.calls.get</tt></li>
                 <li><tt>client.calls.post</tt></li>
+                <li><tt>client.calls.list</tt> (alias for get)</li>
                 <li><tt>client.calls.create</tt> (alias for post)</li>
                 <li><tt>client.makeCall</tt> (alias for post)</li>
                 <li><tt>client.listCalls</tt> (alias for get)</li>
@@ -1001,18 +1019,20 @@ client.calls('someSid').recordings.get(function(err, data) {
         <ul>
             <li><tt>client.conferences('someSid').get</tt></li>
             <li><tt>client.conferences('someSid').participants.get</tt></li>
+            <li><tt>client.conferences('someSid').participants.list</tt> (alias for get)</li>
         </ul>
 
         <b>List Functions:</b>
         <ul>
             <li><tt>client.conferences.get</tt></li>
+            <li><tt>client.conferences.list</tt> (alias for get)</li>
         </ul>
         </p>
         </p>
         <p>Examples:</p>
 <pre>
 //Get a list of in-progress conferences for the master account
-client.conferences.get({
+client.conferences.list({
     status:'in-progress'
 }, function(err, data) {
     //work with response data
@@ -1032,12 +1052,19 @@ client.conferences.get({
             <li><tt>client.queues('someSid').post</tt></li>
             <li><tt>client.queues('someSid').delete</tt></li>
             <li><tt>client.queues('someSid').update</tt> (alias for post)</li>
+            <li><tt>client.queues('someSid').members('callSid').get</tt></li>
+            <li><tt>client.queues('someSid').members('callSid').post</tt></li>
+            <li><tt>client.queues('someSid').members('callSid').update</tt> (alias for post)</li>
+            <li><tt>client.queues('someSid').members.front.get</tt></li>
+            <li><tt>client.queues('someSid').members.front.post</tt></li>
+            <li><tt>client.queues('someSid').members.front.update</tt> (alias for post)</li>
         </ul>
 
         <b>List Functions:</b>
         <ul>
             <li><tt>client.queues.get</tt></li>
             <li><tt>client.queues.post</tt></li>
+            <li><tt>client.queues.list</tt> (alias for get)</li>
             <li><tt>client.queues.create</tt> (alias for post)</li>
         </ul>
         </p>
@@ -1045,7 +1072,7 @@ client.conferences.get({
         <p>Examples:</p>
 <pre>
 //Get a list of queues for the master account
-client.queues.get(function(err, data) {
+client.queues.list(function(err, data) {
     //work with response data
 });
 
@@ -1070,18 +1097,20 @@ client.queues.create({
             <li><tt>client.recordings('someSid').get</tt></li>
             <li><tt>client.recordings('someSid').delete</tt></li>
             <li><tt>client.recordings('someSid').transcriptions.get</tt></li>
+            <li><tt>client.recordings('someSid').transcriptions.list</tt> (alias for get)</li>
         </ul>
 
         <b>List Functions:</b>
         <ul>
             <li><tt>client.recordings.get</tt></li>
+            <li><tt>client.recordings.list</tt> (alias for get)</li>
         </ul>
         </p>
         </p>
         <p>Examples:</p>
 <pre>
 //Get a list of recordings for the master account, for dates after September 11, 2010
-client.recordings.get({
+client.recordings.list({
     'dateCreated>':'2010-09-11'
 }, function(err, data) {
     //work with response data
@@ -1103,13 +1132,14 @@ client.recordings.get({
         <b>List Functions:</b>
         <ul>
             <li><tt>client.transcriptions.get</tt></li>
+            <li><tt>client.transcriptions.list</tt> (alias for get)</li>
         </ul>
         </p>
         </p>
         <p>Examples:</p>
 <pre>
 //Get a list of transcriptions, with paging info, sorted by date updated
-client.transcriptions.get(function(err, data) {
+client.transcriptions.list(function(err, data) {
     //work with response data
     if (!err) {
         for (var i = 0, l = data.transcriptions.length; i < l; i++) {
@@ -1135,13 +1165,14 @@ client.transcriptions.get(function(err, data) {
         <b>List Functions:</b>
         <ul>
             <li><tt>client.notifications.get</tt></li>
+            <li><tt>client.notifications.list</tt> (alias for get)</li>
         </ul>
         </p>
         </p>
         <p>Examples:</p>
 <pre>
 //Get a list of notifications at the ERROR level, useful for debugging Twilio requests
-client.notifications.get({
+client.notifications.list({
     log:0
 }, function(err, data) {
     //work with response data
@@ -1168,13 +1199,14 @@ client.notifications.get({
         <b>List Functions:</b>
         <ul>
             <li><tt>client.usage.records.get</tt></li>
+            <li><tt>client.usage.records.list</tt> (alias for get)</li>
         </ul>
         </p>
         </p>
         <p>Examples:</p>
 <pre>
 //Get a list of usage records for all SMS messages for the default account
-client.usage.records.get({
+client.usage.records.list({
     category:'sms'
 }, function(err, data) {
     //work with response data
@@ -1205,6 +1237,7 @@ client.usage.records.get({
         <ul>
             <li><tt>client.usage.triggers.get</tt></li>
             <li><tt>client.usage.triggers.post</tt></li>
+            <li><tt>client.usage.triggers.list</tt> (alias for get)</li>
             <li><tt>client.usage.triggers.create</tt> (alias for post)</li>
         </ul>
         </p>
@@ -1212,7 +1245,7 @@ client.usage.records.get({
         <p>Examples:</p>
 <pre>
 //Get a list of usage triggers recurring daily
-client.usage.triggers.get({
+client.usage.triggers.list({
     recurring:'daily'
 }, function(err, data) {
     //work with response data
@@ -1433,6 +1466,24 @@ Outputs the following:
         </p>
 
         <h2 id="changelog">Change Log</h2>
+
+        <p>
+            <b class="header">0.6.2</b> &mdash;
+            <small><i>Dec. 27, 2012</i></small> &mdash;
+            <a href="https://github.com/kwhinnery/twilio-node/compare/0.6.1...0.6.2">Diff</a>
+            <br/>
+        <ul>
+            <li>
+                Added a "list" function as an alias for "get" for uniformity with other Twilio client SDKs
+            </li>
+            <li>
+                Added the "Members" sub-resource to queues
+            </li>
+            <li>
+                Hang the node client response off the second reponse argument, so only two callback arguments are required.
+            </li>
+        </ul>
+        </p>
 
         <p>
             <b class="header">0.6.1</b> &mdash;
