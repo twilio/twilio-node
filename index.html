@@ -362,7 +362,7 @@ client.makeCall({
 
     //executed when the call has been initiated.
     console.log(responseData.from); // outputs "+14506667788"
-    
+
 });
 
 </pre>
@@ -1294,7 +1294,7 @@ var resp = new twilio.TwimlResponse();
             <a href="http://www.twilio.com/docs/api/twiml">TwiML verbs</a> that are appropriate
             for the given parent node.  Each JavaScript function takes the following arguments, in any order:
             <ul>
-                <li>an <tt>Object</tt> hash containing the attributes for the verb, if any</li>
+                <li>an <tt>Object</tt> hash containing the attributes for the parent XML node, if any</li>
                 <li>a <tt>String</tt> containing the content of the XML node (as in a <tt>&lt;Say&gt;</tt> verb)</li>
                 <li>if a string is not specified, a <tt>Function</tt> which will build child nodes of this node</li>
             </ul>
