@@ -597,7 +597,7 @@ client.sms.messages.create({
     from:'+14503334455',
     body:'word to your mother.'
 
-}, function(err, responseData, nodeResponse) { //this function is executed when a response is received from Twilio
+}, function(err, responseData) { //this function is executed when a response is received from Twilio
 
     if (!err) { // "err" is an error received during the request, if any
 
@@ -611,8 +611,7 @@ client.sms.messages.create({
         // you can also access the raw node.js http.ClientResponse object,
         // which is "nodeResponse", the third argument to this callback:
         // http://nodejs.org/api/http.html#http_http_clientresponse
-
-        console.log(nodeResponse.statusCode); //outputs "200" if the request was successful
+        console.log(responseData.nodeClientResponse.statusCode); //outputs "200" if the request was successful
 
     }
 });
