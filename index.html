@@ -409,13 +409,14 @@ var client = new twilio.RestClient('ACCOUNT_SID', 'AUTH_TOKEN');
 
 //Get a list of calls made by this account
 // GET /2010-04-01/Accounts/ACCOUNT_SID/Calls
-client.calls.list(function(err, responseData) {
+// alias for get is "list", if you prefer
+client.calls.get(function(err, responseData) {
     //work with call list in responseData
 });
 
 //Get a list of calls made by this account, from this phone number
 // GET /2010-04-01/Accounts/ACCOUNT_SID/Calls?From=+16513334455
-client.calls.list({
+client.calls.get({
     from:'+16513334455'
 }, function(err, responseData) {
     //work with call list in responseData
@@ -435,7 +436,8 @@ client.accounts('AC...').calls('abc123...').get(function(err, responseData) {
 
 // Create (send) an SMS message
 // POST /2010-04-01/Accounts/ACCOUNT_SID/SMS/Messages
-client.sms.messages.create({
+// "create" and "update" aliases are in place where appropriate on PUT and POST requests
+client.sms.messages.post({
     to:'+16515559999',
     from:'+14503334455',
     body:'word to your mother.'
