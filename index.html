@@ -608,8 +608,7 @@ client.sms.messages.create({
         console.log(responseData.from); // outputs "+14506667788"
         console.log(responseData.body); // outputs "word to your mother."
 
-        // you can also access the raw node.js http.ClientResponse object,
-        // which is "nodeResponse", the third argument to this callback:
+        // you can also access the raw node.js http.ClientResponse object:
         // http://nodejs.org/api/http.html#http_http_clientresponse
         console.log(responseData.nodeClientResponse.statusCode); //outputs "200" if the request was successful
 
