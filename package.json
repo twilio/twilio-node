@@ -1,7 +1,7 @@
 {
     "name":"twilio",
     "description":"A Twilio helper library",
-    "version":"0.6.2",
+    "version":"0.7.0",
     "author":"Kevin Whinnery <kevin.whinnery@gmail.com>",
     "contributors":[
         {
@@ -10,7 +10,7 @@
         },
         {
             "name":"Stephen Walters",
-            "email":""
+            "email":"stephenwalters@gmail.com"
         }
     ],
     "repository":{
@@ -19,7 +19,13 @@
     },
     "dependencies":{
         "request":"2.x",
-        "underscore":"1.x"
+        "underscore":"1.x",
+        "jwt-simple": "0.1.x"
+    },
+    "devDependencies": {
+        "express":"2.x",
+        "connect":"2.x",
+        "ejs": "0.8.x"
     },
     "scripts":{
         "test":"jasmine-node spec"

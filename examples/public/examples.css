@@ -1,0 +1,12 @@
+* {
+    font-family: 'Helvetica Neue', Helvetica, sans-serif;
+}
+
+a, a:visited {
+    color:#ff0000;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
