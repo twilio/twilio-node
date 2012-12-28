@@ -211,7 +211,7 @@
 <div id="sidebar" class="interface">
 
     <span class="toc_title">
-        twilio-node <span class="version">(0.6.2)</span>
+        twilio-node <span class="version">(0.7.0)</span>
     </span>
 
     <a class="toc_title" href="#">
@@ -264,6 +264,16 @@
         <li>- <a href="#twimlBasic">TwiML Basics</a></li>
         <li>- <a href="#twimlChained">Chaining Syntax</a></li>
         <li>- <a href="#twimlNesting">Nesting Syntax</a></li>
+    </ul>
+
+    <a class="toc_title" href="#capability">
+        Capability
+    </a>
+    <ul class="toc_section">
+        <li>- <a href="#capability">Constructor</a></li>
+        <li>- <a href="#allowClientIncoming">allowClientIncoming</a></li>
+        <li>- <a href="#allowClientOutgoing">allowClientOutgoing</a></li>
+        <li>- <a href="#generate">generate</a></li>
     </ul>
 
     <a class="toc_title" href="#links">
@@ -1445,6 +1455,101 @@ Outputs the following:
 */
 </pre>
 
+        <h2 id="capability">Capability Token Generator</h2>
+
+        <p>
+            Using Twilio Client requires the use of a 
+            <a href="http://www.twilio.com/docs/client/capability-tokens">capability token</a>,
+            which enables client access to Twilio's VoIP platform.  These capability tokens can
+            be used either <a href="http://www.twilio.com/docs/client/twilio-js">in the browser</a>
+            or in native apps for <a href="http://www.twilio.com/docs/client/ios">iOS</a> and
+            <a href="http://www.twilio.com/docs/client/android">Android</a>.  This utility is intended
+            to allow node.js applications the ability to generate these capability tokens on the
+            server side.  For a complete node example using the express web framework, check out the
+            <a href="https://github.com/kwhinnery/twilio-node/tree/master/examples">examples</a> on
+            GitHub.
+        </p>
+
+        <p>
+            <b class="header">Constructor</b><code>new twilio.Capability()</code>
+            <br/>
+
+            Create a capability token generator for use with Twilio Client.
+
+            <ul>
+                <li><b>accountSid:</b> {string} Twilio account SID</li>
+                <li><b>authToken:</b> {string} Twilio auth token</li>
+            </ul>
+        <p>
+        <p>Example:</p>
+<pre>
+var twilio = require('twilio');
+var capability = new twilio.Capability(ACCOUNT_SID, AUTH_TOKEN);
+</pre>
+
+        <p id="allowClientIncoming">
+            <b class="header">allowClientIncoming</b><code>capability.allowClientIncoming(clientName)</code>
+            <br/>
+
+            Add a capability to the token generator which will allow incoming calls to the given <tt>clientName</tt>.
+
+            <ul>
+                <li><b>clientName:</b> {string} the name of client which will accept incoming calls</li>
+            </ul>
+        <p>
+        <p>Example:</p>
+<pre>
+var twilio = require('twilio');
+var capability = new twilio.Capability(ACCOUNT_SID, AUTH_TOKEN);
+
+//Create a capability token for a client named "jenny"
+capability.allowClientIncoming('jenny');
+var token = capability.generate();
+</pre>
+
+        <p id="allowClientOutgoing">
+            <b class="header">allowClientOutgoing</b><code>capability.allowClientOutgoing(twimlAppSid)</code>
+            <br/>
+
+            Add a capability to the token generator which will allow the client to make outgoing calls,
+            using the <a href="https://www.twilio.com/user/account/apps">TwiML app</a> with the given
+            <tt>twimlAppSid</tt>
+
+        <ul>
+            <li><b>twimlAppSid:</b> {string} the SID of the TwiML app which will be used to make outgoing calls</li>
+        </ul>
+        <p>
+        <p>Example:</p>
+<pre>
+var twilio = require('twilio');
+var capability = new twilio.Capability(ACCOUNT_SID, AUTH_TOKEN);
+
+//Create a capability token using the TwiML app with sid "AP123"
+capability.allowClientOutgoing('AP123');
+var token = capability.generate();
+</pre>
+
+        <p id="generate">
+            <b class="header">generate</b><code>capability.generate([timeout])</code>
+            <br/>
+
+            Generate a capability token with the configured permissions, which by default will expire
+            after one hour.
+
+        <ul>
+            <li><b>timeout (optional):</b> {number} time in seconds for the capability token to be valid</li>
+        </ul>
+        <p>
+        <p>Example:</p>
+<pre>
+var twilio = require('twilio');
+var capability = new twilio.Capability(ACCOUNT_SID, AUTH_TOKEN);
+
+//Create a capability token using the TwiML app with sid "AP123", that expires in two minutes
+capability.allowClientOutgoing('AP123');
+var token = capability.generate(120);
+</pre>
+
         <h2 id="links">Links &amp; Additional Resources</h2>
         <p>
             Usage of the Twilio platform requires a valid account SID and auth token.  You can sign up
@@ -1461,6 +1566,21 @@ Outputs the following:
         </p>
 
         <h2 id="changelog">Change Log</h2>
+
+        <p>
+            <b class="header">0.7.0</b> &mdash;
+            <small><i>Dec. 28, 2012</i></small> &mdash;
+            <a href="https://github.com/kwhinnery/twilio-node/compare/0.6.2...0.7.0">Diff</a>
+            <br/>
+        <ul>
+            <li>
+                Added capability token generator for Twilio Client
+            </li>
+            <li>
+                Minor changes for rest client
+            </li>
+        </ul>
+        </p>
 
         <p>
             <b class="header">0.6.2</b> &mdash;
