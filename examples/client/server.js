@@ -1,8 +1,8 @@
 //Dependenices
 var express = require('express'),
     connect = require('connect'),
-    twilio = require('../index'), //or "twilio" if installed from npm
-    config = require('../config');
+    twilio = require('../../index'), //or "twilio" if installed from npm
+    config = require('../../config');
 
 //Simple express app setup
 var app = express.createServer();
@@ -62,7 +62,6 @@ app.get('/qs4', function(request, response) {
         token:capability.generate()
     });
 });
-
 
 //Start an HTTP server, listening on port 8080
 app.listen(8080, function() {
