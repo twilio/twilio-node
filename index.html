@@ -336,11 +336,8 @@ npm install twilio
         With these credentials, you can begin to use this node module, as in the following example:
     </p>
 <pre>
-//require the Twilio module
-var twilio = require('twilio');
-
-//Create a REST client to make authenticated requests to Twilio
-var client = new twilio.RestClient('ACCOUNT_SID', 'AUTH_TOKEN');
+//require the Twilio module and create a REST client
+var client = require('twilio')('ACCOUNT_SID', 'AUTH_TOKEN');
 
 //Send an SMS text message
 client.sendSms({
@@ -405,7 +402,7 @@ client.makeCall({
         </p>
 <pre>
 // Create a client:
-var client = new twilio.RestClient('ACCOUNT_SID', 'AUTH_TOKEN');
+var client = require('twilio')('ACCOUNT_SID', 'AUTH_TOKEN');
 
 //Get a list of calls made by this account
 // GET /2010-04-01/Accounts/ACCOUNT_SID/Calls
