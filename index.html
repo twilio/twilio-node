@@ -213,7 +213,7 @@
 <div id="sidebar" class="interface">
 
     <span class="toc_title">
-        twilio-node <span class="version">(0.7.0)</span>
+        twilio-node <span class="version">(0.7.1)</span>
     </span>
 
     <a class="toc_title" href="#">
@@ -276,6 +276,14 @@
         <li>- <a href="#allowClientIncoming">allowClientIncoming</a></li>
         <li>- <a href="#allowClientOutgoing">allowClientOutgoing</a></li>
         <li>- <a href="#generate">generate</a></li>
+    </ul>
+
+    <a class="toc_title" href="#utilities">
+        Utilities
+    </a>
+    <ul class="toc_section">
+        <li>- <a href="#validateRequest">validateRequest</a></li>
+        <li>- <a href="#validateExpressRequest">validateExpressRequest</a></li>
     </ul>
 
     <a class="toc_title" href="#links">
@@ -1549,6 +1557,117 @@ capability.allowClientOutgoing('AP123');
 var token = capability.generate(120);
 </pre>
 
+        <h2 id="utilities">Utilities</h2>
+
+        <p id="validateRequest">
+            <b class="header">validateRequest</b><code>twilio.validateRequest(authToken, header, url, params)</code>
+            <br/>
+
+            When Twilio sends a request to your web app, it sends a special header called <tt>X-Twilio-Signature</tt>.
+            This header is a hashed value that we can use on the server side to confirm that a request has indeed
+            originated from Twilio. More details on this security measure are located
+            <a href="https://www.twilio.com/docs/security#validating-requests">here</a>.
+
+            This function will return a boolean indicating whether or not, given the request URL, POST/GET parameters,
+            and your auth token, a request was actually sent from Twilio.
+
+
+
+            <ul>
+                <li><b>authToken:</b> {string} your Twilio auth token</li>
+                <li><b>header:</b> {string} the <tt>X-Twilio-Signature</tt> header sent by Twilio</li>
+                <li><b>url:</b> {string} the URL requested by Twilio</li>
+                <li><b>params:</b> {object} a JavaScript object containing key-value pairs of parameters sent by Twilio</li>
+            </ul>
+        <p>
+        <p>Example:</p>
+<pre>
+var twilio = require('twilio'),
+    http = require('http'),
+    qs = require('querystring');
+
+http.createServer(function (req, res) {
+
+    if (req.method == 'POST') {
+        var body = '';
+
+        req.on('data', function (data) {
+            body += data;
+        });
+
+        req.on('end', function () {
+
+            var POST = qs.parse(body);
+
+            //validate incoming request is from twilio using your auth token and the header from Twilio
+            var token = 'YOUR_TWILIO_AUTH_TOKEN',
+                header = req.headers['x-twilio-signature'];
+
+            //validateRequest returns true if the request originated from Twilio
+            if (twilio.validateRequest(token, header, 'http://twilio-raw.herokuapp.com', POST)) {
+                //generate a TwiML response
+                var resp = new twilio.TwimlResponse();
+                resp.say('hello, twilio!');
+
+                res.writeHead(200, { 'Content-Type':'text/xml' });
+                res.end(resp.toString());
+            }
+            else {
+                res.writeHead(403, { 'Content-Type':'text/plain' });
+                res.end('you are not twilio - take a hike.');
+            }
+        });
+    }
+    else {
+        res.writeHead(404, { 'Content-Type':'text/plain' });
+        res.end('send a POST');
+    }
+
+}).listen(80);
+</pre>
+
+        <p id="validateExpressRequest">
+            <b class="header">validateExpressRequest</b><code>twilio.validateExpressRequest(request, authToken)</code>
+            <br/>
+
+            This is a helper function which decomposes an <a href="http://expressjs.com/api.html#req.params">Express request object</a>
+            and uses <a href="#validateRequest">validateRequest</a> to determine if the request was sent by Twilio.  Returns <tt>true</tt>
+            if the request was sent by Twilio.
+
+        <ul>
+            <li><b>request:</b> {object} An Express Request object</li>
+            <li><b>authToken:</b> {string} Your Twilio auth token</li>
+        </ul>
+        <p>
+        <p>Example:</p>
+<pre>
+var express = require('express'),
+    http = require('http'),
+    path = require('path'),
+    twilio = require('twilio');
+
+var app = express();
+
+app.configure(function () {
+    /* Configure your express app... */
+});
+
+//Twilio request authentication
+app.post('/twiml', function(req, res) {
+    if (twilio.validateExpressRequest(req, 'YOUR_TWILIO_AUTH_TOKEN')) {
+        var resp = new twilio.TwimlResponse();
+        resp.say('express sez - hello twilio!');
+
+        res.type('text/xml');
+        res.send(resp.toString());
+    }
+    else {
+        res.send('you are not twilio.  Buzz off.');
+    }
+});
+</pre>
+
+
         <h2 id="links">Links &amp; Additional Resources</h2>
         <p>
             Usage of the Twilio platform requires a valid account SID and auth token.  You can sign up
@@ -1565,6 +1684,21 @@ var token = capability.generate(120);
         </p>
 
         <h2 id="changelog">Change Log</h2>
+
+        <p>
+            <b class="header">0.7.1</b> &mdash;
+            <small><i>Jan. 3, 2013</i></small> &mdash;
+            <a href="https://github.com/kwhinnery/twilio-node/compare/0.7.0...0.7.1">Diff</a>
+            <br/>
+        <ul>
+            <li>
+                Moved client and Twilio request verification test apps to separate repos
+            </li>
+            <li>
+                Added utilities for verifying Twilio requests
+            </li>
+        </ul>
+        </p>
 
         <p>
             <b class="header">0.7.0</b> &mdash;
