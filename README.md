@@ -6,8 +6,6 @@ A node.js Twilio helper library.  For usage infomation and API docs, head out he
 
 ## Roadmap
 
-The existing "twilio" node module in npm represents the 0.4.x version, whose last major update came in August 2011.  The original repository for this module is [here](https://github.com/sjwalter/node-twilio).  This version of the module will remain in a special `0.4.x` branch, for those users and projects still depending on that version of the API.
-
 New development, working toward an eventual 1.0 release, will be on the master branch.  Planned feature releases are:
 
 * *complete* 0.5.x - A revamp of the REST client interface (API changes possible in future releases)
