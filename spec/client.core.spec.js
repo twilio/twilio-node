@@ -18,6 +18,27 @@ describe('The Twilio REST Client constructor', function () {
         expect(specialClient.getBaseUrl()).toBe('https://' + fakeSid + ':' + fakeAuth + '@' + fakeHost + '/' + fakeApi);
     });
 
+    it('should use environment variables, if defined, for the constructor', function() {
+        var oldSid = process.env.TWILIO_ACCOUNT_SID,
+            oldAuthToken = process.env.TWILIO_AUTH_TOKEN;
+
+        process.env.TWILIO_ACCOUNT_SID = 'foo';
+        process.env.TWILIO_AUTH_TOKEN = 'bar';
+
+        var c = twilio();
+
+        expect(c.accountSid).toBe('foo');
+        expect(c.authToken).toBe('bar');
+
+        delete process.env.TWILIO_ACCOUNT_SID;
+        delete process.env.TWILIO_AUTH_TOKEN;
+
+        expect(twilio).toThrow();
+
+        process.env.TWILIO_ACCOUNT_SID = oldSid;
+        process.env.TWILIO_AUTH_TOKEN = oldAuthToken;
+    });
+
     //create a client with a valid account SID and authToken for live testing
     var client = new twilio.RestClient(config.accountSid, config.authToken);
 
