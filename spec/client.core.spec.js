@@ -66,4 +66,14 @@ describe('The Twilio REST Client constructor', function () {
             done();
         });
     });
+
+    it('should fail with an unauthorized error if the auth token is wrong and has space', function(done) {
+        var c = twilio(config.accountSid, 'foo bar');
+
+        c.accounts.get(function(err, data) {
+            expect(err).toBeTruthy();
+            expect(err.status).toBe(401);
+            done();
+        });
+    });
 });
