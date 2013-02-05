@@ -13,7 +13,7 @@ describe('The Twilio REST Client AvailablePhoneNumbers resource', function () {
     });
 
     it('gets a list of available phone numbers for a given country, with an area code filter', function (done) {
-        client.accounts.availablePhoneNumbers('US').local.list({
+        client.accounts.availablePhoneNumbers('US').local.search({
             areaCode:651
         }, function (err, data) {
             expect(data.available_phone_numbers[0].phone_number).toMatch(/^\+1651.*/);
