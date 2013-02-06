@@ -25,7 +25,7 @@ describe('The Twilio REST Client Accounts resource', function () {
             client.accounts.post({
                 FriendlyName:'TestAccountDos'
             }, function (err2, data2, response2) {
-                expect(data2.friendly_name).toBe('TestAccountDos');
+                expect(data2.friendlyName).toBe('TestAccountDos');
                 newAccountSidTwo = data2.sid;
                 done();
             });

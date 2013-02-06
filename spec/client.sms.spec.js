@@ -31,7 +31,8 @@ describe('The Twilio REST Client SMS resource', function () {
         client.listSms({
             From:config.from
         }, function(err, data) {
-            expect(data.sms_messages.length).toBeGreaterThan(0);
+            //can use either camel-case or underscore values
+            expect(data.smsMessages.length).toBeGreaterThan(0);
             expect(data.sms_messages[0].from).toBe(config.from);
             done();
         });

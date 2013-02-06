@@ -20,12 +20,11 @@ describe('The Twilio REST Client Usage Records resource', function () {
 
         client.usage.records.lastMonth.list(function(err, data) {
             data.usage_records.forEach(function(record) {
-                var startDate = new Date(record.start_date);
                 if (now.getMonth() === 0) {
-                    expect(startDate.getMonth()).toBe(11);
+                    expect(record.startDate.getMonth()).toBe(11);
                 }
                 else {
-                    expect(now.getMonth()).toBeLessThan(startDate.getMonth());
+                    expect(now.getMonth()).toBeLessThan(record.startDate.getMonth());
                 }
             });
             done();
