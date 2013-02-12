@@ -24,7 +24,7 @@ describe('The Twilio REST Client Usage Records resource', function () {
                     expect(record.startDate.getMonth()).toBe(11);
                 }
                 else {
-                    expect(now.getMonth()).toBeLessThan(record.startDate.getMonth());
+                    expect(now.getMonth()).toBeGreaterThan(record.startDate.getMonth());
                 }
             });
             done();
