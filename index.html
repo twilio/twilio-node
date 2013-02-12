@@ -213,7 +213,7 @@
 <div id="sidebar" class="interface">
 
     <span class="toc_title">
-        twilio-node <span class="version">(0.8)</span>
+        twilio-node <span class="version">(0.8.0)</span>
     </span>
 
     <a class="toc_title" href="#">
@@ -1038,6 +1038,8 @@ client.calls('someSid').recordings.get(function(err, data) {
         <ul>
             <li><tt>client.conferences.get</tt></li>
             <li><tt>client.conferences.list</tt> (alias for get)</li>
+            <li><tt>client.conferences.participants.list</tt></li>
+            <li><tt>client.conferences.list</tt> (alias for get)</li>
         </ul>
         </p>
         </p>
@@ -1686,13 +1688,31 @@ app.post('/twiml', function(req, res) {
         <h2 id="changelog">Change Log</h2>
 
         <p>
-            <b class="header">0.8</b> &mdash;
+            <b class="header">0.8.0</b> &mdash;
             <small><i>Feb. 12, 2013</i></small> &mdash;
-            <a href="https://github.com/kwhinnery/twilio-node/compare/0.7.1...0.8">Diff</a>
+            <a href="https://github.com/kwhinnery/twilio-node/compare/0.7.1...0.8.0">Diff</a>
             <br/>
         <ul>
-            <li>Fixed numerous bugs with subresources</li>
-            <li>Added ability to initialize from environment variabled</li>
+            <li>Fixed numerous bugs with and added some missing subresources</li>
+            <li>
+                <p>
+                    Added in a bit of sugar to alias underscore-separated properties in Twilio REST responses to
+                    camel case to make it more JavaScripty. So <tt>data.smsMessages</tt> is aliases to <tt>data.sms_messages</tt>.
+                    Also, auto-parsing <tt>Date</tt> objects for any response properties called:
+                </p>
+                <ul>
+                    <li><tt>startDate</tt></li>
+                    <li><tt>endDate</tt></li>
+                    <li><tt>dateCreated</tt></li>
+                    <li><tt>dateUpdated</tt></li>
+                    <li><tt>startTime</tt></li>
+                    <li><tt>endTime</tt></li>
+                </ul>
+                <p>
+                    All underscore-separated values are the raw values passed back by Twilio in JSON.
+                </p>
+            </li>
+            <li>Added ability to initialize RestClient from environment variables</li>
         </ul>
         </p>
 
