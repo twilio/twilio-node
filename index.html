@@ -211,7 +211,6 @@
 <a href="https://github.com/kwhinnery/twilio-node"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
 
 <div id="sidebar" class="interface">
-
     <span class="toc_title">
         twilio-node <span class="version">(0.8.0)</span>
     </span>
@@ -511,6 +510,12 @@ client.accounts(ACCOUNT_SID).calls.create({
             to the Twilio back end. REST clients can be created for
             <a href="http://www.twilio.com/docs/api/rest/subaccounts">subaccounts</a>,
             but requests will then only be authorized to access resources associated with that subaccount.
+
+            <br/>
+            If you omit the <tt>accountSid</tt> and <tt>authToken</tt> parameters, the module will attempt
+            to initialize the client with environment variables, as found in <tt>process.env.TWILIO_ACCOUNT_SID</tt> and
+            <tt>process.env.TWILIO_AUTH_TOKEN</tt>.  For production web applications, storing account crendentials in
+            environment variables can be useful, so that sensitive information is never checked in to source control.
 
             <ul>
                 <li><b>accountSid:</b> {string} Twilio account SID</li>
@@ -1032,13 +1037,16 @@ client.calls('someSid').recordings.get(function(err, data) {
             <li><tt>client.conferences('someSid').get</tt></li>
             <li><tt>client.conferences('someSid').participants.get</tt></li>
             <li><tt>client.conferences('someSid').participants.list</tt> (alias for get)</li>
+            <li><tt>client.conferences('someSid').participants('someSid').get</tt></li>
+            <li><tt>client.conferences('someSid').participants('someSid').post</tt></li>
+            <li><tt>client.conferences('someSid').participants('someSid').update</tt> (alias for post)</li>
+            <li><tt>client.conferences('someSid').participants('someSid').delete</tt></li>
+            <li><tt>client.conferences('someSid').participants('someSid').kick</tt> (alias for delete)</li>
         </ul>
 
         <b>List Functions:</b>
         <ul>
             <li><tt>client.conferences.get</tt></li>
-            <li><tt>client.conferences.list</tt> (alias for get)</li>
-            <li><tt>client.conferences.participants.list</tt></li>
             <li><tt>client.conferences.list</tt> (alias for get)</li>
         </ul>
         </p>
