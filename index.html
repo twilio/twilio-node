@@ -381,6 +381,16 @@ client.makeCall({
 
 });
 
+//Loop through a list of SMS messages sent from a given number
+client.listSms({
+    from:'+16512223333'
+}, function (err, responseData) {
+    responseData.smsMessages.forEach(function(message) {
+        console.log('Message sent on: '+message.dateCreated.toLocaleDateString());
+        console.log(message.body);
+    });
+});
+
 </pre>
 
     <h2 id="moreexamples">More Examples</h2>
