@@ -500,7 +500,7 @@ client.accounts(ACCOUNT_SID).calls.create({
 </pre>
 
         <p id="constructor">
-            <b class="header">twilio.RestClient</b><code>twilio.RestClient(accountSid, authToken[, clientOptions])</code>
+            <b class="header">twilio.RestClient</b><code>twilio.RestClient([accountSid, authToken, clientOptions])</code>
             <br/>
 
             Creates a new REST client object, using the given account SID and auth token, as available on your
@@ -511,7 +511,7 @@ client.accounts(ACCOUNT_SID).calls.create({
             <a href="http://www.twilio.com/docs/api/rest/subaccounts">subaccounts</a>,
             but requests will then only be authorized to access resources associated with that subaccount.
 
-            <br/>
+            <br/><br/>
             If you omit the <tt>accountSid</tt> and <tt>authToken</tt> parameters, the module will attempt
             to initialize the client with environment variables, as found in <tt>process.env.TWILIO_ACCOUNT_SID</tt> and
             <tt>process.env.TWILIO_AUTH_TOKEN</tt>.  For production web applications, storing account crendentials in
@@ -535,8 +535,15 @@ client.accounts(ACCOUNT_SID).calls.create({
 var twilio = require('twilio');
 var client = new twilio.RestClient('ACCOUNT_SID', 'AUTH_TOKEN');
 
+//Two-liner, with environment variables set
+var twilio = require('twilio');
+var client = new twilio.RestClient();
+
 //One-liner
 var client = require('twilio')('ACCOUNT_SID', 'AUTH_TOKEN');
+
+//One-liner, with environment variables set
+var client = require('twilio')();
 </pre>
 
         <p id="request">
