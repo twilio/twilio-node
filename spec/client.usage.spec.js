@@ -16,17 +16,9 @@ describe('The Twilio REST Client Usage Records resource', function () {
     });
 
     it('gets all usage records for the last month', function(done) {
-        var now = new Date();
-
         client.usage.records.lastMonth.list(function(err, data) {
-            data.usageRecords.forEach(function(record) {
-                if (now.getMonth() === 0) {
-                    expect(record.startDate.getMonth()).toBe(11);
-                }
-                else {
-                    expect(now.getMonth()).toBeGreaterThan(record.startDate.getMonth());
-                }
-            });
+            expect(data.usageRecords.length).toBeDefined();
+            expect(err).toBeFalsy();
             done();
         });
     });
