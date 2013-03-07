@@ -54,11 +54,11 @@ describe('The Twilio REST Client IncomingPhoneNumbers resource', function () {
 
     it('allows for the purchase of new phone numbers', function(done) {
         client.accounts.availablePhoneNumbers('US').local.get({
-            areaCode:'651'
+            areaCode:'612'
         }, function(err, data) {
             expect(data.available_phone_numbers.length).toBeGreaterThan(0);
             var available = data.available_phone_numbers[0].phone_number;
-            expect(available).toMatch(/\+1651.*/);
+            expect(available).toMatch(/\+1612.*/);
 
             var randUrl = 'http://myapp.com/awesome/'+new Date().getTime();
             client.incomingPhoneNumbers.create({
@@ -83,11 +83,11 @@ describe('The Twilio REST Client IncomingPhoneNumbers resource', function () {
 
     it('allows for the purchase of new phone numbers using the subresource', function(done) {
         client.availablePhoneNumbers('US').local.get({
-            areaCode:'651'
+            areaCode:'612'
         }, function(err, data) {
             expect(data.available_phone_numbers.length).toBeGreaterThan(0);
             var available = data.available_phone_numbers[0].phone_number;
-            expect(available).toMatch(/\+1651.*/);
+            expect(available).toMatch(/\+1612.*/);
 
             var randUrl = 'http://myapp.com/awesome/'+new Date().getTime();
             client.accounts.incomingPhoneNumbers.local.create({
