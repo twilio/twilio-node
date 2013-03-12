@@ -424,28 +424,38 @@ var client = require('twilio')('ACCOUNT_SID', 'AUTH_TOKEN');
 //Get a list of calls made by this account
 // GET /2010-04-01/Accounts/ACCOUNT_SID/Calls
 // alias for get is "list", if you prefer
-client.calls.get(function(err, responseData) {
-    //work with call list in responseData
+client.calls.get(function(err, response) {
+    response.calls.forEach(function(call) {
+        console.log('Received call from: ' + call.from);
+        console.log('Call duration (in seconds): ' + call.duration);
+    });
 });
 
 //Get a list of calls made by this account, from this phone number
 // GET /2010-04-01/Accounts/ACCOUNT_SID/Calls?From=+16513334455
 client.calls.get({
     from:'+16513334455'
-}, function(err, responseData) {
-    //work with call list in responseData
+}, function(err, response) {
+    response.calls.forEach(function(call) {
+        console.log('Received call from: ' + call.from);
+        console.log('This call\'s unique ID is: ' + call.sid);
+    });
 });
 
 //Get data for a specific call
 // GET /2010-04-01/Accounts/ACCOUNT_SID/Calls/abc123...
-client.calls('abc123...').get(function(err, responseData) {
-    //work with responseData
+client.calls('abc123...').get(function(err, call) {
+    console.log('This call\'s unique ID is: ' + call.sid);
+    console.log('This call was created at: ' + call.dateCreated);
 });
 
 //Get data for a specific call, for a specific account
 // GET /2010-04-01/Accounts/AC.../Calls/abc123...
-client.accounts('AC...').calls('abc123...').get(function(err, responseData) {
-    //work with responseData
+client.accounts('AC...').calls('abc123...').get(function(err, response) {
+    response.calls.forEach(function(call) {
+        console.log('Received call from: ' + call.from);
+        console.log('This call\'s unique ID is: ' + call.sid);
+    });
 });
 
 // Create (send) an SMS message
@@ -455,16 +465,16 @@ client.sms.messages.post({
     to:'+16515559999',
     from:'+14503334455',
     body:'word to your mother.'
-}, function(err, responseData) {
-    //work with responseData
+}, function(err, text) {
+    console.log('You sent: '+ text.body);
+    console.log('Current status of this text message is: '+ text.status);
 });
 
 // Delete a TwiML application
 // DELETE /2010-04-01/Accounts/ACCOUNT_SID/Applications/APP...
-client.applications('APP...').delete(function(err, responseData, nodeResponse) {
-    //delete sends back a 204 on complete, with no error
-    assert(!err);
-    assert(nodeResponse.statusCode === 204);
+client.applications('APP...').delete(function(err, response, nodeResponse) {
+    //DELETE requests do not return data - if there was no error, it worked.
+    err ? console.log('There was an error') : console.log('it worked!');
 });
 
 </pre>
@@ -486,8 +496,9 @@ client.accounts(SOME_SUBACCOUNT_SID).sms.messages.create({
     to:'+16512223333',
     from:'+14505556677',
     body:'word to your subaccount mother.'
-}, function(err, data) {
-    //do something when text is sent
+}, function(err, text) {
+    console.log('You sent: '+ text.body);
+    console.log('Current status of this text message is: '+ text.status);
 });
 
 //This REST call using the master/default account for the client...
@@ -495,8 +506,9 @@ client.makeCall({
     to:'+16512223333',
     from:'+14505556677',
     url:'http://example.com/someTwiml.php'
-}, function(err, data) {
-    //handle response
+}, function(err, call) {
+    console.log('This call\'s unique ID is: ' + call.sid);
+    console.log('This call was created at: ' + call.dateCreated);
 });
 
 //...is the same as...
@@ -505,7 +517,8 @@ client.accounts(ACCOUNT_SID).calls.create({
     from:'+14505556677',
     url:'http://example.com/someTwiml.php'
 }, function(err, data) {
-    //handle response
+    console.log('This call\'s unique ID is: ' + call.sid);
+    console.log('This call was created at: ' + call.dateCreated);
 });
 </pre>
 
@@ -643,8 +656,11 @@ client.sms.messages.create({
 });
 
 //A sample request with no parameters, just a callback
-client.accounts('AC...').calls.get(function (err, responseData) {
-    //work with list of all calls for the given account
+client.accounts('AC...').calls.get(function (err, response) {
+    response.calls.forEach(function(call) {
+        console.log('Received call from: ' + call.from);
+        console.log('This call\'s unique ID is: ' + call.sid);
+    });
 });
 
 </pre>
@@ -654,6 +670,8 @@ client.accounts('AC...').calls.get(function (err, responseData) {
             <br/>
 
             Accesses <a href="http://www.twilio.com/docs/api/rest/account">Account</a> resources via the REST interface.
+            Refer to the <a href="http://www.twilio.com/docs/api/rest/account">official REST API documentation</a>
+            for response data format and usage examples.
             <p>
                 <b>Instance Functions:</b>
                 <ul>
@@ -673,27 +691,6 @@ client.accounts('AC...').calls.get(function (err, responseData) {
                 </ul>
             </p>
         </p>
-        <p>Examples:</p>
-<pre>
-//Get a list of subaccounts for this master account
-client.accounts.list(function(err, data) {
-    //work with response data
-});
-
-//Create a subaccount
-client.accounts.create({
-    friendlyName:'My Awesome Subaccount',
-}, function(err, data) {
-    //work with response data
-});
-
-//Update details for a subaccount with SID 'AC...'
-client.accounts('AC...').update({
-   friendlyName:'Something New'
-}, function(err, data) {
-    //work with response data
-});
-</pre>
 
         <p id="availablePhoneNumbers">
             <b class="header">availablePhoneNumbers</b><code>client.availablePhoneNumbers([IsoCountryCode]).[Local/TollFree]</code>
@@ -702,6 +699,9 @@ client.accounts('AC...').update({
             Accesses <a href="http://www.twilio.com/docs/api/rest/available-phone-numbers">AvailablePhoneNumbers</a>
             resources via the REST interface.  Accessed primarily through Subresources for <tt>local</tt> and
             <tt>tollFree</tt> numbers.
+
+            Refer to the <a href="http://www.twilio.com/docs/api/rest/available-phone-numbers">official REST API documentation</a>
+            for response data format and usage examples.
             <p>
                 <b>List Functions:</b>
                 <ul>
@@ -712,18 +712,6 @@ client.accounts('AC...').update({
                 </ul>
             </p>
         </p>
-        <p>Examples:</p>
-<pre>
-//Get a list of available local numbers for Canada
-client.availablePhoneNumbers('CA').local.list(function(err, data) {
-    //work with response data
-});
-
-//Get a list of available toll-free numbers for the United States
-client.availablePhoneNumbers('US').tollFree.list(function(err, data) {
-    //work with response data
-});
-</pre>
 
         <p id="outgoingCallerIds">
             <b class="header">outgoingCallerIds</b><code>client.outgoingCallerIds([callerIdSid])</code>
@@ -731,6 +719,9 @@ client.availablePhoneNumbers('US').tollFree.list(function(err, data) {
 
             Accesses <a href="http://www.twilio.com/docs/api/rest/outgoing-caller-ids">OutgoingCallerIds</a>
             resources via the REST interface.
+
+            Refer to the <a href="http://www.twilio.com/docs/api/rest/outgoing-caller-ids">official REST API documentation</a>
+            for response data format and usage examples.
             <p>
                 <b>Instance Functions:</b>
                 <ul>
@@ -751,26 +742,16 @@ client.availablePhoneNumbers('US').tollFree.list(function(err, data) {
                 </ul>
             </p>
         </p>
-        <p>Examples:</p>
-<pre>
-//Get a list of outgoing caller IDs for the master account
-client.outgoingCallerIds.list(function(err, data) {
-    //work with response data
-});
 
-//Update the friendly name for an outgoing caller ID (what is displayed to the callee)
-client.outgoingCallerIds('callerIdSid').update({
-    friendlyName:'Not a telemarketer :D'
-}, function(err, data) {
-    //work with response data
-});
-</pre>
         <p id="incomingPhoneNumbers">
             <b class="header">incomingPhoneNumbers</b><code>client.incomingPhoneNumbers([incomingNumberSid])</code>
             <br/>
 
             Accesses <a href="http://www.twilio.com/docs/api/rest/incoming-phone-numbers">IncomingPhoneNumbers</a>
             resources via the REST interface.  Includes subresources for local and toll free numbers.
+
+            Refer to the <a href="http://www.twilio.com/docs/api/rest/incoming-phone-numbers">official REST API documentation</a>
+            for response data format and usage examples.
         <p>
             <b>Instance Functions:</b>
         <ul>
@@ -799,22 +780,6 @@ client.outgoingCallerIds('callerIdSid').update({
         </ul>
         </p>
         </p>
-        <p>Examples:</p>
-<pre>
-//Get a list of purchased (incoming) local numbers for an account, containing the digits 867
-client.incomingPhoneNumbers.local.list({
-    phoneNumber:867
-}, function(err, data) {
-    //work with response data
-});
-
-//Purchase a new phone number, which you looked up with the AvailablePhoneNumbers API
-client.incomingPhoneNumbers.create({
-    phoneNumber:'+16512221111'
-}, function(err, data) {
-    //work with response data
-});
-</pre>
 
         <p id="smsMessages">
             <b class="header">sms.messages</b><code>client.sms.messages([messageSid])</code>
@@ -822,6 +787,9 @@ client.incomingPhoneNumbers.create({
 
             Accesses <a href="http://www.twilio.com/docs/api/rest/sms">SMS/Messages</a>
             resources via the REST interface.
+
+            Refer to the <a href="http://www.twilio.com/docs/api/rest/sms">official REST API documentation</a>
+            for response data format and usage examples.
         <p>
             <b>Instance Functions:</b>
             <ul>
@@ -840,22 +808,6 @@ client.incomingPhoneNumbers.create({
             </ul>
         </p>
         </p>
-        <p>Examples:</p>
-<pre>
-//Send (create) an SMS message with the master account, using shorthand
-client.sendSms({
-    to:'+16512221111',
-    from:'+14502233344',
-    body:'word to your mother.'
-}, function(err, data) {
-    //work with response data
-});
-
-//Get a list of SMS messages sent from a given subaccount
-client.accounts('someAccountSid').sms.messages.list(function(err, data) {
-    //work with response data
-});
-</pre>
 
         <p id="shortCodes">
             <b class="header">sms.shortCodes</b><code>client.sms.shortCodes([messageSid])</code>
@@ -863,6 +815,9 @@ client.accounts('someAccountSid').sms.messages.list(function(err, data) {
 
             Accesses <a href="http://www.twilio.com/docs/api/rest/short-codes">SMS/ShortCodes</a>
             resources via the REST interface.
+
+            Refer to the <a href="http://www.twilio.com/docs/api/rest/short-codes">official REST API documentation</a>
+            for response data format and usage examples.
             <p>
                 <b>Instance Functions:</b>
             <ul>
@@ -879,13 +834,6 @@ client.accounts('someAccountSid').sms.messages.list(function(err, data) {
             </ul>
             </p>
         </p>
-        <p>Examples:</p>
-<pre>
-//Get a list of SMS short codes used by a given account
-client.accounts('someAccountSid').sms.shortCodes.list(function(err, data) {
-    //work with response data
-});
-</pre>
 
         <p id="applications">
             <b class="header">applications</b><code>client.applications([applicationSid])</code>
@@ -893,6 +841,9 @@ client.accounts('someAccountSid').sms.shortCodes.list(function(err, data) {
 
             Accesses <a href="http://www.twilio.com/docs/api/rest/applications">Applications</a>
             resources via the REST interface.
+
+            Refer to the <a href="http://www.twilio.com/docs/api/rest/applications">official REST API documentation</a>
+            for response data format and usage examples.
         <p>
             <b>Instance Functions:</b>
             <ul>
@@ -912,21 +863,6 @@ client.accounts('someAccountSid').sms.shortCodes.list(function(err, data) {
             </ul>
             </p>
         </p>
-        <p>Examples:</p>
-<pre>
-//Get a list of TwiML applications for the client's default account
-client.applications.list(function(err, data) {
-    //work with response data
-});
-
-//Update a TwiML application for the client's default account
-client.applications('someSid').update({
-    friendlyName:'Something new',
-    VoiceUrl:'http://example.com/twiml.php'
-}, function(err, data) {
-    //work with response data
-});
-</pre>
 
         <p id="connectApps">
             <b class="header">connectApps</b><code>client.connectApps([applicationSid])</code>
@@ -934,6 +870,9 @@ client.applications('someSid').update({
 
             Accesses <a href="http://www.twilio.com/docs/api/rest/connect-apps">Connect Apps</a>
             resources via the REST interface.
+
+            Refer to the <a href="http://www.twilio.com/docs/api/rest/connect-apps">official REST API documentation</a>
+            for response data format and usage examples.
         <p>
             <b>Instance Functions:</b>
             <ul>
@@ -950,20 +889,6 @@ client.applications('someSid').update({
             </ul>
             </p>
         </p>
-        <p>Examples:</p>
-<pre>
-//Get a list of Twilio Connect applications for the client's default account
-client.connectApps.list(function(err, data) {
-    //work with response data
-});
-
-//Update a Connect application for the client's default account
-client.connectApps('someSid').update({
-    friendlyName:'Something new'
-}, function(err, data) {
-    //work with response data
-});
-</pre>
 
         <p id="authorizedConnectApps">
             <b class="header">authorizedConnectApps</b><code>client.authorizedConnectApps([applicationSid])</code>
@@ -971,6 +896,10 @@ client.connectApps('someSid').update({
 
             Accesses <a href="http://www.twilio.com/docs/api/rest/authorized-connect-apps">Authorized Connect Apps</a>
             resources via the REST interface.
+
+            Refer to the <a href="http://www.twilio.com/docs/api/rest/authorized-connect-apps">official REST API documentation</a>
+            for response data format and usage examples.
+
             <p>
                 <b>Instance Functions:</b>
             <ul>
@@ -984,18 +913,6 @@ client.connectApps('someSid').update({
             </ul>
             </p>
         </p>
-        <p>Examples:</p>
-<pre>
-//Get a list of authorized Twilio Connect applications for the client's default account
-client.authorizedConnectApps.list(function(err, data) {
-    //work with response data
-});
-
-//Get data about a specific authorized connect app
-client.authorizedConnectApps('someSid').get(function(err, data) {
-    //work with response data
-});
-</pre>
 
         <p id="calls">
             <b class="header">calls</b><code>client.calls([callSid])</code>
@@ -1003,6 +920,9 @@ client.authorizedConnectApps('someSid').get(function(err, data) {
 
             Accesses <a href="http://www.twilio.com/docs/api/rest/call">Calls</a>
             resources via the REST interface.
+
+            Refer to the <a href="http://www.twilio.com/docs/api/rest/call">official REST API documentation</a>
+            for response data format and usage examples.
             <p>
                 <b>Instance Functions:</b>
             <ul>
@@ -1025,22 +945,6 @@ client.authorizedConnectApps('someSid').get(function(err, data) {
             </ul>
             </p>
         </p>
-        <p>Examples:</p>
-<pre>
-//Place a call
-client.makeCall({
-    to:'+16512223344',
-    from:'+14503334455',
-    url:'http://yourapp.com/twiml.jsp' // you're using JSP, right? :P
-}, function(err, data) {
-    //work with response data
-});
-
-//Get a list of recordings for a specifc call
-client.calls('someSid').recordings.get(function(err, data) {
-    //work with response data
-});
-</pre>
 
         <p id="conferences">
             <b class="header">conferences</b><code>client.conferences([conferenceSid])</code>
@@ -1048,6 +952,9 @@ client.calls('someSid').recordings.get(function(err, data) {
 
             Accesses <a href="http://www.twilio.com/docs/api/rest/conference">Conference</a>
             resources via the REST interface.
+
+            Refer to the <a href="http://www.twilio.com/docs/api/rest/conference">official REST API documentation</a>
+            for response data format and usage examples.
         <p>
             <b>Instance Functions:</b>
         <ul>
@@ -1068,15 +975,6 @@ client.calls('someSid').recordings.get(function(err, data) {
         </ul>
         </p>
         </p>
-        <p>Examples:</p>
-<pre>
-//Get a list of in-progress conferences for the master account
-client.conferences.list({
-    status:'in-progress'
-}, function(err, data) {
-    //work with response data
-});
-</pre>
 
         <p id="queues">
             <b class="header">queues</b><code>client.queues([queueSid])</code>
@@ -1084,6 +982,9 @@ client.conferences.list({
 
             Accesses <a href="http://www.twilio.com/docs/api/rest/queues">Queues</a>
             resources via the REST interface.
+
+            Refer to the <a href="http://www.twilio.com/docs/api/rest/queues">official REST API documentation</a>
+            for response data format and usage examples.
         <p>
             <b>Instance Functions:</b>
         <ul>
@@ -1108,21 +1009,6 @@ client.conferences.list({
         </ul>
         </p>
         </p>
-        <p>Examples:</p>
-<pre>
-//Get a list of queues for the master account
-client.queues.list(function(err, data) {
-    //work with response data
-});
-
-//Create a call queue
-client.queues.create({
-    friendlyName:'Barbie Queue',
-    maxSize:456
-}, function(err, data) {
-    //work with response data
-});
-</pre>
 
         <p id="recordings">
             <b class="header">recordings</b><code>client.recordings([recordingSid])</code>
@@ -1130,6 +1016,9 @@ client.queues.create({
 
             Accesses <a href="http://www.twilio.com/docs/api/rest/recording">Recordings</a>
             resources via the REST interface.
+
+            Refer to the <a href="http://www.twilio.com/docs/api/rest/recording">official REST API documentation</a>
+            for response data format and usage examples.
         <p>
             <b>Instance Functions:</b>
         <ul>
@@ -1146,15 +1035,6 @@ client.queues.create({
         </ul>
         </p>
         </p>
-        <p>Examples:</p>
-<pre>
-//Get a list of recordings for the master account, for dates after September 11, 2010
-client.recordings.list({
-    'dateCreated>':'2010-09-11'
-}, function(err, data) {
-    //work with response data
-});
-</pre>
 
         <p id="transcriptions">
             <b class="header">transcriptions</b><code>client.transcriptions([transcriptionSid])</code>
@@ -1162,6 +1042,9 @@ client.recordings.list({
 
             Accesses <a href="http://www.twilio.com/docs/api/rest/transcription">Transcriptions</a>
             resources via the REST interface.
+
+            Refer to the <a href="http://www.twilio.com/docs/api/rest/transcription">official REST API documentation</a>
+            for response data format and usage examples.
         <p>
             <b>Instance Functions:</b>
         <ul>
@@ -1175,18 +1058,6 @@ client.recordings.list({
         </ul>
         </p>
         </p>
-        <p>Examples:</p>
-<pre>
-//Get a list of transcriptions, with paging info, sorted by date updated
-client.transcriptions.list(function(err, data) {
-    //work with response data
-    if (!err) {
-        for (var i = 0, l = data.transcriptions.length; i < l; i++) {
-            console.log(data.transcriptions[i].transcription_text);
-        }
-    }
-});
-</pre>
 
         <p id="notifications">
             <b class="header">notifications</b><code>client.notifications([notificationSid])</code>
@@ -1194,6 +1065,9 @@ client.transcriptions.list(function(err, data) {
 
             Accesses <a href="http://www.twilio.com/docs/api/rest/notification">Notification</a>
             resources via the REST interface.
+
+            Refer to the <a href="http://www.twilio.com/docs/api/rest/notification">official REST API documentation</a>
+            for response data format and usage examples.
         <p>
             <b>Instance Functions:</b>
         <ul>
@@ -1208,20 +1082,6 @@ client.transcriptions.list(function(err, data) {
         </ul>
         </p>
         </p>
-        <p>Examples:</p>
-<pre>
-//Get a list of notifications at the ERROR level, useful for debugging Twilio requests
-client.notifications.list({
-    log:0
-}, function(err, data) {
-    //work with response data
-    if (!err) {
-        for (var i = 0, l = data.notifications.length; i < l; i++) {
-            console.log(data.notifications[i].message_text);
-        }
-    }
-});
-</pre>
 
         <p id="usageRecords">
             <b class="header">usage.records</b><code>client.usage.records([recordSid])</code>
@@ -1229,6 +1089,9 @@ client.notifications.list({
 
             Accesses <a href="http://www.twilio.com/docs/api/rest/usage-records">Usage Records</a>
             resources via the REST interface.
+
+            Refer to the <a href="http://www.twilio.com/docs/api/rest/usage-records">official REST API documentation</a>
+            for response data format and usage examples.
         <p>
             <b>Instance Functions:</b>
         <ul>
@@ -1242,20 +1105,6 @@ client.notifications.list({
         </ul>
         </p>
         </p>
-        <p>Examples:</p>
-<pre>
-//Get a list of usage records for all SMS messages for the default account
-client.usage.records.list({
-    category:'sms'
-}, function(err, data) {
-    //work with response data
-    if (!err) {
-        for (var i = 0, l = data.usage_records.length; i < l; i++) {
-            console.log(data.usage_records[i].count);
-        }
-    }
-});
-</pre>
 
         <p id="usageTriggers">
             <b class="header">usage.triggers</b><code>client.usage.triggers([triggerSid])</code>
@@ -1263,6 +1112,9 @@ client.usage.records.list({
 
             Accesses <a href="http://www.twilio.com/docs/api/rest/usage-triggers">Usage Triggers</a>
             resources via the REST interface.
+
+            Refer to the <a href="http://www.twilio.com/docs/api/rest/usage-triggers">official REST API documentation</a>
+            for response data format and usage examples.
         <p>
             <b>Instance Functions:</b>
         <ul>
@@ -1281,30 +1133,6 @@ client.usage.records.list({
         </ul>
         </p>
         </p>
-        <p>Examples:</p>
-<pre>
-//Get a list of usage triggers recurring daily
-client.usage.triggers.list({
-    recurring:'daily'
-}, function(err, data) {
-    //work with response data
-    if (!err) {
-        for (var i = 0, l = data.usage_triggers.length; i < l; i++) {
-            console.log(data.usage_triggers[i].friendly_name);
-        }
-    }
-});
-
-//Create a new one-time usage trigger for SMS messages over 1,000
-client.usage.triggers.create({
-    usageCategory:'sms',
-    triggerValue:1000,
-    callbackUrl:'http://example.com/tellMeWhenIHitOneThousand'
-}, function(err, data) {
-    assert(!err);
-    console.log(data.sid);
-});
-</pre>
 
         <h2 id="twimlResponse">TwimlResponse</h2>
 
