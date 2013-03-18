@@ -147,4 +147,29 @@ describe('The TwiML Response Object', function () {
 
         expect(xml).toBe(test);
     });
+
+    it('should allow a SIP node with "header" query string', function() {
+        var resp = new twilio.TwimlResponse();
+
+        resp.say('Routing to SIP.', { voice:'woman', language:'en-gb' })
+            .dial(function() {
+                this.sip('sip:jack@example.com?mycustomheader=foo&myotherheader=bar', {
+                    username:'admin',
+                    password:123
+                });
+            });
+
+        var xml = resp.toString(),
+            test = [
+                '<?xml version="1.0" encoding="UTF-8"?>',
+                '<Response>',
+                '<Say voice="woman" language="en-gb">Routing to SIP.</Say>',
+                '<Dial>',
+                '<Sip username="admin" password="123">sip:jack@example.com?mycustomheader=foo&myotherheader=bar</Sip>',
+                '</Dial>',
+                '</Response>'
+            ].join('');
+
+        expect(xml).toBe(test);
+    });
 });
