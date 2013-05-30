@@ -165,7 +165,32 @@ describe('The TwiML Response Object', function () {
                 '<Response>',
                 '<Say voice="woman" language="en-gb">Routing to SIP.</Say>',
                 '<Dial>',
-                '<Sip username="admin" password="123">sip:jack@example.com?mycustomheader=foo&myotherheader=bar</Sip>',
+                '<Sip username="admin" password="123">sip:jack@example.com?mycustomheader=foo&amp;myotherheader=bar</Sip>',
+                '</Dial>',
+                '</Response>'
+            ].join('');
+
+        expect(xml).toBe(test);
+    });
+
+    it('should escape XML special characters', function() {
+        var resp = new twilio.TwimlResponse();
+
+        resp.say('& < > " \' &', { voice:'woman', language:'&<>' })
+            .dial(function() {
+                this.sip('sip:jack@example.com?mycustomheader=foo&myotherheader=bar', {
+                    username:'admin',
+                    password:123
+                });
+            });
+
+        var xml = resp.toString(),
+            test = [
+                '<?xml version="1.0" encoding="UTF-8"?>',
+                '<Response>',
+                '<Say voice="woman" language="&amp;&lt;&gt;">&amp; &lt; &gt; &quot; &apos; &amp;</Say>',
+                '<Dial>',
+                '<Sip username="admin" password="123">sip:jack@example.com?mycustomheader=foo&amp;myotherheader=bar</Sip>',
                 '</Dial>',
                 '</Response>'
             ].join('');
