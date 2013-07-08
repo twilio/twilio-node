@@ -18,6 +18,21 @@ describe('The Twilio REST Client constructor', function () {
         expect(specialClient.getBaseUrl()).toBe('https://' + fakeSid + ':' + fakeAuth + '@' + fakeHost + '/' + fakeApi);
     });
 
+    it('should fail gracefully if the host is unreachable', function (done) {
+        var specialClient = new twilio.RestClient(config.accountSid, config.authToken, {
+            host:'unreachable.stoooooopid.com'
+        });
+
+        specialClient.request({
+            url:'/Accounts',
+            method:'GET'
+        }, function (err, data, response) {
+            expect(err).toBeDefined();
+            expect(err.status).toBe('ENOTFOUND');
+            done();
+        });
+    });
+
     it('should use environment variables, if defined, for the constructor', function() {
         var oldSid = process.env.TWILIO_ACCOUNT_SID,
             oldAuthToken = process.env.TWILIO_AUTH_TOKEN;
