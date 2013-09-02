@@ -43,7 +43,6 @@ describe('The Twilio REST Client Accounts resource', function () {
         client.accounts(newAccountSidOne).put({
             Status:'closed'
         }, function (err, data) {
-            console.log(err);
             expect(data.sid).toBe(newAccountSidOne);
             expect(data.status).toBe('closed');
 
