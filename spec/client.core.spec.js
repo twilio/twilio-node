@@ -20,7 +20,7 @@ describe('The Twilio REST Client constructor', function () {
 
     it('should fail gracefully if the host is unreachable', function (done) {
         var specialClient = new twilio.RestClient(config.accountSid, config.authToken, {
-            host:'unreachable.stoooooopid.com'
+            host:'unreachable.twilio.com'
         });
 
         specialClient.request({
@@ -28,7 +28,6 @@ describe('The Twilio REST Client constructor', function () {
             method:'GET'
         }, function (err, data, response) {
             expect(err).toBeDefined();
-            expect(err.status).toBe('ENOTFOUND');
             done();
         });
     });

@@ -1,37 +1,37 @@
 {
-    "name":"twilio",
-    "description":"A Twilio helper library",
-    "version":"1.1.4",
-    "author":"Kevin Whinnery <kevin.whinnery@gmail.com>",
-    "contributors":[
-        {
-            "name":"Carter Rabasa",
-            "email":"carter@twilio.com"
-        },
-        {
-            "name":"Stephen Walters",
-            "email":"stephenwalters@gmail.com"
-        }
-    ],
-    "repository":{
-        "type":"git",
-        "url":"https://github.com/twilio/twilio-node.git"
+  "name": "twilio",
+  "description": "A Twilio helper library",
+  "version": "1.1.5",
+  "author": "Kevin Whinnery <kevin.whinnery@gmail.com>",
+  "contributors": [
+    {
+      "name": "Carter Rabasa",
+      "email": "carter@twilio.com"
     },
-    "dependencies":{
-        "request":"2.x",
-        "underscore":"1.x",
-        "jwt-simple": "0.1.x"
-    },
-    "devDependencies": {
-        "express":"2.x",
-        "connect":"2.x",
-        "ejs": "0.8.x"
-    },
-    "scripts":{
-        "test":"jasmine-node spec"
-    },
-    "main":"./lib",
-    "engines":{
-        "node":">=0.6.0"
+    {
+      "name": "Stephen Walters",
+      "email": "stephenwalters@gmail.com"
     }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/twilio/twilio-node.git"
+  },
+  "dependencies": {
+    "request": "2.x",
+    "underscore": "1.x",
+    "jwt-simple": "0.1.x"
+  },
+  "devDependencies": {
+    "express": "2.x",
+    "connect": "2.x",
+    "ejs": "0.8.x"
+  },
+  "scripts": {
+    "test": "jasmine-node spec"
+  },
+  "main": "./lib",
+  "engines": {
+    "node": ">=0.6.0"
+  }
 }
