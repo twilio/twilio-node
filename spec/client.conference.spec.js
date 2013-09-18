@@ -41,7 +41,7 @@ describe('The Twilio REST Conference resource', function () {
                     checkStatus();
                 }
                 else {
-                    expect('call to be successfully completed').toBeFalse();
+                    expect('call to be successfully completed').toBe(false);
                     done();
                 }
             });
