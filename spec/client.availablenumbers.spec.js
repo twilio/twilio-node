@@ -37,4 +37,11 @@ describe('The Twilio REST Client AvailablePhoneNumbers resource', function () {
         });
     });
 
+    it('gets a list of MOBILE phone numbers for a given country, with no filter', function(done) {
+        client.account.AvailablePhoneNumbers('GB').mobile.get(function (err, data) {
+            expect(data.available_phone_numbers[0].phone_number).toMatch(/^\+44.*/);
+            done();
+        });
+    }):
+
 });
