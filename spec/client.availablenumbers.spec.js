@@ -30,18 +30,21 @@ describe('The Twilio REST Client AvailablePhoneNumbers resource', function () {
 
     it('gets a list of available TOLL FREE phone numbers for a given country, with a filter', function (done) {
         client.accounts.availablePhoneNumbers('US').tollFree.get({
-            Contains:'866******9'
+            contains:'866******9'
         }, function (err, data) {
             expect(data.available_phone_numbers[0].phone_number).toMatch(/^\+1866.*9$/);
             done();
         });
     });
 
-    it('gets a list of MOBILE phone numbers for a given country, with no filter', function(done) {
-        client.account.AvailablePhoneNumbers('GB').mobile.get(function (err, data) {
-            expect(data.available_phone_numbers[0].phone_number).toMatch(/^\+44.*/);
+    xit('gets a list of MOBILE phone numbers for a given country, with no filter', function(done) {
+        client.accounts.availablePhoneNumbers('GB').mobile.get(function (err, data) {
+            expect(data.availablePhoneNumbers.length).toBeGreaterThan(0);
+            if (data.availablePhoneNumbers.length > 0) {
+                expect(data.availablePhoneNumbers[0].phone_number).toMatch(/^\+44.*/);
+            }
             done();
         });
-    }):
+    });
 
 });
