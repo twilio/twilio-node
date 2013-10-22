@@ -1,9 +1,11 @@
-var config = require('../config'),
-    twilio = require('../lib');
+var twilio = require('../lib');
 
-// Only run when local config is present
-if (config) {
-    describe('Live Twilio API smoke tests', function() {
+describe('Live Twilio API smoke tests', function() {
+    try {
+        // this will throw will no local config present
+        config = require('../config');
+
+        // continue with tests if we don't throw
         var client = new twilio.RestClient(config.accountSid, config.authToken),
             voiceUrl = 'https://demo.twilio.com/welcome/voice',
             smsUrl = 'https://demo.twilio.com/welcome/sms/reply';
@@ -149,5 +151,9 @@ if (config) {
                 expect(err.status).toBe(404);
             }).fin(done);
         });
-    });
-}
+    } catch (e) {
+        it('doesn\'t run when local config is not present', function() {
+            expect(true).toBe(true);
+        });
+    }
+});
