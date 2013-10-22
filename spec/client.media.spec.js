@@ -1,17 +1,19 @@
-var config = require('../config'),
-    twilio = require('../index');
+var twilio = require('../index');
 
 describe('Twilio Media resource', function() {
     var client = new twilio.RestClient('AC123', '123');
 
-    it('can retrieve media', function() {
+    beforeEach(function() {
         spyOn(client, 'request');
+    });
+
+    it('can retrieve media', function() {
         client.media.list();
         expect(client.request).toHaveBeenCalled();
         expect(client.request).toHaveBeenCalledWith({
-            'url': '/Accounts/AC123/Media',
-            'method': 'GET',
-            'qs': { }
+            url: '/Accounts/AC123/Media',
+            method: 'GET',
+            qs: {}
         }, undefined);
     });
 
@@ -20,7 +22,6 @@ describe('Twilio Media resource', function() {
     });
 
     it('deletes the media instance resource', function() {
-        spyOn(client, 'request');
         client.media('ME123').delete();
         expect(client.request).toHaveBeenCalled();
         expect(client.request).toHaveBeenCalledWith({

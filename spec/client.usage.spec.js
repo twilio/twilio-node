@@ -1,25 +1,31 @@
-var config = require('../config'),
-    twilio = require('../index');
+var twilio = require('../index');
 
 describe('The Twilio REST Client Usage Records resource', function () {
-    var client = twilio(config.accountSid, config.authToken);
+    var client = new twilio.RestClient('AC123', '123');
 
-    it('gets a list of usage records for sms messages', function(done) {
-        client.usage.records.get({
-            category:'sms'
-        }, function(err, data) {
-            data.usage_records.forEach(function(record) {
-                expect(record.category).toBe('sms');
-            });
-            done();
-        });
+    beforeEach(function() {
+        spyOn(client, 'request');
     });
 
-    it('gets all usage records for the last month', function(done) {
-        client.usage.records.lastMonth.list(function(err, data) {
-            expect(data.usageRecords.length).toBeDefined();
-            expect(err).toBeFalsy();
-            done();
+    it('gets a list of usage records for sms messages', function() {
+        client.usage.records.list({
+            category:'sms'
         });
+        expect(client.request).toHaveBeenCalledWith({
+            url:'/Accounts/AC123/Usage/Records',
+            method:'GET',
+            qs:{
+                Category:'sms'
+            }
+        }, undefined);
+    });
+
+    it('gets all usage records for the last month', function() {
+        client.usage.records.lastMonth.list();
+        expect(client.request).toHaveBeenCalledWith({
+            url:'/Accounts/AC123/Usage/Records/LastMonth',
+            method:'GET',
+            qs:{}
+        }, undefined);
     });
 });

@@ -1,58 +1,65 @@
-var config = require('../config'),
-    twilio = require('../index');
+var twilio = require('../index');
 
 describe('The Twilio REST Client Calls resource', function () {
-    //create a client with a valid account SID and authToken for live testing
-    var client = new twilio.RestClient(config.accountSid, config.authToken);
+    var client = new twilio.RestClient('AC123', '123');
 
-    var instanceSid;
+    beforeEach(function() {
+        spyOn(client, 'request');
+    });
 
-    it('initiates a call from a purchased twilio number', function(done) {
+    it('initiates a call from a purchased twilio number', function() {
         client.calls.create({
-            to:config.to,
-            from:config.from,
+            to:'+14158675309',
+            from:'+16517779311',
             url:'https://demo.twilio.com/welcome/voice'
-        }, function(err, data) {
-            expect(err).toBeFalsy();
-            expect(data.sid).toBeDefined();
-            instanceSid = data.sid;
-            done();
         });
+        expect(client.request).toHaveBeenCalledWith({
+            url:'/Accounts/AC123/Calls',
+            method:'POST',
+            form:{
+                To:'+14158675309',
+                From:'+16517779311',
+                Url:'https://demo.twilio.com/welcome/voice'
+            }
+        }, undefined);
     });
 
-    it('gets information about a specific call', function(done) {
-        client.calls(instanceSid).get(function(err,data) {
-            expect(data.sid).toBe(instanceSid);
-            done();
-        });
+    it('gets information about a specific call', function() {
+        client.calls('CA123').get();
+        expect(client.request).toHaveBeenCalledWith({
+            url:'/Accounts/AC123/Calls/CA123',
+            method:'GET',
+            qs:{}
+        }, undefined);
     });
 
-    it('uses shorthand to make a call, then list calls by a specific number', function(done) {
-        var shorthandSid;
-
+    it('uses shorthand to make a call', function() {
         client.makeCall({
-            to:config.to,
-            from:config.from,
+            to:'+14158675309',
+            from:'+16517779311',
             url:'https://demo.twilio.com/welcome/voice'
-        }, function(err, data) {
-            expect(err).toBeFalsy();
-            expect(data.sid).toBeDefined();
-            shorthandSid = data.sid;
-            client.listCalls({
-                from:config.from
-            }, function(err2, data2) {
-                expect(data2.calls[0].from).toBe(config.from);
-                done();
-            });
         });
+        expect(client.request).toHaveBeenCalledWith({
+            url:'/Accounts/AC123/Calls',
+            method:'POST',
+            form:{
+                To:'+14158675309',
+                From:'+16517779311',
+                Url:'https://demo.twilio.com/welcome/voice'
+            }
+        }, undefined);
     });
 
-    it('gets a list of calls for a specific number', function(done) {
+    it('gets a list of calls for a specific number', function() {
         client.calls.list({
-            from:config.from
-        }, function(err, data) {
-            expect(data.calls[0].from).toBe(config.from);
-            done();
+            from:'+14158675309'
         });
+        expect(client.request).toHaveBeenCalledWith({
+            url:'/Accounts/AC123/Calls',
+            method:'GET',
+            qs:{
+                From:'+14158675309'
+            }
+        }, undefined);
     });
 });

@@ -1,63 +1,72 @@
-var config = require('../config'),
-    twilio = require('../index');
+var twilio = require('../index');
 
 describe('The Twilio REST Client Queues resource', function () {
-    var client = twilio(config.accountSid, config.authToken);
+    var client = new twilio.RestClient('AC123', '123');
 
-    var queueName = 'queue'+new Date().getMilliseconds(),
-        queueSid;
+    beforeEach(function() {
+        spyOn(client, 'request');
+    });
 
-    it('creates a queue', function(done) {
+    it('creates a queue', function() {
         client.queues.create({
-            friendlyName:queueName
-        }, function(err, data) {
-            expect(err).toBeFalsy();
-            expect(data.friendlyName).toBe(queueName);
-            queueSid = data.sid;
-            done();
+            friendlyName:'qq'
         });
+        expect(client.request).toHaveBeenCalledWith({
+            url:'/Accounts/AC123/Queues',
+            method:'POST',
+            form:{
+                FriendlyName:'qq'
+            }
+        }, undefined);
     });
 
-    it('gets details for a given queue', function(done) {
-        client.queues(queueSid).get(function(err, data) {
-            expect(err).toBeFalsy();
-            expect(data.sid).toBe(queueSid);
-            done();
-        });
+    it('gets details for a given queue', function() {
+        client.queues('QU123').get();
+        expect(client.request).toHaveBeenCalledWith({
+            url:'/Accounts/AC123/Queues/QU123',
+            method:'GET',
+            qs:{}
+        }, undefined);
     });
 
-    it('updates details for a given queue', function(done) {
-        client.queues(queueSid).update({
+    it('updates details for a given queue', function() {
+        client.queues('QU123').update({
             maxSize:69
-        }, function(err, data) {
-            expect(err).toBeFalsy();
-            expect(data.maxSize).toBe(69);
-            done();
         });
+        expect(client.request).toHaveBeenCalledWith({
+            url:'/Accounts/AC123/Queues/QU123',
+            method:'POST',
+            form:{
+                MaxSize:69
+            }
+        }, undefined);
     });
 
-    it('gets a list of members for a given queue (empty for test)', function(done) {
-        client.queues(queueSid).members.get(function(err, data) {
-            expect(err).toBeFalsy();
-            expect(data.queueMembers.length).toBe(0);
-            done();
-        });
+    it('gets a list of members for a given queue', function() {
+        client.queues('QU123').members.get();
+        expect(client.request).toHaveBeenCalledWith({
+            url:'/Accounts/AC123/Queues/QU123/Members',
+            method:'GET',
+            qs:{}
+        }, undefined);
     });
 
-    it('gets the person at the front of the queue (expect 404)', function(done) {
-        client.queues(queueSid).members.front.get(function(err, data) {
-            expect(err.status).toBe(404);
-            expect(data.nodeClientResponse.request.path)
-                .toBe('/2010-04-01/Accounts/'+config.accountSid+'/Queues/'+queueSid+'/Members/Front.json?');
-            done();
-        });
+    it('gets the person at the front of the queue', function() {
+        client.queues('QU123').members.front.get();
+        expect(client.request).toHaveBeenCalledWith({
+            url:'/Accounts/AC123/Queues/QU123/Members/Front',
+            method:'GET',
+            qs:{}
+        }, undefined);
     });
 
-    it('deletes the queue we created for testing', function(done) {
-        client.queues(queueSid).delete(function(err, data) {
-            expect(data.nodeClientResponse.statusCode).toBe(204);
-            done();
-        });
+    it('deletes a queue', function() {
+        client.queues('QU123').delete();
+        expect(client.request).toHaveBeenCalledWith({
+            url:'/Accounts/AC123/Queues/QU123',
+            method:'DELETE',
+            form:{}
+        }, undefined);
     });
 
 });

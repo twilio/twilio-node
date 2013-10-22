@@ -1,64 +1,69 @@
-var config = require('../config'),
-    twilio = require('../index');
+var twilio = require('../index');
 
 describe('The Twilio REST Client Applications resource', function () {
-    //create a client with a valid account SID and authToken for live testing
-    var client = new twilio.RestClient(config.accountSid, config.authToken);
+    var client = new twilio.RestClient('AC123', '123');
 
-    var instanceSid, app = {
-        FriendlyName:'Testing '+new Date().getTime(),
+    beforeEach(function() {
+        spyOn(client, 'request');
+    });
+
+    var app = {
+        FriendlyName:'Testing 123',
         VoiceUrl:'http://awesome.com/voice',
         SmsUrl:'http://awesome.com/sms'
     };
 
-    it('creates a new application, configured with voice and SMS urls', function(done) {
-        client.applications.create(app, function(err, data) {
-            expect(data.voice_url).toBe(app.VoiceUrl);
-            instanceSid = data.sid;
-            done();
-        });
+    it('creates a new application, configured with voice and SMS urls', function() {
+        client.applications.create(app);
+        expect(client.request).toHaveBeenCalledWith({
+            url:'/Accounts/AC123/Applications',
+            method:'POST',
+            form:app
+        }, undefined);
     });
 
-    it('gets information about an app with a specific sid', function(done) {
-        client.applications(instanceSid).get(function(err,data) {
-            expect(data.sid).toBe(instanceSid);
-            done();
-        });
+    it('gets information about an app with a specific sid', function() {
+        client.applications('AP123').get();
+        expect(client.request).toHaveBeenCalledWith({
+            url:'/Accounts/AC123/Applications/AP123',
+            method:'GET',
+            qs:{}
+        }, undefined);
     });
 
-    it('lists all apps with the friendly name we created (should be one)', function(done) {
+    it('lists all apps with the friendly name', function() {
         client.applications.list({
             friendlyName:app.FriendlyName
-        }, function(err, data) {
-            expect(data.applications.length).toBe(1);
-            expect(data.applications[0].sid).toBe(instanceSid);
-            done();
         });
+        expect(client.request).toHaveBeenCalledWith({
+            url:'/Accounts/AC123/Applications',
+            method:'GET',
+            qs:{
+                FriendlyName:app.FriendlyName
+            }
+        }, undefined);
     });
 
-    it('updates details about an existing app', function(done) {
-        client.applications(instanceSid).update({
+    it('updates details about an existing app', function() {
+        client.applications('AP123').update({
             voiceUrl:'http://lame.com/lameo'
-        }, function(err, data) {
-            expect(data.voice_url).toBe('http://lame.com/lameo');
-            done();
         });
+        expect(client.request).toHaveBeenCalledWith({
+            url:'/Accounts/AC123/Applications/AP123',
+            method:'POST',
+            form:{
+                VoiceUrl:'http://lame.com/lameo'
+            }
+        }, undefined);
     });
 
-    it('deletes a created app', function(done) {
-        client.applications(instanceSid).delete(function(err, data) {
-            expect(err).toBeFalsy();
-            if (!err) {
-                client.accounts.applications(instanceSid).get(function(err2, data2, httpResponse) {
-                    expect(err2).toBeTruthy();
-                    expect(err2.status).toBe(404);
-                    done();
-                });
-            }
-            else {
-                done();
-            }
-        });
+    it('deletes a created app', function() {
+        client.applications('AP123').delete();
+        expect(client.request).toHaveBeenCalledWith({
+            url:'/Accounts/AC123/Applications/AP123',
+            method:'DELETE',
+            form:{}
+        }, undefined);
     });
 
 });

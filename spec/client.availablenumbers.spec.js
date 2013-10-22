@@ -1,50 +1,63 @@
-var config = require('../config'),
-    twilio = require('../index');
+var twilio = require('../index');
 
-describe('The Twilio REST Client AvailablePhoneNumbers resource', function () {
-    //create a client with a valid account SID and authToken for live testing
-    var client = new twilio.RestClient(config.accountSid, config.authToken);
+describe('The Twilio REST Client AvailablePhoneNumbers resource', function() {
+    var client = new twilio.RestClient('AC123', '123');
 
-    it('gets a list of available phone numbers for a given country, with no filter', function (done) {
-        client.accounts.availablePhoneNumbers('GB').local.get(function (err, data) {
-            expect(data.available_phone_numbers[0].phone_number).toMatch(/^\+44.*/);
-            done();
-        });
+    beforeEach(function() {
+        spyOn(client, 'request');
     });
 
-    it('gets a list of available phone numbers for a given country, with an area code filter', function (done) {
+    it('gets a list of available phone numbers for a given country, with no filter', function() {
+        client.accounts.availablePhoneNumbers('GB').local.get();
+        expect(client.request).toHaveBeenCalledWith({
+            url:'/Accounts/AC123/AvailablePhoneNumbers/GB/Local',
+            method:'GET',
+            qs:{}
+        }, undefined);
+    });
+
+    it('gets a list of available phone numbers for a given country, with an area code filter', function() {
         client.accounts.availablePhoneNumbers('US').local.search({
             areaCode:612
-        }, function (err, data) {
-            expect(data.available_phone_numbers[0].phone_number).toMatch(/^\+1612.*/);
-            done();
         });
+        expect(client.request).toHaveBeenCalledWith({
+            url:'/Accounts/AC123/AvailablePhoneNumbers/US/Local',
+            method:'GET',
+            qs:{
+                AreaCode:612
+            }
+        }, undefined);
     });
 
-    it('gets a list of available TOLL FREE phone numbers for a given country, with no filter', function (done) {
-        client.accounts.availablePhoneNumbers('US').tollFree.get(function (err, data) {
-            expect(data.available_phone_numbers[0].phone_number).toMatch(/^\+18.*/);
-            done();
-        });
+    it('gets a list of available TOLL FREE phone numbers for a given country, with no filter', function() {
+        client.accounts.availablePhoneNumbers('US').tollFree.get();
+        expect(client.request).toHaveBeenCalledWith({
+            url:'/Accounts/AC123/AvailablePhoneNumbers/US/TollFree',
+            method:'GET',
+            qs:{}
+        }, undefined);
     });
 
-    it('gets a list of available TOLL FREE phone numbers for a given country, with a filter', function (done) {
+    it('gets a list of available TOLL FREE phone numbers for a given country, with a filter', function() {
         client.accounts.availablePhoneNumbers('US').tollFree.get({
             contains:'866******9'
-        }, function (err, data) {
-            expect(data.available_phone_numbers[0].phone_number).toMatch(/^\+1866.*9$/);
-            done();
         });
+        expect(client.request).toHaveBeenCalledWith({
+            url:'/Accounts/AC123/AvailablePhoneNumbers/US/TollFree',
+            method:'GET',
+            qs:{
+                Contains:'866******9'
+            }
+        }, undefined);
     });
 
-    xit('gets a list of MOBILE phone numbers for a given country, with no filter', function(done) {
-        client.accounts.availablePhoneNumbers('GB').mobile.get(function (err, data) {
-            expect(data.availablePhoneNumbers.length).toBeGreaterThan(0);
-            if (data.availablePhoneNumbers.length > 0) {
-                expect(data.availablePhoneNumbers[0].phone_number).toMatch(/^\+44.*/);
-            }
-            done();
-        });
+    it('gets a list of MOBILE phone numbers for a given country, with no filter', function() {
+        client.accounts.availablePhoneNumbers('GB').mobile.get();
+        expect(client.request).toHaveBeenCalledWith({
+            url:'/Accounts/AC123/AvailablePhoneNumbers/GB/Mobile',
+            method:'GET',
+            qs:{}
+        }, undefined);
     });
 
 });

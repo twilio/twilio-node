@@ -1,40 +1,48 @@
-var config = require('../config'),
-    twilio = require('../index');
+var twilio = require('../index');
 
 describe('The Twilio REST Client SMS resource', function () {
-    //create a client with a valid account SID and authToken for live testing
-    var client = new twilio.RestClient(config.accountSid, config.authToken);
+    var client = new twilio.RestClient('AC123', '123');
 
-    var instanceSid;
+    beforeEach(function() {
+        spyOn(client, 'request');
+    });
 
-    it('sends an SMS message using a Twilio number', function(done) {
+    it('sends an SMS message using a Twilio number', function() {
         client.sendSms({
-            To:config.to,
-            from:config.from,
-            body:'the current time in milliseconds is '+new Date().getTime()
-        }, function(err, data) {
-            expect(data.from).toBe(config.from);
-            expect(data.sid).toBeDefined();
-            instanceSid = data.sid;
-            done();
+            To:'+14158675309',
+            from:'+18008672811',
+            body:'pants.'
         });
+        expect(client.request).toHaveBeenCalledWith({
+            url:'/Accounts/AC123/SMS/Messages',
+            method:'POST',
+            form:{
+                To:'+14158675309',
+                From:'+18008672811',
+                Body:'pants.'
+            }
+        }, undefined);
     });
 
-    it('gets details about a specific SMS message sent', function(done) {
-        client.getSms(instanceSid, function(err, data) {
-            expect(data.sid).toBe(instanceSid);
-            done();
-        });
+    it('gets details about a specific SMS message sent', function() {
+        client.getSms('MM123');
+        expect(client.request).toHaveBeenCalledWith({
+            url:'/Accounts/AC123/SMS/Messages/MM123',
+            method:'GET',
+            qs:{}
+        }, undefined);
     });
 
-    it('gets a list of all SMS Messages, with query parameters', function(done) {
+    it('gets a list of all SMS Messages, with query parameters', function() {
         client.listSms({
-            From:config.from
-        }, function(err, data) {
-            //can use either camel-case or underscore values
-            expect(data.smsMessages.length).toBeGreaterThan(0);
-            expect(data.sms_messages[0].from).toBe(config.from);
-            done();
+            from:'+16518675309'
         });
+        expect(client.request).toHaveBeenCalledWith({
+            url:'/Accounts/AC123/SMS/Messages',
+            method:'GET',
+            qs:{
+                From:'+16518675309'
+            }
+        }, undefined);
     });
 });

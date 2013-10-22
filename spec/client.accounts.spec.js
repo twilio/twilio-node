@@ -1,59 +1,54 @@
-var config = require('../config'),
-    twilio = require('../index');
+var twilio = require('../index');
 
 describe('The Twilio REST Client Accounts resource', function () {
-    //create a client with a valid account SID and authToken for live testing
-    var client = new twilio.RestClient(config.accountSid, config.authToken);
+    var client = new twilio.RestClient('AC123', '123');
 
-    it('gets an unfiltered list of Accounts associated with this master account', function (done) {
-        client.accounts.list(function (err, data, response) {
-            expect(data.accounts.length).toBeGreaterThan(0);
-            done();
-        });
+    beforeEach(function() {
+        spyOn(client, 'request');
     });
 
-    var newAccountSidOne, newAccountSidTwo; //store so we can close them after creation
+    it('gets an unfiltered list of Accounts associated with this master account', function () {
+        client.accounts.list();
+        expect(client.request).toHaveBeenCalledWith({
+            url:'/Accounts',
+            method:'GET',
+            qs:{}
+        }, undefined);
+    });
 
-    it('allows for the creation of subaccounts', function (done) {
+    it('allows for the creation of subaccounts', function () {
         client.accounts.create({
             friendlyName:'TestAccountUno'
-        }, function (err, data, response) {
-            expect(data.friendly_name).toBe('TestAccountUno');
-            newAccountSidOne = data.sid;
-
-            //Create a second account using the "post" function, and an uppercased name
-            client.accounts.post({
-                FriendlyName:'TestAccountDos'
-            }, function (err2, data2, response2) {
-                expect(data2.friendlyName).toBe('TestAccountDos');
-                newAccountSidTwo = data2.sid;
-                done();
-            });
         });
+        expect(client.request).toHaveBeenCalledWith({
+            url:'/Accounts',
+            method:'POST',
+            form:{
+                FriendlyName:'TestAccountUno'
+            }
+        }, undefined);
     });
 
-    it('provides a means of getting account details for a specific sid', function (done) {
-        client.accounts(newAccountSidOne).get(function (err, data) {
-            expect(data.sid).toBe(newAccountSidOne);
-            done();
-        });
+    it('provides a means of getting account details for a specific sid', function () {
+        client.accounts('AC123').get();
+        expect(client.request).toHaveBeenCalledWith({
+            url:'/Accounts/AC123',
+            method:'GET',
+            qs:{}
+        }, undefined);
     });
 
-    it('provdes a means of updating and closing subaccounts', function (done) {
-        client.accounts(newAccountSidOne).put({
-            Status:'closed'
-        }, function (err, data) {
-            expect(data.sid).toBe(newAccountSidOne);
-            expect(data.status).toBe('closed');
-
-            client.accounts(newAccountSidTwo).update({
-                status:'closed'
-            }, function (err2, data2) {
-                expect(data2.sid).toBe(newAccountSidTwo);
-                expect(data2.status).toBe('closed');
-                done();
-            });
+    it('provdes a means of updating and closing subaccounts', function () {
+        client.accounts('AC123').update({
+            status:'closed'
         });
+        expect(client.request).toHaveBeenCalledWith({
+            url:'/Accounts/AC123',
+            method:'POST',
+            form:{
+                Status:'closed'
+            }
+        }, undefined);
     });
 
 });
