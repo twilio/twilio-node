@@ -212,7 +212,7 @@
 
 <div id="sidebar" class="interface">
     <span class="toc_title">
-        twilio-node <span class="version">(1.3.0)</span>
+        twilio-node <span class="version">(1.4.0)</span>
     </span>
 
     <a class="toc_title" href="#">
@@ -229,6 +229,7 @@
     </a>
     <ul class="toc_section">
         <li>- <a href="#structure">How This API is Structured</a></li>
+        <li>- <a href="#callbacks">Callbacks Versus Promises</a></li>
         <li>- <a href="#constructor">RestClient Constructor</a></li>
         <li>- <a href="#request">request</a></li>
     </ul>
@@ -517,6 +518,103 @@ client.accounts(ACCOUNT_SID).calls.create({
 });
 </pre>
 
+        <h2 id="callbacks">Callbacks versus Promises</h2>
+        <p>
+            There are two ways to manage data that is returned from the REST API.
+            Thus far, all of our examples have used callbacks to work with response
+            data, using the node.js standard callback format of <tt>function(error, data) { ... }</tt>.
+        </p>
+        <p>
+            However, it is common to need to make multiple sequential calls to the
+            Twilio REST API, such as when searching for, then purchasing, new incoming
+            phone numbers.  When you make multiple calls to Twilio using nested callbacks, your code 
+            can quickly start marching to the right, forming the dreaded
+            "<a href="http://javascriptjabber.com/001-jsj-asynchronous-programming/">
+            pyramid of doom</a>".
+        </p>
+        <p>
+            One technique for unrolling nested callbacks is to use
+            <a href="http://strongloop.com/strongblog/promises-in-node-js-with-q-an-alternative-to-callbacks/">promises</a>.  In node.js, the de facto standard library
+            for providing promises is <a href="https://github.com/kriskowal/q">Q</a>.
+            twilio-node uses Q to provide an alternative interface to callbacks
+            where it makes sense.
+        </p>
+        <p>
+            80% of the time, if you're just making a single request and you won't
+            need the data again later, you should probably just use the callback interface.
+            If you're making multiple calls in a row to Twilio, you might want to
+            look at using promises instead.  Both work fine - it's up to you on
+            what you'd prefer to use.
+        </p>
+        <p>
+            For more information on how to work with the promise object,
+            <a href="https://github.com/kriskowal/q">check out the reference docs
+            for the Q library</a>.
+        </p>
+        <p>
+            <b class="header">Promise Examples</b>
+        </p>
+<pre>
+// Create an authenticated Twilio REST API client
+var twilio = require('twilio');
+var client = new twilio.RestClient('ACCOUNT_SID', 'AUTH_TOKEN');
+
+// A simple example of making a phone call using promises
+var promise = client.makeCall({
+    to:'+16515556667777', // a number to call
+    from:'+16518889999', // a Twilio number you own
+    url:'https://demo.twilio.com/welcome/voice' // A URL containing TwiML instructions for the call
+});
+
+// You can assign functions to be called, at any time, after the request to
+// Twilio has been completed.  The first function is called when the request
+// succeeds, the second if there was an error.
+promise.then(function(call) {
+    console.log('Call success! Call SID: '+call.sid);
+}, function(error) {
+    console.error('Call failed!  Reason: '+error.message);
+});
+
+// Let's look at an example where we're making multiple requests to Twilio, like
+// buying a new phone number.  This is where promises can become very useful:
+
+// First, search for available phone numbers
+client.availablePhoneNumbers('US').local.get({
+    areaCode:'651'
+}).then(function(searchResults) {
+
+    // handle the case where there are no numbers found
+    if (searchResults.availablePhoneNumbers.length < 1) {
+        throw { message:'No numbers found with that area code' };
+    }
+
+    // Okay, so there are some available numbers.  Now, let's buy the first one
+    // in the list.  Return the promise created by the next call to Twilio:
+    return client.incomingPhoneNumbers.create({
+        phoneNumber:searchResults.availablePhoneNumbers[0].phoneNumber,
+        voiceUrl:'https://demo.twilio.com/welcome/voice',
+        smsUrl:'https://demo.twilio.com/welcome/sms/reply'
+    });
+
+}).then(function(number) {
+
+    // We bought the number!  Everything worked!
+    console.log('Your new number: '+number.phoneNumber);
+
+}).fail(function(error) {
+
+    // This callback will be invoked on any error returned in the
+    // process.  
+    console.log('Number purchase failed! Reason: '+error.message);
+
+}).fin(function() {
+
+    // You can use this optional callback like a "finally" block
+    // It will always execute last.  Perform any cleanup necessary here.
+
+});
+</pre>
+
         <p id="constructor">
             <b class="header">twilio.RestClient</b><code>twilio.RestClient([accountSid, authToken, clientOptions])</code>
             <br/>
@@ -569,7 +667,8 @@ var client = require('twilio')();
             <br/>
             Makes an authenticated HTTP request against the Twilio back end. Typically, an end user
             <b>WILL NOT</b> use this function, but rather one of the resource-specific functions or
-            shorthand functions.
+            shorthand functions.  <b>Returns</b> a <a href="#callbacks">promise</a> that can be
+            used to work with data returned by the API.
 
             <ul>
                 <li>
@@ -581,12 +680,7 @@ var client = require('twilio')();
                     arguments, in order, after a request completes:
                     <ul>
                         <li><b>error:</b> An error object, if an error is received</li>
-                        <li><b>responseData:</b>A JavaScript object, <tt>JSON.parse</tt>'d response from the Twilio HTTP response</li>
-                        <li>
-                            <b>nodeClientResponse:</b>A node <tt>http.ClientResponse</tt> object
-                            (<a href="http://nodejs.org/api/http.html#http_http_clientresponse">reference</a>).  This is also available
-                            in responseData.nodeClientResponse.
-                        </li>
+                        <li><b>responseData:</b>A JavaScript object, <tt>JSON.parse</tt>'d response from the Twilio HTTP response.</li>
                     </ul>
                 </li>
             </ul>
@@ -599,7 +693,7 @@ var client = new twilio.RestClient('ACCOUNT_SID', 'AUTH_TOKEN');
 client.request({
     url:'/Accounts',
     method:'GET'
-}, function (error, responseData, nodeClientResponse) {
+}, function (error, responseData) {
     //work with response data
 });
 </pre>
@@ -834,6 +928,7 @@ client.accounts('AC...').calls.get(function (err, response) {
             <b>Instance Functions:</b>
             <ul>
                 <li><tt>client.messages('someSid').get</tt></li>
+                <li><tt>client.getMessage('someSid', callback)</tt> (alias for get)</li>
             </ul>
 
             <b>List Functions:</b>
@@ -844,6 +939,7 @@ client.accounts('AC...').calls.get(function (err, response) {
                 <li><tt>client.messages.create</tt> (alias for post)</li>
                 <li><tt>client.sendMessage</tt> (alias for post)</li>
                 <li><tt>client.sendMms</tt> (alias for post)</li>
+                <li><tt>client.listMessages</tt> (alias for get)</li>
             </ul>
         </p>
         </p>
@@ -1715,6 +1811,18 @@ app.post('/twiml', function(req, res) {
         </p>
 
         <h2 id="changelog">Change Log</h2>
+
+        <p>
+            <b class="header">1.4.0</b> &mdash;
+            <small><i>October 24th, 2013</i></small> &mdash;
+            <a href="https://github.com/twilio/twilio-node/compare/1.3.0...1.4.0">Diff</a>
+            <br/>
+        <ul>
+            <li>Refactor test suite and set up <a href="https://travis-ci.org/twilio/twilio-node"></a> CI with Travis</li>
+            <li>Create promises interface</li>
+            <li>Add some missing shorthand for Messages</li>
+        </ul>
+        </p>
 
         <p>
             <b class="header">1.3.0</b> &mdash;
