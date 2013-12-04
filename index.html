@@ -748,10 +748,6 @@ client.sms.messages.create({
         console.log(responseData.from); // outputs "+14506667788"
         console.log(responseData.body); // outputs "word to your mother."
 
-        // you can also access the raw node.js http.ClientResponse object:
-        // http://nodejs.org/api/http.html#http_http_clientresponse
-        console.log(responseData.nodeClientResponse.statusCode); //outputs "200" if the request was successful
-
     } else {
         // Print Twilio error information
         console.log(err.status); //Number, HTTP status code
