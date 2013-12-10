@@ -1755,7 +1755,7 @@ http.createServer(function (req, res) {
 
             This is a helper function which decomposes an <a href="http://expressjs.com/api.html#req.params">Express request object</a>
             and uses <a href="#validateRequest">validateRequest</a> to determine if the request was sent by Twilio.  Returns <tt>true</tt>
-            if the request was sent by Twilio.
+            if the request was sent by Twilio.  <b>NOTE:</b> This function requires the developer to use the <tt>express.urlencoded</tt> middleware to function. <a href="http://expressjs.com/api.html#bodyParser">Check out how to use this middleware in the express documentation</a>.
 
         <ul>
             <li><b>request:</b> {object} An Express Request object</li>
