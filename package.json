@@ -24,9 +24,7 @@
     "q": "0.9.7"
   },
   "devDependencies": {
-    "express": "2.x",
-    "connect": "2.x",
-    "ejs": "0.8.x"
+    "express": "3.x"
   },
   "scripts": {
     "test": "jasmine-node spec"
