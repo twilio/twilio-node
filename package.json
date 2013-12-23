@@ -1,7 +1,7 @@
 {
   "name": "twilio",
   "description": "A Twilio helper library",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "author": "Kevin Whinnery <kevin.whinnery@gmail.com>",
   "contributors": [
     {
@@ -24,9 +24,7 @@
     "q": "0.9.7"
   },
   "devDependencies": {
-    "express": "2.x",
-    "connect": "2.x",
-    "ejs": "0.8.x"
+    "express": "3.x"
   },
   "scripts": {
     "test": "jasmine-node spec"
