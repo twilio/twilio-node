@@ -212,7 +212,7 @@
 
 <div id="sidebar" class="interface">
     <span class="toc_title">
-        twilio-node <span class="version">(1.4.0)</span>
+        twilio-node <span class="version">(1.5.0)</span>
     </span>
 
     <a class="toc_title" href="#">
@@ -289,6 +289,7 @@
     <ul class="toc_section">
         <li>- <a href="#validateRequest">validateRequest</a></li>
         <li>- <a href="#validateExpressRequest">validateExpressRequest</a></li>
+        <li>- <a href="#webhook">webhook (Express middleware)</a></li>
     </ul>
 
     <a class="toc_title" href="#links">
@@ -1773,6 +1774,7 @@ var app = express();
 
 app.configure(function () {
     /* Configure your express app... */
+    app.use(express.urlencoded());
 });
 
 //Twilio request authentication
@@ -1788,6 +1790,56 @@ app.post('/twiml', function(req, res) {
         res.send('you are not twilio.  Buzz off.');
     }
 });
+</pre>
+        
+        <p id="webhook">
+            <b class="header">webhook</b><code>twilio.webhook([authToken, options])</code>
+            <br/>
+
+            This function returns an <a href="http://expressjs.com/guide.html">Express middleware function</a> that uses <a href="#validateExpressRequest">validateExpressRequest</a> to determine if the request was sent by Twilio, and adds some API sugar to make the Express response object aware of <a href="#twimlResponse">TwimlResponse</a> objects and how to properly <tt>send()</tt> them.  Note that this middleware was built specifically for Express, and may or may not work with other Connect middleware-based frameworks.  Arguments can be passed in any order.  Request validation requires your Twilio auth token. <br/><br/>If validation is enabled (this is the default) and the request was sent by Twilio, the middleware calls <tt>next()</tt> and allows further processing.  If validation fails, it renders plain text and a 403 reponse. If no auth token is configured, it prints a message to console.error and returns a 500. <b>NOTE:</b> This function requires the developer to use the <tt>express.urlencoded</tt> middleware to function. <a href="http://expressjs.com/api.html#bodyParser">Check out how to use this middleware in the express documentation</a>.
+
+        <ul>
+            <li><b>authToken:</b> {string} Your Twilio auth token. If validation is enabled and none is provided, the module will look to <tt>process.env.TWILIO_AUTH_TOKEN</tt>. If that is also undefined, an error will be logged and your webhook URL will give a 500 error.</li>
+            <li><b>options:</b> {object} Options for the middleware:
+                <ul>
+                    <li><b>validate:</b> {boolean} Whether or not the middleware should validate that the incoming request originated from Twilio.  Default: true.</li>
+                    <li><b>includeHelpers:</b> {boolean} add helpers to the <a href="http://expressjs.com/api.html#res.status">Express response object</a> to improve support for <tt>TwimlResponse</tt> object rendering.  Default: true.</li>
+                </ul>
+            </li>
+        </ul>
+        <p>
+        <p>Example:</p>
+<pre>
+var express = require('express'),
+    twilio = require('twilio');
+
+// Create an express app which will parse form-encoded request bodies
+var app = express();
+app.use(express.urlencoded());
+
+// Create an SMS webhook that validates using your Twilio auth token, configured
+// in "process.env.TWILIO_AUTH_TOKEN".  Also adds functionality to "response.send"
+// to make it intelligently handle TwimlResponse objects.  If "response.send" is
+// passed a TwimlResponse object, it will automatically set the proper
+// Content-Type header and call "toString()" on the TwimlResponse object
+app.post('/sms', twilio.webhook(), function(request, response) {
+    var twiml = new twilio.TwimlResponse();
+    twiml.message('This HTTP request came from Twilio!');
+    response.send(twiml);
+});
+
+// This webhook performs no validation - this might be used for a fallback URL
+// for your Twilio number, to ensure a response is always sent back to the user.
+app.post('/fallback', twilio.webhook({
+    validate:false
+}), function(request, response) {
+    var twiml = new twilio.TwimlResponse();
+    twiml.message('Sorry - there was an error processing your message.');
+    response.send(twiml);
+});
+
+// Start an HTTP server with this Express app
+app.listen(process.env.PORT || 3000);
 </pre>
 
 
@@ -1807,6 +1859,16 @@ app.post('/twiml', function(req, res) {
         </p>
 
         <h2 id="changelog">Change Log</h2>
+
+        <p>
+            <b class="header">1.5.0</b> &mdash;
+            <small><i>December 27th, 2013</i></small> &mdash;
+            <a href="https://github.com/twilio/twilio-node/compare/1.4.0...1.5.0">Diff</a>
+            <br/>
+        <ul>
+            <li>Improved request validation and added Express-optimized middleware.</li>
+        </ul>
+        </p>
 
         <p>
             <b class="header">1.4.0</b> &mdash;
