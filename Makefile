@@ -2,8 +2,7 @@ test-install:
 	npm install jasmine-node -g
 
 install:
-	# XXX should this be a noop?
-	npm install twilio
+	npm install ./
 
 test:
 	jasmine-node spec
