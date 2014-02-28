@@ -73,4 +73,38 @@ describe('The Twilio REST Client constructor', function () {
             done();
         });
     });
+
+    // Use fake response server to simulate a slow response time
+    // See http://www.seanshadmand.com/2012/06/21/fake-response-server-slow-response-time-generator/
+    var fake_response_host = 'fake-response.appspot.com';
+    
+    var slowClient = new twilio.RestClient('AC123', '123', {
+        host: fake_response_host,
+        timeout: 2000 // timeout after 2 seconds
+    });
+
+    // The fake response url only works when we don't send auth tokens, account id, etc -- otherwise it 404's
+    slowClient.getBaseUrl = function(){
+        return 'http://' + fake_response_host;
+    }
+
+    it('should allow for timeout configuration and handle responses faster than the timeout', function (done) {
+        slowClient.request({ 
+            url:'?sleep=1&', // sleep for 1 second
+            method:'GET'
+        }, function (err, data, response) {
+            expect(data.response).toBe('This request has finsihed sleeping for 1 seconds');
+            done();
+        });
+    });
+
+    it('should allow for timeout configuration and handle responses faster than the timeout', function (done) {
+        slowClient.request({ 
+            url:'?sleep=3&', // sleep for 3 seconds
+            method:'GET'
+        }, function (err, data, response) {
+            expect(err.status).toBe('ETIMEDOUT');
+            done();
+        });
+    });
 });
