@@ -67,7 +67,7 @@ describe('Live Twilio API smoke tests', function() {
 
         it('makes the two step phone number buying dance a bit easier', function(done) {
             client.availablePhoneNumbers('US').local.get({
-                areaCode:'651'
+                areaCode:'612'
             }).then(function(searchResults) {
                 if (searchResults.availablePhoneNumbers.length < 1) {
                     throw { message:'No numbers found with that area code' };

@@ -13,6 +13,19 @@ var twimlString = '<?xml version="1.0" encoding="UTF-8"?><Response><Message>hi</
     },
     fakeToken = 'abcdefghijklmnopqrstuvwxyz1234567890';
 
+// Use this for testing the various manual configurations
+// Still use well-known sig to test the signature process its self
+function createTestSig(signUrl) {
+    Object.keys(params).sort().forEach(function(key, i) {
+        signUrl = signUrl + key + params[key];
+    });
+    var testSig = crypto.createHmac('sha1', fakeToken)
+                        .update(new Buffer(signUrl, 'utf-8'))
+                        .digest('Base64');
+
+    return testSig;
+}
+
 describe('Testing Express request validation', function() {
     // create a local express app
     var app = require('express')();
@@ -42,9 +55,26 @@ describe('Testing Express request validation', function() {
         response.send(twiml);
     });
 
-    // Just decorate the 
+    // Just decorate the request
     app.post('/noauth', twilio.webhook(fakeToken, {
         validate:false
+    }), function(request, response) {
+        response.send(twiml);
+    });
+
+    // Manually configure the host and protocol
+    app.post('/manual/host', twilio.webhook(fakeToken, {
+        host:'foo.twilio.com',
+        protocol:'https'
+    }), function(request, response) {
+        response.send(twiml);
+    });
+
+    // Manually configure the entire URL, ignore other input
+    app.post('/manual/url', twilio.webhook(fakeToken, {
+        url:'https://bar.twilio.com/sms',
+        host:'foo.twilio.com',
+        protocol:'http'
     }), function(request, response) {
         response.send(twiml);
     });
@@ -115,6 +145,48 @@ describe('Testing Express request validation', function() {
         request({
             method:'POST',
             url:testUrl+'/middleware',
+            headers: {
+                'X-Twilio-Signature':testSig
+            },
+            form: params
+        }, function(err, response) {
+            expect(err).toBeFalsy();
+            expect(response.body).toBe(twimlString);
+            done();
+        });
+
+    });
+
+    it('should validate with a custom host and protocol', function(done) {
+        // Manually create a Twilio signature
+        var signUrl = testUrl+'/manual/host';
+        var testSig = createTestSig('https://foo.twilio.com/manual/host');
+
+        // Hit our webhook with a "Twilio signed" request
+        request({
+            method:'POST',
+            url:signUrl,
+            headers: {
+                'X-Twilio-Signature':testSig
+            },
+            form: params
+        }, function(err, response) {
+            expect(err).toBeFalsy();
+            expect(response.body).toBe(twimlString);
+            done();
+        });
+
+    });
+
+    it('should validate with a fully custom URL', function(done) {
+        // Manually create a Twilio signature
+        var signUrl = testUrl+'/manual/url';
+        var testSig = createTestSig('https://bar.twilio.com/sms');
+
+        // Hit our webhook with a "Twilio signed" request
+        request({
+            method:'POST',
+            url:signUrl,
             headers: {
                 'X-Twilio-Signature':testSig
             },

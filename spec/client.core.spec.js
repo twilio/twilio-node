@@ -84,12 +84,12 @@ describe('The Twilio REST Client constructor', function () {
     });
 
     // The fake response url only works when we don't send auth tokens, account id, etc -- otherwise it 404's
-    slowClient.getBaseUrl = function(){
+    slowClient.getBaseUrl = function() {
         return 'http://' + fake_response_host;
-    }
+    };
 
     it('should allow for timeout configuration and handle responses faster than the timeout', function (done) {
-        slowClient.request({ 
+        slowClient.request({
             url:'?sleep=1&', // sleep for 1 second
             method:'GET'
         }, function (err, data, response) {
@@ -98,7 +98,7 @@ describe('The Twilio REST Client constructor', function () {
         });
     });
 
-    it('should allow for timeout configuration and handle responses faster than the timeout', function (done) {
+    it('should allow for timeout configuration and handle responses slower than the timeout', function (done) {
         slowClient.request({ 
             url:'?sleep=3&', // sleep for 3 seconds
             method:'GET'
