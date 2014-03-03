@@ -1864,6 +1864,15 @@ app.post('/foo/bar/sms', twilio.webhook({
     response.send(twiml);
 });
 
+// Alternately, you could configure the whole URL...
+app.post('/foo/bar/sms', twilio.webhook({
+    url:'https://gassy-ocelot-129.herokuapp.com/foo/bar/sms',
+}), function(request, response) {
+    var twiml = new twilio.TwimlResponse();
+    twiml.message('This HTTP request came from Twilio!');
+    response.send(twiml);
+});
+
 // This webhook performs no validation - this might be used for a fallback URL
 // for your Twilio number, to ensure a response is always sent back to the user.
 app.post('/fallback', twilio.webhook({
