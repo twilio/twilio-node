@@ -9,20 +9,9 @@ var twimlString = '<?xml version="1.0" encoding="UTF-8"?><Response><Message>hi</
     params = { 
         To:'+16515556677', 
         From:'+16515556699',
-        Body:'hello'
+        Body:'hello áçčëñtš 😃'
     },
     fakeToken = 'abcdefghijklmnopqrstuvwxyz1234567890';
-
-function createTestSig(signUrl) {
-    Object.keys(params).sort().forEach(function(key, i) {
-        signUrl = signUrl + key + params[key];
-    });
-    var testSig = crypto.createHmac('sha1', fakeToken)
-                        .update(signUrl)
-                        .digest('Base64');
-
-    return testSig;
-}
 
 describe('Testing Express request validation', function() {
     // create a local express app
@@ -79,7 +68,7 @@ describe('Testing Express request validation', function() {
     it('should act okay if the request is signed the Twilio way', function(done) {
         // Manually create a Twilio signature
         var signUrl = testUrl+'/sms';
-        var testSig = createTestSig(signUrl);
+        var testSig = 'FUjfbzy5aqpVEYoCcThCAKmctVo=';
 
         // Hit our webhook with a "Twilio signed" request
         request({
@@ -120,7 +109,7 @@ describe('Testing Express request validation', function() {
     it('should validate with middleware', function(done) {
         // Manually create a Twilio signature
         var signUrl = testUrl+'/middleware';
-        var testSig = createTestSig(signUrl);
+        var testSig = 'Eh17e3p7Yu48aMIa+yHk++1+L5s=';
 
         // Hit our webhook with a "Twilio signed" request
         request({
