@@ -212,7 +212,7 @@
 
 <div id="sidebar" class="interface">
     <span class="toc_title">
-        twilio-node <span class="version">(1.5.0)</span>
+        twilio-node <span class="version">(1.6.0)</span>
     </span>
 
     <a class="toc_title" href="#">
@@ -642,6 +642,7 @@ client.availablePhoneNumbers('US').local.get({
                     <ul>
                         <li><b>apiVersion:</b> The Twilio API version - defaults to <tt>2010-04-01</tt></li>
                         <li><b>host:</b> The Twilio API endpoint to hit - defaults to <tt>api.twilio.com</tt></li>
+                        <li><b>timeout:</b> How long to wait for a response from twilio before timing out the request. Default is 31 seconds.</li>
                     </ul>
                 </li>
             </ul>
@@ -1761,6 +1762,13 @@ http.createServer(function (req, res) {
         <ul>
             <li><b>request:</b> {object} An Express Request object</li>
             <li><b>authToken:</b> {string} Your Twilio auth token</li>
+            <li><b>options:</b> {object} Options for request validation:
+                <ul>
+                    <li><b>url</b>: The full Twilio webhook request URL you configured for your number, including any query parameters. Supercedes any configuration for <tt>host</tt> and <tt>protocol</tt> below. The default behavior of the request validator is to inspect the Express HTTP request object, and use information about the request to guess what the webhook URL is. You can use this property, or the below properties to override this behavior (useful if deployed to a PaaS like Heroku or ELB, or other infrastructure where Twilio's configured webhook URL might differ from the URL information on the HTTP request).</li>
+                    <li><b>protocol</b>: Manually configure the protocol used in the Twilio webhook configuration. Defaults to the Express <tt>request.protocol</tt></li>
+                    <li><b>host</b>: Manually configure the host name used in the Twilio webhook configuration. Defaults to the Express <tt>request.headers.host</tt></li>
+                </ul>
+            </li>
         </ul>
         <p>
         <p>Example:</p>
@@ -1790,6 +1798,21 @@ app.post('/twiml', function(req, res) {
         res.send('you are not twilio.  Buzz off.');
     }
 });
+
+//Twilio request authentication with custom URL
+app.post('/twiml', function(req, res) {
+    var options = { url: 'https://subtle-gradient-188.herokuapp.com/twiml' };
+    if (twilio.validateExpressRequest(req, 'YOUR_TWILIO_AUTH_TOKEN', options)) {
+        var resp = new twilio.TwimlResponse();
+        resp.say('express sez - hello twilio!');
+
+        res.type('text/xml');
+        res.send(resp.toString());
+    }
+    else {
+        res.send('you are not twilio.  Buzz off.');
+    }
+});
 </pre>
         
         <p id="webhook">
@@ -1804,6 +1827,9 @@ app.post('/twiml', function(req, res) {
                 <ul>
                     <li><b>validate:</b> {boolean} Whether or not the middleware should validate that the incoming request originated from Twilio.  Default: true.</li>
                     <li><b>includeHelpers:</b> {boolean} add helpers to the <a href="http://expressjs.com/api.html#res.status">Express response object</a> to improve support for <tt>TwimlResponse</tt> object rendering.  Default: true.</li>
+                    <li><b>url:</b> See <a href="#validateExpressRequest">validateExpressRequest options above</a>.</li>
+                    <li><b>host:</b> See <a href="#validateExpressRequest">validateExpressRequest options above</a>.</li>
+                    <li><b>protocol:</b> See <a href="#validateExpressRequest">validateExpressRequest options above</a>.</li>
                 </ul>
             </li>
         </ul>
@@ -1859,6 +1885,19 @@ app.listen(process.env.PORT || 3000);
         </p>
 
         <h2 id="changelog">Change Log</h2>
+
+        <p>
+            <b class="header">1.6.0</b> &mdash;
+            <small><i>March 3rd, 2014</i></small> &mdash;
+            <a href="https://github.com/twilio/twilio-node/compare/1.5.0...1.6.0">Diff</a>
+            <br/>
+        <ul>
+            <li>Enabled configureable URL, host, and protocol configuration for Express request validator and middleware. <a href="https://github.com/twilio/twilio-node/issues/34">See this issue for context</a>.</li>
+            <li>Made timeout for Twilio API request configureable (thanks Adam).</li>
+            <li>Made the nodeClientResponse on API requests non-enumerable, so when logging API responses the output is not so gross (thanks porsager).</li>
+            <li>Fix request validation for messages that contain emoji (thanks Mordy).</li>
+        </ul>
+        </p>
 
         <p>
             <b class="header">1.5.0</b> &mdash;
