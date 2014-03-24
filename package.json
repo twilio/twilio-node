@@ -21,7 +21,8 @@
     "request": "2.27.x",
     "underscore": "1.x",
     "jwt-simple": "0.1.x",
-    "q": "0.9.7"
+    "q": "0.9.7",
+    "scmp": "0.0.3"
   },
   "devDependencies": {
     "express": "3.x"
