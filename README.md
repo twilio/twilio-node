@@ -21,13 +21,11 @@ Fork and clone the repository. Install dependencies with:
     
     npm install
 
-Run the existing test spec with `npm test`.  This requires `jasmine-node` to be installed globally via npm: 
-
-    [sudo] npm install -g jasmine-node 
+Run the existing test spec with `npm test`.
     
 To run just one specific test file instead of the whole suite, provide a JavaScript regular expression that will match your spec file's name, like: 
 
-    jasmine-node spec -m .\*accounts.\*
+    ./node_modules/.bin/jasmine-node spec -m .\*accounts.\*
 
 To run live tests (such as `client.live.spec.js`) against your [Twilio account](https://www.twilio.com/user/account), you will need to create a local configuration file.  In the project root directory, do the following:
 
