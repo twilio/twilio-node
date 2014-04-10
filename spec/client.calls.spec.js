@@ -62,4 +62,43 @@ describe('The Twilio REST Client Calls resource', function () {
             }
         }, undefined);
     });
+
+    it('can create call feedback', function() {
+        spyOn(client, 'request');
+        client.calls(instanceSid).feedback.post({
+            qualityScore:3,
+            issue:'dropped-call'
+        });
+        expect(client.request).toHaveBeenCalled();
+        expect(client.request).toHaveBeenCalledWith({
+            'url': '/Accounts/' + config.accountSid + '/Calls/' + instanceSid + '/Feedback',
+            'method': 'POST',
+            'form': {
+                'QualityScore': 3,
+                'Issue': 'dropped-call'
+            }
+        }, undefined);
+    });
+
+    it('can get call feedback', function() {
+        spyOn(client, 'request');
+        client.calls(instanceSid).feedback.get()
+        expect(client.request).toHaveBeenCalled();
+        expect(client.request).toHaveBeenCalledWith({
+            'url': '/Accounts/' + config.accountSid + '/Calls/' + instanceSid + '/Feedback',
+            'method': 'GET',
+            'qs': {}
+        }, undefined);
+    });
+
+    it('can delete call feedback', function() {
+        spyOn(client, 'request');
+        client.calls(instanceSid).feedback.delete()
+        expect(client.request).toHaveBeenCalled();
+        expect(client.request).toHaveBeenCalledWith({
+            'url': '/Accounts/' + config.accountSid + '/Calls/' + instanceSid + '/Feedback',
+            'method': 'DELETE',
+            'form': {}
+        }, undefined);
+    });
 });

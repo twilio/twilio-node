@@ -38,7 +38,7 @@ describe('The Twilio REST Client Accounts resource', function () {
         }, undefined);
     });
 
-    it('provdes a means of updating and closing subaccounts', function () {
+    it('provides a means of updating and closing subaccounts', function () {
         client.accounts('AC123').update({
             status:'closed'
         });

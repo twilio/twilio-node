@@ -59,5 +59,4 @@ describe('The Twilio REST Client AvailablePhoneNumbers resource', function() {
             qs:{}
         }, undefined);
     });
-
 });
