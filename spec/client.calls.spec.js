@@ -67,7 +67,7 @@ describe('The Twilio REST Client Calls resource', function () {
         spyOn(client, 'request');
         client.calls(instanceSid).feedback.post({
             qualityScore:3,
-            issue:'dropped-call'
+            issue:['imperfect-audio', 'dropped-call']
         });
         expect(client.request).toHaveBeenCalled();
         expect(client.request).toHaveBeenCalledWith({
@@ -75,7 +75,7 @@ describe('The Twilio REST Client Calls resource', function () {
             'method': 'POST',
             'form': {
                 'QualityScore': 3,
-                'Issue': 'dropped-call'
+                'Issue': ['imperfect-audio', 'dropped-call']
             }
         }, undefined);
     });
