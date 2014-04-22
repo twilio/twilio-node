@@ -65,7 +65,7 @@ describe('The Twilio REST Client Calls resource', function () {
 
     it('can create call feedback', function() {
         spyOn(client, 'request');
-        client.calls(instanceSid).feedback.post({
+        client.calls(instanceSid).feedback.create({
             qualityScore:3,
             issue:['imperfect-audio', 'dropped-call']
         });
