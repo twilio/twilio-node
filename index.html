@@ -1,0 +1,2148 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1"/>
+    <meta name="viewport" content="width=device-width"/>
+    <link rel="canonical" href="http://twilio.com"/>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+    <title>twilio-node</title>
+    <style>
+        body {
+            font-size: 14px;
+            line-height: 22px;
+            background: #f4f4f4;
+            color: #000;
+            font-family: Helvetica Neue, Helvetica, Arial;
+        }
+
+        .interface {
+            font-family: "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, sans-serif !important;
+        }
+
+        div#sidebar {
+            background: #fff;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 200px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+            padding: 15px 0 30px 30px;
+            border-right: 1px solid #bbb;
+            box-shadow: 0 0 20px #ccc;
+            -webkit-box-shadow: 0 0 20px #ccc;
+            -moz-box-shadow: 0 0 20px #ccc;
+        }
+
+        a.toc_title, a.toc_title:visited {
+            display: block;
+            color: black;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        a.toc_title:hover {
+            text-decoration: underline;
+        }
+
+        #sidebar .version {
+            font-size: 10px;
+            font-weight: normal;
+        }
+
+        ul.toc_section {
+            font-size: 11px;
+            line-height: 14px;
+            margin: 5px 0 0 0;
+            padding-left: 0px;
+            list-style-type: none;
+            font-family: Lucida Grande;
+        }
+
+        .toc_section li {
+            cursor: pointer;
+            margin: 0 0 3px 0;
+        }
+
+        .toc_section li a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .toc_section li a:hover {
+            text-decoration: underline;
+        }
+
+        div.container {
+            width: 550px;
+            margin: 40px 0 50px 260px;
+        }
+
+        div.warning {
+            margin-top: 15px;
+            font: bold 11px Arial;
+            color: #770000;
+        }
+
+        p {
+            margin: 20px 0;
+            width: 550px;
+        }
+
+        a, a:visited {
+            color: #444;
+        }
+
+        a:active, a:hover {
+            color: #000;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            padding-top: 20px;
+        }
+
+        h2 {
+            font-size: 20px;
+        }
+
+        b.header {
+            font-size: 16px;
+            line-height: 30px;
+        }
+
+        span.alias {
+            font-size: 14px;
+            font-style: italic;
+            margin-left: 20px;
+        }
+
+        table, tr, td {
+            margin: 0;
+            padding: 0;
+        }
+
+        td {
+            padding: 2px 12px 2px 0;
+        }
+
+        table .rule {
+            height: 1px;
+            background: #ccc;
+            margin: 5px 0;
+        }
+
+        ul {
+            list-style-type: circle;
+            padding: 0 0 0 20px;
+        }
+
+        li {
+            width: 500px;
+            margin-bottom: 10px;
+        }
+
+        code, pre, tt {
+            font-family: Monaco, Consolas, "Lucida Console", monospace;
+            font-size: 12px;
+            line-height: 18px;
+            font-style: normal;
+        }
+
+        tt {
+            padding: 0px 3px;
+            background: #fff;
+            border: 1px solid #ddd;
+            zoom: 1;
+        }
+
+        code {
+            margin-left: 20px;
+        }
+
+        pre {
+            font-size: 12px;
+            padding: 2px 0 2px 15px;
+            border-left: 5px solid #bbb;
+            margin: 0px 0 30px;
+        }
+
+        @media only screen and (-webkit-min-device-pixel-ratio: 1.5) and (max-width: 640px), only screen and (-o-min-device-pixel-ratio: 3/2) and (max-width: 640px), only screen and (min-device-pixel-ratio: 1.5) and (max-width: 640px) {
+            img {
+                max-width: 100%;
+            }
+
+            div#sidebar {
+                -webkit-overflow-scrolling: initial;
+                position: relative;
+                width: 90%;
+                height: 120px;
+                left: 0;
+                top: -7px;
+                padding: 10px 0 10px 30px;
+                border: 0;
+            }
+
+            img#logo {
+                width: auto;
+                height: auto;
+            }
+
+            div.container {
+                margin: 0;
+                width: 100%;
+            }
+
+            p, div.container ul {
+                max-width: 98%;
+                overflow-x: scroll;
+            }
+
+            pre {
+                overflow: scroll;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<a href="https://github.com/twilio/twilio-node"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+
+<div id="sidebar" class="interface">
+    <span class="toc_title">
+        twilio-node <span class="version">(1.6.0)</span>
+    </span>
+
+    <a class="toc_title" href="#">
+        Introduction
+    </a>
+    <ul class="toc_section">
+        <li>- <a href="#installation">Installation</a></li>
+        <li>- <a href="#quickstart">Quick Start</a></li>
+        <li>- <a href="#moreexamples">More Examples</a></li>
+    </ul>
+
+    <a class="toc_title" href="#restapi">
+        RestClient
+    </a>
+    <ul class="toc_section">
+        <li>- <a href="#structure">How This API is Structured</a></li>
+        <li>- <a href="#callbacks">Callbacks Versus Promises</a></li>
+        <li>- <a href="#constructor">RestClient Constructor</a></li>
+        <li>- <a href="#request">request</a></li>
+    </ul>
+
+    <a class="toc_title" href="#restResources">
+        Resource Listing
+    </a>
+    <ul class="toc_section">
+        <li>- <a href="#resourceRequests">Request Argument Format</a></li>
+        <li>- <a href="#accounts">accounts</a></li>
+        <li>- <a href="#availablePhoneNumbers">availablePhoneNumbers</a></li>
+        <li>- <a href="#outgoingCallerIds">outgoingCallerIds</a></li>
+        <li>- <a href="#incomingPhoneNumbers">incomingPhoneNumbers</a></li>
+        <li>- <a href="#media">media</a></li>
+        <li>- <a href="#messages">messages</a></li>
+        <li>- <a href="#smsMessages">sms.messages</a></li>
+        <li>- <a href="#shortCodes">sms.shortCodes</a></li>
+        <li>- <a href="#applications">applications</a></li>
+        <li>- <a href="#connectApps">connectApps</a></li>
+        <li>- <a href="#authorizedConnectApps">authorizedConnectApps</a></li>
+        <li>- <a href="#calls">calls</a></li>
+        <li>- <a href="#conferences">conferences</a></li>
+        <li>- <a href="#queues">queues</a></li>
+        <li>- <a href="#recordings">recordings</a></li>
+        <li>- <a href="#transcriptions">transcriptions</a></li>
+        <li>- <a href="#notifications">notifications</a></li>
+        <li>- <a href="#usageRecords">usage.records</a></li>
+        <li>- <a href="#usageTriggers">usage.triggers</a></li>
+        <li>- <a href="#sipDomains">sip.domains</a></li>
+        <li>- <a href="#sipIpAccessControlLists">sip.ipAccessControlLists</a></li>
+        <li>- <a href="#sipCredentialLists">sip.credentialLists</a></li>
+    </ul>
+
+    <a class="toc_title" href="#twimlResponse">
+        TwimlResponse
+    </a>
+    <ul class="toc_section">
+        <li>- <a href="#twimlResponse">Constructor</a></li>
+        <li>- <a href="#twimlBasic">TwiML Basics</a></li>
+        <li>- <a href="#twimlChained">Chaining Syntax</a></li>
+        <li>- <a href="#twimlNesting">Nesting Syntax</a></li>
+    </ul>
+
+    <a class="toc_title" href="#capability">
+        Capability
+    </a>
+    <ul class="toc_section">
+        <li>- <a href="#capability">Constructor</a></li>
+        <li>- <a href="#allowClientIncoming">allowClientIncoming</a></li>
+        <li>- <a href="#allowClientOutgoing">allowClientOutgoing</a></li>
+        <li>- <a href="#generate">generate</a></li>
+    </ul>
+
+    <a class="toc_title" href="#utilities">
+        Utilities
+    </a>
+    <ul class="toc_section">
+        <li>- <a href="#validateRequest">validateRequest</a></li>
+        <li>- <a href="#validateExpressRequest">validateExpressRequest</a></li>
+        <li>- <a href="#webhook">webhook (Express middleware)</a></li>
+    </ul>
+
+    <a class="toc_title" href="#links">
+        Links
+    </a>
+
+    <a class="toc_title" href="#changelog">
+        Change Log
+    </a>
+
+</div>
+
+<div class="container">
+
+    <p id="introduction">
+        <img id="logo" src="twilio.png" alt="Twilio: Cloud Communications"/>
+    </p>
+
+    <p>
+        The Twilio platform makes adding voice, SMS, and VoIP capabilities to
+        your applications ridiculously simple. This helper library for node
+        aims to make it even easier. This documentation page code and format is
+        adapted from the awesome/utilitary format used to document the popular
+        <a href="http://backbonejs.org">Backbone</a> and
+        <a href="http://underscorejs.org/">Underscore</a> JavaScript frameworks,
+        created by <a href="https://twitter.com/jashkenas">Jeremy Ashkenas</a>
+        and other open source contributors.
+    </p>
+
+    <p>
+        The twilio-node project is
+        <a href="http://github.com/twilio/twilio-node/">hosted on GitHub</a>.
+        You can report bugs and discuss features on the
+        <a href="http://github.com/twilio/twilio-node/issues">issues page</a>,
+        on Freenode in the <tt>#twilio</tt> channel,
+        or send tweets to <a href="http://twitter.com/kevinwhinnery">@kevinwhinnery</a>.
+    </p>
+
+    <h2 id="installation">Installation</h2>
+
+    <p>twilio-node is available as an npm package. Install the latest version with:</p>
+<pre>
+npm install twilio
+</pre>
+
+    <h2 id="quickstart">Quick Start</h2>
+    <p>
+        To begin using Twilio to make voice calls, send SMS, and create VoIP clients, you first
+        need to <a href="https://www.twilio.com/try-twilio">sign up for an account</a>.  After
+        signing up, you will be able to access an account SID and auth token which will be used
+        to authenticate requests to the Twilio back end.  This information can be found on
+        <a href="https://www.twilio.com/user/account">your dashboard</a>:
+    </p>
+    <p>
+        <img src="twilio-dashboard.png" alt="dashboard screenshot"/>
+    </p>
+    <p>
+        With these credentials, you can begin to use this node module, as in the following example:
+    </p>
+<pre>
+//require the Twilio module and create a REST client
+var client = require('twilio')('ACCOUNT_SID', 'AUTH_TOKEN');
+
+//Send an SMS text message
+client.sendMessage({
+
+    to:'+16515556677', // Any number Twilio can deliver to
+    from: '+14506667788', // A number you bought from Twilio and can use for outbound communication
+    body: 'word to your mother.' // body of the SMS message
+
+}, function(err, responseData) { //this function is executed when a response is received from Twilio
+
+    if (!err) { // "err" is an error received during the request, if any
+
+        // "responseData" is a JavaScript object containing data received from Twilio.
+        // A sample response from sending an SMS message is here (click "JSON" to see how the data appears in JavaScript):
+        // http://www.twilio.com/docs/api/rest/sending-sms#example-1
+
+        console.log(responseData.from); // outputs "+14506667788"
+        console.log(responseData.body); // outputs "word to your mother."
+
+    }
+});
+
+//Place a phone call, and respond with TwiML instructions from the given URL
+client.makeCall({
+
+    to:'+16515556677', // Any number Twilio can call
+    from: '+14506667788', // A number you bought from Twilio and can use for outbound communication
+    url: 'http://www.example.com/twiml.php' // A URL that produces an XML document (TwiML) which contains instructions for the call
+
+}, function(err, responseData) {
+
+    //executed when the call has been initiated.
+    console.log(responseData.from); // outputs "+14506667788"
+
+});
+
+</pre>
+
+    <h2 id="moreexamples">More Examples</h2>
+    <p>
+        Example usage of the REST API can be found inline with our official
+        <a href="https://www.twilio.com/docs/api/rest">REST API docs</a>.
+    </p>
+
+    <div id="documentation">
+
+        <h2 id="restapi">RestClient</h2>
+
+        <p>
+            <tt>RestClient</tt> exposes the REST API of Twilio, but takes care of content negotiation and
+            HTTP requests for you. The client object is intended to mirror the API pretty directly, so the existing
+            <a href="http://www.twilio.com/docs/api/rest">REST API reference</a> will be a good source of information
+            on what each function does. The major resources and available methods for the REST API will be described here,
+            along with shorthand where it exists.
+        </p>
+
+        <p id="structure">
+            <b class="header">How This API is Structured</b><br/>
+            The <tt>RestClient</tt> API is intended to be self-documenting, mapping very closely to the actual
+            <a href="https://www.twilio.com/docs/api/rest">REST API</a>.  Once you have created a client object,
+            the object structure looks very much like the Twilio REST URIs, using a chained JavaScript syntax:
+        </p>
+<pre>
+// Create a client:
+var client = require('twilio')('ACCOUNT_SID', 'AUTH_TOKEN');
+
+//Get a list of calls made by this account
+// GET /2010-04-01/Accounts/ACCOUNT_SID/Calls
+// alias for get is "list", if you prefer
+client.calls.get(function(err, response) {
+    response.calls.forEach(function(call) {
+        console.log('Received call from: ' + call.from);
+        console.log('Call duration (in seconds): ' + call.duration);
+    });
+});
+
+//Get a list of calls made by this account, from this phone number
+// GET /2010-04-01/Accounts/ACCOUNT_SID/Calls?From=+16513334455
+client.calls.get({
+    from:'+16513334455'
+}, function(err, response) {
+    response.calls.forEach(function(call) {
+        console.log('Received call from: ' + call.from);
+        console.log('This call\'s unique ID is: ' + call.sid);
+    });
+});
+
+//Get data for a specific call
+// GET /2010-04-01/Accounts/ACCOUNT_SID/Calls/abc123...
+client.calls('abc123...').get(function(err, call) {
+    console.log('This call\'s unique ID is: ' + call.sid);
+    console.log('This call was created at: ' + call.dateCreated);
+});
+
+//Get data for a specific call, for a specific account
+// GET /2010-04-01/Accounts/AC.../Calls/abc123...
+client.accounts('AC...').calls('abc123...').get(function(err, response) {
+    response.calls.forEach(function(call) {
+        console.log('Received call from: ' + call.from);
+        console.log('This call\'s unique ID is: ' + call.sid);
+    });
+});
+
+// Create (send) an SMS message
+// POST /2010-04-01/Accounts/ACCOUNT_SID/SMS/Messages
+// "create" and "update" aliases are in place where appropriate on PUT and POST requests
+client.sms.messages.post({
+    to:'+16515559999',
+    from:'+14503334455',
+    body:'word to your mother.'
+}, function(err, text) {
+    console.log('You sent: '+ text.body);
+    console.log('Current status of this text message is: '+ text.status);
+});
+
+// Delete a TwiML application
+// DELETE /2010-04-01/Accounts/ACCOUNT_SID/Applications/APP...
+client.applications('APP...').delete(function(err, response, nodeResponse) {
+    //DELETE requests do not return data - if there was no error, it worked.
+    err ? console.log('There was an error') : console.log('it worked!');
+});
+
+</pre>
+
+        <p>
+            Any resource request you make can be done for a specific
+            <a href="http://www.twilio.com/docs/api/rest/subaccounts">subaccount</a> as well.
+            This lets you track usage of calls, text messages, etc. for different users of your
+            application.  By default, all requests are made using the "master" account, but using
+            the "accounts" resource allows you to make all the same requests, but for a specific account:
+        </p>
+
+<pre>
+var client = require('twilio')('ACCOUNT_SID', 'AUTH_TOKEN'),
+    SOME_SUBACCOUNT_SID = 'AC...';
+
+//Send a text message, associated with the given subaccount
+client.accounts(SOME_SUBACCOUNT_SID).sms.messages.create({
+    to:'+16512223333',
+    from:'+14505556677',
+    body:'word to your subaccount mother.'
+}, function(err, text) {
+    console.log('You sent: '+ text.body);
+    console.log('Current status of this text message is: '+ text.status);
+});
+
+//This REST call using the master/default account for the client...
+client.makeCall({
+    to:'+16512223333',
+    from:'+14505556677',
+    url:'http://example.com/someTwiml.php'
+}, function(err, call) {
+    console.log('This call\'s unique ID is: ' + call.sid);
+    console.log('This call was created at: ' + call.dateCreated);
+});
+
+//...is the same as...
+client.accounts(ACCOUNT_SID).calls.create({
+    to:'+16512223333',
+    from:'+14505556677',
+    url:'http://example.com/someTwiml.php'
+}, function(err, data) {
+    console.log('This call\'s unique ID is: ' + call.sid);
+    console.log('This call was created at: ' + call.dateCreated);
+});
+</pre>
+
+        <h2 id="callbacks">Callbacks versus Promises</h2>
+        <p>
+            There are two ways to manage data that is returned from the REST API.
+            Thus far, all of our examples have used callbacks to work with response
+            data, using the node.js standard callback format of <tt>function(error, data) { ... }</tt>.
+        </p>
+        <p>
+            However, it is common to need to make multiple sequential calls to the
+            Twilio REST API, such as when searching for, then purchasing, new incoming
+            phone numbers.  When you make multiple calls to Twilio using nested callbacks, your code 
+            can quickly start marching to the right, forming the dreaded
+            "<a href="http://javascriptjabber.com/001-jsj-asynchronous-programming/">
+            pyramid of doom</a>".
+        </p>
+        <p>
+            One technique for unrolling nested callbacks is to use
+            <a href="http://strongloop.com/strongblog/promises-in-node-js-with-q-an-alternative-to-callbacks/">promises</a>.  In node.js, the de facto standard library
+            for providing promises is <a href="https://github.com/kriskowal/q">Q</a>.
+            twilio-node uses Q to provide an alternative interface to callbacks
+            where it makes sense.
+        </p>
+        <p>
+            80% of the time, if you're just making a single request and you won't
+            need the data again later, you should probably just use the callback interface.
+            If you're making multiple calls in a row to Twilio, you might want to
+            look at using promises instead.  Both work fine - it's up to you on
+            what you'd prefer to use.
+        </p>
+        <p>
+            For more information on how to work with the promise object,
+            <a href="https://github.com/kriskowal/q">check out the reference docs
+            for the Q library</a>.
+        </p>
+        <p>
+            <b class="header">Promise Examples</b>
+        </p>
+<pre>
+// Create an authenticated Twilio REST API client
+var twilio = require('twilio');
+var client = new twilio.RestClient('ACCOUNT_SID', 'AUTH_TOKEN');
+
+// A simple example of making a phone call using promises
+var promise = client.makeCall({
+    to:'+16515556667777', // a number to call
+    from:'+16518889999', // a Twilio number you own
+    url:'https://demo.twilio.com/welcome/voice' // A URL containing TwiML instructions for the call
+});
+
+// You can assign functions to be called, at any time, after the request to
+// Twilio has been completed.  The first function is called when the request
+// succeeds, the second if there was an error.
+promise.then(function(call) {
+    console.log('Call success! Call SID: '+call.sid);
+}, function(error) {
+    console.error('Call failed!  Reason: '+error.message);
+});
+
+// Let's look at an example where we're making multiple requests to Twilio, like
+// buying a new phone number.  This is where promises can become very useful:
+
+// First, search for available phone numbers
+client.availablePhoneNumbers('US').local.get({
+    areaCode:'651'
+}).then(function(searchResults) {
+
+    // handle the case where there are no numbers found
+    if (searchResults.availablePhoneNumbers.length < 1) {
+        throw { message:'No numbers found with that area code' };
+    }
+
+    // Okay, so there are some available numbers.  Now, let's buy the first one
+    // in the list.  Return the promise created by the next call to Twilio:
+    return client.incomingPhoneNumbers.create({
+        phoneNumber:searchResults.availablePhoneNumbers[0].phoneNumber,
+        voiceUrl:'https://demo.twilio.com/welcome/voice',
+        smsUrl:'https://demo.twilio.com/welcome/sms/reply'
+    });
+
+}).then(function(number) {
+
+    // We bought the number!  Everything worked!
+    console.log('Your new number: '+number.phoneNumber);
+
+}).fail(function(error) {
+
+    // This callback will be invoked on any error returned in the
+    // process.  
+    console.log('Number purchase failed! Reason: '+error.message);
+
+}).fin(function() {
+
+    // You can use this optional callback like a "finally" block
+    // It will always execute last.  Perform any cleanup necessary here.
+
+});
+</pre>
+
+        <p id="constructor">
+            <b class="header">twilio.RestClient</b><code>twilio.RestClient([accountSid, authToken, clientOptions])</code>
+            <br/>
+
+            Creates a new REST client object, using the given account SID and auth token, as available on your
+            <a href="https://www.twilio.com/user/account">Twilio dashboard</a> when
+            <a href="https://www.twilio.com/try-twilio">create an account</a> and log in.
+            These credentials are used to <a href="http://www.twilio.com/docs/security">authorize</a> your requests
+            to the Twilio back end. REST clients can be created for
+            <a href="http://www.twilio.com/docs/api/rest/subaccounts">subaccounts</a>,
+            but requests will then only be authorized to access resources associated with that subaccount.
+
+            <br/><br/>
+            If you omit the <tt>accountSid</tt> and <tt>authToken</tt> parameters, the module will attempt
+            to initialize the client with environment variables, as found in <tt>process.env.TWILIO_ACCOUNT_SID</tt> and
+            <tt>process.env.TWILIO_AUTH_TOKEN</tt>.  For production web applications, storing account crendentials in
+            environment variables can be useful, so that sensitive information is never checked in to source control.
+
+            <ul>
+                <li><b>accountSid:</b> {string} Twilio account SID</li>
+                <li><b>authToken:</b> {string} Twilio auth token</li>
+                <li>
+                    <b>[optional] clientOptions:</b> {object} an object hash with client config options:
+                    <ul>
+                        <li><b>apiVersion:</b> The Twilio API version - defaults to <tt>2010-04-01</tt></li>
+                        <li><b>host:</b> The Twilio API endpoint to hit - defaults to <tt>api.twilio.com</tt></li>
+                        <li><b>timeout:</b> How long to wait for a response from twilio before timing out the request. Default is 31 seconds.</li>
+                    </ul>
+                </li>
+            </ul>
+        </p>
+        <p>Example:</p>
+<pre>
+//Two-liner
+var twilio = require('twilio');
+var client = new twilio.RestClient('ACCOUNT_SID', 'AUTH_TOKEN');
+
+//Two-liner, with environment variables set
+var twilio = require('twilio');
+var client = new twilio.RestClient();
+
+//One-liner
+var client = require('twilio')('ACCOUNT_SID', 'AUTH_TOKEN');
+
+//One-liner, with environment variables set
+var client = require('twilio')();
+</pre>
+
+        <p id="request">
+            <b class="header">request</b><code>client.request(requestOptions[, callback])</code>
+            <br/>
+            Makes an authenticated HTTP request against the Twilio back end. Typically, an end user
+            <b>WILL NOT</b> use this function, but rather one of the resource-specific functions or
+            shorthand functions.  <b>Returns</b> a <a href="#callbacks">promise</a> that can be
+            used to work with data returned by the API.
+
+            <ul>
+                <li>
+                    <b>requestOptions:</b> {object} HTTP request arguments,
+                    same as <a href="https://github.com/mikeal/request">the request module</a>.
+                </li>
+                <li>
+                    <b>[optional] callback:</b> {function} a callback function which receives the following
+                    arguments, in order, after a request completes:
+                    <ul>
+                        <li><b>error:</b> An error object, if an error is received</li>
+                        <li><b>responseData:</b>A JavaScript object, <tt>JSON.parse</tt>'d response from the Twilio HTTP response.</li>
+                    </ul>
+                </li>
+            </ul>
+        </p>
+        <p>Example:</p>
+<pre>
+var twilio = require('twilio');
+var client = new twilio.RestClient('ACCOUNT_SID', 'AUTH_TOKEN');
+
+client.request({
+    url:'/Accounts',
+    method:'GET'
+}, function (error, responseData) {
+    //work with response data
+});
+</pre>
+
+        <h2 id="restResources">Resource Listing</h2>
+
+        <p>
+            The following is a listing of REST resources surfaced in the RestClient.  Supported list and
+            instance functions are shown here, which should map 1:1 to the supported HTTP methods in the
+            Twilio REST API (plus "create" and "update" aliases as relevant).
+        </p>
+
+        <p id="resourceRequests">
+            <b class="header">Resource Request Argument Format</b><br/>
+            All requests on Twilio REST resources follow the same format.  The first argument to a <tt>RestClient</tt>
+            resource function is an optional JavaScript object hash of either query parameters for a <tt>GET</tt> or
+            <tt>POST/PUT</tt> parameters which will be form-encoded and sent along with the request.  The second
+            (or maybe only) argument is a callback which receives the same arguments as the
+            callback function in the <a href="#request">direct request API</a>.  An example of the request format is below.
+            Typically, Twilio REST APIs use upper-cased parameter names.  When using this client module, you can omit the
+            upper-case first character if you wish.
+            <br/><br/>
+            <b class="header">The Response Callback</b><br/>
+            When the Twilio API request is complete, a user-defined callback function
+            will be executed.  The first argument is an error object, if there was
+            any sort of error during the request.  This is a JavaScript object
+            which contains the <a href="http://www.twilio.com/docs/errors">standard Twilio error information</a>,
+            if it is available.  The second argument is JSON-serialized data from
+            Twilio, as returned by a REST resource endpoint.  There is also a third
+            argument, which is the raw node HTTP response object, should you need
+            it for any reason.  This object is also available as <tt>nodeClientResponse</tt>
+            on the second argument.
+        </p>
+        <p>Examples:</p>
+<pre>
+//A sample request with both POST parameters, and a callback
+client.sms.messages.create({
+
+    //For an "update", "create", "post", or "put" request these properties are form-encoded and sent to Twilio:
+    to:'+16515554466',
+    from:'+14503334455',
+    body:'word to your mother.'
+
+}, function(err, responseData) { //this function is executed when a response is received from Twilio
+
+    if (!err) { // "err" is an error received during the request, if any
+
+        // "responseData" is a JavaScript object containing data received from Twilio.
+        // A sample response from sending an SMS message is here (click "JSON" to see how the data appears in JavaScript):
+        // http://www.twilio.com/docs/api/rest/sending-sms#example-1
+
+        console.log(responseData.from); // outputs "+14506667788"
+        console.log(responseData.body); // outputs "word to your mother."
+
+    } else {
+        // Print Twilio error information
+        console.log(err.status); //Number, HTTP status code
+        console.log(err.message); //String, error message
+        console.log(err.code); //Number, Twilio error code
+        console.log(err.moreInfo); //String, URL to more info on the error
+    }
+}
+});
+
+//A sample request with no parameters, just a callback
+client.accounts('AC...').calls.get(function (err, response) {
+    response.calls.forEach(function(call) {
+        console.log('Received call from: ' + call.from);
+        console.log('This call\'s unique ID is: ' + call.sid);
+    });
+});
+
+</pre>
+
+        <p id="accounts">
+            <b class="header">accounts</b><code>client.accounts([accountSid])</code>
+            <br/>
+
+            Accesses <a href="http://www.twilio.com/docs/api/rest/account">Account</a> resources via the REST interface.
+            Refer to the <a href="http://www.twilio.com/docs/api/rest/account">official REST API documentation</a>
+            for response data format and usage examples.
+            <p>
+                <b>Instance Functions:</b>
+                <ul>
+                    <li><tt>client.accounts('someSid').get</tt></li>
+                    <li><tt>client.accounts('someSid').post</tt></li>
+                    <li><tt>client.accounts('someSid').put</tt></li>
+                    <li><tt>client.accounts('someSid').list</tt> (alias for get)</li>
+                    <li><tt>client.accounts('someSid').update</tt> (alias for put)</li>
+                </ul>
+
+                <b>List Functions:</b>
+                <ul>
+                    <li><tt>client.accounts.get</tt></li>
+                    <li><tt>client.accounts.post</tt></li>
+                    <li><tt>client.accounts.list</tt> (alias for get)</li>
+                    <li><tt>client.accounts.create</tt> (alias for post)</li>
+                </ul>
+            </p>
+        </p>
+
+        <p id="availablePhoneNumbers">
+            <b class="header">availablePhoneNumbers</b><code>client.availablePhoneNumbers([IsoCountryCode]).[local/tollFree/mobile]</code>
+            <br/>
+
+            Accesses <a href="http://www.twilio.com/docs/api/rest/available-phone-numbers">AvailablePhoneNumbers</a>
+            resources via the REST interface.  Accessed primarily through Subresources for <tt>local</tt>, <tt>mobile</tt>, and
+            <tt>tollFree</tt> numbers.
+
+            Refer to the <a href="http://www.twilio.com/docs/api/rest/available-phone-numbers">official REST API documentation</a>
+            for response data format and usage examples.
+            <p>
+                <b>List Functions:</b>
+                <ul>
+                    <li><tt>client.availablePhoneNumbers('US').local.get</tt></li>
+                    <li><tt>client.availablePhoneNumbers('GB').tollFree.get</tt></li>
+                    <li><tt>client.availablePhoneNumbers('GB').mobile.get</tt></li>
+                    <li><tt>client.availablePhoneNumbers('US').local.list</tt> (alias for get)</li>
+                    <li><tt>client.availablePhoneNumbers('GB').tollFree.list</tt> (alias for get)</li>
+                    <li><tt>client.availablePhoneNumbers('GB').mobile.list</tt> (alias for get)</li>
+                </ul>
+            </p>
+        </p>
+
+        <p id="outgoingCallerIds">
+            <b class="header">outgoingCallerIds</b><code>client.outgoingCallerIds([callerIdSid])</code>
+            <br/>
+
+            Accesses <a href="http://www.twilio.com/docs/api/rest/outgoing-caller-ids">OutgoingCallerIds</a>
+            resources via the REST interface.
+
+            Refer to the <a href="http://www.twilio.com/docs/api/rest/outgoing-caller-ids">official REST API documentation</a>
+            for response data format and usage examples.
+            <p>
+                <b>Instance Functions:</b>
+                <ul>
+                    <li><tt>client.outgoingCallerIds('someSid').get</tt></li>
+                    <li><tt>client.outgoingCallerIds('someSid').post</tt></li>
+                    <li><tt>client.outgoingCallerIds('someSid').put</tt></li>
+                    <li><tt>client.outgoingCallerIds('someSid').delete</tt></li>
+                    <li><tt>client.outgoingCallerIds('someSid').list</tt> (alias for get)</li>
+                    <li><tt>client.outgoingCallerIds('someSid').update</tt> (alias for put)</li>
+                </ul>
+
+                <b>List Functions:</b>
+                <ul>
+                    <li><tt>client.outgoingCallerIds.get</tt></li>
+                    <li><tt>client.outgoingCallerIds.post</tt></li>
+                    <li><tt>client.outgoingCallerIds.list</tt> (alias for get)</li>
+                    <li><tt>client.outgoingCallerIds.create</tt> (alias for post)</li>
+                </ul>
+            </p>
+        </p>
+
+        <p id="incomingPhoneNumbers">
+            <b class="header">incomingPhoneNumbers</b><code>client.incomingPhoneNumbers([incomingNumberSid])</code>
+            <br/>
+
+            Accesses <a href="http://www.twilio.com/docs/api/rest/incoming-phone-numbers">IncomingPhoneNumbers</a>
+            resources via the REST interface.  Includes subresources for local and toll free numbers.
+
+            Refer to the <a href="http://www.twilio.com/docs/api/rest/incoming-phone-numbers">official REST API documentation</a>
+            for response data format and usage examples.
+        <p>
+            <b>Instance Functions:</b>
+        <ul>
+            <li><tt>client.incomingPhoneNumbers('someSid').get</tt></li>
+            <li><tt>client.incomingPhoneNumbers('someSid').post</tt></li>
+            <li><tt>client.incomingPhoneNumbers('someSid').put</tt></li>
+            <li><tt>client.incomingPhoneNumbers('someSid').delete</tt></li>
+            <li><tt>client.incomingPhoneNumbers('someSid').list</tt> (alias for get)</li>
+            <li><tt>client.incomingPhoneNumbers('someSid').update</tt> (alias for put)</li>
+        </ul>
+
+        <b>List Functions:</b>
+        <ul>
+            <li><tt>client.incomingPhoneNumbers.get</tt></li>
+            <li><tt>client.incomingPhoneNumbers.post</tt></li>
+            <li><tt>client.incomingPhoneNumbers.list</tt> (alias for get)</li>
+            <li><tt>client.incomingPhoneNumbers.create</tt> (alias for post)</li>
+            <li><tt>client.incomingPhoneNumbers.local.get</tt></li>
+            <li><tt>client.incomingPhoneNumbers.local.post</tt></li>
+            <li><tt>client.incomingPhoneNumbers.local.list</tt> (alias for local.get)</li>
+            <li><tt>client.incomingPhoneNumbers.local.create</tt> (alias for local.post)</li>
+            <li><tt>client.incomingPhoneNumbers.mobile.get</tt></li>
+            <li><tt>client.incomingPhoneNumbers.mobile.post</tt></li>
+            <li><tt>client.incomingPhoneNumbers.mobile.list</tt> (alias for mobile.get)</li>
+            <li><tt>client.incomingPhoneNumbers.mobile.create</tt> (alias for mobile.post)</li>
+            <li><tt>client.incomingPhoneNumbers.tollFree.get</tt></li>
+            <li><tt>client.incomingPhoneNumbers.tollFree.post</tt></li>
+            <li><tt>client.incomingPhoneNumbers.tollFree.list</tt> (alias for tollFree.get)</li>
+            <li><tt>client.incomingPhoneNumbers.tollFree.create</tt> (alias for tollFree.post)</li>
+        </ul>
+        </p>
+        </p>
+
+        <p id="media">
+            <b class="header">media</b><code>client.media([mediaSid])</code>
+            <br/>
+
+            Accesses <a href="http://www.twilio.com/docs/api/rest/media">Media</a>
+            resources via the REST interface.
+
+            Refer to the <a href="http://www.twilio.com/docs/api/rest/media">official REST API documentation</a> for response data format and usage examples.
+        <p>
+            <b>Instance Functions:</b>
+            <ul>
+                <li><tt>client.media('someSid').get</tt></li>
+                <li><tt>client.media('someSid').delete</tt></li>
+            </ul>
+
+            <b>List Functions:</b>
+            <ul>
+                <li><tt>client.media.get</tt></li>
+            </ul>
+        </p>
+        </p>
+
+        <p id="messages">
+            <b class="header">messages</b><code>client.messages([messageSid])</code>
+            <br/>
+
+            Accesses <a href="http://www.twilio.com/docs/api/rest/message">Messages</a>
+            resources via the REST interface.
+
+            Refer to the <a href="http://www.twilio.com/docs/api/rest/message">official REST API documentation</a> for response data format and usage examples.
+        <p>
+            <b>Instance Functions:</b>
+            <ul>
+                <li><tt>client.messages('someSid').get</tt></li>
+                <li><tt>client.getMessage('someSid', callback)</tt> (alias for get)</li>
+            </ul>
+
+            <b>List Functions:</b>
+            <ul>
+                <li><tt>client.messages.get</tt></li>
+                <li><tt>client.messages.post</tt></li>
+                <li><tt>client.messages.list</tt> (alias for get)</li>
+                <li><tt>client.messages.create</tt> (alias for post)</li>
+                <li><tt>client.sendMessage</tt> (alias for post)</li>
+                <li><tt>client.sendMms</tt> (alias for post)</li>
+                <li><tt>client.listMessages</tt> (alias for get)</li>
+            </ul>
+        </p>
+        </p>
+
+        <p id="smsMessages">
+            <b class="header">sms.messages</b><code>client.sms.messages([messageSid])</code>
+            <br/>
+
+            Accesses <a href="http://www.twilio.com/docs/api/rest/sms">SMS/Messages</a>
+            resources via the REST interface.
+
+            Refer to the <a href="http://www.twilio.com/docs/api/rest/sms">official REST API documentation</a>
+            for response data format and usage examples.
+        <p>
+            <b>Instance Functions:</b>
+            <ul>
+                <li><tt>client.sms.messages('someSid').get</tt></li>
+                <li><tt>client.getSms('someSid', callback)</tt> (shorthand to get a specific SMS, and specify a callback)</li>
+            </ul>
+
+            <b>List Functions:</b>
+            <ul>
+                <li><tt>client.sms.messages.get</tt></li>
+                <li><tt>client.sms.messages.post</tt></li>
+                <li><tt>client.sms.messages.list</tt> (alias for get)</li>
+                <li><tt>client.sms.messages.create</tt> (alias for post)</li>
+                <li><tt>client.sendSms</tt> (alias for post)</li>
+                <li><tt>client.listSms</tt> (alias for get)</li>
+            </ul>
+        </p>
+        </p>
+
+        <p id="shortCodes">
+            <b class="header">sms.shortCodes</b><code>client.sms.shortCodes([messageSid])</code>
+            <br/>
+
+            Accesses <a href="http://www.twilio.com/docs/api/rest/short-codes">SMS/ShortCodes</a>
+            resources via the REST interface.
+
+            Refer to the <a href="http://www.twilio.com/docs/api/rest/short-codes">official REST API documentation</a>
+            for response data format and usage examples.
+            <p>
+                <b>Instance Functions:</b>
+            <ul>
+                <li><tt>client.sms.shortCodes('someSid').get</tt></li>
+                <li><tt>client.sms.shortCodes('someSid').post</tt></li>
+                <li><tt>client.sms.shortCodes('someSid').list</tt> (alias for get)</li>
+                <li><tt>client.sms.shortCodes('someSid').update</tt> (alias for post)</li>
+            </ul>
+
+            <b>List Functions:</b>
+            <ul>
+                <li><tt>client.sms.shortCodes.get</tt></li>
+                <li><tt>client.sms.shortCodes.list</tt> (alias for get)</li>
+            </ul>
+            </p>
+        </p>
+
+        <p id="applications">
+            <b class="header">applications</b><code>client.applications([applicationSid])</code>
+            <br/>
+
+            Accesses <a href="http://www.twilio.com/docs/api/rest/applications">Applications</a>
+            resources via the REST interface.
+
+            Refer to the <a href="http://www.twilio.com/docs/api/rest/applications">official REST API documentation</a>
+            for response data format and usage examples.
+        <p>
+            <b>Instance Functions:</b>
+            <ul>
+                <li><tt>client.applications('someSid').get</tt></li>
+                <li><tt>client.applications('someSid').post</tt></li>
+                <li><tt>client.applications('someSid').delete</tt></li>
+                <li><tt>client.applications('someSid').list</tt> (alias for get)</li>
+                <li><tt>client.applications('someSid').update</tt> (alias for post)</li>
+            </ul>
+
+            <b>List Functions:</b>
+            <ul>
+                <li><tt>client.applications.get</tt></li>
+                <li><tt>client.applications.post</tt></li>
+                <li><tt>client.applications.list</tt> (alias for get)</li>
+                <li><tt>client.applications.create</tt> (alias for post)</li>
+            </ul>
+            </p>
+        </p>
+
+        <p id="connectApps">
+            <b class="header">connectApps</b><code>client.connectApps([applicationSid])</code>
+            <br/>
+
+            Accesses <a href="http://www.twilio.com/docs/api/rest/connect-apps">Connect Apps</a>
+            resources via the REST interface.
+
+            Refer to the <a href="http://www.twilio.com/docs/api/rest/connect-apps">official REST API documentation</a>
+            for response data format and usage examples.
+        <p>
+            <b>Instance Functions:</b>
+            <ul>
+                <li><tt>client.connectApps('someSid').get</tt></li>
+                <li><tt>client.connectApps('someSid').post</tt></li>
+                <li><tt>client.connectApps('someSid').list</tt> (alias for get)</li>
+                <li><tt>client.connectApps('someSid').update</tt> (alias for post)</li>
+            </ul>
+
+            <b>List Functions:</b>
+            <ul>
+                <li><tt>client.connectApps.get</tt></li>
+                <li><tt>client.connectApps.list</tt> (alias for get)</li>
+            </ul>
+            </p>
+        </p>
+
+        <p id="authorizedConnectApps">
+            <b class="header">authorizedConnectApps</b><code>client.authorizedConnectApps([applicationSid])</code>
+            <br/>
+
+            Accesses <a href="http://www.twilio.com/docs/api/rest/authorized-connect-apps">Authorized Connect Apps</a>
+            resources via the REST interface.
+
+            Refer to the <a href="http://www.twilio.com/docs/api/rest/authorized-connect-apps">official REST API documentation</a>
+            for response data format and usage examples.
+
+            <p>
+                <b>Instance Functions:</b>
+            <ul>
+                <li><tt>client.authorizedConnectApps('someSid').get</tt></li>
+            </ul>
+
+            <b>List Functions:</b>
+            <ul>
+                <li><tt>client.authorizedConnectApps.get</tt></li>
+                <li><tt>client.authorizedConnectApps.list</tt> (alias for get)</li>
+            </ul>
+            </p>
+        </p>
+
+        <p id="calls">
+            <b class="header">calls</b><code>client.calls([callSid])</code>
+            <br/>
+
+            Accesses <a href="http://www.twilio.com/docs/api/rest/call">Calls</a>
+            resources via the REST interface.
+
+            Refer to the <a href="http://www.twilio.com/docs/api/rest/call">official REST API documentation</a>
+            for response data format and usage examples.
+            <p>
+                <b>Instance Functions:</b>
+            <ul>
+                <li><tt>client.calls('someSid').get</tt></li>
+                <li><tt>client.calls('someSid').post</tt></li>
+                <li><tt>client.calls('someSid').update</tt> (alias for post)</li>
+                <li><tt>client.calls('someSid').recordings.get</tt></li>
+                <li><tt>client.calls('someSid').notifications.get</tt></li>
+                <li><tt>client.getCall('someSid', callback)</tt> (shorthand for get)</li>
+            </ul>
+
+            <b>List Functions:</b>
+            <ul>
+                <li><tt>client.calls.get</tt></li>
+                <li><tt>client.calls.post</tt></li>
+                <li><tt>client.calls.list</tt> (alias for get)</li>
+                <li><tt>client.calls.create</tt> (alias for post)</li>
+                <li><tt>client.makeCall</tt> (alias for post)</li>
+                <li><tt>client.listCalls</tt> (alias for get)</li>
+            </ul>
+            </p>
+        </p>
+
+        <p id="conferences">
+            <b class="header">conferences</b><code>client.conferences([conferenceSid])</code>
+            <br/>
+
+            Accesses <a href="http://www.twilio.com/docs/api/rest/conference">Conference</a>
+            resources via the REST interface.
+
+            Refer to the <a href="http://www.twilio.com/docs/api/rest/conference">official REST API documentation</a>
+            for response data format and usage examples.
+        <p>
+            <b>Instance Functions:</b>
+        <ul>
+            <li><tt>client.conferences('someSid').get</tt></li>
+            <li><tt>client.conferences('someSid').participants.get</tt></li>
+            <li><tt>client.conferences('someSid').participants.list</tt> (alias for get)</li>
+            <li><tt>client.conferences('someSid').participants('someSid').get</tt></li>
+            <li><tt>client.conferences('someSid').participants('someSid').post</tt></li>
+            <li><tt>client.conferences('someSid').participants('someSid').update</tt> (alias for post)</li>
+            <li><tt>client.conferences('someSid').participants('someSid').delete</tt></li>
+            <li><tt>client.conferences('someSid').participants('someSid').kick</tt> (alias for delete)</li>
+        </ul>
+
+        <b>List Functions:</b>
+        <ul>
+            <li><tt>client.conferences.get</tt></li>
+            <li><tt>client.conferences.list</tt> (alias for get)</li>
+        </ul>
+        </p>
+        </p>
+
+        <p id="queues">
+            <b class="header">queues</b><code>client.queues([queueSid])</code>
+            <br/>
+
+            Accesses <a href="http://www.twilio.com/docs/api/rest/queue">Queues</a>
+            resources via the REST interface.
+
+            Refer to the <a href="http://www.twilio.com/docs/api/rest/queue">official REST API documentation</a>
+            for response data format and usage examples.
+        <p>
+            <b>Instance Functions:</b>
+        <ul>
+            <li><tt>client.queues('someSid').get</tt></li>
+            <li><tt>client.queues('someSid').post</tt></li>
+            <li><tt>client.queues('someSid').delete</tt></li>
+            <li><tt>client.queues('someSid').update</tt> (alias for post)</li>
+            <li><tt>client.queues('someSid').members('callSid').get</tt></li>
+            <li><tt>client.queues('someSid').members('callSid').post</tt></li>
+            <li><tt>client.queues('someSid').members('callSid').update</tt> (alias for post)</li>
+            <li><tt>client.queues('someSid').members.front.get</tt></li>
+            <li><tt>client.queues('someSid').members.front.post</tt></li>
+            <li><tt>client.queues('someSid').members.front.update</tt> (alias for post)</li>
+        </ul>
+
+        <b>List Functions:</b>
+        <ul>
+            <li><tt>client.queues.get</tt></li>
+            <li><tt>client.queues.post</tt></li>
+            <li><tt>client.queues.list</tt> (alias for get)</li>
+            <li><tt>client.queues.create</tt> (alias for post)</li>
+        </ul>
+        </p>
+        </p>
+
+        <p id="recordings">
+            <b class="header">recordings</b><code>client.recordings([recordingSid])</code>
+            <br/>
+
+            Accesses <a href="http://www.twilio.com/docs/api/rest/recording">Recordings</a>
+            resources via the REST interface.
+
+            Refer to the <a href="http://www.twilio.com/docs/api/rest/recording">official REST API documentation</a>
+            for response data format and usage examples.
+        <p>
+            <b>Instance Functions:</b>
+        <ul>
+            <li><tt>client.recordings('someSid').get</tt></li>
+            <li><tt>client.recordings('someSid').delete</tt></li>
+            <li><tt>client.recordings('someSid').transcriptions.get</tt></li>
+            <li><tt>client.recordings('someSid').transcriptions.list</tt> (alias for get)</li>
+        </ul>
+
+        <b>List Functions:</b>
+        <ul>
+            <li><tt>client.recordings.get</tt></li>
+            <li><tt>client.recordings.list</tt> (alias for get)</li>
+        </ul>
+        </p>
+        </p>
+
+        <p id="transcriptions">
+            <b class="header">transcriptions</b><code>client.transcriptions([transcriptionSid])</code>
+            <br/>
+
+            Accesses <a href="http://www.twilio.com/docs/api/rest/transcription">Transcriptions</a>
+            resources via the REST interface.
+
+            Refer to the <a href="http://www.twilio.com/docs/api/rest/transcription">official REST API documentation</a>
+            for response data format and usage examples.
+        <p>
+            <b>Instance Functions:</b>
+        <ul>
+            <li><tt>client.transcriptions('someSid').get</tt></li>
+        </ul>
+
+        <b>List Functions:</b>
+        <ul>
+            <li><tt>client.transcriptions.get</tt></li>
+            <li><tt>client.transcriptions.list</tt> (alias for get)</li>
+        </ul>
+        </p>
+        </p>
+
+        <p id="notifications">
+            <b class="header">notifications</b><code>client.notifications([notificationSid])</code>
+            <br/>
+
+            Accesses <a href="http://www.twilio.com/docs/api/rest/notification">Notification</a>
+            resources via the REST interface.
+
+            Refer to the <a href="http://www.twilio.com/docs/api/rest/notification">official REST API documentation</a>
+            for response data format and usage examples.
+        <p>
+            <b>Instance Functions:</b>
+        <ul>
+            <li><tt>client.notifications('someSid').get</tt></li>
+            <li><tt>client.notifications('someSid').delete</tt></li>
+        </ul>
+
+        <b>List Functions:</b>
+        <ul>
+            <li><tt>client.notifications.get</tt></li>
+            <li><tt>client.notifications.list</tt> (alias for get)</li>
+        </ul>
+        </p>
+        </p>
+
+        <p id="usageRecords">
+            <b class="header">usage.records</b><code>client.usage.records([recordSid])</code>
+            <br/>
+
+            Accesses <a href="http://www.twilio.com/docs/api/rest/usage-records">Usage Records</a>
+            resources via the REST interface.
+
+            Refer to the <a href="http://www.twilio.com/docs/api/rest/usage-records">official REST API documentation</a>
+            for response data format and usage examples.
+        <p>
+            <b>Instance Functions:</b>
+        <ul>
+            <li><tt>client.usage.records('someSid').get</tt></li>
+        </ul>
+
+        <b>List Functions:</b>
+        <ul>
+            <li><tt>client.usage.records.get</tt></li>
+            <li><tt>client.usage.records.list</tt> (alias for get)</li>
+        </ul>
+        </p>
+        </p>
+
+        <p id="usageTriggers">
+            <b class="header">usage.triggers</b><code>client.usage.triggers([triggerSid])</code>
+            <br/>
+
+            Accesses <a href="http://www.twilio.com/docs/api/rest/usage-triggers">Usage Triggers</a>
+            resources via the REST interface.
+
+            Refer to the <a href="http://www.twilio.com/docs/api/rest/usage-triggers">official REST API documentation</a>
+            for response data format and usage examples.
+        <p>
+            <b>Instance Functions:</b>
+        <ul>
+            <li><tt>client.usage.triggers('someSid').get</tt></li>
+            <li><tt>client.usage.triggers('someSid').post</tt></li>
+            <li><tt>client.usage.triggers('someSid').delete</tt></li>
+            <li><tt>client.usage.triggers('someSid').update</tt> (alias for post)</li>
+        </ul>
+
+        <b>List Functions:</b>
+        <ul>
+            <li><tt>client.usage.triggers.get</tt></li>
+            <li><tt>client.usage.triggers.post</tt></li>
+            <li><tt>client.usage.triggers.list</tt> (alias for get)</li>
+            <li><tt>client.usage.triggers.create</tt> (alias for post)</li>
+        </ul>
+        </p>
+        </p>
+
+        <p id="sipDomains">
+            <b class="header">sip.domains</b><code>client.sip.domains([sid])</code>
+            <br/>
+
+            Accesses <a href="http://www.twilio.com/docs/api/rest/domain">SIP Domains</a>
+            resources via the REST interface.
+
+            Refer to the <a href="http://www.twilio.com/docs/api/rest/domain">official REST API documentation</a> for response data format and usage examples.
+        <p>
+            <b>Instance Functions:</b>
+        <ul>
+            <li><tt>client.sip.domains('someSid').get</tt></li>
+            <li><tt>client.sip.domains('someSid').post</tt></li>
+            <li><tt>client.sip.domains('someSid').delete</tt></li>
+            <li><tt>client.sip.domains('someSid').update</tt> (alias for post)</li>
+            <li><tt>client.sip.domains('someSid').ipAccessControlListMappings('sid').get</tt></li>
+            <li><tt>client.sip.domains('someSid').ipAccessControlListMappings('sid').delete</tt></li>
+            <li><tt>client.sip.domains('someSid').ipAccessControlListMappings.get</tt></li>
+            <li><tt>client.sip.domains('someSid').ipAccessControlListMappings.post</tt></li>
+            <li><tt>client.sip.domains('someSid').ipAccessControlListMappings.list</tt> (alias for get)</li>
+            <li><tt>client.sip.domains('someSid').ipAccessControlListMappings.create</tt> (alias for post)</li>
+            <li><tt>client.sip.domains('someSid').credentialListMappings('sid').get</tt></li>
+            <li><tt>client.sip.domains('someSid').credentialListMappings('sid').delete</tt></li>
+            <li><tt>client.sip.domains('someSid').credentialListMappings.get</tt></li>
+            <li><tt>client.sip.domains('someSid').credentialListMappings.post</tt></li>
+            <li><tt>client.sip.domains('someSid').credentialListMappings.list</tt> (alias for get)</li>
+            <li><tt>client.sip.domains('someSid').credentialListMappings.create</tt> (alias for post)</li>
+        </ul>
+
+        <b>List Functions:</b>
+        <ul>
+            <li><tt>client.sip.domains.get</tt></li>
+            <li><tt>client.sip.domains.post</tt></li>
+            <li><tt>client.sip.domains.list</tt> (alias for get)</li>
+            <li><tt>client.sip.domains.create</tt> (alias for post)</li>
+        </ul>
+        </p>
+        </p>
+
+        <p id="sipIpAccessControlLists">
+            <b class="header">sip.ipAccessControlLists</b><code>client.sip.ipAccessControlLists([sid])</code>
+            <br/>
+
+            Accesses <a href="http://www.twilio.com/docs/api/rest/ip-access-control-list">SIP IP Access Control Lists</a>
+            resources via the REST interface.
+
+            Refer to the <a href="http://www.twilio.com/docs/api/rest/ip-access-control-list">official REST API documentation</a> for response data format and usage examples.
+        <p>
+            <b>Instance Functions:</b>
+        <ul>
+            <li><tt>client.sip.ipAccessControlLists('someSid').get</tt></li>
+            <li><tt>client.sip.ipAccessControlLists('someSid').post</tt></li>
+            <li><tt>client.sip.ipAccessControlLists('someSid').delete</tt></li>
+            <li><tt>client.sip.ipAccessControlLists('someSid').update</tt> (alias for post)</li>
+            <li><tt>client.sip.ipAccessControlLists('someSid').ipAddresses('sid').get</tt></li>
+            <li><tt>client.sip.ipAccessControlLists('someSid').ipAddresses('sid').post</tt></li>
+            <li><tt>client.sip.ipAccessControlLists('someSid').ipAddresses('sid').delete</tt></li>
+            <li><tt>client.sip.ipAccessControlLists('someSid').ipAddresses('sid').update (alias for post)</tt></li>
+            <li><tt>client.sip.ipAccessControlLists('someSid').ipAddresses.get</tt></li>
+            <li><tt>client.sip.ipAccessControlLists('someSid').ipAddresses.post</tt></li>
+            <li><tt>client.sip.ipAccessControlLists('someSid').ipAddresses.list (alias for get)</tt></li>
+            <li><tt>client.sip.ipAccessControlLists('someSid').ipAddresses.create (alias for post)</tt></li>
+        </ul>
+
+        <b>List Functions:</b>
+        <ul>
+            <li><tt>client.sip.ipAccessControlLists.get</tt></li>
+            <li><tt>client.sip.ipAccessControlLists.post</tt></li>
+            <li><tt>client.sip.ipAccessControlLists.list</tt> (alias for get)</li>
+            <li><tt>client.sip.ipAccessControlLists.create</tt> (alias for post)</li>
+        </ul>
+        </p>
+        </p>
+
+        <p id="sipCredentialLists">
+            <b class="header">sip.credentialLists</b><code>client.sip.credentialLists([sid])</code>
+            <br/>
+
+            Accesses <a href="http://www.twilio.com/docs/api/rest/credential-list">SIP Credential Lists</a>
+            resources via the REST interface.
+
+            Refer to the <a href="http://www.twilio.com/docs/api/rest/credential-list">official REST API documentation</a> for response data format and usage examples.`
+        <p>
+            <b>Instance Functions:</b>
+        <ul>
+            <li><tt>client.sip.credentialLists('someSid').get</tt></li>
+            <li><tt>client.sip.credentialLists('someSid').post</tt></li>
+            <li><tt>client.sip.credentialLists('someSid').delete</tt></li>
+            <li><tt>client.sip.credentialLists('someSid').update</tt> (alias for post)</li>
+            <li><tt>client.sip.credentialLists('someSid').credentials('sid').get</tt></li>
+            <li><tt>client.sip.credentialLists('someSid').credentials('sid').post</tt></li>
+            <li><tt>client.sip.credentialLists('someSid').credentials('sid').delete</tt></li>
+            <li><tt>client.sip.credentialLists('someSid').credentials('sid').update (alias for post)</tt></li>
+            <li><tt>client.sip.credentialLists('someSid').credentials.get</tt></li>
+            <li><tt>client.sip.credentialLists('someSid').credentials.post</tt></li>
+            <li><tt>client.sip.credentialLists('someSid').credentials.list (alias for get)</tt></li>
+            <li><tt>client.sip.credentialLists('someSid').credentials.create (alias for post)</tt></li>
+        </ul>
+
+        <b>List Functions:</b>
+        <ul>
+            <li><tt>client.sip.credentialLists.get</tt></li>
+            <li><tt>client.sip.credentialLists.post</tt></li>
+            <li><tt>client.sip.credentialLists.list</tt> (alias for get)</li>
+            <li><tt>client.sip.credentialLists.create</tt> (alias for post)</li>
+        </ul>
+        </p>
+        </p>
+
+        <h2 id="twimlResponse">TwimlResponse</h2>
+
+        <p>
+            When your Twilio application needs to respond to an incoming SMS message or
+            voice call input, the developer gives Twilio instructions on what to do using a
+            special XML instruction set called "TwiML".  The <tt>TwimlResponse</tt> object
+            makes creating a proper TwiML XML string very easy.  The resulting TwiML string
+            can be rendered to the end user using the node.js HTTP server APIs directly, or
+            using a higher level web framework like <a href="http://expressjs.com">express</a>.
+        </p>
+
+        <p >
+            <b class="header">Constructor</b><code>new twilio.TwimlResponse()</code>
+            <br/>
+
+            Create a <a href="http://www.twilio.com/docs/api/twiml">TwiML</a>
+            response, which can later be serialized to XML.
+        <p>
+        <p>Example:</p>
+<pre>
+var twilio = require('twilio');
+var resp = new twilio.TwimlResponse();
+</pre>
+
+        <p id="twimlBasic">
+            <b class="header">TwiML Basics</b>
+            <br/>
+            
+            The <tt>TwimlResponse</tt> object provides JavaScript functions to construct the
+            <a href="http://www.twilio.com/docs/api/twiml">TwiML verbs</a> that are appropriate
+            for the given parent node.  Each JavaScript function takes the following arguments, in any order:
+            <ul>
+                <li>an <tt>Object</tt> hash containing the attributes for the parent XML node, if any</li>
+                <li>a <tt>String</tt> containing the content of the XML node (as in a <tt>&lt;Say&gt;</tt> verb)</li>
+                <li>if a string is not specified, a <tt>Function</tt> which will build child nodes of this node</li>
+            </ul>
+        </p>
+<pre>
+var twilio = require('twilio');
+var resp = new twilio.TwimlResponse();
+
+resp.say('Welcome to Twilio!');
+resp.say('Please let us know if we can help during your development.', {
+    voice:'woman',
+    language:'en-gb'
+});
+
+console.log(resp.toString());
+/**
+Outputs the following:
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;Response&gt;
+    &lt;Say&gt;Welcome to Twilio!&lt;/Say&gt;
+    &lt;Say voice="woman" language="en-gb"&gt;Please let us know if we can help during your development.&lt;/Say&gt;
+&lt;/Response&gt;
+*/
+</pre>
+
+        <p>
+            Rendering the actual XML document is done with the <tt>toString</tt> function.  The following node
+            program would render a TwiML document when a request was received to the HTTP server running on port
+            1337:
+        </p>
+
+<pre>
+var http = require('http'),
+    twilio = require('twilio');
+
+http.createServer(function (req, res) {
+    //Create TwiML response
+    var twiml = new twilio.TwimlResponse();
+    twiml.say('Hello World!');
+
+    res.writeHead(200, {'Content-Type': 'text/xml'});
+    res.end(twiml.toString());
+
+}).listen(1337, '127.0.0.1');
+
+console.log('TwiML servin\' server running at http://127.0.0.1:1337/');
+</pre>
+
+        <p id="twimlChained">
+            <b class="header">Chaining Syntax</b>
+            <br/>
+            You can add multiple nodes to a TwiML document in a single statement by chaining function calls:
+        </p>
+
+<pre>
+var twilio = require('twilio');
+var resp = new twilio.TwimlResponse();
+
+resp.say('Welcome to Twilio!')
+    .pause({ length:3 })
+    .say('Please let us know if we can help during your development.', {
+        voice:'woman',
+        language:'en-gb'
+    })
+    .play('http://www.example.com/some_sound.mp3');
+
+console.log(resp.toString());
+/**
+Outputs the following:
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;Response&gt;
+    &lt;Say&gt;Welcome to Twilio!&lt;/Say&gt;
+    &lt;Pause length="3"&gt;&lt;/Pause&gt;
+    &lt;Say voice="woman" language="en-gb"&gt;Please let us know if we can help during your development.&lt;/Say&gt;
+    &lt;Play&gt;http://www.example.com/some_sound.mp3&lt;/Play&gt;
+&lt;/Response&gt;
+*/
+</pre>
+
+        <p id="twimlNesting">
+            <b class="header">Nesting TwiML Nodes</b>
+            <br/>
+            Some TwiML verbs have other nouns or verbs nested within them.  You can create these nested structures
+            by passing a function to a parent node, which will be executed in the context of the parent node.
+            Within this callback function, <tt>this</tt> will refer to the parent node, which will have JavaScript
+            functions that map to the allowed syntax for child nodes of the parent:
+        </p>
+
+<pre>
+var twilio = require('twilio');
+var resp = new twilio.TwimlResponse();
+
+resp.say('Welcome to Acme Customer Service!')
+    .gather({
+        action:'http://www.example.com/callFinished.php',
+        finishOnKey:'*'
+    }, function() {
+        this.say('Press 1 for customer service')
+            .say('Press 2 for British customer service', { language:'en-gb' });
+    });
+
+console.log(resp.toString());
+/**
+Outputs the following:
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;Response&gt;
+    &lt;Say&gt;Welcome to Acme Customer Service!&lt;/Say&gt;
+    &lt;Gather action="http://www.example.com/callFinished.php" finishOnKey="*"&gt;
+        &lt;Say&gt;Press 1 for customer service.&lt;/Say&gt;
+        &lt;Say language="en-gb"&gt;Press 2 for British customer service.&lt;/Say&gt;
+    &lt;/Gather&gt;
+&lt;/Response&gt;
+*/
+</pre>
+
+        <p>
+            Alternately, the first argument to the child node building function is also a reference to the parent
+            node, so the following code is equivalent:
+        </p>
+
+<pre>
+var twilio = require('twilio');
+var resp = new twilio.TwimlResponse();
+
+resp.say('Welcome to Acme Customer Service!')
+    .gather({
+        action:'http://www.example.com/callFinished.php',
+        finishOnKey:'*'
+    }, function(node) { //note the use of the "node" variable in the anonymous function
+
+        //Now you can use this reference as well, if using "this" wrankles you
+        node.say('Press 1 for customer service')
+            .say('Press 2 for British customer service', { language:'en-gb' });
+
+    });
+
+console.log(resp.toString());
+/**
+Outputs the following:
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;Response&gt;
+    &lt;Say&gt;Welcome to Acme Customer Service!&lt;/Say&gt;
+    &lt;Gather action="http://www.example.com/callFinished.php" finishOnKey="*"&gt;
+        &lt;Say&gt;Press 1 for customer service.&lt;/Say&gt;
+        &lt;Say language="en-gb"&gt;Press 2 for British customer service.&lt;/Say&gt;
+    &lt;/Gather&gt;
+&lt;/Response&gt;
+*/
+</pre>
+
+        <h2 id="capability">Capability Token Generator</h2>
+
+        <p>
+            Using Twilio Client requires the use of a 
+            <a href="http://www.twilio.com/docs/client/capability-tokens">capability token</a>,
+            which enables client access to Twilio's VoIP platform.  These capability tokens can
+            be used either <a href="http://www.twilio.com/docs/client/twilio-js">in the browser</a>
+            or in native apps for <a href="http://www.twilio.com/docs/client/ios">iOS</a> and
+            <a href="http://www.twilio.com/docs/client/android">Android</a>.  This utility is intended
+            to allow node.js applications the ability to generate these capability tokens on the
+            server side.  For a complete node example using the express web framework, check out the
+            <a href="https://github.com/twilio/twilio-node/tree/master/examples">examples</a> on
+            GitHub.
+        </p>
+
+        <p>
+            <b class="header">Constructor</b><code>new twilio.Capability(accountSid, authToken)</code>
+            <br/>
+
+            Create a capability token generator for use with Twilio Client.
+
+            <ul>
+                <li><b>accountSid:</b> {string} Twilio account SID</li>
+                <li><b>authToken:</b> {string} Twilio auth token</li>
+            </ul>
+        <p>
+        <p>Example:</p>
+<pre>
+var twilio = require('twilio');
+var capability = new twilio.Capability(ACCOUNT_SID, AUTH_TOKEN);
+</pre>
+
+        <p id="allowClientIncoming">
+            <b class="header">allowClientIncoming</b><code>capability.allowClientIncoming(clientName)</code>
+            <br/>
+
+            Add a capability to the token generator which will allow incoming calls to the given <tt>clientName</tt>.
+
+            <ul>
+                <li><b>clientName:</b> {string} the name of client which will accept incoming calls</li>
+            </ul>
+        <p>
+        <p>Example:</p>
+<pre>
+var twilio = require('twilio');
+var capability = new twilio.Capability(ACCOUNT_SID, AUTH_TOKEN);
+
+//Create a capability token for a client named "jenny"
+capability.allowClientIncoming('jenny');
+var token = capability.generate();
+</pre>
+
+        <p id="allowClientOutgoing">
+            <b class="header">allowClientOutgoing</b><code>capability.allowClientOutgoing(twimlAppSid)</code>
+            <br/>
+
+            Add a capability to the token generator which will allow the client to make outgoing calls,
+            using the <a href="https://www.twilio.com/user/account/apps">TwiML app</a> with the given
+            <tt>twimlAppSid</tt>
+
+        <ul>
+            <li><b>twimlAppSid:</b> {string} the SID of the TwiML app which will be used to make outgoing calls</li>
+        </ul>
+        <p>
+        <p>Example:</p>
+<pre>
+var twilio = require('twilio');
+var capability = new twilio.Capability(ACCOUNT_SID, AUTH_TOKEN);
+
+//Create a capability token using the TwiML app with sid "AP123"
+capability.allowClientOutgoing('AP123');
+var token = capability.generate();
+</pre>
+
+        <p id="generate">
+            <b class="header">generate</b><code>capability.generate([timeout])</code>
+            <br/>
+
+            Generate a capability token with the configured permissions, which by default will expire
+            after one hour.
+
+        <ul>
+            <li><b>timeout (optional):</b> {number} time in seconds for the capability token to be valid</li>
+        </ul>
+        <p>
+        <p>Example:</p>
+<pre>
+var twilio = require('twilio');
+var capability = new twilio.Capability(ACCOUNT_SID, AUTH_TOKEN);
+
+//Create a capability token using the TwiML app with sid "AP123", that expires in two minutes
+capability.allowClientOutgoing('AP123');
+var token = capability.generate(120);
+</pre>
+
+        <h2 id="utilities">Utilities</h2>
+
+        <p id="validateRequest">
+            <b class="header">validateRequest</b><code>twilio.validateRequest(authToken, header, url, params)</code>
+            <br/>
+
+            When Twilio sends a request to your web app, it sends a special header called <tt>X-Twilio-Signature</tt>.
+            This header is a hashed value that we can use on the server side to confirm that a request has indeed
+            originated from Twilio. More details on this security measure are located
+            <a href="https://www.twilio.com/docs/security#validating-requests">here</a>.
+
+            This function will return a boolean indicating whether or not, given the request URL, POST/GET parameters,
+            and your auth token, a request was actually sent from Twilio.
+
+
+
+            <ul>
+                <li><b>authToken:</b> {string} your Twilio auth token</li>
+                <li><b>header:</b> {string} the <tt>X-Twilio-Signature</tt> header sent by Twilio</li>
+                <li><b>url:</b> {string} the URL requested by Twilio</li>
+                <li><b>params:</b> {object} a JavaScript object containing key-value pairs of parameters sent by Twilio</li>
+            </ul>
+        <p>
+        <p>Example:</p>
+<pre>
+var twilio = require('twilio'),
+    http = require('http'),
+    qs = require('querystring');
+
+http.createServer(function (req, res) {
+
+    if (req.method == 'POST') {
+        var body = '';
+
+        req.on('data', function (data) {
+            body += data;
+        });
+
+        req.on('end', function () {
+
+            var POST = qs.parse(body);
+
+            //validate incoming request is from twilio using your auth token and the header from Twilio
+            var token = 'YOUR_TWILIO_AUTH_TOKEN',
+                header = req.headers['x-twilio-signature'];
+
+            //validateRequest returns true if the request originated from Twilio
+            if (twilio.validateRequest(token, header, 'http://twilio-raw.herokuapp.com', POST)) {
+                //generate a TwiML response
+                var resp = new twilio.TwimlResponse();
+                resp.say('hello, twilio!');
+
+                res.writeHead(200, { 'Content-Type':'text/xml' });
+                res.end(resp.toString());
+            }
+            else {
+                res.writeHead(403, { 'Content-Type':'text/plain' });
+                res.end('you are not twilio - take a hike.');
+            }
+        });
+    }
+    else {
+        res.writeHead(404, { 'Content-Type':'text/plain' });
+        res.end('send a POST');
+    }
+
+}).listen(80);
+</pre>
+
+        <p id="validateExpressRequest">
+            <b class="header">validateExpressRequest</b><code>twilio.validateExpressRequest(request, authToken)</code>
+            <br/>
+
+            This is a helper function which decomposes an <a href="http://expressjs.com/api.html#req.params">Express request object</a>
+            and uses <a href="#validateRequest">validateRequest</a> to determine if the request was sent by Twilio.  Returns <tt>true</tt>
+            if the request was sent by Twilio.  <b>NOTE:</b> This function requires the developer to use the <tt>express.urlencoded</tt> middleware to function. <a href="http://expressjs.com/api.html#bodyParser">Check out how to use this middleware in the express documentation</a>.
+
+        <ul>
+            <li><b>request:</b> {object} An Express Request object</li>
+            <li><b>authToken:</b> {string} Your Twilio auth token</li>
+            <li><b>options:</b> {object} Options for request validation:
+                <ul>
+                    <li><b>url</b>: The full Twilio webhook request URL you configured for your number, including any query parameters. Supercedes any configuration for <tt>host</tt> and <tt>protocol</tt> below. The default behavior of the request validator is to inspect the Express HTTP request object, and use information about the request to guess what the webhook URL is. You can use this property, or the below properties to override this behavior (useful if deployed to a PaaS like Heroku or ELB, or other infrastructure where Twilio's configured webhook URL might differ from the URL information on the HTTP request).</li>
+                    <li><b>protocol</b>: Manually configure the protocol used in the Twilio webhook configuration. Defaults to the Express <tt>request.protocol</tt></li>
+                    <li><b>host</b>: Manually configure the host name used in the Twilio webhook configuration. Defaults to the Express <tt>request.headers.host</tt></li>
+                </ul>
+            </li>
+        </ul>
+        <p>
+        <p>Example:</p>
+<pre>
+var express = require('express'),
+    http = require('http'),
+    path = require('path'),
+    twilio = require('twilio');
+
+var app = express();
+
+app.configure(function () {
+    /* Configure your express app... */
+    app.use(express.urlencoded());
+});
+
+//Twilio request authentication
+app.post('/twiml', function(req, res) {
+    if (twilio.validateExpressRequest(req, 'YOUR_TWILIO_AUTH_TOKEN')) {
+        var resp = new twilio.TwimlResponse();
+        resp.say('express sez - hello twilio!');
+
+        res.type('text/xml');
+        res.send(resp.toString());
+    }
+    else {
+        res.send('you are not twilio.  Buzz off.');
+    }
+});
+
+//Twilio request authentication with custom URL
+app.post('/twiml', function(req, res) {
+    var options = { url: 'https://subtle-gradient-188.herokuapp.com/twiml' };
+    if (twilio.validateExpressRequest(req, 'YOUR_TWILIO_AUTH_TOKEN', options)) {
+        var resp = new twilio.TwimlResponse();
+        resp.say('express sez - hello twilio!');
+
+        res.type('text/xml');
+        res.send(resp.toString());
+    }
+    else {
+        res.send('you are not twilio.  Buzz off.');
+    }
+});
+</pre>
+        
+        <p id="webhook">
+            <b class="header">webhook</b><code>twilio.webhook([authToken, options])</code>
+            <br/>
+
+            This function returns an <a href="http://expressjs.com/guide.html">Express middleware function</a> that uses <a href="#validateExpressRequest">validateExpressRequest</a> to determine if the request was sent by Twilio, and adds some API sugar to make the Express response object aware of <a href="#twimlResponse">TwimlResponse</a> objects and how to properly <tt>send()</tt> them.  Note that this middleware was built specifically for Express, and may or may not work with other Connect middleware-based frameworks.  Arguments can be passed in any order.  Request validation requires your Twilio auth token. <br/><br/>If validation is enabled (this is the default) and the request was sent by Twilio, the middleware calls <tt>next()</tt> and allows further processing.  If validation fails, it renders plain text and a 403 reponse. If no auth token is configured, it prints a message to console.error and returns a 500. <b>NOTE:</b> This function requires the developer to use the <tt>express.urlencoded</tt> middleware to function. <a href="http://expressjs.com/api.html#bodyParser">Check out how to use this middleware in the express documentation</a>.
+
+        <ul>
+            <li><b>authToken:</b> {string} Your Twilio auth token. If validation is enabled and none is provided, the module will look to <tt>process.env.TWILIO_AUTH_TOKEN</tt>. If that is also undefined, an error will be logged and your webhook URL will give a 500 error.</li>
+            <li><b>options:</b> {object} Options for the middleware:
+                <ul>
+                    <li><b>validate:</b> {boolean} Whether or not the middleware should validate that the incoming request originated from Twilio.  Default: true.</li>
+                    <li><b>includeHelpers:</b> {boolean} add helpers to the <a href="http://expressjs.com/api.html#res.status">Express response object</a> to improve support for <tt>TwimlResponse</tt> object rendering.  Default: true.</li>
+                    <li><b>url:</b> See <a href="#validateExpressRequest">validateExpressRequest options above</a>.</li>
+                    <li><b>host:</b> See <a href="#validateExpressRequest">validateExpressRequest options above</a>.</li>
+                    <li><b>protocol:</b> See <a href="#validateExpressRequest">validateExpressRequest options above</a>.</li>
+                </ul>
+            </li>
+        </ul>
+        <p>
+        <p>Example:</p>
+<pre>
+var express = require('express'),
+    twilio = require('twilio');
+
+// Create an express app which will parse form-encoded request bodies
+var app = express();
+app.use(express.urlencoded());
+
+// Create an SMS webhook that validates using your Twilio auth token, configured
+// in "process.env.TWILIO_AUTH_TOKEN".  Also adds functionality to "response.send"
+// to make it intelligently handle TwimlResponse objects.  If "response.send" is
+// passed a TwimlResponse object, it will automatically set the proper
+// Content-Type header and call "toString()" on the TwimlResponse object
+app.post('/sms', twilio.webhook(), function(request, response) {
+    var twiml = new twilio.TwimlResponse();
+    twiml.message('This HTTP request came from Twilio!');
+    response.send(twiml);
+});
+
+// Manually configure host and protocol info for the webhook you defined for your Twilio number
+app.post('/foo/bar/sms', twilio.webhook({
+    host:'gassy-ocelot-129.herokuapp.com',
+    protocol:'https'
+}), function(request, response) {
+    var twiml = new twilio.TwimlResponse();
+    twiml.message('This HTTP request came from Twilio!');
+    response.send(twiml);
+});
+
+// Alternately, you could configure the whole URL...
+app.post('/foo/bar/sms', twilio.webhook({
+    url:'https://gassy-ocelot-129.herokuapp.com/foo/bar/sms',
+}), function(request, response) {
+    var twiml = new twilio.TwimlResponse();
+    twiml.message('This HTTP request came from Twilio!');
+    response.send(twiml);
+});
+
+// This webhook performs no validation - this might be used for a fallback URL
+// for your Twilio number, to ensure a response is always sent back to the user.
+app.post('/fallback', twilio.webhook({
+    validate:false
+}), function(request, response) {
+    var twiml = new twilio.TwimlResponse();
+    twiml.message('Sorry - there was an error processing your message.');
+    response.send(twiml);
+});
+
+// Start an HTTP server with this Express app
+app.listen(process.env.PORT || 3000);
+</pre>
+
+
+        <h2 id="links">Links &amp; Additional Resources</h2>
+        <p>
+            Usage of the Twilio platform requires a valid account SID and auth token.  You can sign up
+            and receive those credentials <a href="https://www.twilio.com/try-twilio">here</a>.
+        </p>
+
+        <p>
+            The official Twilio docs <a href="http://twilio.com/docs">are located here</a>.
+        </p>
+
+        <p>
+            Helper libraries are available for a variety of environments and programming langauges -
+            check out Twilio's <a href="http://github.com/twilio">GitHub repository here</a>.
+        </p>
+
+        <h2 id="changelog">Change Log</h2>
+
+        <p>
+            <b class="header">1.6.0</b> &mdash;
+            <small><i>March 3rd, 2014</i></small> &mdash;
+            <a href="https://github.com/twilio/twilio-node/compare/1.5.0...1.6.0">Diff</a>
+            <br/>
+        <ul>
+            <li>Enabled configureable URL, host, and protocol configuration for Express request validator and middleware. <a href="https://github.com/twilio/twilio-node/issues/34">See this issue for context</a>.</li>
+            <li>Made timeout for Twilio API request configureable (thanks Adam).</li>
+            <li>Made the nodeClientResponse on API requests non-enumerable, so when logging API responses the output is not so gross (thanks porsager).</li>
+            <li>Fix request validation for messages that contain emoji (thanks Mordy).</li>
+        </ul>
+        </p>
+
+        <p>
+            <b class="header">1.5.0</b> &mdash;
+            <small><i>December 27th, 2013</i></small> &mdash;
+            <a href="https://github.com/twilio/twilio-node/compare/1.4.0...1.5.0">Diff</a>
+            <br/>
+        <ul>
+            <li>Improved request validation and added Express-optimized middleware.</li>
+        </ul>
+        </p>
+
+        <p>
+            <b class="header">1.4.0</b> &mdash;
+            <small><i>October 24th, 2013</i></small> &mdash;
+            <a href="https://github.com/twilio/twilio-node/compare/1.3.0...1.4.0">Diff</a>
+            <br/>
+        <ul>
+            <li>Refactor test suite and set up <a href="https://travis-ci.org/twilio/twilio-node"></a> CI with Travis</li>
+            <li>Create promises interface</li>
+            <li>Add some missing shorthand for Messages</li>
+        </ul>
+        </p>
+
+        <p>
+            <b class="header">1.3.0</b> &mdash;
+            <small><i>October 21st, 2013</i></small> &mdash;
+            <a href="https://github.com/twilio/twilio-node/compare/1.1.4...1.3.0">Diff</a>
+            <br/>
+        <ul>
+            <li>Add support for SIP</li>
+            <li>Add support for picture messaging and media URLs</li>
+            <li>Add support for mobile only numbers</li>
+        </ul>
+        </p>
+
+        <p>
+            <b class="header">1.1.4</b> &mdash;
+            <small><i>July 9th, 2013</i></small> &mdash;
+            <a href="https://github.com/twilio/twilio-node/compare/1.1.3...1.1.4">Diff</a>
+            <br/>
+        <ul>
+            <li>
+                Fail gracefully if Twilio API server is unavailable
+            </li>
+        </ul>
+        </p>
+
+        <p>
+            <b class="header">1.1.3</b> &mdash;
+            <small><i>June 11th, 2013</i></small> &mdash;
+            <a href="https://github.com/twilio/twilio-node/compare/1.1.2...1.1.3">Diff</a>
+            <br/>
+        <ul>
+            <li>
+                Clean up error handling and documentation
+            </li>
+        </ul>
+        </p>
+
+        <p>
+            <b class="header">1.1.2</b> &mdash;
+            <small><i>May 29, 2013</i></small> &mdash;
+            <a href="https://github.com/twilio/twilio-node/compare/1.1.0...1.1.2">Diff</a>
+            <br/>
+        <ul>
+            <li>
+                Use environment variables for capability token constructor
+            </li>
+            <li>
+                escape XML characters
+            </li>
+        </ul>
+        </p>
+
+        <p>
+            <b class="header">1.1.0</b> &mdash;
+            <small><i>Mar. 18, 2013</i></small> &mdash;
+            <a href="https://github.com/twilio/twilio-node/compare/1.0.1...1.1.0">Diff</a>
+            <br/>
+        <ul>
+            <li>
+                Added "Sip" as a valid TwiML noun for "Dial"
+            </li>
+            <li>Minor fixes</li>
+        </ul>
+        </p>
+
+        <p>
+            <b class="header">1.0.1</b> &mdash;
+            <small><i>Mar. 9, 2013</i></small> &mdash;
+            <a href="https://github.com/twilio/twilio-node/compare/1.0.0...1.0.1">Diff</a>
+            <br/>
+            <ul>
+                <li>
+                    Removing test specs from npm package.
+                </li>
+            </ul>
+        </p>
+
+        <p>
+            <b class="header">1.0.0</b> &mdash;
+            <small><i>Mar. 6, 2013</i></small>
+            <br/>
+        <ul>
+            <li>Initial GA Release</li>
+        </ul>
+        </p>
+
+        <p>
+            <b class="header">0.8.0</b> &mdash;
+            <small><i>Feb. 12, 2013</i></small>
+            <br/>
+        <ul>
+            <li>Fixed numerous bugs with and added some missing subresources</li>
+            <li>
+                <p>
+                    Added in a bit of sugar to alias underscore-separated properties in Twilio REST responses to
+                    camel case to make it more JavaScripty. So <tt>data.smsMessages</tt> is aliases to <tt>data.sms_messages</tt>.
+                    Also, auto-parsing <tt>Date</tt> objects for any response properties called:
+                </p>
+                <ul>
+                    <li><tt>startDate</tt></li>
+                    <li><tt>endDate</tt></li>
+                    <li><tt>dateCreated</tt></li>
+                    <li><tt>dateUpdated</tt></li>
+                    <li><tt>startTime</tt></li>
+                    <li><tt>endTime</tt></li>
+                </ul>
+                <p>
+                    All underscore-separated values are the raw values passed back by Twilio in JSON.
+                </p>
+            </li>
+            <li>Added ability to initialize RestClient from environment variables</li>
+        </ul>
+        </p>
+
+        <p>
+            <b class="header">0.7.1</b> &mdash;
+            <small><i>Jan. 3, 2013</i></small>
+            <br/>
+        <ul>
+            <li>
+                Moved client and Twilio request verification test apps to separate repos
+            </li>
+            <li>
+                Added utilities for verifying Twilio requests
+            </li>
+        </ul>
+        </p>
+
+        <p>
+            <b class="header">0.7.0</b> &mdash;
+            <small><i>Dec. 28, 2012</i></small>
+            <br/>
+        <ul>
+            <li>
+                Added capability token generator for Twilio Client
+            </li>
+            <li>
+                Minor changes for rest client
+            </li>
+        </ul>
+        </p>
+
+        <p>
+            <b class="header">0.6.2</b> &mdash;
+            <small><i>Dec. 27, 2012</i></small>
+            <br/>
+        <ul>
+            <li>
+                Added a "list" function as an alias for "get" for uniformity with other Twilio client SDKs
+            </li>
+            <li>
+                Added the "Members" sub-resource to queues
+            </li>
+            <li>
+                Hang the node client response off the second reponse argument, so only two callback arguments are required.
+            </li>
+        </ul>
+        </p>
+
+        <p>
+            <b class="header">0.6.1</b> &mdash;
+            <small><i>Dec. 21, 2012</i></small>
+            <br/>
+        <ul>
+            <li>
+                Changed SMS and call shorthand function signature
+            </li>
+            <li>
+                removed need to include the "account" in "client.(some resource)". You can now do
+                "client.calls.get" instead of "client.accounts.calls.get".
+            </li>
+            <li>
+                initialize a REST client in one line on require.
+            </li>
+        </ul>
+        </p>
+
+        <p>
+            <b class="header">0.6.0</b> &mdash;
+            <small><i>Dec. 20, 2012</i></small>
+            <br/>
+        <ul>
+            <li>
+                Adding support for TwiML generation.
+            </li>
+            <li>
+                Minor updates to the RestClient to remove dependency on pkginfo
+            </li>
+        </ul>
+        </p>
+
+        <p>
+            <b class="header">0.5.0</b> &mdash;
+            <small><i>Dec. 19, 2012</i></small> &mdash; <br/>
+            <ul>
+                <li>
+                    Initial refactor release, exposes basic REST client API.
+                </li>
+            </ul>
+        </p>
+
+    </div>
+
+</div>
+
+</body>
+</html>
