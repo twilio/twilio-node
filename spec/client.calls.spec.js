@@ -82,7 +82,7 @@ describe('The Twilio REST Client Calls resource', function () {
 
     it('can get call feedback', function() {
         spyOn(client, 'request');
-        client.calls(instanceSid).feedback.get()
+        client.calls(instanceSid).feedback.get();
         expect(client.request).toHaveBeenCalled();
         expect(client.request).toHaveBeenCalledWith({
             'url': '/Accounts/' + config.accountSid + '/Calls/' + instanceSid + '/Feedback',
@@ -93,10 +93,53 @@ describe('The Twilio REST Client Calls resource', function () {
 
     it('can delete call feedback', function() {
         spyOn(client, 'request');
-        client.calls(instanceSid).feedback.delete()
+        client.calls(instanceSid).feedback.delete();
         expect(client.request).toHaveBeenCalled();
         expect(client.request).toHaveBeenCalledWith({
             'url': '/Accounts/' + config.accountSid + '/Calls/' + instanceSid + '/Feedback',
+            'method': 'DELETE',
+            'form': {}
+        }, undefined);
+    });
+
+    it('can create a call feedback summary', function () {
+        spyOn(client, 'request');
+        client.calls.feedbackSummary.create({
+            startDate: '2014-01-01',
+            endDate: '2014-01-31',
+            includeSubaccounts: true,
+            statusCallback: 'http://www.example.com/feedback'
+        });
+        expect(client.request).toHaveBeenCalled();
+        expect(client.request).toHaveBeenCalledWith({
+            'url': '/Accounts/' + config.accountSid + '/Calls/FeedbackSummary',
+            'method': 'POST',
+            'form': {
+                'StartDate': '2014-01-01',
+                'EndDate': '2014-01-31',
+                'IncludeSubaccounts': true,
+                'StatusCallback': 'http://www.example.com/feedback'
+            }
+        }, undefined);
+    });
+
+    it('can get a call feedback summary', function () {
+        spyOn(client, 'request');
+        client.calls.feedbackSummary('FS123').get();
+        expect(client.request).toHaveBeenCalled();
+        expect(client.request).toHaveBeenCalledWith({
+            'url': '/Accounts/' + config.accountSid + '/Calls/FeedbackSummary/FS123',
+            'method': 'GET',
+            'qs': {}
+        }, undefined);
+    });
+
+    it('can delete a call feedback summary', function () {
+        spyOn(client, 'request');
+        client.calls.feedbackSummary('FS123').delete();
+        expect(client.request).toHaveBeenCalled();
+        expect(client.request).toHaveBeenCalledWith({
+            'url': '/Accounts/' + config.accountSid + '/Calls/FeedbackSummary/FS123',
             'method': 'DELETE',
             'form': {}
         }, undefined);
