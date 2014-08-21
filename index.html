@@ -1587,6 +1587,40 @@ Outputs the following:
 */
 </pre>
 
+        <p>
+            Here is an example of how to generate a TwiML conference call:
+        </p>
+
+<pre>
+var twilio = require('twilio');
+var resp = new twilio.TwimlResponse();
+
+resp.say('Your conference call is starting.',
+    {
+        voice:'woman',
+        language:'en-gb'
+    })
+    .dial({
+            action:'http://example.com/something.php'
+        }, function(node) {
+            node.conference('waitingRoom', {
+            beep:'false'
+        });
+    });
+
+console.log(resp.toString());
+/**
+Outputs the following:
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;Response&gt;
+    &lt;Say voice="woman" language="en-gb"&gt;Your conference call is starting.&lt;/Say&gt;
+    &lt;Dial action="http://example.com/something.php"&gt;
+        &lt;Conference beep="false"&gt;waitingRoom&lt;/Conference&gt;
+    &lt;/Dial&gt;
+&lt;/Response&gt;
+*/
+</pre>
+
         <h2 id="capability">Capability Token Generator</h2>
 
         <p>
