@@ -212,7 +212,7 @@
 
 <div id="sidebar" class="interface">
     <span class="toc_title">
-        twilio-node <span class="version">(1.6.0)</span>
+        twilio-node <span class="version">(1.7.0)</span>
     </span>
 
     <a class="toc_title" href="#">
@@ -1093,6 +1093,10 @@ client.accounts('AC...').calls.get(function (err, response) {
                 <li><tt>client.calls('someSid').recordings.get</tt></li>
                 <li><tt>client.calls('someSid').notifications.get</tt></li>
                 <li><tt>client.getCall('someSid', callback)</tt> (shorthand for get)</li>
+                <li><tt>client.calls('someSid').feedback.get</tt></li>
+                <li><tt>client.calls('someSid').feedback.post</tt></li>
+                <li><tt>client.calls('someSid').feedback.delete</tt></li>
+                <li><tt>client.calls('someSid').feedback.create</tt> (alias for post)</li>
             </ul>
 
             <b>List Functions:</b>
@@ -1101,6 +1105,10 @@ client.accounts('AC...').calls.get(function (err, response) {
                 <li><tt>client.calls.post</tt></li>
                 <li><tt>client.calls.list</tt> (alias for get)</li>
                 <li><tt>client.calls.create</tt> (alias for post)</li>
+                <li><tt>client.calls.feedbackSummary.post</tt></li>
+                <li><tt>client.calls.feedbackSummary.create</tt> (alias for post)</li>
+                <li><tt>client.calls.feedbackSummary('someSid').get</tt></li>
+                <li><tt>client.calls.feedbackSummary('someSid').delete</tt></li>
                 <li><tt>client.makeCall</tt> (alias for post)</li>
                 <li><tt>client.listCalls</tt> (alias for get)</li>
             </ul>
