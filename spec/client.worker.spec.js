@@ -1,0 +1,66 @@
+var twilio = require('../index');
+
+describe('The Twilio WDS Worker resource', function () {
+    var client = new twilio.WdsClient('AC123', '123', 'WS123');
+
+    beforeEach(function () {
+        spyOn(client, 'request');
+    });
+
+    it('creates worker', function () {
+        client.workspaces('WS123').workers.create({
+            friendlyName: 'Test Worker'
+        });
+        expect(client.request).toHaveBeenCalledWith({
+            url: '/Accounts/AC123/Workspaces/WS123/Workers',
+            method: 'POST',
+            form: {
+                FriendlyName: 'Test Worker'
+            }
+        }, undefined);
+    });
+
+    it('deletes worker', function () {
+        client.workspaces('WS123').workers('WR123').delete();
+        expect(client.request).toHaveBeenCalledWith({
+            url: '/Accounts/AC123/Workspaces/WS123/Workers/WR123',
+            method: 'DELETE',
+            form: {}
+        }, undefined);
+    });
+
+    it('gets worker', function () {
+        client.workspaces('WS123').workers('WR123').get();
+        expect(client.request).toHaveBeenCalledWith({
+            url: '/Accounts/AC123/Workspaces/WS123/Workers/WR123',
+            method: 'GET',
+            qs: {}
+        }, undefined);
+    });
+
+    it('lists workers', function () {
+        client.workspaces('WS123').workers.list({
+            friendlyName: 'Test Worker'
+        });
+        expect(client.request).toHaveBeenCalledWith({
+            url: '/Accounts/AC123/Workspaces/WS123/Workers',
+            method: 'GET',
+            qs: {
+                FriendlyName: 'Test Worker'
+            }
+        }, undefined);
+    });
+
+    it('updates worker', function () {
+        client.workspaces('WS123').workers('WR123').update({
+            friendlyName: 'Test Worker'
+        });
+        expect(client.request).toHaveBeenCalledWith({
+            url: '/Accounts/AC123/Workspaces/WS123/Workers/WR123',
+            method: 'POST',
+            form: {
+                FriendlyName: 'Test Worker'
+            }
+        }, undefined);
+    });
+});
