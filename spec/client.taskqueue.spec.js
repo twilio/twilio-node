@@ -42,6 +42,32 @@ describe('The Twilio WDS Task Queue resource', function () {
         }, undefined);
     });
 
+    it('gets task queue statistics', function () {
+        client.workspaces('WS123').taskQueues('WQ123').statistics.get({
+            minute: 20
+        });
+        expect(client.request).toHaveBeenCalledWith({
+            url: '/Accounts/AC123/Workspaces/WS123/Statistics/TaskQueues/WQ123',
+            method: 'GET',
+            qs: {
+                Minute: 20
+            }
+        }, undefined);
+    });
+
+    it('gets task queues statistics', function () {
+        client.workspaces('WS123').taskQueues.statistics.list({
+            minute: 20
+        });
+        expect(client.request).toHaveBeenCalledWith({
+            url: '/Accounts/AC123/Workspaces/WS123/Statistics/TaskQueues',
+            method: 'GET',
+            qs: {
+                Minute: 20
+            }
+        }, undefined);
+    });
+
     it('lists taskQueues', function () {
         client.workspaces('WS123').taskQueues.list({
             friendlyName: 'Test Task Queue'
