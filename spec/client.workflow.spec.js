@@ -33,6 +33,19 @@ describe('The Twilio WDS Workflow resource', function () {
         }, undefined);
     });
 
+    it('gets workflow statistics', function() {
+        client.workspaces('WS123').workflows('WF123').statistics.get({
+            minute: 20
+        });
+        expect(client.request).toHaveBeenCalledWith({
+            url: '/Accounts/AC123/Workspaces/WS123/Statistics/Workflows/WF123',
+            method: 'GET',
+            qs: {
+                Minute: 20
+            }
+        }, undefined);
+    });
+
     it('gets workflow', function () {
         client.workspaces('WS123').workflows('WF123').get();
         expect(client.request).toHaveBeenCalledWith({

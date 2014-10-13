@@ -38,6 +38,32 @@ describe('The Twilio WDS Worker resource', function () {
         }, undefined);
     });
 
+    it('gets worker statistics', function () {
+        client.workspaces('WS123').workers('WR123').statistics.get({
+            minute: 20
+        });
+        expect(client.request).toHaveBeenCalledWith({
+            url: '/Accounts/AC123/Workspaces/WS123/Statistics/Workers/WR123',
+            method: 'GET',
+            qs: {
+                Minute: 20
+            }
+        }, undefined);
+    });
+
+    it('gets workers statistics', function () {
+        client.workspaces('WS123').workers.statistics.list({
+            minute: 20
+        });
+        expect(client.request).toHaveBeenCalledWith({
+            url: '/Accounts/AC123/Workspaces/WS123/Statistics/Workers',
+            method: 'GET',
+            qs: {
+                Minute: 20
+            }
+        }, undefined);
+    });
+
     it('lists workers', function () {
         client.workspaces('WS123').workers.list({
             friendlyName: 'Test Worker'

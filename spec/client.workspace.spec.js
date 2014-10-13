@@ -29,6 +29,19 @@ describe('The Twilio WDS Workspace resource', function () {
         }, undefined);
     });
 
+    it('gets workspace statistics', function() {
+        client.workspaces('WS123').statistics.get({
+            minute: 20
+        });
+        expect(client.request).toHaveBeenCalledWith({
+            url: '/Accounts/AC123/Workspaces/WS123/Statistics',
+            method: 'GET',
+            qs: {
+                Minute: 20
+            }
+        }, undefined);
+    });
+
     it('gets workspace', function () {
         client.workspaces('WS123').get();
         expect(client.request).toHaveBeenCalledWith({
