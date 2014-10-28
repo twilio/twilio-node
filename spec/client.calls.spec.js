@@ -1,4 +1,4 @@
-var twilio = require('../index');
+var twilio = require('./coverage/instrument/lib');
 
 describe('The Twilio REST Client Calls resource', function () {
     var accountSid = 'AC123';

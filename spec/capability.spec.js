@@ -1,4 +1,4 @@
-var twilio = require('../index');
+var twilio = require('./coverage/instrument/lib');
 
 describe('The TwiML Capability Token Object', function () {
 

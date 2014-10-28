@@ -1,4 +1,4 @@
-var twilio = require('../lib'),
+var twilio = require('./coverage/instrument/lib'),
     express = require('express'),
     request = require('request'),
     http = require('http'),
