@@ -45,7 +45,10 @@ describe('Testing Express request validation', function() {
             response.type('text/xml');
             response.send(twiml.toString());
         } else {
-            response.send(403,'You are not Twilio >:/');
+            response
+                .type('text/plain')
+                .status(403)
+                .send('You are not Twilio >:/');
         }
     });
 
