@@ -29,7 +29,7 @@ client.messages.post({
     to: '+16515556677', // Any number Twilio can deliver to
     from: '+14506667788', // A number you bought from Twilio and can use for outbound communication
     body: 'Kind sir, won\'t you instruct me how to douglas?',
-    contentUrls: 'http://cdn.memegenerator.co/images/200x/42.jpg'
+    mediaUrl: 'http://cdn.memegenerator.co/images/200x/42.jpg'
 
 }, function (err, responseData) {
 
