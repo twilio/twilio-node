@@ -254,6 +254,7 @@
         <li>- <a href="#conferences">conferences</a></li>
         <li>- <a href="#queues">queues</a></li>
         <li>- <a href="#recordings">recordings</a></li>
+        <li>- <a href="#tokens">tokens</a></li>
         <li>- <a href="#transcriptions">transcriptions</a></li>
         <li>- <a href="#notifications">notifications</a></li>
         <li>- <a href="#usageRecords">usage.records</a></li>
@@ -1201,6 +1202,25 @@ client.accounts('AC...').calls.get(function (err, response) {
         <ul>
             <li><tt>client.recordings.get</tt></li>
             <li><tt>client.recordings.list</tt> (alias for get)</li>
+        </ul>
+        </p>
+        </p>
+
+        <p id="tokens">
+            <b class="header">tokens</b><code>client.tokens</code>
+            <br/>
+
+            Accesses <a href="http://www.twilio.com/docs/api/rest/token">Tokens</a>
+            resources via the REST interface.
+
+            Refer to the <a href="http://www.twilio.com/docs/api/rest/token">official REST API documentation</a>
+            for response data format and usage examples.
+        <p>
+
+        <b>List Functions:</b>
+        <ul>
+            <li><tt>client.tokens.post</tt></li>
+            <li><tt>client.tokens.create</tt> (alias for post)</li>
         </ul>
         </p>
         </p>
