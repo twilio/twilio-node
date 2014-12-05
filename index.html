@@ -212,7 +212,7 @@
 
 <div id="sidebar" class="interface">
     <span class="toc_title">
-        twilio-node <span class="version">(1.7.0)</span>
+        twilio-node <span class="version">(1.10.0)</span>
     </span>
 
     <a class="toc_title" href="#">
@@ -240,6 +240,7 @@
     <ul class="toc_section">
         <li>- <a href="#resourceRequests">Request Argument Format</a></li>
         <li>- <a href="#accounts">accounts</a></li>
+        <li>- <a href="#addresses">addresses</a></li>
         <li>- <a href="#availablePhoneNumbers">availablePhoneNumbers</a></li>
         <li>- <a href="#outgoingCallerIds">outgoingCallerIds</a></li>
         <li>- <a href="#incomingPhoneNumbers">incomingPhoneNumbers</a></li>
@@ -794,6 +795,33 @@ client.accounts('AC...').calls.get(function (err, response) {
                     <li><tt>client.accounts.post</tt></li>
                     <li><tt>client.accounts.list</tt> (alias for get)</li>
                     <li><tt>client.accounts.create</tt> (alias for post)</li>
+                </ul>
+            </p>
+        </p>
+
+        <p id="addresses">
+            <b class="header">addresses</b><code>client.addresses([addressSid])</code>
+            <br/>
+
+            Accesses <a href="http://www.twilio.com/docs/api/rest/address">Address</a> resources via the REST interface.
+            Refer to the <a href="http://www.twilio.com/docs/api/rest/address">official REST API documentation</a>
+            for response data format and usage examples.
+            <p>
+                <b>Instance Functions:</b>
+                <ul>
+                    <li><tt>client.addresses('someSid').get</tt></li>
+                    <li><tt>client.addresses('someSid').post</tt></li>
+                    <li><tt>client.addresses('someSid').create</tt> (alias for post)</li>
+                    <li><tt>client.addresses('someSid').dependentPhoneNumbers.get</tt></li>
+                    <li><tt>client.addresses('someSid').dependentPhoneNumbers.list</tt> (alias for get)</li>
+                </ul>
+
+                <b>List Functions:</b>
+                <ul>
+                    <li><tt>client.addresses.get</tt></li>
+                    <li><tt>client.addresses.post</tt></li>
+                    <li><tt>client.addresses.list</tt> (alias for get)</li>
+                    <li><tt>client.addresses.create</tt> (alias for post)</li>
                 </ul>
             </p>
         </p>
