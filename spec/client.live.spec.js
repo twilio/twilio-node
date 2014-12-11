@@ -1,4 +1,4 @@
-var twilio = require('../lib');
+var twilio = require('./coverage/instrument/lib');
 
 describe('Live Twilio API smoke tests', function() {
     try {

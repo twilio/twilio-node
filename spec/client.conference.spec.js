@@ -1,4 +1,4 @@
-var twilio = require('../index');
+var twilio = require('./coverage/instrument/lib');
 
 describe('The Twilio REST Conference resource', function () {
     var client = new twilio.RestClient('AC123', '123');

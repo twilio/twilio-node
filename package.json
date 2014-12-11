@@ -22,10 +22,17 @@
   },
   "devDependencies": {
     "express": "3.x",
-    "jasmine-node": "*"
+
+    "grunt": "~0.4.5",
+    "grunt-cli": "~0.1.13",
+    "grunt-istanbul": "~0.3.0",
+    "load-grunt-tasks": "~1.0.0",
+    "grunt-jasmine-node": "~0.2.1",
+    "grunt-contrib-copy": "~0.7.0",
+    "grunt-contrib-clean": "~0.6.0"
   },
   "scripts": {
-    "test": "jasmine-node spec"
+    "test": "grunt test"
   },
   "main": "./lib",
   "engines": {

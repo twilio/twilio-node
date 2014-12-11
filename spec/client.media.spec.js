@@ -1,4 +1,4 @@
-var twilio = require('../index');
+var twilio = require('./coverage/instrument/lib');
 
 describe('Twilio Media resource', function() {
     var client = new twilio.RestClient('AC123', '123');
