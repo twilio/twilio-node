@@ -14,11 +14,11 @@
     "url": "https://github.com/twilio/twilio-node.git"
   },
   "dependencies": {
-    "request": "2.27.x",
-    "underscore": "1.x",
     "jwt-simple": "0.1.x",
     "q": "0.9.7",
-    "scmp": "0.0.3"
+    "request": "^2.51.0",
+    "scmp": "0.0.3",
+    "underscore": "1.x"
   },
   "devDependencies": {
     "express": "3.x",
