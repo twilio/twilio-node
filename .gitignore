@@ -1,4 +1,28 @@
-.idea
-.DS_Store
-config.js
+### Dot files ###
+.*
+
+### Git ###
+!/.gitignore
+!/.gitmodules
+
+### Logs ###
+logs
+*.log
+
+### Runtime data ###
+pids
+*.pid
+*.seed
+
+### NPM modules ###
 node_modules
+
+### Travis ###
+!/.travis.yml
+
+### Test coverage ###
+spec/coverage
+
+### Custom ignores ###
+config.js
+.idea
