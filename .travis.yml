@@ -3,4 +3,4 @@ node_js:
     - "0.10"
     - "0.8"
 before_install:
-- sudo npm install npm -g
+- npm install npm -g
