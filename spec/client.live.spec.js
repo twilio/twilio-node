@@ -86,6 +86,22 @@ describe('Live Twilio API smoke tests', function() {
             }).fin(done);
         });
 
+        it('behaves nicely with a DELETE method', function(done) {
+            // create then destroy a usage trigger to test delete behavior
+            client.usage.triggers.create({
+                usageCategory: 'calls',
+                triggerValue: 8675309,
+                callbackUrl: 'http://nagannadoit.twilio.com'
+            }, function(err, trigger) {
+                expect(err).toBeFalsy();
+                client.usage.triggers(trigger.sid).delete(function(err, r) {
+                    expect(err).toBeFalsy();
+                    expect(r).toBeFalsy();
+                    done();
+                });
+            });
+        });
+
         it('dies on the number buying process when an area code is not found', function(done) {
             client.availablePhoneNumbers('US').local.get({
                 areaCode:'1337'
