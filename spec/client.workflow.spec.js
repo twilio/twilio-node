@@ -38,7 +38,7 @@ describe('The Twilio WDS Workflow resource', function () {
             minute: 20
         });
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123/Statistics/Workflows/WF123',
+            url: '/Accounts/AC123/Workspaces/WS123/Workflows/WF123/Statistics',
             method: 'GET',
             qs: {
                 Minute: 20

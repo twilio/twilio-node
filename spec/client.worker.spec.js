@@ -43,7 +43,7 @@ describe('The Twilio WDS Worker resource', function () {
             minute: 20
         });
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123/Statistics/Workers/WR123',
+            url: '/Accounts/AC123/Workspaces/WS123/Workers/WR123/Statistics',
             method: 'GET',
             qs: {
                 Minute: 20
@@ -56,7 +56,7 @@ describe('The Twilio WDS Worker resource', function () {
             minute: 20
         });
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123/Statistics/Workers',
+            url: '/Accounts/AC123/Workspaces/WS123/Workers/Statistics',
             method: 'GET',
             qs: {
                 Minute: 20
