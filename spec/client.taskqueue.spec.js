@@ -47,7 +47,7 @@ describe('The Twilio WDS Task Queue resource', function () {
             minute: 20
         });
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123/Statistics/TaskQueues/WQ123',
+            url: '/Accounts/AC123/Workspaces/WS123/TaskQueues/WQ123/Statistics',
             method: 'GET',
             qs: {
                 Minute: 20
@@ -60,7 +60,7 @@ describe('The Twilio WDS Task Queue resource', function () {
             minute: 20
         });
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123/Statistics/TaskQueues',
+            url: '/Accounts/AC123/Workspaces/WS123/TaskQueues/Statistics',
             method: 'GET',
             qs: {
                 Minute: 20
