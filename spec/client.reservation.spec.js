@@ -1,7 +1,7 @@
 var twilio = require('../index');
 
-describe('The Twilio WDS Reservation resource', function () {
-    var client = new twilio.WdsClient('AC123', '123', 'WS123');
+describe('The Twilio TaskRouter Reservation resource', function () {
+    var client = new twilio.TaskRouterClient('AC123', '123', 'WS123');
 
     beforeEach(function () {
         spyOn(client, 'request');
