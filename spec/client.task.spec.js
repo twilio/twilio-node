@@ -10,14 +10,16 @@ describe('The Twilio TaskRouter Task resource', function () {
     it('creates task', function () {
         client.workspaces('WS123').tasks.create({
             attributes: 'Test Attribute',
-            workflowSid: 'WF123'
+            workflowSid: 'WF123',
+            timeout: 60
         });
         expect(client.request).toHaveBeenCalledWith({
             url: '/Accounts/AC123/Workspaces/WS123/Tasks',
             method: 'POST',
             form: {
                 Attributes: 'Test Attribute',
-                WorkflowSid: 'WF123'
+                WorkflowSid: 'WF123',
+                Timeout: 60
             }
         }, undefined);
     });
