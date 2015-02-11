@@ -93,7 +93,7 @@ describe('The Twilio REST Client constructor', function () {
             url:'?sleep=1&', // sleep for 1 second
             method:'GET'
         }, function (err, data, response) {
-            expect(data.response).toBe('This request has finsihed sleeping for 1 seconds');
+            expect(data.response).toBe('This request has finsihed sleeping for 1 seconds.');
             done();
         });
     });
