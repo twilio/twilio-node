@@ -25,12 +25,12 @@ describe('The TaskRouter Capability Token Object', function() {
         expect(decoded['exp']).toEqual(Math.floor(new Date() / 1000) + 1000);
     });
 
-    it('should allow websocket access by default', function() {
+    it('should allow websocket and activities access by default', function() {
         var c = new twilio.TaskRouterCapability('AC123', 'foobar', 'WS456', 'WK789');
         var token = c.generate();
 
         var decoded = jwt.decode(token, 'foobar');
-        expect(decoded['policies'].length).toBe(2);
+        expect(decoded['policies'].length).toBe(3);
         var getPolicy = {
             url: 'https://event-bridge.twilio.com/v1/wschannels/AC123/WK789',
             method: 'GET',
@@ -47,6 +47,14 @@ describe('The TaskRouter Capability Token Object', function() {
             allow: true
         };
         expect(decoded['policies'][1]).toEqual(postPolicy);
+        var activitiesPolicy = {
+            url: 'https://taskrouter.twilio.com/v1/Workspaces/WS456/Activities',
+            method: 'GET',
+            query_filter: {},
+            post_filter: {},
+            allow: true
+        };
+        expect(decoded['policies'][2]).toEqual(activitiesPolicy);
     });
 
     it('should allow worker activity updates when requested', function() {
@@ -55,16 +63,16 @@ describe('The TaskRouter Capability Token Object', function() {
         var token = c.generate();
 
         var decoded = jwt.decode(token, 'foobar');
-        expect(decoded['policies'].length).toBe(3);
+        expect(decoded['policies'].length).toBe(4);
 
         var activityPolicy = {
-            url: 'https://taskrouter.twilio.com/v1/Accounts/AC123/Workspaces/WS456/Workers/WK789',
+            url: 'https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789',
             method: 'POST',
             query_filter: {},
             post_filter: {'ActivitySid': {'required': true}},
             allow: true
         };
-        expect(decoded['policies'][2]).toEqual(activityPolicy);
+        expect(decoded['policies'][3]).toEqual(activityPolicy);
     });
 
     it('should allow worker attribute reads when requested', function() {
@@ -73,16 +81,16 @@ describe('The TaskRouter Capability Token Object', function() {
         var token = c.generate();
 
         var decoded = jwt.decode(token, 'foobar');
-        expect(decoded['policies'].length).toBe(3);
+        expect(decoded['policies'].length).toBe(4);
 
         var workerPolicy = {
-            url: 'https://taskrouter.twilio.com/v1/Accounts/AC123/Workspaces/WS456/Workers/WK789',
+            url: 'https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789',
             method: 'GET',
             query_filter: {},
             post_filter: {},
             allow: true
         };
-        expect(decoded['policies'][2]).toEqual(workerPolicy);
+        expect(decoded['policies'][3]).toEqual(workerPolicy);
     });
 
     it('should allow task updates when requested', function() {
@@ -91,16 +99,16 @@ describe('The TaskRouter Capability Token Object', function() {
         var token = c.generate();
 
         var decoded = jwt.decode(token, 'foobar');
-        expect(decoded['policies'].length).toBe(3);
+        expect(decoded['policies'].length).toBe(4);
 
         var taskPolicy = {
-            url: 'https://taskrouter.twilio.com/v1/Accounts/AC123/Workspaces/WS456/Tasks/**',
+            url: 'https://taskrouter.twilio.com/v1/Workspaces/WS456/Tasks/**',
             method: 'POST',
             query_filter: {},
             post_filter: {'ReservationStatus': {'required': true}},
             allow: true
         };
 
-        expect(decoded['policies'][2]).toEqual(taskPolicy);
+        expect(decoded['policies'][3]).toEqual(taskPolicy);
     });
 });
