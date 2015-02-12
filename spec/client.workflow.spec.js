@@ -14,7 +14,7 @@ describe('The Twilio TaskRouter Workflow resource', function () {
             assignmentCallbackUrl: 'http://www.example.com'
         });
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123/Workflows',
+            url: '/Workspaces/WS123/Workflows',
             method: 'POST',
             form: {
                 FriendlyName: 'Test Workflow',
@@ -27,7 +27,7 @@ describe('The Twilio TaskRouter Workflow resource', function () {
     it('deletes workflow', function () {
         client.workspaces('WS123').workflows('WF123').delete();
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123/Workflows/WF123',
+            url: '/Workspaces/WS123/Workflows/WF123',
             method: 'DELETE',
             form: {}
         }, undefined);
@@ -38,7 +38,7 @@ describe('The Twilio TaskRouter Workflow resource', function () {
             minute: 20
         });
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123/Workflows/WF123/Statistics',
+            url: '/Workspaces/WS123/Workflows/WF123/Statistics',
             method: 'GET',
             qs: {
                 Minute: 20
@@ -49,7 +49,7 @@ describe('The Twilio TaskRouter Workflow resource', function () {
     it('gets workflow', function () {
         client.workspaces('WS123').workflows('WF123').get();
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123/Workflows/WF123',
+            url: '/Workspaces/WS123/Workflows/WF123',
             method: 'GET',
             qs: {}
         }, undefined);
@@ -60,7 +60,7 @@ describe('The Twilio TaskRouter Workflow resource', function () {
             friendlyName: 'Test Workflow'
         });
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123/Workflows',
+            url: '/Workspaces/WS123/Workflows',
             method: 'GET',
             qs: {
                 FriendlyName: 'Test Workflow'
@@ -75,7 +75,7 @@ describe('The Twilio TaskRouter Workflow resource', function () {
             assignmentCallbackUrl: 'http://www.example.com'
         });
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123/Workflows/WF123',
+            url: '/Workspaces/WS123/Workflows/WF123',
             method: 'POST',
             form: {
                 FriendlyName: 'Test Workflow',

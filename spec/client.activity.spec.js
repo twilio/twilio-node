@@ -13,7 +13,7 @@ describe('The Twilio TaskRouter Activity resource', function () {
             available: true
         });
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123/Activities',
+            url: '/Workspaces/WS123/Activities',
             method: 'POST',
             form: {
                 FriendlyName: 'Test Activity',
@@ -25,7 +25,7 @@ describe('The Twilio TaskRouter Activity resource', function () {
     it('deletes activity', function () {
         client.workspaces('WS123').activities('WA123').delete();
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123/Activities/WA123',
+            url: '/Workspaces/WS123/Activities/WA123',
             method: 'DELETE',
             form: {}
         }, undefined);
@@ -34,7 +34,7 @@ describe('The Twilio TaskRouter Activity resource', function () {
     it('gets activity', function () {
         client.workspaces('WS123').activities('WA123').get();
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123/Activities/WA123',
+            url: '/Workspaces/WS123/Activities/WA123',
             method: 'GET',
             qs: {}
         }, undefined);
@@ -45,7 +45,7 @@ describe('The Twilio TaskRouter Activity resource', function () {
             friendlyName: 'Test Activity'
         });
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123/Activities',
+            url: '/Workspaces/WS123/Activities',
             method: 'GET',
             qs: {
                 FriendlyName: 'Test Activity'
@@ -58,7 +58,7 @@ describe('The Twilio TaskRouter Activity resource', function () {
             friendlyName: 'Test Activity'
         });
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123/Activities/WA123',
+            url: '/Workspaces/WS123/Activities/WA123',
             method: 'POST',
             form: {
                 FriendlyName: 'Test Activity'

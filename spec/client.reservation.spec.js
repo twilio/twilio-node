@@ -10,7 +10,7 @@ describe('The Twilio TaskRouter Reservation resource', function () {
     it('gets reservation', function () {
         client.workspaces('WS123').tasks('WT123').reservations('WR123').get();
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123/Tasks/WT123/Reservations/WR123',
+            url: '/Workspaces/WS123/Tasks/WT123/Reservations/WR123',
             method: 'GET',
             qs: {}
         }, undefined);
@@ -21,7 +21,7 @@ describe('The Twilio TaskRouter Reservation resource', function () {
             status: 'pending'
         });
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123/Tasks/WT123/Reservations',
+            url: '/Workspaces/WS123/Tasks/WT123/Reservations',
             method: 'GET',
             qs: {
                 Status: 'pending'
@@ -34,7 +34,7 @@ describe('The Twilio TaskRouter Reservation resource', function () {
             reservationStatus: 'pending'
         });
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123/Tasks/WT123/Reservations/WR123',
+            url: '/Workspaces/WS123/Tasks/WT123/Reservations/WR123',
             method: 'POST',
             form: {
                 ReservationStatus: 'pending'

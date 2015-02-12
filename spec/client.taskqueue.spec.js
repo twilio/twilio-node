@@ -14,7 +14,7 @@ describe('The Twilio TaskRouter Task Queue resource', function () {
             reservationActivitySid: 'WA123'
         });
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123/TaskQueues',
+            url: '/Workspaces/WS123/TaskQueues',
             method: 'POST',
             form: {
                 FriendlyName: 'Test Task Queue',
@@ -27,7 +27,7 @@ describe('The Twilio TaskRouter Task Queue resource', function () {
     it('deletes task queue', function () {
         client.workspaces('WS123').taskQueues('WQ123').delete();
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123/TaskQueues/WQ123',
+            url: '/Workspaces/WS123/TaskQueues/WQ123',
             method: 'DELETE',
             form: {}
         }, undefined);
@@ -36,7 +36,7 @@ describe('The Twilio TaskRouter Task Queue resource', function () {
     it('gets task queue', function () {
         client.workspaces('WS123').taskQueues('WQ123').get();
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123/TaskQueues/WQ123',
+            url: '/Workspaces/WS123/TaskQueues/WQ123',
             method: 'GET',
             qs: {}
         }, undefined);
@@ -47,7 +47,7 @@ describe('The Twilio TaskRouter Task Queue resource', function () {
             minute: 20
         });
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123/TaskQueues/WQ123/Statistics',
+            url: '/Workspaces/WS123/TaskQueues/WQ123/Statistics',
             method: 'GET',
             qs: {
                 Minute: 20
@@ -60,7 +60,7 @@ describe('The Twilio TaskRouter Task Queue resource', function () {
             minute: 20
         });
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123/TaskQueues/Statistics',
+            url: '/Workspaces/WS123/TaskQueues/Statistics',
             method: 'GET',
             qs: {
                 Minute: 20
@@ -73,7 +73,7 @@ describe('The Twilio TaskRouter Task Queue resource', function () {
             friendlyName: 'Test Task Queue'
         });
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123/TaskQueues',
+            url: '/Workspaces/WS123/TaskQueues',
             method: 'GET',
             qs: {
                 FriendlyName: 'Test Task Queue'
@@ -86,7 +86,7 @@ describe('The Twilio TaskRouter Task Queue resource', function () {
             friendlyName: 'Test Task Queue'
         });
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123/TaskQueues/WQ123',
+            url: '/Workspaces/WS123/TaskQueues/WQ123',
             method: 'POST',
             form: {
                 FriendlyName: 'Test Task Queue'

@@ -12,7 +12,7 @@ describe('The Twilio TaskRouter Workspace resource', function () {
             friendlyName: 'Test Workspace'
         });
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces',
+            url: '/Workspaces',
             method: 'POST',
             form: {
                 FriendlyName: 'Test Workspace'
@@ -23,7 +23,7 @@ describe('The Twilio TaskRouter Workspace resource', function () {
     it('deletes workspace', function () {
         client.workspaces('WS123').delete();
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123',
+            url: '/Workspaces/WS123',
             method: 'DELETE',
             form: {}
         }, undefined);
@@ -34,7 +34,7 @@ describe('The Twilio TaskRouter Workspace resource', function () {
             minute: 20
         });
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123/Statistics',
+            url: '/Workspaces/WS123/Statistics',
             method: 'GET',
             qs: {
                 Minute: 20
@@ -45,7 +45,7 @@ describe('The Twilio TaskRouter Workspace resource', function () {
     it('gets workspace', function () {
         client.workspaces('WS123').get();
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123',
+            url: '/Workspaces/WS123',
             method: 'GET',
             qs: {}
         }, undefined);
@@ -56,7 +56,7 @@ describe('The Twilio TaskRouter Workspace resource', function () {
             friendlyName: 'Test Workspace'
         });
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces',
+            url: '/Workspaces',
             method: 'GET',
             qs: {
                 FriendlyName: 'Test Workspace'
@@ -69,7 +69,7 @@ describe('The Twilio TaskRouter Workspace resource', function () {
             friendlyName: 'Test Workspace'
         });
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123',
+            url: '/Workspaces/WS123',
             method: 'POST',
             form: {
                 FriendlyName: 'Test Workspace'

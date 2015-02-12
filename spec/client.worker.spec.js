@@ -12,7 +12,7 @@ describe('The Twilio TaskRouter Worker resource', function () {
             friendlyName: 'Test Worker'
         });
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123/Workers',
+            url: '/Workspaces/WS123/Workers',
             method: 'POST',
             form: {
                 FriendlyName: 'Test Worker'
@@ -23,7 +23,7 @@ describe('The Twilio TaskRouter Worker resource', function () {
     it('deletes worker', function () {
         client.workspaces('WS123').workers('WR123').delete();
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123/Workers/WR123',
+            url: '/Workspaces/WS123/Workers/WR123',
             method: 'DELETE',
             form: {}
         }, undefined);
@@ -32,7 +32,7 @@ describe('The Twilio TaskRouter Worker resource', function () {
     it('gets worker', function () {
         client.workspaces('WS123').workers('WR123').get();
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123/Workers/WR123',
+            url: '/Workspaces/WS123/Workers/WR123',
             method: 'GET',
             qs: {}
         }, undefined);
@@ -43,7 +43,7 @@ describe('The Twilio TaskRouter Worker resource', function () {
             minute: 20
         });
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123/Workers/WR123/Statistics',
+            url: '/Workspaces/WS123/Workers/WR123/Statistics',
             method: 'GET',
             qs: {
                 Minute: 20
@@ -56,7 +56,7 @@ describe('The Twilio TaskRouter Worker resource', function () {
             minute: 20
         });
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123/Workers/Statistics',
+            url: '/Workspaces/WS123/Workers/Statistics',
             method: 'GET',
             qs: {
                 Minute: 20
@@ -69,7 +69,7 @@ describe('The Twilio TaskRouter Worker resource', function () {
             friendlyName: 'Test Worker'
         });
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123/Workers',
+            url: '/Workspaces/WS123/Workers',
             method: 'GET',
             qs: {
                 FriendlyName: 'Test Worker'
@@ -82,7 +82,7 @@ describe('The Twilio TaskRouter Worker resource', function () {
             friendlyName: 'Test Worker'
         });
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123/Workers/WR123',
+            url: '/Workspaces/WS123/Workers/WR123',
             method: 'POST',
             form: {
                 FriendlyName: 'Test Worker'
