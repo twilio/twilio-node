@@ -10,7 +10,7 @@ describe('The Twilio TaskRouter Event resource', function () {
     it('gets event', function () {
         client.workspaces('WS123').events('EV123').get();
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123/Events/EV123',
+            url: '/Workspaces/WS123/Events/EV123',
             method: 'GET',
             qs: {}
         }, undefined);
@@ -21,7 +21,7 @@ describe('The Twilio TaskRouter Event resource', function () {
             minutes: 15
         });
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123/Events',
+            url: '/Workspaces/WS123/Events',
             method: 'GET',
             qs: {
                 Minutes: 15
