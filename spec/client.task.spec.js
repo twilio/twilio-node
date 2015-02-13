@@ -1,7 +1,7 @@
 var twilio = require('../index');
 
-describe('The Twilio WDS Task resource', function () {
-    var client = new twilio.WdsClient('AC123', '123', 'WS123');
+describe('The Twilio TaskRouter Task resource', function () {
+    var client = new twilio.TaskRouterClient('AC123', '123', 'WS123');
 
     beforeEach(function () {
         spyOn(client, 'request');
@@ -10,14 +10,16 @@ describe('The Twilio WDS Task resource', function () {
     it('creates task', function () {
         client.workspaces('WS123').tasks.create({
             attributes: 'Test Attribute',
-            workflowSid: 'WF123'
+            workflowSid: 'WF123',
+            timeout: 60
         });
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123/Tasks',
+            url: '/Workspaces/WS123/Tasks',
             method: 'POST',
             form: {
                 Attributes: 'Test Attribute',
-                WorkflowSid: 'WF123'
+                WorkflowSid: 'WF123',
+                Timeout: 60
             }
         }, undefined);
     });
@@ -25,7 +27,7 @@ describe('The Twilio WDS Task resource', function () {
     it('deletes task', function () {
         client.workspaces('WS123').tasks('WT123').delete();
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123/Tasks/WT123',
+            url: '/Workspaces/WS123/Tasks/WT123',
             method: 'DELETE',
             form: {}
         }, undefined);
@@ -34,7 +36,7 @@ describe('The Twilio WDS Task resource', function () {
     it('gets task', function () {
         client.workspaces('WS123').tasks('WT123').get();
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123/Tasks/WT123',
+            url: '/Workspaces/WS123/Tasks/WT123',
             method: 'GET',
             qs: {}
         }, undefined);
@@ -45,7 +47,7 @@ describe('The Twilio WDS Task resource', function () {
             workflowSid: 'WF123'
         });
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123/Tasks',
+            url: '/Workspaces/WS123/Tasks',
             method: 'GET',
             qs: {
                 WorkflowSid: 'WF123'
@@ -58,7 +60,7 @@ describe('The Twilio WDS Task resource', function () {
             attributes: 'Test Attribute'
         });
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/Workspaces/WS123/Tasks/WT123',
+            url: '/Workspaces/WS123/Tasks/WT123',
             method: 'POST',
             form: {
                 Attributes: 'Test Attribute'

@@ -1,16 +1,12 @@
 {
   "name": "twilio",
   "description": "A Twilio helper library",
-  "version": "1.6.0",
+  "version": "1.9.0",
   "author": "Kevin Whinnery <kevin.whinnery@gmail.com>",
   "contributors": [
     {
-      "name": "Carter Rabasa",
-      "email": "carter@twilio.com"
-    },
-    {
-      "name": "Stephen Walters",
-      "email": "stephenwalters@gmail.com"
+      "name": "twilio-node contributors",
+      "url": "https://github.com/twilio/twilio-node/graphs/contributors"
     }
   ],
   "repository": {
