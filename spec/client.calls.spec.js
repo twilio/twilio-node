@@ -53,16 +53,19 @@ describe('The Twilio REST Client Calls resource', function () {
     });
 
     it('gets a list of calls for a specific number', function() {
+        var callback = function(err, data) {
+            expect(data.total).not.toBeDefined();
+        };
         client.calls.list({
             from:'+14158675309'
-        });
+        }, callback);
         expect(client.request).toHaveBeenCalledWith({
             url:'/Accounts/AC123/Calls',
             method:'GET',
             qs:{
                 From:'+14158675309'
-            }
-        }, undefined);
+            },
+        }, callback);
     });
 
     it('can create call feedback', function() {
