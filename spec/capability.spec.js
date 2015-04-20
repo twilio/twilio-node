@@ -1,7 +1,7 @@
 var twilio = require('../index');
 
 describe('The TwiML Capability Token Object', function () {
-
+  describe('constructor', function() {
     it('should allow for explicit construction of a capability token', function() {
         var c = new twilio.Capability('foo', 'bar');
         c.allowClientIncoming('armpit');
@@ -32,4 +32,30 @@ describe('The TwiML Capability Token Object', function () {
         process.env.TWILIO_ACCOUNT_SID = oldSid;
         process.env.TWILIO_AUTH_TOKEN = oldAuthToken;
     });
+
+    it('should return a new instance of itself if called as a function', function() {
+      expect(twilio.Capability('foo', 'bar') instanceof twilio.Capability).toBe(true);
+    });
+  });
+
+  describe('allowClientIncoming', function() {
+    it('should return the capability object for chainability', function() {
+      var c = new twilio.Capability('foo', 'bar');
+      expect(c.allowClientIncoming('armpit') instanceof twilio.Capability).toBe(true);
+    });
+  });
+
+  describe('allowClientOutgoing', function() {
+    it('should return the capability object for chainability', function() {
+      var c = new twilio.Capability('foo', 'bar');
+      expect(c.allowClientOutgoing('bellybutton') instanceof twilio.Capability).toBe(true);
+    });
+  });
+
+  describe('allowEventStream', function() {
+    it('should return the capability object for chainability', function() {
+      var c = new twilio.Capability('foo', 'bar');
+      expect(c.allowEventStream() instanceof twilio.Capability).toBe(true);
+    });
+  });
 });
