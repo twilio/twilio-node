@@ -8,7 +8,7 @@ describe('The Twilio Lookups PhoneNumber resource', function () {
     });
 
     it('fetches a phone number', function() {
-        client.phone_numbers('4153902337').get()
+        client.phoneNumbers('4153902337').get()
         expect(client.request).toHaveBeenCalled();
         expect(client.request).toHaveBeenCalledWith({
             url: '/PhoneNumbers/4153902337',
@@ -18,7 +18,7 @@ describe('The Twilio Lookups PhoneNumber resource', function () {
     });
 
     it('fetches a phone number with country code and type', function() {
-        client.phone_numbers('4153902337').get({country_code: 'US', type: 'carrier'});
+        client.phoneNumbers('4153902337').get({countryCode: 'US', type: 'carrier'});
         expect(client.request).toHaveBeenCalled();
         expect(client.request).toHaveBeenCalledWith({
             url: '/PhoneNumbers/4153902337',
