@@ -12,6 +12,12 @@ For detailed usage infomation and API docs, head out here:
 
 [http://twilio.github.io/twilio-node/](http://twilio.github.io/twilio-node/)
 
+## Getting help
+
+If you need help installing or using the library, please contact Twilio Support at help@twilio.com first. Twilio's Support staff are well-versed in all of the Twilio Helper Libraries, and usually reply within 24 hours.
+
+If you've instead found a bug in the library or would like new features added, go ahead and open issues or pull requests against this repo!
+
 ## Contributing
 
 Bug fixes, docs, and enhancements welcome! If you're not familiar with the GitHub pull request/contribution process, [this is a nice tutorial](http://gun.io/blog/how-to-github-fork-branch-and-pull-request/).
@@ -40,4 +46,6 @@ In your fork, create a new feature/bug fix branch, [per the guide listed above](
 #### Contributing Docs
 
 Right now, the docs are maintained in static HTML in the `gh-pages` branch of this repository.  We hope to switch to a more robust documentation system soon, but for the time being, you can make documentation changes by editing [index.html](https://github.com/twilio/twilio-node/blob/gh-pages/index.html) directly.
+
+
 
