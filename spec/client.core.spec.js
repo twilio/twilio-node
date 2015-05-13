@@ -148,8 +148,8 @@ describe('The Tilio Rest Client', function () {
         });
 
         it('should set the Authorization header username to Token when the auth token is a JWT', function(done){
-            var scopedAuthToken = new twilio.ScopedAuthenticationToken('SK123', 'AC123');
-            var jwt = scopedAuthToken.generateToken('secret');
+            var scopedAuthToken = new twilio.AccessToken('SK123', 'AC123');
+            var jwt = scopedAuthToken.toJwt('secret');
             var client = new twilio.RestClient('AC123', jwt);
             spyOn(client, 'request').andCallThrough();
 
@@ -177,8 +177,8 @@ describe('The Tilio Rest Client', function () {
         });
 
         it('should set the Authorization header username to the account sid when the auth token is not a valid JWT', function(done){
-            var scopedAuthToken = new twilio.ScopedAuthenticationToken('SK123', 'AC123');
-            var jwt = scopedAuthToken.generateToken('secret').substring(1);
+            var scopedAuthToken = new twilio.AccessToken('SK123', 'AC123');
+            var jwt = scopedAuthToken.toJwt('secret').substring(1);
             var client = new twilio.RestClient('AC123', jwt);
             spyOn(client, 'request').andCallThrough();
 
