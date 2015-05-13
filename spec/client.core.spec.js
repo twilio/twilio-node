@@ -17,8 +17,8 @@ describe('The Tilio Rest Client', function () {
             });
 
             //Check URL construction with custom config
-            expect(specialClient.getBaseUrl()).toBe('https://' + fakeHost + '/' + fakeApi);
-        });
+            expect(specialClient.getBaseUrl()).toBe('https://' + fakeSid + ':'
+                    + fakeAuth + '@' + fakeHost + '/' + fakeApi); });
 
         xit('should fail gracefully if the host is unreachable', function (done) {
             var specialClient = new twilio.RestClient(config.accountSid, config.authToken, {
@@ -56,7 +56,7 @@ describe('The Tilio Rest Client', function () {
         });
 
         var client = new twilio.RestClient('AC123', '123'),
-            expectedUrl = 'https://api.twilio.com/2010-04-01';
+            expectedUrl = 'https://AC123:123@api.twilio.com/2010-04-01';
 
         it('should assemble the correct URL string for default API', function () {
             expect(client.getBaseUrl()).toBe(expectedUrl);
@@ -107,10 +107,6 @@ describe('The Tilio Rest Client', function () {
             expect(slowClient.request).toHaveBeenCalledWith({
                 url: 'http://fake-response.appspot.com?sleep=1&.json',
                 method: 'GET',
-                auth: {
-                    user: 'AC123',
-                    pass: '123'
-                },
                 headers: {
                     Accept: 'application/json',
                     'Accept-Charset': 'utf-8',
@@ -134,74 +130,12 @@ describe('The Tilio Rest Client', function () {
             expect(slowClient.request).toHaveBeenCalledWith({
                 url: 'http://fake-response.appspot.com?sleep=3&.json',
                 method: 'GET',
-                auth: {
-                    user: 'AC123',
-                    pass: '123'
-                },
                 headers: {
                     Accept: 'application/json',
                     'Accept-Charset': 'utf-8',
                     'User-Agent': 'twilio-node/' + moduleinfo.version
                 },
                 timeout: 2000
-            }, any(Function));
-        });
-
-        it('should set the Authorization header username to Token when the auth token is a JWT', function(done){
-            var scopedAuthToken = new twilio.AccessToken('SK123', 'AC123');
-            var jwt = scopedAuthToken.toJwt('secret');
-            var client = new twilio.RestClient('AC123', jwt);
-            spyOn(client, 'request').andCallThrough();
-
-            client.request({
-                url: '',
-                method: 'GET'
-            }, function (err, data, response) {
-                done();
-            });
-
-            expect(client.request).toHaveBeenCalledWith({
-                url: 'https://api.twilio.com/2010-04-01.json',
-                method: 'GET',
-                auth: {
-                    user: 'Token',
-                    pass: jwt
-                },
-                headers: {
-                    Accept: 'application/json',
-                    'Accept-Charset': 'utf-8',
-                    'User-Agent': 'twilio-node/' + moduleinfo.version
-                },
-                timeout: 31000
-            }, any(Function));
-        });
-
-        it('should set the Authorization header username to the account sid when the auth token is not a valid JWT', function(done){
-            var scopedAuthToken = new twilio.AccessToken('SK123', 'AC123');
-            var jwt = scopedAuthToken.toJwt('secret').substring(1);
-            var client = new twilio.RestClient('AC123', jwt);
-            spyOn(client, 'request').andCallThrough();
-
-            client.request({
-                url: '',
-                method: 'GET'
-            }, function (err, data, response) {
-                done();
-            });
-
-            expect(client.request).toHaveBeenCalledWith({
-                url: 'https://api.twilio.com/2010-04-01.json',
-                method: 'GET',
-                auth: {
-                    user: 'AC123',
-                    pass: jwt
-                },
-                headers: {
-                    Accept: 'application/json',
-                    'Accept-Charset': 'utf-8',
-                    'User-Agent': 'twilio-node/' + moduleinfo.version
-                },
-                timeout: 31000
             }, any(Function));
         });
     });
