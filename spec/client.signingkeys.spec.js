@@ -29,15 +29,6 @@ describe('The Twilio REST Client SigningKeys resource', function () {
         }, undefined);
     });
 
-    it('lists all signing keys', function () {
-        client.signingKeys.list();
-        expect(client.request).toHaveBeenCalledWith({
-            url: '/Accounts/AC123/SigningKeys',
-            method: 'GET',
-            qs: {}
-        }, undefined);
-    });
-
     it('updates details about an existing singing key', function () {
         client.signingKeys('SK123').update({
             friendlyName: 'New name'
