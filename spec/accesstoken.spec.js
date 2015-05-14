@@ -40,6 +40,30 @@ describe('The Scoped Authentication Token Object', function () {
             expect(c.grants[1].res).toBe('https://api.twilio.com/**');
             expect(c.grants[1].act[0]).toBe('GET');
         });
+
+        it('it should use ALL for default grant', function() {
+            var c = new twilio.AccessToken('SK123', 'AC123', 3600);
+            c.addGrant('https://taskrouter.twilio.com/**');
+
+            expect(c.grants).toBeDefined();
+            expect(c.grants.length).toBe(1);
+            expect(c.grants[0].res).toBe('https://taskrouter.twilio.com/**');
+            expect(c.grants[0].act[0]).toBe('*');
+        });
+    });
+
+    describe('addEndpointGrant', function() {
+        it('it should allow the user to add grants for a SIP endpoint', function() {
+            var c = new twilio.AccessToken('SK123', 'AC123');
+            c.addEndpointGrant('doofus');
+
+            expect(c.grants).toBeDefined();
+            expect(c.grants.length).toBe(1);
+            expect(c.grants[0].res).toBe('sip:doofus@AC123.endpoint.twilio.com');
+            expect(c.grants[0].act.length).toBe(2);
+            expect(c.grants[0].act[0]).toBe('LISTEN');
+            expect(c.grants[0].act[1]).toBe('INVITE');
+        });
     });
 
     describe('toJwt', function() {
