@@ -61,8 +61,8 @@ describe('The Scoped Authentication Token Object', function () {
             expect(c.grants.length).toBe(1);
             expect(c.grants[0].res).toBe('sip:doofus@AC123.endpoint.twilio.com');
             expect(c.grants[0].act.length).toBe(2);
-            expect(c.grants[0].act[0]).toBe('LISTEN');
-            expect(c.grants[0].act[1]).toBe('INVITE');
+            expect(c.grants[0].act[0]).toBe('listen');
+            expect(c.grants[0].act[1]).toBe('invite');
         });
     });
 
