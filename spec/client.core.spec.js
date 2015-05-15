@@ -2,7 +2,7 @@ var twilio = require('../index'),
     request = require('request'),
     moduleinfo = require('../package.json');;
 
-describe('The Tilio Rest Client', function () {
+describe('The Twilio Rest Client', function () {
     describe('constructor', function () {
         //mess with the constructor options
         it('should allow for advanced configuration', function () {
