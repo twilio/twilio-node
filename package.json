@@ -22,7 +22,9 @@
   },
   "devDependencies": {
     "express": "3.x",
-    "jasmine-node": "^1.14.5"
+    "jasmine-node": "^1.14.5",
+    "mocha": "*",
+    "should": "*"
   },
   "scripts": {
     "test": "jasmine-node spec"
