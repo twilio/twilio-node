@@ -1,7 +1,7 @@
 var twilio = require('../index'),
     jwt = require('jwt-simple');
 
-describe('The TaskRouter Capability Token Object', function() {
+describe('The TaskRouter Capability Deprecated Token Object', function() {
 
     it('should allow construction of a capability token', function() {
         var c = new twilio.TaskRouterCapability('AC123', 'foobar', 'WS456', 'WK789');
@@ -25,12 +25,14 @@ describe('The TaskRouter Capability Token Object', function() {
         expect(decoded['exp']).toEqual(Math.floor(new Date() / 1000) + 1000);
     });
 
-    it('should allow websocket and activities access by default', function() {
+    it('should allow websocket and activities access as well as worker activity updates and reservation updates', function() {
         var c = new twilio.TaskRouterCapability('AC123', 'foobar', 'WS456', 'WK789');
+        c.allowWorkerActivityUpdates();
+        c.allowTaskReservationUpdates();
         var token = c.generate();
 
         var decoded = jwt.decode(token, 'foobar');
-        expect(decoded['policies'].length).toBe(4);
+        expect(decoded['policies'].length).toBe(6);
         var activitiesPolicy = {
             url: 'https://taskrouter.twilio.com/v1/Workspaces/WS456/Activities',
             method: 'GET',
@@ -66,5 +68,24 @@ describe('The TaskRouter Capability Token Object', function() {
             allow: true
         };
         expect(decoded['policies'][3]).toEqual(workerFetchPolicy);
+
+        var workerUpdatesPolicy = {
+            url: 'https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789',
+            method: 'POST',
+            query_filter: {},
+            post_filter: {'ActivitySid': {'required': true}},
+            allow: true
+        };
+        expect(decoded['policies'][4]).toEqual(workerUpdatesPolicy);
+
+        var taskPolicy = {
+            url: 'https://taskrouter.twilio.com/v1/Workspaces/WS456/Tasks/**',
+            method: 'POST',
+            query_filter: {},
+            post_filter: {},
+            allow: true
+        };
+
+        expect(decoded['policies'][5]).toEqual(taskPolicy);
     });
 });
