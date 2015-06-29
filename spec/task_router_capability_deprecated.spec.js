@@ -32,7 +32,7 @@ describe('The TaskRouter Capability Deprecated Token Object', function() {
         var token = c.generate();
 
         var decoded = jwt.decode(token, 'foobar');
-        expect(decoded['policies'].length).toBe(6);
+        expect(decoded['policies'].length).toBe(7);
         var activitiesPolicy = {
             url: 'https://taskrouter.twilio.com/v1/Workspaces/WS456/Activities',
             method: 'GET',
@@ -42,6 +42,15 @@ describe('The TaskRouter Capability Deprecated Token Object', function() {
         };
         expect(decoded['policies'][0]).toEqual(activitiesPolicy);
 
+        var reservationFetchPolicy = {
+            url: 'https://taskrouter.twilio.com/v1/Workspaces/WS456/Tasks/**',
+            method: 'GET',
+            query_filter: {},
+            post_filter: {},
+            allow: true
+        };
+        expect(decoded['policies'][1]).toEqual(reservationFetchPolicy);
+
         var getPolicy = {
             url: 'https://event-bridge.twilio.com/v1/wschannels/AC123/WK789',
             method: 'GET',
@@ -49,7 +58,7 @@ describe('The TaskRouter Capability Deprecated Token Object', function() {
             post_filter: {},
             allow: true
         };
-        expect(decoded['policies'][1]).toEqual(getPolicy);
+        expect(decoded['policies'][2]).toEqual(getPolicy);
 
         var postPolicy = {
             url: 'https://event-bridge.twilio.com/v1/wschannels/AC123/WK789',
@@ -58,7 +67,7 @@ describe('The TaskRouter Capability Deprecated Token Object', function() {
             post_filter: {},
             allow: true
         };
-        expect(decoded['policies'][2]).toEqual(postPolicy);
+        expect(decoded['policies'][3]).toEqual(postPolicy);
 
         var workerFetchPolicy = {
             url: 'https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789',
@@ -67,7 +76,7 @@ describe('The TaskRouter Capability Deprecated Token Object', function() {
             post_filter: {},
             allow: true
         };
-        expect(decoded['policies'][3]).toEqual(workerFetchPolicy);
+        expect(decoded['policies'][4]).toEqual(workerFetchPolicy);
 
         var workerUpdatesPolicy = {
             url: 'https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789',
@@ -76,7 +85,7 @@ describe('The TaskRouter Capability Deprecated Token Object', function() {
             post_filter: {'ActivitySid': {'required': true}},
             allow: true
         };
-        expect(decoded['policies'][4]).toEqual(workerUpdatesPolicy);
+        expect(decoded['policies'][5]).toEqual(workerUpdatesPolicy);
 
         var taskPolicy = {
             url: 'https://taskrouter.twilio.com/v1/Workspaces/WS456/Tasks/**',
@@ -86,6 +95,6 @@ describe('The TaskRouter Capability Deprecated Token Object', function() {
             allow: true
         };
 
-        expect(decoded['policies'][5]).toEqual(taskPolicy);
+        expect(decoded['policies'][6]).toEqual(taskPolicy);
     });
 });
