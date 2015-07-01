@@ -314,7 +314,7 @@ npm install twilio
         <a href="https://www.twilio.com/user/account">your dashboard</a>:
     </p>
     <p>
-        <img src="twilio-dashboard.png" alt="dashboard screenshot"/>
+        <img src="twilio-credentials.gif" alt="Click 'Show API Credentials' in your Twilio dashboard to reveal your Account SID and Auth Token"/>
     </p>
     <p>
         With these credentials, you can begin to use this node module, as in the following example:
@@ -384,14 +384,14 @@ client.makeCall({
             <tr>
                 <th><a href="https://www.twilio.com/docs/taskrouter">TaskRouter</a></th>
                 <td>
-                    Manage work distribution in a Twilio application, as in a 
+                    Manage work distribution in a Twilio application, as in a
                     call center or lead distribution use case.
                 </td>
             </tr>
             <tr>
                 <th><a href="https://www.twilio.com/docs/api/rest/lookups">Phone Number Lookups</a></th>
                 <td>
-                    Get information about phone numbers and proper formatting. 
+                    Get information about phone numbers and proper formatting.
                     Find out if it's a mobile number or a land line.
                 </td>
             </tr>
@@ -512,7 +512,7 @@ client.accounts(ACCOUNT_SID).calls.create({
         <p>
             However, it is common to need to make multiple sequential calls to the
             Twilio REST API, such as when searching for, then purchasing, new incoming
-            phone numbers.  When you make multiple calls to Twilio using nested callbacks, your code 
+            phone numbers.  When you make multiple calls to Twilio using nested callbacks, your code
             can quickly start marching to the right, forming the dreaded
             "<a href="http://javascriptjabber.com/001-jsj-asynchronous-programming/">
             pyramid of doom</a>".
@@ -589,7 +589,7 @@ client.availablePhoneNumbers('US').local.get({
 }).fail(function(error) {
 
     // This callback will be invoked on any error returned in the
-    // process.  
+    // process.
     console.log('Number purchase failed! Reason: '+error.message);
 
 }).fin(function() {
@@ -664,7 +664,7 @@ var resp = new twilio.TwimlResponse();
         <p id="twimlBasic">
             <b class="header">TwiML Basics</b>
             <br/>
-            
+
             The <tt>TwimlResponse</tt> object provides JavaScript functions to construct the
             <a href="http://www.twilio.com/docs/api/twiml">TwiML verbs</a> that are appropriate
             for the given parent node.  Each JavaScript function takes the following arguments, in any order:
@@ -857,7 +857,7 @@ Outputs the following:
         <h2 id="capability">Capability Token Generator</h2>
 
         <p>
-            Using Twilio Client requires the use of a 
+            Using Twilio Client requires the use of a
             <a href="http://www.twilio.com/docs/client/capability-tokens">capability token</a>,
             which enables client access to Twilio's VoIP platform.  These capability tokens can
             be used either <a href="http://www.twilio.com/docs/client/twilio-js">in the browser</a>
@@ -1081,7 +1081,7 @@ app.post('/twiml', function(req, res) {
     }
 });
 </pre>
-        
+
         <p id="webhook">
             <b class="header">webhook</b><code>twilio.webhook([authToken, options])</code>
             <br/>
