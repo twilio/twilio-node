@@ -6,8 +6,8 @@ var twilio = require('../lib'),
     f = require('util').format;
 
 var twimlString = '<?xml version="1.0" encoding="UTF-8"?><Response><Message>hi</Message></Response>',
-    params = { 
-        To:'+16515556677', 
+    params = {
+        To:'+16515556677',
         From:'+16515556699',
         Body:'hello áçčëñtš 😃'
     },
@@ -197,9 +197,29 @@ describe('Testing Express request validation', function() {
         }, function(err, response) {
             expect(err).toBeFalsy();
             expect(response.body).toBe(twimlString);
-            server.close();
             done();
         });
 
+    });
+
+    it('should work with URL that contains query params', function(done) {
+        // Manually create a Twilio signature
+        var signUrl = testUrl+'/sms?query=param';
+        var testSig = createTestSig(signUrl);
+
+        // Hit our webhook with a "Twilio signed" request
+        request({
+            method:'POST',
+            url:signUrl,
+            headers: {
+                'X-Twilio-Signature':testSig
+            },
+            form: params
+        }, function(err, response) {
+            expect(err).toBeFalsy();
+            expect(response.body).toBe(twimlString);
+            server.close();
+            done();
+        });
     });
 });
