@@ -237,6 +237,16 @@
         <li>- <a href="#request">Raw Request</a></li>
     </ul>
 
+    <a class ="toc_title" href="#taskrouter">
+        TaskRouter
+    </a>
+    <ul class="toc_section">
+        <li>- <a href="#taskrouterClient">TaskRouter Client</a></li>
+        <li>- <a href="#createTask">Create a Task</a></li>
+        <li>- <a href="#getListOfWorkers">Get a List of Workers</a></li>
+        <li>- <a href="#readStats">Workspace Statistics</a></li>
+    </ul>
+
     <a class="toc_title" href="#twimlResponse">
         TwimlResponse
     </a>
@@ -636,6 +646,59 @@ client.request({
 });
 </pre>
 
+        <h2 id="taskrouter">TaskRouter</h2>
+        <p>
+        Twilio TaskRouter is a system for distributing tasks, such as phone calls, tickets, and other work items to the people or processes best capable to handle them. You can read more about TaskRouter <a href="https://www.twilio.com/docs/taskrouter">here</a>.
+        We'll go through some quick examples of using Twilio's Node helper library to get your TaskRouter app running.
+        </p>
+
+        <p id="taskrouterClient">
+            <b class="header">Twilio TaskRouter Client</b><code>new twilio.TaskRouterClient()</code>
+            <br>
+                Create a Twilio TaskRouter Client.
+            </br>
+        </p>
+        <p>Example:</p>
+<pre>
+var twilio = require('twilio');
+var client = new twilio.TaskRouterClient('ACCOUNT_SID', 'AUTH_TOKEN', 'WORKSPACE_SID');
+</pre>
+
+        <p id="createTask">
+            <b class="header">Create a Task</b>
+            <br>Creating a task in your workspace is quite easy. Once you've got your Twilio TaskRouter Client all you need to do is the following:</br>
+        </p>
+<pre>
+client.workspaces('WORKSPACE_SID').tasks.create({
+    attributes: '{"required_language": "en"}',
+    workflowSid: 'WORKFLOW_SID',
+    timeout: 15
+});
+</pre>
+        <p>
+        In this example, you can see that we've created a task with a <tt>timeout</tt> of 15 seconds and <tt>attributes</tt> set to be for the language English.
+        </p>
+
+        <p id="getListOfWorkers">
+            <b class="header">Get a List of Workers</b>
+            <br>We can also get a list of workers in a workspace as well. Using the same Twilio TaskRouter Client that we created earlier, we can add:</br>
+        </p>
+<pre>
+client.workspaces('WORKSPACE_SID').workers.get(
+    function(err, result) {
+        console.log(result.workers);
+    });
+</pre>
+
+        <p id="readStats">
+            <b class="header">Read the Statistics on a Workspace</b>
+            <br>Knowing the statistics about a Workspace comes in pretty handy. If you'd like to filter cumulative statistics by up to some 'x' minutes in the past, we can set the <tt>minutes</tt> parameter, like so:</br>
+        </p>
+<pre>
+client.workspaces('WORKSPACE_SID').statistics.get({
+    minutes: 240
+});
+</pre>
 
         <h2 id="twimlResponse">TwimlResponse</h2>
 
