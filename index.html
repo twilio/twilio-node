@@ -669,7 +669,7 @@ var client = new twilio.TaskRouterClient('ACCOUNT_SID', 'AUTH_TOKEN', 'WORKSPACE
             <br>Creating a task in your workspace is quite easy. Once you've got your Twilio TaskRouter Client all you need to do is the following:</br>
         </p>
 <pre>
-client.workspaces('WORKSPACE_SID').tasks.create({
+client.workspace.tasks.create({
     attributes: '{"required_language": "en"}',
     workflowSid: 'WORKFLOW_SID',
     timeout: 15
@@ -684,7 +684,7 @@ client.workspaces('WORKSPACE_SID').tasks.create({
             <br>We can also get a list of workers in a workspace as well. Using the same Twilio TaskRouter Client that we created earlier, we can add:</br>
         </p>
 <pre>
-client.workspaces('WORKSPACE_SID').workers.get(
+client.workspace.workers.get(
     function(err, result) {
         console.log(result.workers);
     });
@@ -695,7 +695,7 @@ client.workspaces('WORKSPACE_SID').workers.get(
             <br>Knowing the statistics about a Workspace comes in pretty handy. If you'd like to filter cumulative statistics by up to some 'x' minutes in the past, we can set the <tt>minutes</tt> parameter, like so:</br>
         </p>
 <pre>
-client.workspaces('WORKSPACE_SID').statistics.get({
+client.workspace.statistics.get({
     minutes: 240
 });
 </pre>
