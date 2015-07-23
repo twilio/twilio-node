@@ -148,5 +148,12 @@ describe('The Twilio Workflow Configuration resource', function() {
         };
         expect(workflowConfigJSON).toEqual(JSON.stringify(workflowConfigJSON2));
     });
+
+    it('converts a workflow configuration object from JSON representation', function() {
+        var workflowConfigJSON = workflowConfig.makeJSON();
+        var workflowConfigObject = workflowConfig.fromJSON(workflowConfigJSON);
+
+        expect(workflowConfigObject).toEqual(workflowConfig);
+    });
 });
 
