@@ -18,7 +18,9 @@
     "underscore": "1.x",
     "jwt-simple": "0.1.x",
     "q": "0.9.7",
-    "scmp": "0.0.3"
+    "scmp": "0.0.3",
+    "deprecate": "^0.1.0",
+    "string.prototype.startswith": "^0.2.0"
   },
   "devDependencies": {
     "express": "3.x",
