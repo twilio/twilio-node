@@ -44,6 +44,23 @@ describe('The TwiML Response Object', function () {
         expect(xml).toBe(test);
     });
 
+    it('should support a flat document with enqueue nodes, with task attributes', function() {
+        var response = new twilio.TwimlResponse();
+        response.enqueue({workflowSid: '123456789'}, function(node) {
+            node.taskAttributes({selected_language: 'en'});
+        });
+        var xml = response.toString(),
+            test = [
+                '<?xml version="1.0" encoding="UTF-8"?>',
+                '<Response>',
+                '<Enqueue workflowSid="123456789"><TaskAttributes selected_language="en"></TaskAttributes></Enqueue>',
+                '</Response>'
+            ].join('');
+
+        expect(xml).toBe(test);
+    });
+
+
     it('should support chaining syntax with supported verbs', function() {
         var resp = new twilio.TwimlResponse();
 
