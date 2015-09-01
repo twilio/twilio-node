@@ -216,7 +216,7 @@ describe('The TwiML Response Object', function () {
                 '<?xml version="1.0" encoding="UTF-8"?>',
                 '<Response>',
                 '<Enqueue>',
-                '<Task priority="10" timeout="30">{"selected_language":"en"}</Task>',
+                '<Task priority="10" timeout="30">{&quot;selected_language&quot;:&quot;en&quot;}</Task>',
                 '</Enqueue>',
                 '</Response>'
             ].join('');
