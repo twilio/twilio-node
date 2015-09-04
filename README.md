@@ -8,7 +8,7 @@ A node.js Twilio helper library.
 
 ## End User Docs
 
-For detailed usage infomation and API docs, head out here:
+For detailed usage information and API docs, head out here:
 
 [http://twilio.github.io/twilio-node/](http://twilio.github.io/twilio-node/)
 
