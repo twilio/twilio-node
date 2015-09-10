@@ -125,20 +125,20 @@ describe('The Twilio Trunking Client', function() {
 
     // IP Access Control Lists
     it('get a list of ip acls', function() {
-        client.trunks('TR123').ipAccessControlListMappings.list();
+        client.trunks('TR123').ipAccessControlLists.list();
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Trunks/TR123/IpAccessControlListMappings',
+            url: '/Trunks/TR123/IpAccessControlLists',
             method: 'GET',
             qs: {}
         }, undefined);
     });
 
     it('create a mapping', function() {
-        client.trunks('TR123').ipAccessControlListMappings.create({
+        client.trunks('TR123').ipAccessControlLists.create({
             IpAccessControlListSid: 'IP123'
         });
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Trunks/TR123/IpAccessControlListMappings',
+            url: '/Trunks/TR123/IpAccessControlLists',
             method: 'POST',
             form: {
                 IpAccessControlListSid: 'IP123'
@@ -147,18 +147,18 @@ describe('The Twilio Trunking Client', function() {
     });
 
     it('get a ip acl', function() {
-        client.trunks('TR123').ipAccessControlListMappings('IP123').get();
+        client.trunks('TR123').ipAccessControlLists('IP123').get();
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Trunks/TR123/IpAccessControlListMappings/IP123',
+            url: '/Trunks/TR123/IpAccessControlLists/IP123',
             method: 'GET',
             qs: {}
         }, undefined);
     });
 
     it('delete a mapping', function() {
-        client.trunks('TR123').ipAccessControlListMappings('IP123').delete();
+        client.trunks('TR123').ipAccessControlLists('IP123').delete();
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Trunks/TR123/IpAccessControlListMappings/IP123',
+            url: '/Trunks/TR123/IpAccessControlLists/IP123',
             method: 'DELETE',
             form: {}
         }, undefined);
@@ -166,20 +166,20 @@ describe('The Twilio Trunking Client', function() {
 
     // Credential Lists
     it('get a list of credential lists', function() {
-        client.trunks('TR123').credentialListMappings.list();
+        client.trunks('TR123').credentialLists.list();
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Trunks/TR123/CredentialListMappings',
+            url: '/Trunks/TR123/CredentialLists',
             method: 'GET',
             qs: {}
         }, undefined);
     });
 
     it('create a mapping', function() {
-        client.trunks('TR123').credentialListMappings.create({
+        client.trunks('TR123').credentialLists.create({
             CredentialListSid: 'CL123'
         });
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Trunks/TR123/CredentialListMappings',
+            url: '/Trunks/TR123/CredentialLists',
             method: 'POST',
             form: {
                 CredentialListSid: 'CL123'
@@ -188,18 +188,18 @@ describe('The Twilio Trunking Client', function() {
     });
 
     it('get a credential list', function() {
-        client.trunks('TR123').credentialListMappings('CL123').get();
+        client.trunks('TR123').credentialLists('CL123').get();
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Trunks/TR123/CredentialListMappings/CL123',
+            url: '/Trunks/TR123/CredentialLists/CL123',
             method: 'GET',
             qs: {}
         }, undefined);
     });
 
     it('delete a mapping', function() {
-        client.trunks('TR123').credentialListMappings('CL123').delete();
+        client.trunks('TR123').credentialLists('CL123').delete();
         expect(client.request).toHaveBeenCalledWith({
-            url: '/Trunks/TR123/CredentialListMappings/CL123',
+            url: '/Trunks/TR123/CredentialLists/CL123',
             method: 'DELETE',
             form: {}
         }, undefined);
