@@ -51,4 +51,22 @@ describe('The Twilio Pricing Client', function() {
             qs:{}
         }, undefined);
     });
+
+    it('gets messaging countries', function() {
+        client.messaging.countries.list();
+        expect(client.request).toHaveBeenCalledWith({
+            url:'/Messaging/Countries',
+            method:'GET',
+            qs:{}
+        }, undefined);
+    });
+
+    it('gets messaging pricing for a country', function() {
+        client.messaging.countries('GB').get();
+        expect(client.request).toHaveBeenCalledWith({
+            url:'/Messaging/Countries/GB',
+            method:'GET',
+            qs:{}
+        }, undefined);
+    });
 });
