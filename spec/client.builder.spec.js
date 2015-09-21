@@ -6,7 +6,7 @@ describe('The Twilio Workflow Configuration resource', function() {
         var target = new wb.WorkflowRuleTarget({
             queue: 'WQaaa'
         });
-        target.expression = '1==2',
+        target.expression = '1==2';
         target.priority = "20";
 
         var filter = new wb.WorkflowRule({
