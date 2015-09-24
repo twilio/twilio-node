@@ -197,4 +197,30 @@ describe('The TwiML Response Object', function () {
 
         expect(xml).toBe(test);
     });
+
+    it('should allow an enqueue a task', function() {
+        var resp = new twilio.TwimlResponse();
+
+        var arr = {selected_language:"en"};
+        var json = JSON.stringify(arr);
+
+        resp.enqueue({}, function(node) {
+                    node.task(json, {
+                    priority:'10',
+                    timeout:'30'
+                });
+            });
+
+        var xml = resp.toString(),
+            test = [
+                '<?xml version="1.0" encoding="UTF-8"?>',
+                '<Response>',
+                '<Enqueue>',
+                '<Task priority="10" timeout="30">{&quot;selected_language&quot;:&quot;en&quot;}</Task>',
+                '</Enqueue>',
+                '</Response>'
+            ].join('');
+
+        expect(xml).toBe(test);
+    });
 });
