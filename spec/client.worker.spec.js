@@ -64,6 +64,19 @@ describe('The Twilio TaskRouter Worker resource', function () {
         }, undefined);
     });
 
+    it('gets worker reservations', function () {
+        client.workspaces('WS123').workers('WR123').reservations.list({
+            reservationStatus: 'pending'
+        });
+        expect(client.request).toHaveBeenCalledWith({
+            url: '/Workspaces/WS123/Workers/WR123/Reservations',
+            method: 'GET',
+            qs: {
+                ReservationStatus: 'pending'
+            }
+        }, undefined);
+    });
+
     it('lists workers', function () {
         client.workspaces('WS123').workers.list({
             friendlyName: 'Test Worker'
