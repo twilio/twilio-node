@@ -47,5 +47,5 @@ In your fork, create a new feature/bug fix branch, [per the guide listed above](
 
 Right now, the docs are maintained in static HTML in the `gh-pages` branch of this repository.  We hope to switch to a more robust documentation system soon, but for the time being, you can make documentation changes by editing [index.html](https://github.com/twilio/twilio-node/blob/gh-pages/index.html) directly.
 
-
+© 2015 Twilio Inc.
 
