@@ -16,7 +16,7 @@
   "dependencies": {
     "request": "2.55.x",
     "underscore": "1.x",
-    "jwt-simple": "0.1.x",
+    "jwt-simple": "0.3.x",
     "q": "0.9.7",
     "scmp": "0.0.3",
     "deprecate": "^0.1.0",
