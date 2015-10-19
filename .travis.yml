@@ -4,7 +4,6 @@ node_js:
     - "0.10"
     - "0.8"
 before_install:
-- npm install npm@2 -g 
 - npm install npm -g
 notifications:
   slack:

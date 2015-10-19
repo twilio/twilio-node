@@ -89,7 +89,7 @@ describe('The Scoped Authentication Token Object', function () {
 
             expect(c.grants).toBeDefined();
             expect(c.grants.length).toBe(1);
-            expect(c.grants[0].res).toBe('https://api.twilio.com/2010-04-01/Accounts/AC123/Tokens.json');
+            expect(c.grants[0].res).toBe('https://api.twilio.com/2010-04-01/Accounts/AC123/Tokens');
             expect(c.grants[0].act[0]).toBe('POST');
         });
     });
