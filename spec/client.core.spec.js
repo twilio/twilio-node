@@ -1,4 +1,6 @@
 var twilio = require('../index');
+var http = require('http');
+var moduleinfo = require('../package.json');
 
 describe('The Twilio REST Client constructor', function () {
     //mess with the constructor options
@@ -74,37 +76,75 @@ describe('The Twilio REST Client constructor', function () {
         });
     });
 
-    // Use fake response server to simulate a slow response time
-    // See http://www.seanshadmand.com/2012/06/21/fake-response-server-slow-response-time-generator/
-    var fake_response_host = 'fake-response.appspot.com';
-    
     var slowClient = new twilio.RestClient('AC123', '123', {
-        host: fake_response_host,
+        host: 'localhost:9999',
         timeout: 2000 // timeout after 2 seconds
     });
-
-    // The fake response url only works when we don't send auth tokens, account id, etc -- otherwise it 404's
     slowClient.getBaseUrl = function() {
-        return 'http://' + fake_response_host;
+        return 'http://localhost:9999';
+    };
+
+    var startServerWithoutTimeout = function(timeout, callback) {
+        var server = http.createServer(function(request, response) {
+            setTimeout(function() {
+                response.end(JSON.stringify({
+                    response: 'This request has finished sleeping for '
+                        + timeout + ' seconds.'
+                }));
+            }, timeout * 1000);
+        });
+        server.listen('9999', function() {
+            callback(server);
+        });
     };
 
     it('should allow for timeout configuration and handle responses faster than the timeout', function (done) {
-        slowClient.request({
-            url:'?sleep=1&', // sleep for 1 second
-            method:'GET'
-        }, function (err, data, response) {
-            expect(data.response).toBe('This request has finished sleeping for 1 seconds.');
-            done();
+        startServerWithoutTimeout(1, function(server) {
+            spyOn(slowClient, 'request').and.callThrough();
+
+            var promise = slowClient.request({
+                url: '/blah',
+                method: 'GET'
+            }, function (err, data, response) {
+                expect(data.response).toBe('This request has finished sleeping for 1 seconds.');
+                server.close(done);
+            });
+
+            expect(slowClient.request).toHaveBeenCalledWith({
+                url: 'http://localhost:9999/blah.json',
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json',
+                    'Accept-Charset': 'utf-8',
+                    'User-Agent': 'twilio-node/' + moduleinfo.version
+                },
+                timeout: 2000
+            }, any(Function));
         });
     });
 
     it('should allow for timeout configuration and handle responses slower than the timeout', function (done) {
-        slowClient.request({ 
-            url:'?sleep=3&', // sleep for 3 seconds
-            method:'GET'
-        }, function (err, data, response) {
-            expect(err.status).toBe('ETIMEDOUT');
-            done();
+        startServerWithoutTimeout(3, function(server) {
+            spyOn(slowClient, 'request').and.callThrough();
+
+            slowClient.request({
+                url: '/blah',
+                method: 'GET'
+            }, function (err, data, response) {
+                expect(err.status).toBe('ETIMEDOUT');
+                server.close(done);
+            });
+
+            expect(slowClient.request).toHaveBeenCalledWith({
+                url: 'http://localhost:9999/blah.json',
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json',
+                    'Accept-Charset': 'utf-8',
+                    'User-Agent': 'twilio-node/' + moduleinfo.version
+                },
+                timeout: 2000
+            }, any(Function));
         });
     });
 });
