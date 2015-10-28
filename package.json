@@ -24,10 +24,10 @@
   },
   "devDependencies": {
     "express": "3.x",
-    "jasmine-node": "^1.14.5"
+    "jasmine-node": "2.0.x"
   },
   "scripts": {
-    "test": "jasmine-node spec"
+    "test": "jasmine-node --captureExceptions spec"
   },
   "main": "./lib",
   "engines": {
