@@ -67,6 +67,7 @@ describe('IdentityToken', function() {
       grant.addRole('user');
       grant.addRole('admin');
       grant.endpointId = 'blah';
+      grant.credentialSid = 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
       token.addGrant(grant);
 
       var decoded = jwt.verify(token.generate(), 'secret');
@@ -76,7 +77,8 @@ describe('IdentityToken', function() {
           service_sid: 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           role: ['user', 'admin'],
           data: {
-            endpoint_id: 'blah'
+            endpoint_id: 'blah',
+            credential_sid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
           }
         }
       });
@@ -108,6 +110,7 @@ describe('IdentityToken', function() {
       grant.addRole('user');
       grant.addRole('admin');
       grant.endpointId = 'blah';
+      grant.credentialSid = 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
       token.addGrant(grant);
 
       grant = new twilio.IdentityToken.RTCGrant();
@@ -121,7 +124,8 @@ describe('IdentityToken', function() {
           service_sid: 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           role: ['user', 'admin'],
           data: {
-            endpoint_id: 'blah'
+            endpoint_id: 'blah',
+            credential_sid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
           }
         },
         rtc: {
@@ -153,6 +157,26 @@ describe('IdentityToken', function() {
             role: ['user'],
             data: {
               endpoint_id: 'endpointId'
+            }
+          });
+
+          grant.endpointId = undefined;
+          grant.credentialSid = 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+          expect(grant.toPayload()).toEqual({
+            service_sid: 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            role: ['user'],
+            data: {
+              credential_sid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+            }
+          });
+
+          grant.endpointId = 'endpointId';
+          expect(grant.toPayload()).toEqual({
+            service_sid: 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            role: ['user'],
+            data: {
+              endpoint_id: 'endpointId',
+              credential_sid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
             }
           });
         });
