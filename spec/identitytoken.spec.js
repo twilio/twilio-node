@@ -3,7 +3,7 @@ var jwt = require('jsonwebtoken');
 
 describe('IdentityToken', function() {
   var accountSid = 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
-  var keySid = 'SKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+  var keySid = 'SKb5aed9ca12bf5890f37930e63cad6d38';
 
   describe('constructor', function() {
     var initWithoutIndex = function(index) {
@@ -28,11 +28,42 @@ describe('IdentityToken', function() {
   });
 
   describe('generate', function() {
-    it('should throw error when identity is not specified', function() {
-      var token = new twilio.IdentityToken(accountSid, keySid, 'secret');
-      expect(function() {
-        token.generate();
-      }).toThrow(new Error('identity is required'));
+    it('should generate the correct headers', function() {
+      var token = new twilio.IdentityToken(accountSid, keySid, 'aTBl1PhJnykIjWll4TOiXKtD1ugxiz6f');
+      var decoded = jwt.decode(token.generate(), {complete: true});
+
+      expect(decoded.header).toEqual({
+        cty: 'twilio-sit;v=1',
+        typ: 'JWT',
+        alg: 'HS256'
+      });
+    });
+
+    it('should accept different algorithsm', function() {
+      var validateAlg = function(alg) {
+        var token = new twilio.IdentityToken(accountSid, keySid, 'secret');
+        var decoded = jwt.decode(token.generate(alg), {
+          complete: true,
+          algorithms: twilio.IdentityToken.ALGORITHMS
+        });
+        expect(decoded.header.alg).toEqual(alg);
+      };
+
+      validateAlg('HS256');
+      validateAlg('HS384');
+      validateAlg('HS512');
+    });
+
+    it('should throw on invalid algorithm', function() {
+      var generateWithAlg = function(alg) {
+        return function() {
+          new twilio.IdentityToken(accountSid, keySid, 'secret').generate(alg);
+        };
+      };
+
+      expect(generateWithAlg('unknown'))
+          .toThrow(new Error('Algorithm not supported. ' +
+                  'Allowed values are HS256, HS384, HS512'));
     });
 
     it('should create a token without any grants', function() {
