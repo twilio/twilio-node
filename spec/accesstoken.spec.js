@@ -1,150 +1,218 @@
-var twilio = require('../index'),
-    jwt = require('jwt-simple');
+var twilio = require('../index');
+var jwt = require('jsonwebtoken');
 
-describe('The Scoped Authentication Token Object', function () {
-    describe('constructor', function () {
-        it('should allow for explicit construction of a scoped authentication token with a default ttl', function() {
-            var c = new twilio.AccessToken('SK123', 'AC123', 'secret');
+describe('AccessToken', function() {
+  var accountSid = 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+  var keySid = 'SKb5aed9ca12bf5890f37930e63cad6d38';
 
-            expect(c).toBeDefined();
-            expect(c.signingKeySid).toBe('SK123');
-            expect(c.accountSid).toBe('AC123');
-            expect(c.secret).toBe('secret');
-            expect(c.ttl).toBe(3600);
-            expect(c.grants).toBeDefined();
-            expect(c.grants.length).toBe(0);
-        });
+  describe('constructor', function() {
+    var initWithoutIndex = function(index) {
+      return function() {
+        var constructorArgs = [accountSid, keySid, 'secret'];
+        constructorArgs[index] = undefined;
 
+        // add context
+        constructorArgs.unshift({});
+        new (Function.prototype.bind.apply(twilio.AccessToken, constructorArgs));
+      };
+    };
+    it('should require accountSid', function() {
+      expect(initWithoutIndex(0)).toThrow(new Error('accountSid is required'));
+    });
+    it('should require keySid', function() {
+      expect(initWithoutIndex(1)).toThrow(new Error('keySid is required'));
+    });
+    it('should require secret', function() {
+      expect(initWithoutIndex(2)).toThrow(new Error('secret is required'));
+    });
+  });
 
-        it('should allow for explicit construction of a scoped authentication token', function() {
-            var c = new twilio.AccessToken('SK123', 'AC123', 'secret', 3600);
+  describe('generate', function() {
+    it('should generate the correct headers', function() {
+      var token = new twilio.AccessToken(accountSid, keySid, 'aTBl1PhJnykIjWll4TOiXKtD1ugxiz6f');
+      var decoded = jwt.decode(token.generate(), {complete: true});
 
-            expect(c).toBeDefined();
-            expect(c.signingKeySid).toBe('SK123');
-            expect(c.accountSid).toBe('AC123');
-            expect(c.secret).toBe('secret');
-            expect(c.ttl).toBe(3600);
-            expect(c.grants).toBeDefined();
-            expect(c.grants.length).toBe(0);
-        });
-
-
+      expect(decoded.header).toEqual({
+        cty: 'twilio-sat;v=1',
+        typ: 'JWT',
+        alg: 'HS256'
+      });
     });
 
-    describe('addGrant', function() {
-        it('it should allow the user to add grants', function() {
-            var c = new twilio.AccessToken('SK123', 'AC123', 'secret');
-            c.addGrant('https://taskrouter.twilio.com/**', twilio.AccessToken.ACTION.ALL);
-            c.addGrant('https://api.twilio.com/**', twilio.AccessToken.ACTION.HTTP.GET);
-
-            expect(c.grants).toBeDefined();
-            expect(c.grants.length).toBe(2);
-            expect(c.grants[0].res).toBe('https://taskrouter.twilio.com/**');
-            expect(c.grants[0].act[0]).toBe('*');
-            expect(c.grants[1].res).toBe('https://api.twilio.com/**');
-            expect(c.grants[1].act[0]).toBe('GET');
+    it('should accept different algorithsm', function() {
+      var validateAlg = function(alg) {
+        var token = new twilio.AccessToken(accountSid, keySid, 'secret');
+        var decoded = jwt.decode(token.generate(alg), {
+          complete: true,
+          algorithms: twilio.AccessToken.ALGORITHMS
         });
+        expect(decoded.header.alg).toEqual(alg);
+      };
 
-        it('it should use ALL for default grant', function() {
-            var c = new twilio.AccessToken('SK123', 'AC123', 'secret');
-            c.addGrant('https://taskrouter.twilio.com/**');
-
-            expect(c.grants).toBeDefined();
-            expect(c.grants.length).toBe(1);
-            expect(c.grants[0].res).toBe('https://taskrouter.twilio.com/**');
-            expect(c.grants[0].act[0]).toBe('*');
-        });
+      validateAlg('HS256');
+      validateAlg('HS384');
+      validateAlg('HS512');
     });
 
-    describe('addEndpointGrant', function() {
-        it('it should allow the user to add grants for a SIP endpoint', function() {
-            var c = new twilio.AccessToken('SK123', 'AC123', 'secret');
-            c.addEndpointGrant('doofus');
+    it('should throw on invalid algorithm', function() {
+      var generateWithAlg = function(alg) {
+        return function() {
+          new twilio.AccessToken(accountSid, keySid, 'secret').generate(alg);
+        };
+      };
 
-            expect(c.grants).toBeDefined();
-            expect(c.grants.length).toBe(1);
-            expect(c.grants[0].res).toBe('sip:doofus@AC123.endpoint.twilio.com');
-            expect(c.grants[0].act.length).toBe(2);
-            expect(c.grants[0].act[0]).toBe('listen');
-            expect(c.grants[0].act[1]).toBe('invite');
-        });
+      expect(generateWithAlg('unknown'))
+          .toThrow(new Error('Algorithm not supported. ' +
+                  'Allowed values are HS256, HS384, HS512'));
     });
 
-    describe('addRestGrant', function() {
-        it('it should allow the user to add grants for a REST endpoint', function() {
-            var c = new twilio.AccessToken('SK123', 'AC123', 'secret');
-            c.addRestGrant('/Apps');
+    it('should create a token without any grants', function() {
+      var token = new twilio.AccessToken(accountSid, keySid, 'secret');
+      token.identity = 'ID@example.com';
 
-            expect(c.grants).toBeDefined();
-            expect(c.grants.length).toBe(1);
-            expect(c.grants[0].res).toBe('https://api.twilio.com/2010-04-01/Accounts/AC123/Apps');
-            expect(c.grants[0].act[0]).toBe('*');
-        });
+      var decoded = jwt.verify(token.generate(), 'secret');
+      expect(decoded.jti.indexOf(keySid)).toBe(0);
+      expect(decoded.iss).toBe(keySid);
+      expect(decoded.sub).toBe(accountSid);
+      expect(decoded.exp - decoded.iat).toBe(3600);
+      expect(decoded.grants).toEqual({
+        identity: 'ID@example.com'
+      });
     });
 
-    describe('enableNTS', function() {
-        it('it should allow the user to enable Network Traversal Service', function() {
-            var c = new twilio.AccessToken('SK123', 'AC123', 'secret');
-            c.enableNTS();
+    it('should accept user defined ttl', function() {
+      var token = new twilio.AccessToken(accountSid, keySid, 'secret');
+      token.ttl = 100;
+      token.identity = 'ID@example.com';
 
-            expect(c.grants).toBeDefined();
-            expect(c.grants.length).toBe(1);
-            expect(c.grants[0].res).toBe('https://api.twilio.com/2010-04-01/Accounts/AC123/Tokens.json');
-            expect(c.grants[0].act[0]).toBe('POST');
-        });
+      var decoded = jwt.verify(token.generate(), 'secret');
+      expect(decoded.exp - decoded.iat).toBe(100);
     });
 
-    describe('toJwt', function() {
-        it('should generate a valid JWT', function() {
-            var c = new twilio.AccessToken('SK123', 'AC123', 'secret');
+    it('should create token with ip messaging grant', function() {
+      var token = new twilio.AccessToken(accountSid, keySid, 'secret');
+      token.identity = 'ID@example.com';
 
-            var token = c.toJwt();
-            expect(token).toBeDefined();
+      var grant = new twilio.AccessToken.IpMessagingGrant();
+      grant.serviceSid = 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+      grant.endpointId = 'endpointId';
+      grant.credentialSid = 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+      grant.roleSid = 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+      token.addGrant(grant);
 
-            var decodedToken = jwt.decode(token, 'secret');
-            expect(decodedToken).toBeDefined();
-            expect(decodedToken.iss).toBe('SK123');
-            expect(decodedToken.sub).toBe('AC123');
-            expect(decodedToken.nbf).toBeDefined();
-            expect(decodedToken.exp).toBeDefined();
-            expect(decodedToken.nbf + 3600).toBe(decodedToken.exp);
-            expect(decodedToken.grants).toBeDefined();
-            expect(decodedToken.grants.length).toBe(0);
-        });
-
-        it('should generate a valid JWT without an explicit grant', function() {
-            var c = new twilio.AccessToken('SK123', 'AC123', 'secret');
-
-            var token = c.toJwt();
-            expect(token).toBeDefined();
-
-            var decodedToken = jwt.decode(token, 'secret');
-            expect(decodedToken).toBeDefined();
-            expect(decodedToken.iss).toBe('SK123');
-            expect(decodedToken.sub).toBe('AC123');
-            expect(decodedToken.nbf).toBeDefined();
-            expect(decodedToken.exp).toBeDefined();
-            expect(decodedToken.nbf + 3600).toBe(decodedToken.exp);
-            expect(decodedToken.grants).toBeDefined();
-            expect(decodedToken.grants.length).toBe(0);
-        });
-
-        it('should generate a valid JWT without a token id', function() {
-            var c = new twilio.AccessToken('SK123', 'AC123', 'secret');
-
-            var token = c.toJwt();
-            expect(token).toBeDefined();
-
-            var decodedToken = jwt.decode(token, 'secret');
-            expect(decodedToken).toBeDefined();
-            expect(decodedToken.jti).toBeDefined();
-            expect(decodedToken.iss).toBe('SK123');
-            expect(decodedToken.sub).toBe('AC123');
-            expect(decodedToken.nbf).toBeDefined();
-            expect(decodedToken.exp).toBeDefined();
-            expect(decodedToken.nbf + 3600).toBe(decodedToken.exp);
-            expect(decodedToken.grants).toBeDefined();
-            expect(decodedToken.grants.length).toBe(0);
-        });
+      var decoded = jwt.verify(token.generate(), 'secret');
+      expect(decoded.grants).toEqual({
+        identity: 'ID@example.com',
+        ip_messaging: {
+          service_sid: 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          deployment_role_sid: 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          endpoint_id: 'endpointId',
+          push_credential_sid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        }
+      });
     });
+
+    it('should create token with conversation grant', function() {
+      var token = new twilio.AccessToken(accountSid, keySid, 'secret');
+      token.identity = 'ID@example.com';
+
+      var grant = new twilio.AccessToken.ConversationGrant();
+      grant.configurationProfileSid = 'CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+      token.addGrant(grant);
+
+      var decoded = jwt.verify(token.generate(), 'secret');
+      expect(decoded.grants).toEqual({
+        identity: 'ID@example.com',
+        rtc: {
+          configuration_profile_sid: 'CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        }
+      });
+    });
+
+    it('should create token with multiple grants', function() {
+      var token = new twilio.AccessToken(accountSid, keySid, 'secret');
+      token.identity = 'ID@example.com';
+
+      var grant = new twilio.AccessToken.IpMessagingGrant();
+      grant.serviceSid = 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+      grant.endpointId = 'endpointId';
+      grant.credentialSid = 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+      grant.roleSid = 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+      token.addGrant(grant);
+
+      grant = new twilio.AccessToken.ConversationGrant();
+      grant.configurationProfileSid = 'CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+      token.addGrant(grant);
+
+      var decoded = jwt.verify(token.generate(), 'secret');
+      expect(decoded.grants).toEqual({
+        identity: 'ID@example.com',
+        ip_messaging: {
+          service_sid: 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          deployment_role_sid: 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          endpoint_id: 'endpointId',
+          push_credential_sid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        },
+        rtc: {
+          configuration_profile_sid: 'CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        }
+      });
+    });
+
+    describe('IpMessagingGrant', function() {
+      describe('toPayload', function() {
+        it('should only populate set properties', function() {
+          var grant = new twilio.AccessToken.IpMessagingGrant();
+          expect(grant.toPayload()).toEqual({});
+
+          grant.roleSid = 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+          expect(grant.toPayload()).toEqual({
+            deployment_role_sid: 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          });
+
+          grant.serviceSid = 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+          expect(grant.toPayload()).toEqual({
+            service_sid: 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            deployment_role_sid: 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          });
+
+          grant.endpointId = 'endpointId';
+          expect(grant.toPayload()).toEqual({
+            service_sid: 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            deployment_role_sid: 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            endpoint_id: 'endpointId'
+          });
+
+          grant.endpointId = undefined;
+          grant.credentialSid = 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+          expect(grant.toPayload()).toEqual({
+            service_sid: 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            deployment_role_sid: 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            push_credential_sid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          });
+
+          grant.endpointId = 'endpointId';
+          expect(grant.toPayload()).toEqual({
+            service_sid: 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            deployment_role_sid: 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            endpoint_id: 'endpointId',
+            push_credential_sid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          });
+        });
+      });
+    });
+
+    describe('ConversationGrant', function() {
+      it('should only populate set properties', function() {
+        var grant = new twilio.AccessToken.ConversationGrant();
+        expect(grant.toPayload()).toEqual({});
+
+        grant.configurationProfileSid = 'CPsid';
+        expect(grant.toPayload()).toEqual({
+          configuration_profile_sid: 'CPsid'
+        });
+      });
+    });
+  });
+
 });
