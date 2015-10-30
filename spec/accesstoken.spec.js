@@ -33,7 +33,7 @@ describe('AccessToken', function() {
       var decoded = jwt.decode(token.generate(), {complete: true});
 
       expect(decoded.header).toEqual({
-        cty: 'twilio-sat;v=1',
+        cty: 'twilio-sat;v=2',
         typ: 'JWT',
         alg: 'HS256'
       });
