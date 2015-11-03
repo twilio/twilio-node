@@ -2,7 +2,7 @@
   "name": "twilio",
   "description": "A Twilio helper library",
   "version": "2.5.1",
-  "author": "Kevin Whinnery <kevin.whinnery@gmail.com>",
+  "author": "API Team <api@twilio.com>",
   "contributors": [
     {
       "name": "twilio-node contributors",
@@ -20,7 +20,8 @@
     "q": "0.9.7",
     "scmp": "0.0.3",
     "deprecate": "^0.1.0",
-    "string.prototype.startswith": "^0.2.0"
+    "string.prototype.startswith": "^0.2.0",
+    "rootpath": "*"
   },
   "devDependencies": {
     "express": "3.x",
