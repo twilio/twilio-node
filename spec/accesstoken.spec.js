@@ -120,7 +120,7 @@ describe('AccessToken', function() {
       var token = new twilio.AccessToken(accountSid, keySid, 'secret');
       token.identity = 'ID@example.com';
 
-      var grant = new twilio.AccessToken.ConversationGrant();
+      var grant = new twilio.AccessToken.ConversationsGrant();
       grant.configurationProfileSid = 'CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
       token.addGrant(grant);
 
@@ -144,7 +144,7 @@ describe('AccessToken', function() {
       grant.roleSid = 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
       token.addGrant(grant);
 
-      grant = new twilio.AccessToken.ConversationGrant();
+      grant = new twilio.AccessToken.ConversationsGrant();
       grant.configurationProfileSid = 'CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
       token.addGrant(grant);
 
@@ -208,7 +208,7 @@ describe('AccessToken', function() {
 
     describe('ConversationGrant', function() {
       it('should only populate set properties', function() {
-        var grant = new twilio.AccessToken.ConversationGrant();
+        var grant = new twilio.AccessToken.ConversationsGrant();
         expect(grant.toPayload()).toEqual({});
 
         grant.configurationProfileSid = 'CPsid';
