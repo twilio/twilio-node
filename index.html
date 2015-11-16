@@ -1024,7 +1024,7 @@ http.createServer(function (req, res) {
 
             This is a helper function which decomposes an <a href="http://expressjs.com/api.html#req.params">Express request object</a>
             and uses <a href="#validateRequest">validateRequest</a> to determine if the request was sent by Twilio.  Returns <tt>true</tt>
-            if the request was sent by Twilio.  <b>NOTE:</b> This function requires the developer to use the <tt>express.urlencoded</tt> middleware to function. <a href="http://expressjs.com/api.html#bodyParser">Check out how to use this middleware in the express documentation</a>.
+            if the request was sent by Twilio.  <b>NOTE:</b> This function requires the developer to use the <a href="https://www.npmjs.com/package/body-parser"><tt>bodyParser</tt></a> middleware to function. <a href="http://expressjs.com/api.html#req.body">Check out how to use this middleware in the express documentation</a>.
 
         <ul>
             <li><b>request:</b> {object} An Express Request object</li>
@@ -1041,18 +1041,18 @@ http.createServer(function (req, res) {
         <p>Example:</p>
 <pre>
 var express = require('express'),
+    bodyParser = require('body-parser'),
     http = require('http'),
     path = require('path'),
     twilio = require('twilio');
 
 var app = express();
 
-app.configure(function () {
-    /* Configure your express app... */
-    app.use(express.urlencoded());
-});
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
-//Twilio request authentication
+// Twilio request authentication
 app.post('/twiml', function(req, res) {
     if (twilio.validateExpressRequest(req, 'YOUR_TWILIO_AUTH_TOKEN')) {
         var resp = new twilio.TwimlResponse();
@@ -1062,11 +1062,30 @@ app.post('/twiml', function(req, res) {
         res.send(resp.toString());
     }
     else {
-        res.send('you are not twilio.  Buzz off.');
+        res.status(403).send('you are not twilio. Buzz off.');
     }
 });
 
-//Twilio request authentication with custom URL
+// Start an HTTP server with this Express app
+app.listen(process.env.PORT || 3000);
+</pre>
+
+        <p>If you need to supply a custom URL you can do so like this:</p>
+
+<pre>
+var express = require('express'),
+    bodyParser = require('body-parser'),
+    http = require('http'),
+    path = require('path'),
+    twilio = require('twilio');
+
+var app = express();
+
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+
+// Twilio request authentication with custom URL
 app.post('/twiml', function(req, res) {
     var options = { url: 'https://subtle-gradient-188.herokuapp.com/twiml' };
     if (twilio.validateExpressRequest(req, 'YOUR_TWILIO_AUTH_TOKEN', options)) {
@@ -1077,16 +1096,19 @@ app.post('/twiml', function(req, res) {
         res.send(resp.toString());
     }
     else {
-        res.send('you are not twilio.  Buzz off.');
+        res.status(403).send('you are not twilio. Buzz off.');
     }
 });
+
+// Start an HTTP server with this Express app
+app.listen(process.env.PORT || 3000);
 </pre>
 
         <p id="webhook">
             <b class="header">webhook</b><code>twilio.webhook([authToken, options])</code>
             <br/>
 
-            This function returns an <a href="http://expressjs.com/guide.html">Express middleware function</a> that uses <a href="#validateExpressRequest">validateExpressRequest</a> to determine if the request was sent by Twilio, and adds some API sugar to make the Express response object aware of <a href="#twimlResponse">TwimlResponse</a> objects and how to properly <tt>send()</tt> them.  Note that this middleware was built specifically for Express, and may or may not work with other Connect middleware-based frameworks.  Arguments can be passed in any order.  Request validation requires your Twilio auth token. <br/><br/>If validation is enabled (this is the default) and the request was sent by Twilio, the middleware calls <tt>next()</tt> and allows further processing.  If validation fails, it renders plain text and a 403 reponse. If no auth token is configured, it prints a message to console.error and returns a 500. <b>NOTE:</b> This function requires the developer to use the <tt>express.urlencoded</tt> middleware to function. <a href="http://expressjs.com/api.html#bodyParser">Check out how to use this middleware in the express documentation</a>.
+            This function returns an <a href="http://expressjs.com/guide.html">Express middleware function</a> that uses <a href="#validateExpressRequest">validateExpressRequest</a> to determine if the request was sent by Twilio, and adds some API sugar to make the Express response object aware of <a href="#twimlResponse">TwimlResponse</a> objects and how to properly <tt>send()</tt> them.  Note that this middleware was built specifically for Express, and may or may not work with other Connect middleware-based frameworks.  Arguments can be passed in any order.  Request validation requires your Twilio auth token. <br/><br/>If validation is enabled (this is the default) and the request was sent by Twilio, the middleware calls <tt>next()</tt> and allows further processing.  If validation fails, it renders plain text and a 403 reponse. If no auth token is configured, it prints a message to console.error and returns a 500. <b>NOTE:</b> This function requires the developer to use the <a href="https://www.npmjs.com/package/body-parser"><tt>bodyParser</tt></a> middleware to function. <a href="http://expressjs.com/api.html#req.body">Check out how to use this middleware in the express documentation</a>.
 
         <ul>
             <li><b>authToken:</b> {string} Your Twilio auth token. If validation is enabled and none is provided, the module will look to <tt>process.env.TWILIO_AUTH_TOKEN</tt>. If that is also undefined, an error will be logged and your webhook URL will give a 500 error.</li>
@@ -1104,11 +1126,14 @@ app.post('/twiml', function(req, res) {
         <p>Example:</p>
 <pre>
 var express = require('express'),
+    bodyParser = require('body-parser'),
     twilio = require('twilio');
 
 // Create an express app which will parse form-encoded request bodies
 var app = express();
-app.use(express.urlencoded());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
 // Create an SMS webhook that validates using your Twilio auth token, configured
 // in "process.env.TWILIO_AUTH_TOKEN".  Also adds functionality to "response.send"
