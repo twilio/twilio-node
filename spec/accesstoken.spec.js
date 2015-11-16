@@ -100,8 +100,8 @@ describe('AccessToken', function() {
       var grant = new twilio.AccessToken.IpMessagingGrant();
       grant.serviceSid = 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
       grant.endpointId = 'endpointId';
-      grant.credentialSid = 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
-      grant.roleSid = 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+      grant.pushCredentialSid = 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+      grant.deploymentRoleSid = 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
       token.addGrant(grant);
 
       var decoded = jwt.verify(token.generate(), 'secret');
@@ -140,8 +140,8 @@ describe('AccessToken', function() {
       var grant = new twilio.AccessToken.IpMessagingGrant();
       grant.serviceSid = 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
       grant.endpointId = 'endpointId';
-      grant.credentialSid = 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
-      grant.roleSid = 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+      grant.pushCredentialSid = 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+      grant.deploymentRoleSid = 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
       token.addGrant(grant);
 
       grant = new twilio.AccessToken.ConversationsGrant();
@@ -169,7 +169,7 @@ describe('AccessToken', function() {
           var grant = new twilio.AccessToken.IpMessagingGrant();
           expect(grant.toPayload()).toEqual({});
 
-          grant.roleSid = 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+          grant.deploymentRoleSid = 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
           expect(grant.toPayload()).toEqual({
             deployment_role_sid: 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
           });
@@ -188,7 +188,7 @@ describe('AccessToken', function() {
           });
 
           grant.endpointId = undefined;
-          grant.credentialSid = 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+          grant.pushCredentialSid = 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
           expect(grant.toPayload()).toEqual({
             service_sid: 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
             deployment_role_sid: 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
