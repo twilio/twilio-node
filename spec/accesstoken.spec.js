@@ -30,7 +30,7 @@ describe('AccessToken', function() {
   describe('generate', function() {
     it('should generate the correct headers', function() {
       var token = new twilio.AccessToken(accountSid, keySid, 'aTBl1PhJnykIjWll4TOiXKtD1ugxiz6f');
-      var decoded = jwt.decode(token.generate(), {complete: true});
+      var decoded = jwt.decode(token.toJwt(), {complete: true});
 
       expect(decoded.header).toEqual({
         cty: 'twilio-fpa;v=1',
@@ -42,7 +42,7 @@ describe('AccessToken', function() {
     it('should accept different algorithsm', function() {
       var validateAlg = function(alg) {
         var token = new twilio.AccessToken(accountSid, keySid, 'secret');
-        var decoded = jwt.decode(token.generate(alg), {
+        var decoded = jwt.decode(token.toJwt(alg), {
           complete: true,
           algorithms: twilio.AccessToken.ALGORITHMS
         });
@@ -57,7 +57,7 @@ describe('AccessToken', function() {
     it('should throw on invalid algorithm', function() {
       var generateWithAlg = function(alg) {
         return function() {
-          new twilio.AccessToken(accountSid, keySid, 'secret').generate(alg);
+          new twilio.AccessToken(accountSid, keySid, 'secret').toJwt(alg);
         };
       };
 
@@ -70,7 +70,7 @@ describe('AccessToken', function() {
       var token = new twilio.AccessToken(accountSid, keySid, 'secret');
       token.identity = 'ID@example.com';
 
-      var decoded = jwt.verify(token.generate(), 'secret');
+      var decoded = jwt.verify(token.toJwt(), 'secret');
       expect(decoded.jti.indexOf(keySid)).toBe(0);
       expect(decoded.iss).toBe(keySid);
       expect(decoded.sub).toBe(accountSid);
@@ -89,7 +89,7 @@ describe('AccessToken', function() {
       token.ttl = 100;
       token.identity = 'ID@example.com';
 
-      var decoded = jwt.verify(token.generate(), 'secret');
+      var decoded = jwt.verify(token.toJwt(), 'secret');
       expect(decoded.exp - decoded.iat).toBe(100);
     });
 
@@ -104,7 +104,7 @@ describe('AccessToken', function() {
       grant.deploymentRoleSid = 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
       token.addGrant(grant);
 
-      var decoded = jwt.verify(token.generate(), 'secret');
+      var decoded = jwt.verify(token.toJwt(), 'secret');
       expect(decoded.grants).toEqual({
         identity: 'ID@example.com',
         ip_messaging: {
@@ -124,7 +124,7 @@ describe('AccessToken', function() {
       grant.configurationProfileSid = 'CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
       token.addGrant(grant);
 
-      var decoded = jwt.verify(token.generate(), 'secret');
+      var decoded = jwt.verify(token.toJwt(), 'secret');
       expect(decoded.grants).toEqual({
         identity: 'ID@example.com',
         rtc: {
@@ -148,7 +148,7 @@ describe('AccessToken', function() {
       grant.configurationProfileSid = 'CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
       token.addGrant(grant);
 
-      var decoded = jwt.verify(token.generate(), 'secret');
+      var decoded = jwt.verify(token.toJwt(), 'secret');
       expect(decoded.grants).toEqual({
         identity: 'ID@example.com',
         ip_messaging: {
