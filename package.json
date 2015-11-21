@@ -24,11 +24,14 @@
   "devDependencies": {
     "express": "3.x",
     "jasmine-node": "2.0.x",
-    "jshint": "2.8.x"
+    "jshint": "2.8.x",
+    "jscs": "2.6.x"
   },
   "scripts": {
     "test": "jasmine-node --captureExceptions spec",
-    "jshint": "jshint lib/rest/** lib/base/**"
+    "jshint": "jshint lib/rest/** lib/base/**",
+    "jscs": "jscs -c .jscs lib/rest/** lib/base/**",
+    "check": "npm run jshint; npm run jscs"
   },
   "main": "./lib",
   "engines": {
