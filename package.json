@@ -28,7 +28,7 @@
   },
   "scripts": {
     "test": "jasmine-node --captureExceptions spec",
-    "jshint": "jshint lib/rest"
+    "jshint": "jshint lib/rest/** lib/base/**"
   },
   "main": "./lib",
   "engines": {
