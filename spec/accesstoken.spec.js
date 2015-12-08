@@ -74,7 +74,22 @@ describe('AccessToken', function() {
       expect(decoded.jti.indexOf(keySid)).toBe(0);
       expect(decoded.iss).toBe(keySid);
       expect(decoded.sub).toBe(accountSid);
+      expect(decoded.exp - decoded.iat).toBe(3600);
+      expect(decoded.grants).toEqual({
+        identity: 'ID@example.com'
+      });
+    });
 
+    it('should accept nbf', function() {
+      var nbf = Math.floor(Date.now() / 1000);
+      var token = new twilio.AccessToken(accountSid, keySid, 'secret', { nbf: nbf });
+      token.identity = 'ID@example.com';
+
+      var decoded = jwt.verify(token.toJwt(), 'secret');
+      expect(decoded.jti.indexOf(keySid)).toBe(0);
+      expect(decoded.iss).toBe(keySid);
+      expect(decoded.sub).toBe(accountSid);
+      expect(decoded.nbf).toBe(nbf);
       var delta = Math.abs(decoded.nbf - Math.floor(Date.now() / 1000));
       expect(delta).toBeLessThan(10);
 
@@ -82,7 +97,7 @@ describe('AccessToken', function() {
       expect(decoded.grants).toEqual({
         identity: 'ID@example.com'
       });
-    });
+    })
 
     it('should accept user defined ttl', function() {
       var token = new twilio.AccessToken(accountSid, keySid, 'secret');
