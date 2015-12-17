@@ -1,7 +1,7 @@
 {
   "name": "twilio",
   "description": "A Twilio helper library",
-  "version": "2.7.0",
+  "version": "2.8.0",
   "author": "Kevin Whinnery <kevin.whinnery@gmail.com>",
   "contributors": [
     {
