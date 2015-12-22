@@ -178,4 +178,57 @@ describe('The Twilio Workflow Configuration resource', function() {
         expect(config.taskRouting.defaultFilter.queue).toBe('WQxxx');
     });
 
+    it('should unmarshal a task routing configuration with filter_friendly_name', function() {
+        var jsonConfig = JSON.stringify({
+            task_routing: {
+                filters: [
+                    {
+                        filter_friendly_name: "filter friendly a",
+                        expression: "expression a",
+                        targets: [
+                            {
+                                queue: "WQaaa",
+                                expression: "expression b",
+                                priority: "10",
+                                timeout: 300,
+                            },
+                            {
+                                queue: "WQbbb"
+                            },
+                            {
+                                queue: "WQccc",
+                                timeout: 300
+                            }
+                        ]
+                    },
+                    {
+                        filter_friendly_name: "filter friendly b",
+                        expression: "expression z",
+                        targets: [
+                            {
+                                queue: "WQddd",
+                                expression: "expression y",
+                                priority: "10",
+                            }
+                        ]
+                    }
+                ],
+                default_filter: {
+                    queue: "WQxxx"
+                }
+            }
+        });
+
+        var config = wb.WorkflowConfiguration.fromJSON(jsonConfig);
+        expect(config.taskRouting.filters.length).toBe(2);
+        expect(config.taskRouting.filters[0].friendlyName).toBe('filter friendly a');
+        expect(config.taskRouting.filters[0].expression).toBe('expression a');
+        expect(config.taskRouting.filters[0].targets.length).toBe(3);
+        expect(config.taskRouting.filters[0].targets[0].queue).toBe('WQaaa');
+        expect(config.taskRouting.filters[0].targets[0].expression).toBe('expression b');
+        expect(config.taskRouting.filters[0].targets[0].priority).toBe('10');
+        expect(config.taskRouting.filters[0].targets[0].timeout).toBe(300);
+        expect(config.taskRouting.defaultFilter.queue).toBe('WQxxx');
+    });
+
 });
