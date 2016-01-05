@@ -328,7 +328,7 @@ client.sendMessage({
 
     to:'+16515556677', // Any number Twilio can deliver to
     from: '+14506667788', // A number you bought from Twilio and can use for outbound communication
-    body: 'word to your mother.' // body of the SMS message
+    body: 'hi friend!' // body of the SMS message
 
 }, function(err, responseData) { //this function is executed when a response is received from Twilio
 
@@ -339,7 +339,7 @@ client.sendMessage({
         // http://www.twilio.com/docs/api/rest/sending-sms#example-1
 
         console.log(responseData.from); // outputs "+14506667788"
-        console.log(responseData.body); // outputs "word to your mother."
+        console.log(responseData.body); // outputs "hi friend!"
 
     }
 });
@@ -445,7 +445,7 @@ client.accounts('AC...').calls('abc123...').get(function(err, response) {
 client.sms.messages.post({
     to:'+16515559999',
     from:'+14503334455',
-    body:'word to your mother.'
+    body:'hi friend!'
 }, function(err, text) {
     console.log('You sent: '+ text.body);
     console.log('Current status of this text message is: '+ text.status);
@@ -476,7 +476,7 @@ var client = require('twilio')('ACCOUNT_SID', 'AUTH_TOKEN'),
 client.accounts(SOME_SUBACCOUNT_SID).sms.messages.create({
     to:'+16512223333',
     from:'+14505556677',
-    body:'word to your subaccount mother.'
+    body:'hi subaccount friend!'
 }, function(err, text) {
     console.log('You sent: '+ text.body);
     console.log('Current status of this text message is: '+ text.status);
