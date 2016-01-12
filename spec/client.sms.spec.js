@@ -45,4 +45,10 @@ describe('The Twilio REST Client SMS resource', function () {
             }
         }, undefined);
     });
+
+    it('getSms should return Promise', function() {
+        client.request.and.callThrough();
+        var promise = client.getSms('MM123');
+        expect(!!promise.then && typeof promise.then === 'function').toBeTruthy();
+    });
 });
