@@ -229,6 +229,50 @@ describe('The Twilio Workflow Configuration resource', function() {
         expect(config.taskRouting.filters[0].targets[0].priority).toBe('10');
         expect(config.taskRouting.filters[0].targets[0].timeout).toBe(300);
         expect(config.taskRouting.defaultFilter.queue).toBe('WQxxx');
+
+        // marshal back and check that it's "friendly_name" and not "filter_friendly_name"
+        expect(new wb.WorkflowConfiguration(config).toJSON()).toEqual(JSON.stringify(
+            {
+                task_routing: {
+                    filters: [
+                        {
+                            friendly_name: "filter friendly a",
+                            expression: "expression a",
+                            targets: [
+                                {
+                                    queue: "WQaaa",
+                                    expression: "expression b",
+                                    priority: "10",
+                                    timeout: 300,
+                                },
+                                {
+                                    queue: "WQbbb"
+                                },
+                                {
+                                    queue: "WQccc",
+                                    timeout: 300
+                                }
+                            ]
+                        },
+                        {
+                            friendly_name: "filter friendly b",
+                            expression: "expression z",
+                            targets: [
+                                {
+                                    queue: "WQddd",
+                                    expression: "expression y",
+                                    priority: "10",
+                                }
+                            ]
+                        }
+                    ],
+                    default_filter: {
+                        queue: "WQxxx"
+                    }
+                }
+            }
+        ));
+
     });
 
 });
