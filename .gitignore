@@ -26,3 +26,5 @@ spec/coverage
 ### Custom ignores ###
 config.js
 .idea
+
+main_testing.js
