@@ -8,8 +8,8 @@ var twilio = new Twilio(accountSid, token);
 var promise = twilio.api.account.calls('CA123');
 console.log(promise);
 
-promise.then(function(data) {
-  console.log(data);
-}).catch(function(error) {
-  console.log(error);
-}).done();
+// promise.then(function(data) {
+//   console.log(data);
+// }).catch(function(error) {
+//   console.log(error);
+// }).done();
