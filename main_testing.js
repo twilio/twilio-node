@@ -14,9 +14,7 @@ console.log(twilio.api.account);
 // });
 
 
-var promise = twilio.trunking.trunks('TKa321d93fceb1b1e2f816c34de1d18454').update({
-    friendlyName: 'test2'
-});
+var promise = twilio.trunking.trunks('TKa321d93fceb1b1e2f816c34de1d18454').remove();
 console.log(promise);
 
 promise.then(function(data) {
