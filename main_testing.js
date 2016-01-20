@@ -7,14 +7,15 @@ var token = process.env.TWILIO_AUTH_TOKEN;
 var twilio = new Twilio(accountSid, token);
 console.log(twilio.api.account);
 
-var promise = twilio.api.account.calls.list();
+var promise = twilio.api.account.calls.list({
+    pageSize: 1
+});
 
-// var promise = twilio.trunking.trunks('TKa321d93fceb1b1e2f816c34de1d18454').remove();
-console.log(promise);
+// var promise = twilio.trunking.trunks.list();
 
 promise.then(function(data) {
   console.log('success');
-  console.log(data);
+  // console.log(data);
 }).catch(function(error) {
   console.log('error');
   console.log(error);
