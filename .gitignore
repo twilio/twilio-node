@@ -1,6 +1,10 @@
 ### Dot files ###
 .*
 
+### linting ###
+!/.jshintrc
+!/.jscs
+
 ### Git ###
 !/.gitignore
 !/.gitmodules
