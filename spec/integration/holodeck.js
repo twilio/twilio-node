@@ -1,5 +1,6 @@
 var _ = require('lodash');
 var Request = require('../../lib/http/request');
+var RequestClient = require('../../lib/base/RequestClient');
 
 function Hologram(request, response) {
   this.request = request;
@@ -21,6 +22,7 @@ Object.defineProperty(Holodeck.prototype, "holograms", {
     return this._holograms;
   }
 });
+_.extend(Holodeck.prototype, RequestClient.prototype);
 
 Holodeck.prototype.mock = function(response, request) {
   request = request || new Request();
