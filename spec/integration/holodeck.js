@@ -22,7 +22,11 @@ Holodeck.prototype.mock = function(response, request) {
 };
 
 Holodeck.prototype.assertHasRequest = function(request) {
-  if (_.includes(this.requests, request)) {
+  var matchedRequest = _.find(this.requests, function(req) {
+    return req.isEqual(request);
+  })
+
+  if (!_.isUndefined(matchedRequest)) {
     return;
   }
 

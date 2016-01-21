@@ -19,7 +19,7 @@ describe('Account', function() {
     promise.done();
 
     holodeck.assertHasRequest(new Request({
-      method: 'post',
+      method: 'POST',
       url: 'https://api.twilio.com/2010-04-01/Accounts.json'
     }));
   });
