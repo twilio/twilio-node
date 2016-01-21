@@ -1,3 +1,4 @@
+'use strict';
 var _ = require('lodash');
 var Request = require('../../lib/http/request');
 var RequestClient = require('../../lib/base/RequestClient');
@@ -5,18 +6,18 @@ var RequestClient = require('../../lib/base/RequestClient');
 function Hologram(request, response) {
   this.request = request;
   this.response = response;
-};
+}
 
-function Holodeck() {};
+function Holodeck() {}
 
-Object.defineProperty(Holodeck.prototype, "requests", {
+Object.defineProperty(Holodeck.prototype, 'requests', {
   get: function() {
     this._requests = this._requests || [];
     return this._requests;
   }
 });
 
-Object.defineProperty(Holodeck.prototype, "holograms", {
+Object.defineProperty(Holodeck.prototype, 'holograms', {
   get: function() {
     this._holograms = this._holograms || [];
     return this._holograms;
@@ -34,7 +35,9 @@ Holodeck.prototype.assertHasRequest = function(request) {
     return;
   }
 
-  var message = _.template('\nHolodeck has never received a request matching: \n <%= request %>\n')({ request: request });
+  var message = _.template(
+    '\nHolodeck has never received a request matching: \n <%= request %>\n')({ request: request }
+  );
 
   // TODO: finish this
   // message = '\nHolodeck never received a request matching: \n + {}\n'.format(request)
@@ -44,7 +47,7 @@ Holodeck.prototype.assertHasRequest = function(request) {
   // else:
   //   message += 'No Requests received'
 
-  // throw Error(message);
+  throw new Error(message);
 };
 
 Holodeck.prototype.request = function(method, url, opts) {
@@ -58,7 +61,7 @@ Holodeck.prototype.request = function(method, url, opts) {
 
   var response = _.find(this._holograms, function(hologram) {
     return hologram.request === request;
-  })
+  });
 
   if (_.isUndefined(response)) {
     return response;

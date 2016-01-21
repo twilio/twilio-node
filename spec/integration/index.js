@@ -6,7 +6,7 @@ var accountSid = 'AC' + _.join(_.fill(new Array(32), 'a'), '');
 var authToken = 'AUTHTOKEN';
 
 var holodeck = new Holodeck();
-var client = Twilio(accountSid, authToken, holodeck);
+var client = new Twilio(accountSid, authToken, holodeck);
 
 module.exports = {
   holodeck: holodeck,
