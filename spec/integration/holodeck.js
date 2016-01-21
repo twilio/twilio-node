@@ -9,30 +9,20 @@ function Hologram(request, response) {
   this.response = response;
 }
 
-function Holodeck() {}
+function Holodeck() {
+  this.requests = [];
+  this.holograms = [];
+}
 
-Object.defineProperty(Holodeck.prototype, 'requests', {
-  get: function() {
-    this._requests = this._requests || [];
-    return this._requests;
-  }
-});
-
-Object.defineProperty(Holodeck.prototype, 'holograms', {
-  get: function() {
-    this._holograms = this._holograms || [];
-    return this._holograms;
-  }
-});
 _.extend(Holodeck.prototype, RequestClient.prototype);
 
 Holodeck.prototype.mock = function(response, request) {
   request = request || new Request();
-  this._holograms.push(new Hologram(request, response));
+  this.holograms.push(new Hologram(request, response));
 };
 
 Holodeck.prototype.assertHasRequest = function(request) {
-  if (_.includes(this._requests, request)) {
+  if (_.includes(this.requests, request)) {
     return;
   }
 
@@ -51,22 +41,25 @@ Holodeck.prototype.assertHasRequest = function(request) {
   throw new Error(message);
 };
 
-Holodeck.prototype.request = function(method, url, opts) {
+Holodeck.prototype.request = function(opts) {
   opts = opts || {};
 
   var deferred = Q.defer();
-  var request = new Request(_.merge({
-    method: method,
-    url: url
-  }, opts));
+  var request = new Request(_.assign({}, opts, {
+    auth: {
+      username: opts.username,
+      password: opts.password
+    }
+  }));
   this.requests.push(request);
 
-  var response = _.find(this._holograms, function(hologram) {
-    return hologram.request === request;
+  var matchedHologram = _.find(this.holograms, function(hologram) {
+    return hologram.request.isEqual(request);
   });
 
   setTimeout(function() {
-    if (_.isUndefined(response)) {
+    if (!_.isUndefined(matchedHologram)) {
+      var response = matchedHologram.response;
       deferred.resolve({
         statusCode: response.statusCode,
         body: response.body
@@ -76,5 +69,7 @@ Holodeck.prototype.request = function(method, url, opts) {
     }
   }, 1);
 
-  return deferred;
+  return deferred.promise;
 };
+
+module.exports = Holodeck;

@@ -17,7 +17,7 @@
     "deprecate": "^0.1.0",
     "jsonwebtoken": "5.4.x",
     "jwt-simple": "0.1.x",
-    "lodash": "3.10.x",
+    "lodash": "4.0.0",
     "q": "2.0.x",
     "request": "2.67.x",
     "rootpath": "0.1.2",
@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "express": "3.x",
-    "jasmine-node": "2.0.x",
+    "jasmine-node": "1.14.5",
     "jshint": "2.8.x",
     "jscs": "2.6.x"
   },

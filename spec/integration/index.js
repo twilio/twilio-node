@@ -1,5 +1,5 @@
 var _ = require('lodash');
-var Twilio = require('lib').Twilio;
+var Twilio = require('../../lib').Twilio;
 var Holodeck = require('./holodeck');
 
 var accountSid = 'AC' + _.join(_.fill(new Array(32), 'a'), '');
