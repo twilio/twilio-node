@@ -1,7 +1,7 @@
 {
   "name": "twilio",
   "description": "A Twilio helper library",
-  "version": "2.5.1",
+  "version": "2.7.0",
   "author": "API Team <api@twilio.com>",
   "contributors": [
     {
@@ -16,6 +16,7 @@
   "dependencies": {
     "request": "2.67.x",
     "lodash": "3.10.x",
+    "jsonwebtoken": "5.4.x",
     "jwt-simple": "0.1.x",
     "q": "2.0.x",
     "scmp": "0.0.3",
