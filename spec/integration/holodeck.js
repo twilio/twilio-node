@@ -1,5 +1,6 @@
 'use strict';
 var _ = require('lodash');
+var Q = require('q');
 var Request = require('../../lib/http/request');
 var RequestClient = require('../../lib/base/RequestClient');
 
@@ -53,6 +54,7 @@ Holodeck.prototype.assertHasRequest = function(request) {
 Holodeck.prototype.request = function(method, url, opts) {
   opts = opts || {};
 
+  var deferred = Q.defer();
   var request = new Request(_.merge({
     method: method,
     url: url
@@ -63,12 +65,16 @@ Holodeck.prototype.request = function(method, url, opts) {
     return hologram.request === request;
   });
 
-  if (_.isUndefined(response)) {
-    return response;
-  }
+  setTimeout(function() {
+    if (_.isUndefined(response)) {
+      deferred.resolve({
+        statusCode: response.statusCode,
+        body: response.body
+      });
+    } else {
+      deferred.reject(new Error('Failure: holodeck does not contain response'));
+    }
+  }, 1);
 
-  // TODO: can't find hologram message
-
-  // rest exception?
-  throw new Error(404);
+  return deferred;
 };
