@@ -31,7 +31,7 @@
   },
   "scripts": {
     "test": "jasmine-node --captureExceptions spec",
-    "jshint": "jshint lib/rest/** lib/base/** lib/http/**",
+    "jshint": "jshint lib/rest/** lib/base/** lib/http/** spec/integration/**",
     "jscs": "jscs -c .jscs lib/rest/** lib/base/** lib/http/**",
     "check": "npm run jshint; npm run jscs"
   },
