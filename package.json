@@ -31,8 +31,8 @@
   },
   "scripts": {
     "test": "jasmine-node --captureExceptions spec",
-    "jshint": "jshint lib/rest/** lib/base/**",
-    "jscs": "jscs -c .jscs lib/rest/** lib/base/**",
+    "jshint": "jshint lib/rest/** lib/base/** lib/http/**",
+    "jscs": "jscs -c .jscs lib/rest/** lib/base/** lib/http/**",
     "check": "npm run jshint; npm run jscs"
   },
   "main": "./lib",
