@@ -92,7 +92,7 @@ describe('The TaskRouter Worker Capability Token Object', function() {
         var token = c.generate();
 
         var decoded = jwt.decode(token, 'foobar');
-        expect(decoded['policies'].length).toBe(6);
+        expect(decoded['policies'].length).toBe(7);
 
         var workerActivityUpdatePolicy = {
             url: 'https://taskrouter.twilio.com/v1/Workspaces/WS456/Workers/WK789',
@@ -101,7 +101,7 @@ describe('The TaskRouter Worker Capability Token Object', function() {
             post_filter: {'ActivitySid': {'required': true}},
             allow: true
         };
-        expect(decoded['policies'][5]).toEqual(workerActivityUpdatePolicy);
+        expect(decoded['policies'][6]).toEqual(workerActivityUpdatePolicy);
     });
 
     it('should allow task updates when requested', function() {

@@ -104,6 +104,6 @@ describe('The TaskRouter Capability Deprecated Token Object', function() {
             allow: true
         };
 
-        expect(decoded['policies'][6]).toEqual(taskPolicy);
+        expect(decoded['policies'][7]).toEqual(taskPolicy);
     });
 });
