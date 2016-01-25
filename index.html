@@ -442,7 +442,7 @@ client.accounts('AC...').calls('abc123...').get(function(err, response) {
 // Create (send) an SMS message
 // POST /2010-04-01/Accounts/ACCOUNT_SID/SMS/Messages
 // "create" and "update" aliases are in place where appropriate on PUT and POST requests
-client.sms.messages.post({
+client.messages.post({
     to:'+16515559999',
     from:'+14503334455',
     body:'word to your mother.'
