@@ -20,7 +20,7 @@ describe('FeedbackSummary', function() {
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .calls
-                                  .feedbackSummaries.create();
+                                  .feedbackSummaries.create('2008-01-02', '2008-01-02');
     promise = promise.then(function() {
       throw new Error('failed');
     }, function(error) {
@@ -36,9 +36,15 @@ describe('FeedbackSummary', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Calls/FeedbackSummary.json'
     )(solution);
 
+    var values = {
+      StartDate: '2008-01-02',
+      EndDate: '2008-01-02',
+    }
+
     holodeck.assertHasRequest(new Request({
-      method: 'POST',
-      url: url
+        method: 'POST',
+        url: url,
+        data: values,
     }));
   });
   it('should generate valid create response', function() {
@@ -68,7 +74,7 @@ describe('FeedbackSummary', function() {
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .calls
-                                  .feedbackSummaries.create();
+                                  .feedbackSummaries.create('2008-01-02', '2008-01-02');
     promise = promise.then(function(response) {
       expect(response).toBeDefined();
     }, function() {
@@ -98,6 +104,7 @@ describe('FeedbackSummary', function() {
     var url = _.template(
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Calls/FeedbackSummary/<%= sid %>.json'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -162,6 +169,7 @@ describe('FeedbackSummary', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Calls/FeedbackSummary/<%= sid %>.json'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'DELETE',
       url: url
@@ -175,7 +183,7 @@ describe('FeedbackSummary', function() {
                                   .calls
                                   .feedbackSummaries('FSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
     promise = promise.then(function(response) {
-      expect(response).toBeDefined();
+      expect(response).toBe(true);
     }, function() {
       throw new Error('failed');
     });

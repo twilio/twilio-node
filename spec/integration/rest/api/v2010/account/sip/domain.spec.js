@@ -36,6 +36,7 @@ describe('Domain', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/Domains.json'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'GET',
       url: url
@@ -114,7 +115,7 @@ describe('Domain', function() {
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .sip
-                                  .domains.create();
+                                  .domains.create('domainName');
     promise = promise.then(function() {
       throw new Error('failed');
     }, function(error) {
@@ -130,9 +131,14 @@ describe('Domain', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/Domains.json'
     )(solution);
 
+    var values = {
+      DomainName: 'domainName',
+    }
+
     holodeck.assertHasRequest(new Request({
-      method: 'POST',
-      url: url
+        method: 'POST',
+        url: url,
+        data: values,
     }));
   });
   it('should generate valid create response', function() {
@@ -161,7 +167,7 @@ describe('Domain', function() {
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .sip
-                                  .domains.create();
+                                  .domains.create('domainName');
     promise = promise.then(function(response) {
       expect(response).toBeDefined();
     }, function() {
@@ -191,6 +197,7 @@ describe('Domain', function() {
     var url = _.template(
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/Domains/<%= sid %>.json'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -254,6 +261,7 @@ describe('Domain', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/Domains/<%= sid %>.json'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'POST',
       url: url
@@ -316,6 +324,7 @@ describe('Domain', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/Domains/<%= sid %>.json'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'DELETE',
       url: url
@@ -329,7 +338,7 @@ describe('Domain', function() {
                                   .sip
                                   .domains('SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
     promise = promise.then(function(response) {
-      expect(response).toBeDefined();
+      expect(response).toBe(true);
     }, function() {
       throw new Error('failed');
     });

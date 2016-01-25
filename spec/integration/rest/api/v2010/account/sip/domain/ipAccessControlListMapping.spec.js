@@ -39,6 +39,7 @@ describe('IpAccessControlListMapping', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/Domains/<%= domainSid %>/IpAccessControlListMappings/<%= sid %>.json'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'GET',
       url: url
@@ -76,7 +77,7 @@ describe('IpAccessControlListMapping', function() {
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .sip
                                   .domains('SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .ipAccessControlListMappings.create();
+                                  .ipAccessControlListMappings.create('ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
     promise = promise.then(function() {
       throw new Error('failed');
     }, function(error) {
@@ -93,9 +94,14 @@ describe('IpAccessControlListMapping', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/Domains/<%= domainSid %>/IpAccessControlListMappings.json'
     )(solution);
 
+    var values = {
+      IpAccessControlListSid: 'ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+    }
+
     holodeck.assertHasRequest(new Request({
-      method: 'POST',
-      url: url
+        method: 'POST',
+        url: url,
+        data: values,
     }));
   });
   it('should generate valid create response', function() {
@@ -115,7 +121,7 @@ describe('IpAccessControlListMapping', function() {
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .sip
                                   .domains('SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .ipAccessControlListMappings.create();
+                                  .ipAccessControlListMappings.create('ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
     promise = promise.then(function(response) {
       expect(response).toBeDefined();
     }, function() {
@@ -146,6 +152,7 @@ describe('IpAccessControlListMapping', function() {
     var url = _.template(
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/Domains/<%= domainSid %>/IpAccessControlListMappings.json'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -246,6 +253,7 @@ describe('IpAccessControlListMapping', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/Domains/<%= domainSid %>/IpAccessControlListMappings/<%= sid %>.json'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'DELETE',
       url: url
@@ -260,7 +268,7 @@ describe('IpAccessControlListMapping', function() {
                                   .domains('SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .ipAccessControlListMappings('ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
     promise = promise.then(function(response) {
-      expect(response).toBeDefined();
+      expect(response).toBe(true);
     }, function() {
       throw new Error('failed');
     });

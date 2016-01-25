@@ -36,6 +36,7 @@ describe('Queue', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Queues/<%= sid %>.json'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'GET',
       url: url
@@ -85,6 +86,7 @@ describe('Queue', function() {
     var url = _.template(
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Queues/<%= sid %>.json'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'POST',
@@ -136,6 +138,7 @@ describe('Queue', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Queues/<%= sid %>.json'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'DELETE',
       url: url
@@ -148,7 +151,7 @@ describe('Queue', function() {
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .queues('QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
     promise = promise.then(function(response) {
-      expect(response).toBeDefined();
+      expect(response).toBe(true);
     }, function() {
       throw new Error('failed');
     });
@@ -174,6 +177,7 @@ describe('Queue', function() {
     var url = _.template(
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Queues.json'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -265,6 +269,7 @@ describe('Queue', function() {
     var url = _.template(
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Queues.json'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'POST',

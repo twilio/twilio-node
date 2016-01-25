@@ -32,6 +32,7 @@ describe('Account', function() {
       'https://api.twilio.com/2010-04-01/Accounts.json'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'POST',
       url: url
@@ -91,6 +92,7 @@ describe('Account', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= sid %>.json'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'GET',
       url: url
@@ -147,6 +149,7 @@ describe('Account', function() {
     var url = _.template(
       'https://api.twilio.com/2010-04-01/Accounts.json'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -255,6 +258,7 @@ describe('Account', function() {
     var url = _.template(
       'https://api.twilio.com/2010-04-01/Accounts/<%= sid %>.json'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'POST',

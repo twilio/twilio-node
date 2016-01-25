@@ -36,6 +36,7 @@ describe('AuthorizedConnectApp', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/AuthorizedConnectApps/<%= connectAppSid %>.json'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'GET',
       url: url
@@ -87,6 +88,7 @@ describe('AuthorizedConnectApp', function() {
     var url = _.template(
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/AuthorizedConnectApps.json'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',

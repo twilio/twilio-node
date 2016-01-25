@@ -36,6 +36,7 @@ describe('TaskQueue', function() {
       'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/TaskQueues/<%= sid %>'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'GET',
       url: url
@@ -95,6 +96,7 @@ describe('TaskQueue', function() {
       'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/TaskQueues/<%= sid %>'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'POST',
       url: url
@@ -152,6 +154,7 @@ describe('TaskQueue', function() {
     var url = _.template(
       'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/TaskQueues'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -233,7 +236,7 @@ describe('TaskQueue', function() {
     holodeck.mock(new Response(500, ''));
 
     var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                      .taskQueues.create();
+                                      .taskQueues.create('friendlyName', 'WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
     promise = promise.then(function() {
       throw new Error('failed');
     }, function(error) {
@@ -249,9 +252,16 @@ describe('TaskQueue', function() {
       'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/TaskQueues'
     )(solution);
 
+    var values = {
+      FriendlyName: 'friendlyName',
+      ReservationActivitySid: 'WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+      AssignmentActivitySid: 'WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+    }
+
     holodeck.assertHasRequest(new Request({
-      method: 'POST',
-      url: url
+        method: 'POST',
+        url: url,
+        data: values,
     }));
   });
   it('should generate valid create response', function() {
@@ -278,7 +288,7 @@ describe('TaskQueue', function() {
     holodeck.mock(new Response(200, body));
 
     var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                      .taskQueues.create();
+                                      .taskQueues.create('friendlyName', 'WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
     promise = promise.then(function(response) {
       expect(response).toBeDefined();
     }, function() {
@@ -308,6 +318,7 @@ describe('TaskQueue', function() {
       'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/TaskQueues/<%= sid %>'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'DELETE',
       url: url
@@ -320,7 +331,7 @@ describe('TaskQueue', function() {
     var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                       .taskQueues('WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
     promise = promise.then(function(response) {
-      expect(response).toBeDefined();
+      expect(response).toBe(true);
     }, function() {
       throw new Error('failed');
     });

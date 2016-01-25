@@ -35,6 +35,7 @@ describe('Worker', function() {
       'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workers'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'GET',
       url: url
@@ -113,7 +114,7 @@ describe('Worker', function() {
     holodeck.mock(new Response(500, ''));
 
     var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                      .workers.create();
+                                      .workers.create('friendlyName');
     promise = promise.then(function() {
       throw new Error('failed');
     }, function(error) {
@@ -129,9 +130,14 @@ describe('Worker', function() {
       'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workers'
     )(solution);
 
+    var values = {
+      FriendlyName: 'friendlyName',
+    }
+
     holodeck.assertHasRequest(new Request({
-      method: 'POST',
-      url: url
+        method: 'POST',
+        url: url,
+        data: values,
     }));
   });
   it('should generate valid create response', function() {
@@ -152,7 +158,7 @@ describe('Worker', function() {
     holodeck.mock(new Response(200, body));
 
     var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                      .workers.create();
+                                      .workers.create('friendlyName');
     promise = promise.then(function(response) {
       expect(response).toBeDefined();
     }, function() {
@@ -181,6 +187,7 @@ describe('Worker', function() {
     var url = _.template(
       'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workers/<%= sid %>'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -235,6 +242,7 @@ describe('Worker', function() {
       'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workers/<%= sid %>'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'POST',
       url: url
@@ -288,6 +296,7 @@ describe('Worker', function() {
       'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workers/<%= sid %>'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'DELETE',
       url: url
@@ -300,7 +309,7 @@ describe('Worker', function() {
     var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                       .workers('WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
     promise = promise.then(function(response) {
-      expect(response).toBeDefined();
+      expect(response).toBe(true);
     }, function() {
       throw new Error('failed');
     });

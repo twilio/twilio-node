@@ -35,6 +35,7 @@ describe('WorkspaceStatistics', function() {
       'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Statistics'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'GET',
       url: url

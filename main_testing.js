@@ -10,7 +10,7 @@ var twilio = new Twilio(accountSid, token);
 // });
 
 var promise = twilio.api.account.messages.create('+18584618959', '+18589354448', {
-  body: 'hi'
+  body: 'bonjour'
 });
 
 promise.then(function(data) {

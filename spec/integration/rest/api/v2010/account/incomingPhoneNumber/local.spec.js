@@ -36,6 +36,7 @@ describe('Local', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= ownerAccountSid %>/IncomingPhoneNumbers/Local.json'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'GET',
       url: url
@@ -134,7 +135,7 @@ describe('Local', function() {
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .incomingPhoneNumbers
-                                  .local.create();
+                                  .local.create('+987654321');
     promise = promise.then(function() {
       throw new Error('failed');
     }, function(error) {
@@ -150,9 +151,14 @@ describe('Local', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= ownerAccountSid %>/IncomingPhoneNumbers/Local.json'
     )(solution);
 
+    var values = {
+      PhoneNumber: '+987654321',
+    }
+
     holodeck.assertHasRequest(new Request({
-      method: 'POST',
-      url: url
+        method: 'POST',
+        url: url,
+        data: values,
     }));
   });
   it('should generate valid create response', function() {
@@ -191,7 +197,7 @@ describe('Local', function() {
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .incomingPhoneNumbers
-                                  .local.create();
+                                  .local.create('+987654321');
     promise = promise.then(function(response) {
       expect(response).toBeDefined();
     }, function() {

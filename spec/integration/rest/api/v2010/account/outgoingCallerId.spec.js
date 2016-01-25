@@ -36,6 +36,7 @@ describe('OutgoingCallerId', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/OutgoingCallerIds/<%= sid %>.json'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'GET',
       url: url
@@ -83,6 +84,7 @@ describe('OutgoingCallerId', function() {
     var url = _.template(
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/OutgoingCallerIds/<%= sid %>.json'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'POST',
@@ -132,6 +134,7 @@ describe('OutgoingCallerId', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/OutgoingCallerIds/<%= sid %>.json'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'DELETE',
       url: url
@@ -144,7 +147,7 @@ describe('OutgoingCallerId', function() {
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .outgoingCallerIds('PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
     promise = promise.then(function(response) {
-      expect(response).toBeDefined();
+      expect(response).toBe(true);
     }, function() {
       throw new Error('failed');
     });
@@ -170,6 +173,7 @@ describe('OutgoingCallerId', function() {
     var url = _.template(
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/OutgoingCallerIds.json'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',

@@ -19,7 +19,7 @@ describe('Call', function() {
     holodeck.mock(new Response(500, ''));
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .calls.create();
+                                  .calls.create('+123456789', '+987654321');
     promise = promise.then(function() {
       throw new Error('failed');
     }, function(error) {
@@ -35,9 +35,15 @@ describe('Call', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Calls.json'
     )(solution);
 
+    var values = {
+      To: '+123456789',
+      From: '+987654321',
+    }
+
     holodeck.assertHasRequest(new Request({
-      method: 'POST',
-      url: url
+        method: 'POST',
+        url: url,
+        data: values,
     }));
   });
   it('should generate valid create response', function() {
@@ -74,7 +80,7 @@ describe('Call', function() {
     holodeck.mock(new Response(200, body));
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .calls.create();
+                                  .calls.create('+123456789', '+987654321');
     promise = promise.then(function(response) {
       expect(response).toBeDefined();
     }, function() {
@@ -104,6 +110,7 @@ describe('Call', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Calls/<%= sid %>.json'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'DELETE',
       url: url
@@ -116,7 +123,7 @@ describe('Call', function() {
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .calls('CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
     promise = promise.then(function(response) {
-      expect(response).toBeDefined();
+      expect(response).toBe(true);
     }, function() {
       throw new Error('failed');
     });
@@ -143,6 +150,7 @@ describe('Call', function() {
     var url = _.template(
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Calls/<%= sid %>.json'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -211,6 +219,7 @@ describe('Call', function() {
     var url = _.template(
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Calls.json'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -322,6 +331,7 @@ describe('Call', function() {
     var url = _.template(
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Calls/<%= sid %>.json'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'POST',

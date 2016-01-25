@@ -37,6 +37,7 @@ describe('Reservation', function() {
       'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Tasks/<%= taskSid %>/Reservations'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'GET',
       url: url
@@ -135,6 +136,7 @@ describe('Reservation', function() {
       'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Tasks/<%= taskSid %>/Reservations/<%= sid %>'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'GET',
       url: url
@@ -176,7 +178,7 @@ describe('Reservation', function() {
 
     var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                       .tasks('WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                      .reservations('WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+                                      .reservations('WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update('reservationStatus');
     promise = promise.then(function() {
       throw new Error('failed');
     }, function(error) {
@@ -194,9 +196,14 @@ describe('Reservation', function() {
       'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Tasks/<%= taskSid %>/Reservations/<%= sid %>'
     )(solution);
 
+    var values = {
+      ReservationStatus: 'reservationStatus',
+    }
+
     holodeck.assertHasRequest(new Request({
-      method: 'POST',
-      url: url
+        method: 'POST',
+        url: url,
+        data: values,
     }));
   });
   it('should generate valid update response', function() {
@@ -221,7 +228,7 @@ describe('Reservation', function() {
 
     var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                       .tasks('WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                      .reservations('WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+                                      .reservations('WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update('reservationStatus');
     promise = promise.then(function(response) {
       expect(response).toBeDefined();
     }, function() {

@@ -34,6 +34,7 @@ describe('Event', function() {
       'https://monitor.twilio.com/v1/Events/<%= sid %>'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'GET',
       url: url
@@ -91,6 +92,7 @@ describe('Event', function() {
     var url = _.template(
       'https://monitor.twilio.com/v1/Events'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',

@@ -36,6 +36,7 @@ describe('Conference', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Conferences/<%= sid %>.json'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'GET',
       url: url
@@ -86,6 +87,7 @@ describe('Conference', function() {
     var url = _.template(
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Conferences.json'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',

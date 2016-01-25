@@ -37,6 +37,7 @@ describe('Yesterday', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Usage/Records/Yesterday.json'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'GET',
       url: url

@@ -34,6 +34,7 @@ describe('Alert', function() {
       'https://monitor.twilio.com/v1/Alerts/<%= sid %>'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'GET',
       url: url
@@ -89,6 +90,7 @@ describe('Alert', function() {
       'https://monitor.twilio.com/v1/Alerts/<%= sid %>'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'DELETE',
       url: url
@@ -100,7 +102,7 @@ describe('Alert', function() {
 
     var promise = client.monitor.v1.alerts('NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
     promise = promise.then(function(response) {
-      expect(response).toBeDefined();
+      expect(response).toBe(true);
     }, function() {
       throw new Error('failed');
     });
@@ -123,6 +125,7 @@ describe('Alert', function() {
     var url = _.template(
       'https://monitor.twilio.com/v1/Alerts'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',

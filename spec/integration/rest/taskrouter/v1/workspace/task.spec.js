@@ -36,6 +36,7 @@ describe('Task', function() {
       'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Tasks/<%= sid %>'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'GET',
       url: url
@@ -90,6 +91,7 @@ describe('Task', function() {
     var url = _.template(
       'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Tasks/<%= sid %>'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'POST',
@@ -146,6 +148,7 @@ describe('Task', function() {
       'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Tasks/<%= sid %>'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'DELETE',
       url: url
@@ -158,7 +161,7 @@ describe('Task', function() {
     var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                       .tasks('WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
     promise = promise.then(function(response) {
-      expect(response).toBeDefined();
+      expect(response).toBe(true);
     }, function() {
       throw new Error('failed');
     });
@@ -184,6 +187,7 @@ describe('Task', function() {
     var url = _.template(
       'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Tasks'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -263,7 +267,7 @@ describe('Task', function() {
     holodeck.mock(new Response(500, ''));
 
     var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                      .tasks.create();
+                                      .tasks.create('attributes', 'WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
     promise = promise.then(function() {
       throw new Error('failed');
     }, function(error) {
@@ -279,9 +283,15 @@ describe('Task', function() {
       'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Tasks'
     )(solution);
 
+    var values = {
+      Attributes: 'attributes',
+      WorkflowSid: 'WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+    }
+
     holodeck.assertHasRequest(new Request({
-      method: 'POST',
-      url: url
+        method: 'POST',
+        url: url,
+        data: values,
     }));
   });
   it('should generate valid create response', function() {
@@ -304,7 +314,7 @@ describe('Task', function() {
     holodeck.mock(new Response(200, body));
 
     var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                      .tasks.create();
+                                      .tasks.create('attributes', 'WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
     promise = promise.then(function(response) {
       expect(response).toBeDefined();
     }, function() {

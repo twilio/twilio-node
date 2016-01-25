@@ -38,6 +38,7 @@ describe('Media', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Messages/<%= messageSid %>/Media/<%= sid %>.json'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'DELETE',
       url: url
@@ -51,7 +52,7 @@ describe('Media', function() {
                                   .messages('MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .media('MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
     promise = promise.then(function(response) {
-      expect(response).toBeDefined();
+      expect(response).toBe(true);
     }, function() {
       throw new Error('failed');
     });
@@ -80,6 +81,7 @@ describe('Media', function() {
     var url = _.template(
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Messages/<%= messageSid %>/Media/<%= sid %>.json'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -130,6 +132,7 @@ describe('Media', function() {
     var url = _.template(
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Messages/<%= messageSid %>/Media.json'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',

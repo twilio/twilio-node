@@ -36,6 +36,7 @@ describe('ConnectApp', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/ConnectApps/<%= sid %>.json'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'GET',
       url: url
@@ -88,6 +89,7 @@ describe('ConnectApp', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/ConnectApps/<%= sid %>.json'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'POST',
       url: url
@@ -138,6 +140,7 @@ describe('ConnectApp', function() {
     var url = _.template(
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/ConnectApps.json'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',

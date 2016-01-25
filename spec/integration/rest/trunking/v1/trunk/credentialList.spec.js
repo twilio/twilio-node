@@ -36,6 +36,7 @@ describe('CredentialList', function() {
       'https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/CredentialLists/<%= sid %>'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'GET',
       url: url
@@ -84,6 +85,7 @@ describe('CredentialList', function() {
       'https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/CredentialLists/<%= sid %>'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'DELETE',
       url: url
@@ -96,7 +98,7 @@ describe('CredentialList', function() {
     var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .credentialsLists('CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
     promise = promise.then(function(response) {
-      expect(response).toBeDefined();
+      expect(response).toBe(true);
     }, function() {
       throw new Error('failed');
     });
@@ -107,7 +109,7 @@ describe('CredentialList', function() {
     holodeck.mock(new Response(500, ''));
 
     var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .credentialsLists.create();
+                                    .credentialsLists.create('CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
     promise = promise.then(function() {
       throw new Error('failed');
     }, function(error) {
@@ -123,9 +125,14 @@ describe('CredentialList', function() {
       'https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/CredentialLists'
     )(solution);
 
+    var values = {
+      CredentialListSid: 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+    }
+
     holodeck.assertHasRequest(new Request({
-      method: 'POST',
-      url: url
+        method: 'POST',
+        url: url,
+        data: values,
     }));
   });
   it('should generate valid create response', function() {
@@ -141,7 +148,7 @@ describe('CredentialList', function() {
     holodeck.mock(new Response(200, body));
 
     var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .credentialsLists.create();
+                                    .credentialsLists.create('CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
     promise = promise.then(function(response) {
       expect(response).toBeDefined();
     }, function() {
@@ -169,6 +176,7 @@ describe('CredentialList', function() {
     var url = _.template(
       'https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/CredentialLists'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',

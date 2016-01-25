@@ -38,6 +38,7 @@ describe('Transcription', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Recordings/<%= recordingSid %>/Transcriptions/<%= sid %>.json'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'GET',
       url: url
@@ -95,6 +96,7 @@ describe('Transcription', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Recordings/<%= recordingSid %>/Transcriptions/<%= sid %>.json'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'DELETE',
       url: url
@@ -108,7 +110,7 @@ describe('Transcription', function() {
                                   .recordings('REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .transcriptions('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
     promise = promise.then(function(response) {
-      expect(response).toBeDefined();
+      expect(response).toBe(true);
     }, function() {
       throw new Error('failed');
     });
@@ -136,6 +138,7 @@ describe('Transcription', function() {
     var url = _.template(
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Recordings/<%= recordingSid %>/Transcriptions.json'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',

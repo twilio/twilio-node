@@ -33,6 +33,7 @@ describe('Country', function() {
       'https://pricing.twilio.com/v1/PhoneNumbers/Countries'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'GET',
       url: url
@@ -113,6 +114,7 @@ describe('Country', function() {
     var url = _.template(
       'https://pricing.twilio.com/v1/PhoneNumbers/Countries/<%= isoCountry %>'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',

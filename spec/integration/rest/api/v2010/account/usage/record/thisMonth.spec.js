@@ -37,6 +37,7 @@ describe('ThisMonth', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Usage/Records/ThisMonth.json'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'GET',
       url: url

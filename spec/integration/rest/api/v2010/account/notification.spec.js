@@ -36,6 +36,7 @@ describe('Notification', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Notifications/<%= sid %>.json'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'GET',
       url: url
@@ -94,6 +95,7 @@ describe('Notification', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Notifications/<%= sid %>.json'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'DELETE',
       url: url
@@ -106,7 +108,7 @@ describe('Notification', function() {
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .notifications('NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
     promise = promise.then(function(response) {
-      expect(response).toBeDefined();
+      expect(response).toBe(true);
     }, function() {
       throw new Error('failed');
     });
@@ -132,6 +134,7 @@ describe('Notification', function() {
     var url = _.template(
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Notifications.json'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',

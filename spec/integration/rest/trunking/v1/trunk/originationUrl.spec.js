@@ -36,6 +36,7 @@ describe('OriginationUrl', function() {
       'https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/OriginationUrls/<%= sid %>'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'GET',
       url: url
@@ -88,6 +89,7 @@ describe('OriginationUrl', function() {
       'https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/OriginationUrls/<%= sid %>'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'DELETE',
       url: url
@@ -100,7 +102,7 @@ describe('OriginationUrl', function() {
     var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .originationUrls('OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
     promise = promise.then(function(response) {
-      expect(response).toBeDefined();
+      expect(response).toBe(true);
     }, function() {
       throw new Error('failed');
     });
@@ -111,7 +113,7 @@ describe('OriginationUrl', function() {
     holodeck.mock(new Response(500, ''));
 
     var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .originationUrls.create();
+                                    .originationUrls.create(1, 1, true, 'friendlyName', 'https://example.com');
     promise = promise.then(function() {
       throw new Error('failed');
     }, function(error) {
@@ -127,9 +129,18 @@ describe('OriginationUrl', function() {
       'https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/OriginationUrls'
     )(solution);
 
+    var values = {
+      Weight: 1,
+      Priority: 1,
+      Enabled: true,
+      FriendlyName: 'friendlyName',
+      SipUrl: 'https://example.com',
+    }
+
     holodeck.assertHasRequest(new Request({
-      method: 'POST',
-      url: url
+        method: 'POST',
+        url: url,
+        data: values,
     }));
   });
   it('should generate valid create response', function() {
@@ -149,7 +160,7 @@ describe('OriginationUrl', function() {
     holodeck.mock(new Response(201, body));
 
     var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .originationUrls.create();
+                                    .originationUrls.create(1, 1, true, 'friendlyName', 'https://example.com');
     promise = promise.then(function(response) {
       expect(response).toBeDefined();
     }, function() {
@@ -177,6 +188,7 @@ describe('OriginationUrl', function() {
     var url = _.template(
       'https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/OriginationUrls'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -267,6 +279,7 @@ describe('OriginationUrl', function() {
     var url = _.template(
       'https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/OriginationUrls/<%= sid %>'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'POST',

@@ -34,6 +34,7 @@ describe('Trunk', function() {
       'https://trunking.twilio.com/v1/Trunks/<%= sid %>'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'GET',
       url: url
@@ -94,6 +95,7 @@ describe('Trunk', function() {
       'https://trunking.twilio.com/v1/Trunks/<%= sid %>'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'DELETE',
       url: url
@@ -105,7 +107,7 @@ describe('Trunk', function() {
 
     var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
     promise = promise.then(function(response) {
-      expect(response).toBeDefined();
+      expect(response).toBe(true);
     }, function() {
       throw new Error('failed');
     });
@@ -128,6 +130,7 @@ describe('Trunk', function() {
     var url = _.template(
       'https://trunking.twilio.com/v1/Trunks'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'POST',
@@ -186,6 +189,7 @@ describe('Trunk', function() {
     var url = _.template(
       'https://trunking.twilio.com/v1/Trunks'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -283,6 +287,7 @@ describe('Trunk', function() {
     var url = _.template(
       'https://trunking.twilio.com/v1/Trunks/<%= sid %>'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'POST',

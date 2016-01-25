@@ -19,7 +19,7 @@ describe('Address', function() {
     holodeck.mock(new Response(500, ''));
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .addresses.create();
+                                  .addresses.create('customerName', 'street', 'city', 'region', 'postalCode', 'US');
     promise = promise.then(function() {
       throw new Error('failed');
     }, function(error) {
@@ -35,9 +35,19 @@ describe('Address', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Addresses.json'
     )(solution);
 
+    var values = {
+      CustomerName: 'customerName',
+      Street: 'street',
+      City: 'city',
+      Region: 'region',
+      PostalCode: 'postalCode',
+      IsoCountry: 'US',
+    }
+
     holodeck.assertHasRequest(new Request({
-      method: 'POST',
-      url: url
+        method: 'POST',
+        url: url,
+        data: values,
     }));
   });
   it('should generate valid create response', function() {
@@ -58,7 +68,7 @@ describe('Address', function() {
     holodeck.mock(new Response(200, body));
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .addresses.create();
+                                  .addresses.create('customerName', 'street', 'city', 'region', 'postalCode', 'US');
     promise = promise.then(function(response) {
       expect(response).toBeDefined();
     }, function() {
@@ -88,6 +98,7 @@ describe('Address', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Addresses/<%= sid %>.json'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'DELETE',
       url: url
@@ -100,7 +111,7 @@ describe('Address', function() {
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .addresses('ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
     promise = promise.then(function(response) {
-      expect(response).toBeDefined();
+      expect(response).toBe(true);
     }, function() {
       throw new Error('failed');
     });
@@ -127,6 +138,7 @@ describe('Address', function() {
     var url = _.template(
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Addresses/<%= sid %>.json'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -181,6 +193,7 @@ describe('Address', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Addresses/<%= sid %>.json'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'POST',
       url: url
@@ -232,6 +245,7 @@ describe('Address', function() {
     var url = _.template(
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Addresses.json'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',

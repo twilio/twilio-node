@@ -36,6 +36,7 @@ describe('Event', function() {
       'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Events/<%= sid %>'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'GET',
       url: url
@@ -99,6 +100,7 @@ describe('Event', function() {
     var url = _.template(
       'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Events'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',

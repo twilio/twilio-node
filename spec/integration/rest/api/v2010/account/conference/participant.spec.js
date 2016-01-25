@@ -38,6 +38,7 @@ describe('Participant', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Conferences/<%= conferenceSid %>/Participants/<%= callSid %>.json'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'GET',
       url: url
@@ -73,7 +74,7 @@ describe('Participant', function() {
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .conferences('CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .participants('CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+                                  .participants('CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update(true);
     promise = promise.then(function() {
       throw new Error('failed');
     }, function(error) {
@@ -91,9 +92,14 @@ describe('Participant', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Conferences/<%= conferenceSid %>/Participants/<%= callSid %>.json'
     )(solution);
 
+    var values = {
+      Muted: true,
+    }
+
     holodeck.assertHasRequest(new Request({
-      method: 'POST',
-      url: url
+        method: 'POST',
+        url: url,
+        data: values,
     }));
   });
   it('should generate valid update response', function() {
@@ -112,7 +118,7 @@ describe('Participant', function() {
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .conferences('CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .participants('CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+                                  .participants('CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update(true);
     promise = promise.then(function(response) {
       expect(response).toBeDefined();
     }, function() {
@@ -144,6 +150,7 @@ describe('Participant', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Conferences/<%= conferenceSid %>/Participants/<%= callSid %>.json'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'DELETE',
       url: url
@@ -157,7 +164,7 @@ describe('Participant', function() {
                                   .conferences('CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .participants('CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
     promise = promise.then(function(response) {
-      expect(response).toBeDefined();
+      expect(response).toBe(true);
     }, function() {
       throw new Error('failed');
     });
@@ -185,6 +192,7 @@ describe('Participant', function() {
     var url = _.template(
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Conferences/<%= conferenceSid %>/Participants.json'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
