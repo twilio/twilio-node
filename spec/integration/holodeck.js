@@ -24,7 +24,7 @@ Holodeck.prototype.mock = function(response, request) {
 Holodeck.prototype.assertHasRequest = function(request) {
   var matchedRequest = _.find(this.requests, function(req) {
     return req.isEqual(request);
-  })
+  });
 
   if (!_.isUndefined(matchedRequest)) {
     return;
@@ -33,14 +33,6 @@ Holodeck.prototype.assertHasRequest = function(request) {
   var message = _.template(
     '\nHolodeck has never received a request matching: \n <%= request %>\n')({ request: request }
   );
-
-  // TODO: finish this
-  // message = '\nHolodeck never received a request matching: \n + {}\n'.format(request)
-  // if self._requests:
-  //   message += 'Requests received:\n'
-  //   message += '\n'.join(' * {}'.format(r) for r in self.requests)
-  // else:
-  //   message += 'No Requests received'
 
   throw new Error(message);
 };
