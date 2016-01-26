@@ -1,10 +1,12 @@
 'use strict';
 
 var _ = require('lodash');
+var moment = require('moment');
 var Holodeck = require('../../../../../holodeck');
 var Request = require('../../../../../../../lib/http/Request');
 var Response = require('../../../../../../../lib/http/Response');
 var Twilio = require('../../../../../../../lib');
+var serialize = require('../../../../../../../lib/base/serialize');
 
 
 var client;
@@ -20,7 +22,7 @@ describe('FeedbackSummary', function() {
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .calls
-                                  .feedbackSummaries.create('2008-01-02', '2008-01-02');
+                                  .feedbackSummaries.create(moment.utc('2008-01-2', 'YYYY-MM-DD'), moment.utc('2008-01-2', 'YYYY-MM-DD'));
     promise = promise.then(function() {
       throw new Error('failed');
     }, function(error) {
@@ -37,8 +39,8 @@ describe('FeedbackSummary', function() {
     )(solution);
 
     var values = {
-      StartDate: '2008-01-02',
-      EndDate: '2008-01-02',
+      StartDate: serialize.iso8601Date(moment.utc('2008-01-2', 'YYYY-MM-DD')),
+      EndDate: serialize.iso8601Date(moment.utc('2008-01-2', 'YYYY-MM-DD')),
     }
 
     holodeck.assertHasRequest(new Request({
@@ -74,7 +76,7 @@ describe('FeedbackSummary', function() {
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .calls
-                                  .feedbackSummaries.create('2008-01-02', '2008-01-02');
+                                  .feedbackSummaries.create(moment.utc('2008-01-2', 'YYYY-MM-DD'), moment.utc('2008-01-2', 'YYYY-MM-DD'));
     promise = promise.then(function(response) {
       expect(response).toBeDefined();
     }, function() {

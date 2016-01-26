@@ -18,6 +18,7 @@
     "jsonwebtoken": "5.4.x",
     "jwt-simple": "0.1.x",
     "lodash": "4.0.0",
+    "moment": "^2.11.1",
     "q": "2.0.x",
     "request": "2.67.x",
     "rootpath": "0.1.2",
