@@ -132,7 +132,7 @@ describe('Worker', function() {
 
     var values = {
       FriendlyName: 'friendlyName',
-    }
+    };
 
     holodeck.assertHasRequest(new Request({
         method: 'POST',

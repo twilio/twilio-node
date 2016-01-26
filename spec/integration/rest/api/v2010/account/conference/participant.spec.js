@@ -94,7 +94,7 @@ describe('Participant', function() {
 
     var values = {
       Muted: true,
-    }
+    };
 
     holodeck.assertHasRequest(new Request({
         method: 'POST',

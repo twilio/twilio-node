@@ -123,7 +123,7 @@ describe('CredentialList', function() {
 
     var values = {
       FriendlyName: 'friendlyName',
-    }
+    };
 
     holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -233,7 +233,7 @@ describe('CredentialList', function() {
 
     var values = {
       FriendlyName: 'friendlyName',
-    }
+    };
 
     holodeck.assertHasRequest(new Request({
         method: 'POST',

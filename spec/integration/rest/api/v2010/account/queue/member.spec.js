@@ -91,7 +91,7 @@ describe('Member', function() {
     var values = {
       Url: 'https://example.com',
       Method: 'GET',
-    }
+    };
 
     holodeck.assertHasRequest(new Request({
         method: 'POST',

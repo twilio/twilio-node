@@ -281,7 +281,7 @@ describe('Workflow', function() {
       FriendlyName: 'friendlyName',
       Configuration: 'configuration',
       AssignmentCallbackUrl: '/example',
-    }
+    };
 
     holodeck.assertHasRequest(new Request({
         method: 'POST',

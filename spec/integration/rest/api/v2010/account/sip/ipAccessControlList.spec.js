@@ -133,7 +133,7 @@ describe('IpAccessControlList', function() {
 
     var values = {
       FriendlyName: 'friendlyName',
-    }
+    };
 
     holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -243,7 +243,7 @@ describe('IpAccessControlList', function() {
 
     var values = {
       FriendlyName: 'friendlyName',
-    }
+    };
 
     holodeck.assertHasRequest(new Request({
         method: 'POST',

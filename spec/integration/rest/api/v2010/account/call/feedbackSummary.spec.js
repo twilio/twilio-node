@@ -41,7 +41,7 @@ describe('FeedbackSummary', function() {
     var values = {
       StartDate: serialize.iso8601Date(moment.utc('2008-01-2', 'YYYY-MM-DD')),
       EndDate: serialize.iso8601Date(moment.utc('2008-01-2', 'YYYY-MM-DD')),
-    }
+    };
 
     holodeck.assertHasRequest(new Request({
         method: 'POST',

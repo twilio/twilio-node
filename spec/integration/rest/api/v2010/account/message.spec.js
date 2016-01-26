@@ -38,7 +38,7 @@ describe('Message', function() {
     var values = {
       To: '+123456789',
       From: '+987654321',
-    }
+    };
 
     holodeck.assertHasRequest(new Request({
         method: 'POST',

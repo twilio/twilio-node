@@ -198,7 +198,7 @@ describe('Reservation', function() {
 
     var values = {
       ReservationStatus: 'reservationStatus',
-    }
+    };
 
     holodeck.assertHasRequest(new Request({
         method: 'POST',

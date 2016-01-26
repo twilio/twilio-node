@@ -138,7 +138,7 @@ describe('Credential', function() {
     var values = {
       Username: 'username',
       Password: 'password',
-    }
+    };
 
     holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -251,7 +251,7 @@ describe('Credential', function() {
     var values = {
       Username: 'username',
       Password: 'password',
-    }
+    };
 
     holodeck.assertHasRequest(new Request({
         method: 'POST',

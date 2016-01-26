@@ -127,7 +127,7 @@ describe('IpAccessControlList', function() {
 
     var values = {
       IpAccessControlListSid: 'ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-    }
+    };
 
     holodeck.assertHasRequest(new Request({
         method: 'POST',

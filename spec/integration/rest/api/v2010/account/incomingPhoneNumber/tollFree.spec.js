@@ -153,7 +153,7 @@ describe('TollFree', function() {
 
     var values = {
       PhoneNumber: '+987654321',
-    }
+    };
 
     holodeck.assertHasRequest(new Request({
         method: 'POST',

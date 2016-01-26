@@ -139,7 +139,7 @@ describe('IpAddress', function() {
     var values = {
       FriendlyName: 'friendlyName',
       IpAddress: 'ipAddress',
-    }
+    };
 
     holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -254,7 +254,7 @@ describe('IpAddress', function() {
     var values = {
       IpAddress: 'ipAddress',
       FriendlyName: 'friendlyName',
-    }
+    };
 
     holodeck.assertHasRequest(new Request({
         method: 'POST',

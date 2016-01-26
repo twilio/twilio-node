@@ -39,7 +39,7 @@ describe('Feedback', function() {
 
     var values = {
       QualityScore: 1,
-    }
+    };
 
     holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -149,7 +149,7 @@ describe('Feedback', function() {
 
     var values = {
       QualityScore: 1,
-    }
+    };
 
     holodeck.assertHasRequest(new Request({
         method: 'POST',

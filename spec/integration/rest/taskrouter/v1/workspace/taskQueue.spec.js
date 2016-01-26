@@ -256,7 +256,7 @@ describe('TaskQueue', function() {
       FriendlyName: 'friendlyName',
       ReservationActivitySid: 'WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
       AssignmentActivitySid: 'WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-    }
+    };
 
     holodeck.assertHasRequest(new Request({
         method: 'POST',

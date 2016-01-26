@@ -152,7 +152,7 @@ describe('PhoneNumber', function() {
 
     var values = {
       PhoneNumberSid: 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-    }
+    };
 
     holodeck.assertHasRequest(new Request({
         method: 'POST',

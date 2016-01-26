@@ -133,7 +133,7 @@ describe('Domain', function() {
 
     var values = {
       DomainName: 'domainName',
-    }
+    };
 
     holodeck.assertHasRequest(new Request({
         method: 'POST',

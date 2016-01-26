@@ -40,7 +40,7 @@ describe('CredentialListMapping', function() {
 
     var values = {
       CredentialListSid: 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-    }
+    };
 
     holodeck.assertHasRequest(new Request({
         method: 'POST',

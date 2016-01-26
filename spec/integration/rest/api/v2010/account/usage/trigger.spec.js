@@ -203,7 +203,7 @@ describe('Trigger', function() {
       CallbackUrl: 'https://example.com',
       TriggerValue: 'triggerValue',
       UsageCategory: 'calleridlookups',
-    }
+    };
 
     holodeck.assertHasRequest(new Request({
         method: 'POST',

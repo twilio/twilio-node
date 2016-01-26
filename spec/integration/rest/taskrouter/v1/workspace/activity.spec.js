@@ -88,7 +88,7 @@ describe('Activity', function() {
 
     var values = {
       FriendlyName: 'friendlyName',
-    }
+    };
 
     holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -272,7 +272,7 @@ describe('Activity', function() {
     var values = {
       FriendlyName: 'friendlyName',
       Available: true,
-    }
+    };
 
     holodeck.assertHasRequest(new Request({
         method: 'POST',

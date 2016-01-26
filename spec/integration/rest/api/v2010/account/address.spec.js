@@ -42,7 +42,7 @@ describe('Address', function() {
       Region: 'region',
       PostalCode: 'postalCode',
       IsoCountry: 'US',
-    }
+    };
 
     holodeck.assertHasRequest(new Request({
         method: 'POST',

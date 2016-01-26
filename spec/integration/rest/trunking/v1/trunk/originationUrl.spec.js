@@ -135,7 +135,7 @@ describe('OriginationUrl', function() {
       Enabled: true,
       FriendlyName: 'friendlyName',
       SipUrl: 'https://example.com',
-    }
+    };
 
     holodeck.assertHasRequest(new Request({
         method: 'POST',

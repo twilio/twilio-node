@@ -37,7 +37,7 @@ describe('ValidationRequest', function() {
 
     var values = {
       PhoneNumber: '+987654321',
-    }
+    };
 
     holodeck.assertHasRequest(new Request({
         method: 'POST',

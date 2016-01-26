@@ -286,7 +286,7 @@ describe('Task', function() {
     var values = {
       Attributes: 'attributes',
       WorkflowSid: 'WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-    }
+    };
 
     holodeck.assertHasRequest(new Request({
         method: 'POST',
