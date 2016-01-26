@@ -4,7 +4,7 @@ var _ = require('lodash');
 var Holodeck = require('../../../../../holodeck');
 var Request = require('../../../../../../../lib/http/Request');
 var Response = require('../../../../../../../lib/http/Response');
-var Twilio = require('../../../../../../../lib').Twilio;
+var Twilio = require('../../../../../../../lib');
 
 
 var client;
@@ -13,7 +13,7 @@ var holodeck;
 describe('Reservation', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('AC' + _.join(_.fill(new Array(32), 'a'), ''), 'AUTHTOKEN', holodeck);
+    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', holodeck);
   });
   it('should generate valid list request', function() {
     holodeck.mock(new Response(500, ''));
@@ -36,6 +36,7 @@ describe('Reservation', function() {
     var url = _.template(
       'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Tasks/<%= taskSid %>/Reservations'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -135,6 +136,7 @@ describe('Reservation', function() {
       'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Tasks/<%= taskSid %>/Reservations/<%= sid %>'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'GET',
       url: url
@@ -176,7 +178,7 @@ describe('Reservation', function() {
 
     var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                       .tasks('WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                      .reservations('WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+                                      .reservations('WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update('reservationStatus');
     promise = promise.then(function() {
       throw new Error('failed');
     }, function(error) {
@@ -194,9 +196,14 @@ describe('Reservation', function() {
       'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Tasks/<%= taskSid %>/Reservations/<%= sid %>'
     )(solution);
 
+    var values = {
+      ReservationStatus: 'reservationStatus',
+    }
+
     holodeck.assertHasRequest(new Request({
-      method: 'POST',
-      url: url
+        method: 'POST',
+        url: url,
+        data: values
     }));
   });
   it('should generate valid update response', function() {
@@ -221,7 +228,7 @@ describe('Reservation', function() {
 
     var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                       .tasks('WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                      .reservations('WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+                                      .reservations('WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update('reservationStatus');
     promise = promise.then(function(response) {
       expect(response).toBeDefined();
     }, function() {

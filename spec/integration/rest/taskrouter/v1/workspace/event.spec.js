@@ -4,7 +4,7 @@ var _ = require('lodash');
 var Holodeck = require('../../../../holodeck');
 var Request = require('../../../../../../lib/http/Request');
 var Response = require('../../../../../../lib/http/Response');
-var Twilio = require('../../../../../../lib').Twilio;
+var Twilio = require('../../../../../../lib');
 
 
 var client;
@@ -13,7 +13,7 @@ var holodeck;
 describe('Event', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('AC' + _.join(_.fill(new Array(32), 'a'), ''), 'AUTHTOKEN', holodeck);
+    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', holodeck);
   });
   it('should generate valid fetch request', function() {
     holodeck.mock(new Response(500, ''));
@@ -35,6 +35,7 @@ describe('Event', function() {
     var url = _.template(
       'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Events/<%= sid %>'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -99,6 +100,7 @@ describe('Event', function() {
     var url = _.template(
       'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Events'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',

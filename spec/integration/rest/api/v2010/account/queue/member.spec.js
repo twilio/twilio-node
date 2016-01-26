@@ -4,7 +4,7 @@ var _ = require('lodash');
 var Holodeck = require('../../../../../holodeck');
 var Request = require('../../../../../../../lib/http/Request');
 var Response = require('../../../../../../../lib/http/Response');
-var Twilio = require('../../../../../../../lib').Twilio;
+var Twilio = require('../../../../../../../lib');
 
 
 var client;
@@ -13,7 +13,7 @@ var holodeck;
 describe('Member', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('AC' + _.join(_.fill(new Array(32), 'a'), ''), 'AUTHTOKEN', holodeck);
+    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', holodeck);
   });
   it('should generate valid fetch request', function() {
     holodeck.mock(new Response(500, ''));
@@ -37,6 +37,7 @@ describe('Member', function() {
     var url = _.template(
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Queues/<%= queueSid %>/Members/<%= callSid %>.json'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -69,7 +70,7 @@ describe('Member', function() {
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .queues('QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .members('CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+                                  .members('CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update('https://example.com', 'GET');
     promise = promise.then(function() {
       throw new Error('failed');
     }, function(error) {
@@ -87,9 +88,15 @@ describe('Member', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Queues/<%= queueSid %>/Members/<%= callSid %>.json'
     )(solution);
 
+    var values = {
+      Url: 'https://example.com',
+      Method: 'GET',
+    }
+
     holodeck.assertHasRequest(new Request({
-      method: 'POST',
-      url: url
+        method: 'POST',
+        url: url,
+        data: values
     }));
   });
   it('should generate valid update response', function() {
@@ -104,7 +111,7 @@ describe('Member', function() {
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .queues('QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .members('CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+                                  .members('CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update('https://example.com', 'GET');
     promise = promise.then(function(response) {
       expect(response).toBeDefined();
     }, function() {
@@ -134,6 +141,7 @@ describe('Member', function() {
     var url = _.template(
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Queues/<%= queueSid %>/Members.json'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',

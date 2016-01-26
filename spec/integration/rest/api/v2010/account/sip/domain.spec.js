@@ -4,7 +4,7 @@ var _ = require('lodash');
 var Holodeck = require('../../../../../holodeck');
 var Request = require('../../../../../../../lib/http/Request');
 var Response = require('../../../../../../../lib/http/Response');
-var Twilio = require('../../../../../../../lib').Twilio;
+var Twilio = require('../../../../../../../lib');
 
 
 var client;
@@ -13,7 +13,7 @@ var holodeck;
 describe('Domain', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('AC' + _.join(_.fill(new Array(32), 'a'), ''), 'AUTHTOKEN', holodeck);
+    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', holodeck);
   });
   it('should generate valid list request', function() {
     holodeck.mock(new Response(500, ''));
@@ -35,6 +35,7 @@ describe('Domain', function() {
     var url = _.template(
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/Domains.json'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -114,7 +115,7 @@ describe('Domain', function() {
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .sip
-                                  .domains.create();
+                                  .domains.create('domainName');
     promise = promise.then(function() {
       throw new Error('failed');
     }, function(error) {
@@ -130,9 +131,14 @@ describe('Domain', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/Domains.json'
     )(solution);
 
+    var values = {
+      DomainName: 'domainName',
+    }
+
     holodeck.assertHasRequest(new Request({
-      method: 'POST',
-      url: url
+        method: 'POST',
+        url: url,
+        data: values
     }));
   });
   it('should generate valid create response', function() {
@@ -161,7 +167,7 @@ describe('Domain', function() {
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .sip
-                                  .domains.create();
+                                  .domains.create('domainName');
     promise = promise.then(function(response) {
       expect(response).toBeDefined();
     }, function() {
@@ -191,6 +197,7 @@ describe('Domain', function() {
     var url = _.template(
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/Domains/<%= sid %>.json'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -254,6 +261,7 @@ describe('Domain', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/Domains/<%= sid %>.json'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'POST',
       url: url
@@ -316,6 +324,7 @@ describe('Domain', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/Domains/<%= sid %>.json'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'DELETE',
       url: url
@@ -329,7 +338,7 @@ describe('Domain', function() {
                                   .sip
                                   .domains('SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
     promise = promise.then(function(response) {
-      expect(response).toBeDefined();
+      expect(response).toBe(true);
     }, function() {
       throw new Error('failed');
     });

@@ -4,7 +4,7 @@ var _ = require('lodash');
 var Holodeck = require('../../../holodeck');
 var Request = require('../../../../../lib/http/Request');
 var Response = require('../../../../../lib/http/Response');
-var Twilio = require('../../../../../lib').Twilio;
+var Twilio = require('../../../../../lib');
 
 
 var client;
@@ -13,7 +13,7 @@ var holodeck;
 describe('Trunk', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('AC' + _.join(_.fill(new Array(32), 'a'), ''), 'AUTHTOKEN', holodeck);
+    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', holodeck);
   });
   it('should generate valid fetch request', function() {
     holodeck.mock(new Response(500, ''));
@@ -33,6 +33,7 @@ describe('Trunk', function() {
     var url = _.template(
       'https://trunking.twilio.com/v1/Trunks/<%= sid %>'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -94,6 +95,7 @@ describe('Trunk', function() {
       'https://trunking.twilio.com/v1/Trunks/<%= sid %>'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'DELETE',
       url: url
@@ -105,7 +107,7 @@ describe('Trunk', function() {
 
     var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
     promise = promise.then(function(response) {
-      expect(response).toBeDefined();
+      expect(response).toBe(true);
     }, function() {
       throw new Error('failed');
     });
@@ -128,6 +130,7 @@ describe('Trunk', function() {
     var url = _.template(
       'https://trunking.twilio.com/v1/Trunks'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'POST',
@@ -186,6 +189,7 @@ describe('Trunk', function() {
     var url = _.template(
       'https://trunking.twilio.com/v1/Trunks'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -283,6 +287,7 @@ describe('Trunk', function() {
     var url = _.template(
       'https://trunking.twilio.com/v1/Trunks/<%= sid %>'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'POST',

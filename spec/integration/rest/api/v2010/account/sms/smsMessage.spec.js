@@ -4,7 +4,7 @@ var _ = require('lodash');
 var Holodeck = require('../../../../../holodeck');
 var Request = require('../../../../../../../lib/http/Request');
 var Response = require('../../../../../../../lib/http/Response');
-var Twilio = require('../../../../../../../lib').Twilio;
+var Twilio = require('../../../../../../../lib');
 
 
 var client;
@@ -13,14 +13,14 @@ var holodeck;
 describe('SmsMessage', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('AC' + _.join(_.fill(new Array(32), 'a'), ''), 'AUTHTOKEN', holodeck);
+    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', holodeck);
   });
   it('should generate valid create request', function() {
     holodeck.mock(new Response(500, ''));
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .sms
-                                  .messages.create();
+                                  .messages.create('+123456789', '+987654321');
     promise = promise.then(function() {
       throw new Error('failed');
     }, function(error) {
@@ -36,9 +36,15 @@ describe('SmsMessage', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SMS/Messages.json'
     )(solution);
 
+    var values = {
+      To: '+123456789',
+      From: '+987654321',
+    }
+
     holodeck.assertHasRequest(new Request({
-      method: 'POST',
-      url: url
+        method: 'POST',
+        url: url,
+        data: values
     }));
   });
   it('should generate valid create response', function() {
@@ -62,7 +68,7 @@ describe('SmsMessage', function() {
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .sms
-                                  .messages.create();
+                                  .messages.create('+123456789', '+987654321');
     promise = promise.then(function(response) {
       expect(response).toBeDefined();
     }, function() {
@@ -93,6 +99,7 @@ describe('SmsMessage', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SMS/Messages/<%= sid %>.json'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'DELETE',
       url: url
@@ -106,7 +113,7 @@ describe('SmsMessage', function() {
                                   .sms
                                   .messages('SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
     promise = promise.then(function(response) {
-      expect(response).toBeDefined();
+      expect(response).toBe(true);
     }, function() {
       throw new Error('failed');
     });
@@ -134,6 +141,7 @@ describe('SmsMessage', function() {
     var url = _.template(
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SMS/Messages/<%= sid %>.json'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -190,6 +198,7 @@ describe('SmsMessage', function() {
     var url = _.template(
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SMS/Messages.json'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -291,6 +300,7 @@ describe('SmsMessage', function() {
     var url = _.template(
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SMS/Messages/<%= sid %>.json'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'POST',

@@ -4,7 +4,7 @@ var _ = require('lodash');
 var Holodeck = require('../../../../../../holodeck');
 var Request = require('../../../../../../../../lib/http/Request');
 var Response = require('../../../../../../../../lib/http/Response');
-var Twilio = require('../../../../../../../../lib').Twilio;
+var Twilio = require('../../../../../../../../lib');
 
 
 var client;
@@ -13,7 +13,7 @@ var holodeck;
 describe('IpAddress', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('AC' + _.join(_.fill(new Array(32), 'a'), ''), 'AUTHTOKEN', holodeck);
+    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', holodeck);
   });
   it('should generate valid list request', function() {
     holodeck.mock(new Response(500, ''));
@@ -37,6 +37,7 @@ describe('IpAddress', function() {
     var url = _.template(
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/IpAccessControlLists/<%= ipAccessControlListSid %>/IpAddresses.json'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -118,7 +119,7 @@ describe('IpAddress', function() {
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .sip
                                   .ipAccessControlLists('ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .ipAddresses.create();
+                                  .ipAddresses.create('friendlyName', 'ipAddress');
     promise = promise.then(function() {
       throw new Error('failed');
     }, function(error) {
@@ -135,9 +136,15 @@ describe('IpAddress', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/IpAccessControlLists/<%= ipAccessControlListSid %>/IpAddresses.json'
     )(solution);
 
+    var values = {
+      FriendlyName: 'friendlyName',
+      IpAddress: 'ipAddress',
+    }
+
     holodeck.assertHasRequest(new Request({
-      method: 'POST',
-      url: url
+        method: 'POST',
+        url: url,
+        data: values
     }));
   });
   it('should generate valid create response', function() {
@@ -156,7 +163,7 @@ describe('IpAddress', function() {
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .sip
                                   .ipAccessControlLists('ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .ipAddresses.create();
+                                  .ipAddresses.create('friendlyName', 'ipAddress');
     promise = promise.then(function(response) {
       expect(response).toBeDefined();
     }, function() {
@@ -188,6 +195,7 @@ describe('IpAddress', function() {
     var url = _.template(
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/IpAccessControlLists/<%= ipAccessControlListSid %>/IpAddresses/<%= sid %>.json'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -225,7 +233,7 @@ describe('IpAddress', function() {
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .sip
                                   .ipAccessControlLists('ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .ipAddresses('IPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+                                  .ipAddresses('IPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update('ipAddress', 'friendlyName');
     promise = promise.then(function() {
       throw new Error('failed');
     }, function(error) {
@@ -243,9 +251,15 @@ describe('IpAddress', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/IpAccessControlLists/<%= ipAccessControlListSid %>/IpAddresses/<%= sid %>.json'
     )(solution);
 
+    var values = {
+      IpAddress: 'ipAddress',
+      FriendlyName: 'friendlyName',
+    }
+
     holodeck.assertHasRequest(new Request({
-      method: 'POST',
-      url: url
+        method: 'POST',
+        url: url,
+        data: values
     }));
   });
   it('should generate valid update response', function() {
@@ -264,7 +278,7 @@ describe('IpAddress', function() {
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .sip
                                   .ipAccessControlLists('ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .ipAddresses('IPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+                                  .ipAddresses('IPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update('ipAddress', 'friendlyName');
     promise = promise.then(function(response) {
       expect(response).toBeDefined();
     }, function() {
@@ -297,6 +311,7 @@ describe('IpAddress', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/IpAccessControlLists/<%= ipAccessControlListSid %>/IpAddresses/<%= sid %>.json'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'DELETE',
       url: url
@@ -311,7 +326,7 @@ describe('IpAddress', function() {
                                   .ipAccessControlLists('ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .ipAddresses('IPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
     promise = promise.then(function(response) {
-      expect(response).toBeDefined();
+      expect(response).toBe(true);
     }, function() {
       throw new Error('failed');
     });

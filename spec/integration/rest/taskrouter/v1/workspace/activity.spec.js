@@ -4,7 +4,7 @@ var _ = require('lodash');
 var Holodeck = require('../../../../holodeck');
 var Request = require('../../../../../../lib/http/Request');
 var Response = require('../../../../../../lib/http/Response');
-var Twilio = require('../../../../../../lib').Twilio;
+var Twilio = require('../../../../../../lib');
 
 
 var client;
@@ -13,7 +13,7 @@ var holodeck;
 describe('Activity', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('AC' + _.join(_.fill(new Array(32), 'a'), ''), 'AUTHTOKEN', holodeck);
+    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', holodeck);
   });
   it('should generate valid fetch request', function() {
     holodeck.mock(new Response(500, ''));
@@ -35,6 +35,7 @@ describe('Activity', function() {
     var url = _.template(
       'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Activities/<%= sid %>'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -68,7 +69,7 @@ describe('Activity', function() {
     holodeck.mock(new Response(500, ''));
 
     var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                      .activities('WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+                                      .activities('WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update('friendlyName');
     promise = promise.then(function() {
       throw new Error('failed');
     }, function(error) {
@@ -85,9 +86,14 @@ describe('Activity', function() {
       'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Activities/<%= sid %>'
     )(solution);
 
+    var values = {
+      FriendlyName: 'friendlyName',
+    }
+
     holodeck.assertHasRequest(new Request({
-      method: 'POST',
-      url: url
+        method: 'POST',
+        url: url,
+        data: values
     }));
   });
   it('should generate valid update response', function() {
@@ -104,7 +110,7 @@ describe('Activity', function() {
     holodeck.mock(new Response(200, body));
 
     var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                      .activities('WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+                                      .activities('WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update('friendlyName');
     promise = promise.then(function(response) {
       expect(response).toBeDefined();
     }, function() {
@@ -134,6 +140,7 @@ describe('Activity', function() {
       'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Activities/<%= sid %>'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'DELETE',
       url: url
@@ -146,7 +153,7 @@ describe('Activity', function() {
     var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                       .activities('WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
     promise = promise.then(function(response) {
-      expect(response).toBeDefined();
+      expect(response).toBe(true);
     }, function() {
       throw new Error('failed');
     });
@@ -172,6 +179,7 @@ describe('Activity', function() {
     var url = _.template(
       'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Activities'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -245,7 +253,7 @@ describe('Activity', function() {
     holodeck.mock(new Response(500, ''));
 
     var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                      .activities.create();
+                                      .activities.create('friendlyName', true);
     promise = promise.then(function() {
       throw new Error('failed');
     }, function(error) {
@@ -261,9 +269,15 @@ describe('Activity', function() {
       'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Activities'
     )(solution);
 
+    var values = {
+      FriendlyName: 'friendlyName',
+      Available: true,
+    }
+
     holodeck.assertHasRequest(new Request({
-      method: 'POST',
-      url: url
+        method: 'POST',
+        url: url,
+        data: values
     }));
   });
   it('should generate valid create response', function() {
@@ -280,7 +294,7 @@ describe('Activity', function() {
     holodeck.mock(new Response(200, body));
 
     var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                      .activities.create();
+                                      .activities.create('friendlyName', true);
     promise = promise.then(function(response) {
       expect(response).toBeDefined();
     }, function() {

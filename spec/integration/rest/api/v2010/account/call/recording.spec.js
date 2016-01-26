@@ -4,7 +4,7 @@ var _ = require('lodash');
 var Holodeck = require('../../../../../holodeck');
 var Request = require('../../../../../../../lib/http/Request');
 var Response = require('../../../../../../../lib/http/Response');
-var Twilio = require('../../../../../../../lib').Twilio;
+var Twilio = require('../../../../../../../lib');
 
 
 var client;
@@ -13,7 +13,7 @@ var holodeck;
 describe('Recording', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('AC' + _.join(_.fill(new Array(32), 'a'), ''), 'AUTHTOKEN', holodeck);
+    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', holodeck);
   });
   it('should generate valid fetch request', function() {
     holodeck.mock(new Response(500, ''));
@@ -37,6 +37,7 @@ describe('Recording', function() {
     var url = _.template(
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Calls/<%= callSid %>/Recordings/<%= sid %>.json'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -91,6 +92,7 @@ describe('Recording', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Calls/<%= callSid %>/Recordings/<%= sid %>.json'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'DELETE',
       url: url
@@ -104,7 +106,7 @@ describe('Recording', function() {
                                   .calls('CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .recordings('REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
     promise = promise.then(function(response) {
-      expect(response).toBeDefined();
+      expect(response).toBe(true);
     }, function() {
       throw new Error('failed');
     });
@@ -132,6 +134,7 @@ describe('Recording', function() {
     var url = _.template(
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Calls/<%= callSid %>/Recordings.json'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',

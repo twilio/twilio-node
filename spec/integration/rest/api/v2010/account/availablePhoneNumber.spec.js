@@ -4,7 +4,7 @@ var _ = require('lodash');
 var Holodeck = require('../../../../holodeck');
 var Request = require('../../../../../../lib/http/Request');
 var Response = require('../../../../../../lib/http/Response');
-var Twilio = require('../../../../../../lib').Twilio;
+var Twilio = require('../../../../../../lib');
 
 
 var client;
@@ -13,7 +13,7 @@ var holodeck;
 describe('AvailablePhoneNumberCountry', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('AC' + _.join(_.fill(new Array(32), 'a'), ''), 'AUTHTOKEN', holodeck);
+    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', holodeck);
   });
   it('should generate valid list request', function() {
     holodeck.mock(new Response(500, ''));
@@ -34,6 +34,7 @@ describe('AvailablePhoneNumberCountry', function() {
     var url = _.template(
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/AvailablePhoneNumbers.json'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -124,6 +125,7 @@ describe('AvailablePhoneNumberCountry', function() {
     var url = _.template(
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/AvailablePhoneNumbers/<%= countryCode %>.json'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',

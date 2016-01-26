@@ -4,7 +4,7 @@ var _ = require('lodash');
 var Holodeck = require('../../../../../holodeck');
 var Request = require('../../../../../../../lib/http/Request');
 var Response = require('../../../../../../../lib/http/Response');
-var Twilio = require('../../../../../../../lib').Twilio;
+var Twilio = require('../../../../../../../lib');
 
 
 var client;
@@ -13,7 +13,7 @@ var holodeck;
 describe('CredentialList', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('AC' + _.join(_.fill(new Array(32), 'a'), ''), 'AUTHTOKEN', holodeck);
+    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', holodeck);
   });
   it('should generate valid list request', function() {
     holodeck.mock(new Response(500, ''));
@@ -35,6 +35,7 @@ describe('CredentialList', function() {
     var url = _.template(
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/CredentialLists.json'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -104,7 +105,7 @@ describe('CredentialList', function() {
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .sip
-                                  .credentialLists.create();
+                                  .credentialLists.create('friendlyName');
     promise = promise.then(function() {
       throw new Error('failed');
     }, function(error) {
@@ -120,9 +121,14 @@ describe('CredentialList', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/CredentialLists.json'
     )(solution);
 
+    var values = {
+      FriendlyName: 'friendlyName',
+    }
+
     holodeck.assertHasRequest(new Request({
-      method: 'POST',
-      url: url
+        method: 'POST',
+        url: url,
+        data: values
     }));
   });
   it('should generate valid create response', function() {
@@ -141,7 +147,7 @@ describe('CredentialList', function() {
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .sip
-                                  .credentialLists.create();
+                                  .credentialLists.create('friendlyName');
     promise = promise.then(function(response) {
       expect(response).toBeDefined();
     }, function() {
@@ -171,6 +177,7 @@ describe('CredentialList', function() {
     var url = _.template(
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/CredentialLists/<%= sid %>.json'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -207,7 +214,7 @@ describe('CredentialList', function() {
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .sip
-                                  .credentialLists('CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+                                  .credentialLists('CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update('friendlyName');
     promise = promise.then(function() {
       throw new Error('failed');
     }, function(error) {
@@ -224,9 +231,14 @@ describe('CredentialList', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/CredentialLists/<%= sid %>.json'
     )(solution);
 
+    var values = {
+      FriendlyName: 'friendlyName',
+    }
+
     holodeck.assertHasRequest(new Request({
-      method: 'POST',
-      url: url
+        method: 'POST',
+        url: url,
+        data: values
     }));
   });
   it('should generate valid update response', function() {
@@ -245,7 +257,7 @@ describe('CredentialList', function() {
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .sip
-                                  .credentialLists('CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+                                  .credentialLists('CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update('friendlyName');
     promise = promise.then(function(response) {
       expect(response).toBeDefined();
     }, function() {
@@ -276,6 +288,7 @@ describe('CredentialList', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/CredentialLists/<%= sid %>.json'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'DELETE',
       url: url
@@ -289,7 +302,7 @@ describe('CredentialList', function() {
                                   .sip
                                   .credentialLists('CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
     promise = promise.then(function(response) {
-      expect(response).toBeDefined();
+      expect(response).toBe(true);
     }, function() {
       throw new Error('failed');
     });

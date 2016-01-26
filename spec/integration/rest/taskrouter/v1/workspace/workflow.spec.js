@@ -4,7 +4,7 @@ var _ = require('lodash');
 var Holodeck = require('../../../../holodeck');
 var Request = require('../../../../../../lib/http/Request');
 var Response = require('../../../../../../lib/http/Response');
-var Twilio = require('../../../../../../lib').Twilio;
+var Twilio = require('../../../../../../lib');
 
 
 var client;
@@ -13,7 +13,7 @@ var holodeck;
 describe('Workflow', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('AC' + _.join(_.fill(new Array(32), 'a'), ''), 'AUTHTOKEN', holodeck);
+    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', holodeck);
   });
   it('should generate valid fetch request', function() {
     holodeck.mock(new Response(500, ''));
@@ -35,6 +35,7 @@ describe('Workflow', function() {
     var url = _.template(
       'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workflows/<%= sid %>'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -89,6 +90,7 @@ describe('Workflow', function() {
       'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workflows/<%= sid %>'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'POST',
       url: url
@@ -142,6 +144,7 @@ describe('Workflow', function() {
       'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workflows/<%= sid %>'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'DELETE',
       url: url
@@ -154,7 +157,7 @@ describe('Workflow', function() {
     var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                       .workflows('WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
     promise = promise.then(function(response) {
-      expect(response).toBeDefined();
+      expect(response).toBe(true);
     }, function() {
       throw new Error('failed');
     });
@@ -180,6 +183,7 @@ describe('Workflow', function() {
     var url = _.template(
       'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workflows'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -257,7 +261,7 @@ describe('Workflow', function() {
     holodeck.mock(new Response(500, ''));
 
     var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                      .workflows.create();
+                                      .workflows.create('friendlyName', 'configuration', '/example');
     promise = promise.then(function() {
       throw new Error('failed');
     }, function(error) {
@@ -273,9 +277,16 @@ describe('Workflow', function() {
       'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workflows'
     )(solution);
 
+    var values = {
+      FriendlyName: 'friendlyName',
+      Configuration: 'configuration',
+      AssignmentCallbackUrl: '/example',
+    }
+
     holodeck.assertHasRequest(new Request({
-      method: 'POST',
-      url: url
+        method: 'POST',
+        url: url,
+        data: values
     }));
   });
   it('should generate valid create response', function() {
@@ -296,7 +307,7 @@ describe('Workflow', function() {
     holodeck.mock(new Response(200, body));
 
     var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                      .workflows.create();
+                                      .workflows.create('friendlyName', 'configuration', '/example');
     promise = promise.then(function(response) {
       expect(response).toBeDefined();
     }, function() {

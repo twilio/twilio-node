@@ -4,7 +4,7 @@ var _ = require('lodash');
 var Holodeck = require('../../../../../holodeck');
 var Request = require('../../../../../../../lib/http/Request');
 var Response = require('../../../../../../../lib/http/Response');
-var Twilio = require('../../../../../../../lib').Twilio;
+var Twilio = require('../../../../../../../lib');
 
 
 var client;
@@ -13,7 +13,7 @@ var holodeck;
 describe('Trigger', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('AC' + _.join(_.fill(new Array(32), 'a'), ''), 'AUTHTOKEN', holodeck);
+    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', holodeck);
   });
   it('should generate valid fetch request', function() {
     holodeck.mock(new Response(500, ''));
@@ -36,6 +36,7 @@ describe('Trigger', function() {
     var url = _.template(
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Usage/Triggers/<%= sid %>.json'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -96,6 +97,7 @@ describe('Trigger', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Usage/Triggers/<%= sid %>.json'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'POST',
       url: url
@@ -155,6 +157,7 @@ describe('Trigger', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Usage/Triggers/<%= sid %>.json'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'DELETE',
       url: url
@@ -168,7 +171,7 @@ describe('Trigger', function() {
                                   .usage
                                   .triggers('UTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
     promise = promise.then(function(response) {
-      expect(response).toBeDefined();
+      expect(response).toBe(true);
     }, function() {
       throw new Error('failed');
     });
@@ -180,7 +183,7 @@ describe('Trigger', function() {
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .usage
-                                  .triggers.create();
+                                  .triggers.create('https://example.com', 'triggerValue', 'calleridlookups');
     promise = promise.then(function() {
       throw new Error('failed');
     }, function(error) {
@@ -196,9 +199,16 @@ describe('Trigger', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Usage/Triggers.json'
     )(solution);
 
+    var values = {
+      CallbackUrl: 'https://example.com',
+      TriggerValue: 'triggerValue',
+      UsageCategory: 'calleridlookups',
+    }
+
     holodeck.assertHasRequest(new Request({
-      method: 'POST',
-      url: url
+        method: 'POST',
+        url: url,
+        data: values
     }));
   });
   it('should generate valid create response', function() {
@@ -224,7 +234,7 @@ describe('Trigger', function() {
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .usage
-                                  .triggers.create();
+                                  .triggers.create('https://example.com', 'triggerValue', 'calleridlookups');
     promise = promise.then(function(response) {
       expect(response).toBeDefined();
     }, function() {
@@ -253,6 +263,7 @@ describe('Trigger', function() {
     var url = _.template(
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Usage/Triggers.json'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',

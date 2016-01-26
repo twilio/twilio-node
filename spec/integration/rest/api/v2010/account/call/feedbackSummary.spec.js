@@ -1,10 +1,12 @@
 'use strict';
 
 var _ = require('lodash');
+var moment = require('moment');
 var Holodeck = require('../../../../../holodeck');
 var Request = require('../../../../../../../lib/http/Request');
 var Response = require('../../../../../../../lib/http/Response');
-var Twilio = require('../../../../../../../lib').Twilio;
+var Twilio = require('../../../../../../../lib');
+var serialize = require('../../../../../../../lib/base/serialize');
 
 
 var client;
@@ -13,14 +15,14 @@ var holodeck;
 describe('FeedbackSummary', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('AC' + _.join(_.fill(new Array(32), 'a'), ''), 'AUTHTOKEN', holodeck);
+    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', holodeck);
   });
   it('should generate valid create request', function() {
     holodeck.mock(new Response(500, ''));
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .calls
-                                  .feedbackSummaries.create();
+                                  .feedbackSummaries.create(moment.utc('2008-01-2', 'YYYY-MM-DD'), moment.utc('2008-01-2', 'YYYY-MM-DD'));
     promise = promise.then(function() {
       throw new Error('failed');
     }, function(error) {
@@ -36,9 +38,15 @@ describe('FeedbackSummary', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Calls/FeedbackSummary.json'
     )(solution);
 
+    var values = {
+      StartDate: serialize.iso8601Date(moment.utc('2008-01-2', 'YYYY-MM-DD')),
+      EndDate: serialize.iso8601Date(moment.utc('2008-01-2', 'YYYY-MM-DD')),
+    }
+
     holodeck.assertHasRequest(new Request({
-      method: 'POST',
-      url: url
+        method: 'POST',
+        url: url,
+        data: values
     }));
   });
   it('should generate valid create response', function() {
@@ -68,7 +76,7 @@ describe('FeedbackSummary', function() {
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .calls
-                                  .feedbackSummaries.create();
+                                  .feedbackSummaries.create(moment.utc('2008-01-2', 'YYYY-MM-DD'), moment.utc('2008-01-2', 'YYYY-MM-DD'));
     promise = promise.then(function(response) {
       expect(response).toBeDefined();
     }, function() {
@@ -98,6 +106,7 @@ describe('FeedbackSummary', function() {
     var url = _.template(
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Calls/FeedbackSummary/<%= sid %>.json'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -162,6 +171,7 @@ describe('FeedbackSummary', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Calls/FeedbackSummary/<%= sid %>.json'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'DELETE',
       url: url
@@ -175,7 +185,7 @@ describe('FeedbackSummary', function() {
                                   .calls
                                   .feedbackSummaries('FSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
     promise = promise.then(function(response) {
-      expect(response).toBeDefined();
+      expect(response).toBe(true);
     }, function() {
       throw new Error('failed');
     });

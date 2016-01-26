@@ -4,7 +4,7 @@ var _ = require('lodash');
 var Holodeck = require('../../../../holodeck');
 var Request = require('../../../../../../lib/http/Request');
 var Response = require('../../../../../../lib/http/Response');
-var Twilio = require('../../../../../../lib').Twilio;
+var Twilio = require('../../../../../../lib');
 
 
 var client;
@@ -13,7 +13,7 @@ var holodeck;
 describe('ConnectApp', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('AC' + _.join(_.fill(new Array(32), 'a'), ''), 'AUTHTOKEN', holodeck);
+    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', holodeck);
   });
   it('should generate valid fetch request', function() {
     holodeck.mock(new Response(500, ''));
@@ -35,6 +35,7 @@ describe('ConnectApp', function() {
     var url = _.template(
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/ConnectApps/<%= sid %>.json'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -88,6 +89,7 @@ describe('ConnectApp', function() {
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/ConnectApps/<%= sid %>.json'
     )(solution);
 
+
     holodeck.assertHasRequest(new Request({
       method: 'POST',
       url: url
@@ -138,6 +140,7 @@ describe('ConnectApp', function() {
     var url = _.template(
       'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/ConnectApps.json'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',

@@ -4,7 +4,7 @@ var _ = require('lodash');
 var Holodeck = require('../../../../holodeck');
 var Request = require('../../../../../../lib/http/Request');
 var Response = require('../../../../../../lib/http/Response');
-var Twilio = require('../../../../../../lib').Twilio;
+var Twilio = require('../../../../../../lib');
 
 
 var client;
@@ -13,7 +13,7 @@ var holodeck;
 describe('Participant', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('AC' + _.join(_.fill(new Array(32), 'a'), ''), 'AUTHTOKEN', holodeck);
+    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', holodeck);
   });
   it('should generate valid list request', function() {
     holodeck.mock(new Response(500, ''));
@@ -34,6 +34,7 @@ describe('Participant', function() {
     var url = _.template(
       'https://conversations.twilio.com/v1/Conversations/<%= conversationSid %>/Participants'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -107,7 +108,7 @@ describe('Participant', function() {
     holodeck.mock(new Response(500, ''));
 
     var promise = client.conversations.v1.conversations('CVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .participants.create();
+                                         .participants.create('+123456789', '+987654321');
     promise = promise.then(function() {
       throw new Error('failed');
     }, function(error) {
@@ -123,9 +124,15 @@ describe('Participant', function() {
       'https://conversations.twilio.com/v1/Conversations/<%= conversationSid %>/Participants'
     )(solution);
 
+    var values = {
+      To: '+123456789',
+      From: '+987654321',
+    }
+
     holodeck.assertHasRequest(new Request({
-      method: 'POST',
-      url: url
+        method: 'POST',
+        url: url,
+        data: values
     }));
   });
   it('should generate valid create response', function() {
@@ -144,7 +151,7 @@ describe('Participant', function() {
     holodeck.mock(new Response(200, body));
 
     var promise = client.conversations.v1.conversations('CVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .participants.create();
+                                         .participants.create('+123456789', '+987654321');
     promise = promise.then(function(response) {
       expect(response).toBeDefined();
     }, function() {
@@ -173,6 +180,7 @@ describe('Participant', function() {
     var url = _.template(
       'https://conversations.twilio.com/v1/Conversations/<%= conversationSid %>/Participants/<%= sid %>'
     )(solution);
+
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
