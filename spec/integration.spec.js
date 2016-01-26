@@ -45,4 +45,9 @@ describe('twilio', function() {
     expect(client.account.calls('CA123').fetch).toBeTruthy();
     expect(client.calls('CA123').fetch).toBeTruthy();
   });
+
+  it('should provide each for interation', function() {
+    var client = new twilio.Twilio(accountSid, token);
+    expect(client.api.v2010.account.calls.each).toBeTruthy();
+  });
 });
