@@ -8,7 +8,7 @@ var twilio = new Twilio(accountSid, token);
 var promise = twilio.api.calls.each({
     pageSize: 1,
     callback: function(call) {
-      console.log(call.startTime);
+      console.log(call.price);
     }
 });
 
