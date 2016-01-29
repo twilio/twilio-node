@@ -25,17 +25,13 @@ describe('TaskQueue', function() {
     }, function(error) {
       expect(error.constructor).toBe(Error.prototype.constructor);
     });
-
     promise.done();
 
     var solution = {
       workspaceSid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
       sid: 'WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     };
-    var url = _.template(
-      'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/TaskQueues/<%= sid %>'
-    )(solution);
-
+    var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/TaskQueues/<%= sid %>')(solution);
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -43,7 +39,7 @@ describe('TaskQueue', function() {
     }));
   });
   it('should generate valid fetch response', function() {
-    var body = JSON.stringify({
+                    var body = JSON.stringify({
         'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'assignment_activity_name': '817ca1c5-3a05-11e5-9292-98e0d9a1eb73',
         'assignment_activity_sid': 'WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -63,7 +59,7 @@ describe('TaskQueue', function() {
         'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues/WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     });
-    holodeck.mock(new Response(200, body));
+                    holodeck.mock(new Response(200, body));
 
     var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                       .taskQueues('WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
@@ -85,17 +81,13 @@ describe('TaskQueue', function() {
     }, function(error) {
       expect(error.constructor).toBe(Error.prototype.constructor);
     });
-
     promise.done();
 
     var solution = {
       workspaceSid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
       sid: 'WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     };
-    var url = _.template(
-      'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/TaskQueues/<%= sid %>'
-    )(solution);
-
+    var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/TaskQueues/<%= sid %>')(solution);
 
     holodeck.assertHasRequest(new Request({
       method: 'POST',
@@ -103,7 +95,7 @@ describe('TaskQueue', function() {
     }));
   });
   it('should generate valid update response', function() {
-    var body = JSON.stringify({
+                    var body = JSON.stringify({
         'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'assignment_activity_name': '817ca1c5-3a05-11e5-9292-98e0d9a1eb73',
         'assignment_activity_sid': 'WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -123,7 +115,7 @@ describe('TaskQueue', function() {
         'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues/WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     });
-    holodeck.mock(new Response(200, body));
+                    holodeck.mock(new Response(200, body));
 
     var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                       .taskQueues('WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
@@ -145,16 +137,12 @@ describe('TaskQueue', function() {
     }, function(error) {
       expect(error.constructor).toBe(Error.prototype.constructor);
     });
-
     promise.done();
 
     var solution = {
       workspaceSid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     };
-    var url = _.template(
-      'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/TaskQueues'
-    )(solution);
-
+    var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/TaskQueues')(solution);
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -162,7 +150,7 @@ describe('TaskQueue', function() {
     }));
   });
   it('should generate valid read_full response', function() {
-    var body = JSON.stringify({
+                    var body = JSON.stringify({
         'meta': {
             'first_page_url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues?PageSize=50&Page=0',
             'key': 'task_queues',
@@ -195,7 +183,7 @@ describe('TaskQueue', function() {
             }
         ]
     });
-    holodeck.mock(new Response(200, body));
+                    holodeck.mock(new Response(200, body));
 
     var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                       .taskQueues.list();
@@ -208,7 +196,7 @@ describe('TaskQueue', function() {
     promise.done();
   });
   it('should generate valid read_empty response', function() {
-    var body = JSON.stringify({
+                    var body = JSON.stringify({
         'meta': {
             'first_page_url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues?PageSize=50&Page=0',
             'key': 'task_queues',
@@ -220,7 +208,7 @@ describe('TaskQueue', function() {
         },
         'task_queues': []
     });
-    holodeck.mock(new Response(200, body));
+                    holodeck.mock(new Response(200, body));
 
     var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                       .taskQueues.list();
@@ -235,29 +223,30 @@ describe('TaskQueue', function() {
   it('should generate valid create request', function() {
     holodeck.mock(new Response(500, ''));
 
+    var opts = {
+      friendlyName: 'friendlyName',
+      reservationActivitySid: 'WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+      assignmentActivitySid: 'WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+    };
     var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                      .taskQueues.create('friendlyName', 'WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+                                      .taskQueues.create(opts);
     promise = promise.then(function() {
       throw new Error('failed');
     }, function(error) {
       expect(error.constructor).toBe(Error.prototype.constructor);
     });
-
     promise.done();
 
     var solution = {
       workspaceSid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     };
-    var url = _.template(
-      'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/TaskQueues'
-    )(solution);
+    var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/TaskQueues')(solution);
 
     var values = {
       FriendlyName: 'friendlyName',
       ReservationActivitySid: 'WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
       AssignmentActivitySid: 'WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
     };
-
     holodeck.assertHasRequest(new Request({
         method: 'POST',
         url: url,
@@ -265,7 +254,7 @@ describe('TaskQueue', function() {
     }));
   });
   it('should generate valid create response', function() {
-    var body = JSON.stringify({
+                    var body = JSON.stringify({
         'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'assignment_activity_name': '817ca1c5-3a05-11e5-9292-98e0d9a1eb73',
         'assignment_activity_sid': 'WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -285,10 +274,15 @@ describe('TaskQueue', function() {
         'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues/WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     });
-    holodeck.mock(new Response(200, body));
+                    holodeck.mock(new Response(200, body));
 
+    var opts = {
+      friendlyName: 'friendlyName',
+      reservationActivitySid: 'WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+      assignmentActivitySid: 'WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+    };
     var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                      .taskQueues.create('friendlyName', 'WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+                                      .taskQueues.create(opts);
     promise = promise.then(function(response) {
       expect(response).toBeDefined();
     }, function() {
@@ -307,17 +301,13 @@ describe('TaskQueue', function() {
     }, function(error) {
       expect(error.constructor).toBe(Error.prototype.constructor);
     });
-
     promise.done();
 
     var solution = {
       workspaceSid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
       sid: 'WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     };
-    var url = _.template(
-      'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/TaskQueues/<%= sid %>'
-    )(solution);
-
+    var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/TaskQueues/<%= sid %>')(solution);
 
     holodeck.assertHasRequest(new Request({
       method: 'DELETE',

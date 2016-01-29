@@ -25,17 +25,13 @@ describe('ConnectApp', function() {
     }, function(error) {
       expect(error.constructor).toBe(Error.prototype.constructor);
     });
-
     promise.done();
 
     var solution = {
       accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
       sid: 'CNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     };
-    var url = _.template(
-      'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/ConnectApps/<%= sid %>.json'
-    )(solution);
-
+    var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/ConnectApps/<%= sid %>.json')(solution);
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -43,7 +39,7 @@ describe('ConnectApp', function() {
     }));
   });
   it('should generate valid fetch response', function() {
-    var body = JSON.stringify({
+                    var body = JSON.stringify({
         'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'authorize_redirect_url': 'http://example.com/redirect',
         'company_name': 'Twilio',
@@ -56,7 +52,7 @@ describe('ConnectApp', function() {
         'sid': 'CNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ConnectApps/CNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
     });
-    holodeck.mock(new Response(200, body));
+                    holodeck.mock(new Response(200, body));
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .connectApps('CNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
@@ -78,17 +74,13 @@ describe('ConnectApp', function() {
     }, function(error) {
       expect(error.constructor).toBe(Error.prototype.constructor);
     });
-
     promise.done();
 
     var solution = {
       accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
       sid: 'CNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     };
-    var url = _.template(
-      'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/ConnectApps/<%= sid %>.json'
-    )(solution);
-
+    var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/ConnectApps/<%= sid %>.json')(solution);
 
     holodeck.assertHasRequest(new Request({
       method: 'POST',
@@ -96,7 +88,7 @@ describe('ConnectApp', function() {
     }));
   });
   it('should generate valid update response', function() {
-    var body = JSON.stringify({
+                    var body = JSON.stringify({
         'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'authorize_redirect_url': 'http://example.com/redirect',
         'company_name': 'Twilio',
@@ -109,7 +101,7 @@ describe('ConnectApp', function() {
         'sid': 'CNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ConnectApps/CNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
     });
-    holodeck.mock(new Response(200, body));
+                    holodeck.mock(new Response(200, body));
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .connectApps('CNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
@@ -131,16 +123,12 @@ describe('ConnectApp', function() {
     }, function(error) {
       expect(error.constructor).toBe(Error.prototype.constructor);
     });
-
     promise.done();
 
     var solution = {
       accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     };
-    var url = _.template(
-      'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/ConnectApps.json'
-    )(solution);
-
+    var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/ConnectApps.json')(solution);
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -148,7 +136,7 @@ describe('ConnectApp', function() {
     }));
   });
   it('should generate valid read_full response', function() {
-    var body = JSON.stringify({
+                    var body = JSON.stringify({
         'connect_apps': [
             {
                 'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -176,7 +164,7 @@ describe('ConnectApp', function() {
         'total': 1,
         'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ConnectApps.json'
     });
-    holodeck.mock(new Response(200, body));
+                    holodeck.mock(new Response(200, body));
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .connectApps.list();
@@ -189,7 +177,7 @@ describe('ConnectApp', function() {
     promise.done();
   });
   it('should generate valid read_empty response', function() {
-    var body = JSON.stringify({
+                    var body = JSON.stringify({
         'connect_apps': [],
         'end': 0,
         'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ConnectApps.json?Page=0&PageSize=50',
@@ -203,7 +191,7 @@ describe('ConnectApp', function() {
         'total': 1,
         'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ConnectApps.json'
     });
-    holodeck.mock(new Response(200, body));
+                    holodeck.mock(new Response(200, body));
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .connectApps.list();

@@ -18,22 +18,27 @@ describe('Address', function() {
   it('should generate valid create request', function() {
     holodeck.mock(new Response(500, ''));
 
+    var opts = {
+      customerName: 'customerName',
+      street: 'street',
+      city: 'city',
+      region: 'region',
+      postalCode: 'postalCode',
+      isoCountry: 'US'
+    };
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .addresses.create('customerName', 'street', 'city', 'region', 'postalCode', 'US');
+                                  .addresses.create(opts);
     promise = promise.then(function() {
       throw new Error('failed');
     }, function(error) {
       expect(error.constructor).toBe(Error.prototype.constructor);
     });
-
     promise.done();
 
     var solution = {
       accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     };
-    var url = _.template(
-      'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Addresses.json'
-    )(solution);
+    var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Addresses.json')(solution);
 
     var values = {
       CustomerName: 'customerName',
@@ -43,7 +48,6 @@ describe('Address', function() {
       PostalCode: 'postalCode',
       IsoCountry: 'US',
     };
-
     holodeck.assertHasRequest(new Request({
         method: 'POST',
         url: url,
@@ -51,7 +55,7 @@ describe('Address', function() {
     }));
   });
   it('should generate valid create response', function() {
-    var body = JSON.stringify({
+                    var body = JSON.stringify({
         'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'city': 'SF',
         'customer_name': 'name',
@@ -65,10 +69,18 @@ describe('Address', function() {
         'street': '4th',
         'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses/ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
     });
-    holodeck.mock(new Response(200, body));
+                    holodeck.mock(new Response(200, body));
 
+    var opts = {
+      customerName: 'customerName',
+      street: 'street',
+      city: 'city',
+      region: 'region',
+      postalCode: 'postalCode',
+      isoCountry: 'US'
+    };
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .addresses.create('customerName', 'street', 'city', 'region', 'postalCode', 'US');
+                                  .addresses.create(opts);
     promise = promise.then(function(response) {
       expect(response).toBeDefined();
     }, function() {
@@ -87,17 +99,13 @@ describe('Address', function() {
     }, function(error) {
       expect(error.constructor).toBe(Error.prototype.constructor);
     });
-
     promise.done();
 
     var solution = {
       accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
       sid: 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     };
-    var url = _.template(
-      'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Addresses/<%= sid %>.json'
-    )(solution);
-
+    var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Addresses/<%= sid %>.json')(solution);
 
     holodeck.assertHasRequest(new Request({
       method: 'DELETE',
@@ -128,17 +136,13 @@ describe('Address', function() {
     }, function(error) {
       expect(error.constructor).toBe(Error.prototype.constructor);
     });
-
     promise.done();
 
     var solution = {
       accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
       sid: 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     };
-    var url = _.template(
-      'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Addresses/<%= sid %>.json'
-    )(solution);
-
+    var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Addresses/<%= sid %>.json')(solution);
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -146,7 +150,7 @@ describe('Address', function() {
     }));
   });
   it('should generate valid fetch response', function() {
-    var body = JSON.stringify({
+                    var body = JSON.stringify({
         'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'city': 'SF',
         'customer_name': 'name',
@@ -160,7 +164,7 @@ describe('Address', function() {
         'street': '4th',
         'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses/ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
     });
-    holodeck.mock(new Response(200, body));
+                    holodeck.mock(new Response(200, body));
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .addresses('ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
@@ -182,17 +186,13 @@ describe('Address', function() {
     }, function(error) {
       expect(error.constructor).toBe(Error.prototype.constructor);
     });
-
     promise.done();
 
     var solution = {
       accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
       sid: 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     };
-    var url = _.template(
-      'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Addresses/<%= sid %>.json'
-    )(solution);
-
+    var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Addresses/<%= sid %>.json')(solution);
 
     holodeck.assertHasRequest(new Request({
       method: 'POST',
@@ -200,7 +200,7 @@ describe('Address', function() {
     }));
   });
   it('should generate valid update response', function() {
-    var body = JSON.stringify({
+                    var body = JSON.stringify({
         'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'city': 'SF',
         'customer_name': 'name',
@@ -214,7 +214,7 @@ describe('Address', function() {
         'street': '4th',
         'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses/ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
     });
-    holodeck.mock(new Response(200, body));
+                    holodeck.mock(new Response(200, body));
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .addresses('ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
@@ -236,16 +236,12 @@ describe('Address', function() {
     }, function(error) {
       expect(error.constructor).toBe(Error.prototype.constructor);
     });
-
     promise.done();
 
     var solution = {
       accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     };
-    var url = _.template(
-      'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Addresses.json'
-    )(solution);
-
+    var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Addresses.json')(solution);
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -253,7 +249,7 @@ describe('Address', function() {
     }));
   });
   it('should generate valid read_full response', function() {
-    var body = JSON.stringify({
+                    var body = JSON.stringify({
         'addresses': [
             {
                 'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -282,7 +278,7 @@ describe('Address', function() {
         'total': 1,
         'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses.json?PageSize=50&Page=0'
     });
-    holodeck.mock(new Response(200, body));
+                    holodeck.mock(new Response(200, body));
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .addresses.list();
@@ -295,7 +291,7 @@ describe('Address', function() {
     promise.done();
   });
   it('should generate valid read_empty response', function() {
-    var body = JSON.stringify({
+                    var body = JSON.stringify({
         'addresses': [],
         'end': 0,
         'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses.json?PageSize=50&Page=0',
@@ -309,7 +305,7 @@ describe('Address', function() {
         'total': 1,
         'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses.json?PageSize=50&Page=0'
     });
-    holodeck.mock(new Response(200, body));
+                    holodeck.mock(new Response(200, body));
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .addresses.list();

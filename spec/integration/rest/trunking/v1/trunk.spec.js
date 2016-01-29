@@ -24,16 +24,12 @@ describe('Trunk', function() {
     }, function(error) {
       expect(error.constructor).toBe(Error.prototype.constructor);
     });
-
     promise.done();
 
     var solution = {
       sid: 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     };
-    var url = _.template(
-      'https://trunking.twilio.com/v1/Trunks/<%= sid %>'
-    )(solution);
-
+    var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= sid %>')(solution);
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -41,7 +37,7 @@ describe('Trunk', function() {
     }));
   });
   it('should generate valid fetch response', function() {
-    var body = JSON.stringify({
+                    var body = JSON.stringify({
         'sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'domain_name': 'test.pstn.twilio.com',
@@ -65,7 +61,7 @@ describe('Trunk', function() {
             'phone_numbers': 'http://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers'
         }
     });
-    holodeck.mock(new Response(200, body));
+                    holodeck.mock(new Response(200, body));
 
     var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
     promise = promise.then(function(response) {
@@ -85,16 +81,12 @@ describe('Trunk', function() {
     }, function(error) {
       expect(error.constructor).toBe(Error.prototype.constructor);
     });
-
     promise.done();
 
     var solution = {
       sid: 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     };
-    var url = _.template(
-      'https://trunking.twilio.com/v1/Trunks/<%= sid %>'
-    )(solution);
-
+    var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= sid %>')(solution);
 
     holodeck.assertHasRequest(new Request({
       method: 'DELETE',
@@ -123,14 +115,9 @@ describe('Trunk', function() {
     }, function(error) {
       expect(error.constructor).toBe(Error.prototype.constructor);
     });
-
     promise.done();
 
-    var solution = {};
-    var url = _.template(
-      'https://trunking.twilio.com/v1/Trunks'
-    )(solution);
-
+    var url = 'https://trunking.twilio.com/v1/Trunks';
 
     holodeck.assertHasRequest(new Request({
       method: 'POST',
@@ -138,7 +125,7 @@ describe('Trunk', function() {
     }));
   });
   it('should generate valid create response', function() {
-    var body = JSON.stringify({
+                    var body = JSON.stringify({
         'sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'domain_name': 'test.pstn.twilio.com',
@@ -162,7 +149,7 @@ describe('Trunk', function() {
             'phone_numbers': 'http://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers'
         }
     });
-    holodeck.mock(new Response(201, body));
+                    holodeck.mock(new Response(201, body));
 
     var promise = client.trunking.v1.trunks.create();
     promise = promise.then(function(response) {
@@ -182,14 +169,9 @@ describe('Trunk', function() {
     }, function(error) {
       expect(error.constructor).toBe(Error.prototype.constructor);
     });
-
     promise.done();
 
-    var solution = {};
-    var url = _.template(
-      'https://trunking.twilio.com/v1/Trunks'
-    )(solution);
-
+    var url = 'https://trunking.twilio.com/v1/Trunks';
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -197,7 +179,7 @@ describe('Trunk', function() {
     }));
   });
   it('should generate valid read_full response', function() {
-    var body = JSON.stringify({
+                    var body = JSON.stringify({
         'meta': {
             'first_page_url': 'https://trunking.twilio.com/v1/Trunks?PageSize=1&Page=0',
             'key': 'trunks',
@@ -234,7 +216,7 @@ describe('Trunk', function() {
             }
         ]
     });
-    holodeck.mock(new Response(200, body));
+                    holodeck.mock(new Response(200, body));
 
     var promise = client.trunking.v1.trunks.list();
     promise = promise.then(function(response) {
@@ -246,7 +228,7 @@ describe('Trunk', function() {
     promise.done();
   });
   it('should generate valid read_empty response', function() {
-    var body = JSON.stringify({
+                    var body = JSON.stringify({
         'meta': {
             'first_page_url': 'https://trunking.twilio.com/v1/Trunks?PageSize=1&Page=0',
             'key': 'trunks',
@@ -258,7 +240,7 @@ describe('Trunk', function() {
         },
         'trunks': []
     });
-    holodeck.mock(new Response(200, body));
+                    holodeck.mock(new Response(200, body));
 
     var promise = client.trunking.v1.trunks.list();
     promise = promise.then(function(response) {
@@ -278,16 +260,12 @@ describe('Trunk', function() {
     }, function(error) {
       expect(error.constructor).toBe(Error.prototype.constructor);
     });
-
     promise.done();
 
     var solution = {
       sid: 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     };
-    var url = _.template(
-      'https://trunking.twilio.com/v1/Trunks/<%= sid %>'
-    )(solution);
-
+    var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= sid %>')(solution);
 
     holodeck.assertHasRequest(new Request({
       method: 'POST',
@@ -295,7 +273,7 @@ describe('Trunk', function() {
     }));
   });
   it('should generate valid update response', function() {
-    var body = JSON.stringify({
+                    var body = JSON.stringify({
         'sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'domain_name': 'test.pstn.twilio.com',
@@ -319,7 +297,7 @@ describe('Trunk', function() {
             'phone_numbers': 'http://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers'
         }
     });
-    holodeck.mock(new Response(200, body));
+                    holodeck.mock(new Response(200, body));
 
     var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
     promise = promise.then(function(response) {

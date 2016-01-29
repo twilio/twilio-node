@@ -26,16 +26,12 @@ describe('Mobile', function() {
     }, function(error) {
       expect(error.constructor).toBe(Error.prototype.constructor);
     });
-
     promise.done();
 
     var solution = {
       ownerAccountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     };
-    var url = _.template(
-      'https://api.twilio.com/2010-04-01/Accounts/<%= ownerAccountSid %>/IncomingPhoneNumbers/Mobile.json'
-    )(solution);
-
+    var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= ownerAccountSid %>/IncomingPhoneNumbers/Mobile.json')(solution);
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -43,7 +39,7 @@ describe('Mobile', function() {
     }));
   });
   it('should generate valid read_full response', function() {
-    var body = JSON.stringify({
+                    var body = JSON.stringify({
         'end': 0,
         'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/Mobile.json?Page=0&PageSize=50',
         'incoming_phone_numbers': [
@@ -89,7 +85,7 @@ describe('Mobile', function() {
         'total': 1,
         'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/Mobile.json'
     });
-    holodeck.mock(new Response(200, body));
+                    holodeck.mock(new Response(200, body));
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .incomingPhoneNumbers
@@ -103,7 +99,7 @@ describe('Mobile', function() {
     promise.done();
   });
   it('should generate valid read_empty response', function() {
-    var body = JSON.stringify({
+                    var body = JSON.stringify({
         'end': 0,
         'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/Mobile.json?Page=0&PageSize=50',
         'incoming_phone_numbers': [],
@@ -117,7 +113,7 @@ describe('Mobile', function() {
         'total': 1,
         'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/Mobile.json'
     });
-    holodeck.mock(new Response(200, body));
+                    holodeck.mock(new Response(200, body));
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .incomingPhoneNumbers
@@ -133,28 +129,27 @@ describe('Mobile', function() {
   it('should generate valid create request', function() {
     holodeck.mock(new Response(500, ''));
 
+    var opts = {
+      phoneNumber: '+987654321'
+    };
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .incomingPhoneNumbers
-                                  .mobile.create('+987654321');
+                                  .mobile.create(opts);
     promise = promise.then(function() {
       throw new Error('failed');
     }, function(error) {
       expect(error.constructor).toBe(Error.prototype.constructor);
     });
-
     promise.done();
 
     var solution = {
       ownerAccountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     };
-    var url = _.template(
-      'https://api.twilio.com/2010-04-01/Accounts/<%= ownerAccountSid %>/IncomingPhoneNumbers/Mobile.json'
-    )(solution);
+    var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= ownerAccountSid %>/IncomingPhoneNumbers/Mobile.json')(solution);
 
     var values = {
       PhoneNumber: '+987654321',
     };
-
     holodeck.assertHasRequest(new Request({
         method: 'POST',
         url: url,
@@ -162,7 +157,7 @@ describe('Mobile', function() {
     }));
   });
   it('should generate valid create response', function() {
-    var body = JSON.stringify({
+                    var body = JSON.stringify({
         'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'address_requirements': 'none',
         'api_version': '2010-04-01',
@@ -193,11 +188,14 @@ describe('Mobile', function() {
         'voice_method': 'POST',
         'voice_url': null
     });
-    holodeck.mock(new Response(200, body));
+                    holodeck.mock(new Response(200, body));
 
+    var opts = {
+      phoneNumber: '+987654321'
+    };
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .incomingPhoneNumbers
-                                  .mobile.create('+987654321');
+                                  .mobile.create(opts);
     promise = promise.then(function(response) {
       expect(response).toBeDefined();
     }, function() {

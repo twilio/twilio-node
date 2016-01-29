@@ -25,14 +25,9 @@ describe('InProgress', function() {
     }, function(error) {
       expect(error.constructor).toBe(Error.prototype.constructor);
     });
-
     promise.done();
 
-    var solution = {};
-    var url = _.template(
-      'https://conversations.twilio.com/v1/Conversations/InProgress'
-    )(solution);
-
+    var url = 'https://conversations.twilio.com/v1/Conversations/InProgress';
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -40,7 +35,7 @@ describe('InProgress', function() {
     }));
   });
   it('should generate valid read_full response', function() {
-    var body = JSON.stringify({
+                    var body = JSON.stringify({
         'conversations': [
             {
                 'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -66,7 +61,7 @@ describe('InProgress', function() {
             'url': 'https://conversations.twilio.com/v1/Conversations/InProgress?PageSize=50&Page=0'
         }
     });
-    holodeck.mock(new Response(200, body));
+                    holodeck.mock(new Response(200, body));
 
     var promise = client.conversations.v1.conversations
                                          .inProgress.list();
@@ -79,7 +74,7 @@ describe('InProgress', function() {
     promise.done();
   });
   it('should generate valid read_empty response', function() {
-    var body = JSON.stringify({
+                    var body = JSON.stringify({
         'conversations': [],
         'meta': {
             'first_page_url': 'https://conversations.twilio.com/v1/Conversations/InProgress?PageSize=50&Page=0',
@@ -91,7 +86,7 @@ describe('InProgress', function() {
             'url': 'https://conversations.twilio.com/v1/Conversations/InProgress?PageSize=50&Page=0'
         }
     });
-    holodeck.mock(new Response(200, body));
+                    holodeck.mock(new Response(200, body));
 
     var promise = client.conversations.v1.conversations
                                          .inProgress.list();

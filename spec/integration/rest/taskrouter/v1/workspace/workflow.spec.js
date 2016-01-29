@@ -25,17 +25,13 @@ describe('Workflow', function() {
     }, function(error) {
       expect(error.constructor).toBe(Error.prototype.constructor);
     });
-
     promise.done();
 
     var solution = {
       workspaceSid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
       sid: 'WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     };
-    var url = _.template(
-      'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workflows/<%= sid %>'
-    )(solution);
-
+    var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workflows/<%= sid %>')(solution);
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -43,7 +39,7 @@ describe('Workflow', function() {
     }));
   });
   it('should generate valid fetch response', function() {
-    var body = JSON.stringify({
+                    var body = JSON.stringify({
         'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'assignment_callback_url': 'http://example.com',
         'configuration': 'task-routing:\\n  - filter: \\n      - 1 == 1\\n    target:\\n      - queue: WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\n        set-priority: 0\\n',
@@ -57,7 +53,7 @@ describe('Workflow', function() {
         'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workflows/WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     });
-    holodeck.mock(new Response(200, body));
+                    holodeck.mock(new Response(200, body));
 
     var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                       .workflows('WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
@@ -79,17 +75,13 @@ describe('Workflow', function() {
     }, function(error) {
       expect(error.constructor).toBe(Error.prototype.constructor);
     });
-
     promise.done();
 
     var solution = {
       workspaceSid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
       sid: 'WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     };
-    var url = _.template(
-      'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workflows/<%= sid %>'
-    )(solution);
-
+    var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workflows/<%= sid %>')(solution);
 
     holodeck.assertHasRequest(new Request({
       method: 'POST',
@@ -97,7 +89,7 @@ describe('Workflow', function() {
     }));
   });
   it('should generate valid update response', function() {
-    var body = JSON.stringify({
+                    var body = JSON.stringify({
         'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'assignment_callback_url': 'http://example.com',
         'configuration': 'task-routing:\\n  - filter: \\n      - 1 == 1\\n    target:\\n      - queue: WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\n        set-priority: 0\\n',
@@ -111,7 +103,7 @@ describe('Workflow', function() {
         'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workflows/WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     });
-    holodeck.mock(new Response(200, body));
+                    holodeck.mock(new Response(200, body));
 
     var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                       .workflows('WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
@@ -133,17 +125,13 @@ describe('Workflow', function() {
     }, function(error) {
       expect(error.constructor).toBe(Error.prototype.constructor);
     });
-
     promise.done();
 
     var solution = {
       workspaceSid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
       sid: 'WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     };
-    var url = _.template(
-      'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workflows/<%= sid %>'
-    )(solution);
-
+    var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workflows/<%= sid %>')(solution);
 
     holodeck.assertHasRequest(new Request({
       method: 'DELETE',
@@ -174,16 +162,12 @@ describe('Workflow', function() {
     }, function(error) {
       expect(error.constructor).toBe(Error.prototype.constructor);
     });
-
     promise.done();
 
     var solution = {
       workspaceSid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     };
-    var url = _.template(
-      'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workflows'
-    )(solution);
-
+    var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workflows')(solution);
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -191,7 +175,7 @@ describe('Workflow', function() {
     }));
   });
   it('should generate valid read_full response', function() {
-    var body = JSON.stringify({
+                    var body = JSON.stringify({
         'meta': {
             'first_page_url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workflows?PageSize=50&Page=0',
             'key': 'workflows',
@@ -219,7 +203,7 @@ describe('Workflow', function() {
             }
         ]
     });
-    holodeck.mock(new Response(200, body));
+                    holodeck.mock(new Response(200, body));
 
     var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                       .workflows.list();
@@ -232,7 +216,7 @@ describe('Workflow', function() {
     promise.done();
   });
   it('should generate valid read_empty response', function() {
-    var body = JSON.stringify({
+                    var body = JSON.stringify({
         'meta': {
             'first_page_url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workflows?PageSize=50&Page=0',
             'key': 'workflows',
@@ -245,7 +229,7 @@ describe('Workflow', function() {
         },
         'workflows': []
     });
-    holodeck.mock(new Response(200, body));
+                    holodeck.mock(new Response(200, body));
 
     var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                       .workflows.list();
@@ -260,29 +244,30 @@ describe('Workflow', function() {
   it('should generate valid create request', function() {
     holodeck.mock(new Response(500, ''));
 
+    var opts = {
+      friendlyName: 'friendlyName',
+      configuration: 'configuration',
+      assignmentCallbackUrl: '/example'
+    };
     var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                      .workflows.create('friendlyName', 'configuration', '/example');
+                                      .workflows.create(opts);
     promise = promise.then(function() {
       throw new Error('failed');
     }, function(error) {
       expect(error.constructor).toBe(Error.prototype.constructor);
     });
-
     promise.done();
 
     var solution = {
       workspaceSid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     };
-    var url = _.template(
-      'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workflows'
-    )(solution);
+    var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workflows')(solution);
 
     var values = {
       FriendlyName: 'friendlyName',
       Configuration: 'configuration',
       AssignmentCallbackUrl: '/example',
     };
-
     holodeck.assertHasRequest(new Request({
         method: 'POST',
         url: url,
@@ -290,7 +275,7 @@ describe('Workflow', function() {
     }));
   });
   it('should generate valid create response', function() {
-    var body = JSON.stringify({
+                    var body = JSON.stringify({
         'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'assignment_callback_url': 'http://example.com',
         'configuration': 'task-routing:\\n  - filter: \\n      - 1 == 1\\n    target:\\n      - queue: WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\n        set-priority: 0\\n',
@@ -304,10 +289,15 @@ describe('Workflow', function() {
         'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workflows/WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     });
-    holodeck.mock(new Response(200, body));
+                    holodeck.mock(new Response(200, body));
 
+    var opts = {
+      friendlyName: 'friendlyName',
+      configuration: 'configuration',
+      assignmentCallbackUrl: '/example'
+    };
     var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                      .workflows.create('friendlyName', 'configuration', '/example');
+                                      .workflows.create(opts);
     promise = promise.then(function(response) {
       expect(response).toBeDefined();
     }, function() {

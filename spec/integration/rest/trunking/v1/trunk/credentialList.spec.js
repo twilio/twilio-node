@@ -25,17 +25,13 @@ describe('CredentialList', function() {
     }, function(error) {
       expect(error.constructor).toBe(Error.prototype.constructor);
     });
-
     promise.done();
 
     var solution = {
       trunkSid: 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
       sid: 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     };
-    var url = _.template(
-      'https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/CredentialLists/<%= sid %>'
-    )(solution);
-
+    var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/CredentialLists/<%= sid %>')(solution);
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -43,7 +39,7 @@ describe('CredentialList', function() {
     }));
   });
   it('should generate valid fetch response', function() {
-    var body = JSON.stringify({
+                    var body = JSON.stringify({
         'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'trunk_sid': 'TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'date_created': 'Wed, 11 Sep 2013 17:51:38 -0000',
@@ -52,7 +48,7 @@ describe('CredentialList', function() {
         'sid': 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'url': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialLists/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     });
-    holodeck.mock(new Response(200, body));
+                    holodeck.mock(new Response(200, body));
 
     var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .credentialsLists('CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
@@ -74,17 +70,13 @@ describe('CredentialList', function() {
     }, function(error) {
       expect(error.constructor).toBe(Error.prototype.constructor);
     });
-
     promise.done();
 
     var solution = {
       trunkSid: 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
       sid: 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     };
-    var url = _.template(
-      'https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/CredentialLists/<%= sid %>'
-    )(solution);
-
+    var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/CredentialLists/<%= sid %>')(solution);
 
     holodeck.assertHasRequest(new Request({
       method: 'DELETE',
@@ -108,27 +100,26 @@ describe('CredentialList', function() {
   it('should generate valid create request', function() {
     holodeck.mock(new Response(500, ''));
 
+    var opts = {
+      credentialListSid: 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+    };
     var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .credentialsLists.create('CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+                                    .credentialsLists.create(opts);
     promise = promise.then(function() {
       throw new Error('failed');
     }, function(error) {
       expect(error.constructor).toBe(Error.prototype.constructor);
     });
-
     promise.done();
 
     var solution = {
       trunkSid: 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     };
-    var url = _.template(
-      'https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/CredentialLists'
-    )(solution);
+    var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/CredentialLists')(solution);
 
     var values = {
       CredentialListSid: 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
     };
-
     holodeck.assertHasRequest(new Request({
         method: 'POST',
         url: url,
@@ -136,7 +127,7 @@ describe('CredentialList', function() {
     }));
   });
   it('should generate valid create response', function() {
-    var body = JSON.stringify({
+                    var body = JSON.stringify({
         'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'trunk_sid': 'TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'date_created': 'Wed, 11 Sep 2013 17:51:38 -0000',
@@ -145,10 +136,13 @@ describe('CredentialList', function() {
         'sid': 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'url': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialLists/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     });
-    holodeck.mock(new Response(200, body));
+                    holodeck.mock(new Response(200, body));
 
+    var opts = {
+      credentialListSid: 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+    };
     var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .credentialsLists.create('CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+                                    .credentialsLists.create(opts);
     promise = promise.then(function(response) {
       expect(response).toBeDefined();
     }, function() {
@@ -167,16 +161,12 @@ describe('CredentialList', function() {
     }, function(error) {
       expect(error.constructor).toBe(Error.prototype.constructor);
     });
-
     promise.done();
 
     var solution = {
       trunkSid: 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     };
-    var url = _.template(
-      'https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/CredentialLists'
-    )(solution);
-
+    var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/CredentialLists')(solution);
 
     holodeck.assertHasRequest(new Request({
       method: 'GET',
@@ -184,7 +174,7 @@ describe('CredentialList', function() {
     }));
   });
   it('should generate valid read_full response', function() {
-    var body = JSON.stringify({
+                    var body = JSON.stringify({
         'credential_lists': [
             {
                 'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -206,7 +196,7 @@ describe('CredentialList', function() {
             'key': 'credential_lists'
         }
     });
-    holodeck.mock(new Response(200, body));
+                    holodeck.mock(new Response(200, body));
 
     var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .credentialsLists.list();
@@ -219,7 +209,7 @@ describe('CredentialList', function() {
     promise.done();
   });
   it('should generate valid read_empty response', function() {
-    var body = JSON.stringify({
+                    var body = JSON.stringify({
         'credential_lists': [],
         'meta': {
             'page': 0,
@@ -231,7 +221,7 @@ describe('CredentialList', function() {
             'key': 'credential_lists'
         }
     });
-    holodeck.mock(new Response(200, body));
+                    holodeck.mock(new Response(200, body));
 
     var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .credentialsLists.list();

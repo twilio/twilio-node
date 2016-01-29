@@ -12,7 +12,6 @@ var promise = twilio.calls.each({
     }
 });
 
-
 promise.then(function(data) {
   console.log('success');
   // console.log(data)
