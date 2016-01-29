@@ -5,4 +5,4 @@ install:
 	npm install ./
 
 test:
-	jasmine-node spec
+	npm run test
