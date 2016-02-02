@@ -9,13 +9,13 @@ describe('serialize date tests', function() {
   });
 
   it('should serialize a date time to date', function() {
-    var value = moment.utc('2016-01-15T03:04:05Z', 'YYYY-MM-DD[T]HH:mm:ss[Z]');
+    var value = new Date(Date.UTC(2016, 0, 15, 3, 4 , 5));
     var actual = serialize.iso8601Date(value);
     expect(actual).toEqual('2016-01-15');
   });
 
   it('should serialize a date', function() {
-    var value = moment.utc('2016-01-15', 'YYYY-MM-DD');
+    var value = new Date(Date.UTC(2016, 0, 15));
     var actual = serialize.iso8601Date(value);
     expect(actual).toEqual('2016-01-15');
   });
@@ -23,6 +23,11 @@ describe('serialize date tests', function() {
   it('should be unable to serialize string date', function() {
     var actual = serialize.iso8601Date('2016-01-15');
     expect(actual).toEqual('2016-01-15');
+  });
+
+  it('should be unable to serialize string', function() {
+    var actual = serialize.iso8601Date('hello');
+    expect(actual).toEqual('hello');
   });
 
 });
@@ -35,13 +40,13 @@ describe('serialize date time tests', function() {
   });
 
   it('should serialize a date time to date time', function() {
-    var value = moment.utc('2016-01-15T03:04:05Z', 'YYYY-MM-DD[T]HH:mm:ss[Z]');
+    var value = new Date(Date.UTC(2016, 0, 15, 3, 4 , 5));
     var actual = serialize.iso8601DateTime(value);
     expect(actual).toEqual('2016-01-15T03:04:05Z');
   });
 
   it('should serialize a date to date time', function() {
-    var value = moment.utc('2016-01-15', 'YYYY-MM-DD');
+    var value = new Date(Date.UTC(2016, 0, 15));
     var actual = serialize.iso8601DateTime(value);
     expect(actual).toEqual('2016-01-15T00:00:00Z');
   });
@@ -49,6 +54,11 @@ describe('serialize date time tests', function() {
   it('should be unable to serialize string date', function() {
     var actual = serialize.iso8601DateTime('2016-01-15T03:04:05Z');
     expect(actual).toEqual('2016-01-15T03:04:05Z');
+  });
+
+  it('should be unable to serialize string', function() {
+    var actual = serialize.iso8601Date('hello');
+    expect(actual).toEqual('hello');
   });
 
 });

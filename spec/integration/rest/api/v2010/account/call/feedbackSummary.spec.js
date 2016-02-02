@@ -1,7 +1,6 @@
 'use strict';
 
 var _ = require('lodash');
-var moment = require('moment');
 var Holodeck = require('../../../../../holodeck');
 var Request = require('../../../../../../../lib/http/Request');
 var Response = require('../../../../../../../lib/http/Response');
@@ -21,8 +20,8 @@ describe('FeedbackSummary', function() {
     holodeck.mock(new Response(500, ''));
 
     var opts = {
-      startDate: moment.utc('2008-01-2', 'YYYY-MM-DD'),
-      endDate: moment.utc('2008-01-2', 'YYYY-MM-DD')
+      startDate: new Date(Date.UTC(2008, 0, 2)),
+      endDate: new Date(Date.UTC(2008, 0, 2))
     };
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .calls
@@ -40,8 +39,8 @@ describe('FeedbackSummary', function() {
     var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Calls/FeedbackSummary.json')(solution);
 
     var values = {
-      StartDate: serialize.iso8601Date(moment.utc('2008-01-2', 'YYYY-MM-DD')),
-      EndDate: serialize.iso8601Date(moment.utc('2008-01-2', 'YYYY-MM-DD')),
+      StartDate: serialize.iso8601Date(new Date(Date.UTC(2008, 0, 2))),
+      EndDate: serialize.iso8601Date(new Date(Date.UTC(2008, 0, 2))),
     };
     holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -75,8 +74,8 @@ describe('FeedbackSummary', function() {
                     holodeck.mock(new Response(200, body));
 
     var opts = {
-      startDate: moment.utc('2008-01-2', 'YYYY-MM-DD'),
-      endDate: moment.utc('2008-01-2', 'YYYY-MM-DD')
+      startDate: new Date(Date.UTC(2008, 0, 2)),
+      endDate: new Date(Date.UTC(2008, 0, 2))
     };
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .calls

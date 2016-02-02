@@ -5,7 +5,7 @@ describe('deserialize date tests', function() {
 
   it('should parse date', function() {
     var actual = deserialize.iso8601Date('2016-01-15');
-    var expected = moment.utc('2016-01-15', 'YYYY-MM-DD');
+    var expected = new Date(Date.UTC(2016, 0, 15));
     expect(actual).toEqual(expected);
   });
 
@@ -20,7 +20,7 @@ describe('deserialize date time tests', function() {
 
   it('should parse date time', function() {
     var actual = deserialize.iso8601DateTime('2016-01-15T03:04:05Z');
-    var expected = moment.utc('2016-01-15T03:04:05Z', 'YYYY-MM-DD[T]HH:mm:ss[Z]');
+    var expected = new Date(Date.UTC(2016, 0, 15, 3, 4, 5));
     expect(actual).toEqual(expected);
   });
 
@@ -35,7 +35,7 @@ describe('deserialize rfc2822 date time tests', function() {
 
   it('should parse rfc 2822 date time', function() {
     var actual = deserialize.rfc2822DateTime('Mon, 28 Dec 2015 21:04:44 +0000');
-    var expected = moment.utc('Mon, 28 Dec 2015 21:04:44 +0000', 'ddd, DD MMM YYYY HH:mm:ss [+0000]');
+    var expected = new Date(Date.UTC(2015, 11, 28, 21, 4, 44));
     expect(actual).toEqual(expected);
   });
 
