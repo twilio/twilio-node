@@ -6,15 +6,25 @@ var token = process.env.TWILIO_AUTH_TOKEN;
 
 var twilio = new Twilio(accountSid, token);
 
+var i = 0;
 // Callback as second parameter
-twilio.calls.each({
-  pageSize: 1,
-}, function(call) {
-  console.log(call.sid);
-});
+var promise = twilio.calls.each({
+  pageSize: 7,
+  callback: function(call, done) {
+    console.log(call.sid);
+    i++;
+    if (i == 10) {
+      done();
+    }
+  },
+  done: function(error) {
+    console.log('je suis fini');
+    console.log(error);
+  }
+})
 
 // Callback as first parameter
-twilio.calls.each(function(call) {
+twilio.calls.each(function(call, done) {
   console.log(call.sid);
 });
 
@@ -118,22 +128,18 @@ promise.then(function(messages) {
   })
 });
 
-var sid1 = 'SM15436cadd7e346649aea7557c5aaa9cb';
-var sid2 = 'SM6536a83f84854b22bf9979a776c30814';
+// var sid1 = 'SM15436cadd7e346649aea7557c5aaa9cb';
+// var sid2 = 'SM6536a83f84854b22bf9979a776c30814';
 
-// Delete message using callback
-twilio.messages(sid1).remove(function(err, result) {
-  console.log('Deleting message using callback');
-  console.log(result);
-});
+// // Delete message using callback
+// twilio.messages(sid1).remove(function(err, result) {
+//   console.log('Deleting message using callback');
+//   console.log(result);
+// });
 
-// Delete message using promise
-promise = twilio.messages(sid2).remove();
-promise.then(function(result) {
-  console.log('Deleting message using promise');
-  console.log(result);
-});
-
-
-
-
+// // Delete message using promise
+// promise = twilio.messages(sid2).remove();
+// promise.then(function(result) {
+//   console.log('Deleting message using promise');
+//   console.log(result);
+// });
