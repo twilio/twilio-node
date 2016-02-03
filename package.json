@@ -28,13 +28,15 @@
     "express": "3.x",
     "jasmine-node": "1.14.5",
     "jshint": "2.8.x",
-    "jscs": "2.6.x"
+    "jscs": "2.6.x",
+    "jsdoc": "3.4.x"
   },
   "scripts": {
     "test": "jasmine-node --captureExceptions spec",
     "jshint": "jshint lib/rest/** lib/base/** lib/http/** spec/integration/**",
     "jscs": "jscs -c .jscs lib/rest/** lib/base/** lib/http/**",
-    "check": "npm run jshint; npm run jscs"
+    "check": "npm run jshint; npm run jscs",
+    "jsdoc": "jsdoc -r lib"
   },
   "main": "./lib",
   "engines": {

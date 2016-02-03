@@ -31,3 +31,6 @@ spec/coverage
 config.js
 .idea
 
+### jsdoc dir ###
+out/
+
