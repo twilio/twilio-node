@@ -37,7 +37,7 @@ describe('Alert', function() {
     }));
   });
   it('should generate valid fetch response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'alert_text': 'sourceComponent=14100&httpResponse=500&url=https%3A%2F%2F2Fv1%2Fsms%2Ftwilio&ErrorCode=11200&LogLevel=ERROR&Msg=Internal+Server+Error&EmailNotification=false',
         'api_version': '2008-08-01',
@@ -56,7 +56,7 @@ describe('Alert', function() {
         'sid': 'NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'url': 'https://monitor.twilio.com/v1/Alerts/NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.monitor.v1.alerts('NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
     promise = promise.then(function(response) {
@@ -120,7 +120,7 @@ describe('Alert', function() {
     }));
   });
   it('should generate valid read_full response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'alerts': [
             {
                 'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -149,7 +149,7 @@ describe('Alert', function() {
             'url': 'https://monitor.twilio.com/v1/Alerts?PageSize=1&Page=0'
         }
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.monitor.v1.alerts.list();
     promise = promise.then(function(response) {
@@ -161,7 +161,7 @@ describe('Alert', function() {
     promise.done();
   });
   it('should generate valid read_empty response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'alerts': [],
         'meta': {
             'first_page_url': 'https://monitor.twilio.com/v1/Alerts?PageSize=1&Page=0',
@@ -173,7 +173,7 @@ describe('Alert', function() {
             'url': 'https://monitor.twilio.com/v1/Alerts?PageSize=1&Page=0'
         }
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.monitor.v1.alerts.list();
     promise = promise.then(function(response) {

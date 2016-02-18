@@ -39,7 +39,7 @@ describe('WorkersStatistics', function() {
     }));
   });
   it('should generate valid fetch response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'cumulative': {
             'activity_durations': [
@@ -139,7 +139,7 @@ describe('WorkersStatistics', function() {
         },
         'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                       .workers

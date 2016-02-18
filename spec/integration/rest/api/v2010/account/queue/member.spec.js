@@ -41,14 +41,14 @@ describe('Member', function() {
     }));
   });
   it('should generate valid fetch response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'call_sid': 'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'date_enqueued': 'Tue, 07 Aug 2012 22:57:41 +0000',
         'position': 1,
         'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queues/QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
         'wait_time': 143
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .queues('QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
@@ -96,14 +96,14 @@ describe('Member', function() {
     }));
   });
   it('should generate valid update response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'call_sid': 'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'date_enqueued': 'Tue, 07 Aug 2012 22:57:41 +0000',
         'position': 1,
         'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queues/QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
         'wait_time': 143
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var opts = {
       url: 'https://example.com',
@@ -145,7 +145,7 @@ describe('Member', function() {
     }));
   });
   it('should generate valid read_full response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'end': 0,
         'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queues/QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members.json?Page=0&PageSize=50',
         'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queues/QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members.json?Page=0&PageSize=50',
@@ -167,7 +167,7 @@ describe('Member', function() {
         'total': 1,
         'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queues/QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members.json'
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .queues('QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
@@ -181,7 +181,7 @@ describe('Member', function() {
     promise.done();
   });
   it('should generate valid read_empty response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'end': 0,
         'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queues/QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members.json?Page=0&PageSize=50',
         'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queues/QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members.json?Page=0&PageSize=50',
@@ -195,7 +195,7 @@ describe('Member', function() {
         'total': 1,
         'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queues/QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members.json'
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .queues('QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')

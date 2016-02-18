@@ -39,7 +39,7 @@ describe('TaskQueue', function() {
     }));
   });
   it('should generate valid fetch response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'assignment_activity_name': '817ca1c5-3a05-11e5-9292-98e0d9a1eb73',
         'assignment_activity_sid': 'WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -59,7 +59,7 @@ describe('TaskQueue', function() {
         'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues/WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                       .taskQueues('WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
@@ -95,7 +95,7 @@ describe('TaskQueue', function() {
     }));
   });
   it('should generate valid update response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'assignment_activity_name': '817ca1c5-3a05-11e5-9292-98e0d9a1eb73',
         'assignment_activity_sid': 'WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -115,7 +115,7 @@ describe('TaskQueue', function() {
         'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues/WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                       .taskQueues('WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
@@ -150,7 +150,7 @@ describe('TaskQueue', function() {
     }));
   });
   it('should generate valid read_full response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'meta': {
             'first_page_url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues?PageSize=50&Page=0',
             'key': 'task_queues',
@@ -183,7 +183,7 @@ describe('TaskQueue', function() {
             }
         ]
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                       .taskQueues.list();
@@ -196,7 +196,7 @@ describe('TaskQueue', function() {
     promise.done();
   });
   it('should generate valid read_empty response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'meta': {
             'first_page_url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues?PageSize=50&Page=0',
             'key': 'task_queues',
@@ -208,7 +208,7 @@ describe('TaskQueue', function() {
         },
         'task_queues': []
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                       .taskQueues.list();
@@ -254,7 +254,7 @@ describe('TaskQueue', function() {
     }));
   });
   it('should generate valid create response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'assignment_activity_name': '817ca1c5-3a05-11e5-9292-98e0d9a1eb73',
         'assignment_activity_sid': 'WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -274,7 +274,7 @@ describe('TaskQueue', function() {
         'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues/WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var opts = {
       friendlyName: 'friendlyName',

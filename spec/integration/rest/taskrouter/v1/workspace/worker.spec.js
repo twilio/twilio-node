@@ -38,7 +38,7 @@ describe('Worker', function() {
     }));
   });
   it('should generate valid read_full response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'meta': {
             'first_page_url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers?PageSize=50&Page=0',
             'key': 'workers',
@@ -69,7 +69,7 @@ describe('Worker', function() {
             }
         ]
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                       .workers.list();
@@ -82,7 +82,7 @@ describe('Worker', function() {
     promise.done();
   });
   it('should generate valid read_empty response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'meta': {
             'first_page_url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers?PageSize=50&Page=0',
             'key': 'workers',
@@ -94,7 +94,7 @@ describe('Worker', function() {
         },
         'workers': []
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                       .workers.list();
@@ -136,7 +136,7 @@ describe('Worker', function() {
     }));
   });
   it('should generate valid create response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'activity_name': 'available',
         'activity_sid': 'WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -150,7 +150,7 @@ describe('Worker', function() {
         'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var opts = {
       friendlyName: 'friendlyName'
@@ -189,7 +189,7 @@ describe('Worker', function() {
     }));
   });
   it('should generate valid fetch response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'activity_name': 'available',
         'activity_sid': 'WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -203,7 +203,7 @@ describe('Worker', function() {
         'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                       .workers('WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
@@ -239,7 +239,7 @@ describe('Worker', function() {
     }));
   });
   it('should generate valid update response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'activity_name': 'available',
         'activity_sid': 'WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -253,7 +253,7 @@ describe('Worker', function() {
         'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                       .workers('WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();

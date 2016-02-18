@@ -40,7 +40,7 @@ describe('Mobile', function() {
     }));
   });
   it('should generate valid read_full response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'available_phone_numbers': [
             {
                 'address_requirements': 'none',
@@ -63,7 +63,7 @@ describe('Mobile', function() {
         ],
         'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/Mobile.json?PageSize=1'
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .availablePhoneNumbers('US')
@@ -77,11 +77,11 @@ describe('Mobile', function() {
     promise.done();
   });
   it('should generate valid read_empty response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'available_phone_numbers': [],
         'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/Mobile.json?PageSize=1'
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .availablePhoneNumbers('US')

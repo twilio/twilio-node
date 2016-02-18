@@ -48,7 +48,7 @@ describe('SmsMessage', function() {
     }));
   });
   it('should generate valid create response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'api_version': '2008-08-01',
         'body': 'n',
@@ -64,7 +64,7 @@ describe('SmsMessage', function() {
         'to': '+141586753096',
         'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SMS/Messages/SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var opts = {
       to: '+123456789',
@@ -145,7 +145,7 @@ describe('SmsMessage', function() {
     }));
   });
   it('should generate valid fetch response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'api_version': '2008-08-01',
         'body': 'n',
@@ -161,7 +161,7 @@ describe('SmsMessage', function() {
         'to': '+141586753096',
         'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SMS/Messages/SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .sms
@@ -198,7 +198,7 @@ describe('SmsMessage', function() {
     }));
   });
   it('should generate valid read_full response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'end': 0,
         'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SMS/Messages.json?PageSize=1&Page=0',
         'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SMS/Messages.json?PageSize=1&Page=119771',
@@ -230,7 +230,7 @@ describe('SmsMessage', function() {
         'total': 119772,
         'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SMS/Messages.json?PageSize=1&Page=0'
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .sms
@@ -244,7 +244,7 @@ describe('SmsMessage', function() {
     promise.done();
   });
   it('should generate valid read_empty response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'end': 0,
         'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SMS/Messages.json?PageSize=1&Page=0',
         'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SMS/Messages.json?PageSize=1&Page=119771',
@@ -258,7 +258,7 @@ describe('SmsMessage', function() {
         'total': 119772,
         'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SMS/Messages.json?PageSize=1&Page=0'
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .sms
@@ -296,7 +296,7 @@ describe('SmsMessage', function() {
     }));
   });
   it('should generate valid update response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'api_version': '2008-08-01',
         'body': 'n',
@@ -312,7 +312,7 @@ describe('SmsMessage', function() {
         'to': '+141586753096',
         'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SMS/Messages/SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .sms

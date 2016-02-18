@@ -39,7 +39,7 @@ describe('CredentialList', function() {
     }));
   });
   it('should generate valid read_full response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'credential_lists': [
             {
                 'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -60,7 +60,7 @@ describe('CredentialList', function() {
         'previous_page_uri': null,
         'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/CredentialLists.json?PageSize=50&Page=0'
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .sip
@@ -74,7 +74,7 @@ describe('CredentialList', function() {
     promise.done();
   });
   it('should generate valid read_empty response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'credential_lists': [],
         'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/CredentialLists.json?PageSize=50&Page=0',
         'next_page_uri': null,
@@ -83,7 +83,7 @@ describe('CredentialList', function() {
         'previous_page_uri': null,
         'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/CredentialLists.json?PageSize=50&Page=0'
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .sip
@@ -127,7 +127,7 @@ describe('CredentialList', function() {
     }));
   });
   it('should generate valid create response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'date_created': 'Wed, 11 Sep 2013 17:51:38 -0000',
         'date_updated': 'Wed, 11 Sep 2013 17:51:38 -0000',
@@ -138,7 +138,7 @@ describe('CredentialList', function() {
         },
         'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/CredentialLists/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var opts = {
       friendlyName: 'friendlyName'
@@ -179,7 +179,7 @@ describe('CredentialList', function() {
     }));
   });
   it('should generate valid fetch response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'date_created': 'Wed, 11 Sep 2013 17:51:38 -0000',
         'date_updated': 'Wed, 11 Sep 2013 17:51:38 -0000',
@@ -190,7 +190,7 @@ describe('CredentialList', function() {
         },
         'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/CredentialLists/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .sip
@@ -235,7 +235,7 @@ describe('CredentialList', function() {
     }));
   });
   it('should generate valid update response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'date_created': 'Wed, 11 Sep 2013 17:51:38 -0000',
         'date_updated': 'Wed, 11 Sep 2013 17:51:38 -0000',
@@ -246,7 +246,7 @@ describe('CredentialList', function() {
         },
         'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/CredentialLists/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var opts = {
       friendlyName: 'friendlyName'

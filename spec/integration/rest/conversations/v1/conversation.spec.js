@@ -37,7 +37,7 @@ describe('Conversation', function() {
     }));
   });
   it('should generate valid fetch response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'date_created': '2015-05-12T21:13:15Z',
         'duration': 60,
@@ -50,7 +50,7 @@ describe('Conversation', function() {
         'status': 'created',
         'url': 'https://conversations.twilio.com/v1/Conversations/CVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.conversations.v1.conversations('CVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
     promise = promise.then(function(response) {

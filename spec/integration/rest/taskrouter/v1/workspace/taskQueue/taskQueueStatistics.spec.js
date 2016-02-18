@@ -40,7 +40,7 @@ describe('TaskQueueStatistics', function() {
     }));
   });
   it('should generate valid fetch response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'cumulative': {
             'avg_task_acceptance_time': 0.0,
@@ -104,7 +104,7 @@ describe('TaskQueueStatistics', function() {
         'task_queue_sid': 'WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                       .taskQueues('WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')

@@ -37,7 +37,7 @@ describe('PhoneNumber', function() {
     }));
   });
   it('should generate valid fetch response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'carrier': {
             'error_code': null,
             'mobile_country_code': '310',
@@ -50,7 +50,7 @@ describe('PhoneNumber', function() {
         'phone_number': '+15108675309',
         'url': 'https://lookups.twilio.com/v1/PhoneNumbers/phone_number'
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.lookups.v1.phoneNumbers('+987654321').fetch();
     promise = promise.then(function(response) {

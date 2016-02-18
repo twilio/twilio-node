@@ -35,7 +35,7 @@ describe('Country', function() {
     }));
   });
   it('should generate valid read_full response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'countries': [
             {
                 'country': 'Andorra',
@@ -53,7 +53,7 @@ describe('Country', function() {
             'url': 'https://pricing.twilio.com/v1/Voice/Countries?PageSize=1&Page=0'
         }
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.pricing.v1.voice
                                    .countries.list();
@@ -66,7 +66,7 @@ describe('Country', function() {
     promise.done();
   });
   it('should generate valid read_empty response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'countries': [],
         'meta': {
             'first_page_url': 'https://pricing.twilio.com/v1/Voice/Countries?PageSize=1&Page=0',
@@ -78,7 +78,7 @@ describe('Country', function() {
             'url': 'https://pricing.twilio.com/v1/Voice/Countries?PageSize=1&Page=0'
         }
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.pricing.v1.voice
                                    .countries.list();
@@ -113,7 +113,7 @@ describe('Country', function() {
     }));
   });
   it('should generate valid fetch response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'country': 'Australia',
         'inbound_call_prices': [
             {
@@ -269,7 +269,7 @@ describe('Country', function() {
         'price_unit': 'USD',
         'url': 'https://pricing.twilio.com/v1/Voice/Countries/US'
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.pricing.v1.voice
                                    .countries('US').fetch();

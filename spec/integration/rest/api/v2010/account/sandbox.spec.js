@@ -38,7 +38,7 @@ describe('Sandbox', function() {
     }));
   });
   it('should generate valid fetch response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'application_sid': 'APaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'api_version': '2008-08-01',
@@ -54,7 +54,7 @@ describe('Sandbox', function() {
         'voice_method': 'POST',
         'voice_url': 'http://www.digg.com'
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .sandbox().fetch();
@@ -89,7 +89,7 @@ describe('Sandbox', function() {
     }));
   });
   it('should generate valid update response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'application_sid': 'APaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'api_version': '2008-08-01',
@@ -105,7 +105,7 @@ describe('Sandbox', function() {
         'voice_method': 'POST',
         'voice_url': 'http://www.digg.com'
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .sandbox().update();

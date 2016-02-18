@@ -38,7 +38,7 @@ describe('Participant', function() {
     }));
   });
   it('should generate valid read_full response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'meta': {
             'first_page_url': 'https://conversations.twilio.com/v1/Conversations/CVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants?PageSize=50&Page=0',
             'key': 'participants',
@@ -63,7 +63,7 @@ describe('Participant', function() {
             }
         ]
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.conversations.v1.conversations('CVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                          .participants.list();
@@ -76,7 +76,7 @@ describe('Participant', function() {
     promise.done();
   });
   it('should generate valid read_empty response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'meta': {
             'first_page_url': 'https://conversations.twilio.com/v1/Conversations/CVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants?PageSize=50&Page=0',
             'key': 'participants',
@@ -88,7 +88,7 @@ describe('Participant', function() {
         },
         'participants': []
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.conversations.v1.conversations('CVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                          .participants.list();
@@ -132,7 +132,7 @@ describe('Participant', function() {
     }));
   });
   it('should generate valid create response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'address': 'torkel2@ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.endpoint.twilio.com',
         'conversation_sid': 'CVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -144,7 +144,7 @@ describe('Participant', function() {
         'status': 'disconnected',
         'url': 'https://conversations.twilio.com/v1/Conversations/CVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var opts = {
       to: '+123456789',
@@ -184,7 +184,7 @@ describe('Participant', function() {
     }));
   });
   it('should generate valid fetch response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'address': 'torkel2@ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.endpoint.twilio.com',
         'conversation_sid': 'CVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -196,7 +196,7 @@ describe('Participant', function() {
         'status': 'disconnected',
         'url': 'https://conversations.twilio.com/v1/Conversations/CVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.conversations.v1.conversations('CVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                          .participants('PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();

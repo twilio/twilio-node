@@ -38,7 +38,7 @@ describe('Number', function() {
     }));
   });
   it('should generate valid fetch response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'country': 'United States',
         'inbound_call_price': {
             'base_price': null,
@@ -54,7 +54,7 @@ describe('Number', function() {
         'price_unit': 'USD',
         'url': 'https://pricing.twilio.com/v1/Voice/Numbers/+987654321'
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.pricing.v1.voice
                                    .numbers('+987654321').fetch();

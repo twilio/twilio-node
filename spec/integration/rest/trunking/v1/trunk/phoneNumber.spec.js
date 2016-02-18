@@ -39,7 +39,7 @@ describe('PhoneNumber', function() {
     }));
   });
   it('should generate valid fetch response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'sid': 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'date_created': '2010-12-10T17:27:34Z',
         'date_updated': '2015-10-09T11:36:32Z',
@@ -73,7 +73,7 @@ describe('PhoneNumber', function() {
             'phone_number': 'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
         }
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .phoneNumbers('PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
@@ -152,7 +152,7 @@ describe('PhoneNumber', function() {
     }));
   });
   it('should generate valid create response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'sid': 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'date_created': '2010-12-10T17:27:34Z',
         'date_updated': '2015-10-09T11:36:32Z',
@@ -186,7 +186,7 @@ describe('PhoneNumber', function() {
             'phone_number': 'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
         }
     });
-                    holodeck.mock(new Response(201, body));
+    holodeck.mock(new Response(201, body));
 
     var opts = {
       phoneNumberSid: 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
@@ -224,7 +224,7 @@ describe('PhoneNumber', function() {
     }));
   });
   it('should generate valid read_full response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'meta': {
             'first_page_url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers?PageSize=1&Page=0',
             'key': 'phone_numbers',
@@ -271,7 +271,7 @@ describe('PhoneNumber', function() {
             }
         ]
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .phoneNumbers.list();
@@ -284,7 +284,7 @@ describe('PhoneNumber', function() {
     promise.done();
   });
   it('should generate valid read_empty response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'meta': {
             'first_page_url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers?PageSize=1&Page=0',
             'key': 'phone_numbers',
@@ -296,7 +296,7 @@ describe('PhoneNumber', function() {
         },
         'phone_numbers': []
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .phoneNumbers.list();

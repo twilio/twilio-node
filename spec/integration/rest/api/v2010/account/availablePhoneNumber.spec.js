@@ -38,7 +38,7 @@ describe('AvailablePhoneNumberCountry', function() {
     }));
   });
   it('should generate valid read_full response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'countries': [
             {
                 'beta': false,
@@ -62,7 +62,7 @@ describe('AvailablePhoneNumberCountry', function() {
         'total': 1,
         'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers.json'
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .availablePhoneNumbers.list();
@@ -75,7 +75,7 @@ describe('AvailablePhoneNumberCountry', function() {
     promise.done();
   });
   it('should generate valid read_empty response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'countries': [],
         'end': 1,
         'first_page_uri': null,
@@ -89,7 +89,7 @@ describe('AvailablePhoneNumberCountry', function() {
         'total': 1,
         'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers.json'
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .availablePhoneNumbers.list();
@@ -125,7 +125,7 @@ describe('AvailablePhoneNumberCountry', function() {
     }));
   });
   it('should generate valid fetch response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'beta': null,
         'country': 'United States',
         'country_code': 'US',
@@ -135,7 +135,7 @@ describe('AvailablePhoneNumberCountry', function() {
         },
         'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US.json'
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .availablePhoneNumbers('US').fetch();

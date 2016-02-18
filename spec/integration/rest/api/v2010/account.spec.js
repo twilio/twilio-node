@@ -34,7 +34,7 @@ describe('Account', function() {
     }));
   });
   it('should generate valid create response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'auth_token': 'AUTHTOKEN',
         'date_created': 'Sun, 15 Mar 2009 02:08:47 +0000',
         'date_updated': 'Wed, 25 Aug 2010 01:30:09 +0000',
@@ -57,7 +57,7 @@ describe('Account', function() {
         'type': 'Full',
         'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.api.v2010.accounts.create();
     promise = promise.then(function(response) {
@@ -90,7 +90,7 @@ describe('Account', function() {
     }));
   });
   it('should generate valid fetch response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'auth_token': 'AUTHTOKEN',
         'date_created': 'Sun, 15 Mar 2009 02:08:47 +0000',
         'date_updated': 'Wed, 25 Aug 2010 01:30:09 +0000',
@@ -113,7 +113,7 @@ describe('Account', function() {
         'type': 'Full',
         'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
     promise = promise.then(function(response) {
@@ -143,7 +143,7 @@ describe('Account', function() {
     }));
   });
   it('should generate valid read_full response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'accounts': [
             {
                 'auth_token': 'foobar',
@@ -189,7 +189,7 @@ describe('Account', function() {
         'total': 5,
         'uri': '/2010-04-01/Accounts.json?PageSize=1'
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.api.v2010.accounts.list();
     promise = promise.then(function(response) {
@@ -201,7 +201,7 @@ describe('Account', function() {
     promise.done();
   });
   it('should generate valid read_empty response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'accounts': [],
         'end': 0,
         'first_page_uri': '/2010-04-01/Accounts.json?PageSize=1&Page=0',
@@ -215,7 +215,7 @@ describe('Account', function() {
         'total': 5,
         'uri': '/2010-04-01/Accounts.json?PageSize=1'
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.api.v2010.accounts.list();
     promise = promise.then(function(response) {
@@ -248,7 +248,7 @@ describe('Account', function() {
     }));
   });
   it('should generate valid update response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'auth_token': 'AUTHTOKEN',
         'date_created': 'Sun, 15 Mar 2009 02:08:47 +0000',
         'date_updated': 'Wed, 25 Aug 2010 01:30:09 +0000',
@@ -271,7 +271,7 @@ describe('Account', function() {
         'type': 'Full',
         'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
     promise = promise.then(function(response) {

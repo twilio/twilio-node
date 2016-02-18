@@ -39,7 +39,7 @@ describe('OriginationUrl', function() {
     }));
   });
   it('should generate valid fetch response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'weight': 1,
         'date_updated': '2015-01-02T11:23:45Z',
         'enabled': true,
@@ -52,7 +52,7 @@ describe('OriginationUrl', function() {
         'trunk_sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls/OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .originationUrls('OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
@@ -139,7 +139,7 @@ describe('OriginationUrl', function() {
     }));
   });
   it('should generate valid create response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'weight': 1,
         'date_updated': '2015-01-02T11:23:45Z',
         'enabled': true,
@@ -152,7 +152,7 @@ describe('OriginationUrl', function() {
         'trunk_sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls/OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     });
-                    holodeck.mock(new Response(201, body));
+    holodeck.mock(new Response(201, body));
 
     var opts = {
       weight: 1,
@@ -194,7 +194,7 @@ describe('OriginationUrl', function() {
     }));
   });
   it('should generate valid read_full response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'meta': {
             'first_page_url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls?PageSize=1&Page=0',
             'key': 'origination_urls',
@@ -220,7 +220,7 @@ describe('OriginationUrl', function() {
             }
         ]
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .originationUrls.list();
@@ -233,7 +233,7 @@ describe('OriginationUrl', function() {
     promise.done();
   });
   it('should generate valid read_empty response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'meta': {
             'first_page_url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls?PageSize=1&Page=0',
             'key': 'origination_urls',
@@ -245,7 +245,7 @@ describe('OriginationUrl', function() {
         },
         'origination_urls': []
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .originationUrls.list();
@@ -281,7 +281,7 @@ describe('OriginationUrl', function() {
     }));
   });
   it('should generate valid update response', function() {
-                    var body = JSON.stringify({
+    var body = JSON.stringify({
         'weight': 2,
         'date_updated': '2015-01-02T11:23:45Z',
         'enabled': false,
@@ -294,7 +294,7 @@ describe('OriginationUrl', function() {
         'trunk_sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls/OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     });
-                    holodeck.mock(new Response(200, body));
+    holodeck.mock(new Response(200, body));
 
     var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .originationUrls('OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
