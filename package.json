@@ -36,7 +36,7 @@
     "jshint": "jshint lib/rest/** lib/base/** lib/http/** spec/integration/**",
     "jscs": "jscs -c .jscs lib/rest/** lib/base/** lib/http/**",
     "check": "npm run jshint; npm run jscs",
-    "jsdoc": "jsdoc -r lib"
+    "jsdoc": "jsdoc -r lib -d docs"
   },
   "main": "./lib",
   "engines": {
