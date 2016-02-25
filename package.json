@@ -14,7 +14,7 @@
     "url": "https://github.com/twilio/twilio-node.git"
   },
   "dependencies": {
-    "request": "2.55.x",
+    "request": "2.69.x",
     "underscore": "1.x",
     "jsonwebtoken": "5.4.x",
     "jwt-simple": "0.1.x",
