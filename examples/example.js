@@ -1,52 +1,129 @@
-//require the Twilio module and create a REST client
-var client = require('../lib')('ACCOUNT_SID', 'AUTH_TOKEN');
+var _ = require('lodash');
+var Twilio = require('./lib');
 
-//Send an text message
-client.sendMessage({
+var accountSid = process.env.TWILIO_ACCOUNT_SID;
+var token = process.env.TWILIO_AUTH_TOKEN;
 
-    to: '+16515556677', // Any number Twilio can deliver to
-    from: '+14506667788', // A number you bought from Twilio and can use for outbound communication
-    body: 'word to your mother.' // body of the SMS message
+var twilio = new Twilio(accountSid, token);
 
-}, function(err, responseData) { //this function is executed when a response is received from Twilio
-
-    if (!err) { // "err" is an error received during the request, if any
-
-        // "responseData" is a JavaScript object containing data received from Twilio.
-        // A sample response from sending an SMS message is here (click "JSON" to see how the data appears in JavaScript):
-        // http://www.twilio.com/docs/api/rest/sending-sms#example-1
-
-        console.log(responseData.from); // outputs "+14506667788"
-        console.log(responseData.body); // outputs "word to your mother."
-
+var i = 0;
+// Callback as second parameter
+var promise = twilio.calls.each({
+  pageSize: 7,
+  callback: function(call, done) {
+    console.log(call.sid);
+    i++;
+    if (i == 10) {
+      done();
     }
+  },
+  done: function(error) {
+    console.log('je suis fini');
+    console.log(error);
+  }
+})
 
+// Callback as first parameter
+twilio.calls.each(function(call, done) {
+  console.log(call.sid);
 });
 
-//Send a message with content (MMS)
-client.messages.post({
+var from = process.env.FROM_NUMBER;
+var to = process.env.TO_NUMBER;
 
-    to: '+16515556677', // Any number Twilio can deliver to
-    from: '+14506667788', // A number you bought from Twilio and can use for outbound communication
-    body: 'Kind sir, won\'t you instruct me how to douglas?',
-    mediaUrl: 'http://cdn.memegenerator.co/images/200x/42.jpg'
+// Send message using callback
+twilio.messages.create({
+  from: from,
+  to: to,
+  body: 'create using callback'
+}, function(err, result) {
+  console.log('Created message using callback');
+  console.log(result.sid);
+})
 
-}, function (err, responseData) {
-
-    console.log(responseData);
-
+// Send message using promise
+var promise = twilio.messages.create({
+  from: from,
+  to: to,
+  body: 'create using promises'
+});
+promise.then(function(message) {
+  console.log('Created message using promises');
+  console.log(message.sid);
 });
 
-//Place a phone call, and respond with TwiML instructions from the given URL
-client.makeCall({
 
-    to: '+16515556677', // Any number Twilio can call
-    from: '+14506667788', // A number you bought from Twilio and can use for outbound communication
-    url: 'http://www.example.com/twiml.php' // A URL that produces an XML document (TwiML) which contains instructions for the call
+// Create sip trunk using callback as first parameter
+twilio.trunking.v1.trunks.create(function(err, result) {
+  console.log('Created default trunk');
+  console.log(result.sid);
+});
 
-}, function(err, responseData) {
+// Create sip trunk using callback as second parameter
+twilio.trunking.v1.trunks.create({
+  friendlyName: 'sip trunking'
+}, function(err, result) {
+  console.log('Created trunk with friendly name');
+  console.log(result.sid);
+  console.log(result.friendlyName);
+});
 
-    //executed when the call has been initiated.
-    console.log(responseData.from); // outputs "+14506667788"
+promise = twilio.trunking.v1.trunks.create({
+  friendlyName: 'promise trunking'
+});
+promise.then(function(trunk) {
+  console.log('Created trunk with friendly name and promises');
+  console.log(trunk.sid);
+  console.log(trunk.friendlyName);
+});
 
+var trunkSid = 'TK7e37e59861c14bb80dde245cfaad5522';
+
+// Fetch trunk sid using callback
+twilio.trunking.v1.trunks(trunkSid).fetch(function(err, result) {
+  console.log('Fetch trunk using callback');
+  console.log(result.sid);
+});
+
+// Fetch trunk using promise
+promise = twilio.trunking.v1.trunks(trunkSid).fetch();
+promise.then(function(trunk) {
+  console.log('Fetch trunk using promise');
+  console.log(trunk.sid);
+});
+
+// Update trunk using callback
+twilio.trunking.v1.trunks(trunkSid).update({
+  friendlyName: 'callback trunk'
+}, function(err, result) {
+  console.log('Updated using callbacks');
+  console.log(result.sid);
+  console.log(result.friendlyName);
+});
+
+// Update trunk using promise
+promise = twilio.trunking.v1.trunks(trunkSid).update({
+  friendlyName: 'promise trunk'
+});
+promise.then(function(trunk) {
+  console.log('Updated trunk with friendly name and promises');
+  console.log(trunk.sid);
+  console.log(trunk.friendlyName);
+});
+
+// List messages using callbacks
+twilio.messages.list(function(err, messages) {
+  console.log('Listing messages using callbacks');
+  _.each(messages, function(message) {
+    console.log(message.sid);
+  })
+});
+
+// List mesages using promises
+promise = twilio.messages.list();
+promise.then(function(messages) {
+  console.log('Listing messages using promises');
+  _.each(messages, function(message) {
+    console.log(message.sid);
+  })
 });
