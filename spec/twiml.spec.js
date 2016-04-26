@@ -113,7 +113,6 @@ describe('The TwiML Response Object', function () {
 
     it('TwiML nodes that are not supported by the parent should be undefined', function() {
         var resp = new twilio.TwimlResponse();
-        expect(resp.conference).toBeUndefined();
 
         resp.dial({
             timeout:30
@@ -218,6 +217,37 @@ describe('The TwiML Response Object', function () {
                 '<Enqueue>',
                 '<Task priority="10" timeout="30">{&quot;selected_language&quot;:&quot;en&quot;}</Task>',
                 '</Enqueue>',
+                '</Response>'
+            ].join('');
+
+        expect(xml).toBe(test);
+    });
+
+    it('should allow a conference enqueue Task', function() {
+        var resp = new twilio.TwimlResponse();
+
+        var arr = {selected_language:"en"};
+        var json = JSON.stringify(arr);
+
+        resp.dial({
+            action:'http://example.com/something.php'
+        }, function() {
+            this.conference('abc', {timeout: '10'}, function(){
+                this.task(json, {
+                    priority:'10',
+                    timeout:'30'});
+            });
+        });
+
+        var xml = resp.toString(),
+            test = [
+                '<?xml version="1.0" encoding="UTF-8"?>',
+                '<Response>',
+                '<Dial action="http://example.com/something.php">',
+                '<Conference timeout="10">abc',
+                '<Task priority="10" timeout="30">{&quot;selected_language&quot;:&quot;en&quot;}</Task>',
+                '</Conference>',
+                '</Dial>',
                 '</Response>'
             ].join('');
 
