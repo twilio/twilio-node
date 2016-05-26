@@ -188,7 +188,7 @@ describe('Trigger', function() {
       var opts = {
         callbackUrl: 'https://example.com',
         triggerValue: 'triggerValue',
-        usageCategory: 'calleridlookups'
+        usageCategory: 'authy-authentications'
       };
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .usage
@@ -208,7 +208,7 @@ describe('Trigger', function() {
       var values = {
         CallbackUrl: 'https://example.com',
         TriggerValue: 'triggerValue',
-        UsageCategory: 'calleridlookups',
+        UsageCategory: 'authy-authentications',
       };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
@@ -243,7 +243,7 @@ describe('Trigger', function() {
       var opts = {
         callbackUrl: 'https://example.com',
         triggerValue: 'triggerValue',
-        usageCategory: 'calleridlookups'
+        usageCategory: 'authy-authentications'
       };
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .usage

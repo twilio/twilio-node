@@ -19,7 +19,7 @@ describe('Credential', function() {
     function() {
       holodeck.mock(new Response(500, ''));
 
-      var promise = client.ipMessaging.v1.credentials.list();
+      var promise = client.notifications.v1.credentials.list();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -27,7 +27,7 @@ describe('Credential', function() {
       });
       promise.done();
 
-      var url = 'https://ip-messaging.twilio.com/v1/Credentials';
+      var url = 'https://notify.twilio.com/v1/Credentials';
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -47,15 +47,15 @@ describe('Credential', function() {
                   'sandbox': 'False',
                   'date_created': '2015-10-07T17:50:01Z',
                   'date_updated': '2015-10-07T17:50:01Z',
-                  'url': 'https://ip-messaging.twilio.com/v1/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'url': 'https://notifications.twilio.com/v1/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ],
           'meta': {
               'page': 0,
               'page_size': 1,
-              'first_page_url': 'https://ip-messaging.twilio.com/v1/Credentials?PageSize=1&Page=0',
+              'first_page_url': 'https://notifications.twilio.com/v1/Credentials?PageSize=1&Page=0',
               'previous_page_url': null,
-              'url': 'https://ip-messaging.twilio.com/v1/Credentials?PageSize=1&Page=0',
+              'url': 'https://notifications.twilio.com/v1/Credentials?PageSize=1&Page=0',
               'next_page_url': null,
               'key': 'credentials'
           }
@@ -63,7 +63,7 @@ describe('Credential', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.ipMessaging.v1.credentials.list();
+      var promise = client.notifications.v1.credentials.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -80,9 +80,9 @@ describe('Credential', function() {
           'meta': {
               'page': 0,
               'page_size': 1,
-              'first_page_url': 'https://ip-messaging.twilio.com/v1/Credentials?PageSize=1&Page=0',
+              'first_page_url': 'https://notifications.twilio.com/v1/Credentials?PageSize=1&Page=0',
               'previous_page_url': null,
-              'url': 'https://ip-messaging.twilio.com/v1/Credentials?PageSize=1&Page=0',
+              'url': 'https://notifications.twilio.com/v1/Credentials?PageSize=1&Page=0',
               'next_page_url': null,
               'key': 'credentials'
           }
@@ -90,7 +90,7 @@ describe('Credential', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.ipMessaging.v1.credentials.list();
+      var promise = client.notifications.v1.credentials.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -108,7 +108,7 @@ describe('Credential', function() {
         friendlyName: 'friendlyName',
         type: 'gcm'
       };
-      var promise = client.ipMessaging.v1.credentials.create(opts);
+      var promise = client.notifications.v1.credentials.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -116,7 +116,7 @@ describe('Credential', function() {
       });
       promise.done();
 
-      var url = 'https://ip-messaging.twilio.com/v1/Credentials';
+      var url = 'https://notify.twilio.com/v1/Credentials';
 
       var values = {
         FriendlyName: 'friendlyName',
@@ -139,7 +139,7 @@ describe('Credential', function() {
           'sandbox': 'False',
           'date_created': '2015-10-07T17:50:01Z',
           'date_updated': '2015-10-07T17:50:01Z',
-          'url': 'https://ip-messaging.twilio.com/v1/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'url': 'https://notifications.twilio.com/v1/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 
       holodeck.mock(new Response(201, body));
@@ -148,7 +148,7 @@ describe('Credential', function() {
         friendlyName: 'friendlyName',
         type: 'gcm'
       };
-      var promise = client.ipMessaging.v1.credentials.create(opts);
+      var promise = client.notifications.v1.credentials.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -162,7 +162,7 @@ describe('Credential', function() {
     function() {
       holodeck.mock(new Response(500, ''));
 
-      var promise = client.ipMessaging.v1.credentials('CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.notifications.v1.credentials('CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -173,7 +173,7 @@ describe('Credential', function() {
       var solution = {
         sid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
-      var url = _.template('https://ip-messaging.twilio.com/v1/Credentials/<%= sid %>')(solution);
+      var url = _.template('https://notify.twilio.com/v1/Credentials/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -191,12 +191,12 @@ describe('Credential', function() {
           'sandbox': 'False',
           'date_created': '2015-10-07T17:50:01Z',
           'date_updated': '2015-10-07T17:50:01Z',
-          'url': 'https://ip-messaging.twilio.com/v1/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'url': 'https://notifications.twilio.com/v1/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.ipMessaging.v1.credentials('CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.notifications.v1.credentials('CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -214,7 +214,7 @@ describe('Credential', function() {
         friendlyName: 'friendlyName',
         type: 'gcm'
       };
-      var promise = client.ipMessaging.v1.credentials('CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update(opts);
+      var promise = client.notifications.v1.credentials('CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update(opts);
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -225,7 +225,7 @@ describe('Credential', function() {
       var solution = {
         sid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
-      var url = _.template('https://ip-messaging.twilio.com/v1/Credentials/<%= sid %>')(solution);
+      var url = _.template('https://notify.twilio.com/v1/Credentials/<%= sid %>')(solution);
 
       var values = {
         FriendlyName: 'friendlyName',
@@ -248,7 +248,7 @@ describe('Credential', function() {
           'sandbox': 'False',
           'date_created': '2015-10-07T17:50:01Z',
           'date_updated': '2015-10-07T17:50:01Z',
-          'url': 'https://ip-messaging.twilio.com/v1/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'url': 'https://notifications.twilio.com/v1/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 
       holodeck.mock(new Response(200, body));
@@ -257,7 +257,7 @@ describe('Credential', function() {
         friendlyName: 'friendlyName',
         type: 'gcm'
       };
-      var promise = client.ipMessaging.v1.credentials('CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update(opts);
+      var promise = client.notifications.v1.credentials('CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -271,7 +271,7 @@ describe('Credential', function() {
     function() {
       holodeck.mock(new Response(500, ''));
 
-      var promise = client.ipMessaging.v1.credentials('CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.notifications.v1.credentials('CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -282,7 +282,7 @@ describe('Credential', function() {
       var solution = {
         sid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
-      var url = _.template('https://ip-messaging.twilio.com/v1/Credentials/<%= sid %>')(solution);
+      var url = _.template('https://notify.twilio.com/v1/Credentials/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
@@ -296,7 +296,7 @@ describe('Credential', function() {
 
       holodeck.mock(new Response(204, body));
 
-      var promise = client.ipMessaging.v1.credentials('CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.notifications.v1.credentials('CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
       }, function() {
