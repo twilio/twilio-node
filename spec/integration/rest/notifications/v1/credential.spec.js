@@ -27,7 +27,7 @@ describe('Credential', function() {
       });
       promise.done();
 
-      var url = 'https://notify.twilio.com/v1/Credentials';
+      var url = 'https://notifications.twilio.com/v1/Credentials';
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -116,7 +116,7 @@ describe('Credential', function() {
       });
       promise.done();
 
-      var url = 'https://notify.twilio.com/v1/Credentials';
+      var url = 'https://notifications.twilio.com/v1/Credentials';
 
       var values = {
         FriendlyName: 'friendlyName',
@@ -173,7 +173,7 @@ describe('Credential', function() {
       var solution = {
         sid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
-      var url = _.template('https://notify.twilio.com/v1/Credentials/<%= sid %>')(solution);
+      var url = _.template('https://notifications.twilio.com/v1/Credentials/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -225,7 +225,7 @@ describe('Credential', function() {
       var solution = {
         sid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
-      var url = _.template('https://notify.twilio.com/v1/Credentials/<%= sid %>')(solution);
+      var url = _.template('https://notifications.twilio.com/v1/Credentials/<%= sid %>')(solution);
 
       var values = {
         FriendlyName: 'friendlyName',
@@ -282,7 +282,7 @@ describe('Credential', function() {
       var solution = {
         sid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
-      var url = _.template('https://notify.twilio.com/v1/Credentials/<%= sid %>')(solution);
+      var url = _.template('https://notifications.twilio.com/v1/Credentials/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
