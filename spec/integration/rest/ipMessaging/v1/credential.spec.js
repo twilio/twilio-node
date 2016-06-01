@@ -56,7 +56,7 @@ describe('Credential', function() {
               'first_page_url': 'https://ip-messaging.twilio.com/v1/Credentials?PageSize=1&Page=0',
               'previous_page_url': null,
               'url': 'https://ip-messaging.twilio.com/v1/Credentials?PageSize=1&Page=0',
-              'next_page_url': 'https://ip-messaging.twilio.com/v1/Credentials?PageSize=1&Page=1&PageToken=PTMDAwMTQ0NDI0MDIwMTE3MjoxOjE%3D',
+              'next_page_url': null,
               'key': 'credentials'
           }
       });

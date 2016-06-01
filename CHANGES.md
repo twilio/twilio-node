@@ -1,6 +1,13 @@
 twilio-node changelog
 =====================
 
+Version 3.0.0-rc.5
+-------------
+
+Release May 26, 2016
+
+- Add wireless preview
+
 Version 3.0.0-rc.3
 -------------
 
