@@ -62,3 +62,57 @@ describe('serialize date time tests', function() {
   });
 
 });
+
+describe('serialize prefixed collapsible map', function() {
+
+  it('should return {} for undefined', function() {
+    var actual = serialize.prefixedCollapsibleMap(undefined, 'Prefix');
+    expect(actual).toEqual({});
+  });
+
+  it('should return {} for string', function() {
+    var actual = serialize.prefixedCollapsibleMap('foo', 'Prefix');
+    expect(actual).toEqual({});
+  });
+
+  it('should return {} for a list', function() {
+    var actual = serialize.prefixedCollapsibleMap([], 'Prefix');
+    expect(actual).toEqual({});
+  });
+
+  it('should serialize a single key', function() {
+    var actual = serialize.prefixedCollapsibleMap({
+      foo: 'bar'
+    }, 'Prefix');
+    expect(actual).toEqual({
+      'Prefix.foo': 'bar'
+    });
+  });
+
+  it('should serialize a nested key', function() {
+    var actual = serialize.prefixedCollapsibleMap({
+      foo: {
+        bar: 'baz'
+      }
+    }, 'Prefix');
+    expect(actual).toEqual({
+      'Prefix.foo.bar': 'baz'
+    });
+  });
+
+  it('should serialize multiple keys', function() {
+    var actual = serialize.prefixedCollapsibleMap({
+      watson: {
+        language: 'en',
+        alice: 'bob'
+      },
+      foo: 'bar'
+    }, 'Prefix');
+    expect(actual).toEqual({
+      'Prefix.watson.language': 'en',
+      'Prefix.watson.alice': 'bob',
+      'Prefix.foo': 'bar'
+    });
+  });
+
+});
