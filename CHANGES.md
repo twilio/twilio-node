@@ -1,6 +1,13 @@
 twilio-node changelog
 =====================
 
+Version 3.0.0-rc.7
+-------------
+
+Release June 9, 2016
+
+- Add messaging feedback
+
 Version 3.0.0-rc.5
 -------------
 
