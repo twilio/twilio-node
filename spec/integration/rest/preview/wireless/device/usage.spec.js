@@ -29,7 +29,7 @@ describe('Usage', function() {
       promise.done();
 
       var solution = {
-        deviceSid: 'DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        deviceSid: 'deviceSid'
       };
       var url = _.template('https://preview.twilio.com/wireless/Devices/<%= deviceSid %>/Usage')(solution);
 
