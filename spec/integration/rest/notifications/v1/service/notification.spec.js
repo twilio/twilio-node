@@ -58,7 +58,8 @@ describe('Notification', function() {
           'action': null,
           'data': null,
           'apn': null,
-          'gcm': null
+          'gcm': null,
+          'facebook_messenger': null
       });
 
       holodeck.mock(new Response(201, body));
