@@ -1,6 +1,13 @@
 twilio-node changelog
 =====================
 
+Version 3.0.0-rc.8
+-------------
+
+Release July 8, 2016
+
+- Add SMS and Facebook Messenger for Notify
+
 Version 3.0.0-rc.7
 -------------
 
