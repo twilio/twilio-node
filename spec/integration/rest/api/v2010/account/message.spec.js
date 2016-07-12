@@ -20,8 +20,7 @@ describe('Message', function() {
       holodeck.mock(new Response(500, ''));
 
       var opts = {
-        to: '+123456789',
-        from: '+987654321'
+        to: '+123456789'
       };
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .messages.create(opts);
@@ -39,7 +38,6 @@ describe('Message', function() {
 
       var values = {
         To: '+123456789',
-        From: '+987654321',
       };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
@@ -77,8 +75,7 @@ describe('Message', function() {
       holodeck.mock(new Response(200, body));
 
       var opts = {
-        to: '+123456789',
-        from: '+987654321'
+        to: '+123456789'
       };
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .messages.create(opts);

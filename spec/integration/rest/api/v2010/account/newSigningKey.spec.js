@@ -10,7 +10,7 @@ var Twilio = require('../../../../../../lib');
 var client;
 var holodeck;
 
-describe('Notification', function() {
+describe('NewSigningKey', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
     client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', holodeck);
@@ -19,8 +19,8 @@ describe('Notification', function() {
     function() {
       holodeck.mock(new Response(500, ''));
 
-      var promise = client.notifications.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                           .notifications.create();
+      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                    .newSigningKeys.create();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -29,9 +29,9 @@ describe('Notification', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
-      var url = _.template('https://notifications.twilio.com/v1/Services/<%= serviceSid %>/Notifications')(solution);
+      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SigningKeys.json')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -42,31 +42,17 @@ describe('Notification', function() {
   it('should generate valid create response',
     function() {
       var body = JSON.stringify({
-          'sid': 'NOb8021351170b4e1286adaac3fdd6d082',
-          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'service_sid': 'IS699b53e02da45a1ba9d13b7d7d2766af',
-          'date_created': '2016-03-24T23:42:28Z',
-          'identities': [
-              'jing'
-          ],
-          'tags': [],
-          'priority': 'high',
-          'ttl': 2419200,
-          'title': 'test',
-          'body': 'body',
-          'sound': null,
-          'action': null,
-          'data': null,
-          'apn': null,
-          'gcm': null,
-          'sms': null,
-          'facebook_messenger': null
+          'sid': 'SKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'friendly_name': 'foo',
+          'date_created': 'Mon, 13 Jun 2016 22:50:08 +0000',
+          'date_updated': 'Mon, 13 Jun 2016 22:50:08 +0000',
+          'secret': 'foobar'
       });
 
       holodeck.mock(new Response(201, body));
 
-      var promise = client.notifications.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                           .notifications.create();
+      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                    .newSigningKeys.create();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
