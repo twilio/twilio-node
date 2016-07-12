@@ -131,6 +131,29 @@ describe('AccessToken', function() {
       });
     });
 
+    it('should create token with sync grant', function() {
+      var token = new twilio.AccessToken(accountSid, keySid, 'secret');
+      token.identity = 'ID@example.com';
+
+      var grant = new twilio.AccessToken.SyncGrant();
+      grant.serviceSid = 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+      grant.endpointId = 'endpointId';
+      grant.pushCredentialSid = 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+      grant.deploymentRoleSid = 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+      token.addGrant(grant);
+
+      var decoded = jwt.verify(token.toJwt(), 'secret');
+      expect(decoded.grants).toEqual({
+        identity: 'ID@example.com',
+        data_sync: {
+          service_sid: 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          deployment_role_sid: 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          endpoint_id: 'endpointId',
+          push_credential_sid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        }
+      });
+    });
+
     it('should create token with conversation grant', function() {
       var token = new twilio.AccessToken(accountSid, keySid, 'secret');
       token.identity = 'ID@example.com';
@@ -159,6 +182,13 @@ describe('AccessToken', function() {
       grant.deploymentRoleSid = 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
       token.addGrant(grant);
 
+      grant = new twilio.AccessToken.SyncGrant();
+      grant.serviceSid = 'SRbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb';
+      grant.endpointId = 'endpointId';
+      grant.pushCredentialSid = 'CRbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb';
+      grant.deploymentRoleSid = 'RLbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb';
+      token.addGrant(grant);
+
       grant = new twilio.AccessToken.ConversationsGrant();
       grant.configurationProfileSid = 'CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
       token.addGrant(grant);
@@ -172,6 +202,12 @@ describe('AccessToken', function() {
           endpoint_id: 'endpointId',
           push_credential_sid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
         },
+        data_sync: {
+          service_sid: 'SRbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
+          deployment_role_sid: 'RLbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
+          endpoint_id: 'endpointId',
+          push_credential_sid: 'CRbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'
+        },
         rtc: {
           configuration_profile_sid: 'CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
         }
@@ -182,6 +218,49 @@ describe('AccessToken', function() {
       describe('toPayload', function() {
         it('should only populate set properties', function() {
           var grant = new twilio.AccessToken.IpMessagingGrant();
+          expect(grant.toPayload()).toEqual({});
+
+          grant.deploymentRoleSid = 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+          expect(grant.toPayload()).toEqual({
+            deployment_role_sid: 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          });
+
+          grant.serviceSid = 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+          expect(grant.toPayload()).toEqual({
+            service_sid: 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            deployment_role_sid: 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          });
+
+          grant.endpointId = 'endpointId';
+          expect(grant.toPayload()).toEqual({
+            service_sid: 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            deployment_role_sid: 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            endpoint_id: 'endpointId'
+          });
+
+          grant.endpointId = undefined;
+          grant.pushCredentialSid = 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+          expect(grant.toPayload()).toEqual({
+            service_sid: 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            deployment_role_sid: 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            push_credential_sid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          });
+
+          grant.endpointId = 'endpointId';
+          expect(grant.toPayload()).toEqual({
+            service_sid: 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            deployment_role_sid: 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            endpoint_id: 'endpointId',
+            push_credential_sid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          });
+        });
+      });
+    });
+
+    describe('SyncGrant', function() {
+      describe('toPayload', function() {
+        it('should only populate set properties', function() {
+          var grant = new twilio.AccessToken.SyncGrant();
           expect(grant.toPayload()).toEqual({});
 
           grant.deploymentRoleSid = 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
