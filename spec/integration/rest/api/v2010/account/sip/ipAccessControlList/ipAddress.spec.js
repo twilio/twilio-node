@@ -245,14 +245,10 @@ describe('IpAddress', function() {
     function() {
       holodeck.mock(new Response(500, ''));
 
-      var opts = {
-        ipAddress: 'ipAddress',
-        friendlyName: 'friendlyName'
-      };
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .sip
                                     .ipAccessControlLists('ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .ipAddresses('IPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update(opts);
+                                    .ipAddresses('IPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -267,14 +263,9 @@ describe('IpAddress', function() {
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/IpAccessControlLists/<%= ipAccessControlListSid %>/IpAddresses/<%= sid %>.json')(solution);
 
-      var values = {
-        IpAddress: 'ipAddress',
-        FriendlyName: 'friendlyName',
-      };
       holodeck.assertHasRequest(new Request({
-          method: 'POST',
-          url: url,
-          data: values
+        method: 'POST',
+        url: url
       }));
     }
   );
@@ -293,14 +284,10 @@ describe('IpAddress', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {
-        ipAddress: 'ipAddress',
-        friendlyName: 'friendlyName'
-      };
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .sip
                                     .ipAccessControlLists('ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .ipAddresses('IPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update(opts);
+                                    .ipAddresses('IPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {

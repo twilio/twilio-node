@@ -272,11 +272,8 @@ describe('User', function() {
     function() {
       holodeck.mock(new Response(500, ''));
 
-      var opts = {
-        roleSid: 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
       var promise = client.ipMessaging.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .users('USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update(opts);
+                                         .users('USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -290,13 +287,9 @@ describe('User', function() {
       };
       var url = _.template('https://ip-messaging.twilio.com/v1/Services/<%= serviceSid %>/Users/<%= sid %>')(solution);
 
-      var values = {
-        RoleSid: 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-      };
       holodeck.assertHasRequest(new Request({
-          method: 'POST',
-          url: url,
-          data: values
+        method: 'POST',
+        url: url
       }));
     }
   );
@@ -317,11 +310,8 @@ describe('User', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {
-        roleSid: 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
       var promise = client.ipMessaging.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .users('USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update(opts);
+                                         .users('USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {

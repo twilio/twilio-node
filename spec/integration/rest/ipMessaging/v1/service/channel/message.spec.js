@@ -101,5 +101,66 @@ describe('Message', function() {
       }));
     }
   );
+  it('should generate valid remove request',
+    function() {
+      holodeck.mock(new Response(500, ''));
+
+      var promise = client.ipMessaging.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                         .channels('CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                         .messages('IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      promise = promise.then(function() {
+        throw new Error('failed');
+      }, function(error) {
+        expect(error.constructor).toBe(Error.prototype.constructor);
+      });
+      promise.done();
+
+      var solution = {
+        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+        channelSid: 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+        sid: 'IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+      };
+      var url = _.template('https://ip-messaging.twilio.com/v1/Services/<%= serviceSid %>/Channels/<%= channelSid %>/Messages/<%= sid %>')(solution);
+
+      holodeck.assertHasRequest(new Request({
+        method: 'DELETE',
+        url: url
+      }));
+    }
+  );
+  it('should generate valid update request',
+    function() {
+      holodeck.mock(new Response(500, ''));
+
+      var opts = {
+        body: 'body'
+      };
+      var promise = client.ipMessaging.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                         .channels('CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                         .messages('IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update(opts);
+      promise = promise.then(function() {
+        throw new Error('failed');
+      }, function(error) {
+        expect(error.constructor).toBe(Error.prototype.constructor);
+      });
+      promise.done();
+
+      var solution = {
+        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+        channelSid: 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+        sid: 'IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+      };
+      var url = _.template('https://ip-messaging.twilio.com/v1/Services/<%= serviceSid %>/Channels/<%= channelSid %>/Messages/<%= sid %>')(solution);
+
+      var values = {
+        Body: 'body',
+      };
+      holodeck.assertHasRequest(new Request({
+          method: 'POST',
+          url: url,
+          data: values
+      }));
+    }
+  );
 });
 

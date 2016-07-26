@@ -105,7 +105,6 @@ describe('Credential', function() {
       holodeck.mock(new Response(500, ''));
 
       var opts = {
-        friendlyName: 'friendlyName',
         type: 'gcm'
       };
       var promise = client.notifications.v1.credentials.create(opts);
@@ -119,7 +118,6 @@ describe('Credential', function() {
       var url = 'https://notifications.twilio.com/v1/Credentials';
 
       var values = {
-        FriendlyName: 'friendlyName',
         Type: 'gcm',
       };
       holodeck.assertHasRequest(new Request({
@@ -145,7 +143,6 @@ describe('Credential', function() {
       holodeck.mock(new Response(201, body));
 
       var opts = {
-        friendlyName: 'friendlyName',
         type: 'gcm'
       };
       var promise = client.notifications.v1.credentials.create(opts);
@@ -210,11 +207,7 @@ describe('Credential', function() {
     function() {
       holodeck.mock(new Response(500, ''));
 
-      var opts = {
-        friendlyName: 'friendlyName',
-        type: 'gcm'
-      };
-      var promise = client.notifications.v1.credentials('CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update(opts);
+      var promise = client.notifications.v1.credentials('CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -227,14 +220,9 @@ describe('Credential', function() {
       };
       var url = _.template('https://notifications.twilio.com/v1/Credentials/<%= sid %>')(solution);
 
-      var values = {
-        FriendlyName: 'friendlyName',
-        Type: 'gcm',
-      };
       holodeck.assertHasRequest(new Request({
-          method: 'POST',
-          url: url,
-          data: values
+        method: 'POST',
+        url: url
       }));
     }
   );
@@ -253,11 +241,7 @@ describe('Credential', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {
-        friendlyName: 'friendlyName',
-        type: 'gcm'
-      };
-      var promise = client.notifications.v1.credentials('CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update(opts);
+      var promise = client.notifications.v1.credentials('CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {

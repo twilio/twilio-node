@@ -182,12 +182,9 @@ describe('Reservation', function() {
     function() {
       holodeck.mock(new Response(500, ''));
 
-      var opts = {
-        reservationStatus: 'reservationStatus'
-      };
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                         .tasks('WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .reservations('WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update(opts);
+                                        .reservations('WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -202,13 +199,9 @@ describe('Reservation', function() {
       };
       var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Tasks/<%= taskSid %>/Reservations/<%= sid %>')(solution);
 
-      var values = {
-        ReservationStatus: 'reservationStatus',
-      };
       holodeck.assertHasRequest(new Request({
-          method: 'POST',
-          url: url,
-          data: values
+        method: 'POST',
+        url: url
       }));
     }
   );
@@ -234,12 +227,9 @@ describe('Reservation', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {
-        reservationStatus: 'reservationStatus'
-      };
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                         .tasks('WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .reservations('WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update(opts);
+                                        .reservations('WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {

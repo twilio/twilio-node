@@ -119,12 +119,8 @@ describe('Channel', function() {
     function() {
       holodeck.mock(new Response(500, ''));
 
-      var opts = {
-        friendlyName: 'friendlyName',
-        uniqueName: 'uniqueName'
-      };
       var promise = client.ipMessaging.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .channels.create(opts);
+                                         .channels.create();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -137,14 +133,9 @@ describe('Channel', function() {
       };
       var url = _.template('https://ip-messaging.twilio.com/v1/Services/<%= serviceSid %>/Channels')(solution);
 
-      var values = {
-        FriendlyName: 'friendlyName',
-        UniqueName: 'uniqueName',
-      };
       holodeck.assertHasRequest(new Request({
-          method: 'POST',
-          url: url,
-          data: values
+        method: 'POST',
+        url: url
       }));
     }
   );
@@ -170,12 +161,8 @@ describe('Channel', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {
-        friendlyName: 'friendlyName',
-        uniqueName: 'uniqueName'
-      };
       var promise = client.ipMessaging.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .channels.create(opts);
+                                         .channels.create();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
