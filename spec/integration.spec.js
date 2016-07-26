@@ -49,7 +49,7 @@ describe('twilio', function() {
     expect(client.calls('CA123').fetch).toBeTruthy();
   });
 
-  it('should provide each for interation', function() {
+  it('should provide each for integration', function() {
     var client = new twilio.Twilio(accountSid, token);
     expect(client.api.v2010.account.calls.each).toBeTruthy();
   });

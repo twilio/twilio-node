@@ -26,7 +26,8 @@
     "q": "2.0.x",
     "request": "2.79.x",
     "rootpath": "0.1.2",
-    "scmp": "0.0.3"
+    "scmp": "0.0.3",
+    "xmlbuilder": "8.2.2"
   },
   "devDependencies": {
     "express": "3.x",
