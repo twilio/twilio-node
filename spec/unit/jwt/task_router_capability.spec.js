@@ -4,7 +4,7 @@ var twilio = require('../../../index'),
 describe('The TaskRouter Capability Token Object', function() {
 
     it('should allow construction of a capability token', function() {
-        var c = new twilio.TaskRouterCapability('AC123', 'foobar', 'WS456', 'WK789');
+        var c = new twilio.jwt.TaskRouterCapability('AC123', 'foobar', 'WS456', 'WK789');
         var token = c.generate();
 
         var decoded = jwt.decode(token, 'foobar');
@@ -19,14 +19,14 @@ describe('The TaskRouter Capability Token Object', function() {
     });
 
     it('should accept custom ttls', function() {
-        var c = new twilio.TaskRouterCapability('AC123', 'foobar', 'WS456', 'WK789');
+        var c = new twilio.jwt.TaskRouterCapability('AC123', 'foobar', 'WS456', 'WK789');
         var token = c.generate(1000);
         var decoded = jwt.decode(token, 'foobar');
         expect(decoded['exp']).toEqual(Math.floor(new Date() / 1000) + 1000);
     });
 
     it('should allow websocket and activities access by default', function() {
-        var c = new twilio.TaskRouterCapability('AC123', 'foobar', 'WS456', 'WK789');
+        var c = new twilio.jwt.TaskRouterCapability('AC123', 'foobar', 'WS456', 'WK789');
         var token = c.generate();
 
         var decoded = jwt.decode(token, 'foobar');
