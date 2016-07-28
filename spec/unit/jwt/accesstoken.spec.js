@@ -1,4 +1,4 @@
-var twilio = require('../index');
+var twilio = require('../../../index');
 var jwt = require('jsonwebtoken');
 
 describe('AccessToken', function() {

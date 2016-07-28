@@ -1,4 +1,4 @@
-var twilio = require('../index');
+var twilio = require('../../../index');
 
 describe('The TwiML Response Object', function () {
 

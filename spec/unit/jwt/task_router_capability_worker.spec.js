@@ -1,4 +1,4 @@
-var twilio = require('../index'),
+var twilio = require('../../../index'),
     jwt = require('jwt-simple');
 
 describe('The TaskRouter Worker Capability Token Object', function() {

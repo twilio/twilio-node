@@ -1,4 +1,4 @@
-var twilio = require('../index');
+var twilio = require('../../../index');
 
 describe('The TwiML Capability Token Object', function () {
   describe('constructor', function() {
