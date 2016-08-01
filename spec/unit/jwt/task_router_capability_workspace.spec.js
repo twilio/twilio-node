@@ -1,10 +1,10 @@
-var twilio = require('../index'),
+var twilio = require('../../../index'),
     jwt = require('jwt-simple');
 
 describe('The TaskRouter Workspace Capability Token Object', function() {
 
     it('should allow construction of a capability token', function() {
-        var c = new twilio.TaskRouterWorkspaceCapability('AC123', 'foobar', 'WS456');
+        var c = new twilio.jwt.TaskRouterWorkspaceCapability('AC123', 'foobar', 'WS456');
         var token = c.generate();
 
         var decoded = jwt.decode(token, 'foobar');
@@ -18,14 +18,14 @@ describe('The TaskRouter Workspace Capability Token Object', function() {
     });
 
     it('should accept custom ttls', function() {
-        var c = new twilio.TaskRouterWorkspaceCapability('AC123', 'foobar', 'WS456');
+        var c = new twilio.jwt.TaskRouterWorkspaceCapability('AC123', 'foobar', 'WS456');
         var token = c.generate(1000);
         var decoded = jwt.decode(token, 'foobar');
         expect(decoded['exp']).toEqual(Math.floor(new Date() / 1000) + 1000);
     });
 
     it('should allow websocket and fetching workspace by default', function() {
-        var c = new twilio.TaskRouterWorkspaceCapability('AC123', 'foobar', 'WS456');
+        var c = new twilio.jwt.TaskRouterWorkspaceCapability('AC123', 'foobar', 'WS456');
         var token = c.generate();
 
         var decoded = jwt.decode(token, 'foobar');
@@ -59,7 +59,7 @@ describe('The TaskRouter Workspace Capability Token Object', function() {
     });
 
     it('should allow fetch all when requested', function() {
-        var c = new twilio.TaskRouterWorkspaceCapability('AC123', 'foobar', 'WS456');
+        var c = new twilio.jwt.TaskRouterWorkspaceCapability('AC123', 'foobar', 'WS456');
         c.allowFetchSubresources();
         var token = c.generate();
 
@@ -77,7 +77,7 @@ describe('The TaskRouter Workspace Capability Token Object', function() {
     });
 
     it('should allow update all when requested', function() {
-        var c = new twilio.TaskRouterWorkspaceCapability('AC123', 'foobar', 'WS456');
+        var c = new twilio.jwt.TaskRouterWorkspaceCapability('AC123', 'foobar', 'WS456');
         c.allowUpdatesSubresources();
         var token = c.generate();
 

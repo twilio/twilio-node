@@ -1,4 +1,4 @@
-var twilio = require('../index');
+var twilio = require('../../../index');
 var jwt = require('jsonwebtoken');
 
 describe('AccessToken', function() {
@@ -13,7 +13,7 @@ describe('AccessToken', function() {
 
         // add context
         constructorArgs.unshift({});
-        new (Function.prototype.bind.apply(twilio.AccessToken, constructorArgs));
+        new (Function.prototype.bind.apply(twilio.jwt.AccessToken, constructorArgs));
       };
     };
     it('should require accountSid', function() {
@@ -29,7 +29,7 @@ describe('AccessToken', function() {
 
   describe('generate', function() {
     it('should generate the correct headers', function() {
-      var token = new twilio.AccessToken(accountSid, keySid, 'aTBl1PhJnykIjWll4TOiXKtD1ugxiz6f');
+      var token = new twilio.jwt.AccessToken(accountSid, keySid, 'aTBl1PhJnykIjWll4TOiXKtD1ugxiz6f');
       var decoded = jwt.decode(token.toJwt(), {complete: true});
 
       expect(decoded.header).toEqual({
@@ -41,10 +41,10 @@ describe('AccessToken', function() {
 
     it('should accept different algorithsm', function() {
       var validateAlg = function(alg) {
-        var token = new twilio.AccessToken(accountSid, keySid, 'secret');
+        var token = new twilio.jwt.AccessToken(accountSid, keySid, 'secret');
         var decoded = jwt.decode(token.toJwt(alg), {
           complete: true,
-          algorithms: twilio.AccessToken.ALGORITHMS
+          algorithms: twilio.jwt.AccessToken.ALGORITHMS
         });
         expect(decoded.header.alg).toEqual(alg);
       };
@@ -57,7 +57,7 @@ describe('AccessToken', function() {
     it('should throw on invalid algorithm', function() {
       var generateWithAlg = function(alg) {
         return function() {
-          new twilio.AccessToken(accountSid, keySid, 'secret').toJwt(alg);
+          new twilio.jwt.AccessToken(accountSid, keySid, 'secret').toJwt(alg);
         };
       };
 
@@ -67,7 +67,7 @@ describe('AccessToken', function() {
     });
 
     it('should create a token without any grants', function() {
-      var token = new twilio.AccessToken(accountSid, keySid, 'secret');
+      var token = new twilio.jwt.AccessToken(accountSid, keySid, 'secret');
       token.identity = 'ID@example.com';
 
       var decoded = jwt.verify(token.toJwt(), 'secret');
@@ -82,7 +82,7 @@ describe('AccessToken', function() {
 
     it('should accept nbf', function() {
       var nbf = Math.floor(Date.now() / 1000);
-      var token = new twilio.AccessToken(accountSid, keySid, 'secret', { nbf: nbf });
+      var token = new twilio.jwt.AccessToken(accountSid, keySid, 'secret', { nbf: nbf });
       token.identity = 'ID@example.com';
 
       var decoded = jwt.verify(token.toJwt(), 'secret');
@@ -100,7 +100,7 @@ describe('AccessToken', function() {
     })
 
     it('should accept user defined ttl', function() {
-      var token = new twilio.AccessToken(accountSid, keySid, 'secret');
+      var token = new twilio.jwt.AccessToken(accountSid, keySid, 'secret');
       token.ttl = 100;
       token.identity = 'ID@example.com';
 
@@ -109,10 +109,10 @@ describe('AccessToken', function() {
     });
 
     it('should create token with ip messaging grant', function() {
-      var token = new twilio.AccessToken(accountSid, keySid, 'secret');
+      var token = new twilio.jwt.AccessToken(accountSid, keySid, 'secret');
       token.identity = 'ID@example.com';
 
-      var grant = new twilio.AccessToken.IpMessagingGrant();
+      var grant = new twilio.jwt.AccessToken.IpMessagingGrant();
       grant.serviceSid = 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
       grant.endpointId = 'endpointId';
       grant.pushCredentialSid = 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
@@ -132,10 +132,10 @@ describe('AccessToken', function() {
     });
 
     it('should create token with conversation grant', function() {
-      var token = new twilio.AccessToken(accountSid, keySid, 'secret');
+      var token = new twilio.jwt.AccessToken(accountSid, keySid, 'secret');
       token.identity = 'ID@example.com';
 
-      var grant = new twilio.AccessToken.ConversationsGrant();
+      var grant = new twilio.jwt.AccessToken.ConversationsGrant();
       grant.configurationProfileSid = 'CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
       token.addGrant(grant);
 
@@ -149,17 +149,17 @@ describe('AccessToken', function() {
     });
 
     it('should create token with multiple grants', function() {
-      var token = new twilio.AccessToken(accountSid, keySid, 'secret');
+      var token = new twilio.jwt.AccessToken(accountSid, keySid, 'secret');
       token.identity = 'ID@example.com';
 
-      var grant = new twilio.AccessToken.IpMessagingGrant();
+      var grant = new twilio.jwt.AccessToken.IpMessagingGrant();
       grant.serviceSid = 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
       grant.endpointId = 'endpointId';
       grant.pushCredentialSid = 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
       grant.deploymentRoleSid = 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
       token.addGrant(grant);
 
-      grant = new twilio.AccessToken.ConversationsGrant();
+      grant = new twilio.jwt.AccessToken.ConversationsGrant();
       grant.configurationProfileSid = 'CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
       token.addGrant(grant);
 
@@ -181,7 +181,7 @@ describe('AccessToken', function() {
     describe('IpMessagingGrant', function() {
       describe('toPayload', function() {
         it('should only populate set properties', function() {
-          var grant = new twilio.AccessToken.IpMessagingGrant();
+          var grant = new twilio.jwt.AccessToken.IpMessagingGrant();
           expect(grant.toPayload()).toEqual({});
 
           grant.deploymentRoleSid = 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
@@ -223,7 +223,7 @@ describe('AccessToken', function() {
 
     describe('ConversationGrant', function() {
       it('should only populate set properties', function() {
-        var grant = new twilio.AccessToken.ConversationsGrant();
+        var grant = new twilio.jwt.AccessToken.ConversationsGrant();
         expect(grant.toPayload()).toEqual({});
 
         grant.configurationProfileSid = 'CPsid';

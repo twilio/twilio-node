@@ -1,10 +1,10 @@
-var twilio = require('../index'),
+var twilio = require('../../../index'),
     jwt = require('jwt-simple');
 
 describe('The TaskRouter TaskQueue Capability Token Object', function() {
 
     it('should allow construction of a capability token', function() {
-        var c = new twilio.TaskRouterTaskQueueCapability('AC123', 'foobar', 'WS456', 'WQ789');
+        var c = new twilio.jwt.TaskRouterTaskQueueCapability('AC123', 'foobar', 'WS456', 'WQ789');
         var token = c.generate();
 
         var decoded = jwt.decode(token, 'foobar');
@@ -19,14 +19,14 @@ describe('The TaskRouter TaskQueue Capability Token Object', function() {
     });
 
     it('should accept custom ttls', function() {
-        var c = new twilio.TaskRouterTaskQueueCapability('AC123', 'foobar', 'WS456', 'WQ789');
+        var c = new twilio.jwt.TaskRouterTaskQueueCapability('AC123', 'foobar', 'WS456', 'WQ789');
         var token = c.generate(1000);
         var decoded = jwt.decode(token, 'foobar');
         expect(decoded['exp']).toEqual(Math.floor(new Date() / 1000) + 1000);
     });
 
     it('should allow websocket and fetching taskqueue by default', function() {
-        var c = new twilio.TaskRouterTaskQueueCapability('AC123', 'foobar', 'WS456', 'WQ789');
+        var c = new twilio.jwt.TaskRouterTaskQueueCapability('AC123', 'foobar', 'WS456', 'WQ789');
         var token = c.generate();
 
         var decoded = jwt.decode(token, 'foobar');
@@ -60,7 +60,7 @@ describe('The TaskRouter TaskQueue Capability Token Object', function() {
     });
 
     it('should allow fetch all when requested', function() {
-        var c = new twilio.TaskRouterTaskQueueCapability('AC123', 'foobar', 'WS456', 'WQ789');
+        var c = new twilio.jwt.TaskRouterTaskQueueCapability('AC123', 'foobar', 'WS456', 'WQ789');
         c.allowFetchSubresources();
         var token = c.generate();
 
@@ -78,7 +78,7 @@ describe('The TaskRouter TaskQueue Capability Token Object', function() {
     });
 
     it('should allow update all when requested', function() {
-        var c = new twilio.TaskRouterTaskQueueCapability('AC123', 'foobar', 'WS456', 'WQ789');
+        var c = new twilio.jwt.TaskRouterTaskQueueCapability('AC123', 'foobar', 'WS456', 'WQ789');
         c.allowUpdatesSubresources();
         var token = c.generate();
 
