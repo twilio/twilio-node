@@ -21,7 +21,7 @@ describe('Reservation', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .tasks('WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                        .workers('WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                         .reservations.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -32,9 +32,9 @@ describe('Reservation', function() {
 
       var solution = {
         workspaceSid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        taskSid: 'WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        workerSid: 'WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
-      var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Tasks/<%= taskSid %>/Reservations')(solution);
+      var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workers/<%= workerSid %>/Reservations')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -46,13 +46,13 @@ describe('Reservation', function() {
     function() {
       var body = JSON.stringify({
           'meta': {
-              'first_page_url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations?PageSize=50&Page=0',
+              'first_page_url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations?PageSize=50&Page=0',
               'key': 'reservations',
               'next_page_url': null,
               'page': 0,
               'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations'
+              'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations'
           },
           'reservations': [
               {
@@ -67,7 +67,7 @@ describe('Reservation', function() {
                   'reservation_status': 'reserved',
                   'sid': 'WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'task_sid': 'WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations/WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations/WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'worker_name': 'Doug',
                   'worker_sid': 'WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
@@ -78,7 +78,7 @@ describe('Reservation', function() {
       holodeck.mock(new Response(200, body));
 
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .tasks('WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                        .workers('WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                         .reservations.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -93,13 +93,13 @@ describe('Reservation', function() {
     function() {
       var body = JSON.stringify({
           'meta': {
-              'first_page_url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations?PageSize=50&Page=0',
+              'first_page_url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations?PageSize=50&Page=0',
               'key': 'reservations',
               'next_page_url': null,
               'page': 0,
               'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations'
+              'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations'
           },
           'reservations': []
       });
@@ -107,7 +107,7 @@ describe('Reservation', function() {
       holodeck.mock(new Response(200, body));
 
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .tasks('WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                        .workers('WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                         .reservations.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -123,7 +123,7 @@ describe('Reservation', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .tasks('WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                        .workers('WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                         .reservations('WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -134,10 +134,10 @@ describe('Reservation', function() {
 
       var solution = {
         workspaceSid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        taskSid: 'WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+        workerSid: 'WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         sid: 'WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
-      var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Tasks/<%= taskSid %>/Reservations/<%= sid %>')(solution);
+      var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workers/<%= workerSid %>/Reservations/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -159,7 +159,7 @@ describe('Reservation', function() {
           'reservation_status': 'reserved',
           'sid': 'WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'task_sid': 'WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations/WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations/WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'worker_name': 'Doug',
           'worker_sid': 'WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
@@ -168,7 +168,7 @@ describe('Reservation', function() {
       holodeck.mock(new Response(200, body));
 
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .tasks('WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                        .workers('WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                         .reservations('WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -184,7 +184,7 @@ describe('Reservation', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .tasks('WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                        .workers('WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                         .reservations('WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -195,10 +195,10 @@ describe('Reservation', function() {
 
       var solution = {
         workspaceSid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        taskSid: 'WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+        workerSid: 'WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         sid: 'WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
-      var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Tasks/<%= taskSid %>/Reservations/<%= sid %>')(solution);
+      var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workers/<%= workerSid %>/Reservations/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -220,7 +220,7 @@ describe('Reservation', function() {
           'reservation_status': 'reserved',
           'sid': 'WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'task_sid': 'WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations/WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations/WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'worker_name': 'Doug',
           'worker_sid': 'WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
@@ -229,7 +229,7 @@ describe('Reservation', function() {
       holodeck.mock(new Response(200, body));
 
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .tasks('WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                        .workers('WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                         .reservations('WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();

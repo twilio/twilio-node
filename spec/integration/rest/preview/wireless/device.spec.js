@@ -4,6 +4,7 @@ var _ = require('lodash');
 var Holodeck = require('../../../holodeck');
 var Request = require('../../../../../lib/http/request');
 var Response = require('../../../../../lib/http/response');
+var RestException = require('../../../../../lib/base/RestException');
 var Twilio = require('../../../../../lib');
 
 
@@ -17,18 +18,18 @@ describe('Device', function() {
   });
   it('should generate valid fetch request',
     function() {
-      holodeck.mock(new Response(500, ''));
+      holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.wireless.devices('sid').fetch();
+      var promise = client.preview.wireless.devices('DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        expect(error.constructor).toBe(Error.prototype.constructor);
+        //expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
       var solution = {
-        sid: 'sid'
+        sid: 'DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
       var url = _.template('https://preview.twilio.com/wireless/Devices/<%= sid %>')(solution);
 
@@ -40,13 +41,13 @@ describe('Device', function() {
   );
   it('should generate valid list request',
     function() {
-      holodeck.mock(new Response(500, ''));
+      holodeck.mock(new Response(500, '{}'));
 
       var promise = client.preview.wireless.devices.list();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        expect(error.constructor).toBe(Error.prototype.constructor);
+        //expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
@@ -60,7 +61,7 @@ describe('Device', function() {
   );
   it('should generate valid create request',
     function() {
-      holodeck.mock(new Response(500, ''));
+      holodeck.mock(new Response(500, '{}'));
 
       var opts = {
         ratePlan: 'ratePlan'
@@ -69,7 +70,7 @@ describe('Device', function() {
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        expect(error.constructor).toBe(Error.prototype.constructor);
+        //expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
@@ -87,18 +88,18 @@ describe('Device', function() {
   );
   it('should generate valid update request',
     function() {
-      holodeck.mock(new Response(500, ''));
+      holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.wireless.devices('sid').update();
+      var promise = client.preview.wireless.devices('DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        expect(error.constructor).toBe(Error.prototype.constructor);
+        //expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
       var solution = {
-        sid: 'sid'
+        sid: 'DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
       var url = _.template('https://preview.twilio.com/wireless/Devices/<%= sid %>')(solution);
 

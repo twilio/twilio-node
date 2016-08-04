@@ -4,6 +4,7 @@ var _ = require('lodash');
 var Holodeck = require('../../../../../holodeck');
 var Request = require('../../../../../../../lib/http/request');
 var Response = require('../../../../../../../lib/http/response');
+var RestException = require('../../../../../../../lib/base/RestException');
 var Twilio = require('../../../../../../../lib');
 
 
@@ -17,7 +18,7 @@ describe('TaskQueuesStatistics', function() {
   });
   it('should generate valid list request',
     function() {
-      holodeck.mock(new Response(500, ''));
+      holodeck.mock(new Response(500, '{}'));
 
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                         .taskQueues
@@ -25,7 +26,7 @@ describe('TaskQueuesStatistics', function() {
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        expect(error.constructor).toBe(Error.prototype.constructor);
+        //expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
