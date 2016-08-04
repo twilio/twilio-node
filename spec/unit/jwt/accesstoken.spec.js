@@ -232,6 +232,26 @@ describe('AccessToken', function() {
         });
       });
     });
+
+    describe('ProgrammableVoiceGrant', function () {
+      it('should generate a grant', function() {
+        var grant = new twilio.jwt.AccessToken.ProgrammableVoiceGrant({
+          outgoingApplicationSid: 'AP123',
+          outgoingApplicationParams: {
+            foo: 'bar'
+          },
+          endpointId: 'id'
+        });
+
+        expect(grant.toPayload()).toEqual({
+          outgoing_application_sid: 'AP123',
+          outgoing_application_params: {
+            foo: 'bar'
+          },
+          endpoint_id: 'id'
+        });
+      });
+    })
   });
 
 });
