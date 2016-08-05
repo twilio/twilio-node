@@ -244,9 +244,11 @@ describe('AccessToken', function() {
         });
 
         expect(grant.toPayload()).toEqual({
-          outgoing_application_sid: 'AP123',
-          outgoing_application_params: {
-            foo: 'bar'
+          outgoing: {
+            application_sid: 'AP123',
+            params: {
+              foo: 'bar'
+            }
           },
           endpoint_id: 'id'
         });
