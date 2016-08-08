@@ -17,7 +17,7 @@
     "jsonwebtoken": "5.4.x",
     "jwt-simple": "0.1.x",
     "lodash": "4.0.0",
-    "moment": "2.11.1",
+    "moment": "2.14.1",
     "q": "2.0.x",
     "request": "2.74.x",
     "rootpath": "0.1.2",
@@ -25,9 +25,9 @@
   },
   "devDependencies": {
     "express": "3.x",
-    "jasmine-node": "1.14.5",
+    "jasmine": "2.4.0",
     "jshint": "2.8.x",
-    "jscs": "2.6.x",
+    "jscs": "3.0.7",
     "jsdoc": "3.4.x"
   },
   "scripts": {
