@@ -233,9 +233,9 @@ describe('AccessToken', function() {
       });
     });
 
-    describe('ProgrammableVoiceGrant', function () {
+    describe('VoiceGrant', function () {
       it('should generate a grant', function() {
-        var grant = new twilio.AccessToken.ProgrammableVoiceGrant({
+        var grant = new twilio.AccessToken.VoiceGrant({
           outgoingApplicationSid: 'AP123',
           outgoingApplicationParams: {
             foo: 'bar'
