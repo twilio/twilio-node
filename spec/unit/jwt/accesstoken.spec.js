@@ -148,6 +148,25 @@ describe('AccessToken', function() {
       });
     });
 
+    it('should create token with sync grant', function() {
+      var token = new twilio.jwt.AccessToken(accountSid, keySid, 'secret');
+      token.identity = 'ID@example.com';
+
+      var grant = new twilio.jwt.AccessToken.SyncGrant();
+      grant.serviceSid = 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+      grant.endpointId = 'endpointId';
+      token.addGrant(grant);
+
+      var decoded = jwt.verify(token.toJwt(), 'secret');
+      expect(decoded.grants).toEqual({
+        identity: 'ID@example.com',
+        data_sync: {
+          service_sid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          endpoint_id: 'endpointId'
+        }
+      });
+    });
+
     it('should create token with multiple grants', function() {
       var token = new twilio.jwt.AccessToken(accountSid, keySid, 'secret');
       token.identity = 'ID@example.com';
@@ -163,6 +182,11 @@ describe('AccessToken', function() {
       grant.configurationProfileSid = 'CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
       token.addGrant(grant);
 
+      grant = new twilio.jwt.AccessToken.SyncGrant();
+      grant.serviceSid = 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+      grant.endpointId = 'endpointId';
+      token.addGrant(grant);
+
       var decoded = jwt.verify(token.toJwt(), 'secret');
       expect(decoded.grants).toEqual({
         identity: 'ID@example.com',
@@ -174,6 +198,10 @@ describe('AccessToken', function() {
         },
         rtc: {
           configuration_profile_sid: 'CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        },
+        data_sync: {
+          service_sid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          endpoint_id: 'endpointId'
         }
       });
     });
@@ -253,7 +281,33 @@ describe('AccessToken', function() {
           endpoint_id: 'id'
         });
       });
-    })
+    });
+
+    describe('SyncGrant', function() {
+      describe('toPayload', function() {
+        it('should only populate set properties', function() {
+          var grant = new twilio.jwt.AccessToken.SyncGrant();
+          expect(grant.toPayload()).toEqual({});
+
+          grant.serviceSid = 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+          expect(grant.toPayload()).toEqual({
+            service_sid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          });
+
+          grant.endpointId = 'endpointId';
+          expect(grant.toPayload()).toEqual({
+            service_sid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            endpoint_id: 'endpointId'
+          });
+
+          grant.serviceSid = undefined;
+          expect(grant.toPayload()).toEqual({
+            endpoint_id: 'endpointId'
+          });
+
+        });
+      });
+    });
   });
 
 });
