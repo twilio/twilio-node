@@ -24,7 +24,7 @@ describe('Workspace', function() {
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        //expect(error.constructor).toBe(RestException.prototype.constructor);
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
@@ -48,6 +48,7 @@ describe('Workspace', function() {
           'default_activity_name': 'Offline',
           'default_activity_sid': 'WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'event_callback_url': '',
+          'events_filter': '',
           'friendly_name': '8064de33-3a05-11e5-8bae-98e0d9a1eb73',
           'links': {
               'activities': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Activities',
@@ -57,6 +58,7 @@ describe('Workspace', function() {
               'workers': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers',
               'workflows': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workflows'
           },
+          'multi_task_enabled': 'false',
           'sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'timeout_activity_name': 'Offline',
           'timeout_activity_sid': 'WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -83,7 +85,7 @@ describe('Workspace', function() {
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        //expect(error.constructor).toBe(RestException.prototype.constructor);
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
@@ -107,6 +109,7 @@ describe('Workspace', function() {
           'default_activity_name': 'Offline',
           'default_activity_sid': 'WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'event_callback_url': '',
+          'events_filter': '',
           'friendly_name': '8064de33-3a05-11e5-8bae-98e0d9a1eb73',
           'links': {
               'activities': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Activities',
@@ -116,6 +119,7 @@ describe('Workspace', function() {
               'workers': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers',
               'workflows': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workflows'
           },
+          'multi_task_enabled': 'false',
           'sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'timeout_activity_name': 'Offline',
           'timeout_activity_sid': 'WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -142,7 +146,7 @@ describe('Workspace', function() {
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        //expect(error.constructor).toBe(RestException.prototype.constructor);
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
@@ -174,6 +178,7 @@ describe('Workspace', function() {
                   'default_activity_name': 'Offline',
                   'default_activity_sid': 'WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'event_callback_url': '',
+                  'events_filter': '',
                   'friendly_name': 'cce151db-4644-4d48-95a1-d962829b69f0',
                   'links': {
                       'activities': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Activities',
@@ -183,6 +188,7 @@ describe('Workspace', function() {
                       'workers': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers',
                       'workflows': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workflows'
                   },
+                  'multi_task_enabled': 'false',
                   'sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'timeout_activity_name': 'Offline',
                   'timeout_activity_sid': 'WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -241,7 +247,7 @@ describe('Workspace', function() {
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        //expect(error.constructor).toBe(RestException.prototype.constructor);
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
@@ -266,6 +272,7 @@ describe('Workspace', function() {
           'default_activity_name': 'Offline',
           'default_activity_sid': 'WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'event_callback_url': '',
+          'events_filter': '',
           'friendly_name': '8064de33-3a05-11e5-8bae-98e0d9a1eb73',
           'links': {
               'activities': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Activities',
@@ -275,6 +282,7 @@ describe('Workspace', function() {
               'workers': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers',
               'workflows': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workflows'
           },
+          'multi_task_enabled': 'false',
           'sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'timeout_activity_name': 'Offline',
           'timeout_activity_sid': 'WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -304,7 +312,7 @@ describe('Workspace', function() {
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        //expect(error.constructor).toBe(RestException.prototype.constructor);
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 

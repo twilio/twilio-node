@@ -25,7 +25,7 @@ describe('Task', function() {
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        //expect(error.constructor).toBe(RestException.prototype.constructor);
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
@@ -54,6 +54,8 @@ describe('Task', function() {
           'reason': 'Test Reason',
           'sid': 'WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'task_queue_sid': 'WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'task_channel_sid': 'TCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'task_channel_unique_name': 'task-channel',
           'timeout': 60,
           'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'workflow_sid': 'WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -82,7 +84,7 @@ describe('Task', function() {
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        //expect(error.constructor).toBe(RestException.prototype.constructor);
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
@@ -111,6 +113,8 @@ describe('Task', function() {
           'reason': 'Test Reason',
           'sid': 'WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'task_queue_sid': 'WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'task_channel_sid': 'TCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'task_channel_unique_name': 'task-channel',
           'timeout': 60,
           'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'workflow_sid': 'WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -139,7 +143,7 @@ describe('Task', function() {
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        //expect(error.constructor).toBe(RestException.prototype.constructor);
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
@@ -181,7 +185,7 @@ describe('Task', function() {
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        //expect(error.constructor).toBe(RestException.prototype.constructor);
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
@@ -221,6 +225,8 @@ describe('Task', function() {
                   'reason': 'Test Reason',
                   'sid': 'WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'task_queue_sid': 'WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'task_channel_sid': 'TCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'task_channel_unique_name': 'task-channel',
                   'timeout': 60,
                   'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'workflow_sid': 'WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -284,7 +290,7 @@ describe('Task', function() {
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        //expect(error.constructor).toBe(RestException.prototype.constructor);
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
@@ -317,6 +323,8 @@ describe('Task', function() {
           'reason': 'Test Reason',
           'sid': 'WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'task_queue_sid': 'WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'task_channel_sid': 'TCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'task_channel_unique_name': 'task-channel',
           'timeout': 60,
           'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'workflow_sid': 'WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',

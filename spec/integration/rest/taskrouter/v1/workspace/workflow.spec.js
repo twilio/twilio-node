@@ -25,7 +25,7 @@ describe('Workflow', function() {
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        //expect(error.constructor).toBe(RestException.prototype.constructor);
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
@@ -80,7 +80,7 @@ describe('Workflow', function() {
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        //expect(error.constructor).toBe(RestException.prototype.constructor);
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
@@ -135,7 +135,7 @@ describe('Workflow', function() {
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        //expect(error.constructor).toBe(RestException.prototype.constructor);
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
@@ -177,7 +177,7 @@ describe('Workflow', function() {
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        //expect(error.constructor).toBe(RestException.prototype.constructor);
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
@@ -271,15 +271,14 @@ describe('Workflow', function() {
 
       var opts = {
         friendlyName: 'friendlyName',
-        configuration: 'configuration',
-        assignmentCallbackUrl: 'https://example.com'
+        configuration: 'configuration'
       };
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                         .workflows.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        //expect(error.constructor).toBe(RestException.prototype.constructor);
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
@@ -291,7 +290,6 @@ describe('Workflow', function() {
       var values = {
         FriendlyName: 'friendlyName',
         Configuration: 'configuration',
-        AssignmentCallbackUrl: 'https://example.com',
       };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
@@ -321,8 +319,7 @@ describe('Workflow', function() {
 
       var opts = {
         friendlyName: 'friendlyName',
-        configuration: 'configuration',
-        assignmentCallbackUrl: 'https://example.com'
+        configuration: 'configuration'
       };
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                         .workflows.create(opts);

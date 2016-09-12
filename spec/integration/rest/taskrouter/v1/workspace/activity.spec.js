@@ -25,7 +25,7 @@ describe('Activity', function() {
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        //expect(error.constructor).toBe(RestException.prototype.constructor);
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
@@ -79,7 +79,7 @@ describe('Activity', function() {
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        //expect(error.constructor).toBe(RestException.prototype.constructor);
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
@@ -137,7 +137,7 @@ describe('Activity', function() {
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        //expect(error.constructor).toBe(RestException.prototype.constructor);
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
@@ -179,7 +179,7 @@ describe('Activity', function() {
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        //expect(error.constructor).toBe(RestException.prototype.constructor);
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
@@ -268,15 +268,14 @@ describe('Activity', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {
-        friendlyName: 'friendlyName',
-        available: true
+        friendlyName: 'friendlyName'
       };
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                         .activities.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        //expect(error.constructor).toBe(RestException.prototype.constructor);
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
@@ -287,7 +286,6 @@ describe('Activity', function() {
 
       var values = {
         FriendlyName: 'friendlyName',
-        Available: true,
       };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
@@ -312,8 +310,7 @@ describe('Activity', function() {
       holodeck.mock(new Response(200, body));
 
       var opts = {
-        friendlyName: 'friendlyName',
-        available: true
+        friendlyName: 'friendlyName'
       };
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                         .activities.create(opts);

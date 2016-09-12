@@ -25,7 +25,7 @@ describe('User', function() {
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        //expect(error.constructor).toBe(RestException.prototype.constructor);
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
@@ -78,7 +78,7 @@ describe('User', function() {
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        //expect(error.constructor).toBe(RestException.prototype.constructor);
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
@@ -116,15 +116,14 @@ describe('User', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {
-        identity: 'identity',
-        roleSid: 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        identity: 'identity'
       };
       var promise = client.ipMessaging.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                          .users.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        //expect(error.constructor).toBe(RestException.prototype.constructor);
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
@@ -135,7 +134,6 @@ describe('User', function() {
 
       var values = {
         Identity: 'identity',
-        RoleSid: 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
       };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
@@ -162,8 +160,7 @@ describe('User', function() {
       holodeck.mock(new Response(201, body));
 
       var opts = {
-        identity: 'identity',
-        roleSid: 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        identity: 'identity'
       };
       var promise = client.ipMessaging.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                          .users.create(opts);
@@ -185,7 +182,7 @@ describe('User', function() {
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        //expect(error.constructor).toBe(RestException.prototype.constructor);
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
@@ -278,7 +275,7 @@ describe('User', function() {
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        //expect(error.constructor).toBe(RestException.prototype.constructor);
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 

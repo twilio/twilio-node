@@ -26,7 +26,7 @@ describe('Participant', function() {
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        //expect(error.constructor).toBe(RestException.prototype.constructor);
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
@@ -53,6 +53,7 @@ describe('Participant', function() {
           'date_updated': 'Fri, 18 Feb 2011 21:07:19 +0000',
           'end_conference_on_exit': false,
           'muted': false,
+          'hold': false,
           'start_conference_on_enter': true,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
       });
@@ -75,16 +76,13 @@ describe('Participant', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {
-        muted: true
-      };
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .conferences('CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .participants('CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update(opts);
+                                    .participants('CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        //expect(error.constructor).toBe(RestException.prototype.constructor);
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
@@ -95,13 +93,9 @@ describe('Participant', function() {
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Conferences/<%= conferenceSid %>/Participants/<%= callSid %>.json')(solution);
 
-      var values = {
-        Muted: true,
-      };
       holodeck.assertHasRequest(new Request({
-          method: 'POST',
-          url: url,
-          data: values
+        method: 'POST',
+        url: url
       }));
     }
   );
@@ -115,18 +109,16 @@ describe('Participant', function() {
           'date_updated': 'Fri, 18 Feb 2011 21:07:19 +0000',
           'end_conference_on_exit': false,
           'muted': false,
+          'hold': false,
           'start_conference_on_enter': true,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
       });
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {
-        muted: true
-      };
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .conferences('CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .participants('CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update(opts);
+                                    .participants('CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -146,7 +138,7 @@ describe('Participant', function() {
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        //expect(error.constructor).toBe(RestException.prototype.constructor);
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
@@ -191,7 +183,7 @@ describe('Participant', function() {
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        //expect(error.constructor).toBe(RestException.prototype.constructor);
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
@@ -226,6 +218,7 @@ describe('Participant', function() {
                   'date_updated': 'Fri, 18 Feb 2011 21:07:19 +0000',
                   'end_conference_on_exit': false,
                   'muted': false,
+                  'hold': false,
                   'start_conference_on_enter': true,
                   'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
               }

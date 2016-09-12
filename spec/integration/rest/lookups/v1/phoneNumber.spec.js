@@ -24,7 +24,7 @@ describe('PhoneNumber', function() {
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        //expect(error.constructor).toBe(RestException.prototype.constructor);
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
@@ -42,6 +42,11 @@ describe('PhoneNumber', function() {
   it('should generate valid fetch response',
     function() {
       var body = JSON.stringify({
+          'caller_name': {
+              'caller_name': 'Delicious Cheese Cake',
+              'caller_type': 'CONSUMER',
+              'error_code': null
+          },
           'carrier': {
               'error_code': null,
               'mobile_country_code': '310',

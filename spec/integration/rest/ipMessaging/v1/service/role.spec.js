@@ -25,7 +25,7 @@ describe('Role', function() {
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        //expect(error.constructor).toBe(RestException.prototype.constructor);
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
@@ -82,7 +82,7 @@ describe('Role', function() {
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        //expect(error.constructor).toBe(RestException.prototype.constructor);
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
@@ -129,7 +129,7 @@ describe('Role', function() {
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        //expect(error.constructor).toBe(RestException.prototype.constructor);
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
@@ -196,7 +196,7 @@ describe('Role', function() {
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        //expect(error.constructor).toBe(RestException.prototype.constructor);
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
@@ -289,7 +289,6 @@ describe('Role', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {
-        friendlyName: 'friendlyName',
         permission: ['permission']
       };
       var promise = client.ipMessaging.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
@@ -297,7 +296,7 @@ describe('Role', function() {
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        //expect(error.constructor).toBe(RestException.prototype.constructor);
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
@@ -308,7 +307,6 @@ describe('Role', function() {
       var url = _.template('https://ip-messaging.twilio.com/v1/Services/<%= serviceSid %>/Roles/<%= sid %>')(solution);
 
       var values = {
-        FriendlyName: 'friendlyName',
         Permission: ['permission'],
       };
       holodeck.assertHasRequest(new Request({
@@ -340,7 +338,6 @@ describe('Role', function() {
       holodeck.mock(new Response(200, body));
 
       var opts = {
-        friendlyName: 'friendlyName',
         permission: ['permission']
       };
       var promise = client.ipMessaging.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')

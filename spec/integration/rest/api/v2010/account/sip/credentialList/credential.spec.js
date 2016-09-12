@@ -27,7 +27,7 @@ describe('Credential', function() {
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        //expect(error.constructor).toBe(RestException.prototype.constructor);
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
@@ -132,7 +132,7 @@ describe('Credential', function() {
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        //expect(error.constructor).toBe(RestException.prototype.constructor);
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
@@ -195,7 +195,7 @@ describe('Credential', function() {
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        //expect(error.constructor).toBe(RestException.prototype.constructor);
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
@@ -243,18 +243,14 @@ describe('Credential', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {
-        username: 'username',
-        password: 'password'
-      };
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .sip
                                     .credentialLists('CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .credentials('CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update(opts);
+                                    .credentials('CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        //expect(error.constructor).toBe(RestException.prototype.constructor);
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
@@ -265,14 +261,9 @@ describe('Credential', function() {
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/CredentialLists/<%= credentialListSid %>/Credentials/<%= sid %>.json')(solution);
 
-      var values = {
-        Username: 'username',
-        Password: 'password',
-      };
       holodeck.assertHasRequest(new Request({
-          method: 'POST',
-          url: url,
-          data: values
+        method: 'POST',
+        url: url
       }));
     }
   );
@@ -290,14 +281,10 @@ describe('Credential', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {
-        username: 'username',
-        password: 'password'
-      };
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .sip
                                     .credentialLists('CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .credentials('CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update(opts);
+                                    .credentials('CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -318,7 +305,7 @@ describe('Credential', function() {
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        //expect(error.constructor).toBe(RestException.prototype.constructor);
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 

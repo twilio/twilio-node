@@ -25,7 +25,7 @@ describe('Recording', function() {
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        //expect(error.constructor).toBe(RestException.prototype.constructor);
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
@@ -51,6 +51,11 @@ describe('Recording', function() {
           'date_updated': 'Wed, 01 Sep 2010 15:15:41 +0000',
           'duration': '6',
           'sid': 'REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'price': '0.04',
+          'price_unit': 'USD',
+          'status': 'completed',
+          'channels': 1,
+          'source': 'Trunking',
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings/REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
       });
 
@@ -76,7 +81,7 @@ describe('Recording', function() {
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        //expect(error.constructor).toBe(RestException.prototype.constructor);
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
@@ -118,7 +123,7 @@ describe('Recording', function() {
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
-        //expect(error.constructor).toBe(RestException.prototype.constructor);
+        expect(error.constructor).toBe(RestException.prototype.constructor);
       });
       promise.done();
 
@@ -152,8 +157,12 @@ describe('Recording', function() {
                   'date_created': 'Wed, 22 Aug 2012 20:58:45 +0000',
                   'date_updated': 'Wed, 22 Aug 2012 20:58:45 +0000',
                   'duration': null,
-                  'price': null,
+                  'price': '0.04',
                   'sid': 'REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'price_unit': 'USD',
+                  'status': 'completed',
+                  'channels': 1,
+                  'source': 'Trunking',
                   'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings/REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
               }
           ],
