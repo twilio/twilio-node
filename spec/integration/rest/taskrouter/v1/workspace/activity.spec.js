@@ -268,7 +268,8 @@ describe('Activity', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {
-        friendlyName: 'friendlyName'
+        friendlyName: 'friendlyName',
+        available: true
       };
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                         .activities.create(opts);
@@ -286,6 +287,7 @@ describe('Activity', function() {
 
       var values = {
         FriendlyName: 'friendlyName',
+        Available: true,
       };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
@@ -310,7 +312,8 @@ describe('Activity', function() {
       holodeck.mock(new Response(200, body));
 
       var opts = {
-        friendlyName: 'friendlyName'
+        friendlyName: 'friendlyName',
+        available: true
       };
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                         .activities.create(opts);
