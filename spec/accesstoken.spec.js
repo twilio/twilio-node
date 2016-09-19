@@ -148,6 +148,23 @@ describe('AccessToken', function() {
       });
     });
 
+    it('should create token with video grant', function() {
+      var token = new twilio.AccessToken(accountSid, keySid, 'secret');
+      token.identity = 'ID@example.com';
+
+      var grant = new twilio.AccessToken.VideoGrant();
+      grant.configurationProfileSid = 'CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+      token.addGrant(grant);
+
+      var decoded = jwt.verify(token.toJwt(), 'secret');
+      expect(decoded.grants).toEqual({
+        identity: 'ID@example.com',
+        video: {
+          configuration_profile_sid: 'CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        }
+      });
+    });
+
     it('should create token with multiple grants', function() {
       var token = new twilio.AccessToken(accountSid, keySid, 'secret');
       token.identity = 'ID@example.com';
@@ -163,6 +180,10 @@ describe('AccessToken', function() {
       grant.configurationProfileSid = 'CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
       token.addGrant(grant);
 
+      grant = new twilio.AccessToken.VideoGrant();
+      grant.configurationProfileSid = 'CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+      token.addGrant(grant);
+
       var decoded = jwt.verify(token.toJwt(), 'secret');
       expect(decoded.grants).toEqual({
         identity: 'ID@example.com',
@@ -174,7 +195,10 @@ describe('AccessToken', function() {
         },
         rtc: {
           configuration_profile_sid: 'CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-        }
+        },
+        video: {
+          configuration_profile_sid: 'CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        },
       });
     });
 
@@ -222,6 +246,18 @@ describe('AccessToken', function() {
     });
 
     describe('ConversationGrant', function() {
+      it('should only populate set properties', function() {
+        var grant = new twilio.AccessToken.ConversationsGrant();
+        expect(grant.toPayload()).toEqual({});
+
+        grant.configurationProfileSid = 'CPsid';
+        expect(grant.toPayload()).toEqual({
+          configuration_profile_sid: 'CPsid'
+        });
+      });
+    });
+
+    describe('VideoGrant', function() {
       it('should only populate set properties', function() {
         var grant = new twilio.AccessToken.ConversationsGrant();
         expect(grant.toPayload()).toEqual({});
