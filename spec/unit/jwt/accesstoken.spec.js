@@ -97,7 +97,7 @@ describe('AccessToken', function() {
       expect(decoded.grants).toEqual({
         identity: 'ID@example.com'
       });
-    })
+    });
 
     it('should accept user defined ttl', function() {
       var token = new twilio.jwt.AccessToken(accountSid, keySid, 'secret');
@@ -148,6 +148,23 @@ describe('AccessToken', function() {
       });
     });
 
+    it('should create token with video grant', function() {
+      var token = new twilio.jwt.AccessToken(accountSid, keySid, 'secret');
+      token.identity = 'ID@example.com';
+
+      var grant = new twilio.jwt.AccessToken.VideoGrant();
+      grant.configurationProfileSid = 'CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+      token.addGrant(grant);
+
+      var decoded = jwt.verify(token.toJwt(), 'secret');
+      expect(decoded.grants).toEqual({
+        identity: 'ID@example.com',
+        video: {
+          configuration_profile_sid: 'CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        }
+      });
+    });
+
     it('should create token with sync grant', function() {
       var token = new twilio.jwt.AccessToken(accountSid, keySid, 'secret');
       token.identity = 'ID@example.com';
@@ -187,6 +204,10 @@ describe('AccessToken', function() {
       grant.endpointId = 'endpointId';
       token.addGrant(grant);
 
+      grant = new twilio.jwt.AccessToken.VideoGrant();
+      grant.configurationProfileSid = 'CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+      token.addGrant(grant);
+
       var decoded = jwt.verify(token.toJwt(), 'secret');
       expect(decoded.grants).toEqual({
         identity: 'ID@example.com',
@@ -202,6 +223,9 @@ describe('AccessToken', function() {
         data_sync: {
           service_sid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           endpoint_id: 'endpointId'
+        },
+        video: {
+          configuration_profile_sid: 'CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
         }
       });
     });
@@ -279,6 +303,18 @@ describe('AccessToken', function() {
             }
           },
           endpoint_id: 'id'
+        });
+      });
+    });
+
+    describe('VideoGrant', function() {
+      it('should only populate set properties', function() {
+        var grant = new twilio.jwt.AccessToken.ConversationsGrant();
+        expect(grant.toPayload()).toEqual({});
+
+        grant.configurationProfileSid = 'CPsid';
+        expect(grant.toPayload()).toEqual({
+          configuration_profile_sid: 'CPsid'
         });
       });
     });
