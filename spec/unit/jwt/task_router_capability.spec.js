@@ -1,5 +1,5 @@
 var twilio = require('../../../index'),
-    jwt = require('jwt-simple');
+    jwt = require('jsonwebtoken');
 
 describe('The TaskRouter Capability Token Object', function() {
 
