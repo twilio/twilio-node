@@ -15,7 +15,6 @@
   },
   "dependencies": {
     "jsonwebtoken": "5.4.x",
-    "jwt-simple": "0.1.x",
     "lodash": "4.0.0",
     "moment": "2.14.1",
     "q": "2.0.x",
