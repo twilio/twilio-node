@@ -131,7 +131,7 @@ describe('The Twilio REST Client constructor', function () {
                 url: '/blah',
                 method: 'GET'
             }, function (err, data, response) {
-                expect(err.status).toBe('ETIMEDOUT');
+                expect(err.status).toBe('ESOCKETTIMEDOUT');
                 server.close(done);
             });
 
