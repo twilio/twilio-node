@@ -13,6 +13,10 @@
     "type": "git",
     "url": "https://github.com/twilio/twilio-node.git"
   },
+  "files": [
+    "lib",
+    "index.js"
+  ],
   "dependencies": {
     "deprecate": "^0.1.0",
     "jsonwebtoken": "5.4.x",
