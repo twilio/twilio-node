@@ -96,6 +96,30 @@ describe('Twilio Messages resource', function() {
             }
         }, undefined);
     });
+
+    it('can send sms feedback with confirmed', function() {
+        client.sendSmsFeedback('SM123', true);
+        expect(client.request).toHaveBeenCalled();
+        expect(client.request).toHaveBeenCalledWith({
+            url: '/Accounts/AC123/Messages/SM123/Feedback',
+            method: 'POST',
+            form: {
+                Outcome: 'confirmed'
+            }
+        }, undefined);
+    });
+
+    it('can send sms feedback with unconfirmed', function() {
+        client.sendSmsFeedback('SM123', false);
+        expect(client.request).toHaveBeenCalled();
+        expect(client.request).toHaveBeenCalledWith({
+            url: '/Accounts/AC123/Messages/SM123/Feedback',
+            method: 'POST',
+            form: {
+                Outcome: 'unconfirmed'
+            }
+        }, undefined);
+    });
 });
 
 
