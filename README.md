@@ -4,6 +4,7 @@ A node.js Twilio helper library.
 
 [![NPM](https://nodei.co/npm/twilio.png?downloads=true&stars=true)](https://nodei.co/npm/twilio/)
 
+[![Dependency Status](https://david-dm.org/twilio/twilio-node/status.svg?style=flat)](https://david-dm.org/twilio/twilio-node) [![Known Vulnerabilities](https://snyk.io/test/npm/twilio/badge.svg)](https://snyk.io/test/npm/twilio)
 [![Build Status](https://travis-ci.org/twilio/twilio-node.svg?branch=master)](https://travis-ci.org/twilio/twilio-node)
 
 ## End User Docs
