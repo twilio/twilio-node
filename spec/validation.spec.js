@@ -160,6 +160,29 @@ describe('Testing Express request validation', function() {
 
     });
 
+
+    it('should validate if incoming url includes query paramters', function(done) {
+        // Manually create a Twilio signature
+        var signUrl = testUrl+'/middleware?a=b';
+        var testSig = createTestSig(signUrl);
+
+        // Hit our webhook with a "Twilio signed" request
+        request({
+            method:'POST',
+            url: signUrl,
+            headers: {
+                'X-Twilio-Signature':testSig
+            },
+            form: params
+        }, function(err, response) {
+            expect(err).toBeFalsy();
+            expect(response.body).toBe(twimlString);
+            done();
+        });
+
+    });
+
+
     it('should validate with a custom host and protocol', function(done) {
         // Manually create a Twilio signature
         var signUrl = testUrl+'/manual/host';
