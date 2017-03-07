@@ -143,4 +143,10 @@ describe('The Twilio REST Client Calls resource', function () {
             'form': {}
         }, undefined);
     });
+
+    it('getCall should return Promise', function() {
+        client.request.and.callThrough();
+        var promise = client.getCall('MM123');
+        expect(!!promise.then && typeof promise.then === 'function').toBeTruthy();
+    });
 });
