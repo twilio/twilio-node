@@ -1,8 +1,8 @@
 test-install:
-	npm install jasmine-node -g
+	npm install --only=dev
 
 install:
-	npm install ./
+	npm install
 
 test:
-	jasmine-node spec
+	npm test
