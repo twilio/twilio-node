@@ -42,6 +42,10 @@
     "check": "npm run jshint; npm run jscs",
     "jsdoc": "jsdoc -r lib -d docs"
   },
+  "files": [
+    "lib",
+    "index.js"
+  ],
   "main": "./lib",
   "engines": {
     "node": ">=0.10.0"
