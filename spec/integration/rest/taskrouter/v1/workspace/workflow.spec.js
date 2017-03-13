@@ -21,7 +21,7 @@ describe('Workflow', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .workflows('WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+                                        .workflows('WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -31,7 +31,7 @@ describe('Workflow', function() {
 
       var solution = {
         workspaceSid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        sid: 'WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
       var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workflows/<%= sid %>')(solution);
 
@@ -55,13 +55,16 @@ describe('Workflow', function() {
           'sid': 'WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'task_reservation_timeout': 120,
           'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workflows/WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'links': {
+              'statistics': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workflows/WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Statistics'
+          }
       });
 
       holodeck.mock(new Response(200, body));
 
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .workflows('WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+                                        .workflows('WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -76,7 +79,7 @@ describe('Workflow', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .workflows('WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+                                        .workflows('WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -86,7 +89,7 @@ describe('Workflow', function() {
 
       var solution = {
         workspaceSid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        sid: 'WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
       var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workflows/<%= sid %>')(solution);
 
@@ -110,13 +113,16 @@ describe('Workflow', function() {
           'sid': 'WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'task_reservation_timeout': 120,
           'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workflows/WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'links': {
+              'statistics': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workflows/WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Statistics'
+          },
           'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 
       holodeck.mock(new Response(200, body));
 
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .workflows('WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+                                        .workflows('WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -131,7 +137,7 @@ describe('Workflow', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .workflows('WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+                                        .workflows('WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -141,7 +147,7 @@ describe('Workflow', function() {
 
       var solution = {
         workspaceSid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        sid: 'WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
       var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workflows/<%= sid %>')(solution);
 
@@ -158,7 +164,7 @@ describe('Workflow', function() {
       holodeck.mock(new Response(204, body));
 
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .workflows('WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+                                        .workflows('WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
       }, function() {
@@ -218,6 +224,9 @@ describe('Workflow', function() {
                   'sid': 'WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'task_reservation_timeout': 120,
                   'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workflows/WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'links': {
+                      'statistics': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workflows/WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Statistics'
+                  },
                   'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
@@ -312,10 +321,13 @@ describe('Workflow', function() {
           'sid': 'WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'task_reservation_timeout': 120,
           'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workflows/WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'links': {
+              'statistics': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workflows/WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Statistics'
+          }
       });
 
-      holodeck.mock(new Response(200, body));
+      holodeck.mock(new Response(201, body));
 
       var opts = {
         friendlyName: 'friendlyName',

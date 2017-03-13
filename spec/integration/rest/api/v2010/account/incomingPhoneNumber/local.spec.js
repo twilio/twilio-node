@@ -31,9 +31,9 @@ describe('Local', function() {
       promise.done();
 
       var solution = {
-        ownerAccountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
-      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= ownerAccountSid %>/IncomingPhoneNumbers/Local.json')(solution);
+      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/IncomingPhoneNumbers/Local.json')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -153,9 +153,9 @@ describe('Local', function() {
       promise.done();
 
       var solution = {
-        ownerAccountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
-      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= ownerAccountSid %>/IncomingPhoneNumbers/Local.json')(solution);
+      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/IncomingPhoneNumbers/Local.json')(solution);
 
       var values = {
         PhoneNumber: '+987654321',
@@ -201,7 +201,7 @@ describe('Local', function() {
           'voice_url': null
       });
 
-      holodeck.mock(new Response(200, body));
+      holodeck.mock(new Response(201, body));
 
       var opts = {
         phoneNumber: '+987654321'

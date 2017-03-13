@@ -21,7 +21,7 @@ describe('Document', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.preview.sync.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                       .documents('sid').fetch();
+                                       .documents('ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -31,7 +31,7 @@ describe('Document', function() {
 
       var solution = {
         serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'sid'
+        sid: 'ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
       var url = _.template('https://preview.twilio.com/Sync/Services/<%= serviceSid %>/Documents/<%= sid %>')(solution);
 
@@ -41,12 +41,43 @@ describe('Document', function() {
       }));
     }
   );
+  it('should generate valid fetch response',
+    function() {
+      var body = JSON.stringify({
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'created_by': 'created_by',
+          'data': {},
+          'date_created': '2015-07-30T20:00:00Z',
+          'date_updated': '2015-07-30T20:00:00Z',
+          'revision': 'revision',
+          'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'sid': 'ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'unique_name': 'unique_name',
+          'url': 'https://preview.twilio.com/Sync/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Documents/ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'links': {
+              'permissions': 'https://preview.twilio.com/Sync/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Documents/ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Permissions'
+          }
+      });
+
+      holodeck.mock(new Response(200, body));
+
+      var promise = client.preview.sync.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                       .documents('ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      promise = promise.then(function(response) {
+        expect(response).toBeDefined();
+      }, function() {
+        throw new Error('failed');
+      });
+
+      promise.done();
+    }
+  );
   it('should generate valid remove request',
     function() {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.preview.sync.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                       .documents('sid').remove();
+                                       .documents('ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -56,7 +87,7 @@ describe('Document', function() {
 
       var solution = {
         serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'sid'
+        sid: 'ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
       var url = _.template('https://preview.twilio.com/Sync/Services/<%= serviceSid %>/Documents/<%= sid %>')(solution);
 
@@ -64,6 +95,23 @@ describe('Document', function() {
         method: 'DELETE',
         url: url
       }));
+    }
+  );
+  it('should generate valid delete response',
+    function() {
+      var body = JSON.stringify(null);
+
+      holodeck.mock(new Response(204, body));
+
+      var promise = client.preview.sync.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                       .documents('ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      promise = promise.then(function(response) {
+        expect(response).toBe(true);
+      }, function() {
+        throw new Error('failed');
+      });
+
+      promise.done();
     }
   );
   it('should generate valid create request',
@@ -90,6 +138,37 @@ describe('Document', function() {
       }));
     }
   );
+  it('should generate valid create response',
+    function() {
+      var body = JSON.stringify({
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'created_by': 'created_by',
+          'data': {},
+          'date_created': '2015-07-30T20:00:00Z',
+          'date_updated': '2015-07-30T20:00:00Z',
+          'revision': 'revision',
+          'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'sid': 'ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'unique_name': 'unique_name',
+          'url': 'https://preview.twilio.com/Sync/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Documents/ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'links': {
+              'permissions': 'https://preview.twilio.com/Sync/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Documents/ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Permissions'
+          }
+      });
+
+      holodeck.mock(new Response(201, body));
+
+      var promise = client.preview.sync.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                       .documents.create();
+      promise = promise.then(function(response) {
+        expect(response).toBeDefined();
+      }, function() {
+        throw new Error('failed');
+      });
+
+      promise.done();
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));
@@ -114,6 +193,78 @@ describe('Document', function() {
       }));
     }
   );
+  it('should generate valid read_empty response',
+    function() {
+      var body = JSON.stringify({
+          'documents': [],
+          'meta': {
+              'first_page_url': 'https://preview.twilio.com/Sync/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Documents?PageSize=50&Page=0',
+              'key': 'documents',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://preview.twilio.com/Sync/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Documents?PageSize=50&Page=0'
+          }
+      });
+
+      holodeck.mock(new Response(200, body));
+
+      var promise = client.preview.sync.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                       .documents.list();
+      promise = promise.then(function(response) {
+        expect(response).toBeDefined();
+      }, function() {
+        throw new Error('failed');
+      });
+
+      promise.done();
+    }
+  );
+  it('should generate valid read_full response',
+    function() {
+      var body = JSON.stringify({
+          'documents': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'created_by': 'created_by',
+                  'data': {},
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'revision': 'revision',
+                  'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sid': 'ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'unique_name': 'unique_name',
+                  'url': 'https://preview.twilio.com/Sync/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Documents/ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'links': {
+                      'permissions': 'https://preview.twilio.com/Sync/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Documents/ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Permissions'
+                  }
+              }
+          ],
+          'meta': {
+              'first_page_url': 'https://preview.twilio.com/Sync/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Documents?PageSize=50&Page=0',
+              'key': 'documents',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://preview.twilio.com/Sync/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Documents?PageSize=50&Page=0'
+          }
+      });
+
+      holodeck.mock(new Response(200, body));
+
+      var promise = client.preview.sync.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                       .documents.list();
+      promise = promise.then(function(response) {
+        expect(response).toBeDefined();
+      }, function() {
+        throw new Error('failed');
+      });
+
+      promise.done();
+    }
+  );
   it('should generate valid update request',
     function() {
       holodeck.mock(new Response(500, '{}'));
@@ -122,7 +273,7 @@ describe('Document', function() {
         data: '{}'
       };
       var promise = client.preview.sync.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                       .documents('sid').update(opts);
+                                       .documents('ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update(opts);
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -132,7 +283,7 @@ describe('Document', function() {
 
       var solution = {
         serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'sid'
+        sid: 'ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
       var url = _.template('https://preview.twilio.com/Sync/Services/<%= serviceSid %>/Documents/<%= sid %>')(solution);
 
@@ -144,6 +295,40 @@ describe('Document', function() {
           url: url,
           data: values
       }));
+    }
+  );
+  it('should generate valid update response',
+    function() {
+      var body = JSON.stringify({
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'created_by': 'created_by',
+          'data': {},
+          'date_created': '2015-07-30T20:00:00Z',
+          'date_updated': '2015-07-30T20:00:00Z',
+          'revision': 'revision',
+          'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'sid': 'ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'unique_name': 'unique_name',
+          'url': 'https://preview.twilio.com/Sync/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Documents/ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'links': {
+              'permissions': 'https://preview.twilio.com/Sync/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Documents/ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Permissions'
+          }
+      });
+
+      holodeck.mock(new Response(200, body));
+
+      var opts = {
+        data: '{}'
+      };
+      var promise = client.preview.sync.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                       .documents('ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update(opts);
+      promise = promise.then(function(response) {
+        expect(response).toBeDefined();
+      }, function() {
+        throw new Error('failed');
+      });
+
+      promise.done();
     }
   );
 });

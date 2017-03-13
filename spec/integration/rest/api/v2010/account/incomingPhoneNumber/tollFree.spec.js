@@ -31,9 +31,9 @@ describe('TollFree', function() {
       promise.done();
 
       var solution = {
-        ownerAccountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
-      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= ownerAccountSid %>/IncomingPhoneNumbers/TollFree.json')(solution);
+      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/IncomingPhoneNumbers/TollFree.json')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -153,9 +153,9 @@ describe('TollFree', function() {
       promise.done();
 
       var solution = {
-        ownerAccountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
-      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= ownerAccountSid %>/IncomingPhoneNumbers/TollFree.json')(solution);
+      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/IncomingPhoneNumbers/TollFree.json')(solution);
 
       var values = {
         PhoneNumber: '+987654321',
@@ -201,7 +201,7 @@ describe('TollFree', function() {
           'voice_url': null
       });
 
-      holodeck.mock(new Response(200, body));
+      holodeck.mock(new Response(201, body));
 
       var opts = {
         phoneNumber: '+987654321'

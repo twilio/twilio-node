@@ -21,7 +21,7 @@ describe('WorkflowStatistics', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .workflows('WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                        .workflows('WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                         .statistics().fetch();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -32,7 +32,7 @@ describe('WorkflowStatistics', function() {
 
       var solution = {
         workspaceSid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        workflowSid: 'WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        workflowSid: 'WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
       var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workflows/<%= workflowSid %>/Statistics')(solution);
 
@@ -46,13 +46,14 @@ describe('WorkflowStatistics', function() {
     function() {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workflows/WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Statistics',
           'cumulative': {
               'avg_task_acceptance_time': 0.0,
-              'end_time': '2014-08-06T22:39:00Z',
+              'end_time': '2008-01-02T00:00:00Z',
               'reservations_accepted': 0,
               'reservations_rejected': 0,
               'reservations_timed_out': 0,
-              'start_time': '2014-08-06T22:24:00Z',
+              'start_time': '2008-01-02T00:00:00Z',
               'tasks_canceled': 0,
               'tasks_entered': 0,
               'tasks_moved': 0,
@@ -75,7 +76,7 @@ describe('WorkflowStatistics', function() {
       holodeck.mock(new Response(200, body));
 
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .workflows('WFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                        .workflows('WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                         .statistics().fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();

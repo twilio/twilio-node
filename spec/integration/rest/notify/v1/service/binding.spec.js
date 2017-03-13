@@ -44,17 +44,20 @@ describe('Binding', function() {
   it('should generate valid fetch response',
     function() {
       var body = JSON.stringify({
-          'sid': 'BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'date_created': '2016-03-24T23:24:45Z',
-          'date_updated': '2016-03-24T23:24:45Z',
-          'notification_protocol_version': '3',
-          'endpoint': 'abcd',
-          'identity': 'jing',
+          'address': 'a7c658f4111ec4ff5a1a647f9d0edd819025b9f20522d2fae897049f32873e73',
           'binding_type': 'apn',
-          'address': '1234',
-          'tags': [],
+          'credential_sid': null,
+          'date_created': '2015-07-30T20:00:00Z',
+          'date_updated': '2015-07-30T20:00:00Z',
+          'endpoint': '26607274',
+          'identity': '24987039',
+          'notification_protocol_version': '3',
+          'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'sid': 'BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'tags': [
+              '26607274'
+          ],
           'url': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings/BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 
@@ -153,17 +156,20 @@ describe('Binding', function() {
   it('should generate valid create response',
     function() {
       var body = JSON.stringify({
-          'sid': 'BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'date_created': '2016-03-24T23:24:45Z',
-          'date_updated': '2016-03-24T23:24:45Z',
-          'notification_protocol_version': '3',
-          'endpoint': 'abcd',
-          'identity': 'jing',
+          'address': 'a7c658f4111ec4ff5a1a647f9d0edd819025b9f20522d2fae897049f32873e73',
           'binding_type': 'apn',
-          'address': '1234',
-          'tags': [],
+          'credential_sid': null,
+          'date_created': '2015-07-30T20:00:00Z',
+          'date_updated': '2015-07-30T20:00:00Z',
+          'endpoint': '26607274',
+          'identity': '24987039',
+          'notification_protocol_version': '3',
+          'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'sid': 'BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'tags': [
+              '26607274'
+          ],
           'url': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings/BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 
@@ -210,34 +216,19 @@ describe('Binding', function() {
       }));
     }
   );
-  it('should generate valid read_full response',
+  it('should generate valid read_empty response',
     function() {
       var body = JSON.stringify({
+          'bindings': [],
           'meta': {
-              'page': 0,
-              'page_size': 1,
-              'first_page_url': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings?PageSize=1&Page=0',
-              'previous_page_url': null,
-              'url': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings?PageSize=1&Page=0',
+              'first_page_url': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings?PageSize=50&Page=0',
+              'key': 'bindings',
               'next_page_url': null,
-              'key': 'bindings'
-          },
-          'bindings': [
-              {
-                  'sid': 'BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'date_created': '2016-03-24T23:24:45Z',
-                  'date_updated': '2016-03-24T23:24:45Z',
-                  'notification_protocol_version': '3',
-                  'endpoint': 'abcd',
-                  'identity': 'jing',
-                  'binding_type': 'apn',
-                  'address': '1234',
-                  'tags': [],
-                  'url': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings/BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-              }
-          ]
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings?PageSize=50&Page=0'
+          }
       });
 
       holodeck.mock(new Response(200, body));
@@ -253,19 +244,37 @@ describe('Binding', function() {
       promise.done();
     }
   );
-  it('should generate valid read_empty response',
+  it('should generate valid read_full response',
     function() {
       var body = JSON.stringify({
+          'bindings': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'address': 'a7c658f4111ec4ff5a1a647f9d0edd819025b9f20522d2fae897049f32873e73',
+                  'binding_type': 'apn',
+                  'credential_sid': null,
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'endpoint': '26607274',
+                  'identity': '24987039',
+                  'notification_protocol_version': '3',
+                  'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sid': 'BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'tags': [
+                      '26607274'
+                  ],
+                  'url': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings/BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ],
           'meta': {
-              'page': 0,
-              'page_size': 1,
-              'first_page_url': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings?PageSize=1&Page=0',
-              'previous_page_url': null,
-              'url': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings?PageSize=1&Page=0',
+              'first_page_url': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings?PageSize=50&Page=0',
+              'key': 'bindings',
               'next_page_url': null,
-              'key': 'bindings'
-          },
-          'bindings': []
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings?PageSize=50&Page=0'
+          }
       });
 
       holodeck.mock(new Response(200, body));

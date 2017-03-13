@@ -21,8 +21,8 @@ describe('TaskQueuesStatistics', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .taskQueues
-                                        .statistics.list();
+                                        .taskQueues('WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                        .taskQueuesStatistics.list();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -58,14 +58,14 @@ describe('TaskQueuesStatistics', function() {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'cumulative': {
                       'avg_task_acceptance_time': 0.0,
-                      'end_time': '2015-08-18T00:46:15Z',
+                      'end_time': '2015-08-18T08:46:15Z',
                       'reservations_accepted': 0,
                       'reservations_canceled': 0,
                       'reservations_created': 0,
                       'reservations_rejected': 0,
                       'reservations_rescinded': 0,
                       'reservations_timed_out': 0,
-                      'start_time': '2015-08-18T00:31:15Z',
+                      'start_time': '2015-08-18T08:31:15Z',
                       'tasks_canceled': 0,
                       'tasks_deleted': 0,
                       'tasks_entered': 0,
@@ -124,8 +124,8 @@ describe('TaskQueuesStatistics', function() {
       holodeck.mock(new Response(200, body));
 
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .taskQueues
-                                        .statistics.list();
+                                        .taskQueues('WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                        .taskQueuesStatistics.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -153,8 +153,8 @@ describe('TaskQueuesStatistics', function() {
       holodeck.mock(new Response(200, body));
 
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .taskQueues
-                                        .statistics.list();
+                                        .taskQueues('WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                        .taskQueuesStatistics.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {

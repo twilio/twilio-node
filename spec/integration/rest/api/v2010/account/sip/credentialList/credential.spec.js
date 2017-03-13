@@ -165,7 +165,7 @@ describe('Credential', function() {
           'username': '1440013725.28'
       });
 
-      holodeck.mock(new Response(200, body));
+      holodeck.mock(new Response(201, body));
 
       var opts = {
         username: 'username',

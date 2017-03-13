@@ -61,7 +61,7 @@ describe('Token', function() {
           'username': 'cda92e5006c7810494639fc466ecc80182cef8183fdf400f84c4126f3b59d0bb'
       });
 
-      holodeck.mock(new Response(200, body));
+      holodeck.mock(new Response(201, body));
 
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .tokens.create();

@@ -262,8 +262,11 @@ describe('Queue', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
+      var opts = {
+        friendlyName: 'friendlyName'
+      };
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .queues.create();
+                                    .queues.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -276,9 +279,13 @@ describe('Queue', function() {
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Queues.json')(solution);
 
+      var values = {
+        FriendlyName: 'friendlyName',
+      };
       holodeck.assertHasRequest(new Request({
-        method: 'POST',
-        url: url
+          method: 'POST',
+          url: url,
+          data: values
       }));
     }
   );
@@ -296,10 +303,13 @@ describe('Queue', function() {
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queues/QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
       });
 
-      holodeck.mock(new Response(200, body));
+      holodeck.mock(new Response(201, body));
 
+      var opts = {
+        friendlyName: 'friendlyName'
+      };
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .queues.create();
+                                    .queues.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {

@@ -65,16 +65,18 @@ describe('Address', function() {
           'customer_name': 'name',
           'date_created': 'Tue, 18 Aug 2015 17:07:30 +0000',
           'date_updated': 'Tue, 18 Aug 2015 17:07:30 +0000',
+          'emergency_enabled': false,
           'friendly_name': null,
           'iso_country': 'US',
           'postal_code': '94019',
           'region': 'CA',
           'sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'street': '4th',
+          'validated': false,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses/ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
       });
 
-      holodeck.mock(new Response(200, body));
+      holodeck.mock(new Response(201, body));
 
       var opts = {
         customerName: 'customerName',
@@ -170,12 +172,14 @@ describe('Address', function() {
           'customer_name': 'name',
           'date_created': 'Tue, 18 Aug 2015 17:07:30 +0000',
           'date_updated': 'Tue, 18 Aug 2015 17:07:30 +0000',
+          'emergency_enabled': false,
           'friendly_name': null,
           'iso_country': 'US',
           'postal_code': '94019',
           'region': 'CA',
           'sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'street': '4th',
+          'validated': false,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses/ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
       });
 
@@ -225,12 +229,14 @@ describe('Address', function() {
           'customer_name': 'name',
           'date_created': 'Tue, 18 Aug 2015 17:07:30 +0000',
           'date_updated': 'Tue, 18 Aug 2015 17:07:30 +0000',
+          'emergency_enabled': false,
           'friendly_name': null,
           'iso_country': 'US',
           'postal_code': '94019',
           'region': 'CA',
           'sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'street': '4th',
+          'validated': false,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses/ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
       });
 
@@ -281,12 +287,14 @@ describe('Address', function() {
                   'customer_name': 'name',
                   'date_created': 'Tue, 18 Aug 2015 17:07:30 +0000',
                   'date_updated': 'Tue, 18 Aug 2015 17:07:30 +0000',
+                  'emergency_enabled': false,
                   'friendly_name': null,
                   'iso_country': 'US',
                   'postal_code': '94019',
                   'region': 'CA',
                   'sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'street': '4th',
+                  'validated': false,
                   'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses/ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
               }
           ],

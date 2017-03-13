@@ -171,7 +171,7 @@ describe('Domain', function() {
           'voice_url': 'https://dundermifflin.example.com/twilio/app.php'
       });
 
-      holodeck.mock(new Response(200, body));
+      holodeck.mock(new Response(201, body));
 
       var opts = {
         domainName: 'domainName'

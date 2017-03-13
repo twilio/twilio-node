@@ -42,5 +42,30 @@ describe('Feedback', function() {
       }));
     }
   );
+  it('should generate valid create response',
+    function() {
+      var body = JSON.stringify({
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'date_created': 'Thu, 30 Jul 2015 20:00:00 +0000',
+          'date_updated': 'Thu, 30 Jul 2015 20:00:00 +0000',
+          'message_sid': 'MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'outcome': 'confirmed',
+          'uri': 'uri'
+      });
+
+      holodeck.mock(new Response(201, body));
+
+      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                    .messages('MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                    .feedback.create();
+      promise = promise.then(function(response) {
+        expect(response).toBeDefined();
+      }, function() {
+        throw new Error('failed');
+      });
+
+      promise.done();
+    }
+  );
 });
 
