@@ -1,5 +1,4 @@
 {
-    "esnext": true,
     "disallowSpacesInNamedFunctionExpression": {
         "beforeOpeningRoundBrace": true
     },
@@ -20,9 +19,7 @@
     "disallowSpaceAfterObjectKeys": true,
     "disallowSpaceAfterPrefixUnaryOperators": true,
     "disallowSpaceBeforePostfixUnaryOperators": true,
-    "disallowSpaceBeforeBinaryOperators": [
-        ","
-    ],
+    "disallowSpaceBeforeBinaryOperators": [","],
     "disallowMixedSpacesAndTabs": true,
     "disallowTrailingWhitespace": true,
     "requireTrailingComma": { "ignoreSingleLine": true },
@@ -42,15 +39,13 @@
     "requireCommaBeforeLineBreak": true,
     "requireSpaceBeforeBinaryOperators": true,
     "requireSpaceAfterBinaryOperators": true,
-    "requireCamelCaseOrUpperCaseIdentifiers": true,
+    "requireCamelCaseOrUpperCaseIdentifiers": false,
     "requireLineFeedAtFileEnd": true,
     "requireCapitalizedConstructors": true,
-    "requireDotNotation": true,
+    "requireDotNotation": false,
     "requireSpacesInForStatement": true,
     "requireSpaceBetweenArguments": true,
-    "requireCurlyBraces": [
-        "do"
-    ],
+    "requireCurlyBraces": ["do"],
     "requireSpaceAfterKeywords": [
         "if",
         "else",
