@@ -1,4 +1,9 @@
 var twilio = require('../lib/index');
+var customMatchers = require('./custom_matchers');
+
+beforeEach(function() {
+    customMatchers.setupCustomMatchers(this);
+});
 
 describe('twilio', function() {
   var accountSid = 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';

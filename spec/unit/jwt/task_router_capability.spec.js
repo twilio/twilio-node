@@ -15,14 +15,14 @@ describe('The TaskRouter Capability Token Object', function() {
         expect(decoded['workspace_sid']).toBe('WS456');
         expect(decoded['worker_sid']).toBe('WK789');
         expect(decoded['version']).toBe('v1');
-        expect(decoded['exp']).toEqual(Math.floor(new Date() / 1000) + 3600);
+        expect(decoded['exp']).toAlmostEqual(Math.floor(new Date() / 1000) + 3600, 2);
     });
 
     it('should accept custom ttls', function() {
         var c = new twilio.jwt.TaskRouterCapability('AC123', 'foobar', 'WS456', 'WK789');
         var token = c.generate(1000);
         var decoded = jwt.decode(token, 'foobar');
-        expect(decoded['exp']).toEqual(Math.floor(new Date() / 1000) + 1000);
+        expect(decoded['exp']).toAlmostEqual(Math.floor(new Date() / 1000) + 1000, 2);
     });
 
     it('should allow websocket and activities access by default', function() {

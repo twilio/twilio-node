@@ -14,14 +14,14 @@ describe('The TaskRouter Workspace Capability Token Object', function() {
         expect(decoded['channel']).toBe('WS456');
         expect(decoded['workspace_sid']).toBe('WS456');
         expect(decoded['version']).toBe('v1');
-        expect(decoded['exp']).toEqual(Math.floor(new Date() / 1000) + 3600);
+        expect(decoded['exp']).toAlmostEqual(Math.floor(new Date() / 1000) + 3600, 2);
     });
 
     it('should accept custom ttls', function() {
         var c = new twilio.jwt.TaskRouterWorkspaceCapability('AC123', 'foobar', 'WS456');
         var token = c.generate(1000);
         var decoded = jwt.decode(token, 'foobar');
-        expect(decoded['exp']).toEqual(Math.floor(new Date() / 1000) + 1000);
+        expect(decoded['exp']).toAlmostEqual(Math.floor(new Date() / 1000) + 1000, 2);
     });
 
     it('should allow websocket and fetching workspace by default', function() {
