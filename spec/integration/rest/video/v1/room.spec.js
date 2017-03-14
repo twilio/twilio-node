@@ -54,6 +54,7 @@ describe('Room', function() {
           'duration': 0,
           'status_callback_method': 'POST',
           'status_callback': '',
+          'record_participants_on_connect': false,
           'start_time': '2015-07-30T20:00:00Z',
           'end_time': '2015-07-30T20:00:00Z',
           'url': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
@@ -106,6 +107,7 @@ describe('Room', function() {
           'duration': 0,
           'status_callback_method': 'POST',
           'status_callback': '',
+          'record_participants_on_connect': false,
           'start_time': '2015-07-30T20:00:00Z',
           'end_time': '2015-07-30T20:00:00Z',
           'url': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
@@ -214,6 +216,7 @@ describe('Room', function() {
           'max_participants': 10,
           'status_callback_method': 'POST',
           'status_callback': '',
+          'record_participants_on_connect': false,
           'start_time': '2015-07-30T20:00:00Z',
           'end_time': '2015-07-30T20:00:00Z',
           'duration': 10,

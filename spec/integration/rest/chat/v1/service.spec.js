@@ -50,6 +50,11 @@ describe('Service', function() {
           'default_channel_role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'default_service_role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'friendly_name': 'friendly_name',
+          'limits': {
+              'actions_per_second': 20,
+              'channel_members': 100,
+              'user_channels': 250
+          },
           'links': {},
           'notifications': {},
           'post_webhook_url': 'post_webhook_url',
@@ -155,6 +160,11 @@ describe('Service', function() {
           'default_channel_role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'default_service_role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'friendly_name': 'friendly_name',
+          'limits': {
+              'actions_per_second': 20,
+              'channel_members': 100,
+              'user_channels': 250
+          },
           'links': {},
           'notifications': {},
           'post_webhook_url': 'post_webhook_url',
@@ -255,6 +265,11 @@ describe('Service', function() {
                   'default_channel_role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'default_service_role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'friendly_name': 'friendly_name',
+                  'limits': {
+                      'actions_per_second': 20,
+                      'channel_members': 100,
+                      'user_channels': 250
+                  },
                   'links': {},
                   'notifications': {},
                   'post_webhook_url': 'post_webhook_url',
@@ -319,6 +334,11 @@ describe('Service', function() {
           'default_channel_role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'default_service_role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'friendly_name': 'friendly_name',
+          'limits': {
+              'actions_per_second': 20,
+              'channel_members': 500,
+              'user_channels': 600
+          },
           'links': {},
           'notifications': {},
           'post_webhook_url': 'post_webhook_url',
