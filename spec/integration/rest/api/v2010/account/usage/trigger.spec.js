@@ -239,7 +239,7 @@ describe('Trigger', function() {
           'usage_record_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Records?Category=totalprice'
       });
 
-      holodeck.mock(new Response(200, body));
+      holodeck.mock(new Response(201, body));
 
       var opts = {
         callbackUrl: 'https://example.com',

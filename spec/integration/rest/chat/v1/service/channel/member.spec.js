@@ -51,7 +51,7 @@ describe('Member', function() {
           'channel_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'identity': 'jing',
-          'role_sid': 'RL003876fe89d744dfa576824b53c26784',
+          'role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'last_consumed_message_index': null,
           'last_consumption_timestamp': null,
           'date_created': '2016-03-24T21:05:50Z',
@@ -114,7 +114,7 @@ describe('Member', function() {
           'channel_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'identity': 'jing',
-          'role_sid': 'RL003876fe89d744dfa576824b53c26784',
+          'role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'last_consumed_message_index': null,
           'last_consumption_timestamp': null,
           'date_created': '2016-03-24T21:05:50Z',
@@ -170,10 +170,10 @@ describe('Member', function() {
       var body = JSON.stringify({
           'meta': {
               'page': 0,
-              'page_size': 1,
-              'first_page_url': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members?PageSize=1&Page=0',
+              'page_size': 50,
+              'first_page_url': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members?PageSize=50&Page=0',
               'previous_page_url': null,
-              'url': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members?PageSize=1&Page=0',
+              'url': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members?PageSize=50&Page=0',
               'next_page_url': null,
               'key': 'members'
           },
@@ -184,7 +184,7 @@ describe('Member', function() {
                   'channel_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'identity': 'jing',
-                  'role_sid': 'RL003876fe89d744dfa576824b53c26784',
+                  'role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'last_consumed_message_index': null,
                   'last_consumption_timestamp': null,
                   'date_created': '2016-03-24T21:05:50Z',
@@ -213,10 +213,10 @@ describe('Member', function() {
       var body = JSON.stringify({
           'meta': {
               'page': 0,
-              'page_size': 1,
-              'first_page_url': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members?PageSize=1&Page=0',
+              'page_size': 50,
+              'first_page_url': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members?PageSize=50&Page=0',
               'previous_page_url': null,
-              'url': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members?PageSize=1&Page=0',
+              'url': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members?PageSize=50&Page=0',
               'next_page_url': null,
               'key': 'members'
           },
@@ -275,6 +275,93 @@ describe('Member', function() {
                                   .members('MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
+      }, function() {
+        throw new Error('failed');
+      });
+
+      promise.done();
+    }
+  );
+  it('should generate valid update request',
+    function() {
+      holodeck.mock(new Response(500, '{}'));
+
+      var promise = client.chat.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                  .channels('CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                  .members('MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      promise = promise.then(function() {
+        throw new Error('failed');
+      }, function(error) {
+        expect(error.constructor).toBe(RestException.prototype.constructor);
+      });
+      promise.done();
+
+      var solution = {
+        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+        channelSid: 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+        sid: 'MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+      };
+      var url = _.template('https://ip-messaging.twilio.com/v1/Services/<%= serviceSid %>/Channels/<%= channelSid %>/Members/<%= sid %>')(solution);
+
+      holodeck.assertHasRequest(new Request({
+        method: 'POST',
+        url: url
+      }));
+    }
+  );
+  it('should generate valid update_role_sid response',
+    function() {
+      var body = JSON.stringify({
+          'sid': 'MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'channel_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'identity': 'jing',
+          'role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'last_consumed_message_index': null,
+          'last_consumption_timestamp': null,
+          'date_created': '2016-03-24T21:05:50Z',
+          'date_updated': '2016-03-24T21:05:50Z',
+          'url': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+      });
+
+      holodeck.mock(new Response(200, body));
+
+      var promise = client.chat.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                  .channels('CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                  .members('MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      promise = promise.then(function(response) {
+        expect(response).toBeDefined();
+      }, function() {
+        throw new Error('failed');
+      });
+
+      promise.done();
+    }
+  );
+  it('should generate valid update_last_consumed_message_index response',
+    function() {
+      var body = JSON.stringify({
+          'sid': 'MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'channel_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'identity': 'jing',
+          'role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'last_consumed_message_index': 666,
+          'last_consumption_timestamp': null,
+          'date_created': '2016-03-24T21:05:50Z',
+          'date_updated': '2016-03-24T21:05:50Z',
+          'url': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+      });
+
+      holodeck.mock(new Response(200, body));
+
+      var promise = client.chat.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                  .channels('CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                  .members('MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      promise = promise.then(function(response) {
+        expect(response).toBeDefined();
       }, function() {
         throw new Error('failed');
       });

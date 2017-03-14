@@ -76,7 +76,7 @@ describe('FeedbackSummary', function() {
           'date_updated': 'Tue, 31 Aug 2010 20:36:44 +0000'
       });
 
-      holodeck.mock(new Response(200, body));
+      holodeck.mock(new Response(201, body));
 
       var opts = {
         startDate: new Date(Date.UTC(2008, 0, 2)),

@@ -151,7 +151,7 @@ describe('CredentialList', function() {
           'url': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialLists/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 
-      holodeck.mock(new Response(200, body));
+      holodeck.mock(new Response(201, body));
 
       var opts = {
         credentialListSid: 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'

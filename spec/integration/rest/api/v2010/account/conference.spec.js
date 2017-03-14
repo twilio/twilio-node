@@ -50,6 +50,7 @@ describe('Conference', function() {
           'date_updated': 'Fri, 18 Feb 2011 19:27:33 +0000',
           'friendly_name': 'AHH YEAH',
           'sid': 'CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'region': 'us1',
           'status': 'completed',
           'subresource_uris': {
               'participants': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants.json'
@@ -104,6 +105,7 @@ describe('Conference', function() {
                   'date_created': 'Mon, 22 Aug 2011 20:58:45 +0000',
                   'date_updated': 'Mon, 22 Aug 2011 20:58:46 +0000',
                   'friendly_name': null,
+                  'region': 'us1',
                   'sid': 'CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'status': 'in-progress',
                   'subresource_uris': {
@@ -114,14 +116,11 @@ describe('Conference', function() {
           ],
           'end': 0,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences.json?PageSize=1&Page=0',
-          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences.json?PageSize=1&Page=2',
           'next_page_uri': null,
-          'num_pages': 3,
           'page': 0,
           'page_size': 1,
           'previous_page_uri': null,
           'start': 0,
-          'total': 3,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences.json?PageSize=1'
       });
 
@@ -144,14 +143,11 @@ describe('Conference', function() {
           'conferences': [],
           'end': 0,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences.json?PageSize=1&Page=0',
-          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences.json?PageSize=1&Page=2',
           'next_page_uri': null,
-          'num_pages': 3,
           'page': 0,
           'page_size': 1,
           'previous_page_uri': null,
           'start': 0,
-          'total': 3,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences.json?PageSize=1'
       });
 
@@ -159,6 +155,61 @@ describe('Conference', function() {
 
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .conferences.list();
+      promise = promise.then(function(response) {
+        expect(response).toBeDefined();
+      }, function() {
+        throw new Error('failed');
+      });
+
+      promise.done();
+    }
+  );
+  it('should generate valid update request',
+    function() {
+      holodeck.mock(new Response(500, '{}'));
+
+      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                    .conferences('CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      promise = promise.then(function() {
+        throw new Error('failed');
+      }, function(error) {
+        expect(error.constructor).toBe(RestException.prototype.constructor);
+      });
+      promise.done();
+
+      var solution = {
+        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+        sid: 'CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+      };
+      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Conferences/<%= sid %>.json')(solution);
+
+      holodeck.assertHasRequest(new Request({
+        method: 'POST',
+        url: url
+      }));
+    }
+  );
+  it('should generate valid update_end_conference response',
+    function() {
+      var body = JSON.stringify({
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'api_version': '2010-04-01',
+          'date_created': 'Mon, 22 Aug 2011 20:58:45 +0000',
+          'date_updated': 'Mon, 22 Aug 2011 20:58:46 +0000',
+          'friendly_name': null,
+          'region': 'us1',
+          'sid': 'CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'status': 'completed',
+          'subresource_uris': {
+              'participants': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants.json'
+          },
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+      });
+
+      holodeck.mock(new Response(200, body));
+
+      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                    .conferences('CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {

@@ -151,7 +151,7 @@ describe('CredentialList', function() {
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/CredentialLists/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
       });
 
-      holodeck.mock(new Response(200, body));
+      holodeck.mock(new Response(201, body));
 
       var opts = {
         friendlyName: 'friendlyName'

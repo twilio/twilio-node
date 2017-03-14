@@ -72,7 +72,7 @@ describe('Application', function() {
           'voice_url': 'http://example.com'
       });
 
-      holodeck.mock(new Response(200, body));
+      holodeck.mock(new Response(201, body));
 
       var opts = {
         friendlyName: 'friendlyName'

@@ -36,11 +36,86 @@ describe('RatePlan', function() {
       }));
     }
   );
+  it('should generate valid read_empty response',
+    function() {
+      var body = JSON.stringify({
+          'meta': {
+              'first_page_url': 'https://preview.twilio.com/wireless/RatePlans?PageSize=50&Page=0',
+              'key': 'rate_plans',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://preview.twilio.com/wireless/RatePlans?PageSize=50&Page=0'
+          },
+          'rate_plans': []
+      });
+
+      holodeck.mock(new Response(200, body));
+
+      var promise = client.preview.wireless.ratePlans.list();
+      promise = promise.then(function(response) {
+        expect(response).toBeDefined();
+      }, function() {
+        throw new Error('failed');
+      });
+
+      promise.done();
+    }
+  );
+  it('should generate valid read_full response',
+    function() {
+      var body = JSON.stringify({
+          'meta': {
+              'first_page_url': 'https://preview.twilio.com/wireless/RatePlans?PageSize=50&Page=0',
+              'key': 'rate_plans',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://preview.twilio.com/wireless/RatePlans?PageSize=50&Page=0'
+          },
+          'rate_plans': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'unique_name': 'unique_name',
+                  'commands': {
+                      'enabled': true
+                  },
+                  'data': {
+                      'limit': 1000,
+                      'metering': 'pooled'
+                  },
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'friendly_name': 'friendly_name',
+                  'renewal': 'monthly',
+                  'roaming': [
+                      'National'
+                  ],
+                  'sid': 'WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://preview.twilio.com/wireless/RatePlans/WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ]
+      });
+
+      holodeck.mock(new Response(200, body));
+
+      var promise = client.preview.wireless.ratePlans.list();
+      promise = promise.then(function(response) {
+        expect(response).toBeDefined();
+      }, function() {
+        throw new Error('failed');
+      });
+
+      promise.done();
+    }
+  );
   it('should generate valid fetch request',
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.wireless.ratePlans('sid').fetch();
+      var promise = client.preview.wireless.ratePlans('WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -49,7 +124,7 @@ describe('RatePlan', function() {
       promise.done();
 
       var solution = {
-        sid: 'sid'
+        sid: 'WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
       var url = _.template('https://preview.twilio.com/wireless/RatePlans/<%= sid %>')(solution);
 
@@ -57,6 +132,154 @@ describe('RatePlan', function() {
         method: 'GET',
         url: url
       }));
+    }
+  );
+  it('should generate valid fetch response',
+    function() {
+      var body = JSON.stringify({
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'unique_name': 'unique_name',
+          'commands': {
+              'enabled': true
+          },
+          'data': {
+              'limit': 1000,
+              'metering': 'pooled'
+          },
+          'date_created': '2015-07-30T20:00:00Z',
+          'date_updated': '2015-07-30T20:00:00Z',
+          'friendly_name': 'friendly_name',
+          'renewal': 'monthly',
+          'roaming': [
+              'National'
+          ],
+          'sid': 'WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'url': 'https://preview.twilio.com/wireless/RatePlans/WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+      });
+
+      holodeck.mock(new Response(200, body));
+
+      var promise = client.preview.wireless.ratePlans('WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      promise = promise.then(function(response) {
+        expect(response).toBeDefined();
+      }, function() {
+        throw new Error('failed');
+      });
+
+      promise.done();
+    }
+  );
+  it('should generate valid create request',
+    function() {
+      holodeck.mock(new Response(500, '{}'));
+
+      var promise = client.preview.wireless.ratePlans.create();
+      promise = promise.then(function() {
+        throw new Error('failed');
+      }, function(error) {
+        expect(error.constructor).toBe(RestException.prototype.constructor);
+      });
+      promise.done();
+
+      var url = 'https://preview.twilio.com/wireless/RatePlans';
+
+      holodeck.assertHasRequest(new Request({
+        method: 'POST',
+        url: url
+      }));
+    }
+  );
+  it('should generate valid create response',
+    function() {
+      var body = JSON.stringify({
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'unique_name': 'unique_name',
+          'commands': {
+              'enabled': true
+          },
+          'data': {
+              'limit': 1000,
+              'metering': 'pooled'
+          },
+          'date_created': '2015-07-30T20:00:00Z',
+          'date_updated': '2015-07-30T20:00:00Z',
+          'friendly_name': 'friendly_name',
+          'renewal': 'monthly',
+          'roaming': [
+              'National'
+          ],
+          'sid': 'WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'url': 'https://preview.twilio.com/wireless/RatePlans/WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+      });
+
+      holodeck.mock(new Response(201, body));
+
+      var promise = client.preview.wireless.ratePlans.create();
+      promise = promise.then(function(response) {
+        expect(response).toBeDefined();
+      }, function() {
+        throw new Error('failed');
+      });
+
+      promise.done();
+    }
+  );
+  it('should generate valid update request',
+    function() {
+      holodeck.mock(new Response(500, '{}'));
+
+      var promise = client.preview.wireless.ratePlans('WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      promise = promise.then(function() {
+        throw new Error('failed');
+      }, function(error) {
+        expect(error.constructor).toBe(RestException.prototype.constructor);
+      });
+      promise.done();
+
+      var solution = {
+        sid: 'WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+      };
+      var url = _.template('https://preview.twilio.com/wireless/RatePlans/<%= sid %>')(solution);
+
+      holodeck.assertHasRequest(new Request({
+        method: 'POST',
+        url: url
+      }));
+    }
+  );
+  it('should generate valid update response',
+    function() {
+      var body = JSON.stringify({
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'unique_name': 'unique_name',
+          'commands': {
+              'enabled': true
+          },
+          'data': {
+              'limit': 1000,
+              'metering': 'pooled'
+          },
+          'date_created': '2015-07-30T20:00:00Z',
+          'date_updated': '2015-07-30T20:00:00Z',
+          'friendly_name': 'friendly_name',
+          'renewal': 'monthly',
+          'roaming': [
+              'National'
+          ],
+          'sid': 'WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'url': 'https://preview.twilio.com/wireless/RatePlans/WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+      });
+
+      holodeck.mock(new Response(200, body));
+
+      var promise = client.preview.wireless.ratePlans('WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      promise = promise.then(function(response) {
+        expect(response).toBeDefined();
+      }, function() {
+        throw new Error('failed');
+      });
+
+      promise.done();
     }
   );
 });

@@ -59,6 +59,7 @@ describe('Workspace', function() {
               'workflows': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workflows'
           },
           'multi_task_enabled': 'false',
+          'prioritize_queue_order': 'FIFO',
           'sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'timeout_activity_name': 'Offline',
           'timeout_activity_sid': 'WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -120,6 +121,7 @@ describe('Workspace', function() {
               'workflows': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workflows'
           },
           'multi_task_enabled': 'false',
+          'prioritize_queue_order': 'FIFO',
           'sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'timeout_activity_name': 'Offline',
           'timeout_activity_sid': 'WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -189,6 +191,7 @@ describe('Workspace', function() {
                       'workflows': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workflows'
                   },
                   'multi_task_enabled': 'false',
+                  'prioritize_queue_order': 'FIFO',
                   'sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'timeout_activity_name': 'Offline',
                   'timeout_activity_sid': 'WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -283,13 +286,14 @@ describe('Workspace', function() {
               'workflows': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workflows'
           },
           'multi_task_enabled': 'false',
+          'prioritize_queue_order': 'FIFO',
           'sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'timeout_activity_name': 'Offline',
           'timeout_activity_sid': 'WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 
-      holodeck.mock(new Response(200, body));
+      holodeck.mock(new Response(201, body));
 
       var opts = {
         friendlyName: 'friendlyName'

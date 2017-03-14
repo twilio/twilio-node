@@ -63,7 +63,7 @@ describe('Feedback', function() {
           'sid': 'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 
-      holodeck.mock(new Response(200, body));
+      holodeck.mock(new Response(201, body));
 
       var opts = {
         qualityScore: 1

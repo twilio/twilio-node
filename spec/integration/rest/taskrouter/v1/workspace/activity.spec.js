@@ -71,11 +71,8 @@ describe('Activity', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {
-        friendlyName: 'friendlyName'
-      };
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .activities('WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update(opts);
+                                        .activities('WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -89,13 +86,9 @@ describe('Activity', function() {
       };
       var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Activities/<%= sid %>')(solution);
 
-      var values = {
-        FriendlyName: 'friendlyName',
-      };
       holodeck.assertHasRequest(new Request({
-          method: 'POST',
-          url: url,
-          data: values
+        method: 'POST',
+        url: url
       }));
     }
   );
@@ -114,11 +107,8 @@ describe('Activity', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {
-        friendlyName: 'friendlyName'
-      };
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .activities('WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update(opts);
+                                        .activities('WAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -268,8 +258,7 @@ describe('Activity', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {
-        friendlyName: 'friendlyName',
-        available: true
+        friendlyName: 'friendlyName'
       };
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                         .activities.create(opts);
@@ -287,7 +276,6 @@ describe('Activity', function() {
 
       var values = {
         FriendlyName: 'friendlyName',
-        Available: true,
       };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
@@ -309,11 +297,10 @@ describe('Activity', function() {
           'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 
-      holodeck.mock(new Response(200, body));
+      holodeck.mock(new Response(201, body));
 
       var opts = {
-        friendlyName: 'friendlyName',
-        available: true
+        friendlyName: 'friendlyName'
       };
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                         .activities.create(opts);

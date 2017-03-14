@@ -34,7 +34,6 @@ describe('twilio', function() {
     var client = new twilio(accountSid, token);
     expect(client.api.v2010.account.calls.list).toBeTruthy();
     expect(client.api.account.calls.list).toBeTruthy();
-    expect(client.account.calls.list).toBeTruthy();
     expect(client.calls.list).toBeTruthy();
   });
 
@@ -42,7 +41,6 @@ describe('twilio', function() {
     var client = new twilio(accountSid, token);
     expect(client.api.v2010.account.calls('CA123').fetch).toBeTruthy();
     expect(client.api.account.calls('CA123').fetch).toBeTruthy();
-    expect(client.account.calls('CA123').fetch).toBeTruthy();
     expect(client.calls('CA123').fetch).toBeTruthy();
   });
 
