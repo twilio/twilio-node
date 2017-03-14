@@ -1,7 +1,7 @@
 twilio-node changelog
 =====================
 
-Version 3.0.0-rc.14
+Version 3.0.0-rc.15
 -------------
 
 Release March 13, 2017
