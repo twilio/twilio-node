@@ -6,6 +6,7 @@ var Request = require('../../../../../../lib/http/request');
 var Response = require('../../../../../../lib/http/response');
 var RestException = require('../../../../../../lib/base/RestException');
 var Twilio = require('../../../../../../lib');
+var serialize = require('../../../../../../lib/base/serialize');
 
 
 var client;
@@ -288,7 +289,7 @@ describe('Document', function() {
       var url = _.template('https://preview.twilio.com/Sync/Services/<%= serviceSid %>/Documents/<%= sid %>')(solution);
 
       var values = {
-        Data: '{}',
+        Data: serialize.object('{}'),
       };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
