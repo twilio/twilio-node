@@ -118,7 +118,7 @@ twilio.messages.list(function(err, messages) {
   console.log('Listing messages using callbacks');
   _.each(messages, function(message) {
     console.log(message.sid);
-  })
+  });
 });
 
 // List messages using promises
@@ -127,5 +127,5 @@ promise.then(function(messages) {
   console.log('Listing messages using promises');
   _.each(messages, function(message) {
     console.log(message.sid);
-  })
+  });
 });

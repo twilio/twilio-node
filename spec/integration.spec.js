@@ -1,3 +1,5 @@
+'use strict';
+
 var twilio = require('../lib/index');
 var customMatchers = require('./custom_matchers');
 

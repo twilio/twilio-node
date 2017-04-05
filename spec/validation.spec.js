@@ -1,3 +1,5 @@
+'use strict';
+
 var twilio = require('../lib'),
     express = require('express'),
     request = require('request'),
