@@ -1,37 +1,13 @@
 'use strict';
 
 var twilio = require('../lib/index');
-var customMatchers = require('./custom_matchers');
-
-beforeEach(function() {
-    customMatchers.setupCustomMatchers(this);
-});
+var accountSid = 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+var token = 'token';
 
 describe('twilio', function() {
-  var accountSid = 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
-  var token = 'token';
 
-  beforeEach(function() {
-    this.prevAccountSid = process.env.TWILIO_ACCOUNT_SID;
-    this.prevToken = process.env.TWILIO_AUTH_TOKEN;
-
-    process.env.TWILIO_ACCOUNT_SID = accountSid;
-    process.env.TWILIO_AUTH_TOKEN = token;
-  });
-
-  afterEach(function() {
-    process.env.TWILIO_ACCOUNT_SID = this.prevAccountSid;
-    process.env.TWILIO_AUTH_TOKEN = this.prevToken;
-  });
-
-  it('should allow shorthand client constructor', function() {
-    var client = new twilio();
-    expect(client).toBeTruthy();
-    expect(client.username).toBe(accountSid);
-    expect(client.password).toBe(token);
-    expect(client.accountSid).toBe(accountSid);
-
-    client = twilio(accountSid, token);
+  it('should set the account sid and auth token', function() {
+    var client = twilio(accountSid, token);
     expect(client.username).toBe(accountSid);
     expect(client.password).toBe(token);
     expect(client.accountSid).toBe(accountSid);

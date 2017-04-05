@@ -21,7 +21,8 @@ describe('The TaskRouter Capability Token Object', function() {
     expect(decoded.workspace_sid).toBe('WS456');
     expect(decoded.worker_sid).toBe('WK789');
     expect(decoded.version).toBe('v1');
-    expect(decoded.exp).toAlmostEqual(Math.floor(new Date() / 1000) + 3600, 2);
+    expect(decoded.exp).toBeGreaterThan(Math.floor(new Date() / 1000));
+    expect(decoded.exp).toBeLessThan(Math.floor(new Date() / 1000) + 3610);
   });
 
   it('should accept custom ttls', function() {
@@ -33,7 +34,8 @@ describe('The TaskRouter Capability Token Object', function() {
       ttl: 1000
     });
     var decoded = jwt.verify(c.toJwt(), 'foobar');
-    expect(decoded['exp']).toAlmostEqual(Math.floor(new Date() / 1000) + 1000, 2);
+    expect(decoded.exp).toBeGreaterThan(Math.floor(new Date() / 1000));
+    expect(decoded.exp).toBeLessThan(Math.floor(new Date() / 1000) + 1010);
   });
 
   it('should allow policies', function() {

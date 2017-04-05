@@ -21,11 +21,9 @@ function createTestSig(signUrl) {
     Object.keys(params).sort().forEach(function(key, i) {
         signUrl = signUrl + key + params[key];
     });
-    var testSig = crypto.createHmac('sha1', fakeToken)
+    return crypto.createHmac('sha1', fakeToken)
                         .update(new Buffer(signUrl, 'utf-8'))
                         .digest('Base64');
-
-    return testSig;
 }
 
 describe('Testing Express request validation', function() {
