@@ -1,7 +1,7 @@
 {
   "name": "twilio",
   "description": "A Twilio helper library",
-  "version": "3.0.0-rc.15",
+  "version": "3.0.0-rc.16",
   "author": "API Team <api@twilio.com>",
   "contributors": [
     {
@@ -24,7 +24,7 @@
     "lodash": "4.0.0",
     "moment": "2.14.1",
     "q": "2.0.x",
-    "request": "2.79.x",
+    "request": "2.81.x",
     "rootpath": "0.1.2",
     "scmp": "0.0.3",
     "xmlbuilder": "8.2.2"
