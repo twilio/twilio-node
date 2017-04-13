@@ -167,6 +167,27 @@ describe('AccessToken', function() {
       });
     });
 
+    it('should create token with taskrouter grant', function() {
+      var token = new twilio.jwt.AccessToken(accountSid, keySid, 'secret');
+      token.identity = 'ID@example.com';
+
+      var grant = new twilio.jwt.AccessToken.TaskRouterGrant();
+      grant.workspaceSid = 'WSxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
+      grant.workerSid = 'WKxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
+      grant.role = 'worker';
+      token.addGrant(grant);
+
+      var decoded = jwt.verify(token.toJwt(), 'secret');
+      expect(decoded.grants).toEqual({
+        identity: 'ID@example.com',
+        task_router: {
+          workspace_sid: 'WSxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+          worker_sid: 'WKxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+          role: 'worker'
+        }
+      });
+    });
+
     it('should create token with multiple grants', function() {
       var token = new twilio.jwt.AccessToken(accountSid, keySid, 'secret');
       token.identity = 'ID@example.com';
@@ -187,6 +208,12 @@ describe('AccessToken', function() {
       grant.room = 'CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
       token.addGrant(grant);
 
+      grant = new twilio.jwt.AccessToken.TaskRouterGrant();
+      grant.workspaceSid = 'WSxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
+      grant.workerSid = 'WKxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
+      grant.role = 'worker';
+      token.addGrant(grant);
+
       var decoded = jwt.verify(token.toJwt(), 'secret');
       expect(decoded.grants).toEqual({
         identity: 'ID@example.com',
@@ -202,6 +229,11 @@ describe('AccessToken', function() {
         },
         video: {
           room: 'CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        },
+        task_router: {
+          workspace_sid: 'WSxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+          worker_sid: 'WKxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+          role: 'worker'
         }
       });
     });
@@ -305,6 +337,33 @@ describe('AccessToken', function() {
             endpoint_id: 'endpointId'
           });
 
+        });
+      });
+    });
+
+    describe('TaskRouterGrant', function() {
+      describe('toPayload', function() {
+        it('should only populate set properties', function() {
+          var grant = new twilio.jwt.AccessToken.TaskRouterGrant();
+          expect(grant.toPayload()).toEqual({});
+
+          grant.workspaceSid = 'WSxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
+          expect(grant.toPayload()).toEqual({
+            workspace_sid: 'WSxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+          });
+
+          grant.workerSid = 'WKxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
+          expect(grant.toPayload()).toEqual({
+            workspace_sid: 'WSxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+            worker_sid: 'WKxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+          });
+
+          grant.role = 'worker';
+          expect(grant.toPayload()).toEqual({
+            workspace_sid: 'WSxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+            worker_sid: 'WKxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+            role: 'worker'
+          });
         });
       });
     });
