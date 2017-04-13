@@ -1,3 +1,5 @@
+'use strict';
+
 var twilio = require('../lib'),
     express = require('express'),
     request = require('request'),
@@ -19,11 +21,9 @@ function createTestSig(signUrl) {
     Object.keys(params).sort().forEach(function(key, i) {
         signUrl = signUrl + key + params[key];
     });
-    var testSig = crypto.createHmac('sha1', fakeToken)
+    return crypto.createHmac('sha1', fakeToken)
                         .update(new Buffer(signUrl, 'utf-8'))
                         .digest('Base64');
-
-    return testSig;
 }
 
 describe('Testing Express request validation', function() {
@@ -35,8 +35,9 @@ describe('Testing Express request validation', function() {
 
     // create a simple TwiML-serving web app that will validate a request
     // was originated by Twilio
-    var requestValidated = false,
-        twiml = new twilio.TwimlResponse().message('hi');
+    var requestValidated = false;
+    var twiml = new twilio.twiml.MessagingResponse();
+    twiml.message('hi');
 
     app.post('/sms', function(request, response) {
         // Use manually
@@ -55,14 +56,14 @@ describe('Testing Express request validation', function() {
     // Create a second URL that will test the behavior of the validation
     // middleware and TwiML-aware response monkey patch
     app.post('/middleware', twilio.webhook(fakeToken), function(request, response) {
-        response.send(twiml);
+        response.send(twiml.toString());
     });
 
     // Just decorate the request
     app.post('/noauth', twilio.webhook(fakeToken, {
         validate:false
     }), function(request, response) {
-        response.send(twiml);
+        response.send(twiml.toString());
     });
 
     // Manually configure the host and protocol
@@ -70,7 +71,7 @@ describe('Testing Express request validation', function() {
         host:'foo.twilio.com',
         protocol:'https'
     }), function(request, response) {
-        response.send(twiml);
+        response.send(twiml.toString());
     });
 
     // Manually configure the entire URL, ignore other input
@@ -79,7 +80,7 @@ describe('Testing Express request validation', function() {
         host:'foo.twilio.com',
         protocol:'http'
     }), function(request, response) {
-        response.send(twiml);
+        response.send(twiml.toString());
     });
 
     //start server

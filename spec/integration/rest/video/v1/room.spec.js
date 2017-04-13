@@ -1,11 +1,14 @@
 'use strict';
 
-var _ = require('lodash');
-var Holodeck = require('../../../holodeck');
-var Request = require('../../../../../lib/http/request');
-var Response = require('../../../../../lib/http/response');
-var RestException = require('../../../../../lib/base/RestException');
-var Twilio = require('../../../../../lib');
+var _ = require('lodash');  /* jshint ignore:line */
+var Holodeck = require('../../../holodeck');  /* jshint ignore:line */
+var Request = require(
+    '../../../../../lib/http/request');  /* jshint ignore:line */
+var Response = require(
+    '../../../../../lib/http/response');  /* jshint ignore:line */
+var RestException = require(
+    '../../../../../lib/base/RestException');  /* jshint ignore:line */
+var Twilio = require('../../../../../lib');  /* jshint ignore:line */
 
 
 var client;
@@ -14,7 +17,9 @@ var holodeck;
 describe('Room', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', holodeck);
+    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+      httpClient: holodeck
+    });
   });
   it('should generate valid fetch request',
     function() {
@@ -149,6 +154,52 @@ describe('Room', function() {
     function() {
       var body = JSON.stringify({
           'rooms': [],
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://video.twilio.com/v1/Rooms?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'url': 'https://video.twilio.com/v1/Rooms?PageSize=50&Page=0',
+              'next_page_url': null,
+              'key': 'rooms'
+          }
+      });
+
+      holodeck.mock(new Response(200, body));
+
+      var promise = client.video.v1.rooms.list();
+      promise = promise.then(function(response) {
+        expect(response).toBeDefined();
+      }, function() {
+        throw new Error('failed');
+      });
+
+      promise.done();
+    }
+  );
+  it('should generate valid read_with_status response',
+    function() {
+      var body = JSON.stringify({
+          'rooms': [
+              {
+                  'sid': 'RM4070b618362c1682b2385b1f9982833c',
+                  'status': 'completed',
+                  'date_created': '2017-04-03T22:21:49Z',
+                  'date_updated': '2017-04-03T22:21:51Z',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'type': 'peer-to-peer',
+                  'enable_turn': true,
+                  'unique_name': 'RM4070b618362c1682b2385b1f9982833c',
+                  'status_callback': null,
+                  'status_callback_method': 'POST',
+                  'start_time': null,
+                  'end_time': '2017-04-03T22:21:51Z',
+                  'duration': 2,
+                  'max_participants': 10,
+                  'record_participants_on_connect': false,
+                  'url': 'https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c'
+              }
+          ],
           'meta': {
               'page': 0,
               'page_size': 50,

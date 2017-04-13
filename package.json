@@ -26,7 +26,8 @@
     "q": "2.0.x",
     "request": "2.79.x",
     "rootpath": "0.1.2",
-    "scmp": "0.0.3"
+    "scmp": "0.0.3",
+    "xmlbuilder": "8.2.2"
   },
   "devDependencies": {
     "express": "3.x",
@@ -37,7 +38,7 @@
   },
   "scripts": {
     "test": "jasmine-node --captureExceptions spec",
-    "jshint": "jshint lib/rest/** lib/base/** lib/http/** spec/integration/**",
+    "jshint": "jshint lib/rest/** lib/base/** lib/http/**",
     "jscs": "jscs -c .jscsrc lib/base/** lib/http/** --fix",
     "check": "npm run jshint; npm run jscs",
     "jsdoc": "jsdoc -r lib -d docs"

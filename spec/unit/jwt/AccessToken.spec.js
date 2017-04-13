@@ -131,36 +131,19 @@ describe('AccessToken', function() {
       });
     });
 
-    it('should create token with conversation grant', function() {
-      var token = new twilio.jwt.AccessToken(accountSid, keySid, 'secret');
-      token.identity = 'ID@example.com';
-
-      var grant = new twilio.jwt.AccessToken.ConversationsGrant();
-      grant.configurationProfileSid = 'CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
-      token.addGrant(grant);
-
-      var decoded = jwt.verify(token.toJwt(), 'secret');
-      expect(decoded.grants).toEqual({
-        identity: 'ID@example.com',
-        rtc: {
-          configuration_profile_sid: 'CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-        }
-      });
-    });
-
     it('should create token with video grant', function() {
       var token = new twilio.jwt.AccessToken(accountSid, keySid, 'secret');
       token.identity = 'ID@example.com';
 
       var grant = new twilio.jwt.AccessToken.VideoGrant();
-      grant.configurationProfileSid = 'CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+      grant.room = 'CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
       token.addGrant(grant);
 
       var decoded = jwt.verify(token.toJwt(), 'secret');
       expect(decoded.grants).toEqual({
         identity: 'ID@example.com',
         video: {
-          configuration_profile_sid: 'CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          room: 'CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
         }
       });
     });
@@ -216,17 +199,13 @@ describe('AccessToken', function() {
       grant.deploymentRoleSid = 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
       token.addGrant(grant);
 
-      grant = new twilio.jwt.AccessToken.ConversationsGrant();
-      grant.configurationProfileSid = 'CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
-      token.addGrant(grant);
-
       grant = new twilio.jwt.AccessToken.SyncGrant();
       grant.serviceSid = 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
       grant.endpointId = 'endpointId';
       token.addGrant(grant);
 
       grant = new twilio.jwt.AccessToken.VideoGrant();
-      grant.configurationProfileSid = 'CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+      grant.room = 'CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
       token.addGrant(grant);
 
       grant = new twilio.jwt.AccessToken.TaskRouterGrant();
@@ -244,15 +223,12 @@ describe('AccessToken', function() {
           endpoint_id: 'endpointId',
           push_credential_sid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
         },
-        rtc: {
-          configuration_profile_sid: 'CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-        },
         data_sync: {
           service_sid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           endpoint_id: 'endpointId'
         },
         video: {
-          configuration_profile_sid: 'CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          room: 'CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
         },
         task_router: {
           workspace_sid: 'WSxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
@@ -305,18 +281,6 @@ describe('AccessToken', function() {
       });
     });
 
-    describe('ConversationGrant', function() {
-      it('should only populate set properties', function() {
-        var grant = new twilio.jwt.AccessToken.ConversationsGrant();
-        expect(grant.toPayload()).toEqual({});
-
-        grant.configurationProfileSid = 'CPsid';
-        expect(grant.toPayload()).toEqual({
-          configuration_profile_sid: 'CPsid'
-        });
-      });
-    });
-
     describe('VoiceGrant', function () {
       it('should generate a grant', function() {
         var grant = new twilio.jwt.AccessToken.VoiceGrant({
@@ -341,12 +305,12 @@ describe('AccessToken', function() {
 
     describe('VideoGrant', function() {
       it('should only populate set properties', function() {
-        var grant = new twilio.jwt.AccessToken.ConversationsGrant();
+        var grant = new twilio.jwt.AccessToken.VideoGrant();
         expect(grant.toPayload()).toEqual({});
 
-        grant.configurationProfileSid = 'CPsid';
+        grant.room = 'CPsid';
         expect(grant.toPayload()).toEqual({
-          configuration_profile_sid: 'CPsid'
+          room: 'CPsid'
         });
       });
     });

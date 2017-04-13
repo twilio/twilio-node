@@ -1,3 +1,5 @@
+'use strict';
+
 var _ = require('lodash');
 var Twilio = require('../lib');
 
@@ -8,12 +10,12 @@ var twilio = new Twilio(accountSid, token);
 
 var i = 0;
 // Callback as second parameter
-var promise = twilio.calls.each({
+twilio.calls.each({
   pageSize: 7,
   callback: function(call, done) {
     console.log(call.sid);
     i++;
-    if (i == 10) {
+    if (i === 10) {
       done();
     }
   },
@@ -21,10 +23,10 @@ var promise = twilio.calls.each({
     console.log('je suis fini');
     console.log(error);
   }
-})
+});
 
 // Callback as first parameter
-twilio.calls.each(function(call, done) {
+twilio.calls.each(function(call) {
   console.log(call.sid);
 });
 
@@ -39,7 +41,7 @@ twilio.messages.create({
 }, function(err, result) {
   console.log('Created message using callback');
   console.log(result.sid);
-})
+});
 
 // Send message using promise
 var promise = twilio.messages.create({
@@ -116,14 +118,14 @@ twilio.messages.list(function(err, messages) {
   console.log('Listing messages using callbacks');
   _.each(messages, function(message) {
     console.log(message.sid);
-  })
+  });
 });
 
-// List mesages using promises
+// List messages using promises
 promise = twilio.messages.list();
 promise.then(function(messages) {
   console.log('Listing messages using promises');
   _.each(messages, function(message) {
     console.log(message.sid);
-  })
+  });
 });
