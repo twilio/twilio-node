@@ -27,7 +27,8 @@
     "request": "2.81.x",
     "rootpath": "0.1.2",
     "scmp": "0.0.3",
-    "xmlbuilder": "8.2.2"
+    "xmlbuilder": "8.2.2",
+    "deprecate": "1.0.0"
   },
   "devDependencies": {
     "express": "3.x",
