@@ -56,6 +56,7 @@ describe('Notification', function() {
               'jing'
           ],
           'tags': [],
+          'segments': [],
           'priority': 'high',
           'ttl': 2419200,
           'title': 'test',

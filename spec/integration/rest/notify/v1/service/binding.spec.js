@@ -63,6 +63,9 @@ describe('Binding', function() {
           'tags': [
               '26607274'
           ],
+          'links': {
+              'user': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/24987039'
+          },
           'url': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings/BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 
@@ -126,7 +129,6 @@ describe('Binding', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {
-        endpoint: 'endpoint',
         identity: 'identity',
         bindingType: 'apn',
         address: 'address'
@@ -146,7 +148,6 @@ describe('Binding', function() {
       var url = _.template('https://notify.twilio.com/v1/Services/<%= serviceSid %>/Bindings')(solution);
 
       var values = {
-        Endpoint: 'endpoint',
         Identity: 'identity',
         BindingType: 'apn',
         Address: 'address',
@@ -175,13 +176,15 @@ describe('Binding', function() {
           'tags': [
               '26607274'
           ],
+          'links': {
+              'user': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/24987039'
+          },
           'url': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings/BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 
       holodeck.mock(new Response(201, body));
 
       var opts = {
-        endpoint: 'endpoint',
         identity: 'identity',
         bindingType: 'apn',
         address: 'address'
@@ -268,6 +271,9 @@ describe('Binding', function() {
                   'tags': [
                       '26607274'
                   ],
+                  'links': {
+                      'user': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/24987039'
+                  },
                   'url': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings/BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ],
