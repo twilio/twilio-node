@@ -33,7 +33,7 @@ describe('Credential', function() {
       });
       promise.done();
 
-      var url = 'https://ip-messaging.twilio.com/v1/Credentials';
+      var url = 'https://chat.twilio.com/v1/Credentials';
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -53,15 +53,15 @@ describe('Credential', function() {
                   'sandbox': 'False',
                   'date_created': '2015-10-07T17:50:01Z',
                   'date_updated': '2015-10-07T17:50:01Z',
-                  'url': 'https://ip-messaging.twilio.com/v1/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'url': 'https://chat.twilio.com/v1/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ],
           'meta': {
               'page': 0,
               'page_size': 1,
-              'first_page_url': 'https://ip-messaging.twilio.com/v1/Credentials?PageSize=1&Page=0',
+              'first_page_url': 'https://chat.twilio.com/v1/Credentials?PageSize=1&Page=0',
               'previous_page_url': null,
-              'url': 'https://ip-messaging.twilio.com/v1/Credentials?PageSize=1&Page=0',
+              'url': 'https://chat.twilio.com/v1/Credentials?PageSize=1&Page=0',
               'next_page_url': null,
               'key': 'credentials'
           }
@@ -86,9 +86,9 @@ describe('Credential', function() {
           'meta': {
               'page': 0,
               'page_size': 1,
-              'first_page_url': 'https://ip-messaging.twilio.com/v1/Credentials?PageSize=1&Page=0',
+              'first_page_url': 'https://chat.twilio.com/v1/Credentials?PageSize=1&Page=0',
               'previous_page_url': null,
-              'url': 'https://ip-messaging.twilio.com/v1/Credentials?PageSize=1&Page=0',
+              'url': 'https://chat.twilio.com/v1/Credentials?PageSize=1&Page=0',
               'next_page_url': null,
               'key': 'credentials'
           }
@@ -121,7 +121,7 @@ describe('Credential', function() {
       });
       promise.done();
 
-      var url = 'https://ip-messaging.twilio.com/v1/Credentials';
+      var url = 'https://chat.twilio.com/v1/Credentials';
 
       var values = {
         Type: 'gcm',
@@ -143,7 +143,7 @@ describe('Credential', function() {
           'sandbox': 'False',
           'date_created': '2015-10-07T17:50:01Z',
           'date_updated': '2015-10-07T17:50:01Z',
-          'url': 'https://ip-messaging.twilio.com/v1/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'url': 'https://chat.twilio.com/v1/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 
       holodeck.mock(new Response(201, body));
@@ -176,7 +176,7 @@ describe('Credential', function() {
       var solution = {
         sid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
-      var url = _.template('https://ip-messaging.twilio.com/v1/Credentials/<%= sid %>')(solution);
+      var url = _.template('https://chat.twilio.com/v1/Credentials/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -194,7 +194,7 @@ describe('Credential', function() {
           'sandbox': 'False',
           'date_created': '2015-10-07T17:50:01Z',
           'date_updated': '2015-10-07T17:50:01Z',
-          'url': 'https://ip-messaging.twilio.com/v1/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'url': 'https://chat.twilio.com/v1/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 
       holodeck.mock(new Response(200, body));
@@ -224,7 +224,7 @@ describe('Credential', function() {
       var solution = {
         sid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
-      var url = _.template('https://ip-messaging.twilio.com/v1/Credentials/<%= sid %>')(solution);
+      var url = _.template('https://chat.twilio.com/v1/Credentials/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -242,7 +242,7 @@ describe('Credential', function() {
           'sandbox': 'False',
           'date_created': '2015-10-07T17:50:01Z',
           'date_updated': '2015-10-07T17:50:01Z',
-          'url': 'https://ip-messaging.twilio.com/v1/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'url': 'https://chat.twilio.com/v1/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 
       holodeck.mock(new Response(200, body));
@@ -272,7 +272,7 @@ describe('Credential', function() {
       var solution = {
         sid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
-      var url = _.template('https://ip-messaging.twilio.com/v1/Credentials/<%= sid %>')(solution);
+      var url = _.template('https://chat.twilio.com/v1/Credentials/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',

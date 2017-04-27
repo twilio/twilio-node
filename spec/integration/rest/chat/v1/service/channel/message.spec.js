@@ -40,7 +40,7 @@ describe('Message', function() {
         channelSid: 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         sid: 'IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
-      var url = _.template('https://ip-messaging.twilio.com/v1/Services/<%= serviceSid %>/Channels/<%= channelSid %>/Messages/<%= sid %>')(solution);
+      var url = _.template('https://chat.twilio.com/v1/Services/<%= serviceSid %>/Channels/<%= channelSid %>/Messages/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -63,7 +63,7 @@ describe('Message', function() {
           'attributes': '{}',
           'body': 'Hello',
           'index': 0,
-          'url': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 
       holodeck.mock(new Response(200, body));
@@ -101,7 +101,7 @@ describe('Message', function() {
         serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         channelSid: 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
-      var url = _.template('https://ip-messaging.twilio.com/v1/Services/<%= serviceSid %>/Channels/<%= channelSid %>/Messages')(solution);
+      var url = _.template('https://chat.twilio.com/v1/Services/<%= serviceSid %>/Channels/<%= channelSid %>/Messages')(solution);
 
       var values = {
         Body: 'body',
@@ -128,7 +128,7 @@ describe('Message', function() {
           'from': 'system',
           'body': 'Hello',
           'index': 0,
-          'url': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 
       holodeck.mock(new Response(201, body));
@@ -163,7 +163,7 @@ describe('Message', function() {
           'attributes': '{}',
           'body': 'Hello',
           'index': 0,
-          'url': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 
       holodeck.mock(new Response(201, body));
@@ -201,7 +201,7 @@ describe('Message', function() {
         serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         channelSid: 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
-      var url = _.template('https://ip-messaging.twilio.com/v1/Services/<%= serviceSid %>/Channels/<%= channelSid %>/Messages')(solution);
+      var url = _.template('https://chat.twilio.com/v1/Services/<%= serviceSid %>/Channels/<%= channelSid %>/Messages')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -215,9 +215,9 @@ describe('Message', function() {
           'meta': {
               'page': 0,
               'page_size': 50,
-              'first_page_url': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages?PageSize=50&Page=0',
+              'first_page_url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages?PageSize=50&Page=0',
               'previous_page_url': null,
-              'url': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages?PageSize=50&Page=0',
+              'url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages?PageSize=50&Page=0',
               'next_page_url': null,
               'key': 'messages'
           },
@@ -235,7 +235,7 @@ describe('Message', function() {
                   'attributes': '{}',
                   'body': 'Hello',
                   'index': 0,
-                  'url': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
       });
@@ -260,9 +260,9 @@ describe('Message', function() {
           'meta': {
               'page': 0,
               'page_size': 50,
-              'first_page_url': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages?PageSize=50&Page=0',
+              'first_page_url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages?PageSize=50&Page=0',
               'previous_page_url': null,
-              'url': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages?PageSize=50&Page=0',
+              'url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages?PageSize=50&Page=0',
               'next_page_url': null,
               'key': 'messages'
           },
@@ -302,7 +302,7 @@ describe('Message', function() {
         channelSid: 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         sid: 'IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
-      var url = _.template('https://ip-messaging.twilio.com/v1/Services/<%= serviceSid %>/Channels/<%= channelSid %>/Messages/<%= sid %>')(solution);
+      var url = _.template('https://chat.twilio.com/v1/Services/<%= serviceSid %>/Channels/<%= channelSid %>/Messages/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
@@ -347,7 +347,7 @@ describe('Message', function() {
         channelSid: 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         sid: 'IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
-      var url = _.template('https://ip-messaging.twilio.com/v1/Services/<%= serviceSid %>/Channels/<%= channelSid %>/Messages/<%= sid %>')(solution);
+      var url = _.template('https://chat.twilio.com/v1/Services/<%= serviceSid %>/Channels/<%= channelSid %>/Messages/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -370,7 +370,7 @@ describe('Message', function() {
           'from': 'system',
           'body': 'Hello',
           'index': 0,
-          'url': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 
       holodeck.mock(new Response(200, body));

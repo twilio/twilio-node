@@ -135,7 +135,6 @@ describe('UserBinding', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {
-        endpoint: 'endpoint',
         bindingType: 'apn',
         address: 'address'
       };
@@ -156,7 +155,6 @@ describe('UserBinding', function() {
       var url = _.template('https://notify.twilio.com/v1/Services/<%= serviceSid %>/Users/<%= identity %>/Bindings')(solution);
 
       var values = {
-        Endpoint: 'endpoint',
         BindingType: 'apn',
         Address: 'address',
       };
@@ -193,7 +191,6 @@ describe('UserBinding', function() {
       holodeck.mock(new Response(201, body));
 
       var opts = {
-        endpoint: 'endpoint',
         bindingType: 'apn',
         address: 'address'
       };

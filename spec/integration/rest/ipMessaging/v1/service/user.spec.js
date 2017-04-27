@@ -38,7 +38,7 @@ describe('User', function() {
         serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         sid: 'USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
-      var url = _.template('https://ip-messaging.twilio.com/v1/Services/<%= serviceSid %>/Users/<%= sid %>')(solution);
+      var url = _.template('https://chat.twilio.com/v1/Services/<%= serviceSid %>/Users/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -62,9 +62,9 @@ describe('User', function() {
           'date_created': '2016-03-24T21:05:19Z',
           'date_updated': '2016-03-24T21:05:19Z',
           'links': {
-              'user_channels': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels'
+              'user_channels': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels'
           },
-          'url': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 
       holodeck.mock(new Response(200, body));
@@ -97,7 +97,7 @@ describe('User', function() {
         serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         sid: 'USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
-      var url = _.template('https://ip-messaging.twilio.com/v1/Services/<%= serviceSid %>/Users/<%= sid %>')(solution);
+      var url = _.template('https://chat.twilio.com/v1/Services/<%= serviceSid %>/Users/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
@@ -141,7 +141,7 @@ describe('User', function() {
       var solution = {
         serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
-      var url = _.template('https://ip-messaging.twilio.com/v1/Services/<%= serviceSid %>/Users')(solution);
+      var url = _.template('https://chat.twilio.com/v1/Services/<%= serviceSid %>/Users')(solution);
 
       var values = {
         Identity: 'identity',
@@ -169,9 +169,9 @@ describe('User', function() {
           'date_created': '2016-03-24T21:05:19Z',
           'date_updated': '2016-03-24T21:05:19Z',
           'links': {
-              'user_channels': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels'
+              'user_channels': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels'
           },
-          'url': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 
       holodeck.mock(new Response(201, body));
@@ -206,7 +206,7 @@ describe('User', function() {
       var solution = {
         serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
-      var url = _.template('https://ip-messaging.twilio.com/v1/Services/<%= serviceSid %>/Users')(solution);
+      var url = _.template('https://chat.twilio.com/v1/Services/<%= serviceSid %>/Users')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -220,9 +220,9 @@ describe('User', function() {
           'meta': {
               'page': 0,
               'page_size': 50,
-              'first_page_url': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users?PageSize=50&Page=0',
+              'first_page_url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users?PageSize=50&Page=0',
               'previous_page_url': null,
-              'url': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users?PageSize=50&Page=0',
+              'url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users?PageSize=50&Page=0',
               'next_page_url': null,
               'key': 'users'
           },
@@ -241,9 +241,9 @@ describe('User', function() {
                   'date_updated': '2016-03-24T21:05:19Z',
                   'joined_channels_count': 0,
                   'links': {
-                      'user_channels': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels'
+                      'user_channels': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels'
                   },
-                  'url': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
       });
@@ -267,9 +267,9 @@ describe('User', function() {
           'meta': {
               'page': 0,
               'page_size': 50,
-              'first_page_url': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users?PageSize=50&Page=0',
+              'first_page_url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users?PageSize=50&Page=0',
               'previous_page_url': null,
-              'url': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users?PageSize=50&Page=0',
+              'url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users?PageSize=50&Page=0',
               'next_page_url': null,
               'key': 'users'
           },
@@ -306,7 +306,7 @@ describe('User', function() {
         serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         sid: 'USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
-      var url = _.template('https://ip-messaging.twilio.com/v1/Services/<%= serviceSid %>/Users/<%= sid %>')(solution);
+      var url = _.template('https://chat.twilio.com/v1/Services/<%= serviceSid %>/Users/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -330,9 +330,9 @@ describe('User', function() {
           'date_created': '2016-03-24T21:05:19Z',
           'date_updated': '2016-03-24T21:05:19Z',
           'links': {
-              'user_channels': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels'
+              'user_channels': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels'
           },
-          'url': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 
       holodeck.mock(new Response(200, body));
