@@ -6,7 +6,6 @@ node_js:
     - "5"
     - "4"
     - "0.12"
-    - "0.10"
 before_install:
 - npm install npm@2 -g
 - npm install npm -g

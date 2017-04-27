@@ -136,14 +136,31 @@ describe('AccessToken', function() {
       token.identity = 'ID@example.com';
 
       var grant = new twilio.jwt.AccessToken.VideoGrant();
-      grant.room = 'CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+      grant.room = 'room';
       token.addGrant(grant);
 
       var decoded = jwt.verify(token.toJwt(), 'secret');
       expect(decoded.grants).toEqual({
         identity: 'ID@example.com',
         video: {
-          room: 'CPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          room: 'room'
+        }
+      });
+    });
+
+    it('should create token with conversations grant', function() {
+      var token = new twilio.jwt.AccessToken(accountSid, keySid, 'secret');
+      token.identity = 'ID@example.com';
+
+      var grant = new twilio.jwt.AccessToken.ConversationsGrant();
+      grant.configurationProfileSid = 'VSxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
+      token.addGrant(grant);
+
+      var decoded = jwt.verify(token.toJwt(), 'secret');
+      expect(decoded.grants).toEqual({
+        identity: 'ID@example.com',
+        rtc: {
+          configuration_profile_sid: 'VSxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
         }
       });
     });
