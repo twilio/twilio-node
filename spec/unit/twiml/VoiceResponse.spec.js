@@ -129,6 +129,19 @@ describe('create voice response TwiML', function() {
     expect(actual.toString()).toEqual('<?xml version="1.0" encoding="UTF-8"?><Response><Sms to="+11234567890" from="+10987654321" statusCallback="www.twilio.ca">hello world</Sms></Response>');
   });
 
+  it('should serialize enqueue task', function () {
+    var actual = new VoiceResponse();
+    var enqueue = actual.enqueueTask({
+      method: 'POST'
+    });
+    enqueue.task({
+      priority: 1,
+      timeout: 4
+    }, 'foo');
+
+    expect(actual.toString()).toEqual('<?xml version="1.0" encoding="UTF-8"?><Response><Enqueue method="POST"><Task priority="1" timeout="4">foo</Task></Enqueue></Response>');
+  });
+
   it('should serialize multiple blocks', function() {
     var actual = new VoiceResponse();
     var dial = actual.dial({
