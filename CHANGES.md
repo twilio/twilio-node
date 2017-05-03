@@ -1,7 +1,7 @@
 twilio-node changelog
 =====================
 
-[2017-05-03] Version 3.0.0
+[2017-05-03] Version 3.0.0-alpha-1
 --------------------------------
 **New Major Version**
 
