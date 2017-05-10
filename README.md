@@ -10,7 +10,7 @@ A node.js Twilio helper library.
 
 For detailed usage information and API docs, head out here:
 
-[http://twilio.github.io/twilio-node/](http://twilio.github.io/twilio-node/)
+[https://www.twilio.com/docs/libraries/node](https://www.twilio.com/docs/libraries/node)
 
 ## Getting help
 
