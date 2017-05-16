@@ -116,3 +116,22 @@ describe('serialize prefixed collapsible map', function() {
   });
 
 });
+
+describe('serialize object', function() {
+
+  it('should return stringified object for object', function() {
+    var actual = serialize.object({'twilio': 'the best'});
+    expect(actual).toEqual('{"twilio":"the best"}');
+  });
+
+  it('should return stringified array for array', function() {
+    var actual = serialize.object(['twilio', 'the best']);
+    expect(actual).toEqual('["twilio","the best"]');
+  });
+
+  it('should return unmodified value for anything else', function() {
+    var actual = serialize.object(1);
+    expect(actual).toEqual(1);
+  });
+
+});
