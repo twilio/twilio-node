@@ -6,3 +6,6 @@ install:
 
 test:
 	npm test
+
+clean: node_modules
+	rm -rf node_modules
