@@ -1,6 +1,12 @@
 twilio-node changelog
 =====================
 
+[2017-05-19] Version 6.2.0
+--------------------------
+
+- Add video domain.
+
+
 [2017-05-03] Version 3.0.0
 --------------------------------
 **New Major Version**
