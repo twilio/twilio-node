@@ -1,6 +1,11 @@
 twilio-node changelog
 =====================
 
+[2017-05-22] Version 3.2.0
+--------------------------
+
+- Rename room `Recordings` resource to `RoomRecordings` to avoid class name conflict (backwards incompatible).
+
 [2017-05-19] Version 3.1.0
 --------------------------
 
