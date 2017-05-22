@@ -1,8 +1,15 @@
 twilio-node changelog
 =====================
 
+[2017-05-03] Version 3.1.0-alpha-1
+----------------------------------
+ - Add video domain.
+ - Add wireless domain.
+ - Add sync domain.
+ - Allow deletion of faxes.
+
 [2017-05-03] Version 3.0.0-alpha-1
---------------------------------
+----------------------------------
 **New Major Version**
 
 The newest version of the `twilio-node` helper library!

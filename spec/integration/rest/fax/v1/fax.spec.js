@@ -54,6 +54,7 @@ describe('Fax', function() {
           'direction': 'outbound',
           'from': '+14155551234',
           'media_url': 'https://www.example.com/fax.pdf',
+          'media_sid': 'MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'num_pages': null,
           'price': null,
           'price_unit': null,
@@ -62,6 +63,9 @@ describe('Fax', function() {
           'status': 'queued',
           'to': '+14155554321',
           'duration': null,
+          'links': {
+              'media': 'https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media'
+          },
           'url': 'https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 
@@ -136,6 +140,7 @@ describe('Fax', function() {
                   'direction': 'outbound',
                   'from': '+14155551234',
                   'media_url': 'https://www.example.com/fax.pdf',
+                  'media_sid': 'MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'num_pages': null,
                   'price': null,
                   'price_unit': null,
@@ -144,6 +149,9 @@ describe('Fax', function() {
                   'status': 'queued',
                   'to': '+14155554321',
                   'duration': null,
+                  'links': {
+                      'media': 'https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media'
+                  },
                   'url': 'https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ],
@@ -175,7 +183,6 @@ describe('Fax', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {
-        from: 'from',
         to: 'to',
         mediaUrl: 'https://example.com'
       };
@@ -190,7 +197,6 @@ describe('Fax', function() {
       var url = 'https://fax.twilio.com/v1/Faxes';
 
       var values = {
-        From: 'from',
         To: 'to',
         MediaUrl: 'https://example.com',
       };
@@ -211,6 +217,7 @@ describe('Fax', function() {
           'direction': 'outbound',
           'from': '+14155551234',
           'media_url': null,
+          'media_sid': null,
           'num_pages': null,
           'price': null,
           'price_unit': null,
@@ -219,13 +226,15 @@ describe('Fax', function() {
           'status': 'queued',
           'to': '+14155554321',
           'duration': null,
+          'links': {
+              'media': 'https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media'
+          },
           'url': 'https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 
       holodeck.mock(new Response(201, body));
 
       var opts = {
-        from: 'from',
         to: 'to',
         mediaUrl: 'https://example.com'
       };
@@ -272,6 +281,7 @@ describe('Fax', function() {
           'direction': 'outbound',
           'from': '+14155551234',
           'media_url': null,
+          'media_sid': null,
           'num_pages': null,
           'price': null,
           'price_unit': null,
@@ -280,6 +290,9 @@ describe('Fax', function() {
           'status': 'canceled',
           'to': '+14155554321',
           'duration': null,
+          'links': {
+              'media': 'https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media'
+          },
           'url': 'https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 
@@ -288,6 +301,45 @@ describe('Fax', function() {
       var promise = client.fax.v1.faxes('FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
+      }, function() {
+        throw new Error('failed');
+      });
+
+      promise.done();
+    }
+  );
+  it('should generate valid remove request',
+    function() {
+      holodeck.mock(new Response(500, '{}'));
+
+      var promise = client.fax.v1.faxes('FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      promise = promise.then(function() {
+        throw new Error('failed');
+      }, function(error) {
+        expect(error.constructor).toBe(RestException.prototype.constructor);
+      });
+      promise.done();
+
+      var solution = {
+        sid: 'FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+      };
+      var url = _.template('https://fax.twilio.com/v1/Faxes/<%= sid %>')(solution);
+
+      holodeck.assertHasRequest(new Request({
+        method: 'DELETE',
+        url: url
+      }));
+    }
+  );
+  it('should generate valid delete response',
+    function() {
+      var body = JSON.stringify(null);
+
+      holodeck.mock(new Response(204, body));
+
+      var promise = client.fax.v1.faxes('FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      promise = promise.then(function(response) {
+        expect(response).toBe(true);
       }, function() {
         throw new Error('failed');
       });
