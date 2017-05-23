@@ -1,0 +1,359 @@
+diff --git b/.travis.yml a/.travis.yml
+index 3f2b3e8..5024b8d 100644
+--- b/.travis.yml
++++ a/.travis.yml
+@@ -1,5 +1,6 @@
+ language: node_js
+ sudo: false
++dist: precise
+ node_js:
+     - "7"
+     - "6"
+@@ -16,3 +17,6 @@ notifications:
+     rooms:
+       - secure: WDSJTf0kyen9YY7PH4PPc6LftE5w+YH825dX0qUF/3C+U4/qKW9D7U2z+bsbqi0Ir3cGObN6iK73O18E7N4L3vV1eyCj3ds7eyU9/YBroegz8+4KXw89n4lUVGo4jjIp9tzPgqmRdk5S0Flr/wc1HM9+VlnHFN5gE0P7Vui8bbc=
+       - secure: IlvaufTODSJPN3aIeQV4k/9c0YVRReCK4GAkBUj6Q9rMEJ9XQaSC3x5O0i1CM2cODWqfQsqVkII92LJy/Q8bbvIVW6ZYLy5aYi+EIiHAZMZkPb+kyIS97uDeYGL4Oo9OteGftNCIQTIpqu5WwWDx9cu9IoX9Qb19lO6chkCBo2I=
++matrix:
++  allow_failures:
++    - node_js: "0.12"
+diff --git b/Makefile a/Makefile
+index b85a40e..1815113 100644
+--- b/Makefile
++++ a/Makefile
+@@ -6,3 +6,6 @@ install:
+ 
+ test:
+ 	npm test
++
++clean: node_modules
++	rm -rf node_modules
+diff --git b/lib/base/serialize.js a/lib/base/serialize.js
+index c830956..ba4ee56 100644
+--- b/lib/base/serialize.js
++++ a/lib/base/serialize.js
+@@ -89,11 +89,11 @@ function prefixedCollapsibleMap(m, prefix) {
+  * @description turns an object into a JSON string if the parameter
+  * is an object, otherwise returns the passed in object
+  *
+- * @param {object} o json object
++ * @param {object|array} o json object or array
+  * @returns {string|object} stringified object
+  */
+ function object(o) {
+-  if (_.isObject(o)) {
++  if (_.isObject(o) || _.isArray(o)) {
+     return JSON.stringify(o);
+   }
+ 
+diff --git b/lib/jwt/taskrouter/util.js a/lib/jwt/taskrouter/util.js
+index b65a480..1706509 100644
+--- b/lib/jwt/taskrouter/util.js
++++ a/lib/jwt/taskrouter/util.js
+@@ -5,6 +5,7 @@ var Policy = require('./TaskRouterCapability').Policy;
+ 
+ var EVENT_URL_BASE = 'https://event-bridge.twilio.com/v1/wschannels';
+ var TASKROUTER_BASE_URL = 'https://taskrouter.twilio.com';
++var TASKROUTER_VERSION = 'v1';
+ 
+ /**
+  * Build the default Policies for a worker
+@@ -65,7 +66,99 @@ function defaultEventBridgePolicies(accountSid, channelId) {
+   ];
+ }
+ 
++/**
++ * Generate TaskRouter workspace url
++ *
++ * @param {string} [workspaceSid] workspace sid or '**' for all workspaces
++ * @return {string} generated url
++ */
++function workspacesUrl(workspaceSid) {
++  return _.join(
++    _.filter([TASKROUTER_BASE_URL, TASKROUTER_VERSION, 'Workspaces', workspaceSid], _.isString),
++    '/'
++  );
++}
++
++/**
++ * Generate TaskRouter task queue url
++ *
++ * @param {string} workspaceSid workspace sid
++ * @param {string} [taskQueueSid] task queue sid or '**' for all task queues
++ * @return {string} generated url
++ */
++function taskQueuesUrl(workspaceSid, taskQueueSid) {
++  return _.join(
++    _.filter([workspacesUrl(workspaceSid), 'TaskQueues', taskQueueSid], _.isString),
++    '/'
++  );
++}
++
++/**
++ * Generate TaskRouter task url
++ *
++ * @param {string} workspaceSid workspace sid
++ * @param {string} [taskSid] task sid or '**' for all tasks
++ * @returns {string} generated url
++ */
++function tasksUrl(workspaceSid, taskSid) {
++  return _.join(
++    _.filter([workspacesUrl(workspaceSid), 'Tasks', taskSid], _.isString),
++    '/'
++  );
++}
++
++/**
++ * Generate TaskRouter activity url
++ * 
++ * @param {string} workspaceSid workspace sid
++ * @param {string} [activitySid] activity sid or '**' for all activities
++ * @returns {string} generated url
++ */
++function activitiesUrl(workspaceSid, activitySid) {
++  return _.join(
++    _.filter([workspacesUrl(workspaceSid), 'Activities', activitySid], _.isString),
++    '/'
++  );
++}
++
++/**
++ * Generate TaskRouter worker url
++ *
++ * @param {string} workspaceSid workspace sid
++ * @param {string} [workerSid] worker sid or '**' for all workers
++ * @returns {string} generated url
++ */
++function workersUrl(workspaceSid, workerSid) {
++  return _.join(
++    _.filter([workspacesUrl(workspaceSid), 'Workers', workerSid], _.isString),
++    '/'
++  );
++}
++
++/**
++ * Generate TaskRouter worker reservation url
++ *
++ * @param {string} workspaceSid workspace sid
++ * @param {string} workerSid worker sid
++ * @param {string} [reservationSid] reservation sid or '**' for all reservations
++ * @returns {string} generated url
++ */
++function reservationsUrl(workspaceSid, workerSid, reservationSid) {
++  return _.join(
++    _.filter([workersUrl(workspaceSid, workerSid), 'Reservations', reservationSid], _.isString),
++    '/'
++  );
++}
++
++
+ module.exports = {
+   defaultWorkerPolicies: defaultWorkerPolicies,
+-  defaultEventBridgePolicies: defaultEventBridgePolicies
++  defaultEventBridgePolicies: defaultEventBridgePolicies,
++
++  workspacesUrl: workspacesUrl,
++  taskQueuesUrl: taskQueuesUrl,
++  tasksUrl: tasksUrl,
++  activitiesUrl: activitiesUrl,
++  workersUrl: workersUrl,
++  reservationsUrl: reservationsUrl
+ };
+diff --git b/spec/unit/base/serialize.spec.js a/spec/unit/base/serialize.spec.js
+index 32d3cfe..a056eb8 100644
+--- b/spec/unit/base/serialize.spec.js
++++ a/spec/unit/base/serialize.spec.js
+@@ -116,3 +116,22 @@ describe('serialize prefixed collapsible map', function() {
+   });
+ 
+ });
++
++describe('serialize object', function() {
++
++  it('should return stringified object for object', function() {
++    var actual = serialize.object({'twilio': 'the best'});
++    expect(actual).toEqual('{"twilio":"the best"}');
++  });
++
++  it('should return stringified array for array', function() {
++    var actual = serialize.object(['twilio', 'the best']);
++    expect(actual).toEqual('["twilio","the best"]');
++  });
++
++  it('should return unmodified value for anything else', function() {
++    var actual = serialize.object(1);
++    expect(actual).toEqual(1);
++  });
++
++});
+diff --git b/spec/unit/jwt/taskrouter/util.spec.js a/spec/unit/jwt/taskrouter/util.spec.js
+new file mode 100644
+index 0000000..a95b564
+--- /dev/null
++++ a/spec/unit/jwt/taskrouter/util.spec.js
+@@ -0,0 +1,165 @@
++var _ = require('lodash');
++var util = require('../../../../index').jwt.taskrouter.util;
++
++describe('util', function() {
++
++  describe('url utils', function() {
++
++    var WORKSPACE_SID = "WS123";
++    var WORKER_SID = "WK123";
++    var ACTIVITY_SID = "AC123";
++    var TASK_SID = "TK123";
++    var TASK_QUEUE_SID = "TQ123";
++    var RESERVATION_SID = "WR123";
++
++    it('should generate workspaces url', function() {
++      expect(util.workspacesUrl()).toEqual(
++        'https://taskrouter.twilio.com/v1/Workspaces'
++      );
++    });
++
++    it('should generate all workspaces url', function() {
++      expect(util.workspacesUrl('**')).toEqual(
++        'https://taskrouter.twilio.com/v1/Workspaces/**'
++      );
++    });
++
++    it('should generate workspace url', function() {
++      expect(util.workspacesUrl(WORKSPACE_SID)).toEqual(
++        _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>')({
++          workspaceSid: WORKSPACE_SID
++        })
++      );
++    });
++
++    it('should generate task queues url', function() {
++      expect(util.taskQueuesUrl(WORKSPACE_SID)).toEqual(
++        _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/TaskQueues')({
++          workspaceSid: WORKSPACE_SID
++        })
++      );
++    });
++
++    it('should generate all task queues url', function() {
++      expect(util.taskQueuesUrl(WORKSPACE_SID, '**')).toEqual(
++        _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/TaskQueues/**')({
++          workspaceSid: WORKSPACE_SID
++        })
++      );
++    });
++
++    it('should generate task queue url', function() {
++      expect(util.taskQueuesUrl(WORKSPACE_SID, TASK_QUEUE_SID)).toEqual(
++        _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/TaskQueues/<%= taskQueueSid %>')({
++          workspaceSid: WORKSPACE_SID,
++          taskQueueSid: TASK_QUEUE_SID
++        })
++      );
++    });
++
++    it('should generate tasks url', function() {
++      expect(util.tasksUrl(WORKSPACE_SID)).toEqual(
++        _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Tasks')({
++          workspaceSid: WORKSPACE_SID
++        })
++      );
++    });
++
++    it('should generate all tasks url', function() {
++      expect(util.tasksUrl(WORKSPACE_SID, '**')).toEqual(
++        _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Tasks/**')({
++          workspaceSid: WORKSPACE_SID
++        })
++      );
++    });
++
++    it('should generate task url', function() {
++      expect(util.tasksUrl(WORKSPACE_SID, TASK_SID)).toEqual(
++        _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Tasks/<%= taskSid %>')({
++          workspaceSid: WORKSPACE_SID,
++          taskSid: TASK_SID
++        })
++      );
++    });
++
++    it('should generate activities url', function() {
++      expect(util.activitiesUrl(WORKSPACE_SID)).toEqual(
++        _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Activities')({
++          workspaceSid: WORKSPACE_SID
++        })
++      );
++    });
++
++    it('should generate all activities url', function() {
++      expect(util.activitiesUrl(WORKSPACE_SID, '**')).toEqual(
++        _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Activities/**')({
++          workspaceSid: WORKSPACE_SID
++        })
++      );
++    });
++
++    it('should generate activity url', function() {
++      expect(util.activitiesUrl(WORKSPACE_SID, ACTIVITY_SID)).toEqual(
++        _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Activities/<%= activitySid %>')({
++          workspaceSid: WORKSPACE_SID,
++          activitySid: ACTIVITY_SID
++        })
++      );
++    });
++
++    it('should generate workers url', function() {
++      expect(util.workersUrl(WORKSPACE_SID)).toEqual(
++        _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workers')({
++          workspaceSid: WORKSPACE_SID
++        })
++      );
++    });
++
++    it('should generate all workers url', function() {
++      expect(util.workersUrl(WORKSPACE_SID, '**')).toEqual(
++        _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workers/**')({
++          workspaceSid: WORKSPACE_SID
++        })
++      );
++    });
++
++    it('should generate worker url', function() {
++      expect(util.workersUrl(WORKSPACE_SID, WORKER_SID)).toEqual(
++        _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workers/<%= workerSid %>')({
++          workspaceSid: WORKSPACE_SID,
++          workerSid: WORKER_SID
++        })
++      );
++    });
++
++    it('should generate reservations url', function() {
++      expect(util.reservationsUrl(WORKSPACE_SID, WORKER_SID)).toEqual(
++        _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workers/<%= workerSid %>/Reservations')({
++          workspaceSid: WORKSPACE_SID,
++          workerSid: WORKER_SID
++        })
++      );
++    });
++
++    it('should generate all reservations url', function() {
++      expect(util.reservationsUrl(WORKSPACE_SID, WORKER_SID, '**')).toEqual(
++        _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workers/<%= workerSid %>/Reservations/**')({
++          workspaceSid: WORKSPACE_SID,
++          workerSid: WORKER_SID
++        })
++      );
++    });
++
++    it('should generate reservations url', function() {
++      expect(util.reservationsUrl(WORKSPACE_SID, WORKER_SID, RESERVATION_SID)).toEqual(
++        _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workers/<%= workerSid %>/Reservations/<%= reservationSid %>')({
++          workspaceSid: WORKSPACE_SID,
++          workerSid: WORKER_SID,
++          reservationSid: RESERVATION_SID
++        })
++      );
++    });
++
++  });
++
++});
+\ No newline at end of file
