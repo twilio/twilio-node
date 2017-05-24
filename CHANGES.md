@@ -1,8 +1,14 @@
 twilio-node changelog
 =====================
 
+[2017-05-24] Version 3.3.0-alpha-1
+----------------------------------
+
+- Nothing changed in this release. Released to keep parity with the 3.3.0 version.
+
 [2017-05-24] Version 3.2.0-alpha-1
 ----------------------------------
+
 - Add HostedNumbers preview support.
 - Add Proxy preview support.
 - Add BulkExports preview support.
