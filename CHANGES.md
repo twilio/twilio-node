@@ -1,6 +1,11 @@
 twilio-node changelog
 =====================
 
+[2017-05-24] Version 3.3.0
+--------------------------
+
+- Document new TwiML parameters.
+
 [2017-05-22] Version 3.2.0
 --------------------------
 
