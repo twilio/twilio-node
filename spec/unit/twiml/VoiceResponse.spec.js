@@ -32,6 +32,15 @@ describe('create voice response TwiML', function() {
     expect(actual.toString()).toEqual('<?xml version="1.0" encoding="UTF-8"?><Response><Dial hangupOnStar="true"><Sip method="GET" statusCallback="www.twilio.ca">sip:url</Sip></Dial></Response>');
   });
 
+  it('should serialize nested dial sim', function() {
+    var actual = new VoiceResponse();
+    var dial = actual.dial({
+      hangupOnStar: true
+    });
+    dial.sim('DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+    expect(actual.toString()).toEqual('<?xml version="1.0" encoding="UTF-8"?><Response><Dial hangupOnStar="true"><Sim>DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</Sim></Dial></Response>');
+  });
+
   it('should serialize enqueue', function() {
     var actual = new VoiceResponse();
     actual.enqueue({
