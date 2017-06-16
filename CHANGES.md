@@ -1,6 +1,19 @@
 twilio-node changelog
 =====================
 
+[2017-06-16] Version 3.4.0
+--------------------------
+
+- Remove client-side max page size validation.
+- Bump moment to 2.18.1 to fix security vulnerability.
+- Fix Node 0.12 tests and test against Node 8.
+- Add `<Sim>` to TwiML.
+- Add `locality` field to `AvailablePhoneNumbers`.
+- Add `origin` field to `IncomingPhoneNumbers`.
+- Add `inLocality` parameter to `AvailablePhoneNumbers`.
+- Add `origin` parameter to `IncomingPhoneNumbers`.
+- Add `getPage` method for reentrant paging.
+
 [2017-05-24] Version 3.3.0
 --------------------------
 
