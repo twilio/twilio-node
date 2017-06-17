@@ -287,7 +287,6 @@ describe('HostedNumberOrder', function() {
       var opts = {
         addressSid: 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         phoneNumber: '+987654321',
-        type: 'local',
         isoCountry: 'isoCountry',
         smsCapability: true,
         email: 'email'
@@ -305,7 +304,6 @@ describe('HostedNumberOrder', function() {
       var values = {
         AddressSid: 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         PhoneNumber: '+987654321',
-        Type: 'local',
         IsoCountry: 'isoCountry',
         SmsCapability: true,
         Email: 'email',
@@ -345,7 +343,6 @@ describe('HostedNumberOrder', function() {
       var opts = {
         addressSid: 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         phoneNumber: '+987654321',
-        type: 'local',
         isoCountry: 'isoCountry',
         smsCapability: true,
         email: 'email'

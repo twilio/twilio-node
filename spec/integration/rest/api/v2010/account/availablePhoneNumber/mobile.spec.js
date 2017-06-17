@@ -63,6 +63,7 @@ describe('Mobile', function() {
                   'iso_country': 'NO',
                   'lata': null,
                   'latitude': null,
+                  'locality': null,
                   'longitude': null,
                   'phone_number': '+4759440374',
                   'postal_code': null,

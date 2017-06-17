@@ -1,14 +1,26 @@
 twilio-node changelog
 =====================
 
+[2017-06-16] Version 3.4.0-alpha-1
+----------------------------------
+- Remove client-side max page size validation.
+- Bump moment to 2.18.1 to fix security vulnerability.
+- Fix Node 0.12 tests and test against Node 8.
+- Add `<Sim>` to TwiML.
+- Add `locality` field to `AvailablePhoneNumbers`.
+- Add `origin` field to `IncomingPhoneNumbers`.
+- Add `inLocality` parameter to `AvailablePhoneNumbers`.
+- Add `origin` parameter to `IncomingPhoneNumbers`.
+- Add `getPage` method for reentrant paging to all list resources.
+- Alpha Changes:
+    - Add Alexa support to Notify
+
 [2017-05-24] Version 3.3.0-alpha-1
 ----------------------------------
-
 - Nothing changed in this release. Released to keep parity with the 3.3.0 version.
 
 [2017-05-24] Version 3.2.0-alpha-1
 ----------------------------------
-
 - Add HostedNumbers preview support.
 - Add Proxy preview support.
 - Add BulkExports preview support.

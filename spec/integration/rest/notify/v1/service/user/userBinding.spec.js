@@ -206,6 +206,47 @@ describe('UserBinding', function() {
       promise.done();
     }
   );
+  it('should generate valid create_alexa response',
+    function() {
+      var body = JSON.stringify({
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'address': 'address',
+          'binding_type': 'binding_type',
+          'credential_sid': 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'date_created': '2015-07-30T20:00:00Z',
+          'date_updated': '2015-07-30T20:00:00Z',
+          'endpoint': 'endpoint',
+          'identity': 'identity',
+          'links': {
+              'user': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/identity'
+          },
+          'notification_protocol_version': 'notification_protocol_version',
+          'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'sid': 'BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'tags': [
+              'tag'
+          ],
+          'url': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/identity/Bindings/BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+      });
+
+      holodeck.mock(new Response(201, body));
+
+      var opts = {
+        bindingType: 'apn',
+        address: 'address'
+      };
+      var promise = client.notify.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                    .users('NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                    .bindings.create(opts);
+      promise = promise.then(function(response) {
+        expect(response).toBeDefined();
+      }, function() {
+        throw new Error('failed');
+      });
+
+      promise.done();
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));
