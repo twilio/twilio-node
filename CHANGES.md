@@ -12,7 +12,7 @@ twilio-node changelog
 - Add `origin` field to `IncomingPhoneNumbers`.
 - Add `inLocality` parameter to `AvailablePhoneNumbers`.
 - Add `origin` parameter to `IncomingPhoneNumbers`.
-- Add `getPage` method for reentrant paging.
+- Add `getPage` method for reentrant paging to all list resources.
 
 [2017-05-24] Version 3.3.0
 --------------------------
