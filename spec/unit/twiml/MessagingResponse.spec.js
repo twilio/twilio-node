@@ -45,4 +45,13 @@ describe('create messaging response TwiML', function() {
     expect(actual.toString()).toEqual('<?xml version="1.0" encoding="UTF-8"?><Response><Redirect>https://twilio.com</Redirect></Response>');
   });
 
+  it('should allow surrogate chars in a message', function() {
+    var actual = new MessagingResponse();
+    actual.message({
+      to: '18885551234',
+      from: '18885554321'
+    }, '😀');
+    expect(actual.toString()).toEqual('<?xml version="1.0" encoding="UTF-8"?><Response><Message to="18885551234" from="18885554321">😀</Message></Response>');
+  });
+
 });
