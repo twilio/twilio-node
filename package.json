@@ -27,7 +27,7 @@
     "request": "2.81.x",
     "rootpath": "0.1.2",
     "scmp": "0.0.3",
-    "xmlbuilder": "8.2.2",
+    "xmlbuilder": "9.0.1",
     "deprecate": "1.0.0"
   },
   "devDependencies": {
