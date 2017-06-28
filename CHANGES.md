@@ -1,10 +1,13 @@
 twilio-node changelog
 =====================
 
+[2017-06-28] Version 3.4.0-alpha-2
+----------------------------------
+- Bump moment to 2.18.1 to fix security vulnerability.
+
 [2017-06-16] Version 3.4.0-alpha-1
 ----------------------------------
 - Remove client-side max page size validation.
-- Bump moment to 2.18.1 to fix security vulnerability.
 - Fix Node 0.12 tests and test against Node 8.
 - Add `<Sim>` to TwiML.
 - Add `locality` field to `AvailablePhoneNumbers`.
