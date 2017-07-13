@@ -3,6 +3,11 @@ twilio-node changelog
 
 [2017-07-13] Version 3.5.0
 ---------------------------
+
+- Bump `jsonwebtoken` from 5.4.x to 7.4.1.
+- Bump `xmlbuilder` from 8.2.2 to 9.0.1.
+- Detect and fail install when node not present.
+
 **Api**
 - Update `AnnounceMethod` parameter naming for consistency
 
