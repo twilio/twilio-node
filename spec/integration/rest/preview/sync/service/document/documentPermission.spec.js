@@ -9,6 +9,8 @@ var Response = require(
 var RestException = require(
     '../../../../../../../lib/base/RestException');  /* jshint ignore:line */
 var Twilio = require('../../../../../../../lib');  /* jshint ignore:line */
+var serialize = require(
+    '../../../../../../../lib/base/serialize');  /* jshint ignore:line */
 
 
 var client;
@@ -242,9 +244,9 @@ describe('DocumentPermission', function() {
       var url = _.template('https://preview.twilio.com/Sync/Services/<%= serviceSid %>/Documents/<%= documentSid %>/Permissions/<%= identity %>')(solution);
 
       var values = {
-        Read: true,
-        Write: true,
-        Manage: true,
+        Read: serialize.bool(true),
+        Write: serialize.bool(true),
+        Manage: serialize.bool(true),
       };
       holodeck.assertHasRequest(new Request({
           method: 'POST',

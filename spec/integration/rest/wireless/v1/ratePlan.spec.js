@@ -93,11 +93,13 @@ describe('RatePlan', function() {
                   'messaging_enabled': true,
                   'voice_enabled': true,
                   'national_roaming_enabled': true,
+                  'national_roaming_data_limit': 1000,
                   'international_roaming': [
                       'data',
                       'messaging',
                       'voice'
                   ],
+                  'international_roaming_data_limit': 1000,
                   'sid': 'WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'url': 'https://wireless.twilio.com/v1/RatePlans/WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
@@ -153,11 +155,13 @@ describe('RatePlan', function() {
           'messaging_enabled': true,
           'voice_enabled': true,
           'national_roaming_enabled': true,
+          'national_roaming_data_limit': 1000,
           'international_roaming': [
               'data',
               'messaging',
               'voice'
           ],
+          'international_roaming_data_limit': 1000,
           'sid': 'WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'url': 'https://wireless.twilio.com/v1/RatePlans/WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
@@ -208,11 +212,13 @@ describe('RatePlan', function() {
           'messaging_enabled': true,
           'voice_enabled': true,
           'national_roaming_enabled': true,
+          'national_roaming_data_limit': 1000,
           'international_roaming': [
               'data',
               'messaging',
               'voice'
           ],
+          'international_roaming_data_limit': 1000,
           'sid': 'WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'url': 'https://wireless.twilio.com/v1/RatePlans/WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
@@ -266,11 +272,13 @@ describe('RatePlan', function() {
           'messaging_enabled': true,
           'voice_enabled': true,
           'national_roaming_enabled': true,
+          'national_roaming_data_limit': 1000,
           'international_roaming': [
               'data',
               'messaging',
               'voice'
           ],
+          'international_roaming_data_limit': 1000,
           'sid': 'WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'url': 'https://wireless.twilio.com/v1/RatePlans/WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });

@@ -9,6 +9,8 @@ var Response = require(
 var RestException = require(
     '../../../../../lib/base/RestException');  /* jshint ignore:line */
 var Twilio = require('../../../../../lib');  /* jshint ignore:line */
+var serialize = require(
+    '../../../../../lib/base/serialize');  /* jshint ignore:line */
 
 
 var client;
@@ -41,7 +43,7 @@ describe('InstalledAddOn', function() {
 
       var values = {
         AvailableAddOnSid: 'XBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        AcceptTermsOfService: true,
+        AcceptTermsOfService: serialize.bool(true),
       };
       holodeck.assertHasRequest(new Request({
           method: 'POST',

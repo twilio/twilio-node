@@ -9,6 +9,8 @@ var Response = require(
 var RestException = require(
     '../../../../../../lib/base/RestException');  /* jshint ignore:line */
 var Twilio = require('../../../../../../lib');  /* jshint ignore:line */
+var serialize = require(
+    '../../../../../../lib/base/serialize');  /* jshint ignore:line */
 
 
 var client;
@@ -94,7 +96,7 @@ describe('InstalledAddOnExtension', function() {
       var url = _.template('https://preview.twilio.com/marketplace/InstalledAddOns/<%= installedAddOnSid %>/Extensions/<%= sid %>')(solution);
 
       var values = {
-        Enabled: true,
+        Enabled: serialize.bool(true),
       };
       holodeck.assertHasRequest(new Request({
           method: 'POST',

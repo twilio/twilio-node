@@ -9,6 +9,8 @@ var Response = require(
 var RestException = require(
     '../../../../../lib/base/RestException');  /* jshint ignore:line */
 var Twilio = require('../../../../../lib');  /* jshint ignore:line */
+var serialize = require(
+    '../../../../../lib/base/serialize');  /* jshint ignore:line */
 
 
 var client;
@@ -67,7 +69,8 @@ describe('HostedNumberOrder', function() {
           'signing_document_sid': 'PX11111111111111111111111111111111',
           'status': 'received',
           'unique_name': 'foobar',
-          'url': 'https://preview.twilio.com/HostedNumbers/HostedNumberOrders/HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'url': 'https://preview.twilio.com/HostedNumbers/HostedNumberOrders/HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'verification_attempts': 0
       });
 
       holodeck.mock(new Response(200, body));
@@ -167,7 +170,8 @@ describe('HostedNumberOrder', function() {
           'signing_document_sid': 'PX11111111111111111111111111111111',
           'status': 'pending-loa',
           'unique_name': 'new unique name',
-          'url': 'https://preview.twilio.com/HostedNumbers/HostedNumberOrders/HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'url': 'https://preview.twilio.com/HostedNumbers/HostedNumberOrders/HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'verification_attempts': 1
       });
 
       holodeck.mock(new Response(200, body));
@@ -263,7 +267,8 @@ describe('HostedNumberOrder', function() {
                   'signing_document_sid': 'PX11111111111111111111111111111111',
                   'status': 'received',
                   'unique_name': 'foobar',
-                  'url': 'https://preview.twilio.com/HostedNumbers/HostedNumberOrders/HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'url': 'https://preview.twilio.com/HostedNumbers/HostedNumberOrders/HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'verification_attempts': 0
               }
           ]
       });
@@ -305,7 +310,7 @@ describe('HostedNumberOrder', function() {
         AddressSid: 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         PhoneNumber: '+987654321',
         IsoCountry: 'isoCountry',
-        SmsCapability: true,
+        SmsCapability: serialize.bool(true),
         Email: 'email',
       };
       holodeck.assertHasRequest(new Request({
@@ -335,7 +340,8 @@ describe('HostedNumberOrder', function() {
           'signing_document_sid': null,
           'status': 'received',
           'unique_name': null,
-          'url': 'https://preview.twilio.com/HostedNumbers/HostedNumberOrders/HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'url': 'https://preview.twilio.com/HostedNumbers/HostedNumberOrders/HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'verification_attempts': 0
       });
 
       holodeck.mock(new Response(201, body));

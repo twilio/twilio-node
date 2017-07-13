@@ -82,6 +82,40 @@ describe('PhoneNumber', function() {
       promise.done();
     }
   );
+  it('should generate valid create_with_capabilities response',
+    function() {
+      var body = JSON.stringify({
+          'sid': 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'service_sid': 'MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'date_created': '2015-07-30T20:12:31Z',
+          'date_updated': '2015-07-30T20:12:33Z',
+          'phone_number': '+987654321',
+          'country_code': 'US',
+          'capabilities': [
+              'MMS',
+              'SMS',
+              'Voice'
+          ],
+          'url': 'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+      });
+
+      holodeck.mock(new Response(201, body));
+
+      var opts = {
+        phoneNumberSid: 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+      };
+      var promise = client.messaging.v1.services('MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                       .phoneNumbers.create(opts);
+      promise = promise.then(function(response) {
+        expect(response).toBeDefined();
+      }, function() {
+        throw new Error('failed');
+      });
+
+      promise.done();
+    }
+  );
   it('should generate valid remove request',
     function() {
       holodeck.mock(new Response(500, '{}'));

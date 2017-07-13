@@ -9,6 +9,8 @@ var Response = require(
 var RestException = require(
     '../../../../../../lib/base/RestException');  /* jshint ignore:line */
 var Twilio = require('../../../../../../lib');  /* jshint ignore:line */
+var serialize = require(
+    '../../../../../../lib/base/serialize');  /* jshint ignore:line */
 
 
 var client;
@@ -145,7 +147,7 @@ describe('OriginationUrl', function() {
       var values = {
         Weight: 1,
         Priority: 1,
-        Enabled: true,
+        Enabled: serialize.bool(true),
         FriendlyName: 'friendlyName',
         SipUrl: 'https://example.com',
       };
