@@ -135,3 +135,32 @@ describe('serialize object', function() {
   });
 
 });
+
+describe('serialize boolean', function() {
+
+    it('should pass through a string', function() {
+        var actual = serialize.bool('false');
+        expect(actual).toEqual('false');
+
+        var actual = serialize.bool('something');
+        expect(actual).toEqual('something');
+    });
+
+    it('should convert a boolean to a string', function() {
+        var actual = serialize.bool(false);
+        expect(actual).toEqual('false');
+    });
+
+    it('should convert a boolean object to a string', function() {
+        var actual = serialize.bool(new Boolean(false));
+        expect(actual).toEqual('false');
+    });
+
+    it('should passthrough null and undefined', function() {
+        var actual = serialize.bool(null);
+        expect(actual).toEqual(null);
+
+        var actual = serialize.bool(undefined);
+        expect(actual).toEqual(undefined);
+    });
+});
