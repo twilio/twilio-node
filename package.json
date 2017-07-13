@@ -20,14 +20,14 @@
     "url": "https://github.com/twilio/twilio-node.git"
   },
   "dependencies": {
-    "jsonwebtoken": "5.4.x",
+    "jsonwebtoken": "^7.4.1",
     "lodash": "4.0.0",
     "moment": "2.18.1",
     "q": "2.0.x",
     "request": "2.81.x",
     "rootpath": "0.1.2",
     "scmp": "0.0.3",
-    "xmlbuilder": "8.2.2",
+    "xmlbuilder": "9.0.1",
     "deprecate": "1.0.0"
   },
   "devDependencies": {
