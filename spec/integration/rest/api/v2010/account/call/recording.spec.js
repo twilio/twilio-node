@@ -59,7 +59,13 @@ describe('Recording', function() {
           'duration': '6',
           'price': null,
           'sid': 'REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings/REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings/REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
+          'encryption_type': 'public-key',
+          'encryption_details': {
+              'encryption_public_key_sid': 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+              'encryption_cek': 'OV4h6zrsxMIW7h0Zfqwfn6TI2GCNl54KALlg8wn8YB8KYZhXt6HlgvBWAmQTlfYVeLWydMiCewY0YkDDT1xmNe5huEo9vjuKBS5OmYK4CZkSx1NVv3XOGrZHpd2Pl/5WJHVhUK//AUO87uh5qnUP2E0KoLh1nyCLeGcEkXU0RfpPn/6nxjof/n6m6OzZOyeIRK4Oed5+rEtjqFDfqT0EVKjs6JAxv+f0DCc1xYRHl2yV8bahUPVKs+bHYdy4PVszFKa76M/Uae4jFA9Lv233JqWcxj+K2UoghuGhAFbV/JQIIswY2CBYI8JlVSifSqNEl9vvsTJ8bkVMm3MKbG2P7Q==',
+              'encryption_iv': '8I2hhNIYNTrwxfHk'
+          }
       });
 
       holodeck.mock(new Response(200, body));
@@ -168,7 +174,13 @@ describe('Recording', function() {
                   'duration': '6',
                   'price': null,
                   'sid': 'REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings/REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings/REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
+                  'encryption_type': 'public-key',
+                  'encryption_details': {
+                      'encryption_public_key_sid': 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                      'encryption_cek': 'OV4h6zrsxMIW7h0Zfqwfn6TI2GCNl54KALlg8wn8YB8KYZhXt6HlgvBWAmQTlfYVeLWydMiCewY0YkDDT1xmNe5huEo9vjuKBS5OmYK4CZkSx1NVv3XOGrZHpd2Pl/5WJHVhUK//AUO87uh5qnUP2E0KoLh1nyCLeGcEkXU0RfpPn/6nxjof/n6m6OzZOyeIRK4Oed5+rEtjqFDfqT0EVKjs6JAxv+f0DCc1xYRHl2yV8bahUPVKs+bHYdy4PVszFKa76M/Uae4jFA9Lv233JqWcxj+K2UoghuGhAFbV/JQIIswY2CBYI8JlVSifSqNEl9vvsTJ8bkVMm3MKbG2P7Q==',
+                      'encryption_iv': '8I2hhNIYNTrwxfHk'
+                  }
               }
           ],
           'start': 0,
