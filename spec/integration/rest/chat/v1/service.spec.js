@@ -1,11 +1,14 @@
 'use strict';
 
-var _ = require('lodash');
-var Holodeck = require('../../../holodeck');
-var Request = require('../../../../../lib/http/request');
-var Response = require('../../../../../lib/http/response');
-var RestException = require('../../../../../lib/base/RestException');
-var Twilio = require('../../../../../lib');
+var _ = require('lodash');  /* jshint ignore:line */
+var Holodeck = require('../../../holodeck');  /* jshint ignore:line */
+var Request = require(
+    '../../../../../lib/http/request');  /* jshint ignore:line */
+var Response = require(
+    '../../../../../lib/http/response');  /* jshint ignore:line */
+var RestException = require(
+    '../../../../../lib/base/RestException');  /* jshint ignore:line */
+var Twilio = require('../../../../../lib');  /* jshint ignore:line */
 
 
 var client;
@@ -14,7 +17,9 @@ var holodeck;
 describe('Service', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', holodeck);
+    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+      httpClient: holodeck
+    });
   });
   it('should generate valid fetch request',
     function() {
@@ -31,7 +36,7 @@ describe('Service', function() {
       var solution = {
         sid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
-      var url = _.template('https://ip-messaging.twilio.com/v1/Services/<%= sid %>')(solution);
+      var url = _.template('https://chat.twilio.com/v1/Services/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -42,24 +47,33 @@ describe('Service', function() {
   it('should generate valid fetch response',
     function() {
       var body = JSON.stringify({
-          'sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'friendly_name': '216d4a5b-654a-4b60-acea-cf4e42604fb3',
-          'date_created': '2015-12-16T17:53:05Z',
-          'date_updated': '2015-12-16T17:53:05Z',
-          'default_service_role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'default_channel_role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'consumption_report_interval': 100,
+          'date_created': '2015-07-30T20:00:00Z',
+          'date_updated': '2015-07-30T20:00:00Z',
           'default_channel_creator_role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'read_status_enabled': true,
-          'typing_indicator_timeout': 5,
-          'consumption_report_interval': 10,
-          'webhooks': {},
-          'url': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'links': {
-              'channels': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels',
-              'roles': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles',
-              'users': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users'
-          }
+          'default_channel_role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'default_service_role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'friendly_name': 'friendly_name',
+          'limits': {
+              'actions_per_second': 20,
+              'channel_members': 100,
+              'user_channels': 250
+          },
+          'links': {},
+          'notifications': {},
+          'post_webhook_url': 'post_webhook_url',
+          'pre_webhook_url': 'pre_webhook_url',
+          'reachability_enabled': false,
+          'read_status_enabled': false,
+          'sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'typing_indicator_timeout': 100,
+          'url': 'http://www.example.com',
+          'webhook_filters': [
+              'webhook_filters'
+          ],
+          'webhook_method': 'webhook_method',
+          'webhooks': {}
       });
 
       holodeck.mock(new Response(200, body));
@@ -89,7 +103,7 @@ describe('Service', function() {
       var solution = {
         sid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
-      var url = _.template('https://ip-messaging.twilio.com/v1/Services/<%= sid %>')(solution);
+      var url = _.template('https://chat.twilio.com/v1/Services/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
@@ -128,7 +142,7 @@ describe('Service', function() {
       });
       promise.done();
 
-      var url = 'https://ip-messaging.twilio.com/v1/Services';
+      var url = 'https://chat.twilio.com/v1/Services';
 
       var values = {
         FriendlyName: 'friendlyName',
@@ -143,24 +157,33 @@ describe('Service', function() {
   it('should generate valid create response',
     function() {
       var body = JSON.stringify({
-          'sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'friendly_name': '216d4a5b-654a-4b60-acea-cf4e42604fb3',
-          'date_created': '2015-12-16T17:53:05Z',
-          'date_updated': '2015-12-16T17:53:05Z',
-          'default_service_role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'default_channel_role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'consumption_report_interval': 100,
+          'date_created': '2015-07-30T20:00:00Z',
+          'date_updated': '2015-07-30T20:00:00Z',
           'default_channel_creator_role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'read_status_enabled': true,
-          'typing_indicator_timeout': 5,
-          'consumption_report_interval': 10,
-          'webhooks': {},
-          'url': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'links': {
-              'channels': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels',
-              'roles': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles',
-              'users': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users'
-          }
+          'default_channel_role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'default_service_role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'friendly_name': 'friendly_name',
+          'limits': {
+              'actions_per_second': 20,
+              'channel_members': 100,
+              'user_channels': 250
+          },
+          'links': {},
+          'notifications': {},
+          'post_webhook_url': 'post_webhook_url',
+          'pre_webhook_url': 'pre_webhook_url',
+          'reachability_enabled': false,
+          'read_status_enabled': false,
+          'sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'typing_indicator_timeout': 100,
+          'url': 'http://www.example.com',
+          'webhook_filters': [
+              'webhook_filters'
+          ],
+          'webhook_method': 'webhook_method',
+          'webhooks': {}
       });
 
       holodeck.mock(new Response(201, body));
@@ -190,7 +213,7 @@ describe('Service', function() {
       });
       promise.done();
 
-      var url = 'https://ip-messaging.twilio.com/v1/Services';
+      var url = 'https://chat.twilio.com/v1/Services';
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -198,40 +221,19 @@ describe('Service', function() {
       }));
     }
   );
-  it('should generate valid read_full response',
+  it('should generate valid read_empty response',
     function() {
       var body = JSON.stringify({
           'meta': {
-              'page': 0,
-              'page_size': 1,
-              'first_page_url': 'https://ip-messaging.twilio.com/v1/Services?PageSize=1&Page=0',
-              'previous_page_url': null,
-              'url': 'https://ip-messaging.twilio.com/v1/Services?PageSize=1&Page=0',
+              'first_page_url': 'https://chat.twilio.com/v1/Services?Page=0&PageSize=50',
+              'key': 'services',
               'next_page_url': null,
-              'key': 'services'
+              'page': 0,
+              'page_size': 0,
+              'previous_page_url': null,
+              'url': 'https://chat.twilio.com/v1/Services'
           },
-          'services': [
-              {
-                  'sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'friendly_name': '216d4a5b-654a-4b60-acea-cf4e42604fb3',
-                  'date_created': '2015-12-16T17:53:05Z',
-                  'date_updated': '2015-12-16T17:53:05Z',
-                  'default_service_role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'default_channel_role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'default_channel_creator_role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'read_status_enabled': true,
-                  'typing_indicator_timeout': 5,
-                  'consumption_report_interval': 10,
-                  'webhooks': {},
-                  'url': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'links': {
-                      'channels': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels',
-                      'roles': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles',
-                      'users': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users'
-                  }
-              }
-          ]
+          'services': []
       });
 
       holodeck.mock(new Response(200, body));
@@ -246,19 +248,49 @@ describe('Service', function() {
       promise.done();
     }
   );
-  it('should generate valid read_empty response',
+  it('should generate valid read_full response',
     function() {
       var body = JSON.stringify({
           'meta': {
-              'page': 0,
-              'page_size': 50,
-              'first_page_url': 'https://ip-messaging.twilio.com/v1/Services?PageSize=50&Page=0',
-              'previous_page_url': null,
-              'url': 'https://ip-messaging.twilio.com/v1/Services?PageSize=50&Page=0',
+              'first_page_url': 'https://chat.twilio.com/v1/Services?Page=0&PageSize=50',
+              'key': 'services',
               'next_page_url': null,
-              'key': 'services'
+              'page': 0,
+              'page_size': 1,
+              'previous_page_url': null,
+              'url': 'https://chat.twilio.com/v1/Services'
           },
-          'services': []
+          'services': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'consumption_report_interval': 100,
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'default_channel_creator_role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'default_channel_role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'default_service_role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'friendly_name': 'friendly_name',
+                  'limits': {
+                      'actions_per_second': 20,
+                      'channel_members': 100,
+                      'user_channels': 250
+                  },
+                  'links': {},
+                  'notifications': {},
+                  'post_webhook_url': 'post_webhook_url',
+                  'pre_webhook_url': 'pre_webhook_url',
+                  'reachability_enabled': false,
+                  'read_status_enabled': false,
+                  'sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'typing_indicator_timeout': 100,
+                  'url': 'http://www.example.com',
+                  'webhook_filters': [
+                      'webhook_filters'
+                  ],
+                  'webhook_method': 'webhook_method',
+                  'webhooks': {}
+              }
+          ]
       });
 
       holodeck.mock(new Response(200, body));
@@ -288,7 +320,7 @@ describe('Service', function() {
       var solution = {
         sid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
-      var url = _.template('https://ip-messaging.twilio.com/v1/Services/<%= sid %>')(solution);
+      var url = _.template('https://chat.twilio.com/v1/Services/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -299,24 +331,33 @@ describe('Service', function() {
   it('should generate valid update response',
     function() {
       var body = JSON.stringify({
-          'sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'friendly_name': '216d4a5b-654a-4b60-acea-cf4e42604fb3',
-          'date_created': '2015-12-16T17:53:05Z',
-          'date_updated': '2015-12-16T17:53:05Z',
-          'default_service_role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'default_channel_role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'consumption_report_interval': 100,
+          'date_created': '2015-07-30T20:00:00Z',
+          'date_updated': '2015-07-30T20:00:00Z',
           'default_channel_creator_role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'read_status_enabled': true,
-          'typing_indicator_timeout': 5,
-          'consumption_report_interval': 10,
-          'webhooks': {},
-          'url': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'links': {
-              'channels': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels',
-              'roles': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles',
-              'users': 'https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users'
-          }
+          'default_channel_role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'default_service_role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'friendly_name': 'friendly_name',
+          'limits': {
+              'actions_per_second': 20,
+              'channel_members': 500,
+              'user_channels': 600
+          },
+          'links': {},
+          'notifications': {},
+          'post_webhook_url': 'post_webhook_url',
+          'pre_webhook_url': 'pre_webhook_url',
+          'reachability_enabled': false,
+          'read_status_enabled': false,
+          'sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'typing_indicator_timeout': 100,
+          'url': 'http://www.example.com',
+          'webhook_filters': [
+              'webhook_filters'
+          ],
+          'webhook_method': 'webhook_method',
+          'webhooks': {}
       });
 
       holodeck.mock(new Response(200, body));

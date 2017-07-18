@@ -1,11 +1,14 @@
 'use strict';
 
-var _ = require('lodash');
-var Holodeck = require('../../../../holodeck');
-var Request = require('../../../../../../lib/http/request');
-var Response = require('../../../../../../lib/http/response');
-var RestException = require('../../../../../../lib/base/RestException');
-var Twilio = require('../../../../../../lib');
+var _ = require('lodash');  /* jshint ignore:line */
+var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
+var Request = require(
+    '../../../../../../lib/http/request');  /* jshint ignore:line */
+var Response = require(
+    '../../../../../../lib/http/response');  /* jshint ignore:line */
+var RestException = require(
+    '../../../../../../lib/base/RestException');  /* jshint ignore:line */
+var Twilio = require('../../../../../../lib');  /* jshint ignore:line */
 
 
 var client;
@@ -14,7 +17,9 @@ var holodeck;
 describe('Message', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', holodeck);
+    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+      httpClient: holodeck
+    });
   });
   it('should generate valid create request',
     function() {
@@ -60,6 +65,7 @@ describe('Message', function() {
           'error_code': null,
           'error_message': null,
           'from': '+14155552345',
+          'messaging_service_sid': 'MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'num_media': '0',
           'num_segments': '1',
           'price': '-0.00750',
@@ -73,7 +79,7 @@ describe('Message', function() {
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
       });
 
-      holodeck.mock(new Response(200, body));
+      holodeck.mock(new Response(201, body));
 
       var opts = {
         to: '+123456789'
@@ -169,6 +175,7 @@ describe('Message', function() {
           'error_code': null,
           'error_message': null,
           'from': '+14155552345',
+          'messaging_service_sid': 'MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'num_media': '0',
           'num_segments': '1',
           'price': '-0.00750',
@@ -237,6 +244,7 @@ describe('Message', function() {
                   'error_code': null,
                   'error_message': null,
                   'from': '+14155552345',
+                  'messaging_service_sid': 'MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'num_media': '0',
                   'num_segments': '1',
                   'price': '-0.00750',
@@ -307,8 +315,11 @@ describe('Message', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
+      var opts = {
+        body: 'body'
+      };
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .messages('MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+                                    .messages('MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update(opts);
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -322,9 +333,13 @@ describe('Message', function() {
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Messages/<%= sid %>.json')(solution);
 
+      var values = {
+        Body: 'body',
+      };
       holodeck.assertHasRequest(new Request({
-        method: 'POST',
-        url: url
+          method: 'POST',
+          url: url,
+          data: values
       }));
     }
   );
@@ -341,6 +356,7 @@ describe('Message', function() {
           'error_code': null,
           'error_message': null,
           'from': '+14155552345',
+          'messaging_service_sid': 'MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'num_media': '0',
           'num_segments': '1',
           'price': '-0.00750',
@@ -356,8 +372,11 @@ describe('Message', function() {
 
       holodeck.mock(new Response(200, body));
 
+      var opts = {
+        body: 'body'
+      };
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .messages('MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+                                    .messages('MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {

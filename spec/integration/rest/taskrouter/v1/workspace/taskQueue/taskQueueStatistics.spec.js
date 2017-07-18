@@ -1,11 +1,14 @@
 'use strict';
 
-var _ = require('lodash');
-var Holodeck = require('../../../../../holodeck');
-var Request = require('../../../../../../../lib/http/request');
-var Response = require('../../../../../../../lib/http/response');
-var RestException = require('../../../../../../../lib/base/RestException');
-var Twilio = require('../../../../../../../lib');
+var _ = require('lodash');  /* jshint ignore:line */
+var Holodeck = require('../../../../../holodeck');  /* jshint ignore:line */
+var Request = require(
+    '../../../../../../../lib/http/request');  /* jshint ignore:line */
+var Response = require(
+    '../../../../../../../lib/http/response');  /* jshint ignore:line */
+var RestException = require(
+    '../../../../../../../lib/base/RestException');  /* jshint ignore:line */
+var Twilio = require('../../../../../../../lib');  /* jshint ignore:line */
 
 
 var client;
@@ -14,7 +17,9 @@ var holodeck;
 describe('TaskQueueStatistics', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', holodeck);
+    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+      httpClient: holodeck
+    });
   });
   it('should generate valid fetch request',
     function() {
@@ -22,7 +27,7 @@ describe('TaskQueueStatistics', function() {
 
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                         .taskQueues('WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .statistics().fetch();
+                                        .taskQueueStatistics().fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -46,16 +51,17 @@ describe('TaskQueueStatistics', function() {
     function() {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskQueues/WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Statistics',
           'cumulative': {
               'avg_task_acceptance_time': 0.0,
-              'end_time': '2015-08-18T00:42:34Z',
+              'end_time': '2015-08-18T08:42:34Z',
               'reservations_accepted': 0,
               'reservations_canceled': 0,
               'reservations_created': 0,
               'reservations_rejected': 0,
               'reservations_rescinded': 0,
               'reservations_timed_out': 0,
-              'start_time': '2015-08-18T00:27:34Z',
+              'start_time': '2015-08-18T08:27:34Z',
               'tasks_canceled': 0,
               'tasks_deleted': 0,
               'tasks_entered': 0,
@@ -99,7 +105,8 @@ describe('TaskQueueStatistics', function() {
               'tasks_by_status': {
                   'assigned': 0,
                   'pending': 0,
-                  'reserved': 0
+                  'reserved': 0,
+                  'wrapping': 0
               },
               'total_available_workers': 0,
               'total_eligible_workers': 0,
@@ -113,7 +120,7 @@ describe('TaskQueueStatistics', function() {
 
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                         .taskQueues('WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .statistics().fetch();
+                                        .taskQueueStatistics().fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {

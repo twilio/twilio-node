@@ -1,11 +1,14 @@
 'use strict';
 
-var _ = require('lodash');
-var Holodeck = require('../../../../holodeck');
-var Request = require('../../../../../../lib/http/request');
-var Response = require('../../../../../../lib/http/response');
-var RestException = require('../../../../../../lib/base/RestException');
-var Twilio = require('../../../../../../lib');
+var _ = require('lodash');  /* jshint ignore:line */
+var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
+var Request = require(
+    '../../../../../../lib/http/request');  /* jshint ignore:line */
+var Response = require(
+    '../../../../../../lib/http/response');  /* jshint ignore:line */
+var RestException = require(
+    '../../../../../../lib/base/RestException');  /* jshint ignore:line */
+var Twilio = require('../../../../../../lib');  /* jshint ignore:line */
 
 
 var client;
@@ -14,7 +17,9 @@ var holodeck;
 describe('Address', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', holodeck);
+    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+      httpClient: holodeck
+    });
   });
   it('should generate valid create request',
     function() {
@@ -65,16 +70,18 @@ describe('Address', function() {
           'customer_name': 'name',
           'date_created': 'Tue, 18 Aug 2015 17:07:30 +0000',
           'date_updated': 'Tue, 18 Aug 2015 17:07:30 +0000',
+          'emergency_enabled': false,
           'friendly_name': null,
           'iso_country': 'US',
           'postal_code': '94019',
           'region': 'CA',
           'sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'street': '4th',
+          'validated': false,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses/ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
       });
 
-      holodeck.mock(new Response(200, body));
+      holodeck.mock(new Response(201, body));
 
       var opts = {
         customerName: 'customerName',
@@ -170,12 +177,14 @@ describe('Address', function() {
           'customer_name': 'name',
           'date_created': 'Tue, 18 Aug 2015 17:07:30 +0000',
           'date_updated': 'Tue, 18 Aug 2015 17:07:30 +0000',
+          'emergency_enabled': false,
           'friendly_name': null,
           'iso_country': 'US',
           'postal_code': '94019',
           'region': 'CA',
           'sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'street': '4th',
+          'validated': false,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses/ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
       });
 
@@ -225,12 +234,14 @@ describe('Address', function() {
           'customer_name': 'name',
           'date_created': 'Tue, 18 Aug 2015 17:07:30 +0000',
           'date_updated': 'Tue, 18 Aug 2015 17:07:30 +0000',
+          'emergency_enabled': false,
           'friendly_name': null,
           'iso_country': 'US',
           'postal_code': '94019',
           'region': 'CA',
           'sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'street': '4th',
+          'validated': false,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses/ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
       });
 
@@ -281,12 +292,14 @@ describe('Address', function() {
                   'customer_name': 'name',
                   'date_created': 'Tue, 18 Aug 2015 17:07:30 +0000',
                   'date_updated': 'Tue, 18 Aug 2015 17:07:30 +0000',
+                  'emergency_enabled': false,
                   'friendly_name': null,
                   'iso_country': 'US',
                   'postal_code': '94019',
                   'region': 'CA',
                   'sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'street': '4th',
+                  'validated': false,
                   'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses/ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
               }
           ],

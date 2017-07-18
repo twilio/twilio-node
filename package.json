@@ -1,13 +1,19 @@
 {
   "name": "twilio",
   "description": "A Twilio helper library",
-  "version": "3.0.0-rc.13",
+  "version": "3.0.0-rc.17",
   "author": "API Team <api@twilio.com>",
   "contributors": [
     {
       "name": "twilio-node contributors",
       "url": "https://github.com/twilio/twilio-node/graphs/contributors"
     }
+  ],
+  "keywords": [
+    "twilio",
+    "sms",
+    "rest",
+    "api"
   ],
   "repository": {
     "type": "git",
@@ -18,9 +24,11 @@
     "lodash": "4.0.0",
     "moment": "2.14.1",
     "q": "2.0.x",
-    "request": "2.74.x",
+    "request": "2.81.x",
     "rootpath": "0.1.2",
-    "scmp": "0.0.3"
+    "scmp": "0.0.3",
+    "xmlbuilder": "8.2.2",
+    "deprecate": "1.0.0"
   },
   "devDependencies": {
     "express": "3.x",
@@ -31,14 +39,18 @@
   },
   "scripts": {
     "test": "jasmine-node --captureExceptions spec",
-    "jshint": "jshint lib/rest/** lib/base/** lib/http/** spec/integration/**",
-    "jscs": "jscs -c .jscs lib/rest/** lib/base/** lib/http/**",
+    "jshint": "jshint lib/rest/** lib/base/** lib/http/**",
+    "jscs": "jscs -c .jscsrc lib/base/** lib/http/** --fix",
     "check": "npm run jshint; npm run jscs",
     "jsdoc": "jsdoc -r lib -d docs"
   },
+  "files": [
+    "lib",
+    "index.js"
+  ],
   "main": "./lib",
   "engines": {
-    "node": ">=0.8.0"
+    "node": ">=0.12.0"
   },
   "license": "MIT"
 }

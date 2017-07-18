@@ -1,11 +1,14 @@
 'use strict';
 
-var _ = require('lodash');
-var Holodeck = require('../../../../holodeck');
-var Request = require('../../../../../../lib/http/request');
-var Response = require('../../../../../../lib/http/response');
-var RestException = require('../../../../../../lib/base/RestException');
-var Twilio = require('../../../../../../lib');
+var _ = require('lodash');  /* jshint ignore:line */
+var Holodeck = require('../../../../holodeck');  /* jshint ignore:line */
+var Request = require(
+    '../../../../../../lib/http/request');  /* jshint ignore:line */
+var Response = require(
+    '../../../../../../lib/http/response');  /* jshint ignore:line */
+var RestException = require(
+    '../../../../../../lib/base/RestException');  /* jshint ignore:line */
+var Twilio = require('../../../../../../lib');  /* jshint ignore:line */
 
 
 var client;
@@ -14,7 +17,9 @@ var holodeck;
 describe('IncomingPhoneNumber', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', holodeck);
+    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+      httpClient: holodeck
+    });
   });
   it('should generate valid update request',
     function() {
@@ -30,10 +35,10 @@ describe('IncomingPhoneNumber', function() {
       promise.done();
 
       var solution = {
-        ownerAccountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         sid: 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
-      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= ownerAccountSid %>/IncomingPhoneNumbers/<%= sid %>.json')(solution);
+      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/IncomingPhoneNumbers/<%= sid %>.json')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -55,6 +60,8 @@ describe('IncomingPhoneNumber', function() {
           },
           'date_created': 'Thu, 30 Jul 2015 23:19:04 +0000',
           'date_updated': 'Thu, 30 Jul 2015 23:19:04 +0000',
+          'emergency_status': 'Inactive',
+          'emergency_address_sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'friendly_name': '(808) 925-5327',
           'phone_number': '+18089255327',
           'sid': 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -102,10 +109,10 @@ describe('IncomingPhoneNumber', function() {
       promise.done();
 
       var solution = {
-        ownerAccountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         sid: 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
-      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= ownerAccountSid %>/IncomingPhoneNumbers/<%= sid %>.json')(solution);
+      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/IncomingPhoneNumbers/<%= sid %>.json')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -127,6 +134,8 @@ describe('IncomingPhoneNumber', function() {
           },
           'date_created': 'Thu, 30 Jul 2015 23:19:04 +0000',
           'date_updated': 'Thu, 30 Jul 2015 23:19:04 +0000',
+          'emergency_status': 'Active',
+          'emergency_address_sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'friendly_name': '(808) 925-5327',
           'phone_number': '+18089255327',
           'sid': 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -174,10 +183,10 @@ describe('IncomingPhoneNumber', function() {
       promise.done();
 
       var solution = {
-        ownerAccountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         sid: 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
-      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= ownerAccountSid %>/IncomingPhoneNumbers/<%= sid %>.json')(solution);
+      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/IncomingPhoneNumbers/<%= sid %>.json')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
@@ -216,9 +225,9 @@ describe('IncomingPhoneNumber', function() {
       promise.done();
 
       var solution = {
-        ownerAccountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
-      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= ownerAccountSid %>/IncomingPhoneNumbers.json')(solution);
+      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/IncomingPhoneNumbers.json')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -244,6 +253,8 @@ describe('IncomingPhoneNumber', function() {
                   },
                   'date_created': 'Thu, 30 Jul 2015 23:19:04 +0000',
                   'date_updated': 'Thu, 30 Jul 2015 23:19:04 +0000',
+                  'emergency_status': 'Active',
+                  'emergency_address_sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'friendly_name': '(808) 925-5327',
                   'phone_number': '+18089255327',
                   'sid': 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -332,9 +343,9 @@ describe('IncomingPhoneNumber', function() {
       promise.done();
 
       var solution = {
-        ownerAccountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       };
-      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= ownerAccountSid %>/IncomingPhoneNumbers.json')(solution);
+      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/IncomingPhoneNumbers.json')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -356,6 +367,8 @@ describe('IncomingPhoneNumber', function() {
           },
           'date_created': 'Thu, 30 Jul 2015 23:19:04 +0000',
           'date_updated': 'Thu, 30 Jul 2015 23:19:04 +0000',
+          'emergency_status': 'Active',
+          'emergency_address_sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'friendly_name': '(808) 925-5327',
           'phone_number': '+18089255327',
           'sid': 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -376,7 +389,7 @@ describe('IncomingPhoneNumber', function() {
           'voice_url': null
       });
 
-      holodeck.mock(new Response(200, body));
+      holodeck.mock(new Response(201, body));
 
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .incomingPhoneNumbers.create();

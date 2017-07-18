@@ -1,11 +1,14 @@
 'use strict';
 
-var _ = require('lodash');
-var Holodeck = require('../../../../../holodeck');
-var Request = require('../../../../../../../lib/http/request');
-var Response = require('../../../../../../../lib/http/response');
-var RestException = require('../../../../../../../lib/base/RestException');
-var Twilio = require('../../../../../../../lib');
+var _ = require('lodash');  /* jshint ignore:line */
+var Holodeck = require('../../../../../holodeck');  /* jshint ignore:line */
+var Request = require(
+    '../../../../../../../lib/http/request');  /* jshint ignore:line */
+var Response = require(
+    '../../../../../../../lib/http/response');  /* jshint ignore:line */
+var RestException = require(
+    '../../../../../../../lib/base/RestException');  /* jshint ignore:line */
+var Twilio = require('../../../../../../../lib');  /* jshint ignore:line */
 
 
 var client;
@@ -14,7 +17,9 @@ var holodeck;
 describe('Trigger', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', holodeck);
+    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+      httpClient: holodeck
+    });
   });
   it('should generate valid fetch request',
     function() {
@@ -189,7 +194,7 @@ describe('Trigger', function() {
       var opts = {
         callbackUrl: 'https://example.com',
         triggerValue: 'triggerValue',
-        usageCategory: 'authy-authentications'
+        usageCategory: 'answering-machine-detection'
       };
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .usage
@@ -209,7 +214,7 @@ describe('Trigger', function() {
       var values = {
         CallbackUrl: 'https://example.com',
         TriggerValue: 'triggerValue',
-        UsageCategory: 'authy-authentications',
+        UsageCategory: 'answering-machine-detection',
       };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
@@ -239,12 +244,12 @@ describe('Trigger', function() {
           'usage_record_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Records?Category=totalprice'
       });
 
-      holodeck.mock(new Response(200, body));
+      holodeck.mock(new Response(201, body));
 
       var opts = {
         callbackUrl: 'https://example.com',
         triggerValue: 'triggerValue',
-        usageCategory: 'authy-authentications'
+        usageCategory: 'answering-machine-detection'
       };
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .usage

@@ -1,17 +1,9 @@
-### Dot files ###
-.*
-
-### linting ###
-!/.jshintrc
-!/.jscs
-
-### Git ###
-!/.gitignore
-!/.gitmodules
-
 ### Logs ###
 logs
 *.log
+
+### Backup package.json created during release ###
+package.json.bak
 
 ### Runtime data ###
 pids
@@ -20,9 +12,6 @@ pids
 
 ### NPM modules ###
 node_modules
-
-### Travis ###
-!/.travis.yml
 
 ### Test coverage ###
 spec/coverage

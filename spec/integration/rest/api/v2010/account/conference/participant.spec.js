@@ -1,11 +1,14 @@
 'use strict';
 
-var _ = require('lodash');
-var Holodeck = require('../../../../../holodeck');
-var Request = require('../../../../../../../lib/http/request');
-var Response = require('../../../../../../../lib/http/response');
-var RestException = require('../../../../../../../lib/base/RestException');
-var Twilio = require('../../../../../../../lib');
+var _ = require('lodash');  /* jshint ignore:line */
+var Holodeck = require('../../../../../holodeck');  /* jshint ignore:line */
+var Request = require(
+    '../../../../../../../lib/http/request');  /* jshint ignore:line */
+var Response = require(
+    '../../../../../../../lib/http/response');  /* jshint ignore:line */
+var RestException = require(
+    '../../../../../../../lib/base/RestException');  /* jshint ignore:line */
+var Twilio = require('../../../../../../../lib');  /* jshint ignore:line */
 
 
 var client;
@@ -14,7 +17,9 @@ var holodeck;
 describe('Participant', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', holodeck);
+    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+      httpClient: holodeck
+    });
   });
   it('should generate valid fetch request',
     function() {
@@ -54,6 +59,7 @@ describe('Participant', function() {
           'end_conference_on_exit': false,
           'muted': false,
           'hold': false,
+          'status': 'complete',
           'start_conference_on_enter': true,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
       });
@@ -110,6 +116,7 @@ describe('Participant', function() {
           'end_conference_on_exit': false,
           'muted': false,
           'hold': false,
+          'status': 'complete',
           'start_conference_on_enter': true,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
       });
@@ -119,6 +126,109 @@ describe('Participant', function() {
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .conferences('CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .participants('CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      promise = promise.then(function(response) {
+        expect(response).toBeDefined();
+      }, function() {
+        throw new Error('failed');
+      });
+
+      promise.done();
+    }
+  );
+  it('should generate valid create request',
+    function() {
+      holodeck.mock(new Response(500, '{}'));
+
+      var opts = {
+        from: '+987654321',
+        to: '+123456789'
+      };
+      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                    .conferences('CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                    .participants.create(opts);
+      promise = promise.then(function() {
+        throw new Error('failed');
+      }, function(error) {
+        expect(error.constructor).toBe(RestException.prototype.constructor);
+      });
+      promise.done();
+
+      var solution = {
+        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+        conferenceSid: 'CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+      };
+      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Conferences/<%= conferenceSid %>/Participants.json')(solution);
+
+      var values = {
+        From: '+987654321',
+        To: '+123456789',
+      };
+      holodeck.assertHasRequest(new Request({
+          method: 'POST',
+          url: url,
+          data: values
+      }));
+    }
+  );
+  it('should generate valid create_with_sid response',
+    function() {
+      var body = JSON.stringify({
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'call_sid': 'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'conference_sid': 'CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'date_created': 'Fri, 18 Feb 2011 21:07:19 +0000',
+          'date_updated': 'Fri, 18 Feb 2011 21:07:19 +0000',
+          'end_conference_on_exit': false,
+          'muted': false,
+          'hold': false,
+          'status': 'complete',
+          'start_conference_on_enter': true,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+      });
+
+      holodeck.mock(new Response(201, body));
+
+      var opts = {
+        from: '+987654321',
+        to: '+123456789'
+      };
+      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                    .conferences('CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                    .participants.create(opts);
+      promise = promise.then(function(response) {
+        expect(response).toBeDefined();
+      }, function() {
+        throw new Error('failed');
+      });
+
+      promise.done();
+    }
+  );
+  it('should generate valid create_with_friendly_name response',
+    function() {
+      var body = JSON.stringify({
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'call_sid': 'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'conference_sid': 'CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'date_created': 'Fri, 18 Feb 2011 21:07:19 +0000',
+          'date_updated': 'Fri, 18 Feb 2011 21:07:19 +0000',
+          'end_conference_on_exit': false,
+          'muted': false,
+          'hold': false,
+          'status': 'complete',
+          'start_conference_on_enter': true,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+      });
+
+      holodeck.mock(new Response(201, body));
+
+      var opts = {
+        from: '+987654321',
+        to: '+123456789'
+      };
+      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                    .conferences('CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                    .participants.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -204,9 +314,7 @@ describe('Participant', function() {
       var body = JSON.stringify({
           'end': 0,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants.json?Page=0&PageSize=50',
-          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants.json?Page=0&PageSize=50',
           'next_page_uri': null,
-          'num_pages': 1,
           'page': 0,
           'page_size': 50,
           'participants': [
@@ -219,13 +327,13 @@ describe('Participant', function() {
                   'end_conference_on_exit': false,
                   'muted': false,
                   'hold': false,
+                  'status': 'complete',
                   'start_conference_on_enter': true,
                   'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
               }
           ],
           'previous_page_uri': null,
           'start': 0,
-          'total': 1,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants.json'
       });
 
@@ -248,15 +356,12 @@ describe('Participant', function() {
       var body = JSON.stringify({
           'end': 0,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants.json?Page=0&PageSize=50',
-          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants.json?Page=0&PageSize=50',
           'next_page_uri': null,
-          'num_pages': 1,
           'page': 0,
           'page_size': 50,
           'participants': [],
           'previous_page_uri': null,
           'start': 0,
-          'total': 1,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants.json'
       });
 
