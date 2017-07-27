@@ -8,7 +8,7 @@ A node.js Twilio helper library.
 
 ## Recent Update
 
-As of release 6.5.0, Beta and Developer Preview products are now exposed via
+As of release 3.6.0, Beta and Developer Preview products are now exposed via
 the main `twilio-node` artifact. Releases of the `alpha` branch have been
 discontinued.
 
