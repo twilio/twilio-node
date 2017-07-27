@@ -1,6 +1,11 @@
 twilio-node changelog
 =====================
 
+[2017-07-27] Version 3.6.1
+---------------------------
+
+- Support SSL connection/session reuse.
+
 [2017-07-27] Version 3.6.0
 ---------------------------
 This release adds Beta and Preview products to main artifact.
