@@ -6,6 +6,21 @@ A node.js Twilio helper library.
 
 [![Build Status](https://travis-ci.org/twilio/twilio-node.svg?branch=master)](https://travis-ci.org/twilio/twilio-node)
 
+## Recent Update
+
+As of release 6.5.0, Beta and Developer Preview products are now exposed via
+the main `twilio-node` artifact. Releases of the `alpha` branch have been
+discontinued.
+
+If you were using the `alpha` release line, you should be able to switch back
+to the normal release line without issue.
+
+If you were using the normal release line, you should now see several new
+product lines that were historically hidden from you due to their Beta or
+Developer Preview status. Such products are explicitly documented as
+Beta/Developer Preview both in the Twilio docs and console, as well as through
+in-line code documentation here in the library.
+
 ## End User Docs
 
 For detailed usage information and API docs, head out here:
@@ -24,12 +39,12 @@ Bug fixes, docs, and enhancements welcome! If you're not familiar with the GitHu
 
 #### Getting Started
 Fork and clone the repository. Install dependencies with:
-    
+
     npm install
 
 Run the existing test spec with `npm test`.
-    
-To run just one specific test file instead of the whole suite, provide a JavaScript regular expression that will match your spec file's name, like: 
+
+To run just one specific test file instead of the whole suite, provide a JavaScript regular expression that will match your spec file's name, like:
 
     ./node_modules/.bin/jasmine-node spec -m .\*accounts.\*
 
