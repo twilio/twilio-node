@@ -111,6 +111,29 @@ describe('AccessToken', function() {
       expect(decoded.exp - decoded.iat).toBe(100);
     });
 
+    it('should create token with chat grant', function() {
+      var token = new twilio.jwt.AccessToken(accountSid, keySid, 'secret');
+      token.identity = 'ID@example.com';
+
+      var grant = new twilio.jwt.AccessToken.ChatGrant();
+      grant.serviceSid = 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+      grant.endpointId = 'endpointId';
+      grant.pushCredentialSid = 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+      grant.deploymentRoleSid = 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+      token.addGrant(grant);
+
+      var decoded = jwt.verify(token.toJwt(), 'secret');
+      expect(decoded.grants).toEqual({
+        identity: 'ID@example.com',
+        chat: {
+          service_sid: 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          deployment_role_sid: 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          endpoint_id: 'endpointId',
+          push_credential_sid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        }
+      });
+    });
+
     it('should create token with ip messaging grant', function() {
       var token = new twilio.jwt.AccessToken(accountSid, keySid, 'secret');
       token.identity = 'ID@example.com';
@@ -212,7 +235,7 @@ describe('AccessToken', function() {
       var token = new twilio.jwt.AccessToken(accountSid, keySid, 'secret');
       token.identity = 'ID@example.com';
 
-      var grant = new twilio.jwt.AccessToken.IpMessagingGrant();
+      var grant = new twilio.jwt.AccessToken.ChatGrant();
       grant.serviceSid = 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
       grant.endpointId = 'endpointId';
       grant.pushCredentialSid = 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
@@ -237,7 +260,7 @@ describe('AccessToken', function() {
       var decoded = jwt.verify(token.toJwt(), 'secret');
       expect(decoded.grants).toEqual({
         identity: 'ID@example.com',
-        ip_messaging: {
+        chat: {
           service_sid: 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           deployment_role_sid: 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           endpoint_id: 'endpointId',
