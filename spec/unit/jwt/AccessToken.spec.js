@@ -1,5 +1,8 @@
 var twilio = require('../../../index');
 var jwt = require('jsonwebtoken');
+var deprecate = require('deprecate');
+
+deprecate.silence = true;
 
 describe('AccessToken', function() {
   var accountSid = 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
@@ -108,6 +111,29 @@ describe('AccessToken', function() {
       expect(decoded.exp - decoded.iat).toBe(100);
     });
 
+    it('should create token with chat grant', function() {
+      var token = new twilio.jwt.AccessToken(accountSid, keySid, 'secret');
+      token.identity = 'ID@example.com';
+
+      var grant = new twilio.jwt.AccessToken.ChatGrant();
+      grant.serviceSid = 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+      grant.endpointId = 'endpointId';
+      grant.pushCredentialSid = 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+      grant.deploymentRoleSid = 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+      token.addGrant(grant);
+
+      var decoded = jwt.verify(token.toJwt(), 'secret');
+      expect(decoded.grants).toEqual({
+        identity: 'ID@example.com',
+        chat: {
+          service_sid: 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          deployment_role_sid: 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          endpoint_id: 'endpointId',
+          push_credential_sid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        }
+      });
+    });
+
     it('should create token with ip messaging grant', function() {
       var token = new twilio.jwt.AccessToken(accountSid, keySid, 'secret');
       token.identity = 'ID@example.com';
@@ -209,7 +235,7 @@ describe('AccessToken', function() {
       var token = new twilio.jwt.AccessToken(accountSid, keySid, 'secret');
       token.identity = 'ID@example.com';
 
-      var grant = new twilio.jwt.AccessToken.IpMessagingGrant();
+      var grant = new twilio.jwt.AccessToken.ChatGrant();
       grant.serviceSid = 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
       grant.endpointId = 'endpointId';
       grant.pushCredentialSid = 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
@@ -234,7 +260,7 @@ describe('AccessToken', function() {
       var decoded = jwt.verify(token.toJwt(), 'secret');
       expect(decoded.grants).toEqual({
         identity: 'ID@example.com',
-        ip_messaging: {
+        chat: {
           service_sid: 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           deployment_role_sid: 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           endpoint_id: 'endpointId',
@@ -257,8 +283,81 @@ describe('AccessToken', function() {
 
     describe('IpMessagingGrant', function() {
       describe('toPayload', function() {
+        it('should set properties in the constructor', function() {
+          var grant = new twilio.jwt.AccessToken.IpMessagingGrant({
+            deploymentRoleSid: 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            serviceSid: 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            endpointId: 'endpointId',
+            pushCredentialSid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          });
+          expect(grant.toPayload()).toEqual({
+            service_sid: 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            deployment_role_sid: 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            endpoint_id: 'endpointId',
+            push_credential_sid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          });
+        });
+
         it('should only populate set properties', function() {
           var grant = new twilio.jwt.AccessToken.IpMessagingGrant();
+          expect(grant.toPayload()).toEqual({});
+
+          grant.deploymentRoleSid = 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+          expect(grant.toPayload()).toEqual({
+            deployment_role_sid: 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          });
+
+          grant.serviceSid = 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+          expect(grant.toPayload()).toEqual({
+            service_sid: 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            deployment_role_sid: 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          });
+
+          grant.endpointId = 'endpointId';
+          expect(grant.toPayload()).toEqual({
+            service_sid: 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            deployment_role_sid: 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            endpoint_id: 'endpointId'
+          });
+
+          grant.endpointId = undefined;
+          grant.pushCredentialSid = 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+          expect(grant.toPayload()).toEqual({
+            service_sid: 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            deployment_role_sid: 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            push_credential_sid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          });
+
+          grant.endpointId = 'endpointId';
+          expect(grant.toPayload()).toEqual({
+            service_sid: 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            deployment_role_sid: 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            endpoint_id: 'endpointId',
+            push_credential_sid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          });
+        });
+      });
+    });
+
+    describe('ChatGrant', function() {
+      describe('toPayload', function() {
+        it('should set properties in the constructor', function() {
+          var grant = new twilio.jwt.AccessToken.ChatGrant({
+            deploymentRoleSid: 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            serviceSid: 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            endpointId: 'endpointId',
+            pushCredentialSid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          });
+          expect(grant.toPayload()).toEqual({
+            service_sid: 'SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            deployment_role_sid: 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            endpoint_id: 'endpointId',
+            push_credential_sid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          });
+        });
+
+        it('should only populate set properties', function() {
+          var grant = new twilio.jwt.AccessToken.ChatGrant();
           expect(grant.toPayload()).toEqual({});
 
           grant.deploymentRoleSid = 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
