@@ -140,7 +140,7 @@ describe('create voice response TwiML', function() {
 
   it('should serialize enqueue task', function () {
     var actual = new VoiceResponse();
-    var enqueue = actual.enqueueTask({
+    var enqueue = actual.enqueue({
       method: 'POST'
     });
     enqueue.task({
