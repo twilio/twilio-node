@@ -72,6 +72,47 @@ describe('Message', function() {
           'attributes': '{}',
           'body': 'Hello',
           'index': 0,
+          'type': 'text',
+          'media': null,
+          'url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+      });
+
+      holodeck.mock(new Response(200, body));
+
+      var promise = client.chat.v2.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                  .channels('CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                  .messages('IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      promise = promise.then(function(response) {
+        expect(response).toBeDefined();
+      }, function() {
+        throw new Error('failed');
+      });
+
+      promise.done();
+    }
+  );
+  it('should generate valid fetch_media response',
+    function() {
+      var body = JSON.stringify({
+          'sid': 'IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'to': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'channel_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'date_created': '2016-03-24T20:37:57Z',
+          'date_updated': '2016-03-24T20:37:57Z',
+          'was_edited': false,
+          'from': 'system',
+          'attributes': '{}',
+          'body': 'Hello',
+          'index': 0,
+          'type': 'media',
+          'media': {
+              'sid': 'MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+              'size': 99999999999999,
+              'content_type': 'application/pdf',
+              'filename': 'hello.pdf'
+          },
           'url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 
@@ -137,6 +178,8 @@ describe('Message', function() {
           'from': 'system',
           'body': 'Hello',
           'index': 0,
+          'type': 'text',
+          'media': null,
           'url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 
@@ -172,6 +215,8 @@ describe('Message', function() {
           'attributes': '{}',
           'body': 'Hello',
           'index': 0,
+          'type': 'text',
+          'media': null,
           'url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 
@@ -244,6 +289,30 @@ describe('Message', function() {
                   'attributes': '{}',
                   'body': 'Hello',
                   'index': 0,
+                  'type': 'text',
+                  'media': null,
+                  'url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              },
+              {
+                  'sid': 'IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'to': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'channel_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2016-03-24T20:37:57Z',
+                  'date_updated': '2016-03-24T20:37:57Z',
+                  'was_edited': false,
+                  'from': 'system',
+                  'attributes': '{}',
+                  'body': 'Hello',
+                  'index': 0,
+                  'type': 'media',
+                  'media': {
+                      'sid': 'MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                      'size': 99999999999999,
+                      'content_type': 'application/pdf',
+                      'filename': 'hello.pdf'
+                  },
                   'url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
@@ -379,6 +448,8 @@ describe('Message', function() {
           'from': 'system',
           'body': 'Hello',
           'index': 0,
+          'type': 'text',
+          'media': null,
           'url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 
