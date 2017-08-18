@@ -13,6 +13,7 @@ twilio-node changelog
 **Preview**
 - Removed 'email' from bulk_exports configuration api [bi]. No migration plan needed because api has not been used yet.
 - Add AvailableNumbers resource.
+- Add DeployedDevices.
 
 **Sync**
 - Add support for Service Instance unique names
