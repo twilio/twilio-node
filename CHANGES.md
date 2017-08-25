@@ -1,6 +1,23 @@
 twilio-node changelog
 =====================
 
+[2017-08-25] Version 3.6.4
+---------------------------
+**Api**
+- Update `status` enum for Recordings to include 'failed'
+- Add `error_code` property on Recordings
+
+**Chat**
+- Add mutable parameters for channel, members and messages
+
+**Video**
+- New `media_region` parameter when creating a room, which controls which region media will be served out of.
+- Add `video_codec` enum and `video_codecs` parameter, which can be set to either `VP8` or `H264` during room creation.
+
+**Twiml**
+- Add support for `speech_timeout`, `max_speech_time`, and `profanity_filter` attributes on Gather verb.
+
+
 [2017-08-18] Version 3.6.3
 ---------------------------
 **Api**
