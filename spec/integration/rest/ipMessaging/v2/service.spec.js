@@ -84,7 +84,11 @@ describe('Service', function() {
           'webhook_filters': [
               'webhook_filters'
           ],
-          'webhook_method': 'webhook_method'
+          'webhook_method': 'webhook_method',
+          'media': {
+              'size_limit_mb': 150,
+              'compatibility_message': 'media compatibility message'
+          }
       });
 
       holodeck.mock(new Response(200, body));
@@ -196,7 +200,11 @@ describe('Service', function() {
           'webhook_filters': [
               'webhook_filters'
           ],
-          'webhook_method': 'webhook_method'
+          'webhook_method': 'webhook_method',
+          'media': {
+              'size_limit_mb': 150,
+              'compatibility_message': 'media compatibility message'
+          }
       });
 
       holodeck.mock(new Response(201, body));
@@ -303,7 +311,11 @@ describe('Service', function() {
                   'webhook_filters': [
                       'webhook_filters'
                   ],
-                  'webhook_method': 'webhook_method'
+                  'webhook_method': 'webhook_method',
+                  'media': {
+                      'size_limit_mb': 150,
+                      'compatibility_message': 'media compatibility message'
+                  }
               }
           ]
       });
@@ -392,7 +404,11 @@ describe('Service', function() {
           'webhook_filters': [
               'webhook_filters'
           ],
-          'webhook_method': 'webhook_method'
+          'webhook_method': 'webhook_method',
+          'media': {
+              'size_limit_mb': 150,
+              'compatibility_message': 'new media compatibility message'
+          }
       });
 
       holodeck.mock(new Response(200, body));
