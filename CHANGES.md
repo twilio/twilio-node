@@ -1,6 +1,15 @@
 twilio-node changelog
 =====================
 
+[2017-09-01] Version 3.6.5
+---------------------------
+**Sync**
+- Add support for Streams
+
+**Wireless**
+- Added DataSessions sub-resource to Sims.
+
+
 [2017-08-25] Version 3.6.4
 ---------------------------
 **Api**
