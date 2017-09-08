@@ -1,6 +1,10 @@
 twilio-node changelog
 =====================
 
+[2017-09-01] Version 3.6.6
+---------------------------
+- Add lastResponse and lastRequest to Http::Client
+
 [2017-09-01] Version 3.6.5
 ---------------------------
 **Sync**
