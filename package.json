@@ -35,7 +35,8 @@
     "jasmine-node": "1.14.5",
     "jshint": "2.8.x",
     "jscs": "3.0.7",
-    "jsdoc": "3.4.x"
+    "jsdoc": "3.4.x",
+    "proxyquire": "1.8.0"
   },
   "scripts": {
     "test": "jasmine-node --captureExceptions spec",
