@@ -6,6 +6,7 @@ twilio-node changelog
 **Api**
 - Add `sip_registration` property on SIP Domains
 - Add new video and market usage category keys
+- Support transferring IncomingPhoneNumbers between accounts.
 
 
 [2017-09-01] Version 3.6.6
