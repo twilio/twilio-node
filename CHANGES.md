@@ -1,6 +1,13 @@
 twilio-node changelog
 =====================
 
+[2017-09-15] Version 3.6.7
+---------------------------
+**Api**
+- Add `sip_registration` property on SIP Domains
+- Add new video and market usage category keys
+
+
 [2017-09-01] Version 3.6.6
 ---------------------------
 - Add lastResponse and lastRequest to Http::Client
