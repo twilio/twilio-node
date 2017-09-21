@@ -33,9 +33,10 @@
   "devDependencies": {
     "express": "3.x",
     "jasmine-node": "1.14.5",
-    "jshint": "2.8.x",
     "jscs": "3.0.7",
     "jsdoc": "3.4.x",
+    "jshint": "2.8.x",
+    "nsp": "2.8.0",
     "proxyquire": "1.8.0"
   },
   "scripts": {
@@ -43,7 +44,9 @@
     "jshint": "jshint lib/rest/** lib/base/** lib/http/**",
     "jscs": "jscs -c .jscsrc lib/base/** lib/http/** --fix",
     "check": "npm run jshint; npm run jscs",
-    "jsdoc": "jsdoc -r lib -d docs"
+    "ci": "npm test; npm run nsp",
+    "jsdoc": "jsdoc -r lib -d docs",
+    "nsp": "nsp check"
   },
   "files": [
     "lib",
