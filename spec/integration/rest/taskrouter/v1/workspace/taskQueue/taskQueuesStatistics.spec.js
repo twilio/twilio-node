@@ -35,8 +35,8 @@ describe('TaskQueuesStatistics', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .taskQueues('WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .taskQueuesStatistics.list();
+                                        .taskQueues
+                                        .statistics.list();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -139,8 +139,8 @@ describe('TaskQueuesStatistics', function() {
       holodeck.mock(new Response(200, body));
 
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .taskQueues('WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .taskQueuesStatistics.list();
+                                        .taskQueues
+                                        .statistics.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -168,8 +168,8 @@ describe('TaskQueuesStatistics', function() {
       holodeck.mock(new Response(200, body));
 
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .taskQueues('WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .taskQueuesStatistics.list();
+                                        .taskQueues
+                                        .statistics.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {

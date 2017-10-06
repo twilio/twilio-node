@@ -36,7 +36,7 @@ describe('WorkflowRealTimeStatistics', function() {
 
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                         .workflows('WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .workflowRealTimeStatistics().fetch();
+                                        .realTimeStatistics().fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -78,7 +78,7 @@ describe('WorkflowRealTimeStatistics', function() {
 
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                         .workflows('WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .workflowRealTimeStatistics().fetch();
+                                        .realTimeStatistics().fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {

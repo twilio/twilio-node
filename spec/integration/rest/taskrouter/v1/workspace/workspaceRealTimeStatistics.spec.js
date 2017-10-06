@@ -35,7 +35,7 @@ describe('WorkspaceRealTimeStatistics', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .workspaceRealTimeStatistics().fetch();
+                                        .realTimeStatistics().fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -92,7 +92,7 @@ describe('WorkspaceRealTimeStatistics', function() {
       holodeck.mock(new Response(200, body));
 
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .workspaceRealTimeStatistics().fetch();
+                                        .realTimeStatistics().fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {

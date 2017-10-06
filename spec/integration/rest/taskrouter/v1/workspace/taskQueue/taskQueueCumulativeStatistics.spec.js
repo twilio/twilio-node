@@ -36,7 +36,7 @@ describe('TaskQueueCumulativeStatistics', function() {
 
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                         .taskQueues('WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .taskQueueCumulativeStatistics().fetch();
+                                        .cumulativeStatistics().fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -117,7 +117,7 @@ describe('TaskQueueCumulativeStatistics', function() {
 
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                         .taskQueues('WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .taskQueueCumulativeStatistics().fetch();
+                                        .cumulativeStatistics().fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {

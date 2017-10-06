@@ -1,6 +1,15 @@
 twilio-node changelog
 =====================
 
+[2017-10-06] Version 3.8.0
+---------------------------
+**Preview**
+- Add `acc_security` (authy-phone-verification) initial api-definitions
+
+**Taskrouter**
+- [bi] Less verbose naming of cumulative and real time statistics
+
+
 [2017-09-28] Version 3.7.0
 ---------------------------
 **Chat**
