@@ -299,11 +299,9 @@ describe('HostedNumberOrder', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {
-        addressSid: 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         phoneNumber: '+987654321',
         isoCountry: 'isoCountry',
-        smsCapability: true,
-        email: 'email'
+        smsCapability: true
       };
       var promise = client.preview.hosted_numbers.hostedNumberOrders.create(opts);
       promise = promise.then(function() {
@@ -316,11 +314,9 @@ describe('HostedNumberOrder', function() {
       var url = 'https://preview.twilio.com/HostedNumbers/HostedNumberOrders';
 
       var values = {
-        AddressSid: 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         PhoneNumber: '+987654321',
         IsoCountry: 'isoCountry',
         SmsCapability: serialize.bool(true),
-        Email: 'email',
       };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
@@ -356,11 +352,50 @@ describe('HostedNumberOrder', function() {
       holodeck.mock(new Response(201, body));
 
       var opts = {
-        addressSid: 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         phoneNumber: '+987654321',
         isoCountry: 'isoCountry',
-        smsCapability: true,
-        email: 'email'
+        smsCapability: true
+      };
+      var promise = client.preview.hosted_numbers.hostedNumberOrders.create(opts);
+      promise = promise.then(function(response) {
+        expect(response).toBeDefined();
+      }, function() {
+        throw new Error('failed');
+      });
+
+      promise.done();
+    }
+  );
+  it('should generate valid create_without_optional_loa_fields response',
+    function() {
+      var body = JSON.stringify({
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'address_sid': null,
+          'capabilities': {
+              'sms': true,
+              'voice': false
+          },
+          'cc_emails': [],
+          'date_created': '2017-03-28T20:06:39Z',
+          'date_updated': '2017-03-28T20:06:39Z',
+          'email': null,
+          'friendly_name': null,
+          'incoming_phone_number_sid': 'PN11111111111111111111111111111111',
+          'phone_number': '+14153608311',
+          'sid': 'HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'signing_document_sid': null,
+          'status': 'received',
+          'unique_name': null,
+          'url': 'https://preview.twilio.com/HostedNumbers/HostedNumberOrders/HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'verification_attempts': 0
+      });
+
+      holodeck.mock(new Response(201, body));
+
+      var opts = {
+        phoneNumber: '+987654321',
+        isoCountry: 'isoCountry',
+        smsCapability: true
       };
       var promise = client.preview.hosted_numbers.hostedNumberOrders.create(opts);
       promise = promise.then(function(response) {

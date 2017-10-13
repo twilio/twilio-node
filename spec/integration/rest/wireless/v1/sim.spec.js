@@ -81,7 +81,8 @@ describe('Sim', function() {
           'iccid': 'iccid',
           'e_id': 'e_id',
           'status': 'new',
-          'url': 'https://wireless.twilio.com/v1/Sims/DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'url': 'https://wireless.twilio.com/v1/Sims/DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'ip_address': '192.168.1.1'
       });
 
       holodeck.mock(new Response(200, body));
@@ -173,7 +174,8 @@ describe('Sim', function() {
                   'voice_fallback_url': 'http://www.example.com',
                   'voice_method': 'http_method',
                   'voice_url': 'http://www.example.com',
-                  'url': 'https://wireless.twilio.com/v1/Sims/DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'url': 'https://wireless.twilio.com/v1/Sims/DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'ip_address': '192.168.1.30'
               }
           ],
           'meta': {
@@ -250,7 +252,8 @@ describe('Sim', function() {
           'voice_fallback_url': 'http://www.example.com',
           'voice_method': 'http_method',
           'voice_url': 'http://www.example.com',
-          'url': 'https://wireless.twilio.com/v1/Sims/DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'url': 'https://wireless.twilio.com/v1/Sims/DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'ip_address': '192.168.1.30'
       });
 
       holodeck.mock(new Response(200, body));

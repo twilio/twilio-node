@@ -1,6 +1,23 @@
 twilio-node changelog
 =====================
 
+[2017-10-13] Version 3.8.1
+---------------------------
+**Api**
+- Add `smart_encoded` param for Messages
+- Add `identity_sid` param to IncomingPhoneNumbers create and update
+
+**Preview**
+- Make 'address_sid' and 'email' optional fields when creating a HostedNumberOrder
+- Add AuthorizationDocuments preview API.
+
+**Proxy**
+- Initial Release
+
+**Wireless**
+- Added `ip_address` to sim resource
+
+
 [2017-10-06] Version 3.8.0
 ---------------------------
 **Preview**
