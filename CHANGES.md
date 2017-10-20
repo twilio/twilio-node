@@ -3,6 +3,10 @@ twilio-node changelog
 
 [2017-10-20] Version 3.9.0
 ---------------------------
+**TwiML**
+- Update all TwiML Resources with latest parameters
+- Autogenerate TwiML resources for faster updates
+
 **Api**
 - Add `address_sid` param to IncomingPhoneNumbers create and update
 - Add 'fax_enabled' option for Phone Number Search
