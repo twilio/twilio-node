@@ -11,7 +11,7 @@ test:
 	npm test
 
 docs:
-	npm run jsdocs
+	npm run jsdoc
 
 clean: node_modules
 	rm -rf node_modules
