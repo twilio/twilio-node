@@ -34,9 +34,7 @@ describe('Feedback', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {
-        qualityScore: 1
-      };
+      var opts = {qualityScore: 1};
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .calls('CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .feedback().create(opts);
@@ -53,9 +51,7 @@ describe('Feedback', function() {
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Calls/<%= callSid %>/Feedback.json')(solution);
 
-      var values = {
-        QualityScore: 1,
-      };
+      var values = {QualityScore: 1,};
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -79,9 +75,7 @@ describe('Feedback', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {
-        qualityScore: 1
-      };
+      var opts = {qualityScore: 1};
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .calls('CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .feedback().create(opts);
@@ -152,9 +146,7 @@ describe('Feedback', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {
-        qualityScore: 1
-      };
+      var opts = {qualityScore: 1};
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .calls('CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .feedback().update(opts);
@@ -171,9 +163,7 @@ describe('Feedback', function() {
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Calls/<%= callSid %>/Feedback.json')(solution);
 
-      var values = {
-        QualityScore: 1,
-      };
+      var values = {QualityScore: 1,};
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -197,9 +187,7 @@ describe('Feedback', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {
-        qualityScore: 1
-      };
+      var opts = {qualityScore: 1};
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .calls('CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .feedback().update(opts);

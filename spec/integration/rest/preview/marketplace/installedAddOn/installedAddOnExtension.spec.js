@@ -86,9 +86,7 @@ describe('InstalledAddOnExtension', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {
-        enabled: true
-      };
+      var opts = {enabled: true};
       var promise = client.preview.marketplace.installedAddOns('XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                               .extensions('XFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update(opts);
       promise = promise.then(function() {
@@ -104,9 +102,7 @@ describe('InstalledAddOnExtension', function() {
       };
       var url = _.template('https://preview.twilio.com/marketplace/InstalledAddOns/<%= installedAddOnSid %>/Extensions/<%= sid %>')(solution);
 
-      var values = {
-        Enabled: serialize.bool(true),
-      };
+      var values = {Enabled: serialize.bool(true),};
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -128,9 +124,7 @@ describe('InstalledAddOnExtension', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {
-        enabled: true
-      };
+      var opts = {enabled: true};
       var promise = client.preview.marketplace.installedAddOns('XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                               .extensions('XFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update(opts);
       promise = promise.then(function(response) {
@@ -155,9 +149,7 @@ describe('InstalledAddOnExtension', function() {
       });
       promise.done();
 
-      var solution = {
-        installedAddOnSid: 'XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {installedAddOnSid: 'XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://preview.twilio.com/marketplace/InstalledAddOns/<%= installedAddOnSid %>/Extensions')(solution);
 
       holodeck.assertHasRequest(new Request({

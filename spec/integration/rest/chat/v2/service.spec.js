@@ -42,9 +42,7 @@ describe('Service', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://chat.twilio.com/v2/Services/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -71,7 +69,8 @@ describe('Service', function() {
           'links': {
               'channels': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels',
               'users': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users',
-              'roles': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles'
+              'roles': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles',
+              'bindings': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings'
           },
           'notifications': {},
           'post_webhook_url': 'post_webhook_url',
@@ -117,9 +116,7 @@ describe('Service', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://chat.twilio.com/v2/Services/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -148,9 +145,7 @@ describe('Service', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {
-        friendlyName: 'friendlyName'
-      };
+      var opts = {friendlyName: 'friendlyName'};
       var promise = client.chat.v2.services.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
@@ -161,9 +156,7 @@ describe('Service', function() {
 
       var url = 'https://chat.twilio.com/v2/Services';
 
-      var values = {
-        FriendlyName: 'friendlyName',
-      };
+      var values = {FriendlyName: 'friendlyName',};
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -189,7 +182,8 @@ describe('Service', function() {
           'links': {
               'channels': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels',
               'users': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users',
-              'roles': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles'
+              'roles': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles',
+              'bindings': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings'
           },
           'notifications': {},
           'post_webhook_url': 'post_webhook_url',
@@ -213,9 +207,7 @@ describe('Service', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {
-        friendlyName: 'friendlyName'
-      };
+      var opts = {friendlyName: 'friendlyName'};
       var promise = client.chat.v2.services.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -302,7 +294,8 @@ describe('Service', function() {
                   'links': {
                       'channels': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels',
                       'users': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users',
-                      'roles': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles'
+                      'roles': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles',
+                      'bindings': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings'
                   },
                   'notifications': {},
                   'post_webhook_url': 'post_webhook_url',
@@ -350,9 +343,7 @@ describe('Service', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://chat.twilio.com/v2/Services/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -379,7 +370,8 @@ describe('Service', function() {
           'links': {
               'channels': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels',
               'users': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users',
-              'roles': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles'
+              'roles': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles',
+              'bindings': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings'
           },
           'notifications': {
               'added_to_channel': {

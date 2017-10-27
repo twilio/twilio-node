@@ -44,9 +44,7 @@ describe('Domain', function() {
       });
       promise.done();
 
-      var solution = {
-        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/Domains.json')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -134,9 +132,7 @@ describe('Domain', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {
-        domainName: 'domainName'
-      };
+      var opts = {domainName: 'domainName'};
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .sip
                                     .domains.create(opts);
@@ -147,14 +143,10 @@ describe('Domain', function() {
       });
       promise.done();
 
-      var solution = {
-        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/Domains.json')(solution);
 
-      var values = {
-        DomainName: 'domainName',
-      };
+      var values = {DomainName: 'domainName',};
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -189,9 +181,7 @@ describe('Domain', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {
-        domainName: 'domainName'
-      };
+      var opts = {domainName: 'domainName'};
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .sip
                                     .domains.create(opts);

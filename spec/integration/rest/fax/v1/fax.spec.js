@@ -42,9 +42,7 @@ describe('Fax', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://fax.twilio.com/v1/Faxes/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -191,10 +189,7 @@ describe('Fax', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {
-        to: 'to',
-        mediaUrl: 'https://example.com'
-      };
+      var opts = {to: 'to', mediaUrl: 'https://example.com'};
       var promise = client.fax.v1.faxes.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
@@ -205,10 +200,7 @@ describe('Fax', function() {
 
       var url = 'https://fax.twilio.com/v1/Faxes';
 
-      var values = {
-        To: 'to',
-        MediaUrl: 'https://example.com',
-      };
+      var values = {To: 'to', MediaUrl: 'https://example.com',};
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -243,10 +235,7 @@ describe('Fax', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {
-        to: 'to',
-        mediaUrl: 'https://example.com'
-      };
+      var opts = {to: 'to', mediaUrl: 'https://example.com'};
       var promise = client.fax.v1.faxes.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -269,9 +258,7 @@ describe('Fax', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://fax.twilio.com/v1/Faxes/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -329,9 +316,7 @@ describe('Fax', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://fax.twilio.com/v1/Faxes/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({

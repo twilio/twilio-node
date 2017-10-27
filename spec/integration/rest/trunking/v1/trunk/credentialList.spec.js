@@ -126,9 +126,7 @@ describe('CredentialList', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {
-        credentialListSid: 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var opts = {credentialListSid: 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                       .credentialsLists.create(opts);
       promise = promise.then(function() {
@@ -138,14 +136,10 @@ describe('CredentialList', function() {
       });
       promise.done();
 
-      var solution = {
-        trunkSid: 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {trunkSid: 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/CredentialLists')(solution);
 
-      var values = {
-        CredentialListSid: 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-      };
+      var values = {CredentialListSid: 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',};
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -167,9 +161,7 @@ describe('CredentialList', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {
-        credentialListSid: 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var opts = {credentialListSid: 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                       .credentialsLists.create(opts);
       promise = promise.then(function(response) {
@@ -194,9 +186,7 @@ describe('CredentialList', function() {
       });
       promise.done();
 
-      var solution = {
-        trunkSid: 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {trunkSid: 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/CredentialLists')(solution);
 
       holodeck.assertHasRequest(new Request({

@@ -42,9 +42,7 @@ describe('AuthorizationDocument', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -93,9 +91,7 @@ describe('AuthorizationDocument', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({

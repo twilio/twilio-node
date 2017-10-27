@@ -126,9 +126,7 @@ describe('IpAccessControlList', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {
-        ipAccessControlListSid: 'ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var opts = {ipAccessControlListSid: 'ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                       .ipAccessControlLists.create(opts);
       promise = promise.then(function() {
@@ -138,14 +136,10 @@ describe('IpAccessControlList', function() {
       });
       promise.done();
 
-      var solution = {
-        trunkSid: 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {trunkSid: 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/IpAccessControlLists')(solution);
 
-      var values = {
-        IpAccessControlListSid: 'ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-      };
+      var values = {IpAccessControlListSid: 'ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',};
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -167,9 +161,7 @@ describe('IpAccessControlList', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {
-        ipAccessControlListSid: 'ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var opts = {ipAccessControlListSid: 'ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                       .ipAccessControlLists.create(opts);
       promise = promise.then(function(response) {
@@ -194,9 +186,7 @@ describe('IpAccessControlList', function() {
       });
       promise.done();
 
-      var solution = {
-        trunkSid: 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {trunkSid: 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/IpAccessControlLists')(solution);
 
       holodeck.assertHasRequest(new Request({

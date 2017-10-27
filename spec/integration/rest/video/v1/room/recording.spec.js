@@ -104,9 +104,7 @@ describe('RoomRecording', function() {
       });
       promise.done();
 
-      var solution = {
-        roomSid: 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {roomSid: 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://video.twilio.com/v1/Rooms/<%= roomSid %>/Recordings')(solution);
 
       holodeck.assertHasRequest(new Request({

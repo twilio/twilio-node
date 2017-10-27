@@ -148,9 +148,7 @@ describe('OriginationUrl', function() {
       });
       promise.done();
 
-      var solution = {
-        trunkSid: 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {trunkSid: 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/OriginationUrls')(solution);
 
       var values = {
@@ -216,9 +214,7 @@ describe('OriginationUrl', function() {
       });
       promise.done();
 
-      var solution = {
-        trunkSid: 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {trunkSid: 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/OriginationUrls')(solution);
 
       holodeck.assertHasRequest(new Request({

@@ -137,11 +137,7 @@ describe('Binding', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {
-        identity: 'identity',
-        bindingType: 'apn',
-        address: 'address'
-      };
+      var opts = {identity: 'identity', bindingType: 'apn', address: 'address'};
       var promise = client.notify.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .bindings.create(opts);
       promise = promise.then(function() {
@@ -151,16 +147,10 @@ describe('Binding', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://notify.twilio.com/v1/Services/<%= serviceSid %>/Bindings')(solution);
 
-      var values = {
-        Identity: 'identity',
-        BindingType: 'apn',
-        Address: 'address',
-      };
+      var values = {Identity: 'identity', BindingType: 'apn', Address: 'address',};
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -193,11 +183,7 @@ describe('Binding', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {
-        identity: 'identity',
-        bindingType: 'apn',
-        address: 'address'
-      };
+      var opts = {identity: 'identity', bindingType: 'apn', address: 'address'};
       var promise = client.notify.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .bindings.create(opts);
       promise = promise.then(function(response) {
@@ -222,9 +208,7 @@ describe('Binding', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://notify.twilio.com/v1/Services/<%= serviceSid %>/Bindings')(solution);
 
       holodeck.assertHasRequest(new Request({

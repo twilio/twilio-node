@@ -34,9 +34,7 @@ describe('Service', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {
-        name: 'name'
-      };
+      var opts = {name: 'name'};
       var promise = client.preview.acc_security.services.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
@@ -47,9 +45,7 @@ describe('Service', function() {
 
       var url = 'https://preview.twilio.com/Verification/Services';
 
-      var values = {
-        Name: 'name',
-      };
+      var values = {Name: 'name',};
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -75,9 +71,7 @@ describe('Service', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {
-        name: 'name'
-      };
+      var opts = {name: 'name'};
       var promise = client.preview.acc_security.services.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -100,9 +94,7 @@ describe('Service', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://preview.twilio.com/Verification/Services/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -212,9 +204,7 @@ describe('Service', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://preview.twilio.com/Verification/Services/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({

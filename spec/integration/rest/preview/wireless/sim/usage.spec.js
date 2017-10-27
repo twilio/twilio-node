@@ -43,9 +43,7 @@ describe('Usage', function() {
       });
       promise.done();
 
-      var solution = {
-        simSid: 'DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {simSid: 'DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://preview.twilio.com/wireless/Sims/<%= simSid %>/Usage')(solution);
 
       holodeck.assertHasRequest(new Request({

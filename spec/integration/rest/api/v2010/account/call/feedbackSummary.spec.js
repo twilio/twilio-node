@@ -36,10 +36,7 @@ describe('FeedbackSummary', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {
-        startDate: new Date(Date.UTC(2008, 0, 2)),
-        endDate: new Date(Date.UTC(2008, 0, 2))
-      };
+      var opts = {startDate: new Date(Date.UTC(2008, 0, 2)), endDate: new Date(Date.UTC(2008, 0, 2))};
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .calls
                                     .feedbackSummaries.create(opts);
@@ -50,9 +47,7 @@ describe('FeedbackSummary', function() {
       });
       promise.done();
 
-      var solution = {
-        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Calls/FeedbackSummary.json')(solution);
 
       var values = {
@@ -93,10 +88,7 @@ describe('FeedbackSummary', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {
-        startDate: new Date(Date.UTC(2008, 0, 2)),
-        endDate: new Date(Date.UTC(2008, 0, 2))
-      };
+      var opts = {startDate: new Date(Date.UTC(2008, 0, 2)), endDate: new Date(Date.UTC(2008, 0, 2))};
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .calls
                                     .feedbackSummaries.create(opts);

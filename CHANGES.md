@@ -1,6 +1,13 @@
 twilio-node changelog
 =====================
 
+[2017-10-27] Version 3.9.1
+---------------------------
+**Chat**
+- Add Binding resource
+- Add UserBinding resource
+
+
 [2017-10-20] Version 3.9.0
 ---------------------------
 **TwiML**

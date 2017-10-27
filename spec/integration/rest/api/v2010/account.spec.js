@@ -99,9 +99,7 @@ describe('Account', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= sid %>.json')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -268,9 +266,7 @@ describe('Account', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= sid %>.json')(solution);
 
       holodeck.assertHasRequest(new Request({

@@ -140,9 +140,7 @@ describe('Device', function() {
       });
       promise.done();
 
-      var solution = {
-        fleetSid: 'FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {fleetSid: 'FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://preview.twilio.com/DeployedDevices/Fleets/<%= fleetSid %>/Devices')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -194,9 +192,7 @@ describe('Device', function() {
       });
       promise.done();
 
-      var solution = {
-        fleetSid: 'FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {fleetSid: 'FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://preview.twilio.com/DeployedDevices/Fleets/<%= fleetSid %>/Devices')(solution);
 
       holodeck.assertHasRequest(new Request({

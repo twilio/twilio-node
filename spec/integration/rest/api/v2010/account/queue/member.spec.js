@@ -85,10 +85,7 @@ describe('Member', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {
-        url: 'https://example.com',
-        method: 'GET'
-      };
+      var opts = {url: 'https://example.com', method: 'GET'};
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .queues('QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .members('CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update(opts);
@@ -106,10 +103,7 @@ describe('Member', function() {
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Queues/<%= queueSid %>/Members/<%= callSid %>.json')(solution);
 
-      var values = {
-        Url: 'https://example.com',
-        Method: 'GET',
-      };
+      var values = {Url: 'https://example.com', Method: 'GET',};
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -129,10 +123,7 @@ describe('Member', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {
-        url: 'https://example.com',
-        method: 'GET'
-      };
+      var opts = {url: 'https://example.com', method: 'GET'};
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .queues('QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .members('CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update(opts);

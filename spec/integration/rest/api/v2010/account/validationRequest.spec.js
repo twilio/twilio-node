@@ -34,9 +34,7 @@ describe('ValidationRequest', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {
-        phoneNumber: '+987654321'
-      };
+      var opts = {phoneNumber: '+987654321'};
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .validationRequests.create(opts);
       promise = promise.then(function() {
@@ -46,14 +44,10 @@ describe('ValidationRequest', function() {
       });
       promise.done();
 
-      var solution = {
-        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/OutgoingCallerIds.json')(solution);
 
-      var values = {
-        PhoneNumber: '+987654321',
-      };
+      var values = {PhoneNumber: '+987654321',};
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -73,9 +67,7 @@ describe('ValidationRequest', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {
-        phoneNumber: '+987654321'
-      };
+      var opts = {phoneNumber: '+987654321'};
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .validationRequests.create(opts);
       promise = promise.then(function(response) {

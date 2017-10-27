@@ -34,9 +34,7 @@ describe('CredentialListMapping', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {
-        credentialListSid: 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var opts = {credentialListSid: 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .sip
                                     .domains('SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
@@ -54,9 +52,7 @@ describe('CredentialListMapping', function() {
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/Domains/<%= domainSid %>/CredentialListMappings.json')(solution);
 
-      var values = {
-        CredentialListSid: 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-      };
+      var values = {CredentialListSid: 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',};
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -80,9 +76,7 @@ describe('CredentialListMapping', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {
-        credentialListSid: 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var opts = {credentialListSid: 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .sip
                                     .domains('SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')

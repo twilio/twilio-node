@@ -42,9 +42,7 @@ describe('Fleet', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://preview.twilio.com/DeployedDevices/Fleets/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -96,9 +94,7 @@ describe('Fleet', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://preview.twilio.com/DeployedDevices/Fleets/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -277,9 +273,7 @@ describe('Fleet', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://preview.twilio.com/DeployedDevices/Fleets/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({

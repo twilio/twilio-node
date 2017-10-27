@@ -42,9 +42,7 @@ describe('Workspace', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -108,9 +106,7 @@ describe('Workspace', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -269,9 +265,7 @@ describe('Workspace', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {
-        friendlyName: 'friendlyName'
-      };
+      var opts = {friendlyName: 'friendlyName'};
       var promise = client.taskrouter.v1.workspaces.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
@@ -282,9 +276,7 @@ describe('Workspace', function() {
 
       var url = 'https://taskrouter.twilio.com/v1/Workspaces';
 
-      var values = {
-        FriendlyName: 'friendlyName',
-      };
+      var values = {FriendlyName: 'friendlyName',};
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -325,9 +317,7 @@ describe('Workspace', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {
-        friendlyName: 'friendlyName'
-      };
+      var opts = {friendlyName: 'friendlyName'};
       var promise = client.taskrouter.v1.workspaces.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -350,9 +340,7 @@ describe('Workspace', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({

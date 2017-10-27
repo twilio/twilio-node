@@ -34,9 +34,7 @@ describe('PhoneNumber', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {
-        sid: 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var opts = {sid: 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var promise = client.proxy.v1.services('KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                    .phoneNumbers.create(opts);
       promise = promise.then(function() {
@@ -46,14 +44,10 @@ describe('PhoneNumber', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {serviceSid: 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://proxy.twilio.com/v1/Services/<%= serviceSid %>/PhoneNumbers')(solution);
 
-      var values = {
-        Sid: 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-      };
+      var values = {Sid: 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',};
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -78,9 +72,7 @@ describe('PhoneNumber', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {
-        sid: 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var opts = {sid: 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var promise = client.proxy.v1.services('KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                    .phoneNumbers.create(opts);
       promise = promise.then(function(response) {
@@ -147,9 +139,7 @@ describe('PhoneNumber', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {serviceSid: 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://proxy.twilio.com/v1/Services/<%= serviceSid %>/PhoneNumbers')(solution);
 
       holodeck.assertHasRequest(new Request({

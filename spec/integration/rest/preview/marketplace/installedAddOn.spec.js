@@ -36,10 +36,7 @@ describe('InstalledAddOn', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {
-        availableAddOnSid: 'XBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        acceptTermsOfService: true
-      };
+      var opts = {availableAddOnSid: 'XBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', acceptTermsOfService: true};
       var promise = client.preview.marketplace.installedAddOns.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
@@ -83,10 +80,7 @@ describe('InstalledAddOn', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {
-        availableAddOnSid: 'XBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        acceptTermsOfService: true
-      };
+      var opts = {availableAddOnSid: 'XBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', acceptTermsOfService: true};
       var promise = client.preview.marketplace.installedAddOns.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -109,9 +103,7 @@ describe('InstalledAddOn', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://preview.twilio.com/marketplace/InstalledAddOns/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -148,9 +140,7 @@ describe('InstalledAddOn', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://preview.twilio.com/marketplace/InstalledAddOns/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -203,9 +193,7 @@ describe('InstalledAddOn', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://preview.twilio.com/marketplace/InstalledAddOns/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({

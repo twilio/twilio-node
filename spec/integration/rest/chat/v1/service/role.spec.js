@@ -133,11 +133,7 @@ describe('Role', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {
-        friendlyName: 'friendlyName',
-        type: 'channel',
-        permission: ['permission']
-      };
+      var opts = {friendlyName: 'friendlyName', type: 'channel', permission: ['permission']};
       var promise = client.chat.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .roles.create(opts);
       promise = promise.then(function() {
@@ -147,16 +143,10 @@ describe('Role', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://chat.twilio.com/v1/Services/<%= serviceSid %>/Roles')(solution);
 
-      var values = {
-        FriendlyName: 'friendlyName',
-        Type: 'channel',
-        Permission: ['permission'],
-      };
+      var values = {FriendlyName: 'friendlyName', Type: 'channel', Permission: ['permission'],};
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -185,11 +175,7 @@ describe('Role', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {
-        friendlyName: 'friendlyName',
-        type: 'channel',
-        permission: ['permission']
-      };
+      var opts = {friendlyName: 'friendlyName', type: 'channel', permission: ['permission']};
       var promise = client.chat.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .roles.create(opts);
       promise = promise.then(function(response) {
@@ -214,9 +200,7 @@ describe('Role', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://chat.twilio.com/v1/Services/<%= serviceSid %>/Roles')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -302,9 +286,7 @@ describe('Role', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {
-        permission: ['permission']
-      };
+      var opts = {permission: ['permission']};
       var promise = client.chat.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .roles('RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update(opts);
       promise = promise.then(function() {
@@ -320,9 +302,7 @@ describe('Role', function() {
       };
       var url = _.template('https://chat.twilio.com/v1/Services/<%= serviceSid %>/Roles/<%= sid %>')(solution);
 
-      var values = {
-        Permission: ['permission'],
-      };
+      var values = {Permission: ['permission'],};
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -351,9 +331,7 @@ describe('Role', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {
-        permission: ['permission']
-      };
+      var opts = {permission: ['permission']};
       var promise = client.chat.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .roles('RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update(opts);
       promise = promise.then(function(response) {

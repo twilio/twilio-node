@@ -42,9 +42,7 @@ describe('AvailableAddOn', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'XBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'XBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://preview.twilio.com/marketplace/AvailableAddOns/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({

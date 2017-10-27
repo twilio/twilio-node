@@ -42,9 +42,7 @@ describe('Event', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'AEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'AEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://monitor.twilio.com/v1/Events/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({

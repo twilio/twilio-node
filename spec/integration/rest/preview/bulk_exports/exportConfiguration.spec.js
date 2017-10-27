@@ -42,9 +42,7 @@ describe('ExportConfiguration', function() {
       });
       promise.done();
 
-      var solution = {
-        resourceType: 'resourceType'
-      };
+      var solution = {resourceType: 'resourceType'};
       var url = _.template('https://preview.twilio.com/BulkExports/Exports/<%= resourceType %>/Configuration')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -87,9 +85,7 @@ describe('ExportConfiguration', function() {
       });
       promise.done();
 
-      var solution = {
-        resourceType: 'resourceType'
-      };
+      var solution = {resourceType: 'resourceType'};
       var url = _.template('https://preview.twilio.com/BulkExports/Exports/<%= resourceType %>/Configuration')(solution);
 
       holodeck.assertHasRequest(new Request({

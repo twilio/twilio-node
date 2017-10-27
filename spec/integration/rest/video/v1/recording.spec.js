@@ -42,9 +42,7 @@ describe('Recording', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://video.twilio.com/v1/Recordings/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -194,9 +192,7 @@ describe('Recording', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://video.twilio.com/v1/Recordings/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({

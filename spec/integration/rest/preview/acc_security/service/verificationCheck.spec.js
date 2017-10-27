@@ -34,9 +34,7 @@ describe('VerificationCheck', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {
-        code: 'code'
-      };
+      var opts = {code: 'code'};
       var promise = client.preview.acc_security.services('VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                                .verificationChecks.create(opts);
       promise = promise.then(function() {
@@ -46,14 +44,10 @@ describe('VerificationCheck', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {serviceSid: 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://preview.twilio.com/Verification/Services/<%= serviceSid %>/VerificationCheck')(solution);
 
-      var values = {
-        Code: 'code',
-      };
+      var values = {Code: 'code',};
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -77,9 +71,7 @@ describe('VerificationCheck', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {
-        code: 'code'
-      };
+      var opts = {code: 'code'};
       var promise = client.preview.acc_security.services('VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                                .verificationChecks.create(opts);
       promise = promise.then(function(response) {

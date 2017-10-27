@@ -102,9 +102,7 @@ describe('Service', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://notify.twilio.com/v1/Services/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -141,9 +139,7 @@ describe('Service', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://notify.twilio.com/v1/Services/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -304,9 +300,7 @@ describe('Service', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://notify.twilio.com/v1/Services/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({

@@ -147,9 +147,7 @@ describe('Channel', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://chat.twilio.com/v1/Services/<%= serviceSid %>/Channels')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -208,9 +206,7 @@ describe('Channel', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://chat.twilio.com/v1/Services/<%= serviceSid %>/Channels')(solution);
 
       holodeck.assertHasRequest(new Request({

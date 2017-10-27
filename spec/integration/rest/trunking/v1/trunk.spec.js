@@ -42,9 +42,7 @@ describe('Trunk', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -104,9 +102,7 @@ describe('Trunk', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -301,9 +297,7 @@ describe('Trunk', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({

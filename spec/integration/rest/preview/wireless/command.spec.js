@@ -42,9 +42,7 @@ describe('Command', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://preview.twilio.com/wireless/Commands/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -173,9 +171,7 @@ describe('Command', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {
-        command: 'command'
-      };
+      var opts = {command: 'command'};
       var promise = client.preview.wireless.commands.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
@@ -186,9 +182,7 @@ describe('Command', function() {
 
       var url = 'https://preview.twilio.com/wireless/Commands';
 
-      var values = {
-        Command: 'command',
-      };
+      var values = {Command: 'command',};
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -214,9 +208,7 @@ describe('Command', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {
-        command: 'command'
-      };
+      var opts = {command: 'command'};
       var promise = client.preview.wireless.commands.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();

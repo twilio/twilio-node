@@ -141,9 +141,7 @@ describe('SyncMap', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://preview.twilio.com/Sync/Services/<%= serviceSid %>/Maps')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -196,9 +194,7 @@ describe('SyncMap', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://preview.twilio.com/Sync/Services/<%= serviceSid %>/Maps')(solution);
 
       holodeck.assertHasRequest(new Request({

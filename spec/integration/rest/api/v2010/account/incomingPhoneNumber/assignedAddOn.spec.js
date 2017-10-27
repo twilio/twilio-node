@@ -195,9 +195,7 @@ describe('AssignedAddOn', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {
-        installedAddOnSid: 'XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var opts = {installedAddOnSid: 'XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .incomingPhoneNumbers('PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .assignedAddOns.create(opts);
@@ -214,9 +212,7 @@ describe('AssignedAddOn', function() {
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/IncomingPhoneNumbers/<%= resourceSid %>/AssignedAddOns.json')(solution);
 
-      var values = {
-        InstalledAddOnSid: 'XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-      };
+      var values = {InstalledAddOnSid: 'XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',};
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -246,9 +242,7 @@ describe('AssignedAddOn', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {
-        installedAddOnSid: 'XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var opts = {installedAddOnSid: 'XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .incomingPhoneNumbers('PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .assignedAddOns.create(opts);

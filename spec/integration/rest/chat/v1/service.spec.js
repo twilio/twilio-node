@@ -42,9 +42,7 @@ describe('Service', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://chat.twilio.com/v1/Services/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -109,9 +107,7 @@ describe('Service', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://chat.twilio.com/v1/Services/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -140,9 +136,7 @@ describe('Service', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {
-        friendlyName: 'friendlyName'
-      };
+      var opts = {friendlyName: 'friendlyName'};
       var promise = client.chat.v1.services.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
@@ -153,9 +147,7 @@ describe('Service', function() {
 
       var url = 'https://chat.twilio.com/v1/Services';
 
-      var values = {
-        FriendlyName: 'friendlyName',
-      };
+      var values = {FriendlyName: 'friendlyName',};
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -197,9 +189,7 @@ describe('Service', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {
-        friendlyName: 'friendlyName'
-      };
+      var opts = {friendlyName: 'friendlyName'};
       var promise = client.chat.v1.services.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -326,9 +316,7 @@ describe('Service', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://chat.twilio.com/v1/Services/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({

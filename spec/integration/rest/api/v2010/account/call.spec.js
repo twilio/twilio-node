@@ -34,10 +34,7 @@ describe('Call', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {
-        to: '+123456789',
-        from: '+987654321'
-      };
+      var opts = {to: '+123456789', from: '+987654321'};
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .calls.create(opts);
       promise = promise.then(function() {
@@ -47,15 +44,10 @@ describe('Call', function() {
       });
       promise.done();
 
-      var solution = {
-        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Calls.json')(solution);
 
-      var values = {
-        To: '+123456789',
-        From: '+987654321',
-      };
+      var values = {To: '+123456789', From: '+987654321',};
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -89,7 +81,9 @@ describe('Call', function() {
           'status': 'completed',
           'subresource_uris': {
               'notifications': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications.json',
-              'recordings': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json'
+              'recordings': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json',
+              'feedback': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Feedback.json',
+              'feedback_summaries': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/FeedbackSummary.json'
           },
           'to': '+14158675309',
           'to_formatted': '(415) 867-5309',
@@ -98,10 +92,7 @@ describe('Call', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {
-        to: '+123456789',
-        from: '+987654321'
-      };
+      var opts = {to: '+123456789', from: '+987654321'};
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .calls.create(opts);
       promise = promise.then(function(response) {
@@ -239,9 +230,7 @@ describe('Call', function() {
       });
       promise.done();
 
-      var solution = {
-        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Calls.json')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -287,14 +276,11 @@ describe('Call', function() {
           ],
           'end': 0,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls.json?PageSize=1&Page=0',
-          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls.json?PageSize=1&Page=9690',
           'next_page_uri': null,
-          'num_pages': 9691,
           'page': 0,
           'page_size': 1,
           'previous_page_uri': null,
           'start': 0,
-          'total': 9691,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls.json?PageSize=1&Page=0'
       });
 
@@ -317,14 +303,11 @@ describe('Call', function() {
           'calls': [],
           'end': 0,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls.json?PageSize=1&Page=0',
-          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls.json?PageSize=1&Page=9690',
           'next_page_uri': null,
-          'num_pages': 9691,
           'page': 0,
           'page_size': 1,
           'previous_page_uri': null,
           'start': 0,
-          'total': 9691,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls.json?PageSize=1&Page=0'
       });
 

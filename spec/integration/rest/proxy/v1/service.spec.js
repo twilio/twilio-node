@@ -42,9 +42,7 @@ describe('Service', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://proxy.twilio.com/v1/Services/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -192,9 +190,7 @@ describe('Service', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://proxy.twilio.com/v1/Services/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -231,9 +227,7 @@ describe('Service', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://proxy.twilio.com/v1/Services/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({

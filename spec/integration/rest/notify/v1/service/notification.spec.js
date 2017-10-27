@@ -43,9 +43,7 @@ describe('Notification', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://notify.twilio.com/v1/Services/<%= serviceSid %>/Notifications')(solution);
 
       holodeck.assertHasRequest(new Request({

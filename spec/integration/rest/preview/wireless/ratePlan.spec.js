@@ -137,9 +137,7 @@ describe('RatePlan', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://preview.twilio.com/wireless/RatePlans/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -250,9 +248,7 @@ describe('RatePlan', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://preview.twilio.com/wireless/RatePlans/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -308,9 +304,7 @@ describe('RatePlan', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://preview.twilio.com/wireless/RatePlans/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({

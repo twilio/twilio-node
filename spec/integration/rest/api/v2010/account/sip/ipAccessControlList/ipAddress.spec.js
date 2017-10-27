@@ -136,10 +136,7 @@ describe('IpAddress', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {
-        friendlyName: 'friendlyName',
-        ipAddress: 'ipAddress'
-      };
+      var opts = {friendlyName: 'friendlyName', ipAddress: 'ipAddress'};
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .sip
                                     .ipAccessControlLists('ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
@@ -157,10 +154,7 @@ describe('IpAddress', function() {
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/IpAccessControlLists/<%= ipAccessControlListSid %>/IpAddresses.json')(solution);
 
-      var values = {
-        FriendlyName: 'friendlyName',
-        IpAddress: 'ipAddress',
-      };
+      var values = {FriendlyName: 'friendlyName', IpAddress: 'ipAddress',};
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -183,10 +177,7 @@ describe('IpAddress', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {
-        friendlyName: 'friendlyName',
-        ipAddress: 'ipAddress'
-      };
+      var opts = {friendlyName: 'friendlyName', ipAddress: 'ipAddress'};
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .sip
                                     .ipAccessControlLists('ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')

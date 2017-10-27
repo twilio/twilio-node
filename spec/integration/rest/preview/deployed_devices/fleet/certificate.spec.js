@@ -128,9 +128,7 @@ describe('Certificate', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {
-        certificateData: 'certificateData'
-      };
+      var opts = {certificateData: 'certificateData'};
       var promise = client.preview.deployed_devices.fleets('FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                                    .certificates.create(opts);
       promise = promise.then(function() {
@@ -140,14 +138,10 @@ describe('Certificate', function() {
       });
       promise.done();
 
-      var solution = {
-        fleetSid: 'FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {fleetSid: 'FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://preview.twilio.com/DeployedDevices/Fleets/<%= fleetSid %>/Certificates')(solution);
 
-      var values = {
-        CertificateData: 'certificateData',
-      };
+      var values = {CertificateData: 'certificateData',};
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -171,9 +165,7 @@ describe('Certificate', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {
-        certificateData: 'certificateData'
-      };
+      var opts = {certificateData: 'certificateData'};
       var promise = client.preview.deployed_devices.fleets('FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                                    .certificates.create(opts);
       promise = promise.then(function(response) {
@@ -198,9 +190,7 @@ describe('Certificate', function() {
       });
       promise.done();
 
-      var solution = {
-        fleetSid: 'FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {fleetSid: 'FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://preview.twilio.com/DeployedDevices/Fleets/<%= fleetSid %>/Certificates')(solution);
 
       holodeck.assertHasRequest(new Request({

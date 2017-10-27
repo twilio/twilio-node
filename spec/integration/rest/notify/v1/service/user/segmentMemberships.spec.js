@@ -34,9 +34,7 @@ describe('SegmentMembership', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {
-        segment: 'segment'
-      };
+      var opts = {segment: 'segment'};
       var promise = client.notify.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .users('NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .segmentMemberships.create(opts);
@@ -53,9 +51,7 @@ describe('SegmentMembership', function() {
       };
       var url = _.template('https://notify.twilio.com/v1/Services/<%= serviceSid %>/Users/<%= identity %>/SegmentMemberships')(solution);
 
-      var values = {
-        Segment: 'segment',
-      };
+      var values = {Segment: 'segment',};
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -75,9 +71,7 @@ describe('SegmentMembership', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {
-        segment: 'segment'
-      };
+      var opts = {segment: 'segment'};
       var promise = client.notify.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .users('NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .segmentMemberships.create(opts);

@@ -120,9 +120,7 @@ describe('PublicKey', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {
-        publicKey: 'publickey'
-      };
+      var opts = {publicKey: 'publickey'};
       var promise = client.accounts.v1.credentials
                                       .publicKey.create(opts);
       promise = promise.then(function() {
@@ -134,9 +132,7 @@ describe('PublicKey', function() {
 
       var url = 'https://accounts.twilio.com/v1/Credentials/PublicKeys';
 
-      var values = {
-        PublicKey: 'publickey',
-      };
+      var values = {PublicKey: 'publickey',};
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -157,9 +153,7 @@ describe('PublicKey', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {
-        publicKey: 'publickey'
-      };
+      var opts = {publicKey: 'publickey'};
       var promise = client.accounts.v1.credentials
                                       .publicKey.create(opts);
       promise = promise.then(function(response) {
@@ -184,9 +178,7 @@ describe('PublicKey', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://accounts.twilio.com/v1/Credentials/PublicKeys/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -232,9 +224,7 @@ describe('PublicKey', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://accounts.twilio.com/v1/Credentials/PublicKeys/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -280,9 +270,7 @@ describe('PublicKey', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://accounts.twilio.com/v1/Credentials/PublicKeys/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({

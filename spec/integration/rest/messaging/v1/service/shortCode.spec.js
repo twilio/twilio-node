@@ -34,9 +34,7 @@ describe('ShortCode', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {
-        shortCodeSid: 'SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var opts = {shortCodeSid: 'SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var promise = client.messaging.v1.services('MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                        .shortCodes.create(opts);
       promise = promise.then(function() {
@@ -46,14 +44,10 @@ describe('ShortCode', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {serviceSid: 'MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://messaging.twilio.com/v1/Services/<%= serviceSid %>/ShortCodes')(solution);
 
-      var values = {
-        ShortCodeSid: 'SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-      };
+      var values = {ShortCodeSid: 'SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',};
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -77,9 +71,7 @@ describe('ShortCode', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {
-        shortCodeSid: 'SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var opts = {shortCodeSid: 'SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var promise = client.messaging.v1.services('MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                        .shortCodes.create(opts);
       promise = promise.then(function(response) {
@@ -146,9 +138,7 @@ describe('ShortCode', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {serviceSid: 'MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://messaging.twilio.com/v1/Services/<%= serviceSid %>/ShortCodes')(solution);
 
       holodeck.assertHasRequest(new Request({

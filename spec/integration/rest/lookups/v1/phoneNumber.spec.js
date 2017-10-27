@@ -42,9 +42,7 @@ describe('PhoneNumber', function() {
       });
       promise.done();
 
-      var solution = {
-        phoneNumber: '+987654321'
-      };
+      var solution = {phoneNumber: '+987654321'};
       var url = _.template('https://lookups.twilio.com/v1/PhoneNumbers/<%= phoneNumber %>')(solution);
 
       holodeck.assertHasRequest(new Request({

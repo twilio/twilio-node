@@ -93,9 +93,7 @@ describe('FaxMedia', function() {
       });
       promise.done();
 
-      var solution = {
-        faxSid: 'FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {faxSid: 'FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://fax.twilio.com/v1/Faxes/<%= faxSid %>/Media')(solution);
 
       holodeck.assertHasRequest(new Request({

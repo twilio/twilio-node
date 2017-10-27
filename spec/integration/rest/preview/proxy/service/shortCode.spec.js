@@ -34,9 +34,7 @@ describe('ShortCode', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {
-        sid: 'SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var opts = {sid: 'SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var promise = client.preview.proxy.services('KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                         .shortCodes.create(opts);
       promise = promise.then(function() {
@@ -46,14 +44,10 @@ describe('ShortCode', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {serviceSid: 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://preview.twilio.com/Proxy/Services/<%= serviceSid %>/ShortCodes')(solution);
 
-      var values = {
-        Sid: 'SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-      };
+      var values = {Sid: 'SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',};
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -77,9 +71,7 @@ describe('ShortCode', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {
-        sid: 'SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var opts = {sid: 'SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var promise = client.preview.proxy.services('KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                         .shortCodes.create(opts);
       promise = promise.then(function(response) {
@@ -146,9 +138,7 @@ describe('ShortCode', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {serviceSid: 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://preview.twilio.com/Proxy/Services/<%= serviceSid %>/ShortCodes')(solution);
 
       holodeck.assertHasRequest(new Request({

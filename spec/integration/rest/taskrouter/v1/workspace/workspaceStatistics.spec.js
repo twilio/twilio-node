@@ -43,9 +43,7 @@ describe('WorkspaceStatistics', function() {
       });
       promise.done();
 
-      var solution = {
-        workspaceSid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {workspaceSid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Statistics')(solution);
 
       holodeck.assertHasRequest(new Request({

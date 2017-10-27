@@ -43,9 +43,7 @@ describe('Segment', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://notify.twilio.com/v1/Services/<%= serviceSid %>/Segments')(solution);
 
       holodeck.assertHasRequest(new Request({

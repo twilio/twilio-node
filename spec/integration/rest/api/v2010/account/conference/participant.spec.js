@@ -148,10 +148,7 @@ describe('Participant', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {
-        from: '+987654321',
-        to: '+123456789'
-      };
+      var opts = {from: '+987654321', to: '+123456789'};
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .conferences('CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .participants.create(opts);
@@ -168,10 +165,7 @@ describe('Participant', function() {
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Conferences/<%= conferenceSid %>/Participants.json')(solution);
 
-      var values = {
-        From: '+987654321',
-        To: '+123456789',
-      };
+      var values = {From: '+987654321', To: '+123456789',};
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -197,10 +191,7 @@ describe('Participant', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {
-        from: '+987654321',
-        to: '+123456789'
-      };
+      var opts = {from: '+987654321', to: '+123456789'};
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .conferences('CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .participants.create(opts);
@@ -231,10 +222,7 @@ describe('Participant', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {
-        from: '+987654321',
-        to: '+123456789'
-      };
+      var opts = {from: '+987654321', to: '+123456789'};
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .conferences('CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .participants.create(opts);

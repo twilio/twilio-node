@@ -205,9 +205,7 @@ describe('Workflow', function() {
       });
       promise.done();
 
-      var solution = {
-        workspaceSid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {workspaceSid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workflows')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -298,10 +296,7 @@ describe('Workflow', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {
-        friendlyName: 'friendlyName',
-        configuration: 'configuration'
-      };
+      var opts = {friendlyName: 'friendlyName', configuration: 'configuration'};
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                         .workflows.create(opts);
       promise = promise.then(function() {
@@ -311,15 +306,10 @@ describe('Workflow', function() {
       });
       promise.done();
 
-      var solution = {
-        workspaceSid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {workspaceSid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workflows')(solution);
 
-      var values = {
-        FriendlyName: 'friendlyName',
-        Configuration: 'configuration',
-      };
+      var values = {FriendlyName: 'friendlyName', Configuration: 'configuration',};
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -351,10 +341,7 @@ describe('Workflow', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {
-        friendlyName: 'friendlyName',
-        configuration: 'configuration'
-      };
+      var opts = {friendlyName: 'friendlyName', configuration: 'configuration'};
       var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                         .workflows.create(opts);
       promise = promise.then(function(response) {

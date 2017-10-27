@@ -126,9 +126,7 @@ describe('Country', function() {
       });
       promise.done();
 
-      var solution = {
-        isoCountry: 'US'
-      };
+      var solution = {isoCountry: 'US'};
       var url = _.template('https://pricing.twilio.com/v1/Messaging/Countries/<%= isoCountry %>')(solution);
 
       holodeck.assertHasRequest(new Request({

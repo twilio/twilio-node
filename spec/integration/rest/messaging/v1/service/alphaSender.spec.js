@@ -34,9 +34,7 @@ describe('AlphaSender', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {
-        alphaSender: 'alphaSender'
-      };
+      var opts = {alphaSender: 'alphaSender'};
       var promise = client.messaging.v1.services('MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                        .alphaSenders.create(opts);
       promise = promise.then(function() {
@@ -46,14 +44,10 @@ describe('AlphaSender', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {serviceSid: 'MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://messaging.twilio.com/v1/Services/<%= serviceSid %>/AlphaSenders')(solution);
 
-      var values = {
-        AlphaSender: 'alphaSender',
-      };
+      var values = {AlphaSender: 'alphaSender',};
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -76,9 +70,7 @@ describe('AlphaSender', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {
-        alphaSender: 'alphaSender'
-      };
+      var opts = {alphaSender: 'alphaSender'};
       var promise = client.messaging.v1.services('MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                        .alphaSenders.create(opts);
       promise = promise.then(function(response) {
@@ -103,9 +95,7 @@ describe('AlphaSender', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {serviceSid: 'MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://messaging.twilio.com/v1/Services/<%= serviceSid %>/AlphaSenders')(solution);
 
       holodeck.assertHasRequest(new Request({

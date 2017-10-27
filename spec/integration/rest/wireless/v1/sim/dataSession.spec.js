@@ -43,9 +43,7 @@ describe('DataSession', function() {
       });
       promise.done();
 
-      var solution = {
-        simSid: 'DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {simSid: 'DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://wireless.twilio.com/v1/Sims/<%= simSid %>/DataSessions')(solution);
 
       holodeck.assertHasRequest(new Request({

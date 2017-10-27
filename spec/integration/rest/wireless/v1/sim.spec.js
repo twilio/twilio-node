@@ -42,9 +42,7 @@ describe('Sim', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://wireless.twilio.com/v1/Sims/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -213,9 +211,7 @@ describe('Sim', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://wireless.twilio.com/v1/Sims/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({

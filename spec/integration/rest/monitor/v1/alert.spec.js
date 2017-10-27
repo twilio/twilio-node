@@ -42,9 +42,7 @@ describe('Alert', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://monitor.twilio.com/v1/Alerts/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -99,9 +97,7 @@ describe('Alert', function() {
       });
       promise.done();
 
-      var solution = {
-        sid: 'NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {sid: 'NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://monitor.twilio.com/v1/Alerts/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({

@@ -34,9 +34,7 @@ describe('User', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {
-        identity: 'identity'
-      };
+      var opts = {identity: 'identity'};
       var promise = client.notify.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .users.create(opts);
       promise = promise.then(function() {
@@ -46,14 +44,10 @@ describe('User', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://notify.twilio.com/v1/Services/<%= serviceSid %>/Users')(solution);
 
-      var values = {
-        Identity: 'identity',
-      };
+      var values = {Identity: 'identity',};
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -82,9 +76,7 @@ describe('User', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {
-        identity: 'identity'
-      };
+      var opts = {identity: 'identity'};
       var promise = client.notify.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .users.create(opts);
       promise = promise.then(function(response) {
@@ -208,9 +200,7 @@ describe('User', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://notify.twilio.com/v1/Services/<%= serviceSid %>/Users')(solution);
 
       holodeck.assertHasRequest(new Request({

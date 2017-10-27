@@ -143,9 +143,7 @@ describe('Document', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://sync.twilio.com/v1/Services/<%= serviceSid %>/Documents')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -198,9 +196,7 @@ describe('Document', function() {
       });
       promise.done();
 
-      var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-      };
+      var solution = {serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://sync.twilio.com/v1/Services/<%= serviceSid %>/Documents')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -285,9 +281,7 @@ describe('Document', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {
-        data: '{}'
-      };
+      var opts = {data: '{}'};
       var promise = client.sync.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .documents('ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update(opts);
       promise = promise.then(function() {
@@ -303,9 +297,7 @@ describe('Document', function() {
       };
       var url = _.template('https://sync.twilio.com/v1/Services/<%= serviceSid %>/Documents/<%= sid %>')(solution);
 
-      var values = {
-        Data: serialize.object('{}'),
-      };
+      var values = {Data: serialize.object('{}'),};
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -333,9 +325,7 @@ describe('Document', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {
-        data: '{}'
-      };
+      var opts = {data: '{}'};
       var promise = client.sync.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .documents('ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update(opts);
       promise = promise.then(function(response) {

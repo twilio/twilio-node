@@ -43,9 +43,7 @@ describe('Number', function() {
       });
       promise.done();
 
-      var solution = {
-        number: '+987654321'
-      };
+      var solution = {number: '+987654321'};
       var url = _.template('https://pricing.twilio.com/v1/Voice/Numbers/<%= number %>')(solution);
 
       holodeck.assertHasRequest(new Request({
