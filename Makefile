@@ -1,3 +1,5 @@
+.PHONY: test-install install test docs clean
+
 test-install:
 	npm install --only=dev
 
@@ -7,6 +9,9 @@ install:
 
 test:
 	npm test
+
+docs:
+	npm run jsdocs
 
 clean: node_modules
 	rm -rf node_modules
