@@ -164,3 +164,27 @@ describe('serialize boolean', function() {
         expect(actual).toEqual(undefined);
     });
 });
+
+describe('serialize list', function() {
+    it('should apply transform to each element in the array', function() {
+        var actual = serialize.map([1, 2, 3], function(e) { return e * 2; });
+        expect(actual).toEqual([2,4,6]);
+    });
+
+    it('should passthrough other types', function() {
+        var actual = serialize.map(undefined, function(e) { return e * 2; });
+        expect(actual).toEqual(undefined);
+
+        actual = serialize.map(null, function(e) { return e * 2; });
+        expect(actual).toEqual(null);
+
+        actual = serialize.map(1, function(e) { return e * 2; });
+        expect(actual).toEqual(1);
+
+        actual = serialize.map({someKey: "someVal"}, function(e) { return e * 2; });
+        expect(actual).toEqual({someKey: "someVal"});
+
+        actual = serialize.map("string", function(e) { return e * 2; });
+        expect(actual).toEqual("string");
+    });
+});
