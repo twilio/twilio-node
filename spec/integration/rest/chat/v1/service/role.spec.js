@@ -18,6 +18,8 @@ var Response = require(
 var RestException = require(
     '../../../../../../lib/base/RestException');  /* jshint ignore:line */
 var Twilio = require('../../../../../../lib');  /* jshint ignore:line */
+var serialize = require(
+    '../../../../../../lib/base/serialize');  /* jshint ignore:line */
 
 
 var client;
@@ -146,7 +148,11 @@ describe('Role', function() {
       var solution = {serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://chat.twilio.com/v1/Services/<%= serviceSid %>/Roles')(solution);
 
-      var values = {FriendlyName: 'friendlyName', Type: 'channel', Permission: ['permission'],};
+      var values = {
+        FriendlyName: 'friendlyName',
+        Type: 'channel',
+        Permission: serialize.map(['permission'], function(e) { return e; }),
+      };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -302,7 +308,7 @@ describe('Role', function() {
       };
       var url = _.template('https://chat.twilio.com/v1/Services/<%= serviceSid %>/Roles/<%= sid %>')(solution);
 
-      var values = {Permission: ['permission'],};
+      var values = {Permission: serialize.map(['permission'], function(e) { return e; }),};
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

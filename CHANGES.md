@@ -1,6 +1,15 @@
 twilio-node changelog
 =====================
 
+[2017-11-03] Version 3.9.2
+---------------------------
+**Api**
+- Add programmable video keys
+
+**Video**
+- Add `Participants`
+
+
 [2017-10-27] Version 3.9.1
 ---------------------------
 **Chat**
