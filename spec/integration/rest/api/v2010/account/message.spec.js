@@ -47,7 +47,7 @@ describe('Message', function() {
       var solution = {accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Messages.json')(solution);
 
-      var values = {To: '+123456789',};
+      var values = {To: '+123456789'};
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -330,7 +330,7 @@ describe('Message', function() {
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Messages/<%= sid %>.json')(solution);
 
-      var values = {Body: 'body',};
+      var values = {Body: 'body'};
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

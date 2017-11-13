@@ -47,7 +47,7 @@ describe('Call', function() {
       var solution = {accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Calls.json')(solution);
 
-      var values = {To: '+123456789', From: '+987654321',};
+      var values = {To: '+123456789', From: '+987654321'};
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

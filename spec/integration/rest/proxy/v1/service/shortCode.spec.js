@@ -47,7 +47,7 @@ describe('ShortCode', function() {
       var solution = {serviceSid: 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://proxy.twilio.com/v1/Services/<%= serviceSid %>/ShortCodes')(solution);
 
-      var values = {Sid: 'SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',};
+      var values = {Sid: 'SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -65,7 +65,10 @@ describe('ShortCode', function() {
           'date_updated': '2015-07-30T20:00:00Z',
           'short_code': '12345',
           'iso_country': 'US',
-          'capabilities': [],
+          'capabilities': {
+              'sms_outbound': true,
+              'voice_inbound': false
+          },
           'url': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ShortCodes/SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 
@@ -168,7 +171,10 @@ describe('ShortCode', function() {
                   'date_updated': '2015-07-30T20:00:00Z',
                   'short_code': '12345',
                   'iso_country': 'US',
-                  'capabilities': [],
+                  'capabilities': {
+                      'sms_outbound': true,
+                      'voice_inbound': false
+                  },
                   'url': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ShortCodes/SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
@@ -222,7 +228,10 @@ describe('ShortCode', function() {
           'date_updated': '2015-07-30T20:00:00Z',
           'short_code': '12345',
           'iso_country': 'US',
-          'capabilities': [],
+          'capabilities': {
+              'sms_outbound': true,
+              'voice_inbound': false
+          },
           'url': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ShortCodes/SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 

@@ -292,7 +292,7 @@ describe('HostedNumberOrder', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {phoneNumber: '+987654321', isoCountry: 'isoCountry', smsCapability: true};
+      var opts = {phoneNumber: '+987654321', smsCapability: true};
       var promise = client.preview.hosted_numbers.hostedNumberOrders.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
@@ -303,11 +303,7 @@ describe('HostedNumberOrder', function() {
 
       var url = 'https://preview.twilio.com/HostedNumbers/HostedNumberOrders';
 
-      var values = {
-        PhoneNumber: '+987654321',
-        IsoCountry: 'isoCountry',
-        SmsCapability: serialize.bool(true),
-      };
+      var values = {PhoneNumber: '+987654321', SmsCapability: serialize.bool(true)};
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -341,7 +337,7 @@ describe('HostedNumberOrder', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {phoneNumber: '+987654321', isoCountry: 'isoCountry', smsCapability: true};
+      var opts = {phoneNumber: '+987654321', smsCapability: true};
       var promise = client.preview.hosted_numbers.hostedNumberOrders.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -378,7 +374,7 @@ describe('HostedNumberOrder', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {phoneNumber: '+987654321', isoCountry: 'isoCountry', smsCapability: true};
+      var opts = {phoneNumber: '+987654321', smsCapability: true};
       var promise = client.preview.hosted_numbers.hostedNumberOrders.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();

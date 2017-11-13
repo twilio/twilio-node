@@ -34,9 +34,8 @@ describe('PhoneNumber', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {sid: 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var promise = client.proxy.v1.services('KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                   .phoneNumbers.create(opts);
+                                   .phoneNumbers.create();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -47,11 +46,9 @@ describe('PhoneNumber', function() {
       var solution = {serviceSid: 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://proxy.twilio.com/v1/Services/<%= serviceSid %>/PhoneNumbers')(solution);
 
-      var values = {Sid: 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',};
       holodeck.assertHasRequest(new Request({
-          method: 'POST',
-          url: url,
-          data: values
+        method: 'POST',
+        url: url
       }));
     }
   );
@@ -66,15 +63,17 @@ describe('PhoneNumber', function() {
           'phone_number': '+987654321',
           'friendly_name': 'Friendly Name',
           'iso_country': 'US',
-          'capabilities': [],
+          'capabilities': {
+              'sms_outbound': true,
+              'voice_inbound': false
+          },
           'url': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {sid: 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var promise = client.proxy.v1.services('KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                   .phoneNumbers.create(opts);
+                                   .phoneNumbers.create();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -170,7 +169,10 @@ describe('PhoneNumber', function() {
                   'phone_number': '+987654321',
                   'friendly_name': 'Friendly Name',
                   'iso_country': 'US',
-                  'capabilities': [],
+                  'capabilities': {
+                      'sms_outbound': true,
+                      'voice_inbound': false
+                  },
                   'url': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ]
@@ -225,7 +227,10 @@ describe('PhoneNumber', function() {
           'phone_number': '12345',
           'friendly_name': 'Friendly Name',
           'iso_country': 'US',
-          'capabilities': [],
+          'capabilities': {
+              'sms_outbound': true,
+              'voice_inbound': false
+          },
           'url': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 

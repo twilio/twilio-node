@@ -165,7 +165,7 @@ describe('Participant', function() {
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Conferences/<%= conferenceSid %>/Participants.json')(solution);
 
-      var values = {From: '+987654321', To: '+123456789',};
+      var values = {From: '+987654321', To: '+123456789'};
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

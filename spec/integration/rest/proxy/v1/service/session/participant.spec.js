@@ -64,7 +64,6 @@ describe('Participant', function() {
           'session_sid': 'KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'participant_type': 'message-only',
           'identifier': 'identifier',
           'proxy_identifier': 'proxy_identifier',
           'proxy_identifier_sid': 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -168,7 +167,7 @@ describe('Participant', function() {
       };
       var url = _.template('https://proxy.twilio.com/v1/Services/<%= serviceSid %>/Sessions/<%= sessionSid %>/Participants')(solution);
 
-      var values = {Identifier: 'identifier',};
+      var values = {Identifier: 'identifier'};
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -183,7 +182,6 @@ describe('Participant', function() {
           'session_sid': 'KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'participant_type': 'message-only',
           'identifier': 'identifier',
           'proxy_identifier': 'proxy_identifier',
           'proxy_identifier_sid': 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -291,7 +289,6 @@ describe('Participant', function() {
           'session_sid': 'KCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'service_sid': 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'participant_type': 'message-only',
           'identifier': 'identifier',
           'proxy_identifier': 'proxy_identifier',
           'proxy_identifier_sid': 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',

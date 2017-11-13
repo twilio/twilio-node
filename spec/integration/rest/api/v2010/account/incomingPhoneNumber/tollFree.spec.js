@@ -168,7 +168,7 @@ describe('TollFree', function() {
       var solution = {accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/IncomingPhoneNumbers/TollFree.json')(solution);
 
-      var values = {PhoneNumber: '+987654321',};
+      var values = {PhoneNumber: '+987654321'};
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
