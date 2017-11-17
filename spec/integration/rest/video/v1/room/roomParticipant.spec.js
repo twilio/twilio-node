@@ -23,7 +23,7 @@ var Twilio = require('../../../../../../lib');  /* jshint ignore:line */
 var client;
 var holodeck;
 
-describe('RoomParticipant', function() {
+describe('Participant', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
     client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {

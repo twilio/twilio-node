@@ -68,6 +68,8 @@ describe('Recording', function() {
           'grouping_sids': {
               'room_sid': 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
           },
+          'media_external_location': 'https://my-super-duper-bucket.s3.amazonaws.com/my/path/',
+          'encryption_key': 'public_key',
           'links': {
               'media': 'https://video.twilio.com/v1/Recordings/RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media'
           }
@@ -151,6 +153,8 @@ describe('Recording', function() {
                       'room_sid': 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                       'participant_sid': 'PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
                   },
+                  'media_external_location': 'https://my-super-duper-bucket.s3.amazonaws.com/my/path/',
+                  'encryption_key': 'public_key',
                   'url': 'https://video.twilio.com/v1/Recordings/RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
                       'media': 'https://video.twilio.com/v1/Recordings/RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media'

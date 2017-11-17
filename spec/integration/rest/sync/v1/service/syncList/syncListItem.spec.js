@@ -65,6 +65,7 @@ describe('SyncListItem', function() {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'created_by': 'created_by',
           'data': {},
+          'date_expires': '2015-07-30T21:00:00Z',
           'date_created': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z',
           'index': 100,
@@ -168,6 +169,7 @@ describe('SyncListItem', function() {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'created_by': 'created_by',
           'data': {},
+          'date_expires': '2015-07-30T21:00:00Z',
           'date_created': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z',
           'index': 100,
@@ -255,6 +257,7 @@ describe('SyncListItem', function() {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'created_by': 'created_by',
                   'data': {},
+                  'date_expires': '2015-07-30T21:00:00Z',
                   'date_created': '2015-07-30T20:00:00Z',
                   'date_updated': '2015-07-30T20:00:00Z',
                   'index': 100,
@@ -293,10 +296,9 @@ describe('SyncListItem', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {data: '{}'};
       var promise = client.sync.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .syncLists('ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .syncListItems(1).update(opts);
+                                  .syncListItems(1).update();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -311,11 +313,9 @@ describe('SyncListItem', function() {
       };
       var url = _.template('https://sync.twilio.com/v1/Services/<%= serviceSid %>/Lists/<%= listSid %>/Items/<%= index %>')(solution);
 
-      var values = {Data: serialize.object('{}')};
       holodeck.assertHasRequest(new Request({
-          method: 'POST',
-          url: url,
-          data: values
+        method: 'POST',
+        url: url
       }));
     }
   );
@@ -325,6 +325,7 @@ describe('SyncListItem', function() {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'created_by': 'created_by',
           'data': {},
+          'date_expires': '2015-07-30T21:00:00Z',
           'date_created': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z',
           'index': 100,
@@ -336,10 +337,9 @@ describe('SyncListItem', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {data: '{}'};
       var promise = client.sync.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                   .syncLists('ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .syncListItems(1).update(opts);
+                                  .syncListItems(1).update();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {

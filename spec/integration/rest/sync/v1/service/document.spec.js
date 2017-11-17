@@ -18,8 +18,6 @@ var Response = require(
 var RestException = require(
     '../../../../../../lib/base/RestException');  /* jshint ignore:line */
 var Twilio = require('../../../../../../lib');  /* jshint ignore:line */
-var serialize = require(
-    '../../../../../../lib/base/serialize');  /* jshint ignore:line */
 
 
 var client;
@@ -63,6 +61,7 @@ describe('Document', function() {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'created_by': 'created_by',
           'data': {},
+          'date_expires': '2015-07-30T21:00:00Z',
           'date_created': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z',
           'revision': 'revision',
@@ -158,6 +157,7 @@ describe('Document', function() {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'created_by': 'created_by',
           'data': {},
+          'date_expires': '2015-07-30T21:00:00Z',
           'date_created': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z',
           'revision': 'revision',
@@ -241,6 +241,7 @@ describe('Document', function() {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'created_by': 'created_by',
                   'data': {},
+                  'date_expires': '2015-07-30T21:00:00Z',
                   'date_created': '2015-07-30T20:00:00Z',
                   'date_updated': '2015-07-30T20:00:00Z',
                   'revision': 'revision',
@@ -281,9 +282,8 @@ describe('Document', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {data: '{}'};
       var promise = client.sync.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .documents('ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update(opts);
+                                  .documents('ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -297,11 +297,9 @@ describe('Document', function() {
       };
       var url = _.template('https://sync.twilio.com/v1/Services/<%= serviceSid %>/Documents/<%= sid %>')(solution);
 
-      var values = {Data: serialize.object('{}')};
       holodeck.assertHasRequest(new Request({
-          method: 'POST',
-          url: url,
-          data: values
+        method: 'POST',
+        url: url
       }));
     }
   );
@@ -311,6 +309,7 @@ describe('Document', function() {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'created_by': 'created_by',
           'data': {},
+          'date_expires': '2015-07-30T21:00:00Z',
           'date_created': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z',
           'revision': 'revision',
@@ -325,9 +324,8 @@ describe('Document', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {data: '{}'};
       var promise = client.sync.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .documents('ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update(opts);
+                                  .documents('ETaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
