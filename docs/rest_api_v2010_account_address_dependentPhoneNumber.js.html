@@ -374,17 +374,34 @@ DependentPhoneNumberPage.prototype.getInstance = function getInstance(payload) {
  * @constructor Twilio.Api.V2010.AccountContext.AddressContext.DependentPhoneNumberInstance
  * @description Initialize the DependentPhoneNumberContext
  *
+ * @property {string} sid - The sid
+ * @property {string} accountSid - The account_sid
  * @property {string} friendlyName - The friendly_name
  * @property {string} phoneNumber - The phone_number
- * @property {string} lata - The lata
- * @property {string} rateCenter - The rate_center
- * @property {number} latitude - The latitude
- * @property {number} longitude - The longitude
- * @property {string} region - The region
- * @property {string} postalCode - The postal_code
- * @property {string} isoCountry - The iso_country
- * @property {string} addressRequirements - The address_requirements
+ * @property {string} voiceUrl - The voice_url
+ * @property {string} voiceMethod - The voice_method
+ * @property {string} voiceFallbackMethod - The voice_fallback_method
+ * @property {string} voiceFallbackUrl - The voice_fallback_url
+ * @property {boolean} voiceCallerIdLookup - The voice_caller_id_lookup
+ * @property {Date} dateCreated - The date_created
+ * @property {Date} dateUpdated - The date_updated
+ * @property {string} smsFallbackMethod - The sms_fallback_method
+ * @property {string} smsFallbackUrl - The sms_fallback_url
+ * @property {string} smsMethod - The sms_method
+ * @property {string} smsUrl - The sms_url
+ * @property {dependent_phone_number.address_requirement} addressRequirements -
+ *          The address_requirements
  * @property {string} capabilities - The capabilities
+ * @property {string} statusCallback - The status_callback
+ * @property {string} statusCallbackMethod - The status_callback_method
+ * @property {string} apiVersion - The api_version
+ * @property {string} smsApplicationSid - The sms_application_sid
+ * @property {string} voiceApplicationSid - The voice_application_sid
+ * @property {string} trunkSid - The trunk_sid
+ * @property {dependent_phone_number.emergency_status} emergencyStatus -
+ *          The emergency_status
+ * @property {string} emergencyAddressSid - The emergency_address_sid
+ * @property {string} uri - The uri
  *
  * @param {Twilio.Api.V2010} version - Version of the resource
  * @param {object} payload - The instance payload
@@ -395,17 +412,32 @@ DependentPhoneNumberInstance = function DependentPhoneNumberInstance(version,
   this._version = version;
 
   // Marshaled Properties
+  this.sid = payload.sid; // jshint ignore:line
+  this.accountSid = payload.account_sid; // jshint ignore:line
   this.friendlyName = payload.friendly_name; // jshint ignore:line
   this.phoneNumber = payload.phone_number; // jshint ignore:line
-  this.lata = payload.lata; // jshint ignore:line
-  this.rateCenter = payload.rate_center; // jshint ignore:line
-  this.latitude = deserialize.decimal(payload.latitude); // jshint ignore:line
-  this.longitude = deserialize.decimal(payload.longitude); // jshint ignore:line
-  this.region = payload.region; // jshint ignore:line
-  this.postalCode = payload.postal_code; // jshint ignore:line
-  this.isoCountry = payload.iso_country; // jshint ignore:line
+  this.voiceUrl = payload.voice_url; // jshint ignore:line
+  this.voiceMethod = payload.voice_method; // jshint ignore:line
+  this.voiceFallbackMethod = payload.voice_fallback_method; // jshint ignore:line
+  this.voiceFallbackUrl = payload.voice_fallback_url; // jshint ignore:line
+  this.voiceCallerIdLookup = payload.voice_caller_id_lookup; // jshint ignore:line
+  this.dateCreated = deserialize.rfc2822DateTime(payload.date_created); // jshint ignore:line
+  this.dateUpdated = deserialize.rfc2822DateTime(payload.date_updated); // jshint ignore:line
+  this.smsFallbackMethod = payload.sms_fallback_method; // jshint ignore:line
+  this.smsFallbackUrl = payload.sms_fallback_url; // jshint ignore:line
+  this.smsMethod = payload.sms_method; // jshint ignore:line
+  this.smsUrl = payload.sms_url; // jshint ignore:line
   this.addressRequirements = payload.address_requirements; // jshint ignore:line
   this.capabilities = payload.capabilities; // jshint ignore:line
+  this.statusCallback = payload.status_callback; // jshint ignore:line
+  this.statusCallbackMethod = payload.status_callback_method; // jshint ignore:line
+  this.apiVersion = payload.api_version; // jshint ignore:line
+  this.smsApplicationSid = payload.sms_application_sid; // jshint ignore:line
+  this.voiceApplicationSid = payload.voice_application_sid; // jshint ignore:line
+  this.trunkSid = payload.trunk_sid; // jshint ignore:line
+  this.emergencyStatus = payload.emergency_status; // jshint ignore:line
+  this.emergencyAddressSid = payload.emergency_address_sid; // jshint ignore:line
+  this.uri = payload.uri; // jshint ignore:line
 
   // Context
   this._context = undefined;
@@ -433,7 +465,7 @@ module.exports = {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Nov 17 2017 13:42:38 GMT-0800 (PST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Dec 01 2017 14:06:05 GMT-0800 (PST)
 </footer>
 
 <script> prettyPrint(); </script>
