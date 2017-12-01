@@ -56,7 +56,7 @@ describe('Service', function() {
       var body = JSON.stringify({
           'sid': 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'friendly_name': 'friendly_name',
+          'unique_name': 'unique_name',
           'default_ttl': 3600,
           'callback_url': 'http://www.example.com',
           'geo_match_level': 'country',
@@ -136,7 +136,8 @@ describe('Service', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.proxy.v1.services.create();
+      var opts = {uniqueName: 'uniqueName'};
+      var promise = client.proxy.v1.services.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -146,9 +147,11 @@ describe('Service', function() {
 
       var url = 'https://proxy.twilio.com/v1/Services';
 
+      var values = {UniqueName: 'uniqueName'};
       holodeck.assertHasRequest(new Request({
-        method: 'POST',
-        url: url
+          method: 'POST',
+          url: url,
+          data: values
       }));
     }
   );
@@ -157,7 +160,7 @@ describe('Service', function() {
       var body = JSON.stringify({
           'sid': 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'friendly_name': 'friendly_name',
+          'unique_name': 'unique_name',
           'default_ttl': 3600,
           'callback_url': 'http://www.example.com',
           'geo_match_level': 'country',
@@ -176,7 +179,8 @@ describe('Service', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var promise = client.proxy.v1.services.create();
+      var opts = {uniqueName: 'uniqueName'};
+      var promise = client.proxy.v1.services.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -249,7 +253,7 @@ describe('Service', function() {
       var body = JSON.stringify({
           'sid': 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'friendly_name': 'friendly_name',
+          'unique_name': 'unique_name',
           'default_ttl': 3600,
           'callback_url': 'http://www.example.com',
           'geo_match_level': 'country',
