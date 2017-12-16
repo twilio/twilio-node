@@ -59,7 +59,7 @@ describe('Session', function() {
     function() {
       var body = JSON.stringify({
           'service_sid': 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'status': 'in-progess',
+          'status': 'in-progress',
           'unique_name': 'unique_name',
           'date_started': '2015-07-30T20:00:00Z',
           'date_ended': '2015-07-30T20:00:00Z',
@@ -168,7 +168,7 @@ describe('Session', function() {
     function() {
       var body = JSON.stringify({
           'service_sid': 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'status': 'in-progess',
+          'status': 'in-progress',
           'unique_name': 'unique_name',
           'date_started': '2015-07-30T20:00:00Z',
           'date_ended': '2015-07-30T20:00:00Z',
@@ -272,7 +272,7 @@ describe('Session', function() {
     function() {
       var body = JSON.stringify({
           'service_sid': 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'status': 'in-progess',
+          'status': 'in-progress',
           'unique_name': 'unique_name',
           'date_started': '2015-07-30T20:00:00Z',
           'date_ended': '2015-07-30T20:00:00Z',
