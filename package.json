@@ -20,9 +20,9 @@
     "url": "https://github.com/twilio/twilio-node.git"
   },
   "dependencies": {
-    "jsonwebtoken": "^7.4.1",
+    "jsonwebtoken": "^8.1.0",
     "lodash": "4.0.0",
-    "moment": "2.18.1",
+    "moment": "2.19.3",
     "q": "2.0.x",
     "request": "2.83.x",
     "rootpath": "0.1.2",
