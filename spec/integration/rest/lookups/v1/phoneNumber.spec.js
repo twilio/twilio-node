@@ -34,7 +34,7 @@ describe('PhoneNumber', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.lookups.v1.phoneNumbers('+987654321').fetch();
+      var promise = client.lookups.v1.phoneNumbers('+15017122661').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -42,7 +42,7 @@ describe('PhoneNumber', function() {
       });
       promise.done();
 
-      var solution = {phoneNumber: '+987654321'};
+      var solution = {phoneNumber: '+15017122661'};
       var url = _.template('https://lookups.twilio.com/v1/PhoneNumbers/<%= phoneNumber %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -80,7 +80,7 @@ describe('PhoneNumber', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.lookups.v1.phoneNumbers('+987654321').fetch();
+      var promise = client.lookups.v1.phoneNumbers('+15017122661').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {

@@ -47,7 +47,7 @@ describe('ShortCode', function() {
       var solution = {serviceSid: 'MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://messaging.twilio.com/v1/Services/<%= serviceSid %>/ShortCodes')(solution);
 
-      var values = {ShortCodeSid: 'SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var values = {ShortCodeSid: 'SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

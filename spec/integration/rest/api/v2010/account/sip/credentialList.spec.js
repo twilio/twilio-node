@@ -135,7 +135,7 @@ describe('CredentialList', function() {
       var solution = {accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/CredentialLists.json')(solution);
 
-      var values = {FriendlyName: 'friendlyName'};
+      var values = {FriendlyName: 'friendlyName', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -247,7 +247,7 @@ describe('CredentialList', function() {
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/CredentialLists/<%= sid %>.json')(solution);
 
-      var values = {FriendlyName: 'friendlyName'};
+      var values = {FriendlyName: 'friendlyName', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

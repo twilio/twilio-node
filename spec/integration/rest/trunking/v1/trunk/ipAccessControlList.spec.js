@@ -139,7 +139,7 @@ describe('IpAccessControlList', function() {
       var solution = {trunkSid: 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/IpAccessControlLists')(solution);
 
-      var values = {IpAccessControlListSid: 'ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var values = {IpAccessControlListSid: 'ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

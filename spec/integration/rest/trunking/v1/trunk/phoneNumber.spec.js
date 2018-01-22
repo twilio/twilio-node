@@ -164,7 +164,7 @@ describe('PhoneNumber', function() {
       var solution = {trunkSid: 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/PhoneNumbers')(solution);
 
-      var values = {PhoneNumberSid: 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var values = {PhoneNumberSid: 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

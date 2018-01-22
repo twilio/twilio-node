@@ -77,11 +77,6 @@ describe('WorkerChannel', function() {
                   'configured_capacity': 1,
                   'date_created': '2014-05-14T10:50:02Z',
                   'date_updated': '2014-05-15T16:03:42Z',
-                  'links': {
-                      'taskchannel': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskChannels/TCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                      'worker': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                      'workspace': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-                  },
                   'sid': 'WCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'task_channel_sid': 'TCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'task_channel_unique_name': 'default',
@@ -172,11 +167,6 @@ describe('WorkerChannel', function() {
           'configured_capacity': 1,
           'date_created': '2014-05-14T10:50:02Z',
           'date_updated': '2014-05-15T16:03:42Z',
-          'links': {
-              'taskchannel': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskChannels/TCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-              'worker': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-              'workspace': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-          },
           'sid': 'WCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'task_channel_sid': 'TCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'task_channel_unique_name': 'default',
@@ -236,11 +226,6 @@ describe('WorkerChannel', function() {
           'configured_capacity': 3,
           'date_created': '2014-05-14T10:50:02Z',
           'date_updated': '2014-05-15T16:03:42Z',
-          'links': {
-              'taskchannel': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TaskChannels/TCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-              'worker': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-              'workspace': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-          },
           'sid': 'WCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'task_channel_sid': 'TCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'task_channel_unique_name': 'default',

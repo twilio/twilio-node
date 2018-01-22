@@ -276,7 +276,7 @@ describe('Workspace', function() {
 
       var url = 'https://taskrouter.twilio.com/v1/Workspaces';
 
-      var values = {FriendlyName: 'friendlyName'};
+      var values = {FriendlyName: 'friendlyName', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

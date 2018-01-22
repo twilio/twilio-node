@@ -154,7 +154,7 @@ describe('SyncMapItem', function() {
       };
       var url = _.template('https://preview.twilio.com/Sync/Services/<%= serviceSid %>/Maps/<%= mapSid %>/Items')(solution);
 
-      var values = {Key: 'key', Data: serialize.object('{}')};
+      var values = {Key: 'key', Data: serialize.object('{}'), };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -311,7 +311,7 @@ describe('SyncMapItem', function() {
       };
       var url = _.template('https://preview.twilio.com/Sync/Services/<%= serviceSid %>/Maps/<%= mapSid %>/Items/<%= key %>')(solution);
 
-      var values = {Data: serialize.object('{}')};
+      var values = {Data: serialize.object('{}'), };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

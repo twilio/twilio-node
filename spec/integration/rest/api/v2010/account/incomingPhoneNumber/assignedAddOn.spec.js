@@ -212,7 +212,7 @@ describe('AssignedAddOn', function() {
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/IncomingPhoneNumbers/<%= resourceSid %>/AssignedAddOns.json')(solution);
 
-      var values = {InstalledAddOnSid: 'XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var values = {InstalledAddOnSid: 'XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

@@ -148,7 +148,7 @@ describe('User', function() {
       var solution = {serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://chat.twilio.com/v1/Services/<%= serviceSid %>/Users')(solution);
 
-      var values = {Identity: 'identity'};
+      var values = {Identity: 'identity', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

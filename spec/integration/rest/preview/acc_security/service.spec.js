@@ -45,7 +45,7 @@ describe('Service', function() {
 
       var url = 'https://preview.twilio.com/Verification/Services';
 
-      var values = {Name: 'name'};
+      var values = {Name: 'name', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

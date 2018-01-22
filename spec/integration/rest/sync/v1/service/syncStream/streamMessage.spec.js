@@ -53,7 +53,7 @@ describe('StreamMessage', function() {
       };
       var url = _.template('https://sync.twilio.com/v1/Services/<%= serviceSid %>/Streams/<%= streamSid %>/Messages')(solution);
 
-      var values = {Data: serialize.object('{}')};
+      var values = {Data: serialize.object('{}'), };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

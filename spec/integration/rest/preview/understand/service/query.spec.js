@@ -221,7 +221,7 @@ describe('Query', function() {
       var solution = {serviceSid: 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://preview.twilio.com/understand/Services/<%= serviceSid %>/Queries')(solution);
 
-      var values = {Language: 'language', Query: 'query'};
+      var values = {Language: 'language', Query: 'query', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

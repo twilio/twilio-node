@@ -297,7 +297,7 @@ describe('Document', function() {
       };
       var url = _.template('https://preview.twilio.com/Sync/Services/<%= serviceSid %>/Documents/<%= sid %>')(solution);
 
-      var values = {Data: serialize.object('{}')};
+      var values = {Data: serialize.object('{}'), };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

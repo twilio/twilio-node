@@ -141,7 +141,7 @@ describe('Certificate', function() {
       var solution = {fleetSid: 'FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://preview.twilio.com/DeployedDevices/Fleets/<%= fleetSid %>/Certificates')(solution);
 
-      var values = {CertificateData: 'certificateData'};
+      var values = {CertificateData: 'certificateData', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

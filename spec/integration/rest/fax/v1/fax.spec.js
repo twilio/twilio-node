@@ -200,7 +200,7 @@ describe('Fax', function() {
 
       var url = 'https://fax.twilio.com/v1/Faxes';
 
-      var values = {To: 'to', MediaUrl: 'https://example.com'};
+      var values = {To: 'to', MediaUrl: 'https://example.com', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

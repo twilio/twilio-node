@@ -151,7 +151,7 @@ describe('Worker', function() {
       var solution = {workspaceSid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workers')(solution);
 
-      var values = {FriendlyName: 'friendlyName'};
+      var values = {FriendlyName: 'friendlyName', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

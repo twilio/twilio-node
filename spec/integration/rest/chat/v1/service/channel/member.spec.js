@@ -108,7 +108,7 @@ describe('Member', function() {
       };
       var url = _.template('https://chat.twilio.com/v1/Services/<%= serviceSid %>/Channels/<%= channelSid %>/Members')(solution);
 
-      var values = {Identity: 'identity'};
+      var values = {Identity: 'identity', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

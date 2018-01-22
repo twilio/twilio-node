@@ -52,7 +52,7 @@ describe('CredentialListMapping', function() {
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/Domains/<%= domainSid %>/CredentialListMappings.json')(solution);
 
-      var values = {CredentialListSid: 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var values = {CredentialListSid: 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

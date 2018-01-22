@@ -308,7 +308,7 @@ describe('Role', function() {
       };
       var url = _.template('https://chat.twilio.com/v1/Services/<%= serviceSid %>/Roles/<%= sid %>')(solution);
 
-      var values = {Permission: serialize.map(['permission'], function(e) { return e; })};
+      var values = {Permission: serialize.map(['permission'], function(e) { return e; }), };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

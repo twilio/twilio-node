@@ -202,7 +202,7 @@ describe('Field', function() {
       };
       var url = _.template('https://preview.twilio.com/understand/Services/<%= serviceSid %>/Intents/<%= intentSid %>/Fields')(solution);
 
-      var values = {FieldType: 'fieldType', UniqueName: 'uniqueName'};
+      var values = {FieldType: 'fieldType', UniqueName: 'uniqueName', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

@@ -202,7 +202,7 @@ describe('FieldValue', function() {
       };
       var url = _.template('https://preview.twilio.com/understand/Services/<%= serviceSid %>/FieldTypes/<%= fieldTypeSid %>/FieldValues')(solution);
 
-      var values = {Language: 'language', Value: 'value'};
+      var values = {Language: 'language', Value: 'value', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

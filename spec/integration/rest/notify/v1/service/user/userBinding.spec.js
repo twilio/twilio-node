@@ -160,7 +160,7 @@ describe('UserBinding', function() {
       };
       var url = _.template('https://notify.twilio.com/v1/Services/<%= serviceSid %>/Users/<%= identity %>/Bindings')(solution);
 
-      var values = {BindingType: 'apn', Address: 'address'};
+      var values = {BindingType: 'apn', Address: 'address', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

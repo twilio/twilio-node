@@ -47,7 +47,7 @@ describe('PhoneNumber', function() {
       var solution = {serviceSid: 'MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://messaging.twilio.com/v1/Services/<%= serviceSid %>/PhoneNumbers')(solution);
 
-      var values = {PhoneNumberSid: 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var values = {PhoneNumberSid: 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

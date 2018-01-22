@@ -197,7 +197,7 @@ describe('Intent', function() {
       var solution = {serviceSid: 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://preview.twilio.com/understand/Services/<%= serviceSid %>/Intents')(solution);
 
-      var values = {UniqueName: 'uniqueName'};
+      var values = {UniqueName: 'uniqueName', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

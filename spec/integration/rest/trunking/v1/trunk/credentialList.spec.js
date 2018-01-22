@@ -139,7 +139,7 @@ describe('CredentialList', function() {
       var solution = {trunkSid: 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/CredentialLists')(solution);
 
-      var values = {CredentialListSid: 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var values = {CredentialListSid: 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

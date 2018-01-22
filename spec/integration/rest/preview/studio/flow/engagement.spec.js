@@ -140,7 +140,7 @@ describe('Engagement', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {to: '+123456789', from: '+987654321'};
+      var opts = {to: '+15558675310', from: '+15017122661'};
       var promise = client.preview.studio.flows('FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                          .engagements.create(opts);
       promise = promise.then(function() {
@@ -153,7 +153,7 @@ describe('Engagement', function() {
       var solution = {flowSid: 'FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://preview.twilio.com/Studio/Flows/<%= flowSid %>/Engagements')(solution);
 
-      var values = {To: '+123456789', From: '+987654321'};
+      var values = {To: '+15558675310', From: '+15017122661', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -185,7 +185,7 @@ describe('Engagement', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {to: '+123456789', from: '+987654321'};
+      var opts = {to: '+15558675310', from: '+15017122661'};
       var promise = client.preview.studio.flows('FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                          .engagements.create(opts);
       promise = promise.then(function(response) {

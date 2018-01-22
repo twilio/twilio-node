@@ -202,7 +202,7 @@ describe('Sample', function() {
       };
       var url = _.template('https://preview.twilio.com/understand/Services/<%= serviceSid %>/Intents/<%= intentSid %>/Samples')(solution);
 
-      var values = {Language: 'language', TaggedText: 'taggedText'};
+      var values = {Language: 'language', TaggedText: 'taggedText', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

@@ -47,7 +47,7 @@ describe('PhoneNumber', function() {
       var solution = {serviceSid: 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://preview.twilio.com/Proxy/Services/<%= serviceSid %>/PhoneNumbers')(solution);
 
-      var values = {Sid: 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var values = {Sid: 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

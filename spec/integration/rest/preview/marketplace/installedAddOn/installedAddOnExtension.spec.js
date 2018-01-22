@@ -102,7 +102,7 @@ describe('InstalledAddOnExtension', function() {
       };
       var url = _.template('https://preview.twilio.com/marketplace/InstalledAddOns/<%= installedAddOnSid %>/Extensions/<%= sid %>')(solution);
 
-      var values = {Enabled: serialize.bool(true)};
+      var values = {Enabled: serialize.bool(true), };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

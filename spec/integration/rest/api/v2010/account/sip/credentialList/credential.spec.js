@@ -153,7 +153,7 @@ describe('Credential', function() {
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/CredentialLists/<%= credentialListSid %>/Credentials.json')(solution);
 
-      var values = {Username: 'username', Password: 'password'};
+      var values = {Username: 'username', Password: 'password', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

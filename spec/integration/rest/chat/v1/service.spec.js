@@ -147,7 +147,7 @@ describe('Service', function() {
 
       var url = 'https://chat.twilio.com/v1/Services';
 
-      var values = {FriendlyName: 'friendlyName'};
+      var values = {FriendlyName: 'friendlyName', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

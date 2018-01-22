@@ -156,7 +156,7 @@ describe('Service', function() {
 
       var url = 'https://chat.twilio.com/v2/Services';
 
-      var values = {FriendlyName: 'friendlyName'};
+      var values = {FriendlyName: 'friendlyName', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -374,6 +374,7 @@ describe('Service', function() {
               'bindings': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings'
           },
           'notifications': {
+              'log_enabled': true,
               'added_to_channel': {
                   'enabled': false,
                   'template': 'notifications.added_to_channel.template'

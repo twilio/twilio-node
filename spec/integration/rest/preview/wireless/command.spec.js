@@ -182,7 +182,7 @@ describe('Command', function() {
 
       var url = 'https://preview.twilio.com/wireless/Commands';
 
-      var values = {Command: 'command'};
+      var values = {Command: 'command', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

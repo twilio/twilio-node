@@ -267,7 +267,7 @@ describe('Room', function() {
       var solution = {sid: 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://video.twilio.com/v1/Rooms/<%= sid %>')(solution);
 
-      var values = {Status: 'in-progress'};
+      var values = {Status: 'in-progress', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

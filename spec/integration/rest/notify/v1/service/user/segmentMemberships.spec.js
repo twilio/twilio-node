@@ -51,7 +51,7 @@ describe('SegmentMembership', function() {
       };
       var url = _.template('https://notify.twilio.com/v1/Services/<%= serviceSid %>/Users/<%= identity %>/SegmentMemberships')(solution);
 
-      var values = {Segment: 'segment'};
+      var values = {Segment: 'segment', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

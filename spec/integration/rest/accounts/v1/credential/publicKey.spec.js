@@ -132,7 +132,7 @@ describe('PublicKey', function() {
 
       var url = 'https://accounts.twilio.com/v1/Credentials/PublicKeys';
 
-      var values = {PublicKey: 'publickey'};
+      var values = {PublicKey: 'publickey', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

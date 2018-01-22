@@ -287,7 +287,7 @@ describe('Queue', function() {
       var solution = {accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Queues.json')(solution);
 
-      var values = {FriendlyName: 'friendlyName'};
+      var values = {FriendlyName: 'friendlyName', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

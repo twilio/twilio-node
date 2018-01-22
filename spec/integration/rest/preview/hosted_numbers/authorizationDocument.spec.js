@@ -64,6 +64,9 @@ describe('AuthorizationDocument', function() {
           'date_created': '2017-03-28T20:06:39Z',
           'date_updated': '2017-03-28T20:06:39Z',
           'email': 'test@twilio.com',
+          'links': {
+              'dependent_hosted_number_orders': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/DependentHostedNumberOrders'
+          },
           'sid': 'PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'status': 'signing',
           'url': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
@@ -113,6 +116,9 @@ describe('AuthorizationDocument', function() {
           'date_created': '2017-03-28T20:06:39Z',
           'date_updated': '2017-03-28T20:06:39Z',
           'email': 'test+hosted@twilio.com',
+          'links': {
+              'dependent_hosted_number_orders': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/DependentHostedNumberOrders'
+          },
           'sid': 'PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'status': 'signing',
           'url': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
@@ -199,6 +205,9 @@ describe('AuthorizationDocument', function() {
                   'date_created': '2017-03-28T20:06:39Z',
                   'date_updated': '2017-03-28T20:06:39Z',
                   'email': 'test+hosted@twilio.com',
+                  'links': {
+                      'dependent_hosted_number_orders': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/DependentHostedNumberOrders'
+                  },
                   'sid': 'PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'status': 'signing',
                   'url': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
@@ -260,6 +269,9 @@ describe('AuthorizationDocument', function() {
           'date_created': '2017-03-28T20:06:39Z',
           'date_updated': '2017-03-28T20:06:39Z',
           'email': 'test+hosted@twilio.com',
+          'links': {
+              'dependent_hosted_number_orders': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/DependentHostedNumberOrders'
+          },
           'sid': 'PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'status': 'signing',
           'url': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'

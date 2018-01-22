@@ -35,7 +35,7 @@ describe('Number', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.pricing.v1.voice
-                                     .numbers('+987654321').fetch();
+                                     .numbers('+15017122661').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -43,7 +43,7 @@ describe('Number', function() {
       });
       promise.done();
 
-      var solution = {number: '+987654321'};
+      var solution = {number: '+15017122661'};
       var url = _.template('https://pricing.twilio.com/v1/Voice/Numbers/<%= number %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -74,7 +74,7 @@ describe('Number', function() {
       holodeck.mock(new Response(200, body));
 
       var promise = client.pricing.v1.voice
-                                     .numbers('+987654321').fetch();
+                                     .numbers('+15017122661').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {

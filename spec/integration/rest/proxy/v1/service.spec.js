@@ -147,7 +147,7 @@ describe('Service', function() {
 
       var url = 'https://proxy.twilio.com/v1/Services';
 
-      var values = {UniqueName: 'uniqueName'};
+      var values = {UniqueName: 'uniqueName', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

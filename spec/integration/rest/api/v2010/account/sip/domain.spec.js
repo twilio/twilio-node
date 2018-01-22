@@ -146,7 +146,7 @@ describe('Domain', function() {
       var solution = {accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/Domains.json')(solution);
 
-      var values = {DomainName: 'domainName'};
+      var values = {DomainName: 'domainName', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

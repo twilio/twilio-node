@@ -309,7 +309,7 @@ describe('Workflow', function() {
       var solution = {workspaceSid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workflows')(solution);
 
-      var values = {FriendlyName: 'friendlyName', Configuration: 'configuration'};
+      var values = {FriendlyName: 'friendlyName', Configuration: 'configuration', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

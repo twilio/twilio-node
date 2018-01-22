@@ -193,7 +193,7 @@ describe('FieldType', function() {
       var solution = {serviceSid: 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://preview.twilio.com/understand/Services/<%= serviceSid %>/FieldTypes')(solution);
 
-      var values = {UniqueName: 'uniqueName'};
+      var values = {UniqueName: 'uniqueName', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

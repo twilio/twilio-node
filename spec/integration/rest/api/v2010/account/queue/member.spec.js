@@ -103,7 +103,7 @@ describe('Member', function() {
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Queues/<%= queueSid %>/Members/<%= callSid %>.json')(solution);
 
-      var values = {Url: 'https://example.com', Method: 'GET'};
+      var values = {Url: 'https://example.com', Method: 'GET', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

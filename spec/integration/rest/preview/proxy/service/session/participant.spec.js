@@ -166,7 +166,7 @@ describe('Participant', function() {
       };
       var url = _.template('https://preview.twilio.com/Proxy/Services/<%= serviceSid %>/Sessions/<%= sessionSid %>/Participants')(solution);
 
-      var values = {Identifier: 'identifier'};
+      var values = {Identifier: 'identifier', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

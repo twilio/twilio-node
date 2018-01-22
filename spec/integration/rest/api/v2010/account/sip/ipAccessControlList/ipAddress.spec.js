@@ -154,7 +154,7 @@ describe('IpAddress', function() {
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/IpAccessControlLists/<%= ipAccessControlListSid %>/IpAddresses.json')(solution);
 
-      var values = {FriendlyName: 'friendlyName', IpAddress: 'ipAddress'};
+      var values = {FriendlyName: 'friendlyName', IpAddress: 'ipAddress', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

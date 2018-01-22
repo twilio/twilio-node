@@ -110,7 +110,7 @@ describe('Message', function() {
       };
       var url = _.template('https://chat.twilio.com/v1/Services/<%= serviceSid %>/Channels/<%= channelSid %>/Messages')(solution);
 
-      var values = {Body: 'body'};
+      var values = {Body: 'body', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

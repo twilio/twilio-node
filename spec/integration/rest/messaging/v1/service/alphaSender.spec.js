@@ -47,7 +47,7 @@ describe('AlphaSender', function() {
       var solution = {serviceSid: 'MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://messaging.twilio.com/v1/Services/<%= serviceSid %>/AlphaSenders')(solution);
 
-      var values = {AlphaSender: 'alphaSender'};
+      var values = {AlphaSender: 'alphaSender', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

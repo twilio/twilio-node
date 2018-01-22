@@ -130,7 +130,7 @@ describe('Credential', function() {
 
       var url = 'https://chat.twilio.com/v2/Credentials';
 
-      var values = {Type: 'gcm'};
+      var values = {Type: 'gcm', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

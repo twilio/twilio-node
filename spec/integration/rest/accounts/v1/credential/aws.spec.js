@@ -132,7 +132,7 @@ describe('Aws', function() {
 
       var url = 'https://accounts.twilio.com/v1/Credentials/AWS';
 
-      var values = {Credentials: 'AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'};
+      var values = {Credentials: 'AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

@@ -248,7 +248,7 @@ describe('SyncMapPermission', function() {
       };
       var url = _.template('https://sync.twilio.com/v1/Services/<%= serviceSid %>/Maps/<%= mapSid %>/Permissions/<%= identity %>')(solution);
 
-      var values = {Read: serialize.bool(true), Write: serialize.bool(true), Manage: serialize.bool(true)};
+      var values = {Read: serialize.bool(true), Write: serialize.bool(true), Manage: serialize.bool(true), };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

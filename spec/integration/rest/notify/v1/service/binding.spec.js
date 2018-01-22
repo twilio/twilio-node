@@ -150,7 +150,7 @@ describe('Binding', function() {
       var solution = {serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://notify.twilio.com/v1/Services/<%= serviceSid %>/Bindings')(solution);
 
-      var values = {Identity: 'identity', BindingType: 'apn', Address: 'address'};
+      var values = {Identity: 'identity', BindingType: 'apn', Address: 'address', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

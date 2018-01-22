@@ -47,7 +47,7 @@ describe('VerificationCheck', function() {
       var solution = {serviceSid: 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://preview.twilio.com/Verification/Services/<%= serviceSid %>/VerificationCheck')(solution);
 
-      var values = {Code: 'code'};
+      var values = {Code: 'code', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

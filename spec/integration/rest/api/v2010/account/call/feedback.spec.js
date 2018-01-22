@@ -51,7 +51,7 @@ describe('Feedback', function() {
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Calls/<%= callSid %>/Feedback.json')(solution);
 
-      var values = {QualityScore: 1};
+      var values = {QualityScore: 1, };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -163,7 +163,7 @@ describe('Feedback', function() {
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Calls/<%= callSid %>/Feedback.json')(solution);
 
-      var values = {QualityScore: 1};
+      var values = {QualityScore: 1, };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

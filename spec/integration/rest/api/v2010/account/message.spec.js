@@ -34,7 +34,7 @@ describe('Message', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {to: '+123456789'};
+      var opts = {to: '+15558675310'};
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .messages.create(opts);
       promise = promise.then(function() {
@@ -47,7 +47,7 @@ describe('Message', function() {
       var solution = {accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Messages.json')(solution);
 
-      var values = {To: '+123456789'};
+      var values = {To: '+15558675310', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -84,7 +84,7 @@ describe('Message', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {to: '+123456789'};
+      var opts = {to: '+15558675310'};
       var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                                     .messages.create(opts);
       promise = promise.then(function(response) {
@@ -330,7 +330,7 @@ describe('Message', function() {
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Messages/<%= sid %>.json')(solution);
 
-      var values = {Body: 'body'};
+      var values = {Body: 'body', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,

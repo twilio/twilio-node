@@ -154,7 +154,7 @@ describe('SyncListItem', function() {
       };
       var url = _.template('https://preview.twilio.com/Sync/Services/<%= serviceSid %>/Lists/<%= listSid %>/Items')(solution);
 
-      var values = {Data: serialize.object('{}')};
+      var values = {Data: serialize.object('{}'), };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -311,7 +311,7 @@ describe('SyncListItem', function() {
       };
       var url = _.template('https://preview.twilio.com/Sync/Services/<%= serviceSid %>/Lists/<%= listSid %>/Items/<%= index %>')(solution);
 
-      var values = {Data: serialize.object('{}')};
+      var values = {Data: serialize.object('{}'), };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
