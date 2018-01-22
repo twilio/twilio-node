@@ -3,6 +3,11 @@ twilio-node changelog
 
 [2018-01-22] Version 3.11.1
 ----------------------------
+**Library**
+- PR #315: Add 'forever' as an option to RequestClient request method. Thanks @vzhidal!
+- PR #311: Fix X-Twilio-Signature validation when URL has '?'. Thanks @alexcchan!
+- PR #305: Update momentjs to address NSP 532 ReDoS advisory. Thanks @jhdielman!
+
 **Api**
 - Add `conference_sid` property on Recordings
 - Add proxy and sms usage key
@@ -19,9 +24,6 @@ twilio-node changelog
 - Add `call_delay`, `extension`, `verification_code`, and `verification_call_sids`.
 - Add `failure_reason` to HostedNumberOrders.
 - Add DependentHostedNumberOrders endpoint for AuthorizationDocuments preview API.
-
-**Taskrouter**
-- Less verbose naming of cumulative and real time statistics *(breaking change)*
 
 
 [2017-12-15] Version 3.11.0
