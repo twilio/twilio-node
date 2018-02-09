@@ -1,6 +1,15 @@
 twilio-node changelog
 =====================
 
+[2018-02-09] Version 3.11.3
+----------------------------
+**Api**
+- Add `AnnounceUrl` and `AnnounceMethod` params for conference announce
+
+**Chat**
+- Add support to looking up user channels by identity in v1
+
+
 [2018-01-30] Version 3.11.2
 ----------------------------
 **Api**
