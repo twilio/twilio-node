@@ -4,6 +4,9 @@ var twilio = require('../lib'),
     express = require('express'),
     request = require('request'),
     http = require('http'),
+    fs = require('fs'),
+    https = require('https'),
+    httpProxy = require('http-proxy'),
     crypto = require('crypto'),
     f = require('util').format;
 
@@ -87,6 +90,16 @@ describe('Testing Express request validation', function() {
     var server = http.createServer(app);
     server.listen(3000);
 
+    var proxy = httpProxy.createServer({
+        target: "http://localhost:3000",
+        xfwd: true,
+        ssl: {
+            key: fs.readFileSync(__dirname + '/test.key', 'utf8'),
+            cert: fs.readFileSync(__dirname + '/cert.pem', 'utf8')
+        }
+    });
+    proxy.listen(3443);
+
     // test ngrok-exposed URL
     var testUrl = 'http://localhost:3000';
     it('should give a 403 from a direct POST', function(done) {
@@ -156,6 +169,30 @@ describe('Testing Express request validation', function() {
         }, function(err, response) {
             expect(err).toBeFalsy();
             expect(response.body).toBe(twimlString);
+            done();
+        });
+
+    });
+
+    var testSSLUrl = 'https://localhost:3443';
+    it('should validate with middleware via SSL Proxy', function(done) {
+        // Manually create a Twilio signature
+        var signUrl = testSSLUrl+'/middleware';
+        var testSig = createTestSig(signUrl);
+        process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
+        // Hit our webhook with a "Twilio signed" request
+        request({
+            method: 'POST',
+            url: signUrl,
+            headers: {
+                'X-Twilio-Signature':testSig
+            },
+            form: params
+        }, function(err, response) {
+            // console.log(err, response)
+            expect(err).toBeFalsy();
+            expect(response.body).toBe(twimlString);
+            proxy.close();
             done();
         });
 
