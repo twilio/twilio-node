@@ -24,7 +24,16 @@
     "lodash": "4.0.0",
     "moment": "2.19.3",
     "q": "2.0.x",
-    "request": "2.83.x",
+    "request": {
+      "version": "2.83.x",
+      "from": "request@2.83.x",
+      "dependencies": {
+        "hoek": {
+          "version": "4.2.1",
+          "from": "hoek@4.2.1"
+        }
+      }
+    },
     "rootpath": "0.1.2",
     "scmp": "0.0.3",
     "xmlbuilder": "9.0.1",
