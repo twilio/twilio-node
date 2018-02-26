@@ -52,8 +52,8 @@
     "test": "jasmine-node --captureExceptions spec",
     "jshint": "jshint lib/rest/** lib/base/** lib/http/**",
     "jscs": "jscs -c .jscsrc lib/base/** lib/http/** --fix",
-    "check": "npm run jshint; npm run jscs",
-    "ci": "npm test; npm run nsp",
+    "check": "npm run jshint && npm run jscs",
+    "ci": "npm test && npm run nsp",
     "jsdoc": "jsdoc -r lib -d docs",
     "nsp": "nsp check"
   },
