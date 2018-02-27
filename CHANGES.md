@@ -3,6 +3,9 @@ twilio-node changelog
 
 [2018-02-26] Version 3.12.0
 ----------------------------
+**Important Notice**
+- Node v0.12 is no longer supported.
+
 **Api**
 - Add `trim` param to Outbound Calls API
 
