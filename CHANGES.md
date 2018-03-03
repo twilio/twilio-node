@@ -1,8 +1,11 @@
 twilio-node changelog
 =====================
 
-[2018-03-02] Version 3.12.0
+[2018-03-02] Version 3.13.0
 ----------------------------
+**Library**
+- Add `toJSON` methods on all instance objects to allow serialization to json and remove circular references.
+
 **Studio**
 - Add new /Context endpoint for step and engagement resources. Removes the context property from existing step and engagement resources. *(breaking change)*
 
