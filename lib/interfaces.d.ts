@@ -71,8 +71,3 @@ export interface PageOptions<TPage> {
    */
   callback?: (page: TPage) => void;
 }
-
-export interface SomeListInstance {
-  (): string;
-  foo(): number;
-}
