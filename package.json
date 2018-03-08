@@ -51,9 +51,11 @@
   },
   "files": [
     "lib",
-    "index.js"
+    "index.js",
+    "index.d.ts"
   ],
   "main": "./lib",
+  "types": "./index.d.ts",
   "engines": {
     "node": ">=0.12.0"
   },
