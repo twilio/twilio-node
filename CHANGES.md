@@ -1,6 +1,19 @@
 twilio-node changelog
 =====================
 
+[2018-03-12] Version 3.13.1
+----------------------------
+**Api**
+- Add `caller_id` param to Outbound Calls API
+- Release `trim` recording Outbound Calls API functionality in helper libraries
+
+**Video**
+- [composer] Add `room_sid` to Composition resource.
+
+**Twiml**
+- Adds support for passing in multiple input type enums when setting `input` on `Gather`
+
+
 [2018-03-02] Version 3.13.0
 ----------------------------
 **Library**
