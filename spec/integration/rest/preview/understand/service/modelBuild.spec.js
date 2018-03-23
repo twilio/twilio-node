@@ -65,7 +65,9 @@ describe('ModelBuild', function() {
           'service_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2015-07-30T20:00:00Z',
           'sid': 'UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'unique_name': 'unique_name'
+          'unique_name': 'unique_name',
+          'build_duration': null,
+          'error_code': null
       });
 
       holodeck.mock(new Response(200, body));
@@ -148,11 +150,13 @@ describe('ModelBuild', function() {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'date_updated': '2015-07-30T20:00:00Z',
                   'url': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ModelBuilds/UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'status': 'enqueued',
+                  'status': 'failed',
                   'service_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'date_created': '2015-07-30T20:00:00Z',
                   'sid': 'UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'unique_name': 'unique_name'
+                  'unique_name': 'unique_name',
+                  'build_duration': null,
+                  'error_code': 23001
               }
           ]
       });
@@ -202,7 +206,9 @@ describe('ModelBuild', function() {
           'service_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2015-07-30T20:00:00Z',
           'sid': 'UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'unique_name': 'unique_name'
+          'unique_name': 'unique_name',
+          'build_duration': null,
+          'error_code': null
       });
 
       holodeck.mock(new Response(201, body));
@@ -249,11 +255,13 @@ describe('ModelBuild', function() {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_updated': '2015-07-30T20:00:00Z',
           'url': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ModelBuilds/UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'status': 'enqueued',
+          'status': 'completed',
           'service_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2015-07-30T20:00:00Z',
           'sid': 'UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'unique_name': 'unique_name'
+          'unique_name': 'unique_name',
+          'build_duration': 100,
+          'error_code': null
       });
 
       holodeck.mock(new Response(200, body));

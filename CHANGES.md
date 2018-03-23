@@ -1,6 +1,18 @@
 twilio-node changelog
 =====================
 
+[2018-03-22] Version 3.14.0
+----------------------------
+**Lookups**
+- Disable support for `fraud` lookups *(breaking change)*
+
+**Preview**
+- Add `BuildDuration` and `ErrorCode` to Understand ModelBuild
+
+**Studio**
+- Add new /Context endpoint for step and engagement resources.
+
+
 [2018-03-12] Version 3.13.1
 ----------------------------
 **Api**
