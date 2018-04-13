@@ -26,7 +26,7 @@ var holodeck;
 describe('Recording', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,7 +34,7 @@ describe('Recording', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.video.v1.recordings('RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.video.v1.recordings('RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -42,7 +42,7 @@ describe('Recording', function() {
       });
       promise.done();
 
-      var solution = {sid: 'RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {sid: 'RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://video.twilio.com/v1/Recordings/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -57,6 +57,8 @@ describe('Recording', function() {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'status': 'processing',
           'date_created': '2015-07-30T20:00:00Z',
+          'date_updated': '2015-07-30T21:00:00Z',
+          'date_deleted': '2015-07-30T22:00:00Z',
           'sid': 'RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'source_sid': 'MTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'size': 0,
@@ -78,7 +80,7 @@ describe('Recording', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.video.v1.recordings('RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.video.v1.recordings('RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -143,6 +145,8 @@ describe('Recording', function() {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'status': 'completed',
                   'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T21:00:00Z',
+                  'date_deleted': '2015-07-30T22:00:00Z',
                   'sid': 'RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'source_sid': 'MTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'size': 23,
@@ -190,7 +194,7 @@ describe('Recording', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.video.v1.recordings('RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.video.v1.recordings('RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -198,7 +202,7 @@ describe('Recording', function() {
       });
       promise.done();
 
-      var solution = {sid: 'RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {sid: 'RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://video.twilio.com/v1/Recordings/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -213,7 +217,7 @@ describe('Recording', function() {
 
       holodeck.mock(new Response(204, body));
 
-      var promise = client.video.v1.recordings('RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.video.v1.recordings('RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
       }, function() {

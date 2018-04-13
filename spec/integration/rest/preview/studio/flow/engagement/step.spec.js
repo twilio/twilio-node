@@ -26,7 +26,7 @@ var holodeck;
 describe('Step', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,8 +34,8 @@ describe('Step', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.studio.flows('FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .engagements('FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.studio.flows('FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .engagements('FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .steps.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -45,8 +45,8 @@ describe('Step', function() {
       promise.done();
 
       var solution = {
-        flowSid: 'FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        engagementSid: 'FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        flowSid: 'FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        engagementSid: 'FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://preview.twilio.com/Studio/Flows/<%= flowSid %>/Engagements/<%= engagementSid %>/Steps')(solution);
 
@@ -73,8 +73,8 @@ describe('Step', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.studio.flows('FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .engagements('FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.studio.flows('FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .engagements('FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .steps.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -89,9 +89,9 @@ describe('Step', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.studio.flows('FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .engagements('FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .steps('FTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.preview.studio.flows('FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .engagements('FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .steps('FTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -100,9 +100,9 @@ describe('Step', function() {
       promise.done();
 
       var solution = {
-        flowSid: 'FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        engagementSid: 'FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'FTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        flowSid: 'FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        engagementSid: 'FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'FTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://preview.twilio.com/Studio/Flows/<%= flowSid %>/Engagements/<%= engagementSid %>/Steps/<%= sid %>')(solution);
 
@@ -130,9 +130,9 @@ describe('Step', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.studio.flows('FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .engagements('FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .steps('FTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.preview.studio.flows('FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .engagements('FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .steps('FTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {

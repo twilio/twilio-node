@@ -26,7 +26,7 @@ var holodeck;
 describe('Fax', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,7 +34,7 @@ describe('Fax', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.fax.v1.faxes('FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.fax.v1.faxes('FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -42,7 +42,7 @@ describe('Fax', function() {
       });
       promise.done();
 
-      var solution = {sid: 'FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {sid: 'FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://fax.twilio.com/v1/Faxes/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -78,7 +78,7 @@ describe('Fax', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.fax.v1.faxes('FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.fax.v1.faxes('FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -250,7 +250,7 @@ describe('Fax', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.fax.v1.faxes('FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.fax.v1.faxes('FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -258,7 +258,7 @@ describe('Fax', function() {
       });
       promise.done();
 
-      var solution = {sid: 'FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {sid: 'FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://fax.twilio.com/v1/Faxes/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -294,7 +294,7 @@ describe('Fax', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.fax.v1.faxes('FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.fax.v1.faxes('FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -308,7 +308,7 @@ describe('Fax', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.fax.v1.faxes('FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.fax.v1.faxes('FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -316,7 +316,7 @@ describe('Fax', function() {
       });
       promise.done();
 
-      var solution = {sid: 'FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {sid: 'FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://fax.twilio.com/v1/Faxes/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -331,7 +331,7 @@ describe('Fax', function() {
 
       holodeck.mock(new Response(204, body));
 
-      var promise = client.fax.v1.faxes('FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.fax.v1.faxes('FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
       }, function() {

@@ -26,7 +26,7 @@ var holodeck;
 describe('Credential', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -168,7 +168,7 @@ describe('Credential', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.notify.v1.credentials('CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.notify.v1.credentials('CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -176,7 +176,7 @@ describe('Credential', function() {
       });
       promise.done();
 
-      var solution = {sid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {sid: 'CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://notify.twilio.com/v1/Credentials/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -200,7 +200,7 @@ describe('Credential', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.notify.v1.credentials('CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.notify.v1.credentials('CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -214,7 +214,7 @@ describe('Credential', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.notify.v1.credentials('CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.notify.v1.credentials('CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -222,7 +222,7 @@ describe('Credential', function() {
       });
       promise.done();
 
-      var solution = {sid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {sid: 'CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://notify.twilio.com/v1/Credentials/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -246,7 +246,7 @@ describe('Credential', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.notify.v1.credentials('CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.notify.v1.credentials('CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -260,7 +260,7 @@ describe('Credential', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.notify.v1.credentials('CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.notify.v1.credentials('CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -268,7 +268,7 @@ describe('Credential', function() {
       });
       promise.done();
 
-      var solution = {sid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {sid: 'CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://notify.twilio.com/v1/Credentials/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -283,7 +283,7 @@ describe('Credential', function() {
 
       holodeck.mock(new Response(204, body));
 
-      var promise = client.notify.v1.credentials('CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.notify.v1.credentials('CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
       }, function() {

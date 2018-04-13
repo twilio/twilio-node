@@ -28,7 +28,7 @@ var holodeck;
 describe('OriginationUrl', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -36,8 +36,8 @@ describe('OriginationUrl', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                      .originationUrls('OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                      .originationUrls('OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -46,8 +46,8 @@ describe('OriginationUrl', function() {
       promise.done();
 
       var solution = {
-        trunkSid: 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        trunkSid: 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/OriginationUrls/<%= sid %>')(solution);
 
@@ -75,8 +75,8 @@ describe('OriginationUrl', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                      .originationUrls('OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                      .originationUrls('OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -90,8 +90,8 @@ describe('OriginationUrl', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                      .originationUrls('OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                      .originationUrls('OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -100,8 +100,8 @@ describe('OriginationUrl', function() {
       promise.done();
 
       var solution = {
-        trunkSid: 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        trunkSid: 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/OriginationUrls/<%= sid %>')(solution);
 
@@ -117,8 +117,8 @@ describe('OriginationUrl', function() {
 
       holodeck.mock(new Response(204, body));
 
-      var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                      .originationUrls('OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                      .originationUrls('OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
       }, function() {
@@ -139,7 +139,7 @@ describe('OriginationUrl', function() {
         friendlyName: 'friendlyName',
         sipUrl: 'https://example.com'
       };
-      var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .originationUrls.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
@@ -148,7 +148,7 @@ describe('OriginationUrl', function() {
       });
       promise.done();
 
-      var solution = {trunkSid: 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {trunkSid: 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/OriginationUrls')(solution);
 
       var values = {
@@ -190,7 +190,7 @@ describe('OriginationUrl', function() {
         friendlyName: 'friendlyName',
         sipUrl: 'https://example.com'
       };
-      var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .originationUrls.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -205,7 +205,7 @@ describe('OriginationUrl', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .originationUrls.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -214,7 +214,7 @@ describe('OriginationUrl', function() {
       });
       promise.done();
 
-      var solution = {trunkSid: 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {trunkSid: 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/OriginationUrls')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -254,7 +254,7 @@ describe('OriginationUrl', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .originationUrls.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -282,7 +282,7 @@ describe('OriginationUrl', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .originationUrls.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -297,8 +297,8 @@ describe('OriginationUrl', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                      .originationUrls('OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                      .originationUrls('OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -307,8 +307,8 @@ describe('OriginationUrl', function() {
       promise.done();
 
       var solution = {
-        trunkSid: 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        trunkSid: 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/OriginationUrls/<%= sid %>')(solution);
 
@@ -336,8 +336,8 @@ describe('OriginationUrl', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                      .originationUrls('OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                      .originationUrls('OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {

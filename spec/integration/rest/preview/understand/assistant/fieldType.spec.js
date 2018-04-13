@@ -26,7 +26,7 @@ var holodeck;
 describe('FieldType', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,8 +34,8 @@ describe('FieldType', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.understand.services('UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                             .fieldTypes('UBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                             .fieldTypes('UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -44,10 +44,10 @@ describe('FieldType', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'UBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        assistantSid: 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
-      var url = _.template('https://preview.twilio.com/understand/Services/<%= serviceSid %>/FieldTypes/<%= sid %>')(solution);
+      var url = _.template('https://preview.twilio.com/understand/Assistants/<%= assistantSid %>/FieldTypes/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -60,21 +60,21 @@ describe('FieldType', function() {
       var body = JSON.stringify({
           'unique_name': 'unique_name',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'service_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'assistant_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2015-07-30T20:00:00Z',
           'friendly_name': 'friendly_name',
-          'url': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes/UBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes/UBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_updated': '2015-07-30T20:00:00Z',
           'links': {
-              'field_values': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes/UBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldValues'
+              'field_values': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes/UBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldValues'
           },
           'sid': 'UBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.understand.services('UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                             .fieldTypes('UBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                             .fieldTypes('UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -88,7 +88,7 @@ describe('FieldType', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.understand.services('UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .fieldTypes.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -97,8 +97,8 @@ describe('FieldType', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
-      var url = _.template('https://preview.twilio.com/understand/Services/<%= serviceSid %>/FieldTypes')(solution);
+      var solution = {assistantSid: 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var url = _.template('https://preview.twilio.com/understand/Assistants/<%= assistantSid %>/FieldTypes')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -110,8 +110,8 @@ describe('FieldType', function() {
     function() {
       var body = JSON.stringify({
           'meta': {
-              'url': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes?PageSize=50&Page=0',
-              'first_page_url': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes?PageSize=50&Page=0',
+              'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes?PageSize=50&Page=0',
+              'first_page_url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes?PageSize=50&Page=0',
               'previous_page_url': null,
               'page': 0,
               'page_size': 50,
@@ -123,7 +123,7 @@ describe('FieldType', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.understand.services('UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .fieldTypes.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -138,8 +138,8 @@ describe('FieldType', function() {
     function() {
       var body = JSON.stringify({
           'meta': {
-              'url': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes?PageSize=50&Page=0',
-              'first_page_url': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes?PageSize=50&Page=0',
+              'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes?PageSize=50&Page=0',
+              'first_page_url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes?PageSize=50&Page=0',
               'previous_page_url': null,
               'page': 0,
               'page_size': 50,
@@ -150,13 +150,13 @@ describe('FieldType', function() {
               {
                   'unique_name': 'unique_name',
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'service_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'assistant_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'date_created': '2015-07-30T20:00:00Z',
                   'friendly_name': 'friendly_name',
-                  'url': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes/UBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes/UBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'date_updated': '2015-07-30T20:00:00Z',
                   'links': {
-                      'field_values': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes/UBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldValues'
+                      'field_values': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes/UBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldValues'
                   },
                   'sid': 'UBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
@@ -165,7 +165,7 @@ describe('FieldType', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.understand.services('UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .fieldTypes.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -181,7 +181,7 @@ describe('FieldType', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {uniqueName: 'uniqueName'};
-      var promise = client.preview.understand.services('UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .fieldTypes.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
@@ -190,8 +190,8 @@ describe('FieldType', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
-      var url = _.template('https://preview.twilio.com/understand/Services/<%= serviceSid %>/FieldTypes')(solution);
+      var solution = {assistantSid: 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var url = _.template('https://preview.twilio.com/understand/Assistants/<%= assistantSid %>/FieldTypes')(solution);
 
       var values = {UniqueName: 'uniqueName', };
       holodeck.assertHasRequest(new Request({
@@ -206,13 +206,13 @@ describe('FieldType', function() {
       var body = JSON.stringify({
           'unique_name': 'unique_name',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'service_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'assistant_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2015-07-30T20:00:00Z',
           'friendly_name': 'friendly_name',
-          'url': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes/UBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes/UBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_updated': '2015-07-30T20:00:00Z',
           'links': {
-              'field_values': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes/UBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldValues'
+              'field_values': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes/UBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldValues'
           },
           'sid': 'UBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
@@ -220,7 +220,7 @@ describe('FieldType', function() {
       holodeck.mock(new Response(201, body));
 
       var opts = {uniqueName: 'uniqueName'};
-      var promise = client.preview.understand.services('UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .fieldTypes.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -235,8 +235,8 @@ describe('FieldType', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.understand.services('UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                             .fieldTypes('UBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                             .fieldTypes('UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -245,10 +245,10 @@ describe('FieldType', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'UBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        assistantSid: 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
-      var url = _.template('https://preview.twilio.com/understand/Services/<%= serviceSid %>/FieldTypes/<%= sid %>')(solution);
+      var url = _.template('https://preview.twilio.com/understand/Assistants/<%= assistantSid %>/FieldTypes/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -261,21 +261,21 @@ describe('FieldType', function() {
       var body = JSON.stringify({
           'unique_name': 'unique_name',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'service_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'assistant_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2015-07-30T20:00:00Z',
           'friendly_name': 'friendly_name',
-          'url': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes/UBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes/UBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_updated': '2015-07-30T20:00:00Z',
           'links': {
-              'field_values': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes/UBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldValues'
+              'field_values': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes/UBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldValues'
           },
           'sid': 'UBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.understand.services('UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                             .fieldTypes('UBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                             .fieldTypes('UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -289,8 +289,8 @@ describe('FieldType', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.understand.services('UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                             .fieldTypes('UBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                             .fieldTypes('UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -299,10 +299,10 @@ describe('FieldType', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'UBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        assistantSid: 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
-      var url = _.template('https://preview.twilio.com/understand/Services/<%= serviceSid %>/FieldTypes/<%= sid %>')(solution);
+      var url = _.template('https://preview.twilio.com/understand/Assistants/<%= assistantSid %>/FieldTypes/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
@@ -316,8 +316,8 @@ describe('FieldType', function() {
 
       holodeck.mock(new Response(204, body));
 
-      var promise = client.preview.understand.services('UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                             .fieldTypes('UBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                             .fieldTypes('UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
       }, function() {

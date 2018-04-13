@@ -28,7 +28,7 @@ var holodeck;
 describe('HostedNumberOrder', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -36,7 +36,7 @@ describe('HostedNumberOrder', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.hosted_numbers.hostedNumberOrders('HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.preview.hosted_numbers.hostedNumberOrders('HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -44,7 +44,7 @@ describe('HostedNumberOrder', function() {
       });
       promise.done();
 
-      var solution = {sid: 'HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {sid: 'HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://preview.twilio.com/HostedNumbers/HostedNumberOrders/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -92,7 +92,7 @@ describe('HostedNumberOrder', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.hosted_numbers.hostedNumberOrders('HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.preview.hosted_numbers.hostedNumberOrders('HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -106,7 +106,7 @@ describe('HostedNumberOrder', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.hosted_numbers.hostedNumberOrders('HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.preview.hosted_numbers.hostedNumberOrders('HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -114,7 +114,7 @@ describe('HostedNumberOrder', function() {
       });
       promise.done();
 
-      var solution = {sid: 'HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {sid: 'HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://preview.twilio.com/HostedNumbers/HostedNumberOrders/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -129,7 +129,7 @@ describe('HostedNumberOrder', function() {
 
       holodeck.mock(new Response(204, body));
 
-      var promise = client.preview.hosted_numbers.hostedNumberOrders('HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.preview.hosted_numbers.hostedNumberOrders('HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
       }, function() {
@@ -143,7 +143,7 @@ describe('HostedNumberOrder', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.hosted_numbers.hostedNumberOrders('HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.preview.hosted_numbers.hostedNumberOrders('HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -151,7 +151,7 @@ describe('HostedNumberOrder', function() {
       });
       promise.done();
 
-      var solution = {sid: 'HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {sid: 'HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://preview.twilio.com/HostedNumbers/HostedNumberOrders/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -199,7 +199,7 @@ describe('HostedNumberOrder', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.hosted_numbers.hostedNumberOrders('HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.preview.hosted_numbers.hostedNumberOrders('HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {

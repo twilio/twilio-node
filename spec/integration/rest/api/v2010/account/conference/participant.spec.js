@@ -26,7 +26,7 @@ var holodeck;
 describe('Participant', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,9 +34,9 @@ describe('Participant', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .conferences('CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .participants('CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .participants('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -45,9 +45,9 @@ describe('Participant', function() {
       promise.done();
 
       var solution = {
-        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        conferenceSid: 'CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        callSid: 'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        conferenceSid: 'CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        callSid: 'CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Conferences/<%= conferenceSid %>/Participants/<%= callSid %>.json')(solution);
 
@@ -75,9 +75,9 @@ describe('Participant', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .conferences('CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .participants('CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .participants('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -91,9 +91,9 @@ describe('Participant', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .conferences('CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .participants('CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .participants('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -102,9 +102,9 @@ describe('Participant', function() {
       promise.done();
 
       var solution = {
-        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        conferenceSid: 'CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        callSid: 'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        conferenceSid: 'CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        callSid: 'CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Conferences/<%= conferenceSid %>/Participants/<%= callSid %>.json')(solution);
 
@@ -132,9 +132,9 @@ describe('Participant', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .conferences('CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .participants('CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .participants('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -149,8 +149,8 @@ describe('Participant', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {from: '+15017122661', to: '+15558675310'};
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .conferences('CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .participants.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
@@ -160,8 +160,8 @@ describe('Participant', function() {
       promise.done();
 
       var solution = {
-        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        conferenceSid: 'CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        conferenceSid: 'CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Conferences/<%= conferenceSid %>/Participants.json')(solution);
 
@@ -192,8 +192,8 @@ describe('Participant', function() {
       holodeck.mock(new Response(201, body));
 
       var opts = {from: '+15017122661', to: '+15558675310'};
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .conferences('CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .participants.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -223,8 +223,8 @@ describe('Participant', function() {
       holodeck.mock(new Response(201, body));
 
       var opts = {from: '+15017122661', to: '+15558675310'};
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .conferences('CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .participants.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -239,9 +239,9 @@ describe('Participant', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .conferences('CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .participants('CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .participants('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -250,9 +250,9 @@ describe('Participant', function() {
       promise.done();
 
       var solution = {
-        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        conferenceSid: 'CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        callSid: 'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        conferenceSid: 'CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        callSid: 'CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Conferences/<%= conferenceSid %>/Participants/<%= callSid %>.json')(solution);
 
@@ -268,9 +268,9 @@ describe('Participant', function() {
 
       holodeck.mock(new Response(204, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .conferences('CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .participants('CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .participants('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
       }, function() {
@@ -284,8 +284,8 @@ describe('Participant', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .conferences('CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .participants.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -295,8 +295,8 @@ describe('Participant', function() {
       promise.done();
 
       var solution = {
-        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        conferenceSid: 'CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        conferenceSid: 'CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Conferences/<%= conferenceSid %>/Participants.json')(solution);
 
@@ -336,8 +336,8 @@ describe('Participant', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .conferences('CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .participants.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -364,8 +364,8 @@ describe('Participant', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .conferences('CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .participants.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();

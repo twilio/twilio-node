@@ -28,7 +28,7 @@ var holodeck;
 describe('SyncListPermission', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -36,8 +36,8 @@ describe('SyncListPermission', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.sync.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .syncLists('ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                  .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncListPermissions('identity').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -47,8 +47,8 @@ describe('SyncListPermission', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        listSid: 'ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        listSid: 'ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         identity: 'identity'
       };
       var url = _.template('https://sync.twilio.com/v1/Services/<%= serviceSid %>/Lists/<%= listSid %>/Permissions/<%= identity %>')(solution);
@@ -74,8 +74,8 @@ describe('SyncListPermission', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.sync.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .syncLists('ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                  .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncListPermissions('identity').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -90,8 +90,8 @@ describe('SyncListPermission', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.sync.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .syncLists('ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                  .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncListPermissions('identity').remove();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -101,8 +101,8 @@ describe('SyncListPermission', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        listSid: 'ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        listSid: 'ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         identity: 'identity'
       };
       var url = _.template('https://sync.twilio.com/v1/Services/<%= serviceSid %>/Lists/<%= listSid %>/Permissions/<%= identity %>')(solution);
@@ -119,8 +119,8 @@ describe('SyncListPermission', function() {
 
       holodeck.mock(new Response(204, body));
 
-      var promise = client.sync.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .syncLists('ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                  .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncListPermissions('identity').remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
@@ -135,8 +135,8 @@ describe('SyncListPermission', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.sync.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .syncLists('ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                  .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncListPermissions.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -146,8 +146,8 @@ describe('SyncListPermission', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        listSid: 'ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        listSid: 'ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://sync.twilio.com/v1/Services/<%= serviceSid %>/Lists/<%= listSid %>/Permissions')(solution);
 
@@ -174,8 +174,8 @@ describe('SyncListPermission', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.sync.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .syncLists('ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                  .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncListPermissions.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -214,8 +214,8 @@ describe('SyncListPermission', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.sync.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .syncLists('ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                  .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncListPermissions.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -231,8 +231,8 @@ describe('SyncListPermission', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {read: true, write: true, manage: true};
-      var promise = client.sync.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .syncLists('ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                  .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncListPermissions('identity').update(opts);
       promise = promise.then(function() {
         throw new Error('failed');
@@ -242,8 +242,8 @@ describe('SyncListPermission', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        listSid: 'ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        listSid: 'ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         identity: 'identity'
       };
       var url = _.template('https://sync.twilio.com/v1/Services/<%= serviceSid %>/Lists/<%= listSid %>/Permissions/<%= identity %>')(solution);
@@ -276,8 +276,8 @@ describe('SyncListPermission', function() {
       holodeck.mock(new Response(200, body));
 
       var opts = {read: true, write: true, manage: true};
-      var promise = client.sync.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .syncLists('ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                  .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .syncListPermissions('identity').update(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();

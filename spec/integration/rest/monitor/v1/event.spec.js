@@ -26,7 +26,7 @@ var holodeck;
 describe('Event', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,7 +34,7 @@ describe('Event', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.monitor.v1.events('AEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.monitor.v1.events('AEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -42,7 +42,7 @@ describe('Event', function() {
       });
       promise.done();
 
-      var solution = {sid: 'AEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {sid: 'AEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://monitor.twilio.com/v1/Events/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -80,7 +80,7 @@ describe('Event', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.monitor.v1.events('AEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.monitor.v1.events('AEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {

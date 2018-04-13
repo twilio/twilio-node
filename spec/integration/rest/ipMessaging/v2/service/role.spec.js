@@ -28,7 +28,7 @@ var holodeck;
 describe('Role', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -36,8 +36,8 @@ describe('Role', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.ipMessaging.v2.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .roles('RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .roles('RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -46,8 +46,8 @@ describe('Role', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://chat.twilio.com/v2/Services/<%= serviceSid %>/Roles/<%= sid %>')(solution);
 
@@ -78,8 +78,8 @@ describe('Role', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.ipMessaging.v2.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .roles('RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .roles('RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -93,8 +93,8 @@ describe('Role', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.ipMessaging.v2.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .roles('RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .roles('RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -103,8 +103,8 @@ describe('Role', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://chat.twilio.com/v2/Services/<%= serviceSid %>/Roles/<%= sid %>')(solution);
 
@@ -120,8 +120,8 @@ describe('Role', function() {
 
       holodeck.mock(new Response(204, body));
 
-      var promise = client.ipMessaging.v2.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .roles('RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .roles('RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
       }, function() {
@@ -136,7 +136,7 @@ describe('Role', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {friendlyName: 'friendlyName', type: 'channel', permission: ['permission']};
-      var promise = client.ipMessaging.v2.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .roles.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
@@ -145,7 +145,7 @@ describe('Role', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://chat.twilio.com/v2/Services/<%= serviceSid %>/Roles')(solution);
 
       var values = {
@@ -182,7 +182,7 @@ describe('Role', function() {
       holodeck.mock(new Response(201, body));
 
       var opts = {friendlyName: 'friendlyName', type: 'channel', permission: ['permission']};
-      var promise = client.ipMessaging.v2.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .roles.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -197,7 +197,7 @@ describe('Role', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.ipMessaging.v2.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .roles.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -206,7 +206,7 @@ describe('Role', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://chat.twilio.com/v2/Services/<%= serviceSid %>/Roles')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -249,7 +249,7 @@ describe('Role', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.ipMessaging.v2.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .roles.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -277,7 +277,7 @@ describe('Role', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.ipMessaging.v2.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .roles.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -293,8 +293,8 @@ describe('Role', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {permission: ['permission']};
-      var promise = client.ipMessaging.v2.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .roles('RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update(opts);
+      var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .roles('RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -303,8 +303,8 @@ describe('Role', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://chat.twilio.com/v2/Services/<%= serviceSid %>/Roles/<%= sid %>')(solution);
 
@@ -338,8 +338,8 @@ describe('Role', function() {
       holodeck.mock(new Response(200, body));
 
       var opts = {permission: ['permission']};
-      var promise = client.ipMessaging.v2.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .roles('RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update(opts);
+      var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .roles('RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {

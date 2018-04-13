@@ -26,7 +26,7 @@ var holodeck;
 describe('Query', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,8 +34,8 @@ describe('Query', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.understand.services('UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                             .queries('UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                             .queries('UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -44,10 +44,10 @@ describe('Query', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        assistantSid: 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
-      var url = _.template('https://preview.twilio.com/understand/Services/<%= serviceSid %>/Queries/<%= sid %>')(solution);
+      var url = _.template('https://preview.twilio.com/understand/Assistants/<%= assistantSid %>/Queries/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -65,7 +65,7 @@ describe('Query', function() {
           'date_updated': '2015-07-30T20:00:00Z',
           'status': 'status',
           'sample_sid': 'UFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'service_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'assistant_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'results': {
               'intent': {
                   'name': 'name',
@@ -80,15 +80,16 @@ describe('Query', function() {
                   }
               ]
           },
-          'url': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries/UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries/UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'sid': 'UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'sid': 'UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'source_channel': 'voice'
       });
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.understand.services('UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                             .queries('UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                             .queries('UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -102,7 +103,7 @@ describe('Query', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.understand.services('UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .queries.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -111,8 +112,8 @@ describe('Query', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
-      var url = _.template('https://preview.twilio.com/understand/Services/<%= serviceSid %>/Queries')(solution);
+      var solution = {assistantSid: 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var url = _.template('https://preview.twilio.com/understand/Assistants/<%= assistantSid %>/Queries')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -127,17 +128,17 @@ describe('Query', function() {
           'meta': {
               'previous_page_url': null,
               'next_page_url': null,
-              'first_page_url': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries?PageSize=50&Page=0',
+              'first_page_url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries?PageSize=50&Page=0',
               'page': 0,
               'key': 'queries',
-              'url': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries?PageSize=50&Page=0',
+              'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries?PageSize=50&Page=0',
               'page_size': 50
           }
       });
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.understand.services('UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .queries.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -160,7 +161,7 @@ describe('Query', function() {
                   'date_updated': '2015-07-30T20:00:00Z',
                   'status': 'status',
                   'sample_sid': 'UFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'service_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'assistant_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'results': {
                       'intent': {
                           'name': 'name',
@@ -175,25 +176,26 @@ describe('Query', function() {
                           }
                       ]
                   },
-                  'url': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries/UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries/UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'sid': 'UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'sid': 'UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'source_channel': null
               }
           ],
           'meta': {
               'previous_page_url': null,
               'next_page_url': null,
-              'first_page_url': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries?PageSize=50&Page=0',
+              'first_page_url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries?PageSize=50&Page=0',
               'page': 0,
               'key': 'queries',
-              'url': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries?PageSize=50&Page=0',
+              'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries?PageSize=50&Page=0',
               'page_size': 50
           }
       });
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.understand.services('UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .queries.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -209,7 +211,7 @@ describe('Query', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {language: 'language', query: 'query'};
-      var promise = client.preview.understand.services('UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .queries.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
@@ -218,8 +220,8 @@ describe('Query', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
-      var url = _.template('https://preview.twilio.com/understand/Services/<%= serviceSid %>/Queries')(solution);
+      var solution = {assistantSid: 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var url = _.template('https://preview.twilio.com/understand/Assistants/<%= assistantSid %>/Queries')(solution);
 
       var values = {Language: 'language', Query: 'query', };
       holodeck.assertHasRequest(new Request({
@@ -239,7 +241,7 @@ describe('Query', function() {
           'date_updated': '2015-07-30T20:00:00Z',
           'status': 'status',
           'sample_sid': 'UFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'service_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'assistant_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'results': {
               'intent': {
                   'name': 'name',
@@ -254,15 +256,16 @@ describe('Query', function() {
                   }
               ]
           },
-          'url': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries/UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries/UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'sid': 'UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'sid': 'UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'source_channel': 'voice'
       });
 
       holodeck.mock(new Response(201, body));
 
       var opts = {language: 'language', query: 'query'};
-      var promise = client.preview.understand.services('UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .queries.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -277,8 +280,8 @@ describe('Query', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.understand.services('UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                             .queries('UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                             .queries('UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -287,10 +290,10 @@ describe('Query', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        assistantSid: 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
-      var url = _.template('https://preview.twilio.com/understand/Services/<%= serviceSid %>/Queries/<%= sid %>')(solution);
+      var url = _.template('https://preview.twilio.com/understand/Assistants/<%= assistantSid %>/Queries/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -308,7 +311,7 @@ describe('Query', function() {
           'date_updated': '2015-07-30T20:00:00Z',
           'status': 'status',
           'sample_sid': 'UFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'service_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'assistant_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'results': {
               'intent': {
                   'name': 'name',
@@ -323,15 +326,16 @@ describe('Query', function() {
                   }
               ]
           },
-          'url': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries/UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries/UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'sid': 'UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'sid': 'UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'source_channel': 'sms'
       });
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.understand.services('UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                             .queries('UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                             .queries('UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -345,8 +349,8 @@ describe('Query', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.understand.services('UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                             .queries('UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                             .queries('UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -355,10 +359,10 @@ describe('Query', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        assistantSid: 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
-      var url = _.template('https://preview.twilio.com/understand/Services/<%= serviceSid %>/Queries/<%= sid %>')(solution);
+      var url = _.template('https://preview.twilio.com/understand/Assistants/<%= assistantSid %>/Queries/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
@@ -372,8 +376,8 @@ describe('Query', function() {
 
       holodeck.mock(new Response(204, body));
 
-      var promise = client.preview.understand.services('UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                             .queries('UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                             .queries('UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
       }, function() {

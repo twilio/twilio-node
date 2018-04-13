@@ -26,7 +26,7 @@ var holodeck;
 describe('UserChannel', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,8 +34,8 @@ describe('UserChannel', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.ipMessaging.v2.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .users('USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .users('USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .userChannels.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -45,8 +45,8 @@ describe('UserChannel', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        userSid: 'USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        userSid: 'USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://chat.twilio.com/v2/Services/<%= serviceSid %>/Users/<%= userSid %>/Channels')(solution);
 
@@ -87,8 +87,8 @@ describe('UserChannel', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.ipMessaging.v2.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .users('USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .users('USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .userChannels.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -116,8 +116,8 @@ describe('UserChannel', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.ipMessaging.v2.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .users('USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .users('USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .userChannels.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();

@@ -26,7 +26,7 @@ var holodeck;
 describe('Payload', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,10 +34,10 @@ describe('Payload', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .recordings('REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .addOnResults('XRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .payloads('XHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .recordings('REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .addOnResults('XRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .payloads('XHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -46,10 +46,10 @@ describe('Payload', function() {
       promise.done();
 
       var solution = {
-        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        referenceSid: 'REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        addOnResultSid: 'XRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'XHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        referenceSid: 'REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        addOnResultSid: 'XRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'XHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Recordings/<%= referenceSid %>/AddOnResults/<%= addOnResultSid %>/Payloads/<%= sid %>.json')(solution);
 
@@ -79,10 +79,10 @@ describe('Payload', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .recordings('REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .addOnResults('XRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .payloads('XHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .recordings('REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .addOnResults('XRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .payloads('XHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -96,9 +96,9 @@ describe('Payload', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .recordings('REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .addOnResults('XRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .recordings('REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .addOnResults('XRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .payloads.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -108,9 +108,9 @@ describe('Payload', function() {
       promise.done();
 
       var solution = {
-        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        referenceSid: 'REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        addOnResultSid: 'XRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        referenceSid: 'REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        addOnResultSid: 'XRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Recordings/<%= referenceSid %>/AddOnResults/<%= addOnResultSid %>/Payloads.json')(solution);
 
@@ -152,9 +152,9 @@ describe('Payload', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .recordings('REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .addOnResults('XRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .recordings('REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .addOnResults('XRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .payloads.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -181,9 +181,9 @@ describe('Payload', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .recordings('REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .addOnResults('XRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .recordings('REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .addOnResults('XRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .payloads.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -198,10 +198,10 @@ describe('Payload', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .recordings('REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .addOnResults('XRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .payloads('XHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .recordings('REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .addOnResults('XRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .payloads('XHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -210,10 +210,10 @@ describe('Payload', function() {
       promise.done();
 
       var solution = {
-        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        referenceSid: 'REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        addOnResultSid: 'XRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'XHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        referenceSid: 'REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        addOnResultSid: 'XRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'XHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Recordings/<%= referenceSid %>/AddOnResults/<%= addOnResultSid %>/Payloads/<%= sid %>.json')(solution);
 
@@ -229,10 +229,10 @@ describe('Payload', function() {
 
       holodeck.mock(new Response(204, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .recordings('REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .addOnResults('XRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .payloads('XHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .recordings('REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .addOnResults('XRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .payloads('XHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
       }, function() {

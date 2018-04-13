@@ -26,7 +26,7 @@ var holodeck;
 describe('ModelBuild', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,8 +34,8 @@ describe('ModelBuild', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.understand.services('UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                             .modelBuilds('UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                             .modelBuilds('UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -44,10 +44,10 @@ describe('ModelBuild', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        assistantSid: 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
-      var url = _.template('https://preview.twilio.com/understand/Services/<%= serviceSid %>/ModelBuilds/<%= sid %>')(solution);
+      var url = _.template('https://preview.twilio.com/understand/Assistants/<%= assistantSid %>/ModelBuilds/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -60,9 +60,9 @@ describe('ModelBuild', function() {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_updated': '2015-07-30T20:00:00Z',
-          'url': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ModelBuilds/UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ModelBuilds/UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'status': 'enqueued',
-          'service_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'assistant_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2015-07-30T20:00:00Z',
           'sid': 'UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'unique_name': 'unique_name',
@@ -72,8 +72,8 @@ describe('ModelBuild', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.understand.services('UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                             .modelBuilds('UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                             .modelBuilds('UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -87,7 +87,7 @@ describe('ModelBuild', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.understand.services('UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .modelBuilds.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -96,8 +96,8 @@ describe('ModelBuild', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
-      var url = _.template('https://preview.twilio.com/understand/Services/<%= serviceSid %>/ModelBuilds')(solution);
+      var solution = {assistantSid: 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var url = _.template('https://preview.twilio.com/understand/Assistants/<%= assistantSid %>/ModelBuilds')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -111,8 +111,8 @@ describe('ModelBuild', function() {
           'meta': {
               'page': 0,
               'key': 'model_builds',
-              'url': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ModelBuilds?PageSize=50&Page=0',
-              'first_page_url': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ModelBuilds?PageSize=50&Page=0',
+              'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ModelBuilds?PageSize=50&Page=0',
+              'first_page_url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ModelBuilds?PageSize=50&Page=0',
               'next_page_url': null,
               'previous_page_url': null,
               'page_size': 50
@@ -122,7 +122,7 @@ describe('ModelBuild', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.understand.services('UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .modelBuilds.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -139,8 +139,8 @@ describe('ModelBuild', function() {
           'meta': {
               'page': 0,
               'key': 'model_builds',
-              'url': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ModelBuilds?PageSize=50&Page=0',
-              'first_page_url': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ModelBuilds?PageSize=50&Page=0',
+              'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ModelBuilds?PageSize=50&Page=0',
+              'first_page_url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ModelBuilds?PageSize=50&Page=0',
               'next_page_url': null,
               'previous_page_url': null,
               'page_size': 50
@@ -149,9 +149,9 @@ describe('ModelBuild', function() {
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'date_updated': '2015-07-30T20:00:00Z',
-                  'url': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ModelBuilds/UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ModelBuilds/UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'status': 'failed',
-                  'service_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'assistant_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'date_created': '2015-07-30T20:00:00Z',
                   'sid': 'UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'unique_name': 'unique_name',
@@ -163,7 +163,7 @@ describe('ModelBuild', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.understand.services('UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .modelBuilds.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -178,7 +178,7 @@ describe('ModelBuild', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.understand.services('UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .modelBuilds.create();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -187,8 +187,8 @@ describe('ModelBuild', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
-      var url = _.template('https://preview.twilio.com/understand/Services/<%= serviceSid %>/ModelBuilds')(solution);
+      var solution = {assistantSid: 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var url = _.template('https://preview.twilio.com/understand/Assistants/<%= assistantSid %>/ModelBuilds')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -201,9 +201,9 @@ describe('ModelBuild', function() {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_updated': '2015-07-30T20:00:00Z',
-          'url': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ModelBuilds/UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ModelBuilds/UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'status': 'enqueued',
-          'service_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'assistant_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2015-07-30T20:00:00Z',
           'sid': 'UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'unique_name': 'unique_name',
@@ -213,7 +213,7 @@ describe('ModelBuild', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var promise = client.preview.understand.services('UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                              .modelBuilds.create();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -228,8 +228,8 @@ describe('ModelBuild', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.understand.services('UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                             .modelBuilds('UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                             .modelBuilds('UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -238,10 +238,10 @@ describe('ModelBuild', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        assistantSid: 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
-      var url = _.template('https://preview.twilio.com/understand/Services/<%= serviceSid %>/ModelBuilds/<%= sid %>')(solution);
+      var url = _.template('https://preview.twilio.com/understand/Assistants/<%= assistantSid %>/ModelBuilds/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -254,9 +254,9 @@ describe('ModelBuild', function() {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_updated': '2015-07-30T20:00:00Z',
-          'url': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ModelBuilds/UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ModelBuilds/UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'status': 'completed',
-          'service_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'assistant_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'date_created': '2015-07-30T20:00:00Z',
           'sid': 'UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'unique_name': 'unique_name',
@@ -266,8 +266,8 @@ describe('ModelBuild', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.understand.services('UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                             .modelBuilds('UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                             .modelBuilds('UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -281,8 +281,8 @@ describe('ModelBuild', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.understand.services('UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                             .modelBuilds('UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                             .modelBuilds('UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -291,10 +291,10 @@ describe('ModelBuild', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        assistantSid: 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
-      var url = _.template('https://preview.twilio.com/understand/Services/<%= serviceSid %>/ModelBuilds/<%= sid %>')(solution);
+      var url = _.template('https://preview.twilio.com/understand/Assistants/<%= assistantSid %>/ModelBuilds/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
@@ -308,8 +308,8 @@ describe('ModelBuild', function() {
 
       holodeck.mock(new Response(204, body));
 
-      var promise = client.preview.understand.services('UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                             .modelBuilds('UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                             .modelBuilds('UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
       }, function() {

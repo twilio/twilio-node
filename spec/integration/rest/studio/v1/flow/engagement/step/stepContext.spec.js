@@ -26,7 +26,7 @@ var holodeck;
 describe('StepContext', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,9 +34,9 @@ describe('StepContext', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.studio.v1.flows('FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .engagements('FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .steps('FTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.studio.v1.flows('FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .engagements('FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .steps('FTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .stepContext().fetch();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -46,9 +46,9 @@ describe('StepContext', function() {
       promise.done();
 
       var solution = {
-        flowSid: 'FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        engagementSid: 'FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        stepSid: 'FTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        flowSid: 'FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        engagementSid: 'FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        stepSid: 'FTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://studio.twilio.com/v1/Flows/<%= flowSid %>/Engagements/<%= engagementSid %>/Steps/<%= stepSid %>/Context')(solution);
 
@@ -73,9 +73,9 @@ describe('StepContext', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.studio.v1.flows('FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .engagements('FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .steps('FTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.studio.v1.flows('FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .engagements('FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .steps('FTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .stepContext().fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();

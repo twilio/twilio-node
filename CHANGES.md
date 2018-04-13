@@ -1,6 +1,22 @@
 twilio-node changelog
 =====================
 
+[2018-04-13] Version 3.15.0
+----------------------------
+**Library**
+- PR #334: Add incoming.allow to AccessToken VoiceGrant. Thanks to @ryan-rowland!
+- PR #335: use _.isDate to check if object is a Date object. Thanks to @joliveros!
+
+**Preview**
+- Support for Understand V2 APIs - renames various resources and adds new fields
+
+**Studio**
+- Change parameters type from string to object in engagement resource
+
+**Video**
+- [Recordings] Change `size` type to `long`. **(breaking change)**
+
+
 [2018-03-22] Version 3.14.0
 ----------------------------
 **Lookups**

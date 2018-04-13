@@ -26,7 +26,7 @@ var holodeck;
 describe('Participant', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,8 +34,8 @@ describe('Participant', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.video.v1.rooms('RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                   .participants('PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                   .participants('PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -44,8 +44,8 @@ describe('Participant', function() {
       promise.done();
 
       var solution = {
-        roomSid: 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        roomSid: 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://video.twilio.com/v1/Rooms/<%= roomSid %>/Participants/<%= sid %>')(solution);
 
@@ -77,8 +77,8 @@ describe('Participant', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.video.v1.rooms('RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                   .participants('PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                   .participants('PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -92,7 +92,7 @@ describe('Participant', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.video.v1.rooms('RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .participants.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -101,7 +101,7 @@ describe('Participant', function() {
       });
       promise.done();
 
-      var solution = {roomSid: 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {roomSid: 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://video.twilio.com/v1/Rooms/<%= roomSid %>/Participants')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -127,7 +127,7 @@ describe('Participant', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.video.v1.rooms('RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .participants.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -173,7 +173,7 @@ describe('Participant', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.video.v1.rooms('RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .participants.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -188,8 +188,8 @@ describe('Participant', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.video.v1.rooms('RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                   .participants('PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                   .participants('PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -198,8 +198,8 @@ describe('Participant', function() {
       promise.done();
 
       var solution = {
-        roomSid: 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        roomSid: 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://video.twilio.com/v1/Rooms/<%= roomSid %>/Participants/<%= sid %>')(solution);
 
@@ -231,8 +231,8 @@ describe('Participant', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.video.v1.rooms('RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                   .participants('PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                   .participants('PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {

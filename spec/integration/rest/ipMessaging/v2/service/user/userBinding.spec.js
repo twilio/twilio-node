@@ -26,7 +26,7 @@ var holodeck;
 describe('UserBinding', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,8 +34,8 @@ describe('UserBinding', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.ipMessaging.v2.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .users('USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .users('USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .userBindings.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -45,8 +45,8 @@ describe('UserBinding', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        userSid: 'USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        userSid: 'USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://chat.twilio.com/v2/Services/<%= serviceSid %>/Users/<%= userSid %>/Bindings')(solution);
 
@@ -93,8 +93,8 @@ describe('UserBinding', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.ipMessaging.v2.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .users('USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .users('USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .userBindings.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -122,8 +122,8 @@ describe('UserBinding', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.ipMessaging.v2.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .users('USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .users('USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .userBindings.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -138,9 +138,9 @@ describe('UserBinding', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.ipMessaging.v2.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .users('USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .userBindings('BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .users('USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .userBindings('BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -149,9 +149,9 @@ describe('UserBinding', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        userSid: 'USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        userSid: 'USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://chat.twilio.com/v2/Services/<%= serviceSid %>/Users/<%= userSid %>/Bindings/<%= sid %>')(solution);
 
@@ -185,9 +185,9 @@ describe('UserBinding', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.ipMessaging.v2.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .users('USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .userBindings('BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .users('USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .userBindings('BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -201,9 +201,9 @@ describe('UserBinding', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.ipMessaging.v2.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .users('USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .userBindings('BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .users('USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .userBindings('BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -212,9 +212,9 @@ describe('UserBinding', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        userSid: 'USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        userSid: 'USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://chat.twilio.com/v2/Services/<%= serviceSid %>/Users/<%= userSid %>/Bindings/<%= sid %>')(solution);
 
@@ -230,9 +230,9 @@ describe('UserBinding', function() {
 
       holodeck.mock(new Response(204, body));
 
-      var promise = client.ipMessaging.v2.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .users('USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .userBindings('BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .users('USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .userBindings('BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
       }, function() {

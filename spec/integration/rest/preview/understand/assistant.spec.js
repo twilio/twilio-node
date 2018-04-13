@@ -23,10 +23,10 @@ var Twilio = require('../../../../../lib');  /* jshint ignore:line */
 var client;
 var holodeck;
 
-describe('Service', function() {
+describe('Assistant', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,7 +34,7 @@ describe('Service', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.understand.services('UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -42,8 +42,8 @@ describe('Service', function() {
       });
       promise.done();
 
-      var solution = {sid: 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
-      var url = _.template('https://preview.twilio.com/understand/Services/<%= sid %>')(solution);
+      var solution = {sid: 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var url = _.template('https://preview.twilio.com/understand/Assistants/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -64,18 +64,20 @@ describe('Service', function() {
           'ttl': 3600,
           'unique_name': 'so-so-unique',
           'links': {
-              'entity_types': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/EntityTypes',
-              'field_types': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes',
-              'intents': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Intents',
-              'model_builds': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ModelBuilds',
-              'queries': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries'
+              'field_types': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes',
+              'intents': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Intents',
+              'model_builds': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ModelBuilds',
+              'queries': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries'
           },
-          'url': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'response_url': 'https://example.com/response_url',
+          'callback_url': 'https://example.com/callback_url',
+          'callback_events': 'model_build_completed model_build_failed'
       });
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.understand.services('UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -89,7 +91,7 @@ describe('Service', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.understand.services.list();
+      var promise = client.preview.understand.assistants.list();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -97,7 +99,7 @@ describe('Service', function() {
       });
       promise.done();
 
-      var url = 'https://preview.twilio.com/understand/Services';
+      var url = 'https://preview.twilio.com/understand/Assistants';
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -108,21 +110,21 @@ describe('Service', function() {
   it('should generate valid read_empty response',
     function() {
       var body = JSON.stringify({
-          'services': [],
+          'assistants': [],
           'meta': {
-              'first_page_url': 'https://preview.twilio.com/understand/Services?PageSize=50&Page=0',
-              'key': 'services',
+              'first_page_url': 'https://preview.twilio.com/understand/Assistants?PageSize=50&Page=0',
+              'key': 'assistants',
               'next_page_url': null,
               'page': 0,
               'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://preview.twilio.com/understand/Services?PageSize=50&Page=0'
+              'url': 'https://preview.twilio.com/understand/Assistants?PageSize=50&Page=0'
           }
       });
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.understand.services.list();
+      var promise = client.preview.understand.assistants.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -135,7 +137,7 @@ describe('Service', function() {
   it('should generate valid read_full response',
     function() {
       var body = JSON.stringify({
-          'services': [
+          'assistants': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'date_created': '2017-07-04T08:34:00Z',
@@ -147,29 +149,31 @@ describe('Service', function() {
                   'ttl': 3600,
                   'unique_name': 'so-so-unique',
                   'links': {
-                      'entity_types': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/EntityTypes',
-                      'field_types': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes',
-                      'intents': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Intents',
-                      'model_builds': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ModelBuilds',
-                      'queries': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries'
+                      'field_types': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes',
+                      'intents': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Intents',
+                      'model_builds': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ModelBuilds',
+                      'queries': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries'
                   },
-                  'url': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'response_url': 'https://example.com/response_url',
+                  'callback_url': 'https://example.com/callback_url',
+                  'callback_events': 'model_build_completed model_build_failed'
               }
           ],
           'meta': {
-              'first_page_url': 'https://preview.twilio.com/understand/Services?PageSize=50&Page=0',
-              'key': 'services',
+              'first_page_url': 'https://preview.twilio.com/understand/Assistants?PageSize=50&Page=0',
+              'key': 'assistants',
               'next_page_url': null,
               'page': 0,
               'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://preview.twilio.com/understand/Services?PageSize=50&Page=0'
+              'url': 'https://preview.twilio.com/understand/Assistants?PageSize=50&Page=0'
           }
       });
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.understand.services.list();
+      var promise = client.preview.understand.assistants.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -183,7 +187,7 @@ describe('Service', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.understand.services.create();
+      var promise = client.preview.understand.assistants.create();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -191,7 +195,7 @@ describe('Service', function() {
       });
       promise.done();
 
-      var url = 'https://preview.twilio.com/understand/Services';
+      var url = 'https://preview.twilio.com/understand/Assistants';
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -212,18 +216,20 @@ describe('Service', function() {
           'ttl': 3600,
           'unique_name': 'so-so-unique',
           'links': {
-              'entity_types': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/EntityTypes',
-              'field_types': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes',
-              'intents': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Intents',
-              'model_builds': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ModelBuilds',
-              'queries': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries'
+              'field_types': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes',
+              'intents': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Intents',
+              'model_builds': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ModelBuilds',
+              'queries': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries'
           },
-          'url': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'response_url': 'https://example.com/response_url',
+          'callback_url': 'https://example.com/callback_url',
+          'callback_events': 'model_build_completed model_build_failed'
       });
 
       holodeck.mock(new Response(201, body));
 
-      var promise = client.preview.understand.services.create();
+      var promise = client.preview.understand.assistants.create();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -237,7 +243,7 @@ describe('Service', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.understand.services('UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -245,8 +251,8 @@ describe('Service', function() {
       });
       promise.done();
 
-      var solution = {sid: 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
-      var url = _.template('https://preview.twilio.com/understand/Services/<%= sid %>')(solution);
+      var solution = {sid: 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var url = _.template('https://preview.twilio.com/understand/Assistants/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'POST',
@@ -267,18 +273,20 @@ describe('Service', function() {
           'ttl': 3600,
           'unique_name': 'so-so-unique',
           'links': {
-              'entity_types': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/EntityTypes',
-              'field_types': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes',
-              'intents': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Intents',
-              'model_builds': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ModelBuilds',
-              'queries': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries'
+              'field_types': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes',
+              'intents': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Intents',
+              'model_builds': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ModelBuilds',
+              'queries': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries'
           },
-          'url': 'https://preview.twilio.com/understand/Services/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'response_url': 'https://example.com/response_url',
+          'callback_url': 'https://example.com/callback_url',
+          'callback_events': 'model_build_completed model_build_failed'
       });
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.understand.services('UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -292,7 +300,7 @@ describe('Service', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.understand.services('UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -300,8 +308,8 @@ describe('Service', function() {
       });
       promise.done();
 
-      var solution = {sid: 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
-      var url = _.template('https://preview.twilio.com/understand/Services/<%= sid %>')(solution);
+      var solution = {sid: 'UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var url = _.template('https://preview.twilio.com/understand/Assistants/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
@@ -315,7 +323,7 @@ describe('Service', function() {
 
       holodeck.mock(new Response(204, body));
 
-      var promise = client.preview.understand.services('UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
       }, function() {

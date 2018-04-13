@@ -26,7 +26,7 @@ var holodeck;
 describe('Media', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,9 +34,9 @@ describe('Media', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .messages('MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .media('MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .messages('MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .media('MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -45,9 +45,9 @@ describe('Media', function() {
       promise.done();
 
       var solution = {
-        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        messageSid: 'MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        messageSid: 'MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Messages/<%= messageSid %>/Media/<%= sid %>.json')(solution);
 
@@ -63,9 +63,9 @@ describe('Media', function() {
 
       holodeck.mock(new Response(204, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .messages('MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .media('MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .messages('MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .media('MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
       }, function() {
@@ -79,9 +79,9 @@ describe('Media', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .messages('MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .media('MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .messages('MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .media('MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -90,9 +90,9 @@ describe('Media', function() {
       promise.done();
 
       var solution = {
-        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        messageSid: 'MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        messageSid: 'MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Messages/<%= messageSid %>/Media/<%= sid %>.json')(solution);
 
@@ -116,9 +116,9 @@ describe('Media', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .messages('MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .media('MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .messages('MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .media('MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -132,8 +132,8 @@ describe('Media', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .messages('MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .messages('MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .media.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -143,8 +143,8 @@ describe('Media', function() {
       promise.done();
 
       var solution = {
-        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        messageSid: 'MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        messageSid: 'MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Messages/<%= messageSid %>/Media.json')(solution);
 
@@ -183,8 +183,8 @@ describe('Media', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .messages('MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .messages('MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .media.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -214,8 +214,8 @@ describe('Media', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .messages('MMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .messages('MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .media.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();

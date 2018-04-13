@@ -26,7 +26,7 @@ var holodeck;
 describe('RatePlan', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -131,7 +131,7 @@ describe('RatePlan', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.wireless.v1.ratePlans('WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.wireless.v1.ratePlans('WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -139,7 +139,7 @@ describe('RatePlan', function() {
       });
       promise.done();
 
-      var solution = {sid: 'WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {sid: 'WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://wireless.twilio.com/v1/RatePlans/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -175,7 +175,7 @@ describe('RatePlan', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.wireless.v1.ratePlans('WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.wireless.v1.ratePlans('WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -246,7 +246,7 @@ describe('RatePlan', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.wireless.v1.ratePlans('WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.wireless.v1.ratePlans('WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -254,7 +254,7 @@ describe('RatePlan', function() {
       });
       promise.done();
 
-      var solution = {sid: 'WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {sid: 'WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://wireless.twilio.com/v1/RatePlans/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -290,7 +290,7 @@ describe('RatePlan', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.wireless.v1.ratePlans('WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.wireless.v1.ratePlans('WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -304,7 +304,7 @@ describe('RatePlan', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.wireless.v1.ratePlans('WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.wireless.v1.ratePlans('WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -312,7 +312,7 @@ describe('RatePlan', function() {
       });
       promise.done();
 
-      var solution = {sid: 'WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {sid: 'WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://wireless.twilio.com/v1/RatePlans/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -327,7 +327,7 @@ describe('RatePlan', function() {
 
       holodeck.mock(new Response(204, body));
 
-      var promise = client.wireless.v1.ratePlans('WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.wireless.v1.ratePlans('WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
       }, function() {

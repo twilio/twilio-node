@@ -26,7 +26,7 @@ var holodeck;
 describe('SubscribedTrack', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,8 +34,8 @@ describe('SubscribedTrack', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.video.v1.rooms('RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                   .participants('PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                   .participants('PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .subscribedTracks.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -45,8 +45,8 @@ describe('SubscribedTrack', function() {
       promise.done();
 
       var solution = {
-        roomSid: 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        subscriberSid: 'PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        roomSid: 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        subscriberSid: 'PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://video.twilio.com/v1/Rooms/<%= roomSid %>/Participants/<%= subscriberSid %>/SubscribedTracks')(solution);
 
@@ -73,8 +73,8 @@ describe('SubscribedTrack', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.video.v1.rooms('RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                   .participants('PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                   .participants('PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .subscribedTracks.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -114,8 +114,8 @@ describe('SubscribedTrack', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.video.v1.rooms('RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                   .participants('PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                   .participants('PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .subscribedTracks.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -130,8 +130,8 @@ describe('SubscribedTrack', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.video.v1.rooms('RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                   .participants('PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                   .participants('PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .subscribedTracks.update();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -141,8 +141,8 @@ describe('SubscribedTrack', function() {
       promise.done();
 
       var solution = {
-        roomSid: 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        subscriberSid: 'PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        roomSid: 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        subscriberSid: 'PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://video.twilio.com/v1/Rooms/<%= roomSid %>/Participants/<%= subscriberSid %>/SubscribedTracks')(solution);
 
@@ -168,8 +168,8 @@ describe('SubscribedTrack', function() {
 
       holodeck.mock(new Response(202, body));
 
-      var promise = client.video.v1.rooms('RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                   .participants('PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                   .participants('PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .subscribedTracks.update();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
