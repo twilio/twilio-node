@@ -1,6 +1,15 @@
 twilio-node changelog
 =====================
 
+[2018-04-28] Version 3.16.0
+----------------------------
+**Library**
+- PR #337: Upgrade lodash. Thanks to @YasharF!
+
+**Video**
+- Redesign API by adding custom `VideoLayout` object. **(breaking change)**
+
+
 [2018-04-20] Version 3.15.1
 ----------------------------
 **Twiml**
