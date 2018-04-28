@@ -125,7 +125,7 @@
 
             
 
-            <td class="description last">The workspace_sid</td>
+            <td class="description last">The ID of the Workspace that holds this Task</td>
         </tr>
 
     
@@ -347,7 +347,7 @@
 
             
 
-            <td class="description last">The timeout</td>
+            <td class="description last">The amount of time in seconds the task is allowed to live up to a maximum of 2 weeks.</td>
         </tr>
 
     
@@ -380,7 +380,7 @@
 
             
 
-            <td class="description last">The priority</td>
+            <td class="description last">Override priority for the Task.</td>
         </tr>
 
     
@@ -413,7 +413,7 @@
 
             
 
-            <td class="description last">The task_channel</td>
+            <td class="description last">When MultiTasking is enabled specify the type of the task by passing either TaskChannel Unique Name or Task Channel Sid.</td>
         </tr>
 
     
@@ -446,7 +446,7 @@
 
             
 
-            <td class="description last">The workflow_sid</td>
+            <td class="description last">The WorkflowSid for the Workflow that you would like to handle routing for this Task.</td>
         </tr>
 
     
@@ -479,7 +479,7 @@
 
             
 
-            <td class="description last">The attributes</td>
+            <td class="description last">Url-encoded JSON string describing the attributes of this task.</td>
         </tr>
 
     
@@ -560,7 +560,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rest_taskrouter_v1_workspace_task.js.html">rest/taskrouter/v1/workspace/task.js</a>, <a href="rest_taskrouter_v1_workspace_task.js.html#line343">line 343</a>
+        <a href="rest_taskrouter_v1_workspace_task.js.html">rest/taskrouter/v1/workspace/task.js</a>, <a href="rest_taskrouter_v1_workspace_task.js.html#line375">line 375</a>
     </li></ul></dd>
     
 
@@ -756,7 +756,7 @@ If a function is passed as the first argument, it will be used as the callback f
                 </td>
             
 
-            <td class="description last">The priority</td>
+            <td class="description last">Retrieve the list of all Tasks in the workspace with the specified priority.</td>
         </tr>
 
     
@@ -796,7 +796,7 @@ If a function is passed as the first argument, it will be used as the callback f
                 </td>
             
 
-            <td class="description last">The assignment_status</td>
+            <td class="description last">Returns the list of all Tasks in the workspace with the specified AssignmentStatus.</td>
         </tr>
 
     
@@ -833,7 +833,7 @@ If a function is passed as the first argument, it will be used as the callback f
                 </td>
             
 
-            <td class="description last">The workflow_sid</td>
+            <td class="description last">Returns the list of Tasks that are being controlled by the Workflow with the specified Sid value.</td>
         </tr>
 
     
@@ -870,7 +870,7 @@ If a function is passed as the first argument, it will be used as the callback f
                 </td>
             
 
-            <td class="description last">The workflow_name</td>
+            <td class="description last">Returns the list of Tasks that are being controlled by the Workflow with the specified FriendlyName value.</td>
         </tr>
 
     
@@ -907,7 +907,7 @@ If a function is passed as the first argument, it will be used as the callback f
                 </td>
             
 
-            <td class="description last">The task_queue_sid</td>
+            <td class="description last">Returns the list of Tasks that are currently waiting in the TaskQueue identified by the Sid specified.</td>
         </tr>
 
     
@@ -944,7 +944,7 @@ If a function is passed as the first argument, it will be used as the callback f
                 </td>
             
 
-            <td class="description last">The task_queue_name</td>
+            <td class="description last">Returns the list of Tasks that are currently waiting in the TaskQueue identified by the FriendlyName specified.</td>
         </tr>
 
     
@@ -981,7 +981,7 @@ If a function is passed as the first argument, it will be used as the callback f
                 </td>
             
 
-            <td class="description last">The evaluate_task_attributes</td>
+            <td class="description last">Provide a task attributes expression, and this will return tasks which match the attributes.</td>
         </tr>
 
     
@@ -1018,7 +1018,7 @@ If a function is passed as the first argument, it will be used as the callback f
                 </td>
             
 
-            <td class="description last">The ordering</td>
+            <td class="description last">Use this parameter to control the order of the Tasks returned.</td>
         </tr>
 
     
@@ -1428,7 +1428,7 @@ callback are passed, this one will be used</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rest_taskrouter_v1_workspace_task.js.html">rest/taskrouter/v1/workspace/task.js</a>, <a href="rest_taskrouter_v1_workspace_task.js.html#line400">line 400</a>
+        <a href="rest_taskrouter_v1_workspace_task.js.html">rest/taskrouter/v1/workspace/task.js</a>, <a href="rest_taskrouter_v1_workspace_task.js.html#line436">line 436</a>
     </li></ul></dd>
     
 
@@ -1555,7 +1555,7 @@ If a function is passed as the first argument, it will be used as the callback f
 
             
 
-            <td class="description last">The priority</td>
+            <td class="description last">Retrieve the list of all Tasks in the workspace with the specified priority.</td>
         </tr>
 
     
@@ -1591,7 +1591,7 @@ If a function is passed as the first argument, it will be used as the callback f
 
             
 
-            <td class="description last">The assignment_status</td>
+            <td class="description last">Returns the list of all Tasks in the workspace with the specified AssignmentStatus.</td>
         </tr>
 
     
@@ -1624,7 +1624,7 @@ If a function is passed as the first argument, it will be used as the callback f
 
             
 
-            <td class="description last">The workflow_sid</td>
+            <td class="description last">Returns the list of Tasks that are being controlled by the Workflow with the specified Sid value.</td>
         </tr>
 
     
@@ -1657,7 +1657,7 @@ If a function is passed as the first argument, it will be used as the callback f
 
             
 
-            <td class="description last">The workflow_name</td>
+            <td class="description last">Returns the list of Tasks that are being controlled by the Workflow with the specified FriendlyName value.</td>
         </tr>
 
     
@@ -1690,7 +1690,7 @@ If a function is passed as the first argument, it will be used as the callback f
 
             
 
-            <td class="description last">The task_queue_sid</td>
+            <td class="description last">Returns the list of Tasks that are currently waiting in the TaskQueue identified by the Sid specified.</td>
         </tr>
 
     
@@ -1723,7 +1723,7 @@ If a function is passed as the first argument, it will be used as the callback f
 
             
 
-            <td class="description last">The task_queue_name</td>
+            <td class="description last">Returns the list of Tasks that are currently waiting in the TaskQueue identified by the FriendlyName specified.</td>
         </tr>
 
     
@@ -1756,7 +1756,7 @@ If a function is passed as the first argument, it will be used as the callback f
 
             
 
-            <td class="description last">The evaluate_task_attributes</td>
+            <td class="description last">Provide a task attributes expression, and this will return tasks which match the attributes.</td>
         </tr>
 
     
@@ -1789,7 +1789,7 @@ If a function is passed as the first argument, it will be used as the callback f
 
             
 
-            <td class="description last">The ordering</td>
+            <td class="description last">Use this parameter to control the order of the Tasks returned.</td>
         </tr>
 
     
@@ -1929,7 +1929,7 @@ If a function is passed as the first argument, it will be used as the callback f
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rest_taskrouter_v1_workspace_task.js.html">rest/taskrouter/v1/workspace/task.js</a>, <a href="rest_taskrouter_v1_workspace_task.js.html#line297">line 297</a>
+        <a href="rest_taskrouter_v1_workspace_task.js.html">rest/taskrouter/v1/workspace/task.js</a>, <a href="rest_taskrouter_v1_workspace_task.js.html#line321">line 321</a>
     </li></ul></dd>
     
 
@@ -2114,7 +2114,7 @@ If a function is passed as the first argument, it will be used as the callback f
 
             
 
-            <td class="description last">The priority</td>
+            <td class="description last">Retrieve the list of all Tasks in the workspace with the specified priority.</td>
         </tr>
 
     
@@ -2150,7 +2150,7 @@ If a function is passed as the first argument, it will be used as the callback f
 
             
 
-            <td class="description last">The assignment_status</td>
+            <td class="description last">Returns the list of all Tasks in the workspace with the specified AssignmentStatus.</td>
         </tr>
 
     
@@ -2183,7 +2183,7 @@ If a function is passed as the first argument, it will be used as the callback f
 
             
 
-            <td class="description last">The workflow_sid</td>
+            <td class="description last">Returns the list of Tasks that are being controlled by the Workflow with the specified Sid value.</td>
         </tr>
 
     
@@ -2216,7 +2216,7 @@ If a function is passed as the first argument, it will be used as the callback f
 
             
 
-            <td class="description last">The workflow_name</td>
+            <td class="description last">Returns the list of Tasks that are being controlled by the Workflow with the specified FriendlyName value.</td>
         </tr>
 
     
@@ -2249,7 +2249,7 @@ If a function is passed as the first argument, it will be used as the callback f
 
             
 
-            <td class="description last">The task_queue_sid</td>
+            <td class="description last">Returns the list of Tasks that are currently waiting in the TaskQueue identified by the Sid specified.</td>
         </tr>
 
     
@@ -2282,7 +2282,7 @@ If a function is passed as the first argument, it will be used as the callback f
 
             
 
-            <td class="description last">The task_queue_name</td>
+            <td class="description last">Returns the list of Tasks that are currently waiting in the TaskQueue identified by the FriendlyName specified.</td>
         </tr>
 
     
@@ -2315,7 +2315,7 @@ If a function is passed as the first argument, it will be used as the callback f
 
             
 
-            <td class="description last">The evaluate_task_attributes</td>
+            <td class="description last">Provide a task attributes expression, and this will return tasks which match the attributes.</td>
         </tr>
 
     
@@ -2348,7 +2348,7 @@ If a function is passed as the first argument, it will be used as the callback f
 
             
 
-            <td class="description last">The ordering</td>
+            <td class="description last">Use this parameter to control the order of the Tasks returned.</td>
         </tr>
 
     
@@ -2534,7 +2534,7 @@ If a function is passed as the first argument, it will be used as the callback f
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rest_taskrouter_v1_workspace_task.js.html">rest/taskrouter/v1/workspace/task.js</a>, <a href="rest_taskrouter_v1_workspace_task.js.html#line160">line 160</a>
+        <a href="rest_taskrouter_v1_workspace_task.js.html">rest/taskrouter/v1/workspace/task.js</a>, <a href="rest_taskrouter_v1_workspace_task.js.html#line168">line 168</a>
     </li></ul></dd>
     
 
@@ -2720,7 +2720,7 @@ If a function is passed as the first argument, it will be used as the callback f
 
             
 
-            <td class="description last">The priority</td>
+            <td class="description last">Retrieve the list of all Tasks in the workspace with the specified priority.</td>
         </tr>
 
     
@@ -2756,7 +2756,7 @@ If a function is passed as the first argument, it will be used as the callback f
 
             
 
-            <td class="description last">The assignment_status</td>
+            <td class="description last">Returns the list of all Tasks in the workspace with the specified AssignmentStatus.</td>
         </tr>
 
     
@@ -2789,7 +2789,7 @@ If a function is passed as the first argument, it will be used as the callback f
 
             
 
-            <td class="description last">The workflow_sid</td>
+            <td class="description last">Returns the list of Tasks that are being controlled by the Workflow with the specified Sid value.</td>
         </tr>
 
     
@@ -2822,7 +2822,7 @@ If a function is passed as the first argument, it will be used as the callback f
 
             
 
-            <td class="description last">The workflow_name</td>
+            <td class="description last">Returns the list of Tasks that are being controlled by the Workflow with the specified FriendlyName value.</td>
         </tr>
 
     
@@ -2855,7 +2855,7 @@ If a function is passed as the first argument, it will be used as the callback f
 
             
 
-            <td class="description last">The task_queue_sid</td>
+            <td class="description last">Returns the list of Tasks that are currently waiting in the TaskQueue identified by the Sid specified.</td>
         </tr>
 
     
@@ -2888,7 +2888,7 @@ If a function is passed as the first argument, it will be used as the callback f
 
             
 
-            <td class="description last">The task_queue_name</td>
+            <td class="description last">Returns the list of Tasks that are currently waiting in the TaskQueue identified by the FriendlyName specified.</td>
         </tr>
 
     
@@ -2921,7 +2921,7 @@ If a function is passed as the first argument, it will be used as the callback f
 
             
 
-            <td class="description last">The evaluate_task_attributes</td>
+            <td class="description last">Provide a task attributes expression, and this will return tasks which match the attributes.</td>
         </tr>
 
     
@@ -2954,7 +2954,7 @@ If a function is passed as the first argument, it will be used as the callback f
 
             
 
-            <td class="description last">The ordering</td>
+            <td class="description last">Use this parameter to control the order of the Tasks returned.</td>
         </tr>
 
     
@@ -3167,7 +3167,7 @@ If a function is passed as the first argument, it will be used as the callback f
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rest_taskrouter_v1_workspace_task.js.html">rest/taskrouter/v1/workspace/task.js</a>, <a href="rest_taskrouter_v1_workspace_task.js.html#line227">line 227</a>
+        <a href="rest_taskrouter_v1_workspace_task.js.html">rest/taskrouter/v1/workspace/task.js</a>, <a href="rest_taskrouter_v1_workspace_task.js.html#line243">line 243</a>
     </li></ul></dd>
     
 
@@ -3239,7 +3239,7 @@ If a function is passed as the first argument, it will be used as the callback f
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Apr 20 2018 16:10:24 GMT-0700 (PDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sat Apr 28 2018 13:47:47 GMT-0700 (PDT)
 </footer>
 
 <script> prettyPrint(); </script>

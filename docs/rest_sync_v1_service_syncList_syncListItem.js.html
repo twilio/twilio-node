@@ -58,8 +58,10 @@ var SyncListItemContext;
  * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
  *
  * @param {Twilio.Sync.V1} version - Version of the resource
- * @param {string} serviceSid - The service_sid
- * @param {string} listSid - The list_sid
+ * @param {string} serviceSid -
+ *          The unique SID identifier of the Service Instance that hosts this List object.
+ * @param {string} listSid -
+ *          The unique 34-character SID identifier of the List containing this Item.
  */
 /* jshint ignore:end */
 SyncListItemList = function SyncListItemList(version, serviceSid, listSid) {
@@ -94,7 +96,8 @@ SyncListItemList = function SyncListItemList(version, serviceSid, listSid) {
    *
    * @param {object} opts - ...
    * @param {string} opts.data - The data
-   * @param {number} [opts.ttl] - The ttl
+   * @param {number} [opts.ttl] -
+   *          Time-to-live of this item in seconds, defaults to no expiration.
    * @param {function} [callback] - Callback to handle processed record
    *
    * @returns {Promise} Resolves to processed SyncListItemInstance
@@ -150,8 +153,8 @@ SyncListItemList = function SyncListItemList(version, serviceSid, listSid) {
    * @instance
    *
    * @param {object|function} opts - ...
-   * @param {sync_list_item.query_result_order} [opts.order] - The order
-   * @param {string} [opts.from] - The from
+   * @param {sync_list_item.query_result_order} [opts.order] - A string; asc or desc
+   * @param {string} [opts.from] - An integer representing Item index offset.
    * @param {sync_list_item.query_from_bound_type} [opts.bounds] - The bounds
    * @param {number} [opts.limit] -
    *         Upper limit for the number of records to return.
@@ -241,8 +244,8 @@ SyncListItemList = function SyncListItemList(version, serviceSid, listSid) {
    * @instance
    *
    * @param {object|function} opts - ...
-   * @param {sync_list_item.query_result_order} [opts.order] - The order
-   * @param {string} [opts.from] - The from
+   * @param {sync_list_item.query_result_order} [opts.order] - A string; asc or desc
+   * @param {string} [opts.from] - An integer representing Item index offset.
    * @param {sync_list_item.query_from_bound_type} [opts.bounds] - The bounds
    * @param {number} [opts.limit] -
    *         Upper limit for the number of records to return.
@@ -303,8 +306,8 @@ SyncListItemList = function SyncListItemList(version, serviceSid, listSid) {
    * @instance
    *
    * @param {object|function} opts - ...
-   * @param {sync_list_item.query_result_order} [opts.order] - The order
-   * @param {string} [opts.from] - The from
+   * @param {sync_list_item.query_result_order} [opts.order] - A string; asc or desc
+   * @param {string} [opts.from] - An integer representing Item index offset.
    * @param {sync_list_item.query_from_bound_type} [opts.bounds] - The bounds
    * @param {string} [opts.pageToken] - PageToken provided by the API
    * @param {number} [opts.pageNumber] -
@@ -360,8 +363,8 @@ SyncListItemList = function SyncListItemList(version, serviceSid, listSid) {
    * @memberof Twilio.Sync.V1.ServiceContext.SyncListContext.SyncListItemList
    * @instance
    *
-   * @param {sync_list_item.query_result_order} [opts.order] - The order
-   * @param {string} [opts.from] - The from
+   * @param {sync_list_item.query_result_order} [opts.order] - A string; asc or desc
+   * @param {string} [opts.from] - An integer representing Item index offset.
    * @param {sync_list_item.query_from_bound_type} [opts.bounds] - The bounds
    * @param {string} [targetUrl] - API-generated URL for the requested results page
    * @param {function} [callback] - Callback to handle list of records
@@ -468,17 +471,24 @@ SyncListItemPage.prototype.getInstance = function getInstance(payload) {
  * @description Initialize the SyncListItemContext
  * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
  *
- * @property {number} index - The index
- * @property {string} accountSid - The account_sid
- * @property {string} serviceSid - The service_sid
- * @property {string} listSid - The list_sid
- * @property {string} url - The url
- * @property {string} revision - The revision
- * @property {string} data - The data
- * @property {Date} dateExpires - The date_expires
- * @property {Date} dateCreated - The date_created
- * @property {Date} dateUpdated - The date_updated
- * @property {string} createdBy - The created_by
+ * @property {number} index - Contains the numeric index of this List Item.
+ * @property {string} accountSid - The unique SID identifier of the Twilio Account.
+ * @property {string} serviceSid -
+ *          The unique SID identifier of the Service Instance that hosts this List object.
+ * @property {string} listSid -
+ *          The unique 34-character SID identifier of the List containing this Item.
+ * @property {string} url - The absolute URL for this item.
+ * @property {string} revision -
+ *          Contains the current revision of this item, represented by a string identifier.
+ * @property {string} data -
+ *          Contains arbitrary user-defined, schema-less data that this List Item stores, represented by a JSON object, up to 16KB.
+ * @property {Date} dateExpires -
+ *          Contains the date this item expires and gets deleted automatically.
+ * @property {Date} dateCreated -
+ *          The date this item was created, given in UTC ISO 8601 format.
+ * @property {Date} dateUpdated -
+ *          Specifies the date this item was last updated, given in UTC ISO 8601 format.
+ * @property {string} createdBy - The identity of this item's creator.
  *
  * @param {Twilio.Sync.V1} version - Version of the resource
  * @param {object} payload - The instance payload
@@ -767,7 +777,7 @@ module.exports = {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Apr 20 2018 16:09:55 GMT-0700 (PDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sat Apr 28 2018 13:47:16 GMT-0700 (PDT)
 </footer>
 
 <script> prettyPrint(); </script>
