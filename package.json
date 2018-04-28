@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "jsonwebtoken": "^8.1.0",
-    "lodash": "4.0.0",
+    "lodash": "^4.17.10",
     "moment": "2.19.3",
     "q": "2.0.x",
     "request": "2.83.x",
