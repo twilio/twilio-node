@@ -24,7 +24,7 @@
     "lodash": "^4.17.10",
     "moment": "2.19.3",
     "q": "2.0.x",
-    "request": "2.83.x",
+    "request": "2.85.x",
     "rootpath": "0.1.2",
     "scmp": "0.0.3",
     "xmlbuilder": "9.0.1",
