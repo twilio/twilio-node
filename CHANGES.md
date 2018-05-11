@@ -1,6 +1,21 @@
 twilio-node changelog
 =====================
 
+[2018-05-11] Version 3.17.0
+----------------------------
+**Library**
+- PR #340: Update request version RE sec. advisory #606. Thanks to @cjcodes!
+
+**Chat**
+- Add Channel Webhooks resource
+
+**Monitor**
+- Update event filtering to support date/time **(breaking change)**
+
+**Wireless**
+- Updated `maturity` to `ga` for all wireless apis
+
+
 [2018-04-28] Version 3.16.0
 ----------------------------
 **Library**
