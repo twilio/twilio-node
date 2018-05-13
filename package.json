@@ -20,6 +20,8 @@
     "url": "https://github.com/twilio/twilio-node.git"
   },
   "dependencies": {
+    "@types/express": "^4.11.1",
+    "deprecate": "1.0.0",
     "jsonwebtoken": "^8.1.0",
     "lodash": "^4.17.10",
     "moment": "2.19.3",
@@ -27,20 +29,23 @@
     "request": "2.85.x",
     "rootpath": "0.1.2",
     "scmp": "0.0.3",
-    "xmlbuilder": "9.0.1",
-    "deprecate": "1.0.0"
+    "xmlbuilder": "9.0.1"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.104",
+    "@types/node": "^9.4.6",
     "express": "3.x",
     "jasmine-node": "1.14.5",
     "jscs": "3.0.7",
     "jsdoc": "3.5.5",
     "jshint": "2.8.x",
     "nsp": "2.8.0",
-    "proxyquire": "1.8.0"
+    "proxyquire": "1.8.0",
+    "typescript": "^2.7.2"
   },
   "scripts": {
     "test": "jasmine-node --captureExceptions spec",
+    "test:typescript": "tsc examples/typescript/example.ts --noEmit --strict",
     "jshint": "jshint lib/rest/** lib/base/** lib/http/**",
     "jscs": "jscs -c .jscsrc lib/base/** lib/http/** --fix",
     "check": "npm run jshint && npm run jscs",
@@ -50,9 +55,11 @@
   },
   "files": [
     "lib",
-    "index.js"
+    "index.js",
+    "index.d.ts"
   ],
   "main": "./lib",
+  "types": "./index.d.ts",
   "engines": {
     "node": ">=0.12.0"
   },
