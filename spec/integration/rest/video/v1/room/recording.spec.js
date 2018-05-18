@@ -26,7 +26,7 @@ var holodeck;
 describe('RoomRecording', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,8 +34,8 @@ describe('RoomRecording', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.video.v1.rooms('RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                   .recordings('RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                   .recordings('RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -44,8 +44,8 @@ describe('RoomRecording', function() {
       promise.done();
 
       var solution = {
-        roomSid: 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        roomSid: 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://video.twilio.com/v1/Rooms/<%= roomSid %>/Recordings/<%= sid %>')(solution);
 
@@ -61,6 +61,8 @@ describe('RoomRecording', function() {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'status': 'processing',
           'date_created': '2015-07-30T20:00:00Z',
+          'date_updated': '2015-07-30T21:00:00Z',
+          'date_deleted': '2015-07-30T22:00:00Z',
           'sid': 'RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'source_sid': 'MTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'size': 0,
@@ -68,9 +70,12 @@ describe('RoomRecording', function() {
           'duration': 0,
           'container_format': 'mka',
           'codec': 'OPUS',
+          'track_name': 'A name',
           'grouping_sids': {
               'room_sid': 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
           },
+          'media_external_location': 'https://my-super-duper-bucket.s3.amazonaws.com/my/path/',
+          'encryption_key': 'public_key',
           'room_sid': 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'url': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings/RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'links': {
@@ -80,8 +85,8 @@ describe('RoomRecording', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.video.v1.rooms('RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                   .recordings('RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                   .recordings('RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -95,7 +100,7 @@ describe('RoomRecording', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.video.v1.rooms('RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .recordings.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -104,7 +109,7 @@ describe('RoomRecording', function() {
       });
       promise.done();
 
-      var solution = {roomSid: 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {roomSid: 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://video.twilio.com/v1/Rooms/<%= roomSid %>/Recordings')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -130,7 +135,7 @@ describe('RoomRecording', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.video.v1.rooms('RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .recordings.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -149,6 +154,8 @@ describe('RoomRecording', function() {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'status': 'completed',
                   'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T21:00:00Z',
+                  'date_deleted': '2015-07-30T22:00:00Z',
                   'sid': 'RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'source_sid': 'MTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'size': 23,
@@ -156,10 +163,13 @@ describe('RoomRecording', function() {
                   'duration': 10,
                   'container_format': 'mka',
                   'codec': 'OPUS',
+                  'track_name': 'A name',
                   'grouping_sids': {
                       'room_sid': 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                       'participant_sid': 'PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
                   },
+                  'media_external_location': 'https://my-super-duper-bucket.s3.amazonaws.com/my/path/',
+                  'encryption_key': 'public_key',
                   'room_sid': 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'url': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings/RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
@@ -180,7 +190,7 @@ describe('RoomRecording', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.video.v1.rooms('RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .recordings.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();

@@ -26,7 +26,7 @@ var holodeck;
 describe('AvailableAddOn', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,7 +34,7 @@ describe('AvailableAddOn', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.marketplace.availableAddOns('XBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.preview.marketplace.availableAddOns('XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -42,7 +42,7 @@ describe('AvailableAddOn', function() {
       });
       promise.done();
 
-      var solution = {sid: 'XBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {sid: 'XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://preview.twilio.com/marketplace/AvailableAddOns/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -77,7 +77,7 @@ describe('AvailableAddOn', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.marketplace.availableAddOns('XBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.preview.marketplace.availableAddOns('XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {

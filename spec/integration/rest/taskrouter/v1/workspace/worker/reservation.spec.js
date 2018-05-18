@@ -26,7 +26,7 @@ var holodeck;
 describe('Reservation', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,8 +34,8 @@ describe('Reservation', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .workers('WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .workers('WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .reservations.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -45,8 +45,8 @@ describe('Reservation', function() {
       promise.done();
 
       var solution = {
-        workspaceSid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        workerSid: 'WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        workspaceSid: 'WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        workerSid: 'WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workers/<%= workerSid %>/Reservations')(solution);
 
@@ -91,8 +91,8 @@ describe('Reservation', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .workers('WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .workers('WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .reservations.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -120,8 +120,8 @@ describe('Reservation', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .workers('WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .workers('WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .reservations.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -136,9 +136,9 @@ describe('Reservation', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .workers('WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .reservations('WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .workers('WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .reservations('WRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -147,9 +147,9 @@ describe('Reservation', function() {
       promise.done();
 
       var solution = {
-        workspaceSid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        workerSid: 'WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        workspaceSid: 'WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        workerSid: 'WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'WRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workers/<%= workerSid %>/Reservations/<%= sid %>')(solution);
 
@@ -181,9 +181,9 @@ describe('Reservation', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .workers('WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .reservations('WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .workers('WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .reservations('WRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -197,9 +197,9 @@ describe('Reservation', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .workers('WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .reservations('WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .workers('WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .reservations('WRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -208,9 +208,9 @@ describe('Reservation', function() {
       promise.done();
 
       var solution = {
-        workspaceSid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        workerSid: 'WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        workspaceSid: 'WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        workerSid: 'WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'WRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workers/<%= workerSid %>/Reservations/<%= sid %>')(solution);
 
@@ -242,9 +242,9 @@ describe('Reservation', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .workers('WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .reservations('WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .workers('WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .reservations('WRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {

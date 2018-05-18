@@ -26,7 +26,7 @@ var holodeck;
 describe('Alert', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,7 +34,7 @@ describe('Alert', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.monitor.v1.alerts('NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.monitor.v1.alerts('NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -42,7 +42,7 @@ describe('Alert', function() {
       });
       promise.done();
 
-      var solution = {sid: 'NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {sid: 'NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://monitor.twilio.com/v1/Alerts/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -75,7 +75,7 @@ describe('Alert', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.monitor.v1.alerts('NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.monitor.v1.alerts('NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -89,7 +89,7 @@ describe('Alert', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.monitor.v1.alerts('NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.monitor.v1.alerts('NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -97,7 +97,7 @@ describe('Alert', function() {
       });
       promise.done();
 
-      var solution = {sid: 'NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {sid: 'NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://monitor.twilio.com/v1/Alerts/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -112,7 +112,7 @@ describe('Alert', function() {
 
       holodeck.mock(new Response(204, body));
 
-      var promise = client.monitor.v1.alerts('NOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.monitor.v1.alerts('NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
       }, function() {

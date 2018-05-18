@@ -26,7 +26,7 @@ var holodeck;
 describe('Queue', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,8 +34,8 @@ describe('Queue', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .queues('QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .queues('QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -44,8 +44,8 @@ describe('Queue', function() {
       promise.done();
 
       var solution = {
-        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Queues/<%= sid %>.json')(solution);
 
@@ -71,8 +71,8 @@ describe('Queue', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .queues('QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .queues('QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -86,8 +86,8 @@ describe('Queue', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .queues('QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .queues('QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -96,8 +96,8 @@ describe('Queue', function() {
       promise.done();
 
       var solution = {
-        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Queues/<%= sid %>.json')(solution);
 
@@ -123,8 +123,8 @@ describe('Queue', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .queues('QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .queues('QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -138,8 +138,8 @@ describe('Queue', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .queues('QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .queues('QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -148,8 +148,8 @@ describe('Queue', function() {
       promise.done();
 
       var solution = {
-        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Queues/<%= sid %>.json')(solution);
 
@@ -165,8 +165,8 @@ describe('Queue', function() {
 
       holodeck.mock(new Response(204, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .queues('QUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .queues('QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
       }, function() {
@@ -180,7 +180,7 @@ describe('Queue', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .queues.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -189,7 +189,7 @@ describe('Queue', function() {
       });
       promise.done();
 
-      var solution = {accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Queues.json')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -229,7 +229,7 @@ describe('Queue', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .queues.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -259,7 +259,7 @@ describe('Queue', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .queues.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -275,7 +275,7 @@ describe('Queue', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {friendlyName: 'friendlyName'};
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .queues.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
@@ -284,7 +284,7 @@ describe('Queue', function() {
       });
       promise.done();
 
-      var solution = {accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Queues.json')(solution);
 
       var values = {FriendlyName: 'friendlyName', };
@@ -312,7 +312,7 @@ describe('Queue', function() {
       holodeck.mock(new Response(201, body));
 
       var opts = {friendlyName: 'friendlyName'};
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .queues.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();

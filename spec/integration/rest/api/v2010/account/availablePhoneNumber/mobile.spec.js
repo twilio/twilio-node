@@ -26,7 +26,7 @@ var holodeck;
 describe('Mobile', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,7 +34,7 @@ describe('Mobile', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .availablePhoneNumbers('US')
                                     .mobile.list();
       promise = promise.then(function() {
@@ -44,7 +44,7 @@ describe('Mobile', function() {
       });
       promise.done();
 
-      var solution = {accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', countryCode: 'US'};
+      var solution = {accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', countryCode: 'US'};
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/AvailablePhoneNumbers/<%= countryCode %>/Mobile.json')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -91,7 +91,7 @@ describe('Mobile', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .availablePhoneNumbers('US')
                                     .mobile.list();
       promise = promise.then(function(response) {
@@ -121,7 +121,7 @@ describe('Mobile', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .availablePhoneNumbers('US')
                                     .mobile.list();
       promise = promise.then(function(response) {

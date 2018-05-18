@@ -26,7 +26,7 @@ var holodeck;
 describe('ShortCode', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,8 +34,8 @@ describe('ShortCode', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {sid: 'SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
-      var promise = client.preview.proxy.services('KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var opts = {sid: 'SCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var promise = client.preview.proxy.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .shortCodes.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
@@ -44,10 +44,10 @@ describe('ShortCode', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {serviceSid: 'KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://preview.twilio.com/Proxy/Services/<%= serviceSid %>/ShortCodes')(solution);
 
-      var values = {Sid: 'SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', };
+      var values = {Sid: 'SCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -71,8 +71,8 @@ describe('ShortCode', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {sid: 'SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
-      var promise = client.preview.proxy.services('KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var opts = {sid: 'SCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var promise = client.preview.proxy.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .shortCodes.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -87,8 +87,8 @@ describe('ShortCode', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.proxy.services('KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .shortCodes('SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.preview.proxy.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .shortCodes('SCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -97,8 +97,8 @@ describe('ShortCode', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        serviceSid: 'KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'SCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://preview.twilio.com/Proxy/Services/<%= serviceSid %>/ShortCodes/<%= sid %>')(solution);
 
@@ -114,8 +114,8 @@ describe('ShortCode', function() {
 
       holodeck.mock(new Response(204, body));
 
-      var promise = client.preview.proxy.services('KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .shortCodes('SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.preview.proxy.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .shortCodes('SCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
       }, function() {
@@ -129,7 +129,7 @@ describe('ShortCode', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.proxy.services('KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.proxy.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .shortCodes.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -138,7 +138,7 @@ describe('ShortCode', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {serviceSid: 'KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://preview.twilio.com/Proxy/Services/<%= serviceSid %>/ShortCodes')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -176,7 +176,7 @@ describe('ShortCode', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.proxy.services('KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.proxy.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .shortCodes.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -191,8 +191,8 @@ describe('ShortCode', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.proxy.services('KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .shortCodes('SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.preview.proxy.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .shortCodes('SCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -201,8 +201,8 @@ describe('ShortCode', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        serviceSid: 'KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'SCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://preview.twilio.com/Proxy/Services/<%= serviceSid %>/ShortCodes/<%= sid %>')(solution);
 
@@ -228,8 +228,8 @@ describe('ShortCode', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.proxy.services('KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .shortCodes('SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.preview.proxy.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .shortCodes('SCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {

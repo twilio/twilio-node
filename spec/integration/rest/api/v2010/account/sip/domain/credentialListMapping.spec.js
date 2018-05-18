@@ -26,7 +26,7 @@ var holodeck;
 describe('CredentialListMapping', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,10 +34,10 @@ describe('CredentialListMapping', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {credentialListSid: 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var opts = {credentialListSid: 'CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
-                                    .domains('SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                    .domains('SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .credentialListMappings.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
@@ -47,12 +47,12 @@ describe('CredentialListMapping', function() {
       promise.done();
 
       var solution = {
-        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        domainSid: 'SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        domainSid: 'SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/Domains/<%= domainSid %>/CredentialListMappings.json')(solution);
 
-      var values = {CredentialListSid: 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', };
+      var values = {CredentialListSid: 'CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -76,10 +76,10 @@ describe('CredentialListMapping', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {credentialListSid: 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var opts = {credentialListSid: 'CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
-                                    .domains('SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                    .domains('SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .credentialListMappings.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -94,9 +94,9 @@ describe('CredentialListMapping', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
-                                    .domains('SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                    .domains('SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .credentialListMappings.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -106,8 +106,8 @@ describe('CredentialListMapping', function() {
       promise.done();
 
       var solution = {
-        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        domainSid: 'SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        domainSid: 'SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/Domains/<%= domainSid %>/CredentialListMappings.json')(solution);
 
@@ -143,9 +143,9 @@ describe('CredentialListMapping', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
-                                    .domains('SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                    .domains('SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .credentialListMappings.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -170,9 +170,9 @@ describe('CredentialListMapping', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
-                                    .domains('SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                    .domains('SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .credentialListMappings.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -187,10 +187,10 @@ describe('CredentialListMapping', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
-                                    .domains('SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .credentialListMappings('CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+                                    .domains('SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .credentialListMappings('CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -199,9 +199,9 @@ describe('CredentialListMapping', function() {
       promise.done();
 
       var solution = {
-        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        domainSid: 'SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        domainSid: 'SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/Domains/<%= domainSid %>/CredentialListMappings/<%= sid %>.json')(solution);
 
@@ -227,10 +227,10 @@ describe('CredentialListMapping', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
-                                    .domains('SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .credentialListMappings('CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+                                    .domains('SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .credentialListMappings('CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -244,10 +244,10 @@ describe('CredentialListMapping', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
-                                    .domains('SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .credentialListMappings('CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+                                    .domains('SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .credentialListMappings('CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -256,9 +256,9 @@ describe('CredentialListMapping', function() {
       promise.done();
 
       var solution = {
-        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        domainSid: 'SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        domainSid: 'SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/Domains/<%= domainSid %>/CredentialListMappings/<%= sid %>.json')(solution);
 
@@ -274,10 +274,10 @@ describe('CredentialListMapping', function() {
 
       holodeck.mock(new Response(204, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
-                                    .domains('SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .credentialListMappings('CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+                                    .domains('SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .credentialListMappings('CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
       }, function() {

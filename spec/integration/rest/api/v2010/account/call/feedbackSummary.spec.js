@@ -28,7 +28,7 @@ var holodeck;
 describe('FeedbackSummary', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -37,7 +37,7 @@ describe('FeedbackSummary', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {startDate: new Date(Date.UTC(2008, 0, 2)), endDate: new Date(Date.UTC(2008, 0, 2))};
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .calls
                                     .feedbackSummaries.create(opts);
       promise = promise.then(function() {
@@ -47,7 +47,7 @@ describe('FeedbackSummary', function() {
       });
       promise.done();
 
-      var solution = {accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Calls/FeedbackSummary.json')(solution);
 
       var values = {
@@ -89,7 +89,7 @@ describe('FeedbackSummary', function() {
       holodeck.mock(new Response(201, body));
 
       var opts = {startDate: new Date(Date.UTC(2008, 0, 2)), endDate: new Date(Date.UTC(2008, 0, 2))};
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .calls
                                     .feedbackSummaries.create(opts);
       promise = promise.then(function(response) {
@@ -105,9 +105,9 @@ describe('FeedbackSummary', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .calls
-                                    .feedbackSummaries('FSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+                                    .feedbackSummaries('FSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -116,8 +116,8 @@ describe('FeedbackSummary', function() {
       promise.done();
 
       var solution = {
-        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'FSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'FSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Calls/FeedbackSummary/<%= sid %>.json')(solution);
 
@@ -154,9 +154,9 @@ describe('FeedbackSummary', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .calls
-                                    .feedbackSummaries('FSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+                                    .feedbackSummaries('FSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -170,9 +170,9 @@ describe('FeedbackSummary', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .calls
-                                    .feedbackSummaries('FSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+                                    .feedbackSummaries('FSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -181,8 +181,8 @@ describe('FeedbackSummary', function() {
       promise.done();
 
       var solution = {
-        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'FSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'FSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Calls/FeedbackSummary/<%= sid %>.json')(solution);
 
@@ -198,9 +198,9 @@ describe('FeedbackSummary', function() {
 
       holodeck.mock(new Response(204, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .calls
-                                    .feedbackSummaries('FSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+                                    .feedbackSummaries('FSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
       }, function() {

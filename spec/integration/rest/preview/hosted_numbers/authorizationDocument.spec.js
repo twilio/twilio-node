@@ -28,7 +28,7 @@ var holodeck;
 describe('AuthorizationDocument', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -36,7 +36,7 @@ describe('AuthorizationDocument', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.hosted_numbers.authorizationDocuments('PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.preview.hosted_numbers.authorizationDocuments('PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -44,7 +44,7 @@ describe('AuthorizationDocument', function() {
       });
       promise.done();
 
-      var solution = {sid: 'PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {sid: 'PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -74,7 +74,7 @@ describe('AuthorizationDocument', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.hosted_numbers.authorizationDocuments('PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.preview.hosted_numbers.authorizationDocuments('PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -88,7 +88,7 @@ describe('AuthorizationDocument', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.hosted_numbers.authorizationDocuments('PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.preview.hosted_numbers.authorizationDocuments('PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -96,7 +96,7 @@ describe('AuthorizationDocument', function() {
       });
       promise.done();
 
-      var solution = {sid: 'PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {sid: 'PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -126,7 +126,7 @@ describe('AuthorizationDocument', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.hosted_numbers.authorizationDocuments('PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.preview.hosted_numbers.authorizationDocuments('PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -233,7 +233,7 @@ describe('AuthorizationDocument', function() {
 
       var opts = {
         hostedNumberOrderSids: ['hostedNumberOrderSids'],
-        addressSid: 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+        addressSid: 'ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         email: 'email'
       };
       var promise = client.preview.hosted_numbers.authorizationDocuments.create(opts);
@@ -248,7 +248,7 @@ describe('AuthorizationDocument', function() {
 
       var values = {
         HostedNumberOrderSids: serialize.map(['hostedNumberOrderSids'], function(e) { return e; }),
-        AddressSid: 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+        AddressSid: 'ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         Email: 'email',
       };
       holodeck.assertHasRequest(new Request({
@@ -281,7 +281,7 @@ describe('AuthorizationDocument', function() {
 
       var opts = {
         hostedNumberOrderSids: ['hostedNumberOrderSids'],
-        addressSid: 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+        addressSid: 'ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         email: 'email'
       };
       var promise = client.preview.hosted_numbers.authorizationDocuments.create(opts);

@@ -26,7 +26,7 @@ var holodeck;
 describe('TaskQueuesStatistics', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,7 +34,7 @@ describe('TaskQueuesStatistics', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .taskQueues
                                         .statistics.list();
       promise = promise.then(function() {
@@ -44,7 +44,7 @@ describe('TaskQueuesStatistics', function() {
       });
       promise.done();
 
-      var solution = {workspaceSid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {workspaceSid: 'WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/TaskQueues/Statistics')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -136,7 +136,7 @@ describe('TaskQueuesStatistics', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .taskQueues
                                         .statistics.list();
       promise = promise.then(function(response) {
@@ -165,7 +165,7 @@ describe('TaskQueuesStatistics', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .taskQueues
                                         .statistics.list();
       promise = promise.then(function(response) {

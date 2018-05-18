@@ -26,7 +26,7 @@ var holodeck;
 describe('SyncMap', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,8 +34,8 @@ describe('SyncMap', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.sync.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                       .syncMaps('MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                       .syncMaps('MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -44,8 +44,8 @@ describe('SyncMap', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://preview.twilio.com/Sync/Services/<%= serviceSid %>/Maps/<%= sid %>')(solution);
 
@@ -75,8 +75,8 @@ describe('SyncMap', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.sync.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                       .syncMaps('MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                       .syncMaps('MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -90,8 +90,8 @@ describe('SyncMap', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.sync.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                       .syncMaps('MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                       .syncMaps('MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -100,8 +100,8 @@ describe('SyncMap', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://preview.twilio.com/Sync/Services/<%= serviceSid %>/Maps/<%= sid %>')(solution);
 
@@ -117,8 +117,8 @@ describe('SyncMap', function() {
 
       holodeck.mock(new Response(204, body));
 
-      var promise = client.preview.sync.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                       .syncMaps('MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                       .syncMaps('MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
       }, function() {
@@ -132,7 +132,7 @@ describe('SyncMap', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.sync.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .syncMaps.create();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -141,7 +141,7 @@ describe('SyncMap', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://preview.twilio.com/Sync/Services/<%= serviceSid %>/Maps')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -170,7 +170,7 @@ describe('SyncMap', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var promise = client.preview.sync.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .syncMaps.create();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -185,7 +185,7 @@ describe('SyncMap', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.sync.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .syncMaps.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -194,7 +194,7 @@ describe('SyncMap', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://preview.twilio.com/Sync/Services/<%= serviceSid %>/Maps')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -220,7 +220,7 @@ describe('SyncMap', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.sync.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .syncMaps.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -264,7 +264,7 @@ describe('SyncMap', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.sync.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .syncMaps.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();

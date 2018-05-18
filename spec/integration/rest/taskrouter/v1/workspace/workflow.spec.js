@@ -26,7 +26,7 @@ var holodeck;
 describe('Workflow', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,8 +34,8 @@ describe('Workflow', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .workflows('WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .workflows('WWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -44,8 +44,8 @@ describe('Workflow', function() {
       promise.done();
 
       var solution = {
-        workspaceSid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        workspaceSid: 'WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'WWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workflows/<%= sid %>')(solution);
 
@@ -79,8 +79,8 @@ describe('Workflow', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .workflows('WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .workflows('WWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -94,8 +94,8 @@ describe('Workflow', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .workflows('WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .workflows('WWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -104,8 +104,8 @@ describe('Workflow', function() {
       promise.done();
 
       var solution = {
-        workspaceSid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        workspaceSid: 'WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'WWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workflows/<%= sid %>')(solution);
 
@@ -139,8 +139,8 @@ describe('Workflow', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .workflows('WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .workflows('WWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -154,8 +154,8 @@ describe('Workflow', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .workflows('WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .workflows('WWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -164,8 +164,8 @@ describe('Workflow', function() {
       promise.done();
 
       var solution = {
-        workspaceSid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        workspaceSid: 'WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'WWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workflows/<%= sid %>')(solution);
 
@@ -181,8 +181,8 @@ describe('Workflow', function() {
 
       holodeck.mock(new Response(204, body));
 
-      var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .workflows('WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .workflows('WWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
       }, function() {
@@ -196,7 +196,7 @@ describe('Workflow', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .workflows.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -205,7 +205,7 @@ describe('Workflow', function() {
       });
       promise.done();
 
-      var solution = {workspaceSid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {workspaceSid: 'WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workflows')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -252,7 +252,7 @@ describe('Workflow', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .workflows.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -281,7 +281,7 @@ describe('Workflow', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .workflows.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -297,7 +297,7 @@ describe('Workflow', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {friendlyName: 'friendlyName', configuration: 'configuration'};
-      var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .workflows.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
@@ -306,7 +306,7 @@ describe('Workflow', function() {
       });
       promise.done();
 
-      var solution = {workspaceSid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {workspaceSid: 'WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workflows')(solution);
 
       var values = {FriendlyName: 'friendlyName', Configuration: 'configuration', };
@@ -342,7 +342,7 @@ describe('Workflow', function() {
       holodeck.mock(new Response(201, body));
 
       var opts = {friendlyName: 'friendlyName', configuration: 'configuration'};
-      var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .workflows.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();

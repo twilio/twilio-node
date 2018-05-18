@@ -26,7 +26,7 @@ var holodeck;
 describe('DependentHostedNumberOrder', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,7 +34,7 @@ describe('DependentHostedNumberOrder', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.hosted_numbers.authorizationDocuments('PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.hosted_numbers.authorizationDocuments('PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                                  .dependentHostedNumberOrders.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -43,7 +43,7 @@ describe('DependentHostedNumberOrder', function() {
       });
       promise.done();
 
-      var solution = {signingDocumentSid: 'PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {signingDocumentSid: 'PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/<%= signingDocumentSid %>/DependentHostedNumberOrders')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -69,7 +69,7 @@ describe('DependentHostedNumberOrder', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.hosted_numbers.authorizationDocuments('PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.hosted_numbers.authorizationDocuments('PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                                  .dependentHostedNumberOrders.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -131,7 +131,7 @@ describe('DependentHostedNumberOrder', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.hosted_numbers.authorizationDocuments('PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.hosted_numbers.authorizationDocuments('PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                                  .dependentHostedNumberOrders.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();

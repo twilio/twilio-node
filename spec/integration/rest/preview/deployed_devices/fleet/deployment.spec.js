@@ -26,7 +26,7 @@ var holodeck;
 describe('Deployment', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,8 +34,8 @@ describe('Deployment', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.deployed_devices.fleets('FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                                   .deployments('DLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.preview.deployed_devices.fleets('FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                                   .deployments('DLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -44,8 +44,8 @@ describe('Deployment', function() {
       promise.done();
 
       var solution = {
-        fleetSid: 'FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'DLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        fleetSid: 'FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'DLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://preview.twilio.com/DeployedDevices/Fleets/<%= fleetSid %>/Deployments/<%= sid %>')(solution);
 
@@ -70,8 +70,8 @@ describe('Deployment', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.deployed_devices.fleets('FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                                   .deployments('DLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.preview.deployed_devices.fleets('FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                                   .deployments('DLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -85,8 +85,8 @@ describe('Deployment', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.deployed_devices.fleets('FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                                   .deployments('DLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.preview.deployed_devices.fleets('FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                                   .deployments('DLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -95,8 +95,8 @@ describe('Deployment', function() {
       promise.done();
 
       var solution = {
-        fleetSid: 'FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'DLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        fleetSid: 'FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'DLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://preview.twilio.com/DeployedDevices/Fleets/<%= fleetSid %>/Deployments/<%= sid %>')(solution);
 
@@ -112,8 +112,8 @@ describe('Deployment', function() {
 
       holodeck.mock(new Response(204, body));
 
-      var promise = client.preview.deployed_devices.fleets('FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                                   .deployments('DLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.preview.deployed_devices.fleets('FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                                   .deployments('DLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
       }, function() {
@@ -127,7 +127,7 @@ describe('Deployment', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.deployed_devices.fleets('FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.deployed_devices.fleets('FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                                    .deployments.create();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -136,7 +136,7 @@ describe('Deployment', function() {
       });
       promise.done();
 
-      var solution = {fleetSid: 'FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {fleetSid: 'FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://preview.twilio.com/DeployedDevices/Fleets/<%= fleetSid %>/Deployments')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -160,7 +160,7 @@ describe('Deployment', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var promise = client.preview.deployed_devices.fleets('FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.deployed_devices.fleets('FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                                    .deployments.create();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -175,7 +175,7 @@ describe('Deployment', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.deployed_devices.fleets('FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.deployed_devices.fleets('FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                                    .deployments.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -184,7 +184,7 @@ describe('Deployment', function() {
       });
       promise.done();
 
-      var solution = {fleetSid: 'FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {fleetSid: 'FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://preview.twilio.com/DeployedDevices/Fleets/<%= fleetSid %>/Deployments')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -210,7 +210,7 @@ describe('Deployment', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.deployed_devices.fleets('FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.deployed_devices.fleets('FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                                    .deployments.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -249,7 +249,7 @@ describe('Deployment', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.deployed_devices.fleets('FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.deployed_devices.fleets('FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                                    .deployments.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -264,8 +264,8 @@ describe('Deployment', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.deployed_devices.fleets('FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                                   .deployments('DLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.preview.deployed_devices.fleets('FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                                   .deployments('DLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -274,8 +274,8 @@ describe('Deployment', function() {
       promise.done();
 
       var solution = {
-        fleetSid: 'FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'DLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        fleetSid: 'FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'DLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://preview.twilio.com/DeployedDevices/Fleets/<%= fleetSid %>/Deployments/<%= sid %>')(solution);
 
@@ -300,8 +300,8 @@ describe('Deployment', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.deployed_devices.fleets('FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                                   .deployments('DLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.preview.deployed_devices.fleets('FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                                   .deployments('DLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {

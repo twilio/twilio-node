@@ -26,7 +26,7 @@ var holodeck;
 describe('User', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,8 +34,8 @@ describe('User', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.ipMessaging.v2.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .users('USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .users('USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -44,8 +44,8 @@ describe('User', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://chat.twilio.com/v2/Services/<%= serviceSid %>/Users/<%= sid %>')(solution);
 
@@ -79,8 +79,8 @@ describe('User', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.ipMessaging.v2.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .users('USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .users('USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -94,8 +94,8 @@ describe('User', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.ipMessaging.v2.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .users('USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .users('USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -104,8 +104,8 @@ describe('User', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://chat.twilio.com/v2/Services/<%= serviceSid %>/Users/<%= sid %>')(solution);
 
@@ -121,8 +121,8 @@ describe('User', function() {
 
       holodeck.mock(new Response(204, body));
 
-      var promise = client.ipMessaging.v2.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .users('USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .users('USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
       }, function() {
@@ -137,7 +137,7 @@ describe('User', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {identity: 'identity'};
-      var promise = client.ipMessaging.v2.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .users.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
@@ -146,7 +146,7 @@ describe('User', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://chat.twilio.com/v2/Services/<%= serviceSid %>/Users')(solution);
 
       var values = {Identity: 'identity', };
@@ -182,7 +182,7 @@ describe('User', function() {
       holodeck.mock(new Response(201, body));
 
       var opts = {identity: 'identity'};
-      var promise = client.ipMessaging.v2.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .users.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -197,7 +197,7 @@ describe('User', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.ipMessaging.v2.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .users.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -206,7 +206,7 @@ describe('User', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://chat.twilio.com/v2/Services/<%= serviceSid %>/Users')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -252,7 +252,7 @@ describe('User', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.ipMessaging.v2.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .users.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -280,7 +280,7 @@ describe('User', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.ipMessaging.v2.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .users.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -295,8 +295,8 @@ describe('User', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.ipMessaging.v2.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .users('USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .users('USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -305,8 +305,8 @@ describe('User', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://chat.twilio.com/v2/Services/<%= serviceSid %>/Users/<%= sid %>')(solution);
 
@@ -340,8 +340,8 @@ describe('User', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.ipMessaging.v2.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .users('USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .users('USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {

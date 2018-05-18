@@ -26,7 +26,7 @@ var holodeck;
 describe('Flow', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -81,7 +81,7 @@ describe('Flow', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.studio.v1.flows('FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.studio.v1.flows('FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -89,7 +89,7 @@ describe('Flow', function() {
       });
       promise.done();
 
-      var solution = {sid: 'FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {sid: 'FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://studio.twilio.com/v1/Flows/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -116,7 +116,7 @@ describe('Flow', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.studio.v1.flows('FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.studio.v1.flows('FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -130,7 +130,7 @@ describe('Flow', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.studio.v1.flows('FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.studio.v1.flows('FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -138,7 +138,7 @@ describe('Flow', function() {
       });
       promise.done();
 
-      var solution = {sid: 'FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {sid: 'FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://studio.twilio.com/v1/Flows/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -153,7 +153,7 @@ describe('Flow', function() {
 
       holodeck.mock(new Response(204, body));
 
-      var promise = client.studio.v1.flows('FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.studio.v1.flows('FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
       }, function() {

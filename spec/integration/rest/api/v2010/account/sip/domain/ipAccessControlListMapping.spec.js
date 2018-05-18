@@ -26,7 +26,7 @@ var holodeck;
 describe('IpAccessControlListMapping', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,10 +34,10 @@ describe('IpAccessControlListMapping', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
-                                    .domains('SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .ipAccessControlListMappings('ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+                                    .domains('SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .ipAccessControlListMappings('ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -46,9 +46,9 @@ describe('IpAccessControlListMapping', function() {
       promise.done();
 
       var solution = {
-        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        domainSid: 'SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        domainSid: 'SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/Domains/<%= domainSid %>/IpAccessControlListMappings/<%= sid %>.json')(solution);
 
@@ -74,10 +74,10 @@ describe('IpAccessControlListMapping', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
-                                    .domains('SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .ipAccessControlListMappings('ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+                                    .domains('SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .ipAccessControlListMappings('ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -91,10 +91,10 @@ describe('IpAccessControlListMapping', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {ipAccessControlListSid: 'ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var opts = {ipAccessControlListSid: 'ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
-                                    .domains('SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                    .domains('SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .ipAccessControlListMappings.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
@@ -104,12 +104,12 @@ describe('IpAccessControlListMapping', function() {
       promise.done();
 
       var solution = {
-        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        domainSid: 'SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        domainSid: 'SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/Domains/<%= domainSid %>/IpAccessControlListMappings.json')(solution);
 
-      var values = {IpAccessControlListSid: 'ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', };
+      var values = {IpAccessControlListSid: 'ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -133,10 +133,10 @@ describe('IpAccessControlListMapping', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {ipAccessControlListSid: 'ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var opts = {ipAccessControlListSid: 'ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
-                                    .domains('SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                    .domains('SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .ipAccessControlListMappings.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -151,9 +151,9 @@ describe('IpAccessControlListMapping', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
-                                    .domains('SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                    .domains('SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .ipAccessControlListMappings.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -163,8 +163,8 @@ describe('IpAccessControlListMapping', function() {
       promise.done();
 
       var solution = {
-        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        domainSid: 'SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        domainSid: 'SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/Domains/<%= domainSid %>/IpAccessControlListMappings.json')(solution);
 
@@ -205,9 +205,9 @@ describe('IpAccessControlListMapping', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
-                                    .domains('SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                    .domains('SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .ipAccessControlListMappings.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -237,9 +237,9 @@ describe('IpAccessControlListMapping', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
-                                    .domains('SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                    .domains('SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .ipAccessControlListMappings.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -254,10 +254,10 @@ describe('IpAccessControlListMapping', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
-                                    .domains('SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .ipAccessControlListMappings('ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+                                    .domains('SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .ipAccessControlListMappings('ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -266,9 +266,9 @@ describe('IpAccessControlListMapping', function() {
       promise.done();
 
       var solution = {
-        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        domainSid: 'SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        domainSid: 'SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/Domains/<%= domainSid %>/IpAccessControlListMappings/<%= sid %>.json')(solution);
 
@@ -284,10 +284,10 @@ describe('IpAccessControlListMapping', function() {
 
       holodeck.mock(new Response(204, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
-                                    .domains('SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .ipAccessControlListMappings('ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+                                    .domains('SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .ipAccessControlListMappings('ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
       }, function() {

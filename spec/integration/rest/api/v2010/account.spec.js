@@ -26,7 +26,7 @@ var holodeck;
 describe('Account', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -53,12 +53,12 @@ describe('Account', function() {
   it('should generate valid create response',
     function() {
       var body = JSON.stringify({
-          'auth_token': 'AUTHTOKEN',
-          'date_created': 'Sun, 15 Mar 2009 02:08:47 +0000',
-          'date_updated': 'Wed, 25 Aug 2010 01:30:09 +0000',
-          'friendly_name': 'Test Account',
+          'auth_token': 'auth_token',
+          'date_created': 'Thu, 30 Jul 2015 20:00:00 +0000',
+          'date_updated': 'Thu, 30 Jul 2015 20:00:00 +0000',
+          'friendly_name': 'friendly_name',
+          'owner_account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'owner_account_sid': 'ACbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
           'status': 'active',
           'subresource_uris': {
               'available_phone_numbers': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers.json',
@@ -68,8 +68,18 @@ describe('Account', function() {
               'notifications': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications.json',
               'outgoing_caller_ids': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OutgoingCallerIds.json',
               'recordings': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json',
-              'sms_messages': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SMS/Messages.json',
-              'transcriptions': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Transcriptions.json'
+              'transcriptions': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Transcriptions.json',
+              'addresses': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses.json',
+              'signing_keys': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SigningKeys.json',
+              'connect_apps': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ConnectApps.json',
+              'sip': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP.json',
+              'authorized_connect_apps': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AuthorizedConnectApps.json',
+              'usage': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage.json',
+              'keys': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Keys.json',
+              'applications': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Applications.json',
+              'short_codes': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SMS/ShortCodes.json',
+              'queues': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queues.json',
+              'messages': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json'
           },
           'type': 'Full',
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
@@ -91,7 +101,7 @@ describe('Account', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -99,7 +109,7 @@ describe('Account', function() {
       });
       promise.done();
 
-      var solution = {sid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {sid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= sid %>.json')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -111,12 +121,12 @@ describe('Account', function() {
   it('should generate valid fetch response',
     function() {
       var body = JSON.stringify({
-          'auth_token': 'AUTHTOKEN',
-          'date_created': 'Sun, 15 Mar 2009 02:08:47 +0000',
-          'date_updated': 'Wed, 25 Aug 2010 01:30:09 +0000',
-          'friendly_name': 'Test Account',
-          'sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'auth_token': 'auth_token',
+          'date_created': 'Thu, 30 Jul 2015 20:00:00 +0000',
+          'date_updated': 'Thu, 30 Jul 2015 20:00:00 +0000',
+          'friendly_name': 'friendly_name',
           'owner_account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'status': 'active',
           'subresource_uris': {
               'available_phone_numbers': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers.json',
@@ -126,8 +136,18 @@ describe('Account', function() {
               'notifications': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications.json',
               'outgoing_caller_ids': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OutgoingCallerIds.json',
               'recordings': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json',
-              'sms_messages': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SMS/Messages.json',
-              'transcriptions': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Transcriptions.json'
+              'transcriptions': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Transcriptions.json',
+              'addresses': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses.json',
+              'signing_keys': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SigningKeys.json',
+              'connect_apps': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ConnectApps.json',
+              'sip': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP.json',
+              'authorized_connect_apps': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AuthorizedConnectApps.json',
+              'usage': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage.json',
+              'keys': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Keys.json',
+              'applications': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Applications.json',
+              'short_codes': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SMS/ShortCodes.json',
+              'queues': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queues.json',
+              'messages': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json'
           },
           'type': 'Full',
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
@@ -135,7 +155,7 @@ describe('Account', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -165,52 +185,18 @@ describe('Account', function() {
       }));
     }
   );
-  it('should generate valid read_full response',
+  it('should generate valid read_empty response',
     function() {
       var body = JSON.stringify({
-          'accounts': [
-              {
-                  'auth_token': 'foobar',
-                  'date_created': 'Tue, 23 Aug 2011 20:58:45 +0000',
-                  'date_updated': 'Fri, 04 Sep 2015 22:53:32 +0000',
-                  'friendly_name': 'Sub account for testing requests authed with parent account',
-                  'owner_account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'status': 'active',
-                  'subresource_uris': {
-                      'applications': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Applications.json',
-                      'authorized_connect_apps': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AuthorizedConnectApps.json',
-                      'available_phone_numbers': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers.json',
-                      'calls': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls.json',
-                      'conferences': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences.json',
-                      'connect_apps': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ConnectApps.json',
-                      'incoming_phone_numbers': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers.json',
-                      'media': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media.json',
-                      'messages': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json',
-                      'notifications': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications.json',
-                      'outgoing_caller_ids': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OutgoingCallerIds.json',
-                      'queues': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queues.json',
-                      'recordings': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json',
-                      'sip': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP.json',
-                      'sms_messages': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SMS/Messages.json',
-                      'transcriptions': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Transcriptions.json',
-                      'usage': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage.json'
-                  },
-                  'type': 'Full',
-                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
-              }
-          ],
+          'first_page_uri': '/2010-04-01/Accounts.json?PageSize=50&Page=0',
           'end': 0,
-          'first_page_uri': '/2010-04-01/Accounts.json?PageSize=1&Page=0',
-          'last_page_uri': '/2010-04-01/Accounts.json?PageSize=1&Page=4',
-          'next_page_uri': null,
-          'num_pages': 5,
-          'page': 0,
-          'page_size': 1,
           'previous_page_uri': null,
+          'accounts': [],
+          'uri': '/2010-04-01/Accounts.json?PageSize=50&Page=0',
+          'page_size': 50,
           'start': 0,
-          'total': 5,
-          'uri': '/2010-04-01/Accounts.json?PageSize=1'
+          'next_page_uri': null,
+          'page': 0
       });
 
       holodeck.mock(new Response(200, body));
@@ -225,21 +211,51 @@ describe('Account', function() {
       promise.done();
     }
   );
-  it('should generate valid read_empty response',
+  it('should generate valid read_full response',
     function() {
       var body = JSON.stringify({
-          'accounts': [],
+          'first_page_uri': '/2010-04-01/Accounts.json?PageSize=50&Page=0',
           'end': 0,
-          'first_page_uri': '/2010-04-01/Accounts.json?PageSize=1&Page=0',
-          'last_page_uri': '/2010-04-01/Accounts.json?PageSize=1&Page=4',
-          'next_page_uri': null,
-          'num_pages': 5,
-          'page': 0,
-          'page_size': 1,
           'previous_page_uri': null,
+          'accounts': [
+              {
+                  'auth_token': 'auth_token',
+                  'date_created': 'Thu, 30 Jul 2015 20:00:00 +0000',
+                  'date_updated': 'Thu, 30 Jul 2015 20:00:00 +0000',
+                  'friendly_name': 'friendly_name',
+                  'owner_account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'status': 'active',
+                  'subresource_uris': {
+                      'available_phone_numbers': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers.json',
+                      'calls': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls.json',
+                      'conferences': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences.json',
+                      'incoming_phone_numbers': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers.json',
+                      'notifications': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications.json',
+                      'outgoing_caller_ids': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OutgoingCallerIds.json',
+                      'recordings': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json',
+                      'transcriptions': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Transcriptions.json',
+                      'addresses': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses.json',
+                      'signing_keys': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SigningKeys.json',
+                      'connect_apps': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ConnectApps.json',
+                      'sip': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP.json',
+                      'authorized_connect_apps': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AuthorizedConnectApps.json',
+                      'usage': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage.json',
+                      'keys': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Keys.json',
+                      'applications': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Applications.json',
+                      'short_codes': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SMS/ShortCodes.json',
+                      'queues': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queues.json',
+                      'messages': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json'
+                  },
+                  'type': 'Full',
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+              }
+          ],
+          'uri': '/2010-04-01/Accounts.json?PageSize=50&Page=0',
+          'page_size': 50,
           'start': 0,
-          'total': 5,
-          'uri': '/2010-04-01/Accounts.json?PageSize=1'
+          'next_page_uri': null,
+          'page': 0
       });
 
       holodeck.mock(new Response(200, body));
@@ -258,7 +274,7 @@ describe('Account', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -266,7 +282,7 @@ describe('Account', function() {
       });
       promise.done();
 
-      var solution = {sid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {sid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= sid %>.json')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -302,7 +318,7 @@ describe('Account', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {

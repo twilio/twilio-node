@@ -26,7 +26,7 @@ var holodeck;
 describe('TaskChannel', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,8 +34,8 @@ describe('TaskChannel', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .taskChannels('TCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .taskChannels('TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -44,8 +44,8 @@ describe('TaskChannel', function() {
       promise.done();
 
       var solution = {
-        workspaceSid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'TCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        workspaceSid: 'WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/TaskChannels/<%= sid %>')(solution);
 
@@ -70,8 +70,8 @@ describe('TaskChannel', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .taskChannels('TCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .taskChannels('TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -85,7 +85,7 @@ describe('TaskChannel', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .taskChannels.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -94,7 +94,7 @@ describe('TaskChannel', function() {
       });
       promise.done();
 
-      var solution = {workspaceSid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {workspaceSid: 'WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/TaskChannels')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -132,7 +132,7 @@ describe('TaskChannel', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .taskChannels.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -161,7 +161,7 @@ describe('TaskChannel', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .taskChannels.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();

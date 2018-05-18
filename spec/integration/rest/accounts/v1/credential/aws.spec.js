@@ -26,7 +26,7 @@ var holodeck;
 describe('Aws', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -170,7 +170,7 @@ describe('Aws', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.accounts.v1.credentials
-                                      .aws('CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+                                      .aws('CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -178,7 +178,7 @@ describe('Aws', function() {
       });
       promise.done();
 
-      var solution = {sid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {sid: 'CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://accounts.twilio.com/v1/Credentials/AWS/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -201,7 +201,7 @@ describe('Aws', function() {
       holodeck.mock(new Response(200, body));
 
       var promise = client.accounts.v1.credentials
-                                      .aws('CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+                                      .aws('CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -216,7 +216,7 @@ describe('Aws', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.accounts.v1.credentials
-                                      .aws('CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+                                      .aws('CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -224,7 +224,7 @@ describe('Aws', function() {
       });
       promise.done();
 
-      var solution = {sid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {sid: 'CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://accounts.twilio.com/v1/Credentials/AWS/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -247,7 +247,7 @@ describe('Aws', function() {
       holodeck.mock(new Response(200, body));
 
       var promise = client.accounts.v1.credentials
-                                      .aws('CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+                                      .aws('CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -262,7 +262,7 @@ describe('Aws', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.accounts.v1.credentials
-                                      .aws('CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+                                      .aws('CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -270,7 +270,7 @@ describe('Aws', function() {
       });
       promise.done();
 
-      var solution = {sid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {sid: 'CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://accounts.twilio.com/v1/Credentials/AWS/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -286,7 +286,7 @@ describe('Aws', function() {
       holodeck.mock(new Response(204, body));
 
       var promise = client.accounts.v1.credentials
-                                      .aws('CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+                                      .aws('CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
       }, function() {

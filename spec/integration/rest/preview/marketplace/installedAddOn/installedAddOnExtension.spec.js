@@ -28,7 +28,7 @@ var holodeck;
 describe('InstalledAddOnExtension', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -36,8 +36,8 @@ describe('InstalledAddOnExtension', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.marketplace.installedAddOns('XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                              .extensions('XFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.preview.marketplace.installedAddOns('XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                              .extensions('XFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -46,8 +46,8 @@ describe('InstalledAddOnExtension', function() {
       promise.done();
 
       var solution = {
-        installedAddOnSid: 'XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'XFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        installedAddOnSid: 'XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'XFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://preview.twilio.com/marketplace/InstalledAddOns/<%= installedAddOnSid %>/Extensions/<%= sid %>')(solution);
 
@@ -71,8 +71,8 @@ describe('InstalledAddOnExtension', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.marketplace.installedAddOns('XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                              .extensions('XFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.preview.marketplace.installedAddOns('XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                              .extensions('XFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -87,8 +87,8 @@ describe('InstalledAddOnExtension', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {enabled: true};
-      var promise = client.preview.marketplace.installedAddOns('XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                              .extensions('XFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update(opts);
+      var promise = client.preview.marketplace.installedAddOns('XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                              .extensions('XFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -97,8 +97,8 @@ describe('InstalledAddOnExtension', function() {
       promise.done();
 
       var solution = {
-        installedAddOnSid: 'XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'XFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        installedAddOnSid: 'XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'XFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://preview.twilio.com/marketplace/InstalledAddOns/<%= installedAddOnSid %>/Extensions/<%= sid %>')(solution);
 
@@ -125,8 +125,8 @@ describe('InstalledAddOnExtension', function() {
       holodeck.mock(new Response(200, body));
 
       var opts = {enabled: true};
-      var promise = client.preview.marketplace.installedAddOns('XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                              .extensions('XFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update(opts);
+      var promise = client.preview.marketplace.installedAddOns('XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                              .extensions('XFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -140,7 +140,7 @@ describe('InstalledAddOnExtension', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.marketplace.installedAddOns('XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.marketplace.installedAddOns('XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                               .extensions.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -149,7 +149,7 @@ describe('InstalledAddOnExtension', function() {
       });
       promise.done();
 
-      var solution = {installedAddOnSid: 'XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {installedAddOnSid: 'XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://preview.twilio.com/marketplace/InstalledAddOns/<%= installedAddOnSid %>/Extensions')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -185,7 +185,7 @@ describe('InstalledAddOnExtension', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.marketplace.installedAddOns('XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.marketplace.installedAddOns('XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                               .extensions.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -213,7 +213,7 @@ describe('InstalledAddOnExtension', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.marketplace.installedAddOns('XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.marketplace.installedAddOns('XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                               .extensions.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();

@@ -1,6 +1,77 @@
 twilio-node changelog
 =====================
 
+[2018-05-11] Version 3.17.0
+----------------------------
+**Library**
+- PR #340: Update request version RE sec. advisory #606. Thanks to @cjcodes!
+
+**Chat**
+- Add Channel Webhooks resource
+
+**Monitor**
+- Update event filtering to support date/time **(breaking change)**
+
+**Wireless**
+- Updated `maturity` to `ga` for all wireless apis
+
+
+[2018-04-28] Version 3.16.0
+----------------------------
+**Library**
+- PR #337: Upgrade lodash. Thanks to @YasharF!
+
+**Video**
+- Redesign API by adding custom `VideoLayout` object. **(breaking change)**
+
+
+[2018-04-20] Version 3.15.1
+----------------------------
+**Twiml**
+- Gather input Enum: remove unnecessary "dtmf speech" value as you can now specify multiple enum values for this parameter and both "dtmf" and "speech" are already available.
+
+
+[2018-04-13] Version 3.15.0
+----------------------------
+**Library**
+- PR #334: Add incoming.allow to AccessToken VoiceGrant. Thanks to @ryan-rowland!
+- PR #335: use _.isDate to check if object is a Date object. Thanks to @joliveros!
+
+**Preview**
+- Support for Understand V2 APIs - renames various resources and adds new fields
+
+**Studio**
+- Change parameters type from string to object in engagement resource
+
+**Video**
+- [Recordings] Change `size` type to `long`. **(breaking change)**
+
+
+[2018-03-22] Version 3.14.0
+----------------------------
+**Lookups**
+- Disable support for `fraud` lookups *(breaking change)*
+
+**Preview**
+- Add `BuildDuration` and `ErrorCode` to Understand ModelBuild
+
+**Studio**
+- Add new /Context endpoint for step and engagement resources.
+
+
+[2018-03-12] Version 3.13.1
+----------------------------
+**Api**
+- Add `caller_id` param to Outbound Calls API
+- Release `trim` recording Outbound Calls API functionality in helper libraries
+
+**Video**
+- [composer] Add `room_sid` to Composition resource.
+
+**Twiml**
+- Adds support for passing in multiple input type enums when setting `input` on `Gather`
+
+
 [2018-03-02] Version 3.13.0
 ----------------------------
 **Library**
