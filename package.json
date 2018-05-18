@@ -20,23 +20,23 @@
     "url": "https://github.com/twilio/twilio-node.git"
   },
   "dependencies": {
+    "deprecate": "1.0.0",
     "jsonwebtoken": "^8.1.0",
-    "lodash": "4.0.0",
+    "lodash": "^4.17.10",
     "moment": "2.19.3",
     "q": "2.0.x",
-    "request": "2.83.x",
+    "request": "^2.86.0",
     "rootpath": "0.1.2",
     "scmp": "0.0.3",
-    "xmlbuilder": "9.0.1",
-    "deprecate": "1.0.0"
+    "xmlbuilder": "9.0.1"
   },
   "devDependencies": {
-    "express": "3.x",
-    "jasmine-node": "1.14.5",
+    "express": "^4.16.3",
+    "jasmine-node": "^1.14.5",
     "jscs": "3.0.7",
     "jsdoc": "3.5.5",
-    "jshint": "2.8.x",
-    "nsp": "2.8.0",
+    "jshint": "^2.9.5",
+    "nsp": "^3.2.1",
     "proxyquire": "1.8.0"
   },
   "scripts": {

@@ -31,7 +31,7 @@ describe('Testing Express request validation', function() {
     var app = require('express')();
 
     // Use url-encoded body parser
-    app.use(express.urlencoded());
+    app.use(express.urlencoded({ extended: false }));
 
     // create a simple TwiML-serving web app that will validate a request
     // was originated by Twilio
