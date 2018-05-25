@@ -1,6 +1,25 @@
 twilio-node changelog
 =====================
 
+[2018-05-25] Version 3.17.1
+----------------------------
+**Library**
+- PR #349: Update Contributing section in README.md. Thanks to @dkundel!
+- PR #347: Update dependencies to fix vulnerabilities (#343). Thanks to @dkundel!
+- PR #351: Update request dependency. Thanks to @cjcodes!
+
+**Api**
+- Add more programmable video categories to usage records
+- Add 'include_subaccounts' parameter to all variation of usage_record fetch
+
+**Studio**
+- Add endpoint to delete engagements
+
+**Trunking**
+- Added cnam_lookup_enabled parameter to Trunk resource.
+- Added case-insensitivity for recording parameter to Trunk resource.
+
+
 [2018-05-11] Version 3.17.0
 ----------------------------
 **Library**
