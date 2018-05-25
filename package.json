@@ -31,12 +31,12 @@
     "xmlbuilder": "9.0.1"
   },
   "devDependencies": {
-    "express": "3.x",
-    "jasmine-node": "1.14.5",
+    "express": "^4.16.3",
+    "jasmine-node": "^1.14.5",
     "jscs": "3.0.7",
     "jsdoc": "3.5.5",
-    "jshint": "2.8.x",
-    "nsp": "2.8.0",
+    "jshint": "^2.8.0",
+    "nsp": "^2.8.1",
     "proxyquire": "1.8.0"
   },
   "scripts": {
