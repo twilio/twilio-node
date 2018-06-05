@@ -1,6 +1,18 @@
 twilio-node changelog
 =====================
 
+[2018-06-05] Version 3.17.2
+----------------------------
+**Library**
+- PR #353: Update package-lock.json. Thanks to @cjcodes!
+
+**Chat**
+- Add Binding and UserBinding documentation
+
+**Lookups**
+- Add back support for `fraud` lookup type
+
+
 [2018-05-25] Version 3.17.1
 ----------------------------
 **Library**
