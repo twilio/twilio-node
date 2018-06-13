@@ -170,4 +170,13 @@ describe('create voice response TwiML', function() {
     actual.hangup().addText('extra text');
     expect(actual.toString()).toEqual('<?xml version="1.0" encoding="UTF-8"?><Response><Hangup>extra text</Hangup></Response>');
   });
+
+  it('should allow mixed text/element content', function() {
+    var actual = new VoiceResponse();
+    actual.addText('before');
+    actual.leave();
+    actual.addText('after');
+
+    expect(actual.toString()).toEqual('<?xml version="1.0" encoding="UTF-8"?><Response>before<Leave/>after</Response>');
+  });
 });
