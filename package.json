@@ -36,7 +36,7 @@
     "jscs": "3.0.7",
     "jsdoc": "3.5.5",
     "jshint": "^2.8.0",
-    "nsp": "^2.8.1",
+    "nsp": "^3.2.1",
     "proxyquire": "1.8.0"
   },
   "scripts": {
@@ -54,7 +54,7 @@
   ],
   "main": "./lib",
   "engines": {
-    "node": ">=0.12.0"
+    "node": ">=6.0"
   },
   "license": "MIT"
 }

@@ -4,10 +4,7 @@ dist: precise
 node_js:
     - "node"
     - "8"
-    - "7"
     - "6"
-    - "5"
-    - "4"
 script: npm run ci
 notifications:
   slack:
