@@ -6,20 +6,16 @@ A node.js Twilio helper library.
 
 [![Build Status](https://travis-ci.org/twilio/twilio-node.svg?branch=master)](https://travis-ci.org/twilio/twilio-node)
 
-## Recent Update
+## Supported versions
 
-As of release 3.6.0, Beta and Developer Preview products are now exposed via
-the main `twilio-node` artifact. Releases of the `alpha` branch have been
-discontinued.
+This library works with node versions 6, 8 and above.
 
-If you were using the `alpha` release line, you should be able to switch back
-to the normal release line without issue.
+## Unreleased Features
 
-If you were using the normal release line, you should now see several new
-product lines that were historically hidden from you due to their Beta or
-Developer Preview status. Such products are explicitly documented as
-Beta/Developer Preview both in the Twilio docs and console, as well as through
-in-line code documentation here in the library.
+Some Twilio features that are exposed in this library are in Beta or Developer
+Preview, and are not available to most accounts. Such products are explicitly
+documented as Beta/Developer Preview both in the Twilio docs and console, as well
+as through in-line code documentation here in the library.
 
 ## End User Docs
 
@@ -69,6 +65,3 @@ Please refer to our [Contributing Guide](CONTRIBUTING.md) for detailed informati
 #### Contributing Docs
 
 Right now, the docs are maintained in static HTML in the `gh-pages` branch of this repository.  We hope to switch to a more robust documentation system soon, but for the time being, you can make documentation changes by editing [index.html](https://github.com/twilio/twilio-node/blob/gh-pages/index.html) directly.
-
-
-
