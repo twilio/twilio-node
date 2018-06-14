@@ -54,7 +54,7 @@
   ],
   "main": "./lib",
   "engines": {
-    "node": ">=0.12.0"
+    "node": ">=6.0"
   },
   "license": "MIT"
 }
