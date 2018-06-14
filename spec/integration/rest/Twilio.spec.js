@@ -19,21 +19,26 @@ describe('validateSslCert', function() {
           });
       });
 
-    it('Should successfully validate a working SSL certificate', function(done) {
+    it('Should successfully validate a working SSL certificate', function() {
         holodeck.mock(new Response(200, ''));
-        client.validateSslCert().then(function(result) {
-            expect(result).toBe(null);
+
+        let resp = client.validateSslCert();
+
+        resp.finally(() => {
+            expect(resp.isFulfilled()).toBe(true);
             done();
-          });
-      });
+
+        });
+    });
 
     it('should fail to validate a broken SSL certificate', function(done) {
         holodeck.mock(new Response(504, ''));
-        let resp = client.validateSslCert().then(function(resp) {
+
+        let resp = client.validateSslCert();
+
+        resp.finally(() => {
+            expect(resp.isRejected()).toBe(true);
             done();
-            expect(resp).toThrow(RestException);
-
-          });
-      });
-
+        });
+    });
   });
