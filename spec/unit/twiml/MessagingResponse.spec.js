@@ -45,4 +45,24 @@ describe('create messaging response TwiML', function() {
     expect(actual.toString()).toEqual('<?xml version="1.0" encoding="UTF-8"?><Response><Redirect>https://twilio.com</Redirect></Response>');
   });
 
+  it('should allow generic child nodes', function () {
+    var actual = new MessagingResponse();
+    actual
+      .addChild('Ninja', {sword: 'always'})
+      .addText('John');
+
+    expect(actual.toString()).toEqual('<?xml version="1.0" encoding="UTF-8"?><Response><Ninja sword="always">John</Ninja></Response>');
+  });
+
+  it('should allow children of child nodes', function () {
+    var actual = new MessagingResponse();
+    actual.message({
+      to: '+10000000000',
+      from: '+11111111111',
+    }, 'Some message')
+    .addChild('Ninja', {sword: 'always'});
+
+    expect(actual.toString()).toEqual('<?xml version="1.0" encoding="UTF-8"?><Response><Message to="+10000000000" from="+11111111111">Some message<Ninja sword="always"/></Message></Response>');
+  });
+
 });
