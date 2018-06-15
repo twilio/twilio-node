@@ -271,7 +271,7 @@
 
             
 
-            <td class="description last">If this call was initiated with answering machine detection, either `human` or `machine`. Empty otherwise.</td>
+            <td class="description last">Either `human` or `machine` if this Call was initiated with answering machine detection. Empty otherwise.</td>
         </tr>
 
     
@@ -294,7 +294,7 @@
 
             
 
-            <td class="description last">The API Version the Call was created through</td>
+            <td class="description last">The API Version used to create the Call</td>
         </tr>
 
     
@@ -317,7 +317,7 @@
 
             
 
-            <td class="description last">If this call was an incoming call to a phone number with Caller ID Lookup enabled, the caller's name. Empty otherwise.</td>
+            <td class="description last">The caller's name if this Call was an incoming call to a phone number with Caller ID Lookup enabled. Empty otherwise.</td>
         </tr>
 
     
@@ -386,7 +386,7 @@
 
             
 
-            <td class="description last">A string describing the direction of the call. `inbound` for inbound calls, `outbound-api` for calls initiated via the REST API or `outbound-dial` for calls initiated by a `Dial` verb.</td>
+            <td class="description last">A string describing the direction of the Call. `inbound` for inbound calls, `outbound-api` for calls initiated via the REST API or `outbound-dial` for calls initiated by a `Dial` verb.</td>
         </tr>
 
     
@@ -409,7 +409,7 @@
 
             
 
-            <td class="description last">The length of the call in seconds.</td>
+            <td class="description last">The length of the Call in seconds.</td>
         </tr>
 
     
@@ -455,7 +455,7 @@
 
             
 
-            <td class="description last">If this Call was an incoming call forwarded from another number, the forwarding phone number (depends on carrier supporting forwarding). Empty otherwise.</td>
+            <td class="description last">The forwarding phone number if this Call was an incoming call forwarded from another number (depends on carrier supporting forwarding). Empty otherwise.</td>
         </tr>
 
     
@@ -478,7 +478,7 @@
 
             
 
-            <td class="description last">The phone number, SIP address or Client identifier that made this Call. Phone numbers are in E.164 format (e.g. +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`.</td>
+            <td class="description last">The phone number, SIP address or Client identifier that made this Call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`.</td>
         </tr>
 
     
@@ -524,7 +524,7 @@
 
             
 
-            <td class="description last">A 34 character Group Sid associated with this Call. Empty if no Group is associated with the Call.</td>
+            <td class="description last">A 34-character Group Sid associated with this Call. Empty if no Group is associated with the Call.</td>
         </tr>
 
     
@@ -547,7 +547,7 @@
 
             
 
-            <td class="description last">A 34 character string that uniquely identifies the Call that created this leg.</td>
+            <td class="description last">A 34-character string that uniquely identifies the Call that created this leg.</td>
         </tr>
 
     
@@ -570,7 +570,7 @@
 
             
 
-            <td class="description last">If the call was inbound, this is the Sid of the IncomingPhoneNumber that received the call. If the call was outbound, it is the Sid of the OutgoingCallerId from which the call was placed.</td>
+            <td class="description last">If the call was inbound, this is the Sid of the `IncomingPhoneNumber` that received the call. If the call was outbound, it is the Sid of the `OutgoingCallerId` from which the call was placed.</td>
         </tr>
 
     
@@ -593,7 +593,7 @@
 
             
 
-            <td class="description last">The charge for this call, in the currency associated with the account. Populated after the call is completed. May not be immediately available.</td>
+            <td class="description last">The charge for this Call, in the currency associated with the account. Populated after the call is completed. May not be immediately available.</td>
         </tr>
 
     
@@ -639,7 +639,7 @@
 
             
 
-            <td class="description last">A 34 character string that uniquely identifies this resource.</td>
+            <td class="description last">A 34-character string that uniquely identifies the Call resource.</td>
         </tr>
 
     
@@ -685,7 +685,7 @@
 
             
 
-            <td class="description last">A string representing the status of the call.</td>
+            <td class="description last">A string representing the status of the Call.</td>
         </tr>
 
     
@@ -731,7 +731,7 @@
 
             
 
-            <td class="description last">The phone number, SIP address or Client identifier that received this Call. Phone numbers are in E.164 format (e.g. +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`.</td>
+            <td class="description last">The phone number, SIP address or Client identifier that received this Call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`.</td>
         </tr>
 
     
@@ -816,7 +816,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rest_api_v2010_account_call.js.html">rest/api/v2010/account/call.js</a>, <a href="rest_api_v2010_account_call.js.html#line543">line 543</a>
+        <a href="rest_api_v2010_account_call.js.html">rest/api/v2010/account/call.js</a>, <a href="rest_api_v2010_account_call.js.html#line544">line 544</a>
     </li></ul></dd>
     
 
@@ -922,7 +922,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rest_api_v2010_account_call.js.html">rest/api/v2010/account/call.js</a>, <a href="rest_api_v2010_account_call.js.html#line733">line 733</a>
+        <a href="rest_api_v2010_account_call.js.html">rest/api/v2010/account/call.js</a>, <a href="rest_api_v2010_account_call.js.html#line734">line 734</a>
     </li></ul></dd>
     
 
@@ -1087,7 +1087,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rest_api_v2010_account_call.js.html">rest/api/v2010/account/call.js</a>, <a href="rest_api_v2010_account_call.js.html#line660">line 660</a>
+        <a href="rest_api_v2010_account_call.js.html">rest/api/v2010/account/call.js</a>, <a href="rest_api_v2010_account_call.js.html#line661">line 661</a>
     </li></ul></dd>
     
 
@@ -1195,7 +1195,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rest_api_v2010_account_call.js.html">rest/api/v2010/account/call.js</a>, <a href="rest_api_v2010_account_call.js.html#line718">line 718</a>
+        <a href="rest_api_v2010_account_call.js.html">rest/api/v2010/account/call.js</a>, <a href="rest_api_v2010_account_call.js.html#line719">line 719</a>
     </li></ul></dd>
     
 
@@ -1299,7 +1299,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rest_api_v2010_account_call.js.html">rest/api/v2010/account/call.js</a>, <a href="rest_api_v2010_account_call.js.html#line703">line 703</a>
+        <a href="rest_api_v2010_account_call.js.html">rest/api/v2010/account/call.js</a>, <a href="rest_api_v2010_account_call.js.html#line704">line 704</a>
     </li></ul></dd>
     
 
@@ -1464,7 +1464,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rest_api_v2010_account_call.js.html">rest/api/v2010/account/call.js</a>, <a href="rest_api_v2010_account_call.js.html#line643">line 643</a>
+        <a href="rest_api_v2010_account_call.js.html">rest/api/v2010/account/call.js</a>, <a href="rest_api_v2010_account_call.js.html#line644">line 644</a>
     </li></ul></dd>
     
 
@@ -1573,7 +1573,7 @@ Removes any circular references in the object.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rest_api_v2010_account_call.js.html">rest/api/v2010/account/call.js</a>, <a href="rest_api_v2010_account_call.js.html#line748">line 748</a>
+        <a href="rest_api_v2010_account_call.js.html">rest/api/v2010/account/call.js</a>, <a href="rest_api_v2010_account_call.js.html#line749">line 749</a>
     </li></ul></dd>
     
 
@@ -2023,7 +2023,7 @@ Removes any circular references in the object.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="rest_api_v2010_account_call.js.html">rest/api/v2010/account/call.js</a>, <a href="rest_api_v2010_account_call.js.html#line677">line 677</a>
+        <a href="rest_api_v2010_account_call.js.html">rest/api/v2010/account/call.js</a>, <a href="rest_api_v2010_account_call.js.html#line678">line 678</a>
     </li></ul></dd>
     
 
@@ -2095,7 +2095,7 @@ Removes any circular references in the object.
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Jun 05 2018 08:47:46 GMT-0700 (PDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Jun 15 2018 14:19:56 GMT-0700 (PDT)
 </footer>
 
 <script> prettyPrint(); </script>

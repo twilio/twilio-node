@@ -99,7 +99,8 @@ CallList = function CallList(version, accountSid) {
    * @instance
    *
    * @param {object} opts - ...
-   * @param {string} opts.to - Phone number, SIP address or client identifier to call
+   * @param {string} opts.to -
+   *          Phone number, SIP address, or client identifier to call
    * @param {string} opts.from - Twilio number from which to originate the call
    * @param {string} [opts.method] - HTTP method to use to fetch TwiML
    * @param {string} [opts.fallbackUrl] - Fallback URL in case of error
@@ -118,7 +119,7 @@ CallList = function CallList(version, accountSid) {
    * @param {string} [opts.recordingStatusCallback] -
    *          A URL that Twilio will send a webhook request to when the recording is available for access.
    * @param {string} [opts.recordingStatusCallbackMethod] -
-   *          The HTTP method Twilio should use when requesting the above URL.
+   *          The HTTP method Twilio should use when requesting the `RecordingStatusCallback` URL.
    * @param {string} [opts.sipAuthUsername] - The sip_auth_username
    * @param {string} [opts.sipAuthPassword] - The sip_auth_password
    * @param {string} [opts.machineDetection] -
@@ -130,7 +131,7 @@ CallList = function CallList(version, accountSid) {
    * @param {string} [opts.trim] -
    *          Set this parameter to control trimming of silence on the recording.
    * @param {string} [opts.callerId] -
-   *          The phone number, SIP address or Client identifier that made this Call. Phone numbers are in E.164 format (e.g. +16175551212). SIP addresses are formatted as `name@company.com`.
+   *          The phone number, SIP address, or Client identifier that made this Call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`.
    * @param {string} [opts.url] - Url from which to fetch TwiML
    * @param {string} [opts.applicationSid] -
    *          ApplicationSid that configures from where to fetch TwiML
@@ -576,40 +577,40 @@ CallPage.prototype.getInstance = function getInstance(payload) {
  *          The unique id of the Account responsible for creating this Call
  * @property {string} annotation - The annotation provided for the Call
  * @property {string} answeredBy -
- *          If this call was initiated with answering machine detection, either `human` or `machine`. Empty otherwise.
- * @property {string} apiVersion - The API Version the Call was created through
+ *          Either `human` or `machine` if this Call was initiated with answering machine detection. Empty otherwise.
+ * @property {string} apiVersion - The API Version used to create the Call
  * @property {string} callerName -
- *          If this call was an incoming call to a phone number with Caller ID Lookup enabled, the caller's name. Empty otherwise.
+ *          The caller's name if this Call was an incoming call to a phone number with Caller ID Lookup enabled. Empty otherwise.
  * @property {Date} dateCreated - The date that this resource was created
  * @property {Date} dateUpdated - The date that this resource was last updated
  * @property {string} direction -
- *          A string describing the direction of the call. `inbound` for inbound calls, `outbound-api` for calls initiated via the REST API or `outbound-dial` for calls initiated by a `Dial` verb.
- * @property {string} duration - The length of the call in seconds.
+ *          A string describing the direction of the Call. `inbound` for inbound calls, `outbound-api` for calls initiated via the REST API or `outbound-dial` for calls initiated by a `Dial` verb.
+ * @property {string} duration - The length of the Call in seconds.
  * @property {Date} endTime -
  *          The end time of the Call. Null if the call did not complete successfully.
  * @property {string} forwardedFrom -
- *          If this Call was an incoming call forwarded from another number, the forwarding phone number (depends on carrier supporting forwarding). Empty otherwise.
+ *          The forwarding phone number if this Call was an incoming call forwarded from another number (depends on carrier supporting forwarding). Empty otherwise.
  * @property {string} from -
- *          The phone number, SIP address or Client identifier that made this Call. Phone numbers are in E.164 format (e.g. +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`.
+ *          The phone number, SIP address or Client identifier that made this Call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`.
  * @property {string} fromFormatted -
  *          The phone number, SIP address or Client identifier that made this Call. Formatted for display.
  * @property {string} groupSid -
- *          A 34 character Group Sid associated with this Call. Empty if no Group is associated with the Call.
+ *          A 34-character Group Sid associated with this Call. Empty if no Group is associated with the Call.
  * @property {string} parentCallSid -
- *          A 34 character string that uniquely identifies the Call that created this leg.
+ *          A 34-character string that uniquely identifies the Call that created this leg.
  * @property {string} phoneNumberSid -
- *          If the call was inbound, this is the Sid of the IncomingPhoneNumber that received the call. If the call was outbound, it is the Sid of the OutgoingCallerId from which the call was placed.
+ *          If the call was inbound, this is the Sid of the `IncomingPhoneNumber` that received the call. If the call was outbound, it is the Sid of the `OutgoingCallerId` from which the call was placed.
  * @property {number} price -
- *          The charge for this call, in the currency associated with the account. Populated after the call is completed. May not be immediately available.
+ *          The charge for this Call, in the currency associated with the account. Populated after the call is completed. May not be immediately available.
  * @property {string} priceUnit - The currency in which `Price` is measured.
  * @property {string} sid -
- *          A 34 character string that uniquely identifies this resource.
+ *          A 34-character string that uniquely identifies the Call resource.
  * @property {Date} startTime -
  *          The start time of the Call. Null if the call has not yet been dialed.
- * @property {call.status} status - A string representing the status of the call.
+ * @property {call.status} status - A string representing the status of the Call.
  * @property {string} subresourceUris - Call Instance Subresources
  * @property {string} to -
- *          The phone number, SIP address or Client identifier that received this Call. Phone numbers are in E.164 format (e.g. +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`.
+ *          The phone number, SIP address or Client identifier that received this Call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`.
  * @property {string} toFormatted -
  *          The phone number, SIP address or Client identifier that received this Call. Formatted for display.
  * @property {string} uri -
@@ -1014,7 +1015,7 @@ module.exports = {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Jun 05 2018 08:47:43 GMT-0700 (PDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Jun 15 2018 14:19:50 GMT-0700 (PDT)
 </footer>
 
 <script> prettyPrint(); </script>

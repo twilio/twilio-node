@@ -1,7 +1,7 @@
 {
   "name": "twilio",
   "description": "A Twilio helper library",
-  "version": "3.17.2",
+  "version": "3.17.3",
   "author": "API Team <api@twilio.com>",
   "contributors": [
     {
