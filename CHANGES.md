@@ -1,6 +1,17 @@
 twilio-node changelog
 =====================
 
+[2018-06-15] Version 3.17.3
+----------------------------
+**Library**
+- PR #354: Add validateSslCertificate to node client. Thanks to @mbichoffe!
+- PR #355: Add addText method to TwiML classes. Thanks to @ekarson!
+- PR #356: Update nsp to latest. Thanks to @ekarson!
+
+**Twiml**
+- Add methods to helper libraries to inject arbitrary text under a TwiML node
+
+
 [2018-06-05] Version 3.17.2
 ----------------------------
 **Library**
