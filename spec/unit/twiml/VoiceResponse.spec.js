@@ -179,4 +179,22 @@ describe('create voice response TwiML', function() {
 
     expect(actual.toString()).toEqual('<?xml version="1.0" encoding="UTF-8"?><Response>before<Leave/>after</Response>');
   });
+
+  it('should allow generic child nodes', function () {
+    var actual = new VoiceResponse();
+    actual
+      .addChild('Ninja', {sword: 'always'})
+      .addText('John');
+
+    expect(actual.toString()).toEqual('<?xml version="1.0" encoding="UTF-8"?><Response><Ninja sword="always">John</Ninja></Response>');
+  });
+
+  it('should allow children of child nodes', function () {
+    var actual = new VoiceResponse();
+    actual
+      .dial({}, '+10000000000')
+      .addChild('Ninja', {sword: 'always'});
+
+    expect(actual.toString()).toEqual('<?xml version="1.0" encoding="UTF-8"?><Response><Dial>+10000000000<Ninja sword="always"/></Dial></Response>');
+  });
 });
