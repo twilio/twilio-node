@@ -1,6 +1,20 @@
 twilio-node changelog
 =====================
 
+[2018-06-21] Version 3.17.4
+----------------------------
+**Library**
+- PR #359: Add test for mixed content. Thanks to @ekarson!
+- PR #357: Allow creating generic twiml nodes. Thanks to @cjcodes!
+
+**Api**
+- Add Fraud Lookups category to usage records
+
+**Video**
+- Allow user to set `ContentDisposition` when obtaining media URLs for Room Recordings and Compositions
+- Add Composition Settings resource
+
+
 [2018-06-15] Version 3.17.3
 ----------------------------
 **Library**
