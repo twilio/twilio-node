@@ -5,6 +5,8 @@ node_js:
     - "node"
     - "8"
     - "6"
+services:
+  - docker
 script: npm run ci
 notifications:
   slack:
