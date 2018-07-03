@@ -184,6 +184,114 @@ describe('Message', function() {
       promise.done();
     }
   );
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages?PageSize=50&Page=0',
+              'next_page_url': null,
+              'key': 'messages'
+          },
+          'messages': [
+              {
+                  'sid': 'IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'to': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'channel_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2016-03-24T20:37:57Z',
+                  'date_updated': '2016-03-24T20:37:57Z',
+                  'was_edited': false,
+                  'from': 'system',
+                  'attributes': '{}',
+                  'body': 'Hello',
+                  'index': 0,
+                  'url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.ipMessaging.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                           .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                           .messages.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages?PageSize=50&Page=0',
+              'next_page_url': null,
+              'key': 'messages'
+          },
+          'messages': [
+              {
+                  'sid': 'IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'to': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'channel_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2016-03-24T20:37:57Z',
+                  'date_updated': '2016-03-24T20:37:57Z',
+                  'was_edited': false,
+                  'from': 'system',
+                  'attributes': '{}',
+                  'body': 'Hello',
+                  'index': 0,
+                  'url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.ipMessaging.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                           .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                           .messages.each({}, () => done());
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages?PageSize=50&Page=0',
+              'next_page_url': null,
+              'key': 'messages'
+          },
+          'messages': [
+              {
+                  'sid': 'IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'to': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'channel_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2016-03-24T20:37:57Z',
+                  'date_updated': '2016-03-24T20:37:57Z',
+                  'was_edited': false,
+                  'from': 'system',
+                  'attributes': '{}',
+                  'body': 'Hello',
+                  'index': 0,
+                  'url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.ipMessaging.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                           .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                           .messages.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));

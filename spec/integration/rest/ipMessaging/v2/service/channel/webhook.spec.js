@@ -30,6 +30,222 @@ describe('Webhook', function() {
       httpClient: holodeck
     });
   });
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'page': 0,
+              'page_size': 5,
+              'first_page_url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Webhooks?PageSize=5&Page=0',
+              'previous_page_url': null,
+              'url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Webhooks?PageSize=5&Page=0',
+              'next_page_url': null,
+              'key': 'webhooks'
+          },
+          'webhooks': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'channel_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sid': 'WHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'type': 'webhook',
+                  'configuration': {
+                      'url': 'dummy',
+                      'method': 'GET',
+                      'filters': [
+                          'onMessageSent',
+                          'onChannelDestroyed'
+                      ],
+                      'retry_count': 2
+                  },
+                  'date_created': '2016-03-24T21:05:50Z',
+                  'date_updated': '2016-03-24T21:05:50Z',
+                  'url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Webhooks/WHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              },
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'channel_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sid': 'WHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'type': 'trigger',
+                  'configuration': {
+                      'url': 'dummy',
+                      'method': 'POST',
+                      'filters': [
+                          'keyword1',
+                          'keyword2'
+                      ],
+                      'retry_count': 3
+                  },
+                  'date_created': '2016-03-24T21:05:50Z',
+                  'date_updated': '2016-03-24T21:05:50Z',
+                  'url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Webhooks/WHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              },
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'channel_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sid': 'WHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'type': 'studio',
+                  'configuration': {
+                      'flow_sid': 'FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  },
+                  'date_created': '2016-03-24T21:05:50Z',
+                  'date_updated': '2016-03-24T21:05:50Z',
+                  'url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Webhooks/WHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                           .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                           .webhooks.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'page': 0,
+              'page_size': 5,
+              'first_page_url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Webhooks?PageSize=5&Page=0',
+              'previous_page_url': null,
+              'url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Webhooks?PageSize=5&Page=0',
+              'next_page_url': null,
+              'key': 'webhooks'
+          },
+          'webhooks': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'channel_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sid': 'WHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'type': 'webhook',
+                  'configuration': {
+                      'url': 'dummy',
+                      'method': 'GET',
+                      'filters': [
+                          'onMessageSent',
+                          'onChannelDestroyed'
+                      ],
+                      'retry_count': 2
+                  },
+                  'date_created': '2016-03-24T21:05:50Z',
+                  'date_updated': '2016-03-24T21:05:50Z',
+                  'url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Webhooks/WHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              },
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'channel_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sid': 'WHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'type': 'trigger',
+                  'configuration': {
+                      'url': 'dummy',
+                      'method': 'POST',
+                      'filters': [
+                          'keyword1',
+                          'keyword2'
+                      ],
+                      'retry_count': 3
+                  },
+                  'date_created': '2016-03-24T21:05:50Z',
+                  'date_updated': '2016-03-24T21:05:50Z',
+                  'url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Webhooks/WHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              },
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'channel_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sid': 'WHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'type': 'studio',
+                  'configuration': {
+                      'flow_sid': 'FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  },
+                  'date_created': '2016-03-24T21:05:50Z',
+                  'date_updated': '2016-03-24T21:05:50Z',
+                  'url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Webhooks/WHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                           .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                           .webhooks.each({}, () => done());
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'page': 0,
+              'page_size': 5,
+              'first_page_url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Webhooks?PageSize=5&Page=0',
+              'previous_page_url': null,
+              'url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Webhooks?PageSize=5&Page=0',
+              'next_page_url': null,
+              'key': 'webhooks'
+          },
+          'webhooks': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'channel_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sid': 'WHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'type': 'webhook',
+                  'configuration': {
+                      'url': 'dummy',
+                      'method': 'GET',
+                      'filters': [
+                          'onMessageSent',
+                          'onChannelDestroyed'
+                      ],
+                      'retry_count': 2
+                  },
+                  'date_created': '2016-03-24T21:05:50Z',
+                  'date_updated': '2016-03-24T21:05:50Z',
+                  'url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Webhooks/WHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              },
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'channel_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sid': 'WHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'type': 'trigger',
+                  'configuration': {
+                      'url': 'dummy',
+                      'method': 'POST',
+                      'filters': [
+                          'keyword1',
+                          'keyword2'
+                      ],
+                      'retry_count': 3
+                  },
+                  'date_created': '2016-03-24T21:05:50Z',
+                  'date_updated': '2016-03-24T21:05:50Z',
+                  'url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Webhooks/WHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              },
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'channel_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sid': 'WHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'type': 'studio',
+                  'configuration': {
+                      'flow_sid': 'FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  },
+                  'date_created': '2016-03-24T21:05:50Z',
+                  'date_updated': '2016-03-24T21:05:50Z',
+                  'url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Webhooks/WHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                           .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                           .webhooks.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));

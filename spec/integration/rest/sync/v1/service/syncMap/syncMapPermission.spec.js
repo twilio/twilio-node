@@ -131,6 +131,99 @@ describe('SyncMapPermission', function() {
       promise.done();
     }
   );
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'permissions': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'map_sid': 'MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'identity': 'identity',
+                  'read': true,
+                  'write': true,
+                  'manage': true,
+                  'url': 'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Maps/MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Permissions/identity'
+              }
+          ],
+          'meta': {
+              'first_page_url': 'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Maps/sidOrUniqueName/Permissions?PageSize=50&Page=0',
+              'key': 'permissions',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Maps/sidOrUniqueName/Permissions?PageSize=50&Page=0'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                    .syncMaps('MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                    .syncMapPermissions.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'permissions': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'map_sid': 'MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'identity': 'identity',
+                  'read': true,
+                  'write': true,
+                  'manage': true,
+                  'url': 'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Maps/MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Permissions/identity'
+              }
+          ],
+          'meta': {
+              'first_page_url': 'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Maps/sidOrUniqueName/Permissions?PageSize=50&Page=0',
+              'key': 'permissions',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Maps/sidOrUniqueName/Permissions?PageSize=50&Page=0'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                    .syncMaps('MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                    .syncMapPermissions.each({}, () => done());
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'permissions': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'map_sid': 'MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'identity': 'identity',
+                  'read': true,
+                  'write': true,
+                  'manage': true,
+                  'url': 'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Maps/MPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Permissions/identity'
+              }
+          ],
+          'meta': {
+              'first_page_url': 'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Maps/sidOrUniqueName/Permissions?PageSize=50&Page=0',
+              'key': 'permissions',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Maps/sidOrUniqueName/Permissions?PageSize=50&Page=0'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                    .syncMaps('MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                    .syncMapPermissions.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));

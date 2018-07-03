@@ -217,6 +217,153 @@ describe('Call', function() {
       promise.done();
     }
   );
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'calls': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'annotation': null,
+                  'answered_by': null,
+                  'api_version': '2010-04-01',
+                  'caller_name': '',
+                  'date_created': 'Fri, 04 Sep 2015 22:48:30 +0000',
+                  'date_updated': 'Fri, 04 Sep 2015 22:48:35 +0000',
+                  'direction': 'outbound-api',
+                  'duration': '0',
+                  'end_time': 'Fri, 04 Sep 2015 22:48:35 +0000',
+                  'forwarded_from': null,
+                  'from': 'kevin',
+                  'from_formatted': 'kevin',
+                  'group_sid': null,
+                  'parent_call_sid': null,
+                  'phone_number_sid': '',
+                  'price': null,
+                  'price_unit': 'USD',
+                  'sid': 'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'start_time': 'Fri, 04 Sep 2015 22:48:31 +0000',
+                  'status': 'failed',
+                  'subresource_uris': {
+                      'notifications': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications.json',
+                      'recordings': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json'
+                  },
+                  'to': 'sip:kevin@example.com',
+                  'to_formatted': 'sip:kevin@example.com',
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+              }
+          ],
+          'end': 0,
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls.json?PageSize=1&Page=0',
+          'next_page_uri': null,
+          'page': 0,
+          'page_size': 1,
+          'previous_page_uri': null,
+          'start': 0,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls.json?PageSize=1&Page=0'
+      });
+      holodeck.mock(new Response(200, body));
+      client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .calls.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'calls': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'annotation': null,
+                  'answered_by': null,
+                  'api_version': '2010-04-01',
+                  'caller_name': '',
+                  'date_created': 'Fri, 04 Sep 2015 22:48:30 +0000',
+                  'date_updated': 'Fri, 04 Sep 2015 22:48:35 +0000',
+                  'direction': 'outbound-api',
+                  'duration': '0',
+                  'end_time': 'Fri, 04 Sep 2015 22:48:35 +0000',
+                  'forwarded_from': null,
+                  'from': 'kevin',
+                  'from_formatted': 'kevin',
+                  'group_sid': null,
+                  'parent_call_sid': null,
+                  'phone_number_sid': '',
+                  'price': null,
+                  'price_unit': 'USD',
+                  'sid': 'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'start_time': 'Fri, 04 Sep 2015 22:48:31 +0000',
+                  'status': 'failed',
+                  'subresource_uris': {
+                      'notifications': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications.json',
+                      'recordings': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json'
+                  },
+                  'to': 'sip:kevin@example.com',
+                  'to_formatted': 'sip:kevin@example.com',
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+              }
+          ],
+          'end': 0,
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls.json?PageSize=1&Page=0',
+          'next_page_uri': null,
+          'page': 0,
+          'page_size': 1,
+          'previous_page_uri': null,
+          'start': 0,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls.json?PageSize=1&Page=0'
+      });
+      holodeck.mock(new Response(200, body));
+      client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .calls.each({}, () => done());
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'calls': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'annotation': null,
+                  'answered_by': null,
+                  'api_version': '2010-04-01',
+                  'caller_name': '',
+                  'date_created': 'Fri, 04 Sep 2015 22:48:30 +0000',
+                  'date_updated': 'Fri, 04 Sep 2015 22:48:35 +0000',
+                  'direction': 'outbound-api',
+                  'duration': '0',
+                  'end_time': 'Fri, 04 Sep 2015 22:48:35 +0000',
+                  'forwarded_from': null,
+                  'from': 'kevin',
+                  'from_formatted': 'kevin',
+                  'group_sid': null,
+                  'parent_call_sid': null,
+                  'phone_number_sid': '',
+                  'price': null,
+                  'price_unit': 'USD',
+                  'sid': 'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'start_time': 'Fri, 04 Sep 2015 22:48:31 +0000',
+                  'status': 'failed',
+                  'subresource_uris': {
+                      'notifications': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications.json',
+                      'recordings': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json'
+                  },
+                  'to': 'sip:kevin@example.com',
+                  'to_formatted': 'sip:kevin@example.com',
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+              }
+          ],
+          'end': 0,
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls.json?PageSize=1&Page=0',
+          'next_page_uri': null,
+          'page': 0,
+          'page_size': 1,
+          'previous_page_uri': null,
+          'start': 0,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls.json?PageSize=1&Page=0'
+      });
+      holodeck.mock(new Response(200, body));
+      client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .calls.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));

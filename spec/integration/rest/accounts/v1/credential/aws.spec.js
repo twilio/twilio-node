@@ -30,96 +30,90 @@ describe('Aws', function() {
       httpClient: holodeck
     });
   });
-  describe('each callback', function() {
-      it('should treat the first arg as the callback', function(done) {
-          var body = JSON.stringify({
-              'credentials': [
-                  {
-                      'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                      'date_created': '2015-07-31T04:00:00Z',
-                      'date_updated': '2015-07-31T04:00:00Z',
-                      'friendly_name': 'friendly_name',
-                      'sid': 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                      'url': 'https://accounts.twilio.com/v1/Credentials/AWS/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-                  }
-              ],
-              'meta': {
-                  'first_page_url': 'https://accounts.twilio.com/v1/Credentials/AWS?PageSize=50&Page=0',
-                  'key': 'credentials',
-                  'next_page_url': null,
-                  'page': 0,
-                  'page_size': 50,
-                  'previous_page_url': null,
-                  'url': 'https://accounts.twilio.com/v1/Credentials/AWS?PageSize=50&Page=0'
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'credentials': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2015-07-31T04:00:00Z',
+                  'date_updated': '2015-07-31T04:00:00Z',
+                  'friendly_name': 'friendly_name',
+                  'sid': 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://accounts.twilio.com/v1/Credentials/AWS/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
-          });
-          holodeck.mock(new Response(200, body));
-
-          client.accounts.v1.credentials.aws.each(function() {
-              done();
-          });
+          ],
+          'meta': {
+              'first_page_url': 'https://accounts.twilio.com/v1/Credentials/AWS?PageSize=50&Page=0',
+              'key': 'credentials',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://accounts.twilio.com/v1/Credentials/AWS?PageSize=50&Page=0'
+          }
       });
-
-      it('should treat the second arg as the callback', function(done) {
-          var body = JSON.stringify({
-              'credentials': [
-                  {
-                      'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                      'date_created': '2015-07-31T04:00:00Z',
-                      'date_updated': '2015-07-31T04:00:00Z',
-                      'friendly_name': 'friendly_name',
-                      'sid': 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                      'url': 'https://accounts.twilio.com/v1/Credentials/AWS/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-                  }
-              ],
-              'meta': {
-                  'first_page_url': 'https://accounts.twilio.com/v1/Credentials/AWS?PageSize=50&Page=0',
-                  'key': 'credentials',
-                  'next_page_url': null,
-                  'page': 0,
-                  'page_size': 50,
-                  'previous_page_url': null,
-                  'url': 'https://accounts.twilio.com/v1/Credentials/AWS?PageSize=50&Page=0'
+      holodeck.mock(new Response(200, body));
+      client.accounts.v1.credentials
+                        .aws.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'credentials': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2015-07-31T04:00:00Z',
+                  'date_updated': '2015-07-31T04:00:00Z',
+                  'friendly_name': 'friendly_name',
+                  'sid': 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://accounts.twilio.com/v1/Credentials/AWS/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
-          });
-          holodeck.mock(new Response(200, body));
-
-          client.accounts.v1.credentials.aws.each({}, function() {
-              done();
-          });
+          ],
+          'meta': {
+              'first_page_url': 'https://accounts.twilio.com/v1/Credentials/AWS?PageSize=50&Page=0',
+              'key': 'credentials',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://accounts.twilio.com/v1/Credentials/AWS?PageSize=50&Page=0'
+          }
       });
-
-      it('should find the callback in the opts array', function(done) {
-          var body = JSON.stringify({
-              'credentials': [
-                  {
-                      'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                      'date_created': '2015-07-31T04:00:00Z',
-                      'date_updated': '2015-07-31T04:00:00Z',
-                      'friendly_name': 'friendly_name',
-                      'sid': 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                      'url': 'https://accounts.twilio.com/v1/Credentials/AWS/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-                  }
-              ],
-              'meta': {
-                  'first_page_url': 'https://accounts.twilio.com/v1/Credentials/AWS?PageSize=50&Page=0',
-                  'key': 'credentials',
-                  'next_page_url': null,
-                  'page': 0,
-                  'page_size': 50,
-                  'previous_page_url': null,
-                  'url': 'https://accounts.twilio.com/v1/Credentials/AWS?PageSize=50&Page=0'
+      holodeck.mock(new Response(200, body));
+      client.accounts.v1.credentials
+                        .aws.each({}, () => done());
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'credentials': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2015-07-31T04:00:00Z',
+                  'date_updated': '2015-07-31T04:00:00Z',
+                  'friendly_name': 'friendly_name',
+                  'sid': 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://accounts.twilio.com/v1/Credentials/AWS/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
-          });
-          holodeck.mock(new Response(200, body));
-
-          client.accounts.v1.credentials.aws.each({callback: function() {
-              done();
-          }}, function() {
-              fail('Wrong callback called');
-          });
+          ],
+          'meta': {
+              'first_page_url': 'https://accounts.twilio.com/v1/Credentials/AWS?PageSize=50&Page=0',
+              'key': 'credentials',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://accounts.twilio.com/v1/Credentials/AWS?PageSize=50&Page=0'
+          }
       });
-  });
+      holodeck.mock(new Response(200, body));
+      client.accounts.v1.credentials
+                        .aws.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));

@@ -265,6 +265,120 @@ describe('Address', function() {
       promise.done();
     }
   );
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'addresses': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'city': 'SF',
+                  'customer_name': 'name',
+                  'date_created': 'Tue, 18 Aug 2015 17:07:30 +0000',
+                  'date_updated': 'Tue, 18 Aug 2015 17:07:30 +0000',
+                  'emergency_enabled': false,
+                  'friendly_name': null,
+                  'iso_country': 'US',
+                  'postal_code': '94019',
+                  'region': 'CA',
+                  'sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'street': '4th',
+                  'validated': false,
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses/ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+              }
+          ],
+          'end': 0,
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses.json?PageSize=50&Page=0',
+          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses.json?PageSize=50&Page=0',
+          'next_page_uri': null,
+          'num_pages': 1,
+          'page': 0,
+          'page_size': 50,
+          'previous_page_uri': null,
+          'start': 0,
+          'total': 1,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses.json?PageSize=50&Page=0'
+      });
+      holodeck.mock(new Response(200, body));
+      client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .addresses.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'addresses': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'city': 'SF',
+                  'customer_name': 'name',
+                  'date_created': 'Tue, 18 Aug 2015 17:07:30 +0000',
+                  'date_updated': 'Tue, 18 Aug 2015 17:07:30 +0000',
+                  'emergency_enabled': false,
+                  'friendly_name': null,
+                  'iso_country': 'US',
+                  'postal_code': '94019',
+                  'region': 'CA',
+                  'sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'street': '4th',
+                  'validated': false,
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses/ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+              }
+          ],
+          'end': 0,
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses.json?PageSize=50&Page=0',
+          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses.json?PageSize=50&Page=0',
+          'next_page_uri': null,
+          'num_pages': 1,
+          'page': 0,
+          'page_size': 50,
+          'previous_page_uri': null,
+          'start': 0,
+          'total': 1,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses.json?PageSize=50&Page=0'
+      });
+      holodeck.mock(new Response(200, body));
+      client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .addresses.each({}, () => done());
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'addresses': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'city': 'SF',
+                  'customer_name': 'name',
+                  'date_created': 'Tue, 18 Aug 2015 17:07:30 +0000',
+                  'date_updated': 'Tue, 18 Aug 2015 17:07:30 +0000',
+                  'emergency_enabled': false,
+                  'friendly_name': null,
+                  'iso_country': 'US',
+                  'postal_code': '94019',
+                  'region': 'CA',
+                  'sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'street': '4th',
+                  'validated': false,
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses/ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+              }
+          ],
+          'end': 0,
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses.json?PageSize=50&Page=0',
+          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses.json?PageSize=50&Page=0',
+          'next_page_uri': null,
+          'num_pages': 1,
+          'page': 0,
+          'page_size': 50,
+          'previous_page_uri': null,
+          'start': 0,
+          'total': 1,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses.json?PageSize=50&Page=0'
+      });
+      holodeck.mock(new Response(200, body));
+      client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .addresses.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));

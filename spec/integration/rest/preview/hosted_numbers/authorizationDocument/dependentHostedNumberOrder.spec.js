@@ -30,6 +30,165 @@ describe('DependentHostedNumberOrder', function() {
       httpClient: holodeck
     });
   });
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'first_page_url': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/DependentHostedNumberOrders?PageSize=50&Page=0',
+              'key': 'items',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/DependentHostedNumberOrders?PageSize=50&Page=0'
+          },
+          'items': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'address_sid': 'AD11111111111111111111111111111111',
+                  'call_delay': 15,
+                  'capabilities': {
+                      'sms': true,
+                      'voice': false
+                  },
+                  'cc_emails': [
+                      'aaa@twilio.com',
+                      'bbb@twilio.com'
+                  ],
+                  'date_created': '2017-03-28T20:06:39Z',
+                  'date_updated': '2017-03-28T20:06:39Z',
+                  'email': 'test@twilio.com',
+                  'extension': '1234',
+                  'friendly_name': 'friendly_name',
+                  'incoming_phone_number_sid': 'PN11111111111111111111111111111111',
+                  'phone_number': '+14153608311',
+                  'sid': 'HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'signing_document_sid': 'PX11111111111111111111111111111111',
+                  'status': 'received',
+                  'failure_reason': '',
+                  'unique_name': 'foobar',
+                  'verification_attempts': 0,
+                  'verification_call_sids': [
+                      'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                      'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab'
+                  ],
+                  'verification_code': '8794',
+                  'verification_document_sid': null,
+                  'verification_type': 'phone-call'
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.preview.hosted_numbers.authorizationDocuments('PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                   .dependentHostedNumberOrders.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'first_page_url': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/DependentHostedNumberOrders?PageSize=50&Page=0',
+              'key': 'items',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/DependentHostedNumberOrders?PageSize=50&Page=0'
+          },
+          'items': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'address_sid': 'AD11111111111111111111111111111111',
+                  'call_delay': 15,
+                  'capabilities': {
+                      'sms': true,
+                      'voice': false
+                  },
+                  'cc_emails': [
+                      'aaa@twilio.com',
+                      'bbb@twilio.com'
+                  ],
+                  'date_created': '2017-03-28T20:06:39Z',
+                  'date_updated': '2017-03-28T20:06:39Z',
+                  'email': 'test@twilio.com',
+                  'extension': '1234',
+                  'friendly_name': 'friendly_name',
+                  'incoming_phone_number_sid': 'PN11111111111111111111111111111111',
+                  'phone_number': '+14153608311',
+                  'sid': 'HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'signing_document_sid': 'PX11111111111111111111111111111111',
+                  'status': 'received',
+                  'failure_reason': '',
+                  'unique_name': 'foobar',
+                  'verification_attempts': 0,
+                  'verification_call_sids': [
+                      'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                      'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab'
+                  ],
+                  'verification_code': '8794',
+                  'verification_document_sid': null,
+                  'verification_type': 'phone-call'
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.preview.hosted_numbers.authorizationDocuments('PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                   .dependentHostedNumberOrders.each({}, () => done());
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'first_page_url': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/DependentHostedNumberOrders?PageSize=50&Page=0',
+              'key': 'items',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/DependentHostedNumberOrders?PageSize=50&Page=0'
+          },
+          'items': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'address_sid': 'AD11111111111111111111111111111111',
+                  'call_delay': 15,
+                  'capabilities': {
+                      'sms': true,
+                      'voice': false
+                  },
+                  'cc_emails': [
+                      'aaa@twilio.com',
+                      'bbb@twilio.com'
+                  ],
+                  'date_created': '2017-03-28T20:06:39Z',
+                  'date_updated': '2017-03-28T20:06:39Z',
+                  'email': 'test@twilio.com',
+                  'extension': '1234',
+                  'friendly_name': 'friendly_name',
+                  'incoming_phone_number_sid': 'PN11111111111111111111111111111111',
+                  'phone_number': '+14153608311',
+                  'sid': 'HRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'signing_document_sid': 'PX11111111111111111111111111111111',
+                  'status': 'received',
+                  'failure_reason': '',
+                  'unique_name': 'foobar',
+                  'verification_attempts': 0,
+                  'verification_call_sids': [
+                      'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                      'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab'
+                  ],
+                  'verification_code': '8794',
+                  'verification_document_sid': null,
+                  'verification_type': 'phone-call'
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.preview.hosted_numbers.authorizationDocuments('PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                   .dependentHostedNumberOrders.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));

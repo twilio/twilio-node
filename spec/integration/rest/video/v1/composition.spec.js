@@ -128,6 +128,237 @@ describe('Composition', function() {
       promise.done();
     }
   );
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'compositions': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'status': 'completed',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_completed': '2015-07-30T20:01:33Z',
+                  'date_deleted': null,
+                  'sid': 'CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'room_sid': 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'audio_sources': [
+                      'RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                      'user*'
+                  ],
+                  'audio_sources_excluded': [],
+                  'video_layout': {
+                      'grid': {
+                          'video_sources': [
+                              'user*'
+                          ],
+                          'video_sources_excluded': [],
+                          'reuse': 'show_oldest',
+                          'x_pos': 100,
+                          'y_pos': 600,
+                          'z_pos': 10,
+                          'width': 0,
+                          'height': 0,
+                          'max_columns': 0,
+                          'max_rows': 0,
+                          'cells_excluded': []
+                      },
+                      'pip': {
+                          'video_sources': [
+                              'RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab'
+                          ],
+                          'video_sources_excluded': [],
+                          'reuse': 'none',
+                          'x_pos': 100,
+                          'y_pos': 600,
+                          'z_pos': 10,
+                          'width': 0,
+                          'height': 0,
+                          'max_columns': 0,
+                          'max_rows': 0,
+                          'cells_excluded': []
+                      }
+                  },
+                  'resolution': '1280x720',
+                  'format': 'webm',
+                  'bitrate': 64,
+                  'size': 4,
+                  'duration': 6,
+                  'trim': true,
+                  'media_external_location': null,
+                  'encryption_key': null,
+                  'url': 'https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'links': {
+                      'media': 'https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media'
+                  }
+              }
+          ],
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://video.twilio.com/v1/Compositions?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'url': 'https://video.twilio.com/v1/Compositions?PageSize=50&Page=0',
+              'next_page_url': null,
+              'key': 'compositions'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.video.v1.compositions.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'compositions': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'status': 'completed',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_completed': '2015-07-30T20:01:33Z',
+                  'date_deleted': null,
+                  'sid': 'CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'room_sid': 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'audio_sources': [
+                      'RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                      'user*'
+                  ],
+                  'audio_sources_excluded': [],
+                  'video_layout': {
+                      'grid': {
+                          'video_sources': [
+                              'user*'
+                          ],
+                          'video_sources_excluded': [],
+                          'reuse': 'show_oldest',
+                          'x_pos': 100,
+                          'y_pos': 600,
+                          'z_pos': 10,
+                          'width': 0,
+                          'height': 0,
+                          'max_columns': 0,
+                          'max_rows': 0,
+                          'cells_excluded': []
+                      },
+                      'pip': {
+                          'video_sources': [
+                              'RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab'
+                          ],
+                          'video_sources_excluded': [],
+                          'reuse': 'none',
+                          'x_pos': 100,
+                          'y_pos': 600,
+                          'z_pos': 10,
+                          'width': 0,
+                          'height': 0,
+                          'max_columns': 0,
+                          'max_rows': 0,
+                          'cells_excluded': []
+                      }
+                  },
+                  'resolution': '1280x720',
+                  'format': 'webm',
+                  'bitrate': 64,
+                  'size': 4,
+                  'duration': 6,
+                  'trim': true,
+                  'media_external_location': null,
+                  'encryption_key': null,
+                  'url': 'https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'links': {
+                      'media': 'https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media'
+                  }
+              }
+          ],
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://video.twilio.com/v1/Compositions?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'url': 'https://video.twilio.com/v1/Compositions?PageSize=50&Page=0',
+              'next_page_url': null,
+              'key': 'compositions'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.video.v1.compositions.each({}, () => done());
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'compositions': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'status': 'completed',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_completed': '2015-07-30T20:01:33Z',
+                  'date_deleted': null,
+                  'sid': 'CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'room_sid': 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'audio_sources': [
+                      'RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                      'user*'
+                  ],
+                  'audio_sources_excluded': [],
+                  'video_layout': {
+                      'grid': {
+                          'video_sources': [
+                              'user*'
+                          ],
+                          'video_sources_excluded': [],
+                          'reuse': 'show_oldest',
+                          'x_pos': 100,
+                          'y_pos': 600,
+                          'z_pos': 10,
+                          'width': 0,
+                          'height': 0,
+                          'max_columns': 0,
+                          'max_rows': 0,
+                          'cells_excluded': []
+                      },
+                      'pip': {
+                          'video_sources': [
+                              'RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab'
+                          ],
+                          'video_sources_excluded': [],
+                          'reuse': 'none',
+                          'x_pos': 100,
+                          'y_pos': 600,
+                          'z_pos': 10,
+                          'width': 0,
+                          'height': 0,
+                          'max_columns': 0,
+                          'max_rows': 0,
+                          'cells_excluded': []
+                      }
+                  },
+                  'resolution': '1280x720',
+                  'format': 'webm',
+                  'bitrate': 64,
+                  'size': 4,
+                  'duration': 6,
+                  'trim': true,
+                  'media_external_location': null,
+                  'encryption_key': null,
+                  'url': 'https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'links': {
+                      'media': 'https://video.twilio.com/v1/Compositions/CJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media'
+                  }
+              }
+          ],
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://video.twilio.com/v1/Compositions?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'url': 'https://video.twilio.com/v1/Compositions?PageSize=50&Page=0',
+              'next_page_url': null,
+              'key': 'compositions'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.video.v1.compositions.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));

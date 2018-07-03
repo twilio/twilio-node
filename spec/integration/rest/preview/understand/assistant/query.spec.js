@@ -99,6 +99,150 @@ describe('Query', function() {
       promise.done();
     }
   );
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'queries': [
+              {
+                  'language': 'language',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'model_build_sid': 'UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'query': 'query',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'status': 'status',
+                  'sample_sid': 'UFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'assistant_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'results': {
+                      'intent': {
+                          'name': 'name',
+                          'intent_sid': 'UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                          'confidence': 0.9
+                      },
+                      'entities': [
+                          {
+                              'name': 'name',
+                              'value': 'value',
+                              'type': 'type'
+                          }
+                      ]
+                  },
+                  'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries/UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sid': 'UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'source_channel': null
+              }
+          ],
+          'meta': {
+              'previous_page_url': null,
+              'next_page_url': null,
+              'first_page_url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries?PageSize=50&Page=0',
+              'page': 0,
+              'key': 'queries',
+              'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries?PageSize=50&Page=0',
+              'page_size': 50
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                               .queries.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'queries': [
+              {
+                  'language': 'language',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'model_build_sid': 'UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'query': 'query',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'status': 'status',
+                  'sample_sid': 'UFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'assistant_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'results': {
+                      'intent': {
+                          'name': 'name',
+                          'intent_sid': 'UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                          'confidence': 0.9
+                      },
+                      'entities': [
+                          {
+                              'name': 'name',
+                              'value': 'value',
+                              'type': 'type'
+                          }
+                      ]
+                  },
+                  'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries/UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sid': 'UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'source_channel': null
+              }
+          ],
+          'meta': {
+              'previous_page_url': null,
+              'next_page_url': null,
+              'first_page_url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries?PageSize=50&Page=0',
+              'page': 0,
+              'key': 'queries',
+              'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries?PageSize=50&Page=0',
+              'page_size': 50
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                               .queries.each({}, () => done());
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'queries': [
+              {
+                  'language': 'language',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'model_build_sid': 'UGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'query': 'query',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'status': 'status',
+                  'sample_sid': 'UFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'assistant_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'results': {
+                      'intent': {
+                          'name': 'name',
+                          'intent_sid': 'UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                          'confidence': 0.9
+                      },
+                      'entities': [
+                          {
+                              'name': 'name',
+                              'value': 'value',
+                              'type': 'type'
+                          }
+                      ]
+                  },
+                  'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries/UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sid': 'UHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'source_channel': null
+              }
+          ],
+          'meta': {
+              'previous_page_url': null,
+              'next_page_url': null,
+              'first_page_url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries?PageSize=50&Page=0',
+              'page': 0,
+              'key': 'queries',
+              'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries?PageSize=50&Page=0',
+              'page_size': 50
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                               .queries.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));

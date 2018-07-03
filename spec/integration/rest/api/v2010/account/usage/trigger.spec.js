@@ -270,6 +270,129 @@ describe('Trigger', function() {
       promise.done();
     }
   );
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'end': 0,
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Triggers?PageSize=1&Page=0',
+          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Triggers?PageSize=1&Page=626',
+          'next_page_uri': null,
+          'num_pages': 627,
+          'page': 0,
+          'page_size': 1,
+          'previous_page_uri': null,
+          'start': 0,
+          'total': 627,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Triggers',
+          'usage_triggers': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'api_version': '2010-04-01',
+                  'callback_method': 'GET',
+                  'callback_url': 'http://cap.com/streetfight',
+                  'current_value': '0',
+                  'date_created': 'Sun, 06 Sep 2015 12:58:45 +0000',
+                  'date_fired': null,
+                  'date_updated': 'Sun, 06 Sep 2015 12:58:45 +0000',
+                  'friendly_name': 'raphael-cluster-1441544325.86',
+                  'recurring': 'yearly',
+                  'sid': 'UTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'trigger_by': 'price',
+                  'trigger_value': '50',
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Triggers/UTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'usage_category': 'totalprice',
+                  'usage_record_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Records?Category=totalprice'
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .usage
+                      .triggers.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'end': 0,
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Triggers?PageSize=1&Page=0',
+          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Triggers?PageSize=1&Page=626',
+          'next_page_uri': null,
+          'num_pages': 627,
+          'page': 0,
+          'page_size': 1,
+          'previous_page_uri': null,
+          'start': 0,
+          'total': 627,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Triggers',
+          'usage_triggers': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'api_version': '2010-04-01',
+                  'callback_method': 'GET',
+                  'callback_url': 'http://cap.com/streetfight',
+                  'current_value': '0',
+                  'date_created': 'Sun, 06 Sep 2015 12:58:45 +0000',
+                  'date_fired': null,
+                  'date_updated': 'Sun, 06 Sep 2015 12:58:45 +0000',
+                  'friendly_name': 'raphael-cluster-1441544325.86',
+                  'recurring': 'yearly',
+                  'sid': 'UTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'trigger_by': 'price',
+                  'trigger_value': '50',
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Triggers/UTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'usage_category': 'totalprice',
+                  'usage_record_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Records?Category=totalprice'
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .usage
+                      .triggers.each({}, () => done());
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'end': 0,
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Triggers?PageSize=1&Page=0',
+          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Triggers?PageSize=1&Page=626',
+          'next_page_uri': null,
+          'num_pages': 627,
+          'page': 0,
+          'page_size': 1,
+          'previous_page_uri': null,
+          'start': 0,
+          'total': 627,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Triggers',
+          'usage_triggers': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'api_version': '2010-04-01',
+                  'callback_method': 'GET',
+                  'callback_url': 'http://cap.com/streetfight',
+                  'current_value': '0',
+                  'date_created': 'Sun, 06 Sep 2015 12:58:45 +0000',
+                  'date_fired': null,
+                  'date_updated': 'Sun, 06 Sep 2015 12:58:45 +0000',
+                  'friendly_name': 'raphael-cluster-1441544325.86',
+                  'recurring': 'yearly',
+                  'sid': 'UTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'trigger_by': 'price',
+                  'trigger_value': '50',
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Triggers/UTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'usage_category': 'totalprice',
+                  'usage_record_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Usage/Records?Category=totalprice'
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .usage
+                      .triggers.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));

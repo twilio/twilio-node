@@ -30,6 +30,81 @@ describe('Country', function() {
       httpClient: holodeck
     });
   });
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'countries': [
+              {
+                  'country': 'Austria',
+                  'iso_country': 'AT',
+                  'url': 'https://pricing.twilio.com/v1/PhoneNumbers/Countries/AT'
+              }
+          ],
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://pricing.twilio.com/v1/PhoneNumbers/Countries?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'url': 'https://pricing.twilio.com/v1/PhoneNumbers/Countries?PageSize=50&Page=0',
+              'next_page_url': null,
+              'key': 'countries'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.pricing.v1.phoneNumbers
+                       .countries.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'countries': [
+              {
+                  'country': 'Austria',
+                  'iso_country': 'AT',
+                  'url': 'https://pricing.twilio.com/v1/PhoneNumbers/Countries/AT'
+              }
+          ],
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://pricing.twilio.com/v1/PhoneNumbers/Countries?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'url': 'https://pricing.twilio.com/v1/PhoneNumbers/Countries?PageSize=50&Page=0',
+              'next_page_url': null,
+              'key': 'countries'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.pricing.v1.phoneNumbers
+                       .countries.each({}, () => done());
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'countries': [
+              {
+                  'country': 'Austria',
+                  'iso_country': 'AT',
+                  'url': 'https://pricing.twilio.com/v1/PhoneNumbers/Countries/AT'
+              }
+          ],
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://pricing.twilio.com/v1/PhoneNumbers/Countries?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'url': 'https://pricing.twilio.com/v1/PhoneNumbers/Countries?PageSize=50&Page=0',
+              'next_page_url': null,
+              'key': 'countries'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.pricing.v1.phoneNumbers
+                       .countries.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));

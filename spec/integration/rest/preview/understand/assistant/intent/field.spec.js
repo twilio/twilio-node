@@ -85,6 +85,102 @@ describe('Field', function() {
       promise.done();
     }
   );
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'fields': [
+              {
+                  'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Intents/UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Fields/UEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'unique_name': 'unique_name',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'assistant_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'intent_sid': 'UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'sid': 'UEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'field_type': 'field_type'
+              }
+          ],
+          'meta': {
+              'page': 0,
+              'first_page_url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Intents/UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Fields?PageSize=50&Page=0',
+              'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Intents/UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Fields?PageSize=50&Page=0',
+              'key': 'fields',
+              'next_page_url': null,
+              'previous_page_url': null,
+              'page_size': 50
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                               .intents('UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                               .fields.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'fields': [
+              {
+                  'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Intents/UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Fields/UEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'unique_name': 'unique_name',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'assistant_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'intent_sid': 'UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'sid': 'UEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'field_type': 'field_type'
+              }
+          ],
+          'meta': {
+              'page': 0,
+              'first_page_url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Intents/UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Fields?PageSize=50&Page=0',
+              'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Intents/UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Fields?PageSize=50&Page=0',
+              'key': 'fields',
+              'next_page_url': null,
+              'previous_page_url': null,
+              'page_size': 50
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                               .intents('UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                               .fields.each({}, () => done());
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'fields': [
+              {
+                  'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Intents/UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Fields/UEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'unique_name': 'unique_name',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'assistant_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'intent_sid': 'UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'sid': 'UEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'field_type': 'field_type'
+              }
+          ],
+          'meta': {
+              'page': 0,
+              'first_page_url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Intents/UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Fields?PageSize=50&Page=0',
+              'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Intents/UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Fields?PageSize=50&Page=0',
+              'key': 'fields',
+              'next_page_url': null,
+              'previous_page_url': null,
+              'page_size': 50
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                               .intents('UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                               .fields.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));

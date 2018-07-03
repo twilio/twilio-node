@@ -172,6 +172,99 @@ describe('OutgoingCallerId', function() {
       promise.done();
     }
   );
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'end': 0,
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OutgoingCallerIds.json?Page=0&PageSize=50',
+          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OutgoingCallerIds.json?Page=0&PageSize=50',
+          'next_page_uri': null,
+          'num_pages': 1,
+          'outgoing_caller_ids': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': 'Fri, 21 Aug 2009 00:11:24 +0000',
+                  'date_updated': 'Fri, 21 Aug 2009 00:11:24 +0000',
+                  'friendly_name': '(415) 867-5309',
+                  'phone_number': '+141586753096',
+                  'sid': 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OutgoingCallerIds/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+              }
+          ],
+          'page': 0,
+          'page_size': 50,
+          'previous_page_uri': null,
+          'start': 0,
+          'total': 1,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OutgoingCallerIds.json'
+      });
+      holodeck.mock(new Response(200, body));
+      client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .outgoingCallerIds.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'end': 0,
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OutgoingCallerIds.json?Page=0&PageSize=50',
+          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OutgoingCallerIds.json?Page=0&PageSize=50',
+          'next_page_uri': null,
+          'num_pages': 1,
+          'outgoing_caller_ids': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': 'Fri, 21 Aug 2009 00:11:24 +0000',
+                  'date_updated': 'Fri, 21 Aug 2009 00:11:24 +0000',
+                  'friendly_name': '(415) 867-5309',
+                  'phone_number': '+141586753096',
+                  'sid': 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OutgoingCallerIds/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+              }
+          ],
+          'page': 0,
+          'page_size': 50,
+          'previous_page_uri': null,
+          'start': 0,
+          'total': 1,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OutgoingCallerIds.json'
+      });
+      holodeck.mock(new Response(200, body));
+      client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .outgoingCallerIds.each({}, () => done());
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'end': 0,
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OutgoingCallerIds.json?Page=0&PageSize=50',
+          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OutgoingCallerIds.json?Page=0&PageSize=50',
+          'next_page_uri': null,
+          'num_pages': 1,
+          'outgoing_caller_ids': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': 'Fri, 21 Aug 2009 00:11:24 +0000',
+                  'date_updated': 'Fri, 21 Aug 2009 00:11:24 +0000',
+                  'friendly_name': '(415) 867-5309',
+                  'phone_number': '+141586753096',
+                  'sid': 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OutgoingCallerIds/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+              }
+          ],
+          'page': 0,
+          'page_size': 50,
+          'previous_page_uri': null,
+          'start': 0,
+          'total': 1,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OutgoingCallerIds.json'
+      });
+      holodeck.mock(new Response(200, body));
+      client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .outgoingCallerIds.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));

@@ -30,6 +30,177 @@ describe('Local', function() {
       httpClient: holodeck
     });
   });
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'end': 0,
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/Local.json?PageSize=1&Page=0',
+          'incoming_phone_numbers': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'address_requirements': 'none',
+                  'address_sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'api_version': '2010-04-01',
+                  'beta': null,
+                  'capabilities': {
+                      'mms': true,
+                      'sms': false,
+                      'voice': true
+                  },
+                  'date_created': 'Thu, 30 Jul 2015 23:19:04 +0000',
+                  'date_updated': 'Thu, 30 Jul 2015 23:19:04 +0000',
+                  'friendly_name': '(808) 925-5327',
+                  'identity_sid': 'RIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'phone_number': '+18089255327',
+                  'origin': 'origin',
+                  'sid': 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sms_application_sid': '',
+                  'sms_fallback_method': 'POST',
+                  'sms_fallback_url': '',
+                  'sms_method': 'POST',
+                  'sms_url': '',
+                  'status_callback': '',
+                  'status_callback_method': 'POST',
+                  'trunk_sid': null,
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
+                  'voice_application_sid': '',
+                  'voice_caller_id_lookup': false,
+                  'voice_fallback_method': 'POST',
+                  'voice_fallback_url': null,
+                  'voice_method': 'POST',
+                  'voice_url': null
+              }
+          ],
+          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/Local.json?PageSize=1&Page=2',
+          'next_page_uri': null,
+          'num_pages': 3,
+          'page': 0,
+          'page_size': 1,
+          'previous_page_uri': null,
+          'start': 0,
+          'total': 3,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/Local.json?PageSize=1'
+      });
+      holodeck.mock(new Response(200, body));
+      client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .incomingPhoneNumbers
+                      .local.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'end': 0,
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/Local.json?PageSize=1&Page=0',
+          'incoming_phone_numbers': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'address_requirements': 'none',
+                  'address_sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'api_version': '2010-04-01',
+                  'beta': null,
+                  'capabilities': {
+                      'mms': true,
+                      'sms': false,
+                      'voice': true
+                  },
+                  'date_created': 'Thu, 30 Jul 2015 23:19:04 +0000',
+                  'date_updated': 'Thu, 30 Jul 2015 23:19:04 +0000',
+                  'friendly_name': '(808) 925-5327',
+                  'identity_sid': 'RIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'phone_number': '+18089255327',
+                  'origin': 'origin',
+                  'sid': 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sms_application_sid': '',
+                  'sms_fallback_method': 'POST',
+                  'sms_fallback_url': '',
+                  'sms_method': 'POST',
+                  'sms_url': '',
+                  'status_callback': '',
+                  'status_callback_method': 'POST',
+                  'trunk_sid': null,
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
+                  'voice_application_sid': '',
+                  'voice_caller_id_lookup': false,
+                  'voice_fallback_method': 'POST',
+                  'voice_fallback_url': null,
+                  'voice_method': 'POST',
+                  'voice_url': null
+              }
+          ],
+          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/Local.json?PageSize=1&Page=2',
+          'next_page_uri': null,
+          'num_pages': 3,
+          'page': 0,
+          'page_size': 1,
+          'previous_page_uri': null,
+          'start': 0,
+          'total': 3,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/Local.json?PageSize=1'
+      });
+      holodeck.mock(new Response(200, body));
+      client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .incomingPhoneNumbers
+                      .local.each({}, () => done());
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'end': 0,
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/Local.json?PageSize=1&Page=0',
+          'incoming_phone_numbers': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'address_requirements': 'none',
+                  'address_sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'api_version': '2010-04-01',
+                  'beta': null,
+                  'capabilities': {
+                      'mms': true,
+                      'sms': false,
+                      'voice': true
+                  },
+                  'date_created': 'Thu, 30 Jul 2015 23:19:04 +0000',
+                  'date_updated': 'Thu, 30 Jul 2015 23:19:04 +0000',
+                  'friendly_name': '(808) 925-5327',
+                  'identity_sid': 'RIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'phone_number': '+18089255327',
+                  'origin': 'origin',
+                  'sid': 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sms_application_sid': '',
+                  'sms_fallback_method': 'POST',
+                  'sms_fallback_url': '',
+                  'sms_method': 'POST',
+                  'sms_url': '',
+                  'status_callback': '',
+                  'status_callback_method': 'POST',
+                  'trunk_sid': null,
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
+                  'voice_application_sid': '',
+                  'voice_caller_id_lookup': false,
+                  'voice_fallback_method': 'POST',
+                  'voice_fallback_url': null,
+                  'voice_method': 'POST',
+                  'voice_url': null
+              }
+          ],
+          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/Local.json?PageSize=1&Page=2',
+          'next_page_uri': null,
+          'num_pages': 3,
+          'page': 0,
+          'page_size': 1,
+          'previous_page_uri': null,
+          'start': 0,
+          'total': 3,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/Local.json?PageSize=1'
+      });
+      holodeck.mock(new Response(200, body));
+      client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .incomingPhoneNumbers
+                      .local.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));

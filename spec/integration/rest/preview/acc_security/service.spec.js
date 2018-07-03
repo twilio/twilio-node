@@ -131,6 +131,102 @@ describe('Service', function() {
       promise.done();
     }
   );
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://preview.twilio.com/Verification/Services?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'next_page_url': null,
+              'key': 'services',
+              'url': 'https://preview.twilio.com/Verification/Services?PageSize=50&Page=0'
+          },
+          'services': [
+              {
+                  'sid': 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'name': 'name',
+                  'code_length': 4,
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'url': 'https://preview.twilio.com/Verification/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'links': {
+                      'verification_checks': 'https://preview.twilio.com/Verification/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/VerificationCheck',
+                      'verifications': 'https://preview.twilio.com/Verification/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications'
+                  }
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.preview.acc_security.services.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://preview.twilio.com/Verification/Services?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'next_page_url': null,
+              'key': 'services',
+              'url': 'https://preview.twilio.com/Verification/Services?PageSize=50&Page=0'
+          },
+          'services': [
+              {
+                  'sid': 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'name': 'name',
+                  'code_length': 4,
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'url': 'https://preview.twilio.com/Verification/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'links': {
+                      'verification_checks': 'https://preview.twilio.com/Verification/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/VerificationCheck',
+                      'verifications': 'https://preview.twilio.com/Verification/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications'
+                  }
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.preview.acc_security.services.each({}, () => done());
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://preview.twilio.com/Verification/Services?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'next_page_url': null,
+              'key': 'services',
+              'url': 'https://preview.twilio.com/Verification/Services?PageSize=50&Page=0'
+          },
+          'services': [
+              {
+                  'sid': 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'name': 'name',
+                  'code_length': 4,
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'url': 'https://preview.twilio.com/Verification/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'links': {
+                      'verification_checks': 'https://preview.twilio.com/Verification/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/VerificationCheck',
+                      'verifications': 'https://preview.twilio.com/Verification/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications'
+                  }
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.preview.acc_security.services.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));

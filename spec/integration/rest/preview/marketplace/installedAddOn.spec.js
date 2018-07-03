@@ -234,6 +234,114 @@ describe('InstalledAddOn', function() {
       promise.done();
     }
   );
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'installed_add_ons': [
+              {
+                  'sid': 'XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'friendly_name': 'VoiceBase High Accuracy Transcription',
+                  'description': 'Automatic Transcription and Keyword Extract...',
+                  'configuration': {
+                      'bad_words': true
+                  },
+                  'unique_name': 'voicebase_high_accuracy_transcription',
+                  'date_created': '2016-04-07T23:52:28Z',
+                  'date_updated': '2016-04-07T23:52:28Z',
+                  'url': 'https://preview.twilio.com/marketplace/InstalledAddOns/XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'links': {
+                      'extensions': 'https://preview.twilio.com/marketplace/InstalledAddOns/XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Extensions',
+                      'available_add_on': 'https://preview.twilio.com/marketplace/AvailableAddOns/XBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  }
+              }
+          ],
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://preview.twilio.com/marketplace/InstalledAddOns?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'url': 'https://preview.twilio.com/marketplace/InstalledAddOns?PageSize=50&Page=0',
+              'next_page_url': null,
+              'key': 'installed_add_ons'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.preview.marketplace.installedAddOns.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'installed_add_ons': [
+              {
+                  'sid': 'XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'friendly_name': 'VoiceBase High Accuracy Transcription',
+                  'description': 'Automatic Transcription and Keyword Extract...',
+                  'configuration': {
+                      'bad_words': true
+                  },
+                  'unique_name': 'voicebase_high_accuracy_transcription',
+                  'date_created': '2016-04-07T23:52:28Z',
+                  'date_updated': '2016-04-07T23:52:28Z',
+                  'url': 'https://preview.twilio.com/marketplace/InstalledAddOns/XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'links': {
+                      'extensions': 'https://preview.twilio.com/marketplace/InstalledAddOns/XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Extensions',
+                      'available_add_on': 'https://preview.twilio.com/marketplace/AvailableAddOns/XBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  }
+              }
+          ],
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://preview.twilio.com/marketplace/InstalledAddOns?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'url': 'https://preview.twilio.com/marketplace/InstalledAddOns?PageSize=50&Page=0',
+              'next_page_url': null,
+              'key': 'installed_add_ons'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.preview.marketplace.installedAddOns.each({}, () => done());
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'installed_add_ons': [
+              {
+                  'sid': 'XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'friendly_name': 'VoiceBase High Accuracy Transcription',
+                  'description': 'Automatic Transcription and Keyword Extract...',
+                  'configuration': {
+                      'bad_words': true
+                  },
+                  'unique_name': 'voicebase_high_accuracy_transcription',
+                  'date_created': '2016-04-07T23:52:28Z',
+                  'date_updated': '2016-04-07T23:52:28Z',
+                  'url': 'https://preview.twilio.com/marketplace/InstalledAddOns/XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'links': {
+                      'extensions': 'https://preview.twilio.com/marketplace/InstalledAddOns/XEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Extensions',
+                      'available_add_on': 'https://preview.twilio.com/marketplace/AvailableAddOns/XBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  }
+              }
+          ],
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://preview.twilio.com/marketplace/InstalledAddOns?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'url': 'https://preview.twilio.com/marketplace/InstalledAddOns?PageSize=50&Page=0',
+              'next_page_url': null,
+              'key': 'installed_add_ons'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.preview.marketplace.installedAddOns.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));

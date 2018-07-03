@@ -30,6 +30,132 @@ describe('Local', function() {
       httpClient: holodeck
     });
   });
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'available_phone_numbers': [
+              {
+                  'address_requirements': 'none',
+                  'beta': false,
+                  'capabilities': {
+                      'mms': true,
+                      'sms': false,
+                      'voice': true
+                  },
+                  'friendly_name': '(808) 925-1571',
+                  'iso_country': 'US',
+                  'lata': '834',
+                  'latitude': '19.720000',
+                  'locality': 'Hilo',
+                  'longitude': '-155.090000',
+                  'phone_number': '+18089251571',
+                  'postal_code': '96720',
+                  'rate_center': 'HILO',
+                  'region': 'HI'
+              }
+          ],
+          'end': 1,
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/Local.json?PageSize=50&Page=0',
+          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/Local.json?PageSize=50&Page=0',
+          'next_page_uri': null,
+          'num_pages': 1,
+          'page': 0,
+          'page_size': 50,
+          'previous_page_uri': null,
+          'start': 0,
+          'total': 1,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/Local.json?PageSize=1'
+      });
+      holodeck.mock(new Response(200, body));
+      client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .availablePhoneNumbers('US')
+                      .local.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'available_phone_numbers': [
+              {
+                  'address_requirements': 'none',
+                  'beta': false,
+                  'capabilities': {
+                      'mms': true,
+                      'sms': false,
+                      'voice': true
+                  },
+                  'friendly_name': '(808) 925-1571',
+                  'iso_country': 'US',
+                  'lata': '834',
+                  'latitude': '19.720000',
+                  'locality': 'Hilo',
+                  'longitude': '-155.090000',
+                  'phone_number': '+18089251571',
+                  'postal_code': '96720',
+                  'rate_center': 'HILO',
+                  'region': 'HI'
+              }
+          ],
+          'end': 1,
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/Local.json?PageSize=50&Page=0',
+          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/Local.json?PageSize=50&Page=0',
+          'next_page_uri': null,
+          'num_pages': 1,
+          'page': 0,
+          'page_size': 50,
+          'previous_page_uri': null,
+          'start': 0,
+          'total': 1,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/Local.json?PageSize=1'
+      });
+      holodeck.mock(new Response(200, body));
+      client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .availablePhoneNumbers('US')
+                      .local.each({}, () => done());
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'available_phone_numbers': [
+              {
+                  'address_requirements': 'none',
+                  'beta': false,
+                  'capabilities': {
+                      'mms': true,
+                      'sms': false,
+                      'voice': true
+                  },
+                  'friendly_name': '(808) 925-1571',
+                  'iso_country': 'US',
+                  'lata': '834',
+                  'latitude': '19.720000',
+                  'locality': 'Hilo',
+                  'longitude': '-155.090000',
+                  'phone_number': '+18089251571',
+                  'postal_code': '96720',
+                  'rate_center': 'HILO',
+                  'region': 'HI'
+              }
+          ],
+          'end': 1,
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/Local.json?PageSize=50&Page=0',
+          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/Local.json?PageSize=50&Page=0',
+          'next_page_uri': null,
+          'num_pages': 1,
+          'page': 0,
+          'page_size': 50,
+          'previous_page_uri': null,
+          'start': 0,
+          'total': 1,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/Local.json?PageSize=1'
+      });
+      holodeck.mock(new Response(200, body));
+      client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .availablePhoneNumbers('US')
+                      .local.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));

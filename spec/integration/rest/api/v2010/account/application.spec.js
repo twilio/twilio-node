@@ -199,6 +199,129 @@ describe('Application', function() {
       promise.done();
     }
   );
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'applications': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'api_version': '2010-04-01',
+                  'date_created': 'Fri, 21 Aug 2015 00:07:25 +0000',
+                  'date_updated': 'Fri, 21 Aug 2015 00:07:25 +0000',
+                  'friendly_name': 'd8821fb7-4d01-48b2-bdc5-34e46252b90b',
+                  'message_status_callback': null,
+                  'sid': 'APaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sms_fallback_method': 'POST',
+                  'sms_fallback_url': null,
+                  'sms_method': 'POST',
+                  'sms_status_callback': null,
+                  'sms_url': null,
+                  'status_callback': null,
+                  'status_callback_method': 'POST',
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Applications/APaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
+                  'voice_caller_id_lookup': false,
+                  'voice_fallback_method': 'POST',
+                  'voice_fallback_url': null,
+                  'voice_method': 'POST',
+                  'voice_url': null
+              }
+          ],
+          'end': 0,
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Applications.json?PageSize=1&Page=0',
+          'next_page_uri': null,
+          'previous_page_uri': null,
+          'page_size': 1,
+          'page': 0,
+          'start': 0,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Applications.json?PageSize=1&Page=0'
+      });
+      holodeck.mock(new Response(200, body));
+      client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .applications.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'applications': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'api_version': '2010-04-01',
+                  'date_created': 'Fri, 21 Aug 2015 00:07:25 +0000',
+                  'date_updated': 'Fri, 21 Aug 2015 00:07:25 +0000',
+                  'friendly_name': 'd8821fb7-4d01-48b2-bdc5-34e46252b90b',
+                  'message_status_callback': null,
+                  'sid': 'APaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sms_fallback_method': 'POST',
+                  'sms_fallback_url': null,
+                  'sms_method': 'POST',
+                  'sms_status_callback': null,
+                  'sms_url': null,
+                  'status_callback': null,
+                  'status_callback_method': 'POST',
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Applications/APaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
+                  'voice_caller_id_lookup': false,
+                  'voice_fallback_method': 'POST',
+                  'voice_fallback_url': null,
+                  'voice_method': 'POST',
+                  'voice_url': null
+              }
+          ],
+          'end': 0,
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Applications.json?PageSize=1&Page=0',
+          'next_page_uri': null,
+          'previous_page_uri': null,
+          'page_size': 1,
+          'page': 0,
+          'start': 0,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Applications.json?PageSize=1&Page=0'
+      });
+      holodeck.mock(new Response(200, body));
+      client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .applications.each({}, () => done());
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'applications': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'api_version': '2010-04-01',
+                  'date_created': 'Fri, 21 Aug 2015 00:07:25 +0000',
+                  'date_updated': 'Fri, 21 Aug 2015 00:07:25 +0000',
+                  'friendly_name': 'd8821fb7-4d01-48b2-bdc5-34e46252b90b',
+                  'message_status_callback': null,
+                  'sid': 'APaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sms_fallback_method': 'POST',
+                  'sms_fallback_url': null,
+                  'sms_method': 'POST',
+                  'sms_status_callback': null,
+                  'sms_url': null,
+                  'status_callback': null,
+                  'status_callback_method': 'POST',
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Applications/APaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
+                  'voice_caller_id_lookup': false,
+                  'voice_fallback_method': 'POST',
+                  'voice_fallback_url': null,
+                  'voice_method': 'POST',
+                  'voice_url': null
+              }
+          ],
+          'end': 0,
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Applications.json?PageSize=1&Page=0',
+          'next_page_uri': null,
+          'previous_page_uri': null,
+          'page_size': 1,
+          'page': 0,
+          'start': 0,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Applications.json?PageSize=1&Page=0'
+      });
+      holodeck.mock(new Response(200, body));
+      client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .applications.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));

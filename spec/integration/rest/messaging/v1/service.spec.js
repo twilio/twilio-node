@@ -157,6 +157,141 @@ describe('Service', function() {
       promise.done();
     }
   );
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://messaging.twilio.com/v1/Services?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'next_page_url': null,
+              'key': 'services',
+              'url': 'https://messaging.twilio.com/v1/Services?PageSize=50&Page=0'
+          },
+          'services': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'friendly_name': 'My Service!',
+                  'sid': 'MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2015-07-30T20:12:31Z',
+                  'date_updated': '2015-07-30T20:12:33Z',
+                  'sticky_sender': true,
+                  'mms_converter': true,
+                  'smart_encoding': false,
+                  'fallback_to_long_code': true,
+                  'area_code_geomatch': true,
+                  'validity_period': 600,
+                  'scan_message_content': 'inherit',
+                  'synchronous_validation': true,
+                  'inbound_request_url': 'https://www.example.com/',
+                  'inbound_method': 'POST',
+                  'fallback_url': null,
+                  'fallback_method': 'POST',
+                  'status_callback': 'https://www.example.com',
+                  'links': {
+                      'phone_numbers': 'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers',
+                      'short_codes': 'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ShortCodes',
+                      'alpha_senders': 'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AlphaSenders'
+                  },
+                  'url': 'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.messaging.v1.services.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://messaging.twilio.com/v1/Services?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'next_page_url': null,
+              'key': 'services',
+              'url': 'https://messaging.twilio.com/v1/Services?PageSize=50&Page=0'
+          },
+          'services': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'friendly_name': 'My Service!',
+                  'sid': 'MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2015-07-30T20:12:31Z',
+                  'date_updated': '2015-07-30T20:12:33Z',
+                  'sticky_sender': true,
+                  'mms_converter': true,
+                  'smart_encoding': false,
+                  'fallback_to_long_code': true,
+                  'area_code_geomatch': true,
+                  'validity_period': 600,
+                  'scan_message_content': 'inherit',
+                  'synchronous_validation': true,
+                  'inbound_request_url': 'https://www.example.com/',
+                  'inbound_method': 'POST',
+                  'fallback_url': null,
+                  'fallback_method': 'POST',
+                  'status_callback': 'https://www.example.com',
+                  'links': {
+                      'phone_numbers': 'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers',
+                      'short_codes': 'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ShortCodes',
+                      'alpha_senders': 'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AlphaSenders'
+                  },
+                  'url': 'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.messaging.v1.services.each({}, () => done());
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://messaging.twilio.com/v1/Services?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'next_page_url': null,
+              'key': 'services',
+              'url': 'https://messaging.twilio.com/v1/Services?PageSize=50&Page=0'
+          },
+          'services': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'friendly_name': 'My Service!',
+                  'sid': 'MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2015-07-30T20:12:31Z',
+                  'date_updated': '2015-07-30T20:12:33Z',
+                  'sticky_sender': true,
+                  'mms_converter': true,
+                  'smart_encoding': false,
+                  'fallback_to_long_code': true,
+                  'area_code_geomatch': true,
+                  'validity_period': 600,
+                  'scan_message_content': 'inherit',
+                  'synchronous_validation': true,
+                  'inbound_request_url': 'https://www.example.com/',
+                  'inbound_method': 'POST',
+                  'fallback_url': null,
+                  'fallback_method': 'POST',
+                  'status_callback': 'https://www.example.com',
+                  'links': {
+                      'phone_numbers': 'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers',
+                      'short_codes': 'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ShortCodes',
+                      'alpha_senders': 'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AlphaSenders'
+                  },
+                  'url': 'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.messaging.v1.services.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));

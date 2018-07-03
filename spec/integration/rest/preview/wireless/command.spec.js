@@ -79,6 +79,102 @@ describe('Command', function() {
       promise.done();
     }
   );
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'commands': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'command': 'command',
+                  'command_mode': 'command_mode',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'device_sid': 'DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sim_sid': 'DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'direction': 'direction',
+                  'sid': 'DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'status': 'status',
+                  'url': 'https://preview.twilio.com/wireless/Commands/DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ],
+          'meta': {
+              'first_page_url': 'https://preview.twilio.com/wireless/Commands?PageSize=50&Page=0',
+              'key': 'commands',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://preview.twilio.com/wireless/Commands?PageSize=50&Page=0'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.preview.wireless.commands.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'commands': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'command': 'command',
+                  'command_mode': 'command_mode',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'device_sid': 'DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sim_sid': 'DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'direction': 'direction',
+                  'sid': 'DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'status': 'status',
+                  'url': 'https://preview.twilio.com/wireless/Commands/DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ],
+          'meta': {
+              'first_page_url': 'https://preview.twilio.com/wireless/Commands?PageSize=50&Page=0',
+              'key': 'commands',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://preview.twilio.com/wireless/Commands?PageSize=50&Page=0'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.preview.wireless.commands.each({}, () => done());
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'commands': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'command': 'command',
+                  'command_mode': 'command_mode',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'device_sid': 'DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sim_sid': 'DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'direction': 'direction',
+                  'sid': 'DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'status': 'status',
+                  'url': 'https://preview.twilio.com/wireless/Commands/DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ],
+          'meta': {
+              'first_page_url': 'https://preview.twilio.com/wireless/Commands?PageSize=50&Page=0',
+              'key': 'commands',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://preview.twilio.com/wireless/Commands?PageSize=50&Page=0'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.preview.wireless.commands.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));

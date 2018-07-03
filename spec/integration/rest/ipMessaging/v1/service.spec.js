@@ -200,6 +200,150 @@ describe('Service', function() {
       promise.done();
     }
   );
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'first_page_url': 'https://chat.twilio.com/v1/Services?Page=0&PageSize=50',
+              'key': 'services',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 1,
+              'previous_page_url': null,
+              'url': 'https://chat.twilio.com/v1/Services'
+          },
+          'services': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'consumption_report_interval': 100,
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'default_channel_creator_role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'default_channel_role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'default_service_role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'friendly_name': 'friendly_name',
+                  'limits': {
+                      'actions_per_second': 20,
+                      'channel_members': 100,
+                      'user_channels': 250
+                  },
+                  'links': {},
+                  'notifications': {},
+                  'post_webhook_url': 'post_webhook_url',
+                  'pre_webhook_url': 'pre_webhook_url',
+                  'reachability_enabled': false,
+                  'read_status_enabled': false,
+                  'sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'typing_indicator_timeout': 100,
+                  'url': 'http://www.example.com',
+                  'webhook_filters': [
+                      'webhook_filters'
+                  ],
+                  'webhook_method': 'webhook_method',
+                  'webhooks': {}
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.ipMessaging.v1.services.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'first_page_url': 'https://chat.twilio.com/v1/Services?Page=0&PageSize=50',
+              'key': 'services',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 1,
+              'previous_page_url': null,
+              'url': 'https://chat.twilio.com/v1/Services'
+          },
+          'services': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'consumption_report_interval': 100,
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'default_channel_creator_role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'default_channel_role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'default_service_role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'friendly_name': 'friendly_name',
+                  'limits': {
+                      'actions_per_second': 20,
+                      'channel_members': 100,
+                      'user_channels': 250
+                  },
+                  'links': {},
+                  'notifications': {},
+                  'post_webhook_url': 'post_webhook_url',
+                  'pre_webhook_url': 'pre_webhook_url',
+                  'reachability_enabled': false,
+                  'read_status_enabled': false,
+                  'sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'typing_indicator_timeout': 100,
+                  'url': 'http://www.example.com',
+                  'webhook_filters': [
+                      'webhook_filters'
+                  ],
+                  'webhook_method': 'webhook_method',
+                  'webhooks': {}
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.ipMessaging.v1.services.each({}, () => done());
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'first_page_url': 'https://chat.twilio.com/v1/Services?Page=0&PageSize=50',
+              'key': 'services',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 1,
+              'previous_page_url': null,
+              'url': 'https://chat.twilio.com/v1/Services'
+          },
+          'services': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'consumption_report_interval': 100,
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'default_channel_creator_role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'default_channel_role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'default_service_role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'friendly_name': 'friendly_name',
+                  'limits': {
+                      'actions_per_second': 20,
+                      'channel_members': 100,
+                      'user_channels': 250
+                  },
+                  'links': {},
+                  'notifications': {},
+                  'post_webhook_url': 'post_webhook_url',
+                  'pre_webhook_url': 'pre_webhook_url',
+                  'reachability_enabled': false,
+                  'read_status_enabled': false,
+                  'sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'typing_indicator_timeout': 100,
+                  'url': 'http://www.example.com',
+                  'webhook_filters': [
+                      'webhook_filters'
+                  ],
+                  'webhook_method': 'webhook_method',
+                  'webhooks': {}
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.ipMessaging.v1.services.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));

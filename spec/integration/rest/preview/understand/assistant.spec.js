@@ -87,6 +87,126 @@ describe('Assistant', function() {
       promise.done();
     }
   );
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'assistants': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2017-07-04T08:34:00Z',
+                  'date_updated': '2017-07-04T08:34:00Z',
+                  'friendly_name': 'so so friendly',
+                  'latest_model_build_sid': null,
+                  'log_queries': true,
+                  'sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'ttl': 3600,
+                  'unique_name': 'so-so-unique',
+                  'links': {
+                      'field_types': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes',
+                      'intents': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Intents',
+                      'model_builds': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ModelBuilds',
+                      'queries': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries'
+                  },
+                  'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'response_url': 'https://example.com/response_url',
+                  'callback_url': 'https://example.com/callback_url',
+                  'callback_events': 'model_build_completed model_build_failed'
+              }
+          ],
+          'meta': {
+              'first_page_url': 'https://preview.twilio.com/understand/Assistants?PageSize=50&Page=0',
+              'key': 'assistants',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://preview.twilio.com/understand/Assistants?PageSize=50&Page=0'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.preview.understand.assistants.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'assistants': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2017-07-04T08:34:00Z',
+                  'date_updated': '2017-07-04T08:34:00Z',
+                  'friendly_name': 'so so friendly',
+                  'latest_model_build_sid': null,
+                  'log_queries': true,
+                  'sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'ttl': 3600,
+                  'unique_name': 'so-so-unique',
+                  'links': {
+                      'field_types': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes',
+                      'intents': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Intents',
+                      'model_builds': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ModelBuilds',
+                      'queries': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries'
+                  },
+                  'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'response_url': 'https://example.com/response_url',
+                  'callback_url': 'https://example.com/callback_url',
+                  'callback_events': 'model_build_completed model_build_failed'
+              }
+          ],
+          'meta': {
+              'first_page_url': 'https://preview.twilio.com/understand/Assistants?PageSize=50&Page=0',
+              'key': 'assistants',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://preview.twilio.com/understand/Assistants?PageSize=50&Page=0'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.preview.understand.assistants.each({}, () => done());
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'assistants': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2017-07-04T08:34:00Z',
+                  'date_updated': '2017-07-04T08:34:00Z',
+                  'friendly_name': 'so so friendly',
+                  'latest_model_build_sid': null,
+                  'log_queries': true,
+                  'sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'ttl': 3600,
+                  'unique_name': 'so-so-unique',
+                  'links': {
+                      'field_types': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes',
+                      'intents': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Intents',
+                      'model_builds': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ModelBuilds',
+                      'queries': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Queries'
+                  },
+                  'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'response_url': 'https://example.com/response_url',
+                  'callback_url': 'https://example.com/callback_url',
+                  'callback_events': 'model_build_completed model_build_failed'
+              }
+          ],
+          'meta': {
+              'first_page_url': 'https://preview.twilio.com/understand/Assistants?PageSize=50&Page=0',
+              'key': 'assistants',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://preview.twilio.com/understand/Assistants?PageSize=50&Page=0'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.preview.understand.assistants.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));

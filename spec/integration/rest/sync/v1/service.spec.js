@@ -174,6 +174,117 @@ describe('Service', function() {
       promise.done();
     }
   );
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'first_page_url': 'https://sync.twilio.com/v1/Services?PageSize=50&Page=0',
+              'key': 'services',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://sync.twilio.com/v1/Services?PageSize=50&Page=0'
+          },
+          'services': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'friendly_name': 'friendly_name',
+                  'links': {
+                      'documents': 'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Documents',
+                      'lists': 'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Lists',
+                      'maps': 'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Maps',
+                      'streams': 'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Streams'
+                  },
+                  'sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'unique_name': 'unique_name',
+                  'url': 'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'webhook_url': 'http://www.example.com',
+                  'reachability_webhooks_enabled': false,
+                  'acl_enabled': false
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.sync.v1.services.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'first_page_url': 'https://sync.twilio.com/v1/Services?PageSize=50&Page=0',
+              'key': 'services',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://sync.twilio.com/v1/Services?PageSize=50&Page=0'
+          },
+          'services': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'friendly_name': 'friendly_name',
+                  'links': {
+                      'documents': 'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Documents',
+                      'lists': 'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Lists',
+                      'maps': 'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Maps',
+                      'streams': 'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Streams'
+                  },
+                  'sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'unique_name': 'unique_name',
+                  'url': 'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'webhook_url': 'http://www.example.com',
+                  'reachability_webhooks_enabled': false,
+                  'acl_enabled': false
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.sync.v1.services.each({}, () => done());
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'first_page_url': 'https://sync.twilio.com/v1/Services?PageSize=50&Page=0',
+              'key': 'services',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://sync.twilio.com/v1/Services?PageSize=50&Page=0'
+          },
+          'services': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'friendly_name': 'friendly_name',
+                  'links': {
+                      'documents': 'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Documents',
+                      'lists': 'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Lists',
+                      'maps': 'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Maps',
+                      'streams': 'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Streams'
+                  },
+                  'sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'unique_name': 'unique_name',
+                  'url': 'https://sync.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'webhook_url': 'http://www.example.com',
+                  'reachability_webhooks_enabled': false,
+                  'acl_enabled': false
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.sync.v1.services.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));

@@ -173,6 +173,93 @@ describe('CredentialList', function() {
       promise.done();
     }
   );
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'credential_lists': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'trunk_sid': 'TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2018-04-27T22:02:11Z',
+                  'date_updated': '2018-04-27T22:02:11Z',
+                  'friendly_name': 'friendly_name',
+                  'sid': 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialLists/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ],
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialLists?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'url': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialLists?PageSize=50&Page=0',
+              'next_page_url': null,
+              'key': 'credential_lists'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                        .credentialsLists.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'credential_lists': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'trunk_sid': 'TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2018-04-27T22:02:11Z',
+                  'date_updated': '2018-04-27T22:02:11Z',
+                  'friendly_name': 'friendly_name',
+                  'sid': 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialLists/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ],
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialLists?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'url': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialLists?PageSize=50&Page=0',
+              'next_page_url': null,
+              'key': 'credential_lists'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                        .credentialsLists.each({}, () => done());
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'credential_lists': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'trunk_sid': 'TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2018-04-27T22:02:11Z',
+                  'date_updated': '2018-04-27T22:02:11Z',
+                  'friendly_name': 'friendly_name',
+                  'sid': 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialLists/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ],
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialLists?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'url': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialLists?PageSize=50&Page=0',
+              'next_page_url': null,
+              'key': 'credential_lists'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                        .credentialsLists.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));

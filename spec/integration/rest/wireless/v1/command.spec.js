@@ -78,6 +78,99 @@ describe('Command', function() {
       promise.done();
     }
   );
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'commands': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'command': 'command',
+                  'command_mode': 'text',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'sim_sid': 'DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'direction': 'from_sim',
+                  'sid': 'DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'status': 'queued',
+                  'url': 'https://wireless.twilio.com/v1/Commands/DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ],
+          'meta': {
+              'first_page_url': 'https://wireless.twilio.com/v1/Commands?PageSize=50&Page=0',
+              'key': 'commands',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://wireless.twilio.com/v1/Commands?PageSize=50&Page=0'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.wireless.v1.commands.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'commands': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'command': 'command',
+                  'command_mode': 'text',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'sim_sid': 'DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'direction': 'from_sim',
+                  'sid': 'DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'status': 'queued',
+                  'url': 'https://wireless.twilio.com/v1/Commands/DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ],
+          'meta': {
+              'first_page_url': 'https://wireless.twilio.com/v1/Commands?PageSize=50&Page=0',
+              'key': 'commands',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://wireless.twilio.com/v1/Commands?PageSize=50&Page=0'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.wireless.v1.commands.each({}, () => done());
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'commands': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'command': 'command',
+                  'command_mode': 'text',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'sim_sid': 'DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'direction': 'from_sim',
+                  'sid': 'DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'status': 'queued',
+                  'url': 'https://wireless.twilio.com/v1/Commands/DCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ],
+          'meta': {
+              'first_page_url': 'https://wireless.twilio.com/v1/Commands?PageSize=50&Page=0',
+              'key': 'commands',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://wireless.twilio.com/v1/Commands?PageSize=50&Page=0'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.wireless.v1.commands.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));
