@@ -154,7 +154,12 @@ describe('AuthorizedConnectApp', function() {
       });
       holodeck.mock(new Response(200, body));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                      .authorizedConnectApps.each({}, () => done());
+                      .authorizedConnectApps.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/AuthorizedConnectApps.json',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

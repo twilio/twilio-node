@@ -133,7 +133,12 @@ describe('DependentHostedNumberOrder', function() {
       });
       holodeck.mock(new Response(200, body));
       client.preview.hosted_numbers.authorizationDocuments('PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                   .dependentHostedNumberOrders.each({}, () => done());
+                                   .dependentHostedNumberOrders.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/<%= signingDocumentSid %>/DependentHostedNumberOrders',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

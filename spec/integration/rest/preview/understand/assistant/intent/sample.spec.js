@@ -149,7 +149,12 @@ describe('Sample', function() {
       holodeck.mock(new Response(200, body));
       client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                .intents('UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                               .samples.each({}, () => done());
+                               .samples.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://preview.twilio.com/understand/Assistants/<%= assistantSid %>/Intents/<%= intentSid %>/Samples',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

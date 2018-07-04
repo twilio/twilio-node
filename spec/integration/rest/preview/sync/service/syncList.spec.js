@@ -248,7 +248,12 @@ describe('SyncList', function() {
       });
       holodeck.mock(new Response(200, body));
       client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                         .syncLists.each({}, () => done());
+                         .syncLists.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://preview.twilio.com/Sync/Services/<%= serviceSid %>/Lists',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

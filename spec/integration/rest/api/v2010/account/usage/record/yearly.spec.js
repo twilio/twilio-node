@@ -125,7 +125,12 @@ describe('Yearly', function() {
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .usage
                       .records
-                      .yearly.each({}, () => done());
+                      .yearly.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Usage/Records/Yearly.json',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

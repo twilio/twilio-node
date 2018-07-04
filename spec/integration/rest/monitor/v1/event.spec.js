@@ -173,7 +173,12 @@ describe('Event', function() {
           }
       });
       holodeck.mock(new Response(200, body));
-      client.monitor.v1.events.each({}, () => done());
+      client.monitor.v1.events.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://monitor.twilio.com/v1/Events',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

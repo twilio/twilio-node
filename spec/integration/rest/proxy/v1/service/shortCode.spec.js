@@ -193,7 +193,12 @@ describe('ShortCode', function() {
       });
       holodeck.mock(new Response(200, body));
       client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                     .shortCodes.each({}, () => done());
+                     .shortCodes.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://proxy.twilio.com/v1/Services/<%= serviceSid %>/ShortCodes',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

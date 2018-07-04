@@ -190,7 +190,12 @@ describe('DocumentPermission', function() {
       holodeck.mock(new Response(200, body));
       client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                          .documents('ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                         .documentPermissions.each({}, () => done());
+                         .documentPermissions.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://preview.twilio.com/Sync/Services/<%= serviceSid %>/Documents/<%= documentSid %>/Permissions',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

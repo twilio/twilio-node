@@ -184,7 +184,12 @@ describe('PhoneNumber', function() {
       });
       holodeck.mock(new Response(200, body));
       client.preview.proxy.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                          .phoneNumbers.each({}, () => done());
+                          .phoneNumbers.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://preview.twilio.com/Proxy/Services/<%= serviceSid %>/PhoneNumbers',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

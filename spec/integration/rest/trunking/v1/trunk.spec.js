@@ -273,7 +273,12 @@ describe('Trunk', function() {
           ]
       });
       holodeck.mock(new Response(200, body));
-      client.trunking.v1.trunks.each({}, () => done());
+      client.trunking.v1.trunks.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://trunking.twilio.com/v1/Trunks',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

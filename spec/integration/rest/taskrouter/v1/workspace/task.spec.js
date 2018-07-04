@@ -299,7 +299,12 @@ describe('Task', function() {
       });
       holodeck.mock(new Response(200, body));
       client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                          .tasks.each({}, () => done());
+                          .tasks.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Tasks',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

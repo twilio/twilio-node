@@ -135,7 +135,12 @@ describe('FaxMedia', function() {
       });
       holodeck.mock(new Response(200, body));
       client.fax.v1.faxes('FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                   .media.each({}, () => done());
+                   .media.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://fax.twilio.com/v1/Faxes/<%= faxSid %>/Media',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

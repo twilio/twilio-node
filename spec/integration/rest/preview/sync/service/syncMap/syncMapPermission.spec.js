@@ -190,7 +190,12 @@ describe('SyncMapPermission', function() {
       holodeck.mock(new Response(200, body));
       client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                          .syncMaps('MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                         .syncMapPermissions.each({}, () => done());
+                         .syncMapPermissions.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://preview.twilio.com/Sync/Services/<%= serviceSid %>/Maps/<%= mapSid %>/Permissions',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

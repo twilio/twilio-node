@@ -77,7 +77,12 @@ describe('Day', function() {
       });
       holodeck.mock(new Response(200, body));
       client.preview.bulk_exports.exports('resourceType')
-                                 .days.each({}, () => done());
+                                 .days.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://preview.twilio.com/BulkExports/Exports/<%= resourceType %>/Days',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

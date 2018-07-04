@@ -111,7 +111,12 @@ describe('SharedCost', function() {
       holodeck.mock(new Response(200, body));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .availablePhoneNumbers('US')
-                      .sharedCost.each({}, () => done());
+                      .sharedCost.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/AvailablePhoneNumbers/<%= countryCode %>/SharedCost.json',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

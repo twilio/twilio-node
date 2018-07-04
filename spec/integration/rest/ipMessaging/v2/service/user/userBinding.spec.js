@@ -107,7 +107,12 @@ describe('UserBinding', function() {
       holodeck.mock(new Response(200, body));
       client.ipMessaging.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                            .users('USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                           .userBindings.each({}, () => done());
+                           .userBindings.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://chat.twilio.com/v2/Services/<%= serviceSid %>/Users/<%= userSid %>/Bindings',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

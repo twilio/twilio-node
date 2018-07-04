@@ -91,7 +91,12 @@ describe('SubscribedTrack', function() {
       holodeck.mock(new Response(200, body));
       client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                      .participants('PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                     .subscribedTracks.each({}, () => done());
+                     .subscribedTracks.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://video.twilio.com/v1/Rooms/<%= roomSid %>/Participants/<%= subscriberSid %>/SubscribedTracks',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

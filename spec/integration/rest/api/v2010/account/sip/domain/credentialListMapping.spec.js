@@ -147,7 +147,12 @@ describe('CredentialListMapping', function() {
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .sip
                       .domains('SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                      .credentialListMappings.each({}, () => done());
+                      .credentialListMappings.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/Domains/<%= domainSid %>/CredentialListMappings.json',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

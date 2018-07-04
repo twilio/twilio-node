@@ -264,7 +264,12 @@ describe('OriginationUrl', function() {
       });
       holodeck.mock(new Response(200, body));
       client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                        .originationUrls.each({}, () => done());
+                        .originationUrls.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/OriginationUrls',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

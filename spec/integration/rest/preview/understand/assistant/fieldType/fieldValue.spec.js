@@ -149,7 +149,12 @@ describe('FieldValue', function() {
       holodeck.mock(new Response(200, body));
       client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                .fieldTypes('UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                               .fieldValues.each({}, () => done());
+                               .fieldValues.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://preview.twilio.com/understand/Assistants/<%= assistantSid %>/FieldTypes/<%= fieldTypeSid %>/FieldValues',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

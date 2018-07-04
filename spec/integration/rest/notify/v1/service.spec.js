@@ -277,7 +277,12 @@ describe('Service', function() {
           ]
       });
       holodeck.mock(new Response(200, body));
-      client.notify.v1.services.each({}, () => done());
+      client.notify.v1.services.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://notify.twilio.com/v1/Services',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

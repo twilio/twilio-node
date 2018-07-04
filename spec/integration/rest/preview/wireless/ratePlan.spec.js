@@ -105,7 +105,12 @@ describe('RatePlan', function() {
           ]
       });
       holodeck.mock(new Response(200, body));
-      client.preview.wireless.ratePlans.each({}, () => done());
+      client.preview.wireless.ratePlans.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://preview.twilio.com/wireless/RatePlans',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

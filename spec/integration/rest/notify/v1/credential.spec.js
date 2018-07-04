@@ -85,7 +85,12 @@ describe('Credential', function() {
           }
       });
       holodeck.mock(new Response(200, body));
-      client.notify.v1.credentials.each({}, () => done());
+      client.notify.v1.credentials.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://notify.twilio.com/v1/Credentials',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

@@ -95,7 +95,12 @@ describe('UsageRecord', function() {
       });
       holodeck.mock(new Response(200, body));
       client.wireless.v1.sims('DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                        .usageRecords.each({}, () => done());
+                        .usageRecords.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://wireless.twilio.com/v1/Sims/<%= simSid %>/UsageRecords',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

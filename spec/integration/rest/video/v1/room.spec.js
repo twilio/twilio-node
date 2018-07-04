@@ -236,7 +236,12 @@ describe('Room', function() {
           }
       });
       holodeck.mock(new Response(200, body));
-      client.video.v1.rooms.each({}, () => done());
+      client.video.v1.rooms.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://video.twilio.com/v1/Rooms',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

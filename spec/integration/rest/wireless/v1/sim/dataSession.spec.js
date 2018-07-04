@@ -135,7 +135,12 @@ describe('DataSession', function() {
       });
       holodeck.mock(new Response(200, body));
       client.wireless.v1.sims('DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                        .dataSessions.each({}, () => done());
+                        .dataSessions.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://wireless.twilio.com/v1/Sims/<%= simSid %>/DataSessions',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

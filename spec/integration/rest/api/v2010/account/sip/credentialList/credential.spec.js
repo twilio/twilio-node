@@ -93,7 +93,12 @@ describe('Credential', function() {
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .sip
                       .credentialLists('CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                      .credentials.each({}, () => done());
+                      .credentials.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/CredentialLists/<%= credentialListSid %>/Credentials.json',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

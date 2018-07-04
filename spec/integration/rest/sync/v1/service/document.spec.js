@@ -252,7 +252,12 @@ describe('Document', function() {
       });
       holodeck.mock(new Response(200, body));
       client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                    .documents.each({}, () => done());
+                    .documents.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://sync.twilio.com/v1/Services/<%= serviceSid %>/Documents',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

@@ -175,7 +175,12 @@ describe('Recording', function() {
           }
       });
       holodeck.mock(new Response(200, body));
-      client.video.v1.recordings.each({}, () => done());
+      client.video.v1.recordings.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://video.twilio.com/v1/Recordings',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

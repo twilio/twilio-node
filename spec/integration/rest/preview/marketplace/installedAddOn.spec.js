@@ -303,7 +303,12 @@ describe('InstalledAddOn', function() {
           }
       });
       holodeck.mock(new Response(200, body));
-      client.preview.marketplace.installedAddOns.each({}, () => done());
+      client.preview.marketplace.installedAddOns.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://preview.twilio.com/marketplace/InstalledAddOns',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

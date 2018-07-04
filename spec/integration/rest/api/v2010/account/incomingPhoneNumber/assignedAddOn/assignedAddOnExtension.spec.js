@@ -149,7 +149,12 @@ describe('AssignedAddOnExtension', function() {
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .incomingPhoneNumbers('PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .assignedAddOns('XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                      .extensions.each({}, () => done());
+                      .extensions.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/IncomingPhoneNumbers/<%= resourceSid %>/AssignedAddOns/<%= assignedAddOnSid %>/Extensions.json',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

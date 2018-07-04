@@ -299,7 +299,12 @@ describe('SyncStream', function() {
       });
       holodeck.mock(new Response(200, body));
       client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                    .syncStreams.each({}, () => done());
+                    .syncStreams.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://sync.twilio.com/v1/Services/<%= serviceSid %>/Streams',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

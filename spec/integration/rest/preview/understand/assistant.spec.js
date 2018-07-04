@@ -164,7 +164,12 @@ describe('Assistant', function() {
           }
       });
       holodeck.mock(new Response(200, body));
-      client.preview.understand.assistants.each({}, () => done());
+      client.preview.understand.assistants.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://preview.twilio.com/understand/Assistants',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

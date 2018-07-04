@@ -389,7 +389,12 @@ describe('Message', function() {
       holodeck.mock(new Response(200, body));
       client.chat.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                     .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                    .messages.each({}, () => done());
+                    .messages.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://chat.twilio.com/v2/Services/<%= serviceSid %>/Channels/<%= channelSid %>/Messages',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

@@ -164,7 +164,12 @@ describe('AvailableAddOn', function() {
           }
       });
       holodeck.mock(new Response(200, body));
-      client.preview.marketplace.availableAddOns.each({}, () => done());
+      client.preview.marketplace.availableAddOns.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://preview.twilio.com/marketplace/AvailableAddOns',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

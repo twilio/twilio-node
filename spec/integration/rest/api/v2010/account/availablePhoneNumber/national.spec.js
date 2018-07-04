@@ -111,7 +111,12 @@ describe('National', function() {
       holodeck.mock(new Response(200, body));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .availablePhoneNumbers('US')
-                      .national.each({}, () => done());
+                      .national.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/AvailablePhoneNumbers/<%= countryCode %>/National.json',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

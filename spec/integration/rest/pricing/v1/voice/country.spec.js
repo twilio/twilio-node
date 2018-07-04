@@ -77,7 +77,12 @@ describe('Country', function() {
       });
       holodeck.mock(new Response(200, body));
       client.pricing.v1.voice
-                       .countries.each({}, () => done());
+                       .countries.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://pricing.twilio.com/v1/Voice/Countries',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

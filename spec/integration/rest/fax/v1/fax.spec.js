@@ -167,7 +167,12 @@ describe('Fax', function() {
           }
       });
       holodeck.mock(new Response(200, body));
-      client.fax.v1.faxes.each({}, () => done());
+      client.fax.v1.faxes.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://fax.twilio.com/v1/Faxes',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

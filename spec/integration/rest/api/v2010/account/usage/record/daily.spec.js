@@ -125,7 +125,12 @@ describe('Daily', function() {
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .usage
                       .records
-                      .daily.each({}, () => done());
+                      .daily.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Usage/Records/Daily.json',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

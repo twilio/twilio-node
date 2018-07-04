@@ -132,7 +132,12 @@ describe('AvailableAddOnExtension', function() {
       });
       holodeck.mock(new Response(200, body));
       client.preview.marketplace.availableAddOns('XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                .extensions.each({}, () => done());
+                                .extensions.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://preview.twilio.com/marketplace/AvailableAddOns/<%= availableAddOnSid %>/Extensions',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

@@ -203,7 +203,12 @@ describe('AuthorizationDocument', function() {
           ]
       });
       holodeck.mock(new Response(200, body));
-      client.preview.hosted_numbers.authorizationDocuments.each({}, () => done());
+      client.preview.hosted_numbers.authorizationDocuments.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

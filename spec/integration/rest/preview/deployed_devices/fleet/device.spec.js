@@ -244,7 +244,12 @@ describe('Device', function() {
       });
       holodeck.mock(new Response(200, body));
       client.preview.deployed_devices.fleets('FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                     .devices.each({}, () => done());
+                                     .devices.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://preview.twilio.com/DeployedDevices/Fleets/<%= fleetSid %>/Devices',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

@@ -140,7 +140,12 @@ describe('Command', function() {
           }
       });
       holodeck.mock(new Response(200, body));
-      client.preview.wireless.commands.each({}, () => done());
+      client.preview.wireless.commands.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://preview.twilio.com/wireless/Commands',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

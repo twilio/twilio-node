@@ -83,7 +83,12 @@ describe('PublicKey', function() {
       });
       holodeck.mock(new Response(200, body));
       client.accounts.v1.credentials
-                        .publicKey.each({}, () => done());
+                        .publicKey.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://accounts.twilio.com/v1/Credentials/PublicKeys',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

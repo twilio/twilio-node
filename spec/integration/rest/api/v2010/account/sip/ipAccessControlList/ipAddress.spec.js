@@ -95,7 +95,12 @@ describe('IpAddress', function() {
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .sip
                       .ipAccessControlLists('ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                      .ipAddresses.each({}, () => done());
+                      .ipAddresses.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/IpAccessControlLists/<%= ipAccessControlListSid %>/IpAddresses.json',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

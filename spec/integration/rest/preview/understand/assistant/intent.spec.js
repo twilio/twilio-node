@@ -150,7 +150,12 @@ describe('Intent', function() {
       });
       holodeck.mock(new Response(200, body));
       client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                               .intents.each({}, () => done());
+                               .intents.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://preview.twilio.com/understand/Assistants/<%= assistantSid %>/Intents',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

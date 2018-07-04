@@ -182,7 +182,12 @@ describe('Sim', function() {
           }
       });
       holodeck.mock(new Response(200, body));
-      client.preview.wireless.sims.each({}, () => done());
+      client.preview.wireless.sims.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://preview.twilio.com/wireless/Sims',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

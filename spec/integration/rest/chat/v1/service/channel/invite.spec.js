@@ -208,7 +208,12 @@ describe('Invite', function() {
       holodeck.mock(new Response(200, body));
       client.chat.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                     .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                    .invites.each({}, () => done());
+                    .invites.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://chat.twilio.com/v1/Services/<%= serviceSid %>/Channels/<%= channelSid %>/Invites',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

@@ -328,7 +328,12 @@ describe('PhoneNumber', function() {
       });
       holodeck.mock(new Response(200, body));
       client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                        .phoneNumbers.each({}, () => done());
+                        .phoneNumbers.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/PhoneNumbers',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',

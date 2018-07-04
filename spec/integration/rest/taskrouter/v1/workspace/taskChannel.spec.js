@@ -140,7 +140,12 @@ describe('TaskChannel', function() {
       });
       holodeck.mock(new Response(200, body));
       client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                          .taskChannels.each({}, () => done());
+                          .taskChannels.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/TaskChannels',
+          params: {PageSize: 20},
+      }));
     }
   );
   it('should find the callback in the opts object',
