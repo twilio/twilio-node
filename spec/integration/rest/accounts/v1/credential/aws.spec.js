@@ -83,7 +83,14 @@ describe('Aws', function() {
       });
       holodeck.mock(new Response(200, body));
       client.accounts.v1.credentials
-                        .aws.each({}, () => done());
+                        .aws.each({pageSize: 20}, () => done());
+
+        var url = 'https://accounts.twilio.com/v1/Credentials/AWS';
+        holodeck.assertHasRequest(new Request({
+            method: 'GET',
+            url: url,
+            params: {PageSize: 20},
+        }));
     }
   );
   it('should find the callback in the opts object',
