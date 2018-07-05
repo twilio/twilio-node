@@ -86,6 +86,110 @@ describe('FieldValue', function() {
       promise.done();
     }
   );
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'field_values': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes/UBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldValues/UCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'field_type_sid': 'UBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'language': 'language',
+                  'assistant_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'value': 'value',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'sid': 'UCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'synonym_of': 'UCbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'
+              }
+          ],
+          'meta': {
+              'first_page_url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes/UBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldValues?PageSize=50&Page=0',
+              'page_size': 50,
+              'previous_page_url': null,
+              'key': 'field_values',
+              'page': 0,
+              'next_page_url': null,
+              'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes/UBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldValues?PageSize=50&Page=0'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                               .fieldTypes('UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                               .fieldValues.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'field_values': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes/UBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldValues/UCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'field_type_sid': 'UBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'language': 'language',
+                  'assistant_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'value': 'value',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'sid': 'UCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'synonym_of': 'UCbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'
+              }
+          ],
+          'meta': {
+              'first_page_url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes/UBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldValues?PageSize=50&Page=0',
+              'page_size': 50,
+              'previous_page_url': null,
+              'key': 'field_values',
+              'page': 0,
+              'next_page_url': null,
+              'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes/UBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldValues?PageSize=50&Page=0'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                               .fieldTypes('UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                               .fieldValues.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://preview.twilio.com/understand/Assistants/<%= assistantSid %>/FieldTypes/<%= fieldTypeSid %>/FieldValues',
+          params: {PageSize: 20},
+      }));
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'field_values': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes/UBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldValues/UCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'field_type_sid': 'UBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'language': 'language',
+                  'assistant_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'value': 'value',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'sid': 'UCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'synonym_of': 'UCbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'
+              }
+          ],
+          'meta': {
+              'first_page_url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes/UBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldValues?PageSize=50&Page=0',
+              'page_size': 50,
+              'previous_page_url': null,
+              'key': 'field_values',
+              'page': 0,
+              'next_page_url': null,
+              'url': 'https://preview.twilio.com/understand/Assistants/UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldTypes/UBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/FieldValues?PageSize=50&Page=0'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.preview.understand.assistants('UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                               .fieldTypes('UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                               .fieldValues.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));

@@ -136,6 +136,116 @@ describe('AuthorizationDocument', function() {
       promise.done();
     }
   );
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'first_page_url': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments?PageSize=50&Page=0',
+              'key': 'items',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments?PageSize=50&Page=0'
+          },
+          'items': [
+              {
+                  'address_sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'cc_emails': [
+                      'test1@twilio.com',
+                      'test2@twilio.com'
+                  ],
+                  'date_created': '2017-03-28T20:06:39Z',
+                  'date_updated': '2017-03-28T20:06:39Z',
+                  'email': 'test+hosted@twilio.com',
+                  'links': {
+                      'dependent_hosted_number_orders': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/DependentHostedNumberOrders'
+                  },
+                  'sid': 'PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'status': 'signing',
+                  'url': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.preview.hosted_numbers.authorizationDocuments.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'first_page_url': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments?PageSize=50&Page=0',
+              'key': 'items',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments?PageSize=50&Page=0'
+          },
+          'items': [
+              {
+                  'address_sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'cc_emails': [
+                      'test1@twilio.com',
+                      'test2@twilio.com'
+                  ],
+                  'date_created': '2017-03-28T20:06:39Z',
+                  'date_updated': '2017-03-28T20:06:39Z',
+                  'email': 'test+hosted@twilio.com',
+                  'links': {
+                      'dependent_hosted_number_orders': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/DependentHostedNumberOrders'
+                  },
+                  'sid': 'PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'status': 'signing',
+                  'url': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.preview.hosted_numbers.authorizationDocuments.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments',
+          params: {PageSize: 20},
+      }));
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'first_page_url': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments?PageSize=50&Page=0',
+              'key': 'items',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments?PageSize=50&Page=0'
+          },
+          'items': [
+              {
+                  'address_sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'cc_emails': [
+                      'test1@twilio.com',
+                      'test2@twilio.com'
+                  ],
+                  'date_created': '2017-03-28T20:06:39Z',
+                  'date_updated': '2017-03-28T20:06:39Z',
+                  'email': 'test+hosted@twilio.com',
+                  'links': {
+                      'dependent_hosted_number_orders': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/DependentHostedNumberOrders'
+                  },
+                  'sid': 'PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'status': 'signing',
+                  'url': 'https://preview.twilio.com/HostedNumbers/AuthorizationDocuments/PXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.preview.hosted_numbers.authorizationDocuments.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));

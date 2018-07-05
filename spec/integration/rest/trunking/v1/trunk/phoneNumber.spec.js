@@ -223,6 +223,173 @@ describe('PhoneNumber', function() {
       promise.done();
     }
   );
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'first_page_url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers?PageSize=1&Page=0',
+              'key': 'phone_numbers',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 1,
+              'previous_page_url': null,
+              'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers?PageSize=1&Page=0'
+          },
+          'phone_numbers': [
+              {
+                  'sid': 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2010-12-10T17:27:34Z',
+                  'date_updated': '2015-10-09T11:36:32Z',
+                  'friendly_name': '(415) 867-5309',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'phone_number': '+14158675309',
+                  'api_version': '2010-04-01',
+                  'voice_caller_id_lookup': null,
+                  'voice_url': '',
+                  'voice_method': 'POST',
+                  'voice_fallback_url': null,
+                  'voice_fallback_method': null,
+                  'status_callback': '',
+                  'status_callback_method': 'POST',
+                  'voice_application_sid': null,
+                  'trunk_sid': 'TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sms_url': '',
+                  'sms_method': 'POST',
+                  'sms_fallback_url': '',
+                  'sms_fallback_method': 'POST',
+                  'sms_application_sid': '',
+                  'address_requirements': 'none',
+                  'beta': false,
+                  'url': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'capabilities': {
+                      'voice': true,
+                      'sms': true,
+                      'mms': true
+                  },
+                  'links': {
+                      'phone_number': 'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+                  }
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                        .phoneNumbers.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'first_page_url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers?PageSize=1&Page=0',
+              'key': 'phone_numbers',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 1,
+              'previous_page_url': null,
+              'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers?PageSize=1&Page=0'
+          },
+          'phone_numbers': [
+              {
+                  'sid': 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2010-12-10T17:27:34Z',
+                  'date_updated': '2015-10-09T11:36:32Z',
+                  'friendly_name': '(415) 867-5309',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'phone_number': '+14158675309',
+                  'api_version': '2010-04-01',
+                  'voice_caller_id_lookup': null,
+                  'voice_url': '',
+                  'voice_method': 'POST',
+                  'voice_fallback_url': null,
+                  'voice_fallback_method': null,
+                  'status_callback': '',
+                  'status_callback_method': 'POST',
+                  'voice_application_sid': null,
+                  'trunk_sid': 'TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sms_url': '',
+                  'sms_method': 'POST',
+                  'sms_fallback_url': '',
+                  'sms_fallback_method': 'POST',
+                  'sms_application_sid': '',
+                  'address_requirements': 'none',
+                  'beta': false,
+                  'url': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'capabilities': {
+                      'voice': true,
+                      'sms': true,
+                      'mms': true
+                  },
+                  'links': {
+                      'phone_number': 'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+                  }
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                        .phoneNumbers.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/PhoneNumbers',
+          params: {PageSize: 20},
+      }));
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'first_page_url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers?PageSize=1&Page=0',
+              'key': 'phone_numbers',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 1,
+              'previous_page_url': null,
+              'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers?PageSize=1&Page=0'
+          },
+          'phone_numbers': [
+              {
+                  'sid': 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2010-12-10T17:27:34Z',
+                  'date_updated': '2015-10-09T11:36:32Z',
+                  'friendly_name': '(415) 867-5309',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'phone_number': '+14158675309',
+                  'api_version': '2010-04-01',
+                  'voice_caller_id_lookup': null,
+                  'voice_url': '',
+                  'voice_method': 'POST',
+                  'voice_fallback_url': null,
+                  'voice_fallback_method': null,
+                  'status_callback': '',
+                  'status_callback_method': 'POST',
+                  'voice_application_sid': null,
+                  'trunk_sid': 'TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sms_url': '',
+                  'sms_method': 'POST',
+                  'sms_fallback_url': '',
+                  'sms_fallback_method': 'POST',
+                  'sms_application_sid': '',
+                  'address_requirements': 'none',
+                  'beta': false,
+                  'url': 'https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'capabilities': {
+                      'voice': true,
+                      'sms': true,
+                      'mms': true
+                  },
+                  'links': {
+                      'phone_number': 'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+                  }
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                        .phoneNumbers.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));

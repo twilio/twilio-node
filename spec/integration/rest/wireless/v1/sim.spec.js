@@ -95,6 +95,155 @@ describe('Sim', function() {
       promise.done();
     }
   );
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'sims': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'unique_name': 'unique_name',
+                  'commands_callback_method': 'http_method',
+                  'commands_callback_url': 'http://www.example.com',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'friendly_name': 'friendly_name',
+                  'links': {
+                      'data_sessions': 'https://wireless.twilio.com/v1/Sims/DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/DataSessions',
+                      'rate_plan': 'https://wireless.twilio.com/v1/RatePlans/WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                      'usage_records': 'https://wireless.twilio.com/v1/Sims/DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/UsageRecords'
+                  },
+                  'rate_plan_sid': 'WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sid': 'DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'iccid': 'iccid',
+                  'e_id': 'e_id',
+                  'status': 'new',
+                  'sms_fallback_method': 'http_method',
+                  'sms_fallback_url': 'http://www.example.com',
+                  'sms_method': 'http_method',
+                  'sms_url': 'http://www.example.com',
+                  'voice_fallback_method': 'http_method',
+                  'voice_fallback_url': 'http://www.example.com',
+                  'voice_method': 'http_method',
+                  'voice_url': 'http://www.example.com',
+                  'url': 'https://wireless.twilio.com/v1/Sims/DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'ip_address': '192.168.1.30'
+              }
+          ],
+          'meta': {
+              'first_page_url': 'https://wireless.twilio.com/v1/Sims?PageSize=50&Page=0',
+              'key': 'sims',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://wireless.twilio.com/v1/Sims?PageSize=50&Page=0'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.wireless.v1.sims.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'sims': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'unique_name': 'unique_name',
+                  'commands_callback_method': 'http_method',
+                  'commands_callback_url': 'http://www.example.com',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'friendly_name': 'friendly_name',
+                  'links': {
+                      'data_sessions': 'https://wireless.twilio.com/v1/Sims/DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/DataSessions',
+                      'rate_plan': 'https://wireless.twilio.com/v1/RatePlans/WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                      'usage_records': 'https://wireless.twilio.com/v1/Sims/DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/UsageRecords'
+                  },
+                  'rate_plan_sid': 'WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sid': 'DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'iccid': 'iccid',
+                  'e_id': 'e_id',
+                  'status': 'new',
+                  'sms_fallback_method': 'http_method',
+                  'sms_fallback_url': 'http://www.example.com',
+                  'sms_method': 'http_method',
+                  'sms_url': 'http://www.example.com',
+                  'voice_fallback_method': 'http_method',
+                  'voice_fallback_url': 'http://www.example.com',
+                  'voice_method': 'http_method',
+                  'voice_url': 'http://www.example.com',
+                  'url': 'https://wireless.twilio.com/v1/Sims/DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'ip_address': '192.168.1.30'
+              }
+          ],
+          'meta': {
+              'first_page_url': 'https://wireless.twilio.com/v1/Sims?PageSize=50&Page=0',
+              'key': 'sims',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://wireless.twilio.com/v1/Sims?PageSize=50&Page=0'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.wireless.v1.sims.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://wireless.twilio.com/v1/Sims',
+          params: {PageSize: 20},
+      }));
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'sims': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'unique_name': 'unique_name',
+                  'commands_callback_method': 'http_method',
+                  'commands_callback_url': 'http://www.example.com',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'friendly_name': 'friendly_name',
+                  'links': {
+                      'data_sessions': 'https://wireless.twilio.com/v1/Sims/DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/DataSessions',
+                      'rate_plan': 'https://wireless.twilio.com/v1/RatePlans/WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                      'usage_records': 'https://wireless.twilio.com/v1/Sims/DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/UsageRecords'
+                  },
+                  'rate_plan_sid': 'WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sid': 'DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'iccid': 'iccid',
+                  'e_id': 'e_id',
+                  'status': 'new',
+                  'sms_fallback_method': 'http_method',
+                  'sms_fallback_url': 'http://www.example.com',
+                  'sms_method': 'http_method',
+                  'sms_url': 'http://www.example.com',
+                  'voice_fallback_method': 'http_method',
+                  'voice_fallback_url': 'http://www.example.com',
+                  'voice_method': 'http_method',
+                  'voice_url': 'http://www.example.com',
+                  'url': 'https://wireless.twilio.com/v1/Sims/DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'ip_address': '192.168.1.30'
+              }
+          ],
+          'meta': {
+              'first_page_url': 'https://wireless.twilio.com/v1/Sims?PageSize=50&Page=0',
+              'key': 'sims',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://wireless.twilio.com/v1/Sims?PageSize=50&Page=0'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.wireless.v1.sims.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));

@@ -90,6 +90,143 @@ describe('Recording', function() {
       promise.done();
     }
   );
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'recordings': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'status': 'completed',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T21:00:00Z',
+                  'date_deleted': '2015-07-30T22:00:00Z',
+                  'sid': 'RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'source_sid': 'MTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'size': 23,
+                  'type': 'audio',
+                  'duration': 10,
+                  'container_format': 'mka',
+                  'codec': 'OPUS',
+                  'track_name': 'A name',
+                  'grouping_sids': {
+                      'room_sid': 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                      'participant_sid': 'PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  },
+                  'media_external_location': 'https://my-super-duper-bucket.s3.amazonaws.com/my/path/',
+                  'encryption_key': 'public_key',
+                  'url': 'https://video.twilio.com/v1/Recordings/RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'links': {
+                      'media': 'https://video.twilio.com/v1/Recordings/RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media'
+                  }
+              }
+          ],
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://video.twilio.com/v1/Recordings?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'url': 'https://video.twilio.com/v1/Recordings?PageSize=50&Page=0',
+              'next_page_url': null,
+              'key': 'recordings'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.video.v1.recordings.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'recordings': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'status': 'completed',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T21:00:00Z',
+                  'date_deleted': '2015-07-30T22:00:00Z',
+                  'sid': 'RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'source_sid': 'MTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'size': 23,
+                  'type': 'audio',
+                  'duration': 10,
+                  'container_format': 'mka',
+                  'codec': 'OPUS',
+                  'track_name': 'A name',
+                  'grouping_sids': {
+                      'room_sid': 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                      'participant_sid': 'PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  },
+                  'media_external_location': 'https://my-super-duper-bucket.s3.amazonaws.com/my/path/',
+                  'encryption_key': 'public_key',
+                  'url': 'https://video.twilio.com/v1/Recordings/RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'links': {
+                      'media': 'https://video.twilio.com/v1/Recordings/RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media'
+                  }
+              }
+          ],
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://video.twilio.com/v1/Recordings?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'url': 'https://video.twilio.com/v1/Recordings?PageSize=50&Page=0',
+              'next_page_url': null,
+              'key': 'recordings'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.video.v1.recordings.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://video.twilio.com/v1/Recordings',
+          params: {PageSize: 20},
+      }));
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'recordings': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'status': 'completed',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T21:00:00Z',
+                  'date_deleted': '2015-07-30T22:00:00Z',
+                  'sid': 'RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'source_sid': 'MTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'size': 23,
+                  'type': 'audio',
+                  'duration': 10,
+                  'container_format': 'mka',
+                  'codec': 'OPUS',
+                  'track_name': 'A name',
+                  'grouping_sids': {
+                      'room_sid': 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                      'participant_sid': 'PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  },
+                  'media_external_location': 'https://my-super-duper-bucket.s3.amazonaws.com/my/path/',
+                  'encryption_key': 'public_key',
+                  'url': 'https://video.twilio.com/v1/Recordings/RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'links': {
+                      'media': 'https://video.twilio.com/v1/Recordings/RTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media'
+                  }
+              }
+          ],
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://video.twilio.com/v1/Recordings?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'url': 'https://video.twilio.com/v1/Recordings?PageSize=50&Page=0',
+              'next_page_url': null,
+              'key': 'recordings'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.video.v1.recordings.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));

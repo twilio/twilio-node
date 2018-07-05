@@ -30,6 +30,134 @@ describe('RatePlan', function() {
       httpClient: holodeck
     });
   });
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'first_page_url': 'https://wireless.twilio.com/v1/RatePlans?PageSize=50&Page=0',
+              'key': 'rate_plans',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://wireless.twilio.com/v1/RatePlans?PageSize=50&Page=0'
+          },
+          'rate_plans': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'unique_name': 'unique_name',
+                  'data_enabled': true,
+                  'data_limit': 1000,
+                  'data_metering': 'pooled',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'friendly_name': 'friendly_name',
+                  'messaging_enabled': true,
+                  'voice_enabled': true,
+                  'national_roaming_enabled': true,
+                  'national_roaming_data_limit': 1000,
+                  'international_roaming': [
+                      'data',
+                      'messaging',
+                      'voice'
+                  ],
+                  'international_roaming_data_limit': 1000,
+                  'sid': 'WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://wireless.twilio.com/v1/RatePlans/WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.wireless.v1.ratePlans.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'first_page_url': 'https://wireless.twilio.com/v1/RatePlans?PageSize=50&Page=0',
+              'key': 'rate_plans',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://wireless.twilio.com/v1/RatePlans?PageSize=50&Page=0'
+          },
+          'rate_plans': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'unique_name': 'unique_name',
+                  'data_enabled': true,
+                  'data_limit': 1000,
+                  'data_metering': 'pooled',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'friendly_name': 'friendly_name',
+                  'messaging_enabled': true,
+                  'voice_enabled': true,
+                  'national_roaming_enabled': true,
+                  'national_roaming_data_limit': 1000,
+                  'international_roaming': [
+                      'data',
+                      'messaging',
+                      'voice'
+                  ],
+                  'international_roaming_data_limit': 1000,
+                  'sid': 'WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://wireless.twilio.com/v1/RatePlans/WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.wireless.v1.ratePlans.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://wireless.twilio.com/v1/RatePlans',
+          params: {PageSize: 20},
+      }));
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'first_page_url': 'https://wireless.twilio.com/v1/RatePlans?PageSize=50&Page=0',
+              'key': 'rate_plans',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://wireless.twilio.com/v1/RatePlans?PageSize=50&Page=0'
+          },
+          'rate_plans': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'unique_name': 'unique_name',
+                  'data_enabled': true,
+                  'data_limit': 1000,
+                  'data_metering': 'pooled',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'friendly_name': 'friendly_name',
+                  'messaging_enabled': true,
+                  'voice_enabled': true,
+                  'national_roaming_enabled': true,
+                  'national_roaming_data_limit': 1000,
+                  'international_roaming': [
+                      'data',
+                      'messaging',
+                      'voice'
+                  ],
+                  'international_roaming_data_limit': 1000,
+                  'sid': 'WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://wireless.twilio.com/v1/RatePlans/WPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.wireless.v1.ratePlans.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));

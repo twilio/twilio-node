@@ -30,6 +30,86 @@ describe('Country', function() {
       httpClient: holodeck
     });
   });
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'countries': [
+              {
+                  'country': 'country',
+                  'iso_country': 'US',
+                  'url': 'https://pricing.twilio.com/v1/Messaging/Countries/US'
+              }
+          ],
+          'meta': {
+              'first_page_url': 'https://pricing.twilio.com/v1/Messaging/Countries?PageSize=50&Page=0',
+              'key': 'countries',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://pricing.twilio.com/v1/Messaging/Countries?PageSize=50&Page=0'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.pricing.v1.messaging
+                       .countries.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'countries': [
+              {
+                  'country': 'country',
+                  'iso_country': 'US',
+                  'url': 'https://pricing.twilio.com/v1/Messaging/Countries/US'
+              }
+          ],
+          'meta': {
+              'first_page_url': 'https://pricing.twilio.com/v1/Messaging/Countries?PageSize=50&Page=0',
+              'key': 'countries',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://pricing.twilio.com/v1/Messaging/Countries?PageSize=50&Page=0'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.pricing.v1.messaging
+                       .countries.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://pricing.twilio.com/v1/Messaging/Countries',
+          params: {PageSize: 20},
+      }));
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'countries': [
+              {
+                  'country': 'country',
+                  'iso_country': 'US',
+                  'url': 'https://pricing.twilio.com/v1/Messaging/Countries/US'
+              }
+          ],
+          'meta': {
+              'first_page_url': 'https://pricing.twilio.com/v1/Messaging/Countries?PageSize=50&Page=0',
+              'key': 'countries',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://pricing.twilio.com/v1/Messaging/Countries?PageSize=50&Page=0'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.pricing.v1.messaging
+                       .countries.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));

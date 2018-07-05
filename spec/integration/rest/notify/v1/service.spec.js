@@ -190,6 +190,146 @@ describe('Service', function() {
       promise.done();
     }
   );
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://notify.twilio.com/v1/Services?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'url': 'https://notify.twilio.com/v1/Services?PageSize=50&Page=0',
+              'next_page_url': null,
+              'key': 'services'
+          },
+          'services': [
+              {
+                  'sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'friendly_name': '733c7f0f-6541-42ec-84ce-e2ae1cac588c',
+                  'date_created': '2016-03-09T20:22:31Z',
+                  'date_updated': '2016-03-09T20:22:31Z',
+                  'apn_credential_sid': null,
+                  'gcm_credential_sid': null,
+                  'fcm_credential_sid': null,
+                  'messaging_service_sid': null,
+                  'facebook_messenger_page_id': '4',
+                  'alexa_skill_id': null,
+                  'default_apn_notification_protocol_version': '3',
+                  'default_gcm_notification_protocol_version': '3',
+                  'default_fcm_notification_protocol_version': '3',
+                  'default_alexa_notification_protocol_version': '3',
+                  'log_enabled': true,
+                  'type': 'S',
+                  'url': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'links': {
+                      'bindings': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings',
+                      'notifications': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications',
+                      'segments': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Segments',
+                      'users': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users'
+                  }
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.notify.v1.services.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://notify.twilio.com/v1/Services?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'url': 'https://notify.twilio.com/v1/Services?PageSize=50&Page=0',
+              'next_page_url': null,
+              'key': 'services'
+          },
+          'services': [
+              {
+                  'sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'friendly_name': '733c7f0f-6541-42ec-84ce-e2ae1cac588c',
+                  'date_created': '2016-03-09T20:22:31Z',
+                  'date_updated': '2016-03-09T20:22:31Z',
+                  'apn_credential_sid': null,
+                  'gcm_credential_sid': null,
+                  'fcm_credential_sid': null,
+                  'messaging_service_sid': null,
+                  'facebook_messenger_page_id': '4',
+                  'alexa_skill_id': null,
+                  'default_apn_notification_protocol_version': '3',
+                  'default_gcm_notification_protocol_version': '3',
+                  'default_fcm_notification_protocol_version': '3',
+                  'default_alexa_notification_protocol_version': '3',
+                  'log_enabled': true,
+                  'type': 'S',
+                  'url': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'links': {
+                      'bindings': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings',
+                      'notifications': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications',
+                      'segments': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Segments',
+                      'users': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users'
+                  }
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.notify.v1.services.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://notify.twilio.com/v1/Services',
+          params: {PageSize: 20},
+      }));
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://notify.twilio.com/v1/Services?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'url': 'https://notify.twilio.com/v1/Services?PageSize=50&Page=0',
+              'next_page_url': null,
+              'key': 'services'
+          },
+          'services': [
+              {
+                  'sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'friendly_name': '733c7f0f-6541-42ec-84ce-e2ae1cac588c',
+                  'date_created': '2016-03-09T20:22:31Z',
+                  'date_updated': '2016-03-09T20:22:31Z',
+                  'apn_credential_sid': null,
+                  'gcm_credential_sid': null,
+                  'fcm_credential_sid': null,
+                  'messaging_service_sid': null,
+                  'facebook_messenger_page_id': '4',
+                  'alexa_skill_id': null,
+                  'default_apn_notification_protocol_version': '3',
+                  'default_gcm_notification_protocol_version': '3',
+                  'default_fcm_notification_protocol_version': '3',
+                  'default_alexa_notification_protocol_version': '3',
+                  'log_enabled': true,
+                  'type': 'S',
+                  'url': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'links': {
+                      'bindings': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings',
+                      'notifications': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications',
+                      'segments': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Segments',
+                      'users': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users'
+                  }
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.notify.v1.services.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));

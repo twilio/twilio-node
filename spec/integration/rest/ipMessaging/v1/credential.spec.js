@@ -30,6 +30,98 @@ describe('Credential', function() {
       httpClient: holodeck
     });
   });
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'credentials': [
+              {
+                  'sid': 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'friendly_name': 'Test slow create',
+                  'type': 'apn',
+                  'sandbox': 'False',
+                  'date_created': '2015-10-07T17:50:01Z',
+                  'date_updated': '2015-10-07T17:50:01Z',
+                  'url': 'https://chat.twilio.com/v1/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ],
+          'meta': {
+              'page': 0,
+              'page_size': 1,
+              'first_page_url': 'https://chat.twilio.com/v1/Credentials?PageSize=1&Page=0',
+              'previous_page_url': null,
+              'url': 'https://chat.twilio.com/v1/Credentials?PageSize=1&Page=0',
+              'next_page_url': null,
+              'key': 'credentials'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.ipMessaging.v1.credentials.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'credentials': [
+              {
+                  'sid': 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'friendly_name': 'Test slow create',
+                  'type': 'apn',
+                  'sandbox': 'False',
+                  'date_created': '2015-10-07T17:50:01Z',
+                  'date_updated': '2015-10-07T17:50:01Z',
+                  'url': 'https://chat.twilio.com/v1/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ],
+          'meta': {
+              'page': 0,
+              'page_size': 1,
+              'first_page_url': 'https://chat.twilio.com/v1/Credentials?PageSize=1&Page=0',
+              'previous_page_url': null,
+              'url': 'https://chat.twilio.com/v1/Credentials?PageSize=1&Page=0',
+              'next_page_url': null,
+              'key': 'credentials'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.ipMessaging.v1.credentials.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://chat.twilio.com/v1/Credentials',
+          params: {PageSize: 20},
+      }));
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'credentials': [
+              {
+                  'sid': 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'friendly_name': 'Test slow create',
+                  'type': 'apn',
+                  'sandbox': 'False',
+                  'date_created': '2015-10-07T17:50:01Z',
+                  'date_updated': '2015-10-07T17:50:01Z',
+                  'url': 'https://chat.twilio.com/v1/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ],
+          'meta': {
+              'page': 0,
+              'page_size': 1,
+              'first_page_url': 'https://chat.twilio.com/v1/Credentials?PageSize=1&Page=0',
+              'previous_page_url': null,
+              'url': 'https://chat.twilio.com/v1/Credentials?PageSize=1&Page=0',
+              'next_page_url': null,
+              'key': 'credentials'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.ipMessaging.v1.credentials.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));
