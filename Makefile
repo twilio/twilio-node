@@ -15,3 +15,14 @@ docs:
 
 clean: node_modules
 	rm -rf node_modules
+
+API_DEFINITIONS_SHA=$(shell git log --oneline | grep Regenerated | head -n1 | cut -d ' ' -f 5)
+docker-build:
+	docker build -t twilio/twilio-node .
+	docker tag twilio/twilio-node twilio/twilio-node:${TRAVIS_TAG}
+	docker tag twilio/twilio-node twilio/twilio-node:apidefs-${API_DEFINITIONS_SHA}
+
+docker-push:
+	echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
+	docker push twilio/twilio-node:${TRAVIS_TAG}
+	docker push twilio/twilio-node:apidefs-${API_DEFINITIONS_SHA}
