@@ -1,6 +1,17 @@
 twilio-node changelog
 =====================
 
+[2018-07-05] Version 3.17.5
+----------------------------
+**Library**
+- PR #358: Add Dockerfile and related changes to build the Docker image. Thanks to @jonatasbaldin!
+- PR #361: Regenerate with structured params/properties. Thanks to @ekarson!
+
+**Api**
+- Release `Call Recording Controls` feature support in helper libraries
+- Add Voice Insights sub-category keys to usage records
+
+
 [2018-06-21] Version 3.17.4
 ----------------------------
 **Library**

@@ -206,9 +206,7 @@ describe('Message', function() {
   it('should treat the first each arg as a callback',
     function(done) {
       var body = JSON.stringify({
-          'end': 0,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json?PageSize=1&Page=0',
-          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json?PageSize=1&Page=119771',
           'messages': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -236,12 +234,9 @@ describe('Message', function() {
               }
           ],
           'next_page_uri': null,
-          'num_pages': 119772,
           'page': 0,
           'page_size': 1,
           'previous_page_uri': null,
-          'start': 0,
-          'total': 119772,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json?PageSize=1&Page=0'
       });
       holodeck.mock(new Response(200, body));
@@ -252,9 +247,7 @@ describe('Message', function() {
   it('should treat the second arg as a callback',
     function(done) {
       var body = JSON.stringify({
-          'end': 0,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json?PageSize=1&Page=0',
-          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json?PageSize=1&Page=119771',
           'messages': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -282,12 +275,9 @@ describe('Message', function() {
               }
           ],
           'next_page_uri': null,
-          'num_pages': 119772,
           'page': 0,
           'page_size': 1,
           'previous_page_uri': null,
-          'start': 0,
-          'total': 119772,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json?PageSize=1&Page=0'
       });
       holodeck.mock(new Response(200, body));
@@ -303,9 +293,7 @@ describe('Message', function() {
   it('should find the callback in the opts object',
     function(done) {
       var body = JSON.stringify({
-          'end': 0,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json?PageSize=1&Page=0',
-          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json?PageSize=1&Page=119771',
           'messages': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -333,12 +321,9 @@ describe('Message', function() {
               }
           ],
           'next_page_uri': null,
-          'num_pages': 119772,
           'page': 0,
           'page_size': 1,
           'previous_page_uri': null,
-          'start': 0,
-          'total': 119772,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json?PageSize=1&Page=0'
       });
       holodeck.mock(new Response(200, body));
@@ -371,9 +356,7 @@ describe('Message', function() {
   it('should generate valid read_full response',
     function() {
       var body = JSON.stringify({
-          'end': 0,
           'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json?PageSize=1&Page=0',
-          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json?PageSize=1&Page=119771',
           'messages': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -401,12 +384,9 @@ describe('Message', function() {
               }
           ],
           'next_page_uri': null,
-          'num_pages': 119772,
           'page': 0,
           'page_size': 1,
           'previous_page_uri': null,
-          'start': 0,
-          'total': 119772,
           'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages.json?PageSize=1&Page=0'
       });
 

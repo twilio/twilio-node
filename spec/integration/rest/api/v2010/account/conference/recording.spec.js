@@ -30,76 +30,13 @@ describe('Recording', function() {
       httpClient: holodeck
     });
   });
-  it('should generate valid create request',
-    function() {
-      holodeck.mock(new Response(500, '{}'));
-
-      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .recordings.create();
-      promise = promise.then(function() {
-        throw new Error('failed');
-      }, function(error) {
-        expect(error.constructor).toBe(RestException.prototype.constructor);
-      });
-      promise.done();
-
-      var solution = {
-        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        callSid: 'CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      };
-      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Calls/<%= callSid %>/Recordings.json')(solution);
-
-      holodeck.assertHasRequest(new Request({
-        method: 'POST',
-        url: url
-      }));
-    }
-  );
-  it('should generate valid create response',
-    function() {
-      var body = JSON.stringify({
-          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'api_version': '2010-04-01',
-          'call_sid': 'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'conference_sid': null,
-          'channels': 2,
-          'date_created': 'Fri, 14 Oct 2016 21:56:34 +0000',
-          'date_updated': 'Fri, 14 Oct 2016 21:56:34 +0000',
-          'start_time': 'Fri, 14 Oct 2016 21:56:34 +0000',
-          'end_time': null,
-          'price': null,
-          'price_unit': null,
-          'duration': '-1',
-          'sid': 'REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'source': 'StartCallRecordingAPI',
-          'status': 'in-progress',
-          'error_code': null,
-          'encryption_details': null,
-          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings/REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
-      });
-
-      holodeck.mock(new Response(201, body));
-
-      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .recordings.create();
-      promise = promise.then(function(response) {
-        expect(response).toBeDefined();
-      }, function() {
-        throw new Error('failed');
-      });
-
-      promise.done();
-    }
-  );
   it('should generate valid update request',
     function() {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {status: 'in-progress'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .recordings('REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise = promise.then(function() {
         throw new Error('failed');
@@ -110,10 +47,10 @@ describe('Recording', function() {
 
       var solution = {
         accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        callSid: 'CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        conferenceSid: 'CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         sid: 'REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
-      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Calls/<%= callSid %>/Recordings/<%= sid %>.json')(solution);
+      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Conferences/<%= conferenceSid %>/Recordings/<%= sid %>.json')(solution);
 
       var values = {Status: 'in-progress', };
       holodeck.assertHasRequest(new Request({
@@ -129,8 +66,8 @@ describe('Recording', function() {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'api_version': '2010-04-01',
           'call_sid': 'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'conference_sid': null,
-          'channels': 2,
+          'conference_sid': 'CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'channels': 1,
           'date_created': 'Fri, 14 Oct 2016 21:56:34 +0000',
           'date_updated': 'Fri, 14 Oct 2016 21:56:34 +0000',
           'start_time': 'Fri, 14 Oct 2016 21:56:34 +0000',
@@ -139,18 +76,18 @@ describe('Recording', function() {
           'price_unit': null,
           'duration': '-1',
           'sid': 'REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'source': 'StartCallRecordingAPI',
+          'source': 'StartConferenceRecordingAPI',
           'status': 'paused',
           'error_code': null,
           'encryption_details': null,
-          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings/REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings/REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
       });
 
       holodeck.mock(new Response(200, body));
 
       var opts = {status: 'in-progress'};
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .recordings('REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -166,7 +103,7 @@ describe('Recording', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .recordings('REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -177,10 +114,10 @@ describe('Recording', function() {
 
       var solution = {
         accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        callSid: 'CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        conferenceSid: 'CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         sid: 'REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
-      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Calls/<%= callSid %>/Recordings/<%= sid %>.json')(solution);
+      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Conferences/<%= conferenceSid %>/Recordings/<%= sid %>.json')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -194,8 +131,8 @@ describe('Recording', function() {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'api_version': '2010-04-01',
           'call_sid': 'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'conference_sid': null,
-          'channels': 2,
+          'conference_sid': 'CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'channels': '1',
           'date_created': 'Fri, 14 Oct 2016 21:56:34 +0000',
           'date_updated': 'Fri, 14 Oct 2016 21:56:38 +0000',
           'start_time': 'Fri, 14 Oct 2016 21:56:34 +0000',
@@ -204,21 +141,21 @@ describe('Recording', function() {
           'price_unit': 'USD',
           'duration': '4',
           'sid': 'REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'source': 'StartConferenceRecordingAPI',
+          'status': 'completed',
+          'error_code': null,
           'encryption_details': {
               'encryption_public_key_sid': 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
               'encryption_cek': 'OV4h6zrsxMIW7h0Zfqwfn6TI2GCNl54KALlg8wn8YB8KYZhXt6HlgvBWAmQTlfYVeLWydMiCewY0YkDDT1xmNe5huEo9vjuKBS5OmYK4CZkSx1NVv3XOGrZHpd2Pl/5WJHVhUK//AUO87uh5qnUP2E0KoLh1nyCLeGcEkXU0RfpPn/6nxjof/n6m6OzZOyeIRK4Oed5+rEtjqFDfqT0EVKjs6JAxv+f0DCc1xYRHl2yV8bahUPVKs+bHYdy4PVszFKa76M/Uae4jFA9Lv233JqWcxj+K2UoghuGhAFbV/JQIIswY2CBYI8JlVSifSqNEl9vvsTJ8bkVMm3MKbG2P7Q==',
               'encryption_iv': '8I2hhNIYNTrwxfHk'
           },
-          'source': 'StartCallRecordingAPI',
-          'status': 'completed',
-          'error_code': null,
-          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings/REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings/REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
       });
 
       holodeck.mock(new Response(200, body));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .recordings('REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -234,7 +171,7 @@ describe('Recording', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .recordings('REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -245,10 +182,10 @@ describe('Recording', function() {
 
       var solution = {
         accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        callSid: 'CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        conferenceSid: 'CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         sid: 'REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
-      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Calls/<%= callSid %>/Recordings/<%= sid %>.json')(solution);
+      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Conferences/<%= conferenceSid %>/Recordings/<%= sid %>.json')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'DELETE',
@@ -263,7 +200,7 @@ describe('Recording', function() {
       holodeck.mock(new Response(204, body));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .recordings('REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
@@ -278,7 +215,7 @@ describe('Recording', function() {
     function(done) {
       var body = JSON.stringify({
           'end': 0,
-          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json?PageSize=50&Page=0',
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json?PageSize=50&Page=0',
           'next_page_uri': null,
           'page': 0,
           'page_size': 50,
@@ -288,8 +225,8 @@ describe('Recording', function() {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'api_version': '2010-04-01',
                   'call_sid': 'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'conference_sid': null,
-                  'channels': 2,
+                  'conference_sid': 'CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'channels': '1',
                   'date_created': 'Fri, 14 Oct 2016 21:56:34 +0000',
                   'date_updated': 'Fri, 14 Oct 2016 21:56:38 +0000',
                   'start_time': 'Fri, 14 Oct 2016 21:56:34 +0000',
@@ -298,23 +235,23 @@ describe('Recording', function() {
                   'price_unit': 'USD',
                   'duration': '4',
                   'sid': 'REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'source': 'StartConferenceRecordingAPI',
+                  'status': 'completed',
+                  'error_code': null,
                   'encryption_details': {
                       'encryption_public_key_sid': 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                       'encryption_cek': 'OV4h6zrsxMIW7h0Zfqwfn6TI2GCNl54KALlg8wn8YB8KYZhXt6HlgvBWAmQTlfYVeLWydMiCewY0YkDDT1xmNe5huEo9vjuKBS5OmYK4CZkSx1NVv3XOGrZHpd2Pl/5WJHVhUK//AUO87uh5qnUP2E0KoLh1nyCLeGcEkXU0RfpPn/6nxjof/n6m6OzZOyeIRK4Oed5+rEtjqFDfqT0EVKjs6JAxv+f0DCc1xYRHl2yV8bahUPVKs+bHYdy4PVszFKa76M/Uae4jFA9Lv233JqWcxj+K2UoghuGhAFbV/JQIIswY2CBYI8JlVSifSqNEl9vvsTJ8bkVMm3MKbG2P7Q==',
                       'encryption_iv': '8I2hhNIYNTrwxfHk'
                   },
-                  'source': 'StartCallRecordingAPI',
-                  'status': 'completed',
-                  'error_code': null,
-                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings/REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json'
               }
           ],
           'start': 0,
-          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json?PageSize=50&Page=0'
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json?PageSize=50&Page=0'
       });
       holodeck.mock(new Response(200, body));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                      .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .recordings.each(() => done());
     }
   );
@@ -322,7 +259,7 @@ describe('Recording', function() {
     function(done) {
       var body = JSON.stringify({
           'end': 0,
-          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json?PageSize=50&Page=0',
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json?PageSize=50&Page=0',
           'next_page_uri': null,
           'page': 0,
           'page_size': 50,
@@ -332,8 +269,8 @@ describe('Recording', function() {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'api_version': '2010-04-01',
                   'call_sid': 'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'conference_sid': null,
-                  'channels': 2,
+                  'conference_sid': 'CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'channels': '1',
                   'date_created': 'Fri, 14 Oct 2016 21:56:34 +0000',
                   'date_updated': 'Fri, 14 Oct 2016 21:56:38 +0000',
                   'start_time': 'Fri, 14 Oct 2016 21:56:34 +0000',
@@ -342,27 +279,27 @@ describe('Recording', function() {
                   'price_unit': 'USD',
                   'duration': '4',
                   'sid': 'REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'source': 'StartConferenceRecordingAPI',
+                  'status': 'completed',
+                  'error_code': null,
                   'encryption_details': {
                       'encryption_public_key_sid': 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                       'encryption_cek': 'OV4h6zrsxMIW7h0Zfqwfn6TI2GCNl54KALlg8wn8YB8KYZhXt6HlgvBWAmQTlfYVeLWydMiCewY0YkDDT1xmNe5huEo9vjuKBS5OmYK4CZkSx1NVv3XOGrZHpd2Pl/5WJHVhUK//AUO87uh5qnUP2E0KoLh1nyCLeGcEkXU0RfpPn/6nxjof/n6m6OzZOyeIRK4Oed5+rEtjqFDfqT0EVKjs6JAxv+f0DCc1xYRHl2yV8bahUPVKs+bHYdy4PVszFKa76M/Uae4jFA9Lv233JqWcxj+K2UoghuGhAFbV/JQIIswY2CBYI8JlVSifSqNEl9vvsTJ8bkVMm3MKbG2P7Q==',
                       'encryption_iv': '8I2hhNIYNTrwxfHk'
                   },
-                  'source': 'StartCallRecordingAPI',
-                  'status': 'completed',
-                  'error_code': null,
-                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings/REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json'
               }
           ],
           'start': 0,
-          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json?PageSize=50&Page=0'
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json?PageSize=50&Page=0'
       });
       holodeck.mock(new Response(200, body));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                      .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .recordings.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Calls/<%= callSid %>/Recordings.json',
+          url: 'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Conferences/<%= conferenceSid %>/Recordings.json',
           params: {PageSize: 20},
       }));
     }
@@ -371,7 +308,7 @@ describe('Recording', function() {
     function(done) {
       var body = JSON.stringify({
           'end': 0,
-          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json?PageSize=50&Page=0',
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json?PageSize=50&Page=0',
           'next_page_uri': null,
           'page': 0,
           'page_size': 50,
@@ -381,8 +318,8 @@ describe('Recording', function() {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'api_version': '2010-04-01',
                   'call_sid': 'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'conference_sid': null,
-                  'channels': 2,
+                  'conference_sid': 'CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'channels': '1',
                   'date_created': 'Fri, 14 Oct 2016 21:56:34 +0000',
                   'date_updated': 'Fri, 14 Oct 2016 21:56:38 +0000',
                   'start_time': 'Fri, 14 Oct 2016 21:56:34 +0000',
@@ -391,23 +328,23 @@ describe('Recording', function() {
                   'price_unit': 'USD',
                   'duration': '4',
                   'sid': 'REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'source': 'StartConferenceRecordingAPI',
+                  'status': 'completed',
+                  'error_code': null,
                   'encryption_details': {
                       'encryption_public_key_sid': 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                       'encryption_cek': 'OV4h6zrsxMIW7h0Zfqwfn6TI2GCNl54KALlg8wn8YB8KYZhXt6HlgvBWAmQTlfYVeLWydMiCewY0YkDDT1xmNe5huEo9vjuKBS5OmYK4CZkSx1NVv3XOGrZHpd2Pl/5WJHVhUK//AUO87uh5qnUP2E0KoLh1nyCLeGcEkXU0RfpPn/6nxjof/n6m6OzZOyeIRK4Oed5+rEtjqFDfqT0EVKjs6JAxv+f0DCc1xYRHl2yV8bahUPVKs+bHYdy4PVszFKa76M/Uae4jFA9Lv233JqWcxj+K2UoghuGhAFbV/JQIIswY2CBYI8JlVSifSqNEl9vvsTJ8bkVMm3MKbG2P7Q==',
                       'encryption_iv': '8I2hhNIYNTrwxfHk'
                   },
-                  'source': 'StartCallRecordingAPI',
-                  'status': 'completed',
-                  'error_code': null,
-                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings/REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json'
               }
           ],
           'start': 0,
-          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json?PageSize=50&Page=0'
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json?PageSize=50&Page=0'
       });
       holodeck.mock(new Response(200, body));
       client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                      .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                       .recordings.each({callback: () => done()}, () => fail('wrong callback!'));
     }
   );
@@ -416,7 +353,7 @@ describe('Recording', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .recordings.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -427,9 +364,9 @@ describe('Recording', function() {
 
       var solution = {
         accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        callSid: 'CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+        conferenceSid: 'CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
-      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Calls/<%= callSid %>/Recordings.json')(solution);
+      var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Conferences/<%= conferenceSid %>/Recordings.json')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -441,7 +378,7 @@ describe('Recording', function() {
     function() {
       var body = JSON.stringify({
           'end': 0,
-          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json?PageSize=50&Page=0',
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json?PageSize=50&Page=0',
           'next_page_uri': null,
           'page': 0,
           'page_size': 50,
@@ -451,8 +388,8 @@ describe('Recording', function() {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'api_version': '2010-04-01',
                   'call_sid': 'CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'conference_sid': null,
-                  'channels': 2,
+                  'conference_sid': 'CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'channels': '1',
                   'date_created': 'Fri, 14 Oct 2016 21:56:34 +0000',
                   'date_updated': 'Fri, 14 Oct 2016 21:56:38 +0000',
                   'start_time': 'Fri, 14 Oct 2016 21:56:34 +0000',
@@ -461,25 +398,25 @@ describe('Recording', function() {
                   'price_unit': 'USD',
                   'duration': '4',
                   'sid': 'REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'source': 'StartConferenceRecordingAPI',
+                  'status': 'completed',
+                  'error_code': null,
                   'encryption_details': {
                       'encryption_public_key_sid': 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                       'encryption_cek': 'OV4h6zrsxMIW7h0Zfqwfn6TI2GCNl54KALlg8wn8YB8KYZhXt6HlgvBWAmQTlfYVeLWydMiCewY0YkDDT1xmNe5huEo9vjuKBS5OmYK4CZkSx1NVv3XOGrZHpd2Pl/5WJHVhUK//AUO87uh5qnUP2E0KoLh1nyCLeGcEkXU0RfpPn/6nxjof/n6m6OzZOyeIRK4Oed5+rEtjqFDfqT0EVKjs6JAxv+f0DCc1xYRHl2yV8bahUPVKs+bHYdy4PVszFKa76M/Uae4jFA9Lv233JqWcxj+K2UoghuGhAFbV/JQIIswY2CBYI8JlVSifSqNEl9vvsTJ8bkVMm3MKbG2P7Q==',
                       'encryption_iv': '8I2hhNIYNTrwxfHk'
                   },
-                  'source': 'StartCallRecordingAPI',
-                  'status': 'completed',
-                  'error_code': null,
-                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings/REaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json'
               }
           ],
           'start': 0,
-          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json?PageSize=50&Page=0'
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json?PageSize=50&Page=0'
       });
 
       holodeck.mock(new Response(200, body));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .recordings.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -494,20 +431,20 @@ describe('Recording', function() {
     function() {
       var body = JSON.stringify({
           'end': 0,
-          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json?PageSize=50&Page=0',
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json?PageSize=50&Page=0',
           'next_page_uri': null,
           'page': 0,
           'page_size': 50,
           'previous_page_uri': null,
           'recordings': [],
           'start': 0,
-          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json?PageSize=50&Page=0'
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recordings.json?PageSize=50&Page=0'
       });
 
       holodeck.mock(new Response(200, body));
 
       var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-                                    .calls('CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .conferences('CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .recordings.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
