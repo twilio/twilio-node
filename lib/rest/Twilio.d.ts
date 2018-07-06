@@ -5,147 +5,131 @@
  *       /       /
  */
 
-import Accounts = require('./Accounts');
-import Api = require('./Api');
-import Chat = require('./Chat');
-import Fax = require('./Fax');
-import IpMessaging = require('./IpMessaging');
-import Lookups = require('./Lookups');
-import Messaging = require('./Messaging');
-import Monitor = require('./Monitor');
-import Notify = require('./Notify');
-import Preview = require('./Preview');
-import Pricing = require('./Pricing');
-import Proxy = require('./Proxy');
-import RequestClient = require('../base/RequestClient');
-import Studio = require('./Studio');
-import Sync = require('./Sync');
-import Taskrouter = require('./Taskrouter');
-import Trunking = require('./Trunking');
-import Video = require('./Video');
-import Wireless = require('./Wireless');
+
+
+/**
+ * Options to pass to Twilio
+ *
+ * @property httpClient - The client used for http requests. Defaults to RequestClient
+ * @property accountSid - The default accountSid. This is set to username if not provided
+ * @property env - The environment object. Defaults to process.env
+ * @property region - Twilio region to use. Defaults to none
+ */
+interface TwilioOptions{
+  accountSid: string;
+  env: Environment;
+  httpClient: HttpClient;
+  region: string;
+}
+
+/**
+ * Options to pass to request
+ *
+ * @property method - The http method
+ * @property uri - The request uri
+ * @property username - The username used for auth
+ * @property password - The password used for auth
+ * @property headers - The request headers
+ * @property params - The request params
+ * @property data - The request data
+ * @property timeout - The request timeout in milliseconds
+ * @property allowRedirects - Should the client follow redirects
+ */
+interface requestOptions{
+  allowRedirects: boolean;
+  data: object;
+  headers: object;
+  method: string;
+  params: object;
+  password: string;
+  timeout: int;
+  uri: string;
+  username: string;
+}
 
 declare class Twilio {
   /**
    * Twilio Client to interact with the Rest API
    *
+   * @constructor Twilio
+   *
+   * @property accounts - accounts domain
+   * @property api - api domain
+   * @property chat - chat domain
+   * @property fax - fax domain
+   * @property ipMessaging - ip_messaging domain
+   * @property lookups - lookups domain
+   * @property monitor - monitor domain
+   * @property notify - notify domain
+   * @property preview - preview domain
+   * @property pricing - pricing domain
+   * @property proxy - proxy domain
+   * @property taskrouter - taskrouter domain
+   * @property trunking - trunking domain
+   * @property video - video domain
+   * @property messaging - messaging domain
+   * @property wireless - wireless domain
+   * @property sync - sync domain
+   * @property studio - studio domain
+   * @property addresses - addresses resource
+   * @property applications - applications resource
+   * @property authorizedConnectApps - authorizedConnectApps resource
+   * @property availablePhoneNumbers - availablePhoneNumbers resource
+   * @property calls - calls resource
+   * @property conferences - conferences resource
+   * @property connectApps - connectApps resource
+   * @property incomingPhoneNumbers - incomingPhoneNumbers resource
+   * @property keys - keys resource
+   * @property messages - messages resource
+   * @property newKeys - newKeys resource
+   * @property newSigningKeys - newSigningKeys resource
+   * @property notifications - notifications resource
+   * @property outgoingCallerIds - outgoingCallerIds resource
+   * @property queues - queues resource
+   * @property recordings - recordings resource
+   * @property signingKeys - signingKeys resource
+   * @property sip - sip resource
+   * @property shortCodes - shortCodes resource
+   * @property tokens - tokens resource
+   * @property transcriptions - transcriptions resource
+   * @property usage - usage resource
+   * @property validationRequests - validationRequests resource
+   *
    * @param username - The username used for authentication. This is normally account sid, but if using key/secret auth will be the api key sid.
    * @param password - The password used for authentication. This is normally auth token, but if using key/secret auth will be the secret.
-   * @param opts - Options to alter the behavior of the Twilio Client
+   * @param [opts] - ...
+   * @param {HttpClient} [opts.httpClient] -
+   *          The client used for http requests. Defaults to RequestClient
+   * @param {string} [opts.accountSid] -
+   *          The default accountSid. This is set to username if not provided
+   * @param {Environment} [opts.env] -
+   *          The environment object. Defaults to process.env
+   * @param {string} [opts.region] - Twilio region to use. Defaults to none
    *
-   * @returns A new instance of Twilio client
+   * @returns {Twilio} A new instance of Twilio client
    */
-  constructor(username: string, password: string, opts?: Twilio.TwilioClientOptions);
+  function constructor(): None
 
-  private _accounts?: Accounts;
-  private _api?: Api;
-  private _chat?: Chat;
-  private _fax?: Fax;
-  private _ipMessaging?: IpMessaging;
-  private _lookups?: Lookups;
-  private _messaging?: Messaging;
-  private _monitor?: Monitor;
-  private _notify?: Notify;
-  private _preview?: Preview;
-  private _pricing?: Pricing;
-  private _proxy?: Proxy;
-  private _studio?: Studio;
-  private _sync?: Sync;
-  private _taskrouter?: Taskrouter;
-  private _trunking?: Trunking;
-  private _video?: Video;
-  private _wireless?: Wireless;
-  accounts: Accounts;
-  addresses: (typeof Api.prototype.account.addresses);
-  api: Api;
-  applications: (typeof Api.prototype.account.applications);
-  authorizedConnectApps: (typeof Api.prototype.account.authorizedConnectApps);
-  availablePhoneNumbers: (typeof Api.prototype.account.availablePhoneNumbers);
-  calls: (typeof Api.prototype.account.calls);
-  chat: Chat;
-  conferences: (typeof Api.prototype.account.conferences);
-  connectApps: (typeof Api.prototype.account.connectApps);
-  fax: Fax;
-  incomingPhoneNumbers: (typeof Api.prototype.account.incomingPhoneNumbers);
-  ipMessaging: IpMessaging;
-  keys: (typeof Api.prototype.account.keys);
-  lookups: Lookups;
-  messages: (typeof Api.prototype.account.messages);
-  messaging: Messaging;
-  monitor: Monitor;
-  newKeys: (typeof Api.prototype.account.newKeys);
-  newSigningKeys: (typeof Api.prototype.account.newSigningKeys);
-  notifications: (typeof Api.prototype.account.notifications);
-  notify: Notify;
-  outgoingCallerIds: (typeof Api.prototype.account.outgoingCallerIds);
-  preview: Preview;
-  pricing: Pricing;
-  proxy: Proxy;
-  queues: (typeof Api.prototype.account.queues);
-  recordings: (typeof Api.prototype.account.recordings);
   /**
    * Makes a request to the Twilio API using the configured http client.
    * Authentication information is automatically added if none is provided.
    *
    * @param opts - The options argument
+   * @param {string} opts.method - The http method
+   * @param {string} opts.uri - The request uri
+   * @param {string} [opts.username] - The username used for auth
+   * @param {string} [opts.password] - The password used for auth
+   * @param {object} [opts.headers] - The request headers
+   * @param {object} [opts.params] - The request params
+   * @param {object} [opts.data] - The request data
+   * @param {int} [opts.timeout] - The request timeout in milliseconds
+   * @param {boolean} [opts.allowRedirects] - Should the client follow redirects
    */
-  request(opts?: Twilio.RequestOptions): any;
-  shortCodes: (typeof Api.prototype.account.shortCodes);
-  signingKeys: (typeof Api.prototype.account.signingKeys);
-  sip: (typeof Api.prototype.account.sip);
-  studio: Studio;
-  sync: Sync;
-  taskrouter: Taskrouter;
-  tokens: (typeof Api.prototype.account.tokens);
-  transcriptions: (typeof Api.prototype.account.transcriptions);
-  trunking: Trunking;
-  usage: (typeof Api.prototype.account.usage);
-  validationRequests: (typeof Api.prototype.account.validationRequests);
-  video: Video;
-  wireless: Wireless;
+  function request(): null
+  /**
+   * Validate that a request to the new SSL certificate is successful.
+   * @throws {RestException} if the request fails
+   */
+  function validateSslCert(): null
 }
 
-declare namespace Twilio {
-
-  /**
-   * Options to pass to the Twilio Client constructor
-   *
-   * @property httpClient - The client used for http requests. Defaults to RequestClient
-   * @property accountSid - The default accountSid. This is set to username if not provided
-   * @property env - The environment object. Defaults to process.env
-   * @property httpClient - Twilio region to use. Defaults to none
-   */
-  export interface TwilioClientOptions {
-    accountSid?: string;
-    env?: object;
-    httpClient?: RequestClient;
-    region?: string;
-  }
-
-  /**
-   * Options for the request
-   *
-   * @property method - The http method
-   * @property uri - The request uri
-   * @property username - The username used for auth
-   * @property password - The password used for auth
-   * @property headers - The request headers
-   * @property params - The request params
-   * @property data - The request data
-   * @property timeout - The request timeout in milliseconds
-   * @property allowRedirects - Should the client follow redirects
-   */
-  export interface RequestOptions {
-    allowRedirects?: boolean;
-    data?: object;
-    headers?: object;
-    method: string;
-    params?: object;
-    password?: string;
-    timeout?: number;
-    uri: string;
-    username?: string;
-  }
-
-}
-export = Twilio;
