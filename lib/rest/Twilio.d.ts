@@ -5,47 +5,28 @@
  *       /       /
  */
 
-
-
-/**
- * Options to pass to Twilio
- *
- * @property httpClient - The client used for http requests. Defaults to RequestClient
- * @property accountSid - The default accountSid. This is set to username if not provided
- * @property env - The environment object. Defaults to process.env
- * @property region - Twilio region to use. Defaults to none
- */
-interface TwilioOptions{
-  accountSid: string;
-  env: Environment;
-  httpClient: HttpClient;
-  region: string;
-}
-
-/**
- * Options to pass to request
- *
- * @property method - The http method
- * @property uri - The request uri
- * @property username - The username used for auth
- * @property password - The password used for auth
- * @property headers - The request headers
- * @property params - The request params
- * @property data - The request data
- * @property timeout - The request timeout in milliseconds
- * @property allowRedirects - Should the client follow redirects
- */
-interface requestOptions{
-  allowRedirects: boolean;
-  data: object;
-  headers: object;
-  method: string;
-  params: object;
-  password: string;
-  timeout: int;
-  uri: string;
-  username: string;
-}
+var moduleInfo = require('../../package.json');  /* jshint ignore:line */
+var _ = require('lodash');  /* jshint ignore:line */
+var util = require('util');  /* jshint ignore:line */
+var Accounts = require('./Accounts');  /* jshint ignore:line */
+var Api = require('./Api');  /* jshint ignore:line */
+var Chat = require('./Chat');  /* jshint ignore:line */
+var Fax = require('./Fax');  /* jshint ignore:line */
+var IpMessaging = require('./IpMessaging');  /* jshint ignore:line */
+var Lookups = require('./Lookups');  /* jshint ignore:line */
+var Messaging = require('./Messaging');  /* jshint ignore:line */
+var Monitor = require('./Monitor');  /* jshint ignore:line */
+var Notify = require('./Notify');  /* jshint ignore:line */
+var Preview = require('./Preview');  /* jshint ignore:line */
+var Pricing = require('./Pricing');  /* jshint ignore:line */
+var Proxy = require('./Proxy');  /* jshint ignore:line */
+var RequestClient = require('../base/RequestClient');  /* jshint ignore:line */
+var Studio = require('./Studio');  /* jshint ignore:line */
+var Sync = require('./Sync');  /* jshint ignore:line */
+var Taskrouter = require('./Taskrouter');  /* jshint ignore:line */
+var Trunking = require('./Trunking');  /* jshint ignore:line */
+var Video = require('./Video');  /* jshint ignore:line */
+var Wireless = require('./Wireless');  /* jshint ignore:line */
 
 declare class Twilio {
   /**
@@ -122,7 +103,7 @@ declare class Twilio {
    * @param {object} [opts.headers] - The request headers
    * @param {object} [opts.params] - The request params
    * @param {object} [opts.data] - The request data
-   * @param {int} [opts.timeout] - The request timeout in milliseconds
+   * @param {number} [opts.timeout] - The request timeout in milliseconds
    * @param {boolean} [opts.allowRedirects] - Should the client follow redirects
    */
   function request(): null
@@ -133,3 +114,47 @@ declare class Twilio {
   function validateSslCert(): null
 }
 
+declare namespace Twilio {
+
+  /**
+   * Options to pass to the Twilio Client constructor
+   *
+   * @property httpClient - The client used for http requests. Defaults to RequestClient
+   * @property accountSid - The default accountSid. This is set to username if not provided
+   * @property env - The environment object. Defaults to process.env
+   * @property region - Twilio region to use. Defaults to none
+   */
+  export interface TwilioClientOptions {
+    accountSid?: string;
+    env?: Environment;
+    httpClient?: HttpClient;
+    region?: string;
+  }
+
+  /**
+   * Options for the request
+   *
+   * @property method - The http method
+   * @property uri - The request uri
+   * @property username - The username used for auth
+   * @property password - The password used for auth
+   * @property headers - The request headers
+   * @property params - The request params
+   * @property data - The request data
+   * @property timeout - The request timeout in milliseconds
+   * @property allowRedirects - Should the client follow redirects
+   */
+  export interface RequestOptions {
+    allowRedirects?: boolean;
+    data?: object;
+    headers?: object;
+    method: string;
+    params?: object;
+    password?: string;
+    timeout?: number;
+    uri: string;
+    username?: string;
+  }
+
+}
+export = Twilio;
