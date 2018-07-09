@@ -5,86 +5,33 @@
  *       /       /
  */
 
-var moduleInfo = require('../../package.json');  /* jshint ignore:line */
-var _ = require('lodash');  /* jshint ignore:line */
-var util = require('util');  /* jshint ignore:line */
-var Accounts = require('./Accounts');  /* jshint ignore:line */
-var Api = require('./Api');  /* jshint ignore:line */
-var Chat = require('./Chat');  /* jshint ignore:line */
-var Fax = require('./Fax');  /* jshint ignore:line */
-var IpMessaging = require('./IpMessaging');  /* jshint ignore:line */
-var Lookups = require('./Lookups');  /* jshint ignore:line */
-var Messaging = require('./Messaging');  /* jshint ignore:line */
-var Monitor = require('./Monitor');  /* jshint ignore:line */
-var Notify = require('./Notify');  /* jshint ignore:line */
-var Preview = require('./Preview');  /* jshint ignore:line */
-var Pricing = require('./Pricing');  /* jshint ignore:line */
-var Proxy = require('./Proxy');  /* jshint ignore:line */
-var RequestClient = require('../base/RequestClient');  /* jshint ignore:line */
-var Studio = require('./Studio');  /* jshint ignore:line */
-var Sync = require('./Sync');  /* jshint ignore:line */
-var Taskrouter = require('./Taskrouter');  /* jshint ignore:line */
-var Trunking = require('./Trunking');  /* jshint ignore:line */
-var Video = require('./Video');  /* jshint ignore:line */
-var Wireless = require('./Wireless');  /* jshint ignore:line */
+import Accounts = require('./Accounts');
+import Api = require('./Api');
+import Chat = require('./Chat');
+import Fax = require('./Fax');
+import IpMessaging = require('./IpMessaging');
+import Lookups = require('./Lookups');
+import Messaging = require('./Messaging');
+import Monitor = require('./Monitor');
+import Notify = require('./Notify');
+import Preview = require('./Preview');
+import Pricing = require('./Pricing');
+import Proxy = require('./Proxy');
+import RequestClient = require('../base/RequestClient');
+import Studio = require('./Studio');
+import Sync = require('./Sync');
+import Taskrouter = require('./Taskrouter');
+import Trunking = require('./Trunking');
+import Video = require('./Video');
+import Wireless = require('./Wireless');
 
 declare class Twilio {
   /**
    * Twilio Client to interact with the Rest API
    *
-   * @constructor Twilio
-   *
-   * @property accounts - accounts domain
-   * @property api - api domain
-   * @property chat - chat domain
-   * @property fax - fax domain
-   * @property ipMessaging - ip_messaging domain
-   * @property lookups - lookups domain
-   * @property monitor - monitor domain
-   * @property notify - notify domain
-   * @property preview - preview domain
-   * @property pricing - pricing domain
-   * @property proxy - proxy domain
-   * @property taskrouter - taskrouter domain
-   * @property trunking - trunking domain
-   * @property video - video domain
-   * @property messaging - messaging domain
-   * @property wireless - wireless domain
-   * @property sync - sync domain
-   * @property studio - studio domain
-   * @property addresses - addresses resource
-   * @property applications - applications resource
-   * @property authorizedConnectApps - authorizedConnectApps resource
-   * @property availablePhoneNumbers - availablePhoneNumbers resource
-   * @property calls - calls resource
-   * @property conferences - conferences resource
-   * @property connectApps - connectApps resource
-   * @property incomingPhoneNumbers - incomingPhoneNumbers resource
-   * @property keys - keys resource
-   * @property messages - messages resource
-   * @property newKeys - newKeys resource
-   * @property newSigningKeys - newSigningKeys resource
-   * @property notifications - notifications resource
-   * @property outgoingCallerIds - outgoingCallerIds resource
-   * @property queues - queues resource
-   * @property recordings - recordings resource
-   * @property signingKeys - signingKeys resource
-   * @property sip - sip resource
-   * @property shortCodes - shortCodes resource
-   * @property tokens - tokens resource
-   * @property transcriptions - transcriptions resource
-   * @property usage - usage resource
-   * @property validationRequests - validationRequests resource
-   *
    * @param username - The username used for authentication. This is normally account sid, but if using key/secret auth will be the api key sid.
    * @param password - The password used for authentication. This is normally auth token, but if using key/secret auth will be the secret.
-   * @param [opts] - ...
-   * @param {RequestClient} [opts.httpClient] -
-   *          The client used for http requests. Defaults to RequestClient
-   * @param {string} [opts.accountSid] -
-   *          The default accountSid. This is set to username if not provided
-   * @param {object} [opts.env] - The environment object. Defaults to process.env
-   * @param {string} [opts.region] - Twilio region to use. Defaults to none
+   * @param opts - The options argument
    *
    * @returns {Twilio} A new instance of Twilio client
    */
@@ -95,15 +42,6 @@ declare class Twilio {
    * Authentication information is automatically added if none is provided.
    *
    * @param opts - The options argument
-   * @param {string} opts.method - The http method
-   * @param {string} opts.uri - The request uri
-   * @param {string} [opts.username] - The username used for auth
-   * @param {string} [opts.password] - The password used for auth
-   * @param {object} [opts.headers] - The request headers
-   * @param {object} [opts.params] - The request params
-   * @param {object} [opts.data] - The request data
-   * @param {number} [opts.timeout] - The request timeout in milliseconds
-   * @param {boolean} [opts.allowRedirects] - Should the client follow redirects
    */
   function request(): null
   /**
