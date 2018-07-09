@@ -35,7 +35,7 @@ declare class Twilio {
    *
    * @returns {Twilio} A new instance of Twilio client
    */
-  function constructor(): None
+  constructor(username: string, password: string, opts?: Twilio.TwilioClientOptions);
 
   /**
    * Makes a request to the Twilio API using the configured http client.
@@ -43,12 +43,12 @@ declare class Twilio {
    *
    * @param opts - The options argument
    */
-  function request(): null
+  request(opts: object): null;
   /**
    * Validate that a request to the new SSL certificate is successful.
    * @throws {RestException} if the request fails
    */
-  function validateSslCert(): null
+  validateSslCert(): null;
 }
 
 declare namespace Twilio {
@@ -88,7 +88,7 @@ declare namespace Twilio {
     method: string;
     params?: object;
     password?: string;
-    timeout?: number;
+    timeout?: int;
     uri: string;
     username?: string;
   }
