@@ -32,8 +32,6 @@ declare class Twilio {
    * @param username - The username used for authentication. This is normally account sid, but if using key/secret auth will be the api key sid.
    * @param password - The password used for authentication. This is normally auth token, but if using key/secret auth will be the secret.
    * @param opts - The options argument
-   *
-   * @returns {Twilio} A new instance of Twilio client
    */
   constructor(username: string, password: string, opts?: Twilio.TwilioClientOptions);
 
@@ -88,7 +86,7 @@ declare namespace Twilio {
     method: string;
     params?: object;
     password?: string;
-    timeout?: int;
+    timeout?: number;
     uri: string;
     username?: string;
   }
