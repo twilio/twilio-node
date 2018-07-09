@@ -79,12 +79,11 @@ declare class Twilio {
    * @param username - The username used for authentication. This is normally account sid, but if using key/secret auth will be the api key sid.
    * @param password - The password used for authentication. This is normally auth token, but if using key/secret auth will be the secret.
    * @param [opts] - ...
-   * @param {HttpClient} [opts.httpClient] -
+   * @param {RequestClient} [opts.httpClient] -
    *          The client used for http requests. Defaults to RequestClient
    * @param {string} [opts.accountSid] -
    *          The default accountSid. This is set to username if not provided
-   * @param {Environment} [opts.env] -
-   *          The environment object. Defaults to process.env
+   * @param {object} [opts.env] - The environment object. Defaults to process.env
    * @param {string} [opts.region] - Twilio region to use. Defaults to none
    *
    * @returns {Twilio} A new instance of Twilio client
@@ -126,8 +125,8 @@ declare namespace Twilio {
    */
   export interface TwilioClientOptions {
     accountSid?: string;
-    env?: Environment;
-    httpClient?: HttpClient;
+    env?: object;
+    httpClient?: RequestClient;
     region?: string;
   }
 
