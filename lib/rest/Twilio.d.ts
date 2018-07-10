@@ -35,18 +35,59 @@ declare class Twilio {
    */
   constructor(username: string, password: string, opts?: Twilio.TwilioClientOptions);
 
+  accounts: Accounts;
+  addresses: (typeof Api.prototype.account.addresses);
+  api: Api;
+  applications: (typeof Api.prototype.account.applications);
+  authorizedConnectApps: (typeof Api.prototype.account.authorizedConnectApps);
+  availablePhoneNumbers: (typeof Api.prototype.account.availablePhoneNumbers);
+  calls: (typeof Api.prototype.account.calls);
+  chat: Chat;
+  conferences: (typeof Api.prototype.account.conferences);
+  connectApps: (typeof Api.prototype.account.connectApps);
+  fax: Fax;
+  incomingPhoneNumbers: (typeof Api.prototype.account.incomingPhoneNumbers);
+  ipMessaging: IpMessaging;
+  keys: (typeof Api.prototype.account.keys);
+  lookups: Lookups;
+  messages: (typeof Api.prototype.account.messages);
+  messaging: Messaging;
+  monitor: Monitor;
+  newKeys: (typeof Api.prototype.account.newKeys);
+  newSigningKeys: (typeof Api.prototype.account.newSigningKeys);
+  notifications: (typeof Api.prototype.account.notifications);
+  notify: Notify;
+  outgoingCallerIds: (typeof Api.prototype.account.outgoingCallerIds);
+  preview: Preview;
+  pricing: Pricing;
+  proxy: Proxy;
+  queues: (typeof Api.prototype.account.queues);
+  recordings: (typeof Api.prototype.account.recordings);
   /**
    * Makes a request to the Twilio API using the configured http client.
    * Authentication information is automatically added if none is provided.
    *
    * @param opts - The options argument
    */
-  request(opts: object): null;
+  request(opts: Twilio.RequestOptions): any;
+  shortCodes: (typeof Api.prototype.account.shortCodes);
+  signingKeys: (typeof Api.prototype.account.signingKeys);
+  sip: (typeof Api.prototype.account.sip);
+  studio: Studio;
+  sync: Sync;
+  taskrouter: Taskrouter;
+  tokens: (typeof Api.prototype.account.tokens);
+  transcriptions: (typeof Api.prototype.account.transcriptions);
+  trunking: Trunking;
+  usage: (typeof Api.prototype.account.usage);
   /**
    * Validate that a request to the new SSL certificate is successful.
    * @throws {RestException} if the request fails
    */
-  validateSslCert(): null;
+  validateSslCert(): any;
+  validationRequests: (typeof Api.prototype.account.validationRequests);
+  video: Video;
+  wireless: Wireless;
 }
 
 declare namespace Twilio {
