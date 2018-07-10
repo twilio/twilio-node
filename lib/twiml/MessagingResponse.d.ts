@@ -18,14 +18,14 @@ declare class MessagingResponse {
    * @param attributes - TwiML attributes
    * @param body - Message Body
    */
-  message(attributes?: MessagingResponse.MessageAttributes, body: string): void;
+  message(attributes: MessagingResponse.MessageAttributes, body: string): MessagingResponse.Message;
   /**
    * <Redirect> TwiML Verb
    *
    * @param attributes - TwiML attributes
    * @param url - Redirect URL
    */
-  redirect(attributes?: MessagingResponse.RedirectAttributes, url: url): void;
+  redirect(attributes: MessagingResponse.RedirectAttributes, url: string): void;
   /**
    * Convert to XML
    */
@@ -75,14 +75,14 @@ declare namespace MessagingResponse {
      * @param attributes - TwiML attributes
      * @param message - Message Body
      */
-    body(attributes?: MessagingResponse.BodyAttributes, message: string): void;
+    body(attributes: MessagingResponse.BodyAttributes, message: string): void;
     /**
      * <Media> TwiML Noun
      *
      * @param attributes - TwiML attributes
      * @param url - Media URL
      */
-    media(attributes?: MessagingResponse.MediaAttributes, url: url): void;
+    media(attributes: MessagingResponse.MediaAttributes, url: string): void;
   }
 
 

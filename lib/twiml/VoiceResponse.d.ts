@@ -18,7 +18,7 @@ declare class VoiceResponse {
    * @param attributes - TwiML attributes
    * @param number - Phone number to dial
    */
-  dial(attributes?: VoiceResponse.DialAttributes, number: string): void;
+  dial(attributes: VoiceResponse.DialAttributes, number: string): VoiceResponse.Dial;
   /**
    * <Echo> TwiML Verb
    *
@@ -31,13 +31,13 @@ declare class VoiceResponse {
    * @param attributes - TwiML attributes
    * @param name - Friendly name
    */
-  enqueue(attributes?: VoiceResponse.EnqueueAttributes, name: string): void;
+  enqueue(attributes: VoiceResponse.EnqueueAttributes, name: string): VoiceResponse.Enqueue;
   /**
    * <Gather> TwiML Verb
    *
    * @param attributes - TwiML attributes
    */
-  gather(attributes?: VoiceResponse.GatherAttributes): void;
+  gather(attributes?: VoiceResponse.GatherAttributes): VoiceResponse.Gather;
   /**
    * <Hangup> TwiML Verb
    *
@@ -62,14 +62,14 @@ declare class VoiceResponse {
    * @param attributes - TwiML attributes
    * @param url - Media URL
    */
-  play(attributes?: VoiceResponse.PlayAttributes, url?: url): void;
+  play(attributes?: VoiceResponse.PlayAttributes, url?: string): void;
   /**
    * <Queue> TwiML Noun
    *
    * @param attributes - TwiML attributes
    * @param name - Queue name
    */
-  queue(attributes?: VoiceResponse.QueueAttributes, name: string): void;
+  queue(attributes: VoiceResponse.QueueAttributes, name: string): void;
   /**
    * <Record> TwiML Verb
    *
@@ -82,7 +82,7 @@ declare class VoiceResponse {
    * @param attributes - TwiML attributes
    * @param url - Redirect URL
    */
-  redirect(attributes?: VoiceResponse.RedirectAttributes, url: url): void;
+  redirect(attributes: VoiceResponse.RedirectAttributes, url: string): void;
   /**
    * <Reject> TwiML Verb
    *
@@ -95,14 +95,14 @@ declare class VoiceResponse {
    * @param attributes - TwiML attributes
    * @param message - Message to say
    */
-  say(attributes?: VoiceResponse.SayAttributes, message: string): void;
+  say(attributes: VoiceResponse.SayAttributes, message: string): void;
   /**
    * <Sms> TwiML Noun
    *
    * @param attributes - TwiML attributes
    * @param message - Message body
    */
-  sms(attributes?: VoiceResponse.SmsAttributes, message: string): void;
+  sms(attributes: VoiceResponse.SmsAttributes, message: string): void;
   /**
    * Convert to XML
    */
@@ -497,14 +497,14 @@ declare namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param url - Media URL
      */
-    play(attributes?: VoiceResponse.PlayAttributes, url?: url): void;
+    play(attributes?: VoiceResponse.PlayAttributes, url?: string): void;
     /**
      * <Say> TwiML Verb
      *
      * @param attributes - TwiML attributes
      * @param message - Message to say
      */
-    say(attributes?: VoiceResponse.SayAttributes, message: string): void;
+    say(attributes: VoiceResponse.SayAttributes, message: string): void;
   }
 
 
@@ -524,7 +524,7 @@ declare namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param body - TaskRouter task attributes
      */
-    task(attributes?: VoiceResponse.TaskAttributes, body: string): void;
+    task(attributes: VoiceResponse.TaskAttributes, body: string): void;
   }
 
 
@@ -543,42 +543,42 @@ declare namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param name - Client name
      */
-    client(attributes?: VoiceResponse.ClientAttributes, name: string): void;
+    client(attributes: VoiceResponse.ClientAttributes, name: string): void;
     /**
      * <Conference> TwiML Noun
      *
      * @param attributes - TwiML attributes
      * @param name - Conference name
      */
-    conference(attributes?: VoiceResponse.ConferenceAttributes, name: string): void;
+    conference(attributes: VoiceResponse.ConferenceAttributes, name: string): void;
     /**
      * <Number> TwiML Noun
      *
      * @param attributes - TwiML attributes
      * @param phoneNumber - Phone Number to dial
      */
-    number(attributes?: VoiceResponse.NumberAttributes, phoneNumber: phone_number): void;
+    number(attributes: VoiceResponse.NumberAttributes, phoneNumber: string): void;
     /**
      * <Queue> TwiML Noun
      *
      * @param attributes - TwiML attributes
      * @param name - Queue name
      */
-    queue(attributes?: VoiceResponse.QueueAttributes, name: string): void;
+    queue(attributes: VoiceResponse.QueueAttributes, name: string): void;
     /**
      * <Sim> TwiML Noun
      *
      * @param attributes - TwiML attributes
      * @param simSid - SIM SID
      */
-    sim(attributes?: VoiceResponse.SimAttributes, simSid: sid): void;
+    sim(attributes: VoiceResponse.SimAttributes, simSid: string): void;
     /**
      * <Sip> TwiML Noun
      *
      * @param attributes - TwiML attributes
      * @param sipUrl - SIP URL
      */
-    sip(attributes?: VoiceResponse.SipAttributes, sipUrl: url): void;
+    sip(attributes: VoiceResponse.SipAttributes, sipUrl: string): void;
   }
 
 
