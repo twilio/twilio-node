@@ -128,7 +128,7 @@ declare namespace VoiceResponse {
    * @property answerOnBridge - Preserve the ringing behavior of the inbound call until the Dialed call picks up
    * @property ringTone - Ringtone allows you to override the ringback tone that Twilio will play back to the caller while executing the Dial
    */
-  export interface DialOptions {
+  export interface DialAttributes {
     action?: string;
     answerOnBridge?: boolean;
     callerId?: string;
@@ -153,7 +153,7 @@ declare namespace VoiceResponse {
    * @property waitUrlMethod - Wait URL method
    * @property workflowSid - TaskRouter Workflow SID
    */
-  export interface EnqueueOptions {
+  export interface EnqueueAttributes {
     action?: string;
     method?: string;
     waitUrl?: string;
@@ -179,7 +179,7 @@ declare namespace VoiceResponse {
    * @property hints - Speech recognition hints
    * @property bargeIn - Stop playing media upon speech
    */
-  export interface GatherOptions {
+  export interface GatherAttributes {
     action?: string;
     bargeIn?: boolean;
     finishOnKey?: string;
@@ -201,7 +201,7 @@ declare namespace VoiceResponse {
    *
    * @property length - Length in seconds to pause
    */
-  export interface PauseOptions {
+  export interface PauseAttributes {
     length?: number;
   }
 
@@ -211,7 +211,7 @@ declare namespace VoiceResponse {
    * @property loop - Times to loop media
    * @property digits - Play DTMF tones for digits
    */
-  export interface PlayOptions {
+  export interface PlayAttributes {
     digits?: string;
     loop?: number;
   }
@@ -224,7 +224,7 @@ declare namespace VoiceResponse {
    * @property reservationSid - TaskRouter Reservation SID
    * @property postWorkActivitySid - TaskRouter Activity SID
    */
-  export interface QueueOptions {
+  export interface QueueAttributes {
     method?: string;
     postWorkActivitySid?: string;
     reservationSid?: string;
@@ -246,7 +246,7 @@ declare namespace VoiceResponse {
    * @property transcribe - Transcribe the recording
    * @property transcribeCallback - Transcribe callback URL
    */
-  export interface RecordOptions {
+  export interface RecordAttributes {
     action?: string;
     finishOnKey?: string;
     maxLength?: number;
@@ -265,7 +265,7 @@ declare namespace VoiceResponse {
    *
    * @property method - Redirect URL method
    */
-  export interface RedirectOptions {
+  export interface RedirectAttributes {
     method?: string;
   }
 
@@ -274,7 +274,7 @@ declare namespace VoiceResponse {
    *
    * @property reason - Rejection reason
    */
-  export interface RejectOptions {
+  export interface RejectAttributes {
     reason?: reject.reason;
   }
 
@@ -285,7 +285,7 @@ declare namespace VoiceResponse {
    * @property loop - Times to loop message
    * @property language - Message langauge
    */
-  export interface SayOptions {
+  export interface SayAttributes {
     language?: say.language;
     loop?: number;
     voice?: say.voice;
@@ -300,7 +300,7 @@ declare namespace VoiceResponse {
    * @property method - Action URL method
    * @property statusCallback - Status callback URL
    */
-  export interface SmsOptions {
+  export interface SmsAttributes {
     action?: string;
     from?: string;
     method?: string;
@@ -315,7 +315,7 @@ declare namespace VoiceResponse {
    * @property loop - Times to loop message
    * @property language - Message langauge
    */
-  export interface SayOptions {
+  export interface SayAttributes {
     language?: say.language;
     loop?: number;
     voice?: say.voice;
@@ -326,7 +326,7 @@ declare namespace VoiceResponse {
    *
    * @property length - Length in seconds to pause
    */
-  export interface PauseOptions {
+  export interface PauseAttributes {
     length?: number;
   }
 
@@ -336,7 +336,7 @@ declare namespace VoiceResponse {
    * @property loop - Times to loop media
    * @property digits - Play DTMF tones for digits
    */
-  export interface PlayOptions {
+  export interface PlayAttributes {
     digits?: string;
     loop?: number;
   }
@@ -347,7 +347,7 @@ declare namespace VoiceResponse {
    * @property priority - Task priority
    * @property timeout - Timeout associated with task
    */
-  export interface TaskOptions {
+  export interface TaskAttributes {
     priority?: number;
     timeout?: number;
   }
@@ -361,7 +361,7 @@ declare namespace VoiceResponse {
    * @property statusCallback - Status Callback URL
    * @property statusCallbackMethod - Status Callback URL Method
    */
-  export interface ClientOptions {
+  export interface ClientAttributes {
     method?: string;
     statusCallback?: string;
     statusCallbackEvent?: client.event;
@@ -391,7 +391,7 @@ declare namespace VoiceResponse {
    * @property recordingStatusCallbackEvent - Recording status callback events
    * @property eventCallbackUrl - Event callback URL
    */
-  export interface ConferenceOptions {
+  export interface ConferenceAttributes {
     beep?: conference.beep;
     endConferenceOnExit?: boolean;
     eventCallbackUrl?: string;
@@ -422,7 +422,7 @@ declare namespace VoiceResponse {
    * @property statusCallback - Status callback URL
    * @property statusCallbackMethod - Status callback URL method
    */
-  export interface NumberOptions {
+  export interface NumberAttributes {
     method?: string;
     sendDigits?: string;
     statusCallback?: string;
@@ -439,7 +439,7 @@ declare namespace VoiceResponse {
    * @property reservationSid - TaskRouter Reservation SID
    * @property postWorkActivitySid - TaskRouter Activity SID
    */
-  export interface QueueOptions {
+  export interface QueueAttributes {
     method?: string;
     postWorkActivitySid?: string;
     reservationSid?: string;
@@ -457,7 +457,7 @@ declare namespace VoiceResponse {
    * @property statusCallback - Status callback URL
    * @property statusCallbackMethod - Status callback URL method
    */
-  export interface SipOptions {
+  export interface SipAttributes {
     method?: string;
     password?: string;
     statusCallback?: string;
@@ -467,105 +467,15 @@ declare namespace VoiceResponse {
     username?: string;
   }
 
-  class Sms {
-    /**
-     * <Sms> TwiML Noun
-     *
-     * @param sms - <Sms> TwiML Noun
-     */
-    constructor(sms: object);
 
-  }
 
-  class Say {
-    /**
-     * <Say> TwiML Verb
-     *
-     * @param say - <Say> TwiML Verb
-     */
-    constructor(say: object);
 
-  }
 
-  class Reject {
-    /**
-     * <Reject> TwiML Verb
-     *
-     * @param reject - <Reject> TwiML Verb
-     */
-    constructor(reject: object);
 
-  }
 
-  class Redirect {
-    /**
-     * <Redirect> TwiML Verb
-     *
-     * @param redirect - <Redirect> TwiML Verb
-     */
-    constructor(redirect: object);
 
-  }
 
-  class Record {
-    /**
-     * <Record> TwiML Verb
-     *
-     * @param record - <Record> TwiML Verb
-     */
-    constructor(record: object);
 
-  }
-
-  class Queue {
-    /**
-     * <Queue> TwiML Noun
-     *
-     * @param queue - <Queue> TwiML Noun
-     */
-    constructor(queue: object);
-
-  }
-
-  class Play {
-    /**
-     * <Play> TwiML Verb
-     *
-     * @param play - <Play> TwiML Verb
-     */
-    constructor(play: object);
-
-  }
-
-  class Pause {
-    /**
-     * <Pause> TwiML Verb
-     *
-     * @param pause - <Pause> TwiML Verb
-     */
-    constructor(pause: object);
-
-  }
-
-  class Leave {
-    /**
-     * <Leave> TwiML Verb
-     *
-     * @param leave - <Leave> TwiML Verb
-     */
-    constructor(leave: object);
-
-  }
-
-  class Hangup {
-    /**
-     * <Hangup> TwiML Verb
-     *
-     * @param hangup - <Hangup> TwiML Verb
-     */
-    constructor(hangup: object);
-
-  }
 
   class Gather {
     /**
@@ -597,35 +507,8 @@ declare namespace VoiceResponse {
     say(attributes?: VoiceResponse.SayAttributes, message: string): void;
   }
 
-  class Play {
-    /**
-     * <Play> TwiML Verb
-     *
-     * @param play - <Play> TwiML Verb
-     */
-    constructor(play: object);
 
-  }
 
-  class Pause {
-    /**
-     * <Pause> TwiML Verb
-     *
-     * @param pause - <Pause> TwiML Verb
-     */
-    constructor(pause: object);
-
-  }
-
-  class Say {
-    /**
-     * <Say> TwiML Verb
-     *
-     * @param say - <Say> TwiML Verb
-     */
-    constructor(say: object);
-
-  }
 
   class Enqueue {
     /**
@@ -644,25 +527,7 @@ declare namespace VoiceResponse {
     task(attributes?: VoiceResponse.TaskAttributes, body: string): void;
   }
 
-  class Task {
-    /**
-     * <Task> TwiML Noun
-     *
-     * @param task - <Task> TwiML Noun
-     */
-    constructor(task: object);
 
-  }
-
-  class Echo {
-    /**
-     * <Echo> TwiML Verb
-     *
-     * @param echo - <Echo> TwiML Verb
-     */
-    constructor(echo: object);
-
-  }
 
   class Dial {
     /**
@@ -716,65 +581,11 @@ declare namespace VoiceResponse {
     sip(attributes?: VoiceResponse.SipAttributes, sipUrl: url): void;
   }
 
-  class Sip {
-    /**
-     * <Sip> TwiML Noun
-     *
-     * @param sip - <Sip> TwiML Noun
-     */
-    constructor(sip: object);
 
-  }
 
-  class Sim {
-    /**
-     * <Sim> TwiML Noun
-     *
-     * @param sim - <Sim> TwiML Noun
-     */
-    constructor(sim: object);
 
-  }
 
-  class Queue {
-    /**
-     * <Queue> TwiML Noun
-     *
-     * @param queue - <Queue> TwiML Noun
-     */
-    constructor(queue: object);
 
-  }
-
-  class Number {
-    /**
-     * <Number> TwiML Noun
-     *
-     * @param number - <Number> TwiML Noun
-     */
-    constructor(number: object);
-
-  }
-
-  class Conference {
-    /**
-     * <Conference> TwiML Noun
-     *
-     * @param conference - <Conference> TwiML Noun
-     */
-    constructor(conference: object);
-
-  }
-
-  class Client {
-    /**
-     * <Client> TwiML Noun
-     *
-     * @param client - <Client> TwiML Noun
-     */
-    constructor(client: object);
-
-  }
 
 }
 export = VoiceResponse;

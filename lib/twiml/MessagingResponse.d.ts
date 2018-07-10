@@ -43,7 +43,7 @@ declare namespace MessagingResponse {
    * @property method - Action URL Method
    * @property statusCallback - Status callback URL. Deprecated in favor of action.
    */
-  export interface MessageOptions {
+  export interface MessageAttributes {
     action?: string;
     from?: string;
     method?: string;
@@ -56,19 +56,10 @@ declare namespace MessagingResponse {
    *
    * @property method - Redirect URL method
    */
-  export interface RedirectOptions {
+  export interface RedirectAttributes {
     method?: string;
   }
 
-  class Redirect {
-    /**
-     * <Redirect> TwiML Verb
-     *
-     * @param redirect - <Redirect> TwiML Verb
-     */
-    constructor(redirect: object);
-
-  }
 
   class Message {
     /**
@@ -94,25 +85,7 @@ declare namespace MessagingResponse {
     media(attributes?: MessagingResponse.MediaAttributes, url: url): void;
   }
 
-  class Media {
-    /**
-     * <Media> TwiML Noun
-     *
-     * @param media - <Media> TwiML Noun
-     */
-    constructor(media: object);
 
-  }
-
-  class Body {
-    /**
-     * <Body> TwiML Noun
-     *
-     * @param body - <Body> TwiML Noun
-     */
-    constructor(body: object);
-
-  }
 
 }
 export = MessagingResponse;

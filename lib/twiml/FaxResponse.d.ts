@@ -32,20 +32,11 @@ declare namespace FaxResponse {
    * @property action - Receive action URL
    * @property method - Receive action URL method
    */
-  export interface ReceiveOptions {
+  export interface ReceiveAttributes {
     action?: string;
     method?: string;
   }
 
-  class Receive {
-    /**
-     * <Receive> TwiML Verb
-     *
-     * @param receive - <Receive> TwiML Verb
-     */
-    constructor(receive: object);
-
-  }
 
 }
 export = FaxResponse;
