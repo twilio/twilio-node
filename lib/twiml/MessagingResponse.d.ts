@@ -62,12 +62,6 @@ declare namespace MessagingResponse {
 
 
   class Message {
-    /**
-     * <Message> TwiML Verb
-     *
-     * @param message - <Message> TwiML Verb
-     */
-    constructor(message: object);
 
     /**
      * <Body> TwiML Noun

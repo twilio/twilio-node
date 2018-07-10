@@ -478,12 +478,6 @@ declare namespace VoiceResponse {
 
 
   class Gather {
-    /**
-     * <Gather> TwiML Verb
-     *
-     * @param gather - <Gather> TwiML Verb
-     */
-    constructor(gather: object);
 
     /**
      * <Pause> TwiML Verb
@@ -511,12 +505,6 @@ declare namespace VoiceResponse {
 
 
   class Enqueue {
-    /**
-     * <Enqueue> TwiML Noun
-     *
-     * @param enqueue - <Enqueue> TwiML Noun
-     */
-    constructor(enqueue: object);
 
     /**
      * <Task> TwiML Noun
@@ -530,12 +518,6 @@ declare namespace VoiceResponse {
 
 
   class Dial {
-    /**
-     * <Dial> TwiML Verb
-     *
-     * @param dial - <Dial> TwiML Verb
-     */
-    constructor(dial: object);
 
     /**
      * <Client> TwiML Noun
