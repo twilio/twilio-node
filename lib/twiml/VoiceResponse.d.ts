@@ -5,364 +5,6 @@
  *       /       /
  */
 
-import TwiML = require('./TwiML');
-
-
-/**
- * Options to pass to dial
- *
- * @property action - Action URL
- * @property method - Action URL method
- * @property timeout - Time to wait for answer
- * @property hangupOnStar - Hangup call on star press
- * @property timeLimit - Max time length
- * @property callerId - Caller ID to display
- * @property record - Record the call
- * @property trim - Trim the recording
- * @property recordingStatusCallback - Recording status callback URL
- * @property recordingStatusCallbackMethod - Recording status callback URL method
- * @property recordingStatusCallbackEvent - Recording status callback events
- * @property answerOnBridge - Preserve the ringing behavior of the inbound call until the Dialed call picks up
- * @property ringTone - Ringtone allows you to override the ringback tone that Twilio will play back to the caller while executing the Dial
- */
-export interface DialOptions {
-  action?: string;
-  answerOnBridge?: boolean;
-  callerId?: string;
-  hangupOnStar?: boolean;
-  method?: string;
-  record?: dial.record;
-  recordingStatusCallback?: string;
-  recordingStatusCallbackEvent?: dial.recording_event;
-  recordingStatusCallbackMethod?: string;
-  ringTone?: dial.ring_tone;
-  timeLimit?: number;
-  timeout?: number;
-  trim?: dial.trim;
-}
-
-/**
- * Options to pass to enqueue
- *
- * @property action - Action URL
- * @property method - Action URL method
- * @property waitUrl - Wait URL
- * @property waitUrlMethod - Wait URL method
- * @property workflowSid - TaskRouter Workflow SID
- */
-export interface EnqueueOptions {
-  action?: string;
-  method?: string;
-  waitUrl?: string;
-  waitUrlMethod?: string;
-  workflowSid?: string;
-}
-
-/**
- * Options to pass to gather
- *
- * @property input - Input type Twilio should accept
- * @property action - Action URL
- * @property method - Action URL method
- * @property timeout - Time to wait to gather input
- * @property speechTimeout - Time to wait to gather speech input and it should be either auto or a positive integer.
- * @property maxSpeechTime - Max allowed time for speech input
- * @property profanityFilter - Profanity Filter on speech
- * @property finishOnKey - Finish gather on key
- * @property numDigits - Number of digits to collect
- * @property partialResultCallback - Partial result callback URL
- * @property partialResultCallbackMethod - Partial result callback URL method
- * @property language - Language to use
- * @property hints - Speech recognition hints
- * @property bargeIn - Stop playing media upon speech
- */
-export interface GatherOptions {
-  action?: string;
-  bargeIn?: boolean;
-  finishOnKey?: string;
-  hints?: string;
-  input?: gather.input;
-  language?: gather.language;
-  maxSpeechTime?: number;
-  method?: string;
-  numDigits?: number;
-  partialResultCallback?: string;
-  partialResultCallbackMethod?: string;
-  profanityFilter?: boolean;
-  speechTimeout?: string;
-  timeout?: number;
-}
-
-/**
- * Options to pass to pause
- *
- * @property length - Length in seconds to pause
- */
-export interface PauseOptions {
-  length?: number;
-}
-
-/**
- * Options to pass to play
- *
- * @property loop - Times to loop media
- * @property digits - Play DTMF tones for digits
- */
-export interface PlayOptions {
-  digits?: string;
-  loop?: number;
-}
-
-/**
- * Options to pass to queue
- *
- * @property url - Action URL
- * @property method - Action URL method
- * @property reservationSid - TaskRouter Reservation SID
- * @property postWorkActivitySid - TaskRouter Activity SID
- */
-export interface QueueOptions {
-  method?: string;
-  postWorkActivitySid?: string;
-  reservationSid?: string;
-  url?: string;
-}
-
-/**
- * Options to pass to record
- *
- * @property action - Action URL
- * @property method - Action URL method
- * @property timeout - Timeout to begin recording
- * @property finishOnKey - Finish recording on key
- * @property maxLength - Max time to record in seconds
- * @property playBeep - Play beep
- * @property trim - Trim the recording
- * @property recordingStatusCallback - Status callback URL
- * @property recordingStatusCallbackMethod - Status callback URL method
- * @property transcribe - Transcribe the recording
- * @property transcribeCallback - Transcribe callback URL
- */
-export interface RecordOptions {
-  action?: string;
-  finishOnKey?: string;
-  maxLength?: number;
-  method?: string;
-  playBeep?: boolean;
-  recordingStatusCallback?: string;
-  recordingStatusCallbackMethod?: string;
-  timeout?: number;
-  transcribe?: boolean;
-  transcribeCallback?: string;
-  trim?: record.trim;
-}
-
-/**
- * Options to pass to redirect
- *
- * @property method - Redirect URL method
- */
-export interface RedirectOptions {
-  method?: string;
-}
-
-/**
- * Options to pass to reject
- *
- * @property reason - Rejection reason
- */
-export interface RejectOptions {
-  reason?: reject.reason;
-}
-
-/**
- * Options to pass to say
- *
- * @property voice - Voice to use
- * @property loop - Times to loop message
- * @property language - Message langauge
- */
-export interface SayOptions {
-  language?: say.language;
-  loop?: number;
-  voice?: say.voice;
-}
-
-/**
- * Options to pass to sms
- *
- * @property to - Number to send message to
- * @property from - Number to send message from
- * @property action - Action URL
- * @property method - Action URL method
- * @property statusCallback - Status callback URL
- */
-export interface SmsOptions {
-  action?: string;
-  from?: string;
-  method?: string;
-  statusCallback?: string;
-  to?: string;
-}
-
-/**
- * Options to pass to say
- *
- * @property voice - Voice to use
- * @property loop - Times to loop message
- * @property language - Message langauge
- */
-export interface SayOptions {
-  language?: say.language;
-  loop?: number;
-  voice?: say.voice;
-}
-
-/**
- * Options to pass to pause
- *
- * @property length - Length in seconds to pause
- */
-export interface PauseOptions {
-  length?: number;
-}
-
-/**
- * Options to pass to play
- *
- * @property loop - Times to loop media
- * @property digits - Play DTMF tones for digits
- */
-export interface PlayOptions {
-  digits?: string;
-  loop?: number;
-}
-
-/**
- * Options to pass to task
- *
- * @property priority - Task priority
- * @property timeout - Timeout associated with task
- */
-export interface TaskOptions {
-  priority?: number;
-  timeout?: number;
-}
-
-/**
- * Options to pass to client
- *
- * @property url - Client URL
- * @property method - Client URL Method
- * @property statusCallbackEvent - Events to trigger status callback
- * @property statusCallback - Status Callback URL
- * @property statusCallbackMethod - Status Callback URL Method
- */
-export interface ClientOptions {
-  method?: string;
-  statusCallback?: string;
-  statusCallbackEvent?: client.event;
-  statusCallbackMethod?: string;
-  url?: string;
-}
-
-/**
- * Options to pass to conference
- *
- * @property muted - Join the conference muted
- * @property beep - Play beep when joining
- * @property startConferenceOnEnter - Start the conference on enter
- * @property endConferenceOnExit - End the conferenceon exit
- * @property waitUrl - Wait URL
- * @property waitMethod - Wait URL method
- * @property maxParticipants - Maximum number of participants
- * @property record - Record the conference
- * @property region - Conference region
- * @property whisper - Call whisper
- * @property trim - Trim the conference recording
- * @property statusCallbackEvent - Events to call status callback URL
- * @property statusCallback - Status callback URL
- * @property statusCallbackMethod - Status callback URL method
- * @property recordingStatusCallback - Recording status callback URL
- * @property recordingStatusCallbackMethod - Recording status callback URL method
- * @property recordingStatusCallbackEvent - Recording status callback events
- * @property eventCallbackUrl - Event callback URL
- */
-export interface ConferenceOptions {
-  beep?: conference.beep;
-  endConferenceOnExit?: boolean;
-  eventCallbackUrl?: string;
-  maxParticipants?: number;
-  muted?: boolean;
-  record?: conference.record;
-  recordingStatusCallback?: string;
-  recordingStatusCallbackEvent?: conference.recording_event;
-  recordingStatusCallbackMethod?: string;
-  region?: conference.region;
-  startConferenceOnEnter?: boolean;
-  statusCallback?: string;
-  statusCallbackEvent?: conference.event;
-  statusCallbackMethod?: string;
-  trim?: conference.trim;
-  waitMethod?: string;
-  waitUrl?: string;
-  whisper?: string;
-}
-
-/**
- * Options to pass to number
- *
- * @property sendDigits - DTMF tones to play when the call is answered
- * @property url - TwiML URL
- * @property method - TwiML URL method
- * @property statusCallbackEvent - Events to call status callback
- * @property statusCallback - Status callback URL
- * @property statusCallbackMethod - Status callback URL method
- */
-export interface NumberOptions {
-  method?: string;
-  sendDigits?: string;
-  statusCallback?: string;
-  statusCallbackEvent?: number.event;
-  statusCallbackMethod?: string;
-  url?: string;
-}
-
-/**
- * Options to pass to queue
- *
- * @property url - Action URL
- * @property method - Action URL method
- * @property reservationSid - TaskRouter Reservation SID
- * @property postWorkActivitySid - TaskRouter Activity SID
- */
-export interface QueueOptions {
-  method?: string;
-  postWorkActivitySid?: string;
-  reservationSid?: string;
-  url?: string;
-}
-
-/**
- * Options to pass to sip
- *
- * @property username - SIP Username
- * @property password - SIP Password
- * @property url - Action URL
- * @property method - Action URL method
- * @property statusCallbackEvent - Status callback events
- * @property statusCallback - Status callback URL
- * @property statusCallbackMethod - Status callback URL method
- */
-export interface SipOptions {
-  method?: string;
-  password?: string;
-  statusCallback?: string;
-  statusCallbackEvent?: sip.event;
-  statusCallbackMethod?: string;
-  url?: string;
-  username?: string;
-}
 
 declare class VoiceResponse {
   /**
@@ -373,402 +15,766 @@ declare class VoiceResponse {
   /**
    * <Dial> TwiML Verb
    *
-   * @param attributes - ...
+   * @param attributes - TwiML attributes
    * @param number - Phone number to dial
    */
-  dial(attributes: object, number: string): any;
+  dial(attributes?: VoiceResponse.DialAttributes, number: string): void;
   /**
    * <Echo> TwiML Verb
    *
    * @param attributes - TwiML attributes
    */
-  echo(attributes: object): any;
+  echo(attributes?: VoiceResponse.EchoAttributes): void;
   /**
    * <Enqueue> TwiML Noun
    *
-   * @param attributes - ...
+   * @param attributes - TwiML attributes
    * @param name - Friendly name
    */
-  enqueue(attributes: object, name: string): any;
+  enqueue(attributes?: VoiceResponse.EnqueueAttributes, name: string): void;
   /**
    * <Gather> TwiML Verb
    *
-   * @param attributes - ...
+   * @param attributes - TwiML attributes
    */
-  gather(attributes: object): any;
+  gather(attributes?: VoiceResponse.GatherAttributes): void;
   /**
    * <Hangup> TwiML Verb
    *
    * @param attributes - TwiML attributes
    */
-  hangup(attributes: object): any;
+  hangup(attributes?: VoiceResponse.HangupAttributes): void;
   /**
    * <Leave> TwiML Verb
    *
    * @param attributes - TwiML attributes
    */
-  leave(attributes: object): any;
+  leave(attributes?: VoiceResponse.LeaveAttributes): void;
   /**
    * <Pause> TwiML Verb
    *
-   * @param attributes - ...
+   * @param attributes - TwiML attributes
    */
-  pause(attributes: object): any;
+  pause(attributes?: VoiceResponse.PauseAttributes): void;
   /**
    * <Play> TwiML Verb
    *
-   * @param attributes - ...
+   * @param attributes - TwiML attributes
    * @param url - Media URL
    */
-  play(attributes: object, url?: url): any;
+  play(attributes?: VoiceResponse.PlayAttributes, url?: url): void;
   /**
    * <Queue> TwiML Noun
    *
-   * @param attributes - ...
+   * @param attributes - TwiML attributes
    * @param name - Queue name
    */
-  queue(attributes: object, name: string): any;
+  queue(attributes?: VoiceResponse.QueueAttributes, name: string): void;
   /**
    * <Record> TwiML Verb
    *
-   * @param attributes - ...
+   * @param attributes - TwiML attributes
    */
-  record(attributes: object): any;
+  record(attributes?: VoiceResponse.RecordAttributes): void;
   /**
    * <Redirect> TwiML Verb
    *
-   * @param attributes - ...
+   * @param attributes - TwiML attributes
    * @param url - Redirect URL
    */
-  redirect(attributes: object, url: url): any;
+  redirect(attributes?: VoiceResponse.RedirectAttributes, url: url): void;
   /**
    * <Reject> TwiML Verb
-   *
-   * @param attributes - ...
-   */
-  reject(attributes: object): any;
-  /**
-   * <Say> TwiML Verb
-   *
-   * @param attributes - ...
-   * @param message - Message to say
-   */
-  say(attributes: object, message: string): any;
-  /**
-   * <Sms> TwiML Noun
-   *
-   * @param attributes - ...
-   * @param message - Message body
-   */
-  sms(attributes: object, message: string): any;
-}
-
-declare class Sms {
-  /**
-   * <Sms> TwiML Noun
-   *
-   * @param sms - <Sms> TwiML Noun
-   */
-  constructor(sms: object);
-
-}
-
-declare class Say {
-  /**
-   * <Say> TwiML Verb
-   *
-   * @param say - <Say> TwiML Verb
-   */
-  constructor(say: object);
-
-}
-
-declare class Reject {
-  /**
-   * <Reject> TwiML Verb
-   *
-   * @param reject - <Reject> TwiML Verb
-   */
-  constructor(reject: object);
-
-}
-
-declare class Redirect {
-  /**
-   * <Redirect> TwiML Verb
-   *
-   * @param redirect - <Redirect> TwiML Verb
-   */
-  constructor(redirect: object);
-
-}
-
-declare class Record {
-  /**
-   * <Record> TwiML Verb
-   *
-   * @param record - <Record> TwiML Verb
-   */
-  constructor(record: object);
-
-}
-
-declare class Queue {
-  /**
-   * <Queue> TwiML Noun
-   *
-   * @param queue - <Queue> TwiML Noun
-   */
-  constructor(queue: object);
-
-}
-
-declare class Play {
-  /**
-   * <Play> TwiML Verb
-   *
-   * @param play - <Play> TwiML Verb
-   */
-  constructor(play: object);
-
-}
-
-declare class Pause {
-  /**
-   * <Pause> TwiML Verb
-   *
-   * @param pause - <Pause> TwiML Verb
-   */
-  constructor(pause: object);
-
-}
-
-declare class Leave {
-  /**
-   * <Leave> TwiML Verb
-   *
-   * @param leave - <Leave> TwiML Verb
-   */
-  constructor(leave: object);
-
-}
-
-declare class Hangup {
-  /**
-   * <Hangup> TwiML Verb
-   *
-   * @param hangup - <Hangup> TwiML Verb
-   */
-  constructor(hangup: object);
-
-}
-
-declare class Gather {
-  /**
-   * <Gather> TwiML Verb
-   *
-   * @param gather - <Gather> TwiML Verb
-   */
-  constructor(gather: object);
-
-  /**
-   * <Pause> TwiML Verb
-   *
-   * @param attributes - ...
-   */
-  pause(attributes: object): any;
-  /**
-   * <Play> TwiML Verb
-   *
-   * @param attributes - ...
-   * @param url - Media URL
-   */
-  play(attributes: object, url?: url): any;
-  /**
-   * <Say> TwiML Verb
-   *
-   * @param attributes - ...
-   * @param message - Message to say
-   */
-  say(attributes: object, message: string): any;
-}
-
-declare class Play {
-  /**
-   * <Play> TwiML Verb
-   *
-   * @param play - <Play> TwiML Verb
-   */
-  constructor(play: object);
-
-}
-
-declare class Pause {
-  /**
-   * <Pause> TwiML Verb
-   *
-   * @param pause - <Pause> TwiML Verb
-   */
-  constructor(pause: object);
-
-}
-
-declare class Say {
-  /**
-   * <Say> TwiML Verb
-   *
-   * @param say - <Say> TwiML Verb
-   */
-  constructor(say: object);
-
-}
-
-declare class Enqueue {
-  /**
-   * <Enqueue> TwiML Noun
-   *
-   * @param enqueue - <Enqueue> TwiML Noun
-   */
-  constructor(enqueue: object);
-
-  /**
-   * <Task> TwiML Noun
-   *
-   * @param attributes - ...
-   * @param body - TaskRouter task attributes
-   */
-  task(attributes: object, body: string): any;
-}
-
-declare class Task {
-  /**
-   * <Task> TwiML Noun
-   *
-   * @param task - <Task> TwiML Noun
-   */
-  constructor(task: object);
-
-}
-
-declare class Echo {
-  /**
-   * <Echo> TwiML Verb
-   *
-   * @param echo - <Echo> TwiML Verb
-   */
-  constructor(echo: object);
-
-}
-
-declare class Dial {
-  /**
-   * <Dial> TwiML Verb
-   *
-   * @param dial - <Dial> TwiML Verb
-   */
-  constructor(dial: object);
-
-  /**
-   * <Client> TwiML Noun
-   *
-   * @param attributes - ...
-   * @param name - Client name
-   */
-  client(attributes: object, name: string): any;
-  /**
-   * <Conference> TwiML Noun
-   *
-   * @param attributes - ...
-   * @param name - Conference name
-   */
-  conference(attributes: object, name: string): any;
-  /**
-   * <Number> TwiML Noun
-   *
-   * @param attributes - ...
-   * @param phoneNumber - Phone Number to dial
-   */
-  number(attributes: object, phoneNumber: phone_number): any;
-  /**
-   * <Queue> TwiML Noun
-   *
-   * @param attributes - ...
-   * @param name - Queue name
-   */
-  queue(attributes: object, name: string): any;
-  /**
-   * <Sim> TwiML Noun
    *
    * @param attributes - TwiML attributes
-   * @param simSid - SIM SID
    */
-  sim(attributes: object, simSid: sid): any;
+  reject(attributes?: VoiceResponse.RejectAttributes): void;
   /**
-   * <Sip> TwiML Noun
+   * <Say> TwiML Verb
    *
-   * @param attributes - ...
-   * @param sipUrl - SIP URL
+   * @param attributes - TwiML attributes
+   * @param message - Message to say
    */
-  sip(attributes: object, sipUrl: url): any;
+  say(attributes?: VoiceResponse.SayAttributes, message: string): void;
+  /**
+   * <Sms> TwiML Noun
+   *
+   * @param attributes - TwiML attributes
+   * @param message - Message body
+   */
+  sms(attributes?: VoiceResponse.SmsAttributes, message: string): void;
+  /**
+   * Convert to XML
+   */
+  toString(): any;
 }
 
-declare class Sip {
+declare namespace VoiceResponse {
+
   /**
-   * <Sip> TwiML Noun
+   * Options to pass to dial
    *
-   * @param sip - <Sip> TwiML Noun
+   * @property action - Action URL
+   * @property method - Action URL method
+   * @property timeout - Time to wait for answer
+   * @property hangupOnStar - Hangup call on star press
+   * @property timeLimit - Max time length
+   * @property callerId - Caller ID to display
+   * @property record - Record the call
+   * @property trim - Trim the recording
+   * @property recordingStatusCallback - Recording status callback URL
+   * @property recordingStatusCallbackMethod - Recording status callback URL method
+   * @property recordingStatusCallbackEvent - Recording status callback events
+   * @property answerOnBridge - Preserve the ringing behavior of the inbound call until the Dialed call picks up
+   * @property ringTone - Ringtone allows you to override the ringback tone that Twilio will play back to the caller while executing the Dial
    */
-  constructor(sip: object);
+  export interface DialOptions {
+    action?: string;
+    answerOnBridge?: boolean;
+    callerId?: string;
+    hangupOnStar?: boolean;
+    method?: string;
+    record?: dial.record;
+    recordingStatusCallback?: string;
+    recordingStatusCallbackEvent?: dial.recording_event;
+    recordingStatusCallbackMethod?: string;
+    ringTone?: dial.ring_tone;
+    timeLimit?: number;
+    timeout?: number;
+    trim?: dial.trim;
+  }
+
+  /**
+   * Options to pass to enqueue
+   *
+   * @property action - Action URL
+   * @property method - Action URL method
+   * @property waitUrl - Wait URL
+   * @property waitUrlMethod - Wait URL method
+   * @property workflowSid - TaskRouter Workflow SID
+   */
+  export interface EnqueueOptions {
+    action?: string;
+    method?: string;
+    waitUrl?: string;
+    waitUrlMethod?: string;
+    workflowSid?: string;
+  }
+
+  /**
+   * Options to pass to gather
+   *
+   * @property input - Input type Twilio should accept
+   * @property action - Action URL
+   * @property method - Action URL method
+   * @property timeout - Time to wait to gather input
+   * @property speechTimeout - Time to wait to gather speech input and it should be either auto or a positive integer.
+   * @property maxSpeechTime - Max allowed time for speech input
+   * @property profanityFilter - Profanity Filter on speech
+   * @property finishOnKey - Finish gather on key
+   * @property numDigits - Number of digits to collect
+   * @property partialResultCallback - Partial result callback URL
+   * @property partialResultCallbackMethod - Partial result callback URL method
+   * @property language - Language to use
+   * @property hints - Speech recognition hints
+   * @property bargeIn - Stop playing media upon speech
+   */
+  export interface GatherOptions {
+    action?: string;
+    bargeIn?: boolean;
+    finishOnKey?: string;
+    hints?: string;
+    input?: gather.input;
+    language?: gather.language;
+    maxSpeechTime?: number;
+    method?: string;
+    numDigits?: number;
+    partialResultCallback?: string;
+    partialResultCallbackMethod?: string;
+    profanityFilter?: boolean;
+    speechTimeout?: string;
+    timeout?: number;
+  }
+
+  /**
+   * Options to pass to pause
+   *
+   * @property length - Length in seconds to pause
+   */
+  export interface PauseOptions {
+    length?: number;
+  }
+
+  /**
+   * Options to pass to play
+   *
+   * @property loop - Times to loop media
+   * @property digits - Play DTMF tones for digits
+   */
+  export interface PlayOptions {
+    digits?: string;
+    loop?: number;
+  }
+
+  /**
+   * Options to pass to queue
+   *
+   * @property url - Action URL
+   * @property method - Action URL method
+   * @property reservationSid - TaskRouter Reservation SID
+   * @property postWorkActivitySid - TaskRouter Activity SID
+   */
+  export interface QueueOptions {
+    method?: string;
+    postWorkActivitySid?: string;
+    reservationSid?: string;
+    url?: string;
+  }
+
+  /**
+   * Options to pass to record
+   *
+   * @property action - Action URL
+   * @property method - Action URL method
+   * @property timeout - Timeout to begin recording
+   * @property finishOnKey - Finish recording on key
+   * @property maxLength - Max time to record in seconds
+   * @property playBeep - Play beep
+   * @property trim - Trim the recording
+   * @property recordingStatusCallback - Status callback URL
+   * @property recordingStatusCallbackMethod - Status callback URL method
+   * @property transcribe - Transcribe the recording
+   * @property transcribeCallback - Transcribe callback URL
+   */
+  export interface RecordOptions {
+    action?: string;
+    finishOnKey?: string;
+    maxLength?: number;
+    method?: string;
+    playBeep?: boolean;
+    recordingStatusCallback?: string;
+    recordingStatusCallbackMethod?: string;
+    timeout?: number;
+    transcribe?: boolean;
+    transcribeCallback?: string;
+    trim?: record.trim;
+  }
+
+  /**
+   * Options to pass to redirect
+   *
+   * @property method - Redirect URL method
+   */
+  export interface RedirectOptions {
+    method?: string;
+  }
+
+  /**
+   * Options to pass to reject
+   *
+   * @property reason - Rejection reason
+   */
+  export interface RejectOptions {
+    reason?: reject.reason;
+  }
+
+  /**
+   * Options to pass to say
+   *
+   * @property voice - Voice to use
+   * @property loop - Times to loop message
+   * @property language - Message langauge
+   */
+  export interface SayOptions {
+    language?: say.language;
+    loop?: number;
+    voice?: say.voice;
+  }
+
+  /**
+   * Options to pass to sms
+   *
+   * @property to - Number to send message to
+   * @property from - Number to send message from
+   * @property action - Action URL
+   * @property method - Action URL method
+   * @property statusCallback - Status callback URL
+   */
+  export interface SmsOptions {
+    action?: string;
+    from?: string;
+    method?: string;
+    statusCallback?: string;
+    to?: string;
+  }
+
+  /**
+   * Options to pass to say
+   *
+   * @property voice - Voice to use
+   * @property loop - Times to loop message
+   * @property language - Message langauge
+   */
+  export interface SayOptions {
+    language?: say.language;
+    loop?: number;
+    voice?: say.voice;
+  }
+
+  /**
+   * Options to pass to pause
+   *
+   * @property length - Length in seconds to pause
+   */
+  export interface PauseOptions {
+    length?: number;
+  }
+
+  /**
+   * Options to pass to play
+   *
+   * @property loop - Times to loop media
+   * @property digits - Play DTMF tones for digits
+   */
+  export interface PlayOptions {
+    digits?: string;
+    loop?: number;
+  }
+
+  /**
+   * Options to pass to task
+   *
+   * @property priority - Task priority
+   * @property timeout - Timeout associated with task
+   */
+  export interface TaskOptions {
+    priority?: number;
+    timeout?: number;
+  }
+
+  /**
+   * Options to pass to client
+   *
+   * @property url - Client URL
+   * @property method - Client URL Method
+   * @property statusCallbackEvent - Events to trigger status callback
+   * @property statusCallback - Status Callback URL
+   * @property statusCallbackMethod - Status Callback URL Method
+   */
+  export interface ClientOptions {
+    method?: string;
+    statusCallback?: string;
+    statusCallbackEvent?: client.event;
+    statusCallbackMethod?: string;
+    url?: string;
+  }
+
+  /**
+   * Options to pass to conference
+   *
+   * @property muted - Join the conference muted
+   * @property beep - Play beep when joining
+   * @property startConferenceOnEnter - Start the conference on enter
+   * @property endConferenceOnExit - End the conferenceon exit
+   * @property waitUrl - Wait URL
+   * @property waitMethod - Wait URL method
+   * @property maxParticipants - Maximum number of participants
+   * @property record - Record the conference
+   * @property region - Conference region
+   * @property whisper - Call whisper
+   * @property trim - Trim the conference recording
+   * @property statusCallbackEvent - Events to call status callback URL
+   * @property statusCallback - Status callback URL
+   * @property statusCallbackMethod - Status callback URL method
+   * @property recordingStatusCallback - Recording status callback URL
+   * @property recordingStatusCallbackMethod - Recording status callback URL method
+   * @property recordingStatusCallbackEvent - Recording status callback events
+   * @property eventCallbackUrl - Event callback URL
+   */
+  export interface ConferenceOptions {
+    beep?: conference.beep;
+    endConferenceOnExit?: boolean;
+    eventCallbackUrl?: string;
+    maxParticipants?: number;
+    muted?: boolean;
+    record?: conference.record;
+    recordingStatusCallback?: string;
+    recordingStatusCallbackEvent?: conference.recording_event;
+    recordingStatusCallbackMethod?: string;
+    region?: conference.region;
+    startConferenceOnEnter?: boolean;
+    statusCallback?: string;
+    statusCallbackEvent?: conference.event;
+    statusCallbackMethod?: string;
+    trim?: conference.trim;
+    waitMethod?: string;
+    waitUrl?: string;
+    whisper?: string;
+  }
+
+  /**
+   * Options to pass to number
+   *
+   * @property sendDigits - DTMF tones to play when the call is answered
+   * @property url - TwiML URL
+   * @property method - TwiML URL method
+   * @property statusCallbackEvent - Events to call status callback
+   * @property statusCallback - Status callback URL
+   * @property statusCallbackMethod - Status callback URL method
+   */
+  export interface NumberOptions {
+    method?: string;
+    sendDigits?: string;
+    statusCallback?: string;
+    statusCallbackEvent?: number.event;
+    statusCallbackMethod?: string;
+    url?: string;
+  }
+
+  /**
+   * Options to pass to queue
+   *
+   * @property url - Action URL
+   * @property method - Action URL method
+   * @property reservationSid - TaskRouter Reservation SID
+   * @property postWorkActivitySid - TaskRouter Activity SID
+   */
+  export interface QueueOptions {
+    method?: string;
+    postWorkActivitySid?: string;
+    reservationSid?: string;
+    url?: string;
+  }
+
+  /**
+   * Options to pass to sip
+   *
+   * @property username - SIP Username
+   * @property password - SIP Password
+   * @property url - Action URL
+   * @property method - Action URL method
+   * @property statusCallbackEvent - Status callback events
+   * @property statusCallback - Status callback URL
+   * @property statusCallbackMethod - Status callback URL method
+   */
+  export interface SipOptions {
+    method?: string;
+    password?: string;
+    statusCallback?: string;
+    statusCallbackEvent?: sip.event;
+    statusCallbackMethod?: string;
+    url?: string;
+    username?: string;
+  }
+
+  class Sms {
+    /**
+     * <Sms> TwiML Noun
+     *
+     * @param sms - <Sms> TwiML Noun
+     */
+    constructor(sms: object);
+
+  }
+
+  class Say {
+    /**
+     * <Say> TwiML Verb
+     *
+     * @param say - <Say> TwiML Verb
+     */
+    constructor(say: object);
+
+  }
+
+  class Reject {
+    /**
+     * <Reject> TwiML Verb
+     *
+     * @param reject - <Reject> TwiML Verb
+     */
+    constructor(reject: object);
+
+  }
+
+  class Redirect {
+    /**
+     * <Redirect> TwiML Verb
+     *
+     * @param redirect - <Redirect> TwiML Verb
+     */
+    constructor(redirect: object);
+
+  }
+
+  class Record {
+    /**
+     * <Record> TwiML Verb
+     *
+     * @param record - <Record> TwiML Verb
+     */
+    constructor(record: object);
+
+  }
+
+  class Queue {
+    /**
+     * <Queue> TwiML Noun
+     *
+     * @param queue - <Queue> TwiML Noun
+     */
+    constructor(queue: object);
+
+  }
+
+  class Play {
+    /**
+     * <Play> TwiML Verb
+     *
+     * @param play - <Play> TwiML Verb
+     */
+    constructor(play: object);
+
+  }
+
+  class Pause {
+    /**
+     * <Pause> TwiML Verb
+     *
+     * @param pause - <Pause> TwiML Verb
+     */
+    constructor(pause: object);
+
+  }
+
+  class Leave {
+    /**
+     * <Leave> TwiML Verb
+     *
+     * @param leave - <Leave> TwiML Verb
+     */
+    constructor(leave: object);
+
+  }
+
+  class Hangup {
+    /**
+     * <Hangup> TwiML Verb
+     *
+     * @param hangup - <Hangup> TwiML Verb
+     */
+    constructor(hangup: object);
+
+  }
+
+  class Gather {
+    /**
+     * <Gather> TwiML Verb
+     *
+     * @param gather - <Gather> TwiML Verb
+     */
+    constructor(gather: object);
+
+    /**
+     * <Pause> TwiML Verb
+     *
+     * @param attributes - TwiML attributes
+     */
+    pause(attributes?: VoiceResponse.PauseAttributes): void;
+    /**
+     * <Play> TwiML Verb
+     *
+     * @param attributes - TwiML attributes
+     * @param url - Media URL
+     */
+    play(attributes?: VoiceResponse.PlayAttributes, url?: url): void;
+    /**
+     * <Say> TwiML Verb
+     *
+     * @param attributes - TwiML attributes
+     * @param message - Message to say
+     */
+    say(attributes?: VoiceResponse.SayAttributes, message: string): void;
+  }
+
+  class Play {
+    /**
+     * <Play> TwiML Verb
+     *
+     * @param play - <Play> TwiML Verb
+     */
+    constructor(play: object);
+
+  }
+
+  class Pause {
+    /**
+     * <Pause> TwiML Verb
+     *
+     * @param pause - <Pause> TwiML Verb
+     */
+    constructor(pause: object);
+
+  }
+
+  class Say {
+    /**
+     * <Say> TwiML Verb
+     *
+     * @param say - <Say> TwiML Verb
+     */
+    constructor(say: object);
+
+  }
+
+  class Enqueue {
+    /**
+     * <Enqueue> TwiML Noun
+     *
+     * @param enqueue - <Enqueue> TwiML Noun
+     */
+    constructor(enqueue: object);
+
+    /**
+     * <Task> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     * @param body - TaskRouter task attributes
+     */
+    task(attributes?: VoiceResponse.TaskAttributes, body: string): void;
+  }
+
+  class Task {
+    /**
+     * <Task> TwiML Noun
+     *
+     * @param task - <Task> TwiML Noun
+     */
+    constructor(task: object);
+
+  }
+
+  class Echo {
+    /**
+     * <Echo> TwiML Verb
+     *
+     * @param echo - <Echo> TwiML Verb
+     */
+    constructor(echo: object);
+
+  }
+
+  class Dial {
+    /**
+     * <Dial> TwiML Verb
+     *
+     * @param dial - <Dial> TwiML Verb
+     */
+    constructor(dial: object);
+
+    /**
+     * <Client> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     * @param name - Client name
+     */
+    client(attributes?: VoiceResponse.ClientAttributes, name: string): void;
+    /**
+     * <Conference> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     * @param name - Conference name
+     */
+    conference(attributes?: VoiceResponse.ConferenceAttributes, name: string): void;
+    /**
+     * <Number> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     * @param phoneNumber - Phone Number to dial
+     */
+    number(attributes?: VoiceResponse.NumberAttributes, phoneNumber: phone_number): void;
+    /**
+     * <Queue> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     * @param name - Queue name
+     */
+    queue(attributes?: VoiceResponse.QueueAttributes, name: string): void;
+    /**
+     * <Sim> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     * @param simSid - SIM SID
+     */
+    sim(attributes?: VoiceResponse.SimAttributes, simSid: sid): void;
+    /**
+     * <Sip> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     * @param sipUrl - SIP URL
+     */
+    sip(attributes?: VoiceResponse.SipAttributes, sipUrl: url): void;
+  }
+
+  class Sip {
+    /**
+     * <Sip> TwiML Noun
+     *
+     * @param sip - <Sip> TwiML Noun
+     */
+    constructor(sip: object);
+
+  }
+
+  class Sim {
+    /**
+     * <Sim> TwiML Noun
+     *
+     * @param sim - <Sim> TwiML Noun
+     */
+    constructor(sim: object);
+
+  }
+
+  class Queue {
+    /**
+     * <Queue> TwiML Noun
+     *
+     * @param queue - <Queue> TwiML Noun
+     */
+    constructor(queue: object);
+
+  }
+
+  class Number {
+    /**
+     * <Number> TwiML Noun
+     *
+     * @param number - <Number> TwiML Noun
+     */
+    constructor(number: object);
+
+  }
+
+  class Conference {
+    /**
+     * <Conference> TwiML Noun
+     *
+     * @param conference - <Conference> TwiML Noun
+     */
+    constructor(conference: object);
+
+  }
+
+  class Client {
+    /**
+     * <Client> TwiML Noun
+     *
+     * @param client - <Client> TwiML Noun
+     */
+    constructor(client: object);
+
+  }
 
 }
-
-declare class Sim {
-  /**
-   * <Sim> TwiML Noun
-   *
-   * @param sim - <Sim> TwiML Noun
-   */
-  constructor(sim: object);
-
-}
-
-declare class Queue {
-  /**
-   * <Queue> TwiML Noun
-   *
-   * @param queue - <Queue> TwiML Noun
-   */
-  constructor(queue: object);
-
-}
-
-declare class Number {
-  /**
-   * <Number> TwiML Noun
-   *
-   * @param number - <Number> TwiML Noun
-   */
-  constructor(number: object);
-
-}
-
-declare class Conference {
-  /**
-   * <Conference> TwiML Noun
-   *
-   * @param conference - <Conference> TwiML Noun
-   */
-  constructor(conference: object);
-
-}
-
-declare class Client {
-  /**
-   * <Client> TwiML Noun
-   *
-   * @param client - <Client> TwiML Noun
-   */
-  constructor(client: object);
-
-}
-
+export = VoiceResponse;

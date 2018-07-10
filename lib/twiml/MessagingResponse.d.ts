@@ -5,34 +5,6 @@
  *       /       /
  */
 
-import TwiML = require('./TwiML');
-
-
-/**
- * Options to pass to message
- *
- * @property to - Phone Number to send Message to
- * @property from - Phone Number to send Message from
- * @property action - Action URL
- * @property method - Action URL Method
- * @property statusCallback - Status callback URL. Deprecated in favor of action.
- */
-export interface MessageOptions {
-  action?: string;
-  from?: string;
-  method?: string;
-  statusCallback?: string;
-  to?: string;
-}
-
-/**
- * Options to pass to redirect
- *
- * @property method - Redirect URL method
- */
-export interface RedirectOptions {
-  method?: string;
-}
 
 declare class MessagingResponse {
   /**
@@ -43,70 +15,104 @@ declare class MessagingResponse {
   /**
    * <Message> TwiML Verb
    *
-   * @param attributes - ...
+   * @param attributes - TwiML attributes
    * @param body - Message Body
    */
-  message(attributes: object, body: string): any;
+  message(attributes?: MessagingResponse.MessageAttributes, body: string): void;
   /**
    * <Redirect> TwiML Verb
    *
-   * @param attributes - ...
+   * @param attributes - TwiML attributes
    * @param url - Redirect URL
    */
-  redirect(attributes: object, url: url): any;
+  redirect(attributes?: MessagingResponse.RedirectAttributes, url: url): void;
+  /**
+   * Convert to XML
+   */
+  toString(): any;
 }
 
-declare class Redirect {
+declare namespace MessagingResponse {
+
   /**
-   * <Redirect> TwiML Verb
+   * Options to pass to message
    *
-   * @param redirect - <Redirect> TwiML Verb
+   * @property to - Phone Number to send Message to
+   * @property from - Phone Number to send Message from
+   * @property action - Action URL
+   * @property method - Action URL Method
+   * @property statusCallback - Status callback URL. Deprecated in favor of action.
    */
-  constructor(redirect: object);
+  export interface MessageOptions {
+    action?: string;
+    from?: string;
+    method?: string;
+    statusCallback?: string;
+    to?: string;
+  }
+
+  /**
+   * Options to pass to redirect
+   *
+   * @property method - Redirect URL method
+   */
+  export interface RedirectOptions {
+    method?: string;
+  }
+
+  class Redirect {
+    /**
+     * <Redirect> TwiML Verb
+     *
+     * @param redirect - <Redirect> TwiML Verb
+     */
+    constructor(redirect: object);
+
+  }
+
+  class Message {
+    /**
+     * <Message> TwiML Verb
+     *
+     * @param message - <Message> TwiML Verb
+     */
+    constructor(message: object);
+
+    /**
+     * <Body> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     * @param message - Message Body
+     */
+    body(attributes?: MessagingResponse.BodyAttributes, message: string): void;
+    /**
+     * <Media> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     * @param url - Media URL
+     */
+    media(attributes?: MessagingResponse.MediaAttributes, url: url): void;
+  }
+
+  class Media {
+    /**
+     * <Media> TwiML Noun
+     *
+     * @param media - <Media> TwiML Noun
+     */
+    constructor(media: object);
+
+  }
+
+  class Body {
+    /**
+     * <Body> TwiML Noun
+     *
+     * @param body - <Body> TwiML Noun
+     */
+    constructor(body: object);
+
+  }
 
 }
-
-declare class Message {
-  /**
-   * <Message> TwiML Verb
-   *
-   * @param message - <Message> TwiML Verb
-   */
-  constructor(message: object);
-
-  /**
-   * <Body> TwiML Noun
-   *
-   * @param attributes - TwiML attributes
-   * @param message - Message Body
-   */
-  body(attributes: object, message: string): any;
-  /**
-   * <Media> TwiML Noun
-   *
-   * @param attributes - TwiML attributes
-   * @param url - Media URL
-   */
-  media(attributes: object, url: url): any;
-}
-
-declare class Media {
-  /**
-   * <Media> TwiML Noun
-   *
-   * @param media - <Media> TwiML Noun
-   */
-  constructor(media: object);
-
-}
-
-declare class Body {
-  /**
-   * <Body> TwiML Noun
-   *
-   * @param body - <Body> TwiML Noun
-   */
-  constructor(body: object);
-
-}
-
+export = MessagingResponse;

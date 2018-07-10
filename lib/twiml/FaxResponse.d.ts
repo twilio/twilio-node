@@ -5,19 +5,6 @@
  *       /       /
  */
 
-import TwiML = require('./TwiML');
-
-
-/**
- * Options to pass to receive
- *
- * @property action - Receive action URL
- * @property method - Receive action URL method
- */
-export interface ReceiveOptions {
-  action?: string;
-  method?: string;
-}
 
 declare class FaxResponse {
   /**
@@ -28,18 +15,37 @@ declare class FaxResponse {
   /**
    * <Receive> TwiML Verb
    *
-   * @param attributes - ...
+   * @param attributes - TwiML attributes
    */
-  receive(attributes: object): any;
-}
-
-declare class Receive {
+  receive(attributes?: FaxResponse.ReceiveAttributes): void;
   /**
-   * <Receive> TwiML Verb
-   *
-   * @param receive - <Receive> TwiML Verb
+   * Convert to XML
    */
-  constructor(receive: object);
-
+  toString(): any;
 }
 
+declare namespace FaxResponse {
+
+  /**
+   * Options to pass to receive
+   *
+   * @property action - Receive action URL
+   * @property method - Receive action URL method
+   */
+  export interface ReceiveOptions {
+    action?: string;
+    method?: string;
+  }
+
+  class Receive {
+    /**
+     * <Receive> TwiML Verb
+     *
+     * @param receive - <Receive> TwiML Verb
+     */
+    constructor(receive: object);
+
+  }
+
+}
+export = FaxResponse;
