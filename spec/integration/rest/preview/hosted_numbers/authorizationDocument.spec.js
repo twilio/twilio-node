@@ -344,7 +344,9 @@ describe('AuthorizationDocument', function() {
       var opts = {
         hostedNumberOrderSids: ['hostedNumberOrderSids'],
         addressSid: 'ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        email: 'email'
+        email: 'email',
+        contactTitle: 'contactTitle',
+        contactPhoneNumber: 'contactPhoneNumber'
       };
       var promise = client.preview.hosted_numbers.authorizationDocuments.create(opts);
       promise = promise.then(function() {
@@ -360,6 +362,8 @@ describe('AuthorizationDocument', function() {
         HostedNumberOrderSids: serialize.map(['hostedNumberOrderSids'], function(e) { return e; }),
         AddressSid: 'ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         Email: 'email',
+        ContactTitle: 'contactTitle',
+        ContactPhoneNumber: 'contactPhoneNumber',
       };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
@@ -392,7 +396,9 @@ describe('AuthorizationDocument', function() {
       var opts = {
         hostedNumberOrderSids: ['hostedNumberOrderSids'],
         addressSid: 'ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-        email: 'email'
+        email: 'email',
+        contactTitle: 'contactTitle',
+        contactPhoneNumber: 'contactPhoneNumber'
       };
       var promise = client.preview.hosted_numbers.authorizationDocuments.create(opts);
       promise = promise.then(function(response) {

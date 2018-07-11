@@ -344,5 +344,47 @@ describe('RoomRecording', function() {
       promise.done();
     }
   );
+  it('should generate valid remove request',
+    function() {
+      holodeck.mock(new Response(500, '{}'));
+
+      var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                   .recordings('RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
+      promise = promise.then(function() {
+        throw new Error('failed');
+      }, function(error) {
+        expect(error.constructor).toBe(RestException.prototype.constructor);
+      });
+      promise.done();
+
+      var solution = {
+        roomSid: 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+      };
+      var url = _.template('https://video.twilio.com/v1/Rooms/<%= roomSid %>/Recordings/<%= sid %>')(solution);
+
+      holodeck.assertHasRequest(new Request({
+        method: 'DELETE',
+        url: url
+      }));
+    }
+  );
+  it('should generate valid delete response',
+    function() {
+      var body = JSON.stringify(null);
+
+      holodeck.mock(new Response(204, body));
+
+      var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                   .recordings('RTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
+      promise = promise.then(function(response) {
+        expect(response).toBe(true);
+      }, function() {
+        throw new Error('failed');
+      });
+
+      promise.done();
+    }
+  );
 });
 

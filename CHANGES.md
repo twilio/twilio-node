@@ -1,6 +1,21 @@
 twilio-node changelog
 =====================
 
+[2018-07-11] Version 3.17.6
+----------------------------
+**Library**
+- PR #362: Remove old Precise env and sudo flag on TravisCI. Thanks to @jonatasbaldin!
+
+**Api**
+- Add `cidr_prefix_length` param to SIP IpAddresses API
+
+**Studio**
+- Add new /Execution endpoints to begin Engagement -> Execution migration
+
+**Video**
+- [Rooms] Allow deletion of individual recordings from a room
+
+
 [2018-07-05] Version 3.17.5
 ----------------------------
 **Library**
