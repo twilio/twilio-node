@@ -35,118 +35,68 @@ import { UsageListInstance } from './api/v2010/account/usage';
 import { ValidationRequestListInstance } from './api/v2010/account/validationRequest';
 
 
-/**
- * Initialize api domain
- */
 declare class Api extends Domain {
   /**
    * Initialize api domain
    *
+   * @constructor Twilio.Api
+   *
+   * @property v2010 - v2010 version
+   * @property account - Main account resource
+   * @property accounts - accounts resource
+   * @property addresses - addresses resource
+   * @property applications - applications resource
+   * @property authorizedConnectApps - authorizedConnectApps resource
+   * @property availablePhoneNumbers - availablePhoneNumbers resource
+   * @property calls - calls resource
+   * @property conferences - conferences resource
+   * @property connectApps - connectApps resource
+   * @property incomingPhoneNumbers - incomingPhoneNumbers resource
+   * @property keys - keys resource
+   * @property messages - messages resource
+   * @property newKeys - newKeys resource
+   * @property newSigningKeys - newSigningKeys resource
+   * @property notifications - notifications resource
+   * @property outgoingCallerIds - outgoingCallerIds resource
+   * @property queues - queues resource
+   * @property recordings - recordings resource
+   * @property signingKeys - signingKeys resource
+   * @property sip - sip resource
+   * @property shortCodes - shortCodes resource
+   * @property tokens - tokens resource
+   * @property transcriptions - transcriptions resource
+   * @property usage - usage resource
+   * @property validationRequests - validationRequests resource
+   *
    * @param twilio - The twilio client
    */
-  constructor(twilio: TwilioClient);
+  constructor(twilio: Twilio);
 
-  /**
-   * Main account resource
-   */
-  readonly account: AccountContext;
-  /**
-   * Account resource
-   */
-  readonly accounts: AccountListInstance;
-  /**
-   * Address resource
-   */
-  readonly addresses: AddressListInstance;
-  /**
-   * Application resource
-   */
-  readonly applications: ApplicationListInstance;
-  /**
-   * AuthorizedConnectApp resource
-   */
-  readonly authorizedConnectApps: AuthorizedConnectAppListInstance;
-  /**
-   * AvailablePhoneNumberCountry resource
-   */
-  readonly availablePhoneNumbers: AvailablePhoneNumberCountryListInstance;
-  /**
-   * Call resource
-   */
-  readonly calls: CallListInstance;
-  /**
-   * Conference resource
-   */
-  readonly conferences: ConferenceListInstance;
-  /**
-   * ConnectApp resource
-   */
-  readonly connectApps: ConnectAppListInstance;
-  /**
-   * IncomingPhoneNumber resource
-   */
-  readonly incomingPhoneNumbers: IncomingPhoneNumberListInstance;
-  /**
-   * Key resource
-   */
-  readonly keys: KeyListInstance;
-  /**
-   * Message resource
-   */
-  readonly messages: MessageListInstance;
-  /**
-   * NewKey resource
-   */
-  readonly newKeys: NewKeyListInstance;
-  /**
-   * NewSigningKey resource
-   */
-  readonly newSigningKeys: NewSigningKeyListInstance;
-  /**
-   * Notification resource
-   */
-  readonly notifications: NotificationListInstance;
-  /**
-   * OutgoingCallerId resource
-   */
-  readonly outgoingCallerIds: OutgoingCallerIdListInstance;
-  /**
-   * Queue resource
-   */
-  readonly queues: QueueListInstance;
-  /**
-   * Recording resource
-   */
-  readonly recordings: RecordingListInstance;
-  /**
-   * ShortCode resource
-   */
-  readonly shortCodes: ShortCodeListInstance;
-  /**
-   * SigningKey resource
-   */
-  readonly signingKeys: SigningKeyListInstance;
-  /**
-   * Sip resource
-   */
-  readonly sip: SipListInstance;
-  /**
-   * Token resource
-   */
-  readonly tokens: TokenListInstance;
-  /**
-   * Transcription resource
-   */
-  readonly transcriptions: TranscriptionListInstance;
-  /**
-   * Usage resource
-   */
-  readonly usage: UsageListInstance;
-  readonly v2010: V2010;
-  /**
-   * ValidationRequest resource
-   */
-  readonly validationRequests: ValidationRequestListInstance;
+  account?: Twilio.Api.V2010.AccountContext;
+  accounts?: Twilio.Api.V2010.AccountList;
+  addresses?: Twilio.Api.V2010.AccountContext.AddressList;
+  applications?: Twilio.Api.V2010.AccountContext.ApplicationList;
+  authorizedConnectApps?: Twilio.Api.V2010.AccountContext.AuthorizedConnectAppList;
+  availablePhoneNumbers?: Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryList;
+  calls?: Twilio.Api.V2010.AccountContext.CallList;
+  conferences?: Twilio.Api.V2010.AccountContext.ConferenceList;
+  connectApps?: Twilio.Api.V2010.AccountContext.ConnectAppList;
+  incomingPhoneNumbers?: Twilio.Api.V2010.AccountContext.IncomingPhoneNumberList;
+  keys?: Twilio.Api.V2010.AccountContext.KeyList;
+  messages?: Twilio.Api.V2010.AccountContext.MessageList;
+  newKeys?: Twilio.Api.V2010.AccountContext.NewKeyList;
+  newSigningKeys?: Twilio.Api.V2010.AccountContext.NewSigningKeyList;
+  notifications?: Twilio.Api.V2010.AccountContext.NotificationList;
+  outgoingCallerIds?: Twilio.Api.V2010.AccountContext.OutgoingCallerIdList;
+  queues?: Twilio.Api.V2010.AccountContext.QueueList;
+  recordings?: Twilio.Api.V2010.AccountContext.RecordingList;
+  shortCodes?: Twilio.Api.V2010.AccountContext.ShortCodeList;
+  signingKeys?: Twilio.Api.V2010.AccountContext.SigningKeyList;
+  sip?: Twilio.Api.V2010.AccountContext.SipList;
+  tokens?: Twilio.Api.V2010.AccountContext.TokenList;
+  transcriptions?: Twilio.Api.V2010.AccountContext.TranscriptionList;
+  usage?: Twilio.Api.V2010.AccountContext.UsageList;
+  v2010?: Twilio.Api.V2010;
+  validationRequests?: Twilio.Api.V2010.AccountContext.ValidationRequestList;
 }
 
-export = Api;
