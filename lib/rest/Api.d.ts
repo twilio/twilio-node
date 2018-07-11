@@ -6,7 +6,7 @@
  */
 
 import Domain = require('../base/Domain');
-import TwilioClient = require('./Twilio');
+import Twilio = require('./Twilio');
 import V2010 = require('./api/V2010');
 import { AccountContext } from './api/v2010/account';
 import { AccountListInstance } from './api/v2010/account';
@@ -40,33 +40,6 @@ declare class Api extends Domain {
    * Initialize api domain
    *
    * @constructor Twilio.Api
-   *
-   * @property v2010 - v2010 version
-   * @property account - Main account resource
-   * @property accounts - accounts resource
-   * @property addresses - addresses resource
-   * @property applications - applications resource
-   * @property authorizedConnectApps - authorizedConnectApps resource
-   * @property availablePhoneNumbers - availablePhoneNumbers resource
-   * @property calls - calls resource
-   * @property conferences - conferences resource
-   * @property connectApps - connectApps resource
-   * @property incomingPhoneNumbers - incomingPhoneNumbers resource
-   * @property keys - keys resource
-   * @property messages - messages resource
-   * @property newKeys - newKeys resource
-   * @property newSigningKeys - newSigningKeys resource
-   * @property notifications - notifications resource
-   * @property outgoingCallerIds - outgoingCallerIds resource
-   * @property queues - queues resource
-   * @property recordings - recordings resource
-   * @property signingKeys - signingKeys resource
-   * @property sip - sip resource
-   * @property shortCodes - shortCodes resource
-   * @property tokens - tokens resource
-   * @property transcriptions - transcriptions resource
-   * @property usage - usage resource
-   * @property validationRequests - validationRequests resource
    *
    * @param twilio - The twilio client
    */
