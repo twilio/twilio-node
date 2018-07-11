@@ -6,271 +6,106 @@
  */
 
 import Page = require('../../../../../../base/Page');
-import Response = require('../../../../../../http/response');
-import V2010 = require('../../../../V2010');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../../interfaces';
-import { SerializableClass } from '../../../../../../interfaces';
+import values = require('../../../../../../base/values');
 
-declare function AssignedAddOnExtensionList(version: V2010, accountSid: string, resourceSid: string, assignedAddOnSid: string): AssignedAddOnExtensionListInstance
 
-interface AssignedAddOnExtensionResource {
-  /**
-   * The unique id of the Account that has installed this Add-on.
-   */
-  account_sid: string;
-  /**
-   * A 34 character string that uniquely identifies the assigned Add-on installation.
-   */
-  assigned_add_on_sid: string;
-  /**
-   * A Boolean indicating if the Extension will be invoked.
-   */
-  enabled: boolean;
-  /**
-   * A human-readable description of this Extension.
-   */
-  friendly_name: string;
-  /**
-   * A human-readable description of the Product this Extension is used within.
-   */
-  product_name: string;
-  /**
-   * The unique id of the Phone Number to which the Add-on is assigned.
-   */
-  resource_sid: string;
-  /**
-   * A 34 character string that uniquely identifies this Extension.
-   */
-  sid: string;
-  /**
-   * The human-readable string that uniquely identifies this Extension.
-   */
-  unique_name: string;
-  /**
-   * The uri
-   */
-  uri: string;
-}
 
-interface AssignedAddOnExtensionPayload extends AssignedAddOnExtensionResource, Page.TwilioResponsePayload {
-}
-
-interface AssignedAddOnExtensionSolution {
-  accountSid: string;
-  assignedAddOnSid: string;
-  resourceSid: string;
-}
-
-interface AssignedAddOnExtensionListEachOptions extends ListEachOptions<AssignedAddOnExtensionInstance> {
-}
-
-interface AssignedAddOnExtensionListOptions extends ListOptions<AssignedAddOnExtensionInstance> {
-}
-
-interface AssignedAddOnExtensionListPageOptions extends PageOptions<AssignedAddOnExtensionPage> {
-}
-
-interface AssignedAddOnExtensionListInstance {
+declare class AssignedAddOnExtensionPage extends Page {
   /**
-   * Gets context of a single AssignedAddOnExtension resource
+   * @constructor Twilio.Api.V2010.AccountContext.IncomingPhoneNumberContext.AssignedAddOnContext.AssignedAddOnExtensionPage
+   * @augments Page
+   * @description Initialize the AssignedAddOnExtensionPage
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
-   * @param sid - The unique Extension Sid
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  (sid: string): AssignedAddOnExtensionContext;
-  /**
-   * Streams AssignedAddOnExtensionInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: AssignedAddOnExtensionListEachOptions): void;
-  /**
-   * Streams AssignedAddOnExtensionInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: AssignedAddOnExtensionInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single AssignedAddOnExtension resource
-   *
-   * @param sid - The unique Extension Sid
-   */
-  get(sid: string): AssignedAddOnExtensionContext;
-  /**
-   * Retrieve a single target page of AssignedAddOnExtensionInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<AssignedAddOnExtensionPage>;
-  /**
-   * Retrieve a single target page of AssignedAddOnExtensionInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: AssignedAddOnExtensionPage) => any): void;
-  /**
-   * Lists AssignedAddOnExtensionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: AssignedAddOnExtensionListOptions): Promise<AssignedAddOnExtensionInstance[]>;
-  /**
-   * Lists AssignedAddOnExtensionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: AssignedAddOnExtensionListOptions, callback: (error: Error | null, items: AssignedAddOnExtensionInstance[]) => any): void;
-  /**
-   * Lists AssignedAddOnExtensionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: AssignedAddOnExtensionInstance[]) => any): void;
-  /**
-   * Retrieve a single page of AssignedAddOnExtensionInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: AssignedAddOnExtensionListPageOptions): Promise<AssignedAddOnExtensionPage>;
-  /**
-   * Retrieve a single page of AssignedAddOnExtensionInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: AssignedAddOnExtensionListPageOptions, callback: (error: Error | null, items: AssignedAddOnExtensionPage) => any): void;
-  /**
-   * Retrieve a single page of AssignedAddOnExtensionInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: AssignedAddOnExtensionPage) => any): void;
-}
-
-declare class AssignedAddOnExtensionPage extends Page<V2010, AssignedAddOnExtensionPayload, AssignedAddOnExtensionResource, AssignedAddOnExtensionInstance> {
-  constructor(version: V2010, response: Response<string>, solution: AssignedAddOnExtensionSolution);
+  constructor(version: Twilio.Api.V2010, response: object, solution: object);
 
   /**
    * Build an instance of AssignedAddOnExtensionInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Api.V2010.AccountContext.IncomingPhoneNumberContext.AssignedAddOnContext.AssignedAddOnExtensionPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: AssignedAddOnExtensionPayload): AssignedAddOnExtensionInstance;
+  getInstance(payload: object);
 }
 
-declare class AssignedAddOnExtensionInstance extends SerializableClass {
+declare class AssignedAddOnExtensionInstance {
   /**
+   * @constructor Twilio.Api.V2010.AccountContext.IncomingPhoneNumberContext.AssignedAddOnContext.AssignedAddOnExtensionInstance
+   * @description Initialize the AssignedAddOnExtensionContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property sid - A string that uniquely identifies this Extension
+   * @property accountSid - The Account id that has installed this Add-on
+   * @property resourceSid - The Phone Number id that has installed this Add-on
+   * @property assignedAddOnSid - A string that uniquely identifies the assigned Add-on installation
+   * @property friendlyName - A human-readable description of this Extension
+   * @property productName - A human-readable description of the Extension's Product
+   * @property uniqueName - The string that uniquely identifies this Extension
+   * @property uri - The uri
+   * @property enabled - A Boolean indicating if the Extension will be invoked
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
+   * @param accountSid - The Account id that has installed this Add-on
+   * @param resourceSid - The Phone Number id that has installed this Add-on
+   * @param assignedAddOnSid - A string that uniquely identifies the assigned Add-on installation
+   * @param sid - The unique Extension Sid
+   */
+  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, resourceSid: sid, assignedAddOnSid: sid, sid: sid);
+
+  _proxy?: AssignedAddOnExtensionContext;
+  /**
+   * fetch a AssignedAddOnExtensionInstance
+   *
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.IncomingPhoneNumberContext.AssignedAddOnContext.AssignedAddOnExtensionInstance
+   * @instance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: function);
+  /**
+   * Produce a plain JSON object version of the AssignedAddOnExtensionInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Api.V2010.AccountContext.IncomingPhoneNumberContext.AssignedAddOnContext.AssignedAddOnExtensionInstance
+   * @instance
+   */
+  toJSON();
+}
+
+declare class AssignedAddOnExtensionContext {
+  /**
+   * @constructor Twilio.Api.V2010.AccountContext.IncomingPhoneNumberContext.AssignedAddOnContext.AssignedAddOnExtensionContext
+   * @description Initialize the AssignedAddOnExtensionContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @param version - Version of the resource
    * @param accountSid - The account_sid
    * @param resourceSid - The resource_sid
    * @param assignedAddOnSid - The assigned_add_on_sid
    * @param sid - The unique Extension Sid
    */
-  constructor(version: V2010, payload: AssignedAddOnExtensionPayload, accountSid: string, resourceSid: string, assignedAddOnSid: string, sid: string);
+  constructor(version: Twilio.Api.V2010, accountSid: sid, resourceSid: sid, assignedAddOnSid: sid, sid: sid);
 
-  private _proxy: AssignedAddOnExtensionContext;
-  /**
-   * The unique id of the Account that has installed this Add-on.
-   */
-  accountSid: string;
-  /**
-   * A 34 character string that uniquely identifies the assigned Add-on installation.
-   */
-  assignedAddOnSid: string;
-  /**
-   * A Boolean indicating if the Extension will be invoked.
-   */
-  enabled: boolean;
   /**
    * fetch a AssignedAddOnExtensionInstance
    *
-   * @returns Promise that resolves to processed AssignedAddOnExtensionInstance
-   */
-  fetch(): Promise<AssignedAddOnExtensionInstance>;
-  /**
-   * fetch a AssignedAddOnExtensionInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.IncomingPhoneNumberContext.AssignedAddOnContext.AssignedAddOnExtensionContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: AssignedAddOnExtensionInstance) => any): void;
-  /**
-   * A human-readable description of this Extension.
-   */
-  friendlyName: string;
-  /**
-   * A human-readable description of the Product this Extension is used within.
-   */
-  productName: string;
-  /**
-   * The unique id of the Phone Number to which the Add-on is assigned.
-   */
-  resourceSid: string;
-  /**
-   * A 34 character string that uniquely identifies this Extension.
-   */
-  sid: string;
-  /**
-   * The human-readable string that uniquely identifies this Extension.
-   */
-  uniqueName: string;
-  /**
-   * The uri
-   */
-  uri: string;
+  fetch(callback?: function);
 }
 
-declare class AssignedAddOnExtensionContext {
-  constructor(version: V2010, accountSid: string, resourceSid: string, assignedAddOnSid: string, sid: string);
-
-  /**
-   * fetch a AssignedAddOnExtensionInstance
-   *
-   * @returns Promise that resolves to processed AssignedAddOnExtensionInstance
-   */
-  fetch(): Promise<AssignedAddOnExtensionInstance>;
-  /**
-   * fetch a AssignedAddOnExtensionInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  fetch(callback: (error: Error | null, items: AssignedAddOnExtensionInstance) => any): void;
-}
-
-export { AssignedAddOnExtensionContext, AssignedAddOnExtensionInstance, AssignedAddOnExtensionList, AssignedAddOnExtensionListEachOptions, AssignedAddOnExtensionListInstance, AssignedAddOnExtensionListOptions, AssignedAddOnExtensionListPageOptions, AssignedAddOnExtensionPage, AssignedAddOnExtensionPayload, AssignedAddOnExtensionResource, AssignedAddOnExtensionSolution }
+export { AssignedAddOnExtensionContext, AssignedAddOnExtensionInstance, AssignedAddOnExtensionList, AssignedAddOnExtensionPage }

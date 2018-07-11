@@ -6,536 +6,206 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V2010 = require('../../V2010');
-import { DependentPhoneNumberListInstance } from './address/dependentPhoneNumber';
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { SerializableClass } from '../../../../interfaces';
+import deserialize = require('../../../../base/deserialize');
+import serialize = require('../../../../base/serialize');
+import values = require('../../../../base/values');
+import { DependentPhoneNumberList } from './address/dependentPhoneNumber';
 
-declare function AddressList(version: V2010, accountSid: string): AddressListInstance
 
-interface AddressResource {
-  /**
-   * The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this address.
-   */
-  account_sid: string;
-  /**
-   * The city in which you or your customer is located.
-   */
-  city: string;
-  /**
-   * Your name or business name, or that of your customer.
-   */
-  customer_name: string;
-  /**
-   * The date_created
-   */
-  date_created: Date;
-  /**
-   * The date_updated
-   */
-  date_updated: Date;
-  /**
-   * This is a value that indicates if emergency calling has been enabled on this number. Possible values are `true` or `false`.
-   */
-  emergency_enabled: boolean;
-  /**
-   * A human-readable description of the address. Maximum 64 characters.
-   */
-  friendly_name: string;
-  /**
-   * The ISO country code of your or your customer's address.
-   */
-  iso_country: string;
-  /**
-   * The postal code in which you or your customer is located.
-   */
-  postal_code: string;
-  /**
-   * The state or region in which you or your customer is located.
-   */
-  region: string;
-  /**
-   * A 34 character string that uniquely identifies this address.
-   */
-  sid: string;
-  /**
-   * The number and street address where you or your customer is located.
-   */
-  street: string;
-  /**
-   * The URI for this resource, relative to `https://api.twilio.com`.
-   */
-  uri: string;
-  /**
-   * In some countries, addresses are validated to comply with local regulation. In those countries, if the address you provide does not pass validation, it will not be accepted as an Address. This value will be `true` if the Address has been validated, or `false` for countries that don't require validation or if the Address is non-compliant.
-   */
-  validated: boolean;
-}
-
-interface AddressPayload extends AddressResource, Page.TwilioResponsePayload {
-}
-
-interface AddressSolution {
-  accountSid: string;
-}
-
-interface AddressListCreateOptions {
-  /**
-   * If you don't set a value for this parameter, or if you set it to `true`, then the system will, if necessary, auto-correct the address you provide. If you don't want the system to auto-correct the address, you will explicitly need to set this value to `false`.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A human-readable description of the address.
+ * @property customerName - Your name or business name, or that of your customer.
+ * @property street - The number and street address where you or your customer is located.
+ * @property city - The city in which you or your customer is located.
+ * @property region - The state or region in which you or your customer is located.
+ * @property postalCode - The postal code in which you or your customer is located.
+ * @property emergencyEnabled - The emergency_enabled
+ * @property autoCorrectAddress - If you don't set a value for this parameter, or if you set it to true, then the system will, if necessary, auto-correct the address you provide.
+ */
+export interface UpdateOptions {
   autoCorrectAddress?: boolean;
-  /**
-   * The city in which you or your customer is located.
-   */
-  city: string;
-  /**
-   * Your name or business name, or that of your customer.
-   */
-  customerName: string;
-  /**
-   * The emergency_enabled
-   */
-  emergencyEnabled?: boolean;
-  /**
-   * A human-readable description of the new address. Maximum 64 characters.
-   */
-  friendlyName?: string;
-  /**
-   * The ISO country code of your or your customer's address.
-   */
-  isoCountry: string;
-  /**
-   * The postal code in which you or your customer is located.
-   */
-  postalCode: string;
-  /**
-   * The state or region in which you or your customer is located.
-   */
-  region: string;
-  /**
-   * The number and street address where you or your customer is located.
-   */
-  street: string;
-}
-
-interface AddressListEachOptions extends ListEachOptions<AddressInstance> {
-  /**
-   * Only return the Address resources with customer names that exactly match this name.
-   */
-  customerName?: string;
-  /**
-   * Only return the Address resources with friendly names that exactly match this name.
-   */
-  friendlyName?: string;
-  /**
-   * Only return the Address resources in this country.
-   */
-  isoCountry?: string;
-}
-
-interface AddressListOptions extends ListOptions<AddressInstance> {
-  /**
-   * Only return the Address resources with customer names that exactly match this name.
-   */
-  customerName?: string;
-  /**
-   * Only return the Address resources with friendly names that exactly match this name.
-   */
-  friendlyName?: string;
-  /**
-   * Only return the Address resources in this country.
-   */
-  isoCountry?: string;
-}
-
-interface AddressListPageOptions extends PageOptions<AddressPage> {
-  /**
-   * Only return the Address resources with customer names that exactly match this name.
-   */
-  customerName?: string;
-  /**
-   * Only return the Address resources with friendly names that exactly match this name.
-   */
-  friendlyName?: string;
-  /**
-   * Only return the Address resources in this country.
-   */
-  isoCountry?: string;
-}
-
-interface AddressListInstance {
-  /**
-   * Gets context of a single Address resource
-   *
-   * @param sid - The sid
-   */
-  (sid: string): AddressContext;
-  /**
-   * create a AddressInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed AddressInstance
-   */
-  create(opts: AddressListCreateOptions): Promise<AddressInstance>;
-  /**
-   * create a AddressInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: AddressListCreateOptions, callback: (error: Error | null, items: AddressInstance) => any): void;
-  /**
-   * Streams AddressInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: AddressListEachOptions): void;
-  /**
-   * Streams AddressInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: AddressInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Address resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): AddressContext;
-  /**
-   * Retrieve a single target page of AddressInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<AddressPage>;
-  /**
-   * Retrieve a single target page of AddressInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: AddressPage) => any): void;
-  /**
-   * Lists AddressInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: AddressListOptions): Promise<AddressInstance[]>;
-  /**
-   * Lists AddressInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: AddressListOptions, callback: (error: Error | null, items: AddressInstance[]) => any): void;
-  /**
-   * Lists AddressInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: AddressInstance[]) => any): void;
-  /**
-   * Retrieve a single page of AddressInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: AddressListPageOptions): Promise<AddressPage>;
-  /**
-   * Retrieve a single page of AddressInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: AddressListPageOptions, callback: (error: Error | null, items: AddressPage) => any): void;
-  /**
-   * Retrieve a single page of AddressInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: AddressPage) => any): void;
-}
-
-interface AddressListFetchOptions {
-  /**
-   * If you don't set a value for this parameter, or if you set it to `true`, then the system will, if necessary, auto-correct the address you provide. If you don't want the system to auto-correct the address, you will explicitly need to set this value to `false`.
-   */
-  autoCorrectAddress?: boolean;
-  /**
-   * The city in which you or your customer is located.
-   */
   city?: string;
-  /**
-   * Your name or business name, or that of your customer.
-   */
   customerName?: string;
-  /**
-   * The emergency_enabled
-   */
   emergencyEnabled?: boolean;
-  /**
-   * A human-readable description of the address. Maximum 64 characters.
-   */
   friendlyName?: string;
-  /**
-   * The postal code in which you or your customer is located.
-   */
   postalCode?: string;
-  /**
-   * The state or region in which you or your customer is located.
-   */
   region?: string;
-  /**
-   * The number and street address where you or your customer is located.
-   */
   street?: string;
 }
 
-interface AddressListFetchOptions {
-  /**
-   * If you don't set a value for this parameter, or if you set it to `true`, then the system will, if necessary, auto-correct the address you provide. If you don't want the system to auto-correct the address, you will explicitly need to set this value to `false`.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A human-readable description of the address.
+ * @property customerName - Your name or business name, or that of your customer.
+ * @property street - The number and street address where you or your customer is located.
+ * @property city - The city in which you or your customer is located.
+ * @property region - The state or region in which you or your customer is located.
+ * @property postalCode - The postal code in which you or your customer is located.
+ * @property emergencyEnabled - The emergency_enabled
+ * @property autoCorrectAddress - If you don't set a value for this parameter, or if you set it to true, then the system will, if necessary, auto-correct the address you provide.
+ */
+export interface UpdateOptions {
   autoCorrectAddress?: boolean;
-  /**
-   * The city in which you or your customer is located.
-   */
   city?: string;
-  /**
-   * Your name or business name, or that of your customer.
-   */
   customerName?: string;
-  /**
-   * The emergency_enabled
-   */
   emergencyEnabled?: boolean;
-  /**
-   * A human-readable description of the address. Maximum 64 characters.
-   */
   friendlyName?: string;
-  /**
-   * The postal code in which you or your customer is located.
-   */
   postalCode?: string;
-  /**
-   * The state or region in which you or your customer is located.
-   */
   region?: string;
-  /**
-   * The number and street address where you or your customer is located.
-   */
   street?: string;
 }
 
-declare class AddressPage extends Page<V2010, AddressPayload, AddressResource, AddressInstance> {
-  constructor(version: V2010, response: Response<string>, solution: AddressSolution);
+
+declare class AddressPage extends Page {
+  /**
+   * @constructor Twilio.Api.V2010.AccountContext.AddressPage
+   * @augments Page
+   * @description Initialize the AddressPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Api.V2010, response: object, solution: object);
 
   /**
    * Build an instance of AddressInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Api.V2010.AccountContext.AddressPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: AddressPayload): AddressInstance;
+  getInstance(payload: object);
 }
 
-declare class AddressInstance extends SerializableClass {
+declare class AddressInstance {
   /**
+   * @constructor Twilio.Api.V2010.AccountContext.AddressInstance
+   * @description Initialize the AddressContext
+   *
+   * @property accountSid - The unique id of the Account responsible for this address.
+   * @property city - The city in which you or your customer is located.
+   * @property customerName - Your name or business name, or that of your customer.
+   * @property dateCreated - The date_created
+   * @property dateUpdated - The date_updated
+   * @property friendlyName - A human-readable description of the address.
+   * @property isoCountry - The ISO country code of your or your customer's address.
+   * @property postalCode - The postal code in which you or your customer is located.
+   * @property region - The state or region in which you or your customer is located.
+   * @property sid - A 34 character string that uniquely identifies this address.
+   * @property street - The number and street address where you or your customer is located.
+   * @property uri - The URI for this resource, relative to https://api.
+   * @property emergencyEnabled - This is a value that indicates if emergency calling has been enabled on this number.
+   * @property validated - In some countries, addresses are validated to comply with local regulation.
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The account_sid
+   * @param accountSid - The unique id of the Account responsible for this address.
    * @param sid - The sid
    */
-  constructor(version: V2010, payload: AddressPayload, accountSid: string, sid: string);
+  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, sid: sid);
 
-  private _proxy: AddressContext;
+  _proxy?: AddressContext;
   /**
-   * The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this address.
+   * Access the dependentPhoneNumbers
+   *
+   * @function dependentPhoneNumbers
+   * @memberof Twilio.Api.V2010.AccountContext.AddressInstance
+   * @instance
    */
-  accountSid: string;
-  /**
-   * The city in which you or your customer is located.
-   */
-  city: string;
-  /**
-   * Your name or business name, or that of your customer.
-   */
-  customerName: string;
-  /**
-   * The date_created
-   */
-  dateCreated: Date;
-  /**
-   * The date_updated
-   */
-  dateUpdated: Date;
-  dependentPhoneNumbers(): DependentPhoneNumberListInstance;
-  /**
-   * This is a value that indicates if emergency calling has been enabled on this number. Possible values are `true` or `false`.
-   */
-  emergencyEnabled: boolean;
+  dependentPhoneNumbers();
   /**
    * fetch a AddressInstance
    *
-   * @returns Promise that resolves to processed AddressInstance
-   */
-  fetch(): Promise<AddressInstance>;
-  /**
-   * fetch a AddressInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.AddressInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: AddressInstance) => any): void;
-  /**
-   * A human-readable description of the address. Maximum 64 characters.
-   */
-  friendlyName: string;
-  /**
-   * The ISO country code of your or your customer's address.
-   */
-  isoCountry: string;
-  /**
-   * The postal code in which you or your customer is located.
-   */
-  postalCode: string;
-  /**
-   * The state or region in which you or your customer is located.
-   */
-  region: string;
+  fetch(callback?: function);
   /**
    * remove a AddressInstance
    *
-   * @returns Promise that resolves to processed AddressInstance
-   */
-  remove(): Promise<AddressInstance>;
-  /**
-   * remove a AddressInstance
+   * @function remove
+   * @memberof Twilio.Api.V2010.AccountContext.AddressInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: AddressInstance) => any): void;
+  remove(callback?: function);
   /**
-   * A 34 character string that uniquely identifies this address.
+   * Produce a plain JSON object version of the AddressInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Api.V2010.AccountContext.AddressInstance
+   * @instance
    */
-  sid: string;
-  /**
-   * The number and street address where you or your customer is located.
-   */
-  street: string;
+  toJSON();
   /**
    * update a AddressInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Api.V2010.AccountContext.AddressInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed AddressInstance
-   */
-  update(opts?: AddressListFetchOptions): Promise<AddressInstance>;
-  /**
-   * update a AddressInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: AddressListFetchOptions, callback: (error: Error | null, items: AddressInstance) => any): void;
-  /**
-   * update a AddressInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: AddressInstance) => any): void;
-  /**
-   * The URI for this resource, relative to `https://api.twilio.com`.
-   */
-  uri: string;
-  /**
-   * In some countries, addresses are validated to comply with local regulation. In those countries, if the address you provide does not pass validation, it will not be accepted as an Address. This value will be `true` if the Address has been validated, or `false` for countries that don't require validation or if the Address is non-compliant.
-   */
-  validated: boolean;
+  update(opts?: object, callback?: function);
 }
 
 declare class AddressContext {
-  constructor(version: V2010, accountSid: string, sid: string);
+  /**
+   * @constructor Twilio.Api.V2010.AccountContext.AddressContext
+   * @description Initialize the AddressContext
+   *
+   * @property dependentPhoneNumbers - dependentPhoneNumbers resource
+   *
+   * @param version - Version of the resource
+   * @param accountSid - The account_sid
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Api.V2010, accountSid: sid, sid: sid);
 
-  dependentPhoneNumbers: DependentPhoneNumberListInstance;
+  dependentPhoneNumbers?: Twilio.Api.V2010.AccountContext.AddressContext.DependentPhoneNumberList;
   /**
    * fetch a AddressInstance
    *
-   * @returns Promise that resolves to processed AddressInstance
-   */
-  fetch(): Promise<AddressInstance>;
-  /**
-   * fetch a AddressInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.AddressContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: AddressInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a AddressInstance
    *
-   * @returns Promise that resolves to processed AddressInstance
-   */
-  remove(): Promise<AddressInstance>;
-  /**
-   * remove a AddressInstance
+   * @function remove
+   * @memberof Twilio.Api.V2010.AccountContext.AddressContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: AddressInstance) => any): void;
+  remove(callback?: function);
   /**
    * update a AddressInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Api.V2010.AccountContext.AddressContext
+   * @instance
    *
-   * @returns Promise that resolves to processed AddressInstance
-   */
-  update(opts?: AddressListFetchOptions): Promise<AddressInstance>;
-  /**
-   * update a AddressInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: AddressListFetchOptions, callback: (error: Error | null, items: AddressInstance) => any): void;
-  /**
-   * update a AddressInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: AddressInstance) => any): void;
+  update(opts?: object, callback?: function);
 }
 
-export { AddressContext, AddressInstance, AddressList, AddressListCreateOptions, AddressListEachOptions, AddressListFetchOptions, AddressListInstance, AddressListOptions, AddressListPageOptions, AddressPage, AddressPayload, AddressResource, AddressSolution }
+export { AddressContext, AddressInstance, AddressList, AddressPage }

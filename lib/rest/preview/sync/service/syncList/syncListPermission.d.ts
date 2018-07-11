@@ -6,345 +6,172 @@
  */
 
 import Page = require('../../../../../base/Page');
-import Response = require('../../../../../http/response');
-import Sync = require('../../../Sync');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../interfaces';
-import { SerializableClass } from '../../../../../interfaces';
+import serialize = require('../../../../../base/serialize');
+import values = require('../../../../../base/values');
 
-declare function SyncListPermissionList(version: Sync, serviceSid: string, listSid: string): SyncListPermissionListInstance
 
-interface SyncListPermissionResource {
-  /**
-   * The unique SID identifier of the Twilio Account.
-   */
-  account_sid: string;
-  /**
-   * Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer.
-   */
-  identity: string;
-  /**
-   * The unique SID identifier of the Sync List to which the Permission applies.
-   */
-  list_sid: string;
-  /**
-   * Boolean flag specifying whether the identity can delete the Sync List.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property read - Read access.
+ * @property write - Write access.
+ * @property manage - Manage access.
+ */
+export interface UpdateOptions {
   manage: boolean;
-  /**
-   * Boolean flag specifying whether the identity can read the Sync List and its Items.
-   */
   read: boolean;
-  /**
-   * The unique SID identifier of the Sync Service Instance.
-   */
-  service_sid: string;
-  /**
-   * Contains an absolute URL for this Sync List Permission.
-   */
-  url: string;
-  /**
-   * Boolean flag specifying whether the identity can create, update and delete Items of the Sync List.
-   */
   write: boolean;
 }
 
-interface SyncListPermissionPayload extends SyncListPermissionResource, Page.TwilioResponsePayload {
-}
-
-interface SyncListPermissionSolution {
-  listSid: string;
-  serviceSid: string;
-}
-
-interface SyncListPermissionListEachOptions extends ListEachOptions<SyncListPermissionInstance> {
-}
-
-interface SyncListPermissionListOptions extends ListOptions<SyncListPermissionInstance> {
-}
-
-interface SyncListPermissionListPageOptions extends PageOptions<SyncListPermissionPage> {
-}
-
-interface SyncListPermissionListInstance {
-  /**
-   * Gets context of a single SyncListPermission resource
-   *
-   * @param identity - Identity of the user to whom the Sync List Permission applies.
-   */
-  (identity: string): SyncListPermissionContext;
-  /**
-   * Streams SyncListPermissionInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: SyncListPermissionListEachOptions): void;
-  /**
-   * Streams SyncListPermissionInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: SyncListPermissionInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single SyncListPermission resource
-   *
-   * @param identity - Identity of the user to whom the Sync List Permission applies.
-   */
-  get(identity: string): SyncListPermissionContext;
-  /**
-   * Retrieve a single target page of SyncListPermissionInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<SyncListPermissionPage>;
-  /**
-   * Retrieve a single target page of SyncListPermissionInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: SyncListPermissionPage) => any): void;
-  /**
-   * Lists SyncListPermissionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: SyncListPermissionListOptions): Promise<SyncListPermissionInstance[]>;
-  /**
-   * Lists SyncListPermissionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: SyncListPermissionListOptions, callback: (error: Error | null, items: SyncListPermissionInstance[]) => any): void;
-  /**
-   * Lists SyncListPermissionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: SyncListPermissionInstance[]) => any): void;
-  /**
-   * Retrieve a single page of SyncListPermissionInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: SyncListPermissionListPageOptions): Promise<SyncListPermissionPage>;
-  /**
-   * Retrieve a single page of SyncListPermissionInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: SyncListPermissionListPageOptions, callback: (error: Error | null, items: SyncListPermissionPage) => any): void;
-  /**
-   * Retrieve a single page of SyncListPermissionInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: SyncListPermissionPage) => any): void;
-}
-
-interface SyncListPermissionListFetchOptions {
-  /**
-   * Boolean flag specifying whether the identity can delete the Sync List.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property read - Read access.
+ * @property write - Write access.
+ * @property manage - Manage access.
+ */
+export interface UpdateOptions {
   manage: boolean;
-  /**
-   * Boolean flag specifying whether the identity can read the Sync List.
-   */
   read: boolean;
-  /**
-   * Boolean flag specifying whether the identity can create, update and delete Items of the Sync List.
-   */
   write: boolean;
 }
 
-interface SyncListPermissionListFetchOptions {
-  /**
-   * Boolean flag specifying whether the identity can delete the Sync List.
-   */
-  manage: boolean;
-  /**
-   * Boolean flag specifying whether the identity can read the Sync List.
-   */
-  read: boolean;
-  /**
-   * Boolean flag specifying whether the identity can create, update and delete Items of the Sync List.
-   */
-  write: boolean;
-}
 
-declare class SyncListPermissionPage extends Page<Sync, SyncListPermissionPayload, SyncListPermissionResource, SyncListPermissionInstance> {
-  constructor(version: Sync, response: Response<string>, solution: SyncListPermissionSolution);
+declare class SyncListPermissionPage extends Page {
+  /**
+   * @constructor Twilio.Preview.Sync.ServiceContext.SyncListContext.SyncListPermissionPage
+   * @augments Page
+   * @description Initialize the SyncListPermissionPage
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Preview.Sync, response: object, solution: object);
 
   /**
    * Build an instance of SyncListPermissionInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Preview.Sync.ServiceContext.SyncListContext.SyncListPermissionPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: SyncListPermissionPayload): SyncListPermissionInstance;
+  getInstance(payload: object);
 }
 
-declare class SyncListPermissionInstance extends SerializableClass {
+declare class SyncListPermissionInstance {
   /**
+   * @constructor Twilio.Preview.Sync.ServiceContext.SyncListContext.SyncListPermissionInstance
+   * @description Initialize the SyncListPermissionContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property accountSid - Twilio Account SID.
+   * @property serviceSid - Sync Service Instance SID.
+   * @property listSid - Sync List SID.
+   * @property identity - Identity of the user to whom the Sync List Permission applies.
+   * @property read - Read access.
+   * @property write - Write access.
+   * @property manage - Manage access.
+   * @property url - URL of this Sync List Permission.
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
+   * @param serviceSid - Sync Service Instance SID.
+   * @param listSid - Sync List SID.
+   * @param identity - Identity of the user to whom the Sync List Permission applies.
+   */
+  constructor(version: Twilio.Preview.Sync, payload: object, serviceSid: sid, listSid: sid, identity: string);
+
+  _proxy?: SyncListPermissionContext;
+  /**
+   * fetch a SyncListPermissionInstance
+   *
+   * @function fetch
+   * @memberof Twilio.Preview.Sync.ServiceContext.SyncListContext.SyncListPermissionInstance
+   * @instance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: function);
+  /**
+   * remove a SyncListPermissionInstance
+   *
+   * @function remove
+   * @memberof Twilio.Preview.Sync.ServiceContext.SyncListContext.SyncListPermissionInstance
+   * @instance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: function);
+  /**
+   * Produce a plain JSON object version of the SyncListPermissionInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Preview.Sync.ServiceContext.SyncListContext.SyncListPermissionInstance
+   * @instance
+   */
+  toJSON();
+  /**
+   * update a SyncListPermissionInstance
+   *
+   * @function update
+   * @memberof Twilio.Preview.Sync.ServiceContext.SyncListContext.SyncListPermissionInstance
+   * @instance
+   *
+   * @param opts - ...
+   * @param callback - Callback to handle processed record
+   */
+  update(opts: object, callback?: function);
+}
+
+declare class SyncListPermissionContext {
+  /**
+   * @constructor Twilio.Preview.Sync.ServiceContext.SyncListContext.SyncListPermissionContext
+   * @description Initialize the SyncListPermissionContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @param version - Version of the resource
    * @param serviceSid - The service_sid
    * @param listSid - Sync List SID or unique name.
    * @param identity - Identity of the user to whom the Sync List Permission applies.
    */
-  constructor(version: Sync, payload: SyncListPermissionPayload, serviceSid: string, listSid: string, identity: string);
+  constructor(version: Twilio.Preview.Sync, serviceSid: sid, listSid: sid_like, identity: string);
 
-  private _proxy: SyncListPermissionContext;
-  /**
-   * The unique SID identifier of the Twilio Account.
-   */
-  accountSid: string;
   /**
    * fetch a SyncListPermissionInstance
    *
-   * @returns Promise that resolves to processed SyncListPermissionInstance
-   */
-  fetch(): Promise<SyncListPermissionInstance>;
-  /**
-   * fetch a SyncListPermissionInstance
+   * @function fetch
+   * @memberof Twilio.Preview.Sync.ServiceContext.SyncListContext.SyncListPermissionContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: SyncListPermissionInstance) => any): void;
-  /**
-   * Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer.
-   */
-  identity: string;
-  /**
-   * The unique SID identifier of the Sync List to which the Permission applies.
-   */
-  listSid: string;
-  /**
-   * Boolean flag specifying whether the identity can delete the Sync List.
-   */
-  manage: boolean;
-  /**
-   * Boolean flag specifying whether the identity can read the Sync List and its Items.
-   */
-  read: boolean;
+  fetch(callback?: function);
   /**
    * remove a SyncListPermissionInstance
    *
-   * @returns Promise that resolves to processed SyncListPermissionInstance
-   */
-  remove(): Promise<SyncListPermissionInstance>;
-  /**
-   * remove a SyncListPermissionInstance
+   * @function remove
+   * @memberof Twilio.Preview.Sync.ServiceContext.SyncListContext.SyncListPermissionContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: SyncListPermissionInstance) => any): void;
-  /**
-   * The unique SID identifier of the Sync Service Instance.
-   */
-  serviceSid: string;
+  remove(callback?: function);
   /**
    * update a SyncListPermissionInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Preview.Sync.ServiceContext.SyncListContext.SyncListPermissionContext
+   * @instance
    *
-   * @returns Promise that resolves to processed SyncListPermissionInstance
-   */
-  update(opts: SyncListPermissionListFetchOptions): Promise<SyncListPermissionInstance>;
-  /**
-   * update a SyncListPermissionInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: SyncListPermissionListFetchOptions, callback: (error: Error | null, items: SyncListPermissionInstance) => any): void;
-  /**
-   * Contains an absolute URL for this Sync List Permission.
-   */
-  url: string;
-  /**
-   * Boolean flag specifying whether the identity can create, update and delete Items of the Sync List.
-   */
-  write: boolean;
+  update(opts: object, callback?: function);
 }
 
-declare class SyncListPermissionContext {
-  constructor(version: Sync, serviceSid: string, listSid: string, identity: string);
-
-  /**
-   * fetch a SyncListPermissionInstance
-   *
-   * @returns Promise that resolves to processed SyncListPermissionInstance
-   */
-  fetch(): Promise<SyncListPermissionInstance>;
-  /**
-   * fetch a SyncListPermissionInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  fetch(callback: (error: Error | null, items: SyncListPermissionInstance) => any): void;
-  /**
-   * remove a SyncListPermissionInstance
-   *
-   * @returns Promise that resolves to processed SyncListPermissionInstance
-   */
-  remove(): Promise<SyncListPermissionInstance>;
-  /**
-   * remove a SyncListPermissionInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback: (error: Error | null, items: SyncListPermissionInstance) => any): void;
-  /**
-   * update a SyncListPermissionInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed SyncListPermissionInstance
-   */
-  update(opts: SyncListPermissionListFetchOptions): Promise<SyncListPermissionInstance>;
-  /**
-   * update a SyncListPermissionInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts: SyncListPermissionListFetchOptions, callback: (error: Error | null, items: SyncListPermissionInstance) => any): void;
-}
-
-export { SyncListPermissionContext, SyncListPermissionInstance, SyncListPermissionList, SyncListPermissionListEachOptions, SyncListPermissionListFetchOptions, SyncListPermissionListInstance, SyncListPermissionListOptions, SyncListPermissionListPageOptions, SyncListPermissionPage, SyncListPermissionPayload, SyncListPermissionResource, SyncListPermissionSolution }
+export { SyncListPermissionContext, SyncListPermissionInstance, SyncListPermissionList, SyncListPermissionPage }

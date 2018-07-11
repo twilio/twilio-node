@@ -6,316 +6,149 @@
  */
 
 import Page = require('../../../../../base/Page');
-import Response = require('../../../../../http/response');
-import V1 = require('../../../V1');
-import { SerializableClass } from '../../../../../interfaces';
+import deserialize = require('../../../../../base/deserialize');
+import serialize = require('../../../../../base/serialize');
+import values = require('../../../../../base/values');
 
-declare function TaskQueueCumulativeStatisticsList(version: V1, workspaceSid: string, taskQueueSid: string): TaskQueueCumulativeStatisticsListInstance
 
-interface TaskQueueCumulativeStatisticsResource {
-  /**
-   * The account_sid
-   */
-  account_sid: string;
-  /**
-   * The average time (in seconds) from Task creation to reservation acceptance while in this TaskQueue
-   */
-  avg_task_acceptance_time: number;
-  /**
-   * The end_time
-   */
-  end_time: Date;
-  /**
-   * The total number of Reservations that were accepted for Tasks while in this TaskQueue
-   */
-  reservations_accepted: number;
-  /**
-   * The total number of Reservations that were canceled for Tasks while in this TaskQueue
-   */
-  reservations_canceled: number;
-  /**
-   * The total number of Reservations that were created for Tasks while in this TaskQueue
-   */
-  reservations_created: number;
-  /**
-   * The total number of Reservations that were rejected for Tasks while in this TaskQueue
-   */
-  reservations_rejected: number;
-  /**
-   * The total number of Reservations that were rescinded
-   */
-  reservations_rescinded: number;
-  /**
-   * The total number of Reservations that were timed out for Tasks while in this TaskQueue
-   */
-  reservations_timed_out: number;
-  /**
-   * The splits of the tasks canceled and accepted based on the provided SplitByWaitTime parameter
-   */
-  split_by_wait_time: string;
-  /**
-   * The start_time
-   */
-  start_time: Date;
-  /**
-   * The task_queue_sid
-   */
-  task_queue_sid: string;
-  /**
-   * The total number of Tasks canceled while in this TaskQueue
-   */
-  tasks_canceled: number;
-  /**
-   * The total number of Tasks completed while in this TaskQueue
-   */
-  tasks_completed: number;
-  /**
-   * The total number of Tasks that were deleted while in this TaskQueue
-   */
-  tasks_deleted: number;
-  /**
-   * The total number of Tasks entered into this TaskQueue
-   */
-  tasks_entered: number;
-  /**
-   * The total number of Tasks moved to another TaskQueue from this TaskQueue
-   */
-  tasks_moved: number;
-  /**
-   * The url
-   */
-  url: string;
-  /**
-   * The wait duration stats (avg, min, max, total) for tasks that were accepted while in this TaskQueue
-   */
-  wait_duration_until_accepted: string;
-  /**
-   * The wait duration stats (avg, min, max, total) for tasks that were canceled while in this TaskQueue
-   */
-  wait_duration_until_canceled: string;
-  /**
-   * The workspace_sid
-   */
-  workspace_sid: string;
-}
-
-interface TaskQueueCumulativeStatisticsPayload extends TaskQueueCumulativeStatisticsResource, Page.TwilioResponsePayload {
-}
-
-interface TaskQueueCumulativeStatisticsSolution {
-  taskQueueSid: string;
-  workspaceSid: string;
-}
-
-interface TaskQueueCumulativeStatisticsListInstance {
-  /**
-   * Gets context of a single TaskQueueCumulativeStatistics resource
-   */
-  (): TaskQueueCumulativeStatisticsContext;
-  /**
-   * Gets context of a single TaskQueueCumulativeStatistics resource
-   */
-  get(): TaskQueueCumulativeStatisticsContext;
-}
-
-interface TaskQueueCumulativeStatisticsListFetchOptions {
-  /**
-   * Filter cumulative statistics by an end date. This is helpful for defining a range of statistics to capture. Input is a GMT ISO 8601 Timestamp.
-   */
+/**
+ * Options to pass to fetch
+ *
+ * @property endDate - Filter cumulative statistics by an end date.
+ * @property minutes - Filter cumulative statistics by up to 'x' minutes in the past.
+ * @property startDate - Filter cumulative statistics by a start date.
+ * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
+ * @property splitByWaitTime - A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
+ */
+export interface FetchOptions {
   endDate?: Date;
-  /**
-   * Filter cumulative statistics by up to 'x' minutes in the past. This is helpful for statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends. Defaults to 15 minutes.
-   */
   minutes?: number;
-  /**
-   * A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds. Ex: "5,30" would show splits of tasks that were canceled or accepted before or after 5 seconds and respectively, 30 seconds. This is great for showing short abandoned tasks or tasks that failed to meet your SLA.
-   */
   splitByWaitTime?: string;
-  /**
-   * Filter cumulative statistics by a start date. This is helpful for defining a range of statistics to capture. Input is a GMT ISO 8601 Timestamp.
-   */
   startDate?: Date;
-  /**
-   * Filter real-time and cumulative statistics by TaskChannel. Takes in a Unique Name ("voice", "sms", "default", etc.) or a TaskChannelSid.
-   */
   taskChannel?: string;
 }
 
-interface TaskQueueCumulativeStatisticsListFetchOptions {
-  /**
-   * Filter cumulative statistics by an end date. This is helpful for defining a range of statistics to capture. Input is a GMT ISO 8601 Timestamp.
-   */
+/**
+ * Options to pass to fetch
+ *
+ * @property endDate - Filter cumulative statistics by an end date.
+ * @property minutes - Filter cumulative statistics by up to 'x' minutes in the past.
+ * @property startDate - Filter cumulative statistics by a start date.
+ * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
+ * @property splitByWaitTime - A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
+ */
+export interface FetchOptions {
   endDate?: Date;
-  /**
-   * Filter cumulative statistics by up to 'x' minutes in the past. This is helpful for statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends. Defaults to 15 minutes.
-   */
   minutes?: number;
-  /**
-   * A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds. Ex: "5,30" would show splits of tasks that were canceled or accepted before or after 5 seconds and respectively, 30 seconds. This is great for showing short abandoned tasks or tasks that failed to meet your SLA.
-   */
   splitByWaitTime?: string;
-  /**
-   * Filter cumulative statistics by a start date. This is helpful for defining a range of statistics to capture. Input is a GMT ISO 8601 Timestamp.
-   */
   startDate?: Date;
-  /**
-   * Filter real-time and cumulative statistics by TaskChannel. Takes in a Unique Name ("voice", "sms", "default", etc.) or a TaskChannelSid.
-   */
   taskChannel?: string;
 }
 
-declare class TaskQueueCumulativeStatisticsPage extends Page<V1, TaskQueueCumulativeStatisticsPayload, TaskQueueCumulativeStatisticsResource, TaskQueueCumulativeStatisticsInstance> {
-  constructor(version: V1, response: Response<string>, solution: TaskQueueCumulativeStatisticsSolution);
+
+declare class TaskQueueCumulativeStatisticsPage extends Page {
+  /**
+   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueueCumulativeStatisticsPage
+   * @augments Page
+   * @description Initialize the TaskQueueCumulativeStatisticsPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Taskrouter.V1, response: object, solution: object);
 
   /**
    * Build an instance of TaskQueueCumulativeStatisticsInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueueCumulativeStatisticsPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: TaskQueueCumulativeStatisticsPayload): TaskQueueCumulativeStatisticsInstance;
+  getInstance(payload: object);
 }
 
-declare class TaskQueueCumulativeStatisticsInstance extends SerializableClass {
+declare class TaskQueueCumulativeStatisticsInstance {
   /**
+   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueueCumulativeStatisticsInstance
+   * @description Initialize the TaskQueueCumulativeStatisticsContext
+   *
+   * @property accountSid - The account_sid
+   * @property avgTaskAcceptanceTime - The average time from Task creation to reservation acceptance while in this TaskQueue
+   * @property startTime - The start_time
+   * @property endTime - The end_time
+   * @property reservationsCreated - The total number of Reservations that were created for Tasks while in this TaskQueue
+   * @property reservationsAccepted - The total number of Reservations that were accepted for Tasks while in this TaskQueue
+   * @property reservationsRejected - The total number of Reservations that were rejected for Tasks while in this TaskQueue
+   * @property reservationsTimedOut - The total number of Reservations that were timed out for Tasks while in this TaskQueue
+   * @property reservationsCanceled - The total number of Reservations that were canceled for Tasks while in this TaskQueue
+   * @property reservationsRescinded - The total number of Reservations that were rescinded
+   * @property splitByWaitTime - The splits of the tasks canceled and accepted based on the provided SplitByWaitTime parameter
+   * @property taskQueueSid - The task_queue_sid
+   * @property waitDurationUntilAccepted - The wait duration stats for tasks that were accepted while in this TaskQueue
+   * @property waitDurationUntilCanceled - The wait duration stats for tasks that were canceled while in this TaskQueue
+   * @property tasksCanceled - The total number of Tasks canceled while in this TaskQueue
+   * @property tasksCompleted - The total number of Tasks completed while in this TaskQueue
+   * @property tasksDeleted - The total number of Tasks that were deleted while in this TaskQueue
+   * @property tasksEntered - The total number of Tasks entered into this TaskQueue
+   * @property tasksMoved - The total number of Tasks moved to another TaskQueue from this TaskQueue
+   * @property workspaceSid - The workspace_sid
+   * @property url - The url
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param workspaceSid - The workspace_sid
    * @param taskQueueSid - The task_queue_sid
    */
-  constructor(version: V1, payload: TaskQueueCumulativeStatisticsPayload, workspaceSid: string, taskQueueSid: string);
+  constructor(version: Twilio.Taskrouter.V1, payload: object, workspaceSid: sid, taskQueueSid: sid);
 
-  private _proxy: TaskQueueCumulativeStatisticsContext;
-  /**
-   * The account_sid
-   */
-  accountSid: string;
-  /**
-   * The average time (in seconds) from Task creation to reservation acceptance while in this TaskQueue
-   */
-  avgTaskAcceptanceTime: number;
-  /**
-   * The end_time
-   */
-  endTime: Date;
+  _proxy?: TaskQueueCumulativeStatisticsContext;
   /**
    * fetch a TaskQueueCumulativeStatisticsInstance
    *
-   * @param opts - Options for request
+   * @function fetch
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueueCumulativeStatisticsInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed TaskQueueCumulativeStatisticsInstance
-   */
-  fetch(opts?: TaskQueueCumulativeStatisticsListFetchOptions): Promise<TaskQueueCumulativeStatisticsInstance>;
-  /**
-   * fetch a TaskQueueCumulativeStatisticsInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  fetch(opts: TaskQueueCumulativeStatisticsListFetchOptions, callback: (error: Error | null, items: TaskQueueCumulativeStatisticsInstance) => any): void;
+  fetch(opts?: object, callback?: function);
   /**
-   * fetch a TaskQueueCumulativeStatisticsInstance
+   * Produce a plain JSON object version of the TaskQueueCumulativeStatisticsInstance for serialization.
+   * Removes any circular references in the object.
    *
-   * @param callback - Callback to handle processed record
+   * @function toJSON
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueueCumulativeStatisticsInstance
+   * @instance
    */
-  fetch(callback: (error: Error | null, items: TaskQueueCumulativeStatisticsInstance) => any): void;
-  /**
-   * The total number of Reservations that were accepted for Tasks while in this TaskQueue
-   */
-  reservationsAccepted: number;
-  /**
-   * The total number of Reservations that were canceled for Tasks while in this TaskQueue
-   */
-  reservationsCanceled: number;
-  /**
-   * The total number of Reservations that were created for Tasks while in this TaskQueue
-   */
-  reservationsCreated: number;
-  /**
-   * The total number of Reservations that were rejected for Tasks while in this TaskQueue
-   */
-  reservationsRejected: number;
-  /**
-   * The total number of Reservations that were rescinded
-   */
-  reservationsRescinded: number;
-  /**
-   * The total number of Reservations that were timed out for Tasks while in this TaskQueue
-   */
-  reservationsTimedOut: number;
-  /**
-   * The splits of the tasks canceled and accepted based on the provided SplitByWaitTime parameter
-   */
-  splitByWaitTime: string;
-  /**
-   * The start_time
-   */
-  startTime: Date;
-  /**
-   * The task_queue_sid
-   */
-  taskQueueSid: string;
-  /**
-   * The total number of Tasks canceled while in this TaskQueue
-   */
-  tasksCanceled: number;
-  /**
-   * The total number of Tasks completed while in this TaskQueue
-   */
-  tasksCompleted: number;
-  /**
-   * The total number of Tasks that were deleted while in this TaskQueue
-   */
-  tasksDeleted: number;
-  /**
-   * The total number of Tasks entered into this TaskQueue
-   */
-  tasksEntered: number;
-  /**
-   * The total number of Tasks moved to another TaskQueue from this TaskQueue
-   */
-  tasksMoved: number;
-  /**
-   * The url
-   */
-  url: string;
-  /**
-   * The wait duration stats (avg, min, max, total) for tasks that were accepted while in this TaskQueue
-   */
-  waitDurationUntilAccepted: string;
-  /**
-   * The wait duration stats (avg, min, max, total) for tasks that were canceled while in this TaskQueue
-   */
-  waitDurationUntilCanceled: string;
-  /**
-   * The workspace_sid
-   */
-  workspaceSid: string;
+  toJSON();
 }
 
 declare class TaskQueueCumulativeStatisticsContext {
-  constructor(version: V1, workspaceSid: string, taskQueueSid: string);
+  /**
+   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueueCumulativeStatisticsContext
+   * @description Initialize the TaskQueueCumulativeStatisticsContext
+   *
+   * @param version - Version of the resource
+   * @param workspaceSid - The workspace_sid
+   * @param taskQueueSid - The task_queue_sid
+   */
+  constructor(version: Twilio.Taskrouter.V1, workspaceSid: sid, taskQueueSid: sid);
 
   /**
    * fetch a TaskQueueCumulativeStatisticsInstance
    *
-   * @param opts - Options for request
+   * @function fetch
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueueCumulativeStatisticsContext
+   * @instance
    *
-   * @returns Promise that resolves to processed TaskQueueCumulativeStatisticsInstance
-   */
-  fetch(opts?: TaskQueueCumulativeStatisticsListFetchOptions): Promise<TaskQueueCumulativeStatisticsInstance>;
-  /**
-   * fetch a TaskQueueCumulativeStatisticsInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  fetch(opts: TaskQueueCumulativeStatisticsListFetchOptions, callback: (error: Error | null, items: TaskQueueCumulativeStatisticsInstance) => any): void;
-  /**
-   * fetch a TaskQueueCumulativeStatisticsInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  fetch(callback: (error: Error | null, items: TaskQueueCumulativeStatisticsInstance) => any): void;
+  fetch(opts?: object, callback?: function);
 }
 
-export { TaskQueueCumulativeStatisticsContext, TaskQueueCumulativeStatisticsInstance, TaskQueueCumulativeStatisticsList, TaskQueueCumulativeStatisticsListFetchOptions, TaskQueueCumulativeStatisticsListInstance, TaskQueueCumulativeStatisticsPage, TaskQueueCumulativeStatisticsPayload, TaskQueueCumulativeStatisticsResource, TaskQueueCumulativeStatisticsSolution }
+export { TaskQueueCumulativeStatisticsContext, TaskQueueCumulativeStatisticsInstance, TaskQueueCumulativeStatisticsList, TaskQueueCumulativeStatisticsPage }

@@ -6,403 +6,167 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V1 = require('../../V1');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { PublishedTrackListInstance } from './roomParticipant/roomParticipantPublishedTrack';
-import { SerializableClass } from '../../../../interfaces';
-import { SubscribedTrackListInstance } from './roomParticipant/roomParticipantSubscribedTrack';
+import deserialize = require('../../../../base/deserialize');
+import serialize = require('../../../../base/serialize');
+import values = require('../../../../base/values');
+import { PublishedTrackList } from './roomParticipant/roomParticipantPublishedTrack';
+import { SubscribedTrackList } from './roomParticipant/roomParticipantSubscribedTrack';
 
-declare function ParticipantList(version: V1, roomSid: string): ParticipantListInstance
 
-type ParticipantStatus = 'connected'|'disconnected';
-
-interface ParticipantResource {
-  /**
-   * The unique ID of the [Account](https://www.twilio.com/docs/api/rest/account) associated with this Room.
-   */
-  account_sid: string;
-  /**
-   * The date that this resource was created, given as a [UTC ISO 8601 Timestamp](http://en.wikipedia.org/wiki/ISO_8601#UTC).
-   */
-  date_created: Date;
-  /**
-   * The date that this resource was last updated, given as a [UTC ISO 8601 Timestamp](http://en.wikipedia.org/wiki/ISO_8601#UTC).
-   */
-  date_updated: Date;
-  /**
-   * Duration of time in seconds this Participant was `connected`.  Populated only when `disconnected`.
-   */
-  duration: number;
-  /**
-   * The time of Participant disconnected from the Room, given as a [UTC ISO 8601 Timestamp](http://en.wikipedia.org/wiki/ISO_8601#UTC).
-   */
-  end_time: Date;
-  /**
-   * The unique name identifier that is assigned to this Participant. Identities are unique within a Room. If a client joins with an existing Identity, the existing client is disconnected.
-   */
-  identity: string;
-  /**
-   * The links
-   */
-  links: string;
-  /**
-   * A system-generated 34-character string that uniquely identifies. this room
-   */
-  room_sid: string;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * The time of Participant connected to the Room, given as a [UTC ISO 8601 Timestamp](http://en.wikipedia.org/wiki/ISO_8601#UTC).
-   */
-  start_time: Date;
-  /**
-   * A string representing the status of the Participant. If can be one of `connected` or `disconnected`.
-   */
-  status: ParticipantStatus;
-  /**
-   * The absolute URL for this resource.
-   */
-  url: string;
+/**
+ * Options to pass to update
+ *
+ * @property status - Set to disconnected to remove participant.
+ */
+export interface UpdateOptions {
+  status?: participant.status;
 }
 
-interface ParticipantPayload extends ParticipantResource, Page.TwilioResponsePayload {
+/**
+ * Options to pass to update
+ *
+ * @property status - Set to disconnected to remove participant.
+ */
+export interface UpdateOptions {
+  status?: participant.status;
 }
 
-interface ParticipantSolution {
-  roomSid: string;
-}
 
-interface ParticipantListEachOptions extends ListEachOptions<ParticipantInstance> {
+declare class ParticipantPage extends Page {
   /**
-   * Only show Participants that started after this date, given as an [UTC ISO 8601 Timestamp](http://en.wikipedia.org/wiki/ISO_8601#UTC).
-   */
-  dateCreatedAfter?: Date;
-  /**
-   * Only show Participants that started before this date, given as an [UTC ISO 8601 Timestamp](http://en.wikipedia.org/wiki/ISO_8601#UTC).
-   */
-  dateCreatedBefore?: Date;
-  /**
-   * Only show Participants that connected to the Room using the provided Identity.
-   */
-  identity?: string;
-  /**
-   * Only show Participants with the given Status.  For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
-   */
-  status?: ParticipantStatus;
-}
-
-interface ParticipantListOptions extends ListOptions<ParticipantInstance> {
-  /**
-   * Only show Participants that started after this date, given as an [UTC ISO 8601 Timestamp](http://en.wikipedia.org/wiki/ISO_8601#UTC).
-   */
-  dateCreatedAfter?: Date;
-  /**
-   * Only show Participants that started before this date, given as an [UTC ISO 8601 Timestamp](http://en.wikipedia.org/wiki/ISO_8601#UTC).
-   */
-  dateCreatedBefore?: Date;
-  /**
-   * Only show Participants that connected to the Room using the provided Identity.
-   */
-  identity?: string;
-  /**
-   * Only show Participants with the given Status.  For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
-   */
-  status?: ParticipantStatus;
-}
-
-interface ParticipantListPageOptions extends PageOptions<ParticipantPage> {
-  /**
-   * Only show Participants that started after this date, given as an [UTC ISO 8601 Timestamp](http://en.wikipedia.org/wiki/ISO_8601#UTC).
-   */
-  dateCreatedAfter?: Date;
-  /**
-   * Only show Participants that started before this date, given as an [UTC ISO 8601 Timestamp](http://en.wikipedia.org/wiki/ISO_8601#UTC).
-   */
-  dateCreatedBefore?: Date;
-  /**
-   * Only show Participants that connected to the Room using the provided Identity.
-   */
-  identity?: string;
-  /**
-   * Only show Participants with the given Status.  For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
-   */
-  status?: ParticipantStatus;
-}
-
-interface ParticipantListInstance {
-  /**
-   * Gets context of a single Participant resource
+   * @constructor Twilio.Video.V1.RoomContext.ParticipantPage
+   * @augments Page
+   * @description Initialize the ParticipantPage
    *
-   * @param sid - The sid
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  (sid: string): ParticipantContext;
-  /**
-   * Streams ParticipantInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: ParticipantListEachOptions): void;
-  /**
-   * Streams ParticipantInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: ParticipantInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Participant resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): ParticipantContext;
-  /**
-   * Retrieve a single target page of ParticipantInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<ParticipantPage>;
-  /**
-   * Retrieve a single target page of ParticipantInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: ParticipantPage) => any): void;
-  /**
-   * Lists ParticipantInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: ParticipantListOptions): Promise<ParticipantInstance[]>;
-  /**
-   * Lists ParticipantInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: ParticipantListOptions, callback: (error: Error | null, items: ParticipantInstance[]) => any): void;
-  /**
-   * Lists ParticipantInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: ParticipantInstance[]) => any): void;
-  /**
-   * Retrieve a single page of ParticipantInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: ParticipantListPageOptions): Promise<ParticipantPage>;
-  /**
-   * Retrieve a single page of ParticipantInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: ParticipantListPageOptions, callback: (error: Error | null, items: ParticipantPage) => any): void;
-  /**
-   * Retrieve a single page of ParticipantInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: ParticipantPage) => any): void;
-}
-
-interface ParticipantListFetchOptions {
-  /**
-   * Set to `disconnected` to remove participant.
-   */
-  status?: ParticipantStatus;
-}
-
-interface ParticipantListFetchOptions {
-  /**
-   * Set to `disconnected` to remove participant.
-   */
-  status?: ParticipantStatus;
-}
-
-declare class ParticipantPage extends Page<V1, ParticipantPayload, ParticipantResource, ParticipantInstance> {
-  constructor(version: V1, response: Response<string>, solution: ParticipantSolution);
+  constructor(version: Twilio.Video.V1, response: object, solution: object);
 
   /**
    * Build an instance of ParticipantInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Video.V1.RoomContext.ParticipantPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: ParticipantPayload): ParticipantInstance;
+  getInstance(payload: object);
 }
 
-declare class ParticipantInstance extends SerializableClass {
+declare class ParticipantInstance {
   /**
+   * @constructor Twilio.Video.V1.RoomContext.ParticipantInstance
+   * @description Initialize the ParticipantContext
+   *
+   * @property sid - A 34 character string that uniquely identifies this resource.
+   * @property roomSid - A system-generated 34-character string that uniquely identifies.
+   * @property accountSid - The unique ID of the Account associated with this Room.
+   * @property status - A string representing the status of the Participant.
+   * @property identity - The unique name identifier that is assigned to this Participant.
+   * @property dateCreated - The date that this resource was created, given as a UTC ISO 8601 Timestamp.
+   * @property dateUpdated - The date that this resource was last updated, given as a UTC ISO 8601 Timestamp.
+   * @property startTime - The time of Participant connected to the Room, given as a UTC ISO 8601 Timestamp.
+   * @property endTime - The time of Participant disconnected from the Room, given as a UTC ISO 8601 Timestamp.
+   * @property duration - Duration of time in seconds this Participant was connected.
+   * @property url - The absolute URL for this resource.
+   * @property links - The links
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param roomSid - The room_sid
+   * @param roomSid - A system-generated 34-character string that uniquely identifies.
    * @param sid - The sid
    */
-  constructor(version: V1, payload: ParticipantPayload, roomSid: string, sid: string);
+  constructor(version: Twilio.Video.V1, payload: object, roomSid: sid, sid: sid_like);
 
-  private _proxy: ParticipantContext;
-  /**
-   * The unique ID of the [Account](https://www.twilio.com/docs/api/rest/account) associated with this Room.
-   */
-  accountSid: string;
-  /**
-   * The date that this resource was created, given as a [UTC ISO 8601 Timestamp](http://en.wikipedia.org/wiki/ISO_8601#UTC).
-   */
-  dateCreated: Date;
-  /**
-   * The date that this resource was last updated, given as a [UTC ISO 8601 Timestamp](http://en.wikipedia.org/wiki/ISO_8601#UTC).
-   */
-  dateUpdated: Date;
-  /**
-   * Duration of time in seconds this Participant was `connected`.  Populated only when `disconnected`.
-   */
-  duration: number;
-  /**
-   * The time of Participant disconnected from the Room, given as a [UTC ISO 8601 Timestamp](http://en.wikipedia.org/wiki/ISO_8601#UTC).
-   */
-  endTime: Date;
+  _proxy?: ParticipantContext;
   /**
    * fetch a ParticipantInstance
    *
-   * @returns Promise that resolves to processed ParticipantInstance
-   */
-  fetch(): Promise<ParticipantInstance>;
-  /**
-   * fetch a ParticipantInstance
+   * @function fetch
+   * @memberof Twilio.Video.V1.RoomContext.ParticipantInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: ParticipantInstance) => any): void;
+  fetch(callback?: function);
   /**
-   * The unique name identifier that is assigned to this Participant. Identities are unique within a Room. If a client joins with an existing Identity, the existing client is disconnected.
+   * Access the publishedTracks
+   *
+   * @function publishedTracks
+   * @memberof Twilio.Video.V1.RoomContext.ParticipantInstance
+   * @instance
    */
-  identity: string;
+  publishedTracks();
   /**
-   * The links
+   * Access the subscribedTracks
+   *
+   * @function subscribedTracks
+   * @memberof Twilio.Video.V1.RoomContext.ParticipantInstance
+   * @instance
    */
-  links: string;
-  publishedTracks(): PublishedTrackListInstance;
+  subscribedTracks();
   /**
-   * A system-generated 34-character string that uniquely identifies. this room
+   * Produce a plain JSON object version of the ParticipantInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Video.V1.RoomContext.ParticipantInstance
+   * @instance
    */
-  roomSid: string;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * The time of Participant connected to the Room, given as a [UTC ISO 8601 Timestamp](http://en.wikipedia.org/wiki/ISO_8601#UTC).
-   */
-  startTime: Date;
-  /**
-   * A string representing the status of the Participant. If can be one of `connected` or `disconnected`.
-   */
-  status: ParticipantStatus;
-  subscribedTracks(): SubscribedTrackListInstance;
+  toJSON();
   /**
    * update a ParticipantInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Video.V1.RoomContext.ParticipantInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed ParticipantInstance
-   */
-  update(opts?: ParticipantListFetchOptions): Promise<ParticipantInstance>;
-  /**
-   * update a ParticipantInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: ParticipantListFetchOptions, callback: (error: Error | null, items: ParticipantInstance) => any): void;
-  /**
-   * update a ParticipantInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: ParticipantInstance) => any): void;
-  /**
-   * The absolute URL for this resource.
-   */
-  url: string;
+  update(opts?: object, callback?: function);
 }
 
 declare class ParticipantContext {
-  constructor(version: V1, roomSid: string, sid: string);
+  /**
+   * @constructor Twilio.Video.V1.RoomContext.ParticipantContext
+   * @description Initialize the ParticipantContext
+   *
+   * @property publishedTracks - publishedTracks resource
+   * @property subscribedTracks - subscribedTracks resource
+   *
+   * @param version - Version of the resource
+   * @param roomSid - The room_sid
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Video.V1, roomSid: sid_like, sid: sid_like);
 
   /**
    * fetch a ParticipantInstance
    *
-   * @returns Promise that resolves to processed ParticipantInstance
-   */
-  fetch(): Promise<ParticipantInstance>;
-  /**
-   * fetch a ParticipantInstance
+   * @function fetch
+   * @memberof Twilio.Video.V1.RoomContext.ParticipantContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: ParticipantInstance) => any): void;
-  publishedTracks: PublishedTrackListInstance;
-  subscribedTracks: SubscribedTrackListInstance;
+  fetch(callback?: function);
+  publishedTracks?: Twilio.Video.V1.RoomContext.ParticipantContext.PublishedTrackList;
+  subscribedTracks?: Twilio.Video.V1.RoomContext.ParticipantContext.SubscribedTrackList;
   /**
    * update a ParticipantInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Video.V1.RoomContext.ParticipantContext
+   * @instance
    *
-   * @returns Promise that resolves to processed ParticipantInstance
-   */
-  update(opts?: ParticipantListFetchOptions): Promise<ParticipantInstance>;
-  /**
-   * update a ParticipantInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: ParticipantListFetchOptions, callback: (error: Error | null, items: ParticipantInstance) => any): void;
-  /**
-   * update a ParticipantInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: ParticipantInstance) => any): void;
+  update(opts?: object, callback?: function);
 }
 
-export { ParticipantContext, ParticipantInstance, ParticipantList, ParticipantListEachOptions, ParticipantListFetchOptions, ParticipantListInstance, ParticipantListOptions, ParticipantListPageOptions, ParticipantPage, ParticipantPayload, ParticipantResource, ParticipantSolution, ParticipantStatus }
+export { ParticipantContext, ParticipantInstance, ParticipantList, ParticipantPage }

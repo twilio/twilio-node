@@ -6,238 +6,186 @@
  */
 
 import Page = require('../../../../../base/Page');
-import Response = require('../../../../../http/response');
-import V2010 = require('../../../V2010');
-import { SerializableClass } from '../../../../../interfaces';
+import deserialize = require('../../../../../base/deserialize');
+import serialize = require('../../../../../base/serialize');
+import values = require('../../../../../base/values');
 
-declare function FeedbackList(version: V2010, accountSid: string, callSid: string): FeedbackListInstance
 
-type FeedbackIssues = 'audio-latency'|'digits-not-captured'|'dropped-call'|'imperfect-audio'|'incorrect-caller-id'|'one-way-audio'|'post-dial-delay'|'unsolicited-call';
-
-interface FeedbackResource {
-  /**
-   * The account_sid
-   */
-  account_sid: string;
-  /**
-   * The date_created
-   */
-  date_created: Date;
-  /**
-   * The date_updated
-   */
-  date_updated: Date;
-  /**
-   * The issues
-   */
-  issues: FeedbackIssues;
-  /**
-   * `1` to `5` quality score where `1` represents imperfect experience and `5` represents a perfect call.
-   */
-  quality_score: number;
-  /**
-   * The sid
-   */
-  sid: string;
-}
-
-interface FeedbackPayload extends FeedbackResource, Page.TwilioResponsePayload {
-}
-
-interface FeedbackSolution {
-  accountSid: string;
-  callSid: string;
-}
-
-interface FeedbackListInstance {
-  /**
-   * Gets context of a single Feedback resource
-   */
-  (): FeedbackContext;
-  /**
-   * Gets context of a single Feedback resource
-   */
-  get(): FeedbackContext;
-}
-
-interface FeedbackListCreateOptions {
-  /**
-   * One or more issues experienced during the call. The issues can be: `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`, `digits-not-captured`, `audio-latency`, or `one-way-audio`.
-   */
-  issue?: FeedbackIssues[];
-  /**
-   * An integer `1` to `5` quality score where `1` represents very poor call quality and `5` represents a perfect call.
-   */
+/**
+ * Options to pass to create
+ *
+ * @property qualityScore - An integer from 1 to 5
+ * @property issue - Issues experienced during the call
+ */
+export interface CreateOptions {
+  issue?: feedback.issues|list;
   qualityScore: number;
 }
 
-interface FeedbackListFetchOptions {
-  /**
-   * One or more issues experienced during the call. The issues can be: `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`, `digits-not-captured`, `audio-latency`, or `one-way-audio`.
-   */
-  issue?: FeedbackIssues[];
-  /**
-   * An integer `1` to `5` quality score where `1` represents very poor call quality and `5` represents a perfect call.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property qualityScore - An integer from 1 to 5
+ * @property issue - Issues experienced during the call
+ */
+export interface UpdateOptions {
+  issue?: feedback.issues|list;
   qualityScore: number;
 }
 
-interface FeedbackListCreateOptions {
-  /**
-   * One or more issues experienced during the call. The issues can be: `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`, `digits-not-captured`, `audio-latency`, or `one-way-audio`.
-   */
-  issue?: FeedbackIssues[];
-  /**
-   * An integer `1` to `5` quality score where `1` represents very poor call quality and `5` represents a perfect call.
-   */
+/**
+ * Options to pass to create
+ *
+ * @property qualityScore - An integer from 1 to 5
+ * @property issue - Issues experienced during the call
+ */
+export interface CreateOptions {
+  issue?: feedback.issues|list;
   qualityScore: number;
 }
 
-interface FeedbackListFetchOptions {
-  /**
-   * One or more issues experienced during the call. The issues can be: `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`, `digits-not-captured`, `audio-latency`, or `one-way-audio`.
-   */
-  issue?: FeedbackIssues[];
-  /**
-   * An integer `1` to `5` quality score where `1` represents very poor call quality and `5` represents a perfect call.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property qualityScore - An integer from 1 to 5
+ * @property issue - Issues experienced during the call
+ */
+export interface UpdateOptions {
+  issue?: feedback.issues|list;
   qualityScore: number;
 }
 
-declare class FeedbackPage extends Page<V2010, FeedbackPayload, FeedbackResource, FeedbackInstance> {
-  constructor(version: V2010, response: Response<string>, solution: FeedbackSolution);
+
+declare class FeedbackPage extends Page {
+  /**
+   * @constructor Twilio.Api.V2010.AccountContext.CallContext.FeedbackPage
+   * @augments Page
+   * @description Initialize the FeedbackPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Api.V2010, response: object, solution: object);
 
   /**
    * Build an instance of FeedbackInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Api.V2010.AccountContext.CallContext.FeedbackPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: FeedbackPayload): FeedbackInstance;
+  getInstance(payload: object);
 }
 
-declare class FeedbackInstance extends SerializableClass {
+declare class FeedbackInstance {
   /**
+   * @constructor Twilio.Api.V2010.AccountContext.CallContext.FeedbackInstance
+   * @description Initialize the FeedbackContext
+   *
+   * @property accountSid - The account_sid
+   * @property dateCreated - The date_created
+   * @property dateUpdated - The date_updated
+   * @property issues - The issues
+   * @property qualityScore - 1 to 5 quality score
+   * @property sid - The sid
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param accountSid - The account_sid
-   * @param callSid - The call sid that uniquely identifies the call
+   * @param callSid - A 34-character string that uniquely identifies the Call resource.
    */
-  constructor(version: V2010, payload: FeedbackPayload, accountSid: string, callSid: string);
+  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, callSid: sid);
 
-  private _proxy: FeedbackContext;
-  /**
-   * The account_sid
-   */
-  accountSid: string;
+  _proxy?: FeedbackContext;
   /**
    * create a FeedbackInstance
    *
-   * @param opts - Options for request
+   * @function create
+   * @memberof Twilio.Api.V2010.AccountContext.CallContext.FeedbackInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed FeedbackInstance
-   */
-  create(opts: FeedbackListCreateOptions): Promise<FeedbackInstance>;
-  /**
-   * create a FeedbackInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  create(opts: FeedbackListCreateOptions, callback: (error: Error | null, items: FeedbackInstance) => any): void;
-  /**
-   * The date_created
-   */
-  dateCreated: Date;
-  /**
-   * The date_updated
-   */
-  dateUpdated: Date;
+  create(opts: object, callback?: function);
   /**
    * fetch a FeedbackInstance
    *
-   * @returns Promise that resolves to processed FeedbackInstance
-   */
-  fetch(): Promise<FeedbackInstance>;
-  /**
-   * fetch a FeedbackInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.CallContext.FeedbackInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: FeedbackInstance) => any): void;
+  fetch(callback?: function);
   /**
-   * The issues
+   * Produce a plain JSON object version of the FeedbackInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Api.V2010.AccountContext.CallContext.FeedbackInstance
+   * @instance
    */
-  issues: FeedbackIssues;
-  /**
-   * `1` to `5` quality score where `1` represents imperfect experience and `5` represents a perfect call.
-   */
-  qualityScore: number;
-  /**
-   * The sid
-   */
-  sid: string;
+  toJSON();
   /**
    * update a FeedbackInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Api.V2010.AccountContext.CallContext.FeedbackInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed FeedbackInstance
-   */
-  update(opts: FeedbackListFetchOptions): Promise<FeedbackInstance>;
-  /**
-   * update a FeedbackInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: FeedbackListFetchOptions, callback: (error: Error | null, items: FeedbackInstance) => any): void;
+  update(opts: object, callback?: function);
 }
 
 declare class FeedbackContext {
-  constructor(version: V2010, accountSid: string, callSid: string);
+  /**
+   * @constructor Twilio.Api.V2010.AccountContext.CallContext.FeedbackContext
+   * @description Initialize the FeedbackContext
+   *
+   * @param version - Version of the resource
+   * @param accountSid - The account_sid
+   * @param callSid - The call sid that uniquely identifies the call
+   */
+  constructor(version: Twilio.Api.V2010, accountSid: sid, callSid: sid);
 
   /**
    * create a FeedbackInstance
    *
-   * @param opts - Options for request
+   * @function create
+   * @memberof Twilio.Api.V2010.AccountContext.CallContext.FeedbackContext
+   * @instance
    *
-   * @returns Promise that resolves to processed FeedbackInstance
-   */
-  create(opts: FeedbackListCreateOptions): Promise<FeedbackInstance>;
-  /**
-   * create a FeedbackInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  create(opts: FeedbackListCreateOptions, callback: (error: Error | null, items: FeedbackInstance) => any): void;
+  create(opts: object, callback?: function);
   /**
    * fetch a FeedbackInstance
    *
-   * @returns Promise that resolves to processed FeedbackInstance
-   */
-  fetch(): Promise<FeedbackInstance>;
-  /**
-   * fetch a FeedbackInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.CallContext.FeedbackContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: FeedbackInstance) => any): void;
+  fetch(callback?: function);
   /**
    * update a FeedbackInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Api.V2010.AccountContext.CallContext.FeedbackContext
+   * @instance
    *
-   * @returns Promise that resolves to processed FeedbackInstance
-   */
-  update(opts: FeedbackListFetchOptions): Promise<FeedbackInstance>;
-  /**
-   * update a FeedbackInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: FeedbackListFetchOptions, callback: (error: Error | null, items: FeedbackInstance) => any): void;
+  update(opts: object, callback?: function);
 }
 
-export { FeedbackContext, FeedbackInstance, FeedbackIssues, FeedbackList, FeedbackListCreateOptions, FeedbackListFetchOptions, FeedbackListInstance, FeedbackPage, FeedbackPayload, FeedbackResource, FeedbackSolution }
+export { FeedbackContext, FeedbackInstance, FeedbackList, FeedbackPage }

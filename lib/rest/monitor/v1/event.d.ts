@@ -6,377 +6,104 @@
  */
 
 import Page = require('../../../base/Page');
-import Response = require('../../../http/response');
-import V1 = require('../V1');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
-import { SerializableClass } from '../../../interfaces';
+import deserialize = require('../../../base/deserialize');
+import serialize = require('../../../base/serialize');
+import values = require('../../../base/values');
 
-declare function EventList(version: V1): EventListInstance
 
-interface EventResource {
-  /**
-   * The account_sid
-   */
-  account_sid: string;
-  /**
-   * The actor_sid
-   */
-  actor_sid: string;
-  /**
-   * The actor_type
-   */
-  actor_type: string;
-  /**
-   * A human-readable description of the event.  May be null.
-   */
-  description: string;
-  /**
-   * The event_data
-   */
-  event_data: string;
-  /**
-   * The event_date
-   */
-  event_date: Date;
-  /**
-   * The event_type
-   */
-  event_type: string;
-  /**
-   * The links
-   */
-  links: string;
-  /**
-   * The resource_sid
-   */
-  resource_sid: string;
-  /**
-   * The resource_type
-   */
-  resource_type: string;
-  /**
-   * A 34 character string that uniquely identifies this event.
-   */
-  sid: string;
-  /**
-   * The originating system or interface that caused the event.  `web` for events caused by user action in the Twilio Console.  `api` for events caused through a request to the REST API.  `twilio` for events caused by an automated or internal Twilio system.
-   */
-  source: string;
-  /**
-   * The source_ip_address
-   */
-  source_ip_address: string;
-  /**
-   * The url
-   */
-  url: string;
-}
 
-interface EventPayload extends EventResource, Page.TwilioResponsePayload {
-}
-
-interface EventSolution {
-}
-
-interface EventListEachOptions extends ListEachOptions<EventInstance> {
+declare class EventPage extends Page {
   /**
-   * The actor_sid
-   */
-  actorSid?: string;
-  /**
-   * The end_date
-   */
-  endDate?: Date;
-  /**
-   * The event_type
-   */
-  eventType?: string;
-  /**
-   * The resource_sid
-   */
-  resourceSid?: string;
-  /**
-   * The source_ip_address
-   */
-  sourceIpAddress?: string;
-  /**
-   * The start_date
-   */
-  startDate?: Date;
-}
-
-interface EventListOptions extends ListOptions<EventInstance> {
-  /**
-   * The actor_sid
-   */
-  actorSid?: string;
-  /**
-   * The end_date
-   */
-  endDate?: Date;
-  /**
-   * The event_type
-   */
-  eventType?: string;
-  /**
-   * The resource_sid
-   */
-  resourceSid?: string;
-  /**
-   * The source_ip_address
-   */
-  sourceIpAddress?: string;
-  /**
-   * The start_date
-   */
-  startDate?: Date;
-}
-
-interface EventListPageOptions extends PageOptions<EventPage> {
-  /**
-   * The actor_sid
-   */
-  actorSid?: string;
-  /**
-   * The end_date
-   */
-  endDate?: Date;
-  /**
-   * The event_type
-   */
-  eventType?: string;
-  /**
-   * The resource_sid
-   */
-  resourceSid?: string;
-  /**
-   * The source_ip_address
-   */
-  sourceIpAddress?: string;
-  /**
-   * The start_date
-   */
-  startDate?: Date;
-}
-
-interface EventListInstance {
-  /**
-   * Gets context of a single Event resource
+   * @constructor Twilio.Monitor.V1.EventPage
+   * @augments Page
+   * @description Initialize the EventPage
    *
-   * @param sid - The sid
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  (sid: string): EventContext;
-  /**
-   * Streams EventInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: EventListEachOptions): void;
-  /**
-   * Streams EventInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: EventInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Event resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): EventContext;
-  /**
-   * Retrieve a single target page of EventInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<EventPage>;
-  /**
-   * Retrieve a single target page of EventInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: EventPage) => any): void;
-  /**
-   * Lists EventInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: EventListOptions): Promise<EventInstance[]>;
-  /**
-   * Lists EventInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: EventListOptions, callback: (error: Error | null, items: EventInstance[]) => any): void;
-  /**
-   * Lists EventInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: EventInstance[]) => any): void;
-  /**
-   * Retrieve a single page of EventInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: EventListPageOptions): Promise<EventPage>;
-  /**
-   * Retrieve a single page of EventInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: EventListPageOptions, callback: (error: Error | null, items: EventPage) => any): void;
-  /**
-   * Retrieve a single page of EventInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: EventPage) => any): void;
-}
-
-declare class EventPage extends Page<V1, EventPayload, EventResource, EventInstance> {
-  constructor(version: V1, response: Response<string>, solution: EventSolution);
+  constructor(version: Twilio.Monitor.V1, response: object, solution: object);
 
   /**
    * Build an instance of EventInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Monitor.V1.EventPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: EventPayload): EventInstance;
+  getInstance(payload: object);
 }
 
-declare class EventInstance extends SerializableClass {
+declare class EventInstance {
   /**
+   * @constructor Twilio.Monitor.V1.EventInstance
+   * @description Initialize the EventContext
+   *
+   * @property accountSid - The account_sid
+   * @property actorSid - The actor_sid
+   * @property actorType - The actor_type
+   * @property description - A human-readable description of the event.  May be null.
+   * @property eventData - The event_data
+   * @property eventDate - The event_date
+   * @property eventType - The event_type
+   * @property resourceSid - The resource_sid
+   * @property resourceType - The resource_type
+   * @property sid - A 34 character string that uniquely identifies this event.
+   * @property source - The originating system or interface that caused the event.  web for events caused by user action in the Twilio Console.  api for events caused through a request to the REST API.  twilio for events caused by an automated or internal Twilio system.
+   * @property sourceIpAddress - The source_ip_address
+   * @property url - The url
+   * @property links - The links
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param sid - The sid
    */
-  constructor(version: V1, payload: EventPayload, sid: string);
+  constructor(version: Twilio.Monitor.V1, payload: object, sid: sid);
 
-  private _proxy: EventContext;
-  /**
-   * The account_sid
-   */
-  accountSid: string;
-  /**
-   * The actor_sid
-   */
-  actorSid: string;
-  /**
-   * The actor_type
-   */
-  actorType: string;
-  /**
-   * A human-readable description of the event.  May be null.
-   */
-  description: string;
-  /**
-   * The event_data
-   */
-  eventData: string;
-  /**
-   * The event_date
-   */
-  eventDate: Date;
-  /**
-   * The event_type
-   */
-  eventType: string;
+  _proxy?: EventContext;
   /**
    * fetch a EventInstance
    *
-   * @returns Promise that resolves to processed EventInstance
-   */
-  fetch(): Promise<EventInstance>;
-  /**
-   * fetch a EventInstance
+   * @function fetch
+   * @memberof Twilio.Monitor.V1.EventInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: EventInstance) => any): void;
+  fetch(callback?: function);
   /**
-   * The links
+   * Produce a plain JSON object version of the EventInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Monitor.V1.EventInstance
+   * @instance
    */
-  links: string;
-  /**
-   * The resource_sid
-   */
-  resourceSid: string;
-  /**
-   * The resource_type
-   */
-  resourceType: string;
-  /**
-   * A 34 character string that uniquely identifies this event.
-   */
-  sid: string;
-  /**
-   * The originating system or interface that caused the event.  `web` for events caused by user action in the Twilio Console.  `api` for events caused through a request to the REST API.  `twilio` for events caused by an automated or internal Twilio system.
-   */
-  source: string;
-  /**
-   * The source_ip_address
-   */
-  sourceIpAddress: string;
-  /**
-   * The url
-   */
-  url: string;
+  toJSON();
 }
 
 declare class EventContext {
-  constructor(version: V1, sid: string);
+  /**
+   * @constructor Twilio.Monitor.V1.EventContext
+   * @description Initialize the EventContext
+   *
+   * @param version - Version of the resource
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Monitor.V1, sid: sid);
 
   /**
    * fetch a EventInstance
    *
-   * @returns Promise that resolves to processed EventInstance
-   */
-  fetch(): Promise<EventInstance>;
-  /**
-   * fetch a EventInstance
+   * @function fetch
+   * @memberof Twilio.Monitor.V1.EventContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: EventInstance) => any): void;
+  fetch(callback?: function);
 }
 
-export { EventContext, EventInstance, EventList, EventListEachOptions, EventListInstance, EventListOptions, EventListPageOptions, EventPage, EventPayload, EventResource, EventSolution }
+export { EventContext, EventInstance, EventList, EventPage }

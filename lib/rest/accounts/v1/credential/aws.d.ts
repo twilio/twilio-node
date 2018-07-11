@@ -6,351 +6,155 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V1 = require('../../V1');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { SerializableClass } from '../../../../interfaces';
+import deserialize = require('../../../../base/deserialize');
+import values = require('../../../../base/values');
 
-declare function AwsList(version: V1): AwsListInstance
 
-interface AwsResource {
-  /**
-   * The account_sid
-   */
-  account_sid: string;
-  /**
-   * The date_created
-   */
-  date_created: Date;
-  /**
-   * The date_updated
-   */
-  date_updated: Date;
-  /**
-   * The friendly_name
-   */
-  friendly_name: string;
-  /**
-   * The sid
-   */
-  sid: string;
-  /**
-   * The url
-   */
-  url: string;
-}
-
-interface AwsPayload extends AwsResource, Page.TwilioResponsePayload {
-}
-
-interface AwsSolution {
-}
-
-interface AwsListEachOptions extends ListEachOptions<AwsInstance> {
-}
-
-interface AwsListOptions extends ListOptions<AwsInstance> {
-}
-
-interface AwsListPageOptions extends PageOptions<AwsPage> {
-}
-
-interface AwsListCreateOptions {
-  /**
-   * The account_sid
-   */
-  accountSid?: string;
-  /**
-   * The credentials
-   */
-  credentials: string;
-  /**
-   * The friendly_name
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - The friendly_name
+ */
+export interface UpdateOptions {
   friendlyName?: string;
 }
 
-interface AwsListInstance {
-  /**
-   * Gets context of a single Aws resource
-   *
-   * @param sid - The sid
-   */
-  (sid: string): AwsContext;
-  /**
-   * create a AwsInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed AwsInstance
-   */
-  create(opts: AwsListCreateOptions): Promise<AwsInstance>;
-  /**
-   * create a AwsInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: AwsListCreateOptions, callback: (error: Error | null, items: AwsInstance) => any): void;
-  /**
-   * Streams AwsInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: AwsListEachOptions): void;
-  /**
-   * Streams AwsInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: AwsInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Aws resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): AwsContext;
-  /**
-   * Retrieve a single target page of AwsInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<AwsPage>;
-  /**
-   * Retrieve a single target page of AwsInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: AwsPage) => any): void;
-  /**
-   * Lists AwsInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: AwsListOptions): Promise<AwsInstance[]>;
-  /**
-   * Lists AwsInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: AwsListOptions, callback: (error: Error | null, items: AwsInstance[]) => any): void;
-  /**
-   * Lists AwsInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: AwsInstance[]) => any): void;
-  /**
-   * Retrieve a single page of AwsInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: AwsListPageOptions): Promise<AwsPage>;
-  /**
-   * Retrieve a single page of AwsInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: AwsListPageOptions, callback: (error: Error | null, items: AwsPage) => any): void;
-  /**
-   * Retrieve a single page of AwsInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: AwsPage) => any): void;
-}
-
-interface AwsListFetchOptions {
-  /**
-   * The friendly_name
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - The friendly_name
+ */
+export interface UpdateOptions {
   friendlyName?: string;
 }
 
-interface AwsListFetchOptions {
-  /**
-   * The friendly_name
-   */
-  friendlyName?: string;
-}
 
-declare class AwsPage extends Page<V1, AwsPayload, AwsResource, AwsInstance> {
-  constructor(version: V1, response: Response<string>, solution: AwsSolution);
+declare class AwsPage extends Page {
+  /**
+   * @constructor Twilio.Accounts.V1.CredentialContext.AwsPage
+   * @augments Page
+   * @description Initialize the AwsPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Accounts.V1, response: object, solution: object);
 
   /**
    * Build an instance of AwsInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Accounts.V1.CredentialContext.AwsPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: AwsPayload): AwsInstance;
+  getInstance(payload: object);
 }
 
-declare class AwsInstance extends SerializableClass {
+declare class AwsInstance {
   /**
+   * @constructor Twilio.Accounts.V1.CredentialContext.AwsInstance
+   * @description Initialize the AwsContext
+   *
+   * @property sid - The sid
+   * @property accountSid - The account_sid
+   * @property friendlyName - The friendly_name
+   * @property dateCreated - The date_created
+   * @property dateUpdated - The date_updated
+   * @property url - The url
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param sid - The sid
    */
-  constructor(version: V1, payload: AwsPayload, sid: string);
+  constructor(version: Twilio.Accounts.V1, payload: object, sid: sid);
 
-  private _proxy: AwsContext;
-  /**
-   * The account_sid
-   */
-  accountSid: string;
-  /**
-   * The date_created
-   */
-  dateCreated: Date;
-  /**
-   * The date_updated
-   */
-  dateUpdated: Date;
+  _proxy?: AwsContext;
   /**
    * fetch a AwsInstance
    *
-   * @returns Promise that resolves to processed AwsInstance
-   */
-  fetch(): Promise<AwsInstance>;
-  /**
-   * fetch a AwsInstance
+   * @function fetch
+   * @memberof Twilio.Accounts.V1.CredentialContext.AwsInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: AwsInstance) => any): void;
-  /**
-   * The friendly_name
-   */
-  friendlyName: string;
+  fetch(callback?: function);
   /**
    * remove a AwsInstance
    *
-   * @returns Promise that resolves to processed AwsInstance
-   */
-  remove(): Promise<AwsInstance>;
-  /**
-   * remove a AwsInstance
+   * @function remove
+   * @memberof Twilio.Accounts.V1.CredentialContext.AwsInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: AwsInstance) => any): void;
+  remove(callback?: function);
   /**
-   * The sid
+   * Produce a plain JSON object version of the AwsInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Accounts.V1.CredentialContext.AwsInstance
+   * @instance
    */
-  sid: string;
+  toJSON();
   /**
    * update a AwsInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Accounts.V1.CredentialContext.AwsInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed AwsInstance
-   */
-  update(opts?: AwsListFetchOptions): Promise<AwsInstance>;
-  /**
-   * update a AwsInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: AwsListFetchOptions, callback: (error: Error | null, items: AwsInstance) => any): void;
-  /**
-   * update a AwsInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: AwsInstance) => any): void;
-  /**
-   * The url
-   */
-  url: string;
+  update(opts?: object, callback?: function);
 }
 
 declare class AwsContext {
-  constructor(version: V1, sid: string);
+  /**
+   * @constructor Twilio.Accounts.V1.CredentialContext.AwsContext
+   * @description Initialize the AwsContext
+   *
+   * @param version - Version of the resource
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Accounts.V1, sid: sid);
 
   /**
    * fetch a AwsInstance
    *
-   * @returns Promise that resolves to processed AwsInstance
-   */
-  fetch(): Promise<AwsInstance>;
-  /**
-   * fetch a AwsInstance
+   * @function fetch
+   * @memberof Twilio.Accounts.V1.CredentialContext.AwsContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: AwsInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a AwsInstance
    *
-   * @returns Promise that resolves to processed AwsInstance
-   */
-  remove(): Promise<AwsInstance>;
-  /**
-   * remove a AwsInstance
+   * @function remove
+   * @memberof Twilio.Accounts.V1.CredentialContext.AwsContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: AwsInstance) => any): void;
+  remove(callback?: function);
   /**
    * update a AwsInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Accounts.V1.CredentialContext.AwsContext
+   * @instance
    *
-   * @returns Promise that resolves to processed AwsInstance
-   */
-  update(opts?: AwsListFetchOptions): Promise<AwsInstance>;
-  /**
-   * update a AwsInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: AwsListFetchOptions, callback: (error: Error | null, items: AwsInstance) => any): void;
-  /**
-   * update a AwsInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: AwsInstance) => any): void;
+  update(opts?: object, callback?: function);
 }
 
-export { AwsContext, AwsInstance, AwsList, AwsListCreateOptions, AwsListEachOptions, AwsListFetchOptions, AwsListInstance, AwsListOptions, AwsListPageOptions, AwsPage, AwsPayload, AwsResource, AwsSolution }
+export { AwsContext, AwsInstance, AwsList, AwsPage }

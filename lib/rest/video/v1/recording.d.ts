@@ -6,397 +6,124 @@
  */
 
 import Page = require('../../../base/Page');
-import Response = require('../../../http/response');
-import V1 = require('../V1');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
-import { SerializableClass } from '../../../interfaces';
+import deserialize = require('../../../base/deserialize');
+import serialize = require('../../../base/serialize');
+import values = require('../../../base/values');
 
-declare function RecordingList(version: V1): RecordingListInstance
 
-type RecordingStatus = 'processing'|'completed'|'deleted'|'failed';
 
-type RecordingType = 'audio'|'video'|'data';
-
-type RecordingFormat = 'mka'|'mkv';
-
-type RecordingCodec = 'VP8'|'H264'|'OPUS'|'PCMU';
-
-interface RecordingResource {
+declare class RecordingPage extends Page {
   /**
-   * The unique SID identifier of the Twilio Account.
-   */
-  account_sid: string;
-  /**
-   * The codec used to encode the track. Currently supported codecs include: `VP8`, `H264`, `OPUS`, and `PCMU`.
-   */
-  codec: RecordingCodec;
-  /**
-   * The file format for this Recording. Video Room recordings are captured in [Matroska container format](https://matroska.org/), so this will be set to `mka` for audio files and `mkv` for video files.
-   */
-  container_format: RecordingFormat;
-  /**
-   * Date conforming to [UTC ISO 8601 Timestamp](http://en.wikipedia.org/wiki/ISO_8601#UTC). Matches the time the media recording began writing.
-   */
-  date_created: Date;
-  /**
-   * Duration of the Recording in seconds rounded to the nearest second. Thus, sub-second duration tracks have a `Duration` property of 1 second
-   */
-  duration: number;
-  /**
-   * A list of Sids related to this Recording. Includes the RoomSid and ParticipantSid.
-   */
-  grouping_sids: string;
-  /**
-   * The links
-   */
-  links: string;
-  /**
-   * `RTxx…xx` A system-generated 34-character string that uniquely identifies this Recording.
-   */
-  sid: string;
-  /**
-   * Size of the recorded track, in bytes.
-   */
-  size: number;
-  /**
-   * Identifies the source of the Recording. For Room Recording, this field stores the `TrackSid.`
-   */
-  source_sid: string;
-  /**
-   * The status of the Recording. Possible values are `processing`, `completed`, or `deleted`. `processing` indicates the Recording is still being captured; `completed` indicates the Recording has been captured and is now available for download. `deleted` means the recording media has been deleted from the system, but its metadata is still available for historical purposes.
-   */
-  status: RecordingStatus;
-  /**
-   * The name that was given to the source track of this recording. If no name is given, the `SourceSid` is used.
-   */
-  track_name: string;
-  /**
-   * Indicates the media type for this recording. Can be either `audio` or `video`.
-   */
-  type: RecordingType;
-  /**
-   * The absolute URL for this resource.
-   */
-  url: string;
-}
-
-interface RecordingPayload extends RecordingResource, Page.TwilioResponsePayload {
-}
-
-interface RecordingSolution {
-}
-
-interface RecordingListEachOptions extends ListEachOptions<RecordingInstance> {
-  /**
-   * Only show Recordings that started on or after this ISO8601 date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
-   */
-  dateCreatedAfter?: Date;
-  /**
-   * Only show Recordings that started before this this ISO8601 date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
-   */
-  dateCreatedBefore?: Date;
-  /**
-   * Only show Recordings that have this GroupingSid, which may include a ParticipantSid and/or a RoomSid.
-   */
-  groupingSid?: string[];
-  /**
-   * Only show the Recordings with the given source Sid (you can use this to filter Recordings by `TrackSid` for Video Room Recordings.
-   */
-  sourceSid?: string;
-  /**
-   * Only show Recordings with the given status.
-   */
-  status?: RecordingStatus;
-}
-
-interface RecordingListOptions extends ListOptions<RecordingInstance> {
-  /**
-   * Only show Recordings that started on or after this ISO8601 date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
-   */
-  dateCreatedAfter?: Date;
-  /**
-   * Only show Recordings that started before this this ISO8601 date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
-   */
-  dateCreatedBefore?: Date;
-  /**
-   * Only show Recordings that have this GroupingSid, which may include a ParticipantSid and/or a RoomSid.
-   */
-  groupingSid?: string[];
-  /**
-   * Only show the Recordings with the given source Sid (you can use this to filter Recordings by `TrackSid` for Video Room Recordings.
-   */
-  sourceSid?: string;
-  /**
-   * Only show Recordings with the given status.
-   */
-  status?: RecordingStatus;
-}
-
-interface RecordingListPageOptions extends PageOptions<RecordingPage> {
-  /**
-   * Only show Recordings that started on or after this ISO8601 date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
-   */
-  dateCreatedAfter?: Date;
-  /**
-   * Only show Recordings that started before this this ISO8601 date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
-   */
-  dateCreatedBefore?: Date;
-  /**
-   * Only show Recordings that have this GroupingSid, which may include a ParticipantSid and/or a RoomSid.
-   */
-  groupingSid?: string[];
-  /**
-   * Only show the Recordings with the given source Sid (you can use this to filter Recordings by `TrackSid` for Video Room Recordings.
-   */
-  sourceSid?: string;
-  /**
-   * Only show Recordings with the given status.
-   */
-  status?: RecordingStatus;
-}
-
-interface RecordingListInstance {
-  /**
-   * Gets context of a single Recording resource
+   * @constructor Twilio.Video.V1.RecordingPage
+   * @augments Page
+   * @description Initialize the RecordingPage
    *
-   * @param sid - The Recording Sid that uniquely identifies the Recording to fetch.
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  (sid: string): RecordingContext;
-  /**
-   * Streams RecordingInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: RecordingListEachOptions): void;
-  /**
-   * Streams RecordingInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: RecordingInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Recording resource
-   *
-   * @param sid - The Recording Sid that uniquely identifies the Recording to fetch.
-   */
-  get(sid: string): RecordingContext;
-  /**
-   * Retrieve a single target page of RecordingInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<RecordingPage>;
-  /**
-   * Retrieve a single target page of RecordingInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: RecordingPage) => any): void;
-  /**
-   * Lists RecordingInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: RecordingListOptions): Promise<RecordingInstance[]>;
-  /**
-   * Lists RecordingInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: RecordingListOptions, callback: (error: Error | null, items: RecordingInstance[]) => any): void;
-  /**
-   * Lists RecordingInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: RecordingInstance[]) => any): void;
-  /**
-   * Retrieve a single page of RecordingInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: RecordingListPageOptions): Promise<RecordingPage>;
-  /**
-   * Retrieve a single page of RecordingInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: RecordingListPageOptions, callback: (error: Error | null, items: RecordingPage) => any): void;
-  /**
-   * Retrieve a single page of RecordingInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: RecordingPage) => any): void;
-}
-
-declare class RecordingPage extends Page<V1, RecordingPayload, RecordingResource, RecordingInstance> {
-  constructor(version: V1, response: Response<string>, solution: RecordingSolution);
+  constructor(version: Twilio.Video.V1, response: object, solution: object);
 
   /**
    * Build an instance of RecordingInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Video.V1.RecordingPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: RecordingPayload): RecordingInstance;
+  getInstance(payload: object);
 }
 
-declare class RecordingInstance extends SerializableClass {
+declare class RecordingInstance {
   /**
+   * @constructor Twilio.Video.V1.RecordingInstance
+   * @description Initialize the RecordingContext
+   *
+   * @property accountSid - Twilio Account SID.
+   * @property status - The status of the Recording.
+   * @property dateCreated - Date when the media recording began writing.
+   * @property sid - A 34-character string that uniquely identifies this Recording.
+   * @property sourceSid - A 34-character string that uniquely identifies the source of this Recording.
+   * @property size - Size of the recorded track, in bytes.
+   * @property url - The absolute URL for this resource.
+   * @property type - Indicates the media type for this recording.
+   * @property duration - Duration of the Recording in seconds.
+   * @property containerFormat - The file format for this Recording.
+   * @property codec - The codec used to encode the track.
+   * @property groupingSids - A list of Sids related to this Recording.
+   * @property trackName - The name that was given to the source track of this recording.
+   * @property links - The links
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param sid - The Recording Sid that uniquely identifies the Recording to fetch.
    */
-  constructor(version: V1, payload: RecordingPayload, sid: string);
+  constructor(version: Twilio.Video.V1, payload: object, sid: sid);
 
-  private _proxy: RecordingContext;
-  /**
-   * The unique SID identifier of the Twilio Account.
-   */
-  accountSid: string;
-  /**
-   * The codec used to encode the track. Currently supported codecs include: `VP8`, `H264`, `OPUS`, and `PCMU`.
-   */
-  codec: RecordingCodec;
-  /**
-   * The file format for this Recording. Video Room recordings are captured in [Matroska container format](https://matroska.org/), so this will be set to `mka` for audio files and `mkv` for video files.
-   */
-  containerFormat: RecordingFormat;
-  /**
-   * Date conforming to [UTC ISO 8601 Timestamp](http://en.wikipedia.org/wiki/ISO_8601#UTC). Matches the time the media recording began writing.
-   */
-  dateCreated: Date;
-  /**
-   * Duration of the Recording in seconds rounded to the nearest second. Thus, sub-second duration tracks have a `Duration` property of 1 second
-   */
-  duration: number;
+  _proxy?: RecordingContext;
   /**
    * fetch a RecordingInstance
    *
-   * @returns Promise that resolves to processed RecordingInstance
-   */
-  fetch(): Promise<RecordingInstance>;
-  /**
-   * fetch a RecordingInstance
+   * @function fetch
+   * @memberof Twilio.Video.V1.RecordingInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: RecordingInstance) => any): void;
-  /**
-   * A list of Sids related to this Recording. Includes the RoomSid and ParticipantSid.
-   */
-  groupingSids: string;
-  /**
-   * The links
-   */
-  links: string;
+  fetch(callback?: function);
   /**
    * remove a RecordingInstance
    *
-   * @returns Promise that resolves to processed RecordingInstance
-   */
-  remove(): Promise<RecordingInstance>;
-  /**
-   * remove a RecordingInstance
+   * @function remove
+   * @memberof Twilio.Video.V1.RecordingInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: RecordingInstance) => any): void;
+  remove(callback?: function);
   /**
-   * `RTxx…xx` A system-generated 34-character string that uniquely identifies this Recording.
+   * Produce a plain JSON object version of the RecordingInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Video.V1.RecordingInstance
+   * @instance
    */
-  sid: string;
-  /**
-   * Size of the recorded track, in bytes.
-   */
-  size: number;
-  /**
-   * Identifies the source of the Recording. For Room Recording, this field stores the `TrackSid.`
-   */
-  sourceSid: string;
-  /**
-   * The status of the Recording. Possible values are `processing`, `completed`, or `deleted`. `processing` indicates the Recording is still being captured; `completed` indicates the Recording has been captured and is now available for download. `deleted` means the recording media has been deleted from the system, but its metadata is still available for historical purposes.
-   */
-  status: RecordingStatus;
-  /**
-   * The name that was given to the source track of this recording. If no name is given, the `SourceSid` is used.
-   */
-  trackName: string;
-  /**
-   * Indicates the media type for this recording. Can be either `audio` or `video`.
-   */
-  type: RecordingType;
-  /**
-   * The absolute URL for this resource.
-   */
-  url: string;
+  toJSON();
 }
 
 declare class RecordingContext {
-  constructor(version: V1, sid: string);
+  /**
+   * @constructor Twilio.Video.V1.RecordingContext
+   * @description Initialize the RecordingContext
+   *
+   * @param version - Version of the resource
+   * @param sid - The Recording Sid that uniquely identifies the Recording to fetch.
+   */
+  constructor(version: Twilio.Video.V1, sid: sid);
 
   /**
    * fetch a RecordingInstance
    *
-   * @returns Promise that resolves to processed RecordingInstance
-   */
-  fetch(): Promise<RecordingInstance>;
-  /**
-   * fetch a RecordingInstance
+   * @function fetch
+   * @memberof Twilio.Video.V1.RecordingContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: RecordingInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a RecordingInstance
    *
-   * @returns Promise that resolves to processed RecordingInstance
-   */
-  remove(): Promise<RecordingInstance>;
-  /**
-   * remove a RecordingInstance
+   * @function remove
+   * @memberof Twilio.Video.V1.RecordingContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: RecordingInstance) => any): void;
+  remove(callback?: function);
 }
 
-export { RecordingCodec, RecordingContext, RecordingFormat, RecordingInstance, RecordingList, RecordingListEachOptions, RecordingListInstance, RecordingListOptions, RecordingListPageOptions, RecordingPage, RecordingPayload, RecordingResource, RecordingSolution, RecordingStatus, RecordingType }
+export { RecordingContext, RecordingInstance, RecordingList, RecordingPage }

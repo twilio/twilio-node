@@ -6,527 +6,300 @@
  */
 
 import Page = require('../../../base/Page');
-import Response = require('../../../http/response');
-import V1 = require('../V1');
-import { ActivityListInstance } from './workspace/activity';
-import { EventListInstance } from './workspace/event';
-import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
-import { SerializableClass } from '../../../interfaces';
-import { TaskChannelListInstance } from './workspace/taskChannel';
-import { TaskListInstance } from './workspace/task';
-import { TaskQueueListInstance } from './workspace/taskQueue';
-import { WorkerListInstance } from './workspace/worker';
-import { WorkflowListInstance } from './workspace/workflow';
-import { WorkspaceCumulativeStatisticsListInstance } from './workspace/workspaceCumulativeStatistics';
-import { WorkspaceRealTimeStatisticsListInstance } from './workspace/workspaceRealTimeStatistics';
-import { WorkspaceStatisticsListInstance } from './workspace/workspaceStatistics';
+import deserialize = require('../../../base/deserialize');
+import serialize = require('../../../base/serialize');
+import values = require('../../../base/values');
+import { ActivityList } from './workspace/activity';
+import { EventList } from './workspace/event';
+import { TaskChannelList } from './workspace/taskChannel';
+import { TaskList } from './workspace/task';
+import { TaskQueueList } from './workspace/taskQueue';
+import { WorkerList } from './workspace/worker';
+import { WorkflowList } from './workspace/workflow';
+import { WorkspaceCumulativeStatisticsList } from './workspace/workspaceCumulativeStatistics';
+import { WorkspaceRealTimeStatisticsList } from './workspace/workspaceRealTimeStatistics';
+import { WorkspaceStatisticsList } from './workspace/workspaceStatistics';
 
-declare function WorkspaceList(version: V1): WorkspaceListInstance
 
-type WorkspaceQueueOrder = 'FIFO'|'LIFO';
-
-interface WorkspaceResource {
-  /**
-   * The ID of the account that owns this Workflow
-   */
-  account_sid: string;
-  /**
-   * The time the Workspace was created, given as GMT in ISO 8601 format.
-   */
-  date_created: Date;
-  /**
-   * The time the Workspace was last updated, given as GMT in ISO 8601 format.
-   */
-  date_updated: Date;
-  /**
-   * The human readable name of the default activity. Read only.
-   */
-  default_activity_name: string;
-  /**
-   * The ID of the Activity that will be used when new Workers are created in this Workspace.
-   */
-  default_activity_sid: string;
-  /**
-   * If provided, the Workspace will publish events to this URL. You can use this to gather data for reporting. See Workspace Events for more information.
-   */
-  event_callback_url: string;
-  /**
-   * Use this parameter to receive webhooks on EventCallbackUrl for specific events on a workspace. For example if 'EventsFilter=task.created,task.canceled,worker.activity.update', then TaskRouter will webhook to EventCallbackUrl only when a task is created, canceled or a worker activity is updated.
-   */
-  events_filter: string;
-  /**
-   * Filter by a workspace's friendly name. This is a human readable description of this Workspace (for example "Customer Support" or "2014 Election Campaign")
-   */
-  friendly_name: string;
-  /**
-   * The links
-   */
-  links: string;
-  /**
-   * Multi tasking allows workers to handle multiple tasks simultaneously. When enabled (MultiTaskEnabled=true), each worker will be eligible to receive parallel reservations up to the per-channel maximums defined in the Workers section. Default is disabled (MultiTaskEnabled=false), where each worker will only receive a new reservation when the previous task is completed. Learn more by visiting [Multitasking][/docs/taskrouter/multitasking].
-   */
-  multi_task_enabled: boolean;
-  /**
-   * Use this parameter to configure whether to prioritize LIFO or FIFO when workers are receiving Tasks from combination of LIFO and FIFO TaskQueues. Default is FIFO. [Click here][/docs/taskrouter/queue-ordering-last-first-out-lifo] to learn more about LIFO and the use of the parameter.
-   */
-  prioritize_queue_order: WorkspaceQueueOrder;
-  /**
-   * The unique ID of the Workspace
-   */
-  sid: string;
-  /**
-   * The human readable name of the timeout activity. Read only.
-   */
-  timeout_activity_name: string;
-  /**
-   * The ID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
-   */
-  timeout_activity_sid: string;
-  /**
-   * The url
-   */
-  url: string;
-}
-
-interface WorkspacePayload extends WorkspaceResource, Page.TwilioResponsePayload {
-}
-
-interface WorkspaceSolution {
-}
-
-interface WorkspaceListEachOptions extends ListEachOptions<WorkspaceInstance> {
-  /**
-   * Filter by a workspace's friendly name. This is a human readable description of this Workspace (for example "Customer Support" or "2014 Election Campaign")
-   */
-  friendlyName?: string;
-}
-
-interface WorkspaceListOptions extends ListOptions<WorkspaceInstance> {
-  /**
-   * Filter by a workspace's friendly name. This is a human readable description of this Workspace (for example "Customer Support" or "2014 Election Campaign")
-   */
-  friendlyName?: string;
-}
-
-interface WorkspaceListPageOptions extends PageOptions<WorkspacePage> {
-  /**
-   * Filter by a workspace's friendly name. This is a human readable description of this Workspace (for example "Customer Support" or "2014 Election Campaign")
-   */
-  friendlyName?: string;
-}
-
-interface WorkspaceListCreateOptions {
-  /**
-   * If provided, the Workspace will publish events to this URL. You can use this to gather data for reporting. See Workspace Events for more information.
-   */
-  eventCallbackUrl?: string;
-  /**
-   * Use this parameter to receive webhooks on EventCallbackUrl for specific events on a workspace. For example if 'EventsFilter=task.created,task.canceled,worker.activity.update', then TaskRouter will webhook to EventCallbackUrl only when a task is created, canceled or a worker activity is updated.
-   */
-  eventsFilter?: string;
-  /**
-   * Human readable description of this workspace (for example "Customer Support" or "2014 Election Campaign")
-   */
-  friendlyName: string;
-  /**
-   * Multi tasking allows workers to handle multiple tasks simultaneously. When enabled (MultiTaskEnabled=true), each worker will be eligible to receive parallel reservations up to the per-channel maximums defined in the Workers section. Default is disabled (MultiTaskEnabled=false), where each worker will only receive a new reservation when the previous task is completed. Learn more by visiting [Multitasking][/docs/taskrouter/multitasking].
-   */
-  multiTaskEnabled?: boolean;
-  /**
-   * Use this parameter to configure whether to prioritize LIFO or FIFO when workers are receiving Tasks from combination of LIFO and FIFO TaskQueues. Default is FIFO. [Click here][/docs/taskrouter/queue-ordering-last-first-out-lifo] to learn more about LIFO and the use of the parameter.
-   */
-  prioritizeQueueOrder?: WorkspaceQueueOrder;
-  /**
-   * One of the available template names. Will pre-configure this Workspace with the Workflow and Activities specified in the template. "NONE" will create a Workspace with a set of default activities and nothing else. "FIFO" will configure TaskRouter with a set of default activities and a single task queue for first-in, first-out distribution, useful if you want to see a simple TaskRouter configuration when getting started. Defaults to "NONE".
-   */
-  template?: string;
-}
-
-interface WorkspaceListInstance {
-  /**
-   * Gets context of a single Workspace resource
-   *
-   * @param sid - The sid
-   */
-  (sid: string): WorkspaceContext;
-  /**
-   * create a WorkspaceInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed WorkspaceInstance
-   */
-  create(opts: WorkspaceListCreateOptions): Promise<WorkspaceInstance>;
-  /**
-   * create a WorkspaceInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: WorkspaceListCreateOptions, callback: (error: Error | null, items: WorkspaceInstance) => any): void;
-  /**
-   * Streams WorkspaceInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: WorkspaceListEachOptions): void;
-  /**
-   * Streams WorkspaceInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: WorkspaceInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Workspace resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): WorkspaceContext;
-  /**
-   * Retrieve a single target page of WorkspaceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<WorkspacePage>;
-  /**
-   * Retrieve a single target page of WorkspaceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: WorkspacePage) => any): void;
-  /**
-   * Lists WorkspaceInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: WorkspaceListOptions): Promise<WorkspaceInstance[]>;
-  /**
-   * Lists WorkspaceInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: WorkspaceListOptions, callback: (error: Error | null, items: WorkspaceInstance[]) => any): void;
-  /**
-   * Lists WorkspaceInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: WorkspaceInstance[]) => any): void;
-  /**
-   * Retrieve a single page of WorkspaceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: WorkspaceListPageOptions): Promise<WorkspacePage>;
-  /**
-   * Retrieve a single page of WorkspaceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: WorkspaceListPageOptions, callback: (error: Error | null, items: WorkspacePage) => any): void;
-  /**
-   * Retrieve a single page of WorkspaceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: WorkspacePage) => any): void;
-}
-
-interface WorkspaceListFetchOptions {
-  /**
-   * The ID of the Activity that will be used when new Workers are created in this Workspace.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property defaultActivitySid - The ID of the Activity that will be used when new Workers are created in this Workspace.
+ * @property eventCallbackUrl - The Workspace will publish events to this URL.
+ * @property eventsFilter - Use this parameter to receive webhooks on EventCallbackUrl for specific events on a workspace.
+ * @property friendlyName - Human readable description of this workspace
+ * @property multiTaskEnabled - Enable or Disable Multitasking by passing either true or False with the POST request.
+ * @property timeoutActivitySid - The ID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
+ * @property prioritizeQueueOrder - Use this parameter to configure whether to prioritize LIFO or FIFO when workers are receiving Tasks from combination of LIFO and FIFO TaskQueues.
+ */
+export interface UpdateOptions {
   defaultActivitySid?: string;
-  /**
-   * The Workspace will publish events to this URL. You can use this to gather data for reporting. See [Events][/docs/taskrouter/api/events] for more information.
-   */
   eventCallbackUrl?: string;
-  /**
-   * Use this parameter to receive webhooks on EventCallbackUrl for specific events on a workspace. For example if 'EventsFilter=task.created,task.canceled,worker.activity.update', then TaskRouter will webhook to EventCallbackUrl only when a task is created, canceled or a worker activity is updated.
-   */
   eventsFilter?: string;
-  /**
-   * Human readable description of this workspace (for example "Sales Call Center" or "Customer Support Team")
-   */
   friendlyName?: string;
-  /**
-   * Enable or Disable Multitasking by passing either *true* or *False* with the POST request. Learn more by visiting [Multitasking][/docs/taskrouter/multitasking].
-   */
   multiTaskEnabled?: boolean;
-  /**
-   * Use this parameter to configure whether to prioritize LIFO or FIFO when workers are receiving Tasks from combination of LIFO and FIFO TaskQueues. Default is FIFO. [Click here][/docs/taskrouter/queue-ordering-last-first-out-lifo] to learn more about LIFO and the use of the parameter.
-   */
-  prioritizeQueueOrder?: WorkspaceQueueOrder;
-  /**
-   * The ID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
-   */
+  prioritizeQueueOrder?: workspace.queue_order;
   timeoutActivitySid?: string;
 }
 
-interface WorkspaceListFetchOptions {
-  /**
-   * The ID of the Activity that will be used when new Workers are created in this Workspace.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property defaultActivitySid - The ID of the Activity that will be used when new Workers are created in this Workspace.
+ * @property eventCallbackUrl - The Workspace will publish events to this URL.
+ * @property eventsFilter - Use this parameter to receive webhooks on EventCallbackUrl for specific events on a workspace.
+ * @property friendlyName - Human readable description of this workspace
+ * @property multiTaskEnabled - Enable or Disable Multitasking by passing either true or False with the POST request.
+ * @property timeoutActivitySid - The ID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
+ * @property prioritizeQueueOrder - Use this parameter to configure whether to prioritize LIFO or FIFO when workers are receiving Tasks from combination of LIFO and FIFO TaskQueues.
+ */
+export interface UpdateOptions {
   defaultActivitySid?: string;
-  /**
-   * The Workspace will publish events to this URL. You can use this to gather data for reporting. See [Events][/docs/taskrouter/api/events] for more information.
-   */
   eventCallbackUrl?: string;
-  /**
-   * Use this parameter to receive webhooks on EventCallbackUrl for specific events on a workspace. For example if 'EventsFilter=task.created,task.canceled,worker.activity.update', then TaskRouter will webhook to EventCallbackUrl only when a task is created, canceled or a worker activity is updated.
-   */
   eventsFilter?: string;
-  /**
-   * Human readable description of this workspace (for example "Sales Call Center" or "Customer Support Team")
-   */
   friendlyName?: string;
-  /**
-   * Enable or Disable Multitasking by passing either *true* or *False* with the POST request. Learn more by visiting [Multitasking][/docs/taskrouter/multitasking].
-   */
   multiTaskEnabled?: boolean;
-  /**
-   * Use this parameter to configure whether to prioritize LIFO or FIFO when workers are receiving Tasks from combination of LIFO and FIFO TaskQueues. Default is FIFO. [Click here][/docs/taskrouter/queue-ordering-last-first-out-lifo] to learn more about LIFO and the use of the parameter.
-   */
-  prioritizeQueueOrder?: WorkspaceQueueOrder;
-  /**
-   * The ID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
-   */
+  prioritizeQueueOrder?: workspace.queue_order;
   timeoutActivitySid?: string;
 }
 
-declare class WorkspacePage extends Page<V1, WorkspacePayload, WorkspaceResource, WorkspaceInstance> {
-  constructor(version: V1, response: Response<string>, solution: WorkspaceSolution);
+
+declare class WorkspacePage extends Page {
+  /**
+   * @constructor Twilio.Taskrouter.V1.WorkspacePage
+   * @augments Page
+   * @description Initialize the WorkspacePage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Taskrouter.V1, response: object, solution: object);
 
   /**
    * Build an instance of WorkspaceInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Taskrouter.V1.WorkspacePage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: WorkspacePayload): WorkspaceInstance;
+  getInstance(payload: object);
 }
 
-declare class WorkspaceInstance extends SerializableClass {
+declare class WorkspaceInstance {
   /**
+   * @constructor Twilio.Taskrouter.V1.WorkspaceInstance
+   * @description Initialize the WorkspaceContext
+   *
+   * @property accountSid - The ID of the account that owns this Workflow
+   * @property dateCreated - The time the Workspace was created, given as GMT in ISO 8601 format.
+   * @property dateUpdated - The time the Workspace was last updated, given as GMT in ISO 8601 format.
+   * @property defaultActivityName - The human readable name of the default activity.
+   * @property defaultActivitySid - The ID of the Activity that will be used when new Workers are created in this Workspace.
+   * @property eventCallbackUrl - If provided, the Workspace will publish events to this URL.
+   * @property eventsFilter - Use this parameter to receive webhooks on EventCallbackUrl for specific events on a workspace.
+   * @property friendlyName - Filter by a workspace's friendly name.
+   * @property multiTaskEnabled - Multi tasking allows workers to handle multiple tasks simultaneously.
+   * @property sid - The unique ID of the Workspace
+   * @property timeoutActivityName - The human readable name of the timeout activity.
+   * @property timeoutActivitySid - The ID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
+   * @property prioritizeQueueOrder - Use this parameter to configure whether to prioritize LIFO or FIFO when workers are receiving Tasks from combination of LIFO and FIFO TaskQueues.
+   * @property url - The url
+   * @property links - The links
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param sid - The sid
    */
-  constructor(version: V1, payload: WorkspacePayload, sid: string);
+  constructor(version: Twilio.Taskrouter.V1, payload: object, sid: sid);
 
-  private _proxy: WorkspaceContext;
+  _proxy?: WorkspaceContext;
   /**
-   * The ID of the account that owns this Workflow
+   * Access the activities
+   *
+   * @function activities
+   * @memberof Twilio.Taskrouter.V1.WorkspaceInstance
+   * @instance
    */
-  accountSid: string;
-  activities(): ActivityListInstance;
-  cumulativeStatistics(): WorkspaceCumulativeStatisticsListInstance;
+  activities();
   /**
-   * The time the Workspace was created, given as GMT in ISO 8601 format.
+   * Access the cumulativeStatistics
+   *
+   * @function cumulativeStatistics
+   * @memberof Twilio.Taskrouter.V1.WorkspaceInstance
+   * @instance
    */
-  dateCreated: Date;
+  cumulativeStatistics();
   /**
-   * The time the Workspace was last updated, given as GMT in ISO 8601 format.
+   * Access the events
+   *
+   * @function events
+   * @memberof Twilio.Taskrouter.V1.WorkspaceInstance
+   * @instance
    */
-  dateUpdated: Date;
-  /**
-   * The human readable name of the default activity. Read only.
-   */
-  defaultActivityName: string;
-  /**
-   * The ID of the Activity that will be used when new Workers are created in this Workspace.
-   */
-  defaultActivitySid: string;
-  /**
-   * If provided, the Workspace will publish events to this URL. You can use this to gather data for reporting. See Workspace Events for more information.
-   */
-  eventCallbackUrl: string;
-  events(): EventListInstance;
-  /**
-   * Use this parameter to receive webhooks on EventCallbackUrl for specific events on a workspace. For example if 'EventsFilter=task.created,task.canceled,worker.activity.update', then TaskRouter will webhook to EventCallbackUrl only when a task is created, canceled or a worker activity is updated.
-   */
-  eventsFilter: string;
+  events();
   /**
    * fetch a WorkspaceInstance
    *
-   * @returns Promise that resolves to processed WorkspaceInstance
-   */
-  fetch(): Promise<WorkspaceInstance>;
-  /**
-   * fetch a WorkspaceInstance
+   * @function fetch
+   * @memberof Twilio.Taskrouter.V1.WorkspaceInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: WorkspaceInstance) => any): void;
+  fetch(callback?: function);
   /**
-   * Filter by a workspace's friendly name. This is a human readable description of this Workspace (for example "Customer Support" or "2014 Election Campaign")
+   * Access the realTimeStatistics
+   *
+   * @function realTimeStatistics
+   * @memberof Twilio.Taskrouter.V1.WorkspaceInstance
+   * @instance
    */
-  friendlyName: string;
-  /**
-   * The links
-   */
-  links: string;
-  /**
-   * Multi tasking allows workers to handle multiple tasks simultaneously. When enabled (MultiTaskEnabled=true), each worker will be eligible to receive parallel reservations up to the per-channel maximums defined in the Workers section. Default is disabled (MultiTaskEnabled=false), where each worker will only receive a new reservation when the previous task is completed. Learn more by visiting [Multitasking][/docs/taskrouter/multitasking].
-   */
-  multiTaskEnabled: boolean;
-  /**
-   * Use this parameter to configure whether to prioritize LIFO or FIFO when workers are receiving Tasks from combination of LIFO and FIFO TaskQueues. Default is FIFO. [Click here][/docs/taskrouter/queue-ordering-last-first-out-lifo] to learn more about LIFO and the use of the parameter.
-   */
-  prioritizeQueueOrder: WorkspaceQueueOrder;
-  realTimeStatistics(): WorkspaceRealTimeStatisticsListInstance;
+  realTimeStatistics();
   /**
    * remove a WorkspaceInstance
    *
-   * @returns Promise that resolves to processed WorkspaceInstance
-   */
-  remove(): Promise<WorkspaceInstance>;
-  /**
-   * remove a WorkspaceInstance
+   * @function remove
+   * @memberof Twilio.Taskrouter.V1.WorkspaceInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: WorkspaceInstance) => any): void;
+  remove(callback?: function);
   /**
-   * The unique ID of the Workspace
+   * Access the statistics
+   *
+   * @function statistics
+   * @memberof Twilio.Taskrouter.V1.WorkspaceInstance
+   * @instance
    */
-  sid: string;
-  statistics(): WorkspaceStatisticsListInstance;
-  taskChannels(): TaskChannelListInstance;
-  taskQueues(): TaskQueueListInstance;
-  tasks(): TaskListInstance;
+  statistics();
   /**
-   * The human readable name of the timeout activity. Read only.
+   * Access the taskChannels
+   *
+   * @function taskChannels
+   * @memberof Twilio.Taskrouter.V1.WorkspaceInstance
+   * @instance
    */
-  timeoutActivityName: string;
+  taskChannels();
   /**
-   * The ID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
+   * Access the taskQueues
+   *
+   * @function taskQueues
+   * @memberof Twilio.Taskrouter.V1.WorkspaceInstance
+   * @instance
    */
-  timeoutActivitySid: string;
+  taskQueues();
+  /**
+   * Access the tasks
+   *
+   * @function tasks
+   * @memberof Twilio.Taskrouter.V1.WorkspaceInstance
+   * @instance
+   */
+  tasks();
+  /**
+   * Produce a plain JSON object version of the WorkspaceInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Taskrouter.V1.WorkspaceInstance
+   * @instance
+   */
+  toJSON();
   /**
    * update a WorkspaceInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Taskrouter.V1.WorkspaceInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed WorkspaceInstance
-   */
-  update(opts?: WorkspaceListFetchOptions): Promise<WorkspaceInstance>;
-  /**
-   * update a WorkspaceInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: WorkspaceListFetchOptions, callback: (error: Error | null, items: WorkspaceInstance) => any): void;
+  update(opts?: object, callback?: function);
   /**
-   * update a WorkspaceInstance
+   * Access the workers
    *
-   * @param callback - Callback to handle processed record
+   * @function workers
+   * @memberof Twilio.Taskrouter.V1.WorkspaceInstance
+   * @instance
    */
-  update(callback: (error: Error | null, items: WorkspaceInstance) => any): void;
+  workers();
   /**
-   * The url
+   * Access the workflows
+   *
+   * @function workflows
+   * @memberof Twilio.Taskrouter.V1.WorkspaceInstance
+   * @instance
    */
-  url: string;
-  workers(): WorkerListInstance;
-  workflows(): WorkflowListInstance;
+  workflows();
 }
 
 declare class WorkspaceContext {
-  constructor(version: V1, sid: string);
+  /**
+   * @constructor Twilio.Taskrouter.V1.WorkspaceContext
+   * @description Initialize the WorkspaceContext
+   *
+   * @property activities - activities resource
+   * @property events - events resource
+   * @property tasks - tasks resource
+   * @property taskQueues - taskQueues resource
+   * @property workers - workers resource
+   * @property workflows - workflows resource
+   * @property statistics - statistics resource
+   * @property realTimeStatistics - realTimeStatistics resource
+   * @property cumulativeStatistics - cumulativeStatistics resource
+   * @property taskChannels - taskChannels resource
+   *
+   * @param version - Version of the resource
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Taskrouter.V1, sid: sid);
 
-  activities: ActivityListInstance;
-  cumulativeStatistics: WorkspaceCumulativeStatisticsListInstance;
-  events: EventListInstance;
+  activities?: Twilio.Taskrouter.V1.WorkspaceContext.ActivityList;
+  cumulativeStatistics?: Twilio.Taskrouter.V1.WorkspaceContext.WorkspaceCumulativeStatisticsList;
+  events?: Twilio.Taskrouter.V1.WorkspaceContext.EventList;
   /**
    * fetch a WorkspaceInstance
    *
-   * @returns Promise that resolves to processed WorkspaceInstance
-   */
-  fetch(): Promise<WorkspaceInstance>;
-  /**
-   * fetch a WorkspaceInstance
+   * @function fetch
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: WorkspaceInstance) => any): void;
-  realTimeStatistics: WorkspaceRealTimeStatisticsListInstance;
+  fetch(callback?: function);
+  realTimeStatistics?: Twilio.Taskrouter.V1.WorkspaceContext.WorkspaceRealTimeStatisticsList;
   /**
    * remove a WorkspaceInstance
    *
-   * @returns Promise that resolves to processed WorkspaceInstance
-   */
-  remove(): Promise<WorkspaceInstance>;
-  /**
-   * remove a WorkspaceInstance
+   * @function remove
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: WorkspaceInstance) => any): void;
-  statistics: WorkspaceStatisticsListInstance;
-  taskChannels: TaskChannelListInstance;
-  taskQueues: TaskQueueListInstance;
-  tasks: TaskListInstance;
+  remove(callback?: function);
+  statistics?: Twilio.Taskrouter.V1.WorkspaceContext.WorkspaceStatisticsList;
+  taskChannels?: Twilio.Taskrouter.V1.WorkspaceContext.TaskChannelList;
+  taskQueues?: Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueList;
+  tasks?: Twilio.Taskrouter.V1.WorkspaceContext.TaskList;
   /**
    * update a WorkspaceInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext
+   * @instance
    *
-   * @returns Promise that resolves to processed WorkspaceInstance
-   */
-  update(opts?: WorkspaceListFetchOptions): Promise<WorkspaceInstance>;
-  /**
-   * update a WorkspaceInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: WorkspaceListFetchOptions, callback: (error: Error | null, items: WorkspaceInstance) => any): void;
-  /**
-   * update a WorkspaceInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: WorkspaceInstance) => any): void;
-  workers: WorkerListInstance;
-  workflows: WorkflowListInstance;
+  update(opts?: object, callback?: function);
+  workers?: Twilio.Taskrouter.V1.WorkspaceContext.WorkerList;
+  workflows?: Twilio.Taskrouter.V1.WorkspaceContext.WorkflowList;
 }
 
-export { WorkspaceContext, WorkspaceInstance, WorkspaceList, WorkspaceListCreateOptions, WorkspaceListEachOptions, WorkspaceListFetchOptions, WorkspaceListInstance, WorkspaceListOptions, WorkspaceListPageOptions, WorkspacePage, WorkspacePayload, WorkspaceQueueOrder, WorkspaceResource, WorkspaceSolution }
+export { WorkspaceContext, WorkspaceInstance, WorkspaceList, WorkspacePage }

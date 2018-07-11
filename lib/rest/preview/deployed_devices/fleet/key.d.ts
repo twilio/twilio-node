@@ -5,400 +5,168 @@
  *       /       /
  */
 
-import DeployedDevices = require('../../DeployedDevices');
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { SerializableClass } from '../../../../interfaces';
+import deserialize = require('../../../../base/deserialize');
+import values = require('../../../../base/values');
 
-declare function KeyList(version: DeployedDevices, fleetSid: string): KeyListInstance
 
-interface KeyResource {
-  /**
-   * Specifies the unique string identifier of the Account responsible for this Key credential.
-   */
-  account_sid: string;
-  /**
-   * Specifies the date this Key credential was created, given in UTC ISO 8601 format.
-   */
-  date_created: Date;
-  /**
-   * Specifies the date this Key credential was last updated, given in UTC ISO 8601 format.
-   */
-  date_updated: Date;
-  /**
-   * Specifies the unique string identifier of a Device authenticated with this Key credential.
-   */
-  device_sid: string;
-  /**
-   * Specifies the unique string identifier of the Fleet that the given Key credential belongs to.
-   */
-  fleet_sid: string;
-  /**
-   * Contains a human readable descriptive text for this Key credential, up to 256 characters long.
-   */
-  friendly_name: string;
-  /**
-   * Contains the automatically generated secret belonging to this Key credential, used to authenticate the Device.
-   */
-  secret: string;
-  /**
-   * Contains a 34 character string that uniquely identifies this Key credential resource.
-   */
-  sid: string;
-  /**
-   * Contains an absolute URL for this Key credential resource.
-   */
-  url: string;
-}
-
-interface KeyPayload extends KeyResource, Page.TwilioResponsePayload {
-}
-
-interface KeySolution {
-  fleetSid: string;
-}
-
-interface KeyListCreateOptions {
-  /**
-   * Provides the unique string identifier of an existing Device to become authenticated with this Key credential.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - The human readable description for this Key.
+ * @property deviceSid - The unique identifier of a Key to be authenticated.
+ */
+export interface UpdateOptions {
   deviceSid?: string;
-  /**
-   * Provides a human readable descriptive text for this Key credential, up to 256 characters long.
-   */
   friendlyName?: string;
 }
 
-interface KeyListEachOptions extends ListEachOptions<KeyInstance> {
-  /**
-   * Filters the resulting list of Keys by a unique string identifier of an authenticated Device.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - The human readable description for this Key.
+ * @property deviceSid - The unique identifier of a Key to be authenticated.
+ */
+export interface UpdateOptions {
   deviceSid?: string;
-}
-
-interface KeyListOptions extends ListOptions<KeyInstance> {
-  /**
-   * Filters the resulting list of Keys by a unique string identifier of an authenticated Device.
-   */
-  deviceSid?: string;
-}
-
-interface KeyListPageOptions extends PageOptions<KeyPage> {
-  /**
-   * Filters the resulting list of Keys by a unique string identifier of an authenticated Device.
-   */
-  deviceSid?: string;
-}
-
-interface KeyListInstance {
-  /**
-   * Gets context of a single Key resource
-   *
-   * @param sid - A string that uniquely identifies the Key.
-   */
-  (sid: string): KeyContext;
-  /**
-   * create a KeyInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed KeyInstance
-   */
-  create(opts?: KeyListCreateOptions): Promise<KeyInstance>;
-  /**
-   * create a KeyInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: KeyListCreateOptions, callback: (error: Error | null, items: KeyInstance) => any): void;
-  /**
-   * create a KeyInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  create(callback: (error: Error | null, items: KeyInstance) => any): void;
-  /**
-   * Streams KeyInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: KeyListEachOptions): void;
-  /**
-   * Streams KeyInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: KeyInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Key resource
-   *
-   * @param sid - A string that uniquely identifies the Key.
-   */
-  get(sid: string): KeyContext;
-  /**
-   * Retrieve a single target page of KeyInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<KeyPage>;
-  /**
-   * Retrieve a single target page of KeyInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: KeyPage) => any): void;
-  /**
-   * Lists KeyInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: KeyListOptions): Promise<KeyInstance[]>;
-  /**
-   * Lists KeyInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: KeyListOptions, callback: (error: Error | null, items: KeyInstance[]) => any): void;
-  /**
-   * Lists KeyInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: KeyInstance[]) => any): void;
-  /**
-   * Retrieve a single page of KeyInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: KeyListPageOptions): Promise<KeyPage>;
-  /**
-   * Retrieve a single page of KeyInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: KeyListPageOptions, callback: (error: Error | null, items: KeyPage) => any): void;
-  /**
-   * Retrieve a single page of KeyInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: KeyPage) => any): void;
-}
-
-interface KeyListFetchOptions {
-  /**
-   * Provides the unique string identifier of an existing Device to become authenticated with this Key credential.
-   */
-  deviceSid?: string;
-  /**
-   * Provides a human readable descriptive text for this Key credential, up to 256 characters long.
-   */
   friendlyName?: string;
 }
 
-interface KeyListFetchOptions {
-  /**
-   * Provides the unique string identifier of an existing Device to become authenticated with this Key credential.
-   */
-  deviceSid?: string;
-  /**
-   * Provides a human readable descriptive text for this Key credential, up to 256 characters long.
-   */
-  friendlyName?: string;
-}
 
-declare class KeyPage extends Page<DeployedDevices, KeyPayload, KeyResource, KeyInstance> {
-  constructor(version: DeployedDevices, response: Response<string>, solution: KeySolution);
+declare class KeyPage extends Page {
+  /**
+   * @constructor Twilio.Preview.DeployedDevices.FleetContext.KeyPage
+   * @augments Page
+   * @description Initialize the KeyPage
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Preview.DeployedDevices, response: object, solution: object);
 
   /**
    * Build an instance of KeyInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Preview.DeployedDevices.FleetContext.KeyPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: KeyPayload): KeyInstance;
+  getInstance(payload: object);
 }
 
-declare class KeyInstance extends SerializableClass {
+declare class KeyInstance {
   /**
+   * @constructor Twilio.Preview.DeployedDevices.FleetContext.KeyInstance
+   * @description Initialize the KeyContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property sid - A string that uniquely identifies this Key.
+   * @property url - URL of this Key.
+   * @property friendlyName - A human readable description for this Key.
+   * @property fleetSid - The unique identifier of the Fleet.
+   * @property accountSid - The unique SID that identifies this Account.
+   * @property deviceSid - The unique identifier of a mapped Device.
+   * @property secret - The key secret.
+   * @property dateCreated - The date this Key credential was created.
+   * @property dateUpdated - The date this Key credential was updated.
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param fleetSid - The fleet_sid
+   * @param fleetSid - The unique identifier of the Fleet.
    * @param sid - A string that uniquely identifies the Key.
    */
-  constructor(version: DeployedDevices, payload: KeyPayload, fleetSid: string, sid: string);
+  constructor(version: Twilio.Preview.DeployedDevices, payload: object, fleetSid: sid_like, sid: sid);
 
-  private _proxy: KeyContext;
-  /**
-   * Specifies the unique string identifier of the Account responsible for this Key credential.
-   */
-  accountSid: string;
-  /**
-   * Specifies the date this Key credential was created, given in UTC ISO 8601 format.
-   */
-  dateCreated: Date;
-  /**
-   * Specifies the date this Key credential was last updated, given in UTC ISO 8601 format.
-   */
-  dateUpdated: Date;
-  /**
-   * Specifies the unique string identifier of a Device authenticated with this Key credential.
-   */
-  deviceSid: string;
+  _proxy?: KeyContext;
   /**
    * fetch a KeyInstance
    *
-   * @returns Promise that resolves to processed KeyInstance
-   */
-  fetch(): Promise<KeyInstance>;
-  /**
-   * fetch a KeyInstance
+   * @function fetch
+   * @memberof Twilio.Preview.DeployedDevices.FleetContext.KeyInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: KeyInstance) => any): void;
-  /**
-   * Specifies the unique string identifier of the Fleet that the given Key credential belongs to.
-   */
-  fleetSid: string;
-  /**
-   * Contains a human readable descriptive text for this Key credential, up to 256 characters long.
-   */
-  friendlyName: string;
+  fetch(callback?: function);
   /**
    * remove a KeyInstance
    *
-   * @returns Promise that resolves to processed KeyInstance
-   */
-  remove(): Promise<KeyInstance>;
-  /**
-   * remove a KeyInstance
+   * @function remove
+   * @memberof Twilio.Preview.DeployedDevices.FleetContext.KeyInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: KeyInstance) => any): void;
+  remove(callback?: function);
   /**
-   * Contains the automatically generated secret belonging to this Key credential, used to authenticate the Device.
+   * Produce a plain JSON object version of the KeyInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Preview.DeployedDevices.FleetContext.KeyInstance
+   * @instance
    */
-  secret: string;
-  /**
-   * Contains a 34 character string that uniquely identifies this Key credential resource.
-   */
-  sid: string;
+  toJSON();
   /**
    * update a KeyInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Preview.DeployedDevices.FleetContext.KeyInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed KeyInstance
-   */
-  update(opts?: KeyListFetchOptions): Promise<KeyInstance>;
-  /**
-   * update a KeyInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: KeyListFetchOptions, callback: (error: Error | null, items: KeyInstance) => any): void;
-  /**
-   * update a KeyInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: KeyInstance) => any): void;
-  /**
-   * Contains an absolute URL for this Key credential resource.
-   */
-  url: string;
+  update(opts?: object, callback?: function);
 }
 
 declare class KeyContext {
-  constructor(version: DeployedDevices, fleetSid: string, sid: string);
+  /**
+   * @constructor Twilio.Preview.DeployedDevices.FleetContext.KeyContext
+   * @description Initialize the KeyContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @param version - Version of the resource
+   * @param fleetSid - The fleet_sid
+   * @param sid - A string that uniquely identifies the Key.
+   */
+  constructor(version: Twilio.Preview.DeployedDevices, fleetSid: sid_like, sid: sid);
 
   /**
    * fetch a KeyInstance
    *
-   * @returns Promise that resolves to processed KeyInstance
-   */
-  fetch(): Promise<KeyInstance>;
-  /**
-   * fetch a KeyInstance
+   * @function fetch
+   * @memberof Twilio.Preview.DeployedDevices.FleetContext.KeyContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: KeyInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a KeyInstance
    *
-   * @returns Promise that resolves to processed KeyInstance
-   */
-  remove(): Promise<KeyInstance>;
-  /**
-   * remove a KeyInstance
+   * @function remove
+   * @memberof Twilio.Preview.DeployedDevices.FleetContext.KeyContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: KeyInstance) => any): void;
+  remove(callback?: function);
   /**
    * update a KeyInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Preview.DeployedDevices.FleetContext.KeyContext
+   * @instance
    *
-   * @returns Promise that resolves to processed KeyInstance
-   */
-  update(opts?: KeyListFetchOptions): Promise<KeyInstance>;
-  /**
-   * update a KeyInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: KeyListFetchOptions, callback: (error: Error | null, items: KeyInstance) => any): void;
-  /**
-   * update a KeyInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: KeyInstance) => any): void;
+  update(opts?: object, callback?: function);
 }
 
-export { KeyContext, KeyInstance, KeyList, KeyListCreateOptions, KeyListEachOptions, KeyListFetchOptions, KeyListInstance, KeyListOptions, KeyListPageOptions, KeyPage, KeyPayload, KeyResource, KeySolution }
+export { KeyContext, KeyInstance, KeyList, KeyPage }

@@ -6,199 +6,128 @@
  */
 
 import Page = require('../../../base/Page');
-import Response = require('../../../http/response');
-import V1 = require('../V1');
-import { SerializableClass } from '../../../interfaces';
+import serialize = require('../../../base/serialize');
+import values = require('../../../base/values');
 
-declare function PhoneNumberList(version: V1): PhoneNumberListInstance
 
-type PhoneNumberType = 'landline'|'mobile'|'voip';
-
-interface PhoneNumberResource {
-  /**
-   * Results of any Add-ons you have specified using the AddOn parameter in the request, as a JSON dictionary. For the format of the dictionary, refer to Using Add-ons [6](https://www.twilio.com/docs/api/addons) section in the Add-ons documentation.
-   */
-  add_ons: string;
-  /**
-   * String indicating the name of the owner of the phone number. If not available, this will return `null`.
-   */
-  caller_name: string;
-  /**
-   * The carrier
-   */
-  carrier: string;
-  /**
-   * The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) for the phone number.
-   */
-  country_code: string;
-  /**
-   * The phone number, in national format.
-   */
-  national_format: string;
-  /**
-   * The phone number, in [E.164](https://www.twilio.com/docs/api/rest/response#phone-numbers) format (i.e. "+1").
-   */
-  phone_number: string;
-  /**
-   * The url
-   */
-  url: string;
-}
-
-interface PhoneNumberPayload extends PhoneNumberResource, Page.TwilioResponsePayload {
-}
-
-interface PhoneNumberSolution {
-}
-
-interface PhoneNumberListInstance {
-  /**
-   * Gets context of a single PhoneNumber resource
-   *
-   * @param phoneNumber - The phone_number
-   */
-  (phoneNumber: string): PhoneNumberContext;
-  /**
-   * Gets context of a single PhoneNumber resource
-   *
-   * @param phoneNumber - The phone_number
-   */
-  get(phoneNumber: string): PhoneNumberContext;
-}
-
-interface PhoneNumberListFetchOptions {
-  /**
-   * Indicates the particular Add-on you would like to use to get more information. Possible values are the *Add-on Unique Names* of Add-ons installed on your account. You can specify multiple instances of this parameter to invoke different Add-ons. See [Add-ons documentation](https://www.twilio.com/docs/api/addons) for information on installing Add-ons. Add-on pricing is available in your list of Installed Add-ons in the Console.
-   */
-  addOns?: string[];
-  /**
-   * The add_ons_data
-   */
+/**
+ * Options to pass to fetch
+ *
+ * @property countryCode - Optional ISO country code of the phone number.
+ * @property type - Indicates the type of information you would like returned with your request.
+ * @property addOns - Indicates the particular Add-on you would like to use to get more information.
+ * @property addOnsData - The add_ons_data
+ */
+export interface FetchOptions {
+  addOns?: string|list;
   addOnsData?: object;
-  /**
-   * Optional [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the phone number. This is used to specify the country when the number is provided in a national format.
-   */
   countryCode?: string;
-  /**
-   * Indicates the type of information you would like returned with your request. Possible values are `carrier` or `caller-name`. If not specified, the default is null.  Carrier information costs $0.005 per phone number looked up.  Caller Name information costs $0.01 per phone number looked up, and is currently ONLY available in the US.  You can retrieve both types of information by including two `Type` arguments or making two separate requests.
-   */
-  type?: string[];
+  type?: string|list;
 }
 
-interface PhoneNumberListFetchOptions {
-  /**
-   * Indicates the particular Add-on you would like to use to get more information. Possible values are the *Add-on Unique Names* of Add-ons installed on your account. You can specify multiple instances of this parameter to invoke different Add-ons. See [Add-ons documentation](https://www.twilio.com/docs/api/addons) for information on installing Add-ons. Add-on pricing is available in your list of Installed Add-ons in the Console.
-   */
-  addOns?: string[];
-  /**
-   * The add_ons_data
-   */
+/**
+ * Options to pass to fetch
+ *
+ * @property countryCode - Optional ISO country code of the phone number.
+ * @property type - Indicates the type of information you would like returned with your request.
+ * @property addOns - Indicates the particular Add-on you would like to use to get more information.
+ * @property addOnsData - The add_ons_data
+ */
+export interface FetchOptions {
+  addOns?: string|list;
   addOnsData?: object;
-  /**
-   * Optional [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the phone number. This is used to specify the country when the number is provided in a national format.
-   */
   countryCode?: string;
-  /**
-   * Indicates the type of information you would like returned with your request. Possible values are `carrier` or `caller-name`. If not specified, the default is null.  Carrier information costs $0.005 per phone number looked up.  Caller Name information costs $0.01 per phone number looked up, and is currently ONLY available in the US.  You can retrieve both types of information by including two `Type` arguments or making two separate requests.
-   */
-  type?: string[];
+  type?: string|list;
 }
 
-declare class PhoneNumberPage extends Page<V1, PhoneNumberPayload, PhoneNumberResource, PhoneNumberInstance> {
-  constructor(version: V1, response: Response<string>, solution: PhoneNumberSolution);
+
+declare class PhoneNumberPage extends Page {
+  /**
+   * @constructor Twilio.Lookups.V1.PhoneNumberPage
+   * @augments Page
+   * @description Initialize the PhoneNumberPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Lookups.V1, response: object, solution: object);
 
   /**
    * Build an instance of PhoneNumberInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Lookups.V1.PhoneNumberPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: PhoneNumberPayload): PhoneNumberInstance;
+  getInstance(payload: object);
 }
 
-declare class PhoneNumberInstance extends SerializableClass {
+declare class PhoneNumberInstance {
   /**
+   * @constructor Twilio.Lookups.V1.PhoneNumberInstance
+   * @description Initialize the PhoneNumberContext
+   *
+   * @property callerName - String indicating the name of the owner of the phone number.
+   * @property countryCode - The ISO country code for the phone number.
+   * @property phoneNumber - The phone number, in E.
+   * @property nationalFormat - The phone number, in national format.
+   * @property carrier - The carrier
+   * @property addOns - Results of any Add-ons you have specified using the AddOn parameter in the request, as a JSON dictionary.
+   * @property url - The url
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param phoneNumber - The phone_number
    */
-  constructor(version: V1, payload: PhoneNumberPayload, phoneNumber: string);
+  constructor(version: Twilio.Lookups.V1, payload: object, phoneNumber: phone_number);
 
-  private _proxy: PhoneNumberContext;
-  /**
-   * Results of any Add-ons you have specified using the AddOn parameter in the request, as a JSON dictionary. For the format of the dictionary, refer to Using Add-ons [6](https://www.twilio.com/docs/api/addons) section in the Add-ons documentation.
-   */
-  addOns: string;
-  /**
-   * String indicating the name of the owner of the phone number. If not available, this will return `null`.
-   */
-  callerName: string;
-  /**
-   * The carrier
-   */
-  carrier: string;
-  /**
-   * The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) for the phone number.
-   */
-  countryCode: string;
+  _proxy?: PhoneNumberContext;
   /**
    * fetch a PhoneNumberInstance
    *
-   * @param opts - Options for request
+   * @function fetch
+   * @memberof Twilio.Lookups.V1.PhoneNumberInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed PhoneNumberInstance
-   */
-  fetch(opts?: PhoneNumberListFetchOptions): Promise<PhoneNumberInstance>;
-  /**
-   * fetch a PhoneNumberInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  fetch(opts: PhoneNumberListFetchOptions, callback: (error: Error | null, items: PhoneNumberInstance) => any): void;
+  fetch(opts?: object, callback?: function);
   /**
-   * fetch a PhoneNumberInstance
+   * Produce a plain JSON object version of the PhoneNumberInstance for serialization.
+   * Removes any circular references in the object.
    *
-   * @param callback - Callback to handle processed record
+   * @function toJSON
+   * @memberof Twilio.Lookups.V1.PhoneNumberInstance
+   * @instance
    */
-  fetch(callback: (error: Error | null, items: PhoneNumberInstance) => any): void;
-  /**
-   * The phone number, in national format.
-   */
-  nationalFormat: string;
-  /**
-   * The phone number, in [E.164](https://www.twilio.com/docs/api/rest/response#phone-numbers) format (i.e. "+1").
-   */
-  phoneNumber: string;
-  /**
-   * The url
-   */
-  url: string;
+  toJSON();
 }
 
 declare class PhoneNumberContext {
-  constructor(version: V1, phoneNumber: string);
+  /**
+   * @constructor Twilio.Lookups.V1.PhoneNumberContext
+   * @description Initialize the PhoneNumberContext
+   *
+   * @param version - Version of the resource
+   * @param phoneNumber - The phone_number
+   */
+  constructor(version: Twilio.Lookups.V1, phoneNumber: phone_number);
 
   /**
    * fetch a PhoneNumberInstance
    *
-   * @param opts - Options for request
+   * @function fetch
+   * @memberof Twilio.Lookups.V1.PhoneNumberContext
+   * @instance
    *
-   * @returns Promise that resolves to processed PhoneNumberInstance
-   */
-  fetch(opts?: PhoneNumberListFetchOptions): Promise<PhoneNumberInstance>;
-  /**
-   * fetch a PhoneNumberInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  fetch(opts: PhoneNumberListFetchOptions, callback: (error: Error | null, items: PhoneNumberInstance) => any): void;
-  /**
-   * fetch a PhoneNumberInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  fetch(callback: (error: Error | null, items: PhoneNumberInstance) => any): void;
+  fetch(opts?: object, callback?: function);
 }
 
-export { PhoneNumberContext, PhoneNumberInstance, PhoneNumberList, PhoneNumberListFetchOptions, PhoneNumberListInstance, PhoneNumberPage, PhoneNumberPayload, PhoneNumberResource, PhoneNumberSolution, PhoneNumberType }
+export { PhoneNumberContext, PhoneNumberInstance, PhoneNumberList, PhoneNumberPage }

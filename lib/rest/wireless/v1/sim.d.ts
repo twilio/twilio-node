@@ -6,621 +6,235 @@
  */
 
 import Page = require('../../../base/Page');
-import Response = require('../../../http/response');
-import V1 = require('../V1');
-import { DataSessionListInstance } from './sim/dataSession';
-import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
-import { SerializableClass } from '../../../interfaces';
-import { UsageRecordListInstance } from './sim/usageRecord';
+import deserialize = require('../../../base/deserialize');
+import values = require('../../../base/values');
+import { DataSessionList } from './sim/dataSession';
+import { UsageRecordList } from './sim/usageRecord';
 
-declare function SimList(version: V1): SimListInstance
 
-type SimStatus = 'new'|'ready'|'active'|'suspended'|'deactivated'|'canceled'|'scheduled'|'updating';
-
-interface SimResource {
-  /**
-   * The unique id of the [Account](https://www.twilio.com/docs/api/rest/account) that this Sim belongs to.
-   */
-  account_sid: string;
-  /**
-   * A string representing the HTTP method to use when making a request to `commands_callback_url`.  Can be one of `POST` or `GET`. Defaults to `POST`.
-   */
-  commands_callback_method: string;
-  /**
-   * The URL that will receive a webhook when this Sim originates a machine-to-machine [Command](https://www.twilio.com/docs/api/wireless/rest-api/command). Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
-   */
-  commands_callback_url: string;
-  /**
-   * The date that this resource was created, given as GMT in [ISO 8601](http://www.iso.org/iso/home/standards/iso8601.htm) format.
-   */
-  date_created: Date;
-  /**
-   * The date that this resource was last updated, given as GMT in [ISO 8601](http://www.iso.org/iso/home/standards/iso8601.htm) format.
-   */
-  date_updated: Date;
-  /**
-   * The e_id
-   */
-  e_id: string;
-  /**
-   * A user-provided string that identifies this resource. Non-unique.
-   */
-  friendly_name: string;
-  /**
-   * The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) associated with the SIM.
-   */
-  iccid: string;
-  /**
-   * The ip_address
-   */
-  ip_address: string;
-  /**
-   * Each Sim instance resource supports a few subresources, listed here for convenience.
-   */
-  links: string;
-  /**
-   * The unique ID of the [`Rate Plan`](https://www.twilio.com/docs/api/wireless/rest-api/rate-plan) configured for this Sim.
-   */
-  rate_plan_sid: string;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * The HTTP method Twilio will use when requesting the `sms_fallback_url`. Either `GET` or `POST`.
-   */
-  sms_fallback_method: string;
-  /**
-   * The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by `sms_url`.
-   */
-  sms_fallback_url: string;
-  /**
-   * The HTTP method Twilio will use when requesting the above Url. Either `GET` or `POST`.
-   */
-  sms_method: string;
-  /**
-   * The URL Twilio will request when the SIM-connected device send an SMS that is not a [Command](https://www.twilio.com/docs/api/wireless/rest-api/command).
-   */
-  sms_url: string;
-  /**
-   * A string representing the status of the Sim. May be `new`, `ready`, `active`, `deactivated`, `canceled`, `scheduled` or `updating`. See [Status Values](https://www.twilio.com/docs/api/wireless/rest-api/sim#instance-status-values) for a description of each status.
-   */
-  status: SimStatus;
-  /**
-   * A user-provided string that uniquely identifies this resource as an alternative to the `sid`.
-   */
-  unique_name: string;
-  /**
-   * The URL for this resource.
-   */
-  url: string;
-  /**
-   * The HTTP method Twilio will use when requesting the `voice_fallback_url`. Either `GET` or `POST`.
-   */
-  voice_fallback_method: string;
-  /**
-   * The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by `voice_url`.
-   */
-  voice_fallback_url: string;
-  /**
-   * The HTTP method Twilio will use when requesting the above Url. Either `GET` or `POST`.
-   */
-  voice_method: string;
-  /**
-   * The URL Twilio will request when the SIM-connected device makes a call.
-   */
-  voice_url: string;
-}
-
-interface SimPayload extends SimResource, Page.TwilioResponsePayload {
-}
-
-interface SimSolution {
-}
-
-interface SimListEachOptions extends ListEachOptions<SimInstance> {
-  /**
-   * The e_id
-   */
-  eId?: string;
-  /**
-   * Return Sims with this Iccid. Currently this should be a list with maximum size 1.
-   */
-  iccid?: string;
-  /**
-   * Only return Sims with this Rate Plan.
-   */
-  ratePlan?: string;
-  /**
-   * The sim_registration_code
-   */
-  simRegistrationCode?: string;
-  /**
-   * Only return Sims with this status.
-   */
-  status?: SimStatus;
-}
-
-interface SimListOptions extends ListOptions<SimInstance> {
-  /**
-   * The e_id
-   */
-  eId?: string;
-  /**
-   * Return Sims with this Iccid. Currently this should be a list with maximum size 1.
-   */
-  iccid?: string;
-  /**
-   * Only return Sims with this Rate Plan.
-   */
-  ratePlan?: string;
-  /**
-   * The sim_registration_code
-   */
-  simRegistrationCode?: string;
-  /**
-   * Only return Sims with this status.
-   */
-  status?: SimStatus;
-}
-
-interface SimListPageOptions extends PageOptions<SimPage> {
-  /**
-   * The e_id
-   */
-  eId?: string;
-  /**
-   * Return Sims with this Iccid. Currently this should be a list with maximum size 1.
-   */
-  iccid?: string;
-  /**
-   * Only return Sims with this Rate Plan.
-   */
-  ratePlan?: string;
-  /**
-   * The sim_registration_code
-   */
-  simRegistrationCode?: string;
-  /**
-   * Only return Sims with this status.
-   */
-  status?: SimStatus;
-}
-
-interface SimListInstance {
-  /**
-   * Gets context of a single Sim resource
-   *
-   * @param sid - The sid
-   */
-  (sid: string): SimContext;
-  /**
-   * Streams SimInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: SimListEachOptions): void;
-  /**
-   * Streams SimInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: SimInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Sim resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): SimContext;
-  /**
-   * Retrieve a single target page of SimInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<SimPage>;
-  /**
-   * Retrieve a single target page of SimInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: SimPage) => any): void;
-  /**
-   * Lists SimInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: SimListOptions): Promise<SimInstance[]>;
-  /**
-   * Lists SimInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: SimListOptions, callback: (error: Error | null, items: SimInstance[]) => any): void;
-  /**
-   * Lists SimInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: SimInstance[]) => any): void;
-  /**
-   * Retrieve a single page of SimInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: SimListPageOptions): Promise<SimPage>;
-  /**
-   * Retrieve a single page of SimInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: SimListPageOptions, callback: (error: Error | null, items: SimPage) => any): void;
-  /**
-   * Retrieve a single page of SimInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: SimPage) => any): void;
-}
-
-interface SimListFetchOptions {
-  /**
-   * The HTTP method Twilio will use when making a request to the callback URL (valid options are GET or POST). Defaults to POST.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the Sid.
+ * @property callbackMethod - The HTTP method Twilio will use when making a request to the callback URL.
+ * @property callbackUrl - Twilio will make a request to this URL when the Sim has finished updating.
+ * @property friendlyName - A user-provided string that identifies this resource.
+ * @property ratePlan - The Sid or UniqueName of the RatePlan that this Sim should use.
+ * @property status - A string representing the status of the Sim.
+ * @property commandsCallbackMethod - A string representing the HTTP method to use when making a request to CommandsCallbackUrl.
+ * @property commandsCallbackUrl - The URL that will receive a webhook when this Sim originates a Command.
+ * @property smsFallbackMethod - The HTTP method Twilio will use when requesting the sms_fallback_url.
+ * @property smsFallbackUrl - The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by sms_url.
+ * @property smsMethod - The HTTP method Twilio will use when requesting the above Url.
+ * @property smsUrl - The URL Twilio will request when the SIM-connected device sends an SMS message that is not a Command.
+ * @property voiceFallbackMethod - The HTTP method Twilio will use when requesting the voice_fallback_url.
+ * @property voiceFallbackUrl - The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by voice_url.
+ * @property voiceMethod - The HTTP method Twilio will use when requesting the above Url.
+ * @property voiceUrl - The URL Twilio will request when the SIM-connected device makes a call.
+ */
+export interface UpdateOptions {
   callbackMethod?: string;
-  /**
-   * Twilio will make a request to this URL when the Sim has finished updating. In the case of a transition from the Sim's `new` status to its `ready` status, or from any status to its `deactivated` status, you will receive two callbacks. One when the Sim moves to its intermediary status (`ready` or `deactivated`), and a second when it transitions to its final status (`active` or `canceled`).
-   */
   callbackUrl?: string;
-  /**
-   * A string representing the HTTP method to use when making a request to `CommandsCallbackUrl`.  Can be one of `POST` or `GET`. Defaults to `POST`.
-   */
   commandsCallbackMethod?: string;
-  /**
-   * The URL that will receive a webhook when this Sim originates a [Command](https://www.twilio.com/docs/api/wireless/rest-api/command). Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
-   */
   commandsCallbackUrl?: string;
-  /**
-   * A user-provided string that identifies this resource. Non-unique.
-   */
   friendlyName?: string;
-  /**
-   * The Sid or UniqueName of the [RatePlan](https://www.twilio.com/docs/api/wireless/rest-api/rate-plan) that this Sim should use. *Note:* the RatePlan of a Sim can only be modified when the Sim has a `suspended` or `deactivated` status.
-   */
   ratePlan?: string;
-  /**
-   * The HTTP method Twilio will use when requesting the sms_fallback_url. Either `GET` or `POST`.
-   */
   smsFallbackMethod?: string;
-  /**
-   * The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by `sms_url`.
-   */
   smsFallbackUrl?: string;
-  /**
-   * The HTTP method Twilio will use when requesting the above Url. Either `GET` or `POST`.
-   */
   smsMethod?: string;
-  /**
-   * The URL Twilio will request when the SIM-connected device sends an SMS message that is not a [Command](https://www.twilio.com/docs/api/wireless/rest-api/command).
-   */
   smsUrl?: string;
-  /**
-   * A string representing the status of the Sim. Valid options depend on the current state of the Sim, but may include `ready`, `active`, `suspended` or `deactivated`.
-   */
-  status?: SimStatus;
-  /**
-   * A user-provided string that uniquely identifies this resource as an alternative to the `Sid`.
-   */
+  status?: sim.status;
   uniqueName?: string;
-  /**
-   * The HTTP method Twilio will use when requesting the voice_fallback_url. Either `GET` or `POST`.
-   */
   voiceFallbackMethod?: string;
-  /**
-   * The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by `voice_url`.
-   */
   voiceFallbackUrl?: string;
-  /**
-   * The HTTP method Twilio will use when requesting the above Url. Either `GET` or `POST`.
-   */
   voiceMethod?: string;
-  /**
-   * The URL Twilio will request when the SIM-connected device makes a call.
-   */
   voiceUrl?: string;
 }
 
-interface SimListFetchOptions {
-  /**
-   * The HTTP method Twilio will use when making a request to the callback URL (valid options are GET or POST). Defaults to POST.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the Sid.
+ * @property callbackMethod - The HTTP method Twilio will use when making a request to the callback URL.
+ * @property callbackUrl - Twilio will make a request to this URL when the Sim has finished updating.
+ * @property friendlyName - A user-provided string that identifies this resource.
+ * @property ratePlan - The Sid or UniqueName of the RatePlan that this Sim should use.
+ * @property status - A string representing the status of the Sim.
+ * @property commandsCallbackMethod - A string representing the HTTP method to use when making a request to CommandsCallbackUrl.
+ * @property commandsCallbackUrl - The URL that will receive a webhook when this Sim originates a Command.
+ * @property smsFallbackMethod - The HTTP method Twilio will use when requesting the sms_fallback_url.
+ * @property smsFallbackUrl - The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by sms_url.
+ * @property smsMethod - The HTTP method Twilio will use when requesting the above Url.
+ * @property smsUrl - The URL Twilio will request when the SIM-connected device sends an SMS message that is not a Command.
+ * @property voiceFallbackMethod - The HTTP method Twilio will use when requesting the voice_fallback_url.
+ * @property voiceFallbackUrl - The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by voice_url.
+ * @property voiceMethod - The HTTP method Twilio will use when requesting the above Url.
+ * @property voiceUrl - The URL Twilio will request when the SIM-connected device makes a call.
+ */
+export interface UpdateOptions {
   callbackMethod?: string;
-  /**
-   * Twilio will make a request to this URL when the Sim has finished updating. In the case of a transition from the Sim's `new` status to its `ready` status, or from any status to its `deactivated` status, you will receive two callbacks. One when the Sim moves to its intermediary status (`ready` or `deactivated`), and a second when it transitions to its final status (`active` or `canceled`).
-   */
   callbackUrl?: string;
-  /**
-   * A string representing the HTTP method to use when making a request to `CommandsCallbackUrl`.  Can be one of `POST` or `GET`. Defaults to `POST`.
-   */
   commandsCallbackMethod?: string;
-  /**
-   * The URL that will receive a webhook when this Sim originates a [Command](https://www.twilio.com/docs/api/wireless/rest-api/command). Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
-   */
   commandsCallbackUrl?: string;
-  /**
-   * A user-provided string that identifies this resource. Non-unique.
-   */
   friendlyName?: string;
-  /**
-   * The Sid or UniqueName of the [RatePlan](https://www.twilio.com/docs/api/wireless/rest-api/rate-plan) that this Sim should use. *Note:* the RatePlan of a Sim can only be modified when the Sim has a `suspended` or `deactivated` status.
-   */
   ratePlan?: string;
-  /**
-   * The HTTP method Twilio will use when requesting the sms_fallback_url. Either `GET` or `POST`.
-   */
   smsFallbackMethod?: string;
-  /**
-   * The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by `sms_url`.
-   */
   smsFallbackUrl?: string;
-  /**
-   * The HTTP method Twilio will use when requesting the above Url. Either `GET` or `POST`.
-   */
   smsMethod?: string;
-  /**
-   * The URL Twilio will request when the SIM-connected device sends an SMS message that is not a [Command](https://www.twilio.com/docs/api/wireless/rest-api/command).
-   */
   smsUrl?: string;
-  /**
-   * A string representing the status of the Sim. Valid options depend on the current state of the Sim, but may include `ready`, `active`, `suspended` or `deactivated`.
-   */
-  status?: SimStatus;
-  /**
-   * A user-provided string that uniquely identifies this resource as an alternative to the `Sid`.
-   */
+  status?: sim.status;
   uniqueName?: string;
-  /**
-   * The HTTP method Twilio will use when requesting the voice_fallback_url. Either `GET` or `POST`.
-   */
   voiceFallbackMethod?: string;
-  /**
-   * The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by `voice_url`.
-   */
   voiceFallbackUrl?: string;
-  /**
-   * The HTTP method Twilio will use when requesting the above Url. Either `GET` or `POST`.
-   */
   voiceMethod?: string;
-  /**
-   * The URL Twilio will request when the SIM-connected device makes a call.
-   */
   voiceUrl?: string;
 }
 
-declare class SimPage extends Page<V1, SimPayload, SimResource, SimInstance> {
-  constructor(version: V1, response: Response<string>, solution: SimSolution);
+
+declare class SimPage extends Page {
+  /**
+   * @constructor Twilio.Wireless.V1.SimPage
+   * @augments Page
+   * @description Initialize the SimPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Wireless.V1, response: object, solution: object);
 
   /**
    * Build an instance of SimInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Wireless.V1.SimPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: SimPayload): SimInstance;
+  getInstance(payload: object);
 }
 
-declare class SimInstance extends SerializableClass {
+declare class SimInstance {
   /**
+   * @constructor Twilio.Wireless.V1.SimInstance
+   * @description Initialize the SimContext
+   *
+   * @property sid - A 34 character string that uniquely identifies this resource.
+   * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid.
+   * @property accountSid - The unique id of the Account that this Sim belongs to.
+   * @property ratePlanSid - The unique ID of the Rate Plan configured for this Sim.
+   * @property friendlyName - A user-provided string that identifies this resource.
+   * @property iccid - The ICCID associated with the SIM.
+   * @property eId - The e_id
+   * @property status - A string representing the status of the Sim.
+   * @property commandsCallbackUrl - The URL that will receive a webhook when this Sim originates a machine-to-machine Command.
+   * @property commandsCallbackMethod - A string representing the HTTP method to use when making a request to commands_callback_url.
+   * @property smsFallbackMethod - The HTTP method Twilio will use when requesting the sms_fallback_url.
+   * @property smsFallbackUrl - The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by sms_url.
+   * @property smsMethod - The HTTP method Twilio will use when requesting the above Url.
+   * @property smsUrl - The URL Twilio will request when the SIM-connected device send an SMS that is not a Command.
+   * @property voiceFallbackMethod - The HTTP method Twilio will use when requesting the voice_fallback_url.
+   * @property voiceFallbackUrl - The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by voice_url.
+   * @property voiceMethod - The HTTP method Twilio will use when requesting the above Url.
+   * @property voiceUrl - The URL Twilio will request when the SIM-connected device makes a call.
+   * @property dateCreated - The date that this resource was created, given as GMT in ISO 8601 format.
+   * @property dateUpdated - The date that this resource was last updated, given as GMT in ISO 8601 format.
+   * @property url - The URL for this resource.
+   * @property links - Each Sim instance resource supports a few subresources, listed here for convenience.
+   * @property ipAddress - The ip_address
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param sid - The sid
    */
-  constructor(version: V1, payload: SimPayload, sid: string);
+  constructor(version: Twilio.Wireless.V1, payload: object, sid: sid_like);
 
-  private _proxy: SimContext;
+  _proxy?: SimContext;
   /**
-   * The unique id of the [Account](https://www.twilio.com/docs/api/rest/account) that this Sim belongs to.
+   * Access the dataSessions
+   *
+   * @function dataSessions
+   * @memberof Twilio.Wireless.V1.SimInstance
+   * @instance
    */
-  accountSid: string;
-  /**
-   * A string representing the HTTP method to use when making a request to `commands_callback_url`.  Can be one of `POST` or `GET`. Defaults to `POST`.
-   */
-  commandsCallbackMethod: string;
-  /**
-   * The URL that will receive a webhook when this Sim originates a machine-to-machine [Command](https://www.twilio.com/docs/api/wireless/rest-api/command). Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
-   */
-  commandsCallbackUrl: string;
-  dataSessions(): DataSessionListInstance;
-  /**
-   * The date that this resource was created, given as GMT in [ISO 8601](http://www.iso.org/iso/home/standards/iso8601.htm) format.
-   */
-  dateCreated: Date;
-  /**
-   * The date that this resource was last updated, given as GMT in [ISO 8601](http://www.iso.org/iso/home/standards/iso8601.htm) format.
-   */
-  dateUpdated: Date;
-  /**
-   * The e_id
-   */
-  eId: string;
+  dataSessions();
   /**
    * fetch a SimInstance
    *
-   * @returns Promise that resolves to processed SimInstance
-   */
-  fetch(): Promise<SimInstance>;
-  /**
-   * fetch a SimInstance
+   * @function fetch
+   * @memberof Twilio.Wireless.V1.SimInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: SimInstance) => any): void;
+  fetch(callback?: function);
   /**
-   * A user-provided string that identifies this resource. Non-unique.
+   * Produce a plain JSON object version of the SimInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Wireless.V1.SimInstance
+   * @instance
    */
-  friendlyName: string;
-  /**
-   * The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) associated with the SIM.
-   */
-  iccid: string;
-  /**
-   * The ip_address
-   */
-  ipAddress: string;
-  /**
-   * Each Sim instance resource supports a few subresources, listed here for convenience.
-   */
-  links: string;
-  /**
-   * The unique ID of the [`Rate Plan`](https://www.twilio.com/docs/api/wireless/rest-api/rate-plan) configured for this Sim.
-   */
-  ratePlanSid: string;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * The HTTP method Twilio will use when requesting the `sms_fallback_url`. Either `GET` or `POST`.
-   */
-  smsFallbackMethod: string;
-  /**
-   * The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by `sms_url`.
-   */
-  smsFallbackUrl: string;
-  /**
-   * The HTTP method Twilio will use when requesting the above Url. Either `GET` or `POST`.
-   */
-  smsMethod: string;
-  /**
-   * The URL Twilio will request when the SIM-connected device send an SMS that is not a [Command](https://www.twilio.com/docs/api/wireless/rest-api/command).
-   */
-  smsUrl: string;
-  /**
-   * A string representing the status of the Sim. May be `new`, `ready`, `active`, `deactivated`, `canceled`, `scheduled` or `updating`. See [Status Values](https://www.twilio.com/docs/api/wireless/rest-api/sim#instance-status-values) for a description of each status.
-   */
-  status: SimStatus;
-  /**
-   * A user-provided string that uniquely identifies this resource as an alternative to the `sid`.
-   */
-  uniqueName: string;
+  toJSON();
   /**
    * update a SimInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Wireless.V1.SimInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed SimInstance
-   */
-  update(opts?: SimListFetchOptions): Promise<SimInstance>;
-  /**
-   * update a SimInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: SimListFetchOptions, callback: (error: Error | null, items: SimInstance) => any): void;
+  update(opts?: object, callback?: function);
   /**
-   * update a SimInstance
+   * Access the usageRecords
    *
-   * @param callback - Callback to handle processed record
+   * @function usageRecords
+   * @memberof Twilio.Wireless.V1.SimInstance
+   * @instance
    */
-  update(callback: (error: Error | null, items: SimInstance) => any): void;
-  /**
-   * The URL for this resource.
-   */
-  url: string;
-  usageRecords(): UsageRecordListInstance;
-  /**
-   * The HTTP method Twilio will use when requesting the `voice_fallback_url`. Either `GET` or `POST`.
-   */
-  voiceFallbackMethod: string;
-  /**
-   * The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by `voice_url`.
-   */
-  voiceFallbackUrl: string;
-  /**
-   * The HTTP method Twilio will use when requesting the above Url. Either `GET` or `POST`.
-   */
-  voiceMethod: string;
-  /**
-   * The URL Twilio will request when the SIM-connected device makes a call.
-   */
-  voiceUrl: string;
+  usageRecords();
 }
 
 declare class SimContext {
-  constructor(version: V1, sid: string);
+  /**
+   * @constructor Twilio.Wireless.V1.SimContext
+   * @description Initialize the SimContext
+   *
+   * @property usageRecords - usageRecords resource
+   * @property dataSessions - dataSessions resource
+   *
+   * @param version - Version of the resource
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Wireless.V1, sid: sid_like);
 
-  dataSessions: DataSessionListInstance;
+  dataSessions?: Twilio.Wireless.V1.SimContext.DataSessionList;
   /**
    * fetch a SimInstance
    *
-   * @returns Promise that resolves to processed SimInstance
-   */
-  fetch(): Promise<SimInstance>;
-  /**
-   * fetch a SimInstance
+   * @function fetch
+   * @memberof Twilio.Wireless.V1.SimContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: SimInstance) => any): void;
+  fetch(callback?: function);
   /**
    * update a SimInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Wireless.V1.SimContext
+   * @instance
    *
-   * @returns Promise that resolves to processed SimInstance
-   */
-  update(opts?: SimListFetchOptions): Promise<SimInstance>;
-  /**
-   * update a SimInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: SimListFetchOptions, callback: (error: Error | null, items: SimInstance) => any): void;
-  /**
-   * update a SimInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: SimInstance) => any): void;
-  usageRecords: UsageRecordListInstance;
+  update(opts?: object, callback?: function);
+  usageRecords?: Twilio.Wireless.V1.SimContext.UsageRecordList;
 }
 
-export { SimContext, SimInstance, SimList, SimListEachOptions, SimListFetchOptions, SimListInstance, SimListOptions, SimListPageOptions, SimPage, SimPayload, SimResource, SimSolution, SimStatus }
+export { SimContext, SimInstance, SimList, SimPage }

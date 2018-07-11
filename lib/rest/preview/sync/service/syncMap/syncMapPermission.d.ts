@@ -6,345 +6,172 @@
  */
 
 import Page = require('../../../../../base/Page');
-import Response = require('../../../../../http/response');
-import Sync = require('../../../Sync');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../interfaces';
-import { SerializableClass } from '../../../../../interfaces';
+import serialize = require('../../../../../base/serialize');
+import values = require('../../../../../base/values');
 
-declare function SyncMapPermissionList(version: Sync, serviceSid: string, mapSid: string): SyncMapPermissionListInstance
 
-interface SyncMapPermissionResource {
-  /**
-   * The unique SID identifier of the Twilio Account.
-   */
-  account_sid: string;
-  /**
-   * Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer.
-   */
-  identity: string;
-  /**
-   * Boolean flag specifying whether the identity can delete the Sync Map.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property read - Read access.
+ * @property write - Write access.
+ * @property manage - Manage access.
+ */
+export interface UpdateOptions {
   manage: boolean;
-  /**
-   * The unique SID identifier of the Sync Map to which the Permission applies.
-   */
-  map_sid: string;
-  /**
-   * Boolean flag specifying whether the identity can read the Sync Map and its Items.
-   */
   read: boolean;
-  /**
-   * The unique SID identifier of the Sync Service Instance.
-   */
-  service_sid: string;
-  /**
-   * Contains an absolute URL for this Sync Map Permission.
-   */
-  url: string;
-  /**
-   * Boolean flag specifying whether the identity can create, update and delete Items of the Sync Map.
-   */
   write: boolean;
 }
 
-interface SyncMapPermissionPayload extends SyncMapPermissionResource, Page.TwilioResponsePayload {
-}
-
-interface SyncMapPermissionSolution {
-  mapSid: string;
-  serviceSid: string;
-}
-
-interface SyncMapPermissionListEachOptions extends ListEachOptions<SyncMapPermissionInstance> {
-}
-
-interface SyncMapPermissionListOptions extends ListOptions<SyncMapPermissionInstance> {
-}
-
-interface SyncMapPermissionListPageOptions extends PageOptions<SyncMapPermissionPage> {
-}
-
-interface SyncMapPermissionListInstance {
-  /**
-   * Gets context of a single SyncMapPermission resource
-   *
-   * @param identity - Identity of the user to whom the Sync Map Permission applies.
-   */
-  (identity: string): SyncMapPermissionContext;
-  /**
-   * Streams SyncMapPermissionInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: SyncMapPermissionListEachOptions): void;
-  /**
-   * Streams SyncMapPermissionInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: SyncMapPermissionInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single SyncMapPermission resource
-   *
-   * @param identity - Identity of the user to whom the Sync Map Permission applies.
-   */
-  get(identity: string): SyncMapPermissionContext;
-  /**
-   * Retrieve a single target page of SyncMapPermissionInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<SyncMapPermissionPage>;
-  /**
-   * Retrieve a single target page of SyncMapPermissionInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: SyncMapPermissionPage) => any): void;
-  /**
-   * Lists SyncMapPermissionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: SyncMapPermissionListOptions): Promise<SyncMapPermissionInstance[]>;
-  /**
-   * Lists SyncMapPermissionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: SyncMapPermissionListOptions, callback: (error: Error | null, items: SyncMapPermissionInstance[]) => any): void;
-  /**
-   * Lists SyncMapPermissionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: SyncMapPermissionInstance[]) => any): void;
-  /**
-   * Retrieve a single page of SyncMapPermissionInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: SyncMapPermissionListPageOptions): Promise<SyncMapPermissionPage>;
-  /**
-   * Retrieve a single page of SyncMapPermissionInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: SyncMapPermissionListPageOptions, callback: (error: Error | null, items: SyncMapPermissionPage) => any): void;
-  /**
-   * Retrieve a single page of SyncMapPermissionInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: SyncMapPermissionPage) => any): void;
-}
-
-interface SyncMapPermissionListFetchOptions {
-  /**
-   * Boolean flag specifying whether the identity can delete the Sync Map.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property read - Read access.
+ * @property write - Write access.
+ * @property manage - Manage access.
+ */
+export interface UpdateOptions {
   manage: boolean;
-  /**
-   * Boolean flag specifying whether the identity can read the Sync Map.
-   */
   read: boolean;
-  /**
-   * Boolean flag specifying whether the identity can create, update and delete Items of the Sync Map.
-   */
   write: boolean;
 }
 
-interface SyncMapPermissionListFetchOptions {
-  /**
-   * Boolean flag specifying whether the identity can delete the Sync Map.
-   */
-  manage: boolean;
-  /**
-   * Boolean flag specifying whether the identity can read the Sync Map.
-   */
-  read: boolean;
-  /**
-   * Boolean flag specifying whether the identity can create, update and delete Items of the Sync Map.
-   */
-  write: boolean;
-}
 
-declare class SyncMapPermissionPage extends Page<Sync, SyncMapPermissionPayload, SyncMapPermissionResource, SyncMapPermissionInstance> {
-  constructor(version: Sync, response: Response<string>, solution: SyncMapPermissionSolution);
+declare class SyncMapPermissionPage extends Page {
+  /**
+   * @constructor Twilio.Preview.Sync.ServiceContext.SyncMapContext.SyncMapPermissionPage
+   * @augments Page
+   * @description Initialize the SyncMapPermissionPage
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Preview.Sync, response: object, solution: object);
 
   /**
    * Build an instance of SyncMapPermissionInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Preview.Sync.ServiceContext.SyncMapContext.SyncMapPermissionPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: SyncMapPermissionPayload): SyncMapPermissionInstance;
+  getInstance(payload: object);
 }
 
-declare class SyncMapPermissionInstance extends SerializableClass {
+declare class SyncMapPermissionInstance {
   /**
+   * @constructor Twilio.Preview.Sync.ServiceContext.SyncMapContext.SyncMapPermissionInstance
+   * @description Initialize the SyncMapPermissionContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property accountSid - Twilio Account SID.
+   * @property serviceSid - Sync Service Instance SID.
+   * @property mapSid - Sync Map SID.
+   * @property identity - Identity of the user to whom the Sync Map Permission applies.
+   * @property read - Read access.
+   * @property write - Write access.
+   * @property manage - Manage access.
+   * @property url - URL of this Sync Map Permission.
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
+   * @param serviceSid - Sync Service Instance SID.
+   * @param mapSid - Sync Map SID.
+   * @param identity - Identity of the user to whom the Sync Map Permission applies.
+   */
+  constructor(version: Twilio.Preview.Sync, payload: object, serviceSid: sid, mapSid: sid, identity: string);
+
+  _proxy?: SyncMapPermissionContext;
+  /**
+   * fetch a SyncMapPermissionInstance
+   *
+   * @function fetch
+   * @memberof Twilio.Preview.Sync.ServiceContext.SyncMapContext.SyncMapPermissionInstance
+   * @instance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: function);
+  /**
+   * remove a SyncMapPermissionInstance
+   *
+   * @function remove
+   * @memberof Twilio.Preview.Sync.ServiceContext.SyncMapContext.SyncMapPermissionInstance
+   * @instance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: function);
+  /**
+   * Produce a plain JSON object version of the SyncMapPermissionInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Preview.Sync.ServiceContext.SyncMapContext.SyncMapPermissionInstance
+   * @instance
+   */
+  toJSON();
+  /**
+   * update a SyncMapPermissionInstance
+   *
+   * @function update
+   * @memberof Twilio.Preview.Sync.ServiceContext.SyncMapContext.SyncMapPermissionInstance
+   * @instance
+   *
+   * @param opts - ...
+   * @param callback - Callback to handle processed record
+   */
+  update(opts: object, callback?: function);
+}
+
+declare class SyncMapPermissionContext {
+  /**
+   * @constructor Twilio.Preview.Sync.ServiceContext.SyncMapContext.SyncMapPermissionContext
+   * @description Initialize the SyncMapPermissionContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @param version - Version of the resource
    * @param serviceSid - The service_sid
    * @param mapSid - Sync Map SID or unique name.
    * @param identity - Identity of the user to whom the Sync Map Permission applies.
    */
-  constructor(version: Sync, payload: SyncMapPermissionPayload, serviceSid: string, mapSid: string, identity: string);
+  constructor(version: Twilio.Preview.Sync, serviceSid: sid, mapSid: sid_like, identity: string);
 
-  private _proxy: SyncMapPermissionContext;
-  /**
-   * The unique SID identifier of the Twilio Account.
-   */
-  accountSid: string;
   /**
    * fetch a SyncMapPermissionInstance
    *
-   * @returns Promise that resolves to processed SyncMapPermissionInstance
-   */
-  fetch(): Promise<SyncMapPermissionInstance>;
-  /**
-   * fetch a SyncMapPermissionInstance
+   * @function fetch
+   * @memberof Twilio.Preview.Sync.ServiceContext.SyncMapContext.SyncMapPermissionContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: SyncMapPermissionInstance) => any): void;
-  /**
-   * Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer.
-   */
-  identity: string;
-  /**
-   * Boolean flag specifying whether the identity can delete the Sync Map.
-   */
-  manage: boolean;
-  /**
-   * The unique SID identifier of the Sync Map to which the Permission applies.
-   */
-  mapSid: string;
-  /**
-   * Boolean flag specifying whether the identity can read the Sync Map and its Items.
-   */
-  read: boolean;
+  fetch(callback?: function);
   /**
    * remove a SyncMapPermissionInstance
    *
-   * @returns Promise that resolves to processed SyncMapPermissionInstance
-   */
-  remove(): Promise<SyncMapPermissionInstance>;
-  /**
-   * remove a SyncMapPermissionInstance
+   * @function remove
+   * @memberof Twilio.Preview.Sync.ServiceContext.SyncMapContext.SyncMapPermissionContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: SyncMapPermissionInstance) => any): void;
-  /**
-   * The unique SID identifier of the Sync Service Instance.
-   */
-  serviceSid: string;
+  remove(callback?: function);
   /**
    * update a SyncMapPermissionInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Preview.Sync.ServiceContext.SyncMapContext.SyncMapPermissionContext
+   * @instance
    *
-   * @returns Promise that resolves to processed SyncMapPermissionInstance
-   */
-  update(opts: SyncMapPermissionListFetchOptions): Promise<SyncMapPermissionInstance>;
-  /**
-   * update a SyncMapPermissionInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: SyncMapPermissionListFetchOptions, callback: (error: Error | null, items: SyncMapPermissionInstance) => any): void;
-  /**
-   * Contains an absolute URL for this Sync Map Permission.
-   */
-  url: string;
-  /**
-   * Boolean flag specifying whether the identity can create, update and delete Items of the Sync Map.
-   */
-  write: boolean;
+  update(opts: object, callback?: function);
 }
 
-declare class SyncMapPermissionContext {
-  constructor(version: Sync, serviceSid: string, mapSid: string, identity: string);
-
-  /**
-   * fetch a SyncMapPermissionInstance
-   *
-   * @returns Promise that resolves to processed SyncMapPermissionInstance
-   */
-  fetch(): Promise<SyncMapPermissionInstance>;
-  /**
-   * fetch a SyncMapPermissionInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  fetch(callback: (error: Error | null, items: SyncMapPermissionInstance) => any): void;
-  /**
-   * remove a SyncMapPermissionInstance
-   *
-   * @returns Promise that resolves to processed SyncMapPermissionInstance
-   */
-  remove(): Promise<SyncMapPermissionInstance>;
-  /**
-   * remove a SyncMapPermissionInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback: (error: Error | null, items: SyncMapPermissionInstance) => any): void;
-  /**
-   * update a SyncMapPermissionInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed SyncMapPermissionInstance
-   */
-  update(opts: SyncMapPermissionListFetchOptions): Promise<SyncMapPermissionInstance>;
-  /**
-   * update a SyncMapPermissionInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts: SyncMapPermissionListFetchOptions, callback: (error: Error | null, items: SyncMapPermissionInstance) => any): void;
-}
-
-export { SyncMapPermissionContext, SyncMapPermissionInstance, SyncMapPermissionList, SyncMapPermissionListEachOptions, SyncMapPermissionListFetchOptions, SyncMapPermissionListInstance, SyncMapPermissionListOptions, SyncMapPermissionListPageOptions, SyncMapPermissionPage, SyncMapPermissionPayload, SyncMapPermissionResource, SyncMapPermissionSolution }
+export { SyncMapPermissionContext, SyncMapPermissionInstance, SyncMapPermissionList, SyncMapPermissionPage }

@@ -6,344 +6,170 @@
  */
 
 import Page = require('../../../../../base/Page');
-import Response = require('../../../../../http/response');
-import V2010 = require('../../../V2010');
-import { CredentialListInstance } from './credentialList/credential';
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../interfaces';
-import { SerializableClass } from '../../../../../interfaces';
+import deserialize = require('../../../../../base/deserialize');
+import values = require('../../../../../base/values');
+import { CredentialList } from './credentialList/credential';
 
-declare function CredentialListList(version: V2010, accountSid: string): CredentialListListInstance
 
-interface CredentialListResource {
-  /**
-   * The unique id of the [Account](https://www.twilio.com/docs/api/rest/account) that owns this resource.
-   */
-  account_sid: string;
-  /**
-   * The date that this resource was created, given as GMT in [RFC 2822](http://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-   */
-  date_created: Date;
-  /**
-   * The date that this resource was last updated, given as GMT in [RFC 2822](http://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-   */
-  date_updated: Date;
-  /**
-   * A human readable descriptive text that describes the IpAccessControlList, up to 64 characters long.
-   */
-  friendly_name: string;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * The subresource_uris
-   */
-  subresource_uris: string;
-  /**
-   * The URI for this resource, relative to `https://api.twilio.com`.
-   */
-  uri: string;
-}
-
-interface CredentialListPayload extends CredentialListResource, Page.TwilioResponsePayload {
-}
-
-interface CredentialListSolution {
-  accountSid: string;
-}
-
-interface CredentialListListEachOptions extends ListEachOptions<CredentialListInstance> {
-}
-
-interface CredentialListListOptions extends ListOptions<CredentialListInstance> {
-}
-
-interface CredentialListListPageOptions extends PageOptions<CredentialListPage> {
-}
-
-interface CredentialListListCreateOptions {
-  /**
-   * A human readable descriptive text that describes the IpAccessControlList, up to 64 characters long.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - Human readable descriptive text
+ */
+export interface UpdateOptions {
   friendlyName: string;
 }
 
-interface CredentialListListInstance {
-  /**
-   * Gets context of a single CredentialList resource
-   *
-   * @param sid - Fetch by unique credential list Sid
-   */
-  (sid: string): CredentialListContext;
-  /**
-   * create a CredentialListInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed CredentialListInstance
-   */
-  create(opts: CredentialListListCreateOptions): Promise<CredentialListInstance>;
-  /**
-   * create a CredentialListInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: CredentialListListCreateOptions, callback: (error: Error | null, items: CredentialListInstance) => any): void;
-  /**
-   * Streams CredentialListInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: CredentialListListEachOptions): void;
-  /**
-   * Streams CredentialListInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: CredentialListInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single CredentialList resource
-   *
-   * @param sid - Fetch by unique credential list Sid
-   */
-  get(sid: string): CredentialListContext;
-  /**
-   * Retrieve a single target page of CredentialListInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<CredentialListPage>;
-  /**
-   * Retrieve a single target page of CredentialListInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: CredentialListPage) => any): void;
-  /**
-   * Lists CredentialListInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: CredentialListListOptions): Promise<CredentialListInstance[]>;
-  /**
-   * Lists CredentialListInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: CredentialListListOptions, callback: (error: Error | null, items: CredentialListInstance[]) => any): void;
-  /**
-   * Lists CredentialListInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: CredentialListInstance[]) => any): void;
-  /**
-   * Retrieve a single page of CredentialListInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: CredentialListListPageOptions): Promise<CredentialListPage>;
-  /**
-   * Retrieve a single page of CredentialListInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: CredentialListListPageOptions, callback: (error: Error | null, items: CredentialListPage) => any): void;
-  /**
-   * Retrieve a single page of CredentialListInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: CredentialListPage) => any): void;
-}
-
-interface CredentialListListFetchOptions {
-  /**
-   * A human readable descriptive text for a CredentialList, up to 64 characters long.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - Human readable descriptive text
+ */
+export interface UpdateOptions {
   friendlyName: string;
 }
 
-interface CredentialListListFetchOptions {
-  /**
-   * A human readable descriptive text for a CredentialList, up to 64 characters long.
-   */
-  friendlyName: string;
-}
 
-declare class CredentialListPage extends Page<V2010, CredentialListPayload, CredentialListResource, CredentialListInstance> {
-  constructor(version: V2010, response: Response<string>, solution: CredentialListSolution);
+declare class CredentialListPage extends Page {
+  /**
+   * @constructor Twilio.Api.V2010.AccountContext.SipContext.CredentialListPage
+   * @augments Page
+   * @description Initialize the CredentialListPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Api.V2010, response: object, solution: object);
 
   /**
    * Build an instance of CredentialListInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Api.V2010.AccountContext.SipContext.CredentialListPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: CredentialListPayload): CredentialListInstance;
+  getInstance(payload: object);
 }
 
-declare class CredentialListInstance extends SerializableClass {
+declare class CredentialListInstance {
   /**
+   * @constructor Twilio.Api.V2010.AccountContext.SipContext.CredentialListInstance
+   * @description Initialize the CredentialListContext
+   *
+   * @property accountSid - The unique sid that identifies this account
+   * @property dateCreated - The date this resource was created
+   * @property dateUpdated - The date this resource was last updated
+   * @property friendlyName - Human readable descriptive text
+   * @property sid - A string that uniquely identifies this credential
+   * @property subresourceUris - The subresource_uris
+   * @property uri - The URI for this resource
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The account_sid
+   * @param accountSid - A 34 character string that uniquely identifies this resource.
    * @param sid - Fetch by unique credential list Sid
    */
-  constructor(version: V2010, payload: CredentialListPayload, accountSid: string, sid: string);
+  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, sid: sid);
 
-  private _proxy: CredentialListContext;
+  _proxy?: CredentialListContext;
   /**
-   * The unique id of the [Account](https://www.twilio.com/docs/api/rest/account) that owns this resource.
+   * Access the credentials
+   *
+   * @function credentials
+   * @memberof Twilio.Api.V2010.AccountContext.SipContext.CredentialListInstance
+   * @instance
    */
-  accountSid: string;
-  credentials(): CredentialListInstance;
-  /**
-   * The date that this resource was created, given as GMT in [RFC 2822](http://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-   */
-  dateCreated: Date;
-  /**
-   * The date that this resource was last updated, given as GMT in [RFC 2822](http://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-   */
-  dateUpdated: Date;
+  credentials();
   /**
    * fetch a CredentialListInstance
    *
-   * @returns Promise that resolves to processed CredentialListInstance
-   */
-  fetch(): Promise<CredentialListInstance>;
-  /**
-   * fetch a CredentialListInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.SipContext.CredentialListInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: CredentialListInstance) => any): void;
-  /**
-   * A human readable descriptive text that describes the IpAccessControlList, up to 64 characters long.
-   */
-  friendlyName: string;
+  fetch(callback?: function);
   /**
    * remove a CredentialListInstance
    *
-   * @returns Promise that resolves to processed CredentialListInstance
-   */
-  remove(): Promise<CredentialListInstance>;
-  /**
-   * remove a CredentialListInstance
+   * @function remove
+   * @memberof Twilio.Api.V2010.AccountContext.SipContext.CredentialListInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: CredentialListInstance) => any): void;
+  remove(callback?: function);
   /**
-   * A 34 character string that uniquely identifies this resource.
+   * Produce a plain JSON object version of the CredentialListInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Api.V2010.AccountContext.SipContext.CredentialListInstance
+   * @instance
    */
-  sid: string;
-  /**
-   * The subresource_uris
-   */
-  subresourceUris: string;
+  toJSON();
   /**
    * update a CredentialListInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Api.V2010.AccountContext.SipContext.CredentialListInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed CredentialListInstance
-   */
-  update(opts: CredentialListListFetchOptions): Promise<CredentialListInstance>;
-  /**
-   * update a CredentialListInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: CredentialListListFetchOptions, callback: (error: Error | null, items: CredentialListInstance) => any): void;
-  /**
-   * The URI for this resource, relative to `https://api.twilio.com`.
-   */
-  uri: string;
+  update(opts: object, callback?: function);
 }
 
 declare class CredentialListContext {
-  constructor(version: V2010, accountSid: string, sid: string);
+  /**
+   * @constructor Twilio.Api.V2010.AccountContext.SipContext.CredentialListContext
+   * @description Initialize the CredentialListContext
+   *
+   * @property credentials - credentials resource
+   *
+   * @param version - Version of the resource
+   * @param accountSid - The account_sid
+   * @param sid - Fetch by unique credential list Sid
+   */
+  constructor(version: Twilio.Api.V2010, accountSid: sid, sid: sid);
 
-  credentials: CredentialListInstance;
+  credentials?: Twilio.Api.V2010.AccountContext.SipContext.CredentialListContext.CredentialList;
   /**
    * fetch a CredentialListInstance
    *
-   * @returns Promise that resolves to processed CredentialListInstance
-   */
-  fetch(): Promise<CredentialListInstance>;
-  /**
-   * fetch a CredentialListInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.SipContext.CredentialListContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: CredentialListInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a CredentialListInstance
    *
-   * @returns Promise that resolves to processed CredentialListInstance
-   */
-  remove(): Promise<CredentialListInstance>;
-  /**
-   * remove a CredentialListInstance
+   * @function remove
+   * @memberof Twilio.Api.V2010.AccountContext.SipContext.CredentialListContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: CredentialListInstance) => any): void;
+  remove(callback?: function);
   /**
    * update a CredentialListInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Api.V2010.AccountContext.SipContext.CredentialListContext
+   * @instance
    *
-   * @returns Promise that resolves to processed CredentialListInstance
-   */
-  update(opts: CredentialListListFetchOptions): Promise<CredentialListInstance>;
-  /**
-   * update a CredentialListInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: CredentialListListFetchOptions, callback: (error: Error | null, items: CredentialListInstance) => any): void;
+  update(opts: object, callback?: function);
 }
 
-export { CredentialListContext, CredentialListInstance, CredentialListList, CredentialListListCreateOptions, CredentialListListEachOptions, CredentialListListFetchOptions, CredentialListListInstance, CredentialListListOptions, CredentialListListPageOptions, CredentialListPage, CredentialListPayload, CredentialListResource, CredentialListSolution }
+export { CredentialListContext, CredentialListInstance, CredentialListList, CredentialListPage }

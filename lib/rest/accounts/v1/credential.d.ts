@@ -5,21 +5,9 @@
  *       /       /
  */
 
-import Page = require('../../../base/Page');
-import V1 = require('../V1');
+import { AwsList } from './credential/aws';
+import { PublicKeyList } from './credential/publicKey';
 
-declare function CredentialList(version: V1): CredentialListInstance
 
-interface CredentialResource {
-}
 
-interface CredentialPayload extends CredentialResource, Page.TwilioResponsePayload {
-}
-
-interface CredentialSolution {
-}
-
-interface CredentialListInstance {
-}
-
-export { CredentialList, CredentialListInstance, CredentialPayload, CredentialResource, CredentialSolution }
+export = CredentialList;

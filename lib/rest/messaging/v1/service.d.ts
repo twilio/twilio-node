@@ -6,622 +6,259 @@
  */
 
 import Page = require('../../../base/Page');
-import Response = require('../../../http/response');
-import V1 = require('../V1');
-import { AlphaSenderListInstance } from './service/alphaSender';
-import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
-import { PhoneNumberListInstance } from './service/phoneNumber';
-import { SerializableClass } from '../../../interfaces';
-import { ShortCodeListInstance } from './service/shortCode';
+import deserialize = require('../../../base/deserialize');
+import serialize = require('../../../base/serialize');
+import values = require('../../../base/values');
+import { AlphaSenderList } from './service/alphaSender';
+import { PhoneNumberList } from './service/phoneNumber';
+import { ShortCodeList } from './service/shortCode';
 
-declare function ServiceList(version: V1): ServiceListInstance
 
-type ServiceScanMessageContent = 'inherit'|'enable'|'disable';
-
-interface ServiceResource {
-  /**
-   * Unique 34 character ID of the Account that created this Service.
-   */
-  account_sid: string;
-  /**
-   * Configuration to enable or disable [Area Code Geomatch](https://www.twilio.com/docs/api/messaging/services-and-copilot#area-code-geomatch) on your Service Instance. Possible values are `true` and `false`.
-   */
-  area_code_geomatch: boolean;
-  /**
-   * The date that this resource was created.
-   */
-  date_created: Date;
-  /**
-   * The date that this resource was last updated.
-   */
-  date_updated: Date;
-  /**
-   * The HTTP method Twilio will use when making requests to the Fallback URL. Possible values include `GET` or `POST`.
-   */
-  fallback_method: string;
-  /**
-   * Configuration to enable or disable [Fallback to Long Code](https://www.twilio.com/docs/api/messaging/services-and-copilot#fallback-to-long-code) for messages sent through your Service instance. Possible values are `true` and `false`.
-   */
-  fallback_to_long_code: boolean;
-  /**
-   * The URL that Twilio will request if an error occurs when retrieving or executing the TwiML from your Inbound Request URL.
-   */
-  fallback_url: string;
-  /**
-   * A human readable descriptive text for this resource, up to 64 characters.
-   */
-  friendly_name: string;
-  /**
-   * The HTTP method Twilio will use when making requests to the Inbound Request URL. Possible values are `GET` or `POST`.
-   */
-  inbound_method: string;
-  /**
-   * The URL Twilio will make a webhook request to when a message is received by any phone number or short code in your Service. When this property is `null` receiving inbound messages is disabled. All messages sent to your Twilio phone number or short code will not be logged and received on your Account.
-   */
-  inbound_request_url: string;
-  /**
-   * The links
-   */
-  links: string;
-  /**
-   * Configuration to enable or disable [MMS Converter](https://www.twilio.com/docs/api/messaging/services-and-copilot#mms-converter) for messages sent through your Service instance. Possible values are `true` and `false`.
-   */
-  mms_converter: boolean;
-  /**
-   * The scan_message_content
-   */
-  scan_message_content: ServiceScanMessageContent;
-  /**
-   * Unique 34 character ID of the Service.
-   */
-  sid: string;
-  /**
-   * Configuration to enable or disable [Smart Encoding](https://www.twilio.com/docs/api/messaging/services-and-copilot#smart-encoding) for messages sent through your Service instance. Possible values are `true` and `false`.
-   */
-  smart_encoding: boolean;
-  /**
-   * The URL Twilio will make a webhook request to when [passing you status updates](https://www.twilio.com/docs/api/messaging/message#message-status-values) about the delivery of your messages.
-   */
-  status_callback: string;
-  /**
-   * Configuration to enable or disable [Sticky Sender](https://www.twilio.com/docs/api/messaging/services-and-copilot#sticky-sender) on your Service instance. Possible values are `true` and `false`.
-   */
-  sticky_sender: boolean;
-  /**
-   * The synchronous_validation
-   */
-  synchronous_validation: boolean;
-  /**
-   * The url
-   */
-  url: string;
-  /**
-   * The number of seconds all messages sent from your Service are valid for. Acceptable integers range from `1` to `14,400`.
-   */
-  validity_period: number;
-}
-
-interface ServicePayload extends ServiceResource, Page.TwilioResponsePayload {
-}
-
-interface ServiceSolution {
-}
-
-interface ServiceListCreateOptions {
-  /**
-   * Configuration to enable or disable [Area Code Geomatch](https://www.twilio.com/docs/api/messaging/services-and-copilot#area-code-geomatch). Possible values are `true` and `false`. Default value is `false`.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - The friendly_name
+ * @property inboundRequestUrl - The inbound_request_url
+ * @property inboundMethod - The inbound_method
+ * @property fallbackUrl - The fallback_url
+ * @property fallbackMethod - The fallback_method
+ * @property statusCallback - The status_callback
+ * @property stickySender - The sticky_sender
+ * @property mmsConverter - The mms_converter
+ * @property smartEncoding - The smart_encoding
+ * @property scanMessageContent - The scan_message_content
+ * @property fallbackToLongCode - The fallback_to_long_code
+ * @property areaCodeGeomatch - The area_code_geomatch
+ * @property validityPeriod - The validity_period
+ * @property synchronousValidation - The synchronous_validation
+ */
+export interface UpdateOptions {
   areaCodeGeomatch?: boolean;
-  /**
-   * The HTTP method used when requesting the Fallback URL. Either `GET` or `POST`. Default value is `POST`.
-   */
   fallbackMethod?: string;
-  /**
-   * Configuration to enable or disable [Fallback to Long Code](https://www.twilio.com/docs/api/messaging/services-and-copilot#fallback-to-long-code). Possible values are `true` and `false`. Default value is `false`.
-   */
   fallbackToLongCode?: boolean;
-  /**
-   * A request is made to the Fallback URL if an error occurs with retrieving or executing the TwiML from you Inbound Request URL.
-   */
   fallbackUrl?: string;
-  /**
-   * A human readable descriptive text for this resource, up to 64 characters.
-   */
-  friendlyName: string;
-  /**
-   * The HTTP method used when making requests to the Inbound Request URL. Either `GET` or `POST`. Default value is `POST`.
-   */
-  inboundMethod?: string;
-  /**
-   * A [webhook request](https://www.twilio.com/docs/api/twiml/sms/twilio_request) is made to the Inbound Request URL when a message is received by any phone number or shortcode associated to your Messaging Service. Set to `null` to disable inbound messaging.
-   */
-  inboundRequestUrl?: string;
-  /**
-   * Configuration to enable or disable MMS Converter on your Service Instance. Possible values are `true` and `false`. Default value is `true`.
-   */
-  mmsConverter?: boolean;
-  /**
-   * The scan_message_content
-   */
-  scanMessageContent?: ServiceScanMessageContent;
-  /**
-   * Configuration to enable or disable [Smart Encoding](https://www.twilio.com/docs/api/messaging/services-and-copilot#smart-encoding). Possible values are `true` and `false`. Default value is `true`.
-   */
-  smartEncoding?: boolean;
-  /**
-   * A webhook request is made to the Status Callback to pass [status updates](https://www.twilio.com/docs/api/rest/message#sms-status-values) about your messages. These status updates let you know if your accepted message were successfully sent and delivered or if a [delivery related error](https://www.twilio.com/docs/api/rest/message#error-values) may have occurred.
-   */
-  statusCallback?: string;
-  /**
-   * Configuration to enable or disable Sticky Sender on your Service Instance. Possible values are `true` and `false`. Default value is `true`.
-   */
-  stickySender?: boolean;
-  /**
-   * The synchronous_validation
-   */
-  synchronousValidation?: boolean;
-  /**
-   * Configuration to set the [validity period](https://www.twilio.com/docs/api/messaging/services-and-copilot#validity-period) of all messages sent from your Service, in seconds. Acceptable integers range from `1` to `14,400`.  Default value is `14,400`.
-   */
-  validityPeriod?: number;
-}
-
-interface ServiceListEachOptions extends ListEachOptions<ServiceInstance> {
-}
-
-interface ServiceListOptions extends ListOptions<ServiceInstance> {
-}
-
-interface ServiceListPageOptions extends PageOptions<ServicePage> {
-}
-
-interface ServiceListInstance {
-  /**
-   * Gets context of a single Service resource
-   *
-   * @param sid - The sid
-   */
-  (sid: string): ServiceContext;
-  /**
-   * create a ServiceInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  create(opts: ServiceListCreateOptions): Promise<ServiceInstance>;
-  /**
-   * create a ServiceInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: ServiceListCreateOptions, callback: (error: Error | null, items: ServiceInstance) => any): void;
-  /**
-   * Streams ServiceInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: ServiceListEachOptions): void;
-  /**
-   * Streams ServiceInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: ServiceInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Service resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): ServiceContext;
-  /**
-   * Retrieve a single target page of ServiceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<ServicePage>;
-  /**
-   * Retrieve a single target page of ServiceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: ServicePage) => any): void;
-  /**
-   * Lists ServiceInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: ServiceListOptions): Promise<ServiceInstance[]>;
-  /**
-   * Lists ServiceInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: ServiceListOptions, callback: (error: Error | null, items: ServiceInstance[]) => any): void;
-  /**
-   * Lists ServiceInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: ServiceInstance[]) => any): void;
-  /**
-   * Retrieve a single page of ServiceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: ServiceListPageOptions): Promise<ServicePage>;
-  /**
-   * Retrieve a single page of ServiceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: ServiceListPageOptions, callback: (error: Error | null, items: ServicePage) => any): void;
-  /**
-   * Retrieve a single page of ServiceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: ServicePage) => any): void;
-}
-
-interface ServiceListFetchOptions {
-  /**
-   * The area_code_geomatch
-   */
-  areaCodeGeomatch?: boolean;
-  /**
-   * The fallback_method
-   */
-  fallbackMethod?: string;
-  /**
-   * The fallback_to_long_code
-   */
-  fallbackToLongCode?: boolean;
-  /**
-   * The fallback_url
-   */
-  fallbackUrl?: string;
-  /**
-   * The friendly_name
-   */
   friendlyName?: string;
-  /**
-   * The inbound_method
-   */
   inboundMethod?: string;
-  /**
-   * The inbound_request_url
-   */
   inboundRequestUrl?: string;
-  /**
-   * The mms_converter
-   */
   mmsConverter?: boolean;
-  /**
-   * The scan_message_content
-   */
-  scanMessageContent?: ServiceScanMessageContent;
-  /**
-   * The smart_encoding
-   */
+  scanMessageContent?: service.scan_message_content;
   smartEncoding?: boolean;
-  /**
-   * The status_callback
-   */
   statusCallback?: string;
-  /**
-   * The sticky_sender
-   */
   stickySender?: boolean;
-  /**
-   * The synchronous_validation
-   */
   synchronousValidation?: boolean;
-  /**
-   * The validity_period
-   */
   validityPeriod?: number;
 }
 
-interface ServiceListFetchOptions {
-  /**
-   * The area_code_geomatch
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - The friendly_name
+ * @property inboundRequestUrl - The inbound_request_url
+ * @property inboundMethod - The inbound_method
+ * @property fallbackUrl - The fallback_url
+ * @property fallbackMethod - The fallback_method
+ * @property statusCallback - The status_callback
+ * @property stickySender - The sticky_sender
+ * @property mmsConverter - The mms_converter
+ * @property smartEncoding - The smart_encoding
+ * @property scanMessageContent - The scan_message_content
+ * @property fallbackToLongCode - The fallback_to_long_code
+ * @property areaCodeGeomatch - The area_code_geomatch
+ * @property validityPeriod - The validity_period
+ * @property synchronousValidation - The synchronous_validation
+ */
+export interface UpdateOptions {
   areaCodeGeomatch?: boolean;
-  /**
-   * The fallback_method
-   */
   fallbackMethod?: string;
-  /**
-   * The fallback_to_long_code
-   */
   fallbackToLongCode?: boolean;
-  /**
-   * The fallback_url
-   */
   fallbackUrl?: string;
-  /**
-   * The friendly_name
-   */
   friendlyName?: string;
-  /**
-   * The inbound_method
-   */
   inboundMethod?: string;
-  /**
-   * The inbound_request_url
-   */
   inboundRequestUrl?: string;
-  /**
-   * The mms_converter
-   */
   mmsConverter?: boolean;
-  /**
-   * The scan_message_content
-   */
-  scanMessageContent?: ServiceScanMessageContent;
-  /**
-   * The smart_encoding
-   */
+  scanMessageContent?: service.scan_message_content;
   smartEncoding?: boolean;
-  /**
-   * The status_callback
-   */
   statusCallback?: string;
-  /**
-   * The sticky_sender
-   */
   stickySender?: boolean;
-  /**
-   * The synchronous_validation
-   */
   synchronousValidation?: boolean;
-  /**
-   * The validity_period
-   */
   validityPeriod?: number;
 }
 
-declare class ServicePage extends Page<V1, ServicePayload, ServiceResource, ServiceInstance> {
-  constructor(version: V1, response: Response<string>, solution: ServiceSolution);
+
+declare class ServicePage extends Page {
+  /**
+   * @constructor Twilio.Messaging.V1.ServicePage
+   * @augments Page
+   * @description Initialize the ServicePage
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Messaging.V1, response: object, solution: object);
 
   /**
    * Build an instance of ServiceInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Messaging.V1.ServicePage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: ServicePayload): ServiceInstance;
+  getInstance(payload: object);
 }
 
-declare class ServiceInstance extends SerializableClass {
+declare class ServiceInstance {
   /**
+   * @constructor Twilio.Messaging.V1.ServiceInstance
+   * @description Initialize the ServiceContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property sid - Unique 34 character ID of the Service.
+   * @property accountSid - Unique 34 character ID of the Account that created this Service.
+   * @property friendlyName - A human readable descriptive text for this resource, up to 64 characters.
+   * @property dateCreated - The date that this resource was created.
+   * @property dateUpdated - The date that this resource was last updated.
+   * @property inboundRequestUrl - The URL Twilio will make a webhook request to when a message is received by any phone number or short code in your Service.
+   * @property inboundMethod - The HTTP method Twilio will use when making requests to the Inbound Request URL.
+   * @property fallbackUrl - The URL that Twilio will request if an error occurs when retrieving or executing the TwiML from your Inbound Request URL.
+   * @property fallbackMethod - The HTTP method Twilio will use when making requests to the Fallback URL.
+   * @property statusCallback - The URL Twilio will make a webhook request to when passing you status updates about the delivery of your messages.
+   * @property stickySender - Configuration to enable or disable Sticky Sender on your Service instance.
+   * @property mmsConverter - Configuration to enable or disable MMS Converter for messages sent through your Service instance.
+   * @property smartEncoding - Configuration to enable or disable Smart Encoding for messages sent through your Service instance.
+   * @property scanMessageContent - The scan_message_content
+   * @property fallbackToLongCode - Configuration to enable or disable Fallback to Long Code for messages sent through your Service instance.
+   * @property areaCodeGeomatch - Configuration to enable or disable Area Code Geomatch on your Service Instance.
+   * @property synchronousValidation - The synchronous_validation
+   * @property validityPeriod - The number of seconds all messages sent from your Service are valid for.
+   * @property url - The url
+   * @property links - The links
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param sid - The sid
    */
-  constructor(version: V1, payload: ServicePayload, sid: string);
+  constructor(version: Twilio.Messaging.V1, payload: object, sid: sid);
 
-  private _proxy: ServiceContext;
+  _proxy?: ServiceContext;
   /**
-   * Unique 34 character ID of the Account that created this Service.
+   * Access the alphaSenders
+   *
+   * @function alphaSenders
+   * @memberof Twilio.Messaging.V1.ServiceInstance
+   * @instance
    */
-  accountSid: string;
-  alphaSenders(): AlphaSenderListInstance;
-  /**
-   * Configuration to enable or disable [Area Code Geomatch](https://www.twilio.com/docs/api/messaging/services-and-copilot#area-code-geomatch) on your Service Instance. Possible values are `true` and `false`.
-   */
-  areaCodeGeomatch: boolean;
-  /**
-   * The date that this resource was created.
-   */
-  dateCreated: Date;
-  /**
-   * The date that this resource was last updated.
-   */
-  dateUpdated: Date;
-  /**
-   * The HTTP method Twilio will use when making requests to the Fallback URL. Possible values include `GET` or `POST`.
-   */
-  fallbackMethod: string;
-  /**
-   * Configuration to enable or disable [Fallback to Long Code](https://www.twilio.com/docs/api/messaging/services-and-copilot#fallback-to-long-code) for messages sent through your Service instance. Possible values are `true` and `false`.
-   */
-  fallbackToLongCode: boolean;
-  /**
-   * The URL that Twilio will request if an error occurs when retrieving or executing the TwiML from your Inbound Request URL.
-   */
-  fallbackUrl: string;
+  alphaSenders();
   /**
    * fetch a ServiceInstance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  fetch(): Promise<ServiceInstance>;
-  /**
-   * fetch a ServiceInstance
+   * @function fetch
+   * @memberof Twilio.Messaging.V1.ServiceInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: ServiceInstance) => any): void;
+  fetch(callback?: function);
   /**
-   * A human readable descriptive text for this resource, up to 64 characters.
+   * Access the phoneNumbers
+   *
+   * @function phoneNumbers
+   * @memberof Twilio.Messaging.V1.ServiceInstance
+   * @instance
    */
-  friendlyName: string;
-  /**
-   * The HTTP method Twilio will use when making requests to the Inbound Request URL. Possible values are `GET` or `POST`.
-   */
-  inboundMethod: string;
-  /**
-   * The URL Twilio will make a webhook request to when a message is received by any phone number or short code in your Service. When this property is `null` receiving inbound messages is disabled. All messages sent to your Twilio phone number or short code will not be logged and received on your Account.
-   */
-  inboundRequestUrl: string;
-  /**
-   * The links
-   */
-  links: string;
-  /**
-   * Configuration to enable or disable [MMS Converter](https://www.twilio.com/docs/api/messaging/services-and-copilot#mms-converter) for messages sent through your Service instance. Possible values are `true` and `false`.
-   */
-  mmsConverter: boolean;
-  phoneNumbers(): PhoneNumberListInstance;
+  phoneNumbers();
   /**
    * remove a ServiceInstance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  remove(): Promise<ServiceInstance>;
-  /**
-   * remove a ServiceInstance
+   * @function remove
+   * @memberof Twilio.Messaging.V1.ServiceInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: ServiceInstance) => any): void;
+  remove(callback?: function);
   /**
-   * The scan_message_content
+   * Access the shortCodes
+   *
+   * @function shortCodes
+   * @memberof Twilio.Messaging.V1.ServiceInstance
+   * @instance
    */
-  scanMessageContent: ServiceScanMessageContent;
-  shortCodes(): ShortCodeListInstance;
+  shortCodes();
   /**
-   * Unique 34 character ID of the Service.
+   * Produce a plain JSON object version of the ServiceInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Messaging.V1.ServiceInstance
+   * @instance
    */
-  sid: string;
-  /**
-   * Configuration to enable or disable [Smart Encoding](https://www.twilio.com/docs/api/messaging/services-and-copilot#smart-encoding) for messages sent through your Service instance. Possible values are `true` and `false`.
-   */
-  smartEncoding: boolean;
-  /**
-   * The URL Twilio will make a webhook request to when [passing you status updates](https://www.twilio.com/docs/api/messaging/message#message-status-values) about the delivery of your messages.
-   */
-  statusCallback: string;
-  /**
-   * Configuration to enable or disable [Sticky Sender](https://www.twilio.com/docs/api/messaging/services-and-copilot#sticky-sender) on your Service instance. Possible values are `true` and `false`.
-   */
-  stickySender: boolean;
-  /**
-   * The synchronous_validation
-   */
-  synchronousValidation: boolean;
+  toJSON();
   /**
    * update a ServiceInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Messaging.V1.ServiceInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  update(opts?: ServiceListFetchOptions): Promise<ServiceInstance>;
-  /**
-   * update a ServiceInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: ServiceListFetchOptions, callback: (error: Error | null, items: ServiceInstance) => any): void;
-  /**
-   * update a ServiceInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: ServiceInstance) => any): void;
-  /**
-   * The url
-   */
-  url: string;
-  /**
-   * The number of seconds all messages sent from your Service are valid for. Acceptable integers range from `1` to `14,400`.
-   */
-  validityPeriod: number;
+  update(opts?: object, callback?: function);
 }
 
 declare class ServiceContext {
-  constructor(version: V1, sid: string);
+  /**
+   * @constructor Twilio.Messaging.V1.ServiceContext
+   * @description Initialize the ServiceContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property phoneNumbers - phoneNumbers resource
+   * @property shortCodes - shortCodes resource
+   * @property alphaSenders - alphaSenders resource
+   *
+   * @param version - Version of the resource
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Messaging.V1, sid: sid);
 
-  alphaSenders: AlphaSenderListInstance;
+  alphaSenders?: Twilio.Messaging.V1.ServiceContext.AlphaSenderList;
   /**
    * fetch a ServiceInstance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  fetch(): Promise<ServiceInstance>;
-  /**
-   * fetch a ServiceInstance
+   * @function fetch
+   * @memberof Twilio.Messaging.V1.ServiceContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: ServiceInstance) => any): void;
-  phoneNumbers: PhoneNumberListInstance;
+  fetch(callback?: function);
+  phoneNumbers?: Twilio.Messaging.V1.ServiceContext.PhoneNumberList;
   /**
    * remove a ServiceInstance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  remove(): Promise<ServiceInstance>;
-  /**
-   * remove a ServiceInstance
+   * @function remove
+   * @memberof Twilio.Messaging.V1.ServiceContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: ServiceInstance) => any): void;
-  shortCodes: ShortCodeListInstance;
+  remove(callback?: function);
+  shortCodes?: Twilio.Messaging.V1.ServiceContext.ShortCodeList;
   /**
    * update a ServiceInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Messaging.V1.ServiceContext
+   * @instance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  update(opts?: ServiceListFetchOptions): Promise<ServiceInstance>;
-  /**
-   * update a ServiceInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: ServiceListFetchOptions, callback: (error: Error | null, items: ServiceInstance) => any): void;
-  /**
-   * update a ServiceInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: ServiceInstance) => any): void;
+  update(opts?: object, callback?: function);
 }
 
-export { ServiceContext, ServiceInstance, ServiceList, ServiceListCreateOptions, ServiceListEachOptions, ServiceListFetchOptions, ServiceListInstance, ServiceListOptions, ServiceListPageOptions, ServicePage, ServicePayload, ServiceResource, ServiceScanMessageContent, ServiceSolution }
+export { ServiceContext, ServiceInstance, ServiceList, ServicePage }

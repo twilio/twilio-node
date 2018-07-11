@@ -6,307 +6,155 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V2010 = require('../../V2010');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { SerializableClass } from '../../../../interfaces';
+import deserialize = require('../../../../base/deserialize');
+import values = require('../../../../base/values');
 
-declare function KeyList(version: V2010, accountSid: string): KeyListInstance
 
-interface KeyResource {
-  /**
-   * The date-time this API Key was created, given as a [RFC 2822](http://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) Timestamp.
-   */
-  date_created: Date;
-  /**
-   * The date-time this API Key was most recently updated, given as a  [RFC 2822](http://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) Timestamp.
-   */
-  date_updated: Date;
-  /**
-   * A descriptive string for this resource, chosen by your application, up to 64 characters long.
-   */
-  friendly_name: string;
-  /**
-   * A 34 character string that uniquely identifies this API Key.  You will use this as the basic-auth `user` when authenticating to the API.
-   */
-  sid: string;
-}
-
-interface KeyPayload extends KeyResource, Page.TwilioResponsePayload {
-}
-
-interface KeySolution {
-  accountSid: string;
-}
-
-interface KeyListEachOptions extends ListEachOptions<KeyInstance> {
-}
-
-interface KeyListOptions extends ListOptions<KeyInstance> {
-}
-
-interface KeyListPageOptions extends PageOptions<KeyPage> {
-}
-
-interface KeyListInstance {
-  /**
-   * Gets context of a single Key resource
-   *
-   * @param sid - The sid
-   */
-  (sid: string): KeyContext;
-  /**
-   * Streams KeyInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: KeyListEachOptions): void;
-  /**
-   * Streams KeyInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: KeyInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Key resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): KeyContext;
-  /**
-   * Retrieve a single target page of KeyInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<KeyPage>;
-  /**
-   * Retrieve a single target page of KeyInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: KeyPage) => any): void;
-  /**
-   * Lists KeyInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: KeyListOptions): Promise<KeyInstance[]>;
-  /**
-   * Lists KeyInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: KeyListOptions, callback: (error: Error | null, items: KeyInstance[]) => any): void;
-  /**
-   * Lists KeyInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: KeyInstance[]) => any): void;
-  /**
-   * Retrieve a single page of KeyInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: KeyListPageOptions): Promise<KeyPage>;
-  /**
-   * Retrieve a single page of KeyInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: KeyListPageOptions, callback: (error: Error | null, items: KeyPage) => any): void;
-  /**
-   * Retrieve a single page of KeyInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: KeyPage) => any): void;
-}
-
-interface KeyListFetchOptions {
-  /**
-   * A descriptive string for this resource, chosen by your application, up to 64 characters long.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A descriptive string for this resource, chosen by your application, up to 64 characters long.
+ */
+export interface UpdateOptions {
   friendlyName?: string;
 }
 
-interface KeyListFetchOptions {
-  /**
-   * A descriptive string for this resource, chosen by your application, up to 64 characters long.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A descriptive string for this resource, chosen by your application, up to 64 characters long.
+ */
+export interface UpdateOptions {
   friendlyName?: string;
 }
 
-declare class KeyPage extends Page<V2010, KeyPayload, KeyResource, KeyInstance> {
-  constructor(version: V2010, response: Response<string>, solution: KeySolution);
+
+declare class KeyPage extends Page {
+  /**
+   * @constructor Twilio.Api.V2010.AccountContext.KeyPage
+   * @augments Page
+   * @description Initialize the KeyPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Api.V2010, response: object, solution: object);
 
   /**
    * Build an instance of KeyInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Api.V2010.AccountContext.KeyPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: KeyPayload): KeyInstance;
+  getInstance(payload: object);
 }
 
-declare class KeyInstance extends SerializableClass {
+declare class KeyInstance {
   /**
+   * @constructor Twilio.Api.V2010.AccountContext.KeyInstance
+   * @description Initialize the KeyContext
+   *
+   * @property sid - A 34 character string that uniquely identifies this API Key.
+   * @property friendlyName - A descriptive string for this resource, chosen by your application, up to 64 characters long.
+   * @property dateCreated - The date-time this API Key was created, given as a RFC 2822 Timestamp.
+   * @property dateUpdated - The date-time this API Key was most recently updated, given as a  RFC 2822 Timestamp.
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The account_sid
+   * @param accountSid - A 34 character string that uniquely identifies this resource.
    * @param sid - The sid
    */
-  constructor(version: V2010, payload: KeyPayload, accountSid: string, sid: string);
+  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, sid: sid);
 
-  private _proxy: KeyContext;
-  /**
-   * The date-time this API Key was created, given as a [RFC 2822](http://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) Timestamp.
-   */
-  dateCreated: Date;
-  /**
-   * The date-time this API Key was most recently updated, given as a  [RFC 2822](http://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) Timestamp.
-   */
-  dateUpdated: Date;
+  _proxy?: KeyContext;
   /**
    * fetch a KeyInstance
    *
-   * @returns Promise that resolves to processed KeyInstance
-   */
-  fetch(): Promise<KeyInstance>;
-  /**
-   * fetch a KeyInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.KeyInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: KeyInstance) => any): void;
-  /**
-   * A descriptive string for this resource, chosen by your application, up to 64 characters long.
-   */
-  friendlyName: string;
+  fetch(callback?: function);
   /**
    * remove a KeyInstance
    *
-   * @returns Promise that resolves to processed KeyInstance
-   */
-  remove(): Promise<KeyInstance>;
-  /**
-   * remove a KeyInstance
+   * @function remove
+   * @memberof Twilio.Api.V2010.AccountContext.KeyInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: KeyInstance) => any): void;
+  remove(callback?: function);
   /**
-   * A 34 character string that uniquely identifies this API Key.  You will use this as the basic-auth `user` when authenticating to the API.
+   * Produce a plain JSON object version of the KeyInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Api.V2010.AccountContext.KeyInstance
+   * @instance
    */
-  sid: string;
+  toJSON();
   /**
    * update a KeyInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Api.V2010.AccountContext.KeyInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed KeyInstance
-   */
-  update(opts?: KeyListFetchOptions): Promise<KeyInstance>;
-  /**
-   * update a KeyInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: KeyListFetchOptions, callback: (error: Error | null, items: KeyInstance) => any): void;
-  /**
-   * update a KeyInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: KeyInstance) => any): void;
+  update(opts?: object, callback?: function);
 }
 
 declare class KeyContext {
-  constructor(version: V2010, accountSid: string, sid: string);
+  /**
+   * @constructor Twilio.Api.V2010.AccountContext.KeyContext
+   * @description Initialize the KeyContext
+   *
+   * @param version - Version of the resource
+   * @param accountSid - The account_sid
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Api.V2010, accountSid: sid, sid: sid);
 
   /**
    * fetch a KeyInstance
    *
-   * @returns Promise that resolves to processed KeyInstance
-   */
-  fetch(): Promise<KeyInstance>;
-  /**
-   * fetch a KeyInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.KeyContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: KeyInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a KeyInstance
    *
-   * @returns Promise that resolves to processed KeyInstance
-   */
-  remove(): Promise<KeyInstance>;
-  /**
-   * remove a KeyInstance
+   * @function remove
+   * @memberof Twilio.Api.V2010.AccountContext.KeyContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: KeyInstance) => any): void;
+  remove(callback?: function);
   /**
    * update a KeyInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Api.V2010.AccountContext.KeyContext
+   * @instance
    *
-   * @returns Promise that resolves to processed KeyInstance
-   */
-  update(opts?: KeyListFetchOptions): Promise<KeyInstance>;
-  /**
-   * update a KeyInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: KeyListFetchOptions, callback: (error: Error | null, items: KeyInstance) => any): void;
-  /**
-   * update a KeyInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: KeyInstance) => any): void;
+  update(opts?: object, callback?: function);
 }
 
-export { KeyContext, KeyInstance, KeyList, KeyListEachOptions, KeyListFetchOptions, KeyListInstance, KeyListOptions, KeyListPageOptions, KeyPage, KeyPayload, KeyResource, KeySolution }
+export { KeyContext, KeyInstance, KeyList, KeyPage }

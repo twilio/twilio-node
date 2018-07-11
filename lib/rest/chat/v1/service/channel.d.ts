@@ -6,466 +6,208 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V1 = require('../../V1');
-import { InviteListInstance } from './channel/invite';
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { MemberListInstance } from './channel/member';
-import { MessageListInstance } from './channel/message';
-import { SerializableClass } from '../../../../interfaces';
+import deserialize = require('../../../../base/deserialize');
+import serialize = require('../../../../base/serialize');
+import values = require('../../../../base/values');
+import { InviteList } from './channel/invite';
+import { MemberList } from './channel/member';
+import { MessageList } from './channel/message';
 
-declare function ChannelList(version: V1, serviceSid: string): ChannelListInstance
 
-type ChannelChannelType = 'public'|'private';
-
-interface ChannelResource {
-  /**
-   * The unique id of the [Account][/console] responsible for this channel.
-   */
-  account_sid: string;
-  /**
-   * An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that this will always be `null` for resources returned via LIST GET operations, but will be present for single GET operations.
-   */
-  attributes: string;
-  /**
-   * Identity of the channel's creator. If the channel was created through the API, the value will be `system`
-   */
-  created_by: string;
-  /**
-   * The date that this resource was created.
-   */
-  date_created: Date;
-  /**
-   * The date that this resource was last updated.
-   */
-  date_updated: Date;
-  /**
-   * The human-readable name of this channel.  Optional.
-   */
-  friendly_name: string;
-  /**
-   * Absolute URLs to access the [Members][members] and [Messages][messages] for this channel.
-   */
-  links: string;
-  /**
-   * The members_count
-   */
-  members_count: number;
-  /**
-   * The messages_count
-   */
-  messages_count: number;
-  /**
-   * The unique id of the [Service][service] this channel belongs to.
-   */
-  service_sid: string;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * The visibility of this channel - either `public` or `private`
-   */
-  type: ChannelChannelType;
-  /**
-   * The unique, addressable name of this channel. Optional.
-   */
-  unique_name: string;
-  /**
-   * An absolute URL for this channel.
-   */
-  url: string;
-}
-
-interface ChannelPayload extends ChannelResource, Page.TwilioResponsePayload {
-}
-
-interface ChannelSolution {
-  serviceSid: string;
-}
-
-interface ChannelListCreateOptions {
-  /**
-   * An optional metadata field you can use to store any data you wish. No processing or validation is done on this field.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A human-readable name for the Channel.
+ * @property uniqueName - A unique, addressable name for the Channel.
+ * @property attributes - An optional metadata field you can use to store any data you wish.
+ */
+export interface UpdateOptions {
   attributes?: string;
-  /**
-   * A human-readable name for the Channel. Optional.
-   */
   friendlyName?: string;
-  /**
-   * The visibility of the channel - `public` or `private`. Defaults to `public`.
-   */
-  type?: ChannelChannelType;
-  /**
-   * A unique, addressable name for the Channel.  Optional.
-   */
   uniqueName?: string;
 }
 
-interface ChannelListEachOptions extends ListEachOptions<ChannelInstance> {
-  /**
-   * The type
-   */
-  type?: ChannelChannelType[];
-}
-
-interface ChannelListOptions extends ListOptions<ChannelInstance> {
-  /**
-   * The type
-   */
-  type?: ChannelChannelType[];
-}
-
-interface ChannelListPageOptions extends PageOptions<ChannelPage> {
-  /**
-   * The type
-   */
-  type?: ChannelChannelType[];
-}
-
-interface ChannelListInstance {
-  /**
-   * Gets context of a single Channel resource
-   *
-   * @param sid - The sid
-   */
-  (sid: string): ChannelContext;
-  /**
-   * create a ChannelInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed ChannelInstance
-   */
-  create(opts?: ChannelListCreateOptions): Promise<ChannelInstance>;
-  /**
-   * create a ChannelInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: ChannelListCreateOptions, callback: (error: Error | null, items: ChannelInstance) => any): void;
-  /**
-   * create a ChannelInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  create(callback: (error: Error | null, items: ChannelInstance) => any): void;
-  /**
-   * Streams ChannelInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: ChannelListEachOptions): void;
-  /**
-   * Streams ChannelInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: ChannelInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Channel resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): ChannelContext;
-  /**
-   * Retrieve a single target page of ChannelInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<ChannelPage>;
-  /**
-   * Retrieve a single target page of ChannelInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: ChannelPage) => any): void;
-  /**
-   * Lists ChannelInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: ChannelListOptions): Promise<ChannelInstance[]>;
-  /**
-   * Lists ChannelInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: ChannelListOptions, callback: (error: Error | null, items: ChannelInstance[]) => any): void;
-  /**
-   * Lists ChannelInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: ChannelInstance[]) => any): void;
-  /**
-   * Retrieve a single page of ChannelInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: ChannelListPageOptions): Promise<ChannelPage>;
-  /**
-   * Retrieve a single page of ChannelInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: ChannelListPageOptions, callback: (error: Error | null, items: ChannelPage) => any): void;
-  /**
-   * Retrieve a single page of ChannelInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: ChannelPage) => any): void;
-}
-
-interface ChannelListFetchOptions {
-  /**
-   * An optional metadata field you can use to store any data you wish. No processing or validation is done on this field.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A human-readable name for the Channel.
+ * @property uniqueName - A unique, addressable name for the Channel.
+ * @property attributes - An optional metadata field you can use to store any data you wish.
+ */
+export interface UpdateOptions {
   attributes?: string;
-  /**
-   * A human-readable name for the Channel. Optional.
-   */
   friendlyName?: string;
-  /**
-   * A unique, addressable name for the Channel.  Optional.
-   */
   uniqueName?: string;
 }
 
-interface ChannelListFetchOptions {
-  /**
-   * An optional metadata field you can use to store any data you wish. No processing or validation is done on this field.
-   */
-  attributes?: string;
-  /**
-   * A human-readable name for the Channel. Optional.
-   */
-  friendlyName?: string;
-  /**
-   * A unique, addressable name for the Channel.  Optional.
-   */
-  uniqueName?: string;
-}
 
-declare class ChannelPage extends Page<V1, ChannelPayload, ChannelResource, ChannelInstance> {
-  constructor(version: V1, response: Response<string>, solution: ChannelSolution);
+declare class ChannelPage extends Page {
+  /**
+   * @constructor Twilio.Chat.V1.ServiceContext.ChannelPage
+   * @augments Page
+   * @description Initialize the ChannelPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Chat.V1, response: object, solution: object);
 
   /**
    * Build an instance of ChannelInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Chat.V1.ServiceContext.ChannelPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: ChannelPayload): ChannelInstance;
+  getInstance(payload: object);
 }
 
-declare class ChannelInstance extends SerializableClass {
+declare class ChannelInstance {
   /**
+   * @constructor Twilio.Chat.V1.ServiceContext.ChannelInstance
+   * @description Initialize the ChannelContext
+   *
+   * @property sid - A 34 character string that uniquely identifies this resource.
+   * @property accountSid - The unique id of the [Account][/console] responsible for this channel.
+   * @property serviceSid - The unique id of the [Service][service] this channel belongs to.
+   * @property friendlyName - The human-readable name of this channel.
+   * @property uniqueName - The unique, addressable name of this channel.
+   * @property attributes - An optional string metadata field you can use to store any data you wish.
+   * @property type - The visibility of this channel - either public or private
+   * @property dateCreated - The date that this resource was created.
+   * @property dateUpdated - The date that this resource was last updated.
+   * @property createdBy - Identity of the channel's creator.
+   * @property membersCount - The members_count
+   * @property messagesCount - The messages_count
+   * @property url - An absolute URL for this channel.
+   * @property links - Absolute URLs to access the [Members][members] and [Messages][messages] for this channel.
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The service_sid
+   * @param serviceSid - The unique id of the [Service][service] this channel belongs to.
    * @param sid - The sid
    */
-  constructor(version: V1, payload: ChannelPayload, serviceSid: string, sid: string);
+  constructor(version: Twilio.Chat.V1, payload: object, serviceSid: sid, sid: sid_like);
 
-  private _proxy: ChannelContext;
-  /**
-   * The unique id of the [Account][/console] responsible for this channel.
-   */
-  accountSid: string;
-  /**
-   * An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that this will always be `null` for resources returned via LIST GET operations, but will be present for single GET operations.
-   */
-  attributes: string;
-  /**
-   * Identity of the channel's creator. If the channel was created through the API, the value will be `system`
-   */
-  createdBy: string;
-  /**
-   * The date that this resource was created.
-   */
-  dateCreated: Date;
-  /**
-   * The date that this resource was last updated.
-   */
-  dateUpdated: Date;
+  _proxy?: ChannelContext;
   /**
    * fetch a ChannelInstance
    *
-   * @returns Promise that resolves to processed ChannelInstance
-   */
-  fetch(): Promise<ChannelInstance>;
-  /**
-   * fetch a ChannelInstance
+   * @function fetch
+   * @memberof Twilio.Chat.V1.ServiceContext.ChannelInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: ChannelInstance) => any): void;
+  fetch(callback?: function);
   /**
-   * The human-readable name of this channel.  Optional.
+   * Access the invites
+   *
+   * @function invites
+   * @memberof Twilio.Chat.V1.ServiceContext.ChannelInstance
+   * @instance
    */
-  friendlyName: string;
-  invites(): InviteListInstance;
+  invites();
   /**
-   * Absolute URLs to access the [Members][members] and [Messages][messages] for this channel.
+   * Access the members
+   *
+   * @function members
+   * @memberof Twilio.Chat.V1.ServiceContext.ChannelInstance
+   * @instance
    */
-  links: string;
-  members(): MemberListInstance;
+  members();
   /**
-   * The members_count
+   * Access the messages
+   *
+   * @function messages
+   * @memberof Twilio.Chat.V1.ServiceContext.ChannelInstance
+   * @instance
    */
-  membersCount: number;
-  messages(): MessageListInstance;
-  /**
-   * The messages_count
-   */
-  messagesCount: number;
+  messages();
   /**
    * remove a ChannelInstance
    *
-   * @returns Promise that resolves to processed ChannelInstance
-   */
-  remove(): Promise<ChannelInstance>;
-  /**
-   * remove a ChannelInstance
+   * @function remove
+   * @memberof Twilio.Chat.V1.ServiceContext.ChannelInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: ChannelInstance) => any): void;
+  remove(callback?: function);
   /**
-   * The unique id of the [Service][service] this channel belongs to.
+   * Produce a plain JSON object version of the ChannelInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Chat.V1.ServiceContext.ChannelInstance
+   * @instance
    */
-  serviceSid: string;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * The visibility of this channel - either `public` or `private`
-   */
-  type: ChannelChannelType;
-  /**
-   * The unique, addressable name of this channel. Optional.
-   */
-  uniqueName: string;
+  toJSON();
   /**
    * update a ChannelInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Chat.V1.ServiceContext.ChannelInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed ChannelInstance
-   */
-  update(opts?: ChannelListFetchOptions): Promise<ChannelInstance>;
-  /**
-   * update a ChannelInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: ChannelListFetchOptions, callback: (error: Error | null, items: ChannelInstance) => any): void;
-  /**
-   * update a ChannelInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: ChannelInstance) => any): void;
-  /**
-   * An absolute URL for this channel.
-   */
-  url: string;
+  update(opts?: object, callback?: function);
 }
 
 declare class ChannelContext {
-  constructor(version: V1, serviceSid: string, sid: string);
+  /**
+   * @constructor Twilio.Chat.V1.ServiceContext.ChannelContext
+   * @description Initialize the ChannelContext
+   *
+   * @property members - members resource
+   * @property messages - messages resource
+   * @property invites - invites resource
+   *
+   * @param version - Version of the resource
+   * @param serviceSid - The service_sid
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Chat.V1, serviceSid: sid, sid: sid_like);
 
   /**
    * fetch a ChannelInstance
    *
-   * @returns Promise that resolves to processed ChannelInstance
-   */
-  fetch(): Promise<ChannelInstance>;
-  /**
-   * fetch a ChannelInstance
+   * @function fetch
+   * @memberof Twilio.Chat.V1.ServiceContext.ChannelContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: ChannelInstance) => any): void;
-  invites: InviteListInstance;
-  members: MemberListInstance;
-  messages: MessageListInstance;
+  fetch(callback?: function);
+  invites?: Twilio.Chat.V1.ServiceContext.ChannelContext.InviteList;
+  members?: Twilio.Chat.V1.ServiceContext.ChannelContext.MemberList;
+  messages?: Twilio.Chat.V1.ServiceContext.ChannelContext.MessageList;
   /**
    * remove a ChannelInstance
    *
-   * @returns Promise that resolves to processed ChannelInstance
-   */
-  remove(): Promise<ChannelInstance>;
-  /**
-   * remove a ChannelInstance
+   * @function remove
+   * @memberof Twilio.Chat.V1.ServiceContext.ChannelContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: ChannelInstance) => any): void;
+  remove(callback?: function);
   /**
    * update a ChannelInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Chat.V1.ServiceContext.ChannelContext
+   * @instance
    *
-   * @returns Promise that resolves to processed ChannelInstance
-   */
-  update(opts?: ChannelListFetchOptions): Promise<ChannelInstance>;
-  /**
-   * update a ChannelInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: ChannelListFetchOptions, callback: (error: Error | null, items: ChannelInstance) => any): void;
-  /**
-   * update a ChannelInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: ChannelInstance) => any): void;
+  update(opts?: object, callback?: function);
 }
 
-export { ChannelChannelType, ChannelContext, ChannelInstance, ChannelList, ChannelListCreateOptions, ChannelListEachOptions, ChannelListFetchOptions, ChannelListInstance, ChannelListOptions, ChannelListPageOptions, ChannelPage, ChannelPayload, ChannelResource, ChannelSolution }
+export { ChannelContext, ChannelInstance, ChannelList, ChannelPage }

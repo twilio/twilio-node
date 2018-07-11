@@ -5,398 +5,168 @@
  *       /       /
  */
 
-import DeployedDevices = require('../../DeployedDevices');
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { SerializableClass } from '../../../../interfaces';
+import deserialize = require('../../../../base/deserialize');
+import values = require('../../../../base/values');
 
-declare function CertificateList(version: DeployedDevices, fleetSid: string): CertificateListInstance
 
-interface CertificateResource {
-  /**
-   * Specifies the unique string identifier of the Account responsible for this Certificate credential.
-   */
-  account_sid: string;
-  /**
-   * Specifies the date this Certificate credential was created, given in UTC ISO 8601 format.
-   */
-  date_created: Date;
-  /**
-   * Specifies the date this Certificate credential was last updated, given in UTC ISO 8601 format.
-   */
-  date_updated: Date;
-  /**
-   * Specifies the unique string identifier of a Device authenticated with this Certificate credential.
-   */
-  device_sid: string;
-  /**
-   * Specifies the unique string identifier of the Fleet that the given Certificate credential belongs to.
-   */
-  fleet_sid: string;
-  /**
-   * Contains a human readable descriptive text for this Certificate credential, up to 256 characters long.
-   */
-  friendly_name: string;
-  /**
-   * Contains a 34 character string that uniquely identifies this Certificate credential resource.
-   */
-  sid: string;
-  /**
-   * Contains a unique hash of the payload of this Certificate credential, used to authenticate the Device.
-   */
-  thumbprint: string;
-  /**
-   * Contains an absolute URL for this Certificate credential resource.
-   */
-  url: string;
-}
-
-interface CertificatePayload extends CertificateResource, Page.TwilioResponsePayload {
-}
-
-interface CertificateSolution {
-  fleetSid: string;
-}
-
-interface CertificateListCreateOptions {
-  /**
-   * Provides a URL encoded representation of the public certificate in PEM format.
-   */
-  certificateData: string;
-  /**
-   * Provides the unique string identifier of an existing Device to become authenticated with this Certificate credential.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - The human readable description for this Certificate.
+ * @property deviceSid - The unique identifier of a Device to be authenticated.
+ */
+export interface UpdateOptions {
   deviceSid?: string;
-  /**
-   * Provides a human readable descriptive text for this Certificate credential, up to 256 characters long.
-   */
   friendlyName?: string;
 }
 
-interface CertificateListEachOptions extends ListEachOptions<CertificateInstance> {
-  /**
-   * Filters the resulting list of Certificates by a unique string identifier of an authenticated Device.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - The human readable description for this Certificate.
+ * @property deviceSid - The unique identifier of a Device to be authenticated.
+ */
+export interface UpdateOptions {
   deviceSid?: string;
-}
-
-interface CertificateListOptions extends ListOptions<CertificateInstance> {
-  /**
-   * Filters the resulting list of Certificates by a unique string identifier of an authenticated Device.
-   */
-  deviceSid?: string;
-}
-
-interface CertificateListPageOptions extends PageOptions<CertificatePage> {
-  /**
-   * Filters the resulting list of Certificates by a unique string identifier of an authenticated Device.
-   */
-  deviceSid?: string;
-}
-
-interface CertificateListInstance {
-  /**
-   * Gets context of a single Certificate resource
-   *
-   * @param sid - A string that uniquely identifies the Certificate.
-   */
-  (sid: string): CertificateContext;
-  /**
-   * create a CertificateInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed CertificateInstance
-   */
-  create(opts: CertificateListCreateOptions): Promise<CertificateInstance>;
-  /**
-   * create a CertificateInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: CertificateListCreateOptions, callback: (error: Error | null, items: CertificateInstance) => any): void;
-  /**
-   * Streams CertificateInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: CertificateListEachOptions): void;
-  /**
-   * Streams CertificateInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: CertificateInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Certificate resource
-   *
-   * @param sid - A string that uniquely identifies the Certificate.
-   */
-  get(sid: string): CertificateContext;
-  /**
-   * Retrieve a single target page of CertificateInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<CertificatePage>;
-  /**
-   * Retrieve a single target page of CertificateInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: CertificatePage) => any): void;
-  /**
-   * Lists CertificateInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: CertificateListOptions): Promise<CertificateInstance[]>;
-  /**
-   * Lists CertificateInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: CertificateListOptions, callback: (error: Error | null, items: CertificateInstance[]) => any): void;
-  /**
-   * Lists CertificateInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: CertificateInstance[]) => any): void;
-  /**
-   * Retrieve a single page of CertificateInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: CertificateListPageOptions): Promise<CertificatePage>;
-  /**
-   * Retrieve a single page of CertificateInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: CertificateListPageOptions, callback: (error: Error | null, items: CertificatePage) => any): void;
-  /**
-   * Retrieve a single page of CertificateInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: CertificatePage) => any): void;
-}
-
-interface CertificateListFetchOptions {
-  /**
-   * Provides the unique string identifier of an existing Device to become authenticated with this Certificate credential.
-   */
-  deviceSid?: string;
-  /**
-   * Provides a human readable descriptive text for this Certificate credential, up to 256 characters long.
-   */
   friendlyName?: string;
 }
 
-interface CertificateListFetchOptions {
-  /**
-   * Provides the unique string identifier of an existing Device to become authenticated with this Certificate credential.
-   */
-  deviceSid?: string;
-  /**
-   * Provides a human readable descriptive text for this Certificate credential, up to 256 characters long.
-   */
-  friendlyName?: string;
-}
 
-declare class CertificatePage extends Page<DeployedDevices, CertificatePayload, CertificateResource, CertificateInstance> {
-  constructor(version: DeployedDevices, response: Response<string>, solution: CertificateSolution);
+declare class CertificatePage extends Page {
+  /**
+   * @constructor Twilio.Preview.DeployedDevices.FleetContext.CertificatePage
+   * @augments Page
+   * @description Initialize the CertificatePage
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Preview.DeployedDevices, response: object, solution: object);
 
   /**
    * Build an instance of CertificateInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Preview.DeployedDevices.FleetContext.CertificatePage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: CertificatePayload): CertificateInstance;
+  getInstance(payload: object);
 }
 
-declare class CertificateInstance extends SerializableClass {
+declare class CertificateInstance {
   /**
+   * @constructor Twilio.Preview.DeployedDevices.FleetContext.CertificateInstance
+   * @description Initialize the CertificateContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property sid - A string that uniquely identifies this Certificate.
+   * @property url - URL of this Certificate.
+   * @property friendlyName - A human readable description for this Certificate.
+   * @property fleetSid - The unique identifier of the Fleet.
+   * @property accountSid - The unique SID that identifies this Account.
+   * @property deviceSid - The unique identifier of a mapped Device.
+   * @property thumbprint - A Certificate unique payload hash.
+   * @property dateCreated - The date this Certificate was created.
+   * @property dateUpdated - The date this Certificate was updated.
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param fleetSid - The fleet_sid
+   * @param fleetSid - The unique identifier of the Fleet.
    * @param sid - A string that uniquely identifies the Certificate.
    */
-  constructor(version: DeployedDevices, payload: CertificatePayload, fleetSid: string, sid: string);
+  constructor(version: Twilio.Preview.DeployedDevices, payload: object, fleetSid: sid_like, sid: sid);
 
-  private _proxy: CertificateContext;
-  /**
-   * Specifies the unique string identifier of the Account responsible for this Certificate credential.
-   */
-  accountSid: string;
-  /**
-   * Specifies the date this Certificate credential was created, given in UTC ISO 8601 format.
-   */
-  dateCreated: Date;
-  /**
-   * Specifies the date this Certificate credential was last updated, given in UTC ISO 8601 format.
-   */
-  dateUpdated: Date;
-  /**
-   * Specifies the unique string identifier of a Device authenticated with this Certificate credential.
-   */
-  deviceSid: string;
+  _proxy?: CertificateContext;
   /**
    * fetch a CertificateInstance
    *
-   * @returns Promise that resolves to processed CertificateInstance
-   */
-  fetch(): Promise<CertificateInstance>;
-  /**
-   * fetch a CertificateInstance
+   * @function fetch
+   * @memberof Twilio.Preview.DeployedDevices.FleetContext.CertificateInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: CertificateInstance) => any): void;
-  /**
-   * Specifies the unique string identifier of the Fleet that the given Certificate credential belongs to.
-   */
-  fleetSid: string;
-  /**
-   * Contains a human readable descriptive text for this Certificate credential, up to 256 characters long.
-   */
-  friendlyName: string;
+  fetch(callback?: function);
   /**
    * remove a CertificateInstance
    *
-   * @returns Promise that resolves to processed CertificateInstance
-   */
-  remove(): Promise<CertificateInstance>;
-  /**
-   * remove a CertificateInstance
+   * @function remove
+   * @memberof Twilio.Preview.DeployedDevices.FleetContext.CertificateInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: CertificateInstance) => any): void;
+  remove(callback?: function);
   /**
-   * Contains a 34 character string that uniquely identifies this Certificate credential resource.
+   * Produce a plain JSON object version of the CertificateInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Preview.DeployedDevices.FleetContext.CertificateInstance
+   * @instance
    */
-  sid: string;
-  /**
-   * Contains a unique hash of the payload of this Certificate credential, used to authenticate the Device.
-   */
-  thumbprint: string;
+  toJSON();
   /**
    * update a CertificateInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Preview.DeployedDevices.FleetContext.CertificateInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed CertificateInstance
-   */
-  update(opts?: CertificateListFetchOptions): Promise<CertificateInstance>;
-  /**
-   * update a CertificateInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: CertificateListFetchOptions, callback: (error: Error | null, items: CertificateInstance) => any): void;
-  /**
-   * update a CertificateInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: CertificateInstance) => any): void;
-  /**
-   * Contains an absolute URL for this Certificate credential resource.
-   */
-  url: string;
+  update(opts?: object, callback?: function);
 }
 
 declare class CertificateContext {
-  constructor(version: DeployedDevices, fleetSid: string, sid: string);
+  /**
+   * @constructor Twilio.Preview.DeployedDevices.FleetContext.CertificateContext
+   * @description Initialize the CertificateContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @param version - Version of the resource
+   * @param fleetSid - The fleet_sid
+   * @param sid - A string that uniquely identifies the Certificate.
+   */
+  constructor(version: Twilio.Preview.DeployedDevices, fleetSid: sid_like, sid: sid);
 
   /**
    * fetch a CertificateInstance
    *
-   * @returns Promise that resolves to processed CertificateInstance
-   */
-  fetch(): Promise<CertificateInstance>;
-  /**
-   * fetch a CertificateInstance
+   * @function fetch
+   * @memberof Twilio.Preview.DeployedDevices.FleetContext.CertificateContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: CertificateInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a CertificateInstance
    *
-   * @returns Promise that resolves to processed CertificateInstance
-   */
-  remove(): Promise<CertificateInstance>;
-  /**
-   * remove a CertificateInstance
+   * @function remove
+   * @memberof Twilio.Preview.DeployedDevices.FleetContext.CertificateContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: CertificateInstance) => any): void;
+  remove(callback?: function);
   /**
    * update a CertificateInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Preview.DeployedDevices.FleetContext.CertificateContext
+   * @instance
    *
-   * @returns Promise that resolves to processed CertificateInstance
-   */
-  update(opts?: CertificateListFetchOptions): Promise<CertificateInstance>;
-  /**
-   * update a CertificateInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: CertificateListFetchOptions, callback: (error: Error | null, items: CertificateInstance) => any): void;
-  /**
-   * update a CertificateInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: CertificateInstance) => any): void;
+  update(opts?: object, callback?: function);
 }
 
-export { CertificateContext, CertificateInstance, CertificateList, CertificateListCreateOptions, CertificateListEachOptions, CertificateListFetchOptions, CertificateListInstance, CertificateListOptions, CertificateListPageOptions, CertificatePage, CertificatePayload, CertificateResource, CertificateSolution }
+export { CertificateContext, CertificateInstance, CertificateList, CertificatePage }

@@ -6,333 +6,147 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import Sync = require('../../Sync');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { SerializableClass } from '../../../../interfaces';
-import { SyncMapItemListInstance } from './syncMap/syncMapItem';
-import { SyncMapPermissionListInstance } from './syncMap/syncMapPermission';
+import deserialize = require('../../../../base/deserialize');
+import values = require('../../../../base/values');
+import { SyncMapItemList } from './syncMap/syncMapItem';
+import { SyncMapPermissionList } from './syncMap/syncMapPermission';
 
-declare function SyncMapList(version: Sync, serviceSid: string): SyncMapListInstance
 
-interface SyncMapResource {
-  /**
-   * The account_sid
-   */
-  account_sid: string;
-  /**
-   * The created_by
-   */
-  created_by: string;
-  /**
-   * The date_created
-   */
-  date_created: Date;
-  /**
-   * The date_updated
-   */
-  date_updated: Date;
-  /**
-   * The links
-   */
-  links: string;
-  /**
-   * The revision
-   */
-  revision: string;
-  /**
-   * The service_sid
-   */
-  service_sid: string;
-  /**
-   * The sid
-   */
-  sid: string;
-  /**
-   * The unique_name
-   */
-  unique_name: string;
-  /**
-   * The url
-   */
-  url: string;
-}
 
-interface SyncMapPayload extends SyncMapResource, Page.TwilioResponsePayload {
-}
-
-interface SyncMapSolution {
-  serviceSid: string;
-}
-
-interface SyncMapListCreateOptions {
+declare class SyncMapPage extends Page {
   /**
-   * The unique_name
+   * @constructor Twilio.Preview.Sync.ServiceContext.SyncMapPage
+   * @augments Page
+   * @description Initialize the SyncMapPage
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  uniqueName?: string;
-}
-
-interface SyncMapListEachOptions extends ListEachOptions<SyncMapInstance> {
-}
-
-interface SyncMapListOptions extends ListOptions<SyncMapInstance> {
-}
-
-interface SyncMapListPageOptions extends PageOptions<SyncMapPage> {
-}
-
-interface SyncMapListInstance {
-  /**
-   * Gets context of a single SyncMap resource
-   *
-   * @param sid - The sid
-   */
-  (sid: string): SyncMapContext;
-  /**
-   * create a SyncMapInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed SyncMapInstance
-   */
-  create(opts?: SyncMapListCreateOptions): Promise<SyncMapInstance>;
-  /**
-   * create a SyncMapInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: SyncMapListCreateOptions, callback: (error: Error | null, items: SyncMapInstance) => any): void;
-  /**
-   * create a SyncMapInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  create(callback: (error: Error | null, items: SyncMapInstance) => any): void;
-  /**
-   * Streams SyncMapInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: SyncMapListEachOptions): void;
-  /**
-   * Streams SyncMapInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: SyncMapInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single SyncMap resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): SyncMapContext;
-  /**
-   * Retrieve a single target page of SyncMapInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<SyncMapPage>;
-  /**
-   * Retrieve a single target page of SyncMapInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: SyncMapPage) => any): void;
-  /**
-   * Lists SyncMapInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: SyncMapListOptions): Promise<SyncMapInstance[]>;
-  /**
-   * Lists SyncMapInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: SyncMapListOptions, callback: (error: Error | null, items: SyncMapInstance[]) => any): void;
-  /**
-   * Lists SyncMapInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: SyncMapInstance[]) => any): void;
-  /**
-   * Retrieve a single page of SyncMapInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: SyncMapListPageOptions): Promise<SyncMapPage>;
-  /**
-   * Retrieve a single page of SyncMapInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: SyncMapListPageOptions, callback: (error: Error | null, items: SyncMapPage) => any): void;
-  /**
-   * Retrieve a single page of SyncMapInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: SyncMapPage) => any): void;
-}
-
-declare class SyncMapPage extends Page<Sync, SyncMapPayload, SyncMapResource, SyncMapInstance> {
-  constructor(version: Sync, response: Response<string>, solution: SyncMapSolution);
+  constructor(version: Twilio.Preview.Sync, response: object, solution: object);
 
   /**
    * Build an instance of SyncMapInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Preview.Sync.ServiceContext.SyncMapPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: SyncMapPayload): SyncMapInstance;
+  getInstance(payload: object);
 }
 
-declare class SyncMapInstance extends SerializableClass {
+declare class SyncMapInstance {
   /**
+   * @constructor Twilio.Preview.Sync.ServiceContext.SyncMapInstance
+   * @description Initialize the SyncMapContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property sid - The sid
+   * @property uniqueName - The unique_name
+   * @property accountSid - The account_sid
+   * @property serviceSid - The service_sid
+   * @property url - The url
+   * @property links - The links
+   * @property revision - The revision
+   * @property dateCreated - The date_created
+   * @property dateUpdated - The date_updated
+   * @property createdBy - The created_by
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param serviceSid - The service_sid
    * @param sid - The sid
    */
-  constructor(version: Sync, payload: SyncMapPayload, serviceSid: string, sid: string);
+  constructor(version: Twilio.Preview.Sync, payload: object, serviceSid: sid, sid: sid_like);
 
-  private _proxy: SyncMapContext;
-  /**
-   * The account_sid
-   */
-  accountSid: string;
-  /**
-   * The created_by
-   */
-  createdBy: string;
-  /**
-   * The date_created
-   */
-  dateCreated: Date;
-  /**
-   * The date_updated
-   */
-  dateUpdated: Date;
+  _proxy?: SyncMapContext;
   /**
    * fetch a SyncMapInstance
    *
-   * @returns Promise that resolves to processed SyncMapInstance
-   */
-  fetch(): Promise<SyncMapInstance>;
-  /**
-   * fetch a SyncMapInstance
+   * @function fetch
+   * @memberof Twilio.Preview.Sync.ServiceContext.SyncMapInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: SyncMapInstance) => any): void;
-  /**
-   * The links
-   */
-  links: string;
+  fetch(callback?: function);
   /**
    * remove a SyncMapInstance
    *
-   * @returns Promise that resolves to processed SyncMapInstance
-   */
-  remove(): Promise<SyncMapInstance>;
-  /**
-   * remove a SyncMapInstance
+   * @function remove
+   * @memberof Twilio.Preview.Sync.ServiceContext.SyncMapInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: SyncMapInstance) => any): void;
+  remove(callback?: function);
   /**
-   * The revision
+   * Access the syncMapItems
+   *
+   * @function syncMapItems
+   * @memberof Twilio.Preview.Sync.ServiceContext.SyncMapInstance
+   * @instance
    */
-  revision: string;
+  syncMapItems();
   /**
-   * The service_sid
+   * Access the syncMapPermissions
+   *
+   * @function syncMapPermissions
+   * @memberof Twilio.Preview.Sync.ServiceContext.SyncMapInstance
+   * @instance
    */
-  serviceSid: string;
+  syncMapPermissions();
   /**
-   * The sid
+   * Produce a plain JSON object version of the SyncMapInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Preview.Sync.ServiceContext.SyncMapInstance
+   * @instance
    */
-  sid: string;
-  syncMapItems(): SyncMapItemListInstance;
-  syncMapPermissions(): SyncMapPermissionListInstance;
-  /**
-   * The unique_name
-   */
-  uniqueName: string;
-  /**
-   * The url
-   */
-  url: string;
+  toJSON();
 }
 
 declare class SyncMapContext {
-  constructor(version: Sync, serviceSid: string, sid: string);
+  /**
+   * @constructor Twilio.Preview.Sync.ServiceContext.SyncMapContext
+   * @description Initialize the SyncMapContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property syncMapItems - syncMapItems resource
+   * @property syncMapPermissions - syncMapPermissions resource
+   *
+   * @param version - Version of the resource
+   * @param serviceSid - The service_sid
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Preview.Sync, serviceSid: sid, sid: sid_like);
 
   /**
    * fetch a SyncMapInstance
    *
-   * @returns Promise that resolves to processed SyncMapInstance
-   */
-  fetch(): Promise<SyncMapInstance>;
-  /**
-   * fetch a SyncMapInstance
+   * @function fetch
+   * @memberof Twilio.Preview.Sync.ServiceContext.SyncMapContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: SyncMapInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a SyncMapInstance
    *
-   * @returns Promise that resolves to processed SyncMapInstance
-   */
-  remove(): Promise<SyncMapInstance>;
-  /**
-   * remove a SyncMapInstance
+   * @function remove
+   * @memberof Twilio.Preview.Sync.ServiceContext.SyncMapContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: SyncMapInstance) => any): void;
-  syncMapItems: SyncMapItemListInstance;
-  syncMapPermissions: SyncMapPermissionListInstance;
+  remove(callback?: function);
+  syncMapItems?: Twilio.Preview.Sync.ServiceContext.SyncMapContext.SyncMapItemList;
+  syncMapPermissions?: Twilio.Preview.Sync.ServiceContext.SyncMapContext.SyncMapPermissionList;
 }
 
-export { SyncMapContext, SyncMapInstance, SyncMapList, SyncMapListCreateOptions, SyncMapListEachOptions, SyncMapListInstance, SyncMapListOptions, SyncMapListPageOptions, SyncMapPage, SyncMapPayload, SyncMapResource, SyncMapSolution }
+export { SyncMapContext, SyncMapInstance, SyncMapList, SyncMapPage }

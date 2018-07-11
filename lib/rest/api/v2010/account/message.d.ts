@@ -6,555 +6,195 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V2010 = require('../../V2010');
-import { FeedbackListInstance } from './message/feedback';
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { MediaListInstance } from './message/media';
-import { SerializableClass } from '../../../../interfaces';
+import deserialize = require('../../../../base/deserialize');
+import serialize = require('../../../../base/serialize');
+import values = require('../../../../base/values');
+import { FeedbackList } from './message/feedback';
+import { MediaList } from './message/media';
 
-declare function MessageList(version: V2010, accountSid: string): MessageListInstance
 
-type MessageStatus = 'queued'|'sending'|'sent'|'failed'|'delivered'|'undelivered'|'receiving'|'received'|'accepted';
-
-type MessageDirection = 'inbound'|'outbound-api'|'outbound-call'|'outbound-reply';
-
-type MessageContentRetention = 'retain'|'discard';
-
-type MessageAddressRetention = 'retain'|'discard';
-
-interface MessageResource {
-  /**
-   * The unique id of the [Account](https://www.twilio.com/docs/api/rest/account) that sent this message.
-   */
-  account_sid: string;
-  /**
-   * The version of the Twilio API used to process the message.
-   */
-  api_version: string;
-  /**
-   * The text body of the message. Up to 1600 characters long.
-   */
-  body: string;
-  /**
-   * The date that this resource was created, given in [RFC 2822](http://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-   */
-  date_created: Date;
-  /**
-   * The date that the message was sent. For outgoing messages, this is the date that the message was sent from Twilio's platform. For incoming messages, this is the date that Twilio made the HTTP request to your application. The date is given in [RFC 2822](http://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-   */
-  date_sent: Date;
-  /**
-   * The date that this resource was last updated, given in [RFC 2822](http://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-   */
-  date_updated: Date;
-  /**
-   * The direction of this message. `inbound` for incoming messages, `outbound-api` for messages initiated via the REST API, `outbound-call` for messages initiated during a call or `outbound-reply` for messages initiated in response to an incoming message.
-   */
-  direction: MessageDirection;
-  /**
-   * The error code, if any, associated with your message. If your message status is `failed` or `undelivered`, the ErrorCode can give you more information about the failure. The value will be null if the message was delivered successfully.
-   */
-  error_code: number;
-  /**
-   * The human readable description of the ErrorCode above. If the message status is `failed` or `undelivered` it will have one of the values described below, otherwise, it will be null.
-   */
-  error_message: string;
-  /**
-   * The phone number (in [E.164](http://en.wikipedia.org/wiki/E.164) format), [alphanumeric sender ID](https://www.twilio.com/docs/api/messaging/send-messages#alphanumeric-sender-id), or [Wireless SIM](https://www.twilio.com/docs/api/wireless/programmable-sms) that initiated the message. For incoming messages, this will be the remote phone. For outgoing messages, this will be one of your Twilio phone numbers or the alphanumeric sender ID used.
-   */
-  from: string;
-  /**
-   * The unique id of the [Messaging Service](https://www.twilio.com/docs/api/messaging/services) used with the message. The value will be null if a Messaging Service was not used.
-   */
-  messaging_service_sid: string;
-  /**
-   * This property indicates the number of media files associated with the message. Each message may send up to 10 media files.
-   */
-  num_media: string;
-  /**
-   * This property indicates the number of segments that make up the message. If your body is too large to be sent as a single SMS message, it will be [segmented and charged accordingly](https://www.twilio.com/docs/api/messaging/message#numsegments-property). Inbound message over 160 characters will be reassembled when the message is received.
-   */
-  num_segments: string;
-  /**
-   * The amount billed for the message, in the currency associated with the account.  Note that your account will be charged for each segment sent to the handset.
-   */
-  price: number;
-  /**
-   * The currency in which `Price` is measured, in [ISO 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
-   */
-  price_unit: string;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * The status of this message. Either `accepted`, `queued`, `sending`, `sent`,`failed`, `delivered`,     `undelivered`, `receiving` or `received`. See [detailed descriptions](https://www.twilio.com/docs/api/messaging/message#message-status-values) of these statuses below.
-   */
-  status: MessageStatus;
-  /**
-   * The URIs for any subresources associate with this resource, relative to `https://api.twilio.com`
-   */
-  subresource_uris: string;
-  /**
-   * The phone number that received the message in [E.164](http://en.wikipedia.org/wiki/E.164) format. For incoming messages, this will be one of your Twilio phone numbers. For outgoing messages, this will be the remote phone.
-   */
-  to: string;
-  /**
-   * The URI for this resource, relative to `https://api.twilio.com`
-   */
-  uri: string;
-}
-
-interface MessagePayload extends MessageResource, Page.TwilioResponsePayload {
-}
-
-interface MessageSolution {
-  accountSid: string;
-}
-
-interface MessageListCreateOptions {
-  /**
-   * The address_retention
-   */
-  addressRetention?: MessageAddressRetention;
-  /**
-   * Twilio will POST `MessageSid` as well as `MessageStatus=sent` or `MessageStatus=failed` to the URL in the `MessageStatusCallback` property of this [Application](https://www.twilio.com/docs/api/rest/applications). If the `StatusCallback` parameter above is also passed, the Application's `MessageStatusCallback` parameter will take precedence.
-   */
-  applicationSid?: string;
-  /**
-   * The text of the message you want to send, limited to 1600 characters.
-   */
-  body?: string;
-  /**
-   * The content_retention
-   */
-  contentRetention?: MessageContentRetention;
-  /**
-   * The force_delivery
-   */
-  forceDelivery?: boolean;
-  /**
-   * A Twilio phone number (in [E.164](https://www.twilio.com/docs/glossary/what-e164) format),  [alphanumeric sender ID](https://www.twilio.com/docs/api/messaging/send-messages#alpha-sender-id) or a [Channel Endpoint address](https://www.twilio.com/docs/api/channels#channel-addresses) enabled for the type of message you wish to send. Phone numbers or [short codes](https://www.twilio.com/docs/sms/api/short-codes) purchased from Twilio work here. You cannot (for example) spoof messages from your own cell phone number. *Should not be passed if you are using MessagingServiceSid.*
-   */
-  from?: string;
-  /**
-   * The total maximum price up to the fourth decimal (0.0001) in US dollars acceptable for the message to be delivered. All messages regardless of the price point will be queued for delivery. A POST request will later be made to your Status Callback URL with a status change of 'Sent' or 'Failed'. When the price of the message is above this value the message will fail and not be sent. When MaxPrice is not set, all prices for the message is accepted.
-   */
-  maxPrice?: number;
-  /**
-   * The max_rate
-   */
-  maxRate?: string;
-  /**
-   * The URL of the media you wish to send out with the message. `gif` , `png` and `jpeg` content is currently supported and will be formatted correctly on the recipient's device. [Other types](https://www.twilio.com/docs/api/messaging/accepted-mime-types) are also accepted by the API. The media size limit is 5MB. If you wish to send more than one image in the message body, please provide multiple MediaUrls values in the POST request. You may include up to 10 MediaUrls per message.
-   */
-  mediaUrl?: string[];
-  /**
-   * The 34 character unique id of the [Messaging Service](https://www.twilio.com/docs/api/messaging/send-messages#messaging-services) you want to associate with this Message. Set this parameter to use the Messaging Service Settings and [Copilot Features](https://www.twilio.com/docs/api/messaging/send-messages-copilot) you have configured. When only this parameter is set, Twilio will use your enabled Copilot Features to select the From phone number for delivery. *Should not be passed if you are using From.*
-   */
-  messagingServiceSid?: string;
-  /**
-   * Set this value to `true` if you are sending messages that have a trackable user action and you intend to confirm delivery of the message using the [Message Feedback API](https://www.twilio.com/docs/api/messaging/message-feedback). This parameter is set to `false` by default.
-   */
-  provideFeedback?: boolean;
-  /**
-   * The provider_sid
-   */
-  providerSid?: string;
-  /**
-   * The smart_encoded
-   */
-  smartEncoded?: boolean;
-  /**
-   * A URL where Twilio will POST each time your message status changes to one of the following: `queued`, `failed`, `sent`, `delivered`, or `undelivered`. Twilio will POST the `MessageSid` along with the other [standard request parameters](https://www.twilio.com/docs/api/twiml/sms/twilio_request#request-parameters) as well as `MessageStatus` and `ErrorCode`. If this parameter passed in addition to a `MessagingServiceSid`, Twilio will override the Status Callback URL of the [Messaging Service](https://www.twilio.com/docs/api/messaging/send-messages#messaging-services). URLs must contain a valid hostname (underscores are not allowed).
-   */
-  statusCallback?: string;
-  /**
-   * The destination phone number for SMS/MMS or a [Channel user address](https://www.twilio.com/docs/api/channels#channel-addresses) for other 3rd party channels. Destination phone numbers should be formatted with a '+' and country code e.g., +16175551212 ([E.164](https://www.twilio.com/docs/glossary/what-e164) format).
-   */
-  to: string;
-  /**
-   * The number of seconds that the message can remain in a Twilio queue. After exceeding this time limit, the message will fail and a POST request will later be made to your Status Callback URL. Valid values are between 1 and 14400 seconds (the default). Please note that Twilio cannot guarantee that a message will not be queued by the carrier after they accept the message. We do not recommend setting validity periods of less than 5 seconds.
-   */
-  validityPeriod?: number;
-}
-
-interface MessageListEachOptions extends ListEachOptions<MessageInstance> {
-  /**
-   * Only show messages sent on this date (in [GMT](https://en.wikipedia.org/wiki/Greenwich_Mean_Time) format), given as `YYYY-MM-DD`. Example: `DateSent=2009-07-06`. You can also specify inequality, such as `DateSent<=YYYY-MM-DD` for messages that were sent on or before midnight on a date, and `DateSent>=YYYY-MM-DD` for messages sent on or after midnight on a date.
-   */
-  dateSent?: Date;
-  /**
-   * Only show messages from this phone number or alphanumeric sender ID.
-   */
-  from?: string;
-  /**
-   * Only show messages to this phone number.
-   */
-  to?: string;
-}
-
-interface MessageListOptions extends ListOptions<MessageInstance> {
-  /**
-   * Only show messages sent on this date (in [GMT](https://en.wikipedia.org/wiki/Greenwich_Mean_Time) format), given as `YYYY-MM-DD`. Example: `DateSent=2009-07-06`. You can also specify inequality, such as `DateSent<=YYYY-MM-DD` for messages that were sent on or before midnight on a date, and `DateSent>=YYYY-MM-DD` for messages sent on or after midnight on a date.
-   */
-  dateSent?: Date;
-  /**
-   * Only show messages from this phone number or alphanumeric sender ID.
-   */
-  from?: string;
-  /**
-   * Only show messages to this phone number.
-   */
-  to?: string;
-}
-
-interface MessageListPageOptions extends PageOptions<MessagePage> {
-  /**
-   * Only show messages sent on this date (in [GMT](https://en.wikipedia.org/wiki/Greenwich_Mean_Time) format), given as `YYYY-MM-DD`. Example: `DateSent=2009-07-06`. You can also specify inequality, such as `DateSent<=YYYY-MM-DD` for messages that were sent on or before midnight on a date, and `DateSent>=YYYY-MM-DD` for messages sent on or after midnight on a date.
-   */
-  dateSent?: Date;
-  /**
-   * Only show messages from this phone number or alphanumeric sender ID.
-   */
-  from?: string;
-  /**
-   * Only show messages to this phone number.
-   */
-  to?: string;
-}
-
-interface MessageListInstance {
-  /**
-   * Gets context of a single Message resource
-   *
-   * @param sid - Fetch by unique message Sid
-   */
-  (sid: string): MessageContext;
-  /**
-   * create a MessageInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed MessageInstance
-   */
-  create(opts: MessageListCreateOptions): Promise<MessageInstance>;
-  /**
-   * create a MessageInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: MessageListCreateOptions, callback: (error: Error | null, items: MessageInstance) => any): void;
-  /**
-   * Streams MessageInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: MessageListEachOptions): void;
-  /**
-   * Streams MessageInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: MessageInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Message resource
-   *
-   * @param sid - Fetch by unique message Sid
-   */
-  get(sid: string): MessageContext;
-  /**
-   * Retrieve a single target page of MessageInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<MessagePage>;
-  /**
-   * Retrieve a single target page of MessageInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: MessagePage) => any): void;
-  /**
-   * Lists MessageInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: MessageListOptions): Promise<MessageInstance[]>;
-  /**
-   * Lists MessageInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: MessageListOptions, callback: (error: Error | null, items: MessageInstance[]) => any): void;
-  /**
-   * Lists MessageInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: MessageInstance[]) => any): void;
-  /**
-   * Retrieve a single page of MessageInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: MessageListPageOptions): Promise<MessagePage>;
-  /**
-   * Retrieve a single page of MessageInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: MessageListPageOptions, callback: (error: Error | null, items: MessagePage) => any): void;
-  /**
-   * Retrieve a single page of MessageInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: MessagePage) => any): void;
-}
-
-interface MessageListFetchOptions {
-  /**
-   * The text of the message you want to send, limited to 1600 characters.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property body - The text of the message you want to send, limited to 1600 characters.
+ */
+export interface UpdateOptions {
   body: string;
 }
 
-interface MessageListFetchOptions {
-  /**
-   * The text of the message you want to send, limited to 1600 characters.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property body - The text of the message you want to send, limited to 1600 characters.
+ */
+export interface UpdateOptions {
   body: string;
 }
 
-declare class MessagePage extends Page<V2010, MessagePayload, MessageResource, MessageInstance> {
-  constructor(version: V2010, response: Response<string>, solution: MessageSolution);
+
+declare class MessagePage extends Page {
+  /**
+   * @constructor Twilio.Api.V2010.AccountContext.MessagePage
+   * @augments Page
+   * @description Initialize the MessagePage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Api.V2010, response: object, solution: object);
 
   /**
    * Build an instance of MessageInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Api.V2010.AccountContext.MessagePage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: MessagePayload): MessageInstance;
+  getInstance(payload: object);
 }
 
-declare class MessageInstance extends SerializableClass {
+declare class MessageInstance {
   /**
+   * @constructor Twilio.Api.V2010.AccountContext.MessageInstance
+   * @description Initialize the MessageContext
+   *
+   * @property accountSid - The unique sid that identifies this account
+   * @property apiVersion - The version of the Twilio API used to process the message.
+   * @property body - The text body of the message. Up to 1600 characters long.
+   * @property dateCreated - The date this resource was created
+   * @property dateUpdated - The date this resource was last updated
+   * @property dateSent - The date the message was sent
+   * @property direction - The direction of the message
+   * @property errorCode - The error code associated with the message
+   * @property errorMessage - Human readable description of the ErrorCode
+   * @property from - The phone number that initiated the message
+   * @property messagingServiceSid - The unique id of the Messaging Service used with the message.
+   * @property numMedia - Number of media files associated with the message
+   * @property numSegments - Indicates number of messages used to delivery the body
+   * @property price - The amount billed for the message
+   * @property priceUnit - The currency in which Price is measured
+   * @property sid - A string that uniquely identifies this message
+   * @property status - The status of this message
+   * @property subresourceUris - The URI for any subresources
+   * @property to - The phone number that received the message
+   * @property uri - The URI for this resource
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The account_sid
+   * @param accountSid - The unique sid that identifies this account
    * @param sid - Fetch by unique message Sid
    */
-  constructor(version: V2010, payload: MessagePayload, accountSid: string, sid: string);
+  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, sid: sid);
 
-  private _proxy: MessageContext;
+  _proxy?: MessageContext;
   /**
-   * The unique id of the [Account](https://www.twilio.com/docs/api/rest/account) that sent this message.
+   * Access the feedback
+   *
+   * @function feedback
+   * @memberof Twilio.Api.V2010.AccountContext.MessageInstance
+   * @instance
    */
-  accountSid: string;
-  /**
-   * The version of the Twilio API used to process the message.
-   */
-  apiVersion: string;
-  /**
-   * The text body of the message. Up to 1600 characters long.
-   */
-  body: string;
-  /**
-   * The date that this resource was created, given in [RFC 2822](http://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-   */
-  dateCreated: Date;
-  /**
-   * The date that the message was sent. For outgoing messages, this is the date that the message was sent from Twilio's platform. For incoming messages, this is the date that Twilio made the HTTP request to your application. The date is given in [RFC 2822](http://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-   */
-  dateSent: Date;
-  /**
-   * The date that this resource was last updated, given in [RFC 2822](http://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-   */
-  dateUpdated: Date;
-  /**
-   * The direction of this message. `inbound` for incoming messages, `outbound-api` for messages initiated via the REST API, `outbound-call` for messages initiated during a call or `outbound-reply` for messages initiated in response to an incoming message.
-   */
-  direction: MessageDirection;
-  /**
-   * The error code, if any, associated with your message. If your message status is `failed` or `undelivered`, the ErrorCode can give you more information about the failure. The value will be null if the message was delivered successfully.
-   */
-  errorCode: number;
-  /**
-   * The human readable description of the ErrorCode above. If the message status is `failed` or `undelivered` it will have one of the values described below, otherwise, it will be null.
-   */
-  errorMessage: string;
-  feedback(): FeedbackListInstance;
+  feedback();
   /**
    * fetch a MessageInstance
    *
-   * @returns Promise that resolves to processed MessageInstance
-   */
-  fetch(): Promise<MessageInstance>;
-  /**
-   * fetch a MessageInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.MessageInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: MessageInstance) => any): void;
+  fetch(callback?: function);
   /**
-   * The phone number (in [E.164](http://en.wikipedia.org/wiki/E.164) format), [alphanumeric sender ID](https://www.twilio.com/docs/api/messaging/send-messages#alphanumeric-sender-id), or [Wireless SIM](https://www.twilio.com/docs/api/wireless/programmable-sms) that initiated the message. For incoming messages, this will be the remote phone. For outgoing messages, this will be one of your Twilio phone numbers or the alphanumeric sender ID used.
+   * Access the media
+   *
+   * @function media
+   * @memberof Twilio.Api.V2010.AccountContext.MessageInstance
+   * @instance
    */
-  from: string;
-  media(): MediaListInstance;
-  /**
-   * The unique id of the [Messaging Service](https://www.twilio.com/docs/api/messaging/services) used with the message. The value will be null if a Messaging Service was not used.
-   */
-  messagingServiceSid: string;
-  /**
-   * This property indicates the number of media files associated with the message. Each message may send up to 10 media files.
-   */
-  numMedia: string;
-  /**
-   * This property indicates the number of segments that make up the message. If your body is too large to be sent as a single SMS message, it will be [segmented and charged accordingly](https://www.twilio.com/docs/api/messaging/message#numsegments-property). Inbound message over 160 characters will be reassembled when the message is received.
-   */
-  numSegments: string;
-  /**
-   * The amount billed for the message, in the currency associated with the account.  Note that your account will be charged for each segment sent to the handset.
-   */
-  price: number;
-  /**
-   * The currency in which `Price` is measured, in [ISO 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
-   */
-  priceUnit: string;
+  media();
   /**
    * remove a MessageInstance
    *
-   * @returns Promise that resolves to processed MessageInstance
-   */
-  remove(): Promise<MessageInstance>;
-  /**
-   * remove a MessageInstance
+   * @function remove
+   * @memberof Twilio.Api.V2010.AccountContext.MessageInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: MessageInstance) => any): void;
+  remove(callback?: function);
   /**
-   * A 34 character string that uniquely identifies this resource.
+   * Produce a plain JSON object version of the MessageInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Api.V2010.AccountContext.MessageInstance
+   * @instance
    */
-  sid: string;
-  /**
-   * The status of this message. Either `accepted`, `queued`, `sending`, `sent`,`failed`, `delivered`,     `undelivered`, `receiving` or `received`. See [detailed descriptions](https://www.twilio.com/docs/api/messaging/message#message-status-values) of these statuses below.
-   */
-  status: MessageStatus;
-  /**
-   * The URIs for any subresources associate with this resource, relative to `https://api.twilio.com`
-   */
-  subresourceUris: string;
-  /**
-   * The phone number that received the message in [E.164](http://en.wikipedia.org/wiki/E.164) format. For incoming messages, this will be one of your Twilio phone numbers. For outgoing messages, this will be the remote phone.
-   */
-  to: string;
+  toJSON();
   /**
    * update a MessageInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Api.V2010.AccountContext.MessageInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed MessageInstance
-   */
-  update(opts: MessageListFetchOptions): Promise<MessageInstance>;
-  /**
-   * update a MessageInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: MessageListFetchOptions, callback: (error: Error | null, items: MessageInstance) => any): void;
-  /**
-   * The URI for this resource, relative to `https://api.twilio.com`
-   */
-  uri: string;
+  update(opts: object, callback?: function);
 }
 
 declare class MessageContext {
-  constructor(version: V2010, accountSid: string, sid: string);
+  /**
+   * @constructor Twilio.Api.V2010.AccountContext.MessageContext
+   * @description Initialize the MessageContext
+   *
+   * @property media - media resource
+   * @property feedback - feedback resource
+   *
+   * @param version - Version of the resource
+   * @param accountSid - The account_sid
+   * @param sid - Fetch by unique message Sid
+   */
+  constructor(version: Twilio.Api.V2010, accountSid: sid, sid: sid);
 
-  feedback: FeedbackListInstance;
+  feedback?: Twilio.Api.V2010.AccountContext.MessageContext.FeedbackList;
   /**
    * fetch a MessageInstance
    *
-   * @returns Promise that resolves to processed MessageInstance
-   */
-  fetch(): Promise<MessageInstance>;
-  /**
-   * fetch a MessageInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.MessageContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: MessageInstance) => any): void;
-  media: MediaListInstance;
+  fetch(callback?: function);
+  media?: Twilio.Api.V2010.AccountContext.MessageContext.MediaList;
   /**
    * remove a MessageInstance
    *
-   * @returns Promise that resolves to processed MessageInstance
-   */
-  remove(): Promise<MessageInstance>;
-  /**
-   * remove a MessageInstance
+   * @function remove
+   * @memberof Twilio.Api.V2010.AccountContext.MessageContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: MessageInstance) => any): void;
+  remove(callback?: function);
   /**
    * update a MessageInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Api.V2010.AccountContext.MessageContext
+   * @instance
    *
-   * @returns Promise that resolves to processed MessageInstance
-   */
-  update(opts: MessageListFetchOptions): Promise<MessageInstance>;
-  /**
-   * update a MessageInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: MessageListFetchOptions, callback: (error: Error | null, items: MessageInstance) => any): void;
+  update(opts: object, callback?: function);
 }
 
-export { MessageAddressRetention, MessageContentRetention, MessageContext, MessageDirection, MessageInstance, MessageList, MessageListCreateOptions, MessageListEachOptions, MessageListFetchOptions, MessageListInstance, MessageListOptions, MessageListPageOptions, MessagePage, MessagePayload, MessageResource, MessageSolution, MessageStatus }
+export { MessageContext, MessageInstance, MessageList, MessagePage }

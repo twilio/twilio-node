@@ -6,313 +6,123 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V1 = require('../../V1');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { SerializableClass } from '../../../../interfaces';
+import deserialize = require('../../../../base/deserialize');
+import values = require('../../../../base/values');
 
-declare function PhoneNumberList(version: V1, serviceSid: string): PhoneNumberListInstance
 
-interface PhoneNumberResource {
-  /**
-   * The 34 character unique sid of the Account.
-   */
-  account_sid: string;
-  /**
-   * Any array of values that indicate whether the number can receive calls or messages. Possible capabilities are `Voice`, `SMS`, and `MMS`.
-   */
-  capabilities: string;
-  /**
-   * The 2 character [ISO Country Code](https://www.iso.org/iso-3166-country-codes.html) of the number.
-   */
-  country_code: string;
-  /**
-   * The date that this resource was created.
-   */
-  date_created: Date;
-  /**
-   * The date that this resource was last updated.
-   */
-  date_updated: Date;
-  /**
-   * The E.164 format of the phone number.
-   */
-  phone_number: string;
-  /**
-   * The 34 character unique sid of the Service.
-   */
-  service_sid: string;
-  /**
-   * The 34 character unique sid of the Phone Number.
-   */
-  sid: string;
-  /**
-   * The absolute URL for this resource.
-   */
-  url: string;
-}
 
-interface PhoneNumberPayload extends PhoneNumberResource, Page.TwilioResponsePayload {
-}
-
-interface PhoneNumberSolution {
-  serviceSid: string;
-}
-
-interface PhoneNumberListCreateOptions {
+declare class PhoneNumberPage extends Page {
   /**
-   * Phone Number SID for the Phone Number being added to the Service.
+   * @constructor Twilio.Messaging.V1.ServiceContext.PhoneNumberPage
+   * @augments Page
+   * @description Initialize the PhoneNumberPage
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  phoneNumberSid: string;
-}
-
-interface PhoneNumberListEachOptions extends ListEachOptions<PhoneNumberInstance> {
-}
-
-interface PhoneNumberListOptions extends ListOptions<PhoneNumberInstance> {
-}
-
-interface PhoneNumberListPageOptions extends PageOptions<PhoneNumberPage> {
-}
-
-interface PhoneNumberListInstance {
-  /**
-   * Gets context of a single PhoneNumber resource
-   *
-   * @param sid - The sid
-   */
-  (sid: string): PhoneNumberContext;
-  /**
-   * create a PhoneNumberInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed PhoneNumberInstance
-   */
-  create(opts: PhoneNumberListCreateOptions): Promise<PhoneNumberInstance>;
-  /**
-   * create a PhoneNumberInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: PhoneNumberListCreateOptions, callback: (error: Error | null, items: PhoneNumberInstance) => any): void;
-  /**
-   * Streams PhoneNumberInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: PhoneNumberListEachOptions): void;
-  /**
-   * Streams PhoneNumberInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: PhoneNumberInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single PhoneNumber resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): PhoneNumberContext;
-  /**
-   * Retrieve a single target page of PhoneNumberInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<PhoneNumberPage>;
-  /**
-   * Retrieve a single target page of PhoneNumberInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: PhoneNumberPage) => any): void;
-  /**
-   * Lists PhoneNumberInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: PhoneNumberListOptions): Promise<PhoneNumberInstance[]>;
-  /**
-   * Lists PhoneNumberInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: PhoneNumberListOptions, callback: (error: Error | null, items: PhoneNumberInstance[]) => any): void;
-  /**
-   * Lists PhoneNumberInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: PhoneNumberInstance[]) => any): void;
-  /**
-   * Retrieve a single page of PhoneNumberInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: PhoneNumberListPageOptions): Promise<PhoneNumberPage>;
-  /**
-   * Retrieve a single page of PhoneNumberInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: PhoneNumberListPageOptions, callback: (error: Error | null, items: PhoneNumberPage) => any): void;
-  /**
-   * Retrieve a single page of PhoneNumberInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: PhoneNumberPage) => any): void;
-}
-
-declare class PhoneNumberPage extends Page<V1, PhoneNumberPayload, PhoneNumberResource, PhoneNumberInstance> {
-  constructor(version: V1, response: Response<string>, solution: PhoneNumberSolution);
+  constructor(version: Twilio.Messaging.V1, response: object, solution: object);
 
   /**
    * Build an instance of PhoneNumberInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Messaging.V1.ServiceContext.PhoneNumberPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: PhoneNumberPayload): PhoneNumberInstance;
+  getInstance(payload: object);
 }
 
-declare class PhoneNumberInstance extends SerializableClass {
+declare class PhoneNumberInstance {
   /**
+   * @constructor Twilio.Messaging.V1.ServiceContext.PhoneNumberInstance
+   * @description Initialize the PhoneNumberContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property sid - The 34 character unique sid of the Phone Number.
+   * @property accountSid - The 34 character unique sid of the Account.
+   * @property serviceSid - The 34 character unique sid of the Service.
+   * @property dateCreated - The date that this resource was created.
+   * @property dateUpdated - The date that this resource was last updated.
+   * @property phoneNumber - The E.
+   * @property countryCode - The 2 character ISO Country Code of the number.
+   * @property capabilities - Any array of values that indicate whether the number can receive calls or messages.
+   * @property url - The absolute URL for this resource.
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The service_sid
+   * @param serviceSid - The 34 character unique sid of the Service.
    * @param sid - The sid
    */
-  constructor(version: V1, payload: PhoneNumberPayload, serviceSid: string, sid: string);
+  constructor(version: Twilio.Messaging.V1, payload: object, serviceSid: sid, sid: sid_like);
 
-  private _proxy: PhoneNumberContext;
-  /**
-   * The 34 character unique sid of the Account.
-   */
-  accountSid: string;
-  /**
-   * Any array of values that indicate whether the number can receive calls or messages. Possible capabilities are `Voice`, `SMS`, and `MMS`.
-   */
-  capabilities: string;
-  /**
-   * The 2 character [ISO Country Code](https://www.iso.org/iso-3166-country-codes.html) of the number.
-   */
-  countryCode: string;
-  /**
-   * The date that this resource was created.
-   */
-  dateCreated: Date;
-  /**
-   * The date that this resource was last updated.
-   */
-  dateUpdated: Date;
+  _proxy?: PhoneNumberContext;
   /**
    * fetch a PhoneNumberInstance
    *
-   * @returns Promise that resolves to processed PhoneNumberInstance
-   */
-  fetch(): Promise<PhoneNumberInstance>;
-  /**
-   * fetch a PhoneNumberInstance
+   * @function fetch
+   * @memberof Twilio.Messaging.V1.ServiceContext.PhoneNumberInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: PhoneNumberInstance) => any): void;
-  /**
-   * The E.164 format of the phone number.
-   */
-  phoneNumber: string;
+  fetch(callback?: function);
   /**
    * remove a PhoneNumberInstance
    *
-   * @returns Promise that resolves to processed PhoneNumberInstance
-   */
-  remove(): Promise<PhoneNumberInstance>;
-  /**
-   * remove a PhoneNumberInstance
+   * @function remove
+   * @memberof Twilio.Messaging.V1.ServiceContext.PhoneNumberInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: PhoneNumberInstance) => any): void;
+  remove(callback?: function);
   /**
-   * The 34 character unique sid of the Service.
+   * Produce a plain JSON object version of the PhoneNumberInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Messaging.V1.ServiceContext.PhoneNumberInstance
+   * @instance
    */
-  serviceSid: string;
-  /**
-   * The 34 character unique sid of the Phone Number.
-   */
-  sid: string;
-  /**
-   * The absolute URL for this resource.
-   */
-  url: string;
+  toJSON();
 }
 
 declare class PhoneNumberContext {
-  constructor(version: V1, serviceSid: string, sid: string);
+  /**
+   * @constructor Twilio.Messaging.V1.ServiceContext.PhoneNumberContext
+   * @description Initialize the PhoneNumberContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @param version - Version of the resource
+   * @param serviceSid - The service_sid
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Messaging.V1, serviceSid: sid, sid: sid_like);
 
   /**
    * fetch a PhoneNumberInstance
    *
-   * @returns Promise that resolves to processed PhoneNumberInstance
-   */
-  fetch(): Promise<PhoneNumberInstance>;
-  /**
-   * fetch a PhoneNumberInstance
+   * @function fetch
+   * @memberof Twilio.Messaging.V1.ServiceContext.PhoneNumberContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: PhoneNumberInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a PhoneNumberInstance
    *
-   * @returns Promise that resolves to processed PhoneNumberInstance
-   */
-  remove(): Promise<PhoneNumberInstance>;
-  /**
-   * remove a PhoneNumberInstance
+   * @function remove
+   * @memberof Twilio.Messaging.V1.ServiceContext.PhoneNumberContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: PhoneNumberInstance) => any): void;
+  remove(callback?: function);
 }
 
-export { PhoneNumberContext, PhoneNumberInstance, PhoneNumberList, PhoneNumberListCreateOptions, PhoneNumberListEachOptions, PhoneNumberListInstance, PhoneNumberListOptions, PhoneNumberListPageOptions, PhoneNumberPage, PhoneNumberPayload, PhoneNumberResource, PhoneNumberSolution }
+export { PhoneNumberContext, PhoneNumberInstance, PhoneNumberList, PhoneNumberPage }

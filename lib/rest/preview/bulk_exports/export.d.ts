@@ -5,113 +5,107 @@
  *       /       /
  */
 
-import BulkExports = require('../BulkExports');
 import Page = require('../../../base/Page');
-import Response = require('../../../http/response');
-import { DayListInstance } from './export/day';
-import { SerializableClass } from '../../../interfaces';
+import values = require('../../../base/values');
+import { DayList } from './export/day';
 
-declare function ExportList(version: BulkExports): ExportListInstance
 
-interface ExportResource {
+
+declare class ExportPage extends Page {
   /**
-   * The links
-   */
-  links: string;
-  /**
-   * The resource_type
-   */
-  resource_type: string;
-  /**
-   * The url
-   */
-  url: string;
-}
-
-interface ExportPayload extends ExportResource, Page.TwilioResponsePayload {
-}
-
-interface ExportSolution {
-}
-
-interface ExportListInstance {
-  /**
-   * Gets context of a single Export resource
+   * @constructor Twilio.Preview.BulkExports.ExportPage
+   * @augments Page
+   * @description Initialize the ExportPage
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
-   * @param resourceType - The resource_type
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  (resourceType: string): ExportContext;
-  /**
-   * Gets context of a single Export resource
-   *
-   * @param resourceType - The resource_type
-   */
-  get(resourceType: string): ExportContext;
-}
-
-declare class ExportPage extends Page<BulkExports, ExportPayload, ExportResource, ExportInstance> {
-  constructor(version: BulkExports, response: Response<string>, solution: ExportSolution);
+  constructor(version: Twilio.Preview.BulkExports, response: object, solution: object);
 
   /**
    * Build an instance of ExportInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Preview.BulkExports.ExportPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: ExportPayload): ExportInstance;
+  getInstance(payload: object);
 }
 
-declare class ExportInstance extends SerializableClass {
+declare class ExportInstance {
   /**
+   * @constructor Twilio.Preview.BulkExports.ExportInstance
+   * @description Initialize the ExportContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property resourceType - The resource_type
+   * @property url - The url
+   * @property links - The links
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param resourceType - The resource_type
    */
-  constructor(version: BulkExports, payload: ExportPayload, resourceType: string);
+  constructor(version: Twilio.Preview.BulkExports, payload: object, resourceType: string);
 
-  private _proxy: ExportContext;
-  days(): DayListInstance;
+  _proxy?: ExportContext;
+  /**
+   * Access the days
+   *
+   * @function days
+   * @memberof Twilio.Preview.BulkExports.ExportInstance
+   * @instance
+   */
+  days();
   /**
    * fetch a ExportInstance
    *
-   * @returns Promise that resolves to processed ExportInstance
-   */
-  fetch(): Promise<ExportInstance>;
-  /**
-   * fetch a ExportInstance
+   * @function fetch
+   * @memberof Twilio.Preview.BulkExports.ExportInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: ExportInstance) => any): void;
+  fetch(callback?: function);
   /**
-   * The links
+   * Produce a plain JSON object version of the ExportInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Preview.BulkExports.ExportInstance
+   * @instance
    */
-  links: string;
-  /**
-   * The resource_type
-   */
-  resourceType: string;
-  /**
-   * The url
-   */
-  url: string;
+  toJSON();
 }
 
 declare class ExportContext {
-  constructor(version: BulkExports, resourceType: string);
+  /**
+   * @constructor Twilio.Preview.BulkExports.ExportContext
+   * @description Initialize the ExportContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property days - days resource
+   *
+   * @param version - Version of the resource
+   * @param resourceType - The resource_type
+   */
+  constructor(version: Twilio.Preview.BulkExports, resourceType: string);
 
-  days: DayListInstance;
+  days?: Twilio.Preview.BulkExports.ExportContext.DayList;
   /**
    * fetch a ExportInstance
    *
-   * @returns Promise that resolves to processed ExportInstance
-   */
-  fetch(): Promise<ExportInstance>;
-  /**
-   * fetch a ExportInstance
+   * @function fetch
+   * @memberof Twilio.Preview.BulkExports.ExportContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: ExportInstance) => any): void;
+  fetch(callback?: function);
 }
 
-export { ExportContext, ExportInstance, ExportList, ExportListInstance, ExportPage, ExportPayload, ExportResource, ExportSolution }
+export { ExportContext, ExportInstance, ExportList, ExportPage }

@@ -6,415 +6,174 @@
  */
 
 import Page = require('../../../../../base/Page');
-import Response = require('../../../../../http/response');
-import Understand = require('../../../Understand');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../interfaces';
-import { SerializableClass } from '../../../../../interfaces';
+import deserialize = require('../../../../../base/deserialize');
+import values = require('../../../../../base/values');
 
-declare function SampleList(version: Understand, assistantSid: string, intentSid: string): SampleListInstance
 
-interface SampleResource {
-  /**
-   * The unique ID of the Account that created this Sample.
-   */
-  account_sid: string;
-  /**
-   * The unique ID of the Assistant.
-   */
-  assistant_sid: string;
-  /**
-   * The date that this resource was created
-   */
-  date_created: Date;
-  /**
-   * The date that this resource was last updated
-   */
-  date_updated: Date;
-  /**
-   * The unique ID of the Intent associated with this Sample.
-   */
-  intent_sid: string;
-  /**
-   * An ISO language-country string of the sample.
-   */
-  language: string;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null
-   */
-  source_channel: string;
-  /**
-   * The text example of how end-users may express this intent. The sample may contain Field tag blocks.
-   */
-  tagged_text: string;
-  /**
-   * The url
-   */
-  url: string;
-}
-
-interface SamplePayload extends SampleResource, Page.TwilioResponsePayload {
-}
-
-interface SampleSolution {
-  assistantSid: string;
-  intentSid: string;
-}
-
-interface SampleListEachOptions extends ListEachOptions<SampleInstance> {
-  /**
-   * An ISO language-country string of the sample.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property language - An ISO language-country string of the sample.
+ * @property taggedText - The text example of how end-users may express this intent. The sample may contain Field tag blocks.
+ * @property sourceChannel - The communication channel the sample was captured. It can be: voice, sms, chat, alexa, google-assistant, or slack. If not included the value will be null
+ */
+export interface UpdateOptions {
   language?: string;
-}
-
-interface SampleListOptions extends ListOptions<SampleInstance> {
-  /**
-   * An ISO language-country string of the sample.
-   */
-  language?: string;
-}
-
-interface SampleListPageOptions extends PageOptions<SamplePage> {
-  /**
-   * An ISO language-country string of the sample.
-   */
-  language?: string;
-}
-
-interface SampleListCreateOptions {
-  /**
-   * An ISO language-country string of the sample.
-   */
-  language: string;
-  /**
-   * The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null
-   */
   sourceChannel?: string;
-  /**
-   * The text example of how end-users may express this intent. The sample may contain Field tag blocks.
-   */
-  taggedText: string;
-}
-
-interface SampleListInstance {
-  /**
-   * Gets context of a single Sample resource
-   *
-   * @param sid - The sid
-   */
-  (sid: string): SampleContext;
-  /**
-   * create a SampleInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed SampleInstance
-   */
-  create(opts: SampleListCreateOptions): Promise<SampleInstance>;
-  /**
-   * create a SampleInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: SampleListCreateOptions, callback: (error: Error | null, items: SampleInstance) => any): void;
-  /**
-   * Streams SampleInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: SampleListEachOptions): void;
-  /**
-   * Streams SampleInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: SampleInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Sample resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): SampleContext;
-  /**
-   * Retrieve a single target page of SampleInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<SamplePage>;
-  /**
-   * Retrieve a single target page of SampleInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: SamplePage) => any): void;
-  /**
-   * Lists SampleInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: SampleListOptions): Promise<SampleInstance[]>;
-  /**
-   * Lists SampleInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: SampleListOptions, callback: (error: Error | null, items: SampleInstance[]) => any): void;
-  /**
-   * Lists SampleInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: SampleInstance[]) => any): void;
-  /**
-   * Retrieve a single page of SampleInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: SampleListPageOptions): Promise<SamplePage>;
-  /**
-   * Retrieve a single page of SampleInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: SampleListPageOptions, callback: (error: Error | null, items: SamplePage) => any): void;
-  /**
-   * Retrieve a single page of SampleInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: SamplePage) => any): void;
-}
-
-interface SampleListFetchOptions {
-  /**
-   * An ISO language-country string of the sample.
-   */
-  language?: string;
-  /**
-   * The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null
-   */
-  sourceChannel?: string;
-  /**
-   * The text example of how end-users may express this intent. The sample may contain Field tag blocks.
-   */
   taggedText?: string;
 }
 
-interface SampleListFetchOptions {
-  /**
-   * An ISO language-country string of the sample.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property language - An ISO language-country string of the sample.
+ * @property taggedText - The text example of how end-users may express this intent. The sample may contain Field tag blocks.
+ * @property sourceChannel - The communication channel the sample was captured. It can be: voice, sms, chat, alexa, google-assistant, or slack. If not included the value will be null
+ */
+export interface UpdateOptions {
   language?: string;
-  /**
-   * The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null
-   */
   sourceChannel?: string;
-  /**
-   * The text example of how end-users may express this intent. The sample may contain Field tag blocks.
-   */
   taggedText?: string;
 }
 
-declare class SamplePage extends Page<Understand, SamplePayload, SampleResource, SampleInstance> {
-  constructor(version: Understand, response: Response<string>, solution: SampleSolution);
+
+declare class SamplePage extends Page {
+  /**
+   * @constructor Twilio.Preview.Understand.AssistantContext.IntentContext.SamplePage
+   * @augments Page
+   * @description Initialize the SamplePage
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Preview.Understand, response: object, solution: object);
 
   /**
    * Build an instance of SampleInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Preview.Understand.AssistantContext.IntentContext.SamplePage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: SamplePayload): SampleInstance;
+  getInstance(payload: object);
 }
 
-declare class SampleInstance extends SerializableClass {
+declare class SampleInstance {
   /**
+   * @constructor Twilio.Preview.Understand.AssistantContext.IntentContext.SampleInstance
+   * @description Initialize the SampleContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property accountSid - The unique ID of the Account that created this Sample.
+   * @property dateCreated - The date that this resource was created
+   * @property dateUpdated - The date that this resource was last updated
+   * @property intentSid - The unique ID of the Intent associated with this Sample.
+   * @property language - An ISO language-country string of the sample.
+   * @property assistantSid - The unique ID of the Assistant.
+   * @property sid - A 34 character string that uniquely identifies this resource.
+   * @property taggedText - The text example of how end-users may express this intent. The sample may contain Field tag blocks.
+   * @property url - The url
+   * @property sourceChannel - The communication channel the sample was captured. It can be: voice, sms, chat, alexa, google-assistant, or slack. If not included the value will be null
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
+   * @param assistantSid - The unique ID of the Assistant.
+   * @param intentSid - The unique ID of the Intent associated with this Sample.
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Preview.Understand, payload: object, assistantSid: sid, intentSid: sid, sid: sid);
+
+  _proxy?: SampleContext;
+  /**
+   * fetch a SampleInstance
+   *
+   * @function fetch
+   * @memberof Twilio.Preview.Understand.AssistantContext.IntentContext.SampleInstance
+   * @instance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: function);
+  /**
+   * remove a SampleInstance
+   *
+   * @function remove
+   * @memberof Twilio.Preview.Understand.AssistantContext.IntentContext.SampleInstance
+   * @instance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: function);
+  /**
+   * Produce a plain JSON object version of the SampleInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Preview.Understand.AssistantContext.IntentContext.SampleInstance
+   * @instance
+   */
+  toJSON();
+  /**
+   * update a SampleInstance
+   *
+   * @function update
+   * @memberof Twilio.Preview.Understand.AssistantContext.IntentContext.SampleInstance
+   * @instance
+   *
+   * @param opts - ...
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: object, callback?: function);
+}
+
+declare class SampleContext {
+  /**
+   * @constructor Twilio.Preview.Understand.AssistantContext.IntentContext.SampleContext
+   * @description Initialize the SampleContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @param version - Version of the resource
    * @param assistantSid - The assistant_sid
    * @param intentSid - The intent_sid
    * @param sid - The sid
    */
-  constructor(version: Understand, payload: SamplePayload, assistantSid: string, intentSid: string, sid: string);
+  constructor(version: Twilio.Preview.Understand, assistantSid: sid_like, intentSid: sid_like, sid: sid);
 
-  private _proxy: SampleContext;
-  /**
-   * The unique ID of the Account that created this Sample.
-   */
-  accountSid: string;
-  /**
-   * The unique ID of the Assistant.
-   */
-  assistantSid: string;
-  /**
-   * The date that this resource was created
-   */
-  dateCreated: Date;
-  /**
-   * The date that this resource was last updated
-   */
-  dateUpdated: Date;
   /**
    * fetch a SampleInstance
    *
-   * @returns Promise that resolves to processed SampleInstance
-   */
-  fetch(): Promise<SampleInstance>;
-  /**
-   * fetch a SampleInstance
+   * @function fetch
+   * @memberof Twilio.Preview.Understand.AssistantContext.IntentContext.SampleContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: SampleInstance) => any): void;
-  /**
-   * The unique ID of the Intent associated with this Sample.
-   */
-  intentSid: string;
-  /**
-   * An ISO language-country string of the sample.
-   */
-  language: string;
+  fetch(callback?: function);
   /**
    * remove a SampleInstance
    *
-   * @returns Promise that resolves to processed SampleInstance
-   */
-  remove(): Promise<SampleInstance>;
-  /**
-   * remove a SampleInstance
+   * @function remove
+   * @memberof Twilio.Preview.Understand.AssistantContext.IntentContext.SampleContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: SampleInstance) => any): void;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null
-   */
-  sourceChannel: string;
-  /**
-   * The text example of how end-users may express this intent. The sample may contain Field tag blocks.
-   */
-  taggedText: string;
+  remove(callback?: function);
   /**
    * update a SampleInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Preview.Understand.AssistantContext.IntentContext.SampleContext
+   * @instance
    *
-   * @returns Promise that resolves to processed SampleInstance
-   */
-  update(opts?: SampleListFetchOptions): Promise<SampleInstance>;
-  /**
-   * update a SampleInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: SampleListFetchOptions, callback: (error: Error | null, items: SampleInstance) => any): void;
-  /**
-   * update a SampleInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: SampleInstance) => any): void;
-  /**
-   * The url
-   */
-  url: string;
+  update(opts?: object, callback?: function);
 }
 
-declare class SampleContext {
-  constructor(version: Understand, assistantSid: string, intentSid: string, sid: string);
-
-  /**
-   * fetch a SampleInstance
-   *
-   * @returns Promise that resolves to processed SampleInstance
-   */
-  fetch(): Promise<SampleInstance>;
-  /**
-   * fetch a SampleInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  fetch(callback: (error: Error | null, items: SampleInstance) => any): void;
-  /**
-   * remove a SampleInstance
-   *
-   * @returns Promise that resolves to processed SampleInstance
-   */
-  remove(): Promise<SampleInstance>;
-  /**
-   * remove a SampleInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback: (error: Error | null, items: SampleInstance) => any): void;
-  /**
-   * update a SampleInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed SampleInstance
-   */
-  update(opts?: SampleListFetchOptions): Promise<SampleInstance>;
-  /**
-   * update a SampleInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts: SampleListFetchOptions, callback: (error: Error | null, items: SampleInstance) => any): void;
-  /**
-   * update a SampleInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: SampleInstance) => any): void;
-}
-
-export { SampleContext, SampleInstance, SampleList, SampleListCreateOptions, SampleListEachOptions, SampleListFetchOptions, SampleListInstance, SampleListOptions, SampleListPageOptions, SamplePage, SamplePayload, SampleResource, SampleSolution }
+export { SampleContext, SampleInstance, SampleList, SamplePage }

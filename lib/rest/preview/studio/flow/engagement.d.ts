@@ -6,318 +6,117 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import Studio = require('../../Studio');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { SerializableClass } from '../../../../interfaces';
-import { StepListInstance } from './engagement/step';
+import deserialize = require('../../../../base/deserialize');
+import values = require('../../../../base/values');
+import { StepList } from './engagement/step';
 
-declare function EngagementList(version: Studio, flowSid: string): EngagementListInstance
 
-type EngagementStatus = 'active'|'ended';
 
-interface EngagementResource {
+declare class EngagementPage extends Page {
   /**
-   * The unique SID identifier of the Account.
+   * @constructor Twilio.Preview.Studio.FlowContext.EngagementPage
+   * @augments Page
+   * @description Initialize the EngagementPage
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  account_sid: string;
-  /**
-   * The phone number, SIP address or Client identifier that triggered this Engagement. Phone numbers are in E.164 format (e.g. +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`.
-   */
-  contact_channel_address: string;
-  /**
-   * The unique SID identifier of the Contact.
-   */
-  contact_sid: string;
-  /**
-   * Contains a dictionary of URL links to nested resources of this Engagement.
-   */
-  context: string;
-  /**
-   * The date that this Engagement was created, given in ISO 8601 format.
-   */
-  date_created: Date;
-  /**
-   * The date that this Engagement was updated, given in ISO 8601 format.
-   */
-  date_updated: Date;
-  /**
-   * The unique SID identifier of the Flow.
-   */
-  flow_sid: string;
-  /**
-   * Contains a dictionary of URL links to nested resources of this Engagement.
-   */
-  links: string;
-  /**
-   * A 34 character string that uniquely identifies this Engagement.
-   */
-  sid: string;
-  /**
-   * The Status of this Engagement. One of `active` or `ended`.
-   */
-  status: EngagementStatus;
-  /**
-   * The URL of this resource.
-   */
-  url: string;
-}
-
-interface EngagementPayload extends EngagementResource, Page.TwilioResponsePayload {
-}
-
-interface EngagementSolution {
-  flowSid: string;
-}
-
-interface EngagementListEachOptions extends ListEachOptions<EngagementInstance> {
-}
-
-interface EngagementListOptions extends ListOptions<EngagementInstance> {
-}
-
-interface EngagementListPageOptions extends PageOptions<EngagementPage> {
-}
-
-interface EngagementListCreateOptions {
-  /**
-   * The from
-   */
-  from: string;
-  /**
-   * The parameters
-   */
-  parameters?: string;
-  /**
-   * The to
-   */
-  to: string;
-}
-
-interface EngagementListInstance {
-  /**
-   * Gets context of a single Engagement resource
-   *
-   * @param sid - The sid
-   */
-  (sid: string): EngagementContext;
-  /**
-   * create a EngagementInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed EngagementInstance
-   */
-  create(opts: EngagementListCreateOptions): Promise<EngagementInstance>;
-  /**
-   * create a EngagementInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: EngagementListCreateOptions, callback: (error: Error | null, items: EngagementInstance) => any): void;
-  /**
-   * Streams EngagementInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: EngagementListEachOptions): void;
-  /**
-   * Streams EngagementInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: EngagementInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Engagement resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): EngagementContext;
-  /**
-   * Retrieve a single target page of EngagementInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<EngagementPage>;
-  /**
-   * Retrieve a single target page of EngagementInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: EngagementPage) => any): void;
-  /**
-   * Lists EngagementInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: EngagementListOptions): Promise<EngagementInstance[]>;
-  /**
-   * Lists EngagementInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: EngagementListOptions, callback: (error: Error | null, items: EngagementInstance[]) => any): void;
-  /**
-   * Lists EngagementInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: EngagementInstance[]) => any): void;
-  /**
-   * Retrieve a single page of EngagementInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: EngagementListPageOptions): Promise<EngagementPage>;
-  /**
-   * Retrieve a single page of EngagementInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: EngagementListPageOptions, callback: (error: Error | null, items: EngagementPage) => any): void;
-  /**
-   * Retrieve a single page of EngagementInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: EngagementPage) => any): void;
-}
-
-declare class EngagementPage extends Page<Studio, EngagementPayload, EngagementResource, EngagementInstance> {
-  constructor(version: Studio, response: Response<string>, solution: EngagementSolution);
+  constructor(version: Twilio.Preview.Studio, response: object, solution: object);
 
   /**
    * Build an instance of EngagementInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Preview.Studio.FlowContext.EngagementPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: EngagementPayload): EngagementInstance;
+  getInstance(payload: object);
 }
 
-declare class EngagementInstance extends SerializableClass {
+declare class EngagementInstance {
   /**
+   * @constructor Twilio.Preview.Studio.FlowContext.EngagementInstance
+   * @description Initialize the EngagementContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property sid - A string that uniquely identifies this Engagement.
+   * @property accountSid - Account Sid.
+   * @property flowSid - Flow Sid.
+   * @property contactSid - Contact Sid.
+   * @property contactChannelAddress - The phone number, SIP address or Client identifier that triggered this Engagement.
+   * @property status - The Status of this Engagement
+   * @property context - Nested resource URLs.
+   * @property dateCreated - The date this Engagement was created
+   * @property dateUpdated - The date this Engagement was updated
+   * @property url - The URL of this resource.
+   * @property links - Nested resource URLs.
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param flowSid - The flow_sid
+   * @param flowSid - Flow Sid.
    * @param sid - The sid
    */
-  constructor(version: Studio, payload: EngagementPayload, flowSid: string, sid: string);
+  constructor(version: Twilio.Preview.Studio, payload: object, flowSid: sid, sid: sid);
 
-  private _proxy: EngagementContext;
-  /**
-   * The unique SID identifier of the Account.
-   */
-  accountSid: string;
-  /**
-   * The phone number, SIP address or Client identifier that triggered this Engagement. Phone numbers are in E.164 format (e.g. +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`.
-   */
-  contactChannelAddress: string;
-  /**
-   * The unique SID identifier of the Contact.
-   */
-  contactSid: string;
-  /**
-   * Contains a dictionary of URL links to nested resources of this Engagement.
-   */
-  context: string;
-  /**
-   * The date that this Engagement was created, given in ISO 8601 format.
-   */
-  dateCreated: Date;
-  /**
-   * The date that this Engagement was updated, given in ISO 8601 format.
-   */
-  dateUpdated: Date;
+  _proxy?: EngagementContext;
   /**
    * fetch a EngagementInstance
    *
-   * @returns Promise that resolves to processed EngagementInstance
-   */
-  fetch(): Promise<EngagementInstance>;
-  /**
-   * fetch a EngagementInstance
+   * @function fetch
+   * @memberof Twilio.Preview.Studio.FlowContext.EngagementInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: EngagementInstance) => any): void;
+  fetch(callback?: function);
   /**
-   * The unique SID identifier of the Flow.
+   * Access the steps
+   *
+   * @function steps
+   * @memberof Twilio.Preview.Studio.FlowContext.EngagementInstance
+   * @instance
    */
-  flowSid: string;
+  steps();
   /**
-   * Contains a dictionary of URL links to nested resources of this Engagement.
+   * Produce a plain JSON object version of the EngagementInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Preview.Studio.FlowContext.EngagementInstance
+   * @instance
    */
-  links: string;
-  /**
-   * A 34 character string that uniquely identifies this Engagement.
-   */
-  sid: string;
-  /**
-   * The Status of this Engagement. One of `active` or `ended`.
-   */
-  status: EngagementStatus;
-  steps(): StepListInstance;
-  /**
-   * The URL of this resource.
-   */
-  url: string;
+  toJSON();
 }
 
 declare class EngagementContext {
-  constructor(version: Studio, flowSid: string, sid: string);
+  /**
+   * @constructor Twilio.Preview.Studio.FlowContext.EngagementContext
+   * @description Initialize the EngagementContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property steps - steps resource
+   *
+   * @param version - Version of the resource
+   * @param flowSid - The flow_sid
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Preview.Studio, flowSid: sid, sid: sid);
 
   /**
    * fetch a EngagementInstance
    *
-   * @returns Promise that resolves to processed EngagementInstance
-   */
-  fetch(): Promise<EngagementInstance>;
-  /**
-   * fetch a EngagementInstance
+   * @function fetch
+   * @memberof Twilio.Preview.Studio.FlowContext.EngagementContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: EngagementInstance) => any): void;
-  steps: StepListInstance;
+  fetch(callback?: function);
+  steps?: Twilio.Preview.Studio.FlowContext.EngagementContext.StepList;
 }
 
-export { EngagementContext, EngagementInstance, EngagementList, EngagementListCreateOptions, EngagementListEachOptions, EngagementListInstance, EngagementListOptions, EngagementListPageOptions, EngagementPage, EngagementPayload, EngagementResource, EngagementSolution, EngagementStatus }
+export { EngagementContext, EngagementInstance, EngagementList, EngagementPage }

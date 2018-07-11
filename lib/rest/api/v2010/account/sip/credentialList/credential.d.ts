@@ -6,359 +6,160 @@
  */
 
 import Page = require('../../../../../../base/Page');
-import Response = require('../../../../../../http/response');
-import V2010 = require('../../../../V2010');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../../interfaces';
-import { SerializableClass } from '../../../../../../interfaces';
+import deserialize = require('../../../../../../base/deserialize');
+import values = require('../../../../../../base/values');
 
-declare function CredentialList(version: V2010, accountSid: string, credentialListSid: string): CredentialListInstance
 
-interface CredentialResource {
-  /**
-   * The unique id of the Account that responsible for this resource.
-   */
-  account_sid: string;
-  /**
-   * The credential_list_sid
-   */
-  credential_list_sid: string;
-  /**
-   * The date that this resource was created, given as GMT in [RFC 2822](http://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-   */
-  date_created: Date;
-  /**
-   * The date that this resource was last updated, given as GMT in [RFC 2822](http://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-   */
-  date_updated: Date;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * The URI for this resource, relative to `https://api.twilio.com`
-   */
-  uri: string;
-  /**
-   * The username for this credential.
-   */
-  username: string;
-}
-
-interface CredentialPayload extends CredentialResource, Page.TwilioResponsePayload {
-}
-
-interface CredentialSolution {
-  accountSid: string;
-  credentialListSid: string;
-}
-
-interface CredentialListEachOptions extends ListEachOptions<CredentialInstance> {
-}
-
-interface CredentialListOptions extends ListOptions<CredentialInstance> {
-}
-
-interface CredentialListPageOptions extends PageOptions<CredentialPage> {
-}
-
-interface CredentialListCreateOptions {
-  /**
-   * The password that the username will use when when authenticating SIP requests. The password must be a minimum of 12 characters, contain at least 1 digit, and have mixed case. (eg “IWasAtSignal2018”)
-   */
-  password: string;
-  /**
-   * The username that will be passed when authenticating SIP requests. The username should be sent in response to Twilio’s challenge of the initial INVITE. It can be up to 32 characters long.
-   */
-  username: string;
-}
-
-interface CredentialListInstance {
-  /**
-   * Gets context of a single Credential resource
-   *
-   * @param sid - The sid
-   */
-  (sid: string): CredentialContext;
-  /**
-   * create a CredentialInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed CredentialInstance
-   */
-  create(opts: CredentialListCreateOptions): Promise<CredentialInstance>;
-  /**
-   * create a CredentialInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: CredentialListCreateOptions, callback: (error: Error | null, items: CredentialInstance) => any): void;
-  /**
-   * Streams CredentialInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: CredentialListEachOptions): void;
-  /**
-   * Streams CredentialInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: CredentialInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Credential resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): CredentialContext;
-  /**
-   * Retrieve a single target page of CredentialInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<CredentialPage>;
-  /**
-   * Retrieve a single target page of CredentialInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: CredentialPage) => any): void;
-  /**
-   * Lists CredentialInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: CredentialListOptions): Promise<CredentialInstance[]>;
-  /**
-   * Lists CredentialInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: CredentialListOptions, callback: (error: Error | null, items: CredentialInstance[]) => any): void;
-  /**
-   * Lists CredentialInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: CredentialInstance[]) => any): void;
-  /**
-   * Retrieve a single page of CredentialInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: CredentialListPageOptions): Promise<CredentialPage>;
-  /**
-   * Retrieve a single page of CredentialInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: CredentialListPageOptions, callback: (error: Error | null, items: CredentialPage) => any): void;
-  /**
-   * Retrieve a single page of CredentialInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: CredentialPage) => any): void;
-}
-
-interface CredentialListFetchOptions {
-  /**
-   * The password that the username will use when when authenticating SIP requests. The password must be a minimum of 12 characters, contain at least 1 digit, and have mixed case. (eg “IWasAtSignal2018”)
-   */
+/**
+ * Options to pass to update
+ *
+ * @property password - The password will not be returned in the response.
+ */
+export interface UpdateOptions {
   password?: string;
 }
 
-interface CredentialListFetchOptions {
-  /**
-   * The password that the username will use when when authenticating SIP requests. The password must be a minimum of 12 characters, contain at least 1 digit, and have mixed case. (eg “IWasAtSignal2018”)
-   */
+/**
+ * Options to pass to update
+ *
+ * @property password - The password will not be returned in the response.
+ */
+export interface UpdateOptions {
   password?: string;
 }
 
-declare class CredentialPage extends Page<V2010, CredentialPayload, CredentialResource, CredentialInstance> {
-  constructor(version: V2010, response: Response<string>, solution: CredentialSolution);
+
+declare class CredentialPage extends Page {
+  /**
+   * @constructor Twilio.Api.V2010.AccountContext.SipContext.CredentialListContext.CredentialPage
+   * @augments Page
+   * @description Initialize the CredentialPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Api.V2010, response: object, solution: object);
 
   /**
    * Build an instance of CredentialInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Api.V2010.AccountContext.SipContext.CredentialListContext.CredentialPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: CredentialPayload): CredentialInstance;
+  getInstance(payload: object);
 }
 
-declare class CredentialInstance extends SerializableClass {
+declare class CredentialInstance {
   /**
+   * @constructor Twilio.Api.V2010.AccountContext.SipContext.CredentialListContext.CredentialInstance
+   * @description Initialize the CredentialContext
+   *
+   * @property sid - A 34 character string that uniquely identifies this resource.
+   * @property accountSid - The unique id of the Account that responsible for this resource.
+   * @property credentialListSid - The credential_list_sid
+   * @property username - The username for this credential.
+   * @property dateCreated - The date that this resource was created, given as GMT in RFC 2822 format.
+   * @property dateUpdated - The date that this resource was last updated, given as GMT in RFC 2822 format.
+   * @property uri - The URI for this resource, relative to https://api.
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
+   * @param accountSid - The unique id of the Account that responsible for this resource.
+   * @param credentialListSid - The credential_list_sid
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, credentialListSid: sid, sid: sid);
+
+  _proxy?: CredentialContext;
+  /**
+   * fetch a CredentialInstance
+   *
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.SipContext.CredentialListContext.CredentialInstance
+   * @instance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: function);
+  /**
+   * remove a CredentialInstance
+   *
+   * @function remove
+   * @memberof Twilio.Api.V2010.AccountContext.SipContext.CredentialListContext.CredentialInstance
+   * @instance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: function);
+  /**
+   * Produce a plain JSON object version of the CredentialInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Api.V2010.AccountContext.SipContext.CredentialListContext.CredentialInstance
+   * @instance
+   */
+  toJSON();
+  /**
+   * update a CredentialInstance
+   *
+   * @function update
+   * @memberof Twilio.Api.V2010.AccountContext.SipContext.CredentialListContext.CredentialInstance
+   * @instance
+   *
+   * @param opts - ...
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: object, callback?: function);
+}
+
+declare class CredentialContext {
+  /**
+   * @constructor Twilio.Api.V2010.AccountContext.SipContext.CredentialListContext.CredentialContext
+   * @description Initialize the CredentialContext
+   *
+   * @param version - Version of the resource
    * @param accountSid - The account_sid
    * @param credentialListSid - The credential_list_sid
    * @param sid - The sid
    */
-  constructor(version: V2010, payload: CredentialPayload, accountSid: string, credentialListSid: string, sid: string);
+  constructor(version: Twilio.Api.V2010, accountSid: sid, credentialListSid: sid, sid: sid);
 
-  private _proxy: CredentialContext;
-  /**
-   * The unique id of the Account that responsible for this resource.
-   */
-  accountSid: string;
-  /**
-   * The credential_list_sid
-   */
-  credentialListSid: string;
-  /**
-   * The date that this resource was created, given as GMT in [RFC 2822](http://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-   */
-  dateCreated: Date;
-  /**
-   * The date that this resource was last updated, given as GMT in [RFC 2822](http://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-   */
-  dateUpdated: Date;
   /**
    * fetch a CredentialInstance
    *
-   * @returns Promise that resolves to processed CredentialInstance
-   */
-  fetch(): Promise<CredentialInstance>;
-  /**
-   * fetch a CredentialInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.SipContext.CredentialListContext.CredentialContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: CredentialInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a CredentialInstance
    *
-   * @returns Promise that resolves to processed CredentialInstance
-   */
-  remove(): Promise<CredentialInstance>;
-  /**
-   * remove a CredentialInstance
+   * @function remove
+   * @memberof Twilio.Api.V2010.AccountContext.SipContext.CredentialListContext.CredentialContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: CredentialInstance) => any): void;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
+  remove(callback?: function);
   /**
    * update a CredentialInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Api.V2010.AccountContext.SipContext.CredentialListContext.CredentialContext
+   * @instance
    *
-   * @returns Promise that resolves to processed CredentialInstance
-   */
-  update(opts?: CredentialListFetchOptions): Promise<CredentialInstance>;
-  /**
-   * update a CredentialInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: CredentialListFetchOptions, callback: (error: Error | null, items: CredentialInstance) => any): void;
-  /**
-   * update a CredentialInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: CredentialInstance) => any): void;
-  /**
-   * The URI for this resource, relative to `https://api.twilio.com`
-   */
-  uri: string;
-  /**
-   * The username for this credential.
-   */
-  username: string;
+  update(opts?: object, callback?: function);
 }
 
-declare class CredentialContext {
-  constructor(version: V2010, accountSid: string, credentialListSid: string, sid: string);
-
-  /**
-   * fetch a CredentialInstance
-   *
-   * @returns Promise that resolves to processed CredentialInstance
-   */
-  fetch(): Promise<CredentialInstance>;
-  /**
-   * fetch a CredentialInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  fetch(callback: (error: Error | null, items: CredentialInstance) => any): void;
-  /**
-   * remove a CredentialInstance
-   *
-   * @returns Promise that resolves to processed CredentialInstance
-   */
-  remove(): Promise<CredentialInstance>;
-  /**
-   * remove a CredentialInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback: (error: Error | null, items: CredentialInstance) => any): void;
-  /**
-   * update a CredentialInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed CredentialInstance
-   */
-  update(opts?: CredentialListFetchOptions): Promise<CredentialInstance>;
-  /**
-   * update a CredentialInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts: CredentialListFetchOptions, callback: (error: Error | null, items: CredentialInstance) => any): void;
-  /**
-   * update a CredentialInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: CredentialInstance) => any): void;
-}
-
-export { CredentialContext, CredentialInstance, CredentialList, CredentialListCreateOptions, CredentialListEachOptions, CredentialListFetchOptions, CredentialListInstance, CredentialListOptions, CredentialListPageOptions, CredentialPage, CredentialPayload, CredentialResource, CredentialSolution }
+export { CredentialContext, CredentialInstance, CredentialList, CredentialPage }

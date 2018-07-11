@@ -6,477 +6,170 @@
  */
 
 import Page = require('../../../base/Page');
-import Response = require('../../../http/response');
-import V1 = require('../V1');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
-import { SerializableClass } from '../../../interfaces';
+import deserialize = require('../../../base/deserialize');
+import serialize = require('../../../base/serialize');
+import values = require('../../../base/values');
 
-declare function RatePlanList(version: V1): RatePlanListInstance
 
-interface RatePlanResource {
-  /**
-   * The unique id of the [Account](https://www.twilio.com/docs/api/rest/account) that this Rate Plan belongs to.
-   */
-  account_sid: string;
-  /**
-   * Defines whether SIMs are capable of using GPRS/3G/4G/LTE data connectivity.
-   */
-  data_enabled: boolean;
-  /**
-   * Network-enforced limit specifying the total Megabytes of data usage (download and upload combined) allowed during one month on the home network. Metering begins on the day of activation and ends on the same day of the following month.  Max value is 2TB.
-   */
-  data_limit: number;
-  /**
-   * The model by which to meter data usage, in accordance with the two available [data metering models](https://www.twilio.com/docs/api/wireless/rest-api/rate-plan#explanation-of-pooled-vs-individual). Valid options are `pooled` and `individual`.
-   */
-  data_metering: string;
-  /**
-   * The date that this resource was created, given as GMT in [ISO 8601](http://www.iso.org/iso/home/standards/iso8601.htm) format.
-   */
-  date_created: Date;
-  /**
-   * The date that this resource was last updated, given as GMT in [ISO 8601](http://www.iso.org/iso/home/standards/iso8601.htm) format.
-   */
-  date_updated: Date;
-  /**
-   * A user-provided string that identifies this resource. Non-unique.
-   */
-  friendly_name: string;
-  /**
-   * The international_roaming
-   */
-  international_roaming: string;
-  /**
-   * The international_roaming_data_limit
-   */
-  international_roaming_data_limit: number;
-  /**
-   * Defines whether SIMs are capable of making and sending and receiving SMS via [Commands](https://www.twilio.com/docs/wireless/api/commands).
-   */
-  messaging_enabled: boolean;
-  /**
-   * Network-enforced limit specifying the total Megabytes of national roaming data usage (download and upload combined) allowed during one month.  Max value is 2TB.
-   */
-  national_roaming_data_limit: number;
-  /**
-   * Defines whether SIMs can roam onto other networks in the SIM's home country. See ['national' roaming](https://www.twilio.com/docs/api/wireless/rest-api/rate-plan#national-roaming).
-   */
-  national_roaming_enabled: boolean;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * A user-provided string that uniquely identifies this resource as an alternative to the `sid`.
-   */
-  unique_name: string;
-  /**
-   * The URL for this resource.
-   */
-  url: string;
-  /**
-   * Defines whether SIMs are capable of making and receiving voice calls.
-   */
-  voice_enabled: boolean;
-}
-
-interface RatePlanPayload extends RatePlanResource, Page.TwilioResponsePayload {
-}
-
-interface RatePlanSolution {
-}
-
-interface RatePlanListEachOptions extends ListEachOptions<RatePlanInstance> {
-}
-
-interface RatePlanListOptions extends ListOptions<RatePlanInstance> {
-}
-
-interface RatePlanListPageOptions extends PageOptions<RatePlanPage> {
-}
-
-interface RatePlanListCreateOptions {
-  /**
-   * Defines whether SIMs are capable of using GPRS/3G/LTE data connectivity.
-   */
-  dataEnabled?: boolean;
-  /**
-   * Network-enforced limit specifying the total Megabytes of data usage (download and upload combined) allowed during one month on the home network. Metering begins on the day of activation and ends on the same day of the following month.  Max value is 2TB.
-   */
-  dataLimit?: number;
-  /**
-   * The model by which to meter data usage, in accordance with the two available [data metering models](https://www.twilio.com/docs/api/wireless/rest-api/rate-plan#explanation-of-pooled-vs-individual). Valid options are `pooled` and `individual`.
-   */
-  dataMetering?: string;
-  /**
-   * A user-provided string that identifies this resource. Non-unique.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the Sid.
+ * @property friendlyName - A user-provided string that identifies this resource.
+ */
+export interface UpdateOptions {
   friendlyName?: string;
-  /**
-   * The international_roaming
-   */
-  internationalRoaming?: string[];
-  /**
-   * The international_roaming_data_limit
-   */
-  internationalRoamingDataLimit?: number;
-  /**
-   * Defines whether SIMs are capable of making and sending and receiving SMS messages via either [Commands](https://www.twilio.com/docs/wireless/api/commands) or Programmable SMS APIs.
-   */
-  messagingEnabled?: boolean;
-  /**
-   * Network-enforced limit specifying the total Megabytes of national roaming data usage (download and upload combined) allowed during one month.  Max value is 2TB. If unspecified, the default value is the lesser of `DataLimit` and 1000MB.
-   */
-  nationalRoamingDataLimit?: number;
-  /**
-   * Defines whether SIMs can roam onto other networks in the SIM's home country. See ['national' roaming](https://www.twilio.com/docs/api/wireless/rest-api/rate-plan#national-roaming).
-   */
-  nationalRoamingEnabled?: boolean;
-  /**
-   * A user-provided string that uniquely identifies this resource as an alternative to the Sid.
-   */
-  uniqueName?: string;
-  /**
-   * Defines whether SIMs are capable of making and receiving voice calls.
-   */
-  voiceEnabled?: boolean;
-}
-
-interface RatePlanListInstance {
-  /**
-   * Gets context of a single RatePlan resource
-   *
-   * @param sid - The sid
-   */
-  (sid: string): RatePlanContext;
-  /**
-   * create a RatePlanInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed RatePlanInstance
-   */
-  create(opts?: RatePlanListCreateOptions): Promise<RatePlanInstance>;
-  /**
-   * create a RatePlanInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: RatePlanListCreateOptions, callback: (error: Error | null, items: RatePlanInstance) => any): void;
-  /**
-   * create a RatePlanInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  create(callback: (error: Error | null, items: RatePlanInstance) => any): void;
-  /**
-   * Streams RatePlanInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: RatePlanListEachOptions): void;
-  /**
-   * Streams RatePlanInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: RatePlanInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single RatePlan resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): RatePlanContext;
-  /**
-   * Retrieve a single target page of RatePlanInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<RatePlanPage>;
-  /**
-   * Retrieve a single target page of RatePlanInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: RatePlanPage) => any): void;
-  /**
-   * Lists RatePlanInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: RatePlanListOptions): Promise<RatePlanInstance[]>;
-  /**
-   * Lists RatePlanInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: RatePlanListOptions, callback: (error: Error | null, items: RatePlanInstance[]) => any): void;
-  /**
-   * Lists RatePlanInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: RatePlanInstance[]) => any): void;
-  /**
-   * Retrieve a single page of RatePlanInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: RatePlanListPageOptions): Promise<RatePlanPage>;
-  /**
-   * Retrieve a single page of RatePlanInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: RatePlanListPageOptions, callback: (error: Error | null, items: RatePlanPage) => any): void;
-  /**
-   * Retrieve a single page of RatePlanInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: RatePlanPage) => any): void;
-}
-
-interface RatePlanListFetchOptions {
-  /**
-   * A user-provided string that identifies this resource. Non-unique.
-   */
-  friendlyName?: string;
-  /**
-   * A user-provided string that uniquely identifies this resource as an alternative to the Sid.
-   */
   uniqueName?: string;
 }
 
-interface RatePlanListFetchOptions {
-  /**
-   * A user-provided string that identifies this resource. Non-unique.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the Sid.
+ * @property friendlyName - A user-provided string that identifies this resource.
+ */
+export interface UpdateOptions {
   friendlyName?: string;
-  /**
-   * A user-provided string that uniquely identifies this resource as an alternative to the Sid.
-   */
   uniqueName?: string;
 }
 
-declare class RatePlanPage extends Page<V1, RatePlanPayload, RatePlanResource, RatePlanInstance> {
-  constructor(version: V1, response: Response<string>, solution: RatePlanSolution);
+
+declare class RatePlanPage extends Page {
+  /**
+   * @constructor Twilio.Wireless.V1.RatePlanPage
+   * @augments Page
+   * @description Initialize the RatePlanPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Wireless.V1, response: object, solution: object);
 
   /**
    * Build an instance of RatePlanInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Wireless.V1.RatePlanPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: RatePlanPayload): RatePlanInstance;
+  getInstance(payload: object);
 }
 
-declare class RatePlanInstance extends SerializableClass {
+declare class RatePlanInstance {
   /**
+   * @constructor Twilio.Wireless.V1.RatePlanInstance
+   * @description Initialize the RatePlanContext
+   *
+   * @property sid - A 34 character string that uniquely identifies this resource.
+   * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid.
+   * @property accountSid - The unique id of the Account that this Rate Plan belongs to.
+   * @property friendlyName - A user-provided string that identifies this resource.
+   * @property dataEnabled - Defines whether SIMs are capable of using GPRS/3G/4G/LTE data connectivity.
+   * @property dataMetering - The model by which to meter data usage, in accordance with the two available data metering models.
+   * @property dataLimit - Network-enforced limit specifying the total Megabytes of data usage allowed during one month on the home network.
+   * @property messagingEnabled - Defines whether SIMs are capable of making and sending and receiving SMS via Commands.
+   * @property voiceEnabled - Defines whether SIMs are capable of making and receiving voice calls.
+   * @property nationalRoamingEnabled - Defines whether SIMs can roam onto other networks in the SIM's home country.
+   * @property nationalRoamingDataLimit - Network-enforced limit specifying the total Megabytes of national roaming data usage allowed during one month.
+   * @property internationalRoaming - The international_roaming
+   * @property internationalRoamingDataLimit - The international_roaming_data_limit
+   * @property dateCreated - The date that this resource was created, given as GMT in ISO 8601 format.
+   * @property dateUpdated - The date that this resource was last updated, given as GMT in ISO 8601 format.
+   * @property url - The URL for this resource.
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param sid - The sid
    */
-  constructor(version: V1, payload: RatePlanPayload, sid: string);
+  constructor(version: Twilio.Wireless.V1, payload: object, sid: sid_like);
 
-  private _proxy: RatePlanContext;
-  /**
-   * The unique id of the [Account](https://www.twilio.com/docs/api/rest/account) that this Rate Plan belongs to.
-   */
-  accountSid: string;
-  /**
-   * Defines whether SIMs are capable of using GPRS/3G/4G/LTE data connectivity.
-   */
-  dataEnabled: boolean;
-  /**
-   * Network-enforced limit specifying the total Megabytes of data usage (download and upload combined) allowed during one month on the home network. Metering begins on the day of activation and ends on the same day of the following month.  Max value is 2TB.
-   */
-  dataLimit: number;
-  /**
-   * The model by which to meter data usage, in accordance with the two available [data metering models](https://www.twilio.com/docs/api/wireless/rest-api/rate-plan#explanation-of-pooled-vs-individual). Valid options are `pooled` and `individual`.
-   */
-  dataMetering: string;
-  /**
-   * The date that this resource was created, given as GMT in [ISO 8601](http://www.iso.org/iso/home/standards/iso8601.htm) format.
-   */
-  dateCreated: Date;
-  /**
-   * The date that this resource was last updated, given as GMT in [ISO 8601](http://www.iso.org/iso/home/standards/iso8601.htm) format.
-   */
-  dateUpdated: Date;
+  _proxy?: RatePlanContext;
   /**
    * fetch a RatePlanInstance
    *
-   * @returns Promise that resolves to processed RatePlanInstance
-   */
-  fetch(): Promise<RatePlanInstance>;
-  /**
-   * fetch a RatePlanInstance
+   * @function fetch
+   * @memberof Twilio.Wireless.V1.RatePlanInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: RatePlanInstance) => any): void;
-  /**
-   * A user-provided string that identifies this resource. Non-unique.
-   */
-  friendlyName: string;
-  /**
-   * The international_roaming
-   */
-  internationalRoaming: string;
-  /**
-   * The international_roaming_data_limit
-   */
-  internationalRoamingDataLimit: number;
-  /**
-   * Defines whether SIMs are capable of making and sending and receiving SMS via [Commands](https://www.twilio.com/docs/wireless/api/commands).
-   */
-  messagingEnabled: boolean;
-  /**
-   * Network-enforced limit specifying the total Megabytes of national roaming data usage (download and upload combined) allowed during one month.  Max value is 2TB.
-   */
-  nationalRoamingDataLimit: number;
-  /**
-   * Defines whether SIMs can roam onto other networks in the SIM's home country. See ['national' roaming](https://www.twilio.com/docs/api/wireless/rest-api/rate-plan#national-roaming).
-   */
-  nationalRoamingEnabled: boolean;
+  fetch(callback?: function);
   /**
    * remove a RatePlanInstance
    *
-   * @returns Promise that resolves to processed RatePlanInstance
-   */
-  remove(): Promise<RatePlanInstance>;
-  /**
-   * remove a RatePlanInstance
+   * @function remove
+   * @memberof Twilio.Wireless.V1.RatePlanInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: RatePlanInstance) => any): void;
+  remove(callback?: function);
   /**
-   * A 34 character string that uniquely identifies this resource.
+   * Produce a plain JSON object version of the RatePlanInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Wireless.V1.RatePlanInstance
+   * @instance
    */
-  sid: string;
-  /**
-   * A user-provided string that uniquely identifies this resource as an alternative to the `sid`.
-   */
-  uniqueName: string;
+  toJSON();
   /**
    * update a RatePlanInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Wireless.V1.RatePlanInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed RatePlanInstance
-   */
-  update(opts?: RatePlanListFetchOptions): Promise<RatePlanInstance>;
-  /**
-   * update a RatePlanInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: RatePlanListFetchOptions, callback: (error: Error | null, items: RatePlanInstance) => any): void;
-  /**
-   * update a RatePlanInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: RatePlanInstance) => any): void;
-  /**
-   * The URL for this resource.
-   */
-  url: string;
-  /**
-   * Defines whether SIMs are capable of making and receiving voice calls.
-   */
-  voiceEnabled: boolean;
+  update(opts?: object, callback?: function);
 }
 
 declare class RatePlanContext {
-  constructor(version: V1, sid: string);
+  /**
+   * @constructor Twilio.Wireless.V1.RatePlanContext
+   * @description Initialize the RatePlanContext
+   *
+   * @param version - Version of the resource
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Wireless.V1, sid: sid_like);
 
   /**
    * fetch a RatePlanInstance
    *
-   * @returns Promise that resolves to processed RatePlanInstance
-   */
-  fetch(): Promise<RatePlanInstance>;
-  /**
-   * fetch a RatePlanInstance
+   * @function fetch
+   * @memberof Twilio.Wireless.V1.RatePlanContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: RatePlanInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a RatePlanInstance
    *
-   * @returns Promise that resolves to processed RatePlanInstance
-   */
-  remove(): Promise<RatePlanInstance>;
-  /**
-   * remove a RatePlanInstance
+   * @function remove
+   * @memberof Twilio.Wireless.V1.RatePlanContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: RatePlanInstance) => any): void;
+  remove(callback?: function);
   /**
    * update a RatePlanInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Wireless.V1.RatePlanContext
+   * @instance
    *
-   * @returns Promise that resolves to processed RatePlanInstance
-   */
-  update(opts?: RatePlanListFetchOptions): Promise<RatePlanInstance>;
-  /**
-   * update a RatePlanInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: RatePlanListFetchOptions, callback: (error: Error | null, items: RatePlanInstance) => any): void;
-  /**
-   * update a RatePlanInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: RatePlanInstance) => any): void;
+  update(opts?: object, callback?: function);
 }
 
-export { RatePlanContext, RatePlanInstance, RatePlanList, RatePlanListCreateOptions, RatePlanListEachOptions, RatePlanListFetchOptions, RatePlanListInstance, RatePlanListOptions, RatePlanListPageOptions, RatePlanPage, RatePlanPayload, RatePlanResource, RatePlanSolution }
+export { RatePlanContext, RatePlanInstance, RatePlanList, RatePlanPage }

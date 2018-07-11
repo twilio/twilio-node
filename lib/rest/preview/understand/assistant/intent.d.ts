@@ -6,387 +6,190 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import Understand = require('../../Understand');
-import { FieldListInstance } from './intent/field';
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { SampleListInstance } from './intent/sample';
-import { SerializableClass } from '../../../../interfaces';
+import deserialize = require('../../../../base/deserialize');
+import values = require('../../../../base/values');
+import { FieldList } from './intent/field';
+import { SampleList } from './intent/sample';
 
-declare function IntentList(version: Understand, assistantSid: string): IntentListInstance
 
-interface IntentResource {
-  /**
-   * The unique ID of the Account that created this Intent.
-   */
-  account_sid: string;
-  /**
-   * The unique ID of the Assistant.
-   */
-  assistant_sid: string;
-  /**
-   * The date that this resource was created
-   */
-  date_created: Date;
-  /**
-   * The date that this resource was last updated
-   */
-  date_updated: Date;
-  /**
-   * A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
-   */
-  friendly_name: string;
-  /**
-   * The links
-   */
-  links: string;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
-   */
-  unique_name: string;
-  /**
-   * The url
-   */
-  url: string;
-}
-
-interface IntentPayload extends IntentResource, Page.TwilioResponsePayload {
-}
-
-interface IntentSolution {
-  assistantSid: string;
-}
-
-interface IntentListEachOptions extends ListEachOptions<IntentInstance> {
-}
-
-interface IntentListOptions extends ListOptions<IntentInstance> {
-}
-
-interface IntentListPageOptions extends PageOptions<IntentPage> {
-}
-
-interface IntentListCreateOptions {
-  /**
-   * A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
+ * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+ */
+export interface UpdateOptions {
   friendlyName?: string;
-  /**
-   * A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
-   */
-  uniqueName: string;
-}
-
-interface IntentListInstance {
-  /**
-   * Gets context of a single Intent resource
-   *
-   * @param sid - The sid
-   */
-  (sid: string): IntentContext;
-  /**
-   * create a IntentInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed IntentInstance
-   */
-  create(opts: IntentListCreateOptions): Promise<IntentInstance>;
-  /**
-   * create a IntentInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: IntentListCreateOptions, callback: (error: Error | null, items: IntentInstance) => any): void;
-  /**
-   * Streams IntentInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: IntentListEachOptions): void;
-  /**
-   * Streams IntentInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: IntentInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Intent resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): IntentContext;
-  /**
-   * Retrieve a single target page of IntentInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<IntentPage>;
-  /**
-   * Retrieve a single target page of IntentInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: IntentPage) => any): void;
-  /**
-   * Lists IntentInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: IntentListOptions): Promise<IntentInstance[]>;
-  /**
-   * Lists IntentInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: IntentListOptions, callback: (error: Error | null, items: IntentInstance[]) => any): void;
-  /**
-   * Lists IntentInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: IntentInstance[]) => any): void;
-  /**
-   * Retrieve a single page of IntentInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: IntentListPageOptions): Promise<IntentPage>;
-  /**
-   * Retrieve a single page of IntentInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: IntentListPageOptions, callback: (error: Error | null, items: IntentPage) => any): void;
-  /**
-   * Retrieve a single page of IntentInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: IntentPage) => any): void;
-}
-
-interface IntentListFetchOptions {
-  /**
-   * A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
-   */
-  friendlyName?: string;
-  /**
-   * A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
-   */
   uniqueName?: string;
 }
 
-interface IntentListFetchOptions {
-  /**
-   * A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
+ * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+ */
+export interface UpdateOptions {
   friendlyName?: string;
-  /**
-   * A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
-   */
   uniqueName?: string;
 }
 
-declare class IntentPage extends Page<Understand, IntentPayload, IntentResource, IntentInstance> {
-  constructor(version: Understand, response: Response<string>, solution: IntentSolution);
+
+declare class IntentPage extends Page {
+  /**
+   * @constructor Twilio.Preview.Understand.AssistantContext.IntentPage
+   * @augments Page
+   * @description Initialize the IntentPage
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Preview.Understand, response: object, solution: object);
 
   /**
    * Build an instance of IntentInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Preview.Understand.AssistantContext.IntentPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: IntentPayload): IntentInstance;
+  getInstance(payload: object);
 }
 
-declare class IntentInstance extends SerializableClass {
+declare class IntentInstance {
   /**
+   * @constructor Twilio.Preview.Understand.AssistantContext.IntentInstance
+   * @description Initialize the IntentContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property accountSid - The unique ID of the Account that created this Intent.
+   * @property dateCreated - The date that this resource was created
+   * @property dateUpdated - The date that this resource was last updated
+   * @property friendlyName - A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
+   * @property links - The links
+   * @property assistantSid - The unique ID of the Assistant.
+   * @property sid - A 34 character string that uniquely identifies this resource.
+   * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+   * @property url - The url
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param assistantSid - The assistant_sid
+   * @param assistantSid - The unique ID of the Assistant.
    * @param sid - The sid
    */
-  constructor(version: Understand, payload: IntentPayload, assistantSid: string, sid: string);
+  constructor(version: Twilio.Preview.Understand, payload: object, assistantSid: sid, sid: sid_like);
 
-  private _proxy: IntentContext;
-  /**
-   * The unique ID of the Account that created this Intent.
-   */
-  accountSid: string;
-  /**
-   * The unique ID of the Assistant.
-   */
-  assistantSid: string;
-  /**
-   * The date that this resource was created
-   */
-  dateCreated: Date;
-  /**
-   * The date that this resource was last updated
-   */
-  dateUpdated: Date;
+  _proxy?: IntentContext;
   /**
    * fetch a IntentInstance
    *
-   * @returns Promise that resolves to processed IntentInstance
-   */
-  fetch(): Promise<IntentInstance>;
-  /**
-   * fetch a IntentInstance
+   * @function fetch
+   * @memberof Twilio.Preview.Understand.AssistantContext.IntentInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: IntentInstance) => any): void;
-  fields(): FieldListInstance;
+  fetch(callback?: function);
   /**
-   * A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
+   * Access the fields
+   *
+   * @function fields
+   * @memberof Twilio.Preview.Understand.AssistantContext.IntentInstance
+   * @instance
    */
-  friendlyName: string;
-  /**
-   * The links
-   */
-  links: string;
+  fields();
   /**
    * remove a IntentInstance
    *
-   * @returns Promise that resolves to processed IntentInstance
-   */
-  remove(): Promise<IntentInstance>;
-  /**
-   * remove a IntentInstance
+   * @function remove
+   * @memberof Twilio.Preview.Understand.AssistantContext.IntentInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: IntentInstance) => any): void;
-  samples(): SampleListInstance;
+  remove(callback?: function);
   /**
-   * A 34 character string that uniquely identifies this resource.
+   * Access the samples
+   *
+   * @function samples
+   * @memberof Twilio.Preview.Understand.AssistantContext.IntentInstance
+   * @instance
    */
-  sid: string;
+  samples();
   /**
-   * A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+   * Produce a plain JSON object version of the IntentInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Preview.Understand.AssistantContext.IntentInstance
+   * @instance
    */
-  uniqueName: string;
+  toJSON();
   /**
    * update a IntentInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Preview.Understand.AssistantContext.IntentInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed IntentInstance
-   */
-  update(opts?: IntentListFetchOptions): Promise<IntentInstance>;
-  /**
-   * update a IntentInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: IntentListFetchOptions, callback: (error: Error | null, items: IntentInstance) => any): void;
-  /**
-   * update a IntentInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: IntentInstance) => any): void;
-  /**
-   * The url
-   */
-  url: string;
+  update(opts?: object, callback?: function);
 }
 
 declare class IntentContext {
-  constructor(version: Understand, assistantSid: string, sid: string);
+  /**
+   * @constructor Twilio.Preview.Understand.AssistantContext.IntentContext
+   * @description Initialize the IntentContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property fields - fields resource
+   * @property samples - samples resource
+   *
+   * @param version - Version of the resource
+   * @param assistantSid - The assistant_sid
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Preview.Understand, assistantSid: sid_like, sid: sid_like);
 
   /**
    * fetch a IntentInstance
    *
-   * @returns Promise that resolves to processed IntentInstance
-   */
-  fetch(): Promise<IntentInstance>;
-  /**
-   * fetch a IntentInstance
+   * @function fetch
+   * @memberof Twilio.Preview.Understand.AssistantContext.IntentContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: IntentInstance) => any): void;
-  fields: FieldListInstance;
+  fetch(callback?: function);
+  fields?: Twilio.Preview.Understand.AssistantContext.IntentContext.FieldList;
   /**
    * remove a IntentInstance
    *
-   * @returns Promise that resolves to processed IntentInstance
-   */
-  remove(): Promise<IntentInstance>;
-  /**
-   * remove a IntentInstance
+   * @function remove
+   * @memberof Twilio.Preview.Understand.AssistantContext.IntentContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: IntentInstance) => any): void;
-  samples: SampleListInstance;
+  remove(callback?: function);
+  samples?: Twilio.Preview.Understand.AssistantContext.IntentContext.SampleList;
   /**
    * update a IntentInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Preview.Understand.AssistantContext.IntentContext
+   * @instance
    *
-   * @returns Promise that resolves to processed IntentInstance
-   */
-  update(opts?: IntentListFetchOptions): Promise<IntentInstance>;
-  /**
-   * update a IntentInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: IntentListFetchOptions, callback: (error: Error | null, items: IntentInstance) => any): void;
-  /**
-   * update a IntentInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: IntentInstance) => any): void;
+  update(opts?: object, callback?: function);
 }
 
-export { IntentContext, IntentInstance, IntentList, IntentListCreateOptions, IntentListEachOptions, IntentListFetchOptions, IntentListInstance, IntentListOptions, IntentListPageOptions, IntentPage, IntentPayload, IntentResource, IntentSolution }
+export { IntentContext, IntentInstance, IntentList, IntentPage }

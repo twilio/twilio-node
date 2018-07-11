@@ -6,507 +6,234 @@
  */
 
 import Page = require('../../../base/Page');
-import Response = require('../../../http/response');
-import V1 = require('../V1');
-import { CredentialListListInstance } from './trunk/credentialList';
-import { IpAccessControlListListInstance } from './trunk/ipAccessControlList';
-import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
-import { OriginationUrlListInstance } from './trunk/originationUrl';
-import { PhoneNumberListInstance } from './trunk/phoneNumber';
-import { SerializableClass } from '../../../interfaces';
+import deserialize = require('../../../base/deserialize');
+import serialize = require('../../../base/serialize');
+import values = require('../../../base/values');
+import { CredentialListList } from './trunk/credentialList';
+import { IpAccessControlListList } from './trunk/ipAccessControlList';
+import { OriginationUrlList } from './trunk/originationUrl';
+import { PhoneNumberList } from './trunk/phoneNumber';
 
-declare function TrunkList(version: V1): TrunkListInstance
 
-type TrunkRecordingSetting = 'do-not-record'|'record-from-ringing'|'record-from-answer';
-
-interface TrunkResource {
-  /**
-   * The unique ID of the Account that owns this Trunk.
-   */
-  account_sid: string;
-  /**
-   * The types of authentication you have mapped to your domain. The possible values are `IP_ACL` and `CREDENTIAL_LIST`. If you have both setup for your domain, both will be returned comma delimited. If you do not have one setup for your domain, it will not be able to receive any traffic.
-   */
-  auth_type: string;
-  /**
-   * The auth_type_set
-   */
-  auth_type_set: string;
-  /**
-   * The Caller ID Name (CNAM) lookup setting for this trunk. If turned on, all inbound calls to this SIP Trunk from the United States and Canada will automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM](https://www.twilio.com/docs/sip-trunking#CNAM) Lookups for more information.
-   */
-  cnam_lookup_enabled: boolean;
-  /**
-   * The date this Activity was created.
-   */
-  date_created: Date;
-  /**
-   * The date this Activity was updated.
-   */
-  date_updated: Date;
-  /**
-   * The HTTP method Twilio will use when requesting the `DisasterRecoveryUrl`. Either `GET` or `POST`.
-   */
-  disaster_recovery_method: string;
-  /**
-   * The HTTP URL that Twilio will request if an error occurs while sending SIP traffic towards your configured Origination URL. Twilio will retrieve TwiML from this URL and execute those instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking/getting-started#disaster-recovery) for more information.
-   */
-  disaster_recovery_url: string;
-  /**
-   * The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and `-` and must always end with `pstn.twilio.com`. See [Termination Settings](https://www.twilio.com/docs/sip-trunking/getting-started#termination) for more information.
-   */
-  domain_name: string;
-  /**
-   * A human-readable name for the Trunk.
-   */
-  friendly_name: string;
-  /**
-   * The links
-   */
-  links: string;
-  /**
-   * The recording settings for this trunk. If turned on, all calls going through this trunk will be recorded and the recording can either start when the call is ringing or when the call is answered. TwiML from this URL and execute those instructions like any other normal TwiML call. See [Recording](https://www.twilio.com/docs/sip-trunking/getting-started#recording) for more information.
-   */
-  recording: string;
-  /**
-   * The Secure Trunking  settings for this trunk. If turned on, all calls going through this trunk will be secure using SRTP for media and TLS for signalling. If turned off, then RTP will be used for media. TwiML from this URL and execute those instructions like any other normal TwiML call. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking/getting-started#securetrunking) for more information.
-   */
-  secure: boolean;
-  /**
-   * A 34 character string that uniquely identifies the SIP Trunk in Twilio.
-   */
-  sid: string;
-  /**
-   * The URL for this resource, relative to `https://trunking.twilio.com`
-   */
-  url: string;
-}
-
-interface TrunkPayload extends TrunkResource, Page.TwilioResponsePayload {
-}
-
-interface TrunkSolution {
-}
-
-interface TrunkListCreateOptions {
-  /**
-   * The Caller ID Name (CNAM) lookup setting for this trunk. If turned on, all inbound calls to this SIP Trunk from the United States and Canada will automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM](https://www.twilio.com/docs/sip-trunking#CNAM) Lookups for more information.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A human-readable name for the Trunk.
+ * @property domainName - The unique address you reserve on Twilio to which you route your SIP traffic.
+ * @property disasterRecoveryUrl - The HTTP URL that Twilio will request if an error occurs while sending SIP traffic towards your configured Origination URL.
+ * @property disasterRecoveryMethod - The HTTP method Twilio will use when requesting the DisasterRecoveryUrl.
+ * @property recording - The recording settings for this trunk.
+ * @property secure - The Secure Trunking  settings for this trunk.
+ * @property cnamLookupEnabled - The Caller ID Name (CNAM) lookup setting for this trunk.
+ */
+export interface UpdateOptions {
   cnamLookupEnabled?: boolean;
-  /**
-   * The HTTP method Twilio will use when requesting the `DisasterRecoveryUrl`. Either `GET` or `POST`.
-   */
   disasterRecoveryMethod?: string;
-  /**
-   * The HTTP URL that Twilio will request if an error occurs while sending SIP traffic towards your configured Origination URL. Twilio will retrieve TwiML from this URL and execute those instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking/getting-started#disaster-recovery) for more information.
-   */
   disasterRecoveryUrl?: string;
-  /**
-   * The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and `-` and must always end with `pstn.twilio.com`. See [Termination Settings](https://www.twilio.com/docs/sip-trunking/getting-started#termination) for more information.
-   */
   domainName?: string;
-  /**
-   * A human-readable name for the Trunk.
-   */
   friendlyName?: string;
-  /**
-   * The recording settings for this trunk. If turned on, all calls going through this trunk will be recorded and the recording can either start when the call is ringing or when the call is answered. See [Recording](https://www.twilio.com/docs/sip-trunking/getting-started#recording) for more information.
-   */
-  recording?: TrunkRecordingSetting;
-  /**
-   * The Secure Trunking  settings for this trunk. If turned on, all calls going through this trunk will be secure using SRTP for media and TLS for signalling. If turned off, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking/getting-started#securetrunking) for more information.
-   */
+  recording?: trunk.recording_setting;
   secure?: boolean;
 }
 
-interface TrunkListEachOptions extends ListEachOptions<TrunkInstance> {
-}
-
-interface TrunkListOptions extends ListOptions<TrunkInstance> {
-}
-
-interface TrunkListPageOptions extends PageOptions<TrunkPage> {
-}
-
-interface TrunkListInstance {
-  /**
-   * Gets context of a single Trunk resource
-   *
-   * @param sid - The sid
-   */
-  (sid: string): TrunkContext;
-  /**
-   * create a TrunkInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed TrunkInstance
-   */
-  create(opts?: TrunkListCreateOptions): Promise<TrunkInstance>;
-  /**
-   * create a TrunkInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: TrunkListCreateOptions, callback: (error: Error | null, items: TrunkInstance) => any): void;
-  /**
-   * create a TrunkInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  create(callback: (error: Error | null, items: TrunkInstance) => any): void;
-  /**
-   * Streams TrunkInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: TrunkListEachOptions): void;
-  /**
-   * Streams TrunkInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: TrunkInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Trunk resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): TrunkContext;
-  /**
-   * Retrieve a single target page of TrunkInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<TrunkPage>;
-  /**
-   * Retrieve a single target page of TrunkInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: TrunkPage) => any): void;
-  /**
-   * Lists TrunkInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: TrunkListOptions): Promise<TrunkInstance[]>;
-  /**
-   * Lists TrunkInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: TrunkListOptions, callback: (error: Error | null, items: TrunkInstance[]) => any): void;
-  /**
-   * Lists TrunkInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: TrunkInstance[]) => any): void;
-  /**
-   * Retrieve a single page of TrunkInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: TrunkListPageOptions): Promise<TrunkPage>;
-  /**
-   * Retrieve a single page of TrunkInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: TrunkListPageOptions, callback: (error: Error | null, items: TrunkPage) => any): void;
-  /**
-   * Retrieve a single page of TrunkInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: TrunkPage) => any): void;
-}
-
-interface TrunkListFetchOptions {
-  /**
-   * The Caller ID Name (CNAM) lookup setting for this trunk. If turned on, all inbound calls to this SIP Trunk from the United States and Canada will automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM](https://www.twilio.com/docs/sip-trunking#CNAM) Lookups for more information.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A human-readable name for the Trunk.
+ * @property domainName - The unique address you reserve on Twilio to which you route your SIP traffic.
+ * @property disasterRecoveryUrl - The HTTP URL that Twilio will request if an error occurs while sending SIP traffic towards your configured Origination URL.
+ * @property disasterRecoveryMethod - The HTTP method Twilio will use when requesting the DisasterRecoveryUrl.
+ * @property recording - The recording settings for this trunk.
+ * @property secure - The Secure Trunking  settings for this trunk.
+ * @property cnamLookupEnabled - The Caller ID Name (CNAM) lookup setting for this trunk.
+ */
+export interface UpdateOptions {
   cnamLookupEnabled?: boolean;
-  /**
-   * The HTTP method Twilio will use when requesting the `DisasterRecoveryUrl`. Either `GET` or `POST`.
-   */
   disasterRecoveryMethod?: string;
-  /**
-   * The HTTP URL that Twilio will request if an error occurs while sending SIP traffic towards your configured Origination URL. Twilio will retrieve TwiML from this URL and execute those instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking/getting-started#disaster-recovery) for more information.
-   */
   disasterRecoveryUrl?: string;
-  /**
-   * The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and `-` and must always end with `pstn.twilio.com`. See [Termination Settings](https://www.twilio.com/docs/sip-trunking/getting-started#termination) for more information.
-   */
   domainName?: string;
-  /**
-   * A human-readable name for the Trunk.
-   */
   friendlyName?: string;
-  /**
-   * The recording settings for this trunk. If turned on, all calls going through this trunk will be recorded and the recording can either start when the call is ringing or when the call is answered. See [Recording](https://www.twilio.com/docs/sip-trunking/getting-started#recording) for more information.
-   */
-  recording?: TrunkRecordingSetting;
-  /**
-   * The Secure Trunking  settings for this trunk. If turned on, all calls going through this trunk will be secure using SRTP for media and TLS for signalling. If turned off, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking/getting-started#securetrunking) for more information.
-   */
+  recording?: trunk.recording_setting;
   secure?: boolean;
 }
 
-interface TrunkListFetchOptions {
-  /**
-   * The Caller ID Name (CNAM) lookup setting for this trunk. If turned on, all inbound calls to this SIP Trunk from the United States and Canada will automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM](https://www.twilio.com/docs/sip-trunking#CNAM) Lookups for more information.
-   */
-  cnamLookupEnabled?: boolean;
-  /**
-   * The HTTP method Twilio will use when requesting the `DisasterRecoveryUrl`. Either `GET` or `POST`.
-   */
-  disasterRecoveryMethod?: string;
-  /**
-   * The HTTP URL that Twilio will request if an error occurs while sending SIP traffic towards your configured Origination URL. Twilio will retrieve TwiML from this URL and execute those instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking/getting-started#disaster-recovery) for more information.
-   */
-  disasterRecoveryUrl?: string;
-  /**
-   * The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and `-` and must always end with `pstn.twilio.com`. See [Termination Settings](https://www.twilio.com/docs/sip-trunking/getting-started#termination) for more information.
-   */
-  domainName?: string;
-  /**
-   * A human-readable name for the Trunk.
-   */
-  friendlyName?: string;
-  /**
-   * The recording settings for this trunk. If turned on, all calls going through this trunk will be recorded and the recording can either start when the call is ringing or when the call is answered. See [Recording](https://www.twilio.com/docs/sip-trunking/getting-started#recording) for more information.
-   */
-  recording?: TrunkRecordingSetting;
-  /**
-   * The Secure Trunking  settings for this trunk. If turned on, all calls going through this trunk will be secure using SRTP for media and TLS for signalling. If turned off, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking/getting-started#securetrunking) for more information.
-   */
-  secure?: boolean;
-}
 
-declare class TrunkPage extends Page<V1, TrunkPayload, TrunkResource, TrunkInstance> {
-  constructor(version: V1, response: Response<string>, solution: TrunkSolution);
+declare class TrunkPage extends Page {
+  /**
+   * @constructor Twilio.Trunking.V1.TrunkPage
+   * @augments Page
+   * @description Initialize the TrunkPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Trunking.V1, response: object, solution: object);
 
   /**
    * Build an instance of TrunkInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Trunking.V1.TrunkPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: TrunkPayload): TrunkInstance;
+  getInstance(payload: object);
 }
 
-declare class TrunkInstance extends SerializableClass {
+declare class TrunkInstance {
   /**
+   * @constructor Twilio.Trunking.V1.TrunkInstance
+   * @description Initialize the TrunkContext
+   *
+   * @property accountSid - The unique ID of the Account that owns this Trunk.
+   * @property domainName - The unique address you reserve on Twilio to which you route your SIP traffic.
+   * @property disasterRecoveryMethod - The HTTP method Twilio will use when requesting the DisasterRecoveryUrl.
+   * @property disasterRecoveryUrl - The HTTP URL that Twilio will request if an error occurs while sending SIP traffic towards your configured Origination URL.
+   * @property friendlyName - A human-readable name for the Trunk.
+   * @property secure - The Secure Trunking  settings for this trunk.
+   * @property recording - The recording settings for this trunk.
+   * @property cnamLookupEnabled - The Caller ID Name (CNAM) lookup setting for this trunk.
+   * @property authType - The types of authentication you have mapped to your domain.
+   * @property authTypeSet - The auth_type_set
+   * @property dateCreated - The date this Activity was created.
+   * @property dateUpdated - The date this Activity was updated.
+   * @property sid - A 34 character string that uniquely identifies the SIP Trunk in Twilio.
+   * @property url - The URL for this resource, relative to https://trunking.
+   * @property links - The links
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param sid - The sid
    */
-  constructor(version: V1, payload: TrunkPayload, sid: string);
+  constructor(version: Twilio.Trunking.V1, payload: object, sid: sid);
 
-  private _proxy: TrunkContext;
+  _proxy?: TrunkContext;
   /**
-   * The unique ID of the Account that owns this Trunk.
+   * Access the credentialsLists
+   *
+   * @function credentialsLists
+   * @memberof Twilio.Trunking.V1.TrunkInstance
+   * @instance
    */
-  accountSid: string;
-  /**
-   * The types of authentication you have mapped to your domain. The possible values are `IP_ACL` and `CREDENTIAL_LIST`. If you have both setup for your domain, both will be returned comma delimited. If you do not have one setup for your domain, it will not be able to receive any traffic.
-   */
-  authType: string;
-  /**
-   * The auth_type_set
-   */
-  authTypeSet: string;
-  /**
-   * The Caller ID Name (CNAM) lookup setting for this trunk. If turned on, all inbound calls to this SIP Trunk from the United States and Canada will automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM](https://www.twilio.com/docs/sip-trunking#CNAM) Lookups for more information.
-   */
-  cnamLookupEnabled: boolean;
-  credentialsLists(): CredentialListListInstance;
-  /**
-   * The date this Activity was created.
-   */
-  dateCreated: Date;
-  /**
-   * The date this Activity was updated.
-   */
-  dateUpdated: Date;
-  /**
-   * The HTTP method Twilio will use when requesting the `DisasterRecoveryUrl`. Either `GET` or `POST`.
-   */
-  disasterRecoveryMethod: string;
-  /**
-   * The HTTP URL that Twilio will request if an error occurs while sending SIP traffic towards your configured Origination URL. Twilio will retrieve TwiML from this URL and execute those instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking/getting-started#disaster-recovery) for more information.
-   */
-  disasterRecoveryUrl: string;
-  /**
-   * The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and `-` and must always end with `pstn.twilio.com`. See [Termination Settings](https://www.twilio.com/docs/sip-trunking/getting-started#termination) for more information.
-   */
-  domainName: string;
+  credentialsLists();
   /**
    * fetch a TrunkInstance
    *
-   * @returns Promise that resolves to processed TrunkInstance
-   */
-  fetch(): Promise<TrunkInstance>;
-  /**
-   * fetch a TrunkInstance
+   * @function fetch
+   * @memberof Twilio.Trunking.V1.TrunkInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: TrunkInstance) => any): void;
+  fetch(callback?: function);
   /**
-   * A human-readable name for the Trunk.
+   * Access the ipAccessControlLists
+   *
+   * @function ipAccessControlLists
+   * @memberof Twilio.Trunking.V1.TrunkInstance
+   * @instance
    */
-  friendlyName: string;
-  ipAccessControlLists(): IpAccessControlListListInstance;
+  ipAccessControlLists();
   /**
-   * The links
+   * Access the originationUrls
+   *
+   * @function originationUrls
+   * @memberof Twilio.Trunking.V1.TrunkInstance
+   * @instance
    */
-  links: string;
-  originationUrls(): OriginationUrlListInstance;
-  phoneNumbers(): PhoneNumberListInstance;
+  originationUrls();
   /**
-   * The recording settings for this trunk. If turned on, all calls going through this trunk will be recorded and the recording can either start when the call is ringing or when the call is answered. TwiML from this URL and execute those instructions like any other normal TwiML call. See [Recording](https://www.twilio.com/docs/sip-trunking/getting-started#recording) for more information.
+   * Access the phoneNumbers
+   *
+   * @function phoneNumbers
+   * @memberof Twilio.Trunking.V1.TrunkInstance
+   * @instance
    */
-  recording: string;
+  phoneNumbers();
   /**
    * remove a TrunkInstance
    *
-   * @returns Promise that resolves to processed TrunkInstance
-   */
-  remove(): Promise<TrunkInstance>;
-  /**
-   * remove a TrunkInstance
+   * @function remove
+   * @memberof Twilio.Trunking.V1.TrunkInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: TrunkInstance) => any): void;
+  remove(callback?: function);
   /**
-   * The Secure Trunking  settings for this trunk. If turned on, all calls going through this trunk will be secure using SRTP for media and TLS for signalling. If turned off, then RTP will be used for media. TwiML from this URL and execute those instructions like any other normal TwiML call. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking/getting-started#securetrunking) for more information.
+   * Produce a plain JSON object version of the TrunkInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Trunking.V1.TrunkInstance
+   * @instance
    */
-  secure: boolean;
-  /**
-   * A 34 character string that uniquely identifies the SIP Trunk in Twilio.
-   */
-  sid: string;
+  toJSON();
   /**
    * update a TrunkInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Trunking.V1.TrunkInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed TrunkInstance
-   */
-  update(opts?: TrunkListFetchOptions): Promise<TrunkInstance>;
-  /**
-   * update a TrunkInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: TrunkListFetchOptions, callback: (error: Error | null, items: TrunkInstance) => any): void;
-  /**
-   * update a TrunkInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: TrunkInstance) => any): void;
-  /**
-   * The URL for this resource, relative to `https://trunking.twilio.com`
-   */
-  url: string;
+  update(opts?: object, callback?: function);
 }
 
 declare class TrunkContext {
-  constructor(version: V1, sid: string);
+  /**
+   * @constructor Twilio.Trunking.V1.TrunkContext
+   * @description Initialize the TrunkContext
+   *
+   * @property originationUrls - originationUrls resource
+   * @property credentialsLists - credentialsLists resource
+   * @property ipAccessControlLists - ipAccessControlLists resource
+   * @property phoneNumbers - phoneNumbers resource
+   *
+   * @param version - Version of the resource
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Trunking.V1, sid: sid);
 
-  credentialsLists: CredentialListListInstance;
+  credentialsLists?: Twilio.Trunking.V1.TrunkContext.CredentialListList;
   /**
    * fetch a TrunkInstance
    *
-   * @returns Promise that resolves to processed TrunkInstance
-   */
-  fetch(): Promise<TrunkInstance>;
-  /**
-   * fetch a TrunkInstance
+   * @function fetch
+   * @memberof Twilio.Trunking.V1.TrunkContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: TrunkInstance) => any): void;
-  ipAccessControlLists: IpAccessControlListListInstance;
-  originationUrls: OriginationUrlListInstance;
-  phoneNumbers: PhoneNumberListInstance;
+  fetch(callback?: function);
+  ipAccessControlLists?: Twilio.Trunking.V1.TrunkContext.IpAccessControlListList;
+  originationUrls?: Twilio.Trunking.V1.TrunkContext.OriginationUrlList;
+  phoneNumbers?: Twilio.Trunking.V1.TrunkContext.PhoneNumberList;
   /**
    * remove a TrunkInstance
    *
-   * @returns Promise that resolves to processed TrunkInstance
-   */
-  remove(): Promise<TrunkInstance>;
-  /**
-   * remove a TrunkInstance
+   * @function remove
+   * @memberof Twilio.Trunking.V1.TrunkContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: TrunkInstance) => any): void;
+  remove(callback?: function);
   /**
    * update a TrunkInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Trunking.V1.TrunkContext
+   * @instance
    *
-   * @returns Promise that resolves to processed TrunkInstance
-   */
-  update(opts?: TrunkListFetchOptions): Promise<TrunkInstance>;
-  /**
-   * update a TrunkInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: TrunkListFetchOptions, callback: (error: Error | null, items: TrunkInstance) => any): void;
-  /**
-   * update a TrunkInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: TrunkInstance) => any): void;
+  update(opts?: object, callback?: function);
 }
 
-export { TrunkContext, TrunkInstance, TrunkList, TrunkListCreateOptions, TrunkListEachOptions, TrunkListFetchOptions, TrunkListInstance, TrunkListOptions, TrunkListPageOptions, TrunkPage, TrunkPayload, TrunkRecordingSetting, TrunkResource, TrunkSolution }
+export { TrunkContext, TrunkInstance, TrunkList, TrunkPage }

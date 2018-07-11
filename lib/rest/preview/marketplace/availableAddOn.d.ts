@@ -5,253 +5,111 @@
  *       /       /
  */
 
-import Marketplace = require('../Marketplace');
 import Page = require('../../../base/Page');
-import Response = require('../../../http/response');
-import { AvailableAddOnExtensionListInstance } from './availableAddOn/availableAddOnExtension';
-import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
-import { SerializableClass } from '../../../interfaces';
+import values = require('../../../base/values');
+import { AvailableAddOnExtensionList } from './availableAddOn/availableAddOnExtension';
 
-declare function AvailableAddOnList(version: Marketplace): AvailableAddOnListInstance
 
-interface AvailableAddOnResource {
-  /**
-   * The JSON Schema describing configuration that must be provided when installing a given Add-on.
-   */
-  configuration_schema: string;
-  /**
-   * A short description of the functionality provided by the Add-on.
-   */
-  description: string;
-  /**
-   * A human-readable description of this Add-on.
-   */
-  friendly_name: string;
-  /**
-   * The links
-   */
-  links: string;
-  /**
-   * The mechanism by which customers are charged for using this Add-on.
-   */
-  pricing_type: string;
-  /**
-   * A 34 character string that uniquely identifies this Add-on.
-   */
-  sid: string;
-  /**
-   * The url
-   */
-  url: string;
-}
 
-interface AvailableAddOnPayload extends AvailableAddOnResource, Page.TwilioResponsePayload {
-}
-
-interface AvailableAddOnSolution {
-}
-
-interface AvailableAddOnListEachOptions extends ListEachOptions<AvailableAddOnInstance> {
-}
-
-interface AvailableAddOnListOptions extends ListOptions<AvailableAddOnInstance> {
-}
-
-interface AvailableAddOnListPageOptions extends PageOptions<AvailableAddOnPage> {
-}
-
-interface AvailableAddOnListInstance {
+declare class AvailableAddOnPage extends Page {
   /**
-   * Gets context of a single AvailableAddOn resource
+   * @constructor Twilio.Preview.Marketplace.AvailableAddOnPage
+   * @augments Page
+   * @description Initialize the AvailableAddOnPage
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
-   * @param sid - The unique Available Add-on Sid
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  (sid: string): AvailableAddOnContext;
-  /**
-   * Streams AvailableAddOnInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: AvailableAddOnListEachOptions): void;
-  /**
-   * Streams AvailableAddOnInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: AvailableAddOnInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single AvailableAddOn resource
-   *
-   * @param sid - The unique Available Add-on Sid
-   */
-  get(sid: string): AvailableAddOnContext;
-  /**
-   * Retrieve a single target page of AvailableAddOnInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<AvailableAddOnPage>;
-  /**
-   * Retrieve a single target page of AvailableAddOnInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: AvailableAddOnPage) => any): void;
-  /**
-   * Lists AvailableAddOnInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: AvailableAddOnListOptions): Promise<AvailableAddOnInstance[]>;
-  /**
-   * Lists AvailableAddOnInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: AvailableAddOnListOptions, callback: (error: Error | null, items: AvailableAddOnInstance[]) => any): void;
-  /**
-   * Lists AvailableAddOnInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: AvailableAddOnInstance[]) => any): void;
-  /**
-   * Retrieve a single page of AvailableAddOnInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: AvailableAddOnListPageOptions): Promise<AvailableAddOnPage>;
-  /**
-   * Retrieve a single page of AvailableAddOnInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: AvailableAddOnListPageOptions, callback: (error: Error | null, items: AvailableAddOnPage) => any): void;
-  /**
-   * Retrieve a single page of AvailableAddOnInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: AvailableAddOnPage) => any): void;
-}
-
-declare class AvailableAddOnPage extends Page<Marketplace, AvailableAddOnPayload, AvailableAddOnResource, AvailableAddOnInstance> {
-  constructor(version: Marketplace, response: Response<string>, solution: AvailableAddOnSolution);
+  constructor(version: Twilio.Preview.Marketplace, response: object, solution: object);
 
   /**
    * Build an instance of AvailableAddOnInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Preview.Marketplace.AvailableAddOnPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: AvailableAddOnPayload): AvailableAddOnInstance;
+  getInstance(payload: object);
 }
 
-declare class AvailableAddOnInstance extends SerializableClass {
+declare class AvailableAddOnInstance {
   /**
+   * @constructor Twilio.Preview.Marketplace.AvailableAddOnInstance
+   * @description Initialize the AvailableAddOnContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property sid - A string that uniquely identifies this Add-on
+   * @property friendlyName - A description of this Add-on
+   * @property description - A short description of the Add-on functionality
+   * @property pricingType - The way customers are charged for using this Add-on
+   * @property configurationSchema - The JSON Schema describing the Add-on's configuration
+   * @property url - The url
+   * @property links - The links
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param sid - The unique Available Add-on Sid
    */
-  constructor(version: Marketplace, payload: AvailableAddOnPayload, sid: string);
+  constructor(version: Twilio.Preview.Marketplace, payload: object, sid: sid);
 
-  private _proxy: AvailableAddOnContext;
+  _proxy?: AvailableAddOnContext;
   /**
-   * The JSON Schema describing configuration that must be provided when installing a given Add-on.
+   * Access the extensions
+   *
+   * @function extensions
+   * @memberof Twilio.Preview.Marketplace.AvailableAddOnInstance
+   * @instance
    */
-  configurationSchema: string;
-  /**
-   * A short description of the functionality provided by the Add-on.
-   */
-  description: string;
-  extensions(): AvailableAddOnExtensionListInstance;
+  extensions();
   /**
    * fetch a AvailableAddOnInstance
    *
-   * @returns Promise that resolves to processed AvailableAddOnInstance
-   */
-  fetch(): Promise<AvailableAddOnInstance>;
-  /**
-   * fetch a AvailableAddOnInstance
+   * @function fetch
+   * @memberof Twilio.Preview.Marketplace.AvailableAddOnInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: AvailableAddOnInstance) => any): void;
+  fetch(callback?: function);
   /**
-   * A human-readable description of this Add-on.
+   * Produce a plain JSON object version of the AvailableAddOnInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Preview.Marketplace.AvailableAddOnInstance
+   * @instance
    */
-  friendlyName: string;
-  /**
-   * The links
-   */
-  links: string;
-  /**
-   * The mechanism by which customers are charged for using this Add-on.
-   */
-  pricingType: string;
-  /**
-   * A 34 character string that uniquely identifies this Add-on.
-   */
-  sid: string;
-  /**
-   * The url
-   */
-  url: string;
+  toJSON();
 }
 
 declare class AvailableAddOnContext {
-  constructor(version: Marketplace, sid: string);
+  /**
+   * @constructor Twilio.Preview.Marketplace.AvailableAddOnContext
+   * @description Initialize the AvailableAddOnContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property extensions - extensions resource
+   *
+   * @param version - Version of the resource
+   * @param sid - The unique Available Add-on Sid
+   */
+  constructor(version: Twilio.Preview.Marketplace, sid: sid);
 
-  extensions: AvailableAddOnExtensionListInstance;
+  extensions?: Twilio.Preview.Marketplace.AvailableAddOnContext.AvailableAddOnExtensionList;
   /**
    * fetch a AvailableAddOnInstance
    *
-   * @returns Promise that resolves to processed AvailableAddOnInstance
-   */
-  fetch(): Promise<AvailableAddOnInstance>;
-  /**
-   * fetch a AvailableAddOnInstance
+   * @function fetch
+   * @memberof Twilio.Preview.Marketplace.AvailableAddOnContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: AvailableAddOnInstance) => any): void;
+  fetch(callback?: function);
 }
 
-export { AvailableAddOnContext, AvailableAddOnInstance, AvailableAddOnList, AvailableAddOnListEachOptions, AvailableAddOnListInstance, AvailableAddOnListOptions, AvailableAddOnListPageOptions, AvailableAddOnPage, AvailableAddOnPayload, AvailableAddOnResource, AvailableAddOnSolution }
+export { AvailableAddOnContext, AvailableAddOnInstance, AvailableAddOnList, AvailableAddOnPage }

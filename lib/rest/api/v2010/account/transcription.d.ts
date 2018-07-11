@@ -6,325 +6,124 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V2010 = require('../../V2010');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { SerializableClass } from '../../../../interfaces';
+import deserialize = require('../../../../base/deserialize');
+import values = require('../../../../base/values');
 
-declare function TranscriptionList(version: V2010, accountSid: string): TranscriptionListInstance
 
-type TranscriptionStatus = 'in-progress'|'completed'|'failed';
 
-interface TranscriptionResource {
+declare class TranscriptionPage extends Page {
   /**
-   * The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this transcription.
+   * @constructor Twilio.Api.V2010.AccountContext.TranscriptionPage
+   * @augments Page
+   * @description Initialize the TranscriptionPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  account_sid: string;
-  /**
-   * The api_version
-   */
-  api_version: string;
-  /**
-   * The date that this resource was created, in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
-   */
-  date_created: Date;
-  /**
-   * The date that this resource was last updated, in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
-   */
-  date_updated: Date;
-  /**
-   * The duration of the transcribed audio, in seconds.
-   */
-  duration: string;
-  /**
-   * The charge for this transcript in the currency associated with the account. Populated after the transcript is complete. Note, this value may not be immediately available.
-   */
-  price: number;
-  /**
-   * The currency in which `Price` is measured, in [ISO 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
-   */
-  price_unit: string;
-  /**
-   * The unique id of the [Recording](https://www.twilio.com/docs/voice/api/recording) that created this Transcription.
-   */
-  recording_sid: string;
-  /**
-   * A unique 34-character string that identifies this resource.
-   */
-  sid: string;
-  /**
-   * A string representing the status of the transcription: `in-progress`, `completed` or `failed`.
-   */
-  status: TranscriptionStatus;
-  /**
-   * The text content of the transcription.
-   */
-  transcription_text: string;
-  /**
-   * The type
-   */
-  type: string;
-  /**
-   * The URI for this resource, relative to `https://api.twilio.com`
-   */
-  uri: string;
-}
-
-interface TranscriptionPayload extends TranscriptionResource, Page.TwilioResponsePayload {
-}
-
-interface TranscriptionSolution {
-  accountSid: string;
-}
-
-interface TranscriptionListEachOptions extends ListEachOptions<TranscriptionInstance> {
-}
-
-interface TranscriptionListOptions extends ListOptions<TranscriptionInstance> {
-}
-
-interface TranscriptionListPageOptions extends PageOptions<TranscriptionPage> {
-}
-
-interface TranscriptionListInstance {
-  /**
-   * Gets context of a single Transcription resource
-   *
-   * @param sid - Fetch by unique transcription SID
-   */
-  (sid: string): TranscriptionContext;
-  /**
-   * Streams TranscriptionInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: TranscriptionListEachOptions): void;
-  /**
-   * Streams TranscriptionInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: TranscriptionInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Transcription resource
-   *
-   * @param sid - Fetch by unique transcription SID
-   */
-  get(sid: string): TranscriptionContext;
-  /**
-   * Retrieve a single target page of TranscriptionInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<TranscriptionPage>;
-  /**
-   * Retrieve a single target page of TranscriptionInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: TranscriptionPage) => any): void;
-  /**
-   * Lists TranscriptionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: TranscriptionListOptions): Promise<TranscriptionInstance[]>;
-  /**
-   * Lists TranscriptionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: TranscriptionListOptions, callback: (error: Error | null, items: TranscriptionInstance[]) => any): void;
-  /**
-   * Lists TranscriptionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: TranscriptionInstance[]) => any): void;
-  /**
-   * Retrieve a single page of TranscriptionInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: TranscriptionListPageOptions): Promise<TranscriptionPage>;
-  /**
-   * Retrieve a single page of TranscriptionInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: TranscriptionListPageOptions, callback: (error: Error | null, items: TranscriptionPage) => any): void;
-  /**
-   * Retrieve a single page of TranscriptionInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: TranscriptionPage) => any): void;
-}
-
-declare class TranscriptionPage extends Page<V2010, TranscriptionPayload, TranscriptionResource, TranscriptionInstance> {
-  constructor(version: V2010, response: Response<string>, solution: TranscriptionSolution);
+  constructor(version: Twilio.Api.V2010, response: object, solution: object);
 
   /**
    * Build an instance of TranscriptionInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Api.V2010.AccountContext.TranscriptionPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: TranscriptionPayload): TranscriptionInstance;
+  getInstance(payload: object);
 }
 
-declare class TranscriptionInstance extends SerializableClass {
+declare class TranscriptionInstance {
   /**
+   * @constructor Twilio.Api.V2010.AccountContext.TranscriptionInstance
+   * @description Initialize the TranscriptionContext
+   *
+   * @property accountSid - The unique sid that identifies this account
+   * @property apiVersion - The api_version
+   * @property dateCreated - The date this resource was created
+   * @property dateUpdated - The date this resource was last updated
+   * @property duration - The duration of the transcribed audio, in seconds.
+   * @property price - The charge for this transcription
+   * @property priceUnit - The currency in which Price is measured
+   * @property recordingSid - The string that uniquely identifies the recording
+   * @property sid - A string that uniquely identifies this transcription
+   * @property status - The status of the transcription
+   * @property transcriptionText - The text content of the transcription.
+   * @property type - The type
+   * @property uri - The URI for this resource
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The account_sid
+   * @param accountSid - The unique sid that identifies this account
    * @param sid - Fetch by unique transcription SID
    */
-  constructor(version: V2010, payload: TranscriptionPayload, accountSid: string, sid: string);
+  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, sid: sid);
 
-  private _proxy: TranscriptionContext;
-  /**
-   * The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this transcription.
-   */
-  accountSid: string;
-  /**
-   * The api_version
-   */
-  apiVersion: string;
-  /**
-   * The date that this resource was created, in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
-   */
-  dateCreated: Date;
-  /**
-   * The date that this resource was last updated, in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
-   */
-  dateUpdated: Date;
-  /**
-   * The duration of the transcribed audio, in seconds.
-   */
-  duration: string;
+  _proxy?: TranscriptionContext;
   /**
    * fetch a TranscriptionInstance
    *
-   * @returns Promise that resolves to processed TranscriptionInstance
-   */
-  fetch(): Promise<TranscriptionInstance>;
-  /**
-   * fetch a TranscriptionInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.TranscriptionInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: TranscriptionInstance) => any): void;
-  /**
-   * The charge for this transcript in the currency associated with the account. Populated after the transcript is complete. Note, this value may not be immediately available.
-   */
-  price: number;
-  /**
-   * The currency in which `Price` is measured, in [ISO 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
-   */
-  priceUnit: string;
-  /**
-   * The unique id of the [Recording](https://www.twilio.com/docs/voice/api/recording) that created this Transcription.
-   */
-  recordingSid: string;
+  fetch(callback?: function);
   /**
    * remove a TranscriptionInstance
    *
-   * @returns Promise that resolves to processed TranscriptionInstance
-   */
-  remove(): Promise<TranscriptionInstance>;
-  /**
-   * remove a TranscriptionInstance
+   * @function remove
+   * @memberof Twilio.Api.V2010.AccountContext.TranscriptionInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: TranscriptionInstance) => any): void;
+  remove(callback?: function);
   /**
-   * A unique 34-character string that identifies this resource.
+   * Produce a plain JSON object version of the TranscriptionInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Api.V2010.AccountContext.TranscriptionInstance
+   * @instance
    */
-  sid: string;
-  /**
-   * A string representing the status of the transcription: `in-progress`, `completed` or `failed`.
-   */
-  status: TranscriptionStatus;
-  /**
-   * The text content of the transcription.
-   */
-  transcriptionText: string;
-  /**
-   * The type
-   */
-  type: string;
-  /**
-   * The URI for this resource, relative to `https://api.twilio.com`
-   */
-  uri: string;
+  toJSON();
 }
 
 declare class TranscriptionContext {
-  constructor(version: V2010, accountSid: string, sid: string);
+  /**
+   * @constructor Twilio.Api.V2010.AccountContext.TranscriptionContext
+   * @description Initialize the TranscriptionContext
+   *
+   * @param version - Version of the resource
+   * @param accountSid - The account_sid
+   * @param sid - Fetch by unique transcription SID
+   */
+  constructor(version: Twilio.Api.V2010, accountSid: sid, sid: sid);
 
   /**
    * fetch a TranscriptionInstance
    *
-   * @returns Promise that resolves to processed TranscriptionInstance
-   */
-  fetch(): Promise<TranscriptionInstance>;
-  /**
-   * fetch a TranscriptionInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.TranscriptionContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: TranscriptionInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a TranscriptionInstance
    *
-   * @returns Promise that resolves to processed TranscriptionInstance
-   */
-  remove(): Promise<TranscriptionInstance>;
-  /**
-   * remove a TranscriptionInstance
+   * @function remove
+   * @memberof Twilio.Api.V2010.AccountContext.TranscriptionContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: TranscriptionInstance) => any): void;
+  remove(callback?: function);
 }
 
-export { TranscriptionContext, TranscriptionInstance, TranscriptionList, TranscriptionListEachOptions, TranscriptionListInstance, TranscriptionListOptions, TranscriptionListPageOptions, TranscriptionPage, TranscriptionPayload, TranscriptionResource, TranscriptionSolution, TranscriptionStatus }
+export { TranscriptionContext, TranscriptionInstance, TranscriptionList, TranscriptionPage }

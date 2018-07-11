@@ -6,228 +6,158 @@
  */
 
 import Page = require('../../../base/Page');
-import Response = require('../../../http/response');
-import V1 = require('../V1');
-import { SerializableClass } from '../../../interfaces';
+import serialize = require('../../../base/serialize');
+import values = require('../../../base/values');
 
-declare function RecordingSettingsList(version: V1): RecordingSettingsListInstance
 
-interface RecordingSettingsResource {
-  /**
-   * The Twilio Account SID associated with this item
-   */
-  account_sid: string;
-  /**
-   * SID of the Stored Credential resource `CRxx`
-   */
-  aws_credentials_sid: string;
-  /**
-   * URL of the S3 bucket where the recordings should be stored. We only support DNS-compliant URLs like `http://<my-bucket>.s3-<aws-region>.amazonaws.com/recordings`, where `recordings` is the path where you want recordings to be stored.
-   */
-  aws_s3_url: string;
-  /**
-   * `true|false` When set to `true`, all Recordings will be written to the `AwsS3Url` specified above. When set to `false`, all Recordings will be stored in Twilio's cloud.
-   */
-  aws_storage_enabled: boolean;
-  /**
-   * `true|false` When set to `true`, all Recordings will be stored encrypted. Dafault value is `false`
-   */
-  encryption_enabled: boolean;
-  /**
-   * SID of the Public Key resource `CRxx`
-   */
-  encryption_key_sid: string;
-  /**
-   * Friendly name of the configuration to be shown in the console
-   */
-  friendly_name: string;
-  /**
-   * The url
-   */
-  url: string;
-}
-
-interface RecordingSettingsPayload extends RecordingSettingsResource, Page.TwilioResponsePayload {
-}
-
-interface RecordingSettingsSolution {
-}
-
-interface RecordingSettingsListInstance {
-  /**
-   * Gets context of a single RecordingSettings resource
-   */
-  (): RecordingSettingsContext;
-  /**
-   * Gets context of a single RecordingSettings resource
-   */
-  get(): RecordingSettingsContext;
-}
-
-interface RecordingSettingsListCreateOptions {
-  /**
-   * SID of the Stored Credential resource `CRxx`
-   */
+/**
+ * Options to pass to create
+ *
+ * @property friendlyName - Friendly name of the configuration to be shown in the console
+ * @property awsCredentialsSid - SID of the Stored Credential resource CRxx
+ * @property encryptionKeySid - SID of the Public Key resource CRxx
+ * @property awsS3Url - Identity of the external location where the recordings should be stored. We only support DNS-compliant URLs like http://<my-bucket>.s3-<aws-region>.amazonaws.com/recordings, where recordings is the path where you want recordings to be stored.
+ * @property awsStorageEnabled - true|false When set to true, all Recordings will be written to the AwsS3Url specified above. When set to false, all Recordings will be stored in Twilio's cloud.
+ * @property encryptionEnabled - true|false When set to true, all Recordings will be stored encrypted.
+ */
+export interface CreateOptions {
   awsCredentialsSid?: string;
-  /**
-   * Identity of the external location where the recordings should be stored. We only support DNS-compliant URLs like `http://<my-bucket>.s3-<aws-region>.amazonaws.com/recordings`, where `recordings` is the path where you want recordings to be stored.
-   */
   awsS3Url?: string;
-  /**
-   * `true|false` When set to `true`, all Recordings will be written to the `AwsS3Url` specified above. When set to `false`, all Recordings will be stored in Twilio's cloud.
-   */
   awsStorageEnabled?: boolean;
-  /**
-   * `true|false` When set to `true`, all Recordings will be stored encrypted. Dafault value is `false`
-   */
   encryptionEnabled?: boolean;
-  /**
-   * SID of the Public Key resource `CRxx`
-   */
   encryptionKeySid?: string;
-  /**
-   * Friendly name of the configuration to be shown in the console
-   */
   friendlyName: string;
 }
 
-interface RecordingSettingsListCreateOptions {
-  /**
-   * SID of the Stored Credential resource `CRxx`
-   */
+/**
+ * Options to pass to create
+ *
+ * @property friendlyName - Friendly name of the configuration to be shown in the console
+ * @property awsCredentialsSid - SID of the Stored Credential resource CRxx
+ * @property encryptionKeySid - SID of the Public Key resource CRxx
+ * @property awsS3Url - Identity of the external location where the recordings should be stored. We only support DNS-compliant URLs like http://<my-bucket>.s3-<aws-region>.amazonaws.com/recordings, where recordings is the path where you want recordings to be stored.
+ * @property awsStorageEnabled - true|false When set to true, all Recordings will be written to the AwsS3Url specified above. When set to false, all Recordings will be stored in Twilio's cloud.
+ * @property encryptionEnabled - true|false When set to true, all Recordings will be stored encrypted.
+ */
+export interface CreateOptions {
   awsCredentialsSid?: string;
-  /**
-   * Identity of the external location where the recordings should be stored. We only support DNS-compliant URLs like `http://<my-bucket>.s3-<aws-region>.amazonaws.com/recordings`, where `recordings` is the path where you want recordings to be stored.
-   */
   awsS3Url?: string;
-  /**
-   * `true|false` When set to `true`, all Recordings will be written to the `AwsS3Url` specified above. When set to `false`, all Recordings will be stored in Twilio's cloud.
-   */
   awsStorageEnabled?: boolean;
-  /**
-   * `true|false` When set to `true`, all Recordings will be stored encrypted. Dafault value is `false`
-   */
   encryptionEnabled?: boolean;
-  /**
-   * SID of the Public Key resource `CRxx`
-   */
   encryptionKeySid?: string;
-  /**
-   * Friendly name of the configuration to be shown in the console
-   */
   friendlyName: string;
 }
 
-declare class RecordingSettingsPage extends Page<V1, RecordingSettingsPayload, RecordingSettingsResource, RecordingSettingsInstance> {
-  constructor(version: V1, response: Response<string>, solution: RecordingSettingsSolution);
+
+declare class RecordingSettingsPage extends Page {
+  /**
+   * @constructor Twilio.Video.V1.RecordingSettingsPage
+   * @augments Page
+   * @description Initialize the RecordingSettingsPage
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Video.V1, response: object, solution: object);
 
   /**
    * Build an instance of RecordingSettingsInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Video.V1.RecordingSettingsPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: RecordingSettingsPayload): RecordingSettingsInstance;
+  getInstance(payload: object);
 }
 
-declare class RecordingSettingsInstance extends SerializableClass {
+declare class RecordingSettingsInstance {
   /**
+   * @constructor Twilio.Video.V1.RecordingSettingsInstance
+   * @description Initialize the RecordingSettingsContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property accountSid - The Twilio Account SID associated with this item
+   * @property friendlyName - Friendly name of the configuration to be shown in the console
+   * @property awsCredentialsSid - SID of the Stored Credential resource CRxx
+   * @property awsS3Url - URL of the S3 bucket where the recordings should be stored. We only support DNS-compliant URLs like http://<my-bucket>.s3-<aws-region>.amazonaws.com/recordings, where recordings is the path where you want recordings to be stored.
+   * @property awsStorageEnabled - true|false When set to true, all Recordings will be written to the AwsS3Url specified above. When set to false, all Recordings will be stored in Twilio's cloud.
+   * @property encryptionKeySid - SID of the Public Key resource CRxx
+   * @property encryptionEnabled - true|false When set to true, all Recordings will be stored encrypted.
+   * @property url - The url
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    */
-  constructor(version: V1, payload: RecordingSettingsPayload);
+  constructor(version: Twilio.Video.V1, payload: object);
 
-  private _proxy: RecordingSettingsContext;
-  /**
-   * The Twilio Account SID associated with this item
-   */
-  accountSid: string;
-  /**
-   * SID of the Stored Credential resource `CRxx`
-   */
-  awsCredentialsSid: string;
-  /**
-   * URL of the S3 bucket where the recordings should be stored. We only support DNS-compliant URLs like `http://<my-bucket>.s3-<aws-region>.amazonaws.com/recordings`, where `recordings` is the path where you want recordings to be stored.
-   */
-  awsS3Url: string;
-  /**
-   * `true|false` When set to `true`, all Recordings will be written to the `AwsS3Url` specified above. When set to `false`, all Recordings will be stored in Twilio's cloud.
-   */
-  awsStorageEnabled: boolean;
+  _proxy?: RecordingSettingsContext;
   /**
    * create a RecordingSettingsInstance
    *
-   * @param opts - Options for request
+   * @function create
+   * @memberof Twilio.Video.V1.RecordingSettingsInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed RecordingSettingsInstance
-   */
-  create(opts: RecordingSettingsListCreateOptions): Promise<RecordingSettingsInstance>;
-  /**
-   * create a RecordingSettingsInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  create(opts: RecordingSettingsListCreateOptions, callback: (error: Error | null, items: RecordingSettingsInstance) => any): void;
-  /**
-   * `true|false` When set to `true`, all Recordings will be stored encrypted. Dafault value is `false`
-   */
-  encryptionEnabled: boolean;
-  /**
-   * SID of the Public Key resource `CRxx`
-   */
-  encryptionKeySid: string;
+  create(opts: object, callback?: function);
   /**
    * fetch a RecordingSettingsInstance
    *
-   * @returns Promise that resolves to processed RecordingSettingsInstance
-   */
-  fetch(): Promise<RecordingSettingsInstance>;
-  /**
-   * fetch a RecordingSettingsInstance
+   * @function fetch
+   * @memberof Twilio.Video.V1.RecordingSettingsInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: RecordingSettingsInstance) => any): void;
+  fetch(callback?: function);
   /**
-   * Friendly name of the configuration to be shown in the console
+   * Produce a plain JSON object version of the RecordingSettingsInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Video.V1.RecordingSettingsInstance
+   * @instance
    */
-  friendlyName: string;
-  /**
-   * The url
-   */
-  url: string;
+  toJSON();
 }
 
 declare class RecordingSettingsContext {
-  constructor(version: V1);
+  /**
+   * @constructor Twilio.Video.V1.RecordingSettingsContext
+   * @description Initialize the RecordingSettingsContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @param version - Version of the resource
+   */
+  constructor(version: Twilio.Video.V1);
 
   /**
    * create a RecordingSettingsInstance
    *
-   * @param opts - Options for request
+   * @function create
+   * @memberof Twilio.Video.V1.RecordingSettingsContext
+   * @instance
    *
-   * @returns Promise that resolves to processed RecordingSettingsInstance
-   */
-  create(opts: RecordingSettingsListCreateOptions): Promise<RecordingSettingsInstance>;
-  /**
-   * create a RecordingSettingsInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  create(opts: RecordingSettingsListCreateOptions, callback: (error: Error | null, items: RecordingSettingsInstance) => any): void;
+  create(opts: object, callback?: function);
   /**
    * fetch a RecordingSettingsInstance
    *
-   * @returns Promise that resolves to processed RecordingSettingsInstance
-   */
-  fetch(): Promise<RecordingSettingsInstance>;
-  /**
-   * fetch a RecordingSettingsInstance
+   * @function fetch
+   * @memberof Twilio.Video.V1.RecordingSettingsContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: RecordingSettingsInstance) => any): void;
+  fetch(callback?: function);
 }
 
-export { RecordingSettingsContext, RecordingSettingsInstance, RecordingSettingsList, RecordingSettingsListCreateOptions, RecordingSettingsListInstance, RecordingSettingsPage, RecordingSettingsPayload, RecordingSettingsResource, RecordingSettingsSolution }
+export { RecordingSettingsContext, RecordingSettingsInstance, RecordingSettingsList, RecordingSettingsPage }

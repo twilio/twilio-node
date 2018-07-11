@@ -6,302 +6,134 @@
  */
 
 import Page = require('../../../base/Page');
-import Response = require('../../../http/response');
-import Studio = require('../Studio');
-import { EngagementListInstance } from './flow/engagement';
-import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
-import { SerializableClass } from '../../../interfaces';
+import deserialize = require('../../../base/deserialize');
+import values = require('../../../base/values');
+import { EngagementList } from './flow/engagement';
 
-declare function FlowList(version: Studio): FlowListInstance
 
-type FlowStatus = 'draft'|'published';
 
-interface FlowResource {
+declare class FlowPage extends Page {
   /**
-   * The unique SID identifier of the Account.
+   * @constructor Twilio.Preview.Studio.FlowPage
+   * @augments Page
+   * @description Initialize the FlowPage
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  account_sid: string;
-  /**
-   * The date that this Flow was created, given in ISO 8601 format.
-   */
-  date_created: Date;
-  /**
-   * The date that this Flow was updated, given in ISO 8601 format.
-   */
-  date_updated: Date;
-  /**
-   * Boolean flag which will cause extra log data to be written to the SystemLog in a Flow Engagement Step.
-   */
-  debug: boolean;
-  /**
-   * A human readable description of this resource, up to 64 characters.
-   */
-  friendly_name: string;
-  /**
-   * Contains a dictionary of URL links to nested resources of this Flow.
-   */
-  links: string;
-  /**
-   * A 34 character string that uniquely identifies this Flow.
-   */
-  sid: string;
-  /**
-   * The Status of this Flow. One of `draft` or `published`.
-   */
-  status: FlowStatus;
-  /**
-   * The URL of this resource.
-   */
-  url: string;
-  /**
-   * The latest version number of this Flow's definition.
-   */
-  version: number;
-}
-
-interface FlowPayload extends FlowResource, Page.TwilioResponsePayload {
-}
-
-interface FlowSolution {
-}
-
-interface FlowListEachOptions extends ListEachOptions<FlowInstance> {
-}
-
-interface FlowListOptions extends ListOptions<FlowInstance> {
-}
-
-interface FlowListPageOptions extends PageOptions<FlowPage> {
-}
-
-interface FlowListInstance {
-  /**
-   * Gets context of a single Flow resource
-   *
-   * @param sid - The sid
-   */
-  (sid: string): FlowContext;
-  /**
-   * Streams FlowInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: FlowListEachOptions): void;
-  /**
-   * Streams FlowInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: FlowInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Flow resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): FlowContext;
-  /**
-   * Retrieve a single target page of FlowInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<FlowPage>;
-  /**
-   * Retrieve a single target page of FlowInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: FlowPage) => any): void;
-  /**
-   * Lists FlowInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: FlowListOptions): Promise<FlowInstance[]>;
-  /**
-   * Lists FlowInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: FlowListOptions, callback: (error: Error | null, items: FlowInstance[]) => any): void;
-  /**
-   * Lists FlowInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: FlowInstance[]) => any): void;
-  /**
-   * Retrieve a single page of FlowInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: FlowListPageOptions): Promise<FlowPage>;
-  /**
-   * Retrieve a single page of FlowInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: FlowListPageOptions, callback: (error: Error | null, items: FlowPage) => any): void;
-  /**
-   * Retrieve a single page of FlowInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: FlowPage) => any): void;
-}
-
-declare class FlowPage extends Page<Studio, FlowPayload, FlowResource, FlowInstance> {
-  constructor(version: Studio, response: Response<string>, solution: FlowSolution);
+  constructor(version: Twilio.Preview.Studio, response: object, solution: object);
 
   /**
    * Build an instance of FlowInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Preview.Studio.FlowPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: FlowPayload): FlowInstance;
+  getInstance(payload: object);
 }
 
-declare class FlowInstance extends SerializableClass {
+declare class FlowInstance {
   /**
+   * @constructor Twilio.Preview.Studio.FlowInstance
+   * @description Initialize the FlowContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property sid - A string that uniquely identifies this Flow.
+   * @property accountSid - Account Sid.
+   * @property friendlyName - A human readable description of this resource.
+   * @property status - The Status of this Flow
+   * @property debug - Toggle extra logging.
+   * @property version - The latest version number of this Flow's definition.
+   * @property dateCreated - The date this Flow was created
+   * @property dateUpdated - The date this Flow was updated
+   * @property url - The URL of this resource.
+   * @property links - Nested resource URLs.
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param sid - The sid
    */
-  constructor(version: Studio, payload: FlowPayload, sid: string);
+  constructor(version: Twilio.Preview.Studio, payload: object, sid: sid);
 
-  private _proxy: FlowContext;
+  _proxy?: FlowContext;
   /**
-   * The unique SID identifier of the Account.
+   * Access the engagements
+   *
+   * @function engagements
+   * @memberof Twilio.Preview.Studio.FlowInstance
+   * @instance
    */
-  accountSid: string;
-  /**
-   * The date that this Flow was created, given in ISO 8601 format.
-   */
-  dateCreated: Date;
-  /**
-   * The date that this Flow was updated, given in ISO 8601 format.
-   */
-  dateUpdated: Date;
-  /**
-   * Boolean flag which will cause extra log data to be written to the SystemLog in a Flow Engagement Step.
-   */
-  debug: boolean;
-  engagements(): EngagementListInstance;
+  engagements();
   /**
    * fetch a FlowInstance
    *
-   * @returns Promise that resolves to processed FlowInstance
-   */
-  fetch(): Promise<FlowInstance>;
-  /**
-   * fetch a FlowInstance
+   * @function fetch
+   * @memberof Twilio.Preview.Studio.FlowInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: FlowInstance) => any): void;
-  /**
-   * A human readable description of this resource, up to 64 characters.
-   */
-  friendlyName: string;
-  /**
-   * Contains a dictionary of URL links to nested resources of this Flow.
-   */
-  links: string;
+  fetch(callback?: function);
   /**
    * remove a FlowInstance
    *
-   * @returns Promise that resolves to processed FlowInstance
-   */
-  remove(): Promise<FlowInstance>;
-  /**
-   * remove a FlowInstance
+   * @function remove
+   * @memberof Twilio.Preview.Studio.FlowInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: FlowInstance) => any): void;
+  remove(callback?: function);
   /**
-   * A 34 character string that uniquely identifies this Flow.
+   * Produce a plain JSON object version of the FlowInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Preview.Studio.FlowInstance
+   * @instance
    */
-  sid: string;
-  /**
-   * The Status of this Flow. One of `draft` or `published`.
-   */
-  status: FlowStatus;
-  /**
-   * The URL of this resource.
-   */
-  url: string;
-  /**
-   * The latest version number of this Flow's definition.
-   */
-  version: number;
+  toJSON();
 }
 
 declare class FlowContext {
-  constructor(version: Studio, sid: string);
+  /**
+   * @constructor Twilio.Preview.Studio.FlowContext
+   * @description Initialize the FlowContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property engagements - engagements resource
+   *
+   * @param version - Version of the resource
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Preview.Studio, sid: sid);
 
-  engagements: EngagementListInstance;
+  engagements?: Twilio.Preview.Studio.FlowContext.EngagementList;
   /**
    * fetch a FlowInstance
    *
-   * @returns Promise that resolves to processed FlowInstance
-   */
-  fetch(): Promise<FlowInstance>;
-  /**
-   * fetch a FlowInstance
+   * @function fetch
+   * @memberof Twilio.Preview.Studio.FlowContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: FlowInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a FlowInstance
    *
-   * @returns Promise that resolves to processed FlowInstance
-   */
-  remove(): Promise<FlowInstance>;
-  /**
-   * remove a FlowInstance
+   * @function remove
+   * @memberof Twilio.Preview.Studio.FlowContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: FlowInstance) => any): void;
+  remove(callback?: function);
 }
 
-export { FlowContext, FlowInstance, FlowList, FlowListEachOptions, FlowListInstance, FlowListOptions, FlowListPageOptions, FlowPage, FlowPayload, FlowResource, FlowSolution, FlowStatus }
+export { FlowContext, FlowInstance, FlowList, FlowPage }

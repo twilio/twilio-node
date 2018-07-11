@@ -6,275 +6,121 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V1 = require('../../V1');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { SerializableClass } from '../../../../interfaces';
+import deserialize = require('../../../../base/deserialize');
+import values = require('../../../../base/values');
 
-declare function FaxMediaList(version: V1, faxSid: string): FaxMediaListInstance
 
-interface FaxMediaResource {
-  /**
-   * The unique SID identifier of the Account.
-   */
-  account_sid: string;
-  /**
-   * The content type of the stored fax media (example: `application/pdf`).
-   */
-  content_type: string;
-  /**
-   * The date that this fax media was created, given in ISO 8601 format.
-   */
-  date_created: Date;
-  /**
-   * The date that this fax media was updated, given in ISO 8601 format.
-   */
-  date_updated: Date;
-  /**
-   * The unique SID identifier of the fax for which this media is associated.
-   */
-  fax_sid: string;
-  /**
-   * A 34 character string that uniquely identifies this fax media.
-   */
-  sid: string;
-  /**
-   * The URL of this resource.
-   */
-  url: string;
-}
 
-interface FaxMediaPayload extends FaxMediaResource, Page.TwilioResponsePayload {
-}
-
-interface FaxMediaSolution {
-  faxSid: string;
-}
-
-interface FaxMediaListEachOptions extends ListEachOptions<FaxMediaInstance> {
-}
-
-interface FaxMediaListOptions extends ListOptions<FaxMediaInstance> {
-}
-
-interface FaxMediaListPageOptions extends PageOptions<FaxMediaPage> {
-}
-
-interface FaxMediaListInstance {
+declare class FaxMediaPage extends Page {
   /**
-   * Gets context of a single FaxMedia resource
+   * @constructor Twilio.Fax.V1.FaxContext.FaxMediaPage
+   * @augments Page
+   * @description Initialize the FaxMediaPage
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
-   * @param sid - A string that uniquely identifies this fax media
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  (sid: string): FaxMediaContext;
-  /**
-   * Streams FaxMediaInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: FaxMediaListEachOptions): void;
-  /**
-   * Streams FaxMediaInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: FaxMediaInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single FaxMedia resource
-   *
-   * @param sid - A string that uniquely identifies this fax media
-   */
-  get(sid: string): FaxMediaContext;
-  /**
-   * Retrieve a single target page of FaxMediaInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<FaxMediaPage>;
-  /**
-   * Retrieve a single target page of FaxMediaInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: FaxMediaPage) => any): void;
-  /**
-   * Lists FaxMediaInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: FaxMediaListOptions): Promise<FaxMediaInstance[]>;
-  /**
-   * Lists FaxMediaInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: FaxMediaListOptions, callback: (error: Error | null, items: FaxMediaInstance[]) => any): void;
-  /**
-   * Lists FaxMediaInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: FaxMediaInstance[]) => any): void;
-  /**
-   * Retrieve a single page of FaxMediaInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: FaxMediaListPageOptions): Promise<FaxMediaPage>;
-  /**
-   * Retrieve a single page of FaxMediaInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: FaxMediaListPageOptions, callback: (error: Error | null, items: FaxMediaPage) => any): void;
-  /**
-   * Retrieve a single page of FaxMediaInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: FaxMediaPage) => any): void;
-}
-
-declare class FaxMediaPage extends Page<V1, FaxMediaPayload, FaxMediaResource, FaxMediaInstance> {
-  constructor(version: V1, response: Response<string>, solution: FaxMediaSolution);
+  constructor(version: Twilio.Fax.V1, response: object, solution: object);
 
   /**
    * Build an instance of FaxMediaInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Fax.V1.FaxContext.FaxMediaPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: FaxMediaPayload): FaxMediaInstance;
+  getInstance(payload: object);
 }
 
-declare class FaxMediaInstance extends SerializableClass {
+declare class FaxMediaInstance {
   /**
+   * @constructor Twilio.Fax.V1.FaxContext.FaxMediaInstance
+   * @description Initialize the FaxMediaContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property sid - A string that uniquely identifies this fax media
+   * @property accountSid - Account SID
+   * @property faxSid - Fax SID
+   * @property contentType - Media content type
+   * @property dateCreated - The date this fax media was created
+   * @property dateUpdated - The date this fax media was updated
+   * @property url - The URL of this resource
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param faxSid - Fax SID
    * @param sid - A string that uniquely identifies this fax media
    */
-  constructor(version: V1, payload: FaxMediaPayload, faxSid: string, sid: string);
+  constructor(version: Twilio.Fax.V1, payload: object, faxSid: sid, sid: sid);
 
-  private _proxy: FaxMediaContext;
-  /**
-   * The unique SID identifier of the Account.
-   */
-  accountSid: string;
-  /**
-   * The content type of the stored fax media (example: `application/pdf`).
-   */
-  contentType: string;
-  /**
-   * The date that this fax media was created, given in ISO 8601 format.
-   */
-  dateCreated: Date;
-  /**
-   * The date that this fax media was updated, given in ISO 8601 format.
-   */
-  dateUpdated: Date;
-  /**
-   * The unique SID identifier of the fax for which this media is associated.
-   */
-  faxSid: string;
+  _proxy?: FaxMediaContext;
   /**
    * fetch a FaxMediaInstance
    *
-   * @returns Promise that resolves to processed FaxMediaInstance
-   */
-  fetch(): Promise<FaxMediaInstance>;
-  /**
-   * fetch a FaxMediaInstance
+   * @function fetch
+   * @memberof Twilio.Fax.V1.FaxContext.FaxMediaInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: FaxMediaInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a FaxMediaInstance
    *
-   * @returns Promise that resolves to processed FaxMediaInstance
-   */
-  remove(): Promise<FaxMediaInstance>;
-  /**
-   * remove a FaxMediaInstance
+   * @function remove
+   * @memberof Twilio.Fax.V1.FaxContext.FaxMediaInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: FaxMediaInstance) => any): void;
+  remove(callback?: function);
   /**
-   * A 34 character string that uniquely identifies this fax media.
+   * Produce a plain JSON object version of the FaxMediaInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Fax.V1.FaxContext.FaxMediaInstance
+   * @instance
    */
-  sid: string;
-  /**
-   * The URL of this resource.
-   */
-  url: string;
+  toJSON();
 }
 
 declare class FaxMediaContext {
-  constructor(version: V1, faxSid: string, sid: string);
+  /**
+   * @constructor Twilio.Fax.V1.FaxContext.FaxMediaContext
+   * @description Initialize the FaxMediaContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @param version - Version of the resource
+   * @param faxSid - Fax SID
+   * @param sid - A string that uniquely identifies this fax media
+   */
+  constructor(version: Twilio.Fax.V1, faxSid: sid, sid: sid);
 
   /**
    * fetch a FaxMediaInstance
    *
-   * @returns Promise that resolves to processed FaxMediaInstance
-   */
-  fetch(): Promise<FaxMediaInstance>;
-  /**
-   * fetch a FaxMediaInstance
+   * @function fetch
+   * @memberof Twilio.Fax.V1.FaxContext.FaxMediaContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: FaxMediaInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a FaxMediaInstance
    *
-   * @returns Promise that resolves to processed FaxMediaInstance
-   */
-  remove(): Promise<FaxMediaInstance>;
-  /**
-   * remove a FaxMediaInstance
+   * @function remove
+   * @memberof Twilio.Fax.V1.FaxContext.FaxMediaContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: FaxMediaInstance) => any): void;
+  remove(callback?: function);
 }
 
-export { FaxMediaContext, FaxMediaInstance, FaxMediaList, FaxMediaListEachOptions, FaxMediaListInstance, FaxMediaListOptions, FaxMediaListPageOptions, FaxMediaPage, FaxMediaPayload, FaxMediaResource, FaxMediaSolution }
+export { FaxMediaContext, FaxMediaInstance, FaxMediaList, FaxMediaPage }

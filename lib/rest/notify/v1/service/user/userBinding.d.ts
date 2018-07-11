@@ -6,413 +6,131 @@
  */
 
 import Page = require('../../../../../base/Page');
-import Response = require('../../../../../http/response');
-import V1 = require('../../../V1');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../interfaces';
-import { SerializableClass } from '../../../../../interfaces';
+import deserialize = require('../../../../../base/deserialize');
+import serialize = require('../../../../../base/serialize');
+import values = require('../../../../../base/values');
 
-declare function UserBindingList(version: V1, serviceSid: string, identity: string): UserBindingListInstance
 
-type UserBindingBindingType = 'apn'|'gcm'|'sms'|'fcm'|'facebook-messenger'|'alexa';
 
-interface UserBindingResource {
+declare class UserBindingPage extends Page {
   /**
-   * The account_sid
-   */
-  account_sid: string;
-  /**
-   * The address
-   */
-  address: string;
-  /**
-   * The binding_type
-   */
-  binding_type: string;
-  /**
-   * The credential_sid
-   */
-  credential_sid: string;
-  /**
-   * The date_created
-   */
-  date_created: Date;
-  /**
-   * The date_updated
-   */
-  date_updated: Date;
-  /**
-   * The endpoint
-   */
-  endpoint: string;
-  /**
-   * The identity
-   */
-  identity: string;
-  /**
-   * The links
-   */
-  links: string;
-  /**
-   * The notification_protocol_version
-   */
-  notification_protocol_version: string;
-  /**
-   * The service_sid
-   */
-  service_sid: string;
-  /**
-   * The sid
-   */
-  sid: string;
-  /**
-   * The tags
-   */
-  tags: string;
-  /**
-   * The url
-   */
-  url: string;
-}
-
-interface UserBindingPayload extends UserBindingResource, Page.TwilioResponsePayload {
-}
-
-interface UserBindingSolution {
-  identity: string;
-  serviceSid: string;
-}
-
-interface UserBindingListCreateOptions {
-  /**
-   * The address
-   */
-  address: string;
-  /**
-   * The binding_type
-   */
-  bindingType: UserBindingBindingType;
-  /**
-   * The credential_sid
-   */
-  credentialSid?: string;
-  /**
-   * The endpoint
-   */
-  endpoint?: string;
-  /**
-   * The notification_protocol_version
-   */
-  notificationProtocolVersion?: string;
-  /**
-   * The tag
-   */
-  tag?: string[];
-}
-
-interface UserBindingListEachOptions extends ListEachOptions<UserBindingInstance> {
-  /**
-   * The end_date
-   */
-  endDate?: Date;
-  /**
-   * The start_date
-   */
-  startDate?: Date;
-  /**
-   * The tag
-   */
-  tag?: string[];
-}
-
-interface UserBindingListOptions extends ListOptions<UserBindingInstance> {
-  /**
-   * The end_date
-   */
-  endDate?: Date;
-  /**
-   * The start_date
-   */
-  startDate?: Date;
-  /**
-   * The tag
-   */
-  tag?: string[];
-}
-
-interface UserBindingListPageOptions extends PageOptions<UserBindingPage> {
-  /**
-   * The end_date
-   */
-  endDate?: Date;
-  /**
-   * The start_date
-   */
-  startDate?: Date;
-  /**
-   * The tag
-   */
-  tag?: string[];
-}
-
-interface UserBindingListInstance {
-  /**
-   * Gets context of a single UserBinding resource
+   * @constructor Twilio.Notify.V1.ServiceContext.UserContext.UserBindingPage
+   * @augments Page
+   * @description Initialize the UserBindingPage
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
-   * @param sid - The sid
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  (sid: string): UserBindingContext;
-  /**
-   * create a UserBindingInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed UserBindingInstance
-   */
-  create(opts: UserBindingListCreateOptions): Promise<UserBindingInstance>;
-  /**
-   * create a UserBindingInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: UserBindingListCreateOptions, callback: (error: Error | null, items: UserBindingInstance) => any): void;
-  /**
-   * Streams UserBindingInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: UserBindingListEachOptions): void;
-  /**
-   * Streams UserBindingInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: UserBindingInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single UserBinding resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): UserBindingContext;
-  /**
-   * Retrieve a single target page of UserBindingInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<UserBindingPage>;
-  /**
-   * Retrieve a single target page of UserBindingInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: UserBindingPage) => any): void;
-  /**
-   * Lists UserBindingInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: UserBindingListOptions): Promise<UserBindingInstance[]>;
-  /**
-   * Lists UserBindingInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: UserBindingListOptions, callback: (error: Error | null, items: UserBindingInstance[]) => any): void;
-  /**
-   * Lists UserBindingInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: UserBindingInstance[]) => any): void;
-  /**
-   * Retrieve a single page of UserBindingInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: UserBindingListPageOptions): Promise<UserBindingPage>;
-  /**
-   * Retrieve a single page of UserBindingInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: UserBindingListPageOptions, callback: (error: Error | null, items: UserBindingPage) => any): void;
-  /**
-   * Retrieve a single page of UserBindingInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: UserBindingPage) => any): void;
-}
-
-declare class UserBindingPage extends Page<V1, UserBindingPayload, UserBindingResource, UserBindingInstance> {
-  constructor(version: V1, response: Response<string>, solution: UserBindingSolution);
+  constructor(version: Twilio.Notify.V1, response: object, solution: object);
 
   /**
    * Build an instance of UserBindingInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Notify.V1.ServiceContext.UserContext.UserBindingPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: UserBindingPayload): UserBindingInstance;
+  getInstance(payload: object);
 }
 
-declare class UserBindingInstance extends SerializableClass {
+declare class UserBindingInstance {
   /**
+   * @constructor Twilio.Notify.V1.ServiceContext.UserContext.UserBindingInstance
+   * @description Initialize the UserBindingContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property sid - The sid
+   * @property accountSid - The account_sid
+   * @property serviceSid - The service_sid
+   * @property credentialSid - The credential_sid
+   * @property dateCreated - The date_created
+   * @property dateUpdated - The date_updated
+   * @property notificationProtocolVersion - The notification_protocol_version
+   * @property endpoint - The endpoint
+   * @property identity - The identity
+   * @property bindingType - The binding_type
+   * @property address - The address
+   * @property tags - The tags
+   * @property url - The url
+   * @property links - The links
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param serviceSid - The service_sid
    * @param identity - The identity
    * @param sid - The sid
    */
-  constructor(version: V1, payload: UserBindingPayload, serviceSid: string, identity: string, sid: string);
+  constructor(version: Twilio.Notify.V1, payload: object, serviceSid: sid, identity: string, sid: sid);
 
-  private _proxy: UserBindingContext;
-  /**
-   * The account_sid
-   */
-  accountSid: string;
-  /**
-   * The address
-   */
-  address: string;
-  /**
-   * The binding_type
-   */
-  bindingType: string;
-  /**
-   * The credential_sid
-   */
-  credentialSid: string;
-  /**
-   * The date_created
-   */
-  dateCreated: Date;
-  /**
-   * The date_updated
-   */
-  dateUpdated: Date;
-  /**
-   * The endpoint
-   */
-  endpoint: string;
+  _proxy?: UserBindingContext;
   /**
    * fetch a UserBindingInstance
    *
-   * @returns Promise that resolves to processed UserBindingInstance
-   */
-  fetch(): Promise<UserBindingInstance>;
-  /**
-   * fetch a UserBindingInstance
+   * @function fetch
+   * @memberof Twilio.Notify.V1.ServiceContext.UserContext.UserBindingInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: UserBindingInstance) => any): void;
-  /**
-   * The identity
-   */
-  identity: string;
-  /**
-   * The links
-   */
-  links: string;
-  /**
-   * The notification_protocol_version
-   */
-  notificationProtocolVersion: string;
+  fetch(callback?: function);
   /**
    * remove a UserBindingInstance
    *
-   * @returns Promise that resolves to processed UserBindingInstance
-   */
-  remove(): Promise<UserBindingInstance>;
-  /**
-   * remove a UserBindingInstance
+   * @function remove
+   * @memberof Twilio.Notify.V1.ServiceContext.UserContext.UserBindingInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: UserBindingInstance) => any): void;
+  remove(callback?: function);
   /**
-   * The service_sid
+   * Produce a plain JSON object version of the UserBindingInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Notify.V1.ServiceContext.UserContext.UserBindingInstance
+   * @instance
    */
-  serviceSid: string;
-  /**
-   * The sid
-   */
-  sid: string;
-  /**
-   * The tags
-   */
-  tags: string;
-  /**
-   * The url
-   */
-  url: string;
+  toJSON();
 }
 
 declare class UserBindingContext {
-  constructor(version: V1, serviceSid: string, identity: string, sid: string);
+  /**
+   * @constructor Twilio.Notify.V1.ServiceContext.UserContext.UserBindingContext
+   * @description Initialize the UserBindingContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @param version - Version of the resource
+   * @param serviceSid - The service_sid
+   * @param identity - The identity
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Notify.V1, serviceSid: sid, identity: sid_like, sid: sid);
 
   /**
    * fetch a UserBindingInstance
    *
-   * @returns Promise that resolves to processed UserBindingInstance
-   */
-  fetch(): Promise<UserBindingInstance>;
-  /**
-   * fetch a UserBindingInstance
+   * @function fetch
+   * @memberof Twilio.Notify.V1.ServiceContext.UserContext.UserBindingContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: UserBindingInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a UserBindingInstance
    *
-   * @returns Promise that resolves to processed UserBindingInstance
-   */
-  remove(): Promise<UserBindingInstance>;
-  /**
-   * remove a UserBindingInstance
+   * @function remove
+   * @memberof Twilio.Notify.V1.ServiceContext.UserContext.UserBindingContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: UserBindingInstance) => any): void;
+  remove(callback?: function);
 }
 
-export { UserBindingBindingType, UserBindingContext, UserBindingInstance, UserBindingList, UserBindingListCreateOptions, UserBindingListEachOptions, UserBindingListInstance, UserBindingListOptions, UserBindingListPageOptions, UserBindingPage, UserBindingPayload, UserBindingResource, UserBindingSolution }
+export { UserBindingContext, UserBindingInstance, UserBindingList, UserBindingPage }

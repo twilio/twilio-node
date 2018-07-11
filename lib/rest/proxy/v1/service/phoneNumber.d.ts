@@ -6,331 +6,124 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V1 = require('../../V1');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { SerializableClass } from '../../../../interfaces';
+import deserialize = require('../../../../base/deserialize');
+import values = require('../../../../base/values');
 
-declare function PhoneNumberList(version: V1, serviceSid: string): PhoneNumberListInstance
 
-interface PhoneNumberResource {
-  /**
-   * The unique SID identifier of the Account.
-   */
-  account_sid: string;
-  /**
-   * A list of capabilities of this phone number.
-   */
-  capabilities: string;
-  /**
-   * The date that this Phone Number was added to the service, given in ISO 8601 format.
-   */
-  date_created: Date;
-  /**
-   * The date that this Phone Number was updated, given in ISO 8601 format.
-   */
-  date_updated: Date;
-  /**
-   * A human-readable description of this resource, up to 64 characters.
-   */
-  friendly_name: string;
-  /**
-   * The ISO Country Code for this phone number.
-   */
-  iso_country: string;
-  /**
-   * The phone number. Phone numbers are in E.164 format (e.g. +16175551212).
-   */
-  phone_number: string;
-  /**
-   * The unique SID identifier of the parent [Service](https://www.twilio.com/docs/proxy/api/service).
-   */
-  service_sid: string;
-  /**
-   * A 34 character string that uniquely identifies this Phone Number (e.g. `PN1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d`).
-   */
-  sid: string;
-  /**
-   * The URL of this resource.
-   */
-  url: string;
-}
 
-interface PhoneNumberPayload extends PhoneNumberResource, Page.TwilioResponsePayload {
-}
-
-interface PhoneNumberSolution {
-  serviceSid: string;
-}
-
-interface PhoneNumberListCreateOptions {
+declare class PhoneNumberPage extends Page {
   /**
-   * A string that represents the Twilio Number you would like to assign to your Proxy Service. Provide number in [E.164](https://en.wikipedia.org/wiki/E.164) format (e.g. `+16175551212`).
+   * @constructor Twilio.Proxy.V1.ServiceContext.PhoneNumberPage
+   * @augments Page
+   * @description Initialize the PhoneNumberPage
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  phoneNumber?: string;
-  /**
-   * A Twilio [IncomingPhoneNumber](https://www.twilio.com/docs/phone-numbers/api/incoming-phone-numbers) Sid that represents the Twilio Number you would like to assign to your Proxy Service (e.g. `PN1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d`).
-   */
-  sid?: string;
-}
-
-interface PhoneNumberListEachOptions extends ListEachOptions<PhoneNumberInstance> {
-}
-
-interface PhoneNumberListOptions extends ListOptions<PhoneNumberInstance> {
-}
-
-interface PhoneNumberListPageOptions extends PageOptions<PhoneNumberPage> {
-}
-
-interface PhoneNumberListInstance {
-  /**
-   * Gets context of a single PhoneNumber resource
-   *
-   * @param sid - A string that uniquely identifies this Phone Number.
-   */
-  (sid: string): PhoneNumberContext;
-  /**
-   * create a PhoneNumberInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed PhoneNumberInstance
-   */
-  create(opts?: PhoneNumberListCreateOptions): Promise<PhoneNumberInstance>;
-  /**
-   * create a PhoneNumberInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: PhoneNumberListCreateOptions, callback: (error: Error | null, items: PhoneNumberInstance) => any): void;
-  /**
-   * create a PhoneNumberInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  create(callback: (error: Error | null, items: PhoneNumberInstance) => any): void;
-  /**
-   * Streams PhoneNumberInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: PhoneNumberListEachOptions): void;
-  /**
-   * Streams PhoneNumberInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: PhoneNumberInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single PhoneNumber resource
-   *
-   * @param sid - A string that uniquely identifies this Phone Number.
-   */
-  get(sid: string): PhoneNumberContext;
-  /**
-   * Retrieve a single target page of PhoneNumberInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<PhoneNumberPage>;
-  /**
-   * Retrieve a single target page of PhoneNumberInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: PhoneNumberPage) => any): void;
-  /**
-   * Lists PhoneNumberInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: PhoneNumberListOptions): Promise<PhoneNumberInstance[]>;
-  /**
-   * Lists PhoneNumberInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: PhoneNumberListOptions, callback: (error: Error | null, items: PhoneNumberInstance[]) => any): void;
-  /**
-   * Lists PhoneNumberInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: PhoneNumberInstance[]) => any): void;
-  /**
-   * Retrieve a single page of PhoneNumberInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: PhoneNumberListPageOptions): Promise<PhoneNumberPage>;
-  /**
-   * Retrieve a single page of PhoneNumberInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: PhoneNumberListPageOptions, callback: (error: Error | null, items: PhoneNumberPage) => any): void;
-  /**
-   * Retrieve a single page of PhoneNumberInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: PhoneNumberPage) => any): void;
-}
-
-declare class PhoneNumberPage extends Page<V1, PhoneNumberPayload, PhoneNumberResource, PhoneNumberInstance> {
-  constructor(version: V1, response: Response<string>, solution: PhoneNumberSolution);
+  constructor(version: Twilio.Proxy.V1, response: object, solution: object);
 
   /**
    * Build an instance of PhoneNumberInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Proxy.V1.ServiceContext.PhoneNumberPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: PhoneNumberPayload): PhoneNumberInstance;
+  getInstance(payload: object);
 }
 
-declare class PhoneNumberInstance extends SerializableClass {
+declare class PhoneNumberInstance {
   /**
+   * @constructor Twilio.Proxy.V1.ServiceContext.PhoneNumberInstance
+   * @description Initialize the PhoneNumberContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property sid - A string that uniquely identifies this Phone Number.
+   * @property accountSid - Account Sid.
+   * @property serviceSid - Service Sid.
+   * @property dateCreated - The date this Phone Number was added to the service
+   * @property dateUpdated - The date this Phone Number was updated
+   * @property phoneNumber - The phone number.
+   * @property friendlyName - A human-readable description of this resource.
+   * @property isoCountry - ISO Country Code,
+   * @property capabilities - A list of capabilities.
+   * @property url - The URL of this resource.
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param serviceSid - Service Sid.
    * @param sid - A string that uniquely identifies this Phone Number.
    */
-  constructor(version: V1, payload: PhoneNumberPayload, serviceSid: string, sid: string);
+  constructor(version: Twilio.Proxy.V1, payload: object, serviceSid: sid, sid: sid);
 
-  private _proxy: PhoneNumberContext;
-  /**
-   * The unique SID identifier of the Account.
-   */
-  accountSid: string;
-  /**
-   * A list of capabilities of this phone number.
-   */
-  capabilities: string;
-  /**
-   * The date that this Phone Number was added to the service, given in ISO 8601 format.
-   */
-  dateCreated: Date;
-  /**
-   * The date that this Phone Number was updated, given in ISO 8601 format.
-   */
-  dateUpdated: Date;
+  _proxy?: PhoneNumberContext;
   /**
    * fetch a PhoneNumberInstance
    *
-   * @returns Promise that resolves to processed PhoneNumberInstance
-   */
-  fetch(): Promise<PhoneNumberInstance>;
-  /**
-   * fetch a PhoneNumberInstance
+   * @function fetch
+   * @memberof Twilio.Proxy.V1.ServiceContext.PhoneNumberInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: PhoneNumberInstance) => any): void;
-  /**
-   * A human-readable description of this resource, up to 64 characters.
-   */
-  friendlyName: string;
-  /**
-   * The ISO Country Code for this phone number.
-   */
-  isoCountry: string;
-  /**
-   * The phone number. Phone numbers are in E.164 format (e.g. +16175551212).
-   */
-  phoneNumber: string;
+  fetch(callback?: function);
   /**
    * remove a PhoneNumberInstance
    *
-   * @returns Promise that resolves to processed PhoneNumberInstance
-   */
-  remove(): Promise<PhoneNumberInstance>;
-  /**
-   * remove a PhoneNumberInstance
+   * @function remove
+   * @memberof Twilio.Proxy.V1.ServiceContext.PhoneNumberInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: PhoneNumberInstance) => any): void;
+  remove(callback?: function);
   /**
-   * The unique SID identifier of the parent [Service](https://www.twilio.com/docs/proxy/api/service).
+   * Produce a plain JSON object version of the PhoneNumberInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Proxy.V1.ServiceContext.PhoneNumberInstance
+   * @instance
    */
-  serviceSid: string;
-  /**
-   * A 34 character string that uniquely identifies this Phone Number (e.g. `PN1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d`).
-   */
-  sid: string;
-  /**
-   * The URL of this resource.
-   */
-  url: string;
+  toJSON();
 }
 
 declare class PhoneNumberContext {
-  constructor(version: V1, serviceSid: string, sid: string);
+  /**
+   * @constructor Twilio.Proxy.V1.ServiceContext.PhoneNumberContext
+   * @description Initialize the PhoneNumberContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @param version - Version of the resource
+   * @param serviceSid - Service Sid.
+   * @param sid - A string that uniquely identifies this Phone Number.
+   */
+  constructor(version: Twilio.Proxy.V1, serviceSid: sid, sid: sid);
 
   /**
    * fetch a PhoneNumberInstance
    *
-   * @returns Promise that resolves to processed PhoneNumberInstance
-   */
-  fetch(): Promise<PhoneNumberInstance>;
-  /**
-   * fetch a PhoneNumberInstance
+   * @function fetch
+   * @memberof Twilio.Proxy.V1.ServiceContext.PhoneNumberContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: PhoneNumberInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a PhoneNumberInstance
    *
-   * @returns Promise that resolves to processed PhoneNumberInstance
-   */
-  remove(): Promise<PhoneNumberInstance>;
-  /**
-   * remove a PhoneNumberInstance
+   * @function remove
+   * @memberof Twilio.Proxy.V1.ServiceContext.PhoneNumberContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: PhoneNumberInstance) => any): void;
+  remove(callback?: function);
 }
 
-export { PhoneNumberContext, PhoneNumberInstance, PhoneNumberList, PhoneNumberListCreateOptions, PhoneNumberListEachOptions, PhoneNumberListInstance, PhoneNumberListOptions, PhoneNumberListPageOptions, PhoneNumberPage, PhoneNumberPayload, PhoneNumberResource, PhoneNumberSolution }
+export { PhoneNumberContext, PhoneNumberInstance, PhoneNumberList, PhoneNumberPage }

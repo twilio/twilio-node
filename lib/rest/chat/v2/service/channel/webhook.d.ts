@@ -6,445 +6,183 @@
  */
 
 import Page = require('../../../../../base/Page');
-import Response = require('../../../../../http/response');
-import V2 = require('../../../V2');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../interfaces';
-import { SerializableClass } from '../../../../../interfaces';
+import deserialize = require('../../../../../base/deserialize');
+import serialize = require('../../../../../base/serialize');
+import values = require('../../../../../base/values');
 
-declare function WebhookList(version: V2, serviceSid: string, channelSid: string): WebhookListInstance
 
-type WebhookType = 'webhook'|'trigger'|'studio';
-
-type WebhookMethod = 'GET'|'POST';
-
-interface WebhookResource {
-  /**
-   * The account_sid
-   */
-  account_sid: string;
-  /**
-   * The channel_sid
-   */
-  channel_sid: string;
-  /**
-   * The configuration
-   */
-  configuration: string;
-  /**
-   * The date_created
-   */
-  date_created: Date;
-  /**
-   * The date_updated
-   */
-  date_updated: Date;
-  /**
-   * The service_sid
-   */
-  service_sid: string;
-  /**
-   * The sid
-   */
-  sid: string;
-  /**
-   * The type
-   */
-  type: string;
-  /**
-   * The url
-   */
-  url: string;
+/**
+ * Options to pass to update
+ *
+ * @property "configuration.url" - The configuration.url
+ * @property "configuration.method" - The configuration.method
+ * @property "configuration.filters" - The configuration.filters
+ * @property "configuration.triggers" - The configuration.triggers
+ * @property "configuration.flowSid" - The configuration.flow_sid
+ * @property "configuration.retryCount" - The configuration.retry_count
+ */
+export interface UpdateOptions {
+  "configuration.filters"?: string|list;
+  "configuration.flowSid"?: string;
+  "configuration.method"?: webhook.method;
+  "configuration.retryCount"?: number;
+  "configuration.triggers"?: string|list;
+  "configuration.url"?: string;
 }
 
-interface WebhookPayload extends WebhookResource, Page.TwilioResponsePayload {
+/**
+ * Options to pass to update
+ *
+ * @property "configuration.url" - The configuration.url
+ * @property "configuration.method" - The configuration.method
+ * @property "configuration.filters" - The configuration.filters
+ * @property "configuration.triggers" - The configuration.triggers
+ * @property "configuration.flowSid" - The configuration.flow_sid
+ * @property "configuration.retryCount" - The configuration.retry_count
+ */
+export interface UpdateOptions {
+  "configuration.filters"?: string|list;
+  "configuration.flowSid"?: string;
+  "configuration.method"?: webhook.method;
+  "configuration.retryCount"?: number;
+  "configuration.triggers"?: string|list;
+  "configuration.url"?: string;
 }
 
-interface WebhookSolution {
-  channelSid: string;
-  serviceSid: string;
-}
 
-interface WebhookListEachOptions extends ListEachOptions<WebhookInstance> {
-}
-
-interface WebhookListOptions extends ListOptions<WebhookInstance> {
-}
-
-interface WebhookListPageOptions extends PageOptions<WebhookPage> {
-}
-
-interface WebhookListCreateOptions {
-  configuration?: {
-    /**
-     * The configuration.url
-     */
-    url?: string;
-    /**
-     * The configuration.method
-     */
-    method?: WebhookMethod;
-    /**
-     * The configuration.filters
-     */
-    filters?: string[];
-    /**
-     * The configuration.triggers
-     */
-    triggers?: string[];
-    /**
-     * The configuration.flow_sid
-     */
-    flowSid?: string;
-    /**
-     * The configuration.retry_count
-     */
-    retryCount?: number;
-  };
+declare class WebhookPage extends Page {
   /**
-   * The type
+   * @constructor Twilio.Chat.V2.ServiceContext.ChannelContext.WebhookPage
+   * @augments Page
+   * @description Initialize the WebhookPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  type: WebhookType;
-}
-
-interface WebhookListInstance {
-  /**
-   * Gets context of a single Webhook resource
-   *
-   * @param sid - The sid
-   */
-  (sid: string): WebhookContext;
-  /**
-   * create a WebhookInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed WebhookInstance
-   */
-  create(opts: WebhookListCreateOptions): Promise<WebhookInstance>;
-  /**
-   * create a WebhookInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: WebhookListCreateOptions, callback: (error: Error | null, items: WebhookInstance) => any): void;
-  /**
-   * Streams WebhookInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: WebhookListEachOptions): void;
-  /**
-   * Streams WebhookInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: WebhookInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Webhook resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): WebhookContext;
-  /**
-   * Retrieve a single target page of WebhookInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<WebhookPage>;
-  /**
-   * Retrieve a single target page of WebhookInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: WebhookPage) => any): void;
-  /**
-   * Lists WebhookInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: WebhookListOptions): Promise<WebhookInstance[]>;
-  /**
-   * Lists WebhookInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: WebhookListOptions, callback: (error: Error | null, items: WebhookInstance[]) => any): void;
-  /**
-   * Lists WebhookInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: WebhookInstance[]) => any): void;
-  /**
-   * Retrieve a single page of WebhookInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: WebhookListPageOptions): Promise<WebhookPage>;
-  /**
-   * Retrieve a single page of WebhookInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: WebhookListPageOptions, callback: (error: Error | null, items: WebhookPage) => any): void;
-  /**
-   * Retrieve a single page of WebhookInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: WebhookPage) => any): void;
-}
-
-interface WebhookListFetchOptions {
-  configuration?: {
-    /**
-     * The configuration.url
-     */
-    url?: string;
-    /**
-     * The configuration.method
-     */
-    method?: WebhookMethod;
-    /**
-     * The configuration.filters
-     */
-    filters?: string[];
-    /**
-     * The configuration.triggers
-     */
-    triggers?: string[];
-    /**
-     * The configuration.flow_sid
-     */
-    flowSid?: string;
-    /**
-     * The configuration.retry_count
-     */
-    retryCount?: number;
-  };
-}
-
-interface WebhookListFetchOptions {
-  configuration?: {
-    /**
-     * The configuration.url
-     */
-    url?: string;
-    /**
-     * The configuration.method
-     */
-    method?: WebhookMethod;
-    /**
-     * The configuration.filters
-     */
-    filters?: string[];
-    /**
-     * The configuration.triggers
-     */
-    triggers?: string[];
-    /**
-     * The configuration.flow_sid
-     */
-    flowSid?: string;
-    /**
-     * The configuration.retry_count
-     */
-    retryCount?: number;
-  };
-}
-
-declare class WebhookPage extends Page<V2, WebhookPayload, WebhookResource, WebhookInstance> {
-  constructor(version: V2, response: Response<string>, solution: WebhookSolution);
+  constructor(version: Twilio.Chat.V2, response: object, solution: object);
 
   /**
    * Build an instance of WebhookInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Chat.V2.ServiceContext.ChannelContext.WebhookPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: WebhookPayload): WebhookInstance;
+  getInstance(payload: object);
 }
 
-declare class WebhookInstance extends SerializableClass {
+declare class WebhookInstance {
   /**
+   * @constructor Twilio.Chat.V2.ServiceContext.ChannelContext.WebhookInstance
+   * @description Initialize the WebhookContext
+   *
+   * @property sid - The sid
+   * @property accountSid - The account_sid
+   * @property serviceSid - The service_sid
+   * @property channelSid - The channel_sid
+   * @property type - The type
+   * @property url - The url
+   * @property configuration - The configuration
+   * @property dateCreated - The date_created
+   * @property dateUpdated - The date_updated
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param serviceSid - The service_sid
    * @param channelSid - The channel_sid
    * @param sid - The sid
    */
-  constructor(version: V2, payload: WebhookPayload, serviceSid: string, channelSid: string, sid: string);
+  constructor(version: Twilio.Chat.V2, payload: object, serviceSid: sid, channelSid: sid, sid: sid);
 
-  private _proxy: WebhookContext;
-  /**
-   * The account_sid
-   */
-  accountSid: string;
-  /**
-   * The channel_sid
-   */
-  channelSid: string;
-  /**
-   * The configuration
-   */
-  configuration: string;
-  /**
-   * The date_created
-   */
-  dateCreated: Date;
-  /**
-   * The date_updated
-   */
-  dateUpdated: Date;
+  _proxy?: WebhookContext;
   /**
    * fetch a WebhookInstance
    *
-   * @returns Promise that resolves to processed WebhookInstance
-   */
-  fetch(): Promise<WebhookInstance>;
-  /**
-   * fetch a WebhookInstance
+   * @function fetch
+   * @memberof Twilio.Chat.V2.ServiceContext.ChannelContext.WebhookInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: WebhookInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a WebhookInstance
    *
-   * @returns Promise that resolves to processed WebhookInstance
-   */
-  remove(): Promise<WebhookInstance>;
-  /**
-   * remove a WebhookInstance
+   * @function remove
+   * @memberof Twilio.Chat.V2.ServiceContext.ChannelContext.WebhookInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: WebhookInstance) => any): void;
+  remove(callback?: function);
   /**
-   * The service_sid
+   * Produce a plain JSON object version of the WebhookInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Chat.V2.ServiceContext.ChannelContext.WebhookInstance
+   * @instance
    */
-  serviceSid: string;
-  /**
-   * The sid
-   */
-  sid: string;
-  /**
-   * The type
-   */
-  type: string;
+  toJSON();
   /**
    * update a WebhookInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Chat.V2.ServiceContext.ChannelContext.WebhookInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed WebhookInstance
-   */
-  update(opts?: WebhookListFetchOptions): Promise<WebhookInstance>;
-  /**
-   * update a WebhookInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: WebhookListFetchOptions, callback: (error: Error | null, items: WebhookInstance) => any): void;
-  /**
-   * update a WebhookInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: WebhookInstance) => any): void;
-  /**
-   * The url
-   */
-  url: string;
+  update(opts?: object, callback?: function);
 }
 
 declare class WebhookContext {
-  constructor(version: V2, serviceSid: string, channelSid: string, sid: string);
+  /**
+   * @constructor Twilio.Chat.V2.ServiceContext.ChannelContext.WebhookContext
+   * @description Initialize the WebhookContext
+   *
+   * @param version - Version of the resource
+   * @param serviceSid - The service_sid
+   * @param channelSid - The channel_sid
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Chat.V2, serviceSid: sid, channelSid: sid_like, sid: sid);
 
   /**
    * fetch a WebhookInstance
    *
-   * @returns Promise that resolves to processed WebhookInstance
-   */
-  fetch(): Promise<WebhookInstance>;
-  /**
-   * fetch a WebhookInstance
+   * @function fetch
+   * @memberof Twilio.Chat.V2.ServiceContext.ChannelContext.WebhookContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: WebhookInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a WebhookInstance
    *
-   * @returns Promise that resolves to processed WebhookInstance
-   */
-  remove(): Promise<WebhookInstance>;
-  /**
-   * remove a WebhookInstance
+   * @function remove
+   * @memberof Twilio.Chat.V2.ServiceContext.ChannelContext.WebhookContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: WebhookInstance) => any): void;
+  remove(callback?: function);
   /**
    * update a WebhookInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Chat.V2.ServiceContext.ChannelContext.WebhookContext
+   * @instance
    *
-   * @returns Promise that resolves to processed WebhookInstance
-   */
-  update(opts?: WebhookListFetchOptions): Promise<WebhookInstance>;
-  /**
-   * update a WebhookInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: WebhookListFetchOptions, callback: (error: Error | null, items: WebhookInstance) => any): void;
-  /**
-   * update a WebhookInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: WebhookInstance) => any): void;
+  update(opts?: object, callback?: function);
 }
 
-export { WebhookContext, WebhookInstance, WebhookList, WebhookListCreateOptions, WebhookListEachOptions, WebhookListFetchOptions, WebhookListInstance, WebhookListOptions, WebhookListPageOptions, WebhookMethod, WebhookPage, WebhookPayload, WebhookResource, WebhookSolution, WebhookType }
+export { WebhookContext, WebhookInstance, WebhookList, WebhookPage }

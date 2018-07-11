@@ -6,263 +6,126 @@
  */
 
 import Page = require('../../../../../base/Page');
-import Response = require('../../../../../http/response');
-import V2010 = require('../../../V2010');
-import { SerializableClass } from '../../../../../interfaces';
+import deserialize = require('../../../../../base/deserialize');
+import serialize = require('../../../../../base/serialize');
+import values = require('../../../../../base/values');
 
-declare function FeedbackSummaryList(version: V2010, accountSid: string): FeedbackSummaryListInstance
 
-type FeedbackSummaryStatus = 'queued'|'in-progress'|'completed'|'failed';
 
-interface FeedbackSummaryResource {
+declare class FeedbackSummaryPage extends Page {
   /**
-   * The account_sid
-   */
-  account_sid: string;
-  /**
-   * The call_count
-   */
-  call_count: number;
-  /**
-   * The call_feedback_count
-   */
-  call_feedback_count: number;
-  /**
-   * The date_created
-   */
-  date_created: Date;
-  /**
-   * The date_updated
-   */
-  date_updated: Date;
-  /**
-   * The end_date
-   */
-  end_date: Date;
-  /**
-   * The include_subaccounts
-   */
-  include_subaccounts: boolean;
-  /**
-   * The issues
-   */
-  issues: string;
-  /**
-   * The quality_score_average
-   */
-  quality_score_average: number;
-  /**
-   * The quality_score_median
-   */
-  quality_score_median: number;
-  /**
-   * The quality_score_standard_deviation
-   */
-  quality_score_standard_deviation: number;
-  /**
-   * The sid
-   */
-  sid: string;
-  /**
-   * The start_date
-   */
-  start_date: Date;
-  /**
-   * The status
-   */
-  status: FeedbackSummaryStatus;
-}
-
-interface FeedbackSummaryPayload extends FeedbackSummaryResource, Page.TwilioResponsePayload {
-}
-
-interface FeedbackSummarySolution {
-  accountSid: string;
-}
-
-interface FeedbackSummaryListCreateOptions {
-  /**
-   * Only include usage that has occurred on or before this date. Format is YYYY-MM-DD. All dates are in UTC.
-   */
-  endDate: Date;
-  /**
-   * true to include feedback entries for the master account and all subaccounts. false to include feedback entries for the specified account. IncludeSubaccounts is false by default.
-   */
-  includeSubaccounts?: boolean;
-  /**
-   * Only include usage that has occurred on or after this date. Format is YYYY-MM-DD. All dates are in UTC.
-   */
-  startDate: Date;
-  /**
-   * The URL that Twilio will request when the Feedback Summary is completed.
-   */
-  statusCallback?: string;
-  /**
-   * The HTTP method Twilio will use to make requests to the StatusCallback URL. Either GET or POST.
-   */
-  statusCallbackMethod?: string;
-}
-
-interface FeedbackSummaryListInstance {
-  /**
-   * Gets context of a single FeedbackSummary resource
+   * @constructor Twilio.Api.V2010.AccountContext.CallContext.FeedbackSummaryPage
+   * @augments Page
+   * @description Initialize the FeedbackSummaryPage
    *
-   * @param sid - The sid
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  (sid: string): FeedbackSummaryContext;
-  /**
-   * create a FeedbackSummaryInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed FeedbackSummaryInstance
-   */
-  create(opts: FeedbackSummaryListCreateOptions): Promise<FeedbackSummaryInstance>;
-  /**
-   * create a FeedbackSummaryInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: FeedbackSummaryListCreateOptions, callback: (error: Error | null, items: FeedbackSummaryInstance) => any): void;
-  /**
-   * Gets context of a single FeedbackSummary resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): FeedbackSummaryContext;
-}
-
-declare class FeedbackSummaryPage extends Page<V2010, FeedbackSummaryPayload, FeedbackSummaryResource, FeedbackSummaryInstance> {
-  constructor(version: V2010, response: Response<string>, solution: FeedbackSummarySolution);
+  constructor(version: Twilio.Api.V2010, response: object, solution: object);
 
   /**
    * Build an instance of FeedbackSummaryInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Api.V2010.AccountContext.CallContext.FeedbackSummaryPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: FeedbackSummaryPayload): FeedbackSummaryInstance;
+  getInstance(payload: object);
 }
 
-declare class FeedbackSummaryInstance extends SerializableClass {
+declare class FeedbackSummaryInstance {
   /**
+   * @constructor Twilio.Api.V2010.AccountContext.CallContext.FeedbackSummaryInstance
+   * @description Initialize the FeedbackSummaryContext
+   *
+   * @property accountSid - The account_sid
+   * @property callCount - The call_count
+   * @property callFeedbackCount - The call_feedback_count
+   * @property dateCreated - The date_created
+   * @property dateUpdated - The date_updated
+   * @property endDate - The end_date
+   * @property includeSubaccounts - The include_subaccounts
+   * @property issues - The issues
+   * @property qualityScoreAverage - The quality_score_average
+   * @property qualityScoreMedian - The quality_score_median
+   * @property qualityScoreStandardDeviation - The quality_score_standard_deviation
+   * @property sid - The sid
+   * @property startDate - The start_date
+   * @property status - The status
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The account_sid
+   * @param accountSid - The unique id of the Account responsible for creating this Call
    * @param sid - The sid
    */
-  constructor(version: V2010, payload: FeedbackSummaryPayload, accountSid: string, sid: string);
+  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, sid: sid);
 
-  private _proxy: FeedbackSummaryContext;
-  /**
-   * The account_sid
-   */
-  accountSid: string;
-  /**
-   * The call_count
-   */
-  callCount: number;
-  /**
-   * The call_feedback_count
-   */
-  callFeedbackCount: number;
-  /**
-   * The date_created
-   */
-  dateCreated: Date;
-  /**
-   * The date_updated
-   */
-  dateUpdated: Date;
-  /**
-   * The end_date
-   */
-  endDate: Date;
+  _proxy?: FeedbackSummaryContext;
   /**
    * fetch a FeedbackSummaryInstance
    *
-   * @returns Promise that resolves to processed FeedbackSummaryInstance
-   */
-  fetch(): Promise<FeedbackSummaryInstance>;
-  /**
-   * fetch a FeedbackSummaryInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.CallContext.FeedbackSummaryInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: FeedbackSummaryInstance) => any): void;
-  /**
-   * The include_subaccounts
-   */
-  includeSubaccounts: boolean;
-  /**
-   * The issues
-   */
-  issues: string;
-  /**
-   * The quality_score_average
-   */
-  qualityScoreAverage: number;
-  /**
-   * The quality_score_median
-   */
-  qualityScoreMedian: number;
-  /**
-   * The quality_score_standard_deviation
-   */
-  qualityScoreStandardDeviation: number;
+  fetch(callback?: function);
   /**
    * remove a FeedbackSummaryInstance
    *
-   * @returns Promise that resolves to processed FeedbackSummaryInstance
-   */
-  remove(): Promise<FeedbackSummaryInstance>;
-  /**
-   * remove a FeedbackSummaryInstance
+   * @function remove
+   * @memberof Twilio.Api.V2010.AccountContext.CallContext.FeedbackSummaryInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: FeedbackSummaryInstance) => any): void;
+  remove(callback?: function);
   /**
-   * The sid
+   * Produce a plain JSON object version of the FeedbackSummaryInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Api.V2010.AccountContext.CallContext.FeedbackSummaryInstance
+   * @instance
    */
-  sid: string;
-  /**
-   * The start_date
-   */
-  startDate: Date;
-  /**
-   * The status
-   */
-  status: FeedbackSummaryStatus;
+  toJSON();
 }
 
 declare class FeedbackSummaryContext {
-  constructor(version: V2010, accountSid: string, sid: string);
+  /**
+   * @constructor Twilio.Api.V2010.AccountContext.CallContext.FeedbackSummaryContext
+   * @description Initialize the FeedbackSummaryContext
+   *
+   * @param version - Version of the resource
+   * @param accountSid - The account_sid
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Api.V2010, accountSid: sid, sid: sid);
 
   /**
    * fetch a FeedbackSummaryInstance
    *
-   * @returns Promise that resolves to processed FeedbackSummaryInstance
-   */
-  fetch(): Promise<FeedbackSummaryInstance>;
-  /**
-   * fetch a FeedbackSummaryInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.CallContext.FeedbackSummaryContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: FeedbackSummaryInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a FeedbackSummaryInstance
    *
-   * @returns Promise that resolves to processed FeedbackSummaryInstance
-   */
-  remove(): Promise<FeedbackSummaryInstance>;
-  /**
-   * remove a FeedbackSummaryInstance
+   * @function remove
+   * @memberof Twilio.Api.V2010.AccountContext.CallContext.FeedbackSummaryContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: FeedbackSummaryInstance) => any): void;
+  remove(callback?: function);
 }
 
-export { FeedbackSummaryContext, FeedbackSummaryInstance, FeedbackSummaryList, FeedbackSummaryListCreateOptions, FeedbackSummaryListInstance, FeedbackSummaryPage, FeedbackSummaryPayload, FeedbackSummaryResource, FeedbackSummarySolution, FeedbackSummaryStatus }
+export { FeedbackSummaryContext, FeedbackSummaryInstance, FeedbackSummaryList, FeedbackSummaryPage }

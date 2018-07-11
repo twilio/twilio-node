@@ -6,433 +6,170 @@
  */
 
 import Page = require('../../../../../base/Page');
-import Response = require('../../../../../http/response');
-import V1 = require('../../../V1');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../interfaces';
-import { SerializableClass } from '../../../../../interfaces';
+import deserialize = require('../../../../../base/deserialize');
+import values = require('../../../../../base/values');
 
-declare function MessageList(version: V1, serviceSid: string, channelSid: string): MessageListInstance
 
-type MessageOrderType = 'asc'|'desc';
-
-interface MessageResource {
-  /**
-   * The unique id of the [Account](https://www.twilio.com/docs/api/rest/account) responsible for this message.
-   */
-  account_sid: string;
-  /**
-   * An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified. **Note** that this will always be null for resources returned via LIST GET operations, but will be present for single GET operations.
-   */
-  attributes: string;
-  /**
-   * The contents of the message.
-   */
-  body: string;
-  /**
-   * The channel_sid
-   */
-  channel_sid: string;
-  /**
-   * The date that this resource was created.
-   */
-  date_created: Date;
-  /**
-   * The date that this resource was last updated. `null` if the message has not been edited.
-   */
-  date_updated: Date;
-  /**
-   * The [identity](https://www.twilio.com/docs/api/chat/guides/identity) of the message's author. Defaults to `system`.
-   */
-  from: string;
-  /**
-   * The index of the message within the [Channel](https://www.twilio.com/docs/api/chat/rest/v1/channels)
-   */
-  index: number;
-  /**
-   * The unique id of the [Service](https://www.twilio.com/docs/api/chat/rest/v1/services) this message belongs to.
-   */
-  service_sid: string;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * The unique id of the [Channel](https://www.twilio.com/docs/api/chat/rest/v1/channels) this message was sent to.
-   */
-  to: string;
-  /**
-   * An absolute URL for this message.
-   */
-  url: string;
-  /**
-   * `true` if the message has been updated since it was created. `false` if it has not changed.
-   */
-  was_edited: boolean;
-}
-
-interface MessagePayload extends MessageResource, Page.TwilioResponsePayload {
-}
-
-interface MessageSolution {
-  channelSid: string;
-  serviceSid: string;
-}
-
-interface MessageListCreateOptions {
-  /**
-   * The attributes
-   */
+/**
+ * Options to pass to update
+ *
+ * @property body - The new message body string.
+ * @property attributes - The new attributes metadata field you can use to store any data you wish.
+ */
+export interface UpdateOptions {
   attributes?: string;
-  /**
-   * The body
-   */
-  body: string;
-  /**
-   * The from
-   */
-  from?: string;
-}
-
-interface MessageListEachOptions extends ListEachOptions<MessageInstance> {
-  /**
-   * The order
-   */
-  order?: MessageOrderType;
-}
-
-interface MessageListOptions extends ListOptions<MessageInstance> {
-  /**
-   * The order
-   */
-  order?: MessageOrderType;
-}
-
-interface MessageListPageOptions extends PageOptions<MessagePage> {
-  /**
-   * The order
-   */
-  order?: MessageOrderType;
-}
-
-interface MessageListInstance {
-  /**
-   * Gets context of a single Message resource
-   *
-   * @param sid - The sid
-   */
-  (sid: string): MessageContext;
-  /**
-   * create a MessageInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed MessageInstance
-   */
-  create(opts: MessageListCreateOptions): Promise<MessageInstance>;
-  /**
-   * create a MessageInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: MessageListCreateOptions, callback: (error: Error | null, items: MessageInstance) => any): void;
-  /**
-   * Streams MessageInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: MessageListEachOptions): void;
-  /**
-   * Streams MessageInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: MessageInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Message resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): MessageContext;
-  /**
-   * Retrieve a single target page of MessageInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<MessagePage>;
-  /**
-   * Retrieve a single target page of MessageInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: MessagePage) => any): void;
-  /**
-   * Lists MessageInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: MessageListOptions): Promise<MessageInstance[]>;
-  /**
-   * Lists MessageInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: MessageListOptions, callback: (error: Error | null, items: MessageInstance[]) => any): void;
-  /**
-   * Lists MessageInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: MessageInstance[]) => any): void;
-  /**
-   * Retrieve a single page of MessageInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: MessageListPageOptions): Promise<MessagePage>;
-  /**
-   * Retrieve a single page of MessageInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: MessageListPageOptions, callback: (error: Error | null, items: MessagePage) => any): void;
-  /**
-   * Retrieve a single page of MessageInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: MessagePage) => any): void;
-}
-
-interface MessageListFetchOptions {
-  /**
-   * The new attributes metadata field you can use to store any data you wish.  The string value must contain structurally valid JSON if specified.
-   */
-  attributes?: string;
-  /**
-   * The new message body string. You can also send structured data by serializing it into a string.
-   */
   body?: string;
 }
 
-interface MessageListFetchOptions {
-  /**
-   * The new attributes metadata field you can use to store any data you wish.  The string value must contain structurally valid JSON if specified.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property body - The new message body string.
+ * @property attributes - The new attributes metadata field you can use to store any data you wish.
+ */
+export interface UpdateOptions {
   attributes?: string;
-  /**
-   * The new message body string. You can also send structured data by serializing it into a string.
-   */
   body?: string;
 }
 
-declare class MessagePage extends Page<V1, MessagePayload, MessageResource, MessageInstance> {
-  constructor(version: V1, response: Response<string>, solution: MessageSolution);
+
+declare class MessagePage extends Page {
+  /**
+   * @constructor Twilio.Chat.V1.ServiceContext.ChannelContext.MessagePage
+   * @augments Page
+   * @description Initialize the MessagePage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Chat.V1, response: object, solution: object);
 
   /**
    * Build an instance of MessageInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Chat.V1.ServiceContext.ChannelContext.MessagePage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: MessagePayload): MessageInstance;
+  getInstance(payload: object);
 }
 
-declare class MessageInstance extends SerializableClass {
+declare class MessageInstance {
   /**
+   * @constructor Twilio.Chat.V1.ServiceContext.ChannelContext.MessageInstance
+   * @description Initialize the MessageContext
+   *
+   * @property sid - A 34 character string that uniquely identifies this resource.
+   * @property accountSid - The unique id of the Account responsible for this message.
+   * @property attributes - An optional string metadata field you can use to store any data you wish.
+   * @property serviceSid - The unique id of the Service this message belongs to.
+   * @property to - The unique id of the Channel this message was sent to.
+   * @property channelSid - The channel_sid
+   * @property dateCreated - The date that this resource was created.
+   * @property dateUpdated - The date that this resource was last updated.
+   * @property wasEdited - true if the message has been updated since it was created.
+   * @property from - The identity of the message's author.
+   * @property body - The contents of the message.
+   * @property index - The index of the message within the Channel
+   * @property url - An absolute URL for this message.
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
+   * @param serviceSid - The unique id of the Service this message belongs to.
+   * @param channelSid - The channel_sid
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Chat.V1, payload: object, serviceSid: sid, channelSid: sid, sid: sid);
+
+  _proxy?: MessageContext;
+  /**
+   * fetch a MessageInstance
+   *
+   * @function fetch
+   * @memberof Twilio.Chat.V1.ServiceContext.ChannelContext.MessageInstance
+   * @instance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: function);
+  /**
+   * remove a MessageInstance
+   *
+   * @function remove
+   * @memberof Twilio.Chat.V1.ServiceContext.ChannelContext.MessageInstance
+   * @instance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: function);
+  /**
+   * Produce a plain JSON object version of the MessageInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Chat.V1.ServiceContext.ChannelContext.MessageInstance
+   * @instance
+   */
+  toJSON();
+  /**
+   * update a MessageInstance
+   *
+   * @function update
+   * @memberof Twilio.Chat.V1.ServiceContext.ChannelContext.MessageInstance
+   * @instance
+   *
+   * @param opts - ...
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: object, callback?: function);
+}
+
+declare class MessageContext {
+  /**
+   * @constructor Twilio.Chat.V1.ServiceContext.ChannelContext.MessageContext
+   * @description Initialize the MessageContext
+   *
+   * @param version - Version of the resource
    * @param serviceSid - The service_sid
    * @param channelSid - The channel_sid
    * @param sid - The sid
    */
-  constructor(version: V1, payload: MessagePayload, serviceSid: string, channelSid: string, sid: string);
+  constructor(version: Twilio.Chat.V1, serviceSid: sid, channelSid: sid, sid: sid);
 
-  private _proxy: MessageContext;
-  /**
-   * The unique id of the [Account](https://www.twilio.com/docs/api/rest/account) responsible for this message.
-   */
-  accountSid: string;
-  /**
-   * An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified. **Note** that this will always be null for resources returned via LIST GET operations, but will be present for single GET operations.
-   */
-  attributes: string;
-  /**
-   * The contents of the message.
-   */
-  body: string;
-  /**
-   * The channel_sid
-   */
-  channelSid: string;
-  /**
-   * The date that this resource was created.
-   */
-  dateCreated: Date;
-  /**
-   * The date that this resource was last updated. `null` if the message has not been edited.
-   */
-  dateUpdated: Date;
   /**
    * fetch a MessageInstance
    *
-   * @returns Promise that resolves to processed MessageInstance
-   */
-  fetch(): Promise<MessageInstance>;
-  /**
-   * fetch a MessageInstance
+   * @function fetch
+   * @memberof Twilio.Chat.V1.ServiceContext.ChannelContext.MessageContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: MessageInstance) => any): void;
-  /**
-   * The [identity](https://www.twilio.com/docs/api/chat/guides/identity) of the message's author. Defaults to `system`.
-   */
-  from: string;
-  /**
-   * The index of the message within the [Channel](https://www.twilio.com/docs/api/chat/rest/v1/channels)
-   */
-  index: number;
+  fetch(callback?: function);
   /**
    * remove a MessageInstance
    *
-   * @returns Promise that resolves to processed MessageInstance
-   */
-  remove(): Promise<MessageInstance>;
-  /**
-   * remove a MessageInstance
+   * @function remove
+   * @memberof Twilio.Chat.V1.ServiceContext.ChannelContext.MessageContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: MessageInstance) => any): void;
-  /**
-   * The unique id of the [Service](https://www.twilio.com/docs/api/chat/rest/v1/services) this message belongs to.
-   */
-  serviceSid: string;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * The unique id of the [Channel](https://www.twilio.com/docs/api/chat/rest/v1/channels) this message was sent to.
-   */
-  to: string;
+  remove(callback?: function);
   /**
    * update a MessageInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Chat.V1.ServiceContext.ChannelContext.MessageContext
+   * @instance
    *
-   * @returns Promise that resolves to processed MessageInstance
-   */
-  update(opts?: MessageListFetchOptions): Promise<MessageInstance>;
-  /**
-   * update a MessageInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: MessageListFetchOptions, callback: (error: Error | null, items: MessageInstance) => any): void;
-  /**
-   * update a MessageInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: MessageInstance) => any): void;
-  /**
-   * An absolute URL for this message.
-   */
-  url: string;
-  /**
-   * `true` if the message has been updated since it was created. `false` if it has not changed.
-   */
-  wasEdited: boolean;
+  update(opts?: object, callback?: function);
 }
 
-declare class MessageContext {
-  constructor(version: V1, serviceSid: string, channelSid: string, sid: string);
-
-  /**
-   * fetch a MessageInstance
-   *
-   * @returns Promise that resolves to processed MessageInstance
-   */
-  fetch(): Promise<MessageInstance>;
-  /**
-   * fetch a MessageInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  fetch(callback: (error: Error | null, items: MessageInstance) => any): void;
-  /**
-   * remove a MessageInstance
-   *
-   * @returns Promise that resolves to processed MessageInstance
-   */
-  remove(): Promise<MessageInstance>;
-  /**
-   * remove a MessageInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback: (error: Error | null, items: MessageInstance) => any): void;
-  /**
-   * update a MessageInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed MessageInstance
-   */
-  update(opts?: MessageListFetchOptions): Promise<MessageInstance>;
-  /**
-   * update a MessageInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts: MessageListFetchOptions, callback: (error: Error | null, items: MessageInstance) => any): void;
-  /**
-   * update a MessageInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: MessageInstance) => any): void;
-}
-
-export { MessageContext, MessageInstance, MessageList, MessageListCreateOptions, MessageListEachOptions, MessageListFetchOptions, MessageListInstance, MessageListOptions, MessageListPageOptions, MessageOrderType, MessagePage, MessagePayload, MessageResource, MessageSolution }
+export { MessageContext, MessageInstance, MessageList, MessagePage }

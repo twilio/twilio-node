@@ -6,180 +6,119 @@
  */
 
 import Page = require('../../../../../base/Page');
-import Response = require('../../../../../http/response');
-import V1 = require('../../../V1');
-import { SerializableClass } from '../../../../../interfaces';
+import deserialize = require('../../../../../base/deserialize');
+import values = require('../../../../../base/values');
 
-declare function WorkflowRealTimeStatisticsList(version: V1, workspaceSid: string, workflowSid: string): WorkflowRealTimeStatisticsListInstance
 
-interface WorkflowRealTimeStatisticsResource {
-  /**
-   * The account_sid
-   */
-  account_sid: string;
-  /**
-   * The age of the longest waiting Task
-   */
-  longest_task_waiting_age: number;
-  /**
-   * The tasks_by_priority
-   */
-  tasks_by_priority: string;
-  /**
-   * The Tasks broken down by status (for example: pending: 1, reserved = 3, assigned = 2, completed = 5)
-   */
-  tasks_by_status: string;
-  /**
-   * The total number of Tasks
-   */
-  total_tasks: number;
-  /**
-   * The url
-   */
-  url: string;
-  /**
-   * The workflow_sid
-   */
-  workflow_sid: string;
-  /**
-   * The workspace_sid
-   */
-  workspace_sid: string;
-}
-
-interface WorkflowRealTimeStatisticsPayload extends WorkflowRealTimeStatisticsResource, Page.TwilioResponsePayload {
-}
-
-interface WorkflowRealTimeStatisticsSolution {
-  workflowSid: string;
-  workspaceSid: string;
-}
-
-interface WorkflowRealTimeStatisticsListInstance {
-  /**
-   * Gets context of a single WorkflowRealTimeStatistics resource
-   */
-  (): WorkflowRealTimeStatisticsContext;
-  /**
-   * Gets context of a single WorkflowRealTimeStatistics resource
-   */
-  get(): WorkflowRealTimeStatisticsContext;
-}
-
-interface WorkflowRealTimeStatisticsListFetchOptions {
-  /**
-   * Filter real-time and cumulative statistics by TaskChannel. Takes in a Unique Name ("voice", "sms", "default", etc.) or a TaskChannelSid.
-   */
+/**
+ * Options to pass to fetch
+ *
+ * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
+ */
+export interface FetchOptions {
   taskChannel?: string;
 }
 
-interface WorkflowRealTimeStatisticsListFetchOptions {
-  /**
-   * Filter real-time and cumulative statistics by TaskChannel. Takes in a Unique Name ("voice", "sms", "default", etc.) or a TaskChannelSid.
-   */
+/**
+ * Options to pass to fetch
+ *
+ * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
+ */
+export interface FetchOptions {
   taskChannel?: string;
 }
 
-declare class WorkflowRealTimeStatisticsPage extends Page<V1, WorkflowRealTimeStatisticsPayload, WorkflowRealTimeStatisticsResource, WorkflowRealTimeStatisticsInstance> {
-  constructor(version: V1, response: Response<string>, solution: WorkflowRealTimeStatisticsSolution);
+
+declare class WorkflowRealTimeStatisticsPage extends Page {
+  /**
+   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkflowContext.WorkflowRealTimeStatisticsPage
+   * @augments Page
+   * @description Initialize the WorkflowRealTimeStatisticsPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Taskrouter.V1, response: object, solution: object);
 
   /**
    * Build an instance of WorkflowRealTimeStatisticsInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkflowContext.WorkflowRealTimeStatisticsPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: WorkflowRealTimeStatisticsPayload): WorkflowRealTimeStatisticsInstance;
+  getInstance(payload: object);
 }
 
-declare class WorkflowRealTimeStatisticsInstance extends SerializableClass {
+declare class WorkflowRealTimeStatisticsInstance {
   /**
+   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkflowContext.WorkflowRealTimeStatisticsInstance
+   * @description Initialize the WorkflowRealTimeStatisticsContext
+   *
+   * @property accountSid - The account_sid
+   * @property longestTaskWaitingAge - The age of the longest waiting Task
+   * @property tasksByPriority - The tasks_by_priority
+   * @property tasksByStatus - The Tasks broken down by status
+   * @property totalTasks - The total number of Tasks
+   * @property workflowSid - The workflow_sid
+   * @property workspaceSid - The workspace_sid
+   * @property url - The url
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param workspaceSid - The workspace_sid
    * @param workflowSid - The workflow_sid
    */
-  constructor(version: V1, payload: WorkflowRealTimeStatisticsPayload, workspaceSid: string, workflowSid: string);
+  constructor(version: Twilio.Taskrouter.V1, payload: object, workspaceSid: sid, workflowSid: sid);
 
-  private _proxy: WorkflowRealTimeStatisticsContext;
-  /**
-   * The account_sid
-   */
-  accountSid: string;
+  _proxy?: WorkflowRealTimeStatisticsContext;
   /**
    * fetch a WorkflowRealTimeStatisticsInstance
    *
-   * @param opts - Options for request
+   * @function fetch
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkflowContext.WorkflowRealTimeStatisticsInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed WorkflowRealTimeStatisticsInstance
-   */
-  fetch(opts?: WorkflowRealTimeStatisticsListFetchOptions): Promise<WorkflowRealTimeStatisticsInstance>;
-  /**
-   * fetch a WorkflowRealTimeStatisticsInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  fetch(opts: WorkflowRealTimeStatisticsListFetchOptions, callback: (error: Error | null, items: WorkflowRealTimeStatisticsInstance) => any): void;
+  fetch(opts?: object, callback?: function);
   /**
-   * fetch a WorkflowRealTimeStatisticsInstance
+   * Produce a plain JSON object version of the WorkflowRealTimeStatisticsInstance for serialization.
+   * Removes any circular references in the object.
    *
-   * @param callback - Callback to handle processed record
+   * @function toJSON
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkflowContext.WorkflowRealTimeStatisticsInstance
+   * @instance
    */
-  fetch(callback: (error: Error | null, items: WorkflowRealTimeStatisticsInstance) => any): void;
-  /**
-   * The age of the longest waiting Task
-   */
-  longestTaskWaitingAge: number;
-  /**
-   * The tasks_by_priority
-   */
-  tasksByPriority: string;
-  /**
-   * The Tasks broken down by status (for example: pending: 1, reserved = 3, assigned = 2, completed = 5)
-   */
-  tasksByStatus: string;
-  /**
-   * The total number of Tasks
-   */
-  totalTasks: number;
-  /**
-   * The url
-   */
-  url: string;
-  /**
-   * The workflow_sid
-   */
-  workflowSid: string;
-  /**
-   * The workspace_sid
-   */
-  workspaceSid: string;
+  toJSON();
 }
 
 declare class WorkflowRealTimeStatisticsContext {
-  constructor(version: V1, workspaceSid: string, workflowSid: string);
+  /**
+   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkflowContext.WorkflowRealTimeStatisticsContext
+   * @description Initialize the WorkflowRealTimeStatisticsContext
+   *
+   * @param version - Version of the resource
+   * @param workspaceSid - The workspace_sid
+   * @param workflowSid - The workflow_sid
+   */
+  constructor(version: Twilio.Taskrouter.V1, workspaceSid: sid, workflowSid: sid);
 
   /**
    * fetch a WorkflowRealTimeStatisticsInstance
    *
-   * @param opts - Options for request
+   * @function fetch
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkflowContext.WorkflowRealTimeStatisticsContext
+   * @instance
    *
-   * @returns Promise that resolves to processed WorkflowRealTimeStatisticsInstance
-   */
-  fetch(opts?: WorkflowRealTimeStatisticsListFetchOptions): Promise<WorkflowRealTimeStatisticsInstance>;
-  /**
-   * fetch a WorkflowRealTimeStatisticsInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  fetch(opts: WorkflowRealTimeStatisticsListFetchOptions, callback: (error: Error | null, items: WorkflowRealTimeStatisticsInstance) => any): void;
-  /**
-   * fetch a WorkflowRealTimeStatisticsInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  fetch(callback: (error: Error | null, items: WorkflowRealTimeStatisticsInstance) => any): void;
+  fetch(opts?: object, callback?: function);
 }
 
-export { WorkflowRealTimeStatisticsContext, WorkflowRealTimeStatisticsInstance, WorkflowRealTimeStatisticsList, WorkflowRealTimeStatisticsListFetchOptions, WorkflowRealTimeStatisticsListInstance, WorkflowRealTimeStatisticsPage, WorkflowRealTimeStatisticsPayload, WorkflowRealTimeStatisticsResource, WorkflowRealTimeStatisticsSolution }
+export { WorkflowRealTimeStatisticsContext, WorkflowRealTimeStatisticsInstance, WorkflowRealTimeStatisticsList, WorkflowRealTimeStatisticsPage }

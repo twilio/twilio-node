@@ -6,472 +6,71 @@
  */
 
 import Page = require('../../../../../base/Page');
-import Response = require('../../../../../http/response');
-import V2010 = require('../../../V2010');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../interfaces';
-import { SerializableClass } from '../../../../../interfaces';
+import deserialize = require('../../../../../base/deserialize');
+import serialize = require('../../../../../base/serialize');
+import values = require('../../../../../base/values');
 
-declare function NationalList(version: V2010, accountSid: string, countryCode: string): NationalListInstance
 
-interface NationalResource {
-  /**
-   * The address_requirements
-   */
-  address_requirements: string;
-  /**
-   * The beta
-   */
-  beta: boolean;
-  /**
-   * The capabilities
-   */
-  capabilities: string;
-  /**
-   * The friendly_name
-   */
-  friendly_name: string;
-  /**
-   * The iso_country
-   */
-  iso_country: string;
-  /**
-   * The lata
-   */
-  lata: string;
-  /**
-   * The latitude
-   */
-  latitude: number;
-  /**
-   * The locality
-   */
-  locality: string;
-  /**
-   * The longitude
-   */
-  longitude: number;
-  /**
-   * The phone_number
-   */
-  phone_number: string;
-  /**
-   * The postal_code
-   */
-  postal_code: string;
-  /**
-   * The rate_center
-   */
-  rate_center: string;
-  /**
-   * The region
-   */
-  region: string;
-}
 
-interface NationalPayload extends NationalResource, Page.TwilioResponsePayload {
-}
-
-interface NationalSolution {
-  accountSid: string;
-  countryCode: string;
-}
-
-interface NationalListEachOptions extends ListEachOptions<NationalInstance> {
+declare class NationalPage extends Page {
   /**
-   * The area_code
-   */
-  areaCode?: number;
-  /**
-   * The beta
-   */
-  beta?: boolean;
-  /**
-   * The contains
-   */
-  contains?: string;
-  /**
-   * The distance
-   */
-  distance?: number;
-  /**
-   * The exclude_all_address_required
-   */
-  excludeAllAddressRequired?: boolean;
-  /**
-   * The exclude_foreign_address_required
-   */
-  excludeForeignAddressRequired?: boolean;
-  /**
-   * The exclude_local_address_required
-   */
-  excludeLocalAddressRequired?: boolean;
-  /**
-   * The fax_enabled
-   */
-  faxEnabled?: boolean;
-  /**
-   * The in_lata
-   */
-  inLata?: string;
-  /**
-   * The in_locality
-   */
-  inLocality?: string;
-  /**
-   * The in_postal_code
-   */
-  inPostalCode?: string;
-  /**
-   * The in_rate_center
-   */
-  inRateCenter?: string;
-  /**
-   * The in_region
-   */
-  inRegion?: string;
-  /**
-   * The mms_enabled
-   */
-  mmsEnabled?: boolean;
-  /**
-   * The near_lat_long
-   */
-  nearLatLong?: string;
-  /**
-   * The near_number
-   */
-  nearNumber?: string;
-  /**
-   * The sms_enabled
-   */
-  smsEnabled?: boolean;
-  /**
-   * The voice_enabled
-   */
-  voiceEnabled?: boolean;
-}
-
-interface NationalListOptions extends ListOptions<NationalInstance> {
-  /**
-   * The area_code
-   */
-  areaCode?: number;
-  /**
-   * The beta
-   */
-  beta?: boolean;
-  /**
-   * The contains
-   */
-  contains?: string;
-  /**
-   * The distance
-   */
-  distance?: number;
-  /**
-   * The exclude_all_address_required
-   */
-  excludeAllAddressRequired?: boolean;
-  /**
-   * The exclude_foreign_address_required
-   */
-  excludeForeignAddressRequired?: boolean;
-  /**
-   * The exclude_local_address_required
-   */
-  excludeLocalAddressRequired?: boolean;
-  /**
-   * The fax_enabled
-   */
-  faxEnabled?: boolean;
-  /**
-   * The in_lata
-   */
-  inLata?: string;
-  /**
-   * The in_locality
-   */
-  inLocality?: string;
-  /**
-   * The in_postal_code
-   */
-  inPostalCode?: string;
-  /**
-   * The in_rate_center
-   */
-  inRateCenter?: string;
-  /**
-   * The in_region
-   */
-  inRegion?: string;
-  /**
-   * The mms_enabled
-   */
-  mmsEnabled?: boolean;
-  /**
-   * The near_lat_long
-   */
-  nearLatLong?: string;
-  /**
-   * The near_number
-   */
-  nearNumber?: string;
-  /**
-   * The sms_enabled
-   */
-  smsEnabled?: boolean;
-  /**
-   * The voice_enabled
-   */
-  voiceEnabled?: boolean;
-}
-
-interface NationalListPageOptions extends PageOptions<NationalPage> {
-  /**
-   * The area_code
-   */
-  areaCode?: number;
-  /**
-   * The beta
-   */
-  beta?: boolean;
-  /**
-   * The contains
-   */
-  contains?: string;
-  /**
-   * The distance
-   */
-  distance?: number;
-  /**
-   * The exclude_all_address_required
-   */
-  excludeAllAddressRequired?: boolean;
-  /**
-   * The exclude_foreign_address_required
-   */
-  excludeForeignAddressRequired?: boolean;
-  /**
-   * The exclude_local_address_required
-   */
-  excludeLocalAddressRequired?: boolean;
-  /**
-   * The fax_enabled
-   */
-  faxEnabled?: boolean;
-  /**
-   * The in_lata
-   */
-  inLata?: string;
-  /**
-   * The in_locality
-   */
-  inLocality?: string;
-  /**
-   * The in_postal_code
-   */
-  inPostalCode?: string;
-  /**
-   * The in_rate_center
-   */
-  inRateCenter?: string;
-  /**
-   * The in_region
-   */
-  inRegion?: string;
-  /**
-   * The mms_enabled
-   */
-  mmsEnabled?: boolean;
-  /**
-   * The near_lat_long
-   */
-  nearLatLong?: string;
-  /**
-   * The near_number
-   */
-  nearNumber?: string;
-  /**
-   * The sms_enabled
-   */
-  smsEnabled?: boolean;
-  /**
-   * The voice_enabled
-   */
-  voiceEnabled?: boolean;
-}
-
-interface NationalListInstance {
-  /**
-   * Streams NationalInstance records from the API.
+   * @constructor Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.NationalPage
+   * @augments Page
+   * @description Initialize the NationalPage
    *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  each(opts?: NationalListEachOptions): void;
-  /**
-   * Streams NationalInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: NationalInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Retrieve a single target page of NationalInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<NationalPage>;
-  /**
-   * Retrieve a single target page of NationalInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: NationalPage) => any): void;
-  /**
-   * Lists NationalInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: NationalListOptions): Promise<NationalInstance[]>;
-  /**
-   * Lists NationalInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: NationalListOptions, callback: (error: Error | null, items: NationalInstance[]) => any): void;
-  /**
-   * Lists NationalInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: NationalInstance[]) => any): void;
-  /**
-   * Retrieve a single page of NationalInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: NationalListPageOptions): Promise<NationalPage>;
-  /**
-   * Retrieve a single page of NationalInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: NationalListPageOptions, callback: (error: Error | null, items: NationalPage) => any): void;
-  /**
-   * Retrieve a single page of NationalInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: NationalPage) => any): void;
-}
-
-declare class NationalPage extends Page<V2010, NationalPayload, NationalResource, NationalInstance> {
-  constructor(version: V2010, response: Response<string>, solution: NationalSolution);
+  constructor(version: Twilio.Api.V2010, response: object, solution: object);
 
   /**
    * Build an instance of NationalInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.NationalPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: NationalPayload): NationalInstance;
+  getInstance(payload: object);
 }
 
-declare class NationalInstance extends SerializableClass {
+declare class NationalInstance {
   /**
+   * @constructor Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.NationalInstance
+   * @description Initialize the NationalContext
+   *
+   * @property friendlyName - The friendly_name
+   * @property phoneNumber - The phone_number
+   * @property lata - The lata
+   * @property locality - The locality
+   * @property rateCenter - The rate_center
+   * @property latitude - The latitude
+   * @property longitude - The longitude
+   * @property region - The region
+   * @property postalCode - The postal_code
+   * @property isoCountry - The iso_country
+   * @property addressRequirements - The address_requirements
+   * @property beta - The beta
+   * @property capabilities - The capabilities
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
+   * @param accountSid - The 34 character string that uniquely identifies your account.
+   * @param countryCode - The ISO Country code to lookup phone numbers for.
    */
-  constructor(version: V2010, payload: NationalPayload);
+  constructor(version: Twilio.Api.V2010, payload: object, accountSid: account_sid, countryCode: iso_country_code);
 
   /**
-   * The address_requirements
+   * Produce a plain JSON object version of the NationalInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.NationalInstance
+   * @instance
    */
-  addressRequirements: string;
-  /**
-   * The beta
-   */
-  beta: boolean;
-  /**
-   * The capabilities
-   */
-  capabilities: string;
-  /**
-   * The friendly_name
-   */
-  friendlyName: string;
-  /**
-   * The iso_country
-   */
-  isoCountry: string;
-  /**
-   * The lata
-   */
-  lata: string;
-  /**
-   * The latitude
-   */
-  latitude: number;
-  /**
-   * The locality
-   */
-  locality: string;
-  /**
-   * The longitude
-   */
-  longitude: number;
-  /**
-   * The phone_number
-   */
-  phoneNumber: string;
-  /**
-   * The postal_code
-   */
-  postalCode: string;
-  /**
-   * The rate_center
-   */
-  rateCenter: string;
-  /**
-   * The region
-   */
-  region: string;
+  toJSON();
 }
 
-export { NationalInstance, NationalList, NationalListEachOptions, NationalListInstance, NationalListOptions, NationalListPageOptions, NationalPage, NationalPayload, NationalResource, NationalSolution }
+export { NationalInstance, NationalList, NationalPage }

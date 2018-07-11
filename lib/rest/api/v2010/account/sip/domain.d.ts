@@ -6,539 +6,224 @@
  */
 
 import Page = require('../../../../../base/Page');
-import Response = require('../../../../../http/response');
-import V2010 = require('../../../V2010');
-import { CredentialListMappingListInstance } from './domain/credentialListMapping';
-import { IpAccessControlListMappingListInstance } from './domain/ipAccessControlListMapping';
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../interfaces';
-import { SerializableClass } from '../../../../../interfaces';
+import deserialize = require('../../../../../base/deserialize');
+import serialize = require('../../../../../base/serialize');
+import values = require('../../../../../base/values');
+import { CredentialListMappingList } from './domain/credentialListMapping';
+import { IpAccessControlListMappingList } from './domain/ipAccessControlListMapping';
 
-declare function DomainList(version: V2010, accountSid: string): DomainListInstance
 
-interface DomainResource {
-  /**
-   * The unique id of the [Account](https://www.twilio.com/docs/api/rest/account) that sent this message.
-   */
-  account_sid: string;
-  /**
-   * The version of the Twilio API used to process the message.
-   */
-  api_version: string;
-  /**
-   * The types of authentication you have mapped to your domain. The possible values are "IP_ACL" and "CREDENTIAL_LIST". If you have both set up for your domain, both will be returned comma delimited. If you do not, have one setup for your domain, it will not be able to receive any traffic.
-   */
-  auth_type: string;
-  /**
-   * The date that this resource was created, given as GMT in [RFC 2822](http://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-   */
-  date_created: Date;
-  /**
-   * The date that this resource was last updated, given as GMT in [RFC 2822](http://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-   */
-  date_updated: Date;
-  /**
-   * The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and "-".
-   */
-  domain_name: string;
-  /**
-   * A human readable descriptive text, up to 64 characters long.
-   */
-  friendly_name: string;
-  /**
-   * A 34 character string that uniquely identifies the SIP domain in Twilio.
-   */
-  sid: string;
-  /**
-   * This boolean can be enabled to allow SIP Endpoints to register with this domain to receive calls.
-   */
-  sip_registration: boolean;
-  /**
-   * The subresource_uris
-   */
-  subresource_uris: string;
-  /**
-   * The URI for this resource, relative to `https://api.twilio.com`
-   */
-  uri: string;
-  /**
-   * The HTTP method Twilio will use when requesting the VoiceFallbackUrl. Either `GET` or `POST`.
-   */
-  voice_fallback_method: string;
-  /**
-   * The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by VoiceUrl.
-   */
-  voice_fallback_url: string;
-  /**
-   * The HTTP method Twilio will use when requesting the above Url. Either `GET` or `POST`.
-   */
-  voice_method: string;
-  /**
-   * The HTTP method Twilio will use to make requests to the StatusCallback URL. Either `GET` or `POST`.
-   */
-  voice_status_callback_method: string;
-  /**
-   * The URL that Twilio will request to pass status parameters (such as call ended) to your application.
-   */
-  voice_status_callback_url: string;
-  /**
-   * The URL Twilio will request when this domain receives a call.
-   */
-  voice_url: string;
-}
-
-interface DomainPayload extends DomainResource, Page.TwilioResponsePayload {
-}
-
-interface DomainSolution {
-  accountSid: string;
-}
-
-interface DomainListEachOptions extends ListEachOptions<DomainInstance> {
-}
-
-interface DomainListOptions extends ListOptions<DomainInstance> {
-}
-
-interface DomainListPageOptions extends PageOptions<DomainPage> {
-}
-
-interface DomainListCreateOptions {
-  /**
-   * The types of authentication you have mapped to your domain
-   */
+/**
+ * Options to pass to update
+ *
+ * @property authType - The auth_type
+ * @property friendlyName - A user-specified, human-readable name for the trigger.
+ * @property voiceFallbackMethod - The voice_fallback_method
+ * @property voiceFallbackUrl - The voice_fallback_url
+ * @property voiceMethod - HTTP method to use with voice_url
+ * @property voiceStatusCallbackMethod - The voice_status_callback_method
+ * @property voiceStatusCallbackUrl - The voice_status_callback_url
+ * @property voiceUrl - The voice_url
+ * @property sipRegistration - The sip_registration
+ */
+export interface UpdateOptions {
   authType?: string;
-  /**
-   * The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and "-".
-   */
-  domainName: string;
-  /**
-   * A human readable descriptive text, up to 64 characters long.
-   */
   friendlyName?: string;
-  /**
-   * The sip_registration
-   */
   sipRegistration?: boolean;
-  /**
-   * The HTTP method Twilio will use when requesting the VoiceFallbackUrl. Either `GET` or `POST`.
-   */
   voiceFallbackMethod?: string;
-  /**
-   * The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by VoiceUrl.
-   */
   voiceFallbackUrl?: string;
-  /**
-   * The HTTP method Twilio will use when requesting the above Url. Either `GET` or `POST`.
-   */
   voiceMethod?: string;
-  /**
-   * The HTTP method Twilio will use to make requests to the StatusCallback URL. Either `GET` or `POST`.
-   */
   voiceStatusCallbackMethod?: string;
-  /**
-   * The URL that Twilio will request to pass status parameters (such as call ended) to your application.
-   */
   voiceStatusCallbackUrl?: string;
-  /**
-   * The URL Twilio will request when this domain receives a call.
-   */
   voiceUrl?: string;
 }
 
-interface DomainListInstance {
-  /**
-   * Gets context of a single Domain resource
-   *
-   * @param sid - Fetch by unique Domain Sid
-   */
-  (sid: string): DomainContext;
-  /**
-   * create a DomainInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed DomainInstance
-   */
-  create(opts: DomainListCreateOptions): Promise<DomainInstance>;
-  /**
-   * create a DomainInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: DomainListCreateOptions, callback: (error: Error | null, items: DomainInstance) => any): void;
-  /**
-   * Streams DomainInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: DomainListEachOptions): void;
-  /**
-   * Streams DomainInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: DomainInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Domain resource
-   *
-   * @param sid - Fetch by unique Domain Sid
-   */
-  get(sid: string): DomainContext;
-  /**
-   * Retrieve a single target page of DomainInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<DomainPage>;
-  /**
-   * Retrieve a single target page of DomainInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: DomainPage) => any): void;
-  /**
-   * Lists DomainInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: DomainListOptions): Promise<DomainInstance[]>;
-  /**
-   * Lists DomainInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: DomainListOptions, callback: (error: Error | null, items: DomainInstance[]) => any): void;
-  /**
-   * Lists DomainInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: DomainInstance[]) => any): void;
-  /**
-   * Retrieve a single page of DomainInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: DomainListPageOptions): Promise<DomainPage>;
-  /**
-   * Retrieve a single page of DomainInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: DomainListPageOptions, callback: (error: Error | null, items: DomainPage) => any): void;
-  /**
-   * Retrieve a single page of DomainInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: DomainPage) => any): void;
-}
-
-interface DomainListFetchOptions {
-  /**
-   * The auth_type
-   */
+/**
+ * Options to pass to update
+ *
+ * @property authType - The auth_type
+ * @property friendlyName - A user-specified, human-readable name for the trigger.
+ * @property voiceFallbackMethod - The voice_fallback_method
+ * @property voiceFallbackUrl - The voice_fallback_url
+ * @property voiceMethod - HTTP method to use with voice_url
+ * @property voiceStatusCallbackMethod - The voice_status_callback_method
+ * @property voiceStatusCallbackUrl - The voice_status_callback_url
+ * @property voiceUrl - The voice_url
+ * @property sipRegistration - The sip_registration
+ */
+export interface UpdateOptions {
   authType?: string;
-  /**
-   * A user-specified, human-readable name for the trigger.
-   */
   friendlyName?: string;
-  /**
-   * The sip_registration
-   */
   sipRegistration?: boolean;
-  /**
-   * The voice_fallback_method
-   */
   voiceFallbackMethod?: string;
-  /**
-   * The voice_fallback_url
-   */
   voiceFallbackUrl?: string;
-  /**
-   * The HTTP method to use with the voice_url
-   */
   voiceMethod?: string;
-  /**
-   * The voice_status_callback_method
-   */
   voiceStatusCallbackMethod?: string;
-  /**
-   * The voice_status_callback_url
-   */
   voiceStatusCallbackUrl?: string;
-  /**
-   * The voice_url
-   */
   voiceUrl?: string;
 }
 
-interface DomainListFetchOptions {
-  /**
-   * The auth_type
-   */
-  authType?: string;
-  /**
-   * A user-specified, human-readable name for the trigger.
-   */
-  friendlyName?: string;
-  /**
-   * The sip_registration
-   */
-  sipRegistration?: boolean;
-  /**
-   * The voice_fallback_method
-   */
-  voiceFallbackMethod?: string;
-  /**
-   * The voice_fallback_url
-   */
-  voiceFallbackUrl?: string;
-  /**
-   * The HTTP method to use with the voice_url
-   */
-  voiceMethod?: string;
-  /**
-   * The voice_status_callback_method
-   */
-  voiceStatusCallbackMethod?: string;
-  /**
-   * The voice_status_callback_url
-   */
-  voiceStatusCallbackUrl?: string;
-  /**
-   * The voice_url
-   */
-  voiceUrl?: string;
-}
 
-declare class DomainPage extends Page<V2010, DomainPayload, DomainResource, DomainInstance> {
-  constructor(version: V2010, response: Response<string>, solution: DomainSolution);
+declare class DomainPage extends Page {
+  /**
+   * @constructor Twilio.Api.V2010.AccountContext.SipContext.DomainPage
+   * @augments Page
+   * @description Initialize the DomainPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Api.V2010, response: object, solution: object);
 
   /**
    * Build an instance of DomainInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Api.V2010.AccountContext.SipContext.DomainPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: DomainPayload): DomainInstance;
+  getInstance(payload: object);
 }
 
-declare class DomainInstance extends SerializableClass {
+declare class DomainInstance {
   /**
+   * @constructor Twilio.Api.V2010.AccountContext.SipContext.DomainInstance
+   * @description Initialize the DomainContext
+   *
+   * @property accountSid - The unique id of the account that sent the message
+   * @property apiVersion - The Twilio API version used to process the message
+   * @property authType - The types of authentication mapped to the domain
+   * @property dateCreated - The date this resource was created
+   * @property dateUpdated - The date this resource was last updated
+   * @property domainName - The unique address on Twilio to route SIP traffic
+   * @property friendlyName - A user-specified, human-readable name for the trigger.
+   * @property sid - A string that uniquely identifies the SIP Domain
+   * @property uri - The URI for this resource
+   * @property voiceFallbackMethod - HTTP method used with voice_fallback_url
+   * @property voiceFallbackUrl - URL Twilio will request if an error occurs in executing TwiML
+   * @property voiceMethod - HTTP method to use with voice_url
+   * @property voiceStatusCallbackMethod - The HTTP method Twilio will use to make requests to the StatusCallback URL.
+   * @property voiceStatusCallbackUrl - URL that Twilio will request with status updates
+   * @property voiceUrl - URL Twilio will request when receiving a call
+   * @property subresourceUris - The subresource_uris
+   * @property sipRegistration - If SIP registration is allowed
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The account_sid
+   * @param accountSid - A 34 character string that uniquely identifies this resource.
    * @param sid - Fetch by unique Domain Sid
    */
-  constructor(version: V2010, payload: DomainPayload, accountSid: string, sid: string);
+  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, sid: sid);
 
-  private _proxy: DomainContext;
+  _proxy?: DomainContext;
   /**
-   * The unique id of the [Account](https://www.twilio.com/docs/api/rest/account) that sent this message.
+   * Access the credentialListMappings
+   *
+   * @function credentialListMappings
+   * @memberof Twilio.Api.V2010.AccountContext.SipContext.DomainInstance
+   * @instance
    */
-  accountSid: string;
-  /**
-   * The version of the Twilio API used to process the message.
-   */
-  apiVersion: string;
-  /**
-   * The types of authentication you have mapped to your domain. The possible values are "IP_ACL" and "CREDENTIAL_LIST". If you have both set up for your domain, both will be returned comma delimited. If you do not, have one setup for your domain, it will not be able to receive any traffic.
-   */
-  authType: string;
-  credentialListMappings(): CredentialListMappingListInstance;
-  /**
-   * The date that this resource was created, given as GMT in [RFC 2822](http://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-   */
-  dateCreated: Date;
-  /**
-   * The date that this resource was last updated, given as GMT in [RFC 2822](http://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-   */
-  dateUpdated: Date;
-  /**
-   * The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and "-".
-   */
-  domainName: string;
+  credentialListMappings();
   /**
    * fetch a DomainInstance
    *
-   * @returns Promise that resolves to processed DomainInstance
-   */
-  fetch(): Promise<DomainInstance>;
-  /**
-   * fetch a DomainInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.SipContext.DomainInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: DomainInstance) => any): void;
+  fetch(callback?: function);
   /**
-   * A human readable descriptive text, up to 64 characters long.
+   * Access the ipAccessControlListMappings
+   *
+   * @function ipAccessControlListMappings
+   * @memberof Twilio.Api.V2010.AccountContext.SipContext.DomainInstance
+   * @instance
    */
-  friendlyName: string;
-  ipAccessControlListMappings(): IpAccessControlListMappingListInstance;
+  ipAccessControlListMappings();
   /**
    * remove a DomainInstance
    *
-   * @returns Promise that resolves to processed DomainInstance
-   */
-  remove(): Promise<DomainInstance>;
-  /**
-   * remove a DomainInstance
+   * @function remove
+   * @memberof Twilio.Api.V2010.AccountContext.SipContext.DomainInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: DomainInstance) => any): void;
+  remove(callback?: function);
   /**
-   * A 34 character string that uniquely identifies the SIP domain in Twilio.
+   * Produce a plain JSON object version of the DomainInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Api.V2010.AccountContext.SipContext.DomainInstance
+   * @instance
    */
-  sid: string;
-  /**
-   * This boolean can be enabled to allow SIP Endpoints to register with this domain to receive calls.
-   */
-  sipRegistration: boolean;
-  /**
-   * The subresource_uris
-   */
-  subresourceUris: string;
+  toJSON();
   /**
    * update a DomainInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Api.V2010.AccountContext.SipContext.DomainInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed DomainInstance
-   */
-  update(opts?: DomainListFetchOptions): Promise<DomainInstance>;
-  /**
-   * update a DomainInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: DomainListFetchOptions, callback: (error: Error | null, items: DomainInstance) => any): void;
-  /**
-   * update a DomainInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: DomainInstance) => any): void;
-  /**
-   * The URI for this resource, relative to `https://api.twilio.com`
-   */
-  uri: string;
-  /**
-   * The HTTP method Twilio will use when requesting the VoiceFallbackUrl. Either `GET` or `POST`.
-   */
-  voiceFallbackMethod: string;
-  /**
-   * The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by VoiceUrl.
-   */
-  voiceFallbackUrl: string;
-  /**
-   * The HTTP method Twilio will use when requesting the above Url. Either `GET` or `POST`.
-   */
-  voiceMethod: string;
-  /**
-   * The HTTP method Twilio will use to make requests to the StatusCallback URL. Either `GET` or `POST`.
-   */
-  voiceStatusCallbackMethod: string;
-  /**
-   * The URL that Twilio will request to pass status parameters (such as call ended) to your application.
-   */
-  voiceStatusCallbackUrl: string;
-  /**
-   * The URL Twilio will request when this domain receives a call.
-   */
-  voiceUrl: string;
+  update(opts?: object, callback?: function);
 }
 
 declare class DomainContext {
-  constructor(version: V2010, accountSid: string, sid: string);
+  /**
+   * @constructor Twilio.Api.V2010.AccountContext.SipContext.DomainContext
+   * @description Initialize the DomainContext
+   *
+   * @property ipAccessControlListMappings - ipAccessControlListMappings resource
+   * @property credentialListMappings - credentialListMappings resource
+   *
+   * @param version - Version of the resource
+   * @param accountSid - The account_sid
+   * @param sid - Fetch by unique Domain Sid
+   */
+  constructor(version: Twilio.Api.V2010, accountSid: sid, sid: sid);
 
-  credentialListMappings: CredentialListMappingListInstance;
+  credentialListMappings?: Twilio.Api.V2010.AccountContext.SipContext.DomainContext.CredentialListMappingList;
   /**
    * fetch a DomainInstance
    *
-   * @returns Promise that resolves to processed DomainInstance
-   */
-  fetch(): Promise<DomainInstance>;
-  /**
-   * fetch a DomainInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.SipContext.DomainContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: DomainInstance) => any): void;
-  ipAccessControlListMappings: IpAccessControlListMappingListInstance;
+  fetch(callback?: function);
+  ipAccessControlListMappings?: Twilio.Api.V2010.AccountContext.SipContext.DomainContext.IpAccessControlListMappingList;
   /**
    * remove a DomainInstance
    *
-   * @returns Promise that resolves to processed DomainInstance
-   */
-  remove(): Promise<DomainInstance>;
-  /**
-   * remove a DomainInstance
+   * @function remove
+   * @memberof Twilio.Api.V2010.AccountContext.SipContext.DomainContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: DomainInstance) => any): void;
+  remove(callback?: function);
   /**
    * update a DomainInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Api.V2010.AccountContext.SipContext.DomainContext
+   * @instance
    *
-   * @returns Promise that resolves to processed DomainInstance
-   */
-  update(opts?: DomainListFetchOptions): Promise<DomainInstance>;
-  /**
-   * update a DomainInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: DomainListFetchOptions, callback: (error: Error | null, items: DomainInstance) => any): void;
-  /**
-   * update a DomainInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: DomainInstance) => any): void;
+  update(opts?: object, callback?: function);
 }
 
-export { DomainContext, DomainInstance, DomainList, DomainListCreateOptions, DomainListEachOptions, DomainListFetchOptions, DomainListInstance, DomainListOptions, DomainListPageOptions, DomainPage, DomainPayload, DomainResource, DomainSolution }
+export { DomainContext, DomainInstance, DomainList, DomainPage }

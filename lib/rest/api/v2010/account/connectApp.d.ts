@@ -6,397 +6,170 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V2010 = require('../../V2010');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { SerializableClass } from '../../../../interfaces';
+import serialize = require('../../../../base/serialize');
+import values = require('../../../../base/values');
 
-declare function ConnectAppList(version: V2010, accountSid: string): ConnectAppListInstance
 
-type ConnectAppPermission = 'get-all'|'post-all';
-
-interface ConnectAppResource {
-  /**
-   * The unique id of the [Account](https://www.twilio.com/docs/api/rest/account) that created this ConnectApp.
-   */
-  account_sid: string;
-  /**
-   * The URL the user's browser will redirect to after Twilio authenticates the user and obtains authorization for this Connect App.
-   */
-  authorize_redirect_url: string;
-  /**
-   * The company name set for this Connect App.
-   */
-  company_name: string;
-  /**
-   * The HTTP method to be used when making a request to the `DeauthorizeCallbackUrl`.
-   */
-  deauthorize_callback_method: string;
-  /**
-   * The URL to which Twilio will send a request when a user de-authorizes this Connect App.
-   */
-  deauthorize_callback_url: string;
-  /**
-   * A more detailed human readable description of the Connect App.
-   */
-  description: string;
-  /**
-   * A human readable name for the Connect App.
-   */
-  friendly_name: string;
-  /**
-   * The public URL where users can obtain more information about this Connect App.
-   */
-  homepage_url: string;
-  /**
-   * The set of permissions that your ConnectApp requests.
-   */
-  permissions: ConnectAppPermission;
-  /**
-   * The unique id of this Connect App.
-   */
-  sid: string;
-  /**
-   * The URI for this resource, relative to `https://api.twilio.com`.
-   */
-  uri: string;
-}
-
-interface ConnectAppPayload extends ConnectAppResource, Page.TwilioResponsePayload {
-}
-
-interface ConnectAppSolution {
-  accountSid: string;
-}
-
-interface ConnectAppListEachOptions extends ListEachOptions<ConnectAppInstance> {
-}
-
-interface ConnectAppListOptions extends ListOptions<ConnectAppInstance> {
-}
-
-interface ConnectAppListPageOptions extends PageOptions<ConnectAppPage> {
-}
-
-interface ConnectAppListInstance {
-  /**
-   * Gets context of a single ConnectApp resource
-   *
-   * @param sid - Fetch by unique connect-app Sid
-   */
-  (sid: string): ConnectAppContext;
-  /**
-   * Streams ConnectAppInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: ConnectAppListEachOptions): void;
-  /**
-   * Streams ConnectAppInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: ConnectAppInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single ConnectApp resource
-   *
-   * @param sid - Fetch by unique connect-app Sid
-   */
-  get(sid: string): ConnectAppContext;
-  /**
-   * Retrieve a single target page of ConnectAppInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<ConnectAppPage>;
-  /**
-   * Retrieve a single target page of ConnectAppInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: ConnectAppPage) => any): void;
-  /**
-   * Lists ConnectAppInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: ConnectAppListOptions): Promise<ConnectAppInstance[]>;
-  /**
-   * Lists ConnectAppInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: ConnectAppListOptions, callback: (error: Error | null, items: ConnectAppInstance[]) => any): void;
-  /**
-   * Lists ConnectAppInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: ConnectAppInstance[]) => any): void;
-  /**
-   * Retrieve a single page of ConnectAppInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: ConnectAppListPageOptions): Promise<ConnectAppPage>;
-  /**
-   * Retrieve a single page of ConnectAppInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: ConnectAppListPageOptions, callback: (error: Error | null, items: ConnectAppPage) => any): void;
-  /**
-   * Retrieve a single page of ConnectAppInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: ConnectAppPage) => any): void;
-}
-
-interface ConnectAppListFetchOptions {
-  /**
-   * The URL the user's browser will redirect to after Twilio authenticates the user and obtains authorization for this Connect App.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property authorizeRedirectUrl - URIL Twilio sends requests when users authorize
+ * @property companyName - The company name set for this Connect App.
+ * @property deauthorizeCallbackMethod - HTTP method Twilio WIll use making requests to the url
+ * @property deauthorizeCallbackUrl - URL Twilio will send a request when a user de-authorizes this app
+ * @property description - A more detailed human readable description
+ * @property friendlyName - A human readable name for the Connect App.
+ * @property homepageUrl - The URL users can obtain more information
+ * @property permissions - The set of permissions that your ConnectApp requests.
+ */
+export interface UpdateOptions {
   authorizeRedirectUrl?: string;
-  /**
-   * The company name set for this Connect App.
-   */
   companyName?: string;
-  /**
-   * The HTTP method to be used when making a request to the `DeauthorizeCallbackUrl`. Either `GET` or `POST`.
-   */
   deauthorizeCallbackMethod?: string;
-  /**
-   * The URL to which Twilio will send a request when a user de-authorizes this Connect App.
-   */
   deauthorizeCallbackUrl?: string;
-  /**
-   * A more detailed human readable description of the Connect App.
-   */
   description?: string;
-  /**
-   * A human readable description of the Connect App, with maximum length 64 characters.
-   */
   friendlyName?: string;
-  /**
-   * The public URL where users can obtain more information about this Connect App.
-   */
   homepageUrl?: string;
-  /**
-   * A comma-separated list of permssions you will request from users of this ConnectApp.  Valid permssions are `get-all` or `post-all`.
-   */
-  permissions?: ConnectAppPermission[];
+  permissions?: connect_app.permission|list;
 }
 
-interface ConnectAppListFetchOptions {
-  /**
-   * The URL the user's browser will redirect to after Twilio authenticates the user and obtains authorization for this Connect App.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property authorizeRedirectUrl - URIL Twilio sends requests when users authorize
+ * @property companyName - The company name set for this Connect App.
+ * @property deauthorizeCallbackMethod - HTTP method Twilio WIll use making requests to the url
+ * @property deauthorizeCallbackUrl - URL Twilio will send a request when a user de-authorizes this app
+ * @property description - A more detailed human readable description
+ * @property friendlyName - A human readable name for the Connect App.
+ * @property homepageUrl - The URL users can obtain more information
+ * @property permissions - The set of permissions that your ConnectApp requests.
+ */
+export interface UpdateOptions {
   authorizeRedirectUrl?: string;
-  /**
-   * The company name set for this Connect App.
-   */
   companyName?: string;
-  /**
-   * The HTTP method to be used when making a request to the `DeauthorizeCallbackUrl`. Either `GET` or `POST`.
-   */
   deauthorizeCallbackMethod?: string;
-  /**
-   * The URL to which Twilio will send a request when a user de-authorizes this Connect App.
-   */
   deauthorizeCallbackUrl?: string;
-  /**
-   * A more detailed human readable description of the Connect App.
-   */
   description?: string;
-  /**
-   * A human readable description of the Connect App, with maximum length 64 characters.
-   */
   friendlyName?: string;
-  /**
-   * The public URL where users can obtain more information about this Connect App.
-   */
   homepageUrl?: string;
-  /**
-   * A comma-separated list of permssions you will request from users of this ConnectApp.  Valid permssions are `get-all` or `post-all`.
-   */
-  permissions?: ConnectAppPermission[];
+  permissions?: connect_app.permission|list;
 }
 
-declare class ConnectAppPage extends Page<V2010, ConnectAppPayload, ConnectAppResource, ConnectAppInstance> {
-  constructor(version: V2010, response: Response<string>, solution: ConnectAppSolution);
+
+declare class ConnectAppPage extends Page {
+  /**
+   * @constructor Twilio.Api.V2010.AccountContext.ConnectAppPage
+   * @augments Page
+   * @description Initialize the ConnectAppPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Api.V2010, response: object, solution: object);
 
   /**
    * Build an instance of ConnectAppInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Api.V2010.AccountContext.ConnectAppPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: ConnectAppPayload): ConnectAppInstance;
+  getInstance(payload: object);
 }
 
-declare class ConnectAppInstance extends SerializableClass {
+declare class ConnectAppInstance {
   /**
+   * @constructor Twilio.Api.V2010.AccountContext.ConnectAppInstance
+   * @description Initialize the ConnectAppContext
+   *
+   * @property accountSid - The unique sid that identifies this account
+   * @property authorizeRedirectUrl - URIL Twilio sends requests when users authorize
+   * @property companyName - The company name set for this Connect App.
+   * @property deauthorizeCallbackMethod - HTTP method Twilio will use making requests to the url
+   * @property deauthorizeCallbackUrl - URL Twilio will send a request when a user de-authorizes this app
+   * @property description - A more detailed human readable description
+   * @property friendlyName - A human readable name for the Connect App.
+   * @property homepageUrl - The URL users can obtain more information
+   * @property permissions - The set of permissions that your ConnectApp requests.
+   * @property sid - A string that uniquely identifies this connect-apps
+   * @property uri - The URI for this resource
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The account_sid
+   * @param accountSid - The unique sid that identifies this account
    * @param sid - Fetch by unique connect-app Sid
    */
-  constructor(version: V2010, payload: ConnectAppPayload, accountSid: string, sid: string);
+  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, sid: sid);
 
-  private _proxy: ConnectAppContext;
-  /**
-   * The unique id of the [Account](https://www.twilio.com/docs/api/rest/account) that created this ConnectApp.
-   */
-  accountSid: string;
-  /**
-   * The URL the user's browser will redirect to after Twilio authenticates the user and obtains authorization for this Connect App.
-   */
-  authorizeRedirectUrl: string;
-  /**
-   * The company name set for this Connect App.
-   */
-  companyName: string;
-  /**
-   * The HTTP method to be used when making a request to the `DeauthorizeCallbackUrl`.
-   */
-  deauthorizeCallbackMethod: string;
-  /**
-   * The URL to which Twilio will send a request when a user de-authorizes this Connect App.
-   */
-  deauthorizeCallbackUrl: string;
-  /**
-   * A more detailed human readable description of the Connect App.
-   */
-  description: string;
+  _proxy?: ConnectAppContext;
   /**
    * fetch a ConnectAppInstance
    *
-   * @returns Promise that resolves to processed ConnectAppInstance
-   */
-  fetch(): Promise<ConnectAppInstance>;
-  /**
-   * fetch a ConnectAppInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.ConnectAppInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: ConnectAppInstance) => any): void;
+  fetch(callback?: function);
   /**
-   * A human readable name for the Connect App.
+   * Produce a plain JSON object version of the ConnectAppInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Api.V2010.AccountContext.ConnectAppInstance
+   * @instance
    */
-  friendlyName: string;
-  /**
-   * The public URL where users can obtain more information about this Connect App.
-   */
-  homepageUrl: string;
-  /**
-   * The set of permissions that your ConnectApp requests.
-   */
-  permissions: ConnectAppPermission;
-  /**
-   * The unique id of this Connect App.
-   */
-  sid: string;
+  toJSON();
   /**
    * update a ConnectAppInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Api.V2010.AccountContext.ConnectAppInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed ConnectAppInstance
-   */
-  update(opts?: ConnectAppListFetchOptions): Promise<ConnectAppInstance>;
-  /**
-   * update a ConnectAppInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: ConnectAppListFetchOptions, callback: (error: Error | null, items: ConnectAppInstance) => any): void;
-  /**
-   * update a ConnectAppInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: ConnectAppInstance) => any): void;
-  /**
-   * The URI for this resource, relative to `https://api.twilio.com`.
-   */
-  uri: string;
+  update(opts?: object, callback?: function);
 }
 
 declare class ConnectAppContext {
-  constructor(version: V2010, accountSid: string, sid: string);
+  /**
+   * @constructor Twilio.Api.V2010.AccountContext.ConnectAppContext
+   * @description Initialize the ConnectAppContext
+   *
+   * @param version - Version of the resource
+   * @param accountSid - The account_sid
+   * @param sid - Fetch by unique connect-app Sid
+   */
+  constructor(version: Twilio.Api.V2010, accountSid: sid, sid: sid);
 
   /**
    * fetch a ConnectAppInstance
    *
-   * @returns Promise that resolves to processed ConnectAppInstance
-   */
-  fetch(): Promise<ConnectAppInstance>;
-  /**
-   * fetch a ConnectAppInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.ConnectAppContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: ConnectAppInstance) => any): void;
+  fetch(callback?: function);
   /**
    * update a ConnectAppInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Api.V2010.AccountContext.ConnectAppContext
+   * @instance
    *
-   * @returns Promise that resolves to processed ConnectAppInstance
-   */
-  update(opts?: ConnectAppListFetchOptions): Promise<ConnectAppInstance>;
-  /**
-   * update a ConnectAppInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: ConnectAppListFetchOptions, callback: (error: Error | null, items: ConnectAppInstance) => any): void;
-  /**
-   * update a ConnectAppInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: ConnectAppInstance) => any): void;
+  update(opts?: object, callback?: function);
 }
 
-export { ConnectAppContext, ConnectAppInstance, ConnectAppList, ConnectAppListEachOptions, ConnectAppListFetchOptions, ConnectAppListInstance, ConnectAppListOptions, ConnectAppListPageOptions, ConnectAppPage, ConnectAppPayload, ConnectAppPermission, ConnectAppResource, ConnectAppSolution }
+export { ConnectAppContext, ConnectAppInstance, ConnectAppList, ConnectAppPage }

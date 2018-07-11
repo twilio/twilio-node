@@ -6,365 +6,151 @@
  */
 
 import Page = require('../../../../../base/Page');
-import Response = require('../../../../../http/response');
-import V1 = require('../../../V1');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../interfaces';
-import { SerializableClass } from '../../../../../interfaces';
+import deserialize = require('../../../../../base/deserialize');
+import serialize = require('../../../../../base/serialize');
+import values = require('../../../../../base/values');
 
-declare function WorkerChannelList(version: V1, workspaceSid: string, workerSid: string): WorkerChannelListInstance
 
-interface WorkerChannelResource {
-  /**
-   * The unique ID of the Account that owns this WorkerChannel.
-   */
-  account_sid: string;
-  /**
-   * The total number of tasks assigned to Worker for this TaskChannel type.
-   */
-  assigned_tasks: number;
-  /**
-   * Boolean value indicating whether the worker should receive Tasks of this TaskChannel type. Set this to False to stop worker from receiving Tasks of this TaskChannel type.
-   */
-  available: boolean;
-  /**
-   * The current available capacity between 0 to 100 for this TaskChannel. If the value returned is 100, that means Worker is available to receive any Tasks of this TaskChannel type.
-   */
-  available_capacity_percentage: number;
-  /**
-   * The current configured capacity for the WorkerChannel. TaskRouter will not create any reservations once assigned Tasks for the worker reaches the value configured here.
-   */
-  configured_capacity: number;
-  /**
-   * The date this Activity was created.
-   */
-  date_created: Date;
-  /**
-   * The date this Activity was updated.
-   */
-  date_updated: Date;
-  /**
-   * The unique ID for this WorkerChannel.
-   */
-  sid: string;
-  /**
-   * The unique ID of the TaskChannel.
-   */
-  task_channel_sid: string;
-  /**
-   * The unique name of TaskChannel, such as 'voice', 'sms', etc.
-   */
-  task_channel_unique_name: string;
-  /**
-   * The url
-   */
-  url: string;
-  /**
-   * The unique ID of the Worker that this WorkerChannel belongs to.
-   */
-  worker_sid: string;
-  /**
-   * The unique ID of the Workspace that this WorkerChannel belongs to.
-   */
-  workspace_sid: string;
-}
-
-interface WorkerChannelPayload extends WorkerChannelResource, Page.TwilioResponsePayload {
-}
-
-interface WorkerChannelSolution {
-  workerSid: string;
-  workspaceSid: string;
-}
-
-interface WorkerChannelListEachOptions extends ListEachOptions<WorkerChannelInstance> {
-}
-
-interface WorkerChannelListOptions extends ListOptions<WorkerChannelInstance> {
-}
-
-interface WorkerChannelListPageOptions extends PageOptions<WorkerChannelPage> {
-}
-
-interface WorkerChannelListInstance {
-  /**
-   * Gets context of a single WorkerChannel resource
-   *
-   * @param sid - The sid
-   */
-  (sid: string): WorkerChannelContext;
-  /**
-   * Streams WorkerChannelInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: WorkerChannelListEachOptions): void;
-  /**
-   * Streams WorkerChannelInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: WorkerChannelInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single WorkerChannel resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): WorkerChannelContext;
-  /**
-   * Retrieve a single target page of WorkerChannelInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<WorkerChannelPage>;
-  /**
-   * Retrieve a single target page of WorkerChannelInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: WorkerChannelPage) => any): void;
-  /**
-   * Lists WorkerChannelInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: WorkerChannelListOptions): Promise<WorkerChannelInstance[]>;
-  /**
-   * Lists WorkerChannelInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: WorkerChannelListOptions, callback: (error: Error | null, items: WorkerChannelInstance[]) => any): void;
-  /**
-   * Lists WorkerChannelInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: WorkerChannelInstance[]) => any): void;
-  /**
-   * Retrieve a single page of WorkerChannelInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: WorkerChannelListPageOptions): Promise<WorkerChannelPage>;
-  /**
-   * Retrieve a single page of WorkerChannelInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: WorkerChannelListPageOptions, callback: (error: Error | null, items: WorkerChannelPage) => any): void;
-  /**
-   * Retrieve a single page of WorkerChannelInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: WorkerChannelPage) => any): void;
-}
-
-interface WorkerChannelListFetchOptions {
-  /**
-   * Toggle the availability of the WorkerChannel. Set this to 'False' to make worker unavailable to receive any new Tasks of this TaskChannel type.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property capacity - The total number of Tasks worker should handle for this TaskChannel type.
+ * @property available - Toggle the availability of the WorkerChannel.
+ */
+export interface UpdateOptions {
   available?: boolean;
-  /**
-   * The total number of Tasks worker should handle for this TaskChannel type. TaskRouter will only create reservations for Tasks of this TaskChannel type up to the capacity configured. If the capacity is 0, no new reservations will be created
-   */
   capacity?: number;
 }
 
-interface WorkerChannelListFetchOptions {
-  /**
-   * Toggle the availability of the WorkerChannel. Set this to 'False' to make worker unavailable to receive any new Tasks of this TaskChannel type.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property capacity - The total number of Tasks worker should handle for this TaskChannel type.
+ * @property available - Toggle the availability of the WorkerChannel.
+ */
+export interface UpdateOptions {
   available?: boolean;
-  /**
-   * The total number of Tasks worker should handle for this TaskChannel type. TaskRouter will only create reservations for Tasks of this TaskChannel type up to the capacity configured. If the capacity is 0, no new reservations will be created
-   */
   capacity?: number;
 }
 
-declare class WorkerChannelPage extends Page<V1, WorkerChannelPayload, WorkerChannelResource, WorkerChannelInstance> {
-  constructor(version: V1, response: Response<string>, solution: WorkerChannelSolution);
+
+declare class WorkerChannelPage extends Page {
+  /**
+   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkerChannelPage
+   * @augments Page
+   * @description Initialize the WorkerChannelPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Taskrouter.V1, response: object, solution: object);
 
   /**
    * Build an instance of WorkerChannelInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkerChannelPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: WorkerChannelPayload): WorkerChannelInstance;
+  getInstance(payload: object);
 }
 
-declare class WorkerChannelInstance extends SerializableClass {
+declare class WorkerChannelInstance {
   /**
+   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkerChannelInstance
+   * @description Initialize the WorkerChannelContext
+   *
+   * @property accountSid - The unique ID of the Account that owns this WorkerChannel.
+   * @property assignedTasks - The total number of tasks assigned to Worker for this TaskChannel type.
+   * @property available - Boolean value indicating whether the worker should receive Tasks of this TaskChannel type.
+   * @property availableCapacityPercentage - The current available capacity between 0 to 100 for this TaskChannel.
+   * @property configuredCapacity - The current configured capacity for the WorkerChannel.
+   * @property dateCreated - The date this Activity was created.
+   * @property dateUpdated - The date this Activity was updated.
+   * @property sid - The unique ID for this WorkerChannel.
+   * @property taskChannelSid - The unique ID of the TaskChannel.
+   * @property taskChannelUniqueName - The unique name of TaskChannel, such as 'voice', 'sms', etc.
+   * @property workerSid - The unique ID of the Worker that this WorkerChannel belongs to.
+   * @property workspaceSid - The unique ID of the Workspace that this WorkerChannel belongs to.
+   * @property url - The url
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
+   * @param workspaceSid - The unique ID of the Workspace that this WorkerChannel belongs to.
+   * @param workerSid - The unique ID of the Worker that this WorkerChannel belongs to.
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Taskrouter.V1, payload: object, workspaceSid: sid, workerSid: sid, sid: sid_like);
+
+  _proxy?: WorkerChannelContext;
+  /**
+   * fetch a WorkerChannelInstance
+   *
+   * @function fetch
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkerChannelInstance
+   * @instance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: function);
+  /**
+   * Produce a plain JSON object version of the WorkerChannelInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkerChannelInstance
+   * @instance
+   */
+  toJSON();
+  /**
+   * update a WorkerChannelInstance
+   *
+   * @function update
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkerChannelInstance
+   * @instance
+   *
+   * @param opts - ...
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: object, callback?: function);
+}
+
+declare class WorkerChannelContext {
+  /**
+   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkerChannelContext
+   * @description Initialize the WorkerChannelContext
+   *
+   * @param version - Version of the resource
    * @param workspaceSid - The workspace_sid
    * @param workerSid - The worker_sid
    * @param sid - The sid
    */
-  constructor(version: V1, payload: WorkerChannelPayload, workspaceSid: string, workerSid: string, sid: string);
+  constructor(version: Twilio.Taskrouter.V1, workspaceSid: sid, workerSid: sid, sid: sid_like);
 
-  private _proxy: WorkerChannelContext;
-  /**
-   * The unique ID of the Account that owns this WorkerChannel.
-   */
-  accountSid: string;
-  /**
-   * The total number of tasks assigned to Worker for this TaskChannel type.
-   */
-  assignedTasks: number;
-  /**
-   * Boolean value indicating whether the worker should receive Tasks of this TaskChannel type. Set this to False to stop worker from receiving Tasks of this TaskChannel type.
-   */
-  available: boolean;
-  /**
-   * The current available capacity between 0 to 100 for this TaskChannel. If the value returned is 100, that means Worker is available to receive any Tasks of this TaskChannel type.
-   */
-  availableCapacityPercentage: number;
-  /**
-   * The current configured capacity for the WorkerChannel. TaskRouter will not create any reservations once assigned Tasks for the worker reaches the value configured here.
-   */
-  configuredCapacity: number;
-  /**
-   * The date this Activity was created.
-   */
-  dateCreated: Date;
-  /**
-   * The date this Activity was updated.
-   */
-  dateUpdated: Date;
   /**
    * fetch a WorkerChannelInstance
    *
-   * @returns Promise that resolves to processed WorkerChannelInstance
-   */
-  fetch(): Promise<WorkerChannelInstance>;
-  /**
-   * fetch a WorkerChannelInstance
+   * @function fetch
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkerChannelContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: WorkerChannelInstance) => any): void;
-  /**
-   * The unique ID for this WorkerChannel.
-   */
-  sid: string;
-  /**
-   * The unique ID of the TaskChannel.
-   */
-  taskChannelSid: string;
-  /**
-   * The unique name of TaskChannel, such as 'voice', 'sms', etc.
-   */
-  taskChannelUniqueName: string;
+  fetch(callback?: function);
   /**
    * update a WorkerChannelInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkerChannelContext
+   * @instance
    *
-   * @returns Promise that resolves to processed WorkerChannelInstance
-   */
-  update(opts?: WorkerChannelListFetchOptions): Promise<WorkerChannelInstance>;
-  /**
-   * update a WorkerChannelInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: WorkerChannelListFetchOptions, callback: (error: Error | null, items: WorkerChannelInstance) => any): void;
-  /**
-   * update a WorkerChannelInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: WorkerChannelInstance) => any): void;
-  /**
-   * The url
-   */
-  url: string;
-  /**
-   * The unique ID of the Worker that this WorkerChannel belongs to.
-   */
-  workerSid: string;
-  /**
-   * The unique ID of the Workspace that this WorkerChannel belongs to.
-   */
-  workspaceSid: string;
+  update(opts?: object, callback?: function);
 }
 
-declare class WorkerChannelContext {
-  constructor(version: V1, workspaceSid: string, workerSid: string, sid: string);
-
-  /**
-   * fetch a WorkerChannelInstance
-   *
-   * @returns Promise that resolves to processed WorkerChannelInstance
-   */
-  fetch(): Promise<WorkerChannelInstance>;
-  /**
-   * fetch a WorkerChannelInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  fetch(callback: (error: Error | null, items: WorkerChannelInstance) => any): void;
-  /**
-   * update a WorkerChannelInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed WorkerChannelInstance
-   */
-  update(opts?: WorkerChannelListFetchOptions): Promise<WorkerChannelInstance>;
-  /**
-   * update a WorkerChannelInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts: WorkerChannelListFetchOptions, callback: (error: Error | null, items: WorkerChannelInstance) => any): void;
-  /**
-   * update a WorkerChannelInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: WorkerChannelInstance) => any): void;
-}
-
-export { WorkerChannelContext, WorkerChannelInstance, WorkerChannelList, WorkerChannelListEachOptions, WorkerChannelListFetchOptions, WorkerChannelListInstance, WorkerChannelListOptions, WorkerChannelListPageOptions, WorkerChannelPage, WorkerChannelPayload, WorkerChannelResource, WorkerChannelSolution }
+export { WorkerChannelContext, WorkerChannelInstance, WorkerChannelList, WorkerChannelPage }

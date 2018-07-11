@@ -6,347 +6,147 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V1 = require('../../V1');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { SegmentMembershipListInstance } from './user/segmentMemberships';
-import { SerializableClass } from '../../../../interfaces';
-import { UserBindingListInstance } from './user/userBinding';
+import deserialize = require('../../../../base/deserialize');
+import serialize = require('../../../../base/serialize');
+import values = require('../../../../base/values');
+import { SegmentMembershipList } from './user/segmentMemberships';
+import { UserBindingList } from './user/userBinding';
 
-declare function UserList(version: V1, serviceSid: string): UserListInstance
 
-interface UserResource {
-  /**
-   * The account_sid
-   */
-  account_sid: string;
-  /**
-   * The date_created
-   */
-  date_created: Date;
-  /**
-   * The date_updated
-   */
-  date_updated: Date;
-  /**
-   * The identifier of the User, defined by your application.
-   */
-  identity: string;
-  /**
-   * The links
-   */
-  links: string;
-  /**
-   * The segments
-   */
-  segments: string;
-  /**
-   * The service_sid
-   */
-  service_sid: string;
-  /**
-   * The sid
-   */
-  sid: string;
-  /**
-   * The url
-   */
-  url: string;
-}
 
-interface UserPayload extends UserResource, Page.TwilioResponsePayload {
-}
-
-interface UserSolution {
-  serviceSid: string;
-}
-
-interface UserListCreateOptions {
+declare class UserPage extends Page {
   /**
-   * The identifier of the User, defined by your application.
+   * @constructor Twilio.Notify.V1.ServiceContext.UserPage
+   * @augments Page
+   * @description Initialize the UserPage
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  identity: string;
-  /**
-   * The list of segments this User belongs to. Segments can be used to select recipients of a notification. Maximum 20 Segments per User allowed.
-   */
-  segment?: string[];
-}
-
-interface UserListEachOptions extends ListEachOptions<UserInstance> {
-  /**
-   * The identifier of the User, defined by your application.
-   */
-  identity?: string[];
-  /**
-   * The list of segments this User belongs to. Segments can be used to select recipients of a notification. Maximum 20 Segments per User allowed.
-   */
-  segment?: string;
-}
-
-interface UserListOptions extends ListOptions<UserInstance> {
-  /**
-   * The identifier of the User, defined by your application.
-   */
-  identity?: string[];
-  /**
-   * The list of segments this User belongs to. Segments can be used to select recipients of a notification. Maximum 20 Segments per User allowed.
-   */
-  segment?: string;
-}
-
-interface UserListPageOptions extends PageOptions<UserPage> {
-  /**
-   * The identifier of the User, defined by your application.
-   */
-  identity?: string[];
-  /**
-   * The list of segments this User belongs to. Segments can be used to select recipients of a notification. Maximum 20 Segments per User allowed.
-   */
-  segment?: string;
-}
-
-interface UserListInstance {
-  /**
-   * Gets context of a single User resource
-   *
-   * @param identity - The identity
-   */
-  (identity: string): UserContext;
-  /**
-   * create a UserInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed UserInstance
-   */
-  create(opts: UserListCreateOptions): Promise<UserInstance>;
-  /**
-   * create a UserInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: UserListCreateOptions, callback: (error: Error | null, items: UserInstance) => any): void;
-  /**
-   * Streams UserInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: UserListEachOptions): void;
-  /**
-   * Streams UserInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: UserInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single User resource
-   *
-   * @param identity - The identity
-   */
-  get(identity: string): UserContext;
-  /**
-   * Retrieve a single target page of UserInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<UserPage>;
-  /**
-   * Retrieve a single target page of UserInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: UserPage) => any): void;
-  /**
-   * Lists UserInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: UserListOptions): Promise<UserInstance[]>;
-  /**
-   * Lists UserInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: UserListOptions, callback: (error: Error | null, items: UserInstance[]) => any): void;
-  /**
-   * Lists UserInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: UserInstance[]) => any): void;
-  /**
-   * Retrieve a single page of UserInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: UserListPageOptions): Promise<UserPage>;
-  /**
-   * Retrieve a single page of UserInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: UserListPageOptions, callback: (error: Error | null, items: UserPage) => any): void;
-  /**
-   * Retrieve a single page of UserInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: UserPage) => any): void;
-}
-
-declare class UserPage extends Page<V1, UserPayload, UserResource, UserInstance> {
-  constructor(version: V1, response: Response<string>, solution: UserSolution);
+  constructor(version: Twilio.Notify.V1, response: object, solution: object);
 
   /**
    * Build an instance of UserInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Notify.V1.ServiceContext.UserPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: UserPayload): UserInstance;
+  getInstance(payload: object);
 }
 
-declare class UserInstance extends SerializableClass {
+declare class UserInstance {
   /**
+   * @constructor Twilio.Notify.V1.ServiceContext.UserInstance
+   * @description Initialize the UserContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property sid - The sid
+   * @property accountSid - The account_sid
+   * @property serviceSid - The service_sid
+   * @property identity - The identifier of the User, defined by your application.
+   * @property dateCreated - The date_created
+   * @property dateUpdated - The date_updated
+   * @property segments - The segments
+   * @property url - The url
+   * @property links - The links
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param serviceSid - The service_sid
    * @param identity - The identity
    */
-  constructor(version: V1, payload: UserPayload, serviceSid: string, identity: string);
+  constructor(version: Twilio.Notify.V1, payload: object, serviceSid: sid, identity: sid_like);
 
-  private _proxy: UserContext;
+  _proxy?: UserContext;
   /**
-   * The account_sid
+   * Access the bindings
+   *
+   * @function bindings
+   * @memberof Twilio.Notify.V1.ServiceContext.UserInstance
+   * @instance
    */
-  accountSid: string;
-  bindings(): UserBindingListInstance;
-  /**
-   * The date_created
-   */
-  dateCreated: Date;
-  /**
-   * The date_updated
-   */
-  dateUpdated: Date;
+  bindings();
   /**
    * fetch a UserInstance
    *
-   * @returns Promise that resolves to processed UserInstance
-   */
-  fetch(): Promise<UserInstance>;
-  /**
-   * fetch a UserInstance
+   * @function fetch
+   * @memberof Twilio.Notify.V1.ServiceContext.UserInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: UserInstance) => any): void;
-  /**
-   * The identifier of the User, defined by your application.
-   */
-  identity: string;
-  /**
-   * The links
-   */
-  links: string;
+  fetch(callback?: function);
   /**
    * remove a UserInstance
    *
-   * @returns Promise that resolves to processed UserInstance
-   */
-  remove(): Promise<UserInstance>;
-  /**
-   * remove a UserInstance
+   * @function remove
+   * @memberof Twilio.Notify.V1.ServiceContext.UserInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: UserInstance) => any): void;
-  segmentMemberships(): SegmentMembershipListInstance;
+  remove(callback?: function);
   /**
-   * The segments
+   * Access the segmentMemberships
+   *
+   * @function segmentMemberships
+   * @memberof Twilio.Notify.V1.ServiceContext.UserInstance
+   * @instance
    */
-  segments: string;
+  segmentMemberships();
   /**
-   * The service_sid
+   * Produce a plain JSON object version of the UserInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Notify.V1.ServiceContext.UserInstance
+   * @instance
    */
-  serviceSid: string;
-  /**
-   * The sid
-   */
-  sid: string;
-  /**
-   * The url
-   */
-  url: string;
+  toJSON();
 }
 
 declare class UserContext {
-  constructor(version: V1, serviceSid: string, identity: string);
+  /**
+   * @constructor Twilio.Notify.V1.ServiceContext.UserContext
+   * @description Initialize the UserContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property bindings - bindings resource
+   * @property segmentMemberships - segmentMemberships resource
+   *
+   * @param version - Version of the resource
+   * @param serviceSid - The service_sid
+   * @param identity - The identity
+   */
+  constructor(version: Twilio.Notify.V1, serviceSid: sid, identity: sid_like);
 
-  bindings: UserBindingListInstance;
+  bindings?: Twilio.Notify.V1.ServiceContext.UserContext.UserBindingList;
   /**
    * fetch a UserInstance
    *
-   * @returns Promise that resolves to processed UserInstance
-   */
-  fetch(): Promise<UserInstance>;
-  /**
-   * fetch a UserInstance
+   * @function fetch
+   * @memberof Twilio.Notify.V1.ServiceContext.UserContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: UserInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a UserInstance
    *
-   * @returns Promise that resolves to processed UserInstance
-   */
-  remove(): Promise<UserInstance>;
-  /**
-   * remove a UserInstance
+   * @function remove
+   * @memberof Twilio.Notify.V1.ServiceContext.UserContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: UserInstance) => any): void;
-  segmentMemberships: SegmentMembershipListInstance;
+  remove(callback?: function);
+  segmentMemberships?: Twilio.Notify.V1.ServiceContext.UserContext.SegmentMembershipList;
 }
 
-export { UserContext, UserInstance, UserList, UserListCreateOptions, UserListEachOptions, UserListInstance, UserListOptions, UserListPageOptions, UserPage, UserPayload, UserResource, UserSolution }
+export { UserContext, UserInstance, UserList, UserPage }

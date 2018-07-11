@@ -6,395 +6,119 @@
  */
 
 import Page = require('../../../../../../base/Page');
-import Response = require('../../../../../../http/response');
-import V1 = require('../../../../V1');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../../interfaces';
-import { SerializableClass } from '../../../../../../interfaces';
+import deserialize = require('../../../../../../base/deserialize');
+import serialize = require('../../../../../../base/serialize');
+import values = require('../../../../../../base/values');
 
-declare function MessageInteractionList(version: V1, serviceSid: string, sessionSid: string, participantSid: string): MessageInteractionListInstance
 
-type MessageInteractionType = 'message'|'voice'|'unknown';
 
-type MessageInteractionResourceStatus = 'accepted'|'answered'|'busy'|'canceled'|'completed'|'deleted'|'delivered'|'delivery-unknown'|'failed'|'in-progress'|'initiated'|'no-answer'|'queued'|'received'|'receiving'|'ringing'|'scheduled'|'sending'|'sent'|'undelivered'|'unknown';
-
-interface MessageInteractionResource {
+declare class MessageInteractionPage extends Page {
   /**
-   * The unique SID identifier of the Account.
-   */
-  account_sid: string;
-  /**
-   * The body of the message sent to the participant as a JSON structure. (e.g. `{"body": "hello"}`)
-   */
-  data: string;
-  /**
-   * The date that this Message Interaction was created, given in ISO 8601 format.
-   */
-  date_created: Date;
-  /**
-   * The date that this Message Interaction was last updated, given in ISO 8601 format.
-   */
-  date_updated: Date;
-  /**
-   * Always empty for created Message Interactions.
-   */
-  inbound_participant_sid: string;
-  /**
-   * Always empty for created Message Interactions.
-   */
-  inbound_resource_sid: string;
-  /**
-   * Always empty for created Message Interactions.
-   */
-  inbound_resource_status: MessageInteractionResourceStatus;
-  /**
-   * Always empty for created Message Interactions.
-   */
-  inbound_resource_type: string;
-  /**
-   * Always empty for created Message Interactions.
-   */
-  inbound_resource_url: string;
-  /**
-   * The unique SID identifier of the Outbound [Participant](https://www.twilio.com/docs/proxy/api/participants).
-   */
-  outbound_participant_sid: string;
-  /**
-   * The unique SID identifier of the Outbound [Message](https://www.twilio.com/docs/sms/api/message) resource.
-   */
-  outbound_resource_sid: string;
-  /**
-   * The status of the outbound message resource. One of `accepted`, `deleted`, `delivered`, `delivery-unknown`, `failed`, `queued`, `received`, `receiving`, `scheduled`, `sending`, `sent`, `undelivered` or `unknown`.
-   */
-  outbound_resource_status: MessageInteractionResourceStatus;
-  /**
-   * The type of the Outbound Resource; will always be Message.
-   */
-  outbound_resource_type: string;
-  /**
-   * The URL of the Twilio message resource.
-   */
-  outbound_resource_url: string;
-  /**
-   * The unique SID identifier of the [Participant](https://www.twilio.com/docs/proxy/api/participants).
-   */
-  participant_sid: string;
-  /**
-   * The unique SID identifier of the parent [Service](https://www.twilio.com/docs/proxy/api/service).
-   */
-  service_sid: string;
-  /**
-   * The unique SID identifier of the parent [Session](https://www.twilio.com/docs/proxy/api/session).
-   */
-  session_sid: string;
-  /**
-   * A 34 character string that uniquely identifies this Message Interaction.
-   */
-  sid: string;
-  /**
-   * The Type of this Message Interaction. Will always be `message`.
-   */
-  type: MessageInteractionType;
-  /**
-   * The URL of this resource.
-   */
-  url: string;
-}
-
-interface MessageInteractionPayload extends MessageInteractionResource, Page.TwilioResponsePayload {
-}
-
-interface MessageInteractionSolution {
-  participantSid: string;
-  serviceSid: string;
-  sessionSid: string;
-}
-
-interface MessageInteractionListCreateOptions {
-  /**
-   * The message to send to the participant
-   */
-  body?: string;
-  /**
-   * Not currently supported during beta.
-   */
-  mediaUrl?: string[];
-}
-
-interface MessageInteractionListEachOptions extends ListEachOptions<MessageInteractionInstance> {
-}
-
-interface MessageInteractionListOptions extends ListOptions<MessageInteractionInstance> {
-}
-
-interface MessageInteractionListPageOptions extends PageOptions<MessageInteractionPage> {
-}
-
-interface MessageInteractionListInstance {
-  /**
-   * Gets context of a single MessageInteraction resource
+   * @constructor Twilio.Proxy.V1.ServiceContext.SessionContext.ParticipantContext.MessageInteractionPage
+   * @augments Page
+   * @description Initialize the MessageInteractionPage
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
-   * @param sid - The sid
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  (sid: string): MessageInteractionContext;
-  /**
-   * create a MessageInteractionInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed MessageInteractionInstance
-   */
-  create(opts?: MessageInteractionListCreateOptions): Promise<MessageInteractionInstance>;
-  /**
-   * create a MessageInteractionInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: MessageInteractionListCreateOptions, callback: (error: Error | null, items: MessageInteractionInstance) => any): void;
-  /**
-   * create a MessageInteractionInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  create(callback: (error: Error | null, items: MessageInteractionInstance) => any): void;
-  /**
-   * Streams MessageInteractionInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: MessageInteractionListEachOptions): void;
-  /**
-   * Streams MessageInteractionInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: MessageInteractionInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single MessageInteraction resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): MessageInteractionContext;
-  /**
-   * Retrieve a single target page of MessageInteractionInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<MessageInteractionPage>;
-  /**
-   * Retrieve a single target page of MessageInteractionInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: MessageInteractionPage) => any): void;
-  /**
-   * Lists MessageInteractionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: MessageInteractionListOptions): Promise<MessageInteractionInstance[]>;
-  /**
-   * Lists MessageInteractionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: MessageInteractionListOptions, callback: (error: Error | null, items: MessageInteractionInstance[]) => any): void;
-  /**
-   * Lists MessageInteractionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: MessageInteractionInstance[]) => any): void;
-  /**
-   * Retrieve a single page of MessageInteractionInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: MessageInteractionListPageOptions): Promise<MessageInteractionPage>;
-  /**
-   * Retrieve a single page of MessageInteractionInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: MessageInteractionListPageOptions, callback: (error: Error | null, items: MessageInteractionPage) => any): void;
-  /**
-   * Retrieve a single page of MessageInteractionInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: MessageInteractionPage) => any): void;
-}
-
-declare class MessageInteractionPage extends Page<V1, MessageInteractionPayload, MessageInteractionResource, MessageInteractionInstance> {
-  constructor(version: V1, response: Response<string>, solution: MessageInteractionSolution);
+  constructor(version: Twilio.Proxy.V1, response: object, solution: object);
 
   /**
    * Build an instance of MessageInteractionInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Proxy.V1.ServiceContext.SessionContext.ParticipantContext.MessageInteractionPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: MessageInteractionPayload): MessageInteractionInstance;
+  getInstance(payload: object);
 }
 
-declare class MessageInteractionInstance extends SerializableClass {
+declare class MessageInteractionInstance {
   /**
+   * @constructor Twilio.Proxy.V1.ServiceContext.SessionContext.ParticipantContext.MessageInteractionInstance
+   * @description Initialize the MessageInteractionContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property sid - A string that uniquely identifies this Message Interaction.
+   * @property sessionSid - Session Sid.
+   * @property serviceSid - Service Sid.
+   * @property accountSid - Account Sid.
+   * @property data - Message body
+   * @property type - The Type of this Message Interaction
+   * @property participantSid - Participant Sid.
+   * @property inboundParticipantSid - Always empty for Message Interactions.
+   * @property inboundResourceSid - Always empty for Message Interactions.
+   * @property inboundResourceStatus - Always empty for Message Interactions.
+   * @property inboundResourceType - Always empty for Message Interactions.
+   * @property inboundResourceUrl - Always empty for Message Interactions.
+   * @property outboundParticipantSid - Outbound Participant Sid.
+   * @property outboundResourceSid - Outbound message resource Sid.
+   * @property outboundResourceStatus - The Outbound Resource Status of this Message Interaction
+   * @property outboundResourceType - Message
+   * @property outboundResourceUrl - The URL of the Twilio message resource.
+   * @property dateCreated - The date this Message Interaction was created
+   * @property dateUpdated - The date this Message Interaction was last updated
+   * @property url - The URL of this resource.
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
+   * @param serviceSid - Service Sid.
+   * @param sessionSid - Session Sid.
+   * @param participantSid - Participant Sid.
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Proxy.V1, payload: object, serviceSid: sid, sessionSid: sid, participantSid: sid, sid: sid);
+
+  _proxy?: MessageInteractionContext;
+  /**
+   * fetch a MessageInteractionInstance
+   *
+   * @function fetch
+   * @memberof Twilio.Proxy.V1.ServiceContext.SessionContext.ParticipantContext.MessageInteractionInstance
+   * @instance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: function);
+  /**
+   * Produce a plain JSON object version of the MessageInteractionInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Proxy.V1.ServiceContext.SessionContext.ParticipantContext.MessageInteractionInstance
+   * @instance
+   */
+  toJSON();
+}
+
+declare class MessageInteractionContext {
+  /**
+   * @constructor Twilio.Proxy.V1.ServiceContext.SessionContext.ParticipantContext.MessageInteractionContext
+   * @description Initialize the MessageInteractionContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @param version - Version of the resource
    * @param serviceSid - The service_sid
    * @param sessionSid - The session_sid
    * @param participantSid - The participant_sid
    * @param sid - The sid
    */
-  constructor(version: V1, payload: MessageInteractionPayload, serviceSid: string, sessionSid: string, participantSid: string, sid: string);
+  constructor(version: Twilio.Proxy.V1, serviceSid: sid, sessionSid: sid, participantSid: sid, sid: sid);
 
-  private _proxy: MessageInteractionContext;
-  /**
-   * The unique SID identifier of the Account.
-   */
-  accountSid: string;
-  /**
-   * The body of the message sent to the participant as a JSON structure. (e.g. `{"body": "hello"}`)
-   */
-  data: string;
-  /**
-   * The date that this Message Interaction was created, given in ISO 8601 format.
-   */
-  dateCreated: Date;
-  /**
-   * The date that this Message Interaction was last updated, given in ISO 8601 format.
-   */
-  dateUpdated: Date;
   /**
    * fetch a MessageInteractionInstance
    *
-   * @returns Promise that resolves to processed MessageInteractionInstance
-   */
-  fetch(): Promise<MessageInteractionInstance>;
-  /**
-   * fetch a MessageInteractionInstance
+   * @function fetch
+   * @memberof Twilio.Proxy.V1.ServiceContext.SessionContext.ParticipantContext.MessageInteractionContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: MessageInteractionInstance) => any): void;
-  /**
-   * Always empty for created Message Interactions.
-   */
-  inboundParticipantSid: string;
-  /**
-   * Always empty for created Message Interactions.
-   */
-  inboundResourceSid: string;
-  /**
-   * Always empty for created Message Interactions.
-   */
-  inboundResourceStatus: MessageInteractionResourceStatus;
-  /**
-   * Always empty for created Message Interactions.
-   */
-  inboundResourceType: string;
-  /**
-   * Always empty for created Message Interactions.
-   */
-  inboundResourceUrl: string;
-  /**
-   * The unique SID identifier of the Outbound [Participant](https://www.twilio.com/docs/proxy/api/participants).
-   */
-  outboundParticipantSid: string;
-  /**
-   * The unique SID identifier of the Outbound [Message](https://www.twilio.com/docs/sms/api/message) resource.
-   */
-  outboundResourceSid: string;
-  /**
-   * The status of the outbound message resource. One of `accepted`, `deleted`, `delivered`, `delivery-unknown`, `failed`, `queued`, `received`, `receiving`, `scheduled`, `sending`, `sent`, `undelivered` or `unknown`.
-   */
-  outboundResourceStatus: MessageInteractionResourceStatus;
-  /**
-   * The type of the Outbound Resource; will always be Message.
-   */
-  outboundResourceType: string;
-  /**
-   * The URL of the Twilio message resource.
-   */
-  outboundResourceUrl: string;
-  /**
-   * The unique SID identifier of the [Participant](https://www.twilio.com/docs/proxy/api/participants).
-   */
-  participantSid: string;
-  /**
-   * The unique SID identifier of the parent [Service](https://www.twilio.com/docs/proxy/api/service).
-   */
-  serviceSid: string;
-  /**
-   * The unique SID identifier of the parent [Session](https://www.twilio.com/docs/proxy/api/session).
-   */
-  sessionSid: string;
-  /**
-   * A 34 character string that uniquely identifies this Message Interaction.
-   */
-  sid: string;
-  /**
-   * The Type of this Message Interaction. Will always be `message`.
-   */
-  type: MessageInteractionType;
-  /**
-   * The URL of this resource.
-   */
-  url: string;
+  fetch(callback?: function);
 }
 
-declare class MessageInteractionContext {
-  constructor(version: V1, serviceSid: string, sessionSid: string, participantSid: string, sid: string);
-
-  /**
-   * fetch a MessageInteractionInstance
-   *
-   * @returns Promise that resolves to processed MessageInteractionInstance
-   */
-  fetch(): Promise<MessageInteractionInstance>;
-  /**
-   * fetch a MessageInteractionInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  fetch(callback: (error: Error | null, items: MessageInteractionInstance) => any): void;
-}
-
-export { MessageInteractionContext, MessageInteractionInstance, MessageInteractionList, MessageInteractionListCreateOptions, MessageInteractionListEachOptions, MessageInteractionListInstance, MessageInteractionListOptions, MessageInteractionListPageOptions, MessageInteractionPage, MessageInteractionPayload, MessageInteractionResource, MessageInteractionResourceStatus, MessageInteractionSolution, MessageInteractionType }
+export { MessageInteractionContext, MessageInteractionInstance, MessageInteractionList, MessageInteractionPage }

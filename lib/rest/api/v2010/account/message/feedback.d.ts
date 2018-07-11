@@ -6,122 +6,63 @@
  */
 
 import Page = require('../../../../../base/Page');
-import Response = require('../../../../../http/response');
-import V2010 = require('../../../V2010');
-import { SerializableClass } from '../../../../../interfaces';
+import deserialize = require('../../../../../base/deserialize');
+import values = require('../../../../../base/values');
 
-declare function FeedbackList(version: V2010, accountSid: string, messageSid: string): FeedbackListInstance
 
-type FeedbackOutcome = 'confirmed'|'umconfirmed';
 
-interface FeedbackResource {
+declare class FeedbackPage extends Page {
   /**
-   * The account_sid
-   */
-  account_sid: string;
-  /**
-   * The date_created
-   */
-  date_created: Date;
-  /**
-   * The date_updated
-   */
-  date_updated: Date;
-  /**
-   * The message_sid
-   */
-  message_sid: string;
-  /**
-   * `unconfirmed` or `confirmed`. If `ProvideFeedback=true` in [the initial HTTP POST](https://www.twilio.com/docs/api/messaging/send-messages#optional-parameters), this value will default to `unconfirmed`. Make an HTTP POST to update this value to `confirmed` after the message arrives.
-   */
-  outcome: FeedbackOutcome;
-  /**
-   * The uri
-   */
-  uri: string;
-}
-
-interface FeedbackPayload extends FeedbackResource, Page.TwilioResponsePayload {
-}
-
-interface FeedbackSolution {
-  accountSid: string;
-  messageSid: string;
-}
-
-interface FeedbackListCreateOptions {
-  /**
-   * The outcome
-   */
-  outcome?: FeedbackOutcome;
-}
-
-interface FeedbackListInstance {
-  /**
-   * create a FeedbackInstance
+   * @constructor Twilio.Api.V2010.AccountContext.MessageContext.FeedbackPage
+   * @augments Page
+   * @description Initialize the FeedbackPage
    *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed FeedbackInstance
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  create(opts?: FeedbackListCreateOptions): Promise<FeedbackInstance>;
-  /**
-   * create a FeedbackInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: FeedbackListCreateOptions, callback: (error: Error | null, items: FeedbackInstance) => any): void;
-  /**
-   * create a FeedbackInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  create(callback: (error: Error | null, items: FeedbackInstance) => any): void;
-}
-
-declare class FeedbackPage extends Page<V2010, FeedbackPayload, FeedbackResource, FeedbackInstance> {
-  constructor(version: V2010, response: Response<string>, solution: FeedbackSolution);
+  constructor(version: Twilio.Api.V2010, response: object, solution: object);
 
   /**
    * Build an instance of FeedbackInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Api.V2010.AccountContext.MessageContext.FeedbackPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: FeedbackPayload): FeedbackInstance;
+  getInstance(payload: object);
 }
 
-declare class FeedbackInstance extends SerializableClass {
+declare class FeedbackInstance {
   /**
+   * @constructor Twilio.Api.V2010.AccountContext.MessageContext.FeedbackInstance
+   * @description Initialize the FeedbackContext
+   *
+   * @property accountSid - The account_sid
+   * @property messageSid - The message_sid
+   * @property outcome - unconfirmed or confirmed. If ProvideFeedback=true in the initial HTTP POST, this value will default to unconfirmed. Make an HTTP POST to update this value to confirmed after the message arrives.
+   * @property dateCreated - The date_created
+   * @property dateUpdated - The date_updated
+   * @property uri - The uri
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
+   * @param accountSid - The account_sid
+   * @param messageSid - The message_sid
    */
-  constructor(version: V2010, payload: FeedbackPayload);
+  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, messageSid: sid);
 
   /**
-   * The account_sid
+   * Produce a plain JSON object version of the FeedbackInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Api.V2010.AccountContext.MessageContext.FeedbackInstance
+   * @instance
    */
-  accountSid: string;
-  /**
-   * The date_created
-   */
-  dateCreated: Date;
-  /**
-   * The date_updated
-   */
-  dateUpdated: Date;
-  /**
-   * The message_sid
-   */
-  messageSid: string;
-  /**
-   * `unconfirmed` or `confirmed`. If `ProvideFeedback=true` in [the initial HTTP POST](https://www.twilio.com/docs/api/messaging/send-messages#optional-parameters), this value will default to `unconfirmed`. Make an HTTP POST to update this value to `confirmed` after the message arrives.
-   */
-  outcome: FeedbackOutcome;
-  /**
-   * The uri
-   */
-  uri: string;
+  toJSON();
 }
 
-export { FeedbackInstance, FeedbackList, FeedbackListCreateOptions, FeedbackListInstance, FeedbackOutcome, FeedbackPage, FeedbackPayload, FeedbackResource, FeedbackSolution }
+export { FeedbackInstance, FeedbackList, FeedbackPage }

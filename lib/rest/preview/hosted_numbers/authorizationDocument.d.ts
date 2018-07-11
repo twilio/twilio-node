@@ -5,417 +5,171 @@
  *       /       /
  */
 
-import HostedNumbers = require('../HostedNumbers');
 import Page = require('../../../base/Page');
-import Response = require('../../../http/response');
-import { DependentHostedNumberOrderListInstance } from './authorizationDocument/dependentHostedNumberOrder';
-import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
-import { SerializableClass } from '../../../interfaces';
+import deserialize = require('../../../base/deserialize');
+import serialize = require('../../../base/serialize');
+import values = require('../../../base/values');
+import { DependentHostedNumberOrderList } from './authorizationDocument/dependentHostedNumberOrder';
 
-declare function AuthorizationDocumentList(version: HostedNumbers): AuthorizationDocumentListInstance
 
-type AuthorizationDocumentStatus = 'opened'|'signing'|'signed'|'canceled'|'failed';
-
-interface AuthorizationDocumentResource {
-  /**
-   * A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
-   */
-  address_sid: string;
-  /**
-   * Email recipients who will be informed when an Authorization Document has been sent and signed.
-   */
-  cc_emails: string;
-  /**
-   * The date this resource was created, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
-   */
-  date_created: Date;
-  /**
-   * The date that this resource was updated, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
-   */
-  date_updated: Date;
-  /**
-   * Email that this AuthorizationDocument will be sent to for signing.
-   */
-  email: string;
-  /**
-   * The links
-   */
-  links: string;
-  /**
-   * A 34 character string that uniquely identifies this AuthorizationDocument.
-   */
-  sid: string;
-  /**
-   * Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
-   */
-  status: AuthorizationDocumentStatus;
-  /**
-   * The url
-   */
-  url: string;
-}
-
-interface AuthorizationDocumentPayload extends AuthorizationDocumentResource, Page.TwilioResponsePayload {
-}
-
-interface AuthorizationDocumentSolution {
-}
-
-interface AuthorizationDocumentListEachOptions extends ListEachOptions<AuthorizationDocumentInstance> {
-  /**
-   * Email that this AuthorizationDocument will be sent to for signing.
-   */
-  email?: string;
-  /**
-   * Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
-   */
-  status?: AuthorizationDocumentStatus;
-}
-
-interface AuthorizationDocumentListOptions extends ListOptions<AuthorizationDocumentInstance> {
-  /**
-   * Email that this AuthorizationDocument will be sent to for signing.
-   */
-  email?: string;
-  /**
-   * Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
-   */
-  status?: AuthorizationDocumentStatus;
-}
-
-interface AuthorizationDocumentListPageOptions extends PageOptions<AuthorizationDocumentPage> {
-  /**
-   * Email that this AuthorizationDocument will be sent to for signing.
-   */
-  email?: string;
-  /**
-   * Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
-   */
-  status?: AuthorizationDocumentStatus;
-}
-
-interface AuthorizationDocumentListCreateOptions {
-  /**
-   * A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
-   */
-  addressSid: string;
-  /**
-   * Email recipients who will be informed when an Authorization Document has been sent and signed.
-   */
-  ccEmails?: string[];
-  /**
-   * Email that this AuthorizationDocument will be sent to for signing.
-   */
-  email: string;
-  /**
-   * A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
-   */
-  hostedNumberOrderSids: string[];
-}
-
-interface AuthorizationDocumentListInstance {
-  /**
-   * Gets context of a single AuthorizationDocument resource
-   *
-   * @param sid - AuthorizationDocument sid.
-   */
-  (sid: string): AuthorizationDocumentContext;
-  /**
-   * create a AuthorizationDocumentInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed AuthorizationDocumentInstance
-   */
-  create(opts: AuthorizationDocumentListCreateOptions): Promise<AuthorizationDocumentInstance>;
-  /**
-   * create a AuthorizationDocumentInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: AuthorizationDocumentListCreateOptions, callback: (error: Error | null, items: AuthorizationDocumentInstance) => any): void;
-  /**
-   * Streams AuthorizationDocumentInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: AuthorizationDocumentListEachOptions): void;
-  /**
-   * Streams AuthorizationDocumentInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: AuthorizationDocumentInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single AuthorizationDocument resource
-   *
-   * @param sid - AuthorizationDocument sid.
-   */
-  get(sid: string): AuthorizationDocumentContext;
-  /**
-   * Retrieve a single target page of AuthorizationDocumentInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<AuthorizationDocumentPage>;
-  /**
-   * Retrieve a single target page of AuthorizationDocumentInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: AuthorizationDocumentPage) => any): void;
-  /**
-   * Lists AuthorizationDocumentInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: AuthorizationDocumentListOptions): Promise<AuthorizationDocumentInstance[]>;
-  /**
-   * Lists AuthorizationDocumentInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: AuthorizationDocumentListOptions, callback: (error: Error | null, items: AuthorizationDocumentInstance[]) => any): void;
-  /**
-   * Lists AuthorizationDocumentInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: AuthorizationDocumentInstance[]) => any): void;
-  /**
-   * Retrieve a single page of AuthorizationDocumentInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: AuthorizationDocumentListPageOptions): Promise<AuthorizationDocumentPage>;
-  /**
-   * Retrieve a single page of AuthorizationDocumentInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: AuthorizationDocumentListPageOptions, callback: (error: Error | null, items: AuthorizationDocumentPage) => any): void;
-  /**
-   * Retrieve a single page of AuthorizationDocumentInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: AuthorizationDocumentPage) => any): void;
-}
-
-interface AuthorizationDocumentListFetchOptions {
-  /**
-   * A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property hostedNumberOrderSids - A list of HostedNumberOrder sids.
+ * @property addressSid - Address sid.
+ * @property email - Email.
+ * @property ccEmails - A list of emails.
+ * @property status - The Status of this AuthorizationDocument.
+ */
+export interface UpdateOptions {
   addressSid?: string;
-  /**
-   * Email recipients who will be informed when an Authorization Document has been sent and signed
-   */
-  ccEmails?: string[];
-  /**
-   * Email that this AuthorizationDocument will be sent to for signing.
-   */
+  ccEmails?: string|list;
   email?: string;
-  /**
-   * A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
-   */
-  hostedNumberOrderSids?: string[];
-  /**
-   * Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
-   */
-  status?: AuthorizationDocumentStatus;
+  hostedNumberOrderSids?: string|list;
+  status?: authorization_document.status;
 }
 
-interface AuthorizationDocumentListFetchOptions {
-  /**
-   * A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property hostedNumberOrderSids - A list of HostedNumberOrder sids.
+ * @property addressSid - Address sid.
+ * @property email - Email.
+ * @property ccEmails - A list of emails.
+ * @property status - The Status of this AuthorizationDocument.
+ */
+export interface UpdateOptions {
   addressSid?: string;
-  /**
-   * Email recipients who will be informed when an Authorization Document has been sent and signed
-   */
-  ccEmails?: string[];
-  /**
-   * Email that this AuthorizationDocument will be sent to for signing.
-   */
+  ccEmails?: string|list;
   email?: string;
-  /**
-   * A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
-   */
-  hostedNumberOrderSids?: string[];
-  /**
-   * Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
-   */
-  status?: AuthorizationDocumentStatus;
+  hostedNumberOrderSids?: string|list;
+  status?: authorization_document.status;
 }
 
-declare class AuthorizationDocumentPage extends Page<HostedNumbers, AuthorizationDocumentPayload, AuthorizationDocumentResource, AuthorizationDocumentInstance> {
-  constructor(version: HostedNumbers, response: Response<string>, solution: AuthorizationDocumentSolution);
+
+declare class AuthorizationDocumentPage extends Page {
+  /**
+   * @constructor Twilio.Preview.HostedNumbers.AuthorizationDocumentPage
+   * @augments Page
+   * @description Initialize the AuthorizationDocumentPage
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Preview.HostedNumbers, response: object, solution: object);
 
   /**
    * Build an instance of AuthorizationDocumentInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Preview.HostedNumbers.AuthorizationDocumentPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: AuthorizationDocumentPayload): AuthorizationDocumentInstance;
+  getInstance(payload: object);
 }
 
-declare class AuthorizationDocumentInstance extends SerializableClass {
+declare class AuthorizationDocumentInstance {
   /**
+   * @constructor Twilio.Preview.HostedNumbers.AuthorizationDocumentInstance
+   * @description Initialize the AuthorizationDocumentContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property sid - AuthorizationDocument sid.
+   * @property addressSid - Address sid.
+   * @property status - The Status of this AuthorizationDocument.
+   * @property email - Email.
+   * @property ccEmails - A list of emails.
+   * @property dateCreated - The date this AuthorizationDocument was created.
+   * @property dateUpdated - The date this AuthorizationDocument was updated.
+   * @property url - The url
+   * @property links - The links
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param sid - AuthorizationDocument sid.
    */
-  constructor(version: HostedNumbers, payload: AuthorizationDocumentPayload, sid: string);
+  constructor(version: Twilio.Preview.HostedNumbers, payload: object, sid: sid);
 
-  private _proxy: AuthorizationDocumentContext;
+  _proxy?: AuthorizationDocumentContext;
   /**
-   * A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
+   * Access the dependentHostedNumberOrders
+   *
+   * @function dependentHostedNumberOrders
+   * @memberof Twilio.Preview.HostedNumbers.AuthorizationDocumentInstance
+   * @instance
    */
-  addressSid: string;
-  /**
-   * Email recipients who will be informed when an Authorization Document has been sent and signed.
-   */
-  ccEmails: string;
-  /**
-   * The date this resource was created, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
-   */
-  dateCreated: Date;
-  /**
-   * The date that this resource was updated, given as [GMT RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
-   */
-  dateUpdated: Date;
-  dependentHostedNumberOrders(): DependentHostedNumberOrderListInstance;
-  /**
-   * Email that this AuthorizationDocument will be sent to for signing.
-   */
-  email: string;
+  dependentHostedNumberOrders();
   /**
    * fetch a AuthorizationDocumentInstance
    *
-   * @returns Promise that resolves to processed AuthorizationDocumentInstance
-   */
-  fetch(): Promise<AuthorizationDocumentInstance>;
-  /**
-   * fetch a AuthorizationDocumentInstance
+   * @function fetch
+   * @memberof Twilio.Preview.HostedNumbers.AuthorizationDocumentInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: AuthorizationDocumentInstance) => any): void;
+  fetch(callback?: function);
   /**
-   * The links
+   * Produce a plain JSON object version of the AuthorizationDocumentInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Preview.HostedNumbers.AuthorizationDocumentInstance
+   * @instance
    */
-  links: string;
-  /**
-   * A 34 character string that uniquely identifies this AuthorizationDocument.
-   */
-  sid: string;
-  /**
-   * Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
-   */
-  status: AuthorizationDocumentStatus;
+  toJSON();
   /**
    * update a AuthorizationDocumentInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Preview.HostedNumbers.AuthorizationDocumentInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed AuthorizationDocumentInstance
-   */
-  update(opts?: AuthorizationDocumentListFetchOptions): Promise<AuthorizationDocumentInstance>;
-  /**
-   * update a AuthorizationDocumentInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: AuthorizationDocumentListFetchOptions, callback: (error: Error | null, items: AuthorizationDocumentInstance) => any): void;
-  /**
-   * update a AuthorizationDocumentInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: AuthorizationDocumentInstance) => any): void;
-  /**
-   * The url
-   */
-  url: string;
+  update(opts?: object, callback?: function);
 }
 
 declare class AuthorizationDocumentContext {
-  constructor(version: HostedNumbers, sid: string);
+  /**
+   * @constructor Twilio.Preview.HostedNumbers.AuthorizationDocumentContext
+   * @description Initialize the AuthorizationDocumentContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property dependentHostedNumberOrders - dependentHostedNumberOrders resource
+   *
+   * @param version - Version of the resource
+   * @param sid - AuthorizationDocument sid.
+   */
+  constructor(version: Twilio.Preview.HostedNumbers, sid: sid);
 
-  dependentHostedNumberOrders: DependentHostedNumberOrderListInstance;
+  dependentHostedNumberOrders?: Twilio.Preview.HostedNumbers.AuthorizationDocumentContext.DependentHostedNumberOrderList;
   /**
    * fetch a AuthorizationDocumentInstance
    *
-   * @returns Promise that resolves to processed AuthorizationDocumentInstance
-   */
-  fetch(): Promise<AuthorizationDocumentInstance>;
-  /**
-   * fetch a AuthorizationDocumentInstance
+   * @function fetch
+   * @memberof Twilio.Preview.HostedNumbers.AuthorizationDocumentContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: AuthorizationDocumentInstance) => any): void;
+  fetch(callback?: function);
   /**
    * update a AuthorizationDocumentInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Preview.HostedNumbers.AuthorizationDocumentContext
+   * @instance
    *
-   * @returns Promise that resolves to processed AuthorizationDocumentInstance
-   */
-  update(opts?: AuthorizationDocumentListFetchOptions): Promise<AuthorizationDocumentInstance>;
-  /**
-   * update a AuthorizationDocumentInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: AuthorizationDocumentListFetchOptions, callback: (error: Error | null, items: AuthorizationDocumentInstance) => any): void;
-  /**
-   * update a AuthorizationDocumentInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: AuthorizationDocumentInstance) => any): void;
+  update(opts?: object, callback?: function);
 }
 
-export { AuthorizationDocumentContext, AuthorizationDocumentInstance, AuthorizationDocumentList, AuthorizationDocumentListCreateOptions, AuthorizationDocumentListEachOptions, AuthorizationDocumentListFetchOptions, AuthorizationDocumentListInstance, AuthorizationDocumentListOptions, AuthorizationDocumentListPageOptions, AuthorizationDocumentPage, AuthorizationDocumentPayload, AuthorizationDocumentResource, AuthorizationDocumentSolution, AuthorizationDocumentStatus }
+export { AuthorizationDocumentContext, AuthorizationDocumentInstance, AuthorizationDocumentList, AuthorizationDocumentPage }

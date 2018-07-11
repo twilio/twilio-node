@@ -5,22 +5,9 @@
  *       /       /
  */
 
-import Page = require('../../../../base/Page');
-import V2010 = require('../../V2010');
+import { RecordList } from './usage/record';
+import { TriggerList } from './usage/trigger';
 
-declare function UsageList(version: V2010, accountSid: string): UsageListInstance
 
-interface UsageResource {
-}
 
-interface UsagePayload extends UsageResource, Page.TwilioResponsePayload {
-}
-
-interface UsageSolution {
-  accountSid: string;
-}
-
-interface UsageListInstance {
-}
-
-export { UsageList, UsageListInstance, UsagePayload, UsageResource, UsageSolution }
+export = UsageList;

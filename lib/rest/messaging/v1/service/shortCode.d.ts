@@ -6,313 +6,123 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V1 = require('../../V1');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { SerializableClass } from '../../../../interfaces';
+import deserialize = require('../../../../base/deserialize');
+import values = require('../../../../base/values');
 
-declare function ShortCodeList(version: V1, serviceSid: string): ShortCodeListInstance
 
-interface ShortCodeResource {
-  /**
-   * The 34 character unique sid of the Account.
-   */
-  account_sid: string;
-  /**
-   * Any array of values that indicate whether the number can receive calls or messages. Possible capabilities are SMS and MMS.
-   */
-  capabilities: string;
-  /**
-   * The 2 character ISO Country Code of the number.
-   */
-  country_code: string;
-  /**
-   * The date that this resource was created.
-   */
-  date_created: Date;
-  /**
-   * The date that this resource was last updated.
-   */
-  date_updated: Date;
-  /**
-   * The 34 character unique sid of the Service.
-   */
-  service_sid: string;
-  /**
-   * The E.164 format of the short code.
-   */
-  short_code: string;
-  /**
-   * The 34 character unique sid of the Short Code
-   */
-  sid: string;
-  /**
-   * The url
-   */
-  url: string;
-}
 
-interface ShortCodePayload extends ShortCodeResource, Page.TwilioResponsePayload {
-}
-
-interface ShortCodeSolution {
-  serviceSid: string;
-}
-
-interface ShortCodeListCreateOptions {
+declare class ShortCodePage extends Page {
   /**
-   * ShortCodeSid for the Shortcode being added to the Service..
+   * @constructor Twilio.Messaging.V1.ServiceContext.ShortCodePage
+   * @augments Page
+   * @description Initialize the ShortCodePage
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  shortCodeSid: string;
-}
-
-interface ShortCodeListEachOptions extends ListEachOptions<ShortCodeInstance> {
-}
-
-interface ShortCodeListOptions extends ListOptions<ShortCodeInstance> {
-}
-
-interface ShortCodeListPageOptions extends PageOptions<ShortCodePage> {
-}
-
-interface ShortCodeListInstance {
-  /**
-   * Gets context of a single ShortCode resource
-   *
-   * @param sid - The sid
-   */
-  (sid: string): ShortCodeContext;
-  /**
-   * create a ShortCodeInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed ShortCodeInstance
-   */
-  create(opts: ShortCodeListCreateOptions): Promise<ShortCodeInstance>;
-  /**
-   * create a ShortCodeInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: ShortCodeListCreateOptions, callback: (error: Error | null, items: ShortCodeInstance) => any): void;
-  /**
-   * Streams ShortCodeInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: ShortCodeListEachOptions): void;
-  /**
-   * Streams ShortCodeInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: ShortCodeInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single ShortCode resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): ShortCodeContext;
-  /**
-   * Retrieve a single target page of ShortCodeInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<ShortCodePage>;
-  /**
-   * Retrieve a single target page of ShortCodeInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: ShortCodePage) => any): void;
-  /**
-   * Lists ShortCodeInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: ShortCodeListOptions): Promise<ShortCodeInstance[]>;
-  /**
-   * Lists ShortCodeInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: ShortCodeListOptions, callback: (error: Error | null, items: ShortCodeInstance[]) => any): void;
-  /**
-   * Lists ShortCodeInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: ShortCodeInstance[]) => any): void;
-  /**
-   * Retrieve a single page of ShortCodeInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: ShortCodeListPageOptions): Promise<ShortCodePage>;
-  /**
-   * Retrieve a single page of ShortCodeInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: ShortCodeListPageOptions, callback: (error: Error | null, items: ShortCodePage) => any): void;
-  /**
-   * Retrieve a single page of ShortCodeInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: ShortCodePage) => any): void;
-}
-
-declare class ShortCodePage extends Page<V1, ShortCodePayload, ShortCodeResource, ShortCodeInstance> {
-  constructor(version: V1, response: Response<string>, solution: ShortCodeSolution);
+  constructor(version: Twilio.Messaging.V1, response: object, solution: object);
 
   /**
    * Build an instance of ShortCodeInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Messaging.V1.ServiceContext.ShortCodePage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: ShortCodePayload): ShortCodeInstance;
+  getInstance(payload: object);
 }
 
-declare class ShortCodeInstance extends SerializableClass {
+declare class ShortCodeInstance {
   /**
+   * @constructor Twilio.Messaging.V1.ServiceContext.ShortCodeInstance
+   * @description Initialize the ShortCodeContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property sid - The 34 character unique sid of the Short Code
+   * @property accountSid - The 34 character unique sid of the Account.
+   * @property serviceSid - The 34 character unique sid of the Service.
+   * @property dateCreated - he date that this resource was created.
+   * @property dateUpdated - The date that this resource was last updated.
+   * @property shortCode - The E.164 format of the short code.
+   * @property countryCode - The 2 character ISO Country Code of the number.
+   * @property capabilities - Any array of values that indicate whether the number can receive calls or messages.
+   * @property url - The url
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The service_sid
+   * @param serviceSid - The 34 character unique sid of the Service.
    * @param sid - The sid
    */
-  constructor(version: V1, payload: ShortCodePayload, serviceSid: string, sid: string);
+  constructor(version: Twilio.Messaging.V1, payload: object, serviceSid: sid, sid: sid_like);
 
-  private _proxy: ShortCodeContext;
-  /**
-   * The 34 character unique sid of the Account.
-   */
-  accountSid: string;
-  /**
-   * Any array of values that indicate whether the number can receive calls or messages. Possible capabilities are SMS and MMS.
-   */
-  capabilities: string;
-  /**
-   * The 2 character ISO Country Code of the number.
-   */
-  countryCode: string;
-  /**
-   * The date that this resource was created.
-   */
-  dateCreated: Date;
-  /**
-   * The date that this resource was last updated.
-   */
-  dateUpdated: Date;
+  _proxy?: ShortCodeContext;
   /**
    * fetch a ShortCodeInstance
    *
-   * @returns Promise that resolves to processed ShortCodeInstance
-   */
-  fetch(): Promise<ShortCodeInstance>;
-  /**
-   * fetch a ShortCodeInstance
+   * @function fetch
+   * @memberof Twilio.Messaging.V1.ServiceContext.ShortCodeInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: ShortCodeInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a ShortCodeInstance
    *
-   * @returns Promise that resolves to processed ShortCodeInstance
-   */
-  remove(): Promise<ShortCodeInstance>;
-  /**
-   * remove a ShortCodeInstance
+   * @function remove
+   * @memberof Twilio.Messaging.V1.ServiceContext.ShortCodeInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: ShortCodeInstance) => any): void;
+  remove(callback?: function);
   /**
-   * The 34 character unique sid of the Service.
+   * Produce a plain JSON object version of the ShortCodeInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Messaging.V1.ServiceContext.ShortCodeInstance
+   * @instance
    */
-  serviceSid: string;
-  /**
-   * The E.164 format of the short code.
-   */
-  shortCode: string;
-  /**
-   * The 34 character unique sid of the Short Code
-   */
-  sid: string;
-  /**
-   * The url
-   */
-  url: string;
+  toJSON();
 }
 
 declare class ShortCodeContext {
-  constructor(version: V1, serviceSid: string, sid: string);
+  /**
+   * @constructor Twilio.Messaging.V1.ServiceContext.ShortCodeContext
+   * @description Initialize the ShortCodeContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @param version - Version of the resource
+   * @param serviceSid - The service_sid
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Messaging.V1, serviceSid: sid, sid: sid_like);
 
   /**
    * fetch a ShortCodeInstance
    *
-   * @returns Promise that resolves to processed ShortCodeInstance
-   */
-  fetch(): Promise<ShortCodeInstance>;
-  /**
-   * fetch a ShortCodeInstance
+   * @function fetch
+   * @memberof Twilio.Messaging.V1.ServiceContext.ShortCodeContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: ShortCodeInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a ShortCodeInstance
    *
-   * @returns Promise that resolves to processed ShortCodeInstance
-   */
-  remove(): Promise<ShortCodeInstance>;
-  /**
-   * remove a ShortCodeInstance
+   * @function remove
+   * @memberof Twilio.Messaging.V1.ServiceContext.ShortCodeContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: ShortCodeInstance) => any): void;
+  remove(callback?: function);
 }
 
-export { ShortCodeContext, ShortCodeInstance, ShortCodeList, ShortCodeListCreateOptions, ShortCodeListEachOptions, ShortCodeListInstance, ShortCodeListOptions, ShortCodeListPageOptions, ShortCodePage, ShortCodePayload, ShortCodeResource, ShortCodeSolution }
+export { ShortCodeContext, ShortCodeInstance, ShortCodeList, ShortCodePage }

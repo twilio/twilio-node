@@ -5,380 +5,167 @@
  *       /       /
  */
 
-import DeployedDevices = require('../../DeployedDevices');
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { SerializableClass } from '../../../../interfaces';
+import deserialize = require('../../../../base/deserialize');
+import values = require('../../../../base/values');
 
-declare function DeploymentList(version: DeployedDevices, fleetSid: string): DeploymentListInstance
 
-interface DeploymentResource {
-  /**
-   * Specifies the unique string identifier of the Account responsible for this Deployment.
-   */
-  account_sid: string;
-  /**
-   * Specifies the date this Deployment was created, given in UTC ISO 8601 format.
-   */
-  date_created: Date;
-  /**
-   * Specifies the date this Deployment was last updated, given in UTC ISO 8601 format.
-   */
-  date_updated: Date;
-  /**
-   * Specifies the unique string identifier of the Fleet that the given Deployment belongs to.
-   */
-  fleet_sid: string;
-  /**
-   * Contains a human readable descriptive text for this Deployment, up to 64 characters long
-   */
-  friendly_name: string;
-  /**
-   * Contains a 34 character string that uniquely identifies this Deployment resource.
-   */
-  sid: string;
-  /**
-   * Specifies the unique string identifier of the Twilio Sync service instance linked to and accessible by this Deployment.
-   */
-  sync_service_sid: string;
-  /**
-   * Contains an absolute URL for this Deployment resource.
-   */
-  url: string;
-}
-
-interface DeploymentPayload extends DeploymentResource, Page.TwilioResponsePayload {
-}
-
-interface DeploymentSolution {
-  fleetSid: string;
-}
-
-interface DeploymentListCreateOptions {
-  /**
-   * Provides a human readable descriptive text for this Deployment, up to 256 characters long.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A human readable description for this Deployment.
+ * @property syncServiceSid - The unique identifier of the Sync service instance.
+ */
+export interface UpdateOptions {
   friendlyName?: string;
-  /**
-   * Provides the unique string identifier of the Twilio Sync service instance that will be linked to and accessible by this Deployment.
-   */
   syncServiceSid?: string;
 }
 
-interface DeploymentListEachOptions extends ListEachOptions<DeploymentInstance> {
-}
-
-interface DeploymentListOptions extends ListOptions<DeploymentInstance> {
-}
-
-interface DeploymentListPageOptions extends PageOptions<DeploymentPage> {
-}
-
-interface DeploymentListInstance {
-  /**
-   * Gets context of a single Deployment resource
-   *
-   * @param sid - A string that uniquely identifies the Deployment.
-   */
-  (sid: string): DeploymentContext;
-  /**
-   * create a DeploymentInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed DeploymentInstance
-   */
-  create(opts?: DeploymentListCreateOptions): Promise<DeploymentInstance>;
-  /**
-   * create a DeploymentInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: DeploymentListCreateOptions, callback: (error: Error | null, items: DeploymentInstance) => any): void;
-  /**
-   * create a DeploymentInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  create(callback: (error: Error | null, items: DeploymentInstance) => any): void;
-  /**
-   * Streams DeploymentInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: DeploymentListEachOptions): void;
-  /**
-   * Streams DeploymentInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: DeploymentInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Deployment resource
-   *
-   * @param sid - A string that uniquely identifies the Deployment.
-   */
-  get(sid: string): DeploymentContext;
-  /**
-   * Retrieve a single target page of DeploymentInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<DeploymentPage>;
-  /**
-   * Retrieve a single target page of DeploymentInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: DeploymentPage) => any): void;
-  /**
-   * Lists DeploymentInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: DeploymentListOptions): Promise<DeploymentInstance[]>;
-  /**
-   * Lists DeploymentInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: DeploymentListOptions, callback: (error: Error | null, items: DeploymentInstance[]) => any): void;
-  /**
-   * Lists DeploymentInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: DeploymentInstance[]) => any): void;
-  /**
-   * Retrieve a single page of DeploymentInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: DeploymentListPageOptions): Promise<DeploymentPage>;
-  /**
-   * Retrieve a single page of DeploymentInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: DeploymentListPageOptions, callback: (error: Error | null, items: DeploymentPage) => any): void;
-  /**
-   * Retrieve a single page of DeploymentInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: DeploymentPage) => any): void;
-}
-
-interface DeploymentListFetchOptions {
-  /**
-   * Provides a human readable descriptive text for this Deployment, up to 64 characters long
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A human readable description for this Deployment.
+ * @property syncServiceSid - The unique identifier of the Sync service instance.
+ */
+export interface UpdateOptions {
   friendlyName?: string;
-  /**
-   * Provides the unique string identifier of the Twilio Sync service instance that will be linked to and accessible by this Deployment.
-   */
   syncServiceSid?: string;
 }
 
-interface DeploymentListFetchOptions {
-  /**
-   * Provides a human readable descriptive text for this Deployment, up to 64 characters long
-   */
-  friendlyName?: string;
-  /**
-   * Provides the unique string identifier of the Twilio Sync service instance that will be linked to and accessible by this Deployment.
-   */
-  syncServiceSid?: string;
-}
 
-declare class DeploymentPage extends Page<DeployedDevices, DeploymentPayload, DeploymentResource, DeploymentInstance> {
-  constructor(version: DeployedDevices, response: Response<string>, solution: DeploymentSolution);
+declare class DeploymentPage extends Page {
+  /**
+   * @constructor Twilio.Preview.DeployedDevices.FleetContext.DeploymentPage
+   * @augments Page
+   * @description Initialize the DeploymentPage
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Preview.DeployedDevices, response: object, solution: object);
 
   /**
    * Build an instance of DeploymentInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Preview.DeployedDevices.FleetContext.DeploymentPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: DeploymentPayload): DeploymentInstance;
+  getInstance(payload: object);
 }
 
-declare class DeploymentInstance extends SerializableClass {
+declare class DeploymentInstance {
   /**
+   * @constructor Twilio.Preview.DeployedDevices.FleetContext.DeploymentInstance
+   * @description Initialize the DeploymentContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property sid - A string that uniquely identifies this Deployment.
+   * @property url - URL of this Deployment.
+   * @property friendlyName - A human readable description for this Deployment
+   * @property fleetSid - The unique identifier of the Fleet.
+   * @property accountSid - The unique SID that identifies this Account.
+   * @property syncServiceSid - The unique identifier of the Sync service instance.
+   * @property dateCreated - The date this Deployment was created.
+   * @property dateUpdated - The date this Deployment was updated.
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param fleetSid - The fleet_sid
+   * @param fleetSid - The unique identifier of the Fleet.
    * @param sid - A string that uniquely identifies the Deployment.
    */
-  constructor(version: DeployedDevices, payload: DeploymentPayload, fleetSid: string, sid: string);
+  constructor(version: Twilio.Preview.DeployedDevices, payload: object, fleetSid: sid_like, sid: sid);
 
-  private _proxy: DeploymentContext;
-  /**
-   * Specifies the unique string identifier of the Account responsible for this Deployment.
-   */
-  accountSid: string;
-  /**
-   * Specifies the date this Deployment was created, given in UTC ISO 8601 format.
-   */
-  dateCreated: Date;
-  /**
-   * Specifies the date this Deployment was last updated, given in UTC ISO 8601 format.
-   */
-  dateUpdated: Date;
+  _proxy?: DeploymentContext;
   /**
    * fetch a DeploymentInstance
    *
-   * @returns Promise that resolves to processed DeploymentInstance
-   */
-  fetch(): Promise<DeploymentInstance>;
-  /**
-   * fetch a DeploymentInstance
+   * @function fetch
+   * @memberof Twilio.Preview.DeployedDevices.FleetContext.DeploymentInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: DeploymentInstance) => any): void;
-  /**
-   * Specifies the unique string identifier of the Fleet that the given Deployment belongs to.
-   */
-  fleetSid: string;
-  /**
-   * Contains a human readable descriptive text for this Deployment, up to 64 characters long
-   */
-  friendlyName: string;
+  fetch(callback?: function);
   /**
    * remove a DeploymentInstance
    *
-   * @returns Promise that resolves to processed DeploymentInstance
-   */
-  remove(): Promise<DeploymentInstance>;
-  /**
-   * remove a DeploymentInstance
+   * @function remove
+   * @memberof Twilio.Preview.DeployedDevices.FleetContext.DeploymentInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: DeploymentInstance) => any): void;
+  remove(callback?: function);
   /**
-   * Contains a 34 character string that uniquely identifies this Deployment resource.
+   * Produce a plain JSON object version of the DeploymentInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Preview.DeployedDevices.FleetContext.DeploymentInstance
+   * @instance
    */
-  sid: string;
-  /**
-   * Specifies the unique string identifier of the Twilio Sync service instance linked to and accessible by this Deployment.
-   */
-  syncServiceSid: string;
+  toJSON();
   /**
    * update a DeploymentInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Preview.DeployedDevices.FleetContext.DeploymentInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed DeploymentInstance
-   */
-  update(opts?: DeploymentListFetchOptions): Promise<DeploymentInstance>;
-  /**
-   * update a DeploymentInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: DeploymentListFetchOptions, callback: (error: Error | null, items: DeploymentInstance) => any): void;
-  /**
-   * update a DeploymentInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: DeploymentInstance) => any): void;
-  /**
-   * Contains an absolute URL for this Deployment resource.
-   */
-  url: string;
+  update(opts?: object, callback?: function);
 }
 
 declare class DeploymentContext {
-  constructor(version: DeployedDevices, fleetSid: string, sid: string);
+  /**
+   * @constructor Twilio.Preview.DeployedDevices.FleetContext.DeploymentContext
+   * @description Initialize the DeploymentContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @param version - Version of the resource
+   * @param fleetSid - The fleet_sid
+   * @param sid - A string that uniquely identifies the Deployment.
+   */
+  constructor(version: Twilio.Preview.DeployedDevices, fleetSid: sid_like, sid: sid);
 
   /**
    * fetch a DeploymentInstance
    *
-   * @returns Promise that resolves to processed DeploymentInstance
-   */
-  fetch(): Promise<DeploymentInstance>;
-  /**
-   * fetch a DeploymentInstance
+   * @function fetch
+   * @memberof Twilio.Preview.DeployedDevices.FleetContext.DeploymentContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: DeploymentInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a DeploymentInstance
    *
-   * @returns Promise that resolves to processed DeploymentInstance
-   */
-  remove(): Promise<DeploymentInstance>;
-  /**
-   * remove a DeploymentInstance
+   * @function remove
+   * @memberof Twilio.Preview.DeployedDevices.FleetContext.DeploymentContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: DeploymentInstance) => any): void;
+  remove(callback?: function);
   /**
    * update a DeploymentInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Preview.DeployedDevices.FleetContext.DeploymentContext
+   * @instance
    *
-   * @returns Promise that resolves to processed DeploymentInstance
-   */
-  update(opts?: DeploymentListFetchOptions): Promise<DeploymentInstance>;
-  /**
-   * update a DeploymentInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: DeploymentListFetchOptions, callback: (error: Error | null, items: DeploymentInstance) => any): void;
-  /**
-   * update a DeploymentInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: DeploymentInstance) => any): void;
+  update(opts?: object, callback?: function);
 }
 
-export { DeploymentContext, DeploymentInstance, DeploymentList, DeploymentListCreateOptions, DeploymentListEachOptions, DeploymentListFetchOptions, DeploymentListInstance, DeploymentListOptions, DeploymentListPageOptions, DeploymentPage, DeploymentPayload, DeploymentResource, DeploymentSolution }
+export { DeploymentContext, DeploymentInstance, DeploymentList, DeploymentPage }

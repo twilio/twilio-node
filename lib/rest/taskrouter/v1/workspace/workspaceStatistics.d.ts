@@ -6,186 +6,130 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V1 = require('../../V1');
-import { SerializableClass } from '../../../../interfaces';
+import serialize = require('../../../../base/serialize');
+import values = require('../../../../base/values');
 
-declare function WorkspaceStatisticsList(version: V1, workspaceSid: string): WorkspaceStatisticsListInstance
 
-interface WorkspaceStatisticsResource {
-  /**
-   * The account_sid
-   */
-  account_sid: string;
-  /**
-   * The cumulative
-   */
-  cumulative: string;
-  /**
-   * The realtime
-   */
-  realtime: string;
-  /**
-   * The url
-   */
-  url: string;
-  /**
-   * The workspace_sid
-   */
-  workspace_sid: string;
-}
-
-interface WorkspaceStatisticsPayload extends WorkspaceStatisticsResource, Page.TwilioResponsePayload {
-}
-
-interface WorkspaceStatisticsSolution {
-  workspaceSid: string;
-}
-
-interface WorkspaceStatisticsListInstance {
-  /**
-   * Gets context of a single WorkspaceStatistics resource
-   */
-  (): WorkspaceStatisticsContext;
-  /**
-   * Gets context of a single WorkspaceStatistics resource
-   */
-  get(): WorkspaceStatisticsContext;
-}
-
-interface WorkspaceStatisticsListFetchOptions {
-  /**
-   * Filter cumulative statistics by an end date. This is helpful for defining a range of statistics to capture. Input is a GMT ISO 8601 Timestamp
-   */
+/**
+ * Options to pass to fetch
+ *
+ * @property minutes - Filter cumulative statistics by up to 'x' minutes in the past.
+ * @property startDate - Filter cumulative statistics by a start date.
+ * @property endDate - Filter cumulative statistics by an end date.
+ * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
+ * @property splitByWaitTime - A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
+ */
+export interface FetchOptions {
   endDate?: Date;
-  /**
-   * Filter cumulative statistics by up to 'x' minutes in the past. This is helpful for statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends. Defaults to 15 minutes.
-   */
   minutes?: number;
-  /**
-   * A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds. Ex: "5,30" would show splits of tasks that were canceled or accepted before or after 5 seconds and respectively, 30 seconds. This is great for showing short abandoned tasks or tasks that failed to meet your SLA.
-   */
   splitByWaitTime?: string;
-  /**
-   * Filter cumulative statistics by a start date. This is helpful for defining a range of statistics to capture. Input is a GMT ISO 8601 Timestamp
-   */
   startDate?: Date;
-  /**
-   * Filter real-time and cumulative statistics by TaskChannel. Takes in a Unique Name ("voice", "sms", "default", etc.) or a TaskChannelSid.
-   */
   taskChannel?: string;
 }
 
-interface WorkspaceStatisticsListFetchOptions {
-  /**
-   * Filter cumulative statistics by an end date. This is helpful for defining a range of statistics to capture. Input is a GMT ISO 8601 Timestamp
-   */
+/**
+ * Options to pass to fetch
+ *
+ * @property minutes - Filter cumulative statistics by up to 'x' minutes in the past.
+ * @property startDate - Filter cumulative statistics by a start date.
+ * @property endDate - Filter cumulative statistics by an end date.
+ * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
+ * @property splitByWaitTime - A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
+ */
+export interface FetchOptions {
   endDate?: Date;
-  /**
-   * Filter cumulative statistics by up to 'x' minutes in the past. This is helpful for statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends. Defaults to 15 minutes.
-   */
   minutes?: number;
-  /**
-   * A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds. Ex: "5,30" would show splits of tasks that were canceled or accepted before or after 5 seconds and respectively, 30 seconds. This is great for showing short abandoned tasks or tasks that failed to meet your SLA.
-   */
   splitByWaitTime?: string;
-  /**
-   * Filter cumulative statistics by a start date. This is helpful for defining a range of statistics to capture. Input is a GMT ISO 8601 Timestamp
-   */
   startDate?: Date;
-  /**
-   * Filter real-time and cumulative statistics by TaskChannel. Takes in a Unique Name ("voice", "sms", "default", etc.) or a TaskChannelSid.
-   */
   taskChannel?: string;
 }
 
-declare class WorkspaceStatisticsPage extends Page<V1, WorkspaceStatisticsPayload, WorkspaceStatisticsResource, WorkspaceStatisticsInstance> {
-  constructor(version: V1, response: Response<string>, solution: WorkspaceStatisticsSolution);
+
+declare class WorkspaceStatisticsPage extends Page {
+  /**
+   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkspaceStatisticsPage
+   * @augments Page
+   * @description Initialize the WorkspaceStatisticsPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Taskrouter.V1, response: object, solution: object);
 
   /**
    * Build an instance of WorkspaceStatisticsInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkspaceStatisticsPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: WorkspaceStatisticsPayload): WorkspaceStatisticsInstance;
+  getInstance(payload: object);
 }
 
-declare class WorkspaceStatisticsInstance extends SerializableClass {
+declare class WorkspaceStatisticsInstance {
   /**
+   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkspaceStatisticsInstance
+   * @description Initialize the WorkspaceStatisticsContext
+   *
+   * @property realtime - The realtime
+   * @property cumulative - The cumulative
+   * @property accountSid - The account_sid
+   * @property workspaceSid - The workspace_sid
+   * @property url - The url
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param workspaceSid - The workspace_sid
    */
-  constructor(version: V1, payload: WorkspaceStatisticsPayload, workspaceSid: string);
+  constructor(version: Twilio.Taskrouter.V1, payload: object, workspaceSid: sid);
 
-  private _proxy: WorkspaceStatisticsContext;
-  /**
-   * The account_sid
-   */
-  accountSid: string;
-  /**
-   * The cumulative
-   */
-  cumulative: string;
+  _proxy?: WorkspaceStatisticsContext;
   /**
    * fetch a WorkspaceStatisticsInstance
    *
-   * @param opts - Options for request
+   * @function fetch
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkspaceStatisticsInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed WorkspaceStatisticsInstance
-   */
-  fetch(opts?: WorkspaceStatisticsListFetchOptions): Promise<WorkspaceStatisticsInstance>;
-  /**
-   * fetch a WorkspaceStatisticsInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  fetch(opts: WorkspaceStatisticsListFetchOptions, callback: (error: Error | null, items: WorkspaceStatisticsInstance) => any): void;
+  fetch(opts?: object, callback?: function);
   /**
-   * fetch a WorkspaceStatisticsInstance
+   * Produce a plain JSON object version of the WorkspaceStatisticsInstance for serialization.
+   * Removes any circular references in the object.
    *
-   * @param callback - Callback to handle processed record
+   * @function toJSON
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkspaceStatisticsInstance
+   * @instance
    */
-  fetch(callback: (error: Error | null, items: WorkspaceStatisticsInstance) => any): void;
-  /**
-   * The realtime
-   */
-  realtime: string;
-  /**
-   * The url
-   */
-  url: string;
-  /**
-   * The workspace_sid
-   */
-  workspaceSid: string;
+  toJSON();
 }
 
 declare class WorkspaceStatisticsContext {
-  constructor(version: V1, workspaceSid: string);
+  /**
+   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkspaceStatisticsContext
+   * @description Initialize the WorkspaceStatisticsContext
+   *
+   * @param version - Version of the resource
+   * @param workspaceSid - The workspace_sid
+   */
+  constructor(version: Twilio.Taskrouter.V1, workspaceSid: sid);
 
   /**
    * fetch a WorkspaceStatisticsInstance
    *
-   * @param opts - Options for request
+   * @function fetch
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkspaceStatisticsContext
+   * @instance
    *
-   * @returns Promise that resolves to processed WorkspaceStatisticsInstance
-   */
-  fetch(opts?: WorkspaceStatisticsListFetchOptions): Promise<WorkspaceStatisticsInstance>;
-  /**
-   * fetch a WorkspaceStatisticsInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  fetch(opts: WorkspaceStatisticsListFetchOptions, callback: (error: Error | null, items: WorkspaceStatisticsInstance) => any): void;
-  /**
-   * fetch a WorkspaceStatisticsInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  fetch(callback: (error: Error | null, items: WorkspaceStatisticsInstance) => any): void;
+  fetch(opts?: object, callback?: function);
 }
 
-export { WorkspaceStatisticsContext, WorkspaceStatisticsInstance, WorkspaceStatisticsList, WorkspaceStatisticsListFetchOptions, WorkspaceStatisticsListInstance, WorkspaceStatisticsPage, WorkspaceStatisticsPayload, WorkspaceStatisticsResource, WorkspaceStatisticsSolution }
+export { WorkspaceStatisticsContext, WorkspaceStatisticsInstance, WorkspaceStatisticsList, WorkspaceStatisticsPage }

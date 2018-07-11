@@ -6,443 +6,196 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V2 = require('../../V2');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { SerializableClass } from '../../../../interfaces';
-import { UserBindingListInstance } from './user/userBinding';
-import { UserChannelListInstance } from './user/userChannel';
+import deserialize = require('../../../../base/deserialize');
+import values = require('../../../../base/values');
+import { UserBindingList } from './user/userBinding';
+import { UserChannelList } from './user/userChannel';
 
-declare function UserList(version: V2, serviceSid: string): UserListInstance
 
-interface UserResource {
-  /**
-   * The unique id of the [Account](https://www.twilio.com/docs/api/rest/account) responsible for this user.
-   */
-  account_sid: string;
-  /**
-   * An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set "{}" will be returned.
-   */
-  attributes: string;
-  /**
-   * The date that this resource was created in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-   */
-  date_created: Date;
-  /**
-   * The date that this resource was last updated in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-   */
-  date_updated: Date;
-  /**
-   * The human-readable name of this user.  Optional.
-   */
-  friendly_name: string;
-  /**
-   * A unique string that identifies the user within this service - often a username or email address. See the [identity](https://www.twilio.com/docs/api/chat/guides/identity) docs for more details.
-   */
-  identity: string;
-  /**
-   * Indicates whether the User has a potentially valid Push Notification registration (APN or GCM)  for the Service instance. `true` if at least one registration exists, `false` if not.  **Note** that this will always be null for resources returned via LIST GET operations, but will be present for single GET operations.  **Note** that this will be `null` if Reachability is not enabled for the Service instance.  **Note** This will be `null` for Users that have not  ever had a notification registration for the Service instance, even if Reachability is enabled.
-   */
-  is_notifiable: boolean;
-  /**
-   * Indicates whether the User is actively connected to the Service instance and online. `true` if online, `false` if not.  **Note** that this will always be null for resources returned via LIST GET operations, but will be present for single GET operations.  **Note** that this will be `null` if Reachability is not enabled for the Service instance.  **Note** This will be `null` for Users that have not  ever had been online for the Service instance, even if Reachability is enabled.
-   */
-  is_online: boolean;
-  /**
-   * The number of Channels this User is a Member of.
-   */
-  joined_channels_count: number;
-  /**
-   * The links
-   */
-  links: string;
-  /**
-   * The unique id of the [Role][role] assigned to this user.
-   */
-  role_sid: string;
-  /**
-   * The unique id of the [Service](https://www.twilio.com/docs/api/chat/rest/services) this user belongs to.
-   */
-  service_sid: string;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * An absolute URL for this user.
-   */
-  url: string;
-}
-
-interface UserPayload extends UserResource, Page.TwilioResponsePayload {
-}
-
-interface UserSolution {
-  serviceSid: string;
-}
-
-interface UserListCreateOptions {
-  /**
-   * An optional string used to contain any metadata or other information for the User.  The string must contain structurally valid JSON if specified.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property roleSid - The unique id of the [Role][role] assigned to this user.
+ * @property attributes - An optional string used to contain any metadata or other information for the User.
+ * @property friendlyName - An optional human readable string representing the user.
+ */
+export interface UpdateOptions {
   attributes?: string;
-  /**
-   * An optional human readable string representing the user.  Often used for display purposes.
-   */
   friendlyName?: string;
-  /**
-   * A unique string that identifies the user within this service - often a username or email address. See the [identity][identity] docs for more details.
-   */
-  identity: string;
-  /**
-   * The unique id of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to this user.
-   */
   roleSid?: string;
 }
 
-interface UserListEachOptions extends ListEachOptions<UserInstance> {
-}
-
-interface UserListOptions extends ListOptions<UserInstance> {
-}
-
-interface UserListPageOptions extends PageOptions<UserPage> {
-}
-
-interface UserListInstance {
-  /**
-   * Gets context of a single User resource
-   *
-   * @param sid - The sid
-   */
-  (sid: string): UserContext;
-  /**
-   * create a UserInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed UserInstance
-   */
-  create(opts: UserListCreateOptions): Promise<UserInstance>;
-  /**
-   * create a UserInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: UserListCreateOptions, callback: (error: Error | null, items: UserInstance) => any): void;
-  /**
-   * Streams UserInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: UserListEachOptions): void;
-  /**
-   * Streams UserInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: UserInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single User resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): UserContext;
-  /**
-   * Retrieve a single target page of UserInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<UserPage>;
-  /**
-   * Retrieve a single target page of UserInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: UserPage) => any): void;
-  /**
-   * Lists UserInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: UserListOptions): Promise<UserInstance[]>;
-  /**
-   * Lists UserInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: UserListOptions, callback: (error: Error | null, items: UserInstance[]) => any): void;
-  /**
-   * Lists UserInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: UserInstance[]) => any): void;
-  /**
-   * Retrieve a single page of UserInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: UserListPageOptions): Promise<UserPage>;
-  /**
-   * Retrieve a single page of UserInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: UserListPageOptions, callback: (error: Error | null, items: UserPage) => any): void;
-  /**
-   * Retrieve a single page of UserInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: UserPage) => any): void;
-}
-
-interface UserListFetchOptions {
-  /**
-   * An optional string used to contain any metadata or other information for the User.  The string must contain structurally valid JSON if specified.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property roleSid - The unique id of the [Role][role] assigned to this user.
+ * @property attributes - An optional string used to contain any metadata or other information for the User.
+ * @property friendlyName - An optional human readable string representing the user.
+ */
+export interface UpdateOptions {
   attributes?: string;
-  /**
-   * An optional human readable string representing the user.  Often used for display purposes.
-   */
   friendlyName?: string;
-  /**
-   * The unique id of the [Role][role] assigned to this user.
-   */
   roleSid?: string;
 }
 
-interface UserListFetchOptions {
-  /**
-   * An optional string used to contain any metadata or other information for the User.  The string must contain structurally valid JSON if specified.
-   */
-  attributes?: string;
-  /**
-   * An optional human readable string representing the user.  Often used for display purposes.
-   */
-  friendlyName?: string;
-  /**
-   * The unique id of the [Role][role] assigned to this user.
-   */
-  roleSid?: string;
-}
 
-declare class UserPage extends Page<V2, UserPayload, UserResource, UserInstance> {
-  constructor(version: V2, response: Response<string>, solution: UserSolution);
+declare class UserPage extends Page {
+  /**
+   * @constructor Twilio.Chat.V2.ServiceContext.UserPage
+   * @augments Page
+   * @description Initialize the UserPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Chat.V2, response: object, solution: object);
 
   /**
    * Build an instance of UserInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Chat.V2.ServiceContext.UserPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: UserPayload): UserInstance;
+  getInstance(payload: object);
 }
 
-declare class UserInstance extends SerializableClass {
+declare class UserInstance {
   /**
+   * @constructor Twilio.Chat.V2.ServiceContext.UserInstance
+   * @description Initialize the UserContext
+   *
+   * @property sid - A 34 character string that uniquely identifies this resource.
+   * @property accountSid - The unique id of the Account responsible for this user.
+   * @property serviceSid - The unique id of the Service this user belongs to.
+   * @property attributes - An optional string metadata field you can use to store any data you wish.
+   * @property friendlyName - The human-readable name of this user.
+   * @property roleSid - The unique id of the [Role][role] assigned to this user.
+   * @property identity - A unique string that identifies the user within this service - often a username or email address.
+   * @property isOnline - Indicates whether the User is actively connected to the Service instance and online.
+   * @property isNotifiable - Indicates whether the User has a potentially valid Push Notification registration  for the Service instance.
+   * @property dateCreated - The date that this resource was created in ISO 8601 format.
+   * @property dateUpdated - The date that this resource was last updated in ISO 8601 format.
+   * @property joinedChannelsCount - The number of Channels this User is a Member of.
+   * @property links - The links
+   * @property url - An absolute URL for this user.
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The service_sid
+   * @param serviceSid - The unique id of the Service this user belongs to.
    * @param sid - The sid
    */
-  constructor(version: V2, payload: UserPayload, serviceSid: string, sid: string);
+  constructor(version: Twilio.Chat.V2, payload: object, serviceSid: sid, sid: sid_like);
 
-  private _proxy: UserContext;
-  /**
-   * The unique id of the [Account](https://www.twilio.com/docs/api/rest/account) responsible for this user.
-   */
-  accountSid: string;
-  /**
-   * An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set "{}" will be returned.
-   */
-  attributes: string;
-  /**
-   * The date that this resource was created in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-   */
-  dateCreated: Date;
-  /**
-   * The date that this resource was last updated in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-   */
-  dateUpdated: Date;
+  _proxy?: UserContext;
   /**
    * fetch a UserInstance
    *
-   * @returns Promise that resolves to processed UserInstance
-   */
-  fetch(): Promise<UserInstance>;
-  /**
-   * fetch a UserInstance
+   * @function fetch
+   * @memberof Twilio.Chat.V2.ServiceContext.UserInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: UserInstance) => any): void;
-  /**
-   * The human-readable name of this user.  Optional.
-   */
-  friendlyName: string;
-  /**
-   * A unique string that identifies the user within this service - often a username or email address. See the [identity](https://www.twilio.com/docs/api/chat/guides/identity) docs for more details.
-   */
-  identity: string;
-  /**
-   * Indicates whether the User has a potentially valid Push Notification registration (APN or GCM)  for the Service instance. `true` if at least one registration exists, `false` if not.  **Note** that this will always be null for resources returned via LIST GET operations, but will be present for single GET operations.  **Note** that this will be `null` if Reachability is not enabled for the Service instance.  **Note** This will be `null` for Users that have not  ever had a notification registration for the Service instance, even if Reachability is enabled.
-   */
-  isNotifiable: boolean;
-  /**
-   * Indicates whether the User is actively connected to the Service instance and online. `true` if online, `false` if not.  **Note** that this will always be null for resources returned via LIST GET operations, but will be present for single GET operations.  **Note** that this will be `null` if Reachability is not enabled for the Service instance.  **Note** This will be `null` for Users that have not  ever had been online for the Service instance, even if Reachability is enabled.
-   */
-  isOnline: boolean;
-  /**
-   * The number of Channels this User is a Member of.
-   */
-  joinedChannelsCount: number;
-  /**
-   * The links
-   */
-  links: string;
+  fetch(callback?: function);
   /**
    * remove a UserInstance
    *
-   * @returns Promise that resolves to processed UserInstance
-   */
-  remove(): Promise<UserInstance>;
-  /**
-   * remove a UserInstance
+   * @function remove
+   * @memberof Twilio.Chat.V2.ServiceContext.UserInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: UserInstance) => any): void;
+  remove(callback?: function);
   /**
-   * The unique id of the [Role][role] assigned to this user.
+   * Produce a plain JSON object version of the UserInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Chat.V2.ServiceContext.UserInstance
+   * @instance
    */
-  roleSid: string;
-  /**
-   * The unique id of the [Service](https://www.twilio.com/docs/api/chat/rest/services) this user belongs to.
-   */
-  serviceSid: string;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
+  toJSON();
   /**
    * update a UserInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Chat.V2.ServiceContext.UserInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed UserInstance
-   */
-  update(opts?: UserListFetchOptions): Promise<UserInstance>;
-  /**
-   * update a UserInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: UserListFetchOptions, callback: (error: Error | null, items: UserInstance) => any): void;
+  update(opts?: object, callback?: function);
   /**
-   * update a UserInstance
+   * Access the userBindings
    *
-   * @param callback - Callback to handle processed record
+   * @function userBindings
+   * @memberof Twilio.Chat.V2.ServiceContext.UserInstance
+   * @instance
    */
-  update(callback: (error: Error | null, items: UserInstance) => any): void;
+  userBindings();
   /**
-   * An absolute URL for this user.
+   * Access the userChannels
+   *
+   * @function userChannels
+   * @memberof Twilio.Chat.V2.ServiceContext.UserInstance
+   * @instance
    */
-  url: string;
-  userBindings(): UserBindingListInstance;
-  userChannels(): UserChannelListInstance;
+  userChannels();
 }
 
 declare class UserContext {
-  constructor(version: V2, serviceSid: string, sid: string);
+  /**
+   * @constructor Twilio.Chat.V2.ServiceContext.UserContext
+   * @description Initialize the UserContext
+   *
+   * @property userChannels - userChannels resource
+   * @property userBindings - userBindings resource
+   *
+   * @param version - Version of the resource
+   * @param serviceSid - The service_sid
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Chat.V2, serviceSid: sid, sid: sid_like);
 
   /**
    * fetch a UserInstance
    *
-   * @returns Promise that resolves to processed UserInstance
-   */
-  fetch(): Promise<UserInstance>;
-  /**
-   * fetch a UserInstance
+   * @function fetch
+   * @memberof Twilio.Chat.V2.ServiceContext.UserContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: UserInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a UserInstance
    *
-   * @returns Promise that resolves to processed UserInstance
-   */
-  remove(): Promise<UserInstance>;
-  /**
-   * remove a UserInstance
+   * @function remove
+   * @memberof Twilio.Chat.V2.ServiceContext.UserContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: UserInstance) => any): void;
+  remove(callback?: function);
   /**
    * update a UserInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Chat.V2.ServiceContext.UserContext
+   * @instance
    *
-   * @returns Promise that resolves to processed UserInstance
-   */
-  update(opts?: UserListFetchOptions): Promise<UserInstance>;
-  /**
-   * update a UserInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: UserListFetchOptions, callback: (error: Error | null, items: UserInstance) => any): void;
-  /**
-   * update a UserInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: UserInstance) => any): void;
-  userBindings: UserBindingListInstance;
-  userChannels: UserChannelListInstance;
+  update(opts?: object, callback?: function);
+  userBindings?: Twilio.Chat.V2.ServiceContext.UserContext.UserBindingList;
+  userChannels?: Twilio.Chat.V2.ServiceContext.UserContext.UserChannelList;
 }
 
-export { UserContext, UserInstance, UserList, UserListCreateOptions, UserListEachOptions, UserListFetchOptions, UserListInstance, UserListOptions, UserListPageOptions, UserPage, UserPayload, UserResource, UserSolution }
+export { UserContext, UserInstance, UserList, UserPage }

@@ -6,125 +6,61 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V2010 = require('../../V2010');
-import { SerializableClass } from '../../../../interfaces';
+import deserialize = require('../../../../base/deserialize');
+import values = require('../../../../base/values');
 
-declare function ValidationRequestList(version: V2010, accountSid: string): ValidationRequestListInstance
 
-interface ValidationRequestResource {
-  /**
-   * The unique ID of the [Account](https://www.twilio.com/docs/api/rest/account) responsible for this Caller Id.
-   */
-  account_sid: string;
-  /**
-   * The unique id of the [Call](https://www.twilio.com/docs/api/voice/call) created for this validation attempt.
-   */
-  call_sid: string;
-  /**
-   * A human readable descriptive text for this resource, up to 64 characters long. By default, the `FriendlyName` is a nicely formatted version of the phone number.
-   */
-  friendly_name: string;
-  /**
-   * The incoming phone number. Formatted with a '+' and country code e.g., +16175551212 ([E.164](http://en.wikipedia.org/wiki/E.164) format).
-   */
-  phone_number: string;
-  /**
-   * The 6 digit validation code that must be entered via the phone to validate this phone number for Caller ID.
-   */
-  validation_code: number;
-}
 
-interface ValidationRequestPayload extends ValidationRequestResource, Page.TwilioResponsePayload {
-}
-
-interface ValidationRequestSolution {
-  accountSid: string;
-}
-
-interface ValidationRequestListCreateOptions {
+declare class ValidationRequestPage extends Page {
   /**
-   * The number of seconds, between 0 and 60, to delay before initiating the verification call. Defaults to 0.
-   */
-  callDelay?: number;
-  /**
-   * Digits to dial after connecting the verification call.
-   */
-  extension?: string;
-  /**
-   * A human readable description for the new caller ID with maximum length 64 characters. Defaults to a nicely formatted version of the number.
-   */
-  friendlyName?: string;
-  /**
-   * The phone number to verify. Should be formatted with a '+' and country code e.g., +16175551212 ([E.164](http://en.wikipedia.org/wiki/E.164) format).  Twilio will also accept unformatted US numbers e.g., (415) 555-1212, 415-555-1212.
-   */
-  phoneNumber: string;
-  /**
-   * A URL that Twilio will request when the verification call ends to notify your app if the verification process was successful or not. See [StatusCallback parameter](https://www.twilio.com/docs/api/voice/outgoing-caller-ids#statuscallback-parameter) below.
-   */
-  statusCallback?: string;
-  /**
-   * The HTTP method Twilio should use when requesting the above URL. Defaults to POST.
-   */
-  statusCallbackMethod?: string;
-}
-
-interface ValidationRequestListInstance {
-  /**
-   * create a ValidationRequestInstance
+   * @constructor Twilio.Api.V2010.AccountContext.ValidationRequestPage
+   * @augments Page
+   * @description Initialize the ValidationRequestPage
    *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed ValidationRequestInstance
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  create(opts: ValidationRequestListCreateOptions): Promise<ValidationRequestInstance>;
-  /**
-   * create a ValidationRequestInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: ValidationRequestListCreateOptions, callback: (error: Error | null, items: ValidationRequestInstance) => any): void;
-}
-
-declare class ValidationRequestPage extends Page<V2010, ValidationRequestPayload, ValidationRequestResource, ValidationRequestInstance> {
-  constructor(version: V2010, response: Response<string>, solution: ValidationRequestSolution);
+  constructor(version: Twilio.Api.V2010, response: object, solution: object);
 
   /**
    * Build an instance of ValidationRequestInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Api.V2010.AccountContext.ValidationRequestPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: ValidationRequestPayload): ValidationRequestInstance;
+  getInstance(payload: object);
 }
 
-declare class ValidationRequestInstance extends SerializableClass {
+declare class ValidationRequestInstance {
   /**
+   * @constructor Twilio.Api.V2010.AccountContext.ValidationRequestInstance
+   * @description Initialize the ValidationRequestContext
+   *
+   * @property accountSid - The unique ID of the Account responsible for this Caller Id.
+   * @property phoneNumber - The incoming phone number.
+   * @property friendlyName - A human readable descriptive text for this resource, up to 64 characters long.
+   * @property validationCode - The 6 digit validation code that must be entered via the phone to validate this phone number for Caller ID.
+   * @property callSid - The unique id of the Call created for this validation attempt.
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
+   * @param accountSid - The unique ID of the Account responsible for this Caller Id.
    */
-  constructor(version: V2010, payload: ValidationRequestPayload);
+  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid);
 
   /**
-   * The unique ID of the [Account](https://www.twilio.com/docs/api/rest/account) responsible for this Caller Id.
+   * Produce a plain JSON object version of the ValidationRequestInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Api.V2010.AccountContext.ValidationRequestInstance
+   * @instance
    */
-  accountSid: string;
-  /**
-   * The unique id of the [Call](https://www.twilio.com/docs/api/voice/call) created for this validation attempt.
-   */
-  callSid: string;
-  /**
-   * A human readable descriptive text for this resource, up to 64 characters long. By default, the `FriendlyName` is a nicely formatted version of the phone number.
-   */
-  friendlyName: string;
-  /**
-   * The incoming phone number. Formatted with a '+' and country code e.g., +16175551212 ([E.164](http://en.wikipedia.org/wiki/E.164) format).
-   */
-  phoneNumber: string;
-  /**
-   * The 6 digit validation code that must be entered via the phone to validate this phone number for Caller ID.
-   */
-  validationCode: number;
+  toJSON();
 }
 
-export { ValidationRequestInstance, ValidationRequestList, ValidationRequestListCreateOptions, ValidationRequestListInstance, ValidationRequestPage, ValidationRequestPayload, ValidationRequestResource, ValidationRequestSolution }
+export { ValidationRequestInstance, ValidationRequestList, ValidationRequestPage }

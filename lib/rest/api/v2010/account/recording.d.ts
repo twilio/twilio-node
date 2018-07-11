@@ -6,409 +6,153 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V2010 = require('../../V2010');
-import { AddOnResultListInstance } from './recording/addOnResult';
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { SerializableClass } from '../../../../interfaces';
-import { TranscriptionListInstance } from './recording/transcription';
+import deserialize = require('../../../../base/deserialize');
+import serialize = require('../../../../base/serialize');
+import values = require('../../../../base/values');
+import { AddOnResultList } from './recording/addOnResult';
+import { TranscriptionList } from './recording/transcription';
 
-declare function RecordingList(version: V2010, accountSid: string): RecordingListInstance
 
-type RecordingStatus = 'in-progress'|'paused'|'stopped'|'processing'|'completed'|'failed';
 
-type RecordingSource = 'DialVerb'|'Conference'|'OutboundAPI'|'Trunking'|'RecordVerb'|'StartCallRecordingAPI'|'StartConferenceRecordingAPI';
-
-interface RecordingResource {
+declare class RecordingPage extends Page {
   /**
-   * The unique ID of the [Account](https://www.twilio.com/docs/api/rest/account) responsible for this recording.
-   */
-  account_sid: string;
-  /**
-   * The version of the API in use during the recording.
-   */
-  api_version: string;
-  /**
-   * A unique identifier for the call associated with the recording. This will always refer to the parent leg of a two leg call.
-   */
-  call_sid: string;
-  /**
-   * The number of channels in the final recording file as an integer.  Possible values are `1`, `2`.  Separating a two leg call into two separate channels of the recording file is supported in [Dial](https://www.twilio.com/docs/api/twiml/dial#attributes-record) and [Outbound Rest API](https://www.twilio.com/docs/api/voice/making-calls) record options.
-   */
-  channels: number;
-  /**
-   * The unique id for the conference associated with the recording, if a conference recording.
-   */
-  conference_sid: string;
-  /**
-   * The date that this resource was created, given in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
-   */
-  date_created: Date;
-  /**
-   * The date that this resource was last updated, given in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
-   */
-  date_updated: Date;
-  /**
-   * The length of the recording, in seconds.
-   */
-  duration: string;
-  /**
-   * Details for how to decrypt the recording.
-   */
-  encryption_details: string;
-  /**
-   * More information about the recording failure, if Status is failed. Value will be null for all other statuses.
-   */
-  error_code: number;
-  /**
-   * The one-time cost of creating this recording. Example: `-0.00250`
-   */
-  price: string;
-  /**
-   * The currency used in the `Price` property. Example: `USD`
-   */
-  price_unit: string;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * The way in which this recording was created. Possible values are: DialVerb, Conference, OutboundAPI, Trunking, RecordVerb, StartCallRecordingAPI, StartConferenceRecordingAPI
-   */
-  source: RecordingSource;
-  /**
-   * The start time of the recording, given in RFC 2822 format.
-   */
-  start_time: Date;
-  /**
-   * The status of the recording. Possible values are: in-progress, paused, stopped, processing, completed, failed.
-   */
-  status: RecordingStatus;
-  /**
-   * The subresource_uris
-   */
-  subresource_uris: string;
-  /**
-   * The URI for this resource, relative to `https://api.twilio.com`
-   */
-  uri: string;
-}
-
-interface RecordingPayload extends RecordingResource, Page.TwilioResponsePayload {
-}
-
-interface RecordingSolution {
-  accountSid: string;
-}
-
-interface RecordingListEachOptions extends ListEachOptions<RecordingInstance> {
-  /**
-   * Only show recordings made during the call given by the indicated sid
-   */
-  callSid?: string;
-  /**
-   * The conference_sid
-   */
-  conferenceSid?: string;
-  /**
-   * Only show recordings created on the given date. Should be formatted as `YYYY-MM-DD`. You can also specify inequality, such as `DateCreated<=YYYY-MM-DD` for recordings generated at or before midnight on a date, and `DateCreated>=YYYY-MM-DD` for recordings generated at or after midnight on a date.
-   */
-  dateCreated?: Date;
-}
-
-interface RecordingListOptions extends ListOptions<RecordingInstance> {
-  /**
-   * Only show recordings made during the call given by the indicated sid
-   */
-  callSid?: string;
-  /**
-   * The conference_sid
-   */
-  conferenceSid?: string;
-  /**
-   * Only show recordings created on the given date. Should be formatted as `YYYY-MM-DD`. You can also specify inequality, such as `DateCreated<=YYYY-MM-DD` for recordings generated at or before midnight on a date, and `DateCreated>=YYYY-MM-DD` for recordings generated at or after midnight on a date.
-   */
-  dateCreated?: Date;
-}
-
-interface RecordingListPageOptions extends PageOptions<RecordingPage> {
-  /**
-   * Only show recordings made during the call given by the indicated sid
-   */
-  callSid?: string;
-  /**
-   * The conference_sid
-   */
-  conferenceSid?: string;
-  /**
-   * Only show recordings created on the given date. Should be formatted as `YYYY-MM-DD`. You can also specify inequality, such as `DateCreated<=YYYY-MM-DD` for recordings generated at or before midnight on a date, and `DateCreated>=YYYY-MM-DD` for recordings generated at or after midnight on a date.
-   */
-  dateCreated?: Date;
-}
-
-interface RecordingListInstance {
-  /**
-   * Gets context of a single Recording resource
+   * @constructor Twilio.Api.V2010.AccountContext.RecordingPage
+   * @augments Page
+   * @description Initialize the RecordingPage
    *
-   * @param sid - Fetch by unique recording Sid
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  (sid: string): RecordingContext;
-  /**
-   * Streams RecordingInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: RecordingListEachOptions): void;
-  /**
-   * Streams RecordingInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: RecordingInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Recording resource
-   *
-   * @param sid - Fetch by unique recording Sid
-   */
-  get(sid: string): RecordingContext;
-  /**
-   * Retrieve a single target page of RecordingInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<RecordingPage>;
-  /**
-   * Retrieve a single target page of RecordingInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: RecordingPage) => any): void;
-  /**
-   * Lists RecordingInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: RecordingListOptions): Promise<RecordingInstance[]>;
-  /**
-   * Lists RecordingInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: RecordingListOptions, callback: (error: Error | null, items: RecordingInstance[]) => any): void;
-  /**
-   * Lists RecordingInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: RecordingInstance[]) => any): void;
-  /**
-   * Retrieve a single page of RecordingInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: RecordingListPageOptions): Promise<RecordingPage>;
-  /**
-   * Retrieve a single page of RecordingInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: RecordingListPageOptions, callback: (error: Error | null, items: RecordingPage) => any): void;
-  /**
-   * Retrieve a single page of RecordingInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: RecordingPage) => any): void;
-}
-
-declare class RecordingPage extends Page<V2010, RecordingPayload, RecordingResource, RecordingInstance> {
-  constructor(version: V2010, response: Response<string>, solution: RecordingSolution);
+  constructor(version: Twilio.Api.V2010, response: object, solution: object);
 
   /**
    * Build an instance of RecordingInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Api.V2010.AccountContext.RecordingPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: RecordingPayload): RecordingInstance;
+  getInstance(payload: object);
 }
 
-declare class RecordingInstance extends SerializableClass {
+declare class RecordingInstance {
   /**
+   * @constructor Twilio.Api.V2010.AccountContext.RecordingInstance
+   * @description Initialize the RecordingContext
+   *
+   * @property accountSid - The unique sid that identifies this account
+   * @property apiVersion - The version of the API in use during the recording.
+   * @property callSid - The unique id for the call leg that corresponds to the recording.
+   * @property conferenceSid - The unique id for the conference associated with the recording, if a conference recording.
+   * @property dateCreated - The date this resource was created
+   * @property dateUpdated - The date this resource was last updated
+   * @property startTime - The start time of the recording, given in RFC 2822 format.
+   * @property duration - The length of the recording, in seconds.
+   * @property sid - A string that uniquely identifies this recording
+   * @property price - The one-time cost of creating this recording.
+   * @property priceUnit - The currency used in the Price property.
+   * @property status - The status of the recording.
+   * @property channels - The number of channels in the final recording file as an integer.
+   * @property source - The way in which this recording was created.
+   * @property errorCode - More information about the recording failure, if Status is failed.
+   * @property uri - The URI for this resource
+   * @property encryptionDetails - Details for how to decrypt the recording.
+   * @property subresourceUris - The subresource_uris
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The account_sid
+   * @param accountSid - The unique sid that identifies this account
    * @param sid - Fetch by unique recording Sid
    */
-  constructor(version: V2010, payload: RecordingPayload, accountSid: string, sid: string);
+  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, sid: sid);
 
-  private _proxy: RecordingContext;
+  _proxy?: RecordingContext;
   /**
-   * The unique ID of the [Account](https://www.twilio.com/docs/api/rest/account) responsible for this recording.
+   * Access the addOnResults
+   *
+   * @function addOnResults
+   * @memberof Twilio.Api.V2010.AccountContext.RecordingInstance
+   * @instance
    */
-  accountSid: string;
-  addOnResults(): AddOnResultListInstance;
-  /**
-   * The version of the API in use during the recording.
-   */
-  apiVersion: string;
-  /**
-   * A unique identifier for the call associated with the recording. This will always refer to the parent leg of a two leg call.
-   */
-  callSid: string;
-  /**
-   * The number of channels in the final recording file as an integer.  Possible values are `1`, `2`.  Separating a two leg call into two separate channels of the recording file is supported in [Dial](https://www.twilio.com/docs/api/twiml/dial#attributes-record) and [Outbound Rest API](https://www.twilio.com/docs/api/voice/making-calls) record options.
-   */
-  channels: number;
-  /**
-   * The unique id for the conference associated with the recording, if a conference recording.
-   */
-  conferenceSid: string;
-  /**
-   * The date that this resource was created, given in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
-   */
-  dateCreated: Date;
-  /**
-   * The date that this resource was last updated, given in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
-   */
-  dateUpdated: Date;
-  /**
-   * The length of the recording, in seconds.
-   */
-  duration: string;
-  /**
-   * Details for how to decrypt the recording.
-   */
-  encryptionDetails: string;
-  /**
-   * More information about the recording failure, if Status is failed. Value will be null for all other statuses.
-   */
-  errorCode: number;
+  addOnResults();
   /**
    * fetch a RecordingInstance
    *
-   * @returns Promise that resolves to processed RecordingInstance
-   */
-  fetch(): Promise<RecordingInstance>;
-  /**
-   * fetch a RecordingInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.RecordingInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: RecordingInstance) => any): void;
-  /**
-   * The one-time cost of creating this recording. Example: `-0.00250`
-   */
-  price: string;
-  /**
-   * The currency used in the `Price` property. Example: `USD`
-   */
-  priceUnit: string;
+  fetch(callback?: function);
   /**
    * remove a RecordingInstance
    *
-   * @returns Promise that resolves to processed RecordingInstance
-   */
-  remove(): Promise<RecordingInstance>;
-  /**
-   * remove a RecordingInstance
+   * @function remove
+   * @memberof Twilio.Api.V2010.AccountContext.RecordingInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: RecordingInstance) => any): void;
+  remove(callback?: function);
   /**
-   * A 34 character string that uniquely identifies this resource.
+   * Produce a plain JSON object version of the RecordingInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Api.V2010.AccountContext.RecordingInstance
+   * @instance
    */
-  sid: string;
+  toJSON();
   /**
-   * The way in which this recording was created. Possible values are: DialVerb, Conference, OutboundAPI, Trunking, RecordVerb, StartCallRecordingAPI, StartConferenceRecordingAPI
+   * Access the transcriptions
+   *
+   * @function transcriptions
+   * @memberof Twilio.Api.V2010.AccountContext.RecordingInstance
+   * @instance
    */
-  source: RecordingSource;
-  /**
-   * The start time of the recording, given in RFC 2822 format.
-   */
-  startTime: Date;
-  /**
-   * The status of the recording. Possible values are: in-progress, paused, stopped, processing, completed, failed.
-   */
-  status: RecordingStatus;
-  /**
-   * The subresource_uris
-   */
-  subresourceUris: string;
-  transcriptions(): TranscriptionListInstance;
-  /**
-   * The URI for this resource, relative to `https://api.twilio.com`
-   */
-  uri: string;
+  transcriptions();
 }
 
 declare class RecordingContext {
-  constructor(version: V2010, accountSid: string, sid: string);
+  /**
+   * @constructor Twilio.Api.V2010.AccountContext.RecordingContext
+   * @description Initialize the RecordingContext
+   *
+   * @property transcriptions - transcriptions resource
+   * @property addOnResults - addOnResults resource
+   *
+   * @param version - Version of the resource
+   * @param accountSid - The account_sid
+   * @param sid - Fetch by unique recording Sid
+   */
+  constructor(version: Twilio.Api.V2010, accountSid: sid, sid: sid);
 
-  addOnResults: AddOnResultListInstance;
+  addOnResults?: Twilio.Api.V2010.AccountContext.RecordingContext.AddOnResultList;
   /**
    * fetch a RecordingInstance
    *
-   * @returns Promise that resolves to processed RecordingInstance
-   */
-  fetch(): Promise<RecordingInstance>;
-  /**
-   * fetch a RecordingInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.RecordingContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: RecordingInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a RecordingInstance
    *
-   * @returns Promise that resolves to processed RecordingInstance
-   */
-  remove(): Promise<RecordingInstance>;
-  /**
-   * remove a RecordingInstance
+   * @function remove
+   * @memberof Twilio.Api.V2010.AccountContext.RecordingContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: RecordingInstance) => any): void;
-  transcriptions: TranscriptionListInstance;
+  remove(callback?: function);
+  transcriptions?: Twilio.Api.V2010.AccountContext.RecordingContext.TranscriptionList;
 }
 
-export { RecordingContext, RecordingInstance, RecordingList, RecordingListEachOptions, RecordingListInstance, RecordingListOptions, RecordingListPageOptions, RecordingPage, RecordingPayload, RecordingResource, RecordingSolution, RecordingSource, RecordingStatus }
+export { RecordingContext, RecordingInstance, RecordingList, RecordingPage }

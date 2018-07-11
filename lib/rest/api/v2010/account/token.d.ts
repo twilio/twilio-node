@@ -6,127 +6,63 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V2010 = require('../../V2010');
-import { SerializableClass } from '../../../../interfaces';
+import deserialize = require('../../../../base/deserialize');
+import values = require('../../../../base/values');
 
-declare function TokenList(version: V2010, accountSid: string): TokenListInstance
 
-interface TokenResource {
-  /**
-   * The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Token.
-   */
-  account_sid: string;
-  /**
-   * The date that this resource was created, given in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
-   */
-  date_created: Date;
-  /**
-   * The date that this resource was last updated, given in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
-   */
-  date_updated: Date;
-  /**
-   * An array representing the ephemeral credentials and the STUN and TURN server URIs.
-   */
-  ice_servers: string;
-  /**
-   * The temporary password that the username will use when authenticating with Twilio.
-   */
-  password: string;
-  /**
-   * The duration in seconds for which the username and password are valid, the default value is 86,400 (24 hours)
-   */
-  ttl: string;
-  /**
-   * The temporary username that uniquely identifies a Token.
-   */
-  username: string;
-}
 
-interface TokenPayload extends TokenResource, Page.TwilioResponsePayload {
-}
-
-interface TokenSolution {
-  accountSid: string;
-}
-
-interface TokenListCreateOptions {
+declare class TokenPage extends Page {
   /**
-   * The duration in seconds for which the generated credentials are valid, the default value is 86400 (24 hours).
-   */
-  ttl?: number;
-}
-
-interface TokenListInstance {
-  /**
-   * create a TokenInstance
+   * @constructor Twilio.Api.V2010.AccountContext.TokenPage
+   * @augments Page
+   * @description Initialize the TokenPage
    *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed TokenInstance
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  create(opts?: TokenListCreateOptions): Promise<TokenInstance>;
-  /**
-   * create a TokenInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: TokenListCreateOptions, callback: (error: Error | null, items: TokenInstance) => any): void;
-  /**
-   * create a TokenInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  create(callback: (error: Error | null, items: TokenInstance) => any): void;
-}
-
-declare class TokenPage extends Page<V2010, TokenPayload, TokenResource, TokenInstance> {
-  constructor(version: V2010, response: Response<string>, solution: TokenSolution);
+  constructor(version: Twilio.Api.V2010, response: object, solution: object);
 
   /**
    * Build an instance of TokenInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Api.V2010.AccountContext.TokenPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: TokenPayload): TokenInstance;
+  getInstance(payload: object);
 }
 
-declare class TokenInstance extends SerializableClass {
+declare class TokenInstance {
   /**
+   * @constructor Twilio.Api.V2010.AccountContext.TokenInstance
+   * @description Initialize the TokenContext
+   *
+   * @property accountSid - The unique sid that identifies this account
+   * @property dateCreated - The date this resource was created
+   * @property dateUpdated - The date this resource was last updated
+   * @property iceServers - An array representing the ephemeral credentials
+   * @property password - The temporary password used for authenticating
+   * @property ttl - The duration in seconds the credentials are valid
+   * @property username - The temporary username that uniquely identifies a Token.
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
+   * @param accountSid - The unique sid that identifies this account
    */
-  constructor(version: V2010, payload: TokenPayload);
+  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid);
 
   /**
-   * The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Token.
+   * Produce a plain JSON object version of the TokenInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Api.V2010.AccountContext.TokenInstance
+   * @instance
    */
-  accountSid: string;
-  /**
-   * The date that this resource was created, given in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
-   */
-  dateCreated: Date;
-  /**
-   * The date that this resource was last updated, given in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
-   */
-  dateUpdated: Date;
-  /**
-   * An array representing the ephemeral credentials and the STUN and TURN server URIs.
-   */
-  iceServers: string;
-  /**
-   * The temporary password that the username will use when authenticating with Twilio.
-   */
-  password: string;
-  /**
-   * The duration in seconds for which the username and password are valid, the default value is 86,400 (24 hours)
-   */
-  ttl: string;
-  /**
-   * The temporary username that uniquely identifies a Token.
-   */
-  username: string;
+  toJSON();
 }
 
-export { TokenInstance, TokenList, TokenListCreateOptions, TokenListInstance, TokenPage, TokenPayload, TokenResource, TokenSolution }
+export { TokenInstance, TokenList, TokenPage }

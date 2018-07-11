@@ -6,375 +6,103 @@
  */
 
 import Page = require('../../../base/Page');
-import Response = require('../../../http/response');
-import Wireless = require('../Wireless');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
-import { SerializableClass } from '../../../interfaces';
+import deserialize = require('../../../base/deserialize');
+import values = require('../../../base/values');
 
-declare function CommandList(version: Wireless): CommandListInstance
 
-interface CommandResource {
-  /**
-   * The account_sid
-   */
-  account_sid: string;
-  /**
-   * The command
-   */
-  command: string;
-  /**
-   * The command_mode
-   */
-  command_mode: string;
-  /**
-   * The date_created
-   */
-  date_created: Date;
-  /**
-   * The date_updated
-   */
-  date_updated: Date;
-  /**
-   * The device_sid
-   */
-  device_sid: string;
-  /**
-   * The direction
-   */
-  direction: string;
-  /**
-   * The sid
-   */
-  sid: string;
-  /**
-   * The sim_sid
-   */
-  sim_sid: string;
-  /**
-   * The status
-   */
-  status: string;
-  /**
-   * The url
-   */
-  url: string;
-}
 
-interface CommandPayload extends CommandResource, Page.TwilioResponsePayload {
-}
-
-interface CommandSolution {
-}
-
-interface CommandListEachOptions extends ListEachOptions<CommandInstance> {
+declare class CommandPage extends Page {
   /**
-   * The device
-   */
-  device?: string;
-  /**
-   * The direction
-   */
-  direction?: string;
-  /**
-   * The sim
-   */
-  sim?: string;
-  /**
-   * The status
-   */
-  status?: string;
-}
-
-interface CommandListOptions extends ListOptions<CommandInstance> {
-  /**
-   * The device
-   */
-  device?: string;
-  /**
-   * The direction
-   */
-  direction?: string;
-  /**
-   * The sim
-   */
-  sim?: string;
-  /**
-   * The status
-   */
-  status?: string;
-}
-
-interface CommandListPageOptions extends PageOptions<CommandPage> {
-  /**
-   * The device
-   */
-  device?: string;
-  /**
-   * The direction
-   */
-  direction?: string;
-  /**
-   * The sim
-   */
-  sim?: string;
-  /**
-   * The status
-   */
-  status?: string;
-}
-
-interface CommandListCreateOptions {
-  /**
-   * The callback_method
-   */
-  callbackMethod?: string;
-  /**
-   * The callback_url
-   */
-  callbackUrl?: string;
-  /**
-   * The command
-   */
-  command: string;
-  /**
-   * The command_mode
-   */
-  commandMode?: string;
-  /**
-   * The device
-   */
-  device?: string;
-  /**
-   * The include_sid
-   */
-  includeSid?: string;
-  /**
-   * The sim
-   */
-  sim?: string;
-}
-
-interface CommandListInstance {
-  /**
-   * Gets context of a single Command resource
+   * @constructor Twilio.Preview.Wireless.CommandPage
+   * @augments Page
+   * @description Initialize the CommandPage
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
-   * @param sid - The sid
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  (sid: string): CommandContext;
-  /**
-   * create a CommandInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed CommandInstance
-   */
-  create(opts: CommandListCreateOptions): Promise<CommandInstance>;
-  /**
-   * create a CommandInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: CommandListCreateOptions, callback: (error: Error | null, items: CommandInstance) => any): void;
-  /**
-   * Streams CommandInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: CommandListEachOptions): void;
-  /**
-   * Streams CommandInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: CommandInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Command resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): CommandContext;
-  /**
-   * Retrieve a single target page of CommandInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<CommandPage>;
-  /**
-   * Retrieve a single target page of CommandInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: CommandPage) => any): void;
-  /**
-   * Lists CommandInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: CommandListOptions): Promise<CommandInstance[]>;
-  /**
-   * Lists CommandInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: CommandListOptions, callback: (error: Error | null, items: CommandInstance[]) => any): void;
-  /**
-   * Lists CommandInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: CommandInstance[]) => any): void;
-  /**
-   * Retrieve a single page of CommandInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: CommandListPageOptions): Promise<CommandPage>;
-  /**
-   * Retrieve a single page of CommandInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: CommandListPageOptions, callback: (error: Error | null, items: CommandPage) => any): void;
-  /**
-   * Retrieve a single page of CommandInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: CommandPage) => any): void;
-}
-
-declare class CommandPage extends Page<Wireless, CommandPayload, CommandResource, CommandInstance> {
-  constructor(version: Wireless, response: Response<string>, solution: CommandSolution);
+  constructor(version: Twilio.Preview.Wireless, response: object, solution: object);
 
   /**
    * Build an instance of CommandInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Preview.Wireless.CommandPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: CommandPayload): CommandInstance;
+  getInstance(payload: object);
 }
 
-declare class CommandInstance extends SerializableClass {
+declare class CommandInstance {
   /**
+   * @constructor Twilio.Preview.Wireless.CommandInstance
+   * @description Initialize the CommandContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property sid - The sid
+   * @property accountSid - The account_sid
+   * @property deviceSid - The device_sid
+   * @property simSid - The sim_sid
+   * @property command - The command
+   * @property commandMode - The command_mode
+   * @property status - The status
+   * @property direction - The direction
+   * @property dateCreated - The date_created
+   * @property dateUpdated - The date_updated
+   * @property url - The url
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param sid - The sid
    */
-  constructor(version: Wireless, payload: CommandPayload, sid: string);
+  constructor(version: Twilio.Preview.Wireless, payload: object, sid: sid);
 
-  private _proxy: CommandContext;
-  /**
-   * The account_sid
-   */
-  accountSid: string;
-  /**
-   * The command
-   */
-  command: string;
-  /**
-   * The command_mode
-   */
-  commandMode: string;
-  /**
-   * The date_created
-   */
-  dateCreated: Date;
-  /**
-   * The date_updated
-   */
-  dateUpdated: Date;
-  /**
-   * The device_sid
-   */
-  deviceSid: string;
-  /**
-   * The direction
-   */
-  direction: string;
+  _proxy?: CommandContext;
   /**
    * fetch a CommandInstance
    *
-   * @returns Promise that resolves to processed CommandInstance
-   */
-  fetch(): Promise<CommandInstance>;
-  /**
-   * fetch a CommandInstance
+   * @function fetch
+   * @memberof Twilio.Preview.Wireless.CommandInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: CommandInstance) => any): void;
+  fetch(callback?: function);
   /**
-   * The sid
+   * Produce a plain JSON object version of the CommandInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Preview.Wireless.CommandInstance
+   * @instance
    */
-  sid: string;
-  /**
-   * The sim_sid
-   */
-  simSid: string;
-  /**
-   * The status
-   */
-  status: string;
-  /**
-   * The url
-   */
-  url: string;
+  toJSON();
 }
 
 declare class CommandContext {
-  constructor(version: Wireless, sid: string);
+  /**
+   * @constructor Twilio.Preview.Wireless.CommandContext
+   * @description Initialize the CommandContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @param version - Version of the resource
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Preview.Wireless, sid: sid);
 
   /**
    * fetch a CommandInstance
    *
-   * @returns Promise that resolves to processed CommandInstance
-   */
-  fetch(): Promise<CommandInstance>;
-  /**
-   * fetch a CommandInstance
+   * @function fetch
+   * @memberof Twilio.Preview.Wireless.CommandContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: CommandInstance) => any): void;
+  fetch(callback?: function);
 }
 
-export { CommandContext, CommandInstance, CommandList, CommandListCreateOptions, CommandListEachOptions, CommandListInstance, CommandListOptions, CommandListPageOptions, CommandPage, CommandPayload, CommandResource, CommandSolution }
+export { CommandContext, CommandInstance, CommandList, CommandPage }

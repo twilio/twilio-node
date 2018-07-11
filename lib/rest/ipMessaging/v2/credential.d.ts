@@ -6,443 +6,178 @@
  */
 
 import Page = require('../../../base/Page');
-import Response = require('../../../http/response');
-import V2 = require('../V2');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
-import { SerializableClass } from '../../../interfaces';
+import deserialize = require('../../../base/deserialize');
+import serialize = require('../../../base/serialize');
+import values = require('../../../base/values');
 
-declare function CredentialList(version: V2): CredentialListInstance
 
-type CredentialPushService = 'gcm'|'apn'|'fcm';
-
-interface CredentialResource {
-  /**
-   * The unique id of the [Account](https://www.twilio.com/console) responsible for this resource.
-   */
-  account_sid: string;
-  /**
-   * The date that this resource was created.
-   */
-  date_created: Date;
-  /**
-   * The date that this resource was last updated.
-   */
-  date_updated: Date;
-  /**
-   * The human-readable name of this resource.
-   */
-  friendly_name: string;
-  /**
-   * [APN only] `true` when this resource should use the sandbox APN service. `false` when it should use the production APN service.
-   */
-  sandbox: string;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * Indicates which push notifications service this credential is for - either `gcm`, `fcm`, or `apn`
-   */
-  type: CredentialPushService;
-  /**
-   * An absolute URL for this credential resource.
-   */
-  url: string;
-}
-
-interface CredentialPayload extends CredentialResource, Page.TwilioResponsePayload {
-}
-
-interface CredentialSolution {
-}
-
-interface CredentialListEachOptions extends ListEachOptions<CredentialInstance> {
-}
-
-interface CredentialListOptions extends ListOptions<CredentialInstance> {
-}
-
-interface CredentialListPageOptions extends PageOptions<CredentialPage> {
-}
-
-interface CredentialListCreateOptions {
-  /**
-   * [GCM only] This is the "API key" for project from Google Developer console for your GCM Service application credential
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - Friendly name for stored credential
+ * @property certificate - [APN only] URL encoded representation of the certificate, e.
+ * @property privateKey - [APN only] URL encoded representation of the private key, e.
+ * @property sandbox - [APN only] use this credential for sending to production or sandbox APNs
+ * @property apiKey - [GCM only] This is the "API key" for project from Google Developer console for your GCM Service application credential
+ * @property secret - [FCM only] This is the "Server key" of your project from Firebase console under Settings / Cloud messaging.
+ */
+export interface UpdateOptions {
   apiKey?: string;
-  /**
-   * [APN only] URL encoded representation of the certificate, e.g.
-   * `-----BEGIN CERTIFICATE-----
-   * MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEFBQAwgZYxCzAJBgNV.....A==
-   * -----END CERTIFICATE-----`
-   */
   certificate?: string;
-  /**
-   * Friendly name for stored credential
-   */
   friendlyName?: string;
-  /**
-   * [APN only] URL encoded representation of the private key, e.g.
-   * `-----BEGIN RSA PRIVATE KEY-----
-   * MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fGgvCI1l9s+cmBY3WIz+cUDqmxiieR.
-   * -----END RSA PRIVATE KEY-----`
-   */
   privateKey?: string;
-  /**
-   * [APN only] use this credential for sending to production or sandbox APNs (string `true` or `false`)
-   */
   sandbox?: boolean;
-  /**
-   * [FCM only] This is the "Server key" of your project from Firebase console under Settings / Cloud messaging.
-   */
-  secret?: string;
-  /**
-   * Credential type, one of "gcm", "fcm", or "apn"
-   */
-  type: CredentialPushService;
-}
-
-interface CredentialListInstance {
-  /**
-   * Gets context of a single Credential resource
-   *
-   * @param sid - The sid
-   */
-  (sid: string): CredentialContext;
-  /**
-   * create a CredentialInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed CredentialInstance
-   */
-  create(opts: CredentialListCreateOptions): Promise<CredentialInstance>;
-  /**
-   * create a CredentialInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: CredentialListCreateOptions, callback: (error: Error | null, items: CredentialInstance) => any): void;
-  /**
-   * Streams CredentialInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: CredentialListEachOptions): void;
-  /**
-   * Streams CredentialInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: CredentialInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Credential resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): CredentialContext;
-  /**
-   * Retrieve a single target page of CredentialInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<CredentialPage>;
-  /**
-   * Retrieve a single target page of CredentialInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: CredentialPage) => any): void;
-  /**
-   * Lists CredentialInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: CredentialListOptions): Promise<CredentialInstance[]>;
-  /**
-   * Lists CredentialInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: CredentialListOptions, callback: (error: Error | null, items: CredentialInstance[]) => any): void;
-  /**
-   * Lists CredentialInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: CredentialInstance[]) => any): void;
-  /**
-   * Retrieve a single page of CredentialInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: CredentialListPageOptions): Promise<CredentialPage>;
-  /**
-   * Retrieve a single page of CredentialInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: CredentialListPageOptions, callback: (error: Error | null, items: CredentialPage) => any): void;
-  /**
-   * Retrieve a single page of CredentialInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: CredentialPage) => any): void;
-}
-
-interface CredentialListFetchOptions {
-  /**
-   * [GCM only] This is the "API key" for project from Google Developer console for your GCM Service application credential
-   */
-  apiKey?: string;
-  /**
-   * [APN only] URL encoded representation of the certificate, e.g.
-   * `-----BEGIN CERTIFICATE-----
-   * MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEFBQAwgZYxCzAJBgNV.....A==
-   * -----END CERTIFICATE-----`
-   */
-  certificate?: string;
-  /**
-   * Friendly name for stored credential
-   */
-  friendlyName?: string;
-  /**
-   * [APN only] URL encoded representation of the private key, e.g.
-   * `-----BEGIN RSA PRIVATE KEY-----
-   * MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fGgvCI1l9s+cmBY3WIz+cUDqmxiieR.
-   * -----END RSA PRIVATE KEY-----`
-   */
-  privateKey?: string;
-  /**
-   * [APN only] use this credential for sending to production or sandbox APNs (string `true` or `false`)
-   */
-  sandbox?: boolean;
-  /**
-   * [FCM only] This is the "Server key" of your project from Firebase console under Settings / Cloud messaging.
-   */
   secret?: string;
 }
 
-interface CredentialListFetchOptions {
-  /**
-   * [GCM only] This is the "API key" for project from Google Developer console for your GCM Service application credential
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - Friendly name for stored credential
+ * @property certificate - [APN only] URL encoded representation of the certificate, e.
+ * @property privateKey - [APN only] URL encoded representation of the private key, e.
+ * @property sandbox - [APN only] use this credential for sending to production or sandbox APNs
+ * @property apiKey - [GCM only] This is the "API key" for project from Google Developer console for your GCM Service application credential
+ * @property secret - [FCM only] This is the "Server key" of your project from Firebase console under Settings / Cloud messaging.
+ */
+export interface UpdateOptions {
   apiKey?: string;
-  /**
-   * [APN only] URL encoded representation of the certificate, e.g.
-   * `-----BEGIN CERTIFICATE-----
-   * MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEFBQAwgZYxCzAJBgNV.....A==
-   * -----END CERTIFICATE-----`
-   */
   certificate?: string;
-  /**
-   * Friendly name for stored credential
-   */
   friendlyName?: string;
-  /**
-   * [APN only] URL encoded representation of the private key, e.g.
-   * `-----BEGIN RSA PRIVATE KEY-----
-   * MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fGgvCI1l9s+cmBY3WIz+cUDqmxiieR.
-   * -----END RSA PRIVATE KEY-----`
-   */
   privateKey?: string;
-  /**
-   * [APN only] use this credential for sending to production or sandbox APNs (string `true` or `false`)
-   */
   sandbox?: boolean;
-  /**
-   * [FCM only] This is the "Server key" of your project from Firebase console under Settings / Cloud messaging.
-   */
   secret?: string;
 }
 
-declare class CredentialPage extends Page<V2, CredentialPayload, CredentialResource, CredentialInstance> {
-  constructor(version: V2, response: Response<string>, solution: CredentialSolution);
+
+declare class CredentialPage extends Page {
+  /**
+   * @constructor Twilio.IpMessaging.V2.CredentialPage
+   * @augments Page
+   * @description Initialize the CredentialPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.IpMessaging.V2, response: object, solution: object);
 
   /**
    * Build an instance of CredentialInstance
    *
+   * @function getInstance
+   * @memberof Twilio.IpMessaging.V2.CredentialPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: CredentialPayload): CredentialInstance;
+  getInstance(payload: object);
 }
 
-declare class CredentialInstance extends SerializableClass {
+declare class CredentialInstance {
   /**
+   * @constructor Twilio.IpMessaging.V2.CredentialInstance
+   * @description Initialize the CredentialContext
+   *
+   * @property sid - A 34 character string that uniquely identifies this resource.
+   * @property accountSid - The unique id of the Account responsible for this resource.
+   * @property friendlyName - The human-readable name of this resource.
+   * @property type - Indicates which push notifications service this credential is for - either gcm, fcm, or apn
+   * @property sandbox - [APN only] true when this resource should use the sandbox APN service.
+   * @property dateCreated - The date that this resource was created.
+   * @property dateUpdated - The date that this resource was last updated.
+   * @property url - An absolute URL for this credential resource.
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param sid - The sid
    */
-  constructor(version: V2, payload: CredentialPayload, sid: string);
+  constructor(version: Twilio.IpMessaging.V2, payload: object, sid: sid);
 
-  private _proxy: CredentialContext;
-  /**
-   * The unique id of the [Account](https://www.twilio.com/console) responsible for this resource.
-   */
-  accountSid: string;
-  /**
-   * The date that this resource was created.
-   */
-  dateCreated: Date;
-  /**
-   * The date that this resource was last updated.
-   */
-  dateUpdated: Date;
+  _proxy?: CredentialContext;
   /**
    * fetch a CredentialInstance
    *
-   * @returns Promise that resolves to processed CredentialInstance
-   */
-  fetch(): Promise<CredentialInstance>;
-  /**
-   * fetch a CredentialInstance
+   * @function fetch
+   * @memberof Twilio.IpMessaging.V2.CredentialInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: CredentialInstance) => any): void;
-  /**
-   * The human-readable name of this resource.
-   */
-  friendlyName: string;
+  fetch(callback?: function);
   /**
    * remove a CredentialInstance
    *
-   * @returns Promise that resolves to processed CredentialInstance
-   */
-  remove(): Promise<CredentialInstance>;
-  /**
-   * remove a CredentialInstance
+   * @function remove
+   * @memberof Twilio.IpMessaging.V2.CredentialInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: CredentialInstance) => any): void;
+  remove(callback?: function);
   /**
-   * [APN only] `true` when this resource should use the sandbox APN service. `false` when it should use the production APN service.
+   * Produce a plain JSON object version of the CredentialInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.IpMessaging.V2.CredentialInstance
+   * @instance
    */
-  sandbox: string;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * Indicates which push notifications service this credential is for - either `gcm`, `fcm`, or `apn`
-   */
-  type: CredentialPushService;
+  toJSON();
   /**
    * update a CredentialInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.IpMessaging.V2.CredentialInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed CredentialInstance
-   */
-  update(opts?: CredentialListFetchOptions): Promise<CredentialInstance>;
-  /**
-   * update a CredentialInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: CredentialListFetchOptions, callback: (error: Error | null, items: CredentialInstance) => any): void;
-  /**
-   * update a CredentialInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: CredentialInstance) => any): void;
-  /**
-   * An absolute URL for this credential resource.
-   */
-  url: string;
+  update(opts?: object, callback?: function);
 }
 
 declare class CredentialContext {
-  constructor(version: V2, sid: string);
+  /**
+   * @constructor Twilio.IpMessaging.V2.CredentialContext
+   * @description Initialize the CredentialContext
+   *
+   * @param version - Version of the resource
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.IpMessaging.V2, sid: sid);
 
   /**
    * fetch a CredentialInstance
    *
-   * @returns Promise that resolves to processed CredentialInstance
-   */
-  fetch(): Promise<CredentialInstance>;
-  /**
-   * fetch a CredentialInstance
+   * @function fetch
+   * @memberof Twilio.IpMessaging.V2.CredentialContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: CredentialInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a CredentialInstance
    *
-   * @returns Promise that resolves to processed CredentialInstance
-   */
-  remove(): Promise<CredentialInstance>;
-  /**
-   * remove a CredentialInstance
+   * @function remove
+   * @memberof Twilio.IpMessaging.V2.CredentialContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: CredentialInstance) => any): void;
+  remove(callback?: function);
   /**
    * update a CredentialInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.IpMessaging.V2.CredentialContext
+   * @instance
    *
-   * @returns Promise that resolves to processed CredentialInstance
-   */
-  update(opts?: CredentialListFetchOptions): Promise<CredentialInstance>;
-  /**
-   * update a CredentialInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: CredentialListFetchOptions, callback: (error: Error | null, items: CredentialInstance) => any): void;
-  /**
-   * update a CredentialInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: CredentialInstance) => any): void;
+  update(opts?: object, callback?: function);
 }
 
-export { CredentialContext, CredentialInstance, CredentialList, CredentialListCreateOptions, CredentialListEachOptions, CredentialListFetchOptions, CredentialListInstance, CredentialListOptions, CredentialListPageOptions, CredentialPage, CredentialPayload, CredentialPushService, CredentialResource, CredentialSolution }
+export { CredentialContext, CredentialInstance, CredentialList, CredentialPage }

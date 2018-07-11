@@ -6,426 +6,209 @@
  */
 
 import Page = require('../../../base/Page');
-import Response = require('../../../http/response');
-import Sync = require('../Sync');
-import { DocumentListInstance } from './service/document';
-import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
-import { SerializableClass } from '../../../interfaces';
-import { SyncListListInstance } from './service/syncList';
-import { SyncMapListInstance } from './service/syncMap';
+import deserialize = require('../../../base/deserialize');
+import serialize = require('../../../base/serialize');
+import values = require('../../../base/values');
+import { DocumentList } from './service/document';
+import { SyncListList } from './service/syncList';
+import { SyncMapList } from './service/syncMap';
 
-declare function ServiceList(version: Sync): ServiceListInstance
 
-interface ServiceResource {
-  /**
-   * The account_sid
-   */
-  account_sid: string;
-  /**
-   * The acl_enabled
-   */
-  acl_enabled: boolean;
-  /**
-   * The date_created
-   */
-  date_created: Date;
-  /**
-   * The date_updated
-   */
-  date_updated: Date;
-  /**
-   * The friendly_name
-   */
-  friendly_name: string;
-  /**
-   * The links
-   */
-  links: string;
-  /**
-   * The reachability_webhooks_enabled
-   */
-  reachability_webhooks_enabled: boolean;
-  /**
-   * The sid
-   */
-  sid: string;
-  /**
-   * The url
-   */
-  url: string;
-  /**
-   * The webhook_url
-   */
-  webhook_url: string;
-}
-
-interface ServicePayload extends ServiceResource, Page.TwilioResponsePayload {
-}
-
-interface ServiceSolution {
-}
-
-interface ServiceListCreateOptions {
-  /**
-   * The acl_enabled
-   */
+/**
+ * Options to pass to update
+ *
+ * @property webhookUrl - The webhook_url
+ * @property friendlyName - The friendly_name
+ * @property reachabilityWebhooksEnabled - The reachability_webhooks_enabled
+ * @property aclEnabled - The acl_enabled
+ */
+export interface UpdateOptions {
   aclEnabled?: boolean;
-  /**
-   * The friendly_name
-   */
   friendlyName?: string;
-  /**
-   * The reachability_webhooks_enabled
-   */
   reachabilityWebhooksEnabled?: boolean;
-  /**
-   * The webhook_url
-   */
   webhookUrl?: string;
 }
 
-interface ServiceListEachOptions extends ListEachOptions<ServiceInstance> {
-}
-
-interface ServiceListOptions extends ListOptions<ServiceInstance> {
-}
-
-interface ServiceListPageOptions extends PageOptions<ServicePage> {
-}
-
-interface ServiceListInstance {
-  /**
-   * Gets context of a single Service resource
-   *
-   * @param sid - The sid
-   */
-  (sid: string): ServiceContext;
-  /**
-   * create a ServiceInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  create(opts?: ServiceListCreateOptions): Promise<ServiceInstance>;
-  /**
-   * create a ServiceInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: ServiceListCreateOptions, callback: (error: Error | null, items: ServiceInstance) => any): void;
-  /**
-   * create a ServiceInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  create(callback: (error: Error | null, items: ServiceInstance) => any): void;
-  /**
-   * Streams ServiceInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: ServiceListEachOptions): void;
-  /**
-   * Streams ServiceInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: ServiceInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Service resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): ServiceContext;
-  /**
-   * Retrieve a single target page of ServiceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<ServicePage>;
-  /**
-   * Retrieve a single target page of ServiceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: ServicePage) => any): void;
-  /**
-   * Lists ServiceInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: ServiceListOptions): Promise<ServiceInstance[]>;
-  /**
-   * Lists ServiceInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: ServiceListOptions, callback: (error: Error | null, items: ServiceInstance[]) => any): void;
-  /**
-   * Lists ServiceInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: ServiceInstance[]) => any): void;
-  /**
-   * Retrieve a single page of ServiceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: ServiceListPageOptions): Promise<ServicePage>;
-  /**
-   * Retrieve a single page of ServiceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: ServiceListPageOptions, callback: (error: Error | null, items: ServicePage) => any): void;
-  /**
-   * Retrieve a single page of ServiceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: ServicePage) => any): void;
-}
-
-interface ServiceListFetchOptions {
-  /**
-   * The acl_enabled
-   */
+/**
+ * Options to pass to update
+ *
+ * @property webhookUrl - The webhook_url
+ * @property friendlyName - The friendly_name
+ * @property reachabilityWebhooksEnabled - The reachability_webhooks_enabled
+ * @property aclEnabled - The acl_enabled
+ */
+export interface UpdateOptions {
   aclEnabled?: boolean;
-  /**
-   * The friendly_name
-   */
   friendlyName?: string;
-  /**
-   * The reachability_webhooks_enabled
-   */
   reachabilityWebhooksEnabled?: boolean;
-  /**
-   * The webhook_url
-   */
   webhookUrl?: string;
 }
 
-interface ServiceListFetchOptions {
-  /**
-   * The acl_enabled
-   */
-  aclEnabled?: boolean;
-  /**
-   * The friendly_name
-   */
-  friendlyName?: string;
-  /**
-   * The reachability_webhooks_enabled
-   */
-  reachabilityWebhooksEnabled?: boolean;
-  /**
-   * The webhook_url
-   */
-  webhookUrl?: string;
-}
 
-declare class ServicePage extends Page<Sync, ServicePayload, ServiceResource, ServiceInstance> {
-  constructor(version: Sync, response: Response<string>, solution: ServiceSolution);
+declare class ServicePage extends Page {
+  /**
+   * @constructor Twilio.Preview.Sync.ServicePage
+   * @augments Page
+   * @description Initialize the ServicePage
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Preview.Sync, response: object, solution: object);
 
   /**
    * Build an instance of ServiceInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Preview.Sync.ServicePage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: ServicePayload): ServiceInstance;
+  getInstance(payload: object);
 }
 
-declare class ServiceInstance extends SerializableClass {
+declare class ServiceInstance {
   /**
+   * @constructor Twilio.Preview.Sync.ServiceInstance
+   * @description Initialize the ServiceContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property sid - The sid
+   * @property accountSid - The account_sid
+   * @property friendlyName - The friendly_name
+   * @property dateCreated - The date_created
+   * @property dateUpdated - The date_updated
+   * @property url - The url
+   * @property webhookUrl - The webhook_url
+   * @property reachabilityWebhooksEnabled - The reachability_webhooks_enabled
+   * @property aclEnabled - The acl_enabled
+   * @property links - The links
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param sid - The sid
    */
-  constructor(version: Sync, payload: ServicePayload, sid: string);
+  constructor(version: Twilio.Preview.Sync, payload: object, sid: sid);
 
-  private _proxy: ServiceContext;
+  _proxy?: ServiceContext;
   /**
-   * The account_sid
+   * Access the documents
+   *
+   * @function documents
+   * @memberof Twilio.Preview.Sync.ServiceInstance
+   * @instance
    */
-  accountSid: string;
-  /**
-   * The acl_enabled
-   */
-  aclEnabled: boolean;
-  /**
-   * The date_created
-   */
-  dateCreated: Date;
-  /**
-   * The date_updated
-   */
-  dateUpdated: Date;
-  documents(): DocumentListInstance;
+  documents();
   /**
    * fetch a ServiceInstance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  fetch(): Promise<ServiceInstance>;
-  /**
-   * fetch a ServiceInstance
+   * @function fetch
+   * @memberof Twilio.Preview.Sync.ServiceInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: ServiceInstance) => any): void;
-  /**
-   * The friendly_name
-   */
-  friendlyName: string;
-  /**
-   * The links
-   */
-  links: string;
-  /**
-   * The reachability_webhooks_enabled
-   */
-  reachabilityWebhooksEnabled: boolean;
+  fetch(callback?: function);
   /**
    * remove a ServiceInstance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  remove(): Promise<ServiceInstance>;
-  /**
-   * remove a ServiceInstance
+   * @function remove
+   * @memberof Twilio.Preview.Sync.ServiceInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: ServiceInstance) => any): void;
+  remove(callback?: function);
   /**
-   * The sid
+   * Access the syncLists
+   *
+   * @function syncLists
+   * @memberof Twilio.Preview.Sync.ServiceInstance
+   * @instance
    */
-  sid: string;
-  syncLists(): SyncListListInstance;
-  syncMaps(): SyncMapListInstance;
+  syncLists();
+  /**
+   * Access the syncMaps
+   *
+   * @function syncMaps
+   * @memberof Twilio.Preview.Sync.ServiceInstance
+   * @instance
+   */
+  syncMaps();
+  /**
+   * Produce a plain JSON object version of the ServiceInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Preview.Sync.ServiceInstance
+   * @instance
+   */
+  toJSON();
   /**
    * update a ServiceInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Preview.Sync.ServiceInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  update(opts?: ServiceListFetchOptions): Promise<ServiceInstance>;
-  /**
-   * update a ServiceInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: ServiceListFetchOptions, callback: (error: Error | null, items: ServiceInstance) => any): void;
-  /**
-   * update a ServiceInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: ServiceInstance) => any): void;
-  /**
-   * The url
-   */
-  url: string;
-  /**
-   * The webhook_url
-   */
-  webhookUrl: string;
+  update(opts?: object, callback?: function);
 }
 
 declare class ServiceContext {
-  constructor(version: Sync, sid: string);
+  /**
+   * @constructor Twilio.Preview.Sync.ServiceContext
+   * @description Initialize the ServiceContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property documents - documents resource
+   * @property syncLists - syncLists resource
+   * @property syncMaps - syncMaps resource
+   *
+   * @param version - Version of the resource
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Preview.Sync, sid: sid);
 
-  documents: DocumentListInstance;
+  documents?: Twilio.Preview.Sync.ServiceContext.DocumentList;
   /**
    * fetch a ServiceInstance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  fetch(): Promise<ServiceInstance>;
-  /**
-   * fetch a ServiceInstance
+   * @function fetch
+   * @memberof Twilio.Preview.Sync.ServiceContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: ServiceInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a ServiceInstance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  remove(): Promise<ServiceInstance>;
-  /**
-   * remove a ServiceInstance
+   * @function remove
+   * @memberof Twilio.Preview.Sync.ServiceContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: ServiceInstance) => any): void;
-  syncLists: SyncListListInstance;
-  syncMaps: SyncMapListInstance;
+  remove(callback?: function);
+  syncLists?: Twilio.Preview.Sync.ServiceContext.SyncListList;
+  syncMaps?: Twilio.Preview.Sync.ServiceContext.SyncMapList;
   /**
    * update a ServiceInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Preview.Sync.ServiceContext
+   * @instance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  update(opts?: ServiceListFetchOptions): Promise<ServiceInstance>;
-  /**
-   * update a ServiceInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: ServiceListFetchOptions, callback: (error: Error | null, items: ServiceInstance) => any): void;
-  /**
-   * update a ServiceInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: ServiceInstance) => any): void;
+  update(opts?: object, callback?: function);
 }
 
-export { ServiceContext, ServiceInstance, ServiceList, ServiceListCreateOptions, ServiceListEachOptions, ServiceListFetchOptions, ServiceListInstance, ServiceListOptions, ServiceListPageOptions, ServicePage, ServicePayload, ServiceResource, ServiceSolution }
+export { ServiceContext, ServiceInstance, ServiceList, ServicePage }

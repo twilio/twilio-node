@@ -6,339 +6,124 @@
  */
 
 import Page = require('../../../../../base/Page');
-import Response = require('../../../../../http/response');
-import V2 = require('../../../V2');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../interfaces';
-import { SerializableClass } from '../../../../../interfaces';
+import deserialize = require('../../../../../base/deserialize');
+import serialize = require('../../../../../base/serialize');
+import values = require('../../../../../base/values');
 
-declare function InviteList(version: V2, serviceSid: string, channelSid: string): InviteListInstance
 
-interface InviteResource {
-  /**
-   * The unique id of the [Account](https://www.twilio.com/console) responsible for this member.
-   */
-  account_sid: string;
-  /**
-   * The unique id of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) for this member.
-   */
-  channel_sid: string;
-  /**
-   * The created_by
-   */
-  created_by: string;
-  /**
-   * The date that this resource was created.
-   */
-  date_created: Date;
-  /**
-   * The date that this resource was last updated.
-   */
-  date_updated: Date;
-  /**
-   * A unique string identifier for this [User](https://www.twilio.com/docs/api/chat/rest/users) in this [Service](https://www.twilio.com/docs/api/chat/rest/services). See the [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) docs for more details.
-   */
-  identity: string;
-  /**
-   * The [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to this member.
-   */
-  role_sid: string;
-  /**
-   * The unique id of the [Service](https://www.twilio.com/docs/api/chat/rest/services) this member belongs to.
-   */
-  service_sid: string;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * An absolute URL for this member.
-   */
-  url: string;
-}
 
-interface InvitePayload extends InviteResource, Page.TwilioResponsePayload {
-}
-
-interface InviteSolution {
-  channelSid: string;
-  serviceSid: string;
-}
-
-interface InviteListCreateOptions {
+declare class InvitePage extends Page {
   /**
-   * A unique string identifier for this [User](https://www.twilio.com/docs/api/chat/rest/users) in this [Service](https://www.twilio.com/docs/api/chat/rest/services). See the [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) docs for more details.
+   * @constructor Twilio.IpMessaging.V2.ServiceContext.ChannelContext.InvitePage
+   * @augments Page
+   * @description Initialize the InvitePage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  identity: string;
-  /**
-   * The [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to this member.
-   */
-  roleSid?: string;
-}
-
-interface InviteListEachOptions extends ListEachOptions<InviteInstance> {
-  /**
-   * A unique string identifier for this [User](https://www.twilio.com/docs/api/chat/rest/users) in this [Service](https://www.twilio.com/docs/api/chat/rest/services). See the [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) docs for more details.
-   */
-  identity?: string[];
-}
-
-interface InviteListOptions extends ListOptions<InviteInstance> {
-  /**
-   * A unique string identifier for this [User](https://www.twilio.com/docs/api/chat/rest/users) in this [Service](https://www.twilio.com/docs/api/chat/rest/services). See the [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) docs for more details.
-   */
-  identity?: string[];
-}
-
-interface InviteListPageOptions extends PageOptions<InvitePage> {
-  /**
-   * A unique string identifier for this [User](https://www.twilio.com/docs/api/chat/rest/users) in this [Service](https://www.twilio.com/docs/api/chat/rest/services). See the [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) docs for more details.
-   */
-  identity?: string[];
-}
-
-interface InviteListInstance {
-  /**
-   * Gets context of a single Invite resource
-   *
-   * @param sid - The sid
-   */
-  (sid: string): InviteContext;
-  /**
-   * create a InviteInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed InviteInstance
-   */
-  create(opts: InviteListCreateOptions): Promise<InviteInstance>;
-  /**
-   * create a InviteInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: InviteListCreateOptions, callback: (error: Error | null, items: InviteInstance) => any): void;
-  /**
-   * Streams InviteInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: InviteListEachOptions): void;
-  /**
-   * Streams InviteInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: InviteInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Invite resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): InviteContext;
-  /**
-   * Retrieve a single target page of InviteInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<InvitePage>;
-  /**
-   * Retrieve a single target page of InviteInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: InvitePage) => any): void;
-  /**
-   * Lists InviteInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: InviteListOptions): Promise<InviteInstance[]>;
-  /**
-   * Lists InviteInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: InviteListOptions, callback: (error: Error | null, items: InviteInstance[]) => any): void;
-  /**
-   * Lists InviteInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: InviteInstance[]) => any): void;
-  /**
-   * Retrieve a single page of InviteInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: InviteListPageOptions): Promise<InvitePage>;
-  /**
-   * Retrieve a single page of InviteInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: InviteListPageOptions, callback: (error: Error | null, items: InvitePage) => any): void;
-  /**
-   * Retrieve a single page of InviteInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: InvitePage) => any): void;
-}
-
-declare class InvitePage extends Page<V2, InvitePayload, InviteResource, InviteInstance> {
-  constructor(version: V2, response: Response<string>, solution: InviteSolution);
+  constructor(version: Twilio.IpMessaging.V2, response: object, solution: object);
 
   /**
    * Build an instance of InviteInstance
    *
+   * @function getInstance
+   * @memberof Twilio.IpMessaging.V2.ServiceContext.ChannelContext.InvitePage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: InvitePayload): InviteInstance;
+  getInstance(payload: object);
 }
 
-declare class InviteInstance extends SerializableClass {
+declare class InviteInstance {
   /**
+   * @constructor Twilio.IpMessaging.V2.ServiceContext.ChannelContext.InviteInstance
+   * @description Initialize the InviteContext
+   *
+   * @property sid - A 34 character string that uniquely identifies this resource.
+   * @property accountSid - The unique id of the Account responsible for this member.
+   * @property channelSid - The unique id of the Channel for this member.
+   * @property serviceSid - The unique id of the Service this member belongs to.
+   * @property identity - A unique string identifier for this User in this Service.
+   * @property dateCreated - The date that this resource was created.
+   * @property dateUpdated - The date that this resource was last updated.
+   * @property roleSid - The Role assigned to this member.
+   * @property createdBy - The created_by
+   * @property url - An absolute URL for this member.
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
+   * @param serviceSid - The unique id of the Service this member belongs to.
+   * @param channelSid - The unique id of the Channel for this member.
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.IpMessaging.V2, payload: object, serviceSid: sid, channelSid: sid, sid: sid);
+
+  _proxy?: InviteContext;
+  /**
+   * fetch a InviteInstance
+   *
+   * @function fetch
+   * @memberof Twilio.IpMessaging.V2.ServiceContext.ChannelContext.InviteInstance
+   * @instance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: function);
+  /**
+   * remove a InviteInstance
+   *
+   * @function remove
+   * @memberof Twilio.IpMessaging.V2.ServiceContext.ChannelContext.InviteInstance
+   * @instance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: function);
+  /**
+   * Produce a plain JSON object version of the InviteInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.IpMessaging.V2.ServiceContext.ChannelContext.InviteInstance
+   * @instance
+   */
+  toJSON();
+}
+
+declare class InviteContext {
+  /**
+   * @constructor Twilio.IpMessaging.V2.ServiceContext.ChannelContext.InviteContext
+   * @description Initialize the InviteContext
+   *
+   * @param version - Version of the resource
    * @param serviceSid - The service_sid
    * @param channelSid - The channel_sid
    * @param sid - The sid
    */
-  constructor(version: V2, payload: InvitePayload, serviceSid: string, channelSid: string, sid: string);
+  constructor(version: Twilio.IpMessaging.V2, serviceSid: sid, channelSid: sid_like, sid: sid);
 
-  private _proxy: InviteContext;
-  /**
-   * The unique id of the [Account](https://www.twilio.com/console) responsible for this member.
-   */
-  accountSid: string;
-  /**
-   * The unique id of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) for this member.
-   */
-  channelSid: string;
-  /**
-   * The created_by
-   */
-  createdBy: string;
-  /**
-   * The date that this resource was created.
-   */
-  dateCreated: Date;
-  /**
-   * The date that this resource was last updated.
-   */
-  dateUpdated: Date;
   /**
    * fetch a InviteInstance
    *
-   * @returns Promise that resolves to processed InviteInstance
-   */
-  fetch(): Promise<InviteInstance>;
-  /**
-   * fetch a InviteInstance
+   * @function fetch
+   * @memberof Twilio.IpMessaging.V2.ServiceContext.ChannelContext.InviteContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: InviteInstance) => any): void;
-  /**
-   * A unique string identifier for this [User](https://www.twilio.com/docs/api/chat/rest/users) in this [Service](https://www.twilio.com/docs/api/chat/rest/services). See the [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) docs for more details.
-   */
-  identity: string;
+  fetch(callback?: function);
   /**
    * remove a InviteInstance
    *
-   * @returns Promise that resolves to processed InviteInstance
-   */
-  remove(): Promise<InviteInstance>;
-  /**
-   * remove a InviteInstance
+   * @function remove
+   * @memberof Twilio.IpMessaging.V2.ServiceContext.ChannelContext.InviteContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: InviteInstance) => any): void;
-  /**
-   * The [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to this member.
-   */
-  roleSid: string;
-  /**
-   * The unique id of the [Service](https://www.twilio.com/docs/api/chat/rest/services) this member belongs to.
-   */
-  serviceSid: string;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * An absolute URL for this member.
-   */
-  url: string;
+  remove(callback?: function);
 }
 
-declare class InviteContext {
-  constructor(version: V2, serviceSid: string, channelSid: string, sid: string);
-
-  /**
-   * fetch a InviteInstance
-   *
-   * @returns Promise that resolves to processed InviteInstance
-   */
-  fetch(): Promise<InviteInstance>;
-  /**
-   * fetch a InviteInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  fetch(callback: (error: Error | null, items: InviteInstance) => any): void;
-  /**
-   * remove a InviteInstance
-   *
-   * @returns Promise that resolves to processed InviteInstance
-   */
-  remove(): Promise<InviteInstance>;
-  /**
-   * remove a InviteInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback: (error: Error | null, items: InviteInstance) => any): void;
-}
-
-export { InviteContext, InviteInstance, InviteList, InviteListCreateOptions, InviteListEachOptions, InviteListInstance, InviteListOptions, InviteListPageOptions, InvitePage, InvitePayload, InviteResource, InviteSolution }
+export { InviteContext, InviteInstance, InviteList, InvitePage }

@@ -6,852 +6,281 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V2010 = require('../../V2010');
-import { AssignedAddOnListInstance } from './incomingPhoneNumber/assignedAddOn';
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { SerializableClass } from '../../../../interfaces';
+import deserialize = require('../../../../base/deserialize');
+import serialize = require('../../../../base/serialize');
+import values = require('../../../../base/values');
+import { AssignedAddOnList } from './incomingPhoneNumber/assignedAddOn';
+import { LocalList } from './incomingPhoneNumber/local';
+import { MobileList } from './incomingPhoneNumber/mobile';
+import { TollFreeList } from './incomingPhoneNumber/tollFree';
 
-declare function IncomingPhoneNumberList(version: V2010, accountSid: string): IncomingPhoneNumberListInstance
 
-type IncomingPhoneNumberAddressRequirement = 'none'|'any'|'local'|'foreign';
-
-type IncomingPhoneNumberEmergencyStatus = 'Active'|'Inactive';
-
-type IncomingPhoneNumberVoiceReceiveMode = 'voice'|'fax';
-
-interface IncomingPhoneNumberResource {
-  /**
-   * The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this phone number.
-   */
-  account_sid: string;
-  /**
-   * This indicates whether the phone number requires you or your customer to have an [Address](https://www.twilio.com/docs/usage/api/addresses) registered with Twilio. Possible values are `none`, `any`, `local`, or `foreign`.
-   */
-  address_requirements: IncomingPhoneNumberAddressRequirement;
-  /**
-   * The 34 character sid of the address Twilio should use to associate with the number. Addresses are required in some regions to meet local regulations
-   */
-  address_sid: string;
-  /**
-   * Calls to this phone number will start a new TwiML session with this API version.
-   */
-  api_version: string;
-  /**
-   * Phone numbers new to the Twilio platform are marked as beta. Possible values are either true or `false`.
-   */
-  beta: boolean;
-  /**
-   * This is a set of boolean properties that indicate whether a phone number can receive calls or messages.  Possible capabilities are  `Voice`, `SMS`, and `MMS` with each having a value of either `true` or `false`.
-   */
-  capabilities: string;
-  /**
-   * The date that this resource was created, given as GMT [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
-   */
-  date_created: Date;
-  /**
-   * The date that this resource was last updated, given as GMT [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
-   */
-  date_updated: Date;
-  /**
-   * The emergency_address_sid
-   */
-  emergency_address_sid: string;
-  /**
-   * The emergency_status
-   */
-  emergency_status: IncomingPhoneNumberEmergencyStatus;
-  /**
-   * A human readable descriptive text for this resource, up to 64 characters long. By default, the `FriendlyName` is a nicely formatted version of the phone number.
-   */
-  friendly_name: string;
-  /**
-   * The 34 character sid of the identity Twilio should use to associate with the number. Identities are required in some regions to meet local regulations
-   */
-  identity_sid: string;
-  /**
-   * Twilio owned phone numbers are marked as `twilio` while hosted phone numbers are marked as `hosted`.
-   */
-  origin: string;
-  /**
-   * The incoming phone number. e.g., +16175551212 ([E.164](http://en.wikipedia.org/wiki/E.164) format)
-   */
-  phone_number: string;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * The 34 character sid of the application Twilio should use to handle SMSs sent to this number. If a `SmsApplicationSid` is present, Twilio will ignore all of the SMS urls above and use those set on the application.
-   */
-  sms_application_sid: string;
-  /**
-   * The HTTP method Twilio will use when requesting the above URL. Either `GET` or `POST`.
-   */
-  sms_fallback_method: string;
-  /**
-   * The URL that Twilio will request if an error occurs retrieving or executing the TwiML from `SmsUrl`.
-   */
-  sms_fallback_url: string;
-  /**
-   * The HTTP method Twilio will use when making requests to the `SmsUrl`. Either `GET` or `POST`.
-   */
-  sms_method: string;
-  /**
-   * The URL Twilio will request when receiving an incoming SMS message to this number.
-   */
-  sms_url: string;
-  /**
-   * The URL that Twilio will request to pass status parameters (such as call ended) to your application.
-   */
-  status_callback: string;
-  /**
-   * The HTTP method Twilio will use to make requests to the `StatusCallback` URL. Either `GET` or `POST`.
-   */
-  status_callback_method: string;
-  /**
-   * The 34 character sid of the Trunk Twilio should use to handle phone calls to this number. If a `TrunkSid` is present, Twilio will ignore all of the voice urls  and voice applications above and use those set on the Trunk. Setting a `TrunkSid` will automatically delete your `VoiceApplicationSid` and vice versa.
-   */
-  trunk_sid: string;
-  /**
-   * The URI for this resource, relative to `https://api.twilio.com`.
-   */
-  uri: string;
-  /**
-   * The 34 character sid of the application Twilio should use to handle phone calls to this number. If a `VoiceApplicationSid` is present, Twilio will ignore all of the voice urls above and use those set on the application. Setting a `VoiceApplicationSid` will automatically delete your `TrunkSid` and vice versa.
-   */
-  voice_application_sid: string;
-  /**
-   * Look up the caller's caller-ID name from the CNAM database ($0.01 per look up). Either `true` or `false`.
-   */
-  voice_caller_id_lookup: boolean;
-  /**
-   * The HTTP method Twilio will use when requesting the `VoiceFallbackUrl`. Either `GET` or `POST`.
-   */
-  voice_fallback_method: string;
-  /**
-   * The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by `Url`.
-   */
-  voice_fallback_url: string;
-  /**
-   * The HTTP method Twilio will use when requesting the above `Url`. Either `GET` or `POST`.
-   */
-  voice_method: string;
-  /**
-   * The URL Twilio will request when this phone number receives a call. The VoiceURL will  no longer be used if a `VoiceApplicationSid` or a `TrunkSid` is set.
-   */
-  voice_url: string;
-}
-
-interface IncomingPhoneNumberPayload extends IncomingPhoneNumberResource, Page.TwilioResponsePayload {
-}
-
-interface IncomingPhoneNumberSolution {
-  accountSid: string;
-}
-
-interface IncomingPhoneNumberListEachOptions extends ListEachOptions<IncomingPhoneNumberInstance> {
-  /**
-   * Include phone numbers new to the Twilio platform. Possible values are either `true` or `false`. Default is `true`.
-   */
-  beta?: boolean;
-  /**
-   * Only show the incoming phone number resources with friendly names that exactly match this name.
-   */
-  friendlyName?: string;
-  /**
-   * Include phone numbers based on the origin, by default, phone numbers of all origin are included. Possible values are either `twilio` or `hosted`.
-   */
-  origin?: string;
-  /**
-   * Only show the incoming phone number resources that match this pattern. You can specify partial numbers and use '*' as a wildcard for any digit.
-   */
-  phoneNumber?: string;
-}
-
-interface IncomingPhoneNumberListOptions extends ListOptions<IncomingPhoneNumberInstance> {
-  /**
-   * Include phone numbers new to the Twilio platform. Possible values are either `true` or `false`. Default is `true`.
-   */
-  beta?: boolean;
-  /**
-   * Only show the incoming phone number resources with friendly names that exactly match this name.
-   */
-  friendlyName?: string;
-  /**
-   * Include phone numbers based on the origin, by default, phone numbers of all origin are included. Possible values are either `twilio` or `hosted`.
-   */
-  origin?: string;
-  /**
-   * Only show the incoming phone number resources that match this pattern. You can specify partial numbers and use '*' as a wildcard for any digit.
-   */
-  phoneNumber?: string;
-}
-
-interface IncomingPhoneNumberListPageOptions extends PageOptions<IncomingPhoneNumberPage> {
-  /**
-   * Include phone numbers new to the Twilio platform. Possible values are either `true` or `false`. Default is `true`.
-   */
-  beta?: boolean;
-  /**
-   * Only show the incoming phone number resources with friendly names that exactly match this name.
-   */
-  friendlyName?: string;
-  /**
-   * Include phone numbers based on the origin, by default, phone numbers of all origin are included. Possible values are either `twilio` or `hosted`.
-   */
-  origin?: string;
-  /**
-   * Only show the incoming phone number resources that match this pattern. You can specify partial numbers and use '*' as a wildcard for any digit.
-   */
-  phoneNumber?: string;
-}
-
-interface IncomingPhoneNumberListCreateOptions {
-  /**
-   * The 34 character sid of the address Twilio should use to associate with the number. Addresses are required in some regions to meet local regulations
-   */
-  addressSid?: string;
-  /**
-   * The Twilio REST API version to use for incoming calls made to this number. If omitted, uses `2010-04-01`.
-   */
-  apiVersion?: string;
-  /**
-   * The desired area code for your new incoming phone number. Any three digit, US or Canada area code is valid. Twilio will provision a random phone number within this area code for you. **You must include either this or a `PhoneNumber` parameter to have your POST succeed.** (US and Canada only)
-   */
-  areaCode?: string;
-  /**
-   * The emergency_address_sid
-   */
-  emergencyAddressSid?: string;
-  /**
-   * The emergency_status
-   */
-  emergencyStatus?: IncomingPhoneNumberEmergencyStatus;
-  /**
-   * A human readable descriptive text for this resource, up to 64 characters long. By default, the `FriendlyName` is a nicely formatted version of the phone number.
-   */
-  friendlyName?: string;
-  /**
-   * The 34 character sid of the identity Twilio should use to associate with the number. Identities are required in some regions to meet local regulations
-   */
-  identitySid?: string;
-  /**
-   * The phone number you want to purchase. The number should be formatted starting with a '+' followed by the country code and the number in [E.164](http://en.wikipedia.org/wiki/E.164) format e.g., '+15105555555'. **You must include either this or an `AreaCode` parameter to have your POST succeed.**
-   */
-  phoneNumber?: string;
-  /**
-   * The 34 character sid of the application Twilio should use to handle SMSs sent to the new number. If a `SmsApplicationSid` is present, Twilio will ignore all of the SMS urls above and use those set on the application.
-   */
-  smsApplicationSid?: string;
-  /**
-   * The HTTP method that should be used to request the `SmsFallbackUrl`. Must be either `GET` or `POST`. Defaults to `POST`.
-   */
-  smsFallbackMethod?: string;
-  /**
-   * A URL that Twilio will request if an error occurs requesting or executing the TwiML defined by `SmsUrl`.
-   */
-  smsFallbackUrl?: string;
-  /**
-   * The HTTP method that should be used to request the `SmsUrl`. Must be either `GET` or `POST`. Defaults to `POST`.
-   */
-  smsMethod?: string;
-  /**
-   * The URL Twilio will request when receiving an incoming SMS message to this number.
-   */
-  smsUrl?: string;
-  /**
-   * The URL that Twilio will request to pass status parameters (such as call ended) to your application.
-   */
-  statusCallback?: string;
-  /**
-   * The HTTP method Twilio will use to make requests to the `StatusCallback` URL. Either `GET` or `POST`. Defaults to `POST`.
-   */
-  statusCallbackMethod?: string;
-  /**
-   * The 34 character sid of the Trunk Twilio should use to handle phone calls to this number. If a `TrunkSid` is present, Twilio will ignore all of the voice urls  and voice applications above and use those set on the Trunk. Setting a `TrunkSid` will automatically delete your `VoiceApplicationSid` and vice versa.
-   */
-  trunkSid?: string;
-  /**
-   * The 34 character sid of the application Twilio should use to handle phone calls to the new number. If a `VoiceApplicationSid` is present, Twilio will ignore all of the voice urls above and use those set on the application. Setting a `VoiceApplicationSid` will automatically delete your `TrunkSid` and vice versa.
-   */
-  voiceApplicationSid?: string;
-  /**
-   * Do a lookup of a caller's name from the CNAM database and post it to your app. Either `true` or `false`. Defaults to `false`.
-   */
-  voiceCallerIdLookup?: boolean;
-  /**
-   * The HTTP method that should be used to request the `VoiceFallbackUrl`. Either `GET` or `POST`. Defaults to `POST`.
-   */
-  voiceFallbackMethod?: string;
-  /**
-   * The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by `Url`.
-   */
-  voiceFallbackUrl?: string;
-  /**
-   * The HTTP method that should be used to request the `VoiceUrl`. Must be either `GET` or `POST`. Defaults to `POST`.
-   */
-  voiceMethod?: string;
-  /**
-   * The URL that Twilio should request when somebody dials the new phone number. The VoiceURL will  no longer be used if a `VoiceApplicationSid` or a `TrunkSid` is set.
-   */
-  voiceUrl?: string;
-}
-
-interface IncomingPhoneNumberListInstance {
-  /**
-   * Gets context of a single IncomingPhoneNumber resource
-   *
-   * @param sid - Fetch by unique incoming-phone-number Sid
-   */
-  (sid: string): IncomingPhoneNumberContext;
-  /**
-   * create a IncomingPhoneNumberInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed IncomingPhoneNumberInstance
-   */
-  create(opts?: IncomingPhoneNumberListCreateOptions): Promise<IncomingPhoneNumberInstance>;
-  /**
-   * create a IncomingPhoneNumberInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: IncomingPhoneNumberListCreateOptions, callback: (error: Error | null, items: IncomingPhoneNumberInstance) => any): void;
-  /**
-   * create a IncomingPhoneNumberInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  create(callback: (error: Error | null, items: IncomingPhoneNumberInstance) => any): void;
-  /**
-   * Streams IncomingPhoneNumberInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: IncomingPhoneNumberListEachOptions): void;
-  /**
-   * Streams IncomingPhoneNumberInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: IncomingPhoneNumberInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single IncomingPhoneNumber resource
-   *
-   * @param sid - Fetch by unique incoming-phone-number Sid
-   */
-  get(sid: string): IncomingPhoneNumberContext;
-  /**
-   * Retrieve a single target page of IncomingPhoneNumberInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<IncomingPhoneNumberPage>;
-  /**
-   * Retrieve a single target page of IncomingPhoneNumberInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: IncomingPhoneNumberPage) => any): void;
-  /**
-   * Lists IncomingPhoneNumberInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: IncomingPhoneNumberListOptions): Promise<IncomingPhoneNumberInstance[]>;
-  /**
-   * Lists IncomingPhoneNumberInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: IncomingPhoneNumberListOptions, callback: (error: Error | null, items: IncomingPhoneNumberInstance[]) => any): void;
-  /**
-   * Lists IncomingPhoneNumberInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: IncomingPhoneNumberInstance[]) => any): void;
-  /**
-   * Retrieve a single page of IncomingPhoneNumberInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: IncomingPhoneNumberListPageOptions): Promise<IncomingPhoneNumberPage>;
-  /**
-   * Retrieve a single page of IncomingPhoneNumberInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: IncomingPhoneNumberListPageOptions, callback: (error: Error | null, items: IncomingPhoneNumberPage) => any): void;
-  /**
-   * Retrieve a single page of IncomingPhoneNumberInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: IncomingPhoneNumberPage) => any): void;
-}
-
-interface IncomingPhoneNumberListFetchOptions {
-  /**
-   * The unique 34 character id of the account to which you wish to transfer this phone number. See [Exchanging Numbers Between Subaccounts](https://www.twilio.com/docs/iam/api/subaccounts#exchanging-numbers).
-   */
+/**
+ * Options to pass to update
+ *
+ * @property accountSid - The new owner of the phone number
+ * @property apiVersion - The Twilio REST API version to use
+ * @property friendlyName - A human readable description of this resource
+ * @property smsApplicationSid - Unique string that identifies the application
+ * @property smsFallbackMethod - HTTP method used with sms fallback url
+ * @property smsFallbackUrl - URL Twilio will request if an error occurs in executing TwiML
+ * @property smsMethod - HTTP method to use with sms url
+ * @property smsUrl - URL Twilio will request when receiving an SMS
+ * @property statusCallback - URL Twilio will use to pass status parameters
+ * @property statusCallbackMethod - HTTP method twilio will use with status callback
+ * @property voiceApplicationSid - The unique sid of the application to handle this number
+ * @property voiceCallerIdLookup - Look up the caller's caller-ID
+ * @property voiceFallbackMethod - HTTP method used with fallback_url
+ * @property voiceFallbackUrl - URL Twilio will request when an error occurs in TwiML
+ * @property voiceMethod - HTTP method used with the voice url
+ * @property voiceUrl - URL Twilio will request when receiving a call
+ * @property emergencyStatus - The emergency_status
+ * @property emergencyAddressSid - The emergency_address_sid
+ * @property trunkSid - Unique string to identify the trunk
+ * @property voiceReceiveMode - The voice_receive_mode
+ * @property identitySid - Unique string that identifies the identity associated with number
+ * @property addressSid - Unique string that identifies the address associated with number
+ */
+export interface UpdateOptions {
   accountSid?: string;
-  /**
-   * The 34 character sid of the address Twilio should associate with the number. If the number has address restrictions, only another address that satisfies the requirement can replace the existing one.
-   */
   addressSid?: string;
-  /**
-   * Calls to this phone number will start a new TwiML session with this API version. Either `2010-04-01` or `2008-08-01`.
-   */
   apiVersion?: string;
-  /**
-   * The emergency_address_sid
-   */
   emergencyAddressSid?: string;
-  /**
-   * The emergency_status
-   */
-  emergencyStatus?: IncomingPhoneNumberEmergencyStatus;
-  /**
-   * A human readable descriptive text for this resource, up to 64 characters long. By default, the `FriendlyName` is a nicely formatted version of the phone number.
-   */
+  emergencyStatus?: incoming_phone_number.emergency_status;
   friendlyName?: string;
-  /**
-   * The 34 character sid of the identity Twilio should use to associate with the number. Identities are required in some regions to meet local regulations
-   */
   identitySid?: string;
-  /**
-   * The 34 character sid of the application Twilio should use to handle SMSs sent to this number. If a `SmsApplicationSid` is present, Twilio will ignore all of the SMS urls above and use those set on the application instead.
-   */
   smsApplicationSid?: string;
-  /**
-   * The HTTP method that should be used to request the `SmsFallbackUrl`. Either `GET` or `POST`.
-   */
   smsFallbackMethod?: string;
-  /**
-   * A URL that Twilio will request if an error occurs requesting or executing the TwiML defined by `SmsUrl`.
-   */
   smsFallbackUrl?: string;
-  /**
-   * The HTTP method Twilio will use when making requests to the `SmsUrl`. Either `GET` or `POST`.
-   */
   smsMethod?: string;
-  /**
-   * The URL that Twilio should request when somebody sends an SMS to the new phone number.
-   */
   smsUrl?: string;
-  /**
-   * The URL that Twilio will request to pass status parameters (such as call ended) to your application.
-   */
   statusCallback?: string;
-  /**
-   * The HTTP method Twilio will use to make requests to the `StatusCallback` URL. Either `GET` or `POST`.
-   */
   statusCallbackMethod?: string;
-  /**
-   * The 34 character sid of the Trunk Twilio should use to handle phone calls to this number. If a `TrunkSid` is present, Twilio will ignore all of the voice urls  and voice applications above and use those set on the Trunk. Setting a `TrunkSid` will automatically delete your `VoiceApplicationSid` and vice versa.
-   */
   trunkSid?: string;
-  /**
-   * The 34 character sid of the application Twilio should use to handle phone calls to this number. If a `VoiceApplicationSid` is present, Twilio will ignore all of the voice urls above and use those set on the application instead. Setting a `VoiceApplicationSid` will automatically delete your `TrunkSid` and vice versa.
-   */
   voiceApplicationSid?: string;
-  /**
-   * Look up the caller's caller-ID name from the CNAM database ($0.01 per look up). Either `true` or `false`.
-   */
   voiceCallerIdLookup?: boolean;
-  /**
-   * The HTTP method Twilio will use when requesting the `VoiceFallbackUrl`. Either `GET` or `POST`.
-   */
   voiceFallbackMethod?: string;
-  /**
-   * A URL that Twilio will request if an error occurs requesting or executing the TwiML defined by `VoiceUrl`.
-   */
   voiceFallbackUrl?: string;
-  /**
-   * The HTTP method Twilio will use when requesting the above `Url`. Either `GET` or `POST`.
-   */
   voiceMethod?: string;
-  /**
-   * The voice_receive_mode
-   */
-  voiceReceiveMode?: IncomingPhoneNumberVoiceReceiveMode;
-  /**
-   * The URL that Twilio should request when somebody dials the phone number. The VoiceURL will  no longer be used if a `VoiceApplicationSid` or a `TrunkSid` is set.
-   */
+  voiceReceiveMode?: incoming_phone_number.voice_receive_mode;
   voiceUrl?: string;
 }
 
-interface IncomingPhoneNumberListFetchOptions {
-  /**
-   * The unique 34 character id of the account to which you wish to transfer this phone number. See [Exchanging Numbers Between Subaccounts](https://www.twilio.com/docs/iam/api/subaccounts#exchanging-numbers).
-   */
+/**
+ * Options to pass to update
+ *
+ * @property accountSid - The new owner of the phone number
+ * @property apiVersion - The Twilio REST API version to use
+ * @property friendlyName - A human readable description of this resource
+ * @property smsApplicationSid - Unique string that identifies the application
+ * @property smsFallbackMethod - HTTP method used with sms fallback url
+ * @property smsFallbackUrl - URL Twilio will request if an error occurs in executing TwiML
+ * @property smsMethod - HTTP method to use with sms url
+ * @property smsUrl - URL Twilio will request when receiving an SMS
+ * @property statusCallback - URL Twilio will use to pass status parameters
+ * @property statusCallbackMethod - HTTP method twilio will use with status callback
+ * @property voiceApplicationSid - The unique sid of the application to handle this number
+ * @property voiceCallerIdLookup - Look up the caller's caller-ID
+ * @property voiceFallbackMethod - HTTP method used with fallback_url
+ * @property voiceFallbackUrl - URL Twilio will request when an error occurs in TwiML
+ * @property voiceMethod - HTTP method used with the voice url
+ * @property voiceUrl - URL Twilio will request when receiving a call
+ * @property emergencyStatus - The emergency_status
+ * @property emergencyAddressSid - The emergency_address_sid
+ * @property trunkSid - Unique string to identify the trunk
+ * @property voiceReceiveMode - The voice_receive_mode
+ * @property identitySid - Unique string that identifies the identity associated with number
+ * @property addressSid - Unique string that identifies the address associated with number
+ */
+export interface UpdateOptions {
   accountSid?: string;
-  /**
-   * The 34 character sid of the address Twilio should associate with the number. If the number has address restrictions, only another address that satisfies the requirement can replace the existing one.
-   */
   addressSid?: string;
-  /**
-   * Calls to this phone number will start a new TwiML session with this API version. Either `2010-04-01` or `2008-08-01`.
-   */
   apiVersion?: string;
-  /**
-   * The emergency_address_sid
-   */
   emergencyAddressSid?: string;
-  /**
-   * The emergency_status
-   */
-  emergencyStatus?: IncomingPhoneNumberEmergencyStatus;
-  /**
-   * A human readable descriptive text for this resource, up to 64 characters long. By default, the `FriendlyName` is a nicely formatted version of the phone number.
-   */
+  emergencyStatus?: incoming_phone_number.emergency_status;
   friendlyName?: string;
-  /**
-   * The 34 character sid of the identity Twilio should use to associate with the number. Identities are required in some regions to meet local regulations
-   */
   identitySid?: string;
-  /**
-   * The 34 character sid of the application Twilio should use to handle SMSs sent to this number. If a `SmsApplicationSid` is present, Twilio will ignore all of the SMS urls above and use those set on the application instead.
-   */
   smsApplicationSid?: string;
-  /**
-   * The HTTP method that should be used to request the `SmsFallbackUrl`. Either `GET` or `POST`.
-   */
   smsFallbackMethod?: string;
-  /**
-   * A URL that Twilio will request if an error occurs requesting or executing the TwiML defined by `SmsUrl`.
-   */
   smsFallbackUrl?: string;
-  /**
-   * The HTTP method Twilio will use when making requests to the `SmsUrl`. Either `GET` or `POST`.
-   */
   smsMethod?: string;
-  /**
-   * The URL that Twilio should request when somebody sends an SMS to the new phone number.
-   */
   smsUrl?: string;
-  /**
-   * The URL that Twilio will request to pass status parameters (such as call ended) to your application.
-   */
   statusCallback?: string;
-  /**
-   * The HTTP method Twilio will use to make requests to the `StatusCallback` URL. Either `GET` or `POST`.
-   */
   statusCallbackMethod?: string;
-  /**
-   * The 34 character sid of the Trunk Twilio should use to handle phone calls to this number. If a `TrunkSid` is present, Twilio will ignore all of the voice urls  and voice applications above and use those set on the Trunk. Setting a `TrunkSid` will automatically delete your `VoiceApplicationSid` and vice versa.
-   */
   trunkSid?: string;
-  /**
-   * The 34 character sid of the application Twilio should use to handle phone calls to this number. If a `VoiceApplicationSid` is present, Twilio will ignore all of the voice urls above and use those set on the application instead. Setting a `VoiceApplicationSid` will automatically delete your `TrunkSid` and vice versa.
-   */
   voiceApplicationSid?: string;
-  /**
-   * Look up the caller's caller-ID name from the CNAM database ($0.01 per look up). Either `true` or `false`.
-   */
   voiceCallerIdLookup?: boolean;
-  /**
-   * The HTTP method Twilio will use when requesting the `VoiceFallbackUrl`. Either `GET` or `POST`.
-   */
   voiceFallbackMethod?: string;
-  /**
-   * A URL that Twilio will request if an error occurs requesting or executing the TwiML defined by `VoiceUrl`.
-   */
   voiceFallbackUrl?: string;
-  /**
-   * The HTTP method Twilio will use when requesting the above `Url`. Either `GET` or `POST`.
-   */
   voiceMethod?: string;
-  /**
-   * The voice_receive_mode
-   */
-  voiceReceiveMode?: IncomingPhoneNumberVoiceReceiveMode;
-  /**
-   * The URL that Twilio should request when somebody dials the phone number. The VoiceURL will  no longer be used if a `VoiceApplicationSid` or a `TrunkSid` is set.
-   */
+  voiceReceiveMode?: incoming_phone_number.voice_receive_mode;
   voiceUrl?: string;
 }
 
-declare class IncomingPhoneNumberPage extends Page<V2010, IncomingPhoneNumberPayload, IncomingPhoneNumberResource, IncomingPhoneNumberInstance> {
-  constructor(version: V2010, response: Response<string>, solution: IncomingPhoneNumberSolution);
+
+declare class IncomingPhoneNumberPage extends Page {
+  /**
+   * @constructor Twilio.Api.V2010.AccountContext.IncomingPhoneNumberPage
+   * @augments Page
+   * @description Initialize the IncomingPhoneNumberPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Api.V2010, response: object, solution: object);
 
   /**
    * Build an instance of IncomingPhoneNumberInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Api.V2010.AccountContext.IncomingPhoneNumberPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: IncomingPhoneNumberPayload): IncomingPhoneNumberInstance;
+  getInstance(payload: object);
 }
 
-declare class IncomingPhoneNumberInstance extends SerializableClass {
+declare class IncomingPhoneNumberInstance {
   /**
+   * @constructor Twilio.Api.V2010.AccountContext.IncomingPhoneNumberInstance
+   * @description Initialize the IncomingPhoneNumberContext
+   *
+   * @property accountSid - The unique sid that identifies this account
+   * @property addressSid - Unique string that identifies the address associated with number
+   * @property addressRequirements - Indicates if the customer requires an address
+   * @property apiVersion - The Twilio REST API version to use
+   * @property beta - Indicates if the phone number is a beta number
+   * @property capabilities - Indicate if a phone can receive calls or messages
+   * @property dateCreated - The date this resource was created
+   * @property dateUpdated - The date this resource was last updated
+   * @property friendlyName - A human readable description of this resouce
+   * @property identitySid - Unique string that identifies the identity associated with number
+   * @property phoneNumber - The incoming phone number
+   * @property origin - Twilio owned phone numbers are marked as twilio while hosted phone numbers are marked as hosted.
+   * @property sid - A string that uniquely identifies this resource
+   * @property smsApplicationSid - Unique string that identifies the application
+   * @property smsFallbackMethod - HTTP method used with sms fallback url
+   * @property smsFallbackUrl - URL Twilio will request if an error occurs in executing TwiML
+   * @property smsMethod - HTTP method to use with sms url
+   * @property smsUrl - URL Twilio will request when receiving an SMS
+   * @property statusCallback - URL Twilio will use to pass status parameters
+   * @property statusCallbackMethod - HTTP method twilio will use with status callback
+   * @property trunkSid - Unique string to identify the trunk
+   * @property uri - The URI for this resource
+   * @property voiceApplicationSid - The unique sid of the application to handle this number
+   * @property voiceCallerIdLookup - Look up the caller's caller-ID
+   * @property voiceFallbackMethod - HTTP method used with fallback_url
+   * @property voiceFallbackUrl - URL Twilio will request when an error occurs in TwiML
+   * @property voiceMethod - HTTP method used with the voice url
+   * @property voiceUrl - URL Twilio will request when receiving a call
+   * @property emergencyStatus - The emergency_status
+   * @property emergencyAddressSid - The emergency_address_sid
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The account_sid
+   * @param accountSid - The unique sid that identifies this account
    * @param sid - Fetch by unique incoming-phone-number Sid
    */
-  constructor(version: V2010, payload: IncomingPhoneNumberPayload, accountSid: string, sid: string);
+  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, sid: sid);
 
-  private _proxy: IncomingPhoneNumberContext;
+  _proxy?: IncomingPhoneNumberContext;
   /**
-   * The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this phone number.
+   * Access the assignedAddOns
+   *
+   * @function assignedAddOns
+   * @memberof Twilio.Api.V2010.AccountContext.IncomingPhoneNumberInstance
+   * @instance
    */
-  accountSid: string;
-  /**
-   * This indicates whether the phone number requires you or your customer to have an [Address](https://www.twilio.com/docs/usage/api/addresses) registered with Twilio. Possible values are `none`, `any`, `local`, or `foreign`.
-   */
-  addressRequirements: IncomingPhoneNumberAddressRequirement;
-  /**
-   * The 34 character sid of the address Twilio should use to associate with the number. Addresses are required in some regions to meet local regulations
-   */
-  addressSid: string;
-  /**
-   * Calls to this phone number will start a new TwiML session with this API version.
-   */
-  apiVersion: string;
-  assignedAddOns(): AssignedAddOnListInstance;
-  /**
-   * Phone numbers new to the Twilio platform are marked as beta. Possible values are either true or `false`.
-   */
-  beta: boolean;
-  /**
-   * This is a set of boolean properties that indicate whether a phone number can receive calls or messages.  Possible capabilities are  `Voice`, `SMS`, and `MMS` with each having a value of either `true` or `false`.
-   */
-  capabilities: string;
-  /**
-   * The date that this resource was created, given as GMT [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
-   */
-  dateCreated: Date;
-  /**
-   * The date that this resource was last updated, given as GMT [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
-   */
-  dateUpdated: Date;
-  /**
-   * The emergency_address_sid
-   */
-  emergencyAddressSid: string;
-  /**
-   * The emergency_status
-   */
-  emergencyStatus: IncomingPhoneNumberEmergencyStatus;
+  assignedAddOns();
   /**
    * fetch a IncomingPhoneNumberInstance
    *
-   * @returns Promise that resolves to processed IncomingPhoneNumberInstance
-   */
-  fetch(): Promise<IncomingPhoneNumberInstance>;
-  /**
-   * fetch a IncomingPhoneNumberInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.IncomingPhoneNumberInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: IncomingPhoneNumberInstance) => any): void;
-  /**
-   * A human readable descriptive text for this resource, up to 64 characters long. By default, the `FriendlyName` is a nicely formatted version of the phone number.
-   */
-  friendlyName: string;
-  /**
-   * The 34 character sid of the identity Twilio should use to associate with the number. Identities are required in some regions to meet local regulations
-   */
-  identitySid: string;
-  /**
-   * Twilio owned phone numbers are marked as `twilio` while hosted phone numbers are marked as `hosted`.
-   */
-  origin: string;
-  /**
-   * The incoming phone number. e.g., +16175551212 ([E.164](http://en.wikipedia.org/wiki/E.164) format)
-   */
-  phoneNumber: string;
+  fetch(callback?: function);
   /**
    * remove a IncomingPhoneNumberInstance
    *
-   * @returns Promise that resolves to processed IncomingPhoneNumberInstance
-   */
-  remove(): Promise<IncomingPhoneNumberInstance>;
-  /**
-   * remove a IncomingPhoneNumberInstance
+   * @function remove
+   * @memberof Twilio.Api.V2010.AccountContext.IncomingPhoneNumberInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: IncomingPhoneNumberInstance) => any): void;
+  remove(callback?: function);
   /**
-   * A 34 character string that uniquely identifies this resource.
+   * Produce a plain JSON object version of the IncomingPhoneNumberInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Api.V2010.AccountContext.IncomingPhoneNumberInstance
+   * @instance
    */
-  sid: string;
-  /**
-   * The 34 character sid of the application Twilio should use to handle SMSs sent to this number. If a `SmsApplicationSid` is present, Twilio will ignore all of the SMS urls above and use those set on the application.
-   */
-  smsApplicationSid: string;
-  /**
-   * The HTTP method Twilio will use when requesting the above URL. Either `GET` or `POST`.
-   */
-  smsFallbackMethod: string;
-  /**
-   * The URL that Twilio will request if an error occurs retrieving or executing the TwiML from `SmsUrl`.
-   */
-  smsFallbackUrl: string;
-  /**
-   * The HTTP method Twilio will use when making requests to the `SmsUrl`. Either `GET` or `POST`.
-   */
-  smsMethod: string;
-  /**
-   * The URL Twilio will request when receiving an incoming SMS message to this number.
-   */
-  smsUrl: string;
-  /**
-   * The URL that Twilio will request to pass status parameters (such as call ended) to your application.
-   */
-  statusCallback: string;
-  /**
-   * The HTTP method Twilio will use to make requests to the `StatusCallback` URL. Either `GET` or `POST`.
-   */
-  statusCallbackMethod: string;
-  /**
-   * The 34 character sid of the Trunk Twilio should use to handle phone calls to this number. If a `TrunkSid` is present, Twilio will ignore all of the voice urls  and voice applications above and use those set on the Trunk. Setting a `TrunkSid` will automatically delete your `VoiceApplicationSid` and vice versa.
-   */
-  trunkSid: string;
+  toJSON();
   /**
    * update a IncomingPhoneNumberInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Api.V2010.AccountContext.IncomingPhoneNumberInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed IncomingPhoneNumberInstance
-   */
-  update(opts?: IncomingPhoneNumberListFetchOptions): Promise<IncomingPhoneNumberInstance>;
-  /**
-   * update a IncomingPhoneNumberInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: IncomingPhoneNumberListFetchOptions, callback: (error: Error | null, items: IncomingPhoneNumberInstance) => any): void;
-  /**
-   * update a IncomingPhoneNumberInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: IncomingPhoneNumberInstance) => any): void;
-  /**
-   * The URI for this resource, relative to `https://api.twilio.com`.
-   */
-  uri: string;
-  /**
-   * The 34 character sid of the application Twilio should use to handle phone calls to this number. If a `VoiceApplicationSid` is present, Twilio will ignore all of the voice urls above and use those set on the application. Setting a `VoiceApplicationSid` will automatically delete your `TrunkSid` and vice versa.
-   */
-  voiceApplicationSid: string;
-  /**
-   * Look up the caller's caller-ID name from the CNAM database ($0.01 per look up). Either `true` or `false`.
-   */
-  voiceCallerIdLookup: boolean;
-  /**
-   * The HTTP method Twilio will use when requesting the `VoiceFallbackUrl`. Either `GET` or `POST`.
-   */
-  voiceFallbackMethod: string;
-  /**
-   * The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by `Url`.
-   */
-  voiceFallbackUrl: string;
-  /**
-   * The HTTP method Twilio will use when requesting the above `Url`. Either `GET` or `POST`.
-   */
-  voiceMethod: string;
-  /**
-   * The URL Twilio will request when this phone number receives a call. The VoiceURL will  no longer be used if a `VoiceApplicationSid` or a `TrunkSid` is set.
-   */
-  voiceUrl: string;
+  update(opts?: object, callback?: function);
 }
 
 declare class IncomingPhoneNumberContext {
-  constructor(version: V2010, accountSid: string, sid: string);
+  /**
+   * @constructor Twilio.Api.V2010.AccountContext.IncomingPhoneNumberContext
+   * @description Initialize the IncomingPhoneNumberContext
+   *
+   * @property assignedAddOns - assignedAddOns resource
+   *
+   * @param version - Version of the resource
+   * @param accountSid - The account_sid
+   * @param sid - Fetch by unique incoming-phone-number Sid
+   */
+  constructor(version: Twilio.Api.V2010, accountSid: sid, sid: sid);
 
-  assignedAddOns: AssignedAddOnListInstance;
+  assignedAddOns?: Twilio.Api.V2010.AccountContext.IncomingPhoneNumberContext.AssignedAddOnList;
   /**
    * fetch a IncomingPhoneNumberInstance
    *
-   * @returns Promise that resolves to processed IncomingPhoneNumberInstance
-   */
-  fetch(): Promise<IncomingPhoneNumberInstance>;
-  /**
-   * fetch a IncomingPhoneNumberInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.IncomingPhoneNumberContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: IncomingPhoneNumberInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a IncomingPhoneNumberInstance
    *
-   * @returns Promise that resolves to processed IncomingPhoneNumberInstance
-   */
-  remove(): Promise<IncomingPhoneNumberInstance>;
-  /**
-   * remove a IncomingPhoneNumberInstance
+   * @function remove
+   * @memberof Twilio.Api.V2010.AccountContext.IncomingPhoneNumberContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: IncomingPhoneNumberInstance) => any): void;
+  remove(callback?: function);
   /**
    * update a IncomingPhoneNumberInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Api.V2010.AccountContext.IncomingPhoneNumberContext
+   * @instance
    *
-   * @returns Promise that resolves to processed IncomingPhoneNumberInstance
-   */
-  update(opts?: IncomingPhoneNumberListFetchOptions): Promise<IncomingPhoneNumberInstance>;
-  /**
-   * update a IncomingPhoneNumberInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: IncomingPhoneNumberListFetchOptions, callback: (error: Error | null, items: IncomingPhoneNumberInstance) => any): void;
-  /**
-   * update a IncomingPhoneNumberInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: IncomingPhoneNumberInstance) => any): void;
+  update(opts?: object, callback?: function);
 }
 
-export { IncomingPhoneNumberAddressRequirement, IncomingPhoneNumberContext, IncomingPhoneNumberEmergencyStatus, IncomingPhoneNumberInstance, IncomingPhoneNumberList, IncomingPhoneNumberListCreateOptions, IncomingPhoneNumberListEachOptions, IncomingPhoneNumberListFetchOptions, IncomingPhoneNumberListInstance, IncomingPhoneNumberListOptions, IncomingPhoneNumberListPageOptions, IncomingPhoneNumberPage, IncomingPhoneNumberPayload, IncomingPhoneNumberResource, IncomingPhoneNumberSolution, IncomingPhoneNumberVoiceReceiveMode }
+export { IncomingPhoneNumberContext, IncomingPhoneNumberInstance, IncomingPhoneNumberList, IncomingPhoneNumberPage }

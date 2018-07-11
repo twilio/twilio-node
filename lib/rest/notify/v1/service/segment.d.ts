@@ -6,199 +6,64 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V1 = require('../../V1');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { SerializableClass } from '../../../../interfaces';
+import deserialize = require('../../../../base/deserialize');
+import values = require('../../../../base/values');
 
-declare function SegmentList(version: V1, serviceSid: string): SegmentListInstance
 
-interface SegmentResource {
-  /**
-   * The account_sid
-   */
-  account_sid: string;
-  /**
-   * The date_created
-   */
-  date_created: Date;
-  /**
-   * The date_updated
-   */
-  date_updated: Date;
-  /**
-   * The service_sid
-   */
-  service_sid: string;
-  /**
-   * The sid
-   */
-  sid: string;
-  /**
-   * The unique_name
-   */
-  unique_name: string;
-}
 
-interface SegmentPayload extends SegmentResource, Page.TwilioResponsePayload {
-}
-
-interface SegmentSolution {
-  serviceSid: string;
-}
-
-interface SegmentListEachOptions extends ListEachOptions<SegmentInstance> {
-}
-
-interface SegmentListOptions extends ListOptions<SegmentInstance> {
-}
-
-interface SegmentListPageOptions extends PageOptions<SegmentPage> {
-}
-
-interface SegmentListInstance {
+declare class SegmentPage extends Page {
   /**
-   * Streams SegmentInstance records from the API.
+   * @constructor Twilio.Notify.V1.ServiceContext.SegmentPage
+   * @augments Page
+   * @description Initialize the SegmentPage
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  each(opts?: SegmentListEachOptions): void;
-  /**
-   * Streams SegmentInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: SegmentInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Retrieve a single target page of SegmentInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<SegmentPage>;
-  /**
-   * Retrieve a single target page of SegmentInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: SegmentPage) => any): void;
-  /**
-   * Lists SegmentInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: SegmentListOptions): Promise<SegmentInstance[]>;
-  /**
-   * Lists SegmentInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: SegmentListOptions, callback: (error: Error | null, items: SegmentInstance[]) => any): void;
-  /**
-   * Lists SegmentInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: SegmentInstance[]) => any): void;
-  /**
-   * Retrieve a single page of SegmentInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: SegmentListPageOptions): Promise<SegmentPage>;
-  /**
-   * Retrieve a single page of SegmentInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: SegmentListPageOptions, callback: (error: Error | null, items: SegmentPage) => any): void;
-  /**
-   * Retrieve a single page of SegmentInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: SegmentPage) => any): void;
-}
-
-declare class SegmentPage extends Page<V1, SegmentPayload, SegmentResource, SegmentInstance> {
-  constructor(version: V1, response: Response<string>, solution: SegmentSolution);
+  constructor(version: Twilio.Notify.V1, response: object, solution: object);
 
   /**
    * Build an instance of SegmentInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Notify.V1.ServiceContext.SegmentPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: SegmentPayload): SegmentInstance;
+  getInstance(payload: object);
 }
 
-declare class SegmentInstance extends SerializableClass {
+declare class SegmentInstance {
   /**
+   * @constructor Twilio.Notify.V1.ServiceContext.SegmentInstance
+   * @description Initialize the SegmentContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property sid - The sid
+   * @property accountSid - The account_sid
+   * @property serviceSid - The service_sid
+   * @property uniqueName - The unique_name
+   * @property dateCreated - The date_created
+   * @property dateUpdated - The date_updated
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
+   * @param serviceSid - The service_sid
    */
-  constructor(version: V1, payload: SegmentPayload);
+  constructor(version: Twilio.Notify.V1, payload: object, serviceSid: sid);
 
   /**
-   * The account_sid
+   * Produce a plain JSON object version of the SegmentInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Notify.V1.ServiceContext.SegmentInstance
+   * @instance
    */
-  accountSid: string;
-  /**
-   * The date_created
-   */
-  dateCreated: Date;
-  /**
-   * The date_updated
-   */
-  dateUpdated: Date;
-  /**
-   * The service_sid
-   */
-  serviceSid: string;
-  /**
-   * The sid
-   */
-  sid: string;
-  /**
-   * The unique_name
-   */
-  uniqueName: string;
+  toJSON();
 }
 
-export { SegmentInstance, SegmentList, SegmentListEachOptions, SegmentListInstance, SegmentListOptions, SegmentListPageOptions, SegmentPage, SegmentPayload, SegmentResource, SegmentSolution }
+export { SegmentInstance, SegmentList, SegmentPage }

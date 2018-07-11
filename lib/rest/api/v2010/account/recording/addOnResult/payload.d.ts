@@ -6,311 +6,126 @@
  */
 
 import Page = require('../../../../../../base/Page');
-import Response = require('../../../../../../http/response');
-import V2010 = require('../../../../V2010');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../../interfaces';
-import { SerializableClass } from '../../../../../../interfaces';
+import deserialize = require('../../../../../../base/deserialize');
+import values = require('../../../../../../base/values');
 
-declare function PayloadList(version: V2010, accountSid: string, referenceSid: string, addOnResultSid: string): PayloadListInstance
 
-interface PayloadResource {
-  /**
-   * The unique id of the Account responsible for the recording.
-   */
-  account_sid: string;
-  /**
-   * A 34 character string that uniquely identifies the Add-on configuration.
-   */
-  add_on_configuration_sid: string;
-  /**
-   * A 34 character string that uniquely identifies this result to which this payload belongs.
-   */
-  add_on_result_sid: string;
-  /**
-   * A 34 character string that uniquely identifies the Add-on to which this payload belongs.
-   */
-  add_on_sid: string;
-  /**
-   * The MIME type of the payload.
-   */
-  content_type: string;
-  /**
-   * The date that this resource was created, given in RFC 2822 format.
-   */
-  date_created: Date;
-  /**
-   * The date that this resource was last updated, given in RFC 2822 format.
-   */
-  date_updated: Date;
-  /**
-   * A string provided by the vendor that describes the payload.
-   */
-  label: string;
-  /**
-   * A 34 character string that uniquely identifies the recording to which this payload belongs.
-   */
-  reference_sid: string;
-  /**
-   * A 34 character string that uniquely identifies this payload.
-   */
-  sid: string;
-  /**
-   * A dictionary of URIs for related resources
-   */
-  subresource_uris: string;
-}
 
-interface PayloadPayload extends PayloadResource, Page.TwilioResponsePayload {
-}
-
-interface PayloadSolution {
-  accountSid: string;
-  addOnResultSid: string;
-  referenceSid: string;
-}
-
-interface PayloadListEachOptions extends ListEachOptions<PayloadInstance> {
-}
-
-interface PayloadListOptions extends ListOptions<PayloadInstance> {
-}
-
-interface PayloadListPageOptions extends PageOptions<PayloadPage> {
-}
-
-interface PayloadListInstance {
+declare class PayloadPage extends Page {
   /**
-   * Gets context of a single Payload resource
+   * @constructor Twilio.Api.V2010.AccountContext.RecordingContext.AddOnResultContext.PayloadPage
+   * @augments Page
+   * @description Initialize the PayloadPage
    *
-   * @param sid - Fetch by unique payload Sid
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  (sid: string): PayloadContext;
-  /**
-   * Streams PayloadInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: PayloadListEachOptions): void;
-  /**
-   * Streams PayloadInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: PayloadInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Payload resource
-   *
-   * @param sid - Fetch by unique payload Sid
-   */
-  get(sid: string): PayloadContext;
-  /**
-   * Retrieve a single target page of PayloadInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<PayloadPage>;
-  /**
-   * Retrieve a single target page of PayloadInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: PayloadPage) => any): void;
-  /**
-   * Lists PayloadInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: PayloadListOptions): Promise<PayloadInstance[]>;
-  /**
-   * Lists PayloadInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: PayloadListOptions, callback: (error: Error | null, items: PayloadInstance[]) => any): void;
-  /**
-   * Lists PayloadInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: PayloadInstance[]) => any): void;
-  /**
-   * Retrieve a single page of PayloadInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: PayloadListPageOptions): Promise<PayloadPage>;
-  /**
-   * Retrieve a single page of PayloadInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: PayloadListPageOptions, callback: (error: Error | null, items: PayloadPage) => any): void;
-  /**
-   * Retrieve a single page of PayloadInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: PayloadPage) => any): void;
-}
-
-declare class PayloadPage extends Page<V2010, PayloadPayload, PayloadResource, PayloadInstance> {
-  constructor(version: V2010, response: Response<string>, solution: PayloadSolution);
+  constructor(version: Twilio.Api.V2010, response: object, solution: object);
 
   /**
    * Build an instance of PayloadInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Api.V2010.AccountContext.RecordingContext.AddOnResultContext.PayloadPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: PayloadPayload): PayloadInstance;
+  getInstance(payload: object);
 }
 
-declare class PayloadInstance extends SerializableClass {
+declare class PayloadInstance {
   /**
+   * @constructor Twilio.Api.V2010.AccountContext.RecordingContext.AddOnResultContext.PayloadInstance
+   * @description Initialize the PayloadContext
+   *
+   * @property sid - A string that uniquely identifies this payload
+   * @property addOnResultSid - A string that uniquely identifies the result
+   * @property accountSid - The unique sid that identifies this account
+   * @property label - A string that describes the payload.
+   * @property addOnSid - A string that uniquely identifies the Add-on.
+   * @property addOnConfigurationSid - A string that uniquely identifies the Add-on configuration.
+   * @property contentType - The MIME type of the payload.
+   * @property dateCreated - The date this resource was created
+   * @property dateUpdated - The date this resource was last updated
+   * @property referenceSid - A string that uniquely identifies the recording.
+   * @property subresourceUris - A dictionary of URIs for related resources
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
+   * @param accountSid - The unique sid that identifies this account
+   * @param referenceSid - A string that uniquely identifies the recording.
+   * @param addOnResultSid - A string that uniquely identifies the result
+   * @param sid - Fetch by unique payload Sid
+   */
+  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, referenceSid: sid, addOnResultSid: sid, sid: sid);
+
+  _proxy?: PayloadContext;
+  /**
+   * fetch a PayloadInstance
+   *
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.RecordingContext.AddOnResultContext.PayloadInstance
+   * @instance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: function);
+  /**
+   * remove a PayloadInstance
+   *
+   * @function remove
+   * @memberof Twilio.Api.V2010.AccountContext.RecordingContext.AddOnResultContext.PayloadInstance
+   * @instance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: function);
+  /**
+   * Produce a plain JSON object version of the PayloadInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Api.V2010.AccountContext.RecordingContext.AddOnResultContext.PayloadInstance
+   * @instance
+   */
+  toJSON();
+}
+
+declare class PayloadContext {
+  /**
+   * @constructor Twilio.Api.V2010.AccountContext.RecordingContext.AddOnResultContext.PayloadContext
+   * @description Initialize the PayloadContext
+   *
+   * @param version - Version of the resource
    * @param accountSid - The account_sid
    * @param referenceSid - The reference_sid
    * @param addOnResultSid - The add_on_result_sid
    * @param sid - Fetch by unique payload Sid
    */
-  constructor(version: V2010, payload: PayloadPayload, accountSid: string, referenceSid: string, addOnResultSid: string, sid: string);
+  constructor(version: Twilio.Api.V2010, accountSid: sid, referenceSid: sid, addOnResultSid: sid, sid: sid);
 
-  private _proxy: PayloadContext;
-  /**
-   * The unique id of the Account responsible for the recording.
-   */
-  accountSid: string;
-  /**
-   * A 34 character string that uniquely identifies the Add-on configuration.
-   */
-  addOnConfigurationSid: string;
-  /**
-   * A 34 character string that uniquely identifies this result to which this payload belongs.
-   */
-  addOnResultSid: string;
-  /**
-   * A 34 character string that uniquely identifies the Add-on to which this payload belongs.
-   */
-  addOnSid: string;
-  /**
-   * The MIME type of the payload.
-   */
-  contentType: string;
-  /**
-   * The date that this resource was created, given in RFC 2822 format.
-   */
-  dateCreated: Date;
-  /**
-   * The date that this resource was last updated, given in RFC 2822 format.
-   */
-  dateUpdated: Date;
   /**
    * fetch a PayloadInstance
    *
-   * @returns Promise that resolves to processed PayloadInstance
-   */
-  fetch(): Promise<PayloadInstance>;
-  /**
-   * fetch a PayloadInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.RecordingContext.AddOnResultContext.PayloadContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: PayloadInstance) => any): void;
-  /**
-   * A string provided by the vendor that describes the payload.
-   */
-  label: string;
-  /**
-   * A 34 character string that uniquely identifies the recording to which this payload belongs.
-   */
-  referenceSid: string;
+  fetch(callback?: function);
   /**
    * remove a PayloadInstance
    *
-   * @returns Promise that resolves to processed PayloadInstance
-   */
-  remove(): Promise<PayloadInstance>;
-  /**
-   * remove a PayloadInstance
+   * @function remove
+   * @memberof Twilio.Api.V2010.AccountContext.RecordingContext.AddOnResultContext.PayloadContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: PayloadInstance) => any): void;
-  /**
-   * A 34 character string that uniquely identifies this payload.
-   */
-  sid: string;
-  /**
-   * A dictionary of URIs for related resources
-   */
-  subresourceUris: string;
+  remove(callback?: function);
 }
 
-declare class PayloadContext {
-  constructor(version: V2010, accountSid: string, referenceSid: string, addOnResultSid: string, sid: string);
-
-  /**
-   * fetch a PayloadInstance
-   *
-   * @returns Promise that resolves to processed PayloadInstance
-   */
-  fetch(): Promise<PayloadInstance>;
-  /**
-   * fetch a PayloadInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  fetch(callback: (error: Error | null, items: PayloadInstance) => any): void;
-  /**
-   * remove a PayloadInstance
-   *
-   * @returns Promise that resolves to processed PayloadInstance
-   */
-  remove(): Promise<PayloadInstance>;
-  /**
-   * remove a PayloadInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback: (error: Error | null, items: PayloadInstance) => any): void;
-}
-
-export { PayloadContext, PayloadInstance, PayloadList, PayloadListEachOptions, PayloadListInstance, PayloadListOptions, PayloadListPageOptions, PayloadPage, PayloadPayload, PayloadResource, PayloadSolution }
+export { PayloadContext, PayloadInstance, PayloadList, PayloadPage }

@@ -6,229 +6,61 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V1 = require('../../V1');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { SerializableClass } from '../../../../interfaces';
+import serialize = require('../../../../base/serialize');
+import values = require('../../../../base/values');
 
-declare function UsageRecordList(version: V1, simSid: string): UsageRecordListInstance
 
-type UsageRecordGranularity = 'hourly'|'daily'|'all';
 
-interface UsageRecordResource {
+declare class UsageRecordPage extends Page {
   /**
-   * The unique id of the [Account](https://www.twilio.com/docs/api/rest/account) that the SIM belongs to.
-   */
-  account_sid: string;
-  /**
-   * An object representing the Commands usage for the SIM over the period. See [Commands Usage Object](https://www.twilio.com/docs/api/wireless/rest-api/sim-usage-records#commands-usage-object) below.
-   */
-  commands: string;
-  /**
-   * An object representing the Data usage for the SIM over the period. See [Data Usage Object](https://www.twilio.com/docs/api/wireless/rest-api/sim-usage-records#data-usage-object) below.
-   */
-  data: string;
-  /**
-   * The time period for which usage is reported. Contains `start` and `end` properties representing a start and end date given as GMT in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
-   */
-  period: string;
-  /**
-   * The unique id of the [SIM](https://www.twilio.com/docs/api/wireless/rest-api/sim) resource that this Usage Record is for.
-   */
-  sim_sid: string;
-}
-
-interface UsageRecordPayload extends UsageRecordResource, Page.TwilioResponsePayload {
-}
-
-interface UsageRecordSolution {
-  simSid: string;
-}
-
-interface UsageRecordListEachOptions extends ListEachOptions<UsageRecordInstance> {
-  /**
-   * Only include usage that has occurred on or before this date. Format is [ISO 8601](http://www.iso.org/iso/home/standards/iso8601.htm).
-   */
-  end?: Date;
-  /**
-   * The time-based grouping that results are aggregated by. Valid values are `daily`, `hourly`, `all`. `all` will return one Usage Record for the entire period.
-   */
-  granularity?: UsageRecordGranularity;
-  /**
-   * Only include usage that has occurred on or after this date. Format is [ISO 8601](http://www.iso.org/iso/home/standards/iso8601.htm).
-   */
-  start?: Date;
-}
-
-interface UsageRecordListOptions extends ListOptions<UsageRecordInstance> {
-  /**
-   * Only include usage that has occurred on or before this date. Format is [ISO 8601](http://www.iso.org/iso/home/standards/iso8601.htm).
-   */
-  end?: Date;
-  /**
-   * The time-based grouping that results are aggregated by. Valid values are `daily`, `hourly`, `all`. `all` will return one Usage Record for the entire period.
-   */
-  granularity?: UsageRecordGranularity;
-  /**
-   * Only include usage that has occurred on or after this date. Format is [ISO 8601](http://www.iso.org/iso/home/standards/iso8601.htm).
-   */
-  start?: Date;
-}
-
-interface UsageRecordListPageOptions extends PageOptions<UsageRecordPage> {
-  /**
-   * Only include usage that has occurred on or before this date. Format is [ISO 8601](http://www.iso.org/iso/home/standards/iso8601.htm).
-   */
-  end?: Date;
-  /**
-   * The time-based grouping that results are aggregated by. Valid values are `daily`, `hourly`, `all`. `all` will return one Usage Record for the entire period.
-   */
-  granularity?: UsageRecordGranularity;
-  /**
-   * Only include usage that has occurred on or after this date. Format is [ISO 8601](http://www.iso.org/iso/home/standards/iso8601.htm).
-   */
-  start?: Date;
-}
-
-interface UsageRecordListInstance {
-  /**
-   * Streams UsageRecordInstance records from the API.
+   * @constructor Twilio.Wireless.V1.SimContext.UsageRecordPage
+   * @augments Page
+   * @description Initialize the UsageRecordPage
    *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  each(opts?: UsageRecordListEachOptions): void;
-  /**
-   * Streams UsageRecordInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: UsageRecordInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Retrieve a single target page of UsageRecordInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<UsageRecordPage>;
-  /**
-   * Retrieve a single target page of UsageRecordInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: UsageRecordPage) => any): void;
-  /**
-   * Lists UsageRecordInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: UsageRecordListOptions): Promise<UsageRecordInstance[]>;
-  /**
-   * Lists UsageRecordInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: UsageRecordListOptions, callback: (error: Error | null, items: UsageRecordInstance[]) => any): void;
-  /**
-   * Lists UsageRecordInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: UsageRecordInstance[]) => any): void;
-  /**
-   * Retrieve a single page of UsageRecordInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: UsageRecordListPageOptions): Promise<UsageRecordPage>;
-  /**
-   * Retrieve a single page of UsageRecordInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: UsageRecordListPageOptions, callback: (error: Error | null, items: UsageRecordPage) => any): void;
-  /**
-   * Retrieve a single page of UsageRecordInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: UsageRecordPage) => any): void;
-}
-
-declare class UsageRecordPage extends Page<V1, UsageRecordPayload, UsageRecordResource, UsageRecordInstance> {
-  constructor(version: V1, response: Response<string>, solution: UsageRecordSolution);
+  constructor(version: Twilio.Wireless.V1, response: object, solution: object);
 
   /**
    * Build an instance of UsageRecordInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Wireless.V1.SimContext.UsageRecordPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: UsageRecordPayload): UsageRecordInstance;
+  getInstance(payload: object);
 }
 
-declare class UsageRecordInstance extends SerializableClass {
+declare class UsageRecordInstance {
   /**
+   * @constructor Twilio.Wireless.V1.SimContext.UsageRecordInstance
+   * @description Initialize the UsageRecordContext
+   *
+   * @property simSid - The unique id of the SIM resource that this Usage Record is for.
+   * @property accountSid - The unique id of the Account that the SIM belongs to.
+   * @property period - The time period for which usage is reported.
+   * @property commands - An object representing the Commands usage for the SIM over the period.
+   * @property data - An object representing the Data usage for the SIM over the period.
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
+   * @param simSid - The unique id of the SIM resource that this Usage Record is for.
    */
-  constructor(version: V1, payload: UsageRecordPayload);
+  constructor(version: Twilio.Wireless.V1, payload: object, simSid: sid_like);
 
   /**
-   * The unique id of the [Account](https://www.twilio.com/docs/api/rest/account) that the SIM belongs to.
+   * Produce a plain JSON object version of the UsageRecordInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Wireless.V1.SimContext.UsageRecordInstance
+   * @instance
    */
-  accountSid: string;
-  /**
-   * An object representing the Commands usage for the SIM over the period. See [Commands Usage Object](https://www.twilio.com/docs/api/wireless/rest-api/sim-usage-records#commands-usage-object) below.
-   */
-  commands: string;
-  /**
-   * An object representing the Data usage for the SIM over the period. See [Data Usage Object](https://www.twilio.com/docs/api/wireless/rest-api/sim-usage-records#data-usage-object) below.
-   */
-  data: string;
-  /**
-   * The time period for which usage is reported. Contains `start` and `end` properties representing a start and end date given as GMT in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
-   */
-  period: string;
-  /**
-   * The unique id of the [SIM](https://www.twilio.com/docs/api/wireless/rest-api/sim) resource that this Usage Record is for.
-   */
-  simSid: string;
+  toJSON();
 }
 
-export { UsageRecordGranularity, UsageRecordInstance, UsageRecordList, UsageRecordListEachOptions, UsageRecordListInstance, UsageRecordListOptions, UsageRecordListPageOptions, UsageRecordPage, UsageRecordPayload, UsageRecordResource, UsageRecordSolution }
+export { UsageRecordInstance, UsageRecordList, UsageRecordPage }

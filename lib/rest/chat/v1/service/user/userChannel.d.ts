@@ -6,218 +6,65 @@
  */
 
 import Page = require('../../../../../base/Page');
-import Response = require('../../../../../http/response');
-import V1 = require('../../../V1');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../interfaces';
-import { SerializableClass } from '../../../../../interfaces';
+import deserialize = require('../../../../../base/deserialize');
+import values = require('../../../../../base/values');
 
-declare function UserChannelList(version: V1, serviceSid: string, userSid: string): UserChannelListInstance
 
-type UserChannelChannelStatus = 'joined'|'invited'|'not_participating';
 
-interface UserChannelResource {
+declare class UserChannelPage extends Page {
   /**
-   * The account_sid
+   * @constructor Twilio.Chat.V1.ServiceContext.UserContext.UserChannelPage
+   * @augments Page
+   * @description Initialize the UserChannelPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  account_sid: string;
-  /**
-   * The channel_sid
-   */
-  channel_sid: string;
-  /**
-   * The last_consumed_message_index
-   */
-  last_consumed_message_index: number;
-  /**
-   * The links
-   */
-  links: string;
-  /**
-   * The member_sid
-   */
-  member_sid: string;
-  /**
-   * The service_sid
-   */
-  service_sid: string;
-  /**
-   * The status
-   */
-  status: UserChannelChannelStatus;
-  /**
-   * The unread_messages_count
-   */
-  unread_messages_count: number;
-}
-
-interface UserChannelPayload extends UserChannelResource, Page.TwilioResponsePayload {
-}
-
-interface UserChannelSolution {
-  serviceSid: string;
-  userSid: string;
-}
-
-interface UserChannelListEachOptions extends ListEachOptions<UserChannelInstance> {
-}
-
-interface UserChannelListOptions extends ListOptions<UserChannelInstance> {
-}
-
-interface UserChannelListPageOptions extends PageOptions<UserChannelPage> {
-}
-
-interface UserChannelListInstance {
-  /**
-   * Streams UserChannelInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: UserChannelListEachOptions): void;
-  /**
-   * Streams UserChannelInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: UserChannelInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Retrieve a single target page of UserChannelInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<UserChannelPage>;
-  /**
-   * Retrieve a single target page of UserChannelInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: UserChannelPage) => any): void;
-  /**
-   * Lists UserChannelInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: UserChannelListOptions): Promise<UserChannelInstance[]>;
-  /**
-   * Lists UserChannelInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: UserChannelListOptions, callback: (error: Error | null, items: UserChannelInstance[]) => any): void;
-  /**
-   * Lists UserChannelInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: UserChannelInstance[]) => any): void;
-  /**
-   * Retrieve a single page of UserChannelInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: UserChannelListPageOptions): Promise<UserChannelPage>;
-  /**
-   * Retrieve a single page of UserChannelInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: UserChannelListPageOptions, callback: (error: Error | null, items: UserChannelPage) => any): void;
-  /**
-   * Retrieve a single page of UserChannelInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: UserChannelPage) => any): void;
-}
-
-declare class UserChannelPage extends Page<V1, UserChannelPayload, UserChannelResource, UserChannelInstance> {
-  constructor(version: V1, response: Response<string>, solution: UserChannelSolution);
+  constructor(version: Twilio.Chat.V1, response: object, solution: object);
 
   /**
    * Build an instance of UserChannelInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Chat.V1.ServiceContext.UserContext.UserChannelPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: UserChannelPayload): UserChannelInstance;
+  getInstance(payload: object);
 }
 
-declare class UserChannelInstance extends SerializableClass {
+declare class UserChannelInstance {
   /**
+   * @constructor Twilio.Chat.V1.ServiceContext.UserContext.UserChannelInstance
+   * @description Initialize the UserChannelContext
+   *
+   * @property accountSid - The account_sid
+   * @property serviceSid - The service_sid
+   * @property channelSid - The channel_sid
+   * @property memberSid - The member_sid
+   * @property status - The status
+   * @property lastConsumedMessageIndex - The last_consumed_message_index
+   * @property unreadMessagesCount - The unread_messages_count
+   * @property links - The links
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
+   * @param serviceSid - The service_sid
+   * @param userSid - A 34 character string that uniquely identifies this resource.
    */
-  constructor(version: V1, payload: UserChannelPayload);
+  constructor(version: Twilio.Chat.V1, payload: object, serviceSid: sid, userSid: sid);
 
   /**
-   * The account_sid
+   * Produce a plain JSON object version of the UserChannelInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Chat.V1.ServiceContext.UserContext.UserChannelInstance
+   * @instance
    */
-  accountSid: string;
-  /**
-   * The channel_sid
-   */
-  channelSid: string;
-  /**
-   * The last_consumed_message_index
-   */
-  lastConsumedMessageIndex: number;
-  /**
-   * The links
-   */
-  links: string;
-  /**
-   * The member_sid
-   */
-  memberSid: string;
-  /**
-   * The service_sid
-   */
-  serviceSid: string;
-  /**
-   * The status
-   */
-  status: UserChannelChannelStatus;
-  /**
-   * The unread_messages_count
-   */
-  unreadMessagesCount: number;
+  toJSON();
 }
 
-export { UserChannelChannelStatus, UserChannelInstance, UserChannelList, UserChannelListEachOptions, UserChannelListInstance, UserChannelListOptions, UserChannelListPageOptions, UserChannelPage, UserChannelPayload, UserChannelResource, UserChannelSolution }
+export { UserChannelInstance, UserChannelList, UserChannelPage }

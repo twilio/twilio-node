@@ -6,194 +6,124 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import Wireless = require('../../Wireless');
-import { SerializableClass } from '../../../../interfaces';
+import values = require('../../../../base/values');
 
-declare function UsageList(version: Wireless, simSid: string): UsageListInstance
 
-interface UsageResource {
-  /**
-   * The account_sid
-   */
-  account_sid: string;
-  /**
-   * The commands_costs
-   */
-  commands_costs: string;
-  /**
-   * The commands_usage
-   */
-  commands_usage: string;
-  /**
-   * The data_costs
-   */
-  data_costs: string;
-  /**
-   * The data_usage
-   */
-  data_usage: string;
-  /**
-   * The period
-   */
-  period: string;
-  /**
-   * The sim_sid
-   */
-  sim_sid: string;
-  /**
-   * The sim_unique_name
-   */
-  sim_unique_name: string;
-  /**
-   * The url
-   */
-  url: string;
-}
-
-interface UsagePayload extends UsageResource, Page.TwilioResponsePayload {
-}
-
-interface UsageSolution {
-  simSid: string;
-}
-
-interface UsageListInstance {
-  /**
-   * Gets context of a single Usage resource
-   */
-  (): UsageContext;
-  /**
-   * Gets context of a single Usage resource
-   */
-  get(): UsageContext;
-}
-
-interface UsageListFetchOptions {
-  /**
-   * The end
-   */
+/**
+ * Options to pass to fetch
+ *
+ * @property end - The end
+ * @property start - The start
+ */
+export interface FetchOptions {
   end?: string;
-  /**
-   * The start
-   */
   start?: string;
 }
 
-interface UsageListFetchOptions {
-  /**
-   * The end
-   */
+/**
+ * Options to pass to fetch
+ *
+ * @property end - The end
+ * @property start - The start
+ */
+export interface FetchOptions {
   end?: string;
-  /**
-   * The start
-   */
   start?: string;
 }
 
-declare class UsagePage extends Page<Wireless, UsagePayload, UsageResource, UsageInstance> {
-  constructor(version: Wireless, response: Response<string>, solution: UsageSolution);
+
+declare class UsagePage extends Page {
+  /**
+   * @constructor Twilio.Preview.Wireless.SimContext.UsagePage
+   * @augments Page
+   * @description Initialize the UsagePage
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Preview.Wireless, response: object, solution: object);
 
   /**
    * Build an instance of UsageInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Preview.Wireless.SimContext.UsagePage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: UsagePayload): UsageInstance;
+  getInstance(payload: object);
 }
 
-declare class UsageInstance extends SerializableClass {
+declare class UsageInstance {
   /**
+   * @constructor Twilio.Preview.Wireless.SimContext.UsageInstance
+   * @description Initialize the UsageContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property simSid - The sim_sid
+   * @property simUniqueName - The sim_unique_name
+   * @property accountSid - The account_sid
+   * @property period - The period
+   * @property commandsUsage - The commands_usage
+   * @property commandsCosts - The commands_costs
+   * @property dataUsage - The data_usage
+   * @property dataCosts - The data_costs
+   * @property url - The url
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param simSid - The sim_sid
    */
-  constructor(version: Wireless, payload: UsagePayload, simSid: string);
+  constructor(version: Twilio.Preview.Wireless, payload: object, simSid: sid);
 
-  private _proxy: UsageContext;
-  /**
-   * The account_sid
-   */
-  accountSid: string;
-  /**
-   * The commands_costs
-   */
-  commandsCosts: string;
-  /**
-   * The commands_usage
-   */
-  commandsUsage: string;
-  /**
-   * The data_costs
-   */
-  dataCosts: string;
-  /**
-   * The data_usage
-   */
-  dataUsage: string;
+  _proxy?: UsageContext;
   /**
    * fetch a UsageInstance
    *
-   * @param opts - Options for request
+   * @function fetch
+   * @memberof Twilio.Preview.Wireless.SimContext.UsageInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed UsageInstance
-   */
-  fetch(opts?: UsageListFetchOptions): Promise<UsageInstance>;
-  /**
-   * fetch a UsageInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  fetch(opts: UsageListFetchOptions, callback: (error: Error | null, items: UsageInstance) => any): void;
+  fetch(opts?: object, callback?: function);
   /**
-   * fetch a UsageInstance
+   * Produce a plain JSON object version of the UsageInstance for serialization.
+   * Removes any circular references in the object.
    *
-   * @param callback - Callback to handle processed record
+   * @function toJSON
+   * @memberof Twilio.Preview.Wireless.SimContext.UsageInstance
+   * @instance
    */
-  fetch(callback: (error: Error | null, items: UsageInstance) => any): void;
-  /**
-   * The period
-   */
-  period: string;
-  /**
-   * The sim_sid
-   */
-  simSid: string;
-  /**
-   * The sim_unique_name
-   */
-  simUniqueName: string;
-  /**
-   * The url
-   */
-  url: string;
+  toJSON();
 }
 
 declare class UsageContext {
-  constructor(version: Wireless, simSid: string);
+  /**
+   * @constructor Twilio.Preview.Wireless.SimContext.UsageContext
+   * @description Initialize the UsageContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @param version - Version of the resource
+   * @param simSid - The sim_sid
+   */
+  constructor(version: Twilio.Preview.Wireless, simSid: sid_like);
 
   /**
    * fetch a UsageInstance
    *
-   * @param opts - Options for request
+   * @function fetch
+   * @memberof Twilio.Preview.Wireless.SimContext.UsageContext
+   * @instance
    *
-   * @returns Promise that resolves to processed UsageInstance
-   */
-  fetch(opts?: UsageListFetchOptions): Promise<UsageInstance>;
-  /**
-   * fetch a UsageInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  fetch(opts: UsageListFetchOptions, callback: (error: Error | null, items: UsageInstance) => any): void;
-  /**
-   * fetch a UsageInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  fetch(callback: (error: Error | null, items: UsageInstance) => any): void;
+  fetch(opts?: object, callback?: function);
 }
 
-export { UsageContext, UsageInstance, UsageList, UsageListFetchOptions, UsageListInstance, UsagePage, UsagePayload, UsageResource, UsageSolution }
+export { UsageContext, UsageInstance, UsageList, UsagePage }

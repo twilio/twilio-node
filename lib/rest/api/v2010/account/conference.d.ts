@@ -6,405 +6,173 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V2010 = require('../../V2010');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { ParticipantListInstance } from './conference/participant';
-import { RecordingListInstance } from './conference/recording';
-import { SerializableClass } from '../../../../interfaces';
+import deserialize = require('../../../../base/deserialize');
+import serialize = require('../../../../base/serialize');
+import values = require('../../../../base/values');
+import { ParticipantList } from './conference/participant';
+import { RecordingList } from './conference/recording';
 
-declare function ConferenceList(version: V2010, accountSid: string): ConferenceListInstance
 
-type ConferenceStatus = 'init'|'in-progress'|'completed';
-
-type ConferenceUpdateStatus = 'completed';
-
-interface ConferenceResource {
-  /**
-   * The unique id of the [Account](https://www.twilio.com/docs/api/rest/account) responsible for creating this conference.
-   */
-  account_sid: string;
-  /**
-   * The api_version
-   */
-  api_version: string;
-  /**
-   * The date that this conference was created, given as GMT in [RFC 2822](http://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-   */
-  date_created: Date;
-  /**
-   * The date that this conference was last updated, given as GMT in [RFC 2822](http://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-   */
-  date_updated: Date;
-  /**
-   * A user provided string that identifies this conference room.
-   */
-  friendly_name: string;
-  /**
-   * A string representing the Twilio Region where the conference audio was mixed. May be `us1`, `us2`, `ie1`,  `de1`, `sg1`, `br1`, `au1`, and `jp1`. Basic conference audio will always be mixed in `us1`. Global Conference audio will be mixed nearest to the majority of participants.
-   */
-  region: string;
-  /**
-   * A 34 character string that uniquely identifies this conference.
-   */
-  sid: string;
-  /**
-   * A string representing the status of the conference. May be `init`, `in-progress`, or `completed`.
-   */
-  status: ConferenceStatus;
-  /**
-   * The subresource_uris
-   */
-  subresource_uris: string;
-  /**
-   * The URI for this resource, relative to `https://api.twilio.com`.
-   */
-  uri: string;
-}
-
-interface ConferencePayload extends ConferenceResource, Page.TwilioResponsePayload {
-}
-
-interface ConferenceSolution {
-  accountSid: string;
-}
-
-interface ConferenceListEachOptions extends ListEachOptions<ConferenceInstance> {
-  /**
-   * Only show conferences that started on this date, given as `YYYY-MM-DD`. You can also specify inequality – for conferences that started at or before midnight on a date use  `DateCreated<=YYYY-MM-DD`, or specify  conferences that started at or after midnight on a date with `DateCreated>=YYYY-MM-DD`.
-   */
-  dateCreated?: Date;
-  /**
-   * Only show conferences that were last updated on this date, given as `YYYY-MM-DD`. You can also specify inequality – for conferences that were last updated at or before midnight on a date use `DateUpdated<=YYYY-MM-DD`, or specify conferences updated at or after midnight on a given date with   `DateUpdated>=YYYY-MM-DD`.
-   */
-  dateUpdated?: Date;
-  /**
-   * Only show results who's friendly name exactly matches the string
-   */
-  friendlyName?: string;
-  /**
-   * A string representing the status of the conference. May be `init`, `in-progress`, or `completed`.
-   */
-  status?: ConferenceStatus;
-}
-
-interface ConferenceListOptions extends ListOptions<ConferenceInstance> {
-  /**
-   * Only show conferences that started on this date, given as `YYYY-MM-DD`. You can also specify inequality – for conferences that started at or before midnight on a date use  `DateCreated<=YYYY-MM-DD`, or specify  conferences that started at or after midnight on a date with `DateCreated>=YYYY-MM-DD`.
-   */
-  dateCreated?: Date;
-  /**
-   * Only show conferences that were last updated on this date, given as `YYYY-MM-DD`. You can also specify inequality – for conferences that were last updated at or before midnight on a date use `DateUpdated<=YYYY-MM-DD`, or specify conferences updated at or after midnight on a given date with   `DateUpdated>=YYYY-MM-DD`.
-   */
-  dateUpdated?: Date;
-  /**
-   * Only show results who's friendly name exactly matches the string
-   */
-  friendlyName?: string;
-  /**
-   * A string representing the status of the conference. May be `init`, `in-progress`, or `completed`.
-   */
-  status?: ConferenceStatus;
-}
-
-interface ConferenceListPageOptions extends PageOptions<ConferencePage> {
-  /**
-   * Only show conferences that started on this date, given as `YYYY-MM-DD`. You can also specify inequality – for conferences that started at or before midnight on a date use  `DateCreated<=YYYY-MM-DD`, or specify  conferences that started at or after midnight on a date with `DateCreated>=YYYY-MM-DD`.
-   */
-  dateCreated?: Date;
-  /**
-   * Only show conferences that were last updated on this date, given as `YYYY-MM-DD`. You can also specify inequality – for conferences that were last updated at or before midnight on a date use `DateUpdated<=YYYY-MM-DD`, or specify conferences updated at or after midnight on a given date with   `DateUpdated>=YYYY-MM-DD`.
-   */
-  dateUpdated?: Date;
-  /**
-   * Only show results who's friendly name exactly matches the string
-   */
-  friendlyName?: string;
-  /**
-   * A string representing the status of the conference. May be `init`, `in-progress`, or `completed`.
-   */
-  status?: ConferenceStatus;
-}
-
-interface ConferenceListInstance {
-  /**
-   * Gets context of a single Conference resource
-   *
-   * @param sid - Fetch by unique conference Sid
-   */
-  (sid: string): ConferenceContext;
-  /**
-   * Streams ConferenceInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: ConferenceListEachOptions): void;
-  /**
-   * Streams ConferenceInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: ConferenceInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Conference resource
-   *
-   * @param sid - Fetch by unique conference Sid
-   */
-  get(sid: string): ConferenceContext;
-  /**
-   * Retrieve a single target page of ConferenceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<ConferencePage>;
-  /**
-   * Retrieve a single target page of ConferenceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: ConferencePage) => any): void;
-  /**
-   * Lists ConferenceInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: ConferenceListOptions): Promise<ConferenceInstance[]>;
-  /**
-   * Lists ConferenceInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: ConferenceListOptions, callback: (error: Error | null, items: ConferenceInstance[]) => any): void;
-  /**
-   * Lists ConferenceInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: ConferenceInstance[]) => any): void;
-  /**
-   * Retrieve a single page of ConferenceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: ConferenceListPageOptions): Promise<ConferencePage>;
-  /**
-   * Retrieve a single page of ConferenceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: ConferenceListPageOptions, callback: (error: Error | null, items: ConferencePage) => any): void;
-  /**
-   * Retrieve a single page of ConferenceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: ConferencePage) => any): void;
-}
-
-interface ConferenceListFetchOptions {
-  /**
-   * Specify GET or POST, defaults to POST
-   */
+/**
+ * Options to pass to update
+ *
+ * @property status - Specifying completed will end the conference and kick all participants
+ * @property announceUrl - The 'AnnounceUrl' attribute lets you specify a URL for announcing something into a conference.
+ * @property announceMethod - Specify GET or POST, defaults to POST
+ */
+export interface UpdateOptions {
   announceMethod?: string;
-  /**
-   * The 'AnnounceUrl' attribute lets you specify a URL for announcing something into a conference. The URL may return an MP3, a WAV or a TwiML document with `<Play>` or `<Say>`.
-   */
   announceUrl?: string;
-  /**
-   * Specifying `completed` will end the conference and kick all participants
-   */
-  status?: ConferenceUpdateStatus;
+  status?: conference.update_status;
 }
 
-interface ConferenceListFetchOptions {
-  /**
-   * Specify GET or POST, defaults to POST
-   */
+/**
+ * Options to pass to update
+ *
+ * @property status - Specifying completed will end the conference and kick all participants
+ * @property announceUrl - The 'AnnounceUrl' attribute lets you specify a URL for announcing something into a conference.
+ * @property announceMethod - Specify GET or POST, defaults to POST
+ */
+export interface UpdateOptions {
   announceMethod?: string;
-  /**
-   * The 'AnnounceUrl' attribute lets you specify a URL for announcing something into a conference. The URL may return an MP3, a WAV or a TwiML document with `<Play>` or `<Say>`.
-   */
   announceUrl?: string;
-  /**
-   * Specifying `completed` will end the conference and kick all participants
-   */
-  status?: ConferenceUpdateStatus;
+  status?: conference.update_status;
 }
 
-declare class ConferencePage extends Page<V2010, ConferencePayload, ConferenceResource, ConferenceInstance> {
-  constructor(version: V2010, response: Response<string>, solution: ConferenceSolution);
+
+declare class ConferencePage extends Page {
+  /**
+   * @constructor Twilio.Api.V2010.AccountContext.ConferencePage
+   * @augments Page
+   * @description Initialize the ConferencePage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Api.V2010, response: object, solution: object);
 
   /**
    * Build an instance of ConferenceInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Api.V2010.AccountContext.ConferencePage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: ConferencePayload): ConferenceInstance;
+  getInstance(payload: object);
 }
 
-declare class ConferenceInstance extends SerializableClass {
+declare class ConferenceInstance {
   /**
+   * @constructor Twilio.Api.V2010.AccountContext.ConferenceInstance
+   * @description Initialize the ConferenceContext
+   *
+   * @property accountSid - The unique sid that identifies this account
+   * @property dateCreated - The date this resource was created
+   * @property dateUpdated - The date this resource was last updated
+   * @property apiVersion - The api_version
+   * @property friendlyName - A human readable description of this resource
+   * @property region - A string representing the Twilio Region where the conference was mixed.
+   * @property sid - A string that uniquely identifies this conference
+   * @property status - The status of the conference
+   * @property uri - The URI for this resource
+   * @property subresourceUris - The subresource_uris
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The account_sid
+   * @param accountSid - The unique sid that identifies this account
    * @param sid - Fetch by unique conference Sid
    */
-  constructor(version: V2010, payload: ConferencePayload, accountSid: string, sid: string);
+  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, sid: sid);
 
-  private _proxy: ConferenceContext;
-  /**
-   * The unique id of the [Account](https://www.twilio.com/docs/api/rest/account) responsible for creating this conference.
-   */
-  accountSid: string;
-  /**
-   * The api_version
-   */
-  apiVersion: string;
-  /**
-   * The date that this conference was created, given as GMT in [RFC 2822](http://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-   */
-  dateCreated: Date;
-  /**
-   * The date that this conference was last updated, given as GMT in [RFC 2822](http://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-   */
-  dateUpdated: Date;
+  _proxy?: ConferenceContext;
   /**
    * fetch a ConferenceInstance
    *
-   * @returns Promise that resolves to processed ConferenceInstance
-   */
-  fetch(): Promise<ConferenceInstance>;
-  /**
-   * fetch a ConferenceInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.ConferenceInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: ConferenceInstance) => any): void;
+  fetch(callback?: function);
   /**
-   * A user provided string that identifies this conference room.
+   * Access the participants
+   *
+   * @function participants
+   * @memberof Twilio.Api.V2010.AccountContext.ConferenceInstance
+   * @instance
    */
-  friendlyName: string;
-  participants(): ParticipantListInstance;
-  recordings(): RecordingListInstance;
+  participants();
   /**
-   * A string representing the Twilio Region where the conference audio was mixed. May be `us1`, `us2`, `ie1`,  `de1`, `sg1`, `br1`, `au1`, and `jp1`. Basic conference audio will always be mixed in `us1`. Global Conference audio will be mixed nearest to the majority of participants.
+   * Access the recordings
+   *
+   * @function recordings
+   * @memberof Twilio.Api.V2010.AccountContext.ConferenceInstance
+   * @instance
    */
-  region: string;
+  recordings();
   /**
-   * A 34 character string that uniquely identifies this conference.
+   * Produce a plain JSON object version of the ConferenceInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Api.V2010.AccountContext.ConferenceInstance
+   * @instance
    */
-  sid: string;
-  /**
-   * A string representing the status of the conference. May be `init`, `in-progress`, or `completed`.
-   */
-  status: ConferenceStatus;
-  /**
-   * The subresource_uris
-   */
-  subresourceUris: string;
+  toJSON();
   /**
    * update a ConferenceInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Api.V2010.AccountContext.ConferenceInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed ConferenceInstance
-   */
-  update(opts?: ConferenceListFetchOptions): Promise<ConferenceInstance>;
-  /**
-   * update a ConferenceInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: ConferenceListFetchOptions, callback: (error: Error | null, items: ConferenceInstance) => any): void;
-  /**
-   * update a ConferenceInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: ConferenceInstance) => any): void;
-  /**
-   * The URI for this resource, relative to `https://api.twilio.com`.
-   */
-  uri: string;
+  update(opts?: object, callback?: function);
 }
 
 declare class ConferenceContext {
-  constructor(version: V2010, accountSid: string, sid: string);
+  /**
+   * @constructor Twilio.Api.V2010.AccountContext.ConferenceContext
+   * @description Initialize the ConferenceContext
+   *
+   * @property participants - participants resource
+   * @property recordings - recordings resource
+   *
+   * @param version - Version of the resource
+   * @param accountSid - The account_sid
+   * @param sid - Fetch by unique conference Sid
+   */
+  constructor(version: Twilio.Api.V2010, accountSid: sid, sid: sid);
 
   /**
    * fetch a ConferenceInstance
    *
-   * @returns Promise that resolves to processed ConferenceInstance
-   */
-  fetch(): Promise<ConferenceInstance>;
-  /**
-   * fetch a ConferenceInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.ConferenceContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: ConferenceInstance) => any): void;
-  participants: ParticipantListInstance;
-  recordings: RecordingListInstance;
+  fetch(callback?: function);
+  participants?: Twilio.Api.V2010.AccountContext.ConferenceContext.ParticipantList;
+  recordings?: Twilio.Api.V2010.AccountContext.ConferenceContext.RecordingList;
   /**
    * update a ConferenceInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Api.V2010.AccountContext.ConferenceContext
+   * @instance
    *
-   * @returns Promise that resolves to processed ConferenceInstance
-   */
-  update(opts?: ConferenceListFetchOptions): Promise<ConferenceInstance>;
-  /**
-   * update a ConferenceInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: ConferenceListFetchOptions, callback: (error: Error | null, items: ConferenceInstance) => any): void;
-  /**
-   * update a ConferenceInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: ConferenceInstance) => any): void;
+  update(opts?: object, callback?: function);
 }
 
-export { ConferenceContext, ConferenceInstance, ConferenceList, ConferenceListEachOptions, ConferenceListFetchOptions, ConferenceListInstance, ConferenceListOptions, ConferenceListPageOptions, ConferencePage, ConferencePayload, ConferenceResource, ConferenceSolution, ConferenceStatus, ConferenceUpdateStatus }
+export { ConferenceContext, ConferenceInstance, ConferenceList, ConferencePage }

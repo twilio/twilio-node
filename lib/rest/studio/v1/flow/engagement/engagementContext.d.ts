@@ -6,124 +6,98 @@
  */
 
 import Page = require('../../../../../base/Page');
-import Response = require('../../../../../http/response');
-import V1 = require('../../../V1');
-import { SerializableClass } from '../../../../../interfaces';
+import values = require('../../../../../base/values');
 
-declare function EngagementContextList(version: V1, flowSid: string, engagementSid: string): EngagementContextListInstance
 
-interface EngagementContextResource {
-  /**
-   * The account_sid
-   */
-  account_sid: string;
-  /**
-   * The context
-   */
-  context: string;
-  /**
-   * The engagement_sid
-   */
-  engagement_sid: string;
-  /**
-   * The flow_sid
-   */
-  flow_sid: string;
-  /**
-   * The url
-   */
-  url: string;
-}
 
-interface EngagementContextPayload extends EngagementContextResource, Page.TwilioResponsePayload {
-}
-
-interface EngagementContextSolution {
-  engagementSid: string;
-  flowSid: string;
-}
-
-interface EngagementContextListInstance {
+declare class EngagementContextPage extends Page {
   /**
-   * Gets context of a single EngagementContext resource
+   * @constructor Twilio.Studio.V1.FlowContext.EngagementContext.EngagementContextPage
+   * @augments Page
+   * @description Initialize the EngagementContextPage
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  (): EngagementContextContext;
-  /**
-   * Gets context of a single EngagementContext resource
-   */
-  get(): EngagementContextContext;
-}
-
-declare class EngagementContextPage extends Page<V1, EngagementContextPayload, EngagementContextResource, EngagementContextInstance> {
-  constructor(version: V1, response: Response<string>, solution: EngagementContextSolution);
+  constructor(version: Twilio.Studio.V1, response: object, solution: object);
 
   /**
    * Build an instance of EngagementContextInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Studio.V1.FlowContext.EngagementContext.EngagementContextPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: EngagementContextPayload): EngagementContextInstance;
+  getInstance(payload: object);
 }
 
-declare class EngagementContextInstance extends SerializableClass {
+declare class EngagementContextInstance {
   /**
+   * @constructor Twilio.Studio.V1.FlowContext.EngagementContext.EngagementContextInstance
+   * @description Initialize the EngagementContextContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property accountSid - The account_sid
+   * @property context - The context
+   * @property engagementSid - The engagement_sid
+   * @property flowSid - The flow_sid
+   * @property url - The url
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param flowSid - The flow_sid
    * @param engagementSid - The engagement_sid
    */
-  constructor(version: V1, payload: EngagementContextPayload, flowSid: string, engagementSid: string);
+  constructor(version: Twilio.Studio.V1, payload: object, flowSid: sid, engagementSid: sid);
 
-  private _proxy: EngagementContextContext;
-  /**
-   * The account_sid
-   */
-  accountSid: string;
-  /**
-   * The context
-   */
-  context: string;
-  /**
-   * The engagement_sid
-   */
-  engagementSid: string;
+  _proxy?: EngagementContextContext;
   /**
    * fetch a EngagementContextInstance
    *
-   * @returns Promise that resolves to processed EngagementContextInstance
-   */
-  fetch(): Promise<EngagementContextInstance>;
-  /**
-   * fetch a EngagementContextInstance
+   * @function fetch
+   * @memberof Twilio.Studio.V1.FlowContext.EngagementContext.EngagementContextInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: EngagementContextInstance) => any): void;
+  fetch(callback?: function);
   /**
-   * The flow_sid
+   * Produce a plain JSON object version of the EngagementContextInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Studio.V1.FlowContext.EngagementContext.EngagementContextInstance
+   * @instance
    */
-  flowSid: string;
-  /**
-   * The url
-   */
-  url: string;
+  toJSON();
 }
 
 declare class EngagementContextContext {
-  constructor(version: V1, flowSid: string, engagementSid: string);
+  /**
+   * @constructor Twilio.Studio.V1.FlowContext.EngagementContext.EngagementContextContext
+   * @description Initialize the EngagementContextContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @param version - Version of the resource
+   * @param flowSid - The flow_sid
+   * @param engagementSid - The engagement_sid
+   */
+  constructor(version: Twilio.Studio.V1, flowSid: sid, engagementSid: sid);
 
   /**
    * fetch a EngagementContextInstance
    *
-   * @returns Promise that resolves to processed EngagementContextInstance
-   */
-  fetch(): Promise<EngagementContextInstance>;
-  /**
-   * fetch a EngagementContextInstance
+   * @function fetch
+   * @memberof Twilio.Studio.V1.FlowContext.EngagementContext.EngagementContextContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: EngagementContextInstance) => any): void;
+  fetch(callback?: function);
 }
 
-export { EngagementContextContext, EngagementContextInstance, EngagementContextList, EngagementContextListInstance, EngagementContextPage, EngagementContextPayload, EngagementContextResource, EngagementContextSolution }
+export { EngagementContextContext, EngagementContextInstance, EngagementContextList, EngagementContextPage }

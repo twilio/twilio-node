@@ -6,406 +6,204 @@
  */
 
 import Page = require('../../../base/Page');
-import Proxy = require('../Proxy');
-import Response = require('../../../http/response');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
-import { PhoneNumberListInstance } from './service/phoneNumber';
-import { SerializableClass } from '../../../interfaces';
-import { SessionListInstance } from './service/session';
-import { ShortCodeListInstance } from './service/shortCode';
+import deserialize = require('../../../base/deserialize');
+import serialize = require('../../../base/serialize');
+import values = require('../../../base/values');
+import { PhoneNumberList } from './service/phoneNumber';
+import { SessionList } from './service/session';
+import { ShortCodeList } from './service/shortCode';
 
-declare function ServiceList(version: Proxy): ServiceListInstance
 
-interface ServiceResource {
-  /**
-   * The unique SID identifier of the Account.
-   */
-  account_sid: string;
-  /**
-   * Boolean flag specifying whether to create threads when a user communticates out of band.
-   */
-  auto_create: boolean;
-  /**
-   * The URL Twilio will request for callback notifications.
-   */
-  callback_url: string;
-  /**
-   * The date that this Service was created, given in ISO 8601 format.
-   */
-  date_created: Date;
-  /**
-   * The date that this Service was updated, given in ISO 8601 format.
-   */
-  date_updated: Date;
-  /**
-   * A human readable description of this resource, up to 64 characters.
-   */
-  friendly_name: string;
-  /**
-   * Contains a dictionary of URL links to nested resources of this Service.
-   */
-  links: string;
-  /**
-   * A 34 character string that uniquely identifies this Service.
-   */
-  sid: string;
-  /**
-   * The URL of this resource.
-   */
-  url: string;
-}
-
-interface ServicePayload extends ServiceResource, Page.TwilioResponsePayload {
-}
-
-interface ServiceSolution {
-}
-
-interface ServiceListEachOptions extends ListEachOptions<ServiceInstance> {
-}
-
-interface ServiceListOptions extends ListOptions<ServiceInstance> {
-}
-
-interface ServiceListPageOptions extends PageOptions<ServicePage> {
-}
-
-interface ServiceListCreateOptions {
-  /**
-   * Boolean flag specifying whether to create threads when a user communticates out of band.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A human readable description of this resource
+ * @property autoCreate - Boolean flag specifying whether to auto-create threads.
+ * @property callbackUrl - URL Twilio will request for callbacks.
+ */
+export interface UpdateOptions {
   autoCreate?: boolean;
-  /**
-   * The URL Twilio will request for callback notifications.
-   */
   callbackUrl?: string;
-  /**
-   * A human readable description of this resource, up to 64 characters.
-   */
   friendlyName?: string;
 }
 
-interface ServiceListInstance {
-  /**
-   * Gets context of a single Service resource
-   *
-   * @param sid - A string that uniquely identifies this Service.
-   */
-  (sid: string): ServiceContext;
-  /**
-   * create a ServiceInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  create(opts?: ServiceListCreateOptions): Promise<ServiceInstance>;
-  /**
-   * create a ServiceInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: ServiceListCreateOptions, callback: (error: Error | null, items: ServiceInstance) => any): void;
-  /**
-   * create a ServiceInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  create(callback: (error: Error | null, items: ServiceInstance) => any): void;
-  /**
-   * Streams ServiceInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: ServiceListEachOptions): void;
-  /**
-   * Streams ServiceInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: ServiceInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Service resource
-   *
-   * @param sid - A string that uniquely identifies this Service.
-   */
-  get(sid: string): ServiceContext;
-  /**
-   * Retrieve a single target page of ServiceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<ServicePage>;
-  /**
-   * Retrieve a single target page of ServiceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: ServicePage) => any): void;
-  /**
-   * Lists ServiceInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: ServiceListOptions): Promise<ServiceInstance[]>;
-  /**
-   * Lists ServiceInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: ServiceListOptions, callback: (error: Error | null, items: ServiceInstance[]) => any): void;
-  /**
-   * Lists ServiceInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: ServiceInstance[]) => any): void;
-  /**
-   * Retrieve a single page of ServiceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: ServiceListPageOptions): Promise<ServicePage>;
-  /**
-   * Retrieve a single page of ServiceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: ServiceListPageOptions, callback: (error: Error | null, items: ServicePage) => any): void;
-  /**
-   * Retrieve a single page of ServiceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: ServicePage) => any): void;
-}
-
-interface ServiceListFetchOptions {
-  /**
-   * Boolean flag specifying whether to create threads when a user communticates out of band.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A human readable description of this resource
+ * @property autoCreate - Boolean flag specifying whether to auto-create threads.
+ * @property callbackUrl - URL Twilio will request for callbacks.
+ */
+export interface UpdateOptions {
   autoCreate?: boolean;
-  /**
-   * The URL Twilio will request for callback notifications.
-   */
   callbackUrl?: string;
-  /**
-   * A human readable description of this resource, up to 64 characters.
-   */
   friendlyName?: string;
 }
 
-interface ServiceListFetchOptions {
-  /**
-   * Boolean flag specifying whether to create threads when a user communticates out of band.
-   */
-  autoCreate?: boolean;
-  /**
-   * The URL Twilio will request for callback notifications.
-   */
-  callbackUrl?: string;
-  /**
-   * A human readable description of this resource, up to 64 characters.
-   */
-  friendlyName?: string;
-}
 
-declare class ServicePage extends Page<Proxy, ServicePayload, ServiceResource, ServiceInstance> {
-  constructor(version: Proxy, response: Response<string>, solution: ServiceSolution);
+declare class ServicePage extends Page {
+  /**
+   * @constructor Twilio.Preview.Proxy.ServicePage
+   * @augments Page
+   * @description Initialize the ServicePage
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Preview.Proxy, response: object, solution: object);
 
   /**
    * Build an instance of ServiceInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Preview.Proxy.ServicePage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: ServicePayload): ServiceInstance;
+  getInstance(payload: object);
 }
 
-declare class ServiceInstance extends SerializableClass {
+declare class ServiceInstance {
   /**
+   * @constructor Twilio.Preview.Proxy.ServiceInstance
+   * @description Initialize the ServiceContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property sid - A string that uniquely identifies this Service.
+   * @property friendlyName - A human readable description of this resource
+   * @property accountSid - Account Sid.
+   * @property autoCreate - Boolean flag specifying whether to auto-create threads.
+   * @property callbackUrl - URL Twilio will request for callbacks.
+   * @property dateCreated - The date this Service was created
+   * @property dateUpdated - The date this Service was updated
+   * @property url - The URL of this resource.
+   * @property links - Nested resource URLs.
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param sid - A string that uniquely identifies this Service.
    */
-  constructor(version: Proxy, payload: ServicePayload, sid: string);
+  constructor(version: Twilio.Preview.Proxy, payload: object, sid: sid_like);
 
-  private _proxy: ServiceContext;
-  /**
-   * The unique SID identifier of the Account.
-   */
-  accountSid: string;
-  /**
-   * Boolean flag specifying whether to create threads when a user communticates out of band.
-   */
-  autoCreate: boolean;
-  /**
-   * The URL Twilio will request for callback notifications.
-   */
-  callbackUrl: string;
-  /**
-   * The date that this Service was created, given in ISO 8601 format.
-   */
-  dateCreated: Date;
-  /**
-   * The date that this Service was updated, given in ISO 8601 format.
-   */
-  dateUpdated: Date;
+  _proxy?: ServiceContext;
   /**
    * fetch a ServiceInstance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  fetch(): Promise<ServiceInstance>;
-  /**
-   * fetch a ServiceInstance
+   * @function fetch
+   * @memberof Twilio.Preview.Proxy.ServiceInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: ServiceInstance) => any): void;
+  fetch(callback?: function);
   /**
-   * A human readable description of this resource, up to 64 characters.
+   * Access the phoneNumbers
+   *
+   * @function phoneNumbers
+   * @memberof Twilio.Preview.Proxy.ServiceInstance
+   * @instance
    */
-  friendlyName: string;
-  /**
-   * Contains a dictionary of URL links to nested resources of this Service.
-   */
-  links: string;
-  phoneNumbers(): PhoneNumberListInstance;
+  phoneNumbers();
   /**
    * remove a ServiceInstance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  remove(): Promise<ServiceInstance>;
-  /**
-   * remove a ServiceInstance
+   * @function remove
+   * @memberof Twilio.Preview.Proxy.ServiceInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: ServiceInstance) => any): void;
-  sessions(): SessionListInstance;
-  shortCodes(): ShortCodeListInstance;
+  remove(callback?: function);
   /**
-   * A 34 character string that uniquely identifies this Service.
+   * Access the sessions
+   *
+   * @function sessions
+   * @memberof Twilio.Preview.Proxy.ServiceInstance
+   * @instance
    */
-  sid: string;
+  sessions();
+  /**
+   * Access the shortCodes
+   *
+   * @function shortCodes
+   * @memberof Twilio.Preview.Proxy.ServiceInstance
+   * @instance
+   */
+  shortCodes();
+  /**
+   * Produce a plain JSON object version of the ServiceInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Preview.Proxy.ServiceInstance
+   * @instance
+   */
+  toJSON();
   /**
    * update a ServiceInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Preview.Proxy.ServiceInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  update(opts?: ServiceListFetchOptions): Promise<ServiceInstance>;
-  /**
-   * update a ServiceInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: ServiceListFetchOptions, callback: (error: Error | null, items: ServiceInstance) => any): void;
-  /**
-   * update a ServiceInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: ServiceInstance) => any): void;
-  /**
-   * The URL of this resource.
-   */
-  url: string;
+  update(opts?: object, callback?: function);
 }
 
 declare class ServiceContext {
-  constructor(version: Proxy, sid: string);
+  /**
+   * @constructor Twilio.Preview.Proxy.ServiceContext
+   * @description Initialize the ServiceContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property sessions - sessions resource
+   * @property phoneNumbers - phoneNumbers resource
+   * @property shortCodes - shortCodes resource
+   *
+   * @param version - Version of the resource
+   * @param sid - A string that uniquely identifies this Service.
+   */
+  constructor(version: Twilio.Preview.Proxy, sid: sid_like);
 
   /**
    * fetch a ServiceInstance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  fetch(): Promise<ServiceInstance>;
-  /**
-   * fetch a ServiceInstance
+   * @function fetch
+   * @memberof Twilio.Preview.Proxy.ServiceContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: ServiceInstance) => any): void;
-  phoneNumbers: PhoneNumberListInstance;
+  fetch(callback?: function);
+  phoneNumbers?: Twilio.Preview.Proxy.ServiceContext.PhoneNumberList;
   /**
    * remove a ServiceInstance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  remove(): Promise<ServiceInstance>;
-  /**
-   * remove a ServiceInstance
+   * @function remove
+   * @memberof Twilio.Preview.Proxy.ServiceContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: ServiceInstance) => any): void;
-  sessions: SessionListInstance;
-  shortCodes: ShortCodeListInstance;
+  remove(callback?: function);
+  sessions?: Twilio.Preview.Proxy.ServiceContext.SessionList;
+  shortCodes?: Twilio.Preview.Proxy.ServiceContext.ShortCodeList;
   /**
    * update a ServiceInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Preview.Proxy.ServiceContext
+   * @instance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  update(opts?: ServiceListFetchOptions): Promise<ServiceInstance>;
-  /**
-   * update a ServiceInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: ServiceListFetchOptions, callback: (error: Error | null, items: ServiceInstance) => any): void;
-  /**
-   * update a ServiceInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: ServiceInstance) => any): void;
+  update(opts?: object, callback?: function);
 }
 
-export { ServiceContext, ServiceInstance, ServiceList, ServiceListCreateOptions, ServiceListEachOptions, ServiceListFetchOptions, ServiceListInstance, ServiceListOptions, ServiceListPageOptions, ServicePage, ServicePayload, ServiceResource, ServiceSolution }
+export { ServiceContext, ServiceInstance, ServiceList, ServicePage }

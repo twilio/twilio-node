@@ -6,299 +6,120 @@
  */
 
 import Page = require('../../../../../../base/Page');
-import Response = require('../../../../../../http/response');
-import V2010 = require('../../../../V2010');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../../interfaces';
-import { SerializableClass } from '../../../../../../interfaces';
+import deserialize = require('../../../../../../base/deserialize');
+import values = require('../../../../../../base/values');
 
-declare function CredentialListMappingList(version: V2010, accountSid: string, domainSid: string): CredentialListMappingListInstance
 
-interface CredentialListMappingResource {
-  /**
-   * The unique id of the Account that responsible for this resource.
-   */
-  account_sid: string;
-  /**
-   * The date that this resource was created, given as GMT in [RFC 2822](http://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-   */
-  date_created: Date;
-  /**
-   * The date that this resource was last updated, given as GMT in [RFC 2822](http://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-   */
-  date_updated: Date;
-  /**
-   * A human readable descriptive text for this resource, up to 64 characters long.
-   */
-  friendly_name: string;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * The subresource_uris
-   */
-  subresource_uris: string;
-  /**
-   * The URI for this resource, relative to `https://api.twilio.com`
-   */
-  uri: string;
-}
 
-interface CredentialListMappingPayload extends CredentialListMappingResource, Page.TwilioResponsePayload {
-}
-
-interface CredentialListMappingSolution {
-  accountSid: string;
-  domainSid: string;
-}
-
-interface CredentialListMappingListCreateOptions {
+declare class CredentialListMappingPage extends Page {
   /**
-   * The credential_list_sid
+   * @constructor Twilio.Api.V2010.AccountContext.SipContext.DomainContext.CredentialListMappingPage
+   * @augments Page
+   * @description Initialize the CredentialListMappingPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  credentialListSid: string;
-}
-
-interface CredentialListMappingListEachOptions extends ListEachOptions<CredentialListMappingInstance> {
-}
-
-interface CredentialListMappingListOptions extends ListOptions<CredentialListMappingInstance> {
-}
-
-interface CredentialListMappingListPageOptions extends PageOptions<CredentialListMappingPage> {
-}
-
-interface CredentialListMappingListInstance {
-  /**
-   * Gets context of a single CredentialListMapping resource
-   *
-   * @param sid - The sid
-   */
-  (sid: string): CredentialListMappingContext;
-  /**
-   * create a CredentialListMappingInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed CredentialListMappingInstance
-   */
-  create(opts: CredentialListMappingListCreateOptions): Promise<CredentialListMappingInstance>;
-  /**
-   * create a CredentialListMappingInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: CredentialListMappingListCreateOptions, callback: (error: Error | null, items: CredentialListMappingInstance) => any): void;
-  /**
-   * Streams CredentialListMappingInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: CredentialListMappingListEachOptions): void;
-  /**
-   * Streams CredentialListMappingInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: CredentialListMappingInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single CredentialListMapping resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): CredentialListMappingContext;
-  /**
-   * Retrieve a single target page of CredentialListMappingInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<CredentialListMappingPage>;
-  /**
-   * Retrieve a single target page of CredentialListMappingInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: CredentialListMappingPage) => any): void;
-  /**
-   * Lists CredentialListMappingInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: CredentialListMappingListOptions): Promise<CredentialListMappingInstance[]>;
-  /**
-   * Lists CredentialListMappingInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: CredentialListMappingListOptions, callback: (error: Error | null, items: CredentialListMappingInstance[]) => any): void;
-  /**
-   * Lists CredentialListMappingInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: CredentialListMappingInstance[]) => any): void;
-  /**
-   * Retrieve a single page of CredentialListMappingInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: CredentialListMappingListPageOptions): Promise<CredentialListMappingPage>;
-  /**
-   * Retrieve a single page of CredentialListMappingInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: CredentialListMappingListPageOptions, callback: (error: Error | null, items: CredentialListMappingPage) => any): void;
-  /**
-   * Retrieve a single page of CredentialListMappingInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: CredentialListMappingPage) => any): void;
-}
-
-declare class CredentialListMappingPage extends Page<V2010, CredentialListMappingPayload, CredentialListMappingResource, CredentialListMappingInstance> {
-  constructor(version: V2010, response: Response<string>, solution: CredentialListMappingSolution);
+  constructor(version: Twilio.Api.V2010, response: object, solution: object);
 
   /**
    * Build an instance of CredentialListMappingInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Api.V2010.AccountContext.SipContext.DomainContext.CredentialListMappingPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: CredentialListMappingPayload): CredentialListMappingInstance;
+  getInstance(payload: object);
 }
 
-declare class CredentialListMappingInstance extends SerializableClass {
+declare class CredentialListMappingInstance {
   /**
+   * @constructor Twilio.Api.V2010.AccountContext.SipContext.DomainContext.CredentialListMappingInstance
+   * @description Initialize the CredentialListMappingContext
+   *
+   * @property accountSid - The unique id of the Account that responsible for this resource.
+   * @property dateCreated - The date that this resource was created, given as GMT in RFC 2822 format.
+   * @property dateUpdated - The date that this resource was last updated, given as GMT in RFC 2822 format.
+   * @property friendlyName - A human readable descriptive text for this resource, up to 64 characters long.
+   * @property sid - A 34 character string that uniquely identifies this resource.
+   * @property uri - The URI for this resource, relative to https://api.twilio.com
+   * @property subresourceUris - The subresource_uris
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
+   * @param accountSid - The unique id of the Account that responsible for this resource.
+   * @param domainSid - A string that uniquely identifies the SIP Domain
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, domainSid: sid, sid: sid);
+
+  _proxy?: CredentialListMappingContext;
+  /**
+   * fetch a CredentialListMappingInstance
+   *
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.SipContext.DomainContext.CredentialListMappingInstance
+   * @instance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: function);
+  /**
+   * remove a CredentialListMappingInstance
+   *
+   * @function remove
+   * @memberof Twilio.Api.V2010.AccountContext.SipContext.DomainContext.CredentialListMappingInstance
+   * @instance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: function);
+  /**
+   * Produce a plain JSON object version of the CredentialListMappingInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Api.V2010.AccountContext.SipContext.DomainContext.CredentialListMappingInstance
+   * @instance
+   */
+  toJSON();
+}
+
+declare class CredentialListMappingContext {
+  /**
+   * @constructor Twilio.Api.V2010.AccountContext.SipContext.DomainContext.CredentialListMappingContext
+   * @description Initialize the CredentialListMappingContext
+   *
+   * @param version - Version of the resource
    * @param accountSid - The account_sid
    * @param domainSid - The domain_sid
    * @param sid - The sid
    */
-  constructor(version: V2010, payload: CredentialListMappingPayload, accountSid: string, domainSid: string, sid: string);
+  constructor(version: Twilio.Api.V2010, accountSid: sid, domainSid: sid, sid: sid);
 
-  private _proxy: CredentialListMappingContext;
-  /**
-   * The unique id of the Account that responsible for this resource.
-   */
-  accountSid: string;
-  /**
-   * The date that this resource was created, given as GMT in [RFC 2822](http://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-   */
-  dateCreated: Date;
-  /**
-   * The date that this resource was last updated, given as GMT in [RFC 2822](http://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-   */
-  dateUpdated: Date;
   /**
    * fetch a CredentialListMappingInstance
    *
-   * @returns Promise that resolves to processed CredentialListMappingInstance
-   */
-  fetch(): Promise<CredentialListMappingInstance>;
-  /**
-   * fetch a CredentialListMappingInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.SipContext.DomainContext.CredentialListMappingContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: CredentialListMappingInstance) => any): void;
-  /**
-   * A human readable descriptive text for this resource, up to 64 characters long.
-   */
-  friendlyName: string;
+  fetch(callback?: function);
   /**
    * remove a CredentialListMappingInstance
    *
-   * @returns Promise that resolves to processed CredentialListMappingInstance
-   */
-  remove(): Promise<CredentialListMappingInstance>;
-  /**
-   * remove a CredentialListMappingInstance
+   * @function remove
+   * @memberof Twilio.Api.V2010.AccountContext.SipContext.DomainContext.CredentialListMappingContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: CredentialListMappingInstance) => any): void;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * The subresource_uris
-   */
-  subresourceUris: string;
-  /**
-   * The URI for this resource, relative to `https://api.twilio.com`
-   */
-  uri: string;
+  remove(callback?: function);
 }
 
-declare class CredentialListMappingContext {
-  constructor(version: V2010, accountSid: string, domainSid: string, sid: string);
-
-  /**
-   * fetch a CredentialListMappingInstance
-   *
-   * @returns Promise that resolves to processed CredentialListMappingInstance
-   */
-  fetch(): Promise<CredentialListMappingInstance>;
-  /**
-   * fetch a CredentialListMappingInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  fetch(callback: (error: Error | null, items: CredentialListMappingInstance) => any): void;
-  /**
-   * remove a CredentialListMappingInstance
-   *
-   * @returns Promise that resolves to processed CredentialListMappingInstance
-   */
-  remove(): Promise<CredentialListMappingInstance>;
-  /**
-   * remove a CredentialListMappingInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback: (error: Error | null, items: CredentialListMappingInstance) => any): void;
-}
-
-export { CredentialListMappingContext, CredentialListMappingInstance, CredentialListMappingList, CredentialListMappingListCreateOptions, CredentialListMappingListEachOptions, CredentialListMappingListInstance, CredentialListMappingListOptions, CredentialListMappingListPageOptions, CredentialListMappingPage, CredentialListMappingPayload, CredentialListMappingResource, CredentialListMappingSolution }
+export { CredentialListMappingContext, CredentialListMappingInstance, CredentialListMappingList, CredentialListMappingPage }

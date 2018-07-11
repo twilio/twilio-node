@@ -6,82 +6,61 @@
  */
 
 import Page = require('../../../../../base/Page');
-import Response = require('../../../../../http/response');
-import V1 = require('../../../V1');
-import { SerializableClass } from '../../../../../interfaces';
+import serialize = require('../../../../../base/serialize');
+import values = require('../../../../../base/values');
 
-declare function StreamMessageList(version: V1, serviceSid: string, streamSid: string): StreamMessageListInstance
 
-interface StreamMessageResource {
+
+declare class StreamMessagePage extends Page {
   /**
-   * The body of the Stream Message. Arbitrary JSON object, maximum size 4KB.
-   */
-  data: string;
-  /**
-   * The unique 34-character SID identifier of the Stream Message.
-   */
-  sid: string;
-}
-
-interface StreamMessagePayload extends StreamMessageResource, Page.TwilioResponsePayload {
-}
-
-interface StreamMessageSolution {
-  serviceSid: string;
-  streamSid: string;
-}
-
-interface StreamMessageListCreateOptions {
-  /**
-   * The body of the Stream Message. Arbitrary JSON object, maximum size 4KB.
-   */
-  data: string;
-}
-
-interface StreamMessageListInstance {
-  /**
-   * create a StreamMessageInstance
+   * @constructor Twilio.Sync.V1.ServiceContext.SyncStreamContext.StreamMessagePage
+   * @augments Page
+   * @description Initialize the StreamMessagePage
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed StreamMessageInstance
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  create(opts: StreamMessageListCreateOptions): Promise<StreamMessageInstance>;
-  /**
-   * create a StreamMessageInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: StreamMessageListCreateOptions, callback: (error: Error | null, items: StreamMessageInstance) => any): void;
-}
-
-declare class StreamMessagePage extends Page<V1, StreamMessagePayload, StreamMessageResource, StreamMessageInstance> {
-  constructor(version: V1, response: Response<string>, solution: StreamMessageSolution);
+  constructor(version: Twilio.Sync.V1, response: object, solution: object);
 
   /**
    * Build an instance of StreamMessageInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Sync.V1.ServiceContext.SyncStreamContext.StreamMessagePage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: StreamMessagePayload): StreamMessageInstance;
+  getInstance(payload: object);
 }
 
-declare class StreamMessageInstance extends SerializableClass {
+declare class StreamMessageInstance {
   /**
+   * @constructor Twilio.Sync.V1.ServiceContext.SyncStreamContext.StreamMessageInstance
+   * @description Initialize the StreamMessageContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property sid - Stream Message SID.
+   * @property data - Stream Message body.
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
+   * @param serviceSid - Service Instance SID.
+   * @param streamSid - Stream SID.
    */
-  constructor(version: V1, payload: StreamMessagePayload);
+  constructor(version: Twilio.Sync.V1, payload: object, serviceSid: sid, streamSid: sid);
 
   /**
-   * The body of the Stream Message. Arbitrary JSON object, maximum size 4KB.
+   * Produce a plain JSON object version of the StreamMessageInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Sync.V1.ServiceContext.SyncStreamContext.StreamMessageInstance
+   * @instance
    */
-  data: string;
-  /**
-   * The unique 34-character SID identifier of the Stream Message.
-   */
-  sid: string;
+  toJSON();
 }
 
-export { StreamMessageInstance, StreamMessageList, StreamMessageListCreateOptions, StreamMessageListInstance, StreamMessagePage, StreamMessagePayload, StreamMessageResource, StreamMessageSolution }
+export { StreamMessageInstance, StreamMessageList, StreamMessagePage }

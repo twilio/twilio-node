@@ -6,234 +6,134 @@
  */
 
 import Page = require('../../../../../base/Page');
-import Response = require('../../../../../http/response');
-import V1 = require('../../../V1');
-import { SerializableClass } from '../../../../../interfaces';
+import deserialize = require('../../../../../base/deserialize');
+import serialize = require('../../../../../base/serialize');
+import values = require('../../../../../base/values');
 
-declare function WorkersCumulativeStatisticsList(version: V1, workspaceSid: string): WorkersCumulativeStatisticsListInstance
 
-interface WorkersCumulativeStatisticsResource {
-  /**
-   * The account_sid
-   */
-  account_sid: string;
-  /**
-   * The minimum, average, maximum and total time (in seconds) Workers spent in each Activity
-   */
-  activity_durations: string;
-  /**
-   * The end_time
-   */
-  end_time: Date;
-  /**
-   * The total number of Reservations that were accepted
-   */
-  reservations_accepted: number;
-  /**
-   * The total number of Reservations that were canceled
-   */
-  reservations_canceled: number;
-  /**
-   * The total number of Reservations that were created
-   */
-  reservations_created: number;
-  /**
-   * The total number of Reservations that were rejected
-   */
-  reservations_rejected: number;
-  /**
-   * The total number of Reservations that were rescinded
-   */
-  reservations_rescinded: number;
-  /**
-   * The total number of Reservations that were timed out
-   */
-  reservations_timed_out: number;
-  /**
-   * The start_time
-   */
-  start_time: Date;
-  /**
-   * The url
-   */
-  url: string;
-  /**
-   * The workspace_sid
-   */
-  workspace_sid: string;
-}
-
-interface WorkersCumulativeStatisticsPayload extends WorkersCumulativeStatisticsResource, Page.TwilioResponsePayload {
-}
-
-interface WorkersCumulativeStatisticsSolution {
-  workspaceSid: string;
-}
-
-interface WorkersCumulativeStatisticsListInstance {
-  /**
-   * Gets context of a single WorkersCumulativeStatistics resource
-   */
-  (): WorkersCumulativeStatisticsContext;
-  /**
-   * Gets context of a single WorkersCumulativeStatistics resource
-   */
-  get(): WorkersCumulativeStatisticsContext;
-}
-
-interface WorkersCumulativeStatisticsListFetchOptions {
-  /**
-   * Filter cumulative statistics by a end date. This is helpful for defining a range of statistics to capture. Input is a string of the format: yyyy-MM-dd'T'HH:mm:ss'Z'.
-   */
+/**
+ * Options to pass to fetch
+ *
+ * @property endDate - Filter cumulative statistics by a end date.
+ * @property minutes - Filter cumulative statistics by up to 'x' minutes in the past.
+ * @property startDate - Filter cumulative statistics by a start date.
+ * @property taskChannel - Filter cumulative statistics by TaskChannel.
+ */
+export interface FetchOptions {
   endDate?: Date;
-  /**
-   * Filter cumulative statistics by up to 'x' minutes in the past. This is helpful for statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends. Defaults to 15 minutes.
-   */
   minutes?: number;
-  /**
-   * Filter cumulative statistics by a start date. This is helpful for defining a range of statistics to capture. Input is a string of the format: yyyy-MM-dd'T'HH:mm:ss'Z'.
-   */
   startDate?: Date;
-  /**
-   * Filter cumulative statistics by TaskChannel. Takes in a Unique Name ("voice", "sms", "default", etc.) or a TaskChannelSid.
-   */
   taskChannel?: string;
 }
 
-interface WorkersCumulativeStatisticsListFetchOptions {
-  /**
-   * Filter cumulative statistics by a end date. This is helpful for defining a range of statistics to capture. Input is a string of the format: yyyy-MM-dd'T'HH:mm:ss'Z'.
-   */
+/**
+ * Options to pass to fetch
+ *
+ * @property endDate - Filter cumulative statistics by a end date.
+ * @property minutes - Filter cumulative statistics by up to 'x' minutes in the past.
+ * @property startDate - Filter cumulative statistics by a start date.
+ * @property taskChannel - Filter cumulative statistics by TaskChannel.
+ */
+export interface FetchOptions {
   endDate?: Date;
-  /**
-   * Filter cumulative statistics by up to 'x' minutes in the past. This is helpful for statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends. Defaults to 15 minutes.
-   */
   minutes?: number;
-  /**
-   * Filter cumulative statistics by a start date. This is helpful for defining a range of statistics to capture. Input is a string of the format: yyyy-MM-dd'T'HH:mm:ss'Z'.
-   */
   startDate?: Date;
-  /**
-   * Filter cumulative statistics by TaskChannel. Takes in a Unique Name ("voice", "sms", "default", etc.) or a TaskChannelSid.
-   */
   taskChannel?: string;
 }
 
-declare class WorkersCumulativeStatisticsPage extends Page<V1, WorkersCumulativeStatisticsPayload, WorkersCumulativeStatisticsResource, WorkersCumulativeStatisticsInstance> {
-  constructor(version: V1, response: Response<string>, solution: WorkersCumulativeStatisticsSolution);
+
+declare class WorkersCumulativeStatisticsPage extends Page {
+  /**
+   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkersCumulativeStatisticsPage
+   * @augments Page
+   * @description Initialize the WorkersCumulativeStatisticsPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Taskrouter.V1, response: object, solution: object);
 
   /**
    * Build an instance of WorkersCumulativeStatisticsInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkersCumulativeStatisticsPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: WorkersCumulativeStatisticsPayload): WorkersCumulativeStatisticsInstance;
+  getInstance(payload: object);
 }
 
-declare class WorkersCumulativeStatisticsInstance extends SerializableClass {
+declare class WorkersCumulativeStatisticsInstance {
   /**
+   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkersCumulativeStatisticsInstance
+   * @description Initialize the WorkersCumulativeStatisticsContext
+   *
+   * @property accountSid - The account_sid
+   * @property startTime - The start_time
+   * @property endTime - The end_time
+   * @property activityDurations - The minimum, average, maximum and total time Workers spent in each Activity
+   * @property reservationsCreated - The total number of Reservations that were created
+   * @property reservationsAccepted - The total number of Reservations that were accepted
+   * @property reservationsRejected - The total number of Reservations that were rejected
+   * @property reservationsTimedOut - The total number of Reservations that were timed out
+   * @property reservationsCanceled - The total number of Reservations that were canceled
+   * @property reservationsRescinded - The total number of Reservations that were rescinded
+   * @property workspaceSid - The workspace_sid
+   * @property url - The url
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param workspaceSid - The workspace_sid
    */
-  constructor(version: V1, payload: WorkersCumulativeStatisticsPayload, workspaceSid: string);
+  constructor(version: Twilio.Taskrouter.V1, payload: object, workspaceSid: sid);
 
-  private _proxy: WorkersCumulativeStatisticsContext;
-  /**
-   * The account_sid
-   */
-  accountSid: string;
-  /**
-   * The minimum, average, maximum and total time (in seconds) Workers spent in each Activity
-   */
-  activityDurations: string;
-  /**
-   * The end_time
-   */
-  endTime: Date;
+  _proxy?: WorkersCumulativeStatisticsContext;
   /**
    * fetch a WorkersCumulativeStatisticsInstance
    *
-   * @param opts - Options for request
+   * @function fetch
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkersCumulativeStatisticsInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed WorkersCumulativeStatisticsInstance
-   */
-  fetch(opts?: WorkersCumulativeStatisticsListFetchOptions): Promise<WorkersCumulativeStatisticsInstance>;
-  /**
-   * fetch a WorkersCumulativeStatisticsInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  fetch(opts: WorkersCumulativeStatisticsListFetchOptions, callback: (error: Error | null, items: WorkersCumulativeStatisticsInstance) => any): void;
+  fetch(opts?: object, callback?: function);
   /**
-   * fetch a WorkersCumulativeStatisticsInstance
+   * Produce a plain JSON object version of the WorkersCumulativeStatisticsInstance for serialization.
+   * Removes any circular references in the object.
    *
-   * @param callback - Callback to handle processed record
+   * @function toJSON
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkersCumulativeStatisticsInstance
+   * @instance
    */
-  fetch(callback: (error: Error | null, items: WorkersCumulativeStatisticsInstance) => any): void;
-  /**
-   * The total number of Reservations that were accepted
-   */
-  reservationsAccepted: number;
-  /**
-   * The total number of Reservations that were canceled
-   */
-  reservationsCanceled: number;
-  /**
-   * The total number of Reservations that were created
-   */
-  reservationsCreated: number;
-  /**
-   * The total number of Reservations that were rejected
-   */
-  reservationsRejected: number;
-  /**
-   * The total number of Reservations that were rescinded
-   */
-  reservationsRescinded: number;
-  /**
-   * The total number of Reservations that were timed out
-   */
-  reservationsTimedOut: number;
-  /**
-   * The start_time
-   */
-  startTime: Date;
-  /**
-   * The url
-   */
-  url: string;
-  /**
-   * The workspace_sid
-   */
-  workspaceSid: string;
+  toJSON();
 }
 
 declare class WorkersCumulativeStatisticsContext {
-  constructor(version: V1, workspaceSid: string);
+  /**
+   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkersCumulativeStatisticsContext
+   * @description Initialize the WorkersCumulativeStatisticsContext
+   *
+   * @param version - Version of the resource
+   * @param workspaceSid - The workspace_sid
+   */
+  constructor(version: Twilio.Taskrouter.V1, workspaceSid: sid);
 
   /**
    * fetch a WorkersCumulativeStatisticsInstance
    *
-   * @param opts - Options for request
+   * @function fetch
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkersCumulativeStatisticsContext
+   * @instance
    *
-   * @returns Promise that resolves to processed WorkersCumulativeStatisticsInstance
-   */
-  fetch(opts?: WorkersCumulativeStatisticsListFetchOptions): Promise<WorkersCumulativeStatisticsInstance>;
-  /**
-   * fetch a WorkersCumulativeStatisticsInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  fetch(opts: WorkersCumulativeStatisticsListFetchOptions, callback: (error: Error | null, items: WorkersCumulativeStatisticsInstance) => any): void;
-  /**
-   * fetch a WorkersCumulativeStatisticsInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  fetch(callback: (error: Error | null, items: WorkersCumulativeStatisticsInstance) => any): void;
+  fetch(opts?: object, callback?: function);
 }
 
-export { WorkersCumulativeStatisticsContext, WorkersCumulativeStatisticsInstance, WorkersCumulativeStatisticsList, WorkersCumulativeStatisticsListFetchOptions, WorkersCumulativeStatisticsListInstance, WorkersCumulativeStatisticsPage, WorkersCumulativeStatisticsPayload, WorkersCumulativeStatisticsResource, WorkersCumulativeStatisticsSolution }
+export { WorkersCumulativeStatisticsContext, WorkersCumulativeStatisticsInstance, WorkersCumulativeStatisticsList, WorkersCumulativeStatisticsPage }

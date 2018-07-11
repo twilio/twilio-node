@@ -6,313 +6,71 @@
  */
 
 import Page = require('../../../../../../base/Page');
-import Response = require('../../../../../../http/response');
-import V2010 = require('../../../../V2010');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../../interfaces';
-import { SerializableClass } from '../../../../../../interfaces';
+import deserialize = require('../../../../../../base/deserialize');
+import serialize = require('../../../../../../base/serialize');
+import values = require('../../../../../../base/values');
 
-declare function DailyList(version: V2010, accountSid: string): DailyListInstance
 
-type DailyCategory = 'answering-machine-detection'|'authy-authentications'|'authy-calls-outbound'|'authy-monthly-fees'|'authy-phone-intelligence'|'authy-phone-verifications'|'authy-sms-outbound'|'call-progess-events'|'calleridlookups'|'calls'|'calls-client'|'calls-globalconference'|'calls-inbound'|'calls-inbound-local'|'calls-inbound-mobile'|'calls-inbound-tollfree'|'calls-outbound'|'calls-recordings'|'calls-sip'|'calls-sip-inbound'|'calls-sip-outbound'|'carrier-lookups'|'conversations'|'conversations-api-requests'|'conversations-conversation-events'|'conversations-endpoint-connectivity'|'conversations-events'|'conversations-participant-events'|'conversations-participants'|'cps'|'fraud-lookups'|'group-rooms'|'group-rooms-data-track'|'group-rooms-encrypted-media-recorded'|'group-rooms-media-downloaded'|'group-rooms-media-recorded'|'group-rooms-media-routed'|'group-rooms-media-stored'|'group-rooms-participant-minutes'|'group-rooms-recorded-minutes'|'ip-messaging'|'ip-messaging-commands'|'ip-messaging-data-storage'|'ip-messaging-data-transfer'|'ip-messaging-endpoint-connectivity'|'lookups'|'marketplace'|'marketplace-algorithmia-named-entity-recognition'|'marketplace-digital-segment-business-info'|'marketplace-google-speech-to-text'|'marketplace-ibm-watson-message-insights'|'marketplace-ibm-watson-message-sentiment'|'marketplace-ibm-watson-recording-analysis'|'marketplace-icehook-systems-scout'|'marketplace-infogroup-dataaxle-bizinfo'|'marketplace-cadence-transcription'|'marketplace-cadence-translation'|'marketplace-capio-speech-to-text'|'marketplace-facebook-offline-conversions'|'marketplace-keen-io-contact-center-analytics'|'marketplace-marchex-cleancall'|'marketplace-marchex-sentiment-analysis-for-sms'|'marketplace-marketplace-nextcaller-social-id'|'marketplace-mobile-commons-opt-out-classifier'|'marketplace-nexiwave-voicemail-to-text'|'marketplace-nextcaller-advanced-caller-identification'|'marketplace-nomorobo-spam-score'|'marketplace-payfone-tcpa-compliance'|'marketplace-telo-opencnam'|'marketplace-truecnam-true-spam'|'marketplace-twilio-caller-name-lookup-us'|'marketplace-twilio-carrier-information-lookup'|'marketplace-voicebase-pci'|'marketplace-voicebase-transcription'|'marketplace-whitepages-pro-caller-identification'|'marketplace-whitepages-pro-phone-intelligence'|'marketplace-whitepages-pro-phone-reputation'|'marketplace-wolfram-short-answer'|'marketplace-wolfarm-spoken-results'|'marketplace-deepgram-phrase-detector'|'marketplace-convriza-ababa'|'marketplace-ibm-watson-tone-analyzer'|'marketplace-remeeting-automatic-speech-recognition'|'marketplace-tcpa-defense-solutions-blacklist-feed'|'marketplace-voicebase-transcription-custom-vocabulary'|'marketplace-ytica-contact-center-reporting-analytics'|'mediastorage'|'mms'|'mms-inbound'|'mms-inbound-longcode'|'mms-inbound-shortcode'|'mms-outbound'|'mms-outbound-longcode'|'mms-outbound-shortcode'|'monitor-reads'|'monitor-storage'|'monitor-writes'|'notify'|'notify-actions-attempts'|'notify-channels'|'number-format-lookups'|'pchat'|'pchat-actions'|'pchat-aps'|'pchat-notifications'|'pchat-reads'|'pchat-users'|'pchat-messages'|'peer-to-peer-rooms-participant-minutes'|'pfax'|'pfax-minutes'|'pfax-minutes-inbound'|'pfax-minutes-outbound'|'pfax-pages'|'phonenumbers'|'phonenumbers-cps'|'phonenumbers-emergency'|'phonenumbers-local'|'phonenumbers-mobile'|'phonenumbers-setups'|'phonenumbers-tollfree'|'premiumsupport'|'proxy'|'pv'|'pv-composition-media-downloaded'|'pv-composition-media-encrypted'|'pv-composition-media-stored'|'pv-composition-minutes'|'pv-recording-compositions'|'pv-room-participants'|'pv-room-participants-au1'|'pv-room-participants-br1'|'pv-room-participants-ie1'|'pv-room-participants-jp1'|'pv-room-participants-sg1'|'pv-room-participants-us1'|'pv-room-participants-us2'|'pv-rooms'|'pv-sip-endpoint-registrations'|'recordings'|'recordingstorage'|'rooms-group-minutes'|'rooms-group-bandwidth'|'rooms-peer-to-peer-minutes'|'shortcodes'|'shortcodes-customerowned'|'shortcodes-mms-enablement'|'shortcodes-mps'|'shortcodes-random'|'shortcodes-uk'|'shortcodes-vanity'|'sms'|'sms-inbound'|'sms-inbound-longcode'|'sms-inbound-shortcode'|'sms-outbound'|'sms-outbound-content-inspection'|'sms-outbound-longcode'|'sms-outbound-shortcode'|'sms-messages-features'|'sms-messages-features-senderid'|'speech-recognition'|'studio-engagements'|'sync'|'sync-actions'|'sync-endpoint-hours'|'sync-endpoint-hours-above-daily-cap'|'taskrouter-tasks'|'totalprice'|'transcriptions'|'trunking-cps'|'trunking-emergency-calls'|'trunking-origination'|'trunking-origination-local'|'trunking-origination-mobile'|'trunking-origination-tollfree'|'trunking-recordings'|'trunking-secure'|'trunking-termination'|'turnmegabytes'|'turnmegabytes-australia'|'turnmegabytes-brasil'|'turnmegabytes-india'|'turnmegabytes-ireland'|'turnmegabytes-japan'|'turnmegabytes-singapore'|'turnmegabytes-useast'|'turnmegabytes-uswest'|'twilio-interconnect'|'video-recordings'|'voice-insights'|'voice-insights-client-insights-on-demand-minute'|'voice-insights-ptsn-insights-on-demand-minute'|'voice-insights-sip-interface-insights-on-demand-minute'|'voice-insights-sip-trunking-insights-on-demand-minute'|'wireless'|'wireless-orders'|'wireless-orders-artwork'|'wireless-orders-bulk'|'wireless-orders-esim'|'wireless-orders-starter'|'wireless-usage'|'wireless-usage-commands'|'wireless-usage-commands-africa'|'wireless-usage-commands-asia'|'wireless-usage-commands-centralandsouthamerica'|'wireless-usage-commands-europe'|'wireless-usage-commands-home'|'wireless-usage-commands-northamerica'|'wireless-usage-commands-oceania'|'wireless-usage-commands-roaming'|'wireless-usage-data'|'wireless-usage-data-africa'|'wireless-usage-data-asia'|'wireless-usage-data-centralandsouthamerica'|'wireless-usage-data-custom-additionalmb'|'wireless-usage-data-custom-first5mb'|'wireless-usage-data-domestic-roaming'|'wireless-usage-data-europe'|'wireless-usage-data-individual-additionalgb'|'wireless-usage-data-individual-firstgb'|'wireless-usage-data-international-roaming-canada'|'wireless-usage-data-international-roaming-india'|'wireless-usage-data-international-roaming-mexico'|'wireless-usage-data-northamerica'|'wireless-usage-data-oceania'|'wireless-usage-data-pooled'|'wireless-usage-data-pooled-downlink'|'wireless-usage-data-pooled-uplink'|'wireless-usage-mrc'|'wireless-usage-mrc-custom'|'wireless-usage-mrc-individual'|'wireless-usage-mrc-pooled'|'wireless-usage-mrc-suspended'|'wireless-usage-voice'|'wireless-usage-sms';
 
-interface DailyResource {
+declare class DailyPage extends Page {
   /**
-   * The Account that accrued the usage.
-   */
-  account_sid: string;
-  /**
-   * The api_version
-   */
-  api_version: string;
-  /**
-   * The category of usage.  See [Usage Categories](https://www.twilio.com/docs/api/rest/usage-records#usage-categories) below.
-   */
-  category: DailyCategory;
-  /**
-   * The number of usage events (e.g. the number of calls).
-   */
-  count: string;
-  /**
-   * The units in which `Count` is measured.  For example `calls` for calls, `messages` for SMS.
-   */
-  count_unit: string;
-  /**
-   * A human-readable description of the usage category.
-   */
-  description: string;
-  /**
-   * The last date for which usage is included in this UsageRecord, formatted as YYYY-MM-DD.  All dates are in GMT.
-   */
-  end_date: Date;
-  /**
-   * The total price of the usage, in the currency associated with the account.
-   */
-  price: number;
-  /**
-   * The currency in which `Price` is measured, in [ISO 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
-   */
-  price_unit: string;
-  /**
-   * The first date for which usage is included in this UsageRecord, formatted as YYYY-MM-DD.  All dates are in GMT.
-   */
-  start_date: Date;
-  /**
-   * Subresource Uris for this UsageRecord.  See [List Subresources](https://www.twilio.com/docs/api/rest/usage-records#list-subresources).
-   */
-  subresource_uris: string;
-  /**
-   * The URI that returns only this UsageRecord, relative to `https://api.twilio.com`.
-   */
-  uri: string;
-  /**
-   * The amount of billed usage (e.g. the number of call minutes billed for).  This is frequently the same as `Count`, but may be different for certain usage categories like calls, where `Count` represents the number of calls and `Usage` represents the number of rounded, billed minutes.
-   */
-  usage: string;
-  /**
-   * The units in which `Usage` is measured.  For example `minutes` for calls, `messages` for SMS.
-   */
-  usage_unit: string;
-}
-
-interface DailyPayload extends DailyResource, Page.TwilioResponsePayload {
-}
-
-interface DailySolution {
-  accountSid: string;
-}
-
-interface DailyListEachOptions extends ListEachOptions<DailyInstance> {
-  /**
-   * Only include usage of this [usage category](https://www.twilio.com/docs/api/rest/usage-records#usage-categories).
-   */
-  category?: DailyCategory;
-  /**
-   * Only include usage that has occurred on or before this date.  Format is YYYY-MM-DD.  All dates are in GMT.  As a convenience, you can also specify offsets to today.  For example, `EndDate=+30days` will make `EndDate` be 30 days from today.
-   */
-  endDate?: Date;
-  /**
-   * The include_subaccounts
-   */
-  includeSubaccounts?: boolean;
-  /**
-   * Only include usage that has occurred on or after this date.  Format is YYYY-MM-DD.  All dates are in GMT.  As a convenience, you can also specify offsets to today.  For example, `StartDate=-30days` will make `StartDate` be 30 days before today.
-   */
-  startDate?: Date;
-}
-
-interface DailyListOptions extends ListOptions<DailyInstance> {
-  /**
-   * Only include usage of this [usage category](https://www.twilio.com/docs/api/rest/usage-records#usage-categories).
-   */
-  category?: DailyCategory;
-  /**
-   * Only include usage that has occurred on or before this date.  Format is YYYY-MM-DD.  All dates are in GMT.  As a convenience, you can also specify offsets to today.  For example, `EndDate=+30days` will make `EndDate` be 30 days from today.
-   */
-  endDate?: Date;
-  /**
-   * The include_subaccounts
-   */
-  includeSubaccounts?: boolean;
-  /**
-   * Only include usage that has occurred on or after this date.  Format is YYYY-MM-DD.  All dates are in GMT.  As a convenience, you can also specify offsets to today.  For example, `StartDate=-30days` will make `StartDate` be 30 days before today.
-   */
-  startDate?: Date;
-}
-
-interface DailyListPageOptions extends PageOptions<DailyPage> {
-  /**
-   * Only include usage of this [usage category](https://www.twilio.com/docs/api/rest/usage-records#usage-categories).
-   */
-  category?: DailyCategory;
-  /**
-   * Only include usage that has occurred on or before this date.  Format is YYYY-MM-DD.  All dates are in GMT.  As a convenience, you can also specify offsets to today.  For example, `EndDate=+30days` will make `EndDate` be 30 days from today.
-   */
-  endDate?: Date;
-  /**
-   * The include_subaccounts
-   */
-  includeSubaccounts?: boolean;
-  /**
-   * Only include usage that has occurred on or after this date.  Format is YYYY-MM-DD.  All dates are in GMT.  As a convenience, you can also specify offsets to today.  For example, `StartDate=-30days` will make `StartDate` be 30 days before today.
-   */
-  startDate?: Date;
-}
-
-interface DailyListInstance {
-  /**
-   * Streams DailyInstance records from the API.
+   * @constructor Twilio.Api.V2010.AccountContext.UsageContext.RecordContext.DailyPage
+   * @augments Page
+   * @description Initialize the DailyPage
    *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  each(opts?: DailyListEachOptions): void;
-  /**
-   * Streams DailyInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: DailyInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Retrieve a single target page of DailyInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<DailyPage>;
-  /**
-   * Retrieve a single target page of DailyInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: DailyPage) => any): void;
-  /**
-   * Lists DailyInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: DailyListOptions): Promise<DailyInstance[]>;
-  /**
-   * Lists DailyInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: DailyListOptions, callback: (error: Error | null, items: DailyInstance[]) => any): void;
-  /**
-   * Lists DailyInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: DailyInstance[]) => any): void;
-  /**
-   * Retrieve a single page of DailyInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: DailyListPageOptions): Promise<DailyPage>;
-  /**
-   * Retrieve a single page of DailyInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: DailyListPageOptions, callback: (error: Error | null, items: DailyPage) => any): void;
-  /**
-   * Retrieve a single page of DailyInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: DailyPage) => any): void;
-}
-
-declare class DailyPage extends Page<V2010, DailyPayload, DailyResource, DailyInstance> {
-  constructor(version: V2010, response: Response<string>, solution: DailySolution);
+  constructor(version: Twilio.Api.V2010, response: object, solution: object);
 
   /**
    * Build an instance of DailyInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Api.V2010.AccountContext.UsageContext.RecordContext.DailyPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: DailyPayload): DailyInstance;
+  getInstance(payload: object);
 }
 
-declare class DailyInstance extends SerializableClass {
+declare class DailyInstance {
   /**
+   * @constructor Twilio.Api.V2010.AccountContext.UsageContext.RecordContext.DailyInstance
+   * @description Initialize the DailyContext
+   *
+   * @property accountSid - The Account that accrued the usage.
+   * @property apiVersion - The api_version
+   * @property category - The category of usage.
+   * @property count - The number of usage events.
+   * @property countUnit - The units in which Count is measured.
+   * @property description - A human-readable description of the usage category.
+   * @property endDate - The last date for which usage is included in this UsageRecord, formatted as YYYY-MM-DD.
+   * @property price - The total price of the usage, in the currency associated with the account.
+   * @property priceUnit - The currency in which Price is measured, in ISO 4127 format.
+   * @property startDate - The first date for which usage is included in this UsageRecord, formatted as YYYY-MM-DD.
+   * @property subresourceUris - Subresource Uris for this UsageRecord.
+   * @property uri - The URI that returns only this UsageRecord, relative to https://api.
+   * @property usage - The amount of billed usage.
+   * @property usageUnit - The units in which Usage is measured.
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
+   * @param accountSid - A 34 character string that uniquely identifies this resource.
    */
-  constructor(version: V2010, payload: DailyPayload);
+  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid);
 
   /**
-   * The Account that accrued the usage.
+   * Produce a plain JSON object version of the DailyInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Api.V2010.AccountContext.UsageContext.RecordContext.DailyInstance
+   * @instance
    */
-  accountSid: string;
-  /**
-   * The api_version
-   */
-  apiVersion: string;
-  /**
-   * The category of usage.  See [Usage Categories](https://www.twilio.com/docs/api/rest/usage-records#usage-categories) below.
-   */
-  category: DailyCategory;
-  /**
-   * The number of usage events (e.g. the number of calls).
-   */
-  count: string;
-  /**
-   * The units in which `Count` is measured.  For example `calls` for calls, `messages` for SMS.
-   */
-  countUnit: string;
-  /**
-   * A human-readable description of the usage category.
-   */
-  description: string;
-  /**
-   * The last date for which usage is included in this UsageRecord, formatted as YYYY-MM-DD.  All dates are in GMT.
-   */
-  endDate: Date;
-  /**
-   * The total price of the usage, in the currency associated with the account.
-   */
-  price: number;
-  /**
-   * The currency in which `Price` is measured, in [ISO 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
-   */
-  priceUnit: string;
-  /**
-   * The first date for which usage is included in this UsageRecord, formatted as YYYY-MM-DD.  All dates are in GMT.
-   */
-  startDate: Date;
-  /**
-   * Subresource Uris for this UsageRecord.  See [List Subresources](https://www.twilio.com/docs/api/rest/usage-records#list-subresources).
-   */
-  subresourceUris: string;
-  /**
-   * The URI that returns only this UsageRecord, relative to `https://api.twilio.com`.
-   */
-  uri: string;
-  /**
-   * The amount of billed usage (e.g. the number of call minutes billed for).  This is frequently the same as `Count`, but may be different for certain usage categories like calls, where `Count` represents the number of calls and `Usage` represents the number of rounded, billed minutes.
-   */
-  usage: string;
-  /**
-   * The units in which `Usage` is measured.  For example `minutes` for calls, `messages` for SMS.
-   */
-  usageUnit: string;
+  toJSON();
 }
 
-export { DailyCategory, DailyInstance, DailyList, DailyListEachOptions, DailyListInstance, DailyListOptions, DailyListPageOptions, DailyPage, DailyPayload, DailyResource, DailySolution }
+export { DailyInstance, DailyList, DailyPage }

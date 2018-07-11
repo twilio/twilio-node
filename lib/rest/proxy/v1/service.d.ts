@@ -6,484 +6,223 @@
  */
 
 import Page = require('../../../base/Page');
-import Response = require('../../../http/response');
-import V1 = require('../V1');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
-import { PhoneNumberListInstance } from './service/phoneNumber';
-import { SerializableClass } from '../../../interfaces';
-import { SessionListInstance } from './service/session';
-import { ShortCodeListInstance } from './service/shortCode';
+import deserialize = require('../../../base/deserialize');
+import values = require('../../../base/values');
+import { PhoneNumberList } from './service/phoneNumber';
+import { SessionList } from './service/session';
+import { ShortCodeList } from './service/shortCode';
 
-declare function ServiceList(version: V1): ServiceListInstance
 
-type ServiceGeoMatchLevel = 'area-code'|'overlay'|'radius'|'country';
-
-type ServiceNumberSelectionBehavior = 'avoid-sticky'|'prefer-sticky';
-
-interface ServiceResource {
-  /**
-   * The unique SID identifier of the Account.
-   */
-  account_sid: string;
-  /**
-   * The URL to which Twilio will make callbacks on interaction status changes.
-   */
-  callback_url: string;
-  /**
-   * The date that this Service was created, given in ISO 8601 format.
-   */
-  date_created: Date;
-  /**
-   * The date that this Service was last updated, given in ISO 8601 format.
-   */
-  date_updated: Date;
-  /**
-   * The default time to live for Sessions created in this Service. The amount of time, specified in seconds, that each Session should remain open. Keys off the last interaction or Session creation time. Defaults to a value of 0 (unlimited Session length). You can override this value by setting a specific TTL on individual Sessions.
-   */
-  default_ttl: number;
-  /**
-   * Whether proxy number selected must be in the same area code as the participant identifier. Options: `country`, `area-code`, `extended-area-code`. Default: `country`. Levels lower than country are only available in North America.
-   */
-  geo_match_level: ServiceGeoMatchLevel;
-  /**
-   * Fires on each interaction. If you respond with a 403 status, we will abort/block the interaction. For any other status or timeout, the interaction continues.
-   */
-  intercept_callback_url: string;
-  /**
-   * Contains a dictionary of URL links to nested resources of this Service.
-   */
-  links: string;
-  /**
-   * The preference for Proxy Number selection for this instance. `prefer-sticky` means that we will try and select the same Proxy Number for a given participant if they have previous [Sessions](https://www.twilio.com/docs/proxy/api/session), but we will not error and fail if that Proxy Number cannot be used.  `avoid-sticky` means that we will try to use different Proxy Numbers as long as that is possible within a given pool rather than try and use a previously assigned number.
-   */
-  number_selection_behavior: ServiceNumberSelectionBehavior;
-  /**
-   * A URL to send webhooks to when an action (inbound call or SMS) occurs where there is no Session or a closed Session. If your server (or a Twilio [function](https://www.twilio.com/functions)) responds with valid [TwiML](https://www.twilio.com/docs/api/twiml), this will be processed. This means it is possible to, for example, play a message for a call, send an automated text message response, or redirect a call to another Phone Number.
-   */
-  out_of_session_callback_url: string;
-  /**
-   * A 34 character string that uniquely identifies this Service.
-   */
-  sid: string;
-  /**
-   * A human-readable description of this resource, up to 255 characters. *Should not contain PII.*
-   */
-  unique_name: string;
-  /**
-   * The URL of this resource.
-   */
-  url: string;
-}
-
-interface ServicePayload extends ServiceResource, Page.TwilioResponsePayload {
-}
-
-interface ServiceSolution {
-}
-
-interface ServiceListEachOptions extends ListEachOptions<ServiceInstance> {
-}
-
-interface ServiceListOptions extends ListOptions<ServiceInstance> {
-}
-
-interface ServiceListPageOptions extends PageOptions<ServicePage> {
-}
-
-interface ServiceListCreateOptions {
-  /**
-   * The URL to which Twilio will make callbacks on interaction status changes.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property uniqueName - A human-readable description of this resource.
+ * @property defaultTtl - Default TTL for Sessions in Service, in seconds.
+ * @property callbackUrl - URL Twilio will send callbacks to
+ * @property geoMatchLevel - Whether proxy number selected must be in the same area code as the participant identifier.
+ * @property numberSelectionBehavior - What behavior to use when choosing a proxy number.
+ * @property interceptCallbackUrl - A URL for Twilio call before each Interaction.
+ * @property outOfSessionCallbackUrl - A URL for Twilio call when a new Interaction has no Session.
+ */
+export interface UpdateOptions {
   callbackUrl?: string;
-  /**
-   * The default time delay in seconds after the latest of Session create time or the Session's last Interaction time, after which a session will expire.  Used for sessions where TTL is not specified.
-   */
   defaultTtl?: number;
-  /**
-   * Whether proxy number selected must be in the same area code as the participant identifier. Options: `country`, `area-code`, `extended-area-code`. Default: `country`. Levels lower than country are only available in North America.
-   */
-  geoMatchLevel?: ServiceGeoMatchLevel;
-  /**
-   * A URL for Twilio call before each Interaction. Returning a 403 status code will prevent the interaction from continuing.
-   */
+  geoMatchLevel?: service.geo_match_level;
   interceptCallbackUrl?: string;
-  /**
-   * Options: `prefer-sticky`, `avoid-sticky`. Default: `prefer-sticky`.
-   */
-  numberSelectionBehavior?: ServiceNumberSelectionBehavior;
-  /**
-   * A URL for Twilio call when a new Interaction has no [Session](https://www.twilio.com/docs/proxy/api/session).
-   */
+  numberSelectionBehavior?: service.number_selection_behavior;
   outOfSessionCallbackUrl?: string;
-  /**
-   * The human-readable string that uniquely identifies this Service, up to 64 characters. *Should not contain PII.*
-   */
-  uniqueName: string;
-}
-
-interface ServiceListInstance {
-  /**
-   * Gets context of a single Service resource
-   *
-   * @param sid - A string that uniquely identifies this Service.
-   */
-  (sid: string): ServiceContext;
-  /**
-   * create a ServiceInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  create(opts: ServiceListCreateOptions): Promise<ServiceInstance>;
-  /**
-   * create a ServiceInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: ServiceListCreateOptions, callback: (error: Error | null, items: ServiceInstance) => any): void;
-  /**
-   * Streams ServiceInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: ServiceListEachOptions): void;
-  /**
-   * Streams ServiceInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: ServiceInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Service resource
-   *
-   * @param sid - A string that uniquely identifies this Service.
-   */
-  get(sid: string): ServiceContext;
-  /**
-   * Retrieve a single target page of ServiceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<ServicePage>;
-  /**
-   * Retrieve a single target page of ServiceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: ServicePage) => any): void;
-  /**
-   * Lists ServiceInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: ServiceListOptions): Promise<ServiceInstance[]>;
-  /**
-   * Lists ServiceInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: ServiceListOptions, callback: (error: Error | null, items: ServiceInstance[]) => any): void;
-  /**
-   * Lists ServiceInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: ServiceInstance[]) => any): void;
-  /**
-   * Retrieve a single page of ServiceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: ServiceListPageOptions): Promise<ServicePage>;
-  /**
-   * Retrieve a single page of ServiceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: ServiceListPageOptions, callback: (error: Error | null, items: ServicePage) => any): void;
-  /**
-   * Retrieve a single page of ServiceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: ServicePage) => any): void;
-}
-
-interface ServiceListFetchOptions {
-  /**
-   * The URL to which Twilio will make callbacks on interaction status changes.
-   */
-  callbackUrl?: string;
-  /**
-   * The default time delay in seconds after the latest of Session create time or the Session's last Interaction time, after which a session will expire.  Used for sessions where TTL is not specified.
-   */
-  defaultTtl?: number;
-  /**
-   * Whether proxy number selected must be in the same area code as the participant identifier. Options: `country`, `area-code`, `extended-area-code`. Default: `country`. Levels lower than country are only available in North America.
-   */
-  geoMatchLevel?: ServiceGeoMatchLevel;
-  /**
-   * A URL for Twilio call before each Interaction. Returning a 403 status code will prevent the interaction from continuing.
-   */
-  interceptCallbackUrl?: string;
-  /**
-   * Options: `prefer-sticky`, `avoid-sticky`. Default: `prefer-sticky`.
-   */
-  numberSelectionBehavior?: ServiceNumberSelectionBehavior;
-  /**
-   * A URL for Twilio call when a new Interaction has no [Session](https://www.twilio.com/docs/proxy/api/session).
-   */
-  outOfSessionCallbackUrl?: string;
-  /**
-   * A human-readable description of this resource, up to 64 characters. *Should not contain PII.*
-   */
   uniqueName?: string;
 }
 
-interface ServiceListFetchOptions {
-  /**
-   * The URL to which Twilio will make callbacks on interaction status changes.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property uniqueName - A human-readable description of this resource.
+ * @property defaultTtl - Default TTL for Sessions in Service, in seconds.
+ * @property callbackUrl - URL Twilio will send callbacks to
+ * @property geoMatchLevel - Whether proxy number selected must be in the same area code as the participant identifier.
+ * @property numberSelectionBehavior - What behavior to use when choosing a proxy number.
+ * @property interceptCallbackUrl - A URL for Twilio call before each Interaction.
+ * @property outOfSessionCallbackUrl - A URL for Twilio call when a new Interaction has no Session.
+ */
+export interface UpdateOptions {
   callbackUrl?: string;
-  /**
-   * The default time delay in seconds after the latest of Session create time or the Session's last Interaction time, after which a session will expire.  Used for sessions where TTL is not specified.
-   */
   defaultTtl?: number;
-  /**
-   * Whether proxy number selected must be in the same area code as the participant identifier. Options: `country`, `area-code`, `extended-area-code`. Default: `country`. Levels lower than country are only available in North America.
-   */
-  geoMatchLevel?: ServiceGeoMatchLevel;
-  /**
-   * A URL for Twilio call before each Interaction. Returning a 403 status code will prevent the interaction from continuing.
-   */
+  geoMatchLevel?: service.geo_match_level;
   interceptCallbackUrl?: string;
-  /**
-   * Options: `prefer-sticky`, `avoid-sticky`. Default: `prefer-sticky`.
-   */
-  numberSelectionBehavior?: ServiceNumberSelectionBehavior;
-  /**
-   * A URL for Twilio call when a new Interaction has no [Session](https://www.twilio.com/docs/proxy/api/session).
-   */
+  numberSelectionBehavior?: service.number_selection_behavior;
   outOfSessionCallbackUrl?: string;
-  /**
-   * A human-readable description of this resource, up to 64 characters. *Should not contain PII.*
-   */
   uniqueName?: string;
 }
 
-declare class ServicePage extends Page<V1, ServicePayload, ServiceResource, ServiceInstance> {
-  constructor(version: V1, response: Response<string>, solution: ServiceSolution);
+
+declare class ServicePage extends Page {
+  /**
+   * @constructor Twilio.Proxy.V1.ServicePage
+   * @augments Page
+   * @description Initialize the ServicePage
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Proxy.V1, response: object, solution: object);
 
   /**
    * Build an instance of ServiceInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Proxy.V1.ServicePage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: ServicePayload): ServiceInstance;
+  getInstance(payload: object);
 }
 
-declare class ServiceInstance extends SerializableClass {
+declare class ServiceInstance {
   /**
+   * @constructor Twilio.Proxy.V1.ServiceInstance
+   * @description Initialize the ServiceContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property sid - A string that uniquely identifies this Service.
+   * @property uniqueName - A human-readable description of this resource.
+   * @property accountSid - Account Sid.
+   * @property callbackUrl - URL Twilio will send callbacks to
+   * @property defaultTtl - Default TTL for a Session, in seconds.
+   * @property numberSelectionBehavior - What behavior to use when choosing a proxy number.
+   * @property geoMatchLevel - Whether proxy number selected must be in the same area code as the participant identifier.
+   * @property interceptCallbackUrl - A URL for Twilio call before each Interaction.
+   * @property outOfSessionCallbackUrl - A URL for Twilio call when a new Interaction has no Session.
+   * @property dateCreated - The date this Service was created
+   * @property dateUpdated - The date this Service was last updated
+   * @property url - The URL of this resource.
+   * @property links - Nested resource URLs.
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param sid - A string that uniquely identifies this Service.
    */
-  constructor(version: V1, payload: ServicePayload, sid: string);
+  constructor(version: Twilio.Proxy.V1, payload: object, sid: sid_like);
 
-  private _proxy: ServiceContext;
-  /**
-   * The unique SID identifier of the Account.
-   */
-  accountSid: string;
-  /**
-   * The URL to which Twilio will make callbacks on interaction status changes.
-   */
-  callbackUrl: string;
-  /**
-   * The date that this Service was created, given in ISO 8601 format.
-   */
-  dateCreated: Date;
-  /**
-   * The date that this Service was last updated, given in ISO 8601 format.
-   */
-  dateUpdated: Date;
-  /**
-   * The default time to live for Sessions created in this Service. The amount of time, specified in seconds, that each Session should remain open. Keys off the last interaction or Session creation time. Defaults to a value of 0 (unlimited Session length). You can override this value by setting a specific TTL on individual Sessions.
-   */
-  defaultTtl: number;
+  _proxy?: ServiceContext;
   /**
    * fetch a ServiceInstance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  fetch(): Promise<ServiceInstance>;
-  /**
-   * fetch a ServiceInstance
+   * @function fetch
+   * @memberof Twilio.Proxy.V1.ServiceInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: ServiceInstance) => any): void;
+  fetch(callback?: function);
   /**
-   * Whether proxy number selected must be in the same area code as the participant identifier. Options: `country`, `area-code`, `extended-area-code`. Default: `country`. Levels lower than country are only available in North America.
+   * Access the phoneNumbers
+   *
+   * @function phoneNumbers
+   * @memberof Twilio.Proxy.V1.ServiceInstance
+   * @instance
    */
-  geoMatchLevel: ServiceGeoMatchLevel;
-  /**
-   * Fires on each interaction. If you respond with a 403 status, we will abort/block the interaction. For any other status or timeout, the interaction continues.
-   */
-  interceptCallbackUrl: string;
-  /**
-   * Contains a dictionary of URL links to nested resources of this Service.
-   */
-  links: string;
-  /**
-   * The preference for Proxy Number selection for this instance. `prefer-sticky` means that we will try and select the same Proxy Number for a given participant if they have previous [Sessions](https://www.twilio.com/docs/proxy/api/session), but we will not error and fail if that Proxy Number cannot be used.  `avoid-sticky` means that we will try to use different Proxy Numbers as long as that is possible within a given pool rather than try and use a previously assigned number.
-   */
-  numberSelectionBehavior: ServiceNumberSelectionBehavior;
-  /**
-   * A URL to send webhooks to when an action (inbound call or SMS) occurs where there is no Session or a closed Session. If your server (or a Twilio [function](https://www.twilio.com/functions)) responds with valid [TwiML](https://www.twilio.com/docs/api/twiml), this will be processed. This means it is possible to, for example, play a message for a call, send an automated text message response, or redirect a call to another Phone Number.
-   */
-  outOfSessionCallbackUrl: string;
-  phoneNumbers(): PhoneNumberListInstance;
+  phoneNumbers();
   /**
    * remove a ServiceInstance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  remove(): Promise<ServiceInstance>;
-  /**
-   * remove a ServiceInstance
+   * @function remove
+   * @memberof Twilio.Proxy.V1.ServiceInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: ServiceInstance) => any): void;
-  sessions(): SessionListInstance;
-  shortCodes(): ShortCodeListInstance;
+  remove(callback?: function);
   /**
-   * A 34 character string that uniquely identifies this Service.
+   * Access the sessions
+   *
+   * @function sessions
+   * @memberof Twilio.Proxy.V1.ServiceInstance
+   * @instance
    */
-  sid: string;
+  sessions();
   /**
-   * A human-readable description of this resource, up to 255 characters. *Should not contain PII.*
+   * Access the shortCodes
+   *
+   * @function shortCodes
+   * @memberof Twilio.Proxy.V1.ServiceInstance
+   * @instance
    */
-  uniqueName: string;
+  shortCodes();
+  /**
+   * Produce a plain JSON object version of the ServiceInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Proxy.V1.ServiceInstance
+   * @instance
+   */
+  toJSON();
   /**
    * update a ServiceInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Proxy.V1.ServiceInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  update(opts?: ServiceListFetchOptions): Promise<ServiceInstance>;
-  /**
-   * update a ServiceInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: ServiceListFetchOptions, callback: (error: Error | null, items: ServiceInstance) => any): void;
-  /**
-   * update a ServiceInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: ServiceInstance) => any): void;
-  /**
-   * The URL of this resource.
-   */
-  url: string;
+  update(opts?: object, callback?: function);
 }
 
 declare class ServiceContext {
-  constructor(version: V1, sid: string);
+  /**
+   * @constructor Twilio.Proxy.V1.ServiceContext
+   * @description Initialize the ServiceContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property sessions - sessions resource
+   * @property phoneNumbers - phoneNumbers resource
+   * @property shortCodes - shortCodes resource
+   *
+   * @param version - Version of the resource
+   * @param sid - A string that uniquely identifies this Service.
+   */
+  constructor(version: Twilio.Proxy.V1, sid: sid_like);
 
   /**
    * fetch a ServiceInstance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  fetch(): Promise<ServiceInstance>;
-  /**
-   * fetch a ServiceInstance
+   * @function fetch
+   * @memberof Twilio.Proxy.V1.ServiceContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: ServiceInstance) => any): void;
-  phoneNumbers: PhoneNumberListInstance;
+  fetch(callback?: function);
+  phoneNumbers?: Twilio.Proxy.V1.ServiceContext.PhoneNumberList;
   /**
    * remove a ServiceInstance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  remove(): Promise<ServiceInstance>;
-  /**
-   * remove a ServiceInstance
+   * @function remove
+   * @memberof Twilio.Proxy.V1.ServiceContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: ServiceInstance) => any): void;
-  sessions: SessionListInstance;
-  shortCodes: ShortCodeListInstance;
+  remove(callback?: function);
+  sessions?: Twilio.Proxy.V1.ServiceContext.SessionList;
+  shortCodes?: Twilio.Proxy.V1.ServiceContext.ShortCodeList;
   /**
    * update a ServiceInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Proxy.V1.ServiceContext
+   * @instance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  update(opts?: ServiceListFetchOptions): Promise<ServiceInstance>;
-  /**
-   * update a ServiceInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: ServiceListFetchOptions, callback: (error: Error | null, items: ServiceInstance) => any): void;
-  /**
-   * update a ServiceInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: ServiceInstance) => any): void;
+  update(opts?: object, callback?: function);
 }
 
-export { ServiceContext, ServiceGeoMatchLevel, ServiceInstance, ServiceList, ServiceListCreateOptions, ServiceListEachOptions, ServiceListFetchOptions, ServiceListInstance, ServiceListOptions, ServiceListPageOptions, ServiceNumberSelectionBehavior, ServicePage, ServicePayload, ServiceResource, ServiceSolution }
+export { ServiceContext, ServiceInstance, ServiceList, ServicePage }

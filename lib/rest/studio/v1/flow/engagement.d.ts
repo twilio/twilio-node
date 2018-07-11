@@ -6,345 +6,149 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V1 = require('../../V1');
-import { EngagementContextListInstance } from './engagement/engagementContext';
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { SerializableClass } from '../../../../interfaces';
-import { StepListInstance } from './engagement/step';
+import deserialize = require('../../../../base/deserialize');
+import serialize = require('../../../../base/serialize');
+import values = require('../../../../base/values');
+import { EngagementContextList } from './engagement/engagementContext';
+import { StepList } from './engagement/step';
 
-declare function EngagementList(version: V1, flowSid: string): EngagementListInstance
 
-type EngagementStatus = 'active'|'ended';
 
-interface EngagementResource {
+declare class EngagementPage extends Page {
   /**
-   * The account_sid
+   * @constructor Twilio.Studio.V1.FlowContext.EngagementPage
+   * @augments Page
+   * @description Initialize the EngagementPage
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  account_sid: string;
-  /**
-   * The contact_channel_address
-   */
-  contact_channel_address: string;
-  /**
-   * The contact_sid
-   */
-  contact_sid: string;
-  /**
-   * The context
-   */
-  context: string;
-  /**
-   * The date_created
-   */
-  date_created: Date;
-  /**
-   * The date_updated
-   */
-  date_updated: Date;
-  /**
-   * The flow_sid
-   */
-  flow_sid: string;
-  /**
-   * The links
-   */
-  links: string;
-  /**
-   * The sid
-   */
-  sid: string;
-  /**
-   * The status
-   */
-  status: EngagementStatus;
-  /**
-   * The url
-   */
-  url: string;
-}
-
-interface EngagementPayload extends EngagementResource, Page.TwilioResponsePayload {
-}
-
-interface EngagementSolution {
-  flowSid: string;
-}
-
-interface EngagementListEachOptions extends ListEachOptions<EngagementInstance> {
-}
-
-interface EngagementListOptions extends ListOptions<EngagementInstance> {
-}
-
-interface EngagementListPageOptions extends PageOptions<EngagementPage> {
-}
-
-interface EngagementListCreateOptions {
-  /**
-   * The from
-   */
-  from: string;
-  /**
-   * The parameters
-   */
-  parameters?: string;
-  /**
-   * The to
-   */
-  to: string;
-}
-
-interface EngagementListInstance {
-  /**
-   * Gets context of a single Engagement resource
-   *
-   * @param sid - The sid
-   */
-  (sid: string): EngagementContext;
-  /**
-   * create a EngagementInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed EngagementInstance
-   */
-  create(opts: EngagementListCreateOptions): Promise<EngagementInstance>;
-  /**
-   * create a EngagementInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: EngagementListCreateOptions, callback: (error: Error | null, items: EngagementInstance) => any): void;
-  /**
-   * Streams EngagementInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: EngagementListEachOptions): void;
-  /**
-   * Streams EngagementInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: EngagementInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Engagement resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): EngagementContext;
-  /**
-   * Retrieve a single target page of EngagementInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<EngagementPage>;
-  /**
-   * Retrieve a single target page of EngagementInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: EngagementPage) => any): void;
-  /**
-   * Lists EngagementInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: EngagementListOptions): Promise<EngagementInstance[]>;
-  /**
-   * Lists EngagementInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: EngagementListOptions, callback: (error: Error | null, items: EngagementInstance[]) => any): void;
-  /**
-   * Lists EngagementInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: EngagementInstance[]) => any): void;
-  /**
-   * Retrieve a single page of EngagementInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: EngagementListPageOptions): Promise<EngagementPage>;
-  /**
-   * Retrieve a single page of EngagementInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: EngagementListPageOptions, callback: (error: Error | null, items: EngagementPage) => any): void;
-  /**
-   * Retrieve a single page of EngagementInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: EngagementPage) => any): void;
-}
-
-declare class EngagementPage extends Page<V1, EngagementPayload, EngagementResource, EngagementInstance> {
-  constructor(version: V1, response: Response<string>, solution: EngagementSolution);
+  constructor(version: Twilio.Studio.V1, response: object, solution: object);
 
   /**
    * Build an instance of EngagementInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Studio.V1.FlowContext.EngagementPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: EngagementPayload): EngagementInstance;
+  getInstance(payload: object);
 }
 
-declare class EngagementInstance extends SerializableClass {
+declare class EngagementInstance {
   /**
+   * @constructor Twilio.Studio.V1.FlowContext.EngagementInstance
+   * @description Initialize the EngagementContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property sid - The sid
+   * @property accountSid - The account_sid
+   * @property flowSid - The flow_sid
+   * @property contactSid - The contact_sid
+   * @property contactChannelAddress - The contact_channel_address
+   * @property context - The context
+   * @property status - The status
+   * @property dateCreated - The date_created
+   * @property dateUpdated - The date_updated
+   * @property url - The url
+   * @property links - The links
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param flowSid - The flow_sid
    * @param sid - The sid
    */
-  constructor(version: V1, payload: EngagementPayload, flowSid: string, sid: string);
+  constructor(version: Twilio.Studio.V1, payload: object, flowSid: sid, sid: sid);
 
-  private _proxy: EngagementContext;
+  _proxy?: EngagementContext;
   /**
-   * The account_sid
+   * Access the engagementContext
+   *
+   * @function engagementContext
+   * @memberof Twilio.Studio.V1.FlowContext.EngagementInstance
+   * @instance
    */
-  accountSid: string;
-  /**
-   * The contact_channel_address
-   */
-  contactChannelAddress: string;
-  /**
-   * The contact_sid
-   */
-  contactSid: string;
-  /**
-   * The context
-   */
-  context: string;
-  /**
-   * The date_created
-   */
-  dateCreated: Date;
-  /**
-   * The date_updated
-   */
-  dateUpdated: Date;
-  engagementContext(): EngagementContextListInstance;
+  engagementContext();
   /**
    * fetch a EngagementInstance
    *
-   * @returns Promise that resolves to processed EngagementInstance
-   */
-  fetch(): Promise<EngagementInstance>;
-  /**
-   * fetch a EngagementInstance
+   * @function fetch
+   * @memberof Twilio.Studio.V1.FlowContext.EngagementInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: EngagementInstance) => any): void;
-  /**
-   * The flow_sid
-   */
-  flowSid: string;
-  /**
-   * The links
-   */
-  links: string;
+  fetch(callback?: function);
   /**
    * remove a EngagementInstance
    *
-   * @returns Promise that resolves to processed EngagementInstance
-   */
-  remove(): Promise<EngagementInstance>;
-  /**
-   * remove a EngagementInstance
+   * @function remove
+   * @memberof Twilio.Studio.V1.FlowContext.EngagementInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: EngagementInstance) => any): void;
+  remove(callback?: function);
   /**
-   * The sid
+   * Access the steps
+   *
+   * @function steps
+   * @memberof Twilio.Studio.V1.FlowContext.EngagementInstance
+   * @instance
    */
-  sid: string;
+  steps();
   /**
-   * The status
+   * Produce a plain JSON object version of the EngagementInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Studio.V1.FlowContext.EngagementInstance
+   * @instance
    */
-  status: EngagementStatus;
-  steps(): StepListInstance;
-  /**
-   * The url
-   */
-  url: string;
+  toJSON();
 }
 
 declare class EngagementContext {
-  constructor(version: V1, flowSid: string, sid: string);
+  /**
+   * @constructor Twilio.Studio.V1.FlowContext.EngagementContext
+   * @description Initialize the EngagementContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property steps - steps resource
+   * @property engagementContext - engagementContext resource
+   *
+   * @param version - Version of the resource
+   * @param flowSid - The flow_sid
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Studio.V1, flowSid: sid, sid: sid);
 
-  engagementContext: EngagementContextListInstance;
+  engagementContext?: Twilio.Studio.V1.FlowContext.EngagementContext.EngagementContextList;
   /**
    * fetch a EngagementInstance
    *
-   * @returns Promise that resolves to processed EngagementInstance
-   */
-  fetch(): Promise<EngagementInstance>;
-  /**
-   * fetch a EngagementInstance
+   * @function fetch
+   * @memberof Twilio.Studio.V1.FlowContext.EngagementContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: EngagementInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a EngagementInstance
    *
-   * @returns Promise that resolves to processed EngagementInstance
-   */
-  remove(): Promise<EngagementInstance>;
-  /**
-   * remove a EngagementInstance
+   * @function remove
+   * @memberof Twilio.Studio.V1.FlowContext.EngagementContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: EngagementInstance) => any): void;
-  steps: StepListInstance;
+  remove(callback?: function);
+  steps?: Twilio.Studio.V1.FlowContext.EngagementContext.StepList;
 }
 
-export { EngagementContext, EngagementInstance, EngagementList, EngagementListCreateOptions, EngagementListEachOptions, EngagementListInstance, EngagementListOptions, EngagementListPageOptions, EngagementPage, EngagementPayload, EngagementResource, EngagementSolution, EngagementStatus }
+export { EngagementContext, EngagementInstance, EngagementList, EngagementPage }

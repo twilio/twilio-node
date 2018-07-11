@@ -6,256 +6,173 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V2010 = require('../../V2010');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { LocalListInstance } from './availablePhoneNumber/local';
-import { MachineToMachineListInstance } from './availablePhoneNumber/machineToMachine';
-import { MobileListInstance } from './availablePhoneNumber/mobile';
-import { NationalListInstance } from './availablePhoneNumber/national';
-import { SerializableClass } from '../../../../interfaces';
-import { SharedCostListInstance } from './availablePhoneNumber/sharedCost';
-import { TollFreeListInstance } from './availablePhoneNumber/tollFree';
-import { VoipListInstance } from './availablePhoneNumber/voip';
+import values = require('../../../../base/values');
+import { LocalList } from './availablePhoneNumber/local';
+import { MachineToMachineList } from './availablePhoneNumber/machineToMachine';
+import { MobileList } from './availablePhoneNumber/mobile';
+import { NationalList } from './availablePhoneNumber/national';
+import { SharedCostList } from './availablePhoneNumber/sharedCost';
+import { TollFreeList } from './availablePhoneNumber/tollFree';
+import { VoipList } from './availablePhoneNumber/voip';
 
-declare function AvailablePhoneNumberCountryList(version: V2010, accountSid: string): AvailablePhoneNumberCountryListInstance
 
-interface AvailablePhoneNumberCountryResource {
-  /**
-   * If true, all phone numbers available in this country are new to the Twilio platform. If false, all numbers are not in the Twilio Phone Number Beta program.
-   */
-  beta: boolean;
-  /**
-   * The country
-   */
-  country: string;
-  /**
-   * The ISO Country code to lookup phone numbers for.
-   */
-  country_code: string;
-  /**
-   * The subresource_uris
-   */
-  subresource_uris: string;
-  /**
-   * The uri
-   */
-  uri: string;
-}
 
-interface AvailablePhoneNumberCountryPayload extends AvailablePhoneNumberCountryResource, Page.TwilioResponsePayload {
-}
-
-interface AvailablePhoneNumberCountrySolution {
-  accountSid: string;
-}
-
-interface AvailablePhoneNumberCountryListEachOptions extends ListEachOptions<AvailablePhoneNumberCountryInstance> {
-}
-
-interface AvailablePhoneNumberCountryListOptions extends ListOptions<AvailablePhoneNumberCountryInstance> {
-}
-
-interface AvailablePhoneNumberCountryListPageOptions extends PageOptions<AvailablePhoneNumberCountryPage> {
-}
-
-interface AvailablePhoneNumberCountryListInstance {
+declare class AvailablePhoneNumberCountryPage extends Page {
   /**
-   * Gets context of a single AvailablePhoneNumberCountry resource
+   * @constructor Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryPage
+   * @augments Page
+   * @description Initialize the AvailablePhoneNumberCountryPage
    *
-   * @param countryCode - The country_code
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  (countryCode: string): AvailablePhoneNumberCountryContext;
-  /**
-   * Streams AvailablePhoneNumberCountryInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: AvailablePhoneNumberCountryListEachOptions): void;
-  /**
-   * Streams AvailablePhoneNumberCountryInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: AvailablePhoneNumberCountryInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single AvailablePhoneNumberCountry resource
-   *
-   * @param countryCode - The country_code
-   */
-  get(countryCode: string): AvailablePhoneNumberCountryContext;
-  /**
-   * Retrieve a single target page of AvailablePhoneNumberCountryInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<AvailablePhoneNumberCountryPage>;
-  /**
-   * Retrieve a single target page of AvailablePhoneNumberCountryInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: AvailablePhoneNumberCountryPage) => any): void;
-  /**
-   * Lists AvailablePhoneNumberCountryInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: AvailablePhoneNumberCountryListOptions): Promise<AvailablePhoneNumberCountryInstance[]>;
-  /**
-   * Lists AvailablePhoneNumberCountryInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: AvailablePhoneNumberCountryListOptions, callback: (error: Error | null, items: AvailablePhoneNumberCountryInstance[]) => any): void;
-  /**
-   * Lists AvailablePhoneNumberCountryInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: AvailablePhoneNumberCountryInstance[]) => any): void;
-  /**
-   * Retrieve a single page of AvailablePhoneNumberCountryInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: AvailablePhoneNumberCountryListPageOptions): Promise<AvailablePhoneNumberCountryPage>;
-  /**
-   * Retrieve a single page of AvailablePhoneNumberCountryInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: AvailablePhoneNumberCountryListPageOptions, callback: (error: Error | null, items: AvailablePhoneNumberCountryPage) => any): void;
-  /**
-   * Retrieve a single page of AvailablePhoneNumberCountryInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: AvailablePhoneNumberCountryPage) => any): void;
-}
-
-declare class AvailablePhoneNumberCountryPage extends Page<V2010, AvailablePhoneNumberCountryPayload, AvailablePhoneNumberCountryResource, AvailablePhoneNumberCountryInstance> {
-  constructor(version: V2010, response: Response<string>, solution: AvailablePhoneNumberCountrySolution);
+  constructor(version: Twilio.Api.V2010, response: object, solution: object);
 
   /**
    * Build an instance of AvailablePhoneNumberCountryInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: AvailablePhoneNumberCountryPayload): AvailablePhoneNumberCountryInstance;
+  getInstance(payload: object);
 }
 
-declare class AvailablePhoneNumberCountryInstance extends SerializableClass {
+declare class AvailablePhoneNumberCountryInstance {
   /**
+   * @constructor Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryInstance
+   * @description Initialize the AvailablePhoneNumberCountryContext
+   *
+   * @property countryCode - The ISO Country code to lookup phone numbers for.
+   * @property country - The country
+   * @property uri - The uri
+   * @property beta - True if new to Twilio platform.
+   * @property subresourceUris - The subresource_uris
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The account_sid
+   * @param accountSid - A 34 character string that uniquely identifies this resource.
    * @param countryCode - The country_code
    */
-  constructor(version: V2010, payload: AvailablePhoneNumberCountryPayload, accountSid: string, countryCode: string);
+  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, countryCode: iso_country_code);
 
-  private _proxy: AvailablePhoneNumberCountryContext;
-  /**
-   * If true, all phone numbers available in this country are new to the Twilio platform. If false, all numbers are not in the Twilio Phone Number Beta program.
-   */
-  beta: boolean;
-  /**
-   * The country
-   */
-  country: string;
-  /**
-   * The ISO Country code to lookup phone numbers for.
-   */
-  countryCode: string;
+  _proxy?: AvailablePhoneNumberCountryContext;
   /**
    * fetch a AvailablePhoneNumberCountryInstance
    *
-   * @returns Promise that resolves to processed AvailablePhoneNumberCountryInstance
-   */
-  fetch(): Promise<AvailablePhoneNumberCountryInstance>;
-  /**
-   * fetch a AvailablePhoneNumberCountryInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: AvailablePhoneNumberCountryInstance) => any): void;
-  local(): LocalListInstance;
-  machineToMachine(): MachineToMachineListInstance;
-  mobile(): MobileListInstance;
-  national(): NationalListInstance;
-  sharedCost(): SharedCostListInstance;
+  fetch(callback?: function);
   /**
-   * The subresource_uris
+   * Access the local
+   *
+   * @function local
+   * @memberof Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryInstance
+   * @instance
    */
-  subresourceUris: string;
-  tollFree(): TollFreeListInstance;
+  local();
   /**
-   * The uri
+   * Access the machineToMachine
+   *
+   * @function machineToMachine
+   * @memberof Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryInstance
+   * @instance
    */
-  uri: string;
-  voip(): VoipListInstance;
+  machineToMachine();
+  /**
+   * Access the mobile
+   *
+   * @function mobile
+   * @memberof Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryInstance
+   * @instance
+   */
+  mobile();
+  /**
+   * Access the national
+   *
+   * @function national
+   * @memberof Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryInstance
+   * @instance
+   */
+  national();
+  /**
+   * Access the sharedCost
+   *
+   * @function sharedCost
+   * @memberof Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryInstance
+   * @instance
+   */
+  sharedCost();
+  /**
+   * Produce a plain JSON object version of the AvailablePhoneNumberCountryInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryInstance
+   * @instance
+   */
+  toJSON();
+  /**
+   * Access the tollFree
+   *
+   * @function tollFree
+   * @memberof Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryInstance
+   * @instance
+   */
+  tollFree();
+  /**
+   * Access the voip
+   *
+   * @function voip
+   * @memberof Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryInstance
+   * @instance
+   */
+  voip();
 }
 
 declare class AvailablePhoneNumberCountryContext {
-  constructor(version: V2010, accountSid: string, countryCode: string);
+  /**
+   * @constructor Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext
+   * @description Initialize the AvailablePhoneNumberCountryContext
+   *
+   * @property local - local resource
+   * @property tollFree - tollFree resource
+   * @property mobile - mobile resource
+   * @property national - national resource
+   * @property voip - voip resource
+   * @property sharedCost - sharedCost resource
+   * @property machineToMachine - machineToMachine resource
+   *
+   * @param version - Version of the resource
+   * @param accountSid - The account_sid
+   * @param countryCode - The country_code
+   */
+  constructor(version: Twilio.Api.V2010, accountSid: sid, countryCode: iso_country_code);
 
   /**
    * fetch a AvailablePhoneNumberCountryInstance
    *
-   * @returns Promise that resolves to processed AvailablePhoneNumberCountryInstance
-   */
-  fetch(): Promise<AvailablePhoneNumberCountryInstance>;
-  /**
-   * fetch a AvailablePhoneNumberCountryInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: AvailablePhoneNumberCountryInstance) => any): void;
-  local: LocalListInstance;
-  machineToMachine: MachineToMachineListInstance;
-  mobile: MobileListInstance;
-  national: NationalListInstance;
-  sharedCost: SharedCostListInstance;
-  tollFree: TollFreeListInstance;
-  voip: VoipListInstance;
+  fetch(callback?: function);
+  local?: Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.LocalList;
+  machineToMachine?: Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.MachineToMachineList;
+  mobile?: Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.MobileList;
+  national?: Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.NationalList;
+  sharedCost?: Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.SharedCostList;
+  tollFree?: Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.TollFreeList;
+  voip?: Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.VoipList;
 }
 
-export { AvailablePhoneNumberCountryContext, AvailablePhoneNumberCountryInstance, AvailablePhoneNumberCountryList, AvailablePhoneNumberCountryListEachOptions, AvailablePhoneNumberCountryListInstance, AvailablePhoneNumberCountryListOptions, AvailablePhoneNumberCountryListPageOptions, AvailablePhoneNumberCountryPage, AvailablePhoneNumberCountryPayload, AvailablePhoneNumberCountryResource, AvailablePhoneNumberCountrySolution }
+export { AvailablePhoneNumberCountryContext, AvailablePhoneNumberCountryInstance, AvailablePhoneNumberCountryList, AvailablePhoneNumberCountryPage }

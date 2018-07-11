@@ -6,828 +6,481 @@
  */
 
 import Page = require('../../../base/Page');
-import Response = require('../../../http/response');
-import V1 = require('../V1');
-import { ChannelListInstance } from './service/channel';
-import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
-import { RoleListInstance } from './service/role';
-import { SerializableClass } from '../../../interfaces';
-import { UserListInstance } from './service/user';
+import deserialize = require('../../../base/deserialize');
+import serialize = require('../../../base/serialize');
+import values = require('../../../base/values');
+import { ChannelList } from './service/channel';
+import { RoleList } from './service/role';
+import { UserList } from './service/user';
 
-declare function ServiceList(version: V1): ServiceListInstance
 
-interface ServiceResource {
-  /**
-   * The unique id of the [Account](https://www.twilio.com/console) responsible for this service.
-   */
-  account_sid: string;
-  /**
-   * The interval between consumption reports submission batches from client endpoints. Default value is "10".
-   */
-  consumption_report_interval: number;
-  /**
-   * The date that this resource was created
-   */
-  date_created: Date;
-  /**
-   * The date that this resource was last updated
-   */
-  date_updated: Date;
-  /**
-   * The channel role assigned to a channel creator when joining a new channel. See the [Roles endpoint](https://www.twilio.com/docs/api/chat/rest/v1/roles) for more details.
-   */
-  default_channel_creator_role_sid: string;
-  /**
-   * The channel role assigned to users when they are added to a channel. See the [Roles endpoint](https://www.twilio.com/docs/api/chat/rest/v1/roles) for more details.
-   */
-  default_channel_role_sid: string;
-  /**
-   * The service role assigned to users when they are added to the service. See the [Roles endpoint](https://www.twilio.com/docs/api/chat/rest/v1/roles) for more details.
-   */
-  default_service_role_sid: string;
-  /**
-   * The human-readable name of this service.
-   */
-  friendly_name: string;
-  /**
-   * The limits
-   */
-  limits: string;
-  /**
-   * URLs to access the [Channels](https://www.twilio.com/docs/api/chat/rest/v1/channels), [Roles](https://www.twilio.com/docs/api/chat/rest/v1/roles), and [Users](https://www.twilio.com/docs/api/chat/rest/v1/users) for this service.
-   */
-  links: string;
-  /**
-   * Notification configuration for the Service instance. See [Push Notification Configuration](https://www.twilio.com/docs/api/chat/guides/push-notification-configuration) for more information.
-   */
-  notifications: string;
-  /**
-   * The webhook URL for POST-Event webhooks. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
-   */
-  post_webhook_url: string;
-  /**
-   * The webhook URL for PRE-Event webhooks. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
-   */
-  pre_webhook_url: string;
-  /**
-   * Indicates whether the  the Reachability feature is enabled for this Service instance.  Defaults to `false`.
-   */
-  reachability_enabled: boolean;
-  /**
-   * Enable the Message Constumption Horizon feature (*true* if enabled, *false* if not).  Defaults to *true*.
-   */
-  read_status_enabled: boolean;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * The amount of time after a "started typing" event when clients should assume that user is no longer typing, even if no "ended typing" message was received. Uses the [ISO 8601 duration](https://en.wikipedia.org/wiki/ISO_8601#Durations) format.
-   */
-  typing_indicator_timeout: number;
-  /**
-   * An absolute URL for this service.
-   */
-  url: string;
-  /**
-   * The list of WebHook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
-   */
-  webhook_filters: string;
-  /**
-   * The webhook request format to use.  Must be POST or GET. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
-   */
-  webhook_method: string;
-  /**
-   * The webhooks
-   */
-  webhooks: string;
-}
-
-interface ServicePayload extends ServiceResource, Page.TwilioResponsePayload {
-}
-
-interface ServiceSolution {
-}
-
-interface ServiceListCreateOptions {
-  /**
-   * Human-readable name for this service instance
-   */
-  friendlyName: string;
-}
-
-interface ServiceListEachOptions extends ListEachOptions<ServiceInstance> {
-}
-
-interface ServiceListOptions extends ListOptions<ServiceInstance> {
-}
-
-interface ServiceListPageOptions extends PageOptions<ServicePage> {
-}
-
-interface ServiceListInstance {
-  /**
-   * Gets context of a single Service resource
-   *
-   * @param sid - The sid
-   */
-  (sid: string): ServiceContext;
-  /**
-   * create a ServiceInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  create(opts: ServiceListCreateOptions): Promise<ServiceInstance>;
-  /**
-   * create a ServiceInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: ServiceListCreateOptions, callback: (error: Error | null, items: ServiceInstance) => any): void;
-  /**
-   * Streams ServiceInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: ServiceListEachOptions): void;
-  /**
-   * Streams ServiceInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: ServiceInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Service resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): ServiceContext;
-  /**
-   * Retrieve a single target page of ServiceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<ServicePage>;
-  /**
-   * Retrieve a single target page of ServiceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: ServicePage) => any): void;
-  /**
-   * Lists ServiceInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: ServiceListOptions): Promise<ServiceInstance[]>;
-  /**
-   * Lists ServiceInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: ServiceListOptions, callback: (error: Error | null, items: ServiceInstance[]) => any): void;
-  /**
-   * Lists ServiceInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: ServiceInstance[]) => any): void;
-  /**
-   * Retrieve a single page of ServiceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: ServiceListPageOptions): Promise<ServicePage>;
-  /**
-   * Retrieve a single page of ServiceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: ServiceListPageOptions, callback: (error: Error | null, items: ServicePage) => any): void;
-  /**
-   * Retrieve a single page of ServiceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: ServicePage) => any): void;
-}
-
-interface ServiceListFetchOptions {
-  /**
-   * ISO 8601 duration indicating the interval between consumption reports sent from client endpoints.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - Human-readable name for this service instance
+ * @property defaultServiceRoleSid - The default_service_role_sid
+ * @property defaultChannelRoleSid - Channel role assigned on channel join
+ * @property defaultChannelCreatorRoleSid - Channel role assigned to creator of channel when joining for first time
+ * @property readStatusEnabled - true if the member read status feature is enabled, false if not.
+ * @property reachabilityEnabled - true if the reachability feature should be enabled.
+ * @property typingIndicatorTimeout - ISO 8601 duration indicating the timeout after "started typing" event when client should assume that user is not typing anymore even if no "ended typing" message received
+ * @property consumptionReportInterval - ISO 8601 duration indicating the interval between consumption reports sent from client endpoints.
+ * @property "notifications.newMessage.enabled" - The notifications.new_message.enabled
+ * @property "notifications.newMessage.template" - The notifications.new_message.template
+ * @property "notifications.addedToChannel.enabled" - The notifications.added_to_channel.enabled
+ * @property "notifications.addedToChannel.template" - The notifications.added_to_channel.template
+ * @property "notifications.removedFromChannel.enabled" - The notifications.removed_from_channel.enabled
+ * @property "notifications.removedFromChannel.template" - The notifications.removed_from_channel.template
+ * @property "notifications.invitedToChannel.enabled" - The notifications.invited_to_channel.enabled
+ * @property "notifications.invitedToChannel.template" - The notifications.invited_to_channel.template
+ * @property preWebhookUrl - The webhook URL for PRE-Event webhooks.
+ * @property postWebhookUrl - The webhook URL for POST-Event webhooks.
+ * @property webhookMethod - The webhook request format to use.
+ * @property webhookFilters - The list of WebHook events that are enabled for this Service instance.
+ * @property "webhooks.onMessageSend.url" - The webhooks.on_message_send.url
+ * @property "webhooks.onMessageSend.method" - The webhooks.on_message_send.method
+ * @property "webhooks.onMessageSend.format" - The webhooks.on_message_send.format
+ * @property "webhooks.onMessageUpdate.url" - The webhooks.on_message_update.url
+ * @property "webhooks.onMessageUpdate.method" - The webhooks.on_message_update.method
+ * @property "webhooks.onMessageUpdate.format" - The webhooks.on_message_update.format
+ * @property "webhooks.onMessageRemove.url" - The webhooks.on_message_remove.url
+ * @property "webhooks.onMessageRemove.method" - The webhooks.on_message_remove.method
+ * @property "webhooks.onMessageRemove.format" - The webhooks.on_message_remove.format
+ * @property "webhooks.onChannelAdd.url" - The webhooks.on_channel_add.url
+ * @property "webhooks.onChannelAdd.method" - The webhooks.on_channel_add.method
+ * @property "webhooks.onChannelAdd.format" - The webhooks.on_channel_add.format
+ * @property "webhooks.onChannelDestroy.url" - The webhooks.on_channel_destroy.url
+ * @property "webhooks.onChannelDestroy.method" - The webhooks.on_channel_destroy.method
+ * @property "webhooks.onChannelDestroy.format" - The webhooks.on_channel_destroy.format
+ * @property "webhooks.onChannelUpdate.url" - The webhooks.on_channel_update.url
+ * @property "webhooks.onChannelUpdate.method" - The webhooks.on_channel_update.method
+ * @property "webhooks.onChannelUpdate.format" - The webhooks.on_channel_update.format
+ * @property "webhooks.onMemberAdd.url" - The webhooks.on_member_add.url
+ * @property "webhooks.onMemberAdd.method" - The webhooks.on_member_add.method
+ * @property "webhooks.onMemberAdd.format" - The webhooks.on_member_add.format
+ * @property "webhooks.onMemberRemove.url" - The webhooks.on_member_remove.url
+ * @property "webhooks.onMemberRemove.method" - The webhooks.on_member_remove.method
+ * @property "webhooks.onMemberRemove.format" - The webhooks.on_member_remove.format
+ * @property "webhooks.onMessageSent.url" - The webhooks.on_message_sent.url
+ * @property "webhooks.onMessageSent.method" - The webhooks.on_message_sent.method
+ * @property "webhooks.onMessageSent.format" - The webhooks.on_message_sent.format
+ * @property "webhooks.onMessageUpdated.url" - The webhooks.on_message_updated.url
+ * @property "webhooks.onMessageUpdated.method" - The webhooks.on_message_updated.method
+ * @property "webhooks.onMessageUpdated.format" - The webhooks.on_message_updated.format
+ * @property "webhooks.onMessageRemoved.url" - The webhooks.on_message_removed.url
+ * @property "webhooks.onMessageRemoved.method" - The webhooks.on_message_removed.method
+ * @property "webhooks.onMessageRemoved.format" - The webhooks.on_message_removed.format
+ * @property "webhooks.onChannelAdded.url" - The webhooks.on_channel_added.url
+ * @property "webhooks.onChannelAdded.method" - The webhooks.on_channel_added.method
+ * @property "webhooks.onChannelAdded.format" - The webhooks.on_channel_added.format
+ * @property "webhooks.onChannelDestroyed.url" - The webhooks.on_channel_destroyed.url
+ * @property "webhooks.onChannelDestroyed.method" - The webhooks.on_channel_destroyed.method
+ * @property "webhooks.onChannelDestroyed.format" - The webhooks.on_channel_destroyed.format
+ * @property "webhooks.onChannelUpdated.url" - The webhooks.on_channel_updated.url
+ * @property "webhooks.onChannelUpdated.method" - The webhooks.on_channel_updated.method
+ * @property "webhooks.onChannelUpdated.format" - The webhooks.on_channel_updated.format
+ * @property "webhooks.onMemberAdded.url" - The webhooks.on_member_added.url
+ * @property "webhooks.onMemberAdded.method" - The webhooks.on_member_added.method
+ * @property "webhooks.onMemberAdded.format" - The webhooks.on_member_added.format
+ * @property "webhooks.onMemberRemoved.url" - The webhooks.on_member_removed.url
+ * @property "webhooks.onMemberRemoved.method" - The webhooks.on_member_removed.method
+ * @property "webhooks.onMemberRemoved.format" - The webhooks.on_member_removed.format
+ * @property "limits.channelMembers" - The limits.channel_members
+ * @property "limits.userChannels" - The limits.user_channels
+ */
+export interface UpdateOptions {
+  "limits.channelMembers"?: number;
+  "limits.userChannels"?: number;
+  "notifications.addedToChannel.enabled"?: boolean;
+  "notifications.addedToChannel.template"?: string;
+  "notifications.invitedToChannel.enabled"?: boolean;
+  "notifications.invitedToChannel.template"?: string;
+  "notifications.newMessage.enabled"?: boolean;
+  "notifications.newMessage.template"?: string;
+  "notifications.removedFromChannel.enabled"?: boolean;
+  "notifications.removedFromChannel.template"?: string;
+  "webhooks.onChannelAdd.format"?: string;
+  "webhooks.onChannelAdd.method"?: string;
+  "webhooks.onChannelAdd.url"?: string;
+  "webhooks.onChannelAdded.format"?: string;
+  "webhooks.onChannelAdded.method"?: string;
+  "webhooks.onChannelAdded.url"?: string;
+  "webhooks.onChannelDestroy.format"?: string;
+  "webhooks.onChannelDestroy.method"?: string;
+  "webhooks.onChannelDestroy.url"?: string;
+  "webhooks.onChannelDestroyed.format"?: string;
+  "webhooks.onChannelDestroyed.method"?: string;
+  "webhooks.onChannelDestroyed.url"?: string;
+  "webhooks.onChannelUpdate.format"?: string;
+  "webhooks.onChannelUpdate.method"?: string;
+  "webhooks.onChannelUpdate.url"?: string;
+  "webhooks.onChannelUpdated.format"?: string;
+  "webhooks.onChannelUpdated.method"?: string;
+  "webhooks.onChannelUpdated.url"?: string;
+  "webhooks.onMemberAdd.format"?: string;
+  "webhooks.onMemberAdd.method"?: string;
+  "webhooks.onMemberAdd.url"?: string;
+  "webhooks.onMemberAdded.format"?: string;
+  "webhooks.onMemberAdded.method"?: string;
+  "webhooks.onMemberAdded.url"?: string;
+  "webhooks.onMemberRemove.format"?: string;
+  "webhooks.onMemberRemove.method"?: string;
+  "webhooks.onMemberRemove.url"?: string;
+  "webhooks.onMemberRemoved.format"?: string;
+  "webhooks.onMemberRemoved.method"?: string;
+  "webhooks.onMemberRemoved.url"?: string;
+  "webhooks.onMessageRemove.format"?: string;
+  "webhooks.onMessageRemove.method"?: string;
+  "webhooks.onMessageRemove.url"?: string;
+  "webhooks.onMessageRemoved.format"?: string;
+  "webhooks.onMessageRemoved.method"?: string;
+  "webhooks.onMessageRemoved.url"?: string;
+  "webhooks.onMessageSend.format"?: string;
+  "webhooks.onMessageSend.method"?: string;
+  "webhooks.onMessageSend.url"?: string;
+  "webhooks.onMessageSent.format"?: string;
+  "webhooks.onMessageSent.method"?: string;
+  "webhooks.onMessageSent.url"?: string;
+  "webhooks.onMessageUpdate.format"?: string;
+  "webhooks.onMessageUpdate.method"?: string;
+  "webhooks.onMessageUpdate.url"?: string;
+  "webhooks.onMessageUpdated.format"?: string;
+  "webhooks.onMessageUpdated.method"?: string;
+  "webhooks.onMessageUpdated.url"?: string;
   consumptionReportInterval?: number;
-  /**
-   * Channel role assigned to creator of channel when joining for first time
-   */
   defaultChannelCreatorRoleSid?: string;
-  /**
-   * Channel role assigned on channel join (see [Roles](https://www.twilio.com/docs/api/chat/rest/v1/roles) data model for the details)
-   */
   defaultChannelRoleSid?: string;
-  /**
-   * The default_service_role_sid
-   */
   defaultServiceRoleSid?: string;
-  /**
-   * Human-readable name for this service instance
-   */
   friendlyName?: string;
-  limits?: {
-    /**
-     * The limits.channel_members
-     */
-    channelMembers?: number;
-    /**
-     * The limits.user_channels
-     */
-    userChannels?: number;
-  };
-  notifications?: {
-    newMessage?: {
-        /**
-         * The notifications.new_message.template
-         */
-        template?: string;
-    };
-    addedToChannel?: {
-        /**
-         * The notifications.added_to_channel.template
-         */
-        template?: string;
-    };
-    removedFromChannel?: {
-        /**
-         * The notifications.removed_from_channel.template
-         */
-        template?: string;
-    };
-    invitedToChannel?: {
-        /**
-         * The notifications.invited_to_channel.template
-         */
-        template?: string;
-    };
-  };
-  /**
-   * The webhook URL for POST-Event webhooks. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
-   */
   postWebhookUrl?: string;
-  /**
-   * The webhook URL for PRE-Event webhooks. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
-   */
   preWebhookUrl?: string;
-  /**
-   * `true` if the reachability feature should be enabled.  Defaults to `false`
-   */
   reachabilityEnabled?: boolean;
-  /**
-   * `true` if the member read status feature is enabled, `false` if not.  Defaults to `true`.
-   */
   readStatusEnabled?: boolean;
-  /**
-   * ISO 8601 duration indicating the timeout after "started typing" event when client should assume that user is not typing anymore even if no "ended typing" message received
-   */
   typingIndicatorTimeout?: number;
-  /**
-   * The list of WebHook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
-   */
-  webhookFilters?: string[];
-  /**
-   * The webhook request format to use.  Must be POST or GET. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
-   */
+  webhookFilters?: string|list;
   webhookMethod?: string;
-  webhooks?: {
-    onMessageSend?: {
-        /**
-         * The webhooks.on_message_send.format
-         */
-        format?: string;
-    };
-    onMessageUpdate?: {
-        /**
-         * The webhooks.on_message_update.format
-         */
-        format?: string;
-    };
-    onMessageRemove?: {
-        /**
-         * The webhooks.on_message_remove.format
-         */
-        format?: string;
-    };
-    onChannelAdd?: {
-        /**
-         * The webhooks.on_channel_add.format
-         */
-        format?: string;
-    };
-    onChannelDestroy?: {
-        /**
-         * The webhooks.on_channel_destroy.format
-         */
-        format?: string;
-    };
-    onChannelUpdate?: {
-        /**
-         * The webhooks.on_channel_update.format
-         */
-        format?: string;
-    };
-    onMemberAdd?: {
-        /**
-         * The webhooks.on_member_add.format
-         */
-        format?: string;
-    };
-    onMemberRemove?: {
-        /**
-         * The webhooks.on_member_remove.format
-         */
-        format?: string;
-    };
-    onMessageSent?: {
-        /**
-         * The webhooks.on_message_sent.format
-         */
-        format?: string;
-    };
-    onMessageUpdated?: {
-        /**
-         * The webhooks.on_message_updated.format
-         */
-        format?: string;
-    };
-    onMessageRemoved?: {
-        /**
-         * The webhooks.on_message_removed.format
-         */
-        format?: string;
-    };
-    onChannelAdded?: {
-        /**
-         * The webhooks.on_channel_added.format
-         */
-        format?: string;
-    };
-    onChannelDestroyed?: {
-        /**
-         * The webhooks.on_channel_destroyed.format
-         */
-        format?: string;
-    };
-    onChannelUpdated?: {
-        /**
-         * The webhooks.on_channel_updated.format
-         */
-        format?: string;
-    };
-    onMemberAdded?: {
-        /**
-         * The webhooks.on_member_added.format
-         */
-        format?: string;
-    };
-    onMemberRemoved?: {
-        /**
-         * The webhooks.on_member_removed.format
-         */
-        format?: string;
-    };
-  };
 }
 
-interface ServiceListFetchOptions {
-  /**
-   * ISO 8601 duration indicating the interval between consumption reports sent from client endpoints.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - Human-readable name for this service instance
+ * @property defaultServiceRoleSid - The default_service_role_sid
+ * @property defaultChannelRoleSid - Channel role assigned on channel join
+ * @property defaultChannelCreatorRoleSid - Channel role assigned to creator of channel when joining for first time
+ * @property readStatusEnabled - true if the member read status feature is enabled, false if not.
+ * @property reachabilityEnabled - true if the reachability feature should be enabled.
+ * @property typingIndicatorTimeout - ISO 8601 duration indicating the timeout after "started typing" event when client should assume that user is not typing anymore even if no "ended typing" message received
+ * @property consumptionReportInterval - ISO 8601 duration indicating the interval between consumption reports sent from client endpoints.
+ * @property "notifications.newMessage.enabled" - The notifications.new_message.enabled
+ * @property "notifications.newMessage.template" - The notifications.new_message.template
+ * @property "notifications.addedToChannel.enabled" - The notifications.added_to_channel.enabled
+ * @property "notifications.addedToChannel.template" - The notifications.added_to_channel.template
+ * @property "notifications.removedFromChannel.enabled" - The notifications.removed_from_channel.enabled
+ * @property "notifications.removedFromChannel.template" - The notifications.removed_from_channel.template
+ * @property "notifications.invitedToChannel.enabled" - The notifications.invited_to_channel.enabled
+ * @property "notifications.invitedToChannel.template" - The notifications.invited_to_channel.template
+ * @property preWebhookUrl - The webhook URL for PRE-Event webhooks.
+ * @property postWebhookUrl - The webhook URL for POST-Event webhooks.
+ * @property webhookMethod - The webhook request format to use.
+ * @property webhookFilters - The list of WebHook events that are enabled for this Service instance.
+ * @property "webhooks.onMessageSend.url" - The webhooks.on_message_send.url
+ * @property "webhooks.onMessageSend.method" - The webhooks.on_message_send.method
+ * @property "webhooks.onMessageSend.format" - The webhooks.on_message_send.format
+ * @property "webhooks.onMessageUpdate.url" - The webhooks.on_message_update.url
+ * @property "webhooks.onMessageUpdate.method" - The webhooks.on_message_update.method
+ * @property "webhooks.onMessageUpdate.format" - The webhooks.on_message_update.format
+ * @property "webhooks.onMessageRemove.url" - The webhooks.on_message_remove.url
+ * @property "webhooks.onMessageRemove.method" - The webhooks.on_message_remove.method
+ * @property "webhooks.onMessageRemove.format" - The webhooks.on_message_remove.format
+ * @property "webhooks.onChannelAdd.url" - The webhooks.on_channel_add.url
+ * @property "webhooks.onChannelAdd.method" - The webhooks.on_channel_add.method
+ * @property "webhooks.onChannelAdd.format" - The webhooks.on_channel_add.format
+ * @property "webhooks.onChannelDestroy.url" - The webhooks.on_channel_destroy.url
+ * @property "webhooks.onChannelDestroy.method" - The webhooks.on_channel_destroy.method
+ * @property "webhooks.onChannelDestroy.format" - The webhooks.on_channel_destroy.format
+ * @property "webhooks.onChannelUpdate.url" - The webhooks.on_channel_update.url
+ * @property "webhooks.onChannelUpdate.method" - The webhooks.on_channel_update.method
+ * @property "webhooks.onChannelUpdate.format" - The webhooks.on_channel_update.format
+ * @property "webhooks.onMemberAdd.url" - The webhooks.on_member_add.url
+ * @property "webhooks.onMemberAdd.method" - The webhooks.on_member_add.method
+ * @property "webhooks.onMemberAdd.format" - The webhooks.on_member_add.format
+ * @property "webhooks.onMemberRemove.url" - The webhooks.on_member_remove.url
+ * @property "webhooks.onMemberRemove.method" - The webhooks.on_member_remove.method
+ * @property "webhooks.onMemberRemove.format" - The webhooks.on_member_remove.format
+ * @property "webhooks.onMessageSent.url" - The webhooks.on_message_sent.url
+ * @property "webhooks.onMessageSent.method" - The webhooks.on_message_sent.method
+ * @property "webhooks.onMessageSent.format" - The webhooks.on_message_sent.format
+ * @property "webhooks.onMessageUpdated.url" - The webhooks.on_message_updated.url
+ * @property "webhooks.onMessageUpdated.method" - The webhooks.on_message_updated.method
+ * @property "webhooks.onMessageUpdated.format" - The webhooks.on_message_updated.format
+ * @property "webhooks.onMessageRemoved.url" - The webhooks.on_message_removed.url
+ * @property "webhooks.onMessageRemoved.method" - The webhooks.on_message_removed.method
+ * @property "webhooks.onMessageRemoved.format" - The webhooks.on_message_removed.format
+ * @property "webhooks.onChannelAdded.url" - The webhooks.on_channel_added.url
+ * @property "webhooks.onChannelAdded.method" - The webhooks.on_channel_added.method
+ * @property "webhooks.onChannelAdded.format" - The webhooks.on_channel_added.format
+ * @property "webhooks.onChannelDestroyed.url" - The webhooks.on_channel_destroyed.url
+ * @property "webhooks.onChannelDestroyed.method" - The webhooks.on_channel_destroyed.method
+ * @property "webhooks.onChannelDestroyed.format" - The webhooks.on_channel_destroyed.format
+ * @property "webhooks.onChannelUpdated.url" - The webhooks.on_channel_updated.url
+ * @property "webhooks.onChannelUpdated.method" - The webhooks.on_channel_updated.method
+ * @property "webhooks.onChannelUpdated.format" - The webhooks.on_channel_updated.format
+ * @property "webhooks.onMemberAdded.url" - The webhooks.on_member_added.url
+ * @property "webhooks.onMemberAdded.method" - The webhooks.on_member_added.method
+ * @property "webhooks.onMemberAdded.format" - The webhooks.on_member_added.format
+ * @property "webhooks.onMemberRemoved.url" - The webhooks.on_member_removed.url
+ * @property "webhooks.onMemberRemoved.method" - The webhooks.on_member_removed.method
+ * @property "webhooks.onMemberRemoved.format" - The webhooks.on_member_removed.format
+ * @property "limits.channelMembers" - The limits.channel_members
+ * @property "limits.userChannels" - The limits.user_channels
+ */
+export interface UpdateOptions {
+  "limits.channelMembers"?: number;
+  "limits.userChannels"?: number;
+  "notifications.addedToChannel.enabled"?: boolean;
+  "notifications.addedToChannel.template"?: string;
+  "notifications.invitedToChannel.enabled"?: boolean;
+  "notifications.invitedToChannel.template"?: string;
+  "notifications.newMessage.enabled"?: boolean;
+  "notifications.newMessage.template"?: string;
+  "notifications.removedFromChannel.enabled"?: boolean;
+  "notifications.removedFromChannel.template"?: string;
+  "webhooks.onChannelAdd.format"?: string;
+  "webhooks.onChannelAdd.method"?: string;
+  "webhooks.onChannelAdd.url"?: string;
+  "webhooks.onChannelAdded.format"?: string;
+  "webhooks.onChannelAdded.method"?: string;
+  "webhooks.onChannelAdded.url"?: string;
+  "webhooks.onChannelDestroy.format"?: string;
+  "webhooks.onChannelDestroy.method"?: string;
+  "webhooks.onChannelDestroy.url"?: string;
+  "webhooks.onChannelDestroyed.format"?: string;
+  "webhooks.onChannelDestroyed.method"?: string;
+  "webhooks.onChannelDestroyed.url"?: string;
+  "webhooks.onChannelUpdate.format"?: string;
+  "webhooks.onChannelUpdate.method"?: string;
+  "webhooks.onChannelUpdate.url"?: string;
+  "webhooks.onChannelUpdated.format"?: string;
+  "webhooks.onChannelUpdated.method"?: string;
+  "webhooks.onChannelUpdated.url"?: string;
+  "webhooks.onMemberAdd.format"?: string;
+  "webhooks.onMemberAdd.method"?: string;
+  "webhooks.onMemberAdd.url"?: string;
+  "webhooks.onMemberAdded.format"?: string;
+  "webhooks.onMemberAdded.method"?: string;
+  "webhooks.onMemberAdded.url"?: string;
+  "webhooks.onMemberRemove.format"?: string;
+  "webhooks.onMemberRemove.method"?: string;
+  "webhooks.onMemberRemove.url"?: string;
+  "webhooks.onMemberRemoved.format"?: string;
+  "webhooks.onMemberRemoved.method"?: string;
+  "webhooks.onMemberRemoved.url"?: string;
+  "webhooks.onMessageRemove.format"?: string;
+  "webhooks.onMessageRemove.method"?: string;
+  "webhooks.onMessageRemove.url"?: string;
+  "webhooks.onMessageRemoved.format"?: string;
+  "webhooks.onMessageRemoved.method"?: string;
+  "webhooks.onMessageRemoved.url"?: string;
+  "webhooks.onMessageSend.format"?: string;
+  "webhooks.onMessageSend.method"?: string;
+  "webhooks.onMessageSend.url"?: string;
+  "webhooks.onMessageSent.format"?: string;
+  "webhooks.onMessageSent.method"?: string;
+  "webhooks.onMessageSent.url"?: string;
+  "webhooks.onMessageUpdate.format"?: string;
+  "webhooks.onMessageUpdate.method"?: string;
+  "webhooks.onMessageUpdate.url"?: string;
+  "webhooks.onMessageUpdated.format"?: string;
+  "webhooks.onMessageUpdated.method"?: string;
+  "webhooks.onMessageUpdated.url"?: string;
   consumptionReportInterval?: number;
-  /**
-   * Channel role assigned to creator of channel when joining for first time
-   */
   defaultChannelCreatorRoleSid?: string;
-  /**
-   * Channel role assigned on channel join (see [Roles](https://www.twilio.com/docs/api/chat/rest/v1/roles) data model for the details)
-   */
   defaultChannelRoleSid?: string;
-  /**
-   * The default_service_role_sid
-   */
   defaultServiceRoleSid?: string;
-  /**
-   * Human-readable name for this service instance
-   */
   friendlyName?: string;
-  limits?: {
-    /**
-     * The limits.channel_members
-     */
-    channelMembers?: number;
-    /**
-     * The limits.user_channels
-     */
-    userChannels?: number;
-  };
-  notifications?: {
-    newMessage?: {
-        /**
-         * The notifications.new_message.template
-         */
-        template?: string;
-    };
-    addedToChannel?: {
-        /**
-         * The notifications.added_to_channel.template
-         */
-        template?: string;
-    };
-    removedFromChannel?: {
-        /**
-         * The notifications.removed_from_channel.template
-         */
-        template?: string;
-    };
-    invitedToChannel?: {
-        /**
-         * The notifications.invited_to_channel.template
-         */
-        template?: string;
-    };
-  };
-  /**
-   * The webhook URL for POST-Event webhooks. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
-   */
   postWebhookUrl?: string;
-  /**
-   * The webhook URL for PRE-Event webhooks. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
-   */
   preWebhookUrl?: string;
-  /**
-   * `true` if the reachability feature should be enabled.  Defaults to `false`
-   */
   reachabilityEnabled?: boolean;
-  /**
-   * `true` if the member read status feature is enabled, `false` if not.  Defaults to `true`.
-   */
   readStatusEnabled?: boolean;
-  /**
-   * ISO 8601 duration indicating the timeout after "started typing" event when client should assume that user is not typing anymore even if no "ended typing" message received
-   */
   typingIndicatorTimeout?: number;
-  /**
-   * The list of WebHook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
-   */
-  webhookFilters?: string[];
-  /**
-   * The webhook request format to use.  Must be POST or GET. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
-   */
+  webhookFilters?: string|list;
   webhookMethod?: string;
-  webhooks?: {
-    onMessageSend?: {
-        /**
-         * The webhooks.on_message_send.format
-         */
-        format?: string;
-    };
-    onMessageUpdate?: {
-        /**
-         * The webhooks.on_message_update.format
-         */
-        format?: string;
-    };
-    onMessageRemove?: {
-        /**
-         * The webhooks.on_message_remove.format
-         */
-        format?: string;
-    };
-    onChannelAdd?: {
-        /**
-         * The webhooks.on_channel_add.format
-         */
-        format?: string;
-    };
-    onChannelDestroy?: {
-        /**
-         * The webhooks.on_channel_destroy.format
-         */
-        format?: string;
-    };
-    onChannelUpdate?: {
-        /**
-         * The webhooks.on_channel_update.format
-         */
-        format?: string;
-    };
-    onMemberAdd?: {
-        /**
-         * The webhooks.on_member_add.format
-         */
-        format?: string;
-    };
-    onMemberRemove?: {
-        /**
-         * The webhooks.on_member_remove.format
-         */
-        format?: string;
-    };
-    onMessageSent?: {
-        /**
-         * The webhooks.on_message_sent.format
-         */
-        format?: string;
-    };
-    onMessageUpdated?: {
-        /**
-         * The webhooks.on_message_updated.format
-         */
-        format?: string;
-    };
-    onMessageRemoved?: {
-        /**
-         * The webhooks.on_message_removed.format
-         */
-        format?: string;
-    };
-    onChannelAdded?: {
-        /**
-         * The webhooks.on_channel_added.format
-         */
-        format?: string;
-    };
-    onChannelDestroyed?: {
-        /**
-         * The webhooks.on_channel_destroyed.format
-         */
-        format?: string;
-    };
-    onChannelUpdated?: {
-        /**
-         * The webhooks.on_channel_updated.format
-         */
-        format?: string;
-    };
-    onMemberAdded?: {
-        /**
-         * The webhooks.on_member_added.format
-         */
-        format?: string;
-    };
-    onMemberRemoved?: {
-        /**
-         * The webhooks.on_member_removed.format
-         */
-        format?: string;
-    };
-  };
 }
 
-declare class ServicePage extends Page<V1, ServicePayload, ServiceResource, ServiceInstance> {
-  constructor(version: V1, response: Response<string>, solution: ServiceSolution);
+
+declare class ServicePage extends Page {
+  /**
+   * @constructor Twilio.IpMessaging.V1.ServicePage
+   * @augments Page
+   * @description Initialize the ServicePage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.IpMessaging.V1, response: object, solution: object);
 
   /**
    * Build an instance of ServiceInstance
    *
+   * @function getInstance
+   * @memberof Twilio.IpMessaging.V1.ServicePage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: ServicePayload): ServiceInstance;
+  getInstance(payload: object);
 }
 
-declare class ServiceInstance extends SerializableClass {
+declare class ServiceInstance {
   /**
+   * @constructor Twilio.IpMessaging.V1.ServiceInstance
+   * @description Initialize the ServiceContext
+   *
+   * @property sid - A 34 character string that uniquely identifies this resource.
+   * @property accountSid - The unique id of the Account responsible for this service.
+   * @property friendlyName - The human-readable name of this service.
+   * @property dateCreated - The date that this resource was created
+   * @property dateUpdated - The date that this resource was last updated
+   * @property defaultServiceRoleSid - The service role assigned to users when they are added to the service.
+   * @property defaultChannelRoleSid - The channel role assigned to users when they are added to a channel.
+   * @property defaultChannelCreatorRoleSid - The channel role assigned to a channel creator when joining a new channel.
+   * @property readStatusEnabled - Enable the Message Constumption Horizon feature.
+   * @property reachabilityEnabled - Indicates whether the  the Reachability feature is enabled for this Service instance.
+   * @property typingIndicatorTimeout - The amount of time after a "started typing" event when clients should assume that user is no longer typing, even if no "ended typing" message was received.
+   * @property consumptionReportInterval - The interval between consumption reports submission batches from client endpoints.
+   * @property limits - The limits
+   * @property webhooks - The webhooks
+   * @property preWebhookUrl - The webhook URL for PRE-Event webhooks.
+   * @property postWebhookUrl - The webhook URL for POST-Event webhooks.
+   * @property webhookMethod - The webhook request format to use.
+   * @property webhookFilters - The list of WebHook events that are enabled for this Service instance.
+   * @property notifications - Notification configuration for the Service instance.
+   * @property url - An absolute URL for this service.
+   * @property links - URLs to access the Channels, Roles, and Users for this service.
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param sid - The sid
    */
-  constructor(version: V1, payload: ServicePayload, sid: string);
+  constructor(version: Twilio.IpMessaging.V1, payload: object, sid: sid);
 
-  private _proxy: ServiceContext;
+  _proxy?: ServiceContext;
   /**
-   * The unique id of the [Account](https://www.twilio.com/console) responsible for this service.
+   * Access the channels
+   *
+   * @function channels
+   * @memberof Twilio.IpMessaging.V1.ServiceInstance
+   * @instance
    */
-  accountSid: string;
-  channels(): ChannelListInstance;
-  /**
-   * The interval between consumption reports submission batches from client endpoints. Default value is "10".
-   */
-  consumptionReportInterval: number;
-  /**
-   * The date that this resource was created
-   */
-  dateCreated: Date;
-  /**
-   * The date that this resource was last updated
-   */
-  dateUpdated: Date;
-  /**
-   * The channel role assigned to a channel creator when joining a new channel. See the [Roles endpoint](https://www.twilio.com/docs/api/chat/rest/v1/roles) for more details.
-   */
-  defaultChannelCreatorRoleSid: string;
-  /**
-   * The channel role assigned to users when they are added to a channel. See the [Roles endpoint](https://www.twilio.com/docs/api/chat/rest/v1/roles) for more details.
-   */
-  defaultChannelRoleSid: string;
-  /**
-   * The service role assigned to users when they are added to the service. See the [Roles endpoint](https://www.twilio.com/docs/api/chat/rest/v1/roles) for more details.
-   */
-  defaultServiceRoleSid: string;
+  channels();
   /**
    * fetch a ServiceInstance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  fetch(): Promise<ServiceInstance>;
-  /**
-   * fetch a ServiceInstance
+   * @function fetch
+   * @memberof Twilio.IpMessaging.V1.ServiceInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: ServiceInstance) => any): void;
-  /**
-   * The human-readable name of this service.
-   */
-  friendlyName: string;
-  /**
-   * The limits
-   */
-  limits: string;
-  /**
-   * URLs to access the [Channels](https://www.twilio.com/docs/api/chat/rest/v1/channels), [Roles](https://www.twilio.com/docs/api/chat/rest/v1/roles), and [Users](https://www.twilio.com/docs/api/chat/rest/v1/users) for this service.
-   */
-  links: string;
-  /**
-   * Notification configuration for the Service instance. See [Push Notification Configuration](https://www.twilio.com/docs/api/chat/guides/push-notification-configuration) for more information.
-   */
-  notifications: string;
-  /**
-   * The webhook URL for POST-Event webhooks. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
-   */
-  postWebhookUrl: string;
-  /**
-   * The webhook URL for PRE-Event webhooks. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
-   */
-  preWebhookUrl: string;
-  /**
-   * Indicates whether the  the Reachability feature is enabled for this Service instance.  Defaults to `false`.
-   */
-  reachabilityEnabled: boolean;
-  /**
-   * Enable the Message Constumption Horizon feature (*true* if enabled, *false* if not).  Defaults to *true*.
-   */
-  readStatusEnabled: boolean;
+  fetch(callback?: function);
   /**
    * remove a ServiceInstance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  remove(): Promise<ServiceInstance>;
-  /**
-   * remove a ServiceInstance
+   * @function remove
+   * @memberof Twilio.IpMessaging.V1.ServiceInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: ServiceInstance) => any): void;
-  roles(): RoleListInstance;
+  remove(callback?: function);
   /**
-   * A 34 character string that uniquely identifies this resource.
+   * Access the roles
+   *
+   * @function roles
+   * @memberof Twilio.IpMessaging.V1.ServiceInstance
+   * @instance
    */
-  sid: string;
+  roles();
   /**
-   * The amount of time after a "started typing" event when clients should assume that user is no longer typing, even if no "ended typing" message was received. Uses the [ISO 8601 duration](https://en.wikipedia.org/wiki/ISO_8601#Durations) format.
+   * Produce a plain JSON object version of the ServiceInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.IpMessaging.V1.ServiceInstance
+   * @instance
    */
-  typingIndicatorTimeout: number;
+  toJSON();
   /**
    * update a ServiceInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.IpMessaging.V1.ServiceInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  update(opts?: ServiceListFetchOptions): Promise<ServiceInstance>;
-  /**
-   * update a ServiceInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: ServiceListFetchOptions, callback: (error: Error | null, items: ServiceInstance) => any): void;
+  update(opts?: object, callback?: function);
   /**
-   * update a ServiceInstance
+   * Access the users
    *
-   * @param callback - Callback to handle processed record
+   * @function users
+   * @memberof Twilio.IpMessaging.V1.ServiceInstance
+   * @instance
    */
-  update(callback: (error: Error | null, items: ServiceInstance) => any): void;
-  /**
-   * An absolute URL for this service.
-   */
-  url: string;
-  users(): UserListInstance;
-  /**
-   * The list of WebHook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
-   */
-  webhookFilters: string;
-  /**
-   * The webhook request format to use.  Must be POST or GET. See [Webhook Events](https://www.twilio.com/docs/api/chat/webhooks) for more details.
-   */
-  webhookMethod: string;
-  /**
-   * The webhooks
-   */
-  webhooks: string;
+  users();
 }
 
 declare class ServiceContext {
-  constructor(version: V1, sid: string);
+  /**
+   * @constructor Twilio.IpMessaging.V1.ServiceContext
+   * @description Initialize the ServiceContext
+   *
+   * @property channels - channels resource
+   * @property roles - roles resource
+   * @property users - users resource
+   *
+   * @param version - Version of the resource
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.IpMessaging.V1, sid: sid);
 
-  channels: ChannelListInstance;
+  channels?: Twilio.IpMessaging.V1.ServiceContext.ChannelList;
   /**
    * fetch a ServiceInstance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  fetch(): Promise<ServiceInstance>;
-  /**
-   * fetch a ServiceInstance
+   * @function fetch
+   * @memberof Twilio.IpMessaging.V1.ServiceContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: ServiceInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a ServiceInstance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  remove(): Promise<ServiceInstance>;
-  /**
-   * remove a ServiceInstance
+   * @function remove
+   * @memberof Twilio.IpMessaging.V1.ServiceContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: ServiceInstance) => any): void;
-  roles: RoleListInstance;
+  remove(callback?: function);
+  roles?: Twilio.IpMessaging.V1.ServiceContext.RoleList;
   /**
    * update a ServiceInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.IpMessaging.V1.ServiceContext
+   * @instance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  update(opts?: ServiceListFetchOptions): Promise<ServiceInstance>;
-  /**
-   * update a ServiceInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: ServiceListFetchOptions, callback: (error: Error | null, items: ServiceInstance) => any): void;
-  /**
-   * update a ServiceInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: ServiceInstance) => any): void;
-  users: UserListInstance;
+  update(opts?: object, callback?: function);
+  users?: Twilio.IpMessaging.V1.ServiceContext.UserList;
 }
 
-export { ServiceContext, ServiceInstance, ServiceList, ServiceListCreateOptions, ServiceListEachOptions, ServiceListFetchOptions, ServiceListInstance, ServiceListOptions, ServiceListPageOptions, ServicePage, ServicePayload, ServiceResource, ServiceSolution }
+export { ServiceContext, ServiceInstance, ServiceList, ServicePage }

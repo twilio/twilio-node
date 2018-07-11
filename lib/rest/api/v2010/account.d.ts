@@ -6,462 +6,397 @@
  */
 
 import Page = require('../../../base/Page');
-import Response = require('../../../http/response');
-import V2010 = require('../V2010');
-import { AddressListInstance } from './account/address';
-import { ApplicationListInstance } from './account/application';
-import { AuthorizedConnectAppListInstance } from './account/authorizedConnectApp';
-import { AvailablePhoneNumberCountryListInstance } from './account/availablePhoneNumber';
-import { CallListInstance } from './account/call';
-import { ConferenceListInstance } from './account/conference';
-import { ConnectAppListInstance } from './account/connectApp';
-import { IncomingPhoneNumberListInstance } from './account/incomingPhoneNumber';
-import { KeyListInstance } from './account/key';
-import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
-import { MessageListInstance } from './account/message';
-import { NewKeyListInstance } from './account/newKey';
-import { NewSigningKeyListInstance } from './account/newSigningKey';
-import { NotificationListInstance } from './account/notification';
-import { OutgoingCallerIdListInstance } from './account/outgoingCallerId';
-import { QueueListInstance } from './account/queue';
-import { RecordingListInstance } from './account/recording';
-import { SerializableClass } from '../../../interfaces';
-import { ShortCodeListInstance } from './account/shortCode';
-import { SigningKeyListInstance } from './account/signingKey';
-import { SipListInstance } from './account/sip';
-import { TokenListInstance } from './account/token';
-import { TranscriptionListInstance } from './account/transcription';
-import { UsageListInstance } from './account/usage';
-import { ValidationRequestListInstance } from './account/validationRequest';
+import deserialize = require('../../../base/deserialize');
+import values = require('../../../base/values');
+import { AddressList } from './account/address';
+import { ApplicationList } from './account/application';
+import { AuthorizedConnectAppList } from './account/authorizedConnectApp';
+import { AvailablePhoneNumberCountryList } from './account/availablePhoneNumber';
+import { CallList } from './account/call';
+import { ConferenceList } from './account/conference';
+import { ConnectAppList } from './account/connectApp';
+import { IncomingPhoneNumberList } from './account/incomingPhoneNumber';
+import { KeyList } from './account/key';
+import { MessageList } from './account/message';
+import { NewKeyList } from './account/newKey';
+import { NewSigningKeyList } from './account/newSigningKey';
+import { NotificationList } from './account/notification';
+import { OutgoingCallerIdList } from './account/outgoingCallerId';
+import { QueueList } from './account/queue';
+import { RecordingList } from './account/recording';
+import { ShortCodeList } from './account/shortCode';
+import { SigningKeyList } from './account/signingKey';
+import { SipList } from './account/sip';
+import { TokenList } from './account/token';
+import { TranscriptionList } from './account/transcription';
+import { UsageList } from './account/usage';
+import { ValidationRequestList } from './account/validationRequest';
 
-declare function AccountList(version: V2010): AccountListInstance
 
-type AccountStatus = 'active'|'suspended'|'closed';
-
-type AccountType = 'Trial'|'Full';
-
-interface AccountResource {
-  /**
-   * The authorization token for this account. This token should be kept a secret, so no sharing.
-   */
-  auth_token: string;
-  /**
-   * The date that this account was created, in GMT in RFC 2822 format
-   */
-  date_created: Date;
-  /**
-   * The date that this account was last updated, in GMT in RFC 2822 format.
-   */
-  date_updated: Date;
-  /**
-   * A human readable description of this account, up to 64 characters long. By default the FriendlyName is your email address.
-   */
-  friendly_name: string;
-  /**
-   * The unique 34 character id that represents the parent of this account. The OwnerAccountSid of a parent account is it's own sid.
-   */
-  owner_account_sid: string;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * The status of this account. Usually `active`, but can be `suspended` or `closed`.
-   */
-  status: AccountStatus;
-  /**
-   * A Map of various subresources available for the given Account Instance
-   */
-  subresource_uris: string;
-  /**
-   * The type of this account. Either `Trial` or `Full` if it's been upgraded
-   */
-  type: AccountType;
-  /**
-   * The URI for this resource, relative to `https://api.twilio.com`
-   */
-  uri: string;
-}
-
-interface AccountPayload extends AccountResource, Page.TwilioResponsePayload {
-}
-
-interface AccountSolution {
-}
-
-interface AccountListCreateOptions {
-  /**
-   * A human readable description of the account to create, defaults to `SubAccount Created at {YYYY-MM-DD HH:MM meridian}`
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - FriendlyName to update
+ * @property status - Status to update the Account with
+ */
+export interface UpdateOptions {
   friendlyName?: string;
+  status?: account.status;
 }
 
-interface AccountListEachOptions extends ListEachOptions<AccountInstance> {
-  /**
-   * Only return the Account resources with friendly names that exactly match this name.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - FriendlyName to update
+ * @property status - Status to update the Account with
+ */
+export interface UpdateOptions {
   friendlyName?: string;
-  /**
-   * Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
-   */
-  status?: AccountStatus;
+  status?: account.status;
 }
 
-interface AccountListOptions extends ListOptions<AccountInstance> {
-  /**
-   * Only return the Account resources with friendly names that exactly match this name.
-   */
-  friendlyName?: string;
-  /**
-   * Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
-   */
-  status?: AccountStatus;
-}
 
-interface AccountListPageOptions extends PageOptions<AccountPage> {
+declare class AccountPage extends Page {
   /**
-   * Only return the Account resources with friendly names that exactly match this name.
+   * @constructor Twilio.Api.V2010.AccountPage
+   * @augments Page
+   * @description Initialize the AccountPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  friendlyName?: string;
-  /**
-   * Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
-   */
-  status?: AccountStatus;
-}
-
-interface AccountListInstance {
-  /**
-   * Gets context of a single Account resource
-   *
-   * @param sid - Fetch by unique Account Sid
-   */
-  (sid: string): AccountContext;
-  /**
-   * create a AccountInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed AccountInstance
-   */
-  create(opts?: AccountListCreateOptions): Promise<AccountInstance>;
-  /**
-   * create a AccountInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: AccountListCreateOptions, callback: (error: Error | null, items: AccountInstance) => any): void;
-  /**
-   * create a AccountInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  create(callback: (error: Error | null, items: AccountInstance) => any): void;
-  /**
-   * Streams AccountInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: AccountListEachOptions): void;
-  /**
-   * Streams AccountInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: AccountInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Account resource
-   *
-   * @param sid - Fetch by unique Account Sid
-   */
-  get(sid: string): AccountContext;
-  /**
-   * Retrieve a single target page of AccountInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<AccountPage>;
-  /**
-   * Retrieve a single target page of AccountInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: AccountPage) => any): void;
-  /**
-   * Lists AccountInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: AccountListOptions): Promise<AccountInstance[]>;
-  /**
-   * Lists AccountInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: AccountListOptions, callback: (error: Error | null, items: AccountInstance[]) => any): void;
-  /**
-   * Lists AccountInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: AccountInstance[]) => any): void;
-  /**
-   * Retrieve a single page of AccountInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: AccountListPageOptions): Promise<AccountPage>;
-  /**
-   * Retrieve a single page of AccountInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: AccountListPageOptions, callback: (error: Error | null, items: AccountPage) => any): void;
-  /**
-   * Retrieve a single page of AccountInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: AccountPage) => any): void;
-}
-
-interface AccountListFetchOptions {
-  /**
-   * Update the human-readable description of this Account
-   */
-  friendlyName?: string;
-  /**
-   * Alter the status of this account: use `closed` to irreversibly close this account, `suspended` to temporarily suspend it, or `active` to reactivate it.
-   */
-  status?: AccountStatus;
-}
-
-interface AccountListFetchOptions {
-  /**
-   * Update the human-readable description of this Account
-   */
-  friendlyName?: string;
-  /**
-   * Alter the status of this account: use `closed` to irreversibly close this account, `suspended` to temporarily suspend it, or `active` to reactivate it.
-   */
-  status?: AccountStatus;
-}
-
-declare class AccountPage extends Page<V2010, AccountPayload, AccountResource, AccountInstance> {
-  constructor(version: V2010, response: Response<string>, solution: AccountSolution);
+  constructor(version: Twilio.Api.V2010, response: object, solution: object);
 
   /**
    * Build an instance of AccountInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Api.V2010.AccountPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: AccountPayload): AccountInstance;
+  getInstance(payload: object);
 }
 
-declare class AccountInstance extends SerializableClass {
+declare class AccountInstance {
   /**
+   * @constructor Twilio.Api.V2010.AccountInstance
+   * @description Initialize the AccountContext
+   *
+   * @property authToken - The authorization token for this account
+   * @property dateCreated - The date this account was created
+   * @property dateUpdated - The date this account was last updated
+   * @property friendlyName - A human readable description of this account
+   * @property ownerAccountSid - The unique 34 character id representing the parent of this account
+   * @property sid - A 34 character string that uniquely identifies this resource.
+   * @property status - The status of this account
+   * @property subresourceUris - Account Instance Subresources
+   * @property type - The type of this account
+   * @property uri - The URI for this resource, relative to `https://api.twilio.com`
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param sid - Fetch by unique Account Sid
    */
-  constructor(version: V2010, payload: AccountPayload, sid: string);
+  constructor(version: Twilio.Api.V2010, payload: object, sid: sid);
 
-  private _proxy: AccountContext;
-  addresses(): AddressListInstance;
-  applications(): ApplicationListInstance;
+  _proxy?: AccountContext;
   /**
-   * The authorization token for this account. This token should be kept a secret, so no sharing.
+   * Access the addresses
+   *
+   * @function addresses
+   * @memberof Twilio.Api.V2010.AccountInstance
+   * @instance
    */
-  authToken: string;
-  authorizedConnectApps(): AuthorizedConnectAppListInstance;
-  availablePhoneNumbers(): AvailablePhoneNumberCountryListInstance;
-  calls(): CallListInstance;
-  conferences(): ConferenceListInstance;
-  connectApps(): ConnectAppListInstance;
+  addresses();
   /**
-   * The date that this account was created, in GMT in RFC 2822 format
+   * Access the applications
+   *
+   * @function applications
+   * @memberof Twilio.Api.V2010.AccountInstance
+   * @instance
    */
-  dateCreated: Date;
+  applications();
   /**
-   * The date that this account was last updated, in GMT in RFC 2822 format.
+   * Access the authorizedConnectApps
+   *
+   * @function authorizedConnectApps
+   * @memberof Twilio.Api.V2010.AccountInstance
+   * @instance
    */
-  dateUpdated: Date;
+  authorizedConnectApps();
+  /**
+   * Access the availablePhoneNumbers
+   *
+   * @function availablePhoneNumbers
+   * @memberof Twilio.Api.V2010.AccountInstance
+   * @instance
+   */
+  availablePhoneNumbers();
+  /**
+   * Access the calls
+   *
+   * @function calls
+   * @memberof Twilio.Api.V2010.AccountInstance
+   * @instance
+   */
+  calls();
+  /**
+   * Access the conferences
+   *
+   * @function conferences
+   * @memberof Twilio.Api.V2010.AccountInstance
+   * @instance
+   */
+  conferences();
+  /**
+   * Access the connectApps
+   *
+   * @function connectApps
+   * @memberof Twilio.Api.V2010.AccountInstance
+   * @instance
+   */
+  connectApps();
   /**
    * fetch a AccountInstance
    *
-   * @returns Promise that resolves to processed AccountInstance
-   */
-  fetch(): Promise<AccountInstance>;
-  /**
-   * fetch a AccountInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: AccountInstance) => any): void;
+  fetch(callback?: function);
   /**
-   * A human readable description of this account, up to 64 characters long. By default the FriendlyName is your email address.
+   * Access the incomingPhoneNumbers
+   *
+   * @function incomingPhoneNumbers
+   * @memberof Twilio.Api.V2010.AccountInstance
+   * @instance
    */
-  friendlyName: string;
-  incomingPhoneNumbers(): IncomingPhoneNumberListInstance;
-  keys(): KeyListInstance;
-  messages(): MessageListInstance;
-  newKeys(): NewKeyListInstance;
-  newSigningKeys(): NewSigningKeyListInstance;
-  notifications(): NotificationListInstance;
-  outgoingCallerIds(): OutgoingCallerIdListInstance;
+  incomingPhoneNumbers();
   /**
-   * The unique 34 character id that represents the parent of this account. The OwnerAccountSid of a parent account is it's own sid.
+   * Access the keys
+   *
+   * @function keys
+   * @memberof Twilio.Api.V2010.AccountInstance
+   * @instance
    */
-  ownerAccountSid: string;
-  queues(): QueueListInstance;
-  recordings(): RecordingListInstance;
-  shortCodes(): ShortCodeListInstance;
+  keys();
   /**
-   * A 34 character string that uniquely identifies this resource.
+   * Access the messages
+   *
+   * @function messages
+   * @memberof Twilio.Api.V2010.AccountInstance
+   * @instance
    */
-  sid: string;
-  signingKeys(): SigningKeyListInstance;
-  sip(): SipListInstance;
+  messages();
   /**
-   * The status of this account. Usually `active`, but can be `suspended` or `closed`.
+   * Access the newKeys
+   *
+   * @function newKeys
+   * @memberof Twilio.Api.V2010.AccountInstance
+   * @instance
    */
-  status: AccountStatus;
+  newKeys();
   /**
-   * A Map of various subresources available for the given Account Instance
+   * Access the newSigningKeys
+   *
+   * @function newSigningKeys
+   * @memberof Twilio.Api.V2010.AccountInstance
+   * @instance
    */
-  subresourceUris: string;
-  tokens(): TokenListInstance;
-  transcriptions(): TranscriptionListInstance;
+  newSigningKeys();
   /**
-   * The type of this account. Either `Trial` or `Full` if it's been upgraded
+   * Access the notifications
+   *
+   * @function notifications
+   * @memberof Twilio.Api.V2010.AccountInstance
+   * @instance
    */
-  type: AccountType;
+  notifications();
+  /**
+   * Access the outgoingCallerIds
+   *
+   * @function outgoingCallerIds
+   * @memberof Twilio.Api.V2010.AccountInstance
+   * @instance
+   */
+  outgoingCallerIds();
+  /**
+   * Access the queues
+   *
+   * @function queues
+   * @memberof Twilio.Api.V2010.AccountInstance
+   * @instance
+   */
+  queues();
+  /**
+   * Access the recordings
+   *
+   * @function recordings
+   * @memberof Twilio.Api.V2010.AccountInstance
+   * @instance
+   */
+  recordings();
+  /**
+   * Access the shortCodes
+   *
+   * @function shortCodes
+   * @memberof Twilio.Api.V2010.AccountInstance
+   * @instance
+   */
+  shortCodes();
+  /**
+   * Access the signingKeys
+   *
+   * @function signingKeys
+   * @memberof Twilio.Api.V2010.AccountInstance
+   * @instance
+   */
+  signingKeys();
+  /**
+   * Access the sip
+   *
+   * @function sip
+   * @memberof Twilio.Api.V2010.AccountInstance
+   * @instance
+   */
+  sip();
+  /**
+   * Produce a plain JSON object version of the AccountInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Api.V2010.AccountInstance
+   * @instance
+   */
+  toJSON();
+  /**
+   * Access the tokens
+   *
+   * @function tokens
+   * @memberof Twilio.Api.V2010.AccountInstance
+   * @instance
+   */
+  tokens();
+  /**
+   * Access the transcriptions
+   *
+   * @function transcriptions
+   * @memberof Twilio.Api.V2010.AccountInstance
+   * @instance
+   */
+  transcriptions();
   /**
    * update a AccountInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Api.V2010.AccountInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed AccountInstance
-   */
-  update(opts?: AccountListFetchOptions): Promise<AccountInstance>;
-  /**
-   * update a AccountInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: AccountListFetchOptions, callback: (error: Error | null, items: AccountInstance) => any): void;
+  update(opts?: object, callback?: function);
   /**
-   * update a AccountInstance
+   * Access the usage
    *
-   * @param callback - Callback to handle processed record
+   * @function usage
+   * @memberof Twilio.Api.V2010.AccountInstance
+   * @instance
    */
-  update(callback: (error: Error | null, items: AccountInstance) => any): void;
+  usage();
   /**
-   * The URI for this resource, relative to `https://api.twilio.com`
+   * Access the validationRequests
+   *
+   * @function validationRequests
+   * @memberof Twilio.Api.V2010.AccountInstance
+   * @instance
    */
-  uri: string;
-  usage(): UsageListInstance;
-  validationRequests(): ValidationRequestListInstance;
+  validationRequests();
 }
 
 declare class AccountContext {
-  constructor(version: V2010, sid: string);
+  /**
+   * @constructor Twilio.Api.V2010.AccountContext
+   * @description Initialize the AccountContext
+   *
+   * @property addresses - addresses resource
+   * @property applications - applications resource
+   * @property authorizedConnectApps - authorizedConnectApps resource
+   * @property availablePhoneNumbers - availablePhoneNumbers resource
+   * @property calls - calls resource
+   * @property conferences - conferences resource
+   * @property connectApps - connectApps resource
+   * @property incomingPhoneNumbers - incomingPhoneNumbers resource
+   * @property keys - keys resource
+   * @property messages - messages resource
+   * @property newKeys - newKeys resource
+   * @property newSigningKeys - newSigningKeys resource
+   * @property notifications - notifications resource
+   * @property outgoingCallerIds - outgoingCallerIds resource
+   * @property queues - queues resource
+   * @property recordings - recordings resource
+   * @property signingKeys - signingKeys resource
+   * @property sip - sip resource
+   * @property shortCodes - shortCodes resource
+   * @property tokens - tokens resource
+   * @property transcriptions - transcriptions resource
+   * @property usage - usage resource
+   * @property validationRequests - validationRequests resource
+   *
+   * @param version - Version of the resource
+   * @param sid - Fetch by unique Account Sid
+   */
+  constructor(version: Twilio.Api.V2010, sid: sid);
 
-  addresses: AddressListInstance;
-  applications: ApplicationListInstance;
-  authorizedConnectApps: AuthorizedConnectAppListInstance;
-  availablePhoneNumbers: AvailablePhoneNumberCountryListInstance;
-  calls: CallListInstance;
-  conferences: ConferenceListInstance;
-  connectApps: ConnectAppListInstance;
+  addresses?: Twilio.Api.V2010.AccountContext.AddressList;
+  applications?: Twilio.Api.V2010.AccountContext.ApplicationList;
+  authorizedConnectApps?: Twilio.Api.V2010.AccountContext.AuthorizedConnectAppList;
+  availablePhoneNumbers?: Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryList;
+  calls?: Twilio.Api.V2010.AccountContext.CallList;
+  conferences?: Twilio.Api.V2010.AccountContext.ConferenceList;
+  connectApps?: Twilio.Api.V2010.AccountContext.ConnectAppList;
   /**
    * fetch a AccountInstance
    *
-   * @returns Promise that resolves to processed AccountInstance
-   */
-  fetch(): Promise<AccountInstance>;
-  /**
-   * fetch a AccountInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: AccountInstance) => any): void;
-  incomingPhoneNumbers: IncomingPhoneNumberListInstance;
-  keys: KeyListInstance;
-  messages: MessageListInstance;
-  newKeys: NewKeyListInstance;
-  newSigningKeys: NewSigningKeyListInstance;
-  notifications: NotificationListInstance;
-  outgoingCallerIds: OutgoingCallerIdListInstance;
-  queues: QueueListInstance;
-  recordings: RecordingListInstance;
-  shortCodes: ShortCodeListInstance;
-  signingKeys: SigningKeyListInstance;
-  sip: SipListInstance;
-  tokens: TokenListInstance;
-  transcriptions: TranscriptionListInstance;
+  fetch(callback?: function);
+  incomingPhoneNumbers?: Twilio.Api.V2010.AccountContext.IncomingPhoneNumberList;
+  keys?: Twilio.Api.V2010.AccountContext.KeyList;
+  messages?: Twilio.Api.V2010.AccountContext.MessageList;
+  newKeys?: Twilio.Api.V2010.AccountContext.NewKeyList;
+  newSigningKeys?: Twilio.Api.V2010.AccountContext.NewSigningKeyList;
+  notifications?: Twilio.Api.V2010.AccountContext.NotificationList;
+  outgoingCallerIds?: Twilio.Api.V2010.AccountContext.OutgoingCallerIdList;
+  queues?: Twilio.Api.V2010.AccountContext.QueueList;
+  recordings?: Twilio.Api.V2010.AccountContext.RecordingList;
+  shortCodes?: Twilio.Api.V2010.AccountContext.ShortCodeList;
+  signingKeys?: Twilio.Api.V2010.AccountContext.SigningKeyList;
+  sip?: Twilio.Api.V2010.AccountContext.SipList;
+  tokens?: Twilio.Api.V2010.AccountContext.TokenList;
+  transcriptions?: Twilio.Api.V2010.AccountContext.TranscriptionList;
   /**
    * update a AccountInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Api.V2010.AccountContext
+   * @instance
    *
-   * @returns Promise that resolves to processed AccountInstance
-   */
-  update(opts?: AccountListFetchOptions): Promise<AccountInstance>;
-  /**
-   * update a AccountInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: AccountListFetchOptions, callback: (error: Error | null, items: AccountInstance) => any): void;
-  /**
-   * update a AccountInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: AccountInstance) => any): void;
-  usage: UsageListInstance;
-  validationRequests: ValidationRequestListInstance;
+  update(opts?: object, callback?: function);
+  usage?: Twilio.Api.V2010.AccountContext.UsageList;
+  validationRequests?: Twilio.Api.V2010.AccountContext.ValidationRequestList;
 }
 
-export { AccountContext, AccountInstance, AccountList, AccountListCreateOptions, AccountListEachOptions, AccountListFetchOptions, AccountListInstance, AccountListOptions, AccountListPageOptions, AccountPage, AccountPayload, AccountResource, AccountSolution, AccountStatus, AccountType }
+export { AccountContext, AccountInstance, AccountList, AccountPage }

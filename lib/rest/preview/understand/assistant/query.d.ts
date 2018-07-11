@@ -6,461 +6,171 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import Understand = require('../../Understand');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { SerializableClass } from '../../../../interfaces';
+import deserialize = require('../../../../base/deserialize');
+import values = require('../../../../base/values');
 
-declare function QueryList(version: Understand, assistantSid: string): QueryListInstance
 
-interface QueryResource {
-  /**
-   * The unique ID of the Account that created this Query.
-   */
-  account_sid: string;
-  /**
-   * The unique ID of the parent Assistant.
-   */
-  assistant_sid: string;
-  /**
-   * The date that this resource was created
-   */
-  date_created: Date;
-  /**
-   * The date that this resource was last updated
-   */
-  date_updated: Date;
-  /**
-   * An ISO language-country string of the sample.
-   */
-  language: string;
-  /**
-   * The unique ID of the Model Build queried.
-   */
-  model_build_sid: string;
-  /**
-   * The end-user's natural language input.
-   */
-  query: string;
-  /**
-   * The natural language analysis results which include the Intent recognized, the confidence score and a list of identified Fields.
-   */
-  results: string;
-  /**
-   * An optional reference to the Sample created from this query.
-   */
-  sample_sid: string;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * The communication channel where this end-user input came from
-   */
-  source_channel: string;
-  /**
-   * A string that described the query status. The values can be: pending_review, reviewed, discarded
-   */
-  status: string;
-  /**
-   * The url
-   */
-  url: string;
-}
-
-interface QueryPayload extends QueryResource, Page.TwilioResponsePayload {
-}
-
-interface QuerySolution {
-  assistantSid: string;
-}
-
-interface QueryListEachOptions extends ListEachOptions<QueryInstance> {
-  /**
-   * An ISO language-country string of the sample.
-   */
-  language?: string;
-  /**
-   * The Model Build Sid or unique name of the Model Build to be queried.
-   */
-  modelBuild?: string;
-  /**
-   * A string that described the query status. The values can be: pending_review, reviewed, discarded
-   */
-  status?: string;
-}
-
-interface QueryListOptions extends ListOptions<QueryInstance> {
-  /**
-   * An ISO language-country string of the sample.
-   */
-  language?: string;
-  /**
-   * The Model Build Sid or unique name of the Model Build to be queried.
-   */
-  modelBuild?: string;
-  /**
-   * A string that described the query status. The values can be: pending_review, reviewed, discarded
-   */
-  status?: string;
-}
-
-interface QueryListPageOptions extends PageOptions<QueryPage> {
-  /**
-   * An ISO language-country string of the sample.
-   */
-  language?: string;
-  /**
-   * The Model Build Sid or unique name of the Model Build to be queried.
-   */
-  modelBuild?: string;
-  /**
-   * A string that described the query status. The values can be: pending_review, reviewed, discarded
-   */
-  status?: string;
-}
-
-interface QueryListCreateOptions {
-  /**
-   * Constraints the query to a given Field with an intent. Useful when you know the Field you are expecting. It accepts one field in the format *intent-unique-name-1*:*field-unique-name*
-   */
-  field?: string;
-  /**
-   * Constraints the query to a set of intents. Useful when you need to constrain the paths the user can take. Intents should be comma separated *intent-unique-name-1*, *intent-unique-name-2*
-   */
-  intents?: string;
-  /**
-   * An ISO language-country string of the sample.
-   */
-  language: string;
-  /**
-   * The Model Build Sid or unique name of the Model Build to be queried.
-   */
-  modelBuild?: string;
-  /**
-   * A user-provided string that uniquely identifies this resource as an alternative to the sid. It can be up to 2048 characters long.
-   */
-  query: string;
-}
-
-interface QueryListInstance {
-  /**
-   * Gets context of a single Query resource
-   *
-   * @param sid - The sid
-   */
-  (sid: string): QueryContext;
-  /**
-   * create a QueryInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed QueryInstance
-   */
-  create(opts: QueryListCreateOptions): Promise<QueryInstance>;
-  /**
-   * create a QueryInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: QueryListCreateOptions, callback: (error: Error | null, items: QueryInstance) => any): void;
-  /**
-   * Streams QueryInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: QueryListEachOptions): void;
-  /**
-   * Streams QueryInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: QueryInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Query resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): QueryContext;
-  /**
-   * Retrieve a single target page of QueryInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<QueryPage>;
-  /**
-   * Retrieve a single target page of QueryInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: QueryPage) => any): void;
-  /**
-   * Lists QueryInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: QueryListOptions): Promise<QueryInstance[]>;
-  /**
-   * Lists QueryInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: QueryListOptions, callback: (error: Error | null, items: QueryInstance[]) => any): void;
-  /**
-   * Lists QueryInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: QueryInstance[]) => any): void;
-  /**
-   * Retrieve a single page of QueryInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: QueryListPageOptions): Promise<QueryPage>;
-  /**
-   * Retrieve a single page of QueryInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: QueryListPageOptions, callback: (error: Error | null, items: QueryPage) => any): void;
-  /**
-   * Retrieve a single page of QueryInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: QueryPage) => any): void;
-}
-
-interface QueryListFetchOptions {
-  /**
-   * The sample_sid
-   */
+/**
+ * Options to pass to update
+ *
+ * @property sampleSid - The sample_sid
+ * @property status - A string that described the query status. The values can be: pending_review, reviewed, discarded
+ */
+export interface UpdateOptions {
   sampleSid?: string;
-  /**
-   * A string that described the query status. The values can be: pending_review, reviewed, discarded
-   */
   status?: string;
 }
 
-interface QueryListFetchOptions {
-  /**
-   * The sample_sid
-   */
+/**
+ * Options to pass to update
+ *
+ * @property sampleSid - The sample_sid
+ * @property status - A string that described the query status. The values can be: pending_review, reviewed, discarded
+ */
+export interface UpdateOptions {
   sampleSid?: string;
-  /**
-   * A string that described the query status. The values can be: pending_review, reviewed, discarded
-   */
   status?: string;
 }
 
-declare class QueryPage extends Page<Understand, QueryPayload, QueryResource, QueryInstance> {
-  constructor(version: Understand, response: Response<string>, solution: QuerySolution);
+
+declare class QueryPage extends Page {
+  /**
+   * @constructor Twilio.Preview.Understand.AssistantContext.QueryPage
+   * @augments Page
+   * @description Initialize the QueryPage
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Preview.Understand, response: object, solution: object);
 
   /**
    * Build an instance of QueryInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Preview.Understand.AssistantContext.QueryPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: QueryPayload): QueryInstance;
+  getInstance(payload: object);
 }
 
-declare class QueryInstance extends SerializableClass {
+declare class QueryInstance {
   /**
+   * @constructor Twilio.Preview.Understand.AssistantContext.QueryInstance
+   * @description Initialize the QueryContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property accountSid - The unique ID of the Account that created this Query.
+   * @property dateCreated - The date that this resource was created
+   * @property dateUpdated - The date that this resource was last updated
+   * @property results - The natural language analysis results which include the Intent recognized, the confidence score and a list of identified Fields.
+   * @property language - An ISO language-country string of the sample.
+   * @property modelBuildSid - The unique ID of the Model Build queried.
+   * @property query - The end-user's natural language input.
+   * @property sampleSid - An optional reference to the Sample created from this query.
+   * @property assistantSid - The unique ID of the parent Assistant.
+   * @property sid - A 34 character string that uniquely identifies this resource.
+   * @property status - A string that described the query status. The values can be: pending_review, reviewed, discarded
+   * @property url - The url
+   * @property sourceChannel - The communication channel where this end-user input came from
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param assistantSid - The assistant_sid
+   * @param assistantSid - The unique ID of the parent Assistant.
    * @param sid - The sid
    */
-  constructor(version: Understand, payload: QueryPayload, assistantSid: string, sid: string);
+  constructor(version: Twilio.Preview.Understand, payload: object, assistantSid: sid, sid: sid_like);
 
-  private _proxy: QueryContext;
-  /**
-   * The unique ID of the Account that created this Query.
-   */
-  accountSid: string;
-  /**
-   * The unique ID of the parent Assistant.
-   */
-  assistantSid: string;
-  /**
-   * The date that this resource was created
-   */
-  dateCreated: Date;
-  /**
-   * The date that this resource was last updated
-   */
-  dateUpdated: Date;
+  _proxy?: QueryContext;
   /**
    * fetch a QueryInstance
    *
-   * @returns Promise that resolves to processed QueryInstance
-   */
-  fetch(): Promise<QueryInstance>;
-  /**
-   * fetch a QueryInstance
+   * @function fetch
+   * @memberof Twilio.Preview.Understand.AssistantContext.QueryInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: QueryInstance) => any): void;
-  /**
-   * An ISO language-country string of the sample.
-   */
-  language: string;
-  /**
-   * The unique ID of the Model Build queried.
-   */
-  modelBuildSid: string;
-  /**
-   * The end-user's natural language input.
-   */
-  query: string;
+  fetch(callback?: function);
   /**
    * remove a QueryInstance
    *
-   * @returns Promise that resolves to processed QueryInstance
-   */
-  remove(): Promise<QueryInstance>;
-  /**
-   * remove a QueryInstance
+   * @function remove
+   * @memberof Twilio.Preview.Understand.AssistantContext.QueryInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: QueryInstance) => any): void;
+  remove(callback?: function);
   /**
-   * The natural language analysis results which include the Intent recognized, the confidence score and a list of identified Fields.
+   * Produce a plain JSON object version of the QueryInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Preview.Understand.AssistantContext.QueryInstance
+   * @instance
    */
-  results: string;
-  /**
-   * An optional reference to the Sample created from this query.
-   */
-  sampleSid: string;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * The communication channel where this end-user input came from
-   */
-  sourceChannel: string;
-  /**
-   * A string that described the query status. The values can be: pending_review, reviewed, discarded
-   */
-  status: string;
+  toJSON();
   /**
    * update a QueryInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Preview.Understand.AssistantContext.QueryInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed QueryInstance
-   */
-  update(opts?: QueryListFetchOptions): Promise<QueryInstance>;
-  /**
-   * update a QueryInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: QueryListFetchOptions, callback: (error: Error | null, items: QueryInstance) => any): void;
-  /**
-   * update a QueryInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: QueryInstance) => any): void;
-  /**
-   * The url
-   */
-  url: string;
+  update(opts?: object, callback?: function);
 }
 
 declare class QueryContext {
-  constructor(version: Understand, assistantSid: string, sid: string);
+  /**
+   * @constructor Twilio.Preview.Understand.AssistantContext.QueryContext
+   * @description Initialize the QueryContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @param version - Version of the resource
+   * @param assistantSid - The assistant_sid
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Preview.Understand, assistantSid: sid_like, sid: sid_like);
 
   /**
    * fetch a QueryInstance
    *
-   * @returns Promise that resolves to processed QueryInstance
-   */
-  fetch(): Promise<QueryInstance>;
-  /**
-   * fetch a QueryInstance
+   * @function fetch
+   * @memberof Twilio.Preview.Understand.AssistantContext.QueryContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: QueryInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a QueryInstance
    *
-   * @returns Promise that resolves to processed QueryInstance
-   */
-  remove(): Promise<QueryInstance>;
-  /**
-   * remove a QueryInstance
+   * @function remove
+   * @memberof Twilio.Preview.Understand.AssistantContext.QueryContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: QueryInstance) => any): void;
+  remove(callback?: function);
   /**
    * update a QueryInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Preview.Understand.AssistantContext.QueryContext
+   * @instance
    *
-   * @returns Promise that resolves to processed QueryInstance
-   */
-  update(opts?: QueryListFetchOptions): Promise<QueryInstance>;
-  /**
-   * update a QueryInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: QueryListFetchOptions, callback: (error: Error | null, items: QueryInstance) => any): void;
-  /**
-   * update a QueryInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: QueryInstance) => any): void;
+  update(opts?: object, callback?: function);
 }
 
-export { QueryContext, QueryInstance, QueryList, QueryListCreateOptions, QueryListEachOptions, QueryListFetchOptions, QueryListInstance, QueryListOptions, QueryListPageOptions, QueryPage, QueryPayload, QueryResource, QuerySolution }
+export { QueryContext, QueryInstance, QueryList, QueryPage }

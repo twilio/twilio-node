@@ -5,22 +5,10 @@
  *       /       /
  */
 
-import Page = require('../../../../base/Page');
-import V2010 = require('../../V2010');
+import { CredentialListList } from './sip/credentialList';
+import { DomainList } from './sip/domain';
+import { IpAccessControlListList } from './sip/ipAccessControlList';
 
-declare function SipList(version: V2010, accountSid: string): SipListInstance
 
-interface SipResource {
-}
 
-interface SipPayload extends SipResource, Page.TwilioResponsePayload {
-}
-
-interface SipSolution {
-  accountSid: string;
-}
-
-interface SipListInstance {
-}
-
-export { SipList, SipListInstance, SipPayload, SipResource, SipSolution }
+export = SipList;

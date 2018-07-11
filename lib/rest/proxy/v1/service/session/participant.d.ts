@@ -6,374 +6,141 @@
  */
 
 import Page = require('../../../../../base/Page');
-import Response = require('../../../../../http/response');
-import V1 = require('../../../V1');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../interfaces';
-import { MessageInteractionListInstance } from './participant/messageInteraction';
-import { SerializableClass } from '../../../../../interfaces';
+import deserialize = require('../../../../../base/deserialize');
+import values = require('../../../../../base/values');
+import { MessageInteractionList } from './participant/messageInteraction';
 
-declare function ParticipantList(version: V1, serviceSid: string, sessionSid: string): ParticipantListInstance
 
-interface ParticipantResource {
-  /**
-   * The unique SID identifier of the Account.
-   */
-  account_sid: string;
-  /**
-   * The date that this Participant was created, given in ISO 8601 format.
-   */
-  date_created: Date;
-  /**
-   * The date that this Participant was removed from the session, given in ISO 8601 format.
-   */
-  date_deleted: Date;
-  /**
-   * The date that this Participant was last updated, given in ISO 8601 format.
-   */
-  date_updated: Date;
-  /**
-   * A human-readable description of this resource, up to 64 characters. Should not include PII.
-   */
-  friendly_name: string;
-  /**
-   * The phone number of this Participant.
-   */
-  identifier: string;
-  /**
-   * Contains a dictionary of URL links to nested resources of this Participant.
-   */
-  links: string;
-  /**
-   * The actual phone number or short code (aka masked number). This is the number the participant will call/message to reach the partner participant.
-   */
-  proxy_identifier: string;
-  /**
-   * The unique SID identifier of the Proxy Identifier assigned to this Participant.
-   */
-  proxy_identifier_sid: string;
-  /**
-   * The unique SID identifier of the parent [Service](https://www.twilio.com/docs/proxy/api/service).
-   */
-  service_sid: string;
-  /**
-   * The unique SID identifier of the parent [Session](https://www.twilio.com/docs/proxy/api/session).
-   */
-  session_sid: string;
-  /**
-   * A 34 character string that uniquely identifies this Participant.
-   */
-  sid: string;
-  /**
-   * The URL of this resource.
-   */
-  url: string;
-}
 
-interface ParticipantPayload extends ParticipantResource, Page.TwilioResponsePayload {
-}
-
-interface ParticipantSolution {
-  serviceSid: string;
-  sessionSid: string;
-}
-
-interface ParticipantListEachOptions extends ListEachOptions<ParticipantInstance> {
+declare class ParticipantPage extends Page {
   /**
-   * The identifier
+   * @constructor Twilio.Proxy.V1.ServiceContext.SessionContext.ParticipantPage
+   * @augments Page
+   * @description Initialize the ParticipantPage
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  identifier?: string;
-}
-
-interface ParticipantListOptions extends ListOptions<ParticipantInstance> {
-  /**
-   * The identifier
-   */
-  identifier?: string;
-}
-
-interface ParticipantListPageOptions extends PageOptions<ParticipantPage> {
-  /**
-   * The identifier
-   */
-  identifier?: string;
-}
-
-interface ParticipantListCreateOptions {
-  /**
-   * A human-readable description of this resource, up to 64 characters. Should not include PII.
-   */
-  friendlyName?: string;
-  /**
-   * The phone number of this Participant.
-   */
-  identifier: string;
-  /**
-   * The proxy phone number to use for this Participant. If not specified, Proxy will select a number from the pool.
-   */
-  proxyIdentifier?: string;
-  /**
-   * The proxy_identifier_sid
-   */
-  proxyIdentifierSid?: string;
-}
-
-interface ParticipantListInstance {
-  /**
-   * Gets context of a single Participant resource
-   *
-   * @param sid - A string that uniquely identifies this Participant.
-   */
-  (sid: string): ParticipantContext;
-  /**
-   * create a ParticipantInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed ParticipantInstance
-   */
-  create(opts: ParticipantListCreateOptions): Promise<ParticipantInstance>;
-  /**
-   * create a ParticipantInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: ParticipantListCreateOptions, callback: (error: Error | null, items: ParticipantInstance) => any): void;
-  /**
-   * Streams ParticipantInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: ParticipantListEachOptions): void;
-  /**
-   * Streams ParticipantInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: ParticipantInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Participant resource
-   *
-   * @param sid - A string that uniquely identifies this Participant.
-   */
-  get(sid: string): ParticipantContext;
-  /**
-   * Retrieve a single target page of ParticipantInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<ParticipantPage>;
-  /**
-   * Retrieve a single target page of ParticipantInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: ParticipantPage) => any): void;
-  /**
-   * Lists ParticipantInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: ParticipantListOptions): Promise<ParticipantInstance[]>;
-  /**
-   * Lists ParticipantInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: ParticipantListOptions, callback: (error: Error | null, items: ParticipantInstance[]) => any): void;
-  /**
-   * Lists ParticipantInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: ParticipantInstance[]) => any): void;
-  /**
-   * Retrieve a single page of ParticipantInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: ParticipantListPageOptions): Promise<ParticipantPage>;
-  /**
-   * Retrieve a single page of ParticipantInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: ParticipantListPageOptions, callback: (error: Error | null, items: ParticipantPage) => any): void;
-  /**
-   * Retrieve a single page of ParticipantInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: ParticipantPage) => any): void;
-}
-
-declare class ParticipantPage extends Page<V1, ParticipantPayload, ParticipantResource, ParticipantInstance> {
-  constructor(version: V1, response: Response<string>, solution: ParticipantSolution);
+  constructor(version: Twilio.Proxy.V1, response: object, solution: object);
 
   /**
    * Build an instance of ParticipantInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Proxy.V1.ServiceContext.SessionContext.ParticipantPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: ParticipantPayload): ParticipantInstance;
+  getInstance(payload: object);
 }
 
-declare class ParticipantInstance extends SerializableClass {
+declare class ParticipantInstance {
   /**
+   * @constructor Twilio.Proxy.V1.ServiceContext.SessionContext.ParticipantInstance
+   * @description Initialize the ParticipantContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property sid - A string that uniquely identifies this Participant.
+   * @property sessionSid - Session Sid.
+   * @property serviceSid - Service Sid.
+   * @property accountSid - Account Sid.
+   * @property friendlyName - A human-readable description of this resource.
+   * @property identifier - The phone number of this Participant.
+   * @property proxyIdentifier - Proxy Identifier.
+   * @property proxyIdentifierSid - Proxy Identifier Sid.
+   * @property dateDeleted - The date this Participant was removed
+   * @property dateCreated - The date this Participant was created
+   * @property dateUpdated - The date this Participant was last updated
+   * @property url - The URL of this resource.
+   * @property links - Nested resource URLs.
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param serviceSid - Service Sid.
    * @param sessionSid - Session Sid.
    * @param sid - A string that uniquely identifies this Participant.
    */
-  constructor(version: V1, payload: ParticipantPayload, serviceSid: string, sessionSid: string, sid: string);
+  constructor(version: Twilio.Proxy.V1, payload: object, serviceSid: sid, sessionSid: sid, sid: sid);
 
-  private _proxy: ParticipantContext;
-  /**
-   * The unique SID identifier of the Account.
-   */
-  accountSid: string;
-  /**
-   * The date that this Participant was created, given in ISO 8601 format.
-   */
-  dateCreated: Date;
-  /**
-   * The date that this Participant was removed from the session, given in ISO 8601 format.
-   */
-  dateDeleted: Date;
-  /**
-   * The date that this Participant was last updated, given in ISO 8601 format.
-   */
-  dateUpdated: Date;
+  _proxy?: ParticipantContext;
   /**
    * fetch a ParticipantInstance
    *
-   * @returns Promise that resolves to processed ParticipantInstance
-   */
-  fetch(): Promise<ParticipantInstance>;
-  /**
-   * fetch a ParticipantInstance
+   * @function fetch
+   * @memberof Twilio.Proxy.V1.ServiceContext.SessionContext.ParticipantInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: ParticipantInstance) => any): void;
+  fetch(callback?: function);
   /**
-   * A human-readable description of this resource, up to 64 characters. Should not include PII.
+   * Access the messageInteractions
+   *
+   * @function messageInteractions
+   * @memberof Twilio.Proxy.V1.ServiceContext.SessionContext.ParticipantInstance
+   * @instance
    */
-  friendlyName: string;
-  /**
-   * The phone number of this Participant.
-   */
-  identifier: string;
-  /**
-   * Contains a dictionary of URL links to nested resources of this Participant.
-   */
-  links: string;
-  messageInteractions(): MessageInteractionListInstance;
-  /**
-   * The actual phone number or short code (aka masked number). This is the number the participant will call/message to reach the partner participant.
-   */
-  proxyIdentifier: string;
-  /**
-   * The unique SID identifier of the Proxy Identifier assigned to this Participant.
-   */
-  proxyIdentifierSid: string;
+  messageInteractions();
   /**
    * remove a ParticipantInstance
    *
-   * @returns Promise that resolves to processed ParticipantInstance
-   */
-  remove(): Promise<ParticipantInstance>;
-  /**
-   * remove a ParticipantInstance
+   * @function remove
+   * @memberof Twilio.Proxy.V1.ServiceContext.SessionContext.ParticipantInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: ParticipantInstance) => any): void;
+  remove(callback?: function);
   /**
-   * The unique SID identifier of the parent [Service](https://www.twilio.com/docs/proxy/api/service).
+   * Produce a plain JSON object version of the ParticipantInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Proxy.V1.ServiceContext.SessionContext.ParticipantInstance
+   * @instance
    */
-  serviceSid: string;
-  /**
-   * The unique SID identifier of the parent [Session](https://www.twilio.com/docs/proxy/api/session).
-   */
-  sessionSid: string;
-  /**
-   * A 34 character string that uniquely identifies this Participant.
-   */
-  sid: string;
-  /**
-   * The URL of this resource.
-   */
-  url: string;
+  toJSON();
 }
 
 declare class ParticipantContext {
-  constructor(version: V1, serviceSid: string, sessionSid: string, sid: string);
+  /**
+   * @constructor Twilio.Proxy.V1.ServiceContext.SessionContext.ParticipantContext
+   * @description Initialize the ParticipantContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property messageInteractions - messageInteractions resource
+   *
+   * @param version - Version of the resource
+   * @param serviceSid - Service Sid.
+   * @param sessionSid - Session Sid.
+   * @param sid - A string that uniquely identifies this Participant.
+   */
+  constructor(version: Twilio.Proxy.V1, serviceSid: sid, sessionSid: sid, sid: sid);
 
   /**
    * fetch a ParticipantInstance
    *
-   * @returns Promise that resolves to processed ParticipantInstance
-   */
-  fetch(): Promise<ParticipantInstance>;
-  /**
-   * fetch a ParticipantInstance
+   * @function fetch
+   * @memberof Twilio.Proxy.V1.ServiceContext.SessionContext.ParticipantContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: ParticipantInstance) => any): void;
-  messageInteractions: MessageInteractionListInstance;
+  fetch(callback?: function);
+  messageInteractions?: Twilio.Proxy.V1.ServiceContext.SessionContext.ParticipantContext.MessageInteractionList;
   /**
    * remove a ParticipantInstance
    *
-   * @returns Promise that resolves to processed ParticipantInstance
-   */
-  remove(): Promise<ParticipantInstance>;
-  /**
-   * remove a ParticipantInstance
+   * @function remove
+   * @memberof Twilio.Proxy.V1.ServiceContext.SessionContext.ParticipantContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: ParticipantInstance) => any): void;
+  remove(callback?: function);
 }
 
-export { ParticipantContext, ParticipantInstance, ParticipantList, ParticipantListCreateOptions, ParticipantListEachOptions, ParticipantListInstance, ParticipantListOptions, ParticipantListPageOptions, ParticipantPage, ParticipantPayload, ParticipantResource, ParticipantSolution }
+export { ParticipantContext, ParticipantInstance, ParticipantList, ParticipantPage }

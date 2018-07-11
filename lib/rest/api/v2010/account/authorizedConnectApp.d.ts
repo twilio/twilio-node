@@ -6,277 +6,101 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V2010 = require('../../V2010');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { SerializableClass } from '../../../../interfaces';
+import deserialize = require('../../../../base/deserialize');
+import values = require('../../../../base/values');
 
-declare function AuthorizedConnectAppList(version: V2010, accountSid: string): AuthorizedConnectAppListInstance
 
-type AuthorizedConnectAppPermission = 'get-all'|'post-all';
 
-interface AuthorizedConnectAppResource {
+declare class AuthorizedConnectAppPage extends Page {
   /**
-   * The unique id of the SubAccount this Connect App has access to.
+   * @constructor Twilio.Api.V2010.AccountContext.AuthorizedConnectAppPage
+   * @augments Page
+   * @description Initialize the AuthorizedConnectAppPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  account_sid: string;
-  /**
-   * The company name set for this Connect App.
-   */
-  connect_app_company_name: string;
-  /**
-   * A more detailed human readable description of the Connect App.
-   */
-  connect_app_description: string;
-  /**
-   * A human readable name for the Connect App.
-   */
-  connect_app_friendly_name: string;
-  /**
-   * The public URL for this Connect App.
-   */
-  connect_app_homepage_url: string;
-  /**
-   * The unique id of the Connect App that was authorized.
-   */
-  connect_app_sid: string;
-  /**
-   * The date that this resource was created, given as GMT RFC 2822 format.
-   */
-  date_created: Date;
-  /**
-   * The date that this resource was last updated, given as GMT RFC 2822 format.
-   */
-  date_updated: Date;
-  /**
-   * The set of permissions that you have authorized for this Connect App.  Valid permisisons are `get-all` or `post-all`.
-   */
-  permissions: AuthorizedConnectAppPermission;
-  /**
-   * The URI for this resource, relative to `https://api.twilio.com`.
-   */
-  uri: string;
-}
-
-interface AuthorizedConnectAppPayload extends AuthorizedConnectAppResource, Page.TwilioResponsePayload {
-}
-
-interface AuthorizedConnectAppSolution {
-  accountSid: string;
-}
-
-interface AuthorizedConnectAppListEachOptions extends ListEachOptions<AuthorizedConnectAppInstance> {
-}
-
-interface AuthorizedConnectAppListOptions extends ListOptions<AuthorizedConnectAppInstance> {
-}
-
-interface AuthorizedConnectAppListPageOptions extends PageOptions<AuthorizedConnectAppPage> {
-}
-
-interface AuthorizedConnectAppListInstance {
-  /**
-   * Gets context of a single AuthorizedConnectApp resource
-   *
-   * @param connectAppSid - The connect_app_sid
-   */
-  (connectAppSid: string): AuthorizedConnectAppContext;
-  /**
-   * Streams AuthorizedConnectAppInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: AuthorizedConnectAppListEachOptions): void;
-  /**
-   * Streams AuthorizedConnectAppInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: AuthorizedConnectAppInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single AuthorizedConnectApp resource
-   *
-   * @param connectAppSid - The connect_app_sid
-   */
-  get(connectAppSid: string): AuthorizedConnectAppContext;
-  /**
-   * Retrieve a single target page of AuthorizedConnectAppInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<AuthorizedConnectAppPage>;
-  /**
-   * Retrieve a single target page of AuthorizedConnectAppInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: AuthorizedConnectAppPage) => any): void;
-  /**
-   * Lists AuthorizedConnectAppInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: AuthorizedConnectAppListOptions): Promise<AuthorizedConnectAppInstance[]>;
-  /**
-   * Lists AuthorizedConnectAppInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: AuthorizedConnectAppListOptions, callback: (error: Error | null, items: AuthorizedConnectAppInstance[]) => any): void;
-  /**
-   * Lists AuthorizedConnectAppInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: AuthorizedConnectAppInstance[]) => any): void;
-  /**
-   * Retrieve a single page of AuthorizedConnectAppInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: AuthorizedConnectAppListPageOptions): Promise<AuthorizedConnectAppPage>;
-  /**
-   * Retrieve a single page of AuthorizedConnectAppInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: AuthorizedConnectAppListPageOptions, callback: (error: Error | null, items: AuthorizedConnectAppPage) => any): void;
-  /**
-   * Retrieve a single page of AuthorizedConnectAppInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: AuthorizedConnectAppPage) => any): void;
-}
-
-declare class AuthorizedConnectAppPage extends Page<V2010, AuthorizedConnectAppPayload, AuthorizedConnectAppResource, AuthorizedConnectAppInstance> {
-  constructor(version: V2010, response: Response<string>, solution: AuthorizedConnectAppSolution);
+  constructor(version: Twilio.Api.V2010, response: object, solution: object);
 
   /**
    * Build an instance of AuthorizedConnectAppInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Api.V2010.AccountContext.AuthorizedConnectAppPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: AuthorizedConnectAppPayload): AuthorizedConnectAppInstance;
+  getInstance(payload: object);
 }
 
-declare class AuthorizedConnectAppInstance extends SerializableClass {
+declare class AuthorizedConnectAppInstance {
   /**
+   * @constructor Twilio.Api.V2010.AccountContext.AuthorizedConnectAppInstance
+   * @description Initialize the AuthorizedConnectAppContext
+   *
+   * @property accountSid - The unique sid that identifies this account
+   * @property connectAppCompanyName - The company name set for this Connect App.
+   * @property connectAppDescription - Human readable description of the app
+   * @property connectAppFriendlyName - A human readable name for the Connect App.
+   * @property connectAppHomepageUrl - The public URL for this Connect App.
+   * @property connectAppSid - A string that uniquely identifies this app
+   * @property dateCreated - The date this resource was created
+   * @property dateUpdated - The date this resource was last updated
+   * @property permissions - Permissions authorized to this app
+   * @property uri - The URI for this resource
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The account_sid
+   * @param accountSid - The unique sid that identifies this account
    * @param connectAppSid - The connect_app_sid
    */
-  constructor(version: V2010, payload: AuthorizedConnectAppPayload, accountSid: string, connectAppSid: string);
+  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, connectAppSid: sid);
 
-  private _proxy: AuthorizedConnectAppContext;
-  /**
-   * The unique id of the SubAccount this Connect App has access to.
-   */
-  accountSid: string;
-  /**
-   * The company name set for this Connect App.
-   */
-  connectAppCompanyName: string;
-  /**
-   * A more detailed human readable description of the Connect App.
-   */
-  connectAppDescription: string;
-  /**
-   * A human readable name for the Connect App.
-   */
-  connectAppFriendlyName: string;
-  /**
-   * The public URL for this Connect App.
-   */
-  connectAppHomepageUrl: string;
-  /**
-   * The unique id of the Connect App that was authorized.
-   */
-  connectAppSid: string;
-  /**
-   * The date that this resource was created, given as GMT RFC 2822 format.
-   */
-  dateCreated: Date;
-  /**
-   * The date that this resource was last updated, given as GMT RFC 2822 format.
-   */
-  dateUpdated: Date;
+  _proxy?: AuthorizedConnectAppContext;
   /**
    * fetch a AuthorizedConnectAppInstance
    *
-   * @returns Promise that resolves to processed AuthorizedConnectAppInstance
-   */
-  fetch(): Promise<AuthorizedConnectAppInstance>;
-  /**
-   * fetch a AuthorizedConnectAppInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.AuthorizedConnectAppInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: AuthorizedConnectAppInstance) => any): void;
+  fetch(callback?: function);
   /**
-   * The set of permissions that you have authorized for this Connect App.  Valid permisisons are `get-all` or `post-all`.
+   * Produce a plain JSON object version of the AuthorizedConnectAppInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Api.V2010.AccountContext.AuthorizedConnectAppInstance
+   * @instance
    */
-  permissions: AuthorizedConnectAppPermission;
-  /**
-   * The URI for this resource, relative to `https://api.twilio.com`.
-   */
-  uri: string;
+  toJSON();
 }
 
 declare class AuthorizedConnectAppContext {
-  constructor(version: V2010, accountSid: string, connectAppSid: string);
+  /**
+   * @constructor Twilio.Api.V2010.AccountContext.AuthorizedConnectAppContext
+   * @description Initialize the AuthorizedConnectAppContext
+   *
+   * @param version - Version of the resource
+   * @param accountSid - The account_sid
+   * @param connectAppSid - The connect_app_sid
+   */
+  constructor(version: Twilio.Api.V2010, accountSid: sid, connectAppSid: sid);
 
   /**
    * fetch a AuthorizedConnectAppInstance
    *
-   * @returns Promise that resolves to processed AuthorizedConnectAppInstance
-   */
-  fetch(): Promise<AuthorizedConnectAppInstance>;
-  /**
-   * fetch a AuthorizedConnectAppInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.AuthorizedConnectAppContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: AuthorizedConnectAppInstance) => any): void;
+  fetch(callback?: function);
 }
 
-export { AuthorizedConnectAppContext, AuthorizedConnectAppInstance, AuthorizedConnectAppList, AuthorizedConnectAppListEachOptions, AuthorizedConnectAppListInstance, AuthorizedConnectAppListOptions, AuthorizedConnectAppListPageOptions, AuthorizedConnectAppPage, AuthorizedConnectAppPayload, AuthorizedConnectAppPermission, AuthorizedConnectAppResource, AuthorizedConnectAppSolution }
+export { AuthorizedConnectAppContext, AuthorizedConnectAppInstance, AuthorizedConnectAppList, AuthorizedConnectAppPage }

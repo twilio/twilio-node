@@ -6,180 +6,128 @@
  */
 
 import Page = require('../../../../../base/Page');
-import Response = require('../../../../../http/response');
-import V1 = require('../../../V1');
-import { SerializableClass } from '../../../../../interfaces';
+import serialize = require('../../../../../base/serialize');
+import values = require('../../../../../base/values');
 
-declare function WorkerStatisticsList(version: V1, workspaceSid: string, workerSid: string): WorkerStatisticsListInstance
 
-interface WorkerStatisticsResource {
-  /**
-   * The account_sid
-   */
-  account_sid: string;
-  /**
-   * The cumulative
-   */
-  cumulative: string;
-  /**
-   * The url
-   */
-  url: string;
-  /**
-   * The worker_sid
-   */
-  worker_sid: string;
-  /**
-   * The workspace_sid
-   */
-  workspace_sid: string;
-}
-
-interface WorkerStatisticsPayload extends WorkerStatisticsResource, Page.TwilioResponsePayload {
-}
-
-interface WorkerStatisticsSolution {
-  workerSid: string;
-  workspaceSid: string;
-}
-
-interface WorkerStatisticsListInstance {
-  /**
-   * Gets context of a single WorkerStatistics resource
-   */
-  (): WorkerStatisticsContext;
-  /**
-   * Gets context of a single WorkerStatistics resource
-   */
-  get(): WorkerStatisticsContext;
-}
-
-interface WorkerStatisticsListFetchOptions {
-  /**
-   * Filter cumulative statistics by a end date. This is helpful for defining a range of statistics to capture. Input is a string of the format: yyyy-MM-dd'T'HH:mm:ss'Z'.
-   */
+/**
+ * Options to pass to fetch
+ *
+ * @property minutes - Filter cumulative statistics by up to 'x' minutes in the past.
+ * @property startDate - Filter cumulative statistics by a start date.
+ * @property endDate - Filter cumulative statistics by a end date.
+ * @property taskChannel - Filter cumulative statistics by TaskChannel.
+ */
+export interface FetchOptions {
   endDate?: Date;
-  /**
-   * Filter cumulative statistics by up to 'x' minutes in the past. This is helpful for statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends. Defaults to 15 minutes.
-   */
   minutes?: number;
-  /**
-   * Filter cumulative statistics by a start date. This is helpful for defining a range of statistics to capture. Input is a string of the format: yyyy-MM-dd'T'HH:mm:ss'Z'.
-   */
   startDate?: Date;
-  /**
-   * Filter cumulative statistics by TaskChannel. Takes in a Unique Name ("voice", "sms", "default", etc.) or a TaskChannelSid.
-   */
   taskChannel?: string;
 }
 
-interface WorkerStatisticsListFetchOptions {
-  /**
-   * Filter cumulative statistics by a end date. This is helpful for defining a range of statistics to capture. Input is a string of the format: yyyy-MM-dd'T'HH:mm:ss'Z'.
-   */
+/**
+ * Options to pass to fetch
+ *
+ * @property minutes - Filter cumulative statistics by up to 'x' minutes in the past.
+ * @property startDate - Filter cumulative statistics by a start date.
+ * @property endDate - Filter cumulative statistics by a end date.
+ * @property taskChannel - Filter cumulative statistics by TaskChannel.
+ */
+export interface FetchOptions {
   endDate?: Date;
-  /**
-   * Filter cumulative statistics by up to 'x' minutes in the past. This is helpful for statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends. Defaults to 15 minutes.
-   */
   minutes?: number;
-  /**
-   * Filter cumulative statistics by a start date. This is helpful for defining a range of statistics to capture. Input is a string of the format: yyyy-MM-dd'T'HH:mm:ss'Z'.
-   */
   startDate?: Date;
-  /**
-   * Filter cumulative statistics by TaskChannel. Takes in a Unique Name ("voice", "sms", "default", etc.) or a TaskChannelSid.
-   */
   taskChannel?: string;
 }
 
-declare class WorkerStatisticsPage extends Page<V1, WorkerStatisticsPayload, WorkerStatisticsResource, WorkerStatisticsInstance> {
-  constructor(version: V1, response: Response<string>, solution: WorkerStatisticsSolution);
+
+declare class WorkerStatisticsPage extends Page {
+  /**
+   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkerStatisticsPage
+   * @augments Page
+   * @description Initialize the WorkerStatisticsPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Taskrouter.V1, response: object, solution: object);
 
   /**
    * Build an instance of WorkerStatisticsInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkerStatisticsPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: WorkerStatisticsPayload): WorkerStatisticsInstance;
+  getInstance(payload: object);
 }
 
-declare class WorkerStatisticsInstance extends SerializableClass {
+declare class WorkerStatisticsInstance {
   /**
+   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkerStatisticsInstance
+   * @description Initialize the WorkerStatisticsContext
+   *
+   * @property accountSid - The account_sid
+   * @property cumulative - The cumulative
+   * @property workerSid - The worker_sid
+   * @property workspaceSid - The workspace_sid
+   * @property url - The url
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param workspaceSid - The workspace_sid
    * @param workerSid - The worker_sid
    */
-  constructor(version: V1, payload: WorkerStatisticsPayload, workspaceSid: string, workerSid: string);
+  constructor(version: Twilio.Taskrouter.V1, payload: object, workspaceSid: sid, workerSid: sid);
 
-  private _proxy: WorkerStatisticsContext;
-  /**
-   * The account_sid
-   */
-  accountSid: string;
-  /**
-   * The cumulative
-   */
-  cumulative: string;
+  _proxy?: WorkerStatisticsContext;
   /**
    * fetch a WorkerStatisticsInstance
    *
-   * @param opts - Options for request
+   * @function fetch
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkerStatisticsInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed WorkerStatisticsInstance
-   */
-  fetch(opts?: WorkerStatisticsListFetchOptions): Promise<WorkerStatisticsInstance>;
-  /**
-   * fetch a WorkerStatisticsInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  fetch(opts: WorkerStatisticsListFetchOptions, callback: (error: Error | null, items: WorkerStatisticsInstance) => any): void;
+  fetch(opts?: object, callback?: function);
   /**
-   * fetch a WorkerStatisticsInstance
+   * Produce a plain JSON object version of the WorkerStatisticsInstance for serialization.
+   * Removes any circular references in the object.
    *
-   * @param callback - Callback to handle processed record
+   * @function toJSON
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkerStatisticsInstance
+   * @instance
    */
-  fetch(callback: (error: Error | null, items: WorkerStatisticsInstance) => any): void;
-  /**
-   * The url
-   */
-  url: string;
-  /**
-   * The worker_sid
-   */
-  workerSid: string;
-  /**
-   * The workspace_sid
-   */
-  workspaceSid: string;
+  toJSON();
 }
 
 declare class WorkerStatisticsContext {
-  constructor(version: V1, workspaceSid: string, workerSid: string);
+  /**
+   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkerStatisticsContext
+   * @description Initialize the WorkerStatisticsContext
+   *
+   * @param version - Version of the resource
+   * @param workspaceSid - The workspace_sid
+   * @param workerSid - The worker_sid
+   */
+  constructor(version: Twilio.Taskrouter.V1, workspaceSid: sid, workerSid: sid);
 
   /**
    * fetch a WorkerStatisticsInstance
    *
-   * @param opts - Options for request
+   * @function fetch
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkerStatisticsContext
+   * @instance
    *
-   * @returns Promise that resolves to processed WorkerStatisticsInstance
-   */
-  fetch(opts?: WorkerStatisticsListFetchOptions): Promise<WorkerStatisticsInstance>;
-  /**
-   * fetch a WorkerStatisticsInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  fetch(opts: WorkerStatisticsListFetchOptions, callback: (error: Error | null, items: WorkerStatisticsInstance) => any): void;
-  /**
-   * fetch a WorkerStatisticsInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  fetch(callback: (error: Error | null, items: WorkerStatisticsInstance) => any): void;
+  fetch(opts?: object, callback?: function);
 }
 
-export { WorkerStatisticsContext, WorkerStatisticsInstance, WorkerStatisticsList, WorkerStatisticsListFetchOptions, WorkerStatisticsListInstance, WorkerStatisticsPage, WorkerStatisticsPayload, WorkerStatisticsResource, WorkerStatisticsSolution }
+export { WorkerStatisticsContext, WorkerStatisticsInstance, WorkerStatisticsList, WorkerStatisticsPage }

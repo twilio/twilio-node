@@ -6,433 +6,179 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V1 = require('../../V1');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { SerializableClass } from '../../../../interfaces';
+import deserialize = require('../../../../base/deserialize');
+import serialize = require('../../../../base/serialize');
+import values = require('../../../../base/values');
 
-declare function OriginationUrlList(version: V1, trunkSid: string): OriginationUrlListInstance
 
-interface OriginationUrlResource {
-  /**
-   * The unique ID of the Account that owns this Origination URL.
-   */
-  account_sid: string;
-  /**
-   * The date this Activity was created.
-   */
-  date_created: Date;
-  /**
-   * The date this Activity was updated.
-   */
-  date_updated: Date;
-  /**
-   * A boolean value indicating whether the URL is enabled or disabled. Defaults to true.
-   */
-  enabled: boolean;
-  /**
-   * A human readable descriptive text, up to 64 characters long.
-   */
-  friendly_name: string;
-  /**
-   * Priority ranks the importance of the URI. Values range from 0 to 65535, where the lowest number represents the highest importance. Defaults to 10.
-   */
-  priority: number;
-  /**
-   * A 34 character string that uniquely identifies the Origination URL in this Twilio Trunk.
-   */
-  sid: string;
-  /**
-   * The SIP address you want Twilio to route your Origination calls to. This must be a `sip:` schema.
-   */
-  sip_url: string;
-  /**
-   * The unique ID of the Trunk that owns this Origination URL.
-   */
-  trunk_sid: string;
-  /**
-   * The URL for this resource, relative to `https://trunking.twilio.com`
-   */
-  url: string;
-  /**
-   * Weight is used to determine the share of load when more than one URI has the same priority. Its values range from 1 to 65535. The higher the value, the more load a URI is given. Defaults to 10.
-   */
-  weight: number;
-}
-
-interface OriginationUrlPayload extends OriginationUrlResource, Page.TwilioResponsePayload {
-}
-
-interface OriginationUrlSolution {
-  trunkSid: string;
-}
-
-interface OriginationUrlListCreateOptions {
-  /**
-   * A boolean value indicating whether the URL is enabled or disabled. Defaults to true.
-   */
-  enabled: boolean;
-  /**
-   * A human readable descriptive text, up to 64 characters long.
-   */
-  friendlyName: string;
-  /**
-   * Priority ranks the importance of the URI. Values range from 0 to 65535, where the lowest number represents the highest importance. Defaults to 10.
-   */
-  priority: number;
-  /**
-   * The SIP address you want Twilio to route your Origination calls to. This must be a `sip:` schema.
-   */
-  sipUrl: string;
-  /**
-   * Weight is used to determine the share of load when more than one URI has the same priority. Its values range from 1 to 65535. The higher the value, the more load a URI is given. Defaults to 10.
-   */
-  weight: number;
-}
-
-interface OriginationUrlListEachOptions extends ListEachOptions<OriginationUrlInstance> {
-}
-
-interface OriginationUrlListOptions extends ListOptions<OriginationUrlInstance> {
-}
-
-interface OriginationUrlListPageOptions extends PageOptions<OriginationUrlPage> {
-}
-
-interface OriginationUrlListInstance {
-  /**
-   * Gets context of a single OriginationUrl resource
-   *
-   * @param sid - The sid
-   */
-  (sid: string): OriginationUrlContext;
-  /**
-   * create a OriginationUrlInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed OriginationUrlInstance
-   */
-  create(opts: OriginationUrlListCreateOptions): Promise<OriginationUrlInstance>;
-  /**
-   * create a OriginationUrlInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: OriginationUrlListCreateOptions, callback: (error: Error | null, items: OriginationUrlInstance) => any): void;
-  /**
-   * Streams OriginationUrlInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: OriginationUrlListEachOptions): void;
-  /**
-   * Streams OriginationUrlInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: OriginationUrlInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single OriginationUrl resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): OriginationUrlContext;
-  /**
-   * Retrieve a single target page of OriginationUrlInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<OriginationUrlPage>;
-  /**
-   * Retrieve a single target page of OriginationUrlInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: OriginationUrlPage) => any): void;
-  /**
-   * Lists OriginationUrlInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: OriginationUrlListOptions): Promise<OriginationUrlInstance[]>;
-  /**
-   * Lists OriginationUrlInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: OriginationUrlListOptions, callback: (error: Error | null, items: OriginationUrlInstance[]) => any): void;
-  /**
-   * Lists OriginationUrlInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: OriginationUrlInstance[]) => any): void;
-  /**
-   * Retrieve a single page of OriginationUrlInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: OriginationUrlListPageOptions): Promise<OriginationUrlPage>;
-  /**
-   * Retrieve a single page of OriginationUrlInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: OriginationUrlListPageOptions, callback: (error: Error | null, items: OriginationUrlPage) => any): void;
-  /**
-   * Retrieve a single page of OriginationUrlInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: OriginationUrlPage) => any): void;
-}
-
-interface OriginationUrlListFetchOptions {
-  /**
-   * A boolean value indicating whether the URL is enabled or disabled. Defaults to true.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property weight - Weight is used to determine the share of load when more than one URI has the same priority.
+ * @property priority - Priority ranks the importance of the URI.
+ * @property enabled - A boolean value indicating whether the URL is enabled or disabled.
+ * @property friendlyName - A human readable descriptive text, up to 64 characters long.
+ * @property sipUrl - The SIP address you want Twilio to route your Origination calls to.
+ */
+export interface UpdateOptions {
   enabled?: boolean;
-  /**
-   * A human readable descriptive text, up to 64 characters long.
-   */
   friendlyName?: string;
-  /**
-   * Priority ranks the importance of the URI. Values range from 0 to 65535, where the lowest number represents the highest importance. Defaults to 10.
-   */
   priority?: number;
-  /**
-   * The SIP address you want Twilio to route your Origination calls to. This must be a `sip:` schema. `sips` is NOT supported
-   */
   sipUrl?: string;
-  /**
-   * Weight is used to determine the share of load when more than one URI has the same priority. Its values range from 1 to 65535. The higher the value, the more load a URI is given. Defaults to 10.
-   */
   weight?: number;
 }
 
-interface OriginationUrlListFetchOptions {
-  /**
-   * A boolean value indicating whether the URL is enabled or disabled. Defaults to true.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property weight - Weight is used to determine the share of load when more than one URI has the same priority.
+ * @property priority - Priority ranks the importance of the URI.
+ * @property enabled - A boolean value indicating whether the URL is enabled or disabled.
+ * @property friendlyName - A human readable descriptive text, up to 64 characters long.
+ * @property sipUrl - The SIP address you want Twilio to route your Origination calls to.
+ */
+export interface UpdateOptions {
   enabled?: boolean;
-  /**
-   * A human readable descriptive text, up to 64 characters long.
-   */
   friendlyName?: string;
-  /**
-   * Priority ranks the importance of the URI. Values range from 0 to 65535, where the lowest number represents the highest importance. Defaults to 10.
-   */
   priority?: number;
-  /**
-   * The SIP address you want Twilio to route your Origination calls to. This must be a `sip:` schema. `sips` is NOT supported
-   */
   sipUrl?: string;
-  /**
-   * Weight is used to determine the share of load when more than one URI has the same priority. Its values range from 1 to 65535. The higher the value, the more load a URI is given. Defaults to 10.
-   */
   weight?: number;
 }
 
-declare class OriginationUrlPage extends Page<V1, OriginationUrlPayload, OriginationUrlResource, OriginationUrlInstance> {
-  constructor(version: V1, response: Response<string>, solution: OriginationUrlSolution);
+
+declare class OriginationUrlPage extends Page {
+  /**
+   * @constructor Twilio.Trunking.V1.TrunkContext.OriginationUrlPage
+   * @augments Page
+   * @description Initialize the OriginationUrlPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Trunking.V1, response: object, solution: object);
 
   /**
    * Build an instance of OriginationUrlInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Trunking.V1.TrunkContext.OriginationUrlPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: OriginationUrlPayload): OriginationUrlInstance;
+  getInstance(payload: object);
 }
 
-declare class OriginationUrlInstance extends SerializableClass {
+declare class OriginationUrlInstance {
   /**
+   * @constructor Twilio.Trunking.V1.TrunkContext.OriginationUrlInstance
+   * @description Initialize the OriginationUrlContext
+   *
+   * @property accountSid - The unique ID of the Account that owns this Origination URL.
+   * @property sid - A 34 character string that uniquely identifies the Origination URL in this Twilio Trunk.
+   * @property trunkSid - The unique ID of the Trunk that owns this Origination URL.
+   * @property weight - Weight is used to determine the share of load when more than one URI has the same priority.
+   * @property enabled - A boolean value indicating whether the URL is enabled or disabled.
+   * @property sipUrl - The SIP address you want Twilio to route your Origination calls to.
+   * @property friendlyName - A human readable descriptive text, up to 64 characters long.
+   * @property priority - Priority ranks the importance of the URI.
+   * @property dateCreated - The date this Activity was created.
+   * @property dateUpdated - The date this Activity was updated.
+   * @property url - The URL for this resource, relative to https://trunking.
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param trunkSid - The trunk_sid
+   * @param trunkSid - The unique ID of the Trunk that owns this Origination URL.
    * @param sid - The sid
    */
-  constructor(version: V1, payload: OriginationUrlPayload, trunkSid: string, sid: string);
+  constructor(version: Twilio.Trunking.V1, payload: object, trunkSid: sid, sid: sid);
 
-  private _proxy: OriginationUrlContext;
-  /**
-   * The unique ID of the Account that owns this Origination URL.
-   */
-  accountSid: string;
-  /**
-   * The date this Activity was created.
-   */
-  dateCreated: Date;
-  /**
-   * The date this Activity was updated.
-   */
-  dateUpdated: Date;
-  /**
-   * A boolean value indicating whether the URL is enabled or disabled. Defaults to true.
-   */
-  enabled: boolean;
+  _proxy?: OriginationUrlContext;
   /**
    * fetch a OriginationUrlInstance
    *
-   * @returns Promise that resolves to processed OriginationUrlInstance
-   */
-  fetch(): Promise<OriginationUrlInstance>;
-  /**
-   * fetch a OriginationUrlInstance
+   * @function fetch
+   * @memberof Twilio.Trunking.V1.TrunkContext.OriginationUrlInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: OriginationUrlInstance) => any): void;
-  /**
-   * A human readable descriptive text, up to 64 characters long.
-   */
-  friendlyName: string;
-  /**
-   * Priority ranks the importance of the URI. Values range from 0 to 65535, where the lowest number represents the highest importance. Defaults to 10.
-   */
-  priority: number;
+  fetch(callback?: function);
   /**
    * remove a OriginationUrlInstance
    *
-   * @returns Promise that resolves to processed OriginationUrlInstance
-   */
-  remove(): Promise<OriginationUrlInstance>;
-  /**
-   * remove a OriginationUrlInstance
+   * @function remove
+   * @memberof Twilio.Trunking.V1.TrunkContext.OriginationUrlInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: OriginationUrlInstance) => any): void;
+  remove(callback?: function);
   /**
-   * A 34 character string that uniquely identifies the Origination URL in this Twilio Trunk.
+   * Produce a plain JSON object version of the OriginationUrlInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Trunking.V1.TrunkContext.OriginationUrlInstance
+   * @instance
    */
-  sid: string;
-  /**
-   * The SIP address you want Twilio to route your Origination calls to. This must be a `sip:` schema.
-   */
-  sipUrl: string;
-  /**
-   * The unique ID of the Trunk that owns this Origination URL.
-   */
-  trunkSid: string;
+  toJSON();
   /**
    * update a OriginationUrlInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Trunking.V1.TrunkContext.OriginationUrlInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed OriginationUrlInstance
-   */
-  update(opts?: OriginationUrlListFetchOptions): Promise<OriginationUrlInstance>;
-  /**
-   * update a OriginationUrlInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: OriginationUrlListFetchOptions, callback: (error: Error | null, items: OriginationUrlInstance) => any): void;
-  /**
-   * update a OriginationUrlInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: OriginationUrlInstance) => any): void;
-  /**
-   * The URL for this resource, relative to `https://trunking.twilio.com`
-   */
-  url: string;
-  /**
-   * Weight is used to determine the share of load when more than one URI has the same priority. Its values range from 1 to 65535. The higher the value, the more load a URI is given. Defaults to 10.
-   */
-  weight: number;
+  update(opts?: object, callback?: function);
 }
 
 declare class OriginationUrlContext {
-  constructor(version: V1, trunkSid: string, sid: string);
+  /**
+   * @constructor Twilio.Trunking.V1.TrunkContext.OriginationUrlContext
+   * @description Initialize the OriginationUrlContext
+   *
+   * @param version - Version of the resource
+   * @param trunkSid - The trunk_sid
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Trunking.V1, trunkSid: sid, sid: sid);
 
   /**
    * fetch a OriginationUrlInstance
    *
-   * @returns Promise that resolves to processed OriginationUrlInstance
-   */
-  fetch(): Promise<OriginationUrlInstance>;
-  /**
-   * fetch a OriginationUrlInstance
+   * @function fetch
+   * @memberof Twilio.Trunking.V1.TrunkContext.OriginationUrlContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: OriginationUrlInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a OriginationUrlInstance
    *
-   * @returns Promise that resolves to processed OriginationUrlInstance
-   */
-  remove(): Promise<OriginationUrlInstance>;
-  /**
-   * remove a OriginationUrlInstance
+   * @function remove
+   * @memberof Twilio.Trunking.V1.TrunkContext.OriginationUrlContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: OriginationUrlInstance) => any): void;
+  remove(callback?: function);
   /**
    * update a OriginationUrlInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Trunking.V1.TrunkContext.OriginationUrlContext
+   * @instance
    *
-   * @returns Promise that resolves to processed OriginationUrlInstance
-   */
-  update(opts?: OriginationUrlListFetchOptions): Promise<OriginationUrlInstance>;
-  /**
-   * update a OriginationUrlInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: OriginationUrlListFetchOptions, callback: (error: Error | null, items: OriginationUrlInstance) => any): void;
-  /**
-   * update a OriginationUrlInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: OriginationUrlInstance) => any): void;
+  update(opts?: object, callback?: function);
 }
 
-export { OriginationUrlContext, OriginationUrlInstance, OriginationUrlList, OriginationUrlListCreateOptions, OriginationUrlListEachOptions, OriginationUrlListFetchOptions, OriginationUrlListInstance, OriginationUrlListOptions, OriginationUrlListPageOptions, OriginationUrlPage, OriginationUrlPayload, OriginationUrlResource, OriginationUrlSolution }
+export { OriginationUrlContext, OriginationUrlInstance, OriginationUrlList, OriginationUrlPage }

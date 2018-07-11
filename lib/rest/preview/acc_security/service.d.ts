@@ -5,354 +5,168 @@
  *       /       /
  */
 
-import AccSecurity = require('../AccSecurity');
 import Page = require('../../../base/Page');
-import Response = require('../../../http/response');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
-import { SerializableClass } from '../../../interfaces';
-import { VerificationCheckListInstance } from './service/verificationCheck';
-import { VerificationListInstance } from './service/verification';
+import deserialize = require('../../../base/deserialize');
+import values = require('../../../base/values');
+import { VerificationCheckList } from './service/verificationCheck';
+import { VerificationList } from './service/verification';
 
-declare function ServiceList(version: AccSecurity): ServiceListInstance
 
-interface ServiceResource {
-  /**
-   * The unique SID identifier of the Account.
-   */
-  account_sid: string;
-  /**
-   * The length of the verification code to be generated. Must be an integer value between 4-10
-   */
-  code_length: number;
-  /**
-   * The date that this Service was created, given in ISO 8601 format.
-   */
-  date_created: Date;
-  /**
-   * The date that this Service was updated, given in ISO 8601 format.
-   */
-  date_updated: Date;
-  /**
-   * The links
-   */
-  links: string;
-  /**
-   * A 1-64 character string with friendly name of service
-   */
-  name: string;
-  /**
-   * A 34 character string that uniquely identifies this Service.
-   */
-  sid: string;
-  /**
-   * The url
-   */
-  url: string;
-}
-
-interface ServicePayload extends ServiceResource, Page.TwilioResponsePayload {
-}
-
-interface ServiceSolution {
-}
-
-interface ServiceListCreateOptions {
-  /**
-   * The length of the verification code to be generated. Must be an integer value between 4-10
-   */
+/**
+ * Options to pass to update
+ *
+ * @property name - Friendly name of the service
+ * @property codeLength - Length of verification code. Valid values are 4-10
+ */
+export interface UpdateOptions {
   codeLength?: number;
-  /**
-   * A 1-64 character string with friendly name of service
-   */
-  name: string;
-}
-
-interface ServiceListEachOptions extends ListEachOptions<ServiceInstance> {
-}
-
-interface ServiceListOptions extends ListOptions<ServiceInstance> {
-}
-
-interface ServiceListPageOptions extends PageOptions<ServicePage> {
-}
-
-interface ServiceListInstance {
-  /**
-   * Gets context of a single Service resource
-   *
-   * @param sid - Verification Service Instance SID.
-   */
-  (sid: string): ServiceContext;
-  /**
-   * create a ServiceInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  create(opts: ServiceListCreateOptions): Promise<ServiceInstance>;
-  /**
-   * create a ServiceInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: ServiceListCreateOptions, callback: (error: Error | null, items: ServiceInstance) => any): void;
-  /**
-   * Streams ServiceInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: ServiceListEachOptions): void;
-  /**
-   * Streams ServiceInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: ServiceInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Service resource
-   *
-   * @param sid - Verification Service Instance SID.
-   */
-  get(sid: string): ServiceContext;
-  /**
-   * Retrieve a single target page of ServiceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<ServicePage>;
-  /**
-   * Retrieve a single target page of ServiceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: ServicePage) => any): void;
-  /**
-   * Lists ServiceInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: ServiceListOptions): Promise<ServiceInstance[]>;
-  /**
-   * Lists ServiceInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: ServiceListOptions, callback: (error: Error | null, items: ServiceInstance[]) => any): void;
-  /**
-   * Lists ServiceInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: ServiceInstance[]) => any): void;
-  /**
-   * Retrieve a single page of ServiceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: ServiceListPageOptions): Promise<ServicePage>;
-  /**
-   * Retrieve a single page of ServiceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: ServiceListPageOptions, callback: (error: Error | null, items: ServicePage) => any): void;
-  /**
-   * Retrieve a single page of ServiceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: ServicePage) => any): void;
-}
-
-interface ServiceListFetchOptions {
-  /**
-   * The length of the verification code to be generated. Must be an integer value between 4-10
-   */
-  codeLength?: number;
-  /**
-   * A 1-64 character string with friendly name of service
-   */
   name?: string;
 }
 
-interface ServiceListFetchOptions {
-  /**
-   * The length of the verification code to be generated. Must be an integer value between 4-10
-   */
+/**
+ * Options to pass to update
+ *
+ * @property name - Friendly name of the service
+ * @property codeLength - Length of verification code. Valid values are 4-10
+ */
+export interface UpdateOptions {
   codeLength?: number;
-  /**
-   * A 1-64 character string with friendly name of service
-   */
   name?: string;
 }
 
-declare class ServicePage extends Page<AccSecurity, ServicePayload, ServiceResource, ServiceInstance> {
-  constructor(version: AccSecurity, response: Response<string>, solution: ServiceSolution);
+
+declare class ServicePage extends Page {
+  /**
+   * @constructor Twilio.Preview.AccSecurity.ServicePage
+   * @augments Page
+   * @description Initialize the ServicePage
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Preview.AccSecurity, response: object, solution: object);
 
   /**
    * Build an instance of ServiceInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Preview.AccSecurity.ServicePage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: ServicePayload): ServiceInstance;
+  getInstance(payload: object);
 }
 
-declare class ServiceInstance extends SerializableClass {
+declare class ServiceInstance {
   /**
+   * @constructor Twilio.Preview.AccSecurity.ServiceInstance
+   * @description Initialize the ServiceContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property sid - A string that uniquely identifies this Service.
+   * @property accountSid - Account Sid.
+   * @property name - Friendly name of the service
+   * @property codeLength - Length of verification code. Valid values are 4-10
+   * @property dateCreated - The date this Service was created
+   * @property dateUpdated - The date this Service was updated
+   * @property url - The url
+   * @property links - The links
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param sid - Verification Service Instance SID.
    */
-  constructor(version: AccSecurity, payload: ServicePayload, sid: string);
+  constructor(version: Twilio.Preview.AccSecurity, payload: object, sid: sid);
 
-  private _proxy: ServiceContext;
-  /**
-   * The unique SID identifier of the Account.
-   */
-  accountSid: string;
-  /**
-   * The length of the verification code to be generated. Must be an integer value between 4-10
-   */
-  codeLength: number;
-  /**
-   * The date that this Service was created, given in ISO 8601 format.
-   */
-  dateCreated: Date;
-  /**
-   * The date that this Service was updated, given in ISO 8601 format.
-   */
-  dateUpdated: Date;
+  _proxy?: ServiceContext;
   /**
    * fetch a ServiceInstance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  fetch(): Promise<ServiceInstance>;
-  /**
-   * fetch a ServiceInstance
+   * @function fetch
+   * @memberof Twilio.Preview.AccSecurity.ServiceInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: ServiceInstance) => any): void;
+  fetch(callback?: function);
   /**
-   * The links
+   * Produce a plain JSON object version of the ServiceInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Preview.AccSecurity.ServiceInstance
+   * @instance
    */
-  links: string;
-  /**
-   * A 1-64 character string with friendly name of service
-   */
-  name: string;
-  /**
-   * A 34 character string that uniquely identifies this Service.
-   */
-  sid: string;
+  toJSON();
   /**
    * update a ServiceInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Preview.AccSecurity.ServiceInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  update(opts?: ServiceListFetchOptions): Promise<ServiceInstance>;
-  /**
-   * update a ServiceInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: ServiceListFetchOptions, callback: (error: Error | null, items: ServiceInstance) => any): void;
+  update(opts?: object, callback?: function);
   /**
-   * update a ServiceInstance
+   * Access the verificationChecks
    *
-   * @param callback - Callback to handle processed record
+   * @function verificationChecks
+   * @memberof Twilio.Preview.AccSecurity.ServiceInstance
+   * @instance
    */
-  update(callback: (error: Error | null, items: ServiceInstance) => any): void;
+  verificationChecks();
   /**
-   * The url
+   * Access the verifications
+   *
+   * @function verifications
+   * @memberof Twilio.Preview.AccSecurity.ServiceInstance
+   * @instance
    */
-  url: string;
-  verificationChecks(): VerificationCheckListInstance;
-  verifications(): VerificationListInstance;
+  verifications();
 }
 
 declare class ServiceContext {
-  constructor(version: AccSecurity, sid: string);
+  /**
+   * @constructor Twilio.Preview.AccSecurity.ServiceContext
+   * @description Initialize the ServiceContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property verifications - verifications resource
+   * @property verificationChecks - verificationChecks resource
+   *
+   * @param version - Version of the resource
+   * @param sid - Verification Service Instance SID.
+   */
+  constructor(version: Twilio.Preview.AccSecurity, sid: sid);
 
   /**
    * fetch a ServiceInstance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  fetch(): Promise<ServiceInstance>;
-  /**
-   * fetch a ServiceInstance
+   * @function fetch
+   * @memberof Twilio.Preview.AccSecurity.ServiceContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: ServiceInstance) => any): void;
+  fetch(callback?: function);
   /**
    * update a ServiceInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Preview.AccSecurity.ServiceContext
+   * @instance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  update(opts?: ServiceListFetchOptions): Promise<ServiceInstance>;
-  /**
-   * update a ServiceInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: ServiceListFetchOptions, callback: (error: Error | null, items: ServiceInstance) => any): void;
-  /**
-   * update a ServiceInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: ServiceInstance) => any): void;
-  verificationChecks: VerificationCheckListInstance;
-  verifications: VerificationListInstance;
+  update(opts?: object, callback?: function);
+  verificationChecks?: Twilio.Preview.AccSecurity.ServiceContext.VerificationCheckList;
+  verifications?: Twilio.Preview.AccSecurity.ServiceContext.VerificationList;
 }
 
-export { ServiceContext, ServiceInstance, ServiceList, ServiceListCreateOptions, ServiceListEachOptions, ServiceListFetchOptions, ServiceListInstance, ServiceListOptions, ServiceListPageOptions, ServicePage, ServicePayload, ServiceResource, ServiceSolution }
+export { ServiceContext, ServiceInstance, ServiceList, ServicePage }

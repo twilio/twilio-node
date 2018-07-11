@@ -6,390 +6,176 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V1 = require('../../V1');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { SerializableClass } from '../../../../interfaces';
-import { StreamMessageListInstance } from './syncStream/streamMessage';
+import deserialize = require('../../../../base/deserialize');
+import values = require('../../../../base/values');
+import { StreamMessageList } from './syncStream/streamMessage';
 
-declare function SyncStreamList(version: V1, serviceSid: string): SyncStreamListInstance
 
-interface SyncStreamResource {
-  /**
-   * The unique SID identifier of the Twilio Account.
-   */
-  account_sid: string;
-  /**
-   * The identity of the Stream creator. If the Stream is created from the client SDK, the value matches the Access Token's 'identity' field. If the Stream was created from the REST API, the value is 'system'.
-   */
-  created_by: string;
-  /**
-   * The date this Message Stream was created, given in UTC ISO 8601 format.
-   */
-  date_created: Date;
-  /**
-   * Contains the date this Message Stream expires and gets deleted automatically. Contains null if the Stream persists permanently.
-   */
-  date_expires: Date;
-  /**
-   * Specifies the date this Message Stream was last updated, given in UTC ISO 8601 format.
-   */
-  date_updated: Date;
-  /**
-   * A dictionary of URL links to nested resources of this Stream.
-   */
-  links: string;
-  /**
-   * The unique SID identifier of the Service Instance that hosts this Message Stream.
-   */
-  service_sid: string;
-  /**
-   * The unique 34-character SID identifier of the Message Stream.
-   */
-  sid: string;
-  /**
-   * The unique and addressable name of this Message Stream. Optional, up to 256 characters long.
-   */
-  unique_name: string;
-  /**
-   * The absolute URL for this Message Stream.
-   */
-  url: string;
-}
-
-interface SyncStreamPayload extends SyncStreamResource, Page.TwilioResponsePayload {
-}
-
-interface SyncStreamSolution {
-  serviceSid: string;
-}
-
-interface SyncStreamListCreateOptions {
-  /**
-   * Time-to-live of this Stream in seconds, defaults to no expiration. In the range [1, 31 536 000 (1 year)], or 0 for infinity.
-   */
-  ttl?: number;
-  /**
-   * The unique and addressable name of this Stream. Optional, up to 256 characters long.
-   */
-  uniqueName?: string;
-}
-
-interface SyncStreamListEachOptions extends ListEachOptions<SyncStreamInstance> {
-}
-
-interface SyncStreamListOptions extends ListOptions<SyncStreamInstance> {
-}
-
-interface SyncStreamListPageOptions extends PageOptions<SyncStreamPage> {
-}
-
-interface SyncStreamListInstance {
-  /**
-   * Gets context of a single SyncStream resource
-   *
-   * @param sid - Stream SID or unique name.
-   */
-  (sid: string): SyncStreamContext;
-  /**
-   * create a SyncStreamInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed SyncStreamInstance
-   */
-  create(opts?: SyncStreamListCreateOptions): Promise<SyncStreamInstance>;
-  /**
-   * create a SyncStreamInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: SyncStreamListCreateOptions, callback: (error: Error | null, items: SyncStreamInstance) => any): void;
-  /**
-   * create a SyncStreamInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  create(callback: (error: Error | null, items: SyncStreamInstance) => any): void;
-  /**
-   * Streams SyncStreamInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: SyncStreamListEachOptions): void;
-  /**
-   * Streams SyncStreamInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: SyncStreamInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single SyncStream resource
-   *
-   * @param sid - Stream SID or unique name.
-   */
-  get(sid: string): SyncStreamContext;
-  /**
-   * Retrieve a single target page of SyncStreamInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<SyncStreamPage>;
-  /**
-   * Retrieve a single target page of SyncStreamInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: SyncStreamPage) => any): void;
-  /**
-   * Lists SyncStreamInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: SyncStreamListOptions): Promise<SyncStreamInstance[]>;
-  /**
-   * Lists SyncStreamInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: SyncStreamListOptions, callback: (error: Error | null, items: SyncStreamInstance[]) => any): void;
-  /**
-   * Lists SyncStreamInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: SyncStreamInstance[]) => any): void;
-  /**
-   * Retrieve a single page of SyncStreamInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: SyncStreamListPageOptions): Promise<SyncStreamPage>;
-  /**
-   * Retrieve a single page of SyncStreamInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: SyncStreamListPageOptions, callback: (error: Error | null, items: SyncStreamPage) => any): void;
-  /**
-   * Retrieve a single page of SyncStreamInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: SyncStreamPage) => any): void;
-}
-
-interface SyncStreamListFetchOptions {
-  /**
-   * New time-to-live of this Stream in seconds. In the range [1, 31 536 000 (1 year)], or 0 for infinity.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property ttl - Stream TTL.
+ */
+export interface UpdateOptions {
   ttl?: number;
 }
 
-interface SyncStreamListFetchOptions {
-  /**
-   * New time-to-live of this Stream in seconds. In the range [1, 31 536 000 (1 year)], or 0 for infinity.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property ttl - Stream TTL.
+ */
+export interface UpdateOptions {
   ttl?: number;
 }
 
-declare class SyncStreamPage extends Page<V1, SyncStreamPayload, SyncStreamResource, SyncStreamInstance> {
-  constructor(version: V1, response: Response<string>, solution: SyncStreamSolution);
+
+declare class SyncStreamPage extends Page {
+  /**
+   * @constructor Twilio.Sync.V1.ServiceContext.SyncStreamPage
+   * @augments Page
+   * @description Initialize the SyncStreamPage
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Sync.V1, response: object, solution: object);
 
   /**
    * Build an instance of SyncStreamInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Sync.V1.ServiceContext.SyncStreamPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: SyncStreamPayload): SyncStreamInstance;
+  getInstance(payload: object);
 }
 
-declare class SyncStreamInstance extends SerializableClass {
+declare class SyncStreamInstance {
   /**
+   * @constructor Twilio.Sync.V1.ServiceContext.SyncStreamInstance
+   * @description Initialize the SyncStreamContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property sid - Stream SID.
+   * @property uniqueName - Stream unique name.
+   * @property accountSid - Twilio Account SID.
+   * @property serviceSid - Service Instance SID.
+   * @property url - URL of this Stream.
+   * @property links - Nested resource URLs.
+   * @property dateExpires - The date this Stream expires.
+   * @property dateCreated - The date this Stream was created.
+   * @property dateUpdated - The date this Stream was updated.
+   * @property createdBy - Identity of the Stream creator.
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - Service Instance SID or unique name.
+   * @param serviceSid - Service Instance SID.
    * @param sid - Stream SID or unique name.
    */
-  constructor(version: V1, payload: SyncStreamPayload, serviceSid: string, sid: string);
+  constructor(version: Twilio.Sync.V1, payload: object, serviceSid: sid, sid: sid_like);
 
-  private _proxy: SyncStreamContext;
-  /**
-   * The unique SID identifier of the Twilio Account.
-   */
-  accountSid: string;
-  /**
-   * The identity of the Stream creator. If the Stream is created from the client SDK, the value matches the Access Token's 'identity' field. If the Stream was created from the REST API, the value is 'system'.
-   */
-  createdBy: string;
-  /**
-   * The date this Message Stream was created, given in UTC ISO 8601 format.
-   */
-  dateCreated: Date;
-  /**
-   * Contains the date this Message Stream expires and gets deleted automatically. Contains null if the Stream persists permanently.
-   */
-  dateExpires: Date;
-  /**
-   * Specifies the date this Message Stream was last updated, given in UTC ISO 8601 format.
-   */
-  dateUpdated: Date;
+  _proxy?: SyncStreamContext;
   /**
    * fetch a SyncStreamInstance
    *
-   * @returns Promise that resolves to processed SyncStreamInstance
-   */
-  fetch(): Promise<SyncStreamInstance>;
-  /**
-   * fetch a SyncStreamInstance
+   * @function fetch
+   * @memberof Twilio.Sync.V1.ServiceContext.SyncStreamInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: SyncStreamInstance) => any): void;
-  /**
-   * A dictionary of URL links to nested resources of this Stream.
-   */
-  links: string;
+  fetch(callback?: function);
   /**
    * remove a SyncStreamInstance
    *
-   * @returns Promise that resolves to processed SyncStreamInstance
-   */
-  remove(): Promise<SyncStreamInstance>;
-  /**
-   * remove a SyncStreamInstance
+   * @function remove
+   * @memberof Twilio.Sync.V1.ServiceContext.SyncStreamInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: SyncStreamInstance) => any): void;
+  remove(callback?: function);
   /**
-   * The unique SID identifier of the Service Instance that hosts this Message Stream.
+   * Access the streamMessages
+   *
+   * @function streamMessages
+   * @memberof Twilio.Sync.V1.ServiceContext.SyncStreamInstance
+   * @instance
    */
-  serviceSid: string;
+  streamMessages();
   /**
-   * The unique 34-character SID identifier of the Message Stream.
+   * Produce a plain JSON object version of the SyncStreamInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Sync.V1.ServiceContext.SyncStreamInstance
+   * @instance
    */
-  sid: string;
-  streamMessages(): StreamMessageListInstance;
-  /**
-   * The unique and addressable name of this Message Stream. Optional, up to 256 characters long.
-   */
-  uniqueName: string;
+  toJSON();
   /**
    * update a SyncStreamInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Sync.V1.ServiceContext.SyncStreamInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed SyncStreamInstance
-   */
-  update(opts?: SyncStreamListFetchOptions): Promise<SyncStreamInstance>;
-  /**
-   * update a SyncStreamInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: SyncStreamListFetchOptions, callback: (error: Error | null, items: SyncStreamInstance) => any): void;
-  /**
-   * update a SyncStreamInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: SyncStreamInstance) => any): void;
-  /**
-   * The absolute URL for this Message Stream.
-   */
-  url: string;
+  update(opts?: object, callback?: function);
 }
 
 declare class SyncStreamContext {
-  constructor(version: V1, serviceSid: string, sid: string);
+  /**
+   * @constructor Twilio.Sync.V1.ServiceContext.SyncStreamContext
+   * @description Initialize the SyncStreamContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property streamMessages - streamMessages resource
+   *
+   * @param version - Version of the resource
+   * @param serviceSid - Service Instance SID or unique name.
+   * @param sid - Stream SID or unique name.
+   */
+  constructor(version: Twilio.Sync.V1, serviceSid: sid_like, sid: sid_like);
 
   /**
    * fetch a SyncStreamInstance
    *
-   * @returns Promise that resolves to processed SyncStreamInstance
-   */
-  fetch(): Promise<SyncStreamInstance>;
-  /**
-   * fetch a SyncStreamInstance
+   * @function fetch
+   * @memberof Twilio.Sync.V1.ServiceContext.SyncStreamContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: SyncStreamInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a SyncStreamInstance
    *
-   * @returns Promise that resolves to processed SyncStreamInstance
-   */
-  remove(): Promise<SyncStreamInstance>;
-  /**
-   * remove a SyncStreamInstance
+   * @function remove
+   * @memberof Twilio.Sync.V1.ServiceContext.SyncStreamContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: SyncStreamInstance) => any): void;
-  streamMessages: StreamMessageListInstance;
+  remove(callback?: function);
+  streamMessages?: Twilio.Sync.V1.ServiceContext.SyncStreamContext.StreamMessageList;
   /**
    * update a SyncStreamInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Sync.V1.ServiceContext.SyncStreamContext
+   * @instance
    *
-   * @returns Promise that resolves to processed SyncStreamInstance
-   */
-  update(opts?: SyncStreamListFetchOptions): Promise<SyncStreamInstance>;
-  /**
-   * update a SyncStreamInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: SyncStreamListFetchOptions, callback: (error: Error | null, items: SyncStreamInstance) => any): void;
-  /**
-   * update a SyncStreamInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: SyncStreamInstance) => any): void;
+  update(opts?: object, callback?: function);
 }
 
-export { SyncStreamContext, SyncStreamInstance, SyncStreamList, SyncStreamListCreateOptions, SyncStreamListEachOptions, SyncStreamListFetchOptions, SyncStreamListInstance, SyncStreamListOptions, SyncStreamListPageOptions, SyncStreamPage, SyncStreamPayload, SyncStreamResource, SyncStreamSolution }
+export { SyncStreamContext, SyncStreamInstance, SyncStreamList, SyncStreamPage }

@@ -6,367 +6,161 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V1 = require('../../V1');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { SerializableClass } from '../../../../interfaces';
+import deserialize = require('../../../../base/deserialize');
+import serialize = require('../../../../base/serialize');
+import values = require('../../../../base/values');
 
-declare function RoleList(version: V1, serviceSid: string): RoleListInstance
 
-type RoleRoleType = 'channel'|'deployment';
-
-interface RoleResource {
-  /**
-   * The unique id of the [Account](https://www.twilio.com/docs/api/rest/account) responsible for this role.
-   */
-  account_sid: string;
-  /**
-   * The date that this resource was created in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-   */
-  date_created: Date;
-  /**
-   * The date that this resource was last updated in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-   */
-  date_updated: Date;
-  /**
-   * The human-readable name of this role.
-   */
-  friendly_name: string;
-  /**
-   * A JSON array of the permissions this role has. See the table below for a list of all possible permissions.
-   */
-  permissions: string;
-  /**
-   * The unique id of the [Service](https://www.twilio.com/docs/api/chat/rest/v1/services) this role belongs to.
-   */
-  service_sid: string;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * What kind of role this is. Either `channel` for [Channel](https://www.twilio.com/docs/api/chat/rest/v1/channel) roles or `deployment` for [Service](https://www.twilio.com/docs/api/chat/rest/v1/services) roles.
-   */
-  type: RoleRoleType;
-  /**
-   * An absolute URL for this role.
-   */
-  url: string;
+/**
+ * Options to pass to update
+ *
+ * @property permission - A permission this role should have.
+ */
+export interface UpdateOptions {
+  permission: string|list;
 }
 
-interface RolePayload extends RoleResource, Page.TwilioResponsePayload {
+/**
+ * Options to pass to update
+ *
+ * @property permission - A permission this role should have.
+ */
+export interface UpdateOptions {
+  permission: string|list;
 }
 
-interface RoleSolution {
-  serviceSid: string;
-}
 
-interface RoleListCreateOptions {
+declare class RolePage extends Page {
   /**
-   * The human-readable name of this role.
+   * @constructor Twilio.Chat.V1.ServiceContext.RolePage
+   * @augments Page
+   * @description Initialize the RolePage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  friendlyName: string;
-  /**
-   * (multiple) A permission this role should have. Consult the table above for the list of possible permissions.
-   */
-  permission: string[];
-  /**
-   * What kind of role this is. Either `channel` for [Channel](https://www.twilio.com/docs/api/chat/rest/v1/channel) roles or `deployment` for [Service](https://www.twilio.com/docs/api/chat/rest/v1/services) roles.
-   */
-  type: RoleRoleType;
-}
-
-interface RoleListEachOptions extends ListEachOptions<RoleInstance> {
-}
-
-interface RoleListOptions extends ListOptions<RoleInstance> {
-}
-
-interface RoleListPageOptions extends PageOptions<RolePage> {
-}
-
-interface RoleListInstance {
-  /**
-   * Gets context of a single Role resource
-   *
-   * @param sid - The sid
-   */
-  (sid: string): RoleContext;
-  /**
-   * create a RoleInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed RoleInstance
-   */
-  create(opts: RoleListCreateOptions): Promise<RoleInstance>;
-  /**
-   * create a RoleInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: RoleListCreateOptions, callback: (error: Error | null, items: RoleInstance) => any): void;
-  /**
-   * Streams RoleInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: RoleListEachOptions): void;
-  /**
-   * Streams RoleInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: RoleInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Role resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): RoleContext;
-  /**
-   * Retrieve a single target page of RoleInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<RolePage>;
-  /**
-   * Retrieve a single target page of RoleInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: RolePage) => any): void;
-  /**
-   * Lists RoleInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: RoleListOptions): Promise<RoleInstance[]>;
-  /**
-   * Lists RoleInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: RoleListOptions, callback: (error: Error | null, items: RoleInstance[]) => any): void;
-  /**
-   * Lists RoleInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: RoleInstance[]) => any): void;
-  /**
-   * Retrieve a single page of RoleInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: RoleListPageOptions): Promise<RolePage>;
-  /**
-   * Retrieve a single page of RoleInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: RoleListPageOptions, callback: (error: Error | null, items: RolePage) => any): void;
-  /**
-   * Retrieve a single page of RoleInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: RolePage) => any): void;
-}
-
-interface RoleListFetchOptions {
-  /**
-   * (multiple) A permission this role should have. Consult the table above for the list of possible permissions.
-   */
-  permission: string[];
-}
-
-interface RoleListFetchOptions {
-  /**
-   * (multiple) A permission this role should have. Consult the table above for the list of possible permissions.
-   */
-  permission: string[];
-}
-
-declare class RolePage extends Page<V1, RolePayload, RoleResource, RoleInstance> {
-  constructor(version: V1, response: Response<string>, solution: RoleSolution);
+  constructor(version: Twilio.Chat.V1, response: object, solution: object);
 
   /**
    * Build an instance of RoleInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Chat.V1.ServiceContext.RolePage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: RolePayload): RoleInstance;
+  getInstance(payload: object);
 }
 
-declare class RoleInstance extends SerializableClass {
+declare class RoleInstance {
   /**
+   * @constructor Twilio.Chat.V1.ServiceContext.RoleInstance
+   * @description Initialize the RoleContext
+   *
+   * @property sid - A 34 character string that uniquely identifies this resource.
+   * @property accountSid - The unique id of the Account responsible for this role.
+   * @property serviceSid - The unique id of the Service this role belongs to.
+   * @property friendlyName - The human-readable name of this role.
+   * @property type - What kind of role this is.
+   * @property permissions - A JSON array of the permissions this role has.
+   * @property dateCreated - The date that this resource was created in ISO 8601 format.
+   * @property dateUpdated - The date that this resource was last updated in ISO 8601 format.
+   * @property url - An absolute URL for this role.
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The service_sid
+   * @param serviceSid - The unique id of the Service this role belongs to.
    * @param sid - The sid
    */
-  constructor(version: V1, payload: RolePayload, serviceSid: string, sid: string);
+  constructor(version: Twilio.Chat.V1, payload: object, serviceSid: sid, sid: sid);
 
-  private _proxy: RoleContext;
-  /**
-   * The unique id of the [Account](https://www.twilio.com/docs/api/rest/account) responsible for this role.
-   */
-  accountSid: string;
-  /**
-   * The date that this resource was created in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-   */
-  dateCreated: Date;
-  /**
-   * The date that this resource was last updated in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-   */
-  dateUpdated: Date;
+  _proxy?: RoleContext;
   /**
    * fetch a RoleInstance
    *
-   * @returns Promise that resolves to processed RoleInstance
-   */
-  fetch(): Promise<RoleInstance>;
-  /**
-   * fetch a RoleInstance
+   * @function fetch
+   * @memberof Twilio.Chat.V1.ServiceContext.RoleInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: RoleInstance) => any): void;
-  /**
-   * The human-readable name of this role.
-   */
-  friendlyName: string;
-  /**
-   * A JSON array of the permissions this role has. See the table below for a list of all possible permissions.
-   */
-  permissions: string;
+  fetch(callback?: function);
   /**
    * remove a RoleInstance
    *
-   * @returns Promise that resolves to processed RoleInstance
-   */
-  remove(): Promise<RoleInstance>;
-  /**
-   * remove a RoleInstance
+   * @function remove
+   * @memberof Twilio.Chat.V1.ServiceContext.RoleInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: RoleInstance) => any): void;
+  remove(callback?: function);
   /**
-   * The unique id of the [Service](https://www.twilio.com/docs/api/chat/rest/v1/services) this role belongs to.
+   * Produce a plain JSON object version of the RoleInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Chat.V1.ServiceContext.RoleInstance
+   * @instance
    */
-  serviceSid: string;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * What kind of role this is. Either `channel` for [Channel](https://www.twilio.com/docs/api/chat/rest/v1/channel) roles or `deployment` for [Service](https://www.twilio.com/docs/api/chat/rest/v1/services) roles.
-   */
-  type: RoleRoleType;
+  toJSON();
   /**
    * update a RoleInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Chat.V1.ServiceContext.RoleInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed RoleInstance
-   */
-  update(opts: RoleListFetchOptions): Promise<RoleInstance>;
-  /**
-   * update a RoleInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: RoleListFetchOptions, callback: (error: Error | null, items: RoleInstance) => any): void;
-  /**
-   * An absolute URL for this role.
-   */
-  url: string;
+  update(opts: object, callback?: function);
 }
 
 declare class RoleContext {
-  constructor(version: V1, serviceSid: string, sid: string);
+  /**
+   * @constructor Twilio.Chat.V1.ServiceContext.RoleContext
+   * @description Initialize the RoleContext
+   *
+   * @param version - Version of the resource
+   * @param serviceSid - The service_sid
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Chat.V1, serviceSid: sid, sid: sid);
 
   /**
    * fetch a RoleInstance
    *
-   * @returns Promise that resolves to processed RoleInstance
-   */
-  fetch(): Promise<RoleInstance>;
-  /**
-   * fetch a RoleInstance
+   * @function fetch
+   * @memberof Twilio.Chat.V1.ServiceContext.RoleContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: RoleInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a RoleInstance
    *
-   * @returns Promise that resolves to processed RoleInstance
-   */
-  remove(): Promise<RoleInstance>;
-  /**
-   * remove a RoleInstance
+   * @function remove
+   * @memberof Twilio.Chat.V1.ServiceContext.RoleContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: RoleInstance) => any): void;
+  remove(callback?: function);
   /**
    * update a RoleInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Chat.V1.ServiceContext.RoleContext
+   * @instance
    *
-   * @returns Promise that resolves to processed RoleInstance
-   */
-  update(opts: RoleListFetchOptions): Promise<RoleInstance>;
-  /**
-   * update a RoleInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: RoleListFetchOptions, callback: (error: Error | null, items: RoleInstance) => any): void;
+  update(opts: object, callback?: function);
 }
 
-export { RoleContext, RoleInstance, RoleList, RoleListCreateOptions, RoleListEachOptions, RoleListFetchOptions, RoleListInstance, RoleListOptions, RoleListPageOptions, RolePage, RolePayload, RoleResource, RoleRoleType, RoleSolution }
+export { RoleContext, RoleInstance, RoleList, RolePage }

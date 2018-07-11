@@ -6,355 +6,158 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V2010 = require('../../V2010');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { SerializableClass } from '../../../../interfaces';
+import deserialize = require('../../../../base/deserialize');
+import values = require('../../../../base/values');
 
-declare function OutgoingCallerIdList(version: V2010, accountSid: string): OutgoingCallerIdListInstance
 
-interface OutgoingCallerIdResource {
-  /**
-   * The unique ID of the [Account](https://www.twilio.com/docs/api/rest/account) responsible for this Caller Id.
-   */
-  account_sid: string;
-  /**
-   * The date that this resource was created, given in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
-   */
-  date_created: Date;
-  /**
-   * The date that this resource was last updated, given in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
-   */
-  date_updated: Date;
-  /**
-   * A human readable descriptive text for this resource, up to 64 characters long. By default, the `FriendlyName` is a nicely formatted version of the phone number.
-   */
-  friendly_name: string;
-  /**
-   * The incoming phone number. Formatted with a '+' and country code e.g., +16175551212 ([E.164](http://en.wikipedia.org/wiki/E.164) format).
-   */
-  phone_number: string;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * The URI for this resource, relative to `https://api.twilio.com`.
-   */
-  uri: string;
-}
-
-interface OutgoingCallerIdPayload extends OutgoingCallerIdResource, Page.TwilioResponsePayload {
-}
-
-interface OutgoingCallerIdSolution {
-  accountSid: string;
-}
-
-interface OutgoingCallerIdListEachOptions extends ListEachOptions<OutgoingCallerIdInstance> {
-  /**
-   * Only show the caller id resource that exactly matches this name.
-   */
-  friendlyName?: string;
-  /**
-   * Only show the caller id resource that exactly matches this phone number.
-   */
-  phoneNumber?: string;
-}
-
-interface OutgoingCallerIdListOptions extends ListOptions<OutgoingCallerIdInstance> {
-  /**
-   * Only show the caller id resource that exactly matches this name.
-   */
-  friendlyName?: string;
-  /**
-   * Only show the caller id resource that exactly matches this phone number.
-   */
-  phoneNumber?: string;
-}
-
-interface OutgoingCallerIdListPageOptions extends PageOptions<OutgoingCallerIdPage> {
-  /**
-   * Only show the caller id resource that exactly matches this name.
-   */
-  friendlyName?: string;
-  /**
-   * Only show the caller id resource that exactly matches this phone number.
-   */
-  phoneNumber?: string;
-}
-
-interface OutgoingCallerIdListInstance {
-  /**
-   * Gets context of a single OutgoingCallerId resource
-   *
-   * @param sid - Fetch by unique outgoing-caller-id Sid
-   */
-  (sid: string): OutgoingCallerIdContext;
-  /**
-   * Streams OutgoingCallerIdInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: OutgoingCallerIdListEachOptions): void;
-  /**
-   * Streams OutgoingCallerIdInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: OutgoingCallerIdInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single OutgoingCallerId resource
-   *
-   * @param sid - Fetch by unique outgoing-caller-id Sid
-   */
-  get(sid: string): OutgoingCallerIdContext;
-  /**
-   * Retrieve a single target page of OutgoingCallerIdInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<OutgoingCallerIdPage>;
-  /**
-   * Retrieve a single target page of OutgoingCallerIdInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: OutgoingCallerIdPage) => any): void;
-  /**
-   * Lists OutgoingCallerIdInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: OutgoingCallerIdListOptions): Promise<OutgoingCallerIdInstance[]>;
-  /**
-   * Lists OutgoingCallerIdInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: OutgoingCallerIdListOptions, callback: (error: Error | null, items: OutgoingCallerIdInstance[]) => any): void;
-  /**
-   * Lists OutgoingCallerIdInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: OutgoingCallerIdInstance[]) => any): void;
-  /**
-   * Retrieve a single page of OutgoingCallerIdInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: OutgoingCallerIdListPageOptions): Promise<OutgoingCallerIdPage>;
-  /**
-   * Retrieve a single page of OutgoingCallerIdInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: OutgoingCallerIdListPageOptions, callback: (error: Error | null, items: OutgoingCallerIdPage) => any): void;
-  /**
-   * Retrieve a single page of OutgoingCallerIdInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: OutgoingCallerIdPage) => any): void;
-}
-
-interface OutgoingCallerIdListFetchOptions {
-  /**
-   * A human readable description of a Caller ID, with maximum length of 64 characters. Defaults to a nicely formatted version of the phone number.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A human readable description of the caller ID
+ */
+export interface UpdateOptions {
   friendlyName?: string;
 }
 
-interface OutgoingCallerIdListFetchOptions {
-  /**
-   * A human readable description of a Caller ID, with maximum length of 64 characters. Defaults to a nicely formatted version of the phone number.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A human readable description of the caller ID
+ */
+export interface UpdateOptions {
   friendlyName?: string;
 }
 
-declare class OutgoingCallerIdPage extends Page<V2010, OutgoingCallerIdPayload, OutgoingCallerIdResource, OutgoingCallerIdInstance> {
-  constructor(version: V2010, response: Response<string>, solution: OutgoingCallerIdSolution);
+
+declare class OutgoingCallerIdPage extends Page {
+  /**
+   * @constructor Twilio.Api.V2010.AccountContext.OutgoingCallerIdPage
+   * @augments Page
+   * @description Initialize the OutgoingCallerIdPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Api.V2010, response: object, solution: object);
 
   /**
    * Build an instance of OutgoingCallerIdInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Api.V2010.AccountContext.OutgoingCallerIdPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: OutgoingCallerIdPayload): OutgoingCallerIdInstance;
+  getInstance(payload: object);
 }
 
-declare class OutgoingCallerIdInstance extends SerializableClass {
+declare class OutgoingCallerIdInstance {
   /**
+   * @constructor Twilio.Api.V2010.AccountContext.OutgoingCallerIdInstance
+   * @description Initialize the OutgoingCallerIdContext
+   *
+   * @property sid - A string that uniquely identifies this outgoing-caller-ids
+   * @property dateCreated - The date this resource was created
+   * @property dateUpdated - The date this resource was last updated
+   * @property friendlyName - A human readable description for this resource
+   * @property accountSid - The unique sid that identifies this account
+   * @property phoneNumber - The incoming phone number
+   * @property uri - The URI for this resource
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The account_sid
+   * @param accountSid - The unique sid that identifies this account
    * @param sid - Fetch by unique outgoing-caller-id Sid
    */
-  constructor(version: V2010, payload: OutgoingCallerIdPayload, accountSid: string, sid: string);
+  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, sid: sid);
 
-  private _proxy: OutgoingCallerIdContext;
-  /**
-   * The unique ID of the [Account](https://www.twilio.com/docs/api/rest/account) responsible for this Caller Id.
-   */
-  accountSid: string;
-  /**
-   * The date that this resource was created, given in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
-   */
-  dateCreated: Date;
-  /**
-   * The date that this resource was last updated, given in [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
-   */
-  dateUpdated: Date;
+  _proxy?: OutgoingCallerIdContext;
   /**
    * fetch a OutgoingCallerIdInstance
    *
-   * @returns Promise that resolves to processed OutgoingCallerIdInstance
-   */
-  fetch(): Promise<OutgoingCallerIdInstance>;
-  /**
-   * fetch a OutgoingCallerIdInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.OutgoingCallerIdInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: OutgoingCallerIdInstance) => any): void;
-  /**
-   * A human readable descriptive text for this resource, up to 64 characters long. By default, the `FriendlyName` is a nicely formatted version of the phone number.
-   */
-  friendlyName: string;
-  /**
-   * The incoming phone number. Formatted with a '+' and country code e.g., +16175551212 ([E.164](http://en.wikipedia.org/wiki/E.164) format).
-   */
-  phoneNumber: string;
+  fetch(callback?: function);
   /**
    * remove a OutgoingCallerIdInstance
    *
-   * @returns Promise that resolves to processed OutgoingCallerIdInstance
-   */
-  remove(): Promise<OutgoingCallerIdInstance>;
-  /**
-   * remove a OutgoingCallerIdInstance
+   * @function remove
+   * @memberof Twilio.Api.V2010.AccountContext.OutgoingCallerIdInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: OutgoingCallerIdInstance) => any): void;
+  remove(callback?: function);
   /**
-   * A 34 character string that uniquely identifies this resource.
+   * Produce a plain JSON object version of the OutgoingCallerIdInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Api.V2010.AccountContext.OutgoingCallerIdInstance
+   * @instance
    */
-  sid: string;
+  toJSON();
   /**
    * update a OutgoingCallerIdInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Api.V2010.AccountContext.OutgoingCallerIdInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed OutgoingCallerIdInstance
-   */
-  update(opts?: OutgoingCallerIdListFetchOptions): Promise<OutgoingCallerIdInstance>;
-  /**
-   * update a OutgoingCallerIdInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: OutgoingCallerIdListFetchOptions, callback: (error: Error | null, items: OutgoingCallerIdInstance) => any): void;
-  /**
-   * update a OutgoingCallerIdInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: OutgoingCallerIdInstance) => any): void;
-  /**
-   * The URI for this resource, relative to `https://api.twilio.com`.
-   */
-  uri: string;
+  update(opts?: object, callback?: function);
 }
 
 declare class OutgoingCallerIdContext {
-  constructor(version: V2010, accountSid: string, sid: string);
+  /**
+   * @constructor Twilio.Api.V2010.AccountContext.OutgoingCallerIdContext
+   * @description Initialize the OutgoingCallerIdContext
+   *
+   * @param version - Version of the resource
+   * @param accountSid - The account_sid
+   * @param sid - Fetch by unique outgoing-caller-id Sid
+   */
+  constructor(version: Twilio.Api.V2010, accountSid: sid, sid: sid);
 
   /**
    * fetch a OutgoingCallerIdInstance
    *
-   * @returns Promise that resolves to processed OutgoingCallerIdInstance
-   */
-  fetch(): Promise<OutgoingCallerIdInstance>;
-  /**
-   * fetch a OutgoingCallerIdInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.OutgoingCallerIdContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: OutgoingCallerIdInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a OutgoingCallerIdInstance
    *
-   * @returns Promise that resolves to processed OutgoingCallerIdInstance
-   */
-  remove(): Promise<OutgoingCallerIdInstance>;
-  /**
-   * remove a OutgoingCallerIdInstance
+   * @function remove
+   * @memberof Twilio.Api.V2010.AccountContext.OutgoingCallerIdContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: OutgoingCallerIdInstance) => any): void;
+  remove(callback?: function);
   /**
    * update a OutgoingCallerIdInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Api.V2010.AccountContext.OutgoingCallerIdContext
+   * @instance
    *
-   * @returns Promise that resolves to processed OutgoingCallerIdInstance
-   */
-  update(opts?: OutgoingCallerIdListFetchOptions): Promise<OutgoingCallerIdInstance>;
-  /**
-   * update a OutgoingCallerIdInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: OutgoingCallerIdListFetchOptions, callback: (error: Error | null, items: OutgoingCallerIdInstance) => any): void;
-  /**
-   * update a OutgoingCallerIdInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: OutgoingCallerIdInstance) => any): void;
+  update(opts?: object, callback?: function);
 }
 
-export { OutgoingCallerIdContext, OutgoingCallerIdInstance, OutgoingCallerIdList, OutgoingCallerIdListEachOptions, OutgoingCallerIdListFetchOptions, OutgoingCallerIdListInstance, OutgoingCallerIdListOptions, OutgoingCallerIdListPageOptions, OutgoingCallerIdPage, OutgoingCallerIdPayload, OutgoingCallerIdResource, OutgoingCallerIdSolution }
+export { OutgoingCallerIdContext, OutgoingCallerIdInstance, OutgoingCallerIdList, OutgoingCallerIdPage }

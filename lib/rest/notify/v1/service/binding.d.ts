@@ -6,427 +6,129 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V1 = require('../../V1');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { SerializableClass } from '../../../../interfaces';
+import deserialize = require('../../../../base/deserialize');
+import serialize = require('../../../../base/serialize');
+import values = require('../../../../base/values');
 
-declare function BindingList(version: V1, serviceSid: string): BindingListInstance
 
-type BindingBindingType = 'apn'|'gcm'|'sms'|'fcm'|'facebook-messenger'|'alexa';
 
-interface BindingResource {
+declare class BindingPage extends Page {
   /**
-   * The account_sid
-   */
-  account_sid: string;
-  /**
-   * The address specific to the channel. For APNS it is the device token. For FCM and GCM it is the registration token. For SMS it is a phone number in E.164 format. For Facebook Messenger it is the Messenger ID of the user or a phone number in E.164 format.
-   */
-  address: string;
-  /**
-   * The type of the Binding. This determines the transport technology to use. Allowed values: `apn`, `fcm`, `gcm`, `sms`, and `facebook-messenger`.
-   */
-  binding_type: string;
-  /**
-   * The unique identifier (SID) of the Credential resource to be used to send notifications to this Binding. If present, this overrides the Credential specified in the Service resource. Applicable only to `apn`, `fcm`, and `gcm` type Bindings.
-   */
-  credential_sid: string;
-  /**
-   * The date_created
-   */
-  date_created: Date;
-  /**
-   * The date_updated
-   */
-  date_updated: Date;
-  /**
-   * DEPRECATED*
-   */
-  endpoint: string;
-  /**
-   * The Identity to which this Binding belongs to. Identity is defined by your application. Up to 20 Bindings can be created for the same Identity in a given Service.
-   */
-  identity: string;
-  /**
-   * The links
-   */
-  links: string;
-  /**
-   * The version of the protocol (data format) used to send the notification. This defaults to the value of DefaultXXXNotificationProtocolVersion in the [Service](https://www.twilio.com/docs/api/notify/rest/services). The current version is `"3"` for `apn`, `fcm`, and `gcm` type Bindings. The parameter is not applicable to `sms` and `facebook-messenger` type Bindings as the data format is fixed.
-   */
-  notification_protocol_version: string;
-  /**
-   * The service_sid
-   */
-  service_sid: string;
-  /**
-   * The sid
-   */
-  sid: string;
-  /**
-   * The list of tags associated with this Binding. Tags can be used to select the Bindings to use when sending a notification. Maximum 20 tags are allowed.
-   */
-  tags: string;
-  /**
-   * The url
-   */
-  url: string;
-}
-
-interface BindingPayload extends BindingResource, Page.TwilioResponsePayload {
-}
-
-interface BindingSolution {
-  serviceSid: string;
-}
-
-interface BindingListCreateOptions {
-  /**
-   * The address specific to the channel. For APNS it is the device token. For FCM and GCM it is the registration token. For SMS it is a phone number in E.164 format. For Facebook Messenger it is the Messenger ID of the user or a phone number in E.164 format.
-   */
-  address: string;
-  /**
-   * The type of the Binding. This determines the transport technology to use. Allowed values: `apn`, `fcm`, `gcm`, `sms`, and `facebook-messenger`.
-   */
-  bindingType: BindingBindingType;
-  /**
-   * The unique identifier (SID) of the Credential resource to be used to send notifications to this Binding. If present, this overrides the Credential specified in the Service resource. Applicable only to `apn`, `fcm`, and `gcm` type Bindings.
-   */
-  credentialSid?: string;
-  /**
-   * DEPRECATED*
-   */
-  endpoint?: string;
-  /**
-   * The Identity to which this Binding belongs to. Identity is defined by your application. Up to 20 Bindings can be created for the same Identity in a given Service.
-   */
-  identity: string;
-  /**
-   * The version of the protocol (data format) used to send the notification. This defaults to the value of DefaultXXXNotificationProtocolVersion in the [Service](https://www.twilio.com/docs/api/notify/rest/services). The current version is `"3"` for `apn`, `fcm`, and `gcm` type Bindings. The parameter is not applicable to `sms` and `facebook-messenger` type Bindings as the data format is fixed.
-   */
-  notificationProtocolVersion?: string;
-  /**
-   * The list of tags associated with this Binding. Tags can be used to select the Bindings to use when sending a notification. Maximum 20 tags are allowed.
-   */
-  tag?: string[];
-}
-
-interface BindingListEachOptions extends ListEachOptions<BindingInstance> {
-  /**
-   * Only list Bindings created on or before the given date. Should be formatted as YYYY-MM-DD. All dates considered in UTC.
-   */
-  endDate?: Date;
-  /**
-   * Only list Bindings that have any of the specified Identities.
-   */
-  identity?: string[];
-  /**
-   * Only list Bindings created on or after the given date. Should be formatted as YYYY-MM-DD. All dates considered in UTC.
-   */
-  startDate?: Date;
-  /**
-   * Only list Bindings that have all of the specified Tags. The following implicit tags are available: all, apn, fcm, gcm, sms, facebook-messenger. Maximum 5 tags are allowed.
-   */
-  tag?: string[];
-}
-
-interface BindingListOptions extends ListOptions<BindingInstance> {
-  /**
-   * Only list Bindings created on or before the given date. Should be formatted as YYYY-MM-DD. All dates considered in UTC.
-   */
-  endDate?: Date;
-  /**
-   * Only list Bindings that have any of the specified Identities.
-   */
-  identity?: string[];
-  /**
-   * Only list Bindings created on or after the given date. Should be formatted as YYYY-MM-DD. All dates considered in UTC.
-   */
-  startDate?: Date;
-  /**
-   * Only list Bindings that have all of the specified Tags. The following implicit tags are available: all, apn, fcm, gcm, sms, facebook-messenger. Maximum 5 tags are allowed.
-   */
-  tag?: string[];
-}
-
-interface BindingListPageOptions extends PageOptions<BindingPage> {
-  /**
-   * Only list Bindings created on or before the given date. Should be formatted as YYYY-MM-DD. All dates considered in UTC.
-   */
-  endDate?: Date;
-  /**
-   * Only list Bindings that have any of the specified Identities.
-   */
-  identity?: string[];
-  /**
-   * Only list Bindings created on or after the given date. Should be formatted as YYYY-MM-DD. All dates considered in UTC.
-   */
-  startDate?: Date;
-  /**
-   * Only list Bindings that have all of the specified Tags. The following implicit tags are available: all, apn, fcm, gcm, sms, facebook-messenger. Maximum 5 tags are allowed.
-   */
-  tag?: string[];
-}
-
-interface BindingListInstance {
-  /**
-   * Gets context of a single Binding resource
+   * @constructor Twilio.Notify.V1.ServiceContext.BindingPage
+   * @augments Page
+   * @description Initialize the BindingPage
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
-   * @param sid - The sid
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  (sid: string): BindingContext;
-  /**
-   * create a BindingInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed BindingInstance
-   */
-  create(opts: BindingListCreateOptions): Promise<BindingInstance>;
-  /**
-   * create a BindingInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: BindingListCreateOptions, callback: (error: Error | null, items: BindingInstance) => any): void;
-  /**
-   * Streams BindingInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: BindingListEachOptions): void;
-  /**
-   * Streams BindingInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: BindingInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Binding resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): BindingContext;
-  /**
-   * Retrieve a single target page of BindingInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<BindingPage>;
-  /**
-   * Retrieve a single target page of BindingInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: BindingPage) => any): void;
-  /**
-   * Lists BindingInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: BindingListOptions): Promise<BindingInstance[]>;
-  /**
-   * Lists BindingInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: BindingListOptions, callback: (error: Error | null, items: BindingInstance[]) => any): void;
-  /**
-   * Lists BindingInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: BindingInstance[]) => any): void;
-  /**
-   * Retrieve a single page of BindingInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: BindingListPageOptions): Promise<BindingPage>;
-  /**
-   * Retrieve a single page of BindingInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: BindingListPageOptions, callback: (error: Error | null, items: BindingPage) => any): void;
-  /**
-   * Retrieve a single page of BindingInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: BindingPage) => any): void;
-}
-
-declare class BindingPage extends Page<V1, BindingPayload, BindingResource, BindingInstance> {
-  constructor(version: V1, response: Response<string>, solution: BindingSolution);
+  constructor(version: Twilio.Notify.V1, response: object, solution: object);
 
   /**
    * Build an instance of BindingInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Notify.V1.ServiceContext.BindingPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: BindingPayload): BindingInstance;
+  getInstance(payload: object);
 }
 
-declare class BindingInstance extends SerializableClass {
+declare class BindingInstance {
   /**
+   * @constructor Twilio.Notify.V1.ServiceContext.BindingInstance
+   * @description Initialize the BindingContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property sid - The sid
+   * @property accountSid - The account_sid
+   * @property serviceSid - The service_sid
+   * @property credentialSid - The unique identifier of the Credential resource to be used to send notifications to this Binding.
+   * @property dateCreated - The date_created
+   * @property dateUpdated - The date_updated
+   * @property notificationProtocolVersion - The version of the protocol used to send the notification.
+   * @property endpoint - DEPRECATED*
+   * @property identity - The Identity to which this Binding belongs to.
+   * @property bindingType - The type of the Binding.
+   * @property address - The address specific to the channel.
+   * @property tags - The list of tags associated with this Binding.
+   * @property url - The url
+   * @property links - The links
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param serviceSid - The service_sid
    * @param sid - The sid
    */
-  constructor(version: V1, payload: BindingPayload, serviceSid: string, sid: string);
+  constructor(version: Twilio.Notify.V1, payload: object, serviceSid: sid, sid: sid);
 
-  private _proxy: BindingContext;
-  /**
-   * The account_sid
-   */
-  accountSid: string;
-  /**
-   * The address specific to the channel. For APNS it is the device token. For FCM and GCM it is the registration token. For SMS it is a phone number in E.164 format. For Facebook Messenger it is the Messenger ID of the user or a phone number in E.164 format.
-   */
-  address: string;
-  /**
-   * The type of the Binding. This determines the transport technology to use. Allowed values: `apn`, `fcm`, `gcm`, `sms`, and `facebook-messenger`.
-   */
-  bindingType: string;
-  /**
-   * The unique identifier (SID) of the Credential resource to be used to send notifications to this Binding. If present, this overrides the Credential specified in the Service resource. Applicable only to `apn`, `fcm`, and `gcm` type Bindings.
-   */
-  credentialSid: string;
-  /**
-   * The date_created
-   */
-  dateCreated: Date;
-  /**
-   * The date_updated
-   */
-  dateUpdated: Date;
-  /**
-   * DEPRECATED*
-   */
-  endpoint: string;
+  _proxy?: BindingContext;
   /**
    * fetch a BindingInstance
    *
-   * @returns Promise that resolves to processed BindingInstance
-   */
-  fetch(): Promise<BindingInstance>;
-  /**
-   * fetch a BindingInstance
+   * @function fetch
+   * @memberof Twilio.Notify.V1.ServiceContext.BindingInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: BindingInstance) => any): void;
-  /**
-   * The Identity to which this Binding belongs to. Identity is defined by your application. Up to 20 Bindings can be created for the same Identity in a given Service.
-   */
-  identity: string;
-  /**
-   * The links
-   */
-  links: string;
-  /**
-   * The version of the protocol (data format) used to send the notification. This defaults to the value of DefaultXXXNotificationProtocolVersion in the [Service](https://www.twilio.com/docs/api/notify/rest/services). The current version is `"3"` for `apn`, `fcm`, and `gcm` type Bindings. The parameter is not applicable to `sms` and `facebook-messenger` type Bindings as the data format is fixed.
-   */
-  notificationProtocolVersion: string;
+  fetch(callback?: function);
   /**
    * remove a BindingInstance
    *
-   * @returns Promise that resolves to processed BindingInstance
-   */
-  remove(): Promise<BindingInstance>;
-  /**
-   * remove a BindingInstance
+   * @function remove
+   * @memberof Twilio.Notify.V1.ServiceContext.BindingInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: BindingInstance) => any): void;
+  remove(callback?: function);
   /**
-   * The service_sid
+   * Produce a plain JSON object version of the BindingInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Notify.V1.ServiceContext.BindingInstance
+   * @instance
    */
-  serviceSid: string;
-  /**
-   * The sid
-   */
-  sid: string;
-  /**
-   * The list of tags associated with this Binding. Tags can be used to select the Bindings to use when sending a notification. Maximum 20 tags are allowed.
-   */
-  tags: string;
-  /**
-   * The url
-   */
-  url: string;
+  toJSON();
 }
 
 declare class BindingContext {
-  constructor(version: V1, serviceSid: string, sid: string);
+  /**
+   * @constructor Twilio.Notify.V1.ServiceContext.BindingContext
+   * @description Initialize the BindingContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @param version - Version of the resource
+   * @param serviceSid - The service_sid
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Notify.V1, serviceSid: sid, sid: sid);
 
   /**
    * fetch a BindingInstance
    *
-   * @returns Promise that resolves to processed BindingInstance
-   */
-  fetch(): Promise<BindingInstance>;
-  /**
-   * fetch a BindingInstance
+   * @function fetch
+   * @memberof Twilio.Notify.V1.ServiceContext.BindingContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: BindingInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a BindingInstance
    *
-   * @returns Promise that resolves to processed BindingInstance
-   */
-  remove(): Promise<BindingInstance>;
-  /**
-   * remove a BindingInstance
+   * @function remove
+   * @memberof Twilio.Notify.V1.ServiceContext.BindingContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: BindingInstance) => any): void;
+  remove(callback?: function);
 }
 
-export { BindingBindingType, BindingContext, BindingInstance, BindingList, BindingListCreateOptions, BindingListEachOptions, BindingListInstance, BindingListOptions, BindingListPageOptions, BindingPage, BindingPayload, BindingResource, BindingSolution }
+export { BindingContext, BindingInstance, BindingList, BindingPage }

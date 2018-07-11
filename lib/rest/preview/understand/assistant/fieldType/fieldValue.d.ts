@@ -6,343 +6,126 @@
  */
 
 import Page = require('../../../../../base/Page');
-import Response = require('../../../../../http/response');
-import Understand = require('../../../Understand');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../interfaces';
-import { SerializableClass } from '../../../../../interfaces';
+import deserialize = require('../../../../../base/deserialize');
+import values = require('../../../../../base/values');
 
-declare function FieldValueList(version: Understand, assistantSid: string, fieldTypeSid: string): FieldValueListInstance
 
-interface FieldValueResource {
-  /**
-   * The unique ID of the Account that created this Field Value.
-   */
-  account_sid: string;
-  /**
-   * The unique ID of the Assistant.
-   */
-  assistant_sid: string;
-  /**
-   * The date that this resource was created
-   */
-  date_created: Date;
-  /**
-   * The date that this resource was last updated
-   */
-  date_updated: Date;
-  /**
-   * The unique ID of the Field Type associated with this Field Value.
-   */
-  field_type_sid: string;
-  /**
-   * An ISO language-country string of the value.
-   */
-  language: string;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * A value that indicates this field value is a synonym of. Empty if the value is not a synonym.
-   */
-  synonym_of: string;
-  /**
-   * The url
-   */
-  url: string;
-  /**
-   * The Field Value itself.
-   */
-  value: string;
-}
 
-interface FieldValuePayload extends FieldValueResource, Page.TwilioResponsePayload {
-}
-
-interface FieldValueSolution {
-  assistantSid: string;
-  fieldTypeSid: string;
-}
-
-interface FieldValueListEachOptions extends ListEachOptions<FieldValueInstance> {
+declare class FieldValuePage extends Page {
   /**
-   * An ISO language-country string of the value. For example: *en-US*
+   * @constructor Twilio.Preview.Understand.AssistantContext.FieldTypeContext.FieldValuePage
+   * @augments Page
+   * @description Initialize the FieldValuePage
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  language?: string;
-}
-
-interface FieldValueListOptions extends ListOptions<FieldValueInstance> {
-  /**
-   * An ISO language-country string of the value. For example: *en-US*
-   */
-  language?: string;
-}
-
-interface FieldValueListPageOptions extends PageOptions<FieldValuePage> {
-  /**
-   * An ISO language-country string of the value. For example: *en-US*
-   */
-  language?: string;
-}
-
-interface FieldValueListCreateOptions {
-  /**
-   * An ISO language-country string of the value.
-   */
-  language: string;
-  /**
-   * A value that indicates this field value is a synonym of. Empty if the value is not a synonym.
-   */
-  synonymOf?: string;
-  /**
-   * A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
-   */
-  value: string;
-}
-
-interface FieldValueListInstance {
-  /**
-   * Gets context of a single FieldValue resource
-   *
-   * @param sid - The sid
-   */
-  (sid: string): FieldValueContext;
-  /**
-   * create a FieldValueInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed FieldValueInstance
-   */
-  create(opts: FieldValueListCreateOptions): Promise<FieldValueInstance>;
-  /**
-   * create a FieldValueInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: FieldValueListCreateOptions, callback: (error: Error | null, items: FieldValueInstance) => any): void;
-  /**
-   * Streams FieldValueInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: FieldValueListEachOptions): void;
-  /**
-   * Streams FieldValueInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: FieldValueInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single FieldValue resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): FieldValueContext;
-  /**
-   * Retrieve a single target page of FieldValueInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<FieldValuePage>;
-  /**
-   * Retrieve a single target page of FieldValueInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: FieldValuePage) => any): void;
-  /**
-   * Lists FieldValueInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: FieldValueListOptions): Promise<FieldValueInstance[]>;
-  /**
-   * Lists FieldValueInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: FieldValueListOptions, callback: (error: Error | null, items: FieldValueInstance[]) => any): void;
-  /**
-   * Lists FieldValueInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: FieldValueInstance[]) => any): void;
-  /**
-   * Retrieve a single page of FieldValueInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: FieldValueListPageOptions): Promise<FieldValuePage>;
-  /**
-   * Retrieve a single page of FieldValueInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: FieldValueListPageOptions, callback: (error: Error | null, items: FieldValuePage) => any): void;
-  /**
-   * Retrieve a single page of FieldValueInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: FieldValuePage) => any): void;
-}
-
-declare class FieldValuePage extends Page<Understand, FieldValuePayload, FieldValueResource, FieldValueInstance> {
-  constructor(version: Understand, response: Response<string>, solution: FieldValueSolution);
+  constructor(version: Twilio.Preview.Understand, response: object, solution: object);
 
   /**
    * Build an instance of FieldValueInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Preview.Understand.AssistantContext.FieldTypeContext.FieldValuePage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: FieldValuePayload): FieldValueInstance;
+  getInstance(payload: object);
 }
 
-declare class FieldValueInstance extends SerializableClass {
+declare class FieldValueInstance {
   /**
+   * @constructor Twilio.Preview.Understand.AssistantContext.FieldTypeContext.FieldValueInstance
+   * @description Initialize the FieldValueContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property accountSid - The unique ID of the Account that created this Field Value.
+   * @property dateCreated - The date that this resource was created
+   * @property dateUpdated - The date that this resource was last updated
+   * @property fieldTypeSid - The unique ID of the Field Type associated with this Field Value.
+   * @property language - An ISO language-country string of the value.
+   * @property assistantSid - The unique ID of the Assistant.
+   * @property sid - A 34 character string that uniquely identifies this resource.
+   * @property value - The Field Value itself.
+   * @property url - The url
+   * @property synonymOf - A value that indicates this field value is a synonym of. Empty if the value is not a synonym.
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
+   * @param assistantSid - The unique ID of the Assistant.
+   * @param fieldTypeSid - The unique ID of the Field Type associated with this Field Value.
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Preview.Understand, payload: object, assistantSid: sid, fieldTypeSid: sid, sid: sid_like);
+
+  _proxy?: FieldValueContext;
+  /**
+   * fetch a FieldValueInstance
+   *
+   * @function fetch
+   * @memberof Twilio.Preview.Understand.AssistantContext.FieldTypeContext.FieldValueInstance
+   * @instance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: function);
+  /**
+   * remove a FieldValueInstance
+   *
+   * @function remove
+   * @memberof Twilio.Preview.Understand.AssistantContext.FieldTypeContext.FieldValueInstance
+   * @instance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: function);
+  /**
+   * Produce a plain JSON object version of the FieldValueInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Preview.Understand.AssistantContext.FieldTypeContext.FieldValueInstance
+   * @instance
+   */
+  toJSON();
+}
+
+declare class FieldValueContext {
+  /**
+   * @constructor Twilio.Preview.Understand.AssistantContext.FieldTypeContext.FieldValueContext
+   * @description Initialize the FieldValueContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @param version - Version of the resource
    * @param assistantSid - The assistant_sid
    * @param fieldTypeSid - The field_type_sid
    * @param sid - The sid
    */
-  constructor(version: Understand, payload: FieldValuePayload, assistantSid: string, fieldTypeSid: string, sid: string);
+  constructor(version: Twilio.Preview.Understand, assistantSid: sid_like, fieldTypeSid: sid_like, sid: sid_like);
 
-  private _proxy: FieldValueContext;
-  /**
-   * The unique ID of the Account that created this Field Value.
-   */
-  accountSid: string;
-  /**
-   * The unique ID of the Assistant.
-   */
-  assistantSid: string;
-  /**
-   * The date that this resource was created
-   */
-  dateCreated: Date;
-  /**
-   * The date that this resource was last updated
-   */
-  dateUpdated: Date;
   /**
    * fetch a FieldValueInstance
    *
-   * @returns Promise that resolves to processed FieldValueInstance
-   */
-  fetch(): Promise<FieldValueInstance>;
-  /**
-   * fetch a FieldValueInstance
+   * @function fetch
+   * @memberof Twilio.Preview.Understand.AssistantContext.FieldTypeContext.FieldValueContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: FieldValueInstance) => any): void;
-  /**
-   * The unique ID of the Field Type associated with this Field Value.
-   */
-  fieldTypeSid: string;
-  /**
-   * An ISO language-country string of the value.
-   */
-  language: string;
+  fetch(callback?: function);
   /**
    * remove a FieldValueInstance
    *
-   * @returns Promise that resolves to processed FieldValueInstance
-   */
-  remove(): Promise<FieldValueInstance>;
-  /**
-   * remove a FieldValueInstance
+   * @function remove
+   * @memberof Twilio.Preview.Understand.AssistantContext.FieldTypeContext.FieldValueContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: FieldValueInstance) => any): void;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * A value that indicates this field value is a synonym of. Empty if the value is not a synonym.
-   */
-  synonymOf: string;
-  /**
-   * The url
-   */
-  url: string;
-  /**
-   * The Field Value itself.
-   */
-  value: string;
+  remove(callback?: function);
 }
 
-declare class FieldValueContext {
-  constructor(version: Understand, assistantSid: string, fieldTypeSid: string, sid: string);
-
-  /**
-   * fetch a FieldValueInstance
-   *
-   * @returns Promise that resolves to processed FieldValueInstance
-   */
-  fetch(): Promise<FieldValueInstance>;
-  /**
-   * fetch a FieldValueInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  fetch(callback: (error: Error | null, items: FieldValueInstance) => any): void;
-  /**
-   * remove a FieldValueInstance
-   *
-   * @returns Promise that resolves to processed FieldValueInstance
-   */
-  remove(): Promise<FieldValueInstance>;
-  /**
-   * remove a FieldValueInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback: (error: Error | null, items: FieldValueInstance) => any): void;
-}
-
-export { FieldValueContext, FieldValueInstance, FieldValueList, FieldValueListCreateOptions, FieldValueListEachOptions, FieldValueListInstance, FieldValueListOptions, FieldValueListPageOptions, FieldValuePage, FieldValuePayload, FieldValueResource, FieldValueSolution }
+export { FieldValueContext, FieldValueInstance, FieldValueList, FieldValuePage }

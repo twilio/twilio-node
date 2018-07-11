@@ -6,490 +6,131 @@
  */
 
 import Page = require('../../../base/Page');
-import Response = require('../../../http/response');
-import V1 = require('../V1');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
-import { SerializableClass } from '../../../interfaces';
+import deserialize = require('../../../base/deserialize');
+import serialize = require('../../../base/serialize');
+import values = require('../../../base/values');
 
-declare function CompositionList(version: V1): CompositionListInstance
 
-type CompositionStatus = 'processing'|'completed'|'deleted'|'failed';
 
-type CompositionFormat = 'mp4'|'webm';
-
-interface CompositionResource {
+declare class CompositionPage extends Page {
   /**
-   * The unique ID of the Twilio Account owning this Composition.
-   */
-  account_sid: string;
-  /**
-   * The array of audio sources as specified in the POST request that created this Composition. See the [POST Parameters](#http-post-parameters) section for further information.
-   */
-  audio_sources: string;
-  /**
-   * The array of excluded audio sources, as specified in the POST request that created this Composition. See the [POST Parameters](#http-post-parameters) section for further information.
-   */
-  audio_sources_excluded: string;
-  /**
-   * The bitrate
-   */
-  bitrate: number;
-  /**
-   * Date conforming to [UTC ISO 8601 Timestamp](http://en.wikipedia.org/wiki/ISO_8601#UTC). Matches the time the Composition media processing task finished.
-   */
-  date_completed: string;
-  /**
-   * Date conforming to [UTC ISO 8601 Timestamp](http://en.wikipedia.org/wiki/ISO_8601#UTC). Matches the time the Composition Resource was created.
-   */
-  date_created: Date;
-  /**
-   * Date conforming to [UTC ISO 8601 Timestamp](http://en.wikipedia.org/wiki/ISO_8601#UTC). Matches the time the Composition generated media was deleted.
-   */
-  date_deleted: string;
-  /**
-   * Duration of the Composed media file expressed in seconds.
-   */
-  duration: number;
-  /**
-   * Container format of the Composition media file as specified in the POST request that created this Composition. See the [POST Parameters](#http-post-parameters) section for further information.
-   */
-  format: CompositionFormat;
-  /**
-   * A JSON object that contains the URL where the media file associated to this Composition can be fetched. This object has the following structure: ```{'links':{'media': 'https://video.twilio.com/v1/Compositions/CJXX...XX/Media'}}```
-   */
-  links: string;
-  /**
-   * Pixel resolution of the composed video as specified in the HTTP POST request that created this Composition. See the [POST Parameters](#http-post-parameters) section for further information.
-   */
-  resolution: string;
-  /**
-   * The unique ID of the Group Room where the audio and video tracks used in this composition were generated. Recall that all media sources included in a Composition must belong to the same Group Room.
-   */
-  room_sid: string;
-  /**
-   * `CJxx…xx` A system-generated 34-character string that uniquely identifies this Composition.
-   */
-  sid: string;
-  /**
-   * Size of the Composed media file expressed in bytes.
-   */
-  size: number;
-  /**
-   * The status of the Composition. Possible values are `processing`, `completed`, `deleted` or `failed`. `processing` indicates the Composition is still being processed; `completed` indicates the Composition has been completed and is now available for download. `deleted` means the Composition media has been deleted from the system, but its metadata is still available for historical purposes during 30 days; `failed` indicates the Composition failed to exeute the media processing task.
-   */
-  status: CompositionStatus;
-  /**
-   * Boolean flag indicating whether intervals with no media are clipped, as specified in the POST request that created this Composition. See the [POST Parameters](#http-post-parameters) section for further information.
-   */
-  trim: boolean;
-  /**
-   * The absolute URL for this resource.
-   */
-  url: string;
-  /**
-   * The JSON video layout description of the composed video as specified in the HTTP POST request that created this Composition. See the [POST Parameters](#http-post-parameters) section for further information.
-   */
-  video_layout: string;
-}
-
-interface CompositionPayload extends CompositionResource, Page.TwilioResponsePayload {
-}
-
-interface CompositionSolution {
-}
-
-interface CompositionListEachOptions extends ListEachOptions<CompositionInstance> {
-  /**
-   * Only show Compositions that started on or after this ISO8601 date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
-   */
-  dateCreatedAfter?: Date;
-  /**
-   * Only show Compositions that started before this this ISO8601 date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
-   */
-  dateCreatedBefore?: Date;
-  /**
-   * Only show Compositions with the given Room SID.
-   */
-  roomSid?: string;
-  /**
-   * Only show Compositions with the given status.
-   */
-  status?: CompositionStatus;
-}
-
-interface CompositionListOptions extends ListOptions<CompositionInstance> {
-  /**
-   * Only show Compositions that started on or after this ISO8601 date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
-   */
-  dateCreatedAfter?: Date;
-  /**
-   * Only show Compositions that started before this this ISO8601 date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
-   */
-  dateCreatedBefore?: Date;
-  /**
-   * Only show Compositions with the given Room SID.
-   */
-  roomSid?: string;
-  /**
-   * Only show Compositions with the given status.
-   */
-  status?: CompositionStatus;
-}
-
-interface CompositionListPageOptions extends PageOptions<CompositionPage> {
-  /**
-   * Only show Compositions that started on or after this ISO8601 date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
-   */
-  dateCreatedAfter?: Date;
-  /**
-   * Only show Compositions that started before this this ISO8601 date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
-   */
-  dateCreatedBefore?: Date;
-  /**
-   * Only show Compositions with the given Room SID.
-   */
-  roomSid?: string;
-  /**
-   * Only show Compositions with the given status.
-   */
-  status?: CompositionStatus;
-}
-
-interface CompositionListCreateOptions {
-  /**
-   * An array of audio sources to merge. All the specified sources must belong to the same Group Room. It can include:
-   * * Zero or more `RecordingTrackSid`
-   * * Zero or more `MediaTrackSid`
-   * * Zero or more `ParticipantSid`
-   * * Zero or more Track names. These can be specified using wildcards (e.g. `student*`)
-   */
-  audioSources?: string[];
-  /**
-   * An array of audio sources to exclude from the Composition. Any new Composition shall include all audio sources specified in `AudioSources` except for the ones specified in `AudioSourcesExcluded`. This parameter may include:
-   * * Zero or more `RecordingTrackSid`
-   * * Zero or more `MediaTrackSid`
-   * * Zero or more `ParticipantSid`
-   * * Zero or more Track names. These can be specified using wildcards (e.g. `student*`)
-   */
-  audioSourcesExcluded?: string[];
-  /**
-   * Container format of the Composition media file. Can be any of the following: `mp4`, `webm`. The use of `mp4` or `webm` makes mandatory the specification of `AudioSources` and/or one `VideoLayout` element containing a valid `video_sources` list, otherwise an error is fired. Defaults to `webm`.
-   */
-  format?: CompositionFormat;
-  /**
-   * A string representing the numbers of pixels for rows (width) and columns (height) of the generated composed video. This string must have the format `{width}x{height}`. This parameter must comply with the following constraints:
-   * * `width >= 16 && width <= 1280`
-   * * `height >= 16 && height <= 1280`
-   * * `width * height <= 921,600`
-   * Typical values are:
-   * * HD = `1280x720`
-   * * PAL = `1024x576`
-   * * VGA = `640x480`
-   * * CIF = `320x240`
-   * Note that the `Resolution` implicitly imposes an aspect ratio to the resulting composition. When the original video tracks get constrained by this aspect ratio they are scaled-down to fit. You can find detailed information in the [Managing Video Layouts](#managing-video-layouts) section. Defaults to `640x480`.
-   */
-  resolution?: string;
-  /**
-   * Group Room SID owning the media tracks to be used as Composition sources.
-   */
-  roomSid?: string;
-  /**
-   * A URL that Twilio sends asynchronous webhook requests to on every composition event. If not provided, status callback events will not be dispatched.
-   */
-  statusCallback?: string;
-  /**
-   * HTTP method Twilio should use when requesting the above URL. Defaults to `POST`.
-   */
-  statusCallbackMethod?: string;
-  /**
-   * When activated, clips all the Composition intervals where there is no active media. This results in shorter compositions in cases when the Room was created but no Participant joined for some time, or if all the Participants left the room and joined at a later stage, as those gaps will be removed. You can find further information in the [Managing Video Layouts](#managing-video-layouts) section. Defaults to `true`.
-   */
-  trim?: boolean;
-  /**
-   * A JSON object defining the video layout of the Composition in terms of regions. See the section [Managing Video Layouts](#managing-video-layouts) below for further information.
-   */
-  videoLayout?: string;
-}
-
-interface CompositionListInstance {
-  /**
-   * Gets context of a single Composition resource
+   * @constructor Twilio.Video.V1.CompositionPage
+   * @augments Page
+   * @description Initialize the CompositionPage
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
-   * @param sid - The Composition Sid that uniquely identifies the Composition to fetch.
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  (sid: string): CompositionContext;
-  /**
-   * create a CompositionInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed CompositionInstance
-   */
-  create(opts?: CompositionListCreateOptions): Promise<CompositionInstance>;
-  /**
-   * create a CompositionInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: CompositionListCreateOptions, callback: (error: Error | null, items: CompositionInstance) => any): void;
-  /**
-   * create a CompositionInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  create(callback: (error: Error | null, items: CompositionInstance) => any): void;
-  /**
-   * Streams CompositionInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: CompositionListEachOptions): void;
-  /**
-   * Streams CompositionInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: CompositionInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Composition resource
-   *
-   * @param sid - The Composition Sid that uniquely identifies the Composition to fetch.
-   */
-  get(sid: string): CompositionContext;
-  /**
-   * Retrieve a single target page of CompositionInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<CompositionPage>;
-  /**
-   * Retrieve a single target page of CompositionInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: CompositionPage) => any): void;
-  /**
-   * Lists CompositionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: CompositionListOptions): Promise<CompositionInstance[]>;
-  /**
-   * Lists CompositionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: CompositionListOptions, callback: (error: Error | null, items: CompositionInstance[]) => any): void;
-  /**
-   * Lists CompositionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: CompositionInstance[]) => any): void;
-  /**
-   * Retrieve a single page of CompositionInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: CompositionListPageOptions): Promise<CompositionPage>;
-  /**
-   * Retrieve a single page of CompositionInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: CompositionListPageOptions, callback: (error: Error | null, items: CompositionPage) => any): void;
-  /**
-   * Retrieve a single page of CompositionInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: CompositionPage) => any): void;
-}
-
-declare class CompositionPage extends Page<V1, CompositionPayload, CompositionResource, CompositionInstance> {
-  constructor(version: V1, response: Response<string>, solution: CompositionSolution);
+  constructor(version: Twilio.Video.V1, response: object, solution: object);
 
   /**
    * Build an instance of CompositionInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Video.V1.CompositionPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: CompositionPayload): CompositionInstance;
+  getInstance(payload: object);
 }
 
-declare class CompositionInstance extends SerializableClass {
+declare class CompositionInstance {
   /**
+   * @constructor Twilio.Video.V1.CompositionInstance
+   * @description Initialize the CompositionContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property accountSid - Twilio Account SID.
+   * @property status - The status of the Composition.
+   * @property dateCreated - Date when the Composition Resource was created.
+   * @property dateCompleted - Date when the media processing task finished.
+   * @property dateDeleted - Date when the Composition Resource generated media was deleted.
+   * @property sid - A 34-character string that uniquely identifies this Composition.
+   * @property roomSid - A 34-character string that uniquely identifies the source of this Composition.
+   * @property audioSources - A list of audio sources related to this Composition.
+   * @property audioSourcesExcluded - A list of audio sources excluded related to this Composition.
+   * @property videoLayout - The JSON video layout description.
+   * @property resolution - Pixel resolution of the composed video.
+   * @property trim - Boolean flag for clipping intervals that have no media.
+   * @property format - The file format for this Composition.
+   * @property bitrate - The bitrate
+   * @property size - Size of the Composed media file expressed in bytes.
+   * @property duration - Duration of the Composed media in seconds.
+   * @property url - The absolute URL for this resource.
+   * @property links - JSON object with the URL where the media file can be fetched.
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param sid - The Composition Sid that uniquely identifies the Composition to fetch.
    */
-  constructor(version: V1, payload: CompositionPayload, sid: string);
+  constructor(version: Twilio.Video.V1, payload: object, sid: sid);
 
-  private _proxy: CompositionContext;
-  /**
-   * The unique ID of the Twilio Account owning this Composition.
-   */
-  accountSid: string;
-  /**
-   * The array of audio sources as specified in the POST request that created this Composition. See the [POST Parameters](#http-post-parameters) section for further information.
-   */
-  audioSources: string;
-  /**
-   * The array of excluded audio sources, as specified in the POST request that created this Composition. See the [POST Parameters](#http-post-parameters) section for further information.
-   */
-  audioSourcesExcluded: string;
-  /**
-   * The bitrate
-   */
-  bitrate: number;
-  /**
-   * Date conforming to [UTC ISO 8601 Timestamp](http://en.wikipedia.org/wiki/ISO_8601#UTC). Matches the time the Composition media processing task finished.
-   */
-  dateCompleted: string;
-  /**
-   * Date conforming to [UTC ISO 8601 Timestamp](http://en.wikipedia.org/wiki/ISO_8601#UTC). Matches the time the Composition Resource was created.
-   */
-  dateCreated: Date;
-  /**
-   * Date conforming to [UTC ISO 8601 Timestamp](http://en.wikipedia.org/wiki/ISO_8601#UTC). Matches the time the Composition generated media was deleted.
-   */
-  dateDeleted: string;
-  /**
-   * Duration of the Composed media file expressed in seconds.
-   */
-  duration: number;
+  _proxy?: CompositionContext;
   /**
    * fetch a CompositionInstance
    *
-   * @returns Promise that resolves to processed CompositionInstance
-   */
-  fetch(): Promise<CompositionInstance>;
-  /**
-   * fetch a CompositionInstance
+   * @function fetch
+   * @memberof Twilio.Video.V1.CompositionInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: CompositionInstance) => any): void;
-  /**
-   * Container format of the Composition media file as specified in the POST request that created this Composition. See the [POST Parameters](#http-post-parameters) section for further information.
-   */
-  format: CompositionFormat;
-  /**
-   * A JSON object that contains the URL where the media file associated to this Composition can be fetched. This object has the following structure: ```{'links':{'media': 'https://video.twilio.com/v1/Compositions/CJXX...XX/Media'}}```
-   */
-  links: string;
+  fetch(callback?: function);
   /**
    * remove a CompositionInstance
    *
-   * @returns Promise that resolves to processed CompositionInstance
-   */
-  remove(): Promise<CompositionInstance>;
-  /**
-   * remove a CompositionInstance
+   * @function remove
+   * @memberof Twilio.Video.V1.CompositionInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: CompositionInstance) => any): void;
+  remove(callback?: function);
   /**
-   * Pixel resolution of the composed video as specified in the HTTP POST request that created this Composition. See the [POST Parameters](#http-post-parameters) section for further information.
+   * Produce a plain JSON object version of the CompositionInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Video.V1.CompositionInstance
+   * @instance
    */
-  resolution: string;
-  /**
-   * The unique ID of the Group Room where the audio and video tracks used in this composition were generated. Recall that all media sources included in a Composition must belong to the same Group Room.
-   */
-  roomSid: string;
-  /**
-   * `CJxx…xx` A system-generated 34-character string that uniquely identifies this Composition.
-   */
-  sid: string;
-  /**
-   * Size of the Composed media file expressed in bytes.
-   */
-  size: number;
-  /**
-   * The status of the Composition. Possible values are `processing`, `completed`, `deleted` or `failed`. `processing` indicates the Composition is still being processed; `completed` indicates the Composition has been completed and is now available for download. `deleted` means the Composition media has been deleted from the system, but its metadata is still available for historical purposes during 30 days; `failed` indicates the Composition failed to exeute the media processing task.
-   */
-  status: CompositionStatus;
-  /**
-   * Boolean flag indicating whether intervals with no media are clipped, as specified in the POST request that created this Composition. See the [POST Parameters](#http-post-parameters) section for further information.
-   */
-  trim: boolean;
-  /**
-   * The absolute URL for this resource.
-   */
-  url: string;
-  /**
-   * The JSON video layout description of the composed video as specified in the HTTP POST request that created this Composition. See the [POST Parameters](#http-post-parameters) section for further information.
-   */
-  videoLayout: string;
+  toJSON();
 }
 
 declare class CompositionContext {
-  constructor(version: V1, sid: string);
+  /**
+   * @constructor Twilio.Video.V1.CompositionContext
+   * @description Initialize the CompositionContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @param version - Version of the resource
+   * @param sid - The Composition Sid that uniquely identifies the Composition to fetch.
+   */
+  constructor(version: Twilio.Video.V1, sid: sid);
 
   /**
    * fetch a CompositionInstance
    *
-   * @returns Promise that resolves to processed CompositionInstance
-   */
-  fetch(): Promise<CompositionInstance>;
-  /**
-   * fetch a CompositionInstance
+   * @function fetch
+   * @memberof Twilio.Video.V1.CompositionContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: CompositionInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a CompositionInstance
    *
-   * @returns Promise that resolves to processed CompositionInstance
-   */
-  remove(): Promise<CompositionInstance>;
-  /**
-   * remove a CompositionInstance
+   * @function remove
+   * @memberof Twilio.Video.V1.CompositionContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: CompositionInstance) => any): void;
+  remove(callback?: function);
 }
 
-export { CompositionContext, CompositionFormat, CompositionInstance, CompositionList, CompositionListCreateOptions, CompositionListEachOptions, CompositionListInstance, CompositionListOptions, CompositionListPageOptions, CompositionPage, CompositionPayload, CompositionResource, CompositionSolution, CompositionStatus }
+export { CompositionContext, CompositionInstance, CompositionList, CompositionPage }

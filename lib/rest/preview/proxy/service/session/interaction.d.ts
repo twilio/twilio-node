@@ -6,377 +6,115 @@
  */
 
 import Page = require('../../../../../base/Page');
-import Proxy = require('../../../Proxy');
-import Response = require('../../../../../http/response');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../interfaces';
-import { SerializableClass } from '../../../../../interfaces';
+import deserialize = require('../../../../../base/deserialize');
+import values = require('../../../../../base/values');
 
-declare function InteractionList(version: Proxy, serviceSid: string, sessionSid: string): InteractionListInstance
 
-type InteractionStatus = 'completed'|'in-progress'|'failed';
 
-type InteractionResourceStatus = 'queued'|'sending'|'sent'|'failed'|'delivered'|'undelivered';
-
-interface InteractionResource {
+declare class InteractionPage extends Page {
   /**
-   * The unique SID identifier of the Account.
-   */
-  account_sid: string;
-  /**
-   * What happened in this Interaction.
-   */
-  data: string;
-  /**
-   * The date that this Interaction was created, given in ISO 8601 format.
-   */
-  date_created: Date;
-  /**
-   * The date that this Interaction was updated, given in ISO 8601 format.
-   */
-  date_updated: Date;
-  /**
-   * The inbound_participant_sid
-   */
-  inbound_participant_sid: string;
-  /**
-   * The SID of the inbound resource.
-   */
-  inbound_resource_sid: string;
-  /**
-   * The Inbound Resource Status of this Interaction. One of `completed`, `in-progress` or `failed`.
-   */
-  inbound_resource_status: InteractionResourceStatus;
-  /**
-   * The Twilio object type of the inbound resource.
-   */
-  inbound_resource_type: string;
-  /**
-   * The URL of the inbound resource.
-   */
-  inbound_resource_url: string;
-  /**
-   * The outbound_participant_sid
-   */
-  outbound_participant_sid: string;
-  /**
-   * The SID of the outbound resource.
-   */
-  outbound_resource_sid: string;
-  /**
-   * The Outbound Resource Status of this Interaction. One of `completed`, `in-progress` or `failed`.
-   */
-  outbound_resource_status: InteractionResourceStatus;
-  /**
-   * The Twilio object type of the outbound resource.
-   */
-  outbound_resource_type: string;
-  /**
-   * The URL of the outbound resource.
-   */
-  outbound_resource_url: string;
-  /**
-   * The unique SID identifier of the Service.
-   */
-  service_sid: string;
-  /**
-   * The unique SID identifier of the Session.
-   */
-  session_sid: string;
-  /**
-   * A 34 character string that uniquely identifies this Interaction.
-   */
-  sid: string;
-  /**
-   * The Status of this Interaction. One of `completed`, `in-progress` or `failed`.
-   */
-  status: InteractionStatus;
-  /**
-   * The URL of this Interaction.
-   */
-  url: string;
-}
-
-interface InteractionPayload extends InteractionResource, Page.TwilioResponsePayload {
-}
-
-interface InteractionSolution {
-  serviceSid: string;
-  sessionSid: string;
-}
-
-interface InteractionListEachOptions extends ListEachOptions<InteractionInstance> {
-  /**
-   * The Inbound Participant Status of this Interaction. One of `completed`, `in-progress` or `failed`.
-   */
-  inboundParticipantStatus?: InteractionResourceStatus;
-  /**
-   * The Outbound Participant Status of this Interaction. One of `completed`, `in-progress` or `failed`.
-   */
-  outboundParticipantStatus?: InteractionResourceStatus;
-}
-
-interface InteractionListOptions extends ListOptions<InteractionInstance> {
-  /**
-   * The Inbound Participant Status of this Interaction. One of `completed`, `in-progress` or `failed`.
-   */
-  inboundParticipantStatus?: InteractionResourceStatus;
-  /**
-   * The Outbound Participant Status of this Interaction. One of `completed`, `in-progress` or `failed`.
-   */
-  outboundParticipantStatus?: InteractionResourceStatus;
-}
-
-interface InteractionListPageOptions extends PageOptions<InteractionPage> {
-  /**
-   * The Inbound Participant Status of this Interaction. One of `completed`, `in-progress` or `failed`.
-   */
-  inboundParticipantStatus?: InteractionResourceStatus;
-  /**
-   * The Outbound Participant Status of this Interaction. One of `completed`, `in-progress` or `failed`.
-   */
-  outboundParticipantStatus?: InteractionResourceStatus;
-}
-
-interface InteractionListInstance {
-  /**
-   * Gets context of a single Interaction resource
+   * @constructor Twilio.Preview.Proxy.ServiceContext.SessionContext.InteractionPage
+   * @augments Page
+   * @description Initialize the InteractionPage
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
-   * @param sid - A string that uniquely identifies this Interaction.
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  (sid: string): InteractionContext;
-  /**
-   * Streams InteractionInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: InteractionListEachOptions): void;
-  /**
-   * Streams InteractionInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: InteractionInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Interaction resource
-   *
-   * @param sid - A string that uniquely identifies this Interaction.
-   */
-  get(sid: string): InteractionContext;
-  /**
-   * Retrieve a single target page of InteractionInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<InteractionPage>;
-  /**
-   * Retrieve a single target page of InteractionInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: InteractionPage) => any): void;
-  /**
-   * Lists InteractionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: InteractionListOptions): Promise<InteractionInstance[]>;
-  /**
-   * Lists InteractionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: InteractionListOptions, callback: (error: Error | null, items: InteractionInstance[]) => any): void;
-  /**
-   * Lists InteractionInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: InteractionInstance[]) => any): void;
-  /**
-   * Retrieve a single page of InteractionInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: InteractionListPageOptions): Promise<InteractionPage>;
-  /**
-   * Retrieve a single page of InteractionInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: InteractionListPageOptions, callback: (error: Error | null, items: InteractionPage) => any): void;
-  /**
-   * Retrieve a single page of InteractionInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: InteractionPage) => any): void;
-}
-
-declare class InteractionPage extends Page<Proxy, InteractionPayload, InteractionResource, InteractionInstance> {
-  constructor(version: Proxy, response: Response<string>, solution: InteractionSolution);
+  constructor(version: Twilio.Preview.Proxy, response: object, solution: object);
 
   /**
    * Build an instance of InteractionInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Preview.Proxy.ServiceContext.SessionContext.InteractionPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: InteractionPayload): InteractionInstance;
+  getInstance(payload: object);
 }
 
-declare class InteractionInstance extends SerializableClass {
+declare class InteractionInstance {
   /**
+   * @constructor Twilio.Preview.Proxy.ServiceContext.SessionContext.InteractionInstance
+   * @description Initialize the InteractionContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property sid - A string that uniquely identifies this Interaction.
+   * @property sessionSid - Session Sid.
+   * @property serviceSid - Service Sid.
+   * @property accountSid - Account Sid.
+   * @property data - What happened in this Interaction.
+   * @property status - The Status of this Interaction
+   * @property inboundParticipantSid - The inbound_participant_sid
+   * @property inboundResourceSid - The SID of the inbound resource.
+   * @property inboundResourceStatus - The Inbound Resource Status of this Interaction
+   * @property inboundResourceType - The Twilio object type of the inbound resource.
+   * @property inboundResourceUrl - The URL of the inbound resource.
+   * @property outboundParticipantSid - The outbound_participant_sid
+   * @property outboundResourceSid - The SID of the outbound resource.
+   * @property outboundResourceStatus - The Outbound Resource Status of this Interaction
+   * @property outboundResourceType - The Twilio object type of the outbound resource.
+   * @property outboundResourceUrl - The URL of the outbound resource.
+   * @property dateCreated - The date this Interaction was created
+   * @property dateUpdated - The date this Interaction was updated
+   * @property url - The URL of this Interaction.
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param serviceSid - Service Sid.
    * @param sessionSid - Session Sid.
    * @param sid - A string that uniquely identifies this Interaction.
    */
-  constructor(version: Proxy, payload: InteractionPayload, serviceSid: string, sessionSid: string, sid: string);
+  constructor(version: Twilio.Preview.Proxy, payload: object, serviceSid: sid, sessionSid: sid, sid: sid);
 
-  private _proxy: InteractionContext;
-  /**
-   * The unique SID identifier of the Account.
-   */
-  accountSid: string;
-  /**
-   * What happened in this Interaction.
-   */
-  data: string;
-  /**
-   * The date that this Interaction was created, given in ISO 8601 format.
-   */
-  dateCreated: Date;
-  /**
-   * The date that this Interaction was updated, given in ISO 8601 format.
-   */
-  dateUpdated: Date;
+  _proxy?: InteractionContext;
   /**
    * fetch a InteractionInstance
    *
-   * @returns Promise that resolves to processed InteractionInstance
-   */
-  fetch(): Promise<InteractionInstance>;
-  /**
-   * fetch a InteractionInstance
+   * @function fetch
+   * @memberof Twilio.Preview.Proxy.ServiceContext.SessionContext.InteractionInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: InteractionInstance) => any): void;
+  fetch(callback?: function);
   /**
-   * The inbound_participant_sid
+   * Produce a plain JSON object version of the InteractionInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Preview.Proxy.ServiceContext.SessionContext.InteractionInstance
+   * @instance
    */
-  inboundParticipantSid: string;
-  /**
-   * The SID of the inbound resource.
-   */
-  inboundResourceSid: string;
-  /**
-   * The Inbound Resource Status of this Interaction. One of `completed`, `in-progress` or `failed`.
-   */
-  inboundResourceStatus: InteractionResourceStatus;
-  /**
-   * The Twilio object type of the inbound resource.
-   */
-  inboundResourceType: string;
-  /**
-   * The URL of the inbound resource.
-   */
-  inboundResourceUrl: string;
-  /**
-   * The outbound_participant_sid
-   */
-  outboundParticipantSid: string;
-  /**
-   * The SID of the outbound resource.
-   */
-  outboundResourceSid: string;
-  /**
-   * The Outbound Resource Status of this Interaction. One of `completed`, `in-progress` or `failed`.
-   */
-  outboundResourceStatus: InteractionResourceStatus;
-  /**
-   * The Twilio object type of the outbound resource.
-   */
-  outboundResourceType: string;
-  /**
-   * The URL of the outbound resource.
-   */
-  outboundResourceUrl: string;
-  /**
-   * The unique SID identifier of the Service.
-   */
-  serviceSid: string;
-  /**
-   * The unique SID identifier of the Session.
-   */
-  sessionSid: string;
-  /**
-   * A 34 character string that uniquely identifies this Interaction.
-   */
-  sid: string;
-  /**
-   * The Status of this Interaction. One of `completed`, `in-progress` or `failed`.
-   */
-  status: InteractionStatus;
-  /**
-   * The URL of this Interaction.
-   */
-  url: string;
+  toJSON();
 }
 
 declare class InteractionContext {
-  constructor(version: Proxy, serviceSid: string, sessionSid: string, sid: string);
+  /**
+   * @constructor Twilio.Preview.Proxy.ServiceContext.SessionContext.InteractionContext
+   * @description Initialize the InteractionContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @param version - Version of the resource
+   * @param serviceSid - Service Sid.
+   * @param sessionSid - Session Sid.
+   * @param sid - A string that uniquely identifies this Interaction.
+   */
+  constructor(version: Twilio.Preview.Proxy, serviceSid: sid, sessionSid: sid, sid: sid);
 
   /**
    * fetch a InteractionInstance
    *
-   * @returns Promise that resolves to processed InteractionInstance
-   */
-  fetch(): Promise<InteractionInstance>;
-  /**
-   * fetch a InteractionInstance
+   * @function fetch
+   * @memberof Twilio.Preview.Proxy.ServiceContext.SessionContext.InteractionContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: InteractionInstance) => any): void;
+  fetch(callback?: function);
 }
 
-export { InteractionContext, InteractionInstance, InteractionList, InteractionListEachOptions, InteractionListInstance, InteractionListOptions, InteractionListPageOptions, InteractionPage, InteractionPayload, InteractionResource, InteractionResourceStatus, InteractionSolution, InteractionStatus }
+export { InteractionContext, InteractionInstance, InteractionList, InteractionPage }

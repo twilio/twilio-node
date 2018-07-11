@@ -6,289 +6,142 @@
  */
 
 import Page = require('../../../../../base/Page');
-import Response = require('../../../../../http/response');
-import V2010 = require('../../../V2010');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../interfaces';
-import { SerializableClass } from '../../../../../interfaces';
+import deserialize = require('../../../../../base/deserialize');
+import values = require('../../../../../base/values');
 
-declare function MemberList(version: V2010, accountSid: string, queueSid: string): MemberListInstance
 
-interface MemberResource {
-  /**
-   * A 34 character string that uniquely identifies the call that is enqueued.
-   */
-  call_sid: string;
-  /**
-   * The date that the member was enqueued, given in RFC 2822 format.
-   */
-  date_enqueued: Date;
-  /**
-   * This member's current position in the queue.
-   */
-  position: number;
-  /**
-   * The uri
-   */
-  uri: string;
-  /**
-   * The number of seconds the member has been in the queue.
-   */
-  wait_time: number;
-}
-
-interface MemberPayload extends MemberResource, Page.TwilioResponsePayload {
-}
-
-interface MemberSolution {
-  accountSid: string;
-  queueSid: string;
-}
-
-interface MemberListEachOptions extends ListEachOptions<MemberInstance> {
-}
-
-interface MemberListOptions extends ListOptions<MemberInstance> {
-}
-
-interface MemberListPageOptions extends PageOptions<MemberPage> {
-}
-
-interface MemberListInstance {
-  /**
-   * Gets context of a single Member resource
-   *
-   * @param callSid - The call_sid
-   */
-  (callSid: string): MemberContext;
-  /**
-   * Streams MemberInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: MemberListEachOptions): void;
-  /**
-   * Streams MemberInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: MemberInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Member resource
-   *
-   * @param callSid - The call_sid
-   */
-  get(callSid: string): MemberContext;
-  /**
-   * Retrieve a single target page of MemberInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<MemberPage>;
-  /**
-   * Retrieve a single target page of MemberInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: MemberPage) => any): void;
-  /**
-   * Lists MemberInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: MemberListOptions): Promise<MemberInstance[]>;
-  /**
-   * Lists MemberInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: MemberListOptions, callback: (error: Error | null, items: MemberInstance[]) => any): void;
-  /**
-   * Lists MemberInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: MemberInstance[]) => any): void;
-  /**
-   * Retrieve a single page of MemberInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: MemberListPageOptions): Promise<MemberPage>;
-  /**
-   * Retrieve a single page of MemberInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: MemberListPageOptions, callback: (error: Error | null, items: MemberPage) => any): void;
-  /**
-   * Retrieve a single page of MemberInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: MemberPage) => any): void;
-}
-
-interface MemberListFetchOptions {
-  /**
-   * The method
-   */
+/**
+ * Options to pass to update
+ *
+ * @property url - The url
+ * @property method - The method
+ */
+export interface UpdateOptions {
   method: string;
-  /**
-   * The url
-   */
   url: string;
 }
 
-interface MemberListFetchOptions {
-  /**
-   * The method
-   */
+/**
+ * Options to pass to update
+ *
+ * @property url - The url
+ * @property method - The method
+ */
+export interface UpdateOptions {
   method: string;
-  /**
-   * The url
-   */
   url: string;
 }
 
-declare class MemberPage extends Page<V2010, MemberPayload, MemberResource, MemberInstance> {
-  constructor(version: V2010, response: Response<string>, solution: MemberSolution);
+
+declare class MemberPage extends Page {
+  /**
+   * @constructor Twilio.Api.V2010.AccountContext.QueueContext.MemberPage
+   * @augments Page
+   * @description Initialize the MemberPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Api.V2010, response: object, solution: object);
 
   /**
    * Build an instance of MemberInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Api.V2010.AccountContext.QueueContext.MemberPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: MemberPayload): MemberInstance;
+  getInstance(payload: object);
 }
 
-declare class MemberInstance extends SerializableClass {
+declare class MemberInstance {
   /**
+   * @constructor Twilio.Api.V2010.AccountContext.QueueContext.MemberInstance
+   * @description Initialize the MemberContext
+   *
+   * @property callSid - Unique string that identifies this resource
+   * @property dateEnqueued - The date the member was enqueued
+   * @property position - This member's current position in the queue.
+   * @property uri - The uri
+   * @property waitTime - The number of seconds the member has been in the queue.
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
+   * @param accountSid - The account_sid
+   * @param queueSid - A string that uniquely identifies this queue
+   * @param callSid - The call_sid
+   */
+  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, queueSid: sid, callSid: sid);
+
+  _proxy?: MemberContext;
+  /**
+   * fetch a MemberInstance
+   *
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.QueueContext.MemberInstance
+   * @instance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: function);
+  /**
+   * Produce a plain JSON object version of the MemberInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Api.V2010.AccountContext.QueueContext.MemberInstance
+   * @instance
+   */
+  toJSON();
+  /**
+   * update a MemberInstance
+   *
+   * @function update
+   * @memberof Twilio.Api.V2010.AccountContext.QueueContext.MemberInstance
+   * @instance
+   *
+   * @param opts - ...
+   * @param callback - Callback to handle processed record
+   */
+  update(opts: object, callback?: function);
+}
+
+declare class MemberContext {
+  /**
+   * @constructor Twilio.Api.V2010.AccountContext.QueueContext.MemberContext
+   * @description Initialize the MemberContext
+   *
+   * @param version - Version of the resource
    * @param accountSid - The account_sid
    * @param queueSid - The Queue in which to find the members
    * @param callSid - The call_sid
    */
-  constructor(version: V2010, payload: MemberPayload, accountSid: string, queueSid: string, callSid: string);
+  constructor(version: Twilio.Api.V2010, accountSid: sid, queueSid: sid, callSid: sid);
 
-  private _proxy: MemberContext;
-  /**
-   * A 34 character string that uniquely identifies the call that is enqueued.
-   */
-  callSid: string;
-  /**
-   * The date that the member was enqueued, given in RFC 2822 format.
-   */
-  dateEnqueued: Date;
   /**
    * fetch a MemberInstance
    *
-   * @returns Promise that resolves to processed MemberInstance
-   */
-  fetch(): Promise<MemberInstance>;
-  /**
-   * fetch a MemberInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.QueueContext.MemberContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: MemberInstance) => any): void;
-  /**
-   * This member's current position in the queue.
-   */
-  position: number;
+  fetch(callback?: function);
   /**
    * update a MemberInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Api.V2010.AccountContext.QueueContext.MemberContext
+   * @instance
    *
-   * @returns Promise that resolves to processed MemberInstance
-   */
-  update(opts: MemberListFetchOptions): Promise<MemberInstance>;
-  /**
-   * update a MemberInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: MemberListFetchOptions, callback: (error: Error | null, items: MemberInstance) => any): void;
-  /**
-   * The uri
-   */
-  uri: string;
-  /**
-   * The number of seconds the member has been in the queue.
-   */
-  waitTime: number;
+  update(opts: object, callback?: function);
 }
 
-declare class MemberContext {
-  constructor(version: V2010, accountSid: string, queueSid: string, callSid: string);
-
-  /**
-   * fetch a MemberInstance
-   *
-   * @returns Promise that resolves to processed MemberInstance
-   */
-  fetch(): Promise<MemberInstance>;
-  /**
-   * fetch a MemberInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  fetch(callback: (error: Error | null, items: MemberInstance) => any): void;
-  /**
-   * update a MemberInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed MemberInstance
-   */
-  update(opts: MemberListFetchOptions): Promise<MemberInstance>;
-  /**
-   * update a MemberInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts: MemberListFetchOptions, callback: (error: Error | null, items: MemberInstance) => any): void;
-}
-
-export { MemberContext, MemberInstance, MemberList, MemberListEachOptions, MemberListFetchOptions, MemberListInstance, MemberListOptions, MemberListPageOptions, MemberPage, MemberPayload, MemberResource, MemberSolution }
+export { MemberContext, MemberInstance, MemberList, MemberPage }

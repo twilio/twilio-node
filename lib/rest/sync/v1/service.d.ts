@@ -6,437 +6,221 @@
  */
 
 import Page = require('../../../base/Page');
-import Response = require('../../../http/response');
-import V1 = require('../V1');
-import { DocumentListInstance } from './service/document';
-import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
-import { SerializableClass } from '../../../interfaces';
-import { SyncListListInstance } from './service/syncList';
-import { SyncMapListInstance } from './service/syncMap';
-import { SyncStreamListInstance } from './service/syncStream';
+import deserialize = require('../../../base/deserialize');
+import serialize = require('../../../base/serialize');
+import values = require('../../../base/values');
+import { DocumentList } from './service/document';
+import { SyncListList } from './service/syncList';
+import { SyncMapList } from './service/syncMap';
+import { SyncStreamList } from './service/syncStream';
 
-declare function ServiceList(version: V1): ServiceListInstance
 
-interface ServiceResource {
-  /**
-   * The account_sid
-   */
-  account_sid: string;
-  /**
-   * `true` or `false` - determines whether token identities must be granted access to Sync objects via the [Permissions API](https://www.twilio.com/docs/api/sync/rest/sync-rest-api-permissions) in this Service.
-   */
-  acl_enabled: boolean;
-  /**
-   * The date_created
-   */
-  date_created: Date;
-  /**
-   * The date_updated
-   */
-  date_updated: Date;
-  /**
-   * Human-readable name for this service instance
-   */
-  friendly_name: string;
-  /**
-   * The links
-   */
-  links: string;
-  /**
-   * `true` or `false` - controls whether this instance fires webhooks when client endpoints connect to Sync Defaults to false.
-   */
-  reachability_webhooks_enabled: boolean;
-  /**
-   * The sid
-   */
-  sid: string;
-  /**
-   * The unique_name
-   */
-  unique_name: string;
-  /**
-   * The url
-   */
-  url: string;
-  /**
-   * A URL that will receive event updates when objects are manipulated.
-   */
-  webhook_url: string;
-}
-
-interface ServicePayload extends ServiceResource, Page.TwilioResponsePayload {
-}
-
-interface ServiceSolution {
-}
-
-interface ServiceListCreateOptions {
-  /**
-   * `true` or `false` - determines whether token identities must be granted access to Sync objects via the [Permissions API](https://www.twilio.com/docs/api/sync/rest/sync-rest-api-permissions) in this Service.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property webhookUrl - A URL that will receive event updates when objects are manipulated.
+ * @property friendlyName - Human-readable name for this service instance
+ * @property reachabilityWebhooksEnabled - True or false - controls whether this instance fires webhooks when client endpoints connect to Sync
+ * @property aclEnabled - true or false - determines whether token identities must be granted access to Sync objects via the Permissions API in this Service.
+ */
+export interface UpdateOptions {
   aclEnabled?: boolean;
-  /**
-   * Human-readable name for this service instance
-   */
   friendlyName?: string;
-  /**
-   * `true` or `false` - controls whether this instance fires webhooks when client endpoints connect to Sync Defaults to false.
-   */
   reachabilityWebhooksEnabled?: boolean;
-  /**
-   * A URL that will receive event updates when objects are manipulated.
-   */
   webhookUrl?: string;
 }
 
-interface ServiceListEachOptions extends ListEachOptions<ServiceInstance> {
-}
-
-interface ServiceListOptions extends ListOptions<ServiceInstance> {
-}
-
-interface ServiceListPageOptions extends PageOptions<ServicePage> {
-}
-
-interface ServiceListInstance {
-  /**
-   * Gets context of a single Service resource
-   *
-   * @param sid - The sid
-   */
-  (sid: string): ServiceContext;
-  /**
-   * create a ServiceInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  create(opts?: ServiceListCreateOptions): Promise<ServiceInstance>;
-  /**
-   * create a ServiceInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: ServiceListCreateOptions, callback: (error: Error | null, items: ServiceInstance) => any): void;
-  /**
-   * create a ServiceInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  create(callback: (error: Error | null, items: ServiceInstance) => any): void;
-  /**
-   * Streams ServiceInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: ServiceListEachOptions): void;
-  /**
-   * Streams ServiceInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: ServiceInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Service resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): ServiceContext;
-  /**
-   * Retrieve a single target page of ServiceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<ServicePage>;
-  /**
-   * Retrieve a single target page of ServiceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: ServicePage) => any): void;
-  /**
-   * Lists ServiceInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: ServiceListOptions): Promise<ServiceInstance[]>;
-  /**
-   * Lists ServiceInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: ServiceListOptions, callback: (error: Error | null, items: ServiceInstance[]) => any): void;
-  /**
-   * Lists ServiceInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: ServiceInstance[]) => any): void;
-  /**
-   * Retrieve a single page of ServiceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: ServiceListPageOptions): Promise<ServicePage>;
-  /**
-   * Retrieve a single page of ServiceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: ServiceListPageOptions, callback: (error: Error | null, items: ServicePage) => any): void;
-  /**
-   * Retrieve a single page of ServiceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: ServicePage) => any): void;
-}
-
-interface ServiceListFetchOptions {
-  /**
-   * `true` or `false` - determines whether token identities must be granted access to Sync objects via the [Permissions API](https://www.twilio.com/docs/api/sync/rest/sync-rest-api-permissions) in this Service.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property webhookUrl - A URL that will receive event updates when objects are manipulated.
+ * @property friendlyName - Human-readable name for this service instance
+ * @property reachabilityWebhooksEnabled - True or false - controls whether this instance fires webhooks when client endpoints connect to Sync
+ * @property aclEnabled - true or false - determines whether token identities must be granted access to Sync objects via the Permissions API in this Service.
+ */
+export interface UpdateOptions {
   aclEnabled?: boolean;
-  /**
-   * Human-readable name for this service instance
-   */
   friendlyName?: string;
-  /**
-   * True or false - controls whether this instance fires webhooks when client endpoints connect to Sync Defaults to false.
-   */
   reachabilityWebhooksEnabled?: boolean;
-  /**
-   * A URL that will receive event updates when objects are manipulated.
-   */
   webhookUrl?: string;
 }
 
-interface ServiceListFetchOptions {
-  /**
-   * `true` or `false` - determines whether token identities must be granted access to Sync objects via the [Permissions API](https://www.twilio.com/docs/api/sync/rest/sync-rest-api-permissions) in this Service.
-   */
-  aclEnabled?: boolean;
-  /**
-   * Human-readable name for this service instance
-   */
-  friendlyName?: string;
-  /**
-   * True or false - controls whether this instance fires webhooks when client endpoints connect to Sync Defaults to false.
-   */
-  reachabilityWebhooksEnabled?: boolean;
-  /**
-   * A URL that will receive event updates when objects are manipulated.
-   */
-  webhookUrl?: string;
-}
 
-declare class ServicePage extends Page<V1, ServicePayload, ServiceResource, ServiceInstance> {
-  constructor(version: V1, response: Response<string>, solution: ServiceSolution);
+declare class ServicePage extends Page {
+  /**
+   * @constructor Twilio.Sync.V1.ServicePage
+   * @augments Page
+   * @description Initialize the ServicePage
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Sync.V1, response: object, solution: object);
 
   /**
    * Build an instance of ServiceInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Sync.V1.ServicePage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: ServicePayload): ServiceInstance;
+  getInstance(payload: object);
 }
 
-declare class ServiceInstance extends SerializableClass {
+declare class ServiceInstance {
   /**
+   * @constructor Twilio.Sync.V1.ServiceInstance
+   * @description Initialize the ServiceContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property sid - The sid
+   * @property uniqueName - The unique_name
+   * @property accountSid - The account_sid
+   * @property friendlyName - Human-readable name for this service instance
+   * @property dateCreated - The date_created
+   * @property dateUpdated - The date_updated
+   * @property url - The url
+   * @property webhookUrl - A URL that will receive event updates when objects are manipulated.
+   * @property reachabilityWebhooksEnabled - true or false - controls whether this instance fires webhooks when client endpoints connect to Sync
+   * @property aclEnabled - true or false - determines whether token identities must be granted access to Sync objects via the Permissions API in this Service.
+   * @property links - The links
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param sid - The sid
    */
-  constructor(version: V1, payload: ServicePayload, sid: string);
+  constructor(version: Twilio.Sync.V1, payload: object, sid: sid_like);
 
-  private _proxy: ServiceContext;
+  _proxy?: ServiceContext;
   /**
-   * The account_sid
+   * Access the documents
+   *
+   * @function documents
+   * @memberof Twilio.Sync.V1.ServiceInstance
+   * @instance
    */
-  accountSid: string;
-  /**
-   * `true` or `false` - determines whether token identities must be granted access to Sync objects via the [Permissions API](https://www.twilio.com/docs/api/sync/rest/sync-rest-api-permissions) in this Service.
-   */
-  aclEnabled: boolean;
-  /**
-   * The date_created
-   */
-  dateCreated: Date;
-  /**
-   * The date_updated
-   */
-  dateUpdated: Date;
-  documents(): DocumentListInstance;
+  documents();
   /**
    * fetch a ServiceInstance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  fetch(): Promise<ServiceInstance>;
-  /**
-   * fetch a ServiceInstance
+   * @function fetch
+   * @memberof Twilio.Sync.V1.ServiceInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: ServiceInstance) => any): void;
-  /**
-   * Human-readable name for this service instance
-   */
-  friendlyName: string;
-  /**
-   * The links
-   */
-  links: string;
-  /**
-   * `true` or `false` - controls whether this instance fires webhooks when client endpoints connect to Sync Defaults to false.
-   */
-  reachabilityWebhooksEnabled: boolean;
+  fetch(callback?: function);
   /**
    * remove a ServiceInstance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  remove(): Promise<ServiceInstance>;
-  /**
-   * remove a ServiceInstance
+   * @function remove
+   * @memberof Twilio.Sync.V1.ServiceInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: ServiceInstance) => any): void;
+  remove(callback?: function);
   /**
-   * The sid
+   * Access the syncLists
+   *
+   * @function syncLists
+   * @memberof Twilio.Sync.V1.ServiceInstance
+   * @instance
    */
-  sid: string;
-  syncLists(): SyncListListInstance;
-  syncMaps(): SyncMapListInstance;
-  syncStreams(): SyncStreamListInstance;
+  syncLists();
   /**
-   * The unique_name
+   * Access the syncMaps
+   *
+   * @function syncMaps
+   * @memberof Twilio.Sync.V1.ServiceInstance
+   * @instance
    */
-  uniqueName: string;
+  syncMaps();
+  /**
+   * Access the syncStreams
+   *
+   * @function syncStreams
+   * @memberof Twilio.Sync.V1.ServiceInstance
+   * @instance
+   */
+  syncStreams();
+  /**
+   * Produce a plain JSON object version of the ServiceInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Sync.V1.ServiceInstance
+   * @instance
+   */
+  toJSON();
   /**
    * update a ServiceInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Sync.V1.ServiceInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  update(opts?: ServiceListFetchOptions): Promise<ServiceInstance>;
-  /**
-   * update a ServiceInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: ServiceListFetchOptions, callback: (error: Error | null, items: ServiceInstance) => any): void;
-  /**
-   * update a ServiceInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: ServiceInstance) => any): void;
-  /**
-   * The url
-   */
-  url: string;
-  /**
-   * A URL that will receive event updates when objects are manipulated.
-   */
-  webhookUrl: string;
+  update(opts?: object, callback?: function);
 }
 
 declare class ServiceContext {
-  constructor(version: V1, sid: string);
+  /**
+   * @constructor Twilio.Sync.V1.ServiceContext
+   * @description Initialize the ServiceContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property documents - documents resource
+   * @property syncLists - syncLists resource
+   * @property syncMaps - syncMaps resource
+   * @property syncStreams - syncStreams resource
+   *
+   * @param version - Version of the resource
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Sync.V1, sid: sid_like);
 
-  documents: DocumentListInstance;
+  documents?: Twilio.Sync.V1.ServiceContext.DocumentList;
   /**
    * fetch a ServiceInstance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  fetch(): Promise<ServiceInstance>;
-  /**
-   * fetch a ServiceInstance
+   * @function fetch
+   * @memberof Twilio.Sync.V1.ServiceContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: ServiceInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a ServiceInstance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  remove(): Promise<ServiceInstance>;
-  /**
-   * remove a ServiceInstance
+   * @function remove
+   * @memberof Twilio.Sync.V1.ServiceContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: ServiceInstance) => any): void;
-  syncLists: SyncListListInstance;
-  syncMaps: SyncMapListInstance;
-  syncStreams: SyncStreamListInstance;
+  remove(callback?: function);
+  syncLists?: Twilio.Sync.V1.ServiceContext.SyncListList;
+  syncMaps?: Twilio.Sync.V1.ServiceContext.SyncMapList;
+  syncStreams?: Twilio.Sync.V1.ServiceContext.SyncStreamList;
   /**
    * update a ServiceInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Sync.V1.ServiceContext
+   * @instance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  update(opts?: ServiceListFetchOptions): Promise<ServiceInstance>;
-  /**
-   * update a ServiceInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: ServiceListFetchOptions, callback: (error: Error | null, items: ServiceInstance) => any): void;
-  /**
-   * update a ServiceInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: ServiceInstance) => any): void;
+  update(opts?: object, callback?: function);
 }
 
-export { ServiceContext, ServiceInstance, ServiceList, ServiceListCreateOptions, ServiceListEachOptions, ServiceListFetchOptions, ServiceListInstance, ServiceListOptions, ServiceListPageOptions, ServicePage, ServicePayload, ServiceResource, ServiceSolution }
+export { ServiceContext, ServiceInstance, ServiceList, ServicePage }

@@ -6,344 +6,170 @@
  */
 
 import Page = require('../../../../../base/Page');
-import Response = require('../../../../../http/response');
-import V2010 = require('../../../V2010');
-import { IpAddressListInstance } from './ipAccessControlList/ipAddress';
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../interfaces';
-import { SerializableClass } from '../../../../../interfaces';
+import deserialize = require('../../../../../base/deserialize');
+import values = require('../../../../../base/values');
+import { IpAddressList } from './ipAccessControlList/ipAddress';
 
-declare function IpAccessControlListList(version: V2010, accountSid: string): IpAccessControlListListInstance
 
-interface IpAccessControlListResource {
-  /**
-   * The unique id of the [Account](https://www.twilio.com/docs/api/rest/account) that owns this resource.
-   */
-  account_sid: string;
-  /**
-   * The date that this resource was created, given as GMT in [RFC 2822](http://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-   */
-  date_created: Date;
-  /**
-   * The date that this resource was last updated, given as GMT in [RFC 2822](http://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-   */
-  date_updated: Date;
-  /**
-   * A human readable descriptive text, up to 64 characters long.
-   */
-  friendly_name: string;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * The subresource_uris
-   */
-  subresource_uris: string;
-  /**
-   * The URI for this resource, relative to `https://api.twilio.com`
-   */
-  uri: string;
-}
-
-interface IpAccessControlListPayload extends IpAccessControlListResource, Page.TwilioResponsePayload {
-}
-
-interface IpAccessControlListSolution {
-  accountSid: string;
-}
-
-interface IpAccessControlListListEachOptions extends ListEachOptions<IpAccessControlListInstance> {
-}
-
-interface IpAccessControlListListOptions extends ListOptions<IpAccessControlListInstance> {
-}
-
-interface IpAccessControlListListPageOptions extends PageOptions<IpAccessControlListPage> {
-}
-
-interface IpAccessControlListListCreateOptions {
-  /**
-   * A human readable descriptive text that describes the IpAccessControlList, up to 64 characters long.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A human readable description of this resource
+ */
+export interface UpdateOptions {
   friendlyName: string;
 }
 
-interface IpAccessControlListListInstance {
-  /**
-   * Gets context of a single IpAccessControlList resource
-   *
-   * @param sid - Fetch by unique ip-access-control-list Sid
-   */
-  (sid: string): IpAccessControlListContext;
-  /**
-   * create a IpAccessControlListInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed IpAccessControlListInstance
-   */
-  create(opts: IpAccessControlListListCreateOptions): Promise<IpAccessControlListInstance>;
-  /**
-   * create a IpAccessControlListInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: IpAccessControlListListCreateOptions, callback: (error: Error | null, items: IpAccessControlListInstance) => any): void;
-  /**
-   * Streams IpAccessControlListInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: IpAccessControlListListEachOptions): void;
-  /**
-   * Streams IpAccessControlListInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: IpAccessControlListInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single IpAccessControlList resource
-   *
-   * @param sid - Fetch by unique ip-access-control-list Sid
-   */
-  get(sid: string): IpAccessControlListContext;
-  /**
-   * Retrieve a single target page of IpAccessControlListInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<IpAccessControlListPage>;
-  /**
-   * Retrieve a single target page of IpAccessControlListInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: IpAccessControlListPage) => any): void;
-  /**
-   * Lists IpAccessControlListInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: IpAccessControlListListOptions): Promise<IpAccessControlListInstance[]>;
-  /**
-   * Lists IpAccessControlListInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: IpAccessControlListListOptions, callback: (error: Error | null, items: IpAccessControlListInstance[]) => any): void;
-  /**
-   * Lists IpAccessControlListInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: IpAccessControlListInstance[]) => any): void;
-  /**
-   * Retrieve a single page of IpAccessControlListInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: IpAccessControlListListPageOptions): Promise<IpAccessControlListPage>;
-  /**
-   * Retrieve a single page of IpAccessControlListInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: IpAccessControlListListPageOptions, callback: (error: Error | null, items: IpAccessControlListPage) => any): void;
-  /**
-   * Retrieve a single page of IpAccessControlListInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: IpAccessControlListPage) => any): void;
-}
-
-interface IpAccessControlListListFetchOptions {
-  /**
-   * A human readable descriptive text, up to 64 characters long.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A human readable description of this resource
+ */
+export interface UpdateOptions {
   friendlyName: string;
 }
 
-interface IpAccessControlListListFetchOptions {
-  /**
-   * A human readable descriptive text, up to 64 characters long.
-   */
-  friendlyName: string;
-}
 
-declare class IpAccessControlListPage extends Page<V2010, IpAccessControlListPayload, IpAccessControlListResource, IpAccessControlListInstance> {
-  constructor(version: V2010, response: Response<string>, solution: IpAccessControlListSolution);
+declare class IpAccessControlListPage extends Page {
+  /**
+   * @constructor Twilio.Api.V2010.AccountContext.SipContext.IpAccessControlListPage
+   * @augments Page
+   * @description Initialize the IpAccessControlListPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Api.V2010, response: object, solution: object);
 
   /**
    * Build an instance of IpAccessControlListInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Api.V2010.AccountContext.SipContext.IpAccessControlListPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: IpAccessControlListPayload): IpAccessControlListInstance;
+  getInstance(payload: object);
 }
 
-declare class IpAccessControlListInstance extends SerializableClass {
+declare class IpAccessControlListInstance {
   /**
+   * @constructor Twilio.Api.V2010.AccountContext.SipContext.IpAccessControlListInstance
+   * @description Initialize the IpAccessControlListContext
+   *
+   * @property sid - A string that uniquely identifies this resource
+   * @property accountSid - The unique sid that identifies this account
+   * @property friendlyName - A human readable description of this resource
+   * @property dateCreated - The date this resource was created
+   * @property dateUpdated - The date this resource was last updated
+   * @property subresourceUris - The subresource_uris
+   * @property uri - The URI for this resource
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The account_sid
+   * @param accountSid - A 34 character string that uniquely identifies this resource.
    * @param sid - Fetch by unique ip-access-control-list Sid
    */
-  constructor(version: V2010, payload: IpAccessControlListPayload, accountSid: string, sid: string);
+  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, sid: sid);
 
-  private _proxy: IpAccessControlListContext;
-  /**
-   * The unique id of the [Account](https://www.twilio.com/docs/api/rest/account) that owns this resource.
-   */
-  accountSid: string;
-  /**
-   * The date that this resource was created, given as GMT in [RFC 2822](http://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-   */
-  dateCreated: Date;
-  /**
-   * The date that this resource was last updated, given as GMT in [RFC 2822](http://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-   */
-  dateUpdated: Date;
+  _proxy?: IpAccessControlListContext;
   /**
    * fetch a IpAccessControlListInstance
    *
-   * @returns Promise that resolves to processed IpAccessControlListInstance
-   */
-  fetch(): Promise<IpAccessControlListInstance>;
-  /**
-   * fetch a IpAccessControlListInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.SipContext.IpAccessControlListInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: IpAccessControlListInstance) => any): void;
+  fetch(callback?: function);
   /**
-   * A human readable descriptive text, up to 64 characters long.
+   * Access the ipAddresses
+   *
+   * @function ipAddresses
+   * @memberof Twilio.Api.V2010.AccountContext.SipContext.IpAccessControlListInstance
+   * @instance
    */
-  friendlyName: string;
-  ipAddresses(): IpAddressListInstance;
+  ipAddresses();
   /**
    * remove a IpAccessControlListInstance
    *
-   * @returns Promise that resolves to processed IpAccessControlListInstance
-   */
-  remove(): Promise<IpAccessControlListInstance>;
-  /**
-   * remove a IpAccessControlListInstance
+   * @function remove
+   * @memberof Twilio.Api.V2010.AccountContext.SipContext.IpAccessControlListInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: IpAccessControlListInstance) => any): void;
+  remove(callback?: function);
   /**
-   * A 34 character string that uniquely identifies this resource.
+   * Produce a plain JSON object version of the IpAccessControlListInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Api.V2010.AccountContext.SipContext.IpAccessControlListInstance
+   * @instance
    */
-  sid: string;
-  /**
-   * The subresource_uris
-   */
-  subresourceUris: string;
+  toJSON();
   /**
    * update a IpAccessControlListInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Api.V2010.AccountContext.SipContext.IpAccessControlListInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed IpAccessControlListInstance
-   */
-  update(opts: IpAccessControlListListFetchOptions): Promise<IpAccessControlListInstance>;
-  /**
-   * update a IpAccessControlListInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: IpAccessControlListListFetchOptions, callback: (error: Error | null, items: IpAccessControlListInstance) => any): void;
-  /**
-   * The URI for this resource, relative to `https://api.twilio.com`
-   */
-  uri: string;
+  update(opts: object, callback?: function);
 }
 
 declare class IpAccessControlListContext {
-  constructor(version: V2010, accountSid: string, sid: string);
+  /**
+   * @constructor Twilio.Api.V2010.AccountContext.SipContext.IpAccessControlListContext
+   * @description Initialize the IpAccessControlListContext
+   *
+   * @property ipAddresses - ipAddresses resource
+   *
+   * @param version - Version of the resource
+   * @param accountSid - The account_sid
+   * @param sid - Fetch by unique ip-access-control-list Sid
+   */
+  constructor(version: Twilio.Api.V2010, accountSid: sid, sid: sid);
 
   /**
    * fetch a IpAccessControlListInstance
    *
-   * @returns Promise that resolves to processed IpAccessControlListInstance
-   */
-  fetch(): Promise<IpAccessControlListInstance>;
-  /**
-   * fetch a IpAccessControlListInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.SipContext.IpAccessControlListContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: IpAccessControlListInstance) => any): void;
-  ipAddresses: IpAddressListInstance;
+  fetch(callback?: function);
+  ipAddresses?: Twilio.Api.V2010.AccountContext.SipContext.IpAccessControlListContext.IpAddressList;
   /**
    * remove a IpAccessControlListInstance
    *
-   * @returns Promise that resolves to processed IpAccessControlListInstance
-   */
-  remove(): Promise<IpAccessControlListInstance>;
-  /**
-   * remove a IpAccessControlListInstance
+   * @function remove
+   * @memberof Twilio.Api.V2010.AccountContext.SipContext.IpAccessControlListContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: IpAccessControlListInstance) => any): void;
+  remove(callback?: function);
   /**
    * update a IpAccessControlListInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Api.V2010.AccountContext.SipContext.IpAccessControlListContext
+   * @instance
    *
-   * @returns Promise that resolves to processed IpAccessControlListInstance
-   */
-  update(opts: IpAccessControlListListFetchOptions): Promise<IpAccessControlListInstance>;
-  /**
-   * update a IpAccessControlListInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: IpAccessControlListListFetchOptions, callback: (error: Error | null, items: IpAccessControlListInstance) => any): void;
+  update(opts: object, callback?: function);
 }
 
-export { IpAccessControlListContext, IpAccessControlListInstance, IpAccessControlListList, IpAccessControlListListCreateOptions, IpAccessControlListListEachOptions, IpAccessControlListListFetchOptions, IpAccessControlListListInstance, IpAccessControlListListOptions, IpAccessControlListListPageOptions, IpAccessControlListPage, IpAccessControlListPayload, IpAccessControlListResource, IpAccessControlListSolution }
+export { IpAccessControlListContext, IpAccessControlListInstance, IpAccessControlListList, IpAccessControlListPage }

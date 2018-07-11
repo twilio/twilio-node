@@ -6,524 +6,221 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V1 = require('../../V1');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { SerializableClass } from '../../../../interfaces';
-import { TaskQueueCumulativeStatisticsListInstance } from './taskQueue/taskQueueCumulativeStatistics';
-import { TaskQueueRealTimeStatisticsListInstance } from './taskQueue/taskQueueRealTimeStatistics';
-import { TaskQueueStatisticsListInstance } from './taskQueue/taskQueueStatistics';
+import deserialize = require('../../../../base/deserialize');
+import values = require('../../../../base/values');
+import { TaskQueueCumulativeStatisticsList } from './taskQueue/taskQueueCumulativeStatistics';
+import { TaskQueueRealTimeStatisticsList } from './taskQueue/taskQueueRealTimeStatistics';
+import { TaskQueueStatisticsList } from './taskQueue/taskQueueStatistics';
+import { TaskQueuesStatisticsList } from './taskQueue/taskQueuesStatistics';
 
-declare function TaskQueueList(version: V1, workspaceSid: string): TaskQueueListInstance
 
-type TaskQueueTaskOrder = 'FIFO'|'LIFO';
-
-interface TaskQueueResource {
-  /**
-   * The ID of the Account that owns this TaskQueue
-   */
-  account_sid: string;
-  /**
-   * The assignment_activity_name
-   */
-  assignment_activity_name: string;
-  /**
-   * ActivitySID to assign workers once a task is assigned for them
-   */
-  assignment_activity_sid: string;
-  /**
-   * The date_created
-   */
-  date_created: Date;
-  /**
-   * The date_updated
-   */
-  date_updated: Date;
-  /**
-   * Filter by a human readable description of a TaskQueue (for example "Customer Support" or "2014 Election Campaign")
-   */
-  friendly_name: string;
-  /**
-   * The links
-   */
-  links: string;
-  /**
-   * The maximum amount of workers to create reservations for the assignment of a task while in this queue. Defaults to 1, with a Maximum of 50.
-   */
-  max_reserved_workers: number;
-  /**
-   * The reservation_activity_name
-   */
-  reservation_activity_name: string;
-  /**
-   * ActivitySID to assign workers once a task is reserved for them
-   */
-  reservation_activity_sid: string;
-  /**
-   * The unique ID of the TaskQueue
-   */
-  sid: string;
-  /**
-   * A string describing the Worker selection criteria for any Tasks that enter this TaskQueue. For example `'"language" == "spanish"'` If no TargetWorkers parameter is provided, Tasks will wait in this TaskQueue until they are either deleted or moved to another TaskQueue. Additional examples on how to describing Worker selection criteria below. Defaults to 1==1.
-   */
-  target_workers: string;
-  /**
-   * TaskOrder will determine which order the Tasks will be assigned to Workers. Set this parameter to LIFO to assign most recently created Task first or FIFO to assign the oldest Task. Default is FIFO. [Click here](https://www.twilio.com/docs/api/taskrouter/last-first-out-lifo) to learn more.
-   */
-  task_order: TaskQueueTaskOrder;
-  /**
-   * The url
-   */
-  url: string;
-  /**
-   * The ID of the Workspace that owns this TaskQueue
-   */
-  workspace_sid: string;
-}
-
-interface TaskQueuePayload extends TaskQueueResource, Page.TwilioResponsePayload {
-}
-
-interface TaskQueueSolution {
-  workspaceSid: string;
-}
-
-interface TaskQueueListEachOptions extends ListEachOptions<TaskQueueInstance> {
-  /**
-   * Provide a Worker attributes expression, and this will return the list of TaskQueues that would distribute tasks to a worker with these attributes.
-   */
-  evaluateWorkerAttributes?: string;
-  /**
-   * Filter by a human readable description of a TaskQueue (for example "Customer Support" or "2014 Election Campaign")
-   */
-  friendlyName?: string;
-  /**
-   * The worker_sid
-   */
-  workerSid?: string;
-}
-
-interface TaskQueueListOptions extends ListOptions<TaskQueueInstance> {
-  /**
-   * Provide a Worker attributes expression, and this will return the list of TaskQueues that would distribute tasks to a worker with these attributes.
-   */
-  evaluateWorkerAttributes?: string;
-  /**
-   * Filter by a human readable description of a TaskQueue (for example "Customer Support" or "2014 Election Campaign")
-   */
-  friendlyName?: string;
-  /**
-   * The worker_sid
-   */
-  workerSid?: string;
-}
-
-interface TaskQueueListPageOptions extends PageOptions<TaskQueuePage> {
-  /**
-   * Provide a Worker attributes expression, and this will return the list of TaskQueues that would distribute tasks to a worker with these attributes.
-   */
-  evaluateWorkerAttributes?: string;
-  /**
-   * Filter by a human readable description of a TaskQueue (for example "Customer Support" or "2014 Election Campaign")
-   */
-  friendlyName?: string;
-  /**
-   * The worker_sid
-   */
-  workerSid?: string;
-}
-
-interface TaskQueueListCreateOptions {
-  /**
-   * ActivitySID to assign workers once a task is assigned for them
-   */
-  assignmentActivitySid: string;
-  /**
-   * Human readable description of this TaskQueue (for example "Support – Tier 1", "Sales" or "Escalation")
-   */
-  friendlyName: string;
-  /**
-   * The maximum amount of workers to create reservations for the assignment of a task while in this queue. Defaults to 1, with a Maximum of 50.
-   */
-  maxReservedWorkers?: number;
-  /**
-   * ActivitySID to assign workers once a task is reserved for them
-   */
-  reservationActivitySid: string;
-  /**
-   * A string describing the Worker selection criteria for any Tasks that enter this TaskQueue. For example `'"language" == "spanish"'` If no TargetWorkers parameter is provided, Tasks will wait in this TaskQueue until they are either deleted or moved to another TaskQueue. Additional examples on how to describing Worker selection criteria below. Defaults to 1==1.
-   */
-  targetWorkers?: string;
-  /**
-   * TaskOrder will determine which order the Tasks will be assigned to Workers. Set this parameter to LIFO to assign most recently created Task first or FIFO to assign the oldest Task. Default is FIFO. [Click here](https://www.twilio.com/docs/api/taskrouter/last-first-out-lifo) to learn more.
-   */
-  taskOrder?: TaskQueueTaskOrder;
-}
-
-interface TaskQueueListInstance {
-  /**
-   * Gets context of a single TaskQueue resource
-   *
-   * @param sid - The sid
-   */
-  (sid: string): TaskQueueContext;
-  /**
-   * create a TaskQueueInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed TaskQueueInstance
-   */
-  create(opts: TaskQueueListCreateOptions): Promise<TaskQueueInstance>;
-  /**
-   * create a TaskQueueInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: TaskQueueListCreateOptions, callback: (error: Error | null, items: TaskQueueInstance) => any): void;
-  /**
-   * Streams TaskQueueInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: TaskQueueListEachOptions): void;
-  /**
-   * Streams TaskQueueInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: TaskQueueInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single TaskQueue resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): TaskQueueContext;
-  /**
-   * Retrieve a single target page of TaskQueueInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<TaskQueuePage>;
-  /**
-   * Retrieve a single target page of TaskQueueInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: TaskQueuePage) => any): void;
-  /**
-   * Lists TaskQueueInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: TaskQueueListOptions): Promise<TaskQueueInstance[]>;
-  /**
-   * Lists TaskQueueInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: TaskQueueListOptions, callback: (error: Error | null, items: TaskQueueInstance[]) => any): void;
-  /**
-   * Lists TaskQueueInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: TaskQueueInstance[]) => any): void;
-  /**
-   * Retrieve a single page of TaskQueueInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: TaskQueueListPageOptions): Promise<TaskQueuePage>;
-  /**
-   * Retrieve a single page of TaskQueueInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: TaskQueueListPageOptions, callback: (error: Error | null, items: TaskQueuePage) => any): void;
-  /**
-   * Retrieve a single page of TaskQueueInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: TaskQueuePage) => any): void;
-}
-
-interface TaskQueueListFetchOptions {
-  /**
-   * ActivitySID that will be assigned to Workers when they are assigned a task from this TaskQueue.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - Human readable description of this TaskQueue
+ * @property targetWorkers - A string describing the Worker selection criteria for any Tasks that enter this TaskQueue.
+ * @property reservationActivitySid - ActivitySID that will be assigned to Workers when they are reserved for a task from this TaskQueue.
+ * @property assignmentActivitySid - ActivitySID that will be assigned to Workers when they are assigned a task from this TaskQueue.
+ * @property maxReservedWorkers - The maximum amount of workers to create reservations for the assignment of a task while in this queue.
+ * @property taskOrder - TaskOrder will determine which order the Tasks will be assigned to Workers.
+ */
+export interface UpdateOptions {
   assignmentActivitySid?: string;
-  /**
-   * Human readable description of this TaskQueue (for example "Support – Tier 1", "Sales" or "Escalation")
-   */
   friendlyName?: string;
-  /**
-   * The maximum amount of workers to create reservations for the assignment of a task while in this queue. Maximum of 50.
-   */
   maxReservedWorkers?: number;
-  /**
-   * ActivitySID that will be assigned to Workers when they are reserved for a task from this TaskQueue.
-   */
   reservationActivitySid?: string;
-  /**
-   * A string describing the Worker selection criteria for any Tasks that enter this TaskQueue. For example '"language" == "spanish"' If no TargetWorkers parameter is provided, Tasks will wait in this queue until they are either deleted or moved to another queue. Additional examples on how to describing Worker selection criteria below.
-   */
   targetWorkers?: string;
-  /**
-   * TaskOrder will determine which order the Tasks will be assigned to Workers. Set this parameter to LIFO to assign most recently created Task first or FIFO to assign the oldest Task. Default is FIFO. [Click here](https://www.twilio.com/docs/api/taskrouter/last-first-out-lifo) to learn more.
-   */
-  taskOrder?: TaskQueueTaskOrder;
+  taskOrder?: task_queue.task_order;
 }
 
-interface TaskQueueListFetchOptions {
-  /**
-   * ActivitySID that will be assigned to Workers when they are assigned a task from this TaskQueue.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - Human readable description of this TaskQueue
+ * @property targetWorkers - A string describing the Worker selection criteria for any Tasks that enter this TaskQueue.
+ * @property reservationActivitySid - ActivitySID that will be assigned to Workers when they are reserved for a task from this TaskQueue.
+ * @property assignmentActivitySid - ActivitySID that will be assigned to Workers when they are assigned a task from this TaskQueue.
+ * @property maxReservedWorkers - The maximum amount of workers to create reservations for the assignment of a task while in this queue.
+ * @property taskOrder - TaskOrder will determine which order the Tasks will be assigned to Workers.
+ */
+export interface UpdateOptions {
   assignmentActivitySid?: string;
-  /**
-   * Human readable description of this TaskQueue (for example "Support – Tier 1", "Sales" or "Escalation")
-   */
   friendlyName?: string;
-  /**
-   * The maximum amount of workers to create reservations for the assignment of a task while in this queue. Maximum of 50.
-   */
   maxReservedWorkers?: number;
-  /**
-   * ActivitySID that will be assigned to Workers when they are reserved for a task from this TaskQueue.
-   */
   reservationActivitySid?: string;
-  /**
-   * A string describing the Worker selection criteria for any Tasks that enter this TaskQueue. For example '"language" == "spanish"' If no TargetWorkers parameter is provided, Tasks will wait in this queue until they are either deleted or moved to another queue. Additional examples on how to describing Worker selection criteria below.
-   */
   targetWorkers?: string;
-  /**
-   * TaskOrder will determine which order the Tasks will be assigned to Workers. Set this parameter to LIFO to assign most recently created Task first or FIFO to assign the oldest Task. Default is FIFO. [Click here](https://www.twilio.com/docs/api/taskrouter/last-first-out-lifo) to learn more.
-   */
-  taskOrder?: TaskQueueTaskOrder;
+  taskOrder?: task_queue.task_order;
 }
 
-declare class TaskQueuePage extends Page<V1, TaskQueuePayload, TaskQueueResource, TaskQueueInstance> {
-  constructor(version: V1, response: Response<string>, solution: TaskQueueSolution);
+
+declare class TaskQueuePage extends Page {
+  /**
+   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.TaskQueuePage
+   * @augments Page
+   * @description Initialize the TaskQueuePage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Taskrouter.V1, response: object, solution: object);
 
   /**
    * Build an instance of TaskQueueInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.TaskQueuePage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: TaskQueuePayload): TaskQueueInstance;
+  getInstance(payload: object);
 }
 
-declare class TaskQueueInstance extends SerializableClass {
+declare class TaskQueueInstance {
   /**
+   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueInstance
+   * @description Initialize the TaskQueueContext
+   *
+   * @property accountSid - The ID of the Account that owns this TaskQueue
+   * @property assignmentActivitySid - ActivitySID to assign workers once a task is assigned for them
+   * @property assignmentActivityName - The assignment_activity_name
+   * @property dateCreated - The date_created
+   * @property dateUpdated - The date_updated
+   * @property friendlyName - Filter by a human readable description of a TaskQueue
+   * @property maxReservedWorkers - The maximum amount of workers to create reservations for the assignment of a task while in this queue.
+   * @property reservationActivitySid - ActivitySID to assign workers once a task is reserved for them
+   * @property reservationActivityName - The reservation_activity_name
+   * @property sid - The unique ID of the TaskQueue
+   * @property targetWorkers - A string describing the Worker selection criteria for any Tasks that enter this TaskQueue.
+   * @property taskOrder - TaskOrder will determine which order the Tasks will be assigned to Workers.
+   * @property url - The url
+   * @property workspaceSid - The ID of the Workspace that owns this TaskQueue
+   * @property links - The links
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param workspaceSid - The workspace_sid
+   * @param workspaceSid - The ID of the Workspace that owns this TaskQueue
    * @param sid - The sid
    */
-  constructor(version: V1, payload: TaskQueuePayload, workspaceSid: string, sid: string);
+  constructor(version: Twilio.Taskrouter.V1, payload: object, workspaceSid: sid, sid: sid);
 
-  private _proxy: TaskQueueContext;
+  _proxy?: TaskQueueContext;
   /**
-   * The ID of the Account that owns this TaskQueue
+   * Access the cumulativeStatistics
+   *
+   * @function cumulativeStatistics
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueInstance
+   * @instance
    */
-  accountSid: string;
-  /**
-   * The assignment_activity_name
-   */
-  assignmentActivityName: string;
-  /**
-   * ActivitySID to assign workers once a task is assigned for them
-   */
-  assignmentActivitySid: string;
-  cumulativeStatistics(): TaskQueueCumulativeStatisticsListInstance;
-  /**
-   * The date_created
-   */
-  dateCreated: Date;
-  /**
-   * The date_updated
-   */
-  dateUpdated: Date;
+  cumulativeStatistics();
   /**
    * fetch a TaskQueueInstance
    *
-   * @returns Promise that resolves to processed TaskQueueInstance
-   */
-  fetch(): Promise<TaskQueueInstance>;
-  /**
-   * fetch a TaskQueueInstance
+   * @function fetch
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: TaskQueueInstance) => any): void;
+  fetch(callback?: function);
   /**
-   * Filter by a human readable description of a TaskQueue (for example "Customer Support" or "2014 Election Campaign")
+   * Access the realTimeStatistics
+   *
+   * @function realTimeStatistics
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueInstance
+   * @instance
    */
-  friendlyName: string;
-  /**
-   * The links
-   */
-  links: string;
-  /**
-   * The maximum amount of workers to create reservations for the assignment of a task while in this queue. Defaults to 1, with a Maximum of 50.
-   */
-  maxReservedWorkers: number;
-  realTimeStatistics(): TaskQueueRealTimeStatisticsListInstance;
+  realTimeStatistics();
   /**
    * remove a TaskQueueInstance
    *
-   * @returns Promise that resolves to processed TaskQueueInstance
-   */
-  remove(): Promise<TaskQueueInstance>;
-  /**
-   * remove a TaskQueueInstance
+   * @function remove
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: TaskQueueInstance) => any): void;
+  remove(callback?: function);
   /**
-   * The reservation_activity_name
+   * Access the statistics
+   *
+   * @function statistics
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueInstance
+   * @instance
    */
-  reservationActivityName: string;
+  statistics();
   /**
-   * ActivitySID to assign workers once a task is reserved for them
+   * Produce a plain JSON object version of the TaskQueueInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueInstance
+   * @instance
    */
-  reservationActivitySid: string;
-  /**
-   * The unique ID of the TaskQueue
-   */
-  sid: string;
-  statistics(): TaskQueueStatisticsListInstance;
-  /**
-   * A string describing the Worker selection criteria for any Tasks that enter this TaskQueue. For example `'"language" == "spanish"'` If no TargetWorkers parameter is provided, Tasks will wait in this TaskQueue until they are either deleted or moved to another TaskQueue. Additional examples on how to describing Worker selection criteria below. Defaults to 1==1.
-   */
-  targetWorkers: string;
-  /**
-   * TaskOrder will determine which order the Tasks will be assigned to Workers. Set this parameter to LIFO to assign most recently created Task first or FIFO to assign the oldest Task. Default is FIFO. [Click here](https://www.twilio.com/docs/api/taskrouter/last-first-out-lifo) to learn more.
-   */
-  taskOrder: TaskQueueTaskOrder;
+  toJSON();
   /**
    * update a TaskQueueInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed TaskQueueInstance
-   */
-  update(opts?: TaskQueueListFetchOptions): Promise<TaskQueueInstance>;
-  /**
-   * update a TaskQueueInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: TaskQueueListFetchOptions, callback: (error: Error | null, items: TaskQueueInstance) => any): void;
-  /**
-   * update a TaskQueueInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: TaskQueueInstance) => any): void;
-  /**
-   * The url
-   */
-  url: string;
-  /**
-   * The ID of the Workspace that owns this TaskQueue
-   */
-  workspaceSid: string;
+  update(opts?: object, callback?: function);
 }
 
 declare class TaskQueueContext {
-  constructor(version: V1, workspaceSid: string, sid: string);
+  /**
+   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext
+   * @description Initialize the TaskQueueContext
+   *
+   * @property statistics - statistics resource
+   * @property realTimeStatistics - realTimeStatistics resource
+   * @property cumulativeStatistics - cumulativeStatistics resource
+   *
+   * @param version - Version of the resource
+   * @param workspaceSid - The workspace_sid
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Taskrouter.V1, workspaceSid: sid, sid: sid);
 
-  cumulativeStatistics: TaskQueueCumulativeStatisticsListInstance;
+  cumulativeStatistics?: Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueueCumulativeStatisticsList;
   /**
    * fetch a TaskQueueInstance
    *
-   * @returns Promise that resolves to processed TaskQueueInstance
-   */
-  fetch(): Promise<TaskQueueInstance>;
-  /**
-   * fetch a TaskQueueInstance
+   * @function fetch
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: TaskQueueInstance) => any): void;
-  realTimeStatistics: TaskQueueRealTimeStatisticsListInstance;
+  fetch(callback?: function);
+  realTimeStatistics?: Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueueRealTimeStatisticsList;
   /**
    * remove a TaskQueueInstance
    *
-   * @returns Promise that resolves to processed TaskQueueInstance
-   */
-  remove(): Promise<TaskQueueInstance>;
-  /**
-   * remove a TaskQueueInstance
+   * @function remove
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: TaskQueueInstance) => any): void;
-  statistics: TaskQueueStatisticsListInstance;
+  remove(callback?: function);
+  statistics?: Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueueStatisticsList;
   /**
    * update a TaskQueueInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext
+   * @instance
    *
-   * @returns Promise that resolves to processed TaskQueueInstance
-   */
-  update(opts?: TaskQueueListFetchOptions): Promise<TaskQueueInstance>;
-  /**
-   * update a TaskQueueInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: TaskQueueListFetchOptions, callback: (error: Error | null, items: TaskQueueInstance) => any): void;
-  /**
-   * update a TaskQueueInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: TaskQueueInstance) => any): void;
+  update(opts?: object, callback?: function);
 }
 
-export { TaskQueueContext, TaskQueueInstance, TaskQueueList, TaskQueueListCreateOptions, TaskQueueListEachOptions, TaskQueueListFetchOptions, TaskQueueListInstance, TaskQueueListOptions, TaskQueueListPageOptions, TaskQueuePage, TaskQueuePayload, TaskQueueResource, TaskQueueSolution, TaskQueueTaskOrder }
+export { TaskQueueContext, TaskQueueInstance, TaskQueueList, TaskQueuePage }

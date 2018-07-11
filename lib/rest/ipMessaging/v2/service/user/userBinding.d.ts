@@ -6,331 +6,126 @@
  */
 
 import Page = require('../../../../../base/Page');
-import Response = require('../../../../../http/response');
-import V2 = require('../../../V2');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../interfaces';
-import { SerializableClass } from '../../../../../interfaces';
+import deserialize = require('../../../../../base/deserialize');
+import serialize = require('../../../../../base/serialize');
+import values = require('../../../../../base/values');
 
-declare function UserBindingList(version: V2, serviceSid: string, userSid: string): UserBindingListInstance
 
-type UserBindingBindingType = 'gcm'|'apn'|'fcm';
 
-interface UserBindingResource {
+declare class UserBindingPage extends Page {
   /**
-   * The unique id of the [Account](https://www.twilio.com/console) responsible for this binding.
-   */
-  account_sid: string;
-  /**
-   * The push technology to use for this Binding.  Supported values are apn, gcm and fcm.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more information.
-   */
-  binding_type: UserBindingBindingType;
-  /**
-   * The unique id of the [Credential](https://www.twilio.com/docs/api/chat/rest/credentials) for this binding.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more information.
-   */
-  credential_sid: string;
-  /**
-   * The date that this resource was created.
-   */
-  date_created: Date;
-  /**
-   * The date that this resource was last updated.
-   */
-  date_updated: Date;
-  /**
-   * The unique endpoint identifier for this Binding, the composition of which depends on the binding type.
-   */
-  endpoint: string;
-  /**
-   * A unique string identifier for the [User](https://www.twilio.com/docs/api/chat/rest/users) this Binding is for in this [Service](https://www.twilio.com/docs/api/chat/rest/services). See the [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) docs for more details.
-   */
-  identity: string;
-  /**
-   * List of the Programmable Chat message types this binding is subcribed to.
-   */
-  message_types: string;
-  /**
-   * The unique id of the [Service](https://www.twilio.com/docs/api/chat/rest/services) this binding belongs to.
-   */
-  service_sid: string;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * An absolute URL for this binding.
-   */
-  url: string;
-  /**
-   * The unique id of the [User](https://www.twilio.com/docs/api/chat/rest/users) for this binding.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more information.
-   */
-  user_sid: string;
-}
-
-interface UserBindingPayload extends UserBindingResource, Page.TwilioResponsePayload {
-}
-
-interface UserBindingSolution {
-  serviceSid: string;
-  userSid: string;
-}
-
-interface UserBindingListEachOptions extends ListEachOptions<UserBindingInstance> {
-  /**
-   * The push technology used for the returned Bindings.  Supported values are apn, gcm and fcm.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more information.
-   */
-  bindingType?: UserBindingBindingType[];
-}
-
-interface UserBindingListOptions extends ListOptions<UserBindingInstance> {
-  /**
-   * The push technology used for the returned Bindings.  Supported values are apn, gcm and fcm.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more information.
-   */
-  bindingType?: UserBindingBindingType[];
-}
-
-interface UserBindingListPageOptions extends PageOptions<UserBindingPage> {
-  /**
-   * The push technology used for the returned Bindings.  Supported values are apn, gcm and fcm.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more information.
-   */
-  bindingType?: UserBindingBindingType[];
-}
-
-interface UserBindingListInstance {
-  /**
-   * Gets context of a single UserBinding resource
+   * @constructor Twilio.IpMessaging.V2.ServiceContext.UserContext.UserBindingPage
+   * @augments Page
+   * @description Initialize the UserBindingPage
    *
-   * @param sid - The sid
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  (sid: string): UserBindingContext;
-  /**
-   * Streams UserBindingInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: UserBindingListEachOptions): void;
-  /**
-   * Streams UserBindingInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: UserBindingInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single UserBinding resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): UserBindingContext;
-  /**
-   * Retrieve a single target page of UserBindingInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<UserBindingPage>;
-  /**
-   * Retrieve a single target page of UserBindingInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: UserBindingPage) => any): void;
-  /**
-   * Lists UserBindingInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: UserBindingListOptions): Promise<UserBindingInstance[]>;
-  /**
-   * Lists UserBindingInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: UserBindingListOptions, callback: (error: Error | null, items: UserBindingInstance[]) => any): void;
-  /**
-   * Lists UserBindingInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: UserBindingInstance[]) => any): void;
-  /**
-   * Retrieve a single page of UserBindingInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: UserBindingListPageOptions): Promise<UserBindingPage>;
-  /**
-   * Retrieve a single page of UserBindingInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: UserBindingListPageOptions, callback: (error: Error | null, items: UserBindingPage) => any): void;
-  /**
-   * Retrieve a single page of UserBindingInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: UserBindingPage) => any): void;
-}
-
-declare class UserBindingPage extends Page<V2, UserBindingPayload, UserBindingResource, UserBindingInstance> {
-  constructor(version: V2, response: Response<string>, solution: UserBindingSolution);
+  constructor(version: Twilio.IpMessaging.V2, response: object, solution: object);
 
   /**
    * Build an instance of UserBindingInstance
    *
+   * @function getInstance
+   * @memberof Twilio.IpMessaging.V2.ServiceContext.UserContext.UserBindingPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: UserBindingPayload): UserBindingInstance;
+  getInstance(payload: object);
 }
 
-declare class UserBindingInstance extends SerializableClass {
+declare class UserBindingInstance {
   /**
+   * @constructor Twilio.IpMessaging.V2.ServiceContext.UserContext.UserBindingInstance
+   * @description Initialize the UserBindingContext
+   *
+   * @property sid - A 34 character string that uniquely identifies this resource.
+   * @property accountSid - The unique id of the Account responsible for this binding.
+   * @property serviceSid - The unique id of the Service this binding belongs to.
+   * @property dateCreated - The date that this resource was created.
+   * @property dateUpdated - The date that this resource was last updated.
+   * @property endpoint - The unique endpoint identifier for this Binding.
+   * @property identity - A unique string identifier for the Binding for this User in this Service.
+   * @property userSid - The unique id of the User for this binding.
+   * @property credentialSid - The unique id of the Credential for this binding.
+   * @property bindingType - The push technology to use for this binding.
+   * @property messageTypes - List of message types for this binding.
+   * @property url - An absolute URL for this binding.
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
+   * @param serviceSid - The unique id of the Service this binding belongs to.
+   * @param userSid - The unique id of the User for this binding.
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.IpMessaging.V2, payload: object, serviceSid: sid, userSid: sid, sid: sid);
+
+  _proxy?: UserBindingContext;
+  /**
+   * fetch a UserBindingInstance
+   *
+   * @function fetch
+   * @memberof Twilio.IpMessaging.V2.ServiceContext.UserContext.UserBindingInstance
+   * @instance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: function);
+  /**
+   * remove a UserBindingInstance
+   *
+   * @function remove
+   * @memberof Twilio.IpMessaging.V2.ServiceContext.UserContext.UserBindingInstance
+   * @instance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: function);
+  /**
+   * Produce a plain JSON object version of the UserBindingInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.IpMessaging.V2.ServiceContext.UserContext.UserBindingInstance
+   * @instance
+   */
+  toJSON();
+}
+
+declare class UserBindingContext {
+  /**
+   * @constructor Twilio.IpMessaging.V2.ServiceContext.UserContext.UserBindingContext
+   * @description Initialize the UserBindingContext
+   *
+   * @param version - Version of the resource
    * @param serviceSid - The service_sid
    * @param userSid - The user_sid
    * @param sid - The sid
    */
-  constructor(version: V2, payload: UserBindingPayload, serviceSid: string, userSid: string, sid: string);
+  constructor(version: Twilio.IpMessaging.V2, serviceSid: sid, userSid: sid_like, sid: sid);
 
-  private _proxy: UserBindingContext;
-  /**
-   * The unique id of the [Account](https://www.twilio.com/console) responsible for this binding.
-   */
-  accountSid: string;
-  /**
-   * The push technology to use for this Binding.  Supported values are apn, gcm and fcm.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more information.
-   */
-  bindingType: UserBindingBindingType;
-  /**
-   * The unique id of the [Credential](https://www.twilio.com/docs/api/chat/rest/credentials) for this binding.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more information.
-   */
-  credentialSid: string;
-  /**
-   * The date that this resource was created.
-   */
-  dateCreated: Date;
-  /**
-   * The date that this resource was last updated.
-   */
-  dateUpdated: Date;
-  /**
-   * The unique endpoint identifier for this Binding, the composition of which depends on the binding type.
-   */
-  endpoint: string;
   /**
    * fetch a UserBindingInstance
    *
-   * @returns Promise that resolves to processed UserBindingInstance
-   */
-  fetch(): Promise<UserBindingInstance>;
-  /**
-   * fetch a UserBindingInstance
+   * @function fetch
+   * @memberof Twilio.IpMessaging.V2.ServiceContext.UserContext.UserBindingContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: UserBindingInstance) => any): void;
-  /**
-   * A unique string identifier for the [User](https://www.twilio.com/docs/api/chat/rest/users) this Binding is for in this [Service](https://www.twilio.com/docs/api/chat/rest/services). See the [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) docs for more details.
-   */
-  identity: string;
-  /**
-   * List of the Programmable Chat message types this binding is subcribed to.
-   */
-  messageTypes: string;
+  fetch(callback?: function);
   /**
    * remove a UserBindingInstance
    *
-   * @returns Promise that resolves to processed UserBindingInstance
-   */
-  remove(): Promise<UserBindingInstance>;
-  /**
-   * remove a UserBindingInstance
+   * @function remove
+   * @memberof Twilio.IpMessaging.V2.ServiceContext.UserContext.UserBindingContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: UserBindingInstance) => any): void;
-  /**
-   * The unique id of the [Service](https://www.twilio.com/docs/api/chat/rest/services) this binding belongs to.
-   */
-  serviceSid: string;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * An absolute URL for this binding.
-   */
-  url: string;
-  /**
-   * The unique id of the [User](https://www.twilio.com/docs/api/chat/rest/users) for this binding.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more information.
-   */
-  userSid: string;
+  remove(callback?: function);
 }
 
-declare class UserBindingContext {
-  constructor(version: V2, serviceSid: string, userSid: string, sid: string);
-
-  /**
-   * fetch a UserBindingInstance
-   *
-   * @returns Promise that resolves to processed UserBindingInstance
-   */
-  fetch(): Promise<UserBindingInstance>;
-  /**
-   * fetch a UserBindingInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  fetch(callback: (error: Error | null, items: UserBindingInstance) => any): void;
-  /**
-   * remove a UserBindingInstance
-   *
-   * @returns Promise that resolves to processed UserBindingInstance
-   */
-  remove(): Promise<UserBindingInstance>;
-  /**
-   * remove a UserBindingInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback: (error: Error | null, items: UserBindingInstance) => any): void;
-}
-
-export { UserBindingBindingType, UserBindingContext, UserBindingInstance, UserBindingList, UserBindingListEachOptions, UserBindingListInstance, UserBindingListOptions, UserBindingListPageOptions, UserBindingPage, UserBindingPayload, UserBindingResource, UserBindingSolution }
+export { UserBindingContext, UserBindingInstance, UserBindingList, UserBindingPage }

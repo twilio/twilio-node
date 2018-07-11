@@ -6,497 +6,236 @@
  */
 
 import Page = require('../../../base/Page');
-import Response = require('../../../http/response');
-import Understand = require('../Understand');
-import { FieldTypeListInstance } from './assistant/fieldType';
-import { IntentListInstance } from './assistant/intent';
-import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
-import { ModelBuildListInstance } from './assistant/modelBuild';
-import { QueryListInstance } from './assistant/query';
-import { SerializableClass } from '../../../interfaces';
+import deserialize = require('../../../base/deserialize');
+import serialize = require('../../../base/serialize');
+import values = require('../../../base/values');
+import { FieldTypeList } from './assistant/fieldType';
+import { IntentList } from './assistant/intent';
+import { ModelBuildList } from './assistant/modelBuild';
+import { QueryList } from './assistant/query';
 
-declare function AssistantList(version: Understand): AssistantListInstance
 
-interface AssistantResource {
-  /**
-   * The unique ID of the Account that created this Assistant.
-   */
-  account_sid: string;
-  /**
-   * The callback_events
-   */
-  callback_events: string;
-  /**
-   * The callback_url
-   */
-  callback_url: string;
-  /**
-   * The date that this resource was created
-   */
-  date_created: Date;
-  /**
-   * The date that this resource was last updated
-   */
-  date_updated: Date;
-  /**
-   * A text description for the Assistant. It is non-unique and can up to 255 characters long.
-   */
-  friendly_name: string;
-  /**
-   * The unique ID (Sid) of the latest model build. Null if no model has been built.
-   */
-  latest_model_build_sid: string;
-  /**
-   * The links
-   */
-  links: string;
-  /**
-   * A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter.
-   */
-  log_queries: boolean;
-  /**
-   * The webhook URL called to fetch the response to an incoming communication expressed in Assistant TwiML.
-   */
-  response_url: string;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * The ttl
-   */
-  ttl: number;
-  /**
-   * A user-provided string that uniquely identifies this resource as an alternative to the sid. You can use the unique name in the URL path. Unique up to 64 characters long.
-   */
-  unique_name: string;
-  /**
-   * The url
-   */
-  url: string;
-}
-
-interface AssistantPayload extends AssistantResource, Page.TwilioResponsePayload {
-}
-
-interface AssistantSolution {
-}
-
-interface AssistantListEachOptions extends ListEachOptions<AssistantInstance> {
-}
-
-interface AssistantListOptions extends ListOptions<AssistantInstance> {
-}
-
-interface AssistantListPageOptions extends PageOptions<AssistantPage> {
-}
-
-interface AssistantListCreateOptions {
-  /**
-   * The callback_events
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A text description for the Assistant. It is non-unique and can up to 255 characters long.
+ * @property logQueries - A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
+ * @property ttl - The ttl
+ * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+ * @property responseUrl - The webhook URL called to fetch the response to an incoming communication expressed in Assistant TwiML.
+ * @property callbackUrl - The callback_url
+ * @property callbackEvents - The callback_events
+ */
+export interface UpdateOptions {
   callbackEvents?: string;
-  /**
-   * The callback_url
-   */
   callbackUrl?: string;
-  /**
-   * A text description for the Assistant. It is non-unique and can up to 255 characters long.
-   */
   friendlyName?: string;
-  /**
-   * A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
-   */
   logQueries?: boolean;
-  /**
-   * The webhook URL called to fetch the response to an incoming communication expressed in Assistant TwiML.
-   */
   responseUrl?: string;
-  /**
-   * The ttl
-   */
   ttl?: number;
-  /**
-   * A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
-   */
   uniqueName?: string;
 }
 
-interface AssistantListInstance {
-  /**
-   * Gets context of a single Assistant resource
-   *
-   * @param sid - The sid
-   */
-  (sid: string): AssistantContext;
-  /**
-   * create a AssistantInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed AssistantInstance
-   */
-  create(opts?: AssistantListCreateOptions): Promise<AssistantInstance>;
-  /**
-   * create a AssistantInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: AssistantListCreateOptions, callback: (error: Error | null, items: AssistantInstance) => any): void;
-  /**
-   * create a AssistantInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  create(callback: (error: Error | null, items: AssistantInstance) => any): void;
-  /**
-   * Streams AssistantInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: AssistantListEachOptions): void;
-  /**
-   * Streams AssistantInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: AssistantInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Assistant resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): AssistantContext;
-  /**
-   * Retrieve a single target page of AssistantInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<AssistantPage>;
-  /**
-   * Retrieve a single target page of AssistantInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: AssistantPage) => any): void;
-  /**
-   * Lists AssistantInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: AssistantListOptions): Promise<AssistantInstance[]>;
-  /**
-   * Lists AssistantInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: AssistantListOptions, callback: (error: Error | null, items: AssistantInstance[]) => any): void;
-  /**
-   * Lists AssistantInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: AssistantInstance[]) => any): void;
-  /**
-   * Retrieve a single page of AssistantInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: AssistantListPageOptions): Promise<AssistantPage>;
-  /**
-   * Retrieve a single page of AssistantInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: AssistantListPageOptions, callback: (error: Error | null, items: AssistantPage) => any): void;
-  /**
-   * Retrieve a single page of AssistantInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: AssistantPage) => any): void;
-}
-
-interface AssistantListFetchOptions {
-  /**
-   * The callback_events
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A text description for the Assistant. It is non-unique and can up to 255 characters long.
+ * @property logQueries - A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
+ * @property ttl - The ttl
+ * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+ * @property responseUrl - The webhook URL called to fetch the response to an incoming communication expressed in Assistant TwiML.
+ * @property callbackUrl - The callback_url
+ * @property callbackEvents - The callback_events
+ */
+export interface UpdateOptions {
   callbackEvents?: string;
-  /**
-   * The callback_url
-   */
   callbackUrl?: string;
-  /**
-   * A text description for the Assistant. It is non-unique and can up to 255 characters long.
-   */
   friendlyName?: string;
-  /**
-   * A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
-   */
   logQueries?: boolean;
-  /**
-   * The webhook URL called to fetch the response to an incoming communication expressed in Assistant TwiML.
-   */
   responseUrl?: string;
-  /**
-   * The ttl
-   */
   ttl?: number;
-  /**
-   * A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
-   */
   uniqueName?: string;
 }
 
-interface AssistantListFetchOptions {
-  /**
-   * The callback_events
-   */
-  callbackEvents?: string;
-  /**
-   * The callback_url
-   */
-  callbackUrl?: string;
-  /**
-   * A text description for the Assistant. It is non-unique and can up to 255 characters long.
-   */
-  friendlyName?: string;
-  /**
-   * A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
-   */
-  logQueries?: boolean;
-  /**
-   * The webhook URL called to fetch the response to an incoming communication expressed in Assistant TwiML.
-   */
-  responseUrl?: string;
-  /**
-   * The ttl
-   */
-  ttl?: number;
-  /**
-   * A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
-   */
-  uniqueName?: string;
-}
 
-declare class AssistantPage extends Page<Understand, AssistantPayload, AssistantResource, AssistantInstance> {
-  constructor(version: Understand, response: Response<string>, solution: AssistantSolution);
+declare class AssistantPage extends Page {
+  /**
+   * @constructor Twilio.Preview.Understand.AssistantPage
+   * @augments Page
+   * @description Initialize the AssistantPage
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Preview.Understand, response: object, solution: object);
 
   /**
    * Build an instance of AssistantInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Preview.Understand.AssistantPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: AssistantPayload): AssistantInstance;
+  getInstance(payload: object);
 }
 
-declare class AssistantInstance extends SerializableClass {
+declare class AssistantInstance {
   /**
+   * @constructor Twilio.Preview.Understand.AssistantInstance
+   * @description Initialize the AssistantContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property accountSid - The unique ID of the Account that created this Assistant.
+   * @property dateCreated - The date that this resource was created
+   * @property dateUpdated - The date that this resource was last updated
+   * @property friendlyName - A text description for the Assistant. It is non-unique and can up to 255 characters long.
+   * @property latestModelBuildSid - The unique ID (Sid) of the latest model build. Null if no model has been built.
+   * @property links - The links
+   * @property logQueries - A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter.
+   * @property sid - A 34 character string that uniquely identifies this resource.
+   * @property ttl - The ttl
+   * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. You can use the unique name in the URL path. Unique up to 64 characters long.
+   * @property url - The url
+   * @property responseUrl - The webhook URL called to fetch the response to an incoming communication expressed in Assistant TwiML.
+   * @property callbackUrl - The callback_url
+   * @property callbackEvents - The callback_events
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param sid - The sid
    */
-  constructor(version: Understand, payload: AssistantPayload, sid: string);
+  constructor(version: Twilio.Preview.Understand, payload: object, sid: sid_like);
 
-  private _proxy: AssistantContext;
-  /**
-   * The unique ID of the Account that created this Assistant.
-   */
-  accountSid: string;
-  /**
-   * The callback_events
-   */
-  callbackEvents: string;
-  /**
-   * The callback_url
-   */
-  callbackUrl: string;
-  /**
-   * The date that this resource was created
-   */
-  dateCreated: Date;
-  /**
-   * The date that this resource was last updated
-   */
-  dateUpdated: Date;
+  _proxy?: AssistantContext;
   /**
    * fetch a AssistantInstance
    *
-   * @returns Promise that resolves to processed AssistantInstance
-   */
-  fetch(): Promise<AssistantInstance>;
-  /**
-   * fetch a AssistantInstance
+   * @function fetch
+   * @memberof Twilio.Preview.Understand.AssistantInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: AssistantInstance) => any): void;
-  fieldTypes(): FieldTypeListInstance;
+  fetch(callback?: function);
   /**
-   * A text description for the Assistant. It is non-unique and can up to 255 characters long.
+   * Access the fieldTypes
+   *
+   * @function fieldTypes
+   * @memberof Twilio.Preview.Understand.AssistantInstance
+   * @instance
    */
-  friendlyName: string;
-  intents(): IntentListInstance;
+  fieldTypes();
   /**
-   * The unique ID (Sid) of the latest model build. Null if no model has been built.
+   * Access the intents
+   *
+   * @function intents
+   * @memberof Twilio.Preview.Understand.AssistantInstance
+   * @instance
    */
-  latestModelBuildSid: string;
+  intents();
   /**
-   * The links
+   * Access the modelBuilds
+   *
+   * @function modelBuilds
+   * @memberof Twilio.Preview.Understand.AssistantInstance
+   * @instance
    */
-  links: string;
+  modelBuilds();
   /**
-   * A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter.
+   * Access the queries
+   *
+   * @function queries
+   * @memberof Twilio.Preview.Understand.AssistantInstance
+   * @instance
    */
-  logQueries: boolean;
-  modelBuilds(): ModelBuildListInstance;
-  queries(): QueryListInstance;
+  queries();
   /**
    * remove a AssistantInstance
    *
-   * @returns Promise that resolves to processed AssistantInstance
-   */
-  remove(): Promise<AssistantInstance>;
-  /**
-   * remove a AssistantInstance
+   * @function remove
+   * @memberof Twilio.Preview.Understand.AssistantInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: AssistantInstance) => any): void;
+  remove(callback?: function);
   /**
-   * The webhook URL called to fetch the response to an incoming communication expressed in Assistant TwiML.
+   * Produce a plain JSON object version of the AssistantInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Preview.Understand.AssistantInstance
+   * @instance
    */
-  responseUrl: string;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * The ttl
-   */
-  ttl: number;
-  /**
-   * A user-provided string that uniquely identifies this resource as an alternative to the sid. You can use the unique name in the URL path. Unique up to 64 characters long.
-   */
-  uniqueName: string;
+  toJSON();
   /**
    * update a AssistantInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Preview.Understand.AssistantInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed AssistantInstance
-   */
-  update(opts?: AssistantListFetchOptions): Promise<AssistantInstance>;
-  /**
-   * update a AssistantInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: AssistantListFetchOptions, callback: (error: Error | null, items: AssistantInstance) => any): void;
-  /**
-   * update a AssistantInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: AssistantInstance) => any): void;
-  /**
-   * The url
-   */
-  url: string;
+  update(opts?: object, callback?: function);
 }
 
 declare class AssistantContext {
-  constructor(version: Understand, sid: string);
+  /**
+   * @constructor Twilio.Preview.Understand.AssistantContext
+   * @description Initialize the AssistantContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property fieldTypes - fieldTypes resource
+   * @property intents - intents resource
+   * @property modelBuilds - modelBuilds resource
+   * @property queries - queries resource
+   *
+   * @param version - Version of the resource
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Preview.Understand, sid: sid_like);
 
   /**
    * fetch a AssistantInstance
    *
-   * @returns Promise that resolves to processed AssistantInstance
-   */
-  fetch(): Promise<AssistantInstance>;
-  /**
-   * fetch a AssistantInstance
+   * @function fetch
+   * @memberof Twilio.Preview.Understand.AssistantContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: AssistantInstance) => any): void;
-  fieldTypes: FieldTypeListInstance;
-  intents: IntentListInstance;
-  modelBuilds: ModelBuildListInstance;
-  queries: QueryListInstance;
+  fetch(callback?: function);
+  fieldTypes?: Twilio.Preview.Understand.AssistantContext.FieldTypeList;
+  intents?: Twilio.Preview.Understand.AssistantContext.IntentList;
+  modelBuilds?: Twilio.Preview.Understand.AssistantContext.ModelBuildList;
+  queries?: Twilio.Preview.Understand.AssistantContext.QueryList;
   /**
    * remove a AssistantInstance
    *
-   * @returns Promise that resolves to processed AssistantInstance
-   */
-  remove(): Promise<AssistantInstance>;
-  /**
-   * remove a AssistantInstance
+   * @function remove
+   * @memberof Twilio.Preview.Understand.AssistantContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: AssistantInstance) => any): void;
+  remove(callback?: function);
   /**
    * update a AssistantInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Preview.Understand.AssistantContext
+   * @instance
    *
-   * @returns Promise that resolves to processed AssistantInstance
-   */
-  update(opts?: AssistantListFetchOptions): Promise<AssistantInstance>;
-  /**
-   * update a AssistantInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: AssistantListFetchOptions, callback: (error: Error | null, items: AssistantInstance) => any): void;
-  /**
-   * update a AssistantInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: AssistantInstance) => any): void;
+  update(opts?: object, callback?: function);
 }
 
-export { AssistantContext, AssistantInstance, AssistantList, AssistantListCreateOptions, AssistantListEachOptions, AssistantListFetchOptions, AssistantListInstance, AssistantListOptions, AssistantListPageOptions, AssistantPage, AssistantPayload, AssistantResource, AssistantSolution }
+export { AssistantContext, AssistantInstance, AssistantList, AssistantPage }

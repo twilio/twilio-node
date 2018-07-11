@@ -6,263 +6,61 @@
  */
 
 import Page = require('../../../../../base/Page');
-import Response = require('../../../../../http/response');
-import V1 = require('../../../V1');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../interfaces';
-import { SerializableClass } from '../../../../../interfaces';
+import serialize = require('../../../../../base/serialize');
+import values = require('../../../../../base/values');
 
-declare function TaskQueuesStatisticsList(version: V1, workspaceSid: string): TaskQueuesStatisticsListInstance
 
-interface TaskQueuesStatisticsResource {
-  /**
-   * The account_sid
-   */
-  account_sid: string;
-  /**
-   * The cumulative
-   */
-  cumulative: string;
-  /**
-   * The realtime
-   */
-  realtime: string;
-  /**
-   * The task_queue_sid
-   */
-  task_queue_sid: string;
-  /**
-   * The workspace_sid
-   */
-  workspace_sid: string;
-}
 
-interface TaskQueuesStatisticsPayload extends TaskQueuesStatisticsResource, Page.TwilioResponsePayload {
-}
-
-interface TaskQueuesStatisticsSolution {
-  workspaceSid: string;
-}
-
-interface TaskQueuesStatisticsListEachOptions extends ListEachOptions<TaskQueuesStatisticsInstance> {
+declare class TaskQueuesStatisticsPage extends Page {
   /**
-   * Filter cumulative statistics by an end date. This is helpful for defining a range of statistics to capture. Input is a GMT ISO 8601 Timestamp.
-   */
-  endDate?: Date;
-  /**
-   * Filter the TaskQueue stats based on a TaskQueue's name (only for list resource)
-   */
-  friendlyName?: string;
-  /**
-   * Filter cumulative statistics by up to 'x' minutes in the past. This is helpful for statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends. Defaults to 15 minutes.
-   */
-  minutes?: number;
-  /**
-   * A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds. Ex: "5,30" would show splits of tasks that were canceled or accepted before or after 5 seconds and respectively, 30 seconds. This is great for showing short abandoned tasks or tasks that failed to meet your SLA.
-   */
-  splitByWaitTime?: string;
-  /**
-   * Filter cumulative statistics by a start date. This is helpful for defining a range of statistics to capture. Input is a GMT ISO 8601 Timestamp.
-   */
-  startDate?: Date;
-  /**
-   * Filter real-time and cumulative statistics by TaskChannel. Takes in a Unique Name ("voice", "sms", "default", etc.) or a TaskChannelSid.
-   */
-  taskChannel?: string;
-}
-
-interface TaskQueuesStatisticsListOptions extends ListOptions<TaskQueuesStatisticsInstance> {
-  /**
-   * Filter cumulative statistics by an end date. This is helpful for defining a range of statistics to capture. Input is a GMT ISO 8601 Timestamp.
-   */
-  endDate?: Date;
-  /**
-   * Filter the TaskQueue stats based on a TaskQueue's name (only for list resource)
-   */
-  friendlyName?: string;
-  /**
-   * Filter cumulative statistics by up to 'x' minutes in the past. This is helpful for statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends. Defaults to 15 minutes.
-   */
-  minutes?: number;
-  /**
-   * A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds. Ex: "5,30" would show splits of tasks that were canceled or accepted before or after 5 seconds and respectively, 30 seconds. This is great for showing short abandoned tasks or tasks that failed to meet your SLA.
-   */
-  splitByWaitTime?: string;
-  /**
-   * Filter cumulative statistics by a start date. This is helpful for defining a range of statistics to capture. Input is a GMT ISO 8601 Timestamp.
-   */
-  startDate?: Date;
-  /**
-   * Filter real-time and cumulative statistics by TaskChannel. Takes in a Unique Name ("voice", "sms", "default", etc.) or a TaskChannelSid.
-   */
-  taskChannel?: string;
-}
-
-interface TaskQueuesStatisticsListPageOptions extends PageOptions<TaskQueuesStatisticsPage> {
-  /**
-   * Filter cumulative statistics by an end date. This is helpful for defining a range of statistics to capture. Input is a GMT ISO 8601 Timestamp.
-   */
-  endDate?: Date;
-  /**
-   * Filter the TaskQueue stats based on a TaskQueue's name (only for list resource)
-   */
-  friendlyName?: string;
-  /**
-   * Filter cumulative statistics by up to 'x' minutes in the past. This is helpful for statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends. Defaults to 15 minutes.
-   */
-  minutes?: number;
-  /**
-   * A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds. Ex: "5,30" would show splits of tasks that were canceled or accepted before or after 5 seconds and respectively, 30 seconds. This is great for showing short abandoned tasks or tasks that failed to meet your SLA.
-   */
-  splitByWaitTime?: string;
-  /**
-   * Filter cumulative statistics by a start date. This is helpful for defining a range of statistics to capture. Input is a GMT ISO 8601 Timestamp.
-   */
-  startDate?: Date;
-  /**
-   * Filter real-time and cumulative statistics by TaskChannel. Takes in a Unique Name ("voice", "sms", "default", etc.) or a TaskChannelSid.
-   */
-  taskChannel?: string;
-}
-
-interface TaskQueuesStatisticsListInstance {
-  /**
-   * Streams TaskQueuesStatisticsInstance records from the API.
+   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueuesStatisticsPage
+   * @augments Page
+   * @description Initialize the TaskQueuesStatisticsPage
    *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  each(opts?: TaskQueuesStatisticsListEachOptions): void;
-  /**
-   * Streams TaskQueuesStatisticsInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: TaskQueuesStatisticsInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Retrieve a single target page of TaskQueuesStatisticsInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<TaskQueuesStatisticsPage>;
-  /**
-   * Retrieve a single target page of TaskQueuesStatisticsInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: TaskQueuesStatisticsPage) => any): void;
-  /**
-   * Lists TaskQueuesStatisticsInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: TaskQueuesStatisticsListOptions): Promise<TaskQueuesStatisticsInstance[]>;
-  /**
-   * Lists TaskQueuesStatisticsInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: TaskQueuesStatisticsListOptions, callback: (error: Error | null, items: TaskQueuesStatisticsInstance[]) => any): void;
-  /**
-   * Lists TaskQueuesStatisticsInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: TaskQueuesStatisticsInstance[]) => any): void;
-  /**
-   * Retrieve a single page of TaskQueuesStatisticsInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: TaskQueuesStatisticsListPageOptions): Promise<TaskQueuesStatisticsPage>;
-  /**
-   * Retrieve a single page of TaskQueuesStatisticsInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: TaskQueuesStatisticsListPageOptions, callback: (error: Error | null, items: TaskQueuesStatisticsPage) => any): void;
-  /**
-   * Retrieve a single page of TaskQueuesStatisticsInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: TaskQueuesStatisticsPage) => any): void;
-}
-
-declare class TaskQueuesStatisticsPage extends Page<V1, TaskQueuesStatisticsPayload, TaskQueuesStatisticsResource, TaskQueuesStatisticsInstance> {
-  constructor(version: V1, response: Response<string>, solution: TaskQueuesStatisticsSolution);
+  constructor(version: Twilio.Taskrouter.V1, response: object, solution: object);
 
   /**
    * Build an instance of TaskQueuesStatisticsInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueuesStatisticsPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: TaskQueuesStatisticsPayload): TaskQueuesStatisticsInstance;
+  getInstance(payload: object);
 }
 
-declare class TaskQueuesStatisticsInstance extends SerializableClass {
+declare class TaskQueuesStatisticsInstance {
   /**
+   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueuesStatisticsInstance
+   * @description Initialize the TaskQueuesStatisticsContext
+   *
+   * @property accountSid - The account_sid
+   * @property cumulative - The cumulative
+   * @property realtime - The realtime
+   * @property taskQueueSid - The task_queue_sid
+   * @property workspaceSid - The workspace_sid
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
+   * @param workspaceSid - The ID of the Workspace that owns this TaskQueue
    */
-  constructor(version: V1, payload: TaskQueuesStatisticsPayload);
+  constructor(version: Twilio.Taskrouter.V1, payload: object, workspaceSid: sid);
 
   /**
-   * The account_sid
+   * Produce a plain JSON object version of the TaskQueuesStatisticsInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueuesStatisticsInstance
+   * @instance
    */
-  accountSid: string;
-  /**
-   * The cumulative
-   */
-  cumulative: string;
-  /**
-   * The realtime
-   */
-  realtime: string;
-  /**
-   * The task_queue_sid
-   */
-  taskQueueSid: string;
-  /**
-   * The workspace_sid
-   */
-  workspaceSid: string;
+  toJSON();
 }
 
-export { TaskQueuesStatisticsInstance, TaskQueuesStatisticsList, TaskQueuesStatisticsListEachOptions, TaskQueuesStatisticsListInstance, TaskQueuesStatisticsListOptions, TaskQueuesStatisticsListPageOptions, TaskQueuesStatisticsPage, TaskQueuesStatisticsPayload, TaskQueuesStatisticsResource, TaskQueuesStatisticsSolution }
+export { TaskQueuesStatisticsInstance, TaskQueuesStatisticsList, TaskQueuesStatisticsPage }

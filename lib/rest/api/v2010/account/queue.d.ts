@@ -6,384 +6,176 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V2010 = require('../../V2010');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { MemberListInstance } from './queue/member';
-import { SerializableClass } from '../../../../interfaces';
+import deserialize = require('../../../../base/deserialize');
+import values = require('../../../../base/values');
+import { MemberList } from './queue/member';
 
-declare function QueueList(version: V2010, accountSid: string): QueueListInstance
 
-interface QueueResource {
-  /**
-   * The account_sid
-   */
-  account_sid: string;
-  /**
-   *  The average wait time of the members of this queue in seconds. This is calculated at the time of the request.
-   */
-  average_wait_time: number;
-  /**
-   * The count of calls currently in the queue.
-   */
-  current_size: number;
-  /**
-   * The date_created
-   */
-  date_created: Date;
-  /**
-   * The date_updated
-   */
-  date_updated: Date;
-  /**
-   * A user-provided string that identifies this queue.
-   */
-  friendly_name: string;
-  /**
-   *  The upper limit of calls allowed to be in the queue. The default is 100. The maximum is 1000.
-   */
-  max_size: number;
-  /**
-   * A 34 character string that uniquely identifies this queue.
-   */
-  sid: string;
-  /**
-   * The uri
-   */
-  uri: string;
-}
-
-interface QueuePayload extends QueueResource, Page.TwilioResponsePayload {
-}
-
-interface QueueSolution {
-  accountSid: string;
-}
-
-interface QueueListEachOptions extends ListEachOptions<QueueInstance> {
-}
-
-interface QueueListOptions extends ListOptions<QueueInstance> {
-}
-
-interface QueueListPageOptions extends PageOptions<QueuePage> {
-}
-
-interface QueueListCreateOptions {
-  /**
-   * A user-provided string that identifies this queue.
-   */
-  friendlyName: string;
-  /**
-   * The upper limit of calls allowed to be in the queue. The default is 100. The maximum is 1000.
-   */
-  maxSize?: number;
-}
-
-interface QueueListInstance {
-  /**
-   * Gets context of a single Queue resource
-   *
-   * @param sid - Fetch by unique queue Sid
-   */
-  (sid: string): QueueContext;
-  /**
-   * create a QueueInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed QueueInstance
-   */
-  create(opts: QueueListCreateOptions): Promise<QueueInstance>;
-  /**
-   * create a QueueInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: QueueListCreateOptions, callback: (error: Error | null, items: QueueInstance) => any): void;
-  /**
-   * Streams QueueInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: QueueListEachOptions): void;
-  /**
-   * Streams QueueInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: QueueInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Queue resource
-   *
-   * @param sid - Fetch by unique queue Sid
-   */
-  get(sid: string): QueueContext;
-  /**
-   * Retrieve a single target page of QueueInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<QueuePage>;
-  /**
-   * Retrieve a single target page of QueueInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: QueuePage) => any): void;
-  /**
-   * Lists QueueInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: QueueListOptions): Promise<QueueInstance[]>;
-  /**
-   * Lists QueueInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: QueueListOptions, callback: (error: Error | null, items: QueueInstance[]) => any): void;
-  /**
-   * Lists QueueInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: QueueInstance[]) => any): void;
-  /**
-   * Retrieve a single page of QueueInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: QueueListPageOptions): Promise<QueuePage>;
-  /**
-   * Retrieve a single page of QueueInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: QueueListPageOptions, callback: (error: Error | null, items: QueuePage) => any): void;
-  /**
-   * Retrieve a single page of QueueInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: QueuePage) => any): void;
-}
-
-interface QueueListFetchOptions {
-  /**
-   * A human readable description of the queue
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A human readable description of the queue
+ * @property maxSize - The max number of members allowed in the queue
+ */
+export interface UpdateOptions {
   friendlyName?: string;
-  /**
-   * The maximum number of members that can be in the queue at a time
-   */
   maxSize?: number;
 }
 
-interface QueueListFetchOptions {
-  /**
-   * A human readable description of the queue
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A human readable description of the queue
+ * @property maxSize - The max number of members allowed in the queue
+ */
+export interface UpdateOptions {
   friendlyName?: string;
-  /**
-   * The maximum number of members that can be in the queue at a time
-   */
   maxSize?: number;
 }
 
-declare class QueuePage extends Page<V2010, QueuePayload, QueueResource, QueueInstance> {
-  constructor(version: V2010, response: Response<string>, solution: QueueSolution);
+
+declare class QueuePage extends Page {
+  /**
+   * @constructor Twilio.Api.V2010.AccountContext.QueuePage
+   * @augments Page
+   * @description Initialize the QueuePage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Api.V2010, response: object, solution: object);
 
   /**
    * Build an instance of QueueInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Api.V2010.AccountContext.QueuePage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: QueuePayload): QueueInstance;
+  getInstance(payload: object);
 }
 
-declare class QueueInstance extends SerializableClass {
+declare class QueueInstance {
   /**
+   * @constructor Twilio.Api.V2010.AccountContext.QueueInstance
+   * @description Initialize the QueueContext
+   *
+   * @property accountSid - The account_sid
+   * @property averageWaitTime - Average wait time of members in the queue
+   * @property currentSize - The count of calls currently in the queue.
+   * @property dateCreated - The date_created
+   * @property dateUpdated - The date_updated
+   * @property friendlyName - A user-provided string that identifies this queue.
+   * @property maxSize - The max number of calls allowed in the queue
+   * @property sid - A string that uniquely identifies this queue
+   * @property uri - The uri
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param accountSid - The account_sid
    * @param sid - Fetch by unique queue Sid
    */
-  constructor(version: V2010, payload: QueuePayload, accountSid: string, sid: string);
+  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, sid: sid);
 
-  private _proxy: QueueContext;
-  /**
-   * The account_sid
-   */
-  accountSid: string;
-  /**
-   *  The average wait time of the members of this queue in seconds. This is calculated at the time of the request.
-   */
-  averageWaitTime: number;
-  /**
-   * The count of calls currently in the queue.
-   */
-  currentSize: number;
-  /**
-   * The date_created
-   */
-  dateCreated: Date;
-  /**
-   * The date_updated
-   */
-  dateUpdated: Date;
+  _proxy?: QueueContext;
   /**
    * fetch a QueueInstance
    *
-   * @returns Promise that resolves to processed QueueInstance
-   */
-  fetch(): Promise<QueueInstance>;
-  /**
-   * fetch a QueueInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.QueueInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: QueueInstance) => any): void;
+  fetch(callback?: function);
   /**
-   * A user-provided string that identifies this queue.
+   * Access the members
+   *
+   * @function members
+   * @memberof Twilio.Api.V2010.AccountContext.QueueInstance
+   * @instance
    */
-  friendlyName: string;
-  /**
-   *  The upper limit of calls allowed to be in the queue. The default is 100. The maximum is 1000.
-   */
-  maxSize: number;
-  members(): MemberListInstance;
+  members();
   /**
    * remove a QueueInstance
    *
-   * @returns Promise that resolves to processed QueueInstance
-   */
-  remove(): Promise<QueueInstance>;
-  /**
-   * remove a QueueInstance
+   * @function remove
+   * @memberof Twilio.Api.V2010.AccountContext.QueueInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: QueueInstance) => any): void;
+  remove(callback?: function);
   /**
-   * A 34 character string that uniquely identifies this queue.
+   * Produce a plain JSON object version of the QueueInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Api.V2010.AccountContext.QueueInstance
+   * @instance
    */
-  sid: string;
+  toJSON();
   /**
    * update a QueueInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Api.V2010.AccountContext.QueueInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed QueueInstance
-   */
-  update(opts?: QueueListFetchOptions): Promise<QueueInstance>;
-  /**
-   * update a QueueInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: QueueListFetchOptions, callback: (error: Error | null, items: QueueInstance) => any): void;
-  /**
-   * update a QueueInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: QueueInstance) => any): void;
-  /**
-   * The uri
-   */
-  uri: string;
+  update(opts?: object, callback?: function);
 }
 
 declare class QueueContext {
-  constructor(version: V2010, accountSid: string, sid: string);
+  /**
+   * @constructor Twilio.Api.V2010.AccountContext.QueueContext
+   * @description Initialize the QueueContext
+   *
+   * @property members - members resource
+   *
+   * @param version - Version of the resource
+   * @param accountSid - The account_sid
+   * @param sid - Fetch by unique queue Sid
+   */
+  constructor(version: Twilio.Api.V2010, accountSid: sid, sid: sid);
 
   /**
    * fetch a QueueInstance
    *
-   * @returns Promise that resolves to processed QueueInstance
-   */
-  fetch(): Promise<QueueInstance>;
-  /**
-   * fetch a QueueInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.QueueContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: QueueInstance) => any): void;
-  members: MemberListInstance;
+  fetch(callback?: function);
+  members?: Twilio.Api.V2010.AccountContext.QueueContext.MemberList;
   /**
    * remove a QueueInstance
    *
-   * @returns Promise that resolves to processed QueueInstance
-   */
-  remove(): Promise<QueueInstance>;
-  /**
-   * remove a QueueInstance
+   * @function remove
+   * @memberof Twilio.Api.V2010.AccountContext.QueueContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: QueueInstance) => any): void;
+  remove(callback?: function);
   /**
    * update a QueueInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Api.V2010.AccountContext.QueueContext
+   * @instance
    *
-   * @returns Promise that resolves to processed QueueInstance
-   */
-  update(opts?: QueueListFetchOptions): Promise<QueueInstance>;
-  /**
-   * update a QueueInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: QueueListFetchOptions, callback: (error: Error | null, items: QueueInstance) => any): void;
-  /**
-   * update a QueueInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: QueueInstance) => any): void;
+  update(opts?: object, callback?: function);
 }
 
-export { QueueContext, QueueInstance, QueueList, QueueListCreateOptions, QueueListEachOptions, QueueListFetchOptions, QueueListInstance, QueueListOptions, QueueListPageOptions, QueuePage, QueuePayload, QueueResource, QueueSolution }
+export { QueueContext, QueueInstance, QueueList, QueuePage }

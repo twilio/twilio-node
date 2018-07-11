@@ -6,351 +6,155 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V1 = require('../../V1');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { SerializableClass } from '../../../../interfaces';
+import deserialize = require('../../../../base/deserialize');
+import values = require('../../../../base/values');
 
-declare function PublicKeyList(version: V1): PublicKeyListInstance
 
-interface PublicKeyResource {
-  /**
-   * AccountSid the Credential resource belongs to.
-   */
-  account_sid: string;
-  /**
-   * The date that this resource was created, given as GMT in ISO 8601 format.
-   */
-  date_created: Date;
-  /**
-   * The date that this resource was updated, given as GMT in ISO 8601 format.
-   */
-  date_updated: Date;
-  /**
-   * A human readable description of this resource, up to 64 characters.
-   */
-  friendly_name: string;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * The URI for this resource, relative to `https://accounts.twilio.com`
-   */
-  url: string;
-}
-
-interface PublicKeyPayload extends PublicKeyResource, Page.TwilioResponsePayload {
-}
-
-interface PublicKeySolution {
-}
-
-interface PublicKeyListEachOptions extends ListEachOptions<PublicKeyInstance> {
-}
-
-interface PublicKeyListOptions extends ListOptions<PublicKeyInstance> {
-}
-
-interface PublicKeyListPageOptions extends PageOptions<PublicKeyPage> {
-}
-
-interface PublicKeyListCreateOptions {
-  /**
-   * The Subaccount this Credential should be associated with. Needs to be a valid Subaccount of the account issuing the request
-   */
-  accountSid?: string;
-  /**
-   * A human readable description of this resource, up to 64 characters.
-   */
-  friendlyName?: string;
-  /**
-   * URL encoded representation of the public key, e.g. -----BEGIN PUBLIC KEY-----MIIBIjANB.pa9xQIDAQAB-----END PUBLIC KEY-----
-   */
-  publicKey: string;
-}
-
-interface PublicKeyListInstance {
-  /**
-   * Gets context of a single PublicKey resource
-   *
-   * @param sid - Fetch by unique Credential Sid
-   */
-  (sid: string): PublicKeyContext;
-  /**
-   * create a PublicKeyInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed PublicKeyInstance
-   */
-  create(opts: PublicKeyListCreateOptions): Promise<PublicKeyInstance>;
-  /**
-   * create a PublicKeyInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: PublicKeyListCreateOptions, callback: (error: Error | null, items: PublicKeyInstance) => any): void;
-  /**
-   * Streams PublicKeyInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: PublicKeyListEachOptions): void;
-  /**
-   * Streams PublicKeyInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: PublicKeyInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single PublicKey resource
-   *
-   * @param sid - Fetch by unique Credential Sid
-   */
-  get(sid: string): PublicKeyContext;
-  /**
-   * Retrieve a single target page of PublicKeyInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<PublicKeyPage>;
-  /**
-   * Retrieve a single target page of PublicKeyInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: PublicKeyPage) => any): void;
-  /**
-   * Lists PublicKeyInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: PublicKeyListOptions): Promise<PublicKeyInstance[]>;
-  /**
-   * Lists PublicKeyInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: PublicKeyListOptions, callback: (error: Error | null, items: PublicKeyInstance[]) => any): void;
-  /**
-   * Lists PublicKeyInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: PublicKeyInstance[]) => any): void;
-  /**
-   * Retrieve a single page of PublicKeyInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: PublicKeyListPageOptions): Promise<PublicKeyPage>;
-  /**
-   * Retrieve a single page of PublicKeyInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: PublicKeyListPageOptions, callback: (error: Error | null, items: PublicKeyPage) => any): void;
-  /**
-   * Retrieve a single page of PublicKeyInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: PublicKeyPage) => any): void;
-}
-
-interface PublicKeyListFetchOptions {
-  /**
-   * A human readable description of this resource, up to 64 characters.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A human readable description of this resource
+ */
+export interface UpdateOptions {
   friendlyName?: string;
 }
 
-interface PublicKeyListFetchOptions {
-  /**
-   * A human readable description of this resource, up to 64 characters.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A human readable description of this resource
+ */
+export interface UpdateOptions {
   friendlyName?: string;
 }
 
-declare class PublicKeyPage extends Page<V1, PublicKeyPayload, PublicKeyResource, PublicKeyInstance> {
-  constructor(version: V1, response: Response<string>, solution: PublicKeySolution);
+
+declare class PublicKeyPage extends Page {
+  /**
+   * @constructor Twilio.Accounts.V1.CredentialContext.PublicKeyPage
+   * @augments Page
+   * @description Initialize the PublicKeyPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Accounts.V1, response: object, solution: object);
 
   /**
    * Build an instance of PublicKeyInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Accounts.V1.CredentialContext.PublicKeyPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: PublicKeyPayload): PublicKeyInstance;
+  getInstance(payload: object);
 }
 
-declare class PublicKeyInstance extends SerializableClass {
+declare class PublicKeyInstance {
   /**
+   * @constructor Twilio.Accounts.V1.CredentialContext.PublicKeyInstance
+   * @description Initialize the PublicKeyContext
+   *
+   * @property sid - A 34 character string that uniquely identifies this resource.
+   * @property accountSid - AccountSid the Credential resource belongs to
+   * @property friendlyName - A human readable description of this resource
+   * @property dateCreated - The date this resource was created
+   * @property dateUpdated - The date this resource was last updated
+   * @property url - The URI for this resource, relative to `https://accounts.twilio.com`
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param sid - Fetch by unique Credential Sid
    */
-  constructor(version: V1, payload: PublicKeyPayload, sid: string);
+  constructor(version: Twilio.Accounts.V1, payload: object, sid: sid);
 
-  private _proxy: PublicKeyContext;
-  /**
-   * AccountSid the Credential resource belongs to.
-   */
-  accountSid: string;
-  /**
-   * The date that this resource was created, given as GMT in ISO 8601 format.
-   */
-  dateCreated: Date;
-  /**
-   * The date that this resource was updated, given as GMT in ISO 8601 format.
-   */
-  dateUpdated: Date;
+  _proxy?: PublicKeyContext;
   /**
    * fetch a PublicKeyInstance
    *
-   * @returns Promise that resolves to processed PublicKeyInstance
-   */
-  fetch(): Promise<PublicKeyInstance>;
-  /**
-   * fetch a PublicKeyInstance
+   * @function fetch
+   * @memberof Twilio.Accounts.V1.CredentialContext.PublicKeyInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: PublicKeyInstance) => any): void;
-  /**
-   * A human readable description of this resource, up to 64 characters.
-   */
-  friendlyName: string;
+  fetch(callback?: function);
   /**
    * remove a PublicKeyInstance
    *
-   * @returns Promise that resolves to processed PublicKeyInstance
-   */
-  remove(): Promise<PublicKeyInstance>;
-  /**
-   * remove a PublicKeyInstance
+   * @function remove
+   * @memberof Twilio.Accounts.V1.CredentialContext.PublicKeyInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: PublicKeyInstance) => any): void;
+  remove(callback?: function);
   /**
-   * A 34 character string that uniquely identifies this resource.
+   * Produce a plain JSON object version of the PublicKeyInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Accounts.V1.CredentialContext.PublicKeyInstance
+   * @instance
    */
-  sid: string;
+  toJSON();
   /**
    * update a PublicKeyInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Accounts.V1.CredentialContext.PublicKeyInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed PublicKeyInstance
-   */
-  update(opts?: PublicKeyListFetchOptions): Promise<PublicKeyInstance>;
-  /**
-   * update a PublicKeyInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: PublicKeyListFetchOptions, callback: (error: Error | null, items: PublicKeyInstance) => any): void;
-  /**
-   * update a PublicKeyInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: PublicKeyInstance) => any): void;
-  /**
-   * The URI for this resource, relative to `https://accounts.twilio.com`
-   */
-  url: string;
+  update(opts?: object, callback?: function);
 }
 
 declare class PublicKeyContext {
-  constructor(version: V1, sid: string);
+  /**
+   * @constructor Twilio.Accounts.V1.CredentialContext.PublicKeyContext
+   * @description Initialize the PublicKeyContext
+   *
+   * @param version - Version of the resource
+   * @param sid - Fetch by unique Credential Sid
+   */
+  constructor(version: Twilio.Accounts.V1, sid: sid);
 
   /**
    * fetch a PublicKeyInstance
    *
-   * @returns Promise that resolves to processed PublicKeyInstance
-   */
-  fetch(): Promise<PublicKeyInstance>;
-  /**
-   * fetch a PublicKeyInstance
+   * @function fetch
+   * @memberof Twilio.Accounts.V1.CredentialContext.PublicKeyContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: PublicKeyInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a PublicKeyInstance
    *
-   * @returns Promise that resolves to processed PublicKeyInstance
-   */
-  remove(): Promise<PublicKeyInstance>;
-  /**
-   * remove a PublicKeyInstance
+   * @function remove
+   * @memberof Twilio.Accounts.V1.CredentialContext.PublicKeyContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: PublicKeyInstance) => any): void;
+  remove(callback?: function);
   /**
    * update a PublicKeyInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Accounts.V1.CredentialContext.PublicKeyContext
+   * @instance
    *
-   * @returns Promise that resolves to processed PublicKeyInstance
-   */
-  update(opts?: PublicKeyListFetchOptions): Promise<PublicKeyInstance>;
-  /**
-   * update a PublicKeyInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: PublicKeyListFetchOptions, callback: (error: Error | null, items: PublicKeyInstance) => any): void;
-  /**
-   * update a PublicKeyInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: PublicKeyInstance) => any): void;
+  update(opts?: object, callback?: function);
 }
 
-export { PublicKeyContext, PublicKeyInstance, PublicKeyList, PublicKeyListCreateOptions, PublicKeyListEachOptions, PublicKeyListFetchOptions, PublicKeyListInstance, PublicKeyListOptions, PublicKeyListPageOptions, PublicKeyPage, PublicKeyPayload, PublicKeyResource, PublicKeySolution }
+export { PublicKeyContext, PublicKeyInstance, PublicKeyList, PublicKeyPage }

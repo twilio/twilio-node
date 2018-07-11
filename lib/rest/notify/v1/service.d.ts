@@ -6,601 +6,260 @@
  */
 
 import Page = require('../../../base/Page');
-import Response = require('../../../http/response');
-import V1 = require('../V1');
-import { BindingListInstance } from './service/binding';
-import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
-import { NotificationListInstance } from './service/notification';
-import { SegmentListInstance } from './service/segment';
-import { SerializableClass } from '../../../interfaces';
-import { UserListInstance } from './service/user';
+import deserialize = require('../../../base/deserialize');
+import serialize = require('../../../base/serialize');
+import values = require('../../../base/values');
+import { BindingList } from './service/binding';
+import { NotificationList } from './service/notification';
+import { SegmentList } from './service/segment';
+import { UserList } from './service/user';
 
-declare function ServiceList(version: V1): ServiceListInstance
 
-interface ServiceResource {
-  /**
-   * The account_sid
-   */
-  account_sid: string;
-  /**
-   * The alexa_skill_id
-   */
-  alexa_skill_id: string;
-  /**
-   * The SID of the [Credential](https://www.twilio.com/docs/notify/api/credentials) to be used for APN Bindings.
-   */
-  apn_credential_sid: string;
-  /**
-   * The date_created
-   */
-  date_created: Date;
-  /**
-   * The date_updated
-   */
-  date_updated: Date;
-  /**
-   * The default_alexa_notification_protocol_version
-   */
-  default_alexa_notification_protocol_version: string;
-  /**
-   * The version of the protocol to be used for sending APNS notifications. Can be overriden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/bindings) resource.
-   */
-  default_apn_notification_protocol_version: string;
-  /**
-   * The version of the protocol to be used for sending FCM notifications. Can be overriden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/bindings) resource.
-   */
-  default_fcm_notification_protocol_version: string;
-  /**
-   * The version of the protocol to be used for sending GCM notifications. Can be overriden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/bindings) resource.
-   */
-  default_gcm_notification_protocol_version: string;
-  /**
-   * The Page ID to be used to send for Facebook Messenger Bindings. It has to match the Page ID you configured when you [enabled Facebook Messaging](https://www.twilio.com/console/sms/settings) on your account.
-   */
-  facebook_messenger_page_id: string;
-  /**
-   * The SID of the [Credential](https://www.twilio.com/docs/notify/api/credentials) to be used for FCM Bindings.
-   */
-  fcm_credential_sid: string;
-  /**
-   * Human-readable name for this service instance
-   */
-  friendly_name: string;
-  /**
-   * The SID of the [Credential](https://www.twilio.com/docs/notify/api/credentials) to be used for GCM Bindings.
-   */
-  gcm_credential_sid: string;
-  /**
-   * The links
-   */
-  links: string;
-  /**
-   * The log_enabled
-   */
-  log_enabled: boolean;
-  /**
-   * The SID of the [Messaging Service](https://www.twilio.com/docs/api/rest/sending-messages#messaging-services) to be used for SMS Bindings. In order to send SMS notifications this parameter has to be set.
-   */
-  messaging_service_sid: string;
-  /**
-   * The sid
-   */
-  sid: string;
-  /**
-   * The url
-   */
-  url: string;
-}
-
-interface ServicePayload extends ServiceResource, Page.TwilioResponsePayload {
-}
-
-interface ServiceSolution {
-}
-
-interface ServiceListCreateOptions {
-  /**
-   * The alexa_skill_id
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - Human-readable name for this service instance
+ * @property apnCredentialSid - The SID of the default Credential to be used for APN Bindings
+ * @property gcmCredentialSid - The SID of the default Credential to be used for GCM Bindings
+ * @property messagingServiceSid - The SID of the Messaging Service to be used for SMS Bindings.
+ * @property facebookMessengerPageId - The Page ID to be used to send for Facebook Messenger Bindings.
+ * @property defaultApnNotificationProtocolVersion - The version of the protocol to be used for sending APNS notifications.
+ * @property defaultGcmNotificationProtocolVersion - The version of the protocol to be used for sending GCM notifications.
+ * @property fcmCredentialSid - The SID of the default Credential to be used for FCM Bindings
+ * @property defaultFcmNotificationProtocolVersion - The version of the protocol to be used for sending FCM notifications.
+ * @property logEnabled - The log_enabled
+ * @property alexaSkillId - The alexa_skill_id
+ * @property defaultAlexaNotificationProtocolVersion - The default_alexa_notification_protocol_version
+ */
+export interface UpdateOptions {
   alexaSkillId?: string;
-  /**
-   * The SID of the [Credential](https://www.twilio.com/docs/notify/api/credentials) to be used for APN Bindings.
-   */
   apnCredentialSid?: string;
-  /**
-   * The default_alexa_notification_protocol_version
-   */
   defaultAlexaNotificationProtocolVersion?: string;
-  /**
-   * The version of the protocol to be used for sending APNS notifications. Can be overriden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/bindings) resource.
-   */
   defaultApnNotificationProtocolVersion?: string;
-  /**
-   * The version of the protocol to be used for sending FCM notifications. Can be overriden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/bindings) resource.
-   */
   defaultFcmNotificationProtocolVersion?: string;
-  /**
-   * The version of the protocol to be used for sending GCM notifications. Can be overriden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/bindings) resource.
-   */
   defaultGcmNotificationProtocolVersion?: string;
-  /**
-   * The Page ID to be used to send for Facebook Messenger Bindings. It has to match the Page ID you configured when you [enabled Facebook Messaging](https://www.twilio.com/console/sms/settings) on your account.
-   */
   facebookMessengerPageId?: string;
-  /**
-   * The SID of the [Credential](https://www.twilio.com/docs/notify/api/credentials) to be used for FCM Bindings.
-   */
   fcmCredentialSid?: string;
-  /**
-   * Human-readable name for this service instance
-   */
   friendlyName?: string;
-  /**
-   * The SID of the [Credential](https://www.twilio.com/docs/notify/api/credentials) to be used for GCM Bindings.
-   */
   gcmCredentialSid?: string;
-  /**
-   * The log_enabled
-   */
   logEnabled?: boolean;
-  /**
-   * The SID of the [Messaging Service](https://www.twilio.com/docs/api/rest/sending-messages#messaging-services) to be used for SMS Bindings. In order to send SMS notifications this parameter has to be set.
-   */
   messagingServiceSid?: string;
 }
 
-interface ServiceListEachOptions extends ListEachOptions<ServiceInstance> {
-  /**
-   * Filter services by FriendlyName
-   */
-  friendlyName?: string;
-}
-
-interface ServiceListOptions extends ListOptions<ServiceInstance> {
-  /**
-   * Filter services by FriendlyName
-   */
-  friendlyName?: string;
-}
-
-interface ServiceListPageOptions extends PageOptions<ServicePage> {
-  /**
-   * Filter services by FriendlyName
-   */
-  friendlyName?: string;
-}
-
-interface ServiceListInstance {
-  /**
-   * Gets context of a single Service resource
-   *
-   * @param sid - The sid
-   */
-  (sid: string): ServiceContext;
-  /**
-   * create a ServiceInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  create(opts?: ServiceListCreateOptions): Promise<ServiceInstance>;
-  /**
-   * create a ServiceInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: ServiceListCreateOptions, callback: (error: Error | null, items: ServiceInstance) => any): void;
-  /**
-   * create a ServiceInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  create(callback: (error: Error | null, items: ServiceInstance) => any): void;
-  /**
-   * Streams ServiceInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: ServiceListEachOptions): void;
-  /**
-   * Streams ServiceInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: ServiceInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Service resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): ServiceContext;
-  /**
-   * Retrieve a single target page of ServiceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<ServicePage>;
-  /**
-   * Retrieve a single target page of ServiceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: ServicePage) => any): void;
-  /**
-   * Lists ServiceInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: ServiceListOptions): Promise<ServiceInstance[]>;
-  /**
-   * Lists ServiceInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: ServiceListOptions, callback: (error: Error | null, items: ServiceInstance[]) => any): void;
-  /**
-   * Lists ServiceInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: ServiceInstance[]) => any): void;
-  /**
-   * Retrieve a single page of ServiceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: ServiceListPageOptions): Promise<ServicePage>;
-  /**
-   * Retrieve a single page of ServiceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: ServiceListPageOptions, callback: (error: Error | null, items: ServicePage) => any): void;
-  /**
-   * Retrieve a single page of ServiceInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: ServicePage) => any): void;
-}
-
-interface ServiceListFetchOptions {
-  /**
-   * The alexa_skill_id
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - Human-readable name for this service instance
+ * @property apnCredentialSid - The SID of the default Credential to be used for APN Bindings
+ * @property gcmCredentialSid - The SID of the default Credential to be used for GCM Bindings
+ * @property messagingServiceSid - The SID of the Messaging Service to be used for SMS Bindings.
+ * @property facebookMessengerPageId - The Page ID to be used to send for Facebook Messenger Bindings.
+ * @property defaultApnNotificationProtocolVersion - The version of the protocol to be used for sending APNS notifications.
+ * @property defaultGcmNotificationProtocolVersion - The version of the protocol to be used for sending GCM notifications.
+ * @property fcmCredentialSid - The SID of the default Credential to be used for FCM Bindings
+ * @property defaultFcmNotificationProtocolVersion - The version of the protocol to be used for sending FCM notifications.
+ * @property logEnabled - The log_enabled
+ * @property alexaSkillId - The alexa_skill_id
+ * @property defaultAlexaNotificationProtocolVersion - The default_alexa_notification_protocol_version
+ */
+export interface UpdateOptions {
   alexaSkillId?: string;
-  /**
-   * The SID of the default Credential to be used for APN Bindings
-   */
   apnCredentialSid?: string;
-  /**
-   * The default_alexa_notification_protocol_version
-   */
   defaultAlexaNotificationProtocolVersion?: string;
-  /**
-   * The version of the protocol to be used for sending APNS notifications. Can be overriden on a Binding by Binding basis when creating a Binding resource.
-   */
   defaultApnNotificationProtocolVersion?: string;
-  /**
-   * The version of the protocol to be used for sending FCM notifications. Can be overriden on a Binding by Binding basis when creating a Binding resource.
-   */
   defaultFcmNotificationProtocolVersion?: string;
-  /**
-   * The version of the protocol to be used for sending GCM notifications. Can be overriden on a Binding by Binding basis when creating a Binding resource.
-   */
   defaultGcmNotificationProtocolVersion?: string;
-  /**
-   * The Page ID to be used to send for Facebook Messenger Bindings. It has to match the Page ID you configured when you [enabled Facebook Messaging](https://www.twilio.com/console/sms/settings) on your account. Facebook Messenger integration is in beta. You need to be in the beta program to be able to enable Facebook Messaging for your account.
-   */
   facebookMessengerPageId?: string;
-  /**
-   * The SID of the default Credential to be used for FCM Bindings
-   */
   fcmCredentialSid?: string;
-  /**
-   * Human-readable name for this service instance
-   */
   friendlyName?: string;
-  /**
-   * The SID of the default Credential to be used for GCM Bindings
-   */
   gcmCredentialSid?: string;
-  /**
-   * The log_enabled
-   */
   logEnabled?: boolean;
-  /**
-   * The SID of the [Messaging Service](https://www.twilio.com/docs/api/rest/sending-messages#messaging-services) to be used for SMS Bindings. In order to send SMS notifications this parameter has to be set.
-   */
   messagingServiceSid?: string;
 }
 
-interface ServiceListFetchOptions {
-  /**
-   * The alexa_skill_id
-   */
-  alexaSkillId?: string;
-  /**
-   * The SID of the default Credential to be used for APN Bindings
-   */
-  apnCredentialSid?: string;
-  /**
-   * The default_alexa_notification_protocol_version
-   */
-  defaultAlexaNotificationProtocolVersion?: string;
-  /**
-   * The version of the protocol to be used for sending APNS notifications. Can be overriden on a Binding by Binding basis when creating a Binding resource.
-   */
-  defaultApnNotificationProtocolVersion?: string;
-  /**
-   * The version of the protocol to be used for sending FCM notifications. Can be overriden on a Binding by Binding basis when creating a Binding resource.
-   */
-  defaultFcmNotificationProtocolVersion?: string;
-  /**
-   * The version of the protocol to be used for sending GCM notifications. Can be overriden on a Binding by Binding basis when creating a Binding resource.
-   */
-  defaultGcmNotificationProtocolVersion?: string;
-  /**
-   * The Page ID to be used to send for Facebook Messenger Bindings. It has to match the Page ID you configured when you [enabled Facebook Messaging](https://www.twilio.com/console/sms/settings) on your account. Facebook Messenger integration is in beta. You need to be in the beta program to be able to enable Facebook Messaging for your account.
-   */
-  facebookMessengerPageId?: string;
-  /**
-   * The SID of the default Credential to be used for FCM Bindings
-   */
-  fcmCredentialSid?: string;
-  /**
-   * Human-readable name for this service instance
-   */
-  friendlyName?: string;
-  /**
-   * The SID of the default Credential to be used for GCM Bindings
-   */
-  gcmCredentialSid?: string;
-  /**
-   * The log_enabled
-   */
-  logEnabled?: boolean;
-  /**
-   * The SID of the [Messaging Service](https://www.twilio.com/docs/api/rest/sending-messages#messaging-services) to be used for SMS Bindings. In order to send SMS notifications this parameter has to be set.
-   */
-  messagingServiceSid?: string;
-}
 
-declare class ServicePage extends Page<V1, ServicePayload, ServiceResource, ServiceInstance> {
-  constructor(version: V1, response: Response<string>, solution: ServiceSolution);
+declare class ServicePage extends Page {
+  /**
+   * @constructor Twilio.Notify.V1.ServicePage
+   * @augments Page
+   * @description Initialize the ServicePage
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Notify.V1, response: object, solution: object);
 
   /**
    * Build an instance of ServiceInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Notify.V1.ServicePage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: ServicePayload): ServiceInstance;
+  getInstance(payload: object);
 }
 
-declare class ServiceInstance extends SerializableClass {
+declare class ServiceInstance {
   /**
+   * @constructor Twilio.Notify.V1.ServiceInstance
+   * @description Initialize the ServiceContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property sid - The sid
+   * @property accountSid - The account_sid
+   * @property friendlyName - Human-readable name for this service instance
+   * @property dateCreated - The date_created
+   * @property dateUpdated - The date_updated
+   * @property apnCredentialSid - The SID of the Credential to be used for APN Bindings.
+   * @property gcmCredentialSid - The SID of the Credential to be used for GCM Bindings.
+   * @property fcmCredentialSid - The SID of the Credential to be used for FCM Bindings.
+   * @property messagingServiceSid - The SID of the Messaging Service to be used for SMS Bindings.
+   * @property facebookMessengerPageId - The Page ID to be used to send for Facebook Messenger Bindings.
+   * @property defaultApnNotificationProtocolVersion - The version of the protocol to be used for sending APNS notifications.
+   * @property defaultGcmNotificationProtocolVersion - The version of the protocol to be used for sending GCM notifications.
+   * @property defaultFcmNotificationProtocolVersion - The version of the protocol to be used for sending FCM notifications.
+   * @property logEnabled - The log_enabled
+   * @property url - The url
+   * @property links - The links
+   * @property alexaSkillId - The alexa_skill_id
+   * @property defaultAlexaNotificationProtocolVersion - The default_alexa_notification_protocol_version
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param sid - The sid
    */
-  constructor(version: V1, payload: ServicePayload, sid: string);
+  constructor(version: Twilio.Notify.V1, payload: object, sid: sid);
 
-  private _proxy: ServiceContext;
+  _proxy?: ServiceContext;
   /**
-   * The account_sid
+   * Access the bindings
+   *
+   * @function bindings
+   * @memberof Twilio.Notify.V1.ServiceInstance
+   * @instance
    */
-  accountSid: string;
-  /**
-   * The alexa_skill_id
-   */
-  alexaSkillId: string;
-  /**
-   * The SID of the [Credential](https://www.twilio.com/docs/notify/api/credentials) to be used for APN Bindings.
-   */
-  apnCredentialSid: string;
-  bindings(): BindingListInstance;
-  /**
-   * The date_created
-   */
-  dateCreated: Date;
-  /**
-   * The date_updated
-   */
-  dateUpdated: Date;
-  /**
-   * The default_alexa_notification_protocol_version
-   */
-  defaultAlexaNotificationProtocolVersion: string;
-  /**
-   * The version of the protocol to be used for sending APNS notifications. Can be overriden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/bindings) resource.
-   */
-  defaultApnNotificationProtocolVersion: string;
-  /**
-   * The version of the protocol to be used for sending FCM notifications. Can be overriden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/bindings) resource.
-   */
-  defaultFcmNotificationProtocolVersion: string;
-  /**
-   * The version of the protocol to be used for sending GCM notifications. Can be overriden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/bindings) resource.
-   */
-  defaultGcmNotificationProtocolVersion: string;
-  /**
-   * The Page ID to be used to send for Facebook Messenger Bindings. It has to match the Page ID you configured when you [enabled Facebook Messaging](https://www.twilio.com/console/sms/settings) on your account.
-   */
-  facebookMessengerPageId: string;
-  /**
-   * The SID of the [Credential](https://www.twilio.com/docs/notify/api/credentials) to be used for FCM Bindings.
-   */
-  fcmCredentialSid: string;
+  bindings();
   /**
    * fetch a ServiceInstance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  fetch(): Promise<ServiceInstance>;
-  /**
-   * fetch a ServiceInstance
+   * @function fetch
+   * @memberof Twilio.Notify.V1.ServiceInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: ServiceInstance) => any): void;
+  fetch(callback?: function);
   /**
-   * Human-readable name for this service instance
+   * Access the notifications
+   *
+   * @function notifications
+   * @memberof Twilio.Notify.V1.ServiceInstance
+   * @instance
    */
-  friendlyName: string;
-  /**
-   * The SID of the [Credential](https://www.twilio.com/docs/notify/api/credentials) to be used for GCM Bindings.
-   */
-  gcmCredentialSid: string;
-  /**
-   * The links
-   */
-  links: string;
-  /**
-   * The log_enabled
-   */
-  logEnabled: boolean;
-  /**
-   * The SID of the [Messaging Service](https://www.twilio.com/docs/api/rest/sending-messages#messaging-services) to be used for SMS Bindings. In order to send SMS notifications this parameter has to be set.
-   */
-  messagingServiceSid: string;
-  notifications(): NotificationListInstance;
+  notifications();
   /**
    * remove a ServiceInstance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  remove(): Promise<ServiceInstance>;
-  /**
-   * remove a ServiceInstance
+   * @function remove
+   * @memberof Twilio.Notify.V1.ServiceInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: ServiceInstance) => any): void;
-  segments(): SegmentListInstance;
+  remove(callback?: function);
   /**
-   * The sid
+   * Access the segments
+   *
+   * @function segments
+   * @memberof Twilio.Notify.V1.ServiceInstance
+   * @instance
    */
-  sid: string;
+  segments();
+  /**
+   * Produce a plain JSON object version of the ServiceInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Notify.V1.ServiceInstance
+   * @instance
+   */
+  toJSON();
   /**
    * update a ServiceInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Notify.V1.ServiceInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  update(opts?: ServiceListFetchOptions): Promise<ServiceInstance>;
-  /**
-   * update a ServiceInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: ServiceListFetchOptions, callback: (error: Error | null, items: ServiceInstance) => any): void;
+  update(opts?: object, callback?: function);
   /**
-   * update a ServiceInstance
+   * Access the users
    *
-   * @param callback - Callback to handle processed record
+   * @function users
+   * @memberof Twilio.Notify.V1.ServiceInstance
+   * @instance
    */
-  update(callback: (error: Error | null, items: ServiceInstance) => any): void;
-  /**
-   * The url
-   */
-  url: string;
-  users(): UserListInstance;
+  users();
 }
 
 declare class ServiceContext {
-  constructor(version: V1, sid: string);
+  /**
+   * @constructor Twilio.Notify.V1.ServiceContext
+   * @description Initialize the ServiceContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property bindings - bindings resource
+   * @property notifications - notifications resource
+   * @property users - users resource
+   * @property segments - segments resource
+   *
+   * @param version - Version of the resource
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Notify.V1, sid: sid);
 
-  bindings: BindingListInstance;
+  bindings?: Twilio.Notify.V1.ServiceContext.BindingList;
   /**
    * fetch a ServiceInstance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  fetch(): Promise<ServiceInstance>;
-  /**
-   * fetch a ServiceInstance
+   * @function fetch
+   * @memberof Twilio.Notify.V1.ServiceContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: ServiceInstance) => any): void;
-  notifications: NotificationListInstance;
+  fetch(callback?: function);
+  notifications?: Twilio.Notify.V1.ServiceContext.NotificationList;
   /**
    * remove a ServiceInstance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  remove(): Promise<ServiceInstance>;
-  /**
-   * remove a ServiceInstance
+   * @function remove
+   * @memberof Twilio.Notify.V1.ServiceContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: ServiceInstance) => any): void;
-  segments: SegmentListInstance;
+  remove(callback?: function);
+  segments?: Twilio.Notify.V1.ServiceContext.SegmentList;
   /**
    * update a ServiceInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Notify.V1.ServiceContext
+   * @instance
    *
-   * @returns Promise that resolves to processed ServiceInstance
-   */
-  update(opts?: ServiceListFetchOptions): Promise<ServiceInstance>;
-  /**
-   * update a ServiceInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: ServiceListFetchOptions, callback: (error: Error | null, items: ServiceInstance) => any): void;
-  /**
-   * update a ServiceInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: ServiceInstance) => any): void;
-  users: UserListInstance;
+  update(opts?: object, callback?: function);
+  users?: Twilio.Notify.V1.ServiceContext.UserList;
 }
 
-export { ServiceContext, ServiceInstance, ServiceList, ServiceListCreateOptions, ServiceListEachOptions, ServiceListFetchOptions, ServiceListInstance, ServiceListOptions, ServiceListPageOptions, ServicePage, ServicePayload, ServiceResource, ServiceSolution }
+export { ServiceContext, ServiceInstance, ServiceList, ServicePage }

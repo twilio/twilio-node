@@ -6,141 +6,95 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V1 = require('../../V1');
-import { SerializableClass } from '../../../../interfaces';
+import values = require('../../../../base/values');
 
-declare function NumberList(version: V1): NumberListInstance
 
-interface NumberResource {
-  /**
-   * Name of the country
-   */
-  country: string;
-  /**
-   * See [InboundCallPrice](https://www.twilio.com/docs/voice/pricing#inbound-call-price) record (returned as null if the Phone Number provided is not a Twilio number owned by this account)
-   */
-  inbound_call_price: string;
-  /**
-   * The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
-   */
-  iso_country: string;
-  /**
-   * The number
-   */
-  number: string;
-  /**
-   * See [OutboundCallPrice](https://www.twilio.com/docs/voice/pricing#outbound-call-price) record
-   */
-  outbound_call_price: string;
-  /**
-   * The currency in which prices are measured, in [ISO 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
-   */
-  price_unit: string;
-  /**
-   * The url
-   */
-  url: string;
-}
 
-interface NumberPayload extends NumberResource, Page.TwilioResponsePayload {
-}
-
-interface NumberSolution {
-}
-
-interface NumberListInstance {
+declare class NumberPage extends Page {
   /**
-   * Gets context of a single Number resource
+   * @constructor Twilio.Pricing.V1.VoiceContext.NumberPage
+   * @augments Page
+   * @description Initialize the NumberPage
    *
-   * @param number - The number
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  (number: string): NumberContext;
-  /**
-   * Gets context of a single Number resource
-   *
-   * @param number - The number
-   */
-  get(number: string): NumberContext;
-}
-
-declare class NumberPage extends Page<V1, NumberPayload, NumberResource, NumberInstance> {
-  constructor(version: V1, response: Response<string>, solution: NumberSolution);
+  constructor(version: Twilio.Pricing.V1, response: object, solution: object);
 
   /**
    * Build an instance of NumberInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Pricing.V1.VoiceContext.NumberPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: NumberPayload): NumberInstance;
+  getInstance(payload: object);
 }
 
-declare class NumberInstance extends SerializableClass {
+declare class NumberInstance {
   /**
+   * @constructor Twilio.Pricing.V1.VoiceContext.NumberInstance
+   * @description Initialize the NumberContext
+   *
+   * @property number - The number
+   * @property country - Name of the country
+   * @property isoCountry - The ISO country code
+   * @property outboundCallPrice - See OutboundCallPrice record
+   * @property inboundCallPrice - See InboundCallPrice record (returned as null if the Phone Number provided is not a Twilio number owned by this account)
+   * @property priceUnit - The currency in which prices are measured, in ISO 4127 format (e.g. usd, eur, jpy).
+   * @property url - The url
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param number - The number
    */
-  constructor(version: V1, payload: NumberPayload, number: string);
+  constructor(version: Twilio.Pricing.V1, payload: object, number: phone_number);
 
-  private _proxy: NumberContext;
-  /**
-   * Name of the country
-   */
-  country: string;
+  _proxy?: NumberContext;
   /**
    * fetch a NumberInstance
    *
-   * @returns Promise that resolves to processed NumberInstance
-   */
-  fetch(): Promise<NumberInstance>;
-  /**
-   * fetch a NumberInstance
+   * @function fetch
+   * @memberof Twilio.Pricing.V1.VoiceContext.NumberInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: NumberInstance) => any): void;
+  fetch(callback?: function);
   /**
-   * See [InboundCallPrice](https://www.twilio.com/docs/voice/pricing#inbound-call-price) record (returned as null if the Phone Number provided is not a Twilio number owned by this account)
+   * Produce a plain JSON object version of the NumberInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Pricing.V1.VoiceContext.NumberInstance
+   * @instance
    */
-  inboundCallPrice: string;
-  /**
-   * The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
-   */
-  isoCountry: string;
-  /**
-   * The number
-   */
-  number: string;
-  /**
-   * See [OutboundCallPrice](https://www.twilio.com/docs/voice/pricing#outbound-call-price) record
-   */
-  outboundCallPrice: string;
-  /**
-   * The currency in which prices are measured, in [ISO 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g. `usd`, `eur`, `jpy`).
-   */
-  priceUnit: string;
-  /**
-   * The url
-   */
-  url: string;
+  toJSON();
 }
 
 declare class NumberContext {
-  constructor(version: V1, number: string);
+  /**
+   * @constructor Twilio.Pricing.V1.VoiceContext.NumberContext
+   * @description Initialize the NumberContext
+   *
+   * @param version - Version of the resource
+   * @param number - The number
+   */
+  constructor(version: Twilio.Pricing.V1, number: phone_number);
 
   /**
    * fetch a NumberInstance
    *
-   * @returns Promise that resolves to processed NumberInstance
-   */
-  fetch(): Promise<NumberInstance>;
-  /**
-   * fetch a NumberInstance
+   * @function fetch
+   * @memberof Twilio.Pricing.V1.VoiceContext.NumberContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: NumberInstance) => any): void;
+  fetch(callback?: function);
 }
 
-export { NumberContext, NumberInstance, NumberList, NumberListInstance, NumberPage, NumberPayload, NumberResource, NumberSolution }
+export { NumberContext, NumberInstance, NumberList, NumberPage }

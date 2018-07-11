@@ -6,530 +6,183 @@
  */
 
 import Page = require('../../../base/Page');
-import Response = require('../../../http/response');
-import V1 = require('../V1');
-import { FaxMediaListInstance } from './fax/faxMedia';
-import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
-import { SerializableClass } from '../../../interfaces';
+import deserialize = require('../../../base/deserialize');
+import serialize = require('../../../base/serialize');
+import values = require('../../../base/values');
+import { FaxMediaList } from './fax/faxMedia';
 
-declare function FaxList(version: V1): FaxListInstance
 
-type FaxDirection = 'inbound'|'outbound';
-
-type FaxQuality = 'standard'|'fine'|'superfine';
-
-type FaxStatus = 'queued'|'processing'|'sending'|'delivered'|'receiving'|'received'|'no-answer'|'busy'|'failed'|'canceled';
-
-type FaxUpdateStatus = 'canceled';
-
-interface FaxResource {
-  /**
-   * The unique SID identifier of the Account.
-   */
-  account_sid: string;
-  /**
-   * The API version used to transmit the fax. For this version of the API, it will always be `v1`.
-   */
-  api_version: string;
-  /**
-   * An [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time for when the fax was created
-   */
-  date_created: Date;
-  /**
-   * An [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time for when the fax was last updated
-   */
-  date_updated: Date;
-  /**
-   * The transmission direction of this fax. One of `inbound` or `outbound`.
-   */
-  direction: FaxDirection;
-  /**
-   * The time taken to transmit the fax, in seconds.
-   */
-  duration: number;
-  /**
-   * The number the fax was sent from, in E.164 format, or the SIP `From` display name.
-   */
-  from: string;
-  /**
-   * Contains a dictionary of URL links to nested resources of this fax.
-   */
-  links: string;
-  /**
-   * A 34-character unique identifier prefixed with "ME" that references the [media instance](https://www.twilio.com/docs/api/fax/rest/fax-media) associated with this Fax instance
-   */
-  media_sid: string;
-  /**
-   * Twilio-hosted URL that can be used to download media (**note that this URL will expire after 2 hours**, but a new URL can be fetched from the [instance resource](https://www.twilio.com/docs/api/fax/rest/faxes#instance-get))
-   */
-  media_url: string;
-  /**
-   * The number of pages contained in the fax document
-   */
-  num_pages: number;
-  /**
-   * The price billed to transmit this fax, in `price_unit` units.
-   */
-  price: number;
-  /**
-   * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code used to price the fax
-   */
-  price_unit: string;
-  /**
-   * One of the [Fax Quality values](https://www.twilio.com/docs/api/fax/rest/faxes#fax-quality-values)
-   */
-  quality: FaxQuality;
-  /**
-   * A 34 character string that uniquely identifies this fax.
-   */
-  sid: string;
-  /**
-   * The status of this fax. One of `queued`, `processing`, `sending`, `delivered`, `receiving`, `received`, `no-answer`, `busy`, `failed` or `canceled`.
-   */
-  status: FaxStatus;
-  /**
-   * E.164 'To' number - the phone number that received the fax, or a SIP URI
-   */
-  to: string;
-  /**
-   * The URL of this resource.
-   */
-  url: string;
+/**
+ * Options to pass to update
+ *
+ * @property status - The updated status of this fax
+ */
+export interface UpdateOptions {
+  status?: fax.update_status;
 }
 
-interface FaxPayload extends FaxResource, Page.TwilioResponsePayload {
+/**
+ * Options to pass to update
+ *
+ * @property status - The updated status of this fax
+ */
+export interface UpdateOptions {
+  status?: fax.update_status;
 }
 
-interface FaxSolution {
-}
 
-interface FaxListEachOptions extends ListEachOptions<FaxInstance> {
+declare class FaxPage extends Page {
   /**
-   * Filters the returned list to only include faxes created after the supplied date, given in ISO 8601 format.
-   */
-  dateCreatedAfter?: Date;
-  /**
-   * Filters the returned list to only include faxes created on or before the supplied date, given in ISO 8601 format.
-   */
-  dateCreatedOnOrBefore?: Date;
-  /**
-   * Filters the returned list to only include faxes sent from the supplied number, given in E.164 format.
-   */
-  from?: string;
-  /**
-   * Filters the returned list to only include faxes sent to the supplied number, given in E.164 format.
-   */
-  to?: string;
-}
-
-interface FaxListOptions extends ListOptions<FaxInstance> {
-  /**
-   * Filters the returned list to only include faxes created after the supplied date, given in ISO 8601 format.
-   */
-  dateCreatedAfter?: Date;
-  /**
-   * Filters the returned list to only include faxes created on or before the supplied date, given in ISO 8601 format.
-   */
-  dateCreatedOnOrBefore?: Date;
-  /**
-   * Filters the returned list to only include faxes sent from the supplied number, given in E.164 format.
-   */
-  from?: string;
-  /**
-   * Filters the returned list to only include faxes sent to the supplied number, given in E.164 format.
-   */
-  to?: string;
-}
-
-interface FaxListPageOptions extends PageOptions<FaxPage> {
-  /**
-   * Filters the returned list to only include faxes created after the supplied date, given in ISO 8601 format.
-   */
-  dateCreatedAfter?: Date;
-  /**
-   * Filters the returned list to only include faxes created on or before the supplied date, given in ISO 8601 format.
-   */
-  dateCreatedOnOrBefore?: Date;
-  /**
-   * Filters the returned list to only include faxes sent from the supplied number, given in E.164 format.
-   */
-  from?: string;
-  /**
-   * Filters the returned list to only include faxes sent to the supplied number, given in E.164 format.
-   */
-  to?: string;
-}
-
-interface FaxListCreateOptions {
-  /**
-   * The phone number to use as the caller id, E.164-formatted. If using a phone number, it must be a Twilio number or a verified outgoing caller id for your account. If sending to a SIP address, this can be any alphanumeric string (plus the characters `+`, `_`, `.`, and `-`) to use in the From header of the SIP request.
-   */
-  from?: string;
-  /**
-   * The HTTP or HTTPS URL where the fax media PDF resides (see our [security](https://www.twilio.com/docs/security) page for information on how to ensure the request for your media comes from Twilio)
-   */
-  mediaUrl: string;
-  /**
-   * A [quality value](https://www.twilio.com/docs/api/fax/rest/faxes#fax-quality-values), which defaults to `fine`
-   */
-  quality?: FaxQuality;
-  /**
-   * The password to use for authentication when sending to a SIP address.
-   */
-  sipAuthPassword?: string;
-  /**
-   * The username to use for authentication when sending to a SIP address.
-   */
-  sipAuthUsername?: string;
-  /**
-   * A [status callback](https://www.twilio.com/docs/api/fax/rest/faxes#fax-status-callback) URL that will receive a POST when the status of the fax changes
-   */
-  statusCallback?: string;
-  /**
-   * Whether or not to store a copy of the sent media on Twilio's servers for later retrieval (defaults to `true`)
-   */
-  storeMedia?: boolean;
-  /**
-   * The phone number or SIP address to send the fax to, E.164-formatted.
-   */
-  to: string;
-  /**
-   * How many minutes from when a fax was initiated should Twilio attempt to send a fax.
-   */
-  ttl?: number;
-}
-
-interface FaxListInstance {
-  /**
-   * Gets context of a single Fax resource
+   * @constructor Twilio.Fax.V1.FaxPage
+   * @augments Page
+   * @description Initialize the FaxPage
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
-   * @param sid - A string that uniquely identifies this fax.
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  (sid: string): FaxContext;
-  /**
-   * create a FaxInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed FaxInstance
-   */
-  create(opts: FaxListCreateOptions): Promise<FaxInstance>;
-  /**
-   * create a FaxInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: FaxListCreateOptions, callback: (error: Error | null, items: FaxInstance) => any): void;
-  /**
-   * Streams FaxInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: FaxListEachOptions): void;
-  /**
-   * Streams FaxInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: FaxInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Fax resource
-   *
-   * @param sid - A string that uniquely identifies this fax.
-   */
-  get(sid: string): FaxContext;
-  /**
-   * Retrieve a single target page of FaxInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<FaxPage>;
-  /**
-   * Retrieve a single target page of FaxInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: FaxPage) => any): void;
-  /**
-   * Lists FaxInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: FaxListOptions): Promise<FaxInstance[]>;
-  /**
-   * Lists FaxInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: FaxListOptions, callback: (error: Error | null, items: FaxInstance[]) => any): void;
-  /**
-   * Lists FaxInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: FaxInstance[]) => any): void;
-  /**
-   * Retrieve a single page of FaxInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: FaxListPageOptions): Promise<FaxPage>;
-  /**
-   * Retrieve a single page of FaxInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: FaxListPageOptions, callback: (error: Error | null, items: FaxPage) => any): void;
-  /**
-   * Retrieve a single page of FaxInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: FaxPage) => any): void;
-}
-
-interface FaxListFetchOptions {
-  /**
-   * The updated status of this fax. The only valid option is `canceled`. This may fail if the status has already started transmission.
-   */
-  status?: FaxUpdateStatus;
-}
-
-interface FaxListFetchOptions {
-  /**
-   * The updated status of this fax. The only valid option is `canceled`. This may fail if the status has already started transmission.
-   */
-  status?: FaxUpdateStatus;
-}
-
-declare class FaxPage extends Page<V1, FaxPayload, FaxResource, FaxInstance> {
-  constructor(version: V1, response: Response<string>, solution: FaxSolution);
+  constructor(version: Twilio.Fax.V1, response: object, solution: object);
 
   /**
    * Build an instance of FaxInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Fax.V1.FaxPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: FaxPayload): FaxInstance;
+  getInstance(payload: object);
 }
 
-declare class FaxInstance extends SerializableClass {
+declare class FaxInstance {
   /**
+   * @constructor Twilio.Fax.V1.FaxInstance
+   * @description Initialize the FaxContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property sid - A string that uniquely identifies this fax.
+   * @property accountSid - Account SID
+   * @property from - The party that sent the fax
+   * @property to - The party that received the fax
+   * @property quality - The quality of this fax
+   * @property mediaSid - Media SID
+   * @property mediaUrl - URL pointing to fax media
+   * @property numPages - Number of pages
+   * @property duration - The time taken to transmit the fax
+   * @property status - The status of this fax
+   * @property direction - The direction of this fax
+   * @property apiVersion - The API version used
+   * @property price - Fax transmission price
+   * @property priceUnit - Currency used for billing
+   * @property dateCreated - The date this fax was created
+   * @property dateUpdated - The date this fax was updated
+   * @property links - Nested resource URLs
+   * @property url - The URL of this resource
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param sid - A string that uniquely identifies this fax.
    */
-  constructor(version: V1, payload: FaxPayload, sid: string);
+  constructor(version: Twilio.Fax.V1, payload: object, sid: sid);
 
-  private _proxy: FaxContext;
-  /**
-   * The unique SID identifier of the Account.
-   */
-  accountSid: string;
-  /**
-   * The API version used to transmit the fax. For this version of the API, it will always be `v1`.
-   */
-  apiVersion: string;
-  /**
-   * An [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time for when the fax was created
-   */
-  dateCreated: Date;
-  /**
-   * An [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time for when the fax was last updated
-   */
-  dateUpdated: Date;
-  /**
-   * The transmission direction of this fax. One of `inbound` or `outbound`.
-   */
-  direction: FaxDirection;
-  /**
-   * The time taken to transmit the fax, in seconds.
-   */
-  duration: number;
+  _proxy?: FaxContext;
   /**
    * fetch a FaxInstance
    *
-   * @returns Promise that resolves to processed FaxInstance
-   */
-  fetch(): Promise<FaxInstance>;
-  /**
-   * fetch a FaxInstance
+   * @function fetch
+   * @memberof Twilio.Fax.V1.FaxInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: FaxInstance) => any): void;
+  fetch(callback?: function);
   /**
-   * The number the fax was sent from, in E.164 format, or the SIP `From` display name.
+   * Access the media
+   *
+   * @function media
+   * @memberof Twilio.Fax.V1.FaxInstance
+   * @instance
    */
-  from: string;
-  /**
-   * Contains a dictionary of URL links to nested resources of this fax.
-   */
-  links: string;
-  media(): FaxMediaListInstance;
-  /**
-   * A 34-character unique identifier prefixed with "ME" that references the [media instance](https://www.twilio.com/docs/api/fax/rest/fax-media) associated with this Fax instance
-   */
-  mediaSid: string;
-  /**
-   * Twilio-hosted URL that can be used to download media (**note that this URL will expire after 2 hours**, but a new URL can be fetched from the [instance resource](https://www.twilio.com/docs/api/fax/rest/faxes#instance-get))
-   */
-  mediaUrl: string;
-  /**
-   * The number of pages contained in the fax document
-   */
-  numPages: number;
-  /**
-   * The price billed to transmit this fax, in `price_unit` units.
-   */
-  price: number;
-  /**
-   * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code used to price the fax
-   */
-  priceUnit: string;
-  /**
-   * One of the [Fax Quality values](https://www.twilio.com/docs/api/fax/rest/faxes#fax-quality-values)
-   */
-  quality: FaxQuality;
+  media();
   /**
    * remove a FaxInstance
    *
-   * @returns Promise that resolves to processed FaxInstance
-   */
-  remove(): Promise<FaxInstance>;
-  /**
-   * remove a FaxInstance
+   * @function remove
+   * @memberof Twilio.Fax.V1.FaxInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: FaxInstance) => any): void;
+  remove(callback?: function);
   /**
-   * A 34 character string that uniquely identifies this fax.
+   * Produce a plain JSON object version of the FaxInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Fax.V1.FaxInstance
+   * @instance
    */
-  sid: string;
-  /**
-   * The status of this fax. One of `queued`, `processing`, `sending`, `delivered`, `receiving`, `received`, `no-answer`, `busy`, `failed` or `canceled`.
-   */
-  status: FaxStatus;
-  /**
-   * E.164 'To' number - the phone number that received the fax, or a SIP URI
-   */
-  to: string;
+  toJSON();
   /**
    * update a FaxInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Fax.V1.FaxInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed FaxInstance
-   */
-  update(opts?: FaxListFetchOptions): Promise<FaxInstance>;
-  /**
-   * update a FaxInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: FaxListFetchOptions, callback: (error: Error | null, items: FaxInstance) => any): void;
-  /**
-   * update a FaxInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: FaxInstance) => any): void;
-  /**
-   * The URL of this resource.
-   */
-  url: string;
+  update(opts?: object, callback?: function);
 }
 
 declare class FaxContext {
-  constructor(version: V1, sid: string);
+  /**
+   * @constructor Twilio.Fax.V1.FaxContext
+   * @description Initialize the FaxContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property media - media resource
+   *
+   * @param version - Version of the resource
+   * @param sid - A string that uniquely identifies this fax.
+   */
+  constructor(version: Twilio.Fax.V1, sid: sid);
 
   /**
    * fetch a FaxInstance
    *
-   * @returns Promise that resolves to processed FaxInstance
-   */
-  fetch(): Promise<FaxInstance>;
-  /**
-   * fetch a FaxInstance
+   * @function fetch
+   * @memberof Twilio.Fax.V1.FaxContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: FaxInstance) => any): void;
-  media: FaxMediaListInstance;
+  fetch(callback?: function);
+  media?: Twilio.Fax.V1.FaxContext.FaxMediaList;
   /**
    * remove a FaxInstance
    *
-   * @returns Promise that resolves to processed FaxInstance
-   */
-  remove(): Promise<FaxInstance>;
-  /**
-   * remove a FaxInstance
+   * @function remove
+   * @memberof Twilio.Fax.V1.FaxContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: FaxInstance) => any): void;
+  remove(callback?: function);
   /**
    * update a FaxInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Fax.V1.FaxContext
+   * @instance
    *
-   * @returns Promise that resolves to processed FaxInstance
-   */
-  update(opts?: FaxListFetchOptions): Promise<FaxInstance>;
-  /**
-   * update a FaxInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: FaxListFetchOptions, callback: (error: Error | null, items: FaxInstance) => any): void;
-  /**
-   * update a FaxInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: FaxInstance) => any): void;
+  update(opts?: object, callback?: function);
 }
 
-export { FaxContext, FaxDirection, FaxInstance, FaxList, FaxListCreateOptions, FaxListEachOptions, FaxListFetchOptions, FaxListInstance, FaxListOptions, FaxListPageOptions, FaxPage, FaxPayload, FaxQuality, FaxResource, FaxSolution, FaxStatus, FaxUpdateStatus }
+export { FaxContext, FaxInstance, FaxList, FaxPage }

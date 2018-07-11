@@ -6,472 +6,71 @@
  */
 
 import Page = require('../../../../../base/Page');
-import Response = require('../../../../../http/response');
-import V2010 = require('../../../V2010');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../interfaces';
-import { SerializableClass } from '../../../../../interfaces';
+import deserialize = require('../../../../../base/deserialize');
+import serialize = require('../../../../../base/serialize');
+import values = require('../../../../../base/values');
 
-declare function VoipList(version: V2010, accountSid: string, countryCode: string): VoipListInstance
 
-interface VoipResource {
-  /**
-   * The address_requirements
-   */
-  address_requirements: string;
-  /**
-   * The beta
-   */
-  beta: boolean;
-  /**
-   * The capabilities
-   */
-  capabilities: string;
-  /**
-   * The friendly_name
-   */
-  friendly_name: string;
-  /**
-   * The iso_country
-   */
-  iso_country: string;
-  /**
-   * The lata
-   */
-  lata: string;
-  /**
-   * The latitude
-   */
-  latitude: number;
-  /**
-   * The locality
-   */
-  locality: string;
-  /**
-   * The longitude
-   */
-  longitude: number;
-  /**
-   * The phone_number
-   */
-  phone_number: string;
-  /**
-   * The postal_code
-   */
-  postal_code: string;
-  /**
-   * The rate_center
-   */
-  rate_center: string;
-  /**
-   * The region
-   */
-  region: string;
-}
 
-interface VoipPayload extends VoipResource, Page.TwilioResponsePayload {
-}
-
-interface VoipSolution {
-  accountSid: string;
-  countryCode: string;
-}
-
-interface VoipListEachOptions extends ListEachOptions<VoipInstance> {
+declare class VoipPage extends Page {
   /**
-   * The area_code
-   */
-  areaCode?: number;
-  /**
-   * The beta
-   */
-  beta?: boolean;
-  /**
-   * The contains
-   */
-  contains?: string;
-  /**
-   * The distance
-   */
-  distance?: number;
-  /**
-   * The exclude_all_address_required
-   */
-  excludeAllAddressRequired?: boolean;
-  /**
-   * The exclude_foreign_address_required
-   */
-  excludeForeignAddressRequired?: boolean;
-  /**
-   * The exclude_local_address_required
-   */
-  excludeLocalAddressRequired?: boolean;
-  /**
-   * The fax_enabled
-   */
-  faxEnabled?: boolean;
-  /**
-   * The in_lata
-   */
-  inLata?: string;
-  /**
-   * The in_locality
-   */
-  inLocality?: string;
-  /**
-   * The in_postal_code
-   */
-  inPostalCode?: string;
-  /**
-   * The in_rate_center
-   */
-  inRateCenter?: string;
-  /**
-   * The in_region
-   */
-  inRegion?: string;
-  /**
-   * The mms_enabled
-   */
-  mmsEnabled?: boolean;
-  /**
-   * The near_lat_long
-   */
-  nearLatLong?: string;
-  /**
-   * The near_number
-   */
-  nearNumber?: string;
-  /**
-   * The sms_enabled
-   */
-  smsEnabled?: boolean;
-  /**
-   * The voice_enabled
-   */
-  voiceEnabled?: boolean;
-}
-
-interface VoipListOptions extends ListOptions<VoipInstance> {
-  /**
-   * The area_code
-   */
-  areaCode?: number;
-  /**
-   * The beta
-   */
-  beta?: boolean;
-  /**
-   * The contains
-   */
-  contains?: string;
-  /**
-   * The distance
-   */
-  distance?: number;
-  /**
-   * The exclude_all_address_required
-   */
-  excludeAllAddressRequired?: boolean;
-  /**
-   * The exclude_foreign_address_required
-   */
-  excludeForeignAddressRequired?: boolean;
-  /**
-   * The exclude_local_address_required
-   */
-  excludeLocalAddressRequired?: boolean;
-  /**
-   * The fax_enabled
-   */
-  faxEnabled?: boolean;
-  /**
-   * The in_lata
-   */
-  inLata?: string;
-  /**
-   * The in_locality
-   */
-  inLocality?: string;
-  /**
-   * The in_postal_code
-   */
-  inPostalCode?: string;
-  /**
-   * The in_rate_center
-   */
-  inRateCenter?: string;
-  /**
-   * The in_region
-   */
-  inRegion?: string;
-  /**
-   * The mms_enabled
-   */
-  mmsEnabled?: boolean;
-  /**
-   * The near_lat_long
-   */
-  nearLatLong?: string;
-  /**
-   * The near_number
-   */
-  nearNumber?: string;
-  /**
-   * The sms_enabled
-   */
-  smsEnabled?: boolean;
-  /**
-   * The voice_enabled
-   */
-  voiceEnabled?: boolean;
-}
-
-interface VoipListPageOptions extends PageOptions<VoipPage> {
-  /**
-   * The area_code
-   */
-  areaCode?: number;
-  /**
-   * The beta
-   */
-  beta?: boolean;
-  /**
-   * The contains
-   */
-  contains?: string;
-  /**
-   * The distance
-   */
-  distance?: number;
-  /**
-   * The exclude_all_address_required
-   */
-  excludeAllAddressRequired?: boolean;
-  /**
-   * The exclude_foreign_address_required
-   */
-  excludeForeignAddressRequired?: boolean;
-  /**
-   * The exclude_local_address_required
-   */
-  excludeLocalAddressRequired?: boolean;
-  /**
-   * The fax_enabled
-   */
-  faxEnabled?: boolean;
-  /**
-   * The in_lata
-   */
-  inLata?: string;
-  /**
-   * The in_locality
-   */
-  inLocality?: string;
-  /**
-   * The in_postal_code
-   */
-  inPostalCode?: string;
-  /**
-   * The in_rate_center
-   */
-  inRateCenter?: string;
-  /**
-   * The in_region
-   */
-  inRegion?: string;
-  /**
-   * The mms_enabled
-   */
-  mmsEnabled?: boolean;
-  /**
-   * The near_lat_long
-   */
-  nearLatLong?: string;
-  /**
-   * The near_number
-   */
-  nearNumber?: string;
-  /**
-   * The sms_enabled
-   */
-  smsEnabled?: boolean;
-  /**
-   * The voice_enabled
-   */
-  voiceEnabled?: boolean;
-}
-
-interface VoipListInstance {
-  /**
-   * Streams VoipInstance records from the API.
+   * @constructor Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.VoipPage
+   * @augments Page
+   * @description Initialize the VoipPage
    *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  each(opts?: VoipListEachOptions): void;
-  /**
-   * Streams VoipInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: VoipInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Retrieve a single target page of VoipInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<VoipPage>;
-  /**
-   * Retrieve a single target page of VoipInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: VoipPage) => any): void;
-  /**
-   * Lists VoipInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: VoipListOptions): Promise<VoipInstance[]>;
-  /**
-   * Lists VoipInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: VoipListOptions, callback: (error: Error | null, items: VoipInstance[]) => any): void;
-  /**
-   * Lists VoipInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: VoipInstance[]) => any): void;
-  /**
-   * Retrieve a single page of VoipInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: VoipListPageOptions): Promise<VoipPage>;
-  /**
-   * Retrieve a single page of VoipInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: VoipListPageOptions, callback: (error: Error | null, items: VoipPage) => any): void;
-  /**
-   * Retrieve a single page of VoipInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: VoipPage) => any): void;
-}
-
-declare class VoipPage extends Page<V2010, VoipPayload, VoipResource, VoipInstance> {
-  constructor(version: V2010, response: Response<string>, solution: VoipSolution);
+  constructor(version: Twilio.Api.V2010, response: object, solution: object);
 
   /**
    * Build an instance of VoipInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.VoipPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: VoipPayload): VoipInstance;
+  getInstance(payload: object);
 }
 
-declare class VoipInstance extends SerializableClass {
+declare class VoipInstance {
   /**
+   * @constructor Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.VoipInstance
+   * @description Initialize the VoipContext
+   *
+   * @property friendlyName - The friendly_name
+   * @property phoneNumber - The phone_number
+   * @property lata - The lata
+   * @property locality - The locality
+   * @property rateCenter - The rate_center
+   * @property latitude - The latitude
+   * @property longitude - The longitude
+   * @property region - The region
+   * @property postalCode - The postal_code
+   * @property isoCountry - The iso_country
+   * @property addressRequirements - The address_requirements
+   * @property beta - The beta
+   * @property capabilities - The capabilities
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
+   * @param accountSid - The 34 character string that uniquely identifies your account.
+   * @param countryCode - The ISO Country code to lookup phone numbers for.
    */
-  constructor(version: V2010, payload: VoipPayload);
+  constructor(version: Twilio.Api.V2010, payload: object, accountSid: account_sid, countryCode: iso_country_code);
 
   /**
-   * The address_requirements
+   * Produce a plain JSON object version of the VoipInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.VoipInstance
+   * @instance
    */
-  addressRequirements: string;
-  /**
-   * The beta
-   */
-  beta: boolean;
-  /**
-   * The capabilities
-   */
-  capabilities: string;
-  /**
-   * The friendly_name
-   */
-  friendlyName: string;
-  /**
-   * The iso_country
-   */
-  isoCountry: string;
-  /**
-   * The lata
-   */
-  lata: string;
-  /**
-   * The latitude
-   */
-  latitude: number;
-  /**
-   * The locality
-   */
-  locality: string;
-  /**
-   * The longitude
-   */
-  longitude: number;
-  /**
-   * The phone_number
-   */
-  phoneNumber: string;
-  /**
-   * The postal_code
-   */
-  postalCode: string;
-  /**
-   * The rate_center
-   */
-  rateCenter: string;
-  /**
-   * The region
-   */
-  region: string;
+  toJSON();
 }
 
-export { VoipInstance, VoipList, VoipListEachOptions, VoipListInstance, VoipListOptions, VoipListPageOptions, VoipPage, VoipPayload, VoipResource, VoipSolution }
+export { VoipInstance, VoipList, VoipPage }

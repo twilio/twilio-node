@@ -6,196 +6,133 @@
  */
 
 import Page = require('../../../../../base/Page');
-import Response = require('../../../../../http/response');
-import V1 = require('../../../V1');
-import { SerializableClass } from '../../../../../interfaces';
+import serialize = require('../../../../../base/serialize');
+import values = require('../../../../../base/values');
 
-declare function TaskQueueStatisticsList(version: V1, workspaceSid: string, taskQueueSid: string): TaskQueueStatisticsListInstance
 
-interface TaskQueueStatisticsResource {
-  /**
-   * The account_sid
-   */
-  account_sid: string;
-  /**
-   * The cumulative
-   */
-  cumulative: string;
-  /**
-   * The realtime
-   */
-  realtime: string;
-  /**
-   * The task_queue_sid
-   */
-  task_queue_sid: string;
-  /**
-   * The url
-   */
-  url: string;
-  /**
-   * The workspace_sid
-   */
-  workspace_sid: string;
-}
-
-interface TaskQueueStatisticsPayload extends TaskQueueStatisticsResource, Page.TwilioResponsePayload {
-}
-
-interface TaskQueueStatisticsSolution {
-  taskQueueSid: string;
-  workspaceSid: string;
-}
-
-interface TaskQueueStatisticsListInstance {
-  /**
-   * Gets context of a single TaskQueueStatistics resource
-   */
-  (): TaskQueueStatisticsContext;
-  /**
-   * Gets context of a single TaskQueueStatistics resource
-   */
-  get(): TaskQueueStatisticsContext;
-}
-
-interface TaskQueueStatisticsListFetchOptions {
-  /**
-   * Filter cumulative statistics by an end date. This is helpful for defining a range of statistics to capture. Input is a GMT ISO 8601 Timestamp.
-   */
+/**
+ * Options to pass to fetch
+ *
+ * @property endDate - Filter cumulative statistics by an end date.
+ * @property minutes - Filter cumulative statistics by up to 'x' minutes in the past.
+ * @property startDate - Filter cumulative statistics by a start date.
+ * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
+ * @property splitByWaitTime - A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
+ */
+export interface FetchOptions {
   endDate?: Date;
-  /**
-   * Filter cumulative statistics by up to 'x' minutes in the past. This is helpful for statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends. Defaults to 15 minutes.
-   */
   minutes?: number;
-  /**
-   * A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds. Ex: "5,30" would show splits of tasks that were canceled or accepted before or after 5 seconds and respectively, 30 seconds. This is great for showing short abandoned tasks or tasks that failed to meet your SLA.
-   */
   splitByWaitTime?: string;
-  /**
-   * Filter cumulative statistics by a start date. This is helpful for defining a range of statistics to capture. Input is a GMT ISO 8601 Timestamp.
-   */
   startDate?: Date;
-  /**
-   * Filter real-time and cumulative statistics by TaskChannel. Takes in a Unique Name ("voice", "sms", "default", etc.) or a TaskChannelSid.
-   */
   taskChannel?: string;
 }
 
-interface TaskQueueStatisticsListFetchOptions {
-  /**
-   * Filter cumulative statistics by an end date. This is helpful for defining a range of statistics to capture. Input is a GMT ISO 8601 Timestamp.
-   */
+/**
+ * Options to pass to fetch
+ *
+ * @property endDate - Filter cumulative statistics by an end date.
+ * @property minutes - Filter cumulative statistics by up to 'x' minutes in the past.
+ * @property startDate - Filter cumulative statistics by a start date.
+ * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
+ * @property splitByWaitTime - A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
+ */
+export interface FetchOptions {
   endDate?: Date;
-  /**
-   * Filter cumulative statistics by up to 'x' minutes in the past. This is helpful for statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends. Defaults to 15 minutes.
-   */
   minutes?: number;
-  /**
-   * A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds. Ex: "5,30" would show splits of tasks that were canceled or accepted before or after 5 seconds and respectively, 30 seconds. This is great for showing short abandoned tasks or tasks that failed to meet your SLA.
-   */
   splitByWaitTime?: string;
-  /**
-   * Filter cumulative statistics by a start date. This is helpful for defining a range of statistics to capture. Input is a GMT ISO 8601 Timestamp.
-   */
   startDate?: Date;
-  /**
-   * Filter real-time and cumulative statistics by TaskChannel. Takes in a Unique Name ("voice", "sms", "default", etc.) or a TaskChannelSid.
-   */
   taskChannel?: string;
 }
 
-declare class TaskQueueStatisticsPage extends Page<V1, TaskQueueStatisticsPayload, TaskQueueStatisticsResource, TaskQueueStatisticsInstance> {
-  constructor(version: V1, response: Response<string>, solution: TaskQueueStatisticsSolution);
+
+declare class TaskQueueStatisticsPage extends Page {
+  /**
+   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueueStatisticsPage
+   * @augments Page
+   * @description Initialize the TaskQueueStatisticsPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Taskrouter.V1, response: object, solution: object);
 
   /**
    * Build an instance of TaskQueueStatisticsInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueueStatisticsPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: TaskQueueStatisticsPayload): TaskQueueStatisticsInstance;
+  getInstance(payload: object);
 }
 
-declare class TaskQueueStatisticsInstance extends SerializableClass {
+declare class TaskQueueStatisticsInstance {
   /**
+   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueueStatisticsInstance
+   * @description Initialize the TaskQueueStatisticsContext
+   *
+   * @property accountSid - The account_sid
+   * @property cumulative - The cumulative
+   * @property realtime - The realtime
+   * @property taskQueueSid - The task_queue_sid
+   * @property workspaceSid - The workspace_sid
+   * @property url - The url
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param workspaceSid - The workspace_sid
    * @param taskQueueSid - The task_queue_sid
    */
-  constructor(version: V1, payload: TaskQueueStatisticsPayload, workspaceSid: string, taskQueueSid: string);
+  constructor(version: Twilio.Taskrouter.V1, payload: object, workspaceSid: sid, taskQueueSid: sid);
 
-  private _proxy: TaskQueueStatisticsContext;
-  /**
-   * The account_sid
-   */
-  accountSid: string;
-  /**
-   * The cumulative
-   */
-  cumulative: string;
+  _proxy?: TaskQueueStatisticsContext;
   /**
    * fetch a TaskQueueStatisticsInstance
    *
-   * @param opts - Options for request
+   * @function fetch
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueueStatisticsInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed TaskQueueStatisticsInstance
-   */
-  fetch(opts?: TaskQueueStatisticsListFetchOptions): Promise<TaskQueueStatisticsInstance>;
-  /**
-   * fetch a TaskQueueStatisticsInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  fetch(opts: TaskQueueStatisticsListFetchOptions, callback: (error: Error | null, items: TaskQueueStatisticsInstance) => any): void;
+  fetch(opts?: object, callback?: function);
   /**
-   * fetch a TaskQueueStatisticsInstance
+   * Produce a plain JSON object version of the TaskQueueStatisticsInstance for serialization.
+   * Removes any circular references in the object.
    *
-   * @param callback - Callback to handle processed record
+   * @function toJSON
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueueStatisticsInstance
+   * @instance
    */
-  fetch(callback: (error: Error | null, items: TaskQueueStatisticsInstance) => any): void;
-  /**
-   * The realtime
-   */
-  realtime: string;
-  /**
-   * The task_queue_sid
-   */
-  taskQueueSid: string;
-  /**
-   * The url
-   */
-  url: string;
-  /**
-   * The workspace_sid
-   */
-  workspaceSid: string;
+  toJSON();
 }
 
 declare class TaskQueueStatisticsContext {
-  constructor(version: V1, workspaceSid: string, taskQueueSid: string);
+  /**
+   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueueStatisticsContext
+   * @description Initialize the TaskQueueStatisticsContext
+   *
+   * @param version - Version of the resource
+   * @param workspaceSid - The workspace_sid
+   * @param taskQueueSid - The task_queue_sid
+   */
+  constructor(version: Twilio.Taskrouter.V1, workspaceSid: sid, taskQueueSid: sid);
 
   /**
    * fetch a TaskQueueStatisticsInstance
    *
-   * @param opts - Options for request
+   * @function fetch
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueueStatisticsContext
+   * @instance
    *
-   * @returns Promise that resolves to processed TaskQueueStatisticsInstance
-   */
-  fetch(opts?: TaskQueueStatisticsListFetchOptions): Promise<TaskQueueStatisticsInstance>;
-  /**
-   * fetch a TaskQueueStatisticsInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  fetch(opts: TaskQueueStatisticsListFetchOptions, callback: (error: Error | null, items: TaskQueueStatisticsInstance) => any): void;
-  /**
-   * fetch a TaskQueueStatisticsInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  fetch(callback: (error: Error | null, items: TaskQueueStatisticsInstance) => any): void;
+  fetch(opts?: object, callback?: function);
 }
 
-export { TaskQueueStatisticsContext, TaskQueueStatisticsInstance, TaskQueueStatisticsList, TaskQueueStatisticsListFetchOptions, TaskQueueStatisticsListInstance, TaskQueueStatisticsPage, TaskQueueStatisticsPayload, TaskQueueStatisticsResource, TaskQueueStatisticsSolution }
+export { TaskQueueStatisticsContext, TaskQueueStatisticsInstance, TaskQueueStatisticsList, TaskQueueStatisticsPage }

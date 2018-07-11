@@ -6,306 +6,135 @@
  */
 
 import Page = require('../../../../../base/Page');
-import Response = require('../../../../../http/response');
-import V2010 = require('../../../V2010');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../interfaces';
-import { PayloadListInstance } from './addOnResult/payload';
-import { SerializableClass } from '../../../../../interfaces';
+import deserialize = require('../../../../../base/deserialize');
+import values = require('../../../../../base/values');
+import { PayloadList } from './addOnResult/payload';
 
-declare function AddOnResultList(version: V2010, accountSid: string, referenceSid: string): AddOnResultListInstance
 
-type AddOnResultStatus = 'canceled'|'completed'|'deleted'|'failed'|'in-progress'|'init'|'processing'|'queued';
 
-interface AddOnResultResource {
+declare class AddOnResultPage extends Page {
   /**
-   * The unique id of the Account responsible for this recording.
+   * @constructor Twilio.Api.V2010.AccountContext.RecordingContext.AddOnResultPage
+   * @augments Page
+   * @description Initialize the AddOnResultPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  account_sid: string;
-  /**
-   * A 34 character string that uniquely identifies the Add-on configuration.
-   */
-  add_on_configuration_sid: string;
-  /**
-   * A 34 character string that uniquely identifies the Add-on to which this result belongs.
-   */
-  add_on_sid: string;
-  /**
-   * The date that this result was completed, given in RFC 2822 format.
-   */
-  date_completed: Date;
-  /**
-   * The date that this resource was created, given in RFC 2822 format.
-   */
-  date_created: Date;
-  /**
-   * The date that this resource was last updated, given in RFC 2822 format.
-   */
-  date_updated: Date;
-  /**
-   * A 34 character string that uniquely identifies the recording to which this result belongs.
-   */
-  reference_sid: string;
-  /**
-   * A 34 character string that uniquely identifies this result.
-   */
-  sid: string;
-  /**
-   * The status of this result.
-   */
-  status: AddOnResultStatus;
-  /**
-   * A dictionary of URIs for related resources
-   */
-  subresource_uris: string;
-}
-
-interface AddOnResultPayload extends AddOnResultResource, Page.TwilioResponsePayload {
-}
-
-interface AddOnResultSolution {
-  accountSid: string;
-  referenceSid: string;
-}
-
-interface AddOnResultListEachOptions extends ListEachOptions<AddOnResultInstance> {
-}
-
-interface AddOnResultListOptions extends ListOptions<AddOnResultInstance> {
-}
-
-interface AddOnResultListPageOptions extends PageOptions<AddOnResultPage> {
-}
-
-interface AddOnResultListInstance {
-  /**
-   * Gets context of a single AddOnResult resource
-   *
-   * @param sid - Fetch by unique result Sid
-   */
-  (sid: string): AddOnResultContext;
-  /**
-   * Streams AddOnResultInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: AddOnResultListEachOptions): void;
-  /**
-   * Streams AddOnResultInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: AddOnResultInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single AddOnResult resource
-   *
-   * @param sid - Fetch by unique result Sid
-   */
-  get(sid: string): AddOnResultContext;
-  /**
-   * Retrieve a single target page of AddOnResultInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<AddOnResultPage>;
-  /**
-   * Retrieve a single target page of AddOnResultInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: AddOnResultPage) => any): void;
-  /**
-   * Lists AddOnResultInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: AddOnResultListOptions): Promise<AddOnResultInstance[]>;
-  /**
-   * Lists AddOnResultInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: AddOnResultListOptions, callback: (error: Error | null, items: AddOnResultInstance[]) => any): void;
-  /**
-   * Lists AddOnResultInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: AddOnResultInstance[]) => any): void;
-  /**
-   * Retrieve a single page of AddOnResultInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: AddOnResultListPageOptions): Promise<AddOnResultPage>;
-  /**
-   * Retrieve a single page of AddOnResultInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: AddOnResultListPageOptions, callback: (error: Error | null, items: AddOnResultPage) => any): void;
-  /**
-   * Retrieve a single page of AddOnResultInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: AddOnResultPage) => any): void;
-}
-
-declare class AddOnResultPage extends Page<V2010, AddOnResultPayload, AddOnResultResource, AddOnResultInstance> {
-  constructor(version: V2010, response: Response<string>, solution: AddOnResultSolution);
+  constructor(version: Twilio.Api.V2010, response: object, solution: object);
 
   /**
    * Build an instance of AddOnResultInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Api.V2010.AccountContext.RecordingContext.AddOnResultPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: AddOnResultPayload): AddOnResultInstance;
+  getInstance(payload: object);
 }
 
-declare class AddOnResultInstance extends SerializableClass {
+declare class AddOnResultInstance {
   /**
+   * @constructor Twilio.Api.V2010.AccountContext.RecordingContext.AddOnResultInstance
+   * @description Initialize the AddOnResultContext
+   *
+   * @property sid - A string that uniquely identifies this result
+   * @property accountSid - The unique sid that identifies this account
+   * @property status - The status of this result.
+   * @property addOnSid - A string that uniquely identifies the Add-on.
+   * @property addOnConfigurationSid - A string that uniquely identifies the Add-on configuration.
+   * @property dateCreated - The date this resource was created
+   * @property dateUpdated - The date this resource was last updated
+   * @property dateCompleted - The date this result was completed.
+   * @property referenceSid - A string that uniquely identifies the recording.
+   * @property subresourceUris - A dictionary of URIs for related resources
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
+   * @param accountSid - The unique sid that identifies this account
+   * @param referenceSid - A string that uniquely identifies the recording.
+   * @param sid - Fetch by unique result Sid
+   */
+  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, referenceSid: sid, sid: sid);
+
+  _proxy?: AddOnResultContext;
+  /**
+   * fetch a AddOnResultInstance
+   *
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.RecordingContext.AddOnResultInstance
+   * @instance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: function);
+  /**
+   * Access the payloads
+   *
+   * @function payloads
+   * @memberof Twilio.Api.V2010.AccountContext.RecordingContext.AddOnResultInstance
+   * @instance
+   */
+  payloads();
+  /**
+   * remove a AddOnResultInstance
+   *
+   * @function remove
+   * @memberof Twilio.Api.V2010.AccountContext.RecordingContext.AddOnResultInstance
+   * @instance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: function);
+  /**
+   * Produce a plain JSON object version of the AddOnResultInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Api.V2010.AccountContext.RecordingContext.AddOnResultInstance
+   * @instance
+   */
+  toJSON();
+}
+
+declare class AddOnResultContext {
+  /**
+   * @constructor Twilio.Api.V2010.AccountContext.RecordingContext.AddOnResultContext
+   * @description Initialize the AddOnResultContext
+   *
+   * @property payloads - payloads resource
+   *
+   * @param version - Version of the resource
    * @param accountSid - The account_sid
    * @param referenceSid - The reference_sid
    * @param sid - Fetch by unique result Sid
    */
-  constructor(version: V2010, payload: AddOnResultPayload, accountSid: string, referenceSid: string, sid: string);
+  constructor(version: Twilio.Api.V2010, accountSid: sid, referenceSid: sid, sid: sid);
 
-  private _proxy: AddOnResultContext;
-  /**
-   * The unique id of the Account responsible for this recording.
-   */
-  accountSid: string;
-  /**
-   * A 34 character string that uniquely identifies the Add-on configuration.
-   */
-  addOnConfigurationSid: string;
-  /**
-   * A 34 character string that uniquely identifies the Add-on to which this result belongs.
-   */
-  addOnSid: string;
-  /**
-   * The date that this result was completed, given in RFC 2822 format.
-   */
-  dateCompleted: Date;
-  /**
-   * The date that this resource was created, given in RFC 2822 format.
-   */
-  dateCreated: Date;
-  /**
-   * The date that this resource was last updated, given in RFC 2822 format.
-   */
-  dateUpdated: Date;
   /**
    * fetch a AddOnResultInstance
    *
-   * @returns Promise that resolves to processed AddOnResultInstance
-   */
-  fetch(): Promise<AddOnResultInstance>;
-  /**
-   * fetch a AddOnResultInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.RecordingContext.AddOnResultContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: AddOnResultInstance) => any): void;
-  payloads(): PayloadListInstance;
-  /**
-   * A 34 character string that uniquely identifies the recording to which this result belongs.
-   */
-  referenceSid: string;
+  fetch(callback?: function);
+  payloads?: Twilio.Api.V2010.AccountContext.RecordingContext.AddOnResultContext.PayloadList;
   /**
    * remove a AddOnResultInstance
    *
-   * @returns Promise that resolves to processed AddOnResultInstance
-   */
-  remove(): Promise<AddOnResultInstance>;
-  /**
-   * remove a AddOnResultInstance
+   * @function remove
+   * @memberof Twilio.Api.V2010.AccountContext.RecordingContext.AddOnResultContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: AddOnResultInstance) => any): void;
-  /**
-   * A 34 character string that uniquely identifies this result.
-   */
-  sid: string;
-  /**
-   * The status of this result.
-   */
-  status: AddOnResultStatus;
-  /**
-   * A dictionary of URIs for related resources
-   */
-  subresourceUris: string;
+  remove(callback?: function);
 }
 
-declare class AddOnResultContext {
-  constructor(version: V2010, accountSid: string, referenceSid: string, sid: string);
-
-  /**
-   * fetch a AddOnResultInstance
-   *
-   * @returns Promise that resolves to processed AddOnResultInstance
-   */
-  fetch(): Promise<AddOnResultInstance>;
-  /**
-   * fetch a AddOnResultInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  fetch(callback: (error: Error | null, items: AddOnResultInstance) => any): void;
-  payloads: PayloadListInstance;
-  /**
-   * remove a AddOnResultInstance
-   *
-   * @returns Promise that resolves to processed AddOnResultInstance
-   */
-  remove(): Promise<AddOnResultInstance>;
-  /**
-   * remove a AddOnResultInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback: (error: Error | null, items: AddOnResultInstance) => any): void;
-}
-
-export { AddOnResultContext, AddOnResultInstance, AddOnResultList, AddOnResultListEachOptions, AddOnResultListInstance, AddOnResultListOptions, AddOnResultListPageOptions, AddOnResultPage, AddOnResultPayload, AddOnResultResource, AddOnResultSolution, AddOnResultStatus }
+export { AddOnResultContext, AddOnResultInstance, AddOnResultList, AddOnResultPage }

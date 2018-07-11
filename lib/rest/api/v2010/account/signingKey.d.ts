@@ -6,307 +6,155 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V2010 = require('../../V2010');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { SerializableClass } from '../../../../interfaces';
+import deserialize = require('../../../../base/deserialize');
+import values = require('../../../../base/values');
 
-declare function SigningKeyList(version: V2010, accountSid: string): SigningKeyListInstance
 
-interface SigningKeyResource {
-  /**
-   * The date_created
-   */
-  date_created: Date;
-  /**
-   * The date_updated
-   */
-  date_updated: Date;
-  /**
-   * The friendly_name
-   */
-  friendly_name: string;
-  /**
-   * The sid
-   */
-  sid: string;
-}
-
-interface SigningKeyPayload extends SigningKeyResource, Page.TwilioResponsePayload {
-}
-
-interface SigningKeySolution {
-  accountSid: string;
-}
-
-interface SigningKeyListEachOptions extends ListEachOptions<SigningKeyInstance> {
-}
-
-interface SigningKeyListOptions extends ListOptions<SigningKeyInstance> {
-}
-
-interface SigningKeyListPageOptions extends PageOptions<SigningKeyPage> {
-}
-
-interface SigningKeyListInstance {
-  /**
-   * Gets context of a single SigningKey resource
-   *
-   * @param sid - The sid
-   */
-  (sid: string): SigningKeyContext;
-  /**
-   * Streams SigningKeyInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: SigningKeyListEachOptions): void;
-  /**
-   * Streams SigningKeyInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: SigningKeyInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single SigningKey resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): SigningKeyContext;
-  /**
-   * Retrieve a single target page of SigningKeyInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<SigningKeyPage>;
-  /**
-   * Retrieve a single target page of SigningKeyInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: SigningKeyPage) => any): void;
-  /**
-   * Lists SigningKeyInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: SigningKeyListOptions): Promise<SigningKeyInstance[]>;
-  /**
-   * Lists SigningKeyInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: SigningKeyListOptions, callback: (error: Error | null, items: SigningKeyInstance[]) => any): void;
-  /**
-   * Lists SigningKeyInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: SigningKeyInstance[]) => any): void;
-  /**
-   * Retrieve a single page of SigningKeyInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: SigningKeyListPageOptions): Promise<SigningKeyPage>;
-  /**
-   * Retrieve a single page of SigningKeyInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: SigningKeyListPageOptions, callback: (error: Error | null, items: SigningKeyPage) => any): void;
-  /**
-   * Retrieve a single page of SigningKeyInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: SigningKeyPage) => any): void;
-}
-
-interface SigningKeyListFetchOptions {
-  /**
-   * The friendly_name
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - The friendly_name
+ */
+export interface UpdateOptions {
   friendlyName?: string;
 }
 
-interface SigningKeyListFetchOptions {
-  /**
-   * The friendly_name
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - The friendly_name
+ */
+export interface UpdateOptions {
   friendlyName?: string;
 }
 
-declare class SigningKeyPage extends Page<V2010, SigningKeyPayload, SigningKeyResource, SigningKeyInstance> {
-  constructor(version: V2010, response: Response<string>, solution: SigningKeySolution);
+
+declare class SigningKeyPage extends Page {
+  /**
+   * @constructor Twilio.Api.V2010.AccountContext.SigningKeyPage
+   * @augments Page
+   * @description Initialize the SigningKeyPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Api.V2010, response: object, solution: object);
 
   /**
    * Build an instance of SigningKeyInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Api.V2010.AccountContext.SigningKeyPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: SigningKeyPayload): SigningKeyInstance;
+  getInstance(payload: object);
 }
 
-declare class SigningKeyInstance extends SerializableClass {
+declare class SigningKeyInstance {
   /**
+   * @constructor Twilio.Api.V2010.AccountContext.SigningKeyInstance
+   * @description Initialize the SigningKeyContext
+   *
+   * @property sid - The sid
+   * @property friendlyName - The friendly_name
+   * @property dateCreated - The date_created
+   * @property dateUpdated - The date_updated
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The account_sid
+   * @param accountSid - A 34 character string that uniquely identifies this resource.
    * @param sid - The sid
    */
-  constructor(version: V2010, payload: SigningKeyPayload, accountSid: string, sid: string);
+  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, sid: sid);
 
-  private _proxy: SigningKeyContext;
-  /**
-   * The date_created
-   */
-  dateCreated: Date;
-  /**
-   * The date_updated
-   */
-  dateUpdated: Date;
+  _proxy?: SigningKeyContext;
   /**
    * fetch a SigningKeyInstance
    *
-   * @returns Promise that resolves to processed SigningKeyInstance
-   */
-  fetch(): Promise<SigningKeyInstance>;
-  /**
-   * fetch a SigningKeyInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.SigningKeyInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: SigningKeyInstance) => any): void;
-  /**
-   * The friendly_name
-   */
-  friendlyName: string;
+  fetch(callback?: function);
   /**
    * remove a SigningKeyInstance
    *
-   * @returns Promise that resolves to processed SigningKeyInstance
-   */
-  remove(): Promise<SigningKeyInstance>;
-  /**
-   * remove a SigningKeyInstance
+   * @function remove
+   * @memberof Twilio.Api.V2010.AccountContext.SigningKeyInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: SigningKeyInstance) => any): void;
+  remove(callback?: function);
   /**
-   * The sid
+   * Produce a plain JSON object version of the SigningKeyInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Api.V2010.AccountContext.SigningKeyInstance
+   * @instance
    */
-  sid: string;
+  toJSON();
   /**
    * update a SigningKeyInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Api.V2010.AccountContext.SigningKeyInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed SigningKeyInstance
-   */
-  update(opts?: SigningKeyListFetchOptions): Promise<SigningKeyInstance>;
-  /**
-   * update a SigningKeyInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: SigningKeyListFetchOptions, callback: (error: Error | null, items: SigningKeyInstance) => any): void;
-  /**
-   * update a SigningKeyInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: SigningKeyInstance) => any): void;
+  update(opts?: object, callback?: function);
 }
 
 declare class SigningKeyContext {
-  constructor(version: V2010, accountSid: string, sid: string);
+  /**
+   * @constructor Twilio.Api.V2010.AccountContext.SigningKeyContext
+   * @description Initialize the SigningKeyContext
+   *
+   * @param version - Version of the resource
+   * @param accountSid - The account_sid
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Api.V2010, accountSid: sid, sid: sid);
 
   /**
    * fetch a SigningKeyInstance
    *
-   * @returns Promise that resolves to processed SigningKeyInstance
-   */
-  fetch(): Promise<SigningKeyInstance>;
-  /**
-   * fetch a SigningKeyInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.SigningKeyContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: SigningKeyInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a SigningKeyInstance
    *
-   * @returns Promise that resolves to processed SigningKeyInstance
-   */
-  remove(): Promise<SigningKeyInstance>;
-  /**
-   * remove a SigningKeyInstance
+   * @function remove
+   * @memberof Twilio.Api.V2010.AccountContext.SigningKeyContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: SigningKeyInstance) => any): void;
+  remove(callback?: function);
   /**
    * update a SigningKeyInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Api.V2010.AccountContext.SigningKeyContext
+   * @instance
    *
-   * @returns Promise that resolves to processed SigningKeyInstance
-   */
-  update(opts?: SigningKeyListFetchOptions): Promise<SigningKeyInstance>;
-  /**
-   * update a SigningKeyInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: SigningKeyListFetchOptions, callback: (error: Error | null, items: SigningKeyInstance) => any): void;
-  /**
-   * update a SigningKeyInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: SigningKeyInstance) => any): void;
+  update(opts?: object, callback?: function);
 }
 
-export { SigningKeyContext, SigningKeyInstance, SigningKeyList, SigningKeyListEachOptions, SigningKeyListFetchOptions, SigningKeyListInstance, SigningKeyListOptions, SigningKeyListPageOptions, SigningKeyPage, SigningKeyPayload, SigningKeyResource, SigningKeySolution }
+export { SigningKeyContext, SigningKeyInstance, SigningKeyList, SigningKeyPage }

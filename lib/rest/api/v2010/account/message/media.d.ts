@@ -6,289 +6,121 @@
  */
 
 import Page = require('../../../../../base/Page');
-import Response = require('../../../../../http/response');
-import V2010 = require('../../../V2010');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../interfaces';
-import { SerializableClass } from '../../../../../interfaces';
+import deserialize = require('../../../../../base/deserialize');
+import serialize = require('../../../../../base/serialize');
+import values = require('../../../../../base/values');
 
-declare function MediaList(version: V2010, accountSid: string, messageSid: string): MediaListInstance
 
-interface MediaResource {
-  /**
-   * The unique id of the [Account](https://www.twilio.com/docs/api/rest/account) responsible for this media.
-   */
-  account_sid: string;
-  /**
-   * The default [mime-type](http://en.wikipedia.org/wiki/Internet_media_type) of the media, for example `image/jpeg`, `image/png`, or `image/gif`
-   */
-  content_type: string;
-  /**
-   * The date that this resource was created, given in [RFC 2822](http://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-   */
-  date_created: Date;
-  /**
-   * The date that this resource was last updated, given in [RFC 2822](http://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-   */
-  date_updated: Date;
-  /**
-   * The unique id of the resource that created the media.
-   */
-  parent_sid: string;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * The URI for this resource, relative to `https://api.twilio.com`
-   */
-  uri: string;
-}
 
-interface MediaPayload extends MediaResource, Page.TwilioResponsePayload {
-}
-
-interface MediaSolution {
-  accountSid: string;
-  messageSid: string;
-}
-
-interface MediaListEachOptions extends ListEachOptions<MediaInstance> {
+declare class MediaPage extends Page {
   /**
-   * Only show media created on the given date. Should be formatted as `YYYY-MM-DD`. You can also specify inequality, such as `DateCreated<=YYYY-MM-DD` for media generated at or before midnight on a date, and `DateCreated>=YYYY-MM-DD` for media generated at or after midnight on a date.
+   * @constructor Twilio.Api.V2010.AccountContext.MessageContext.MediaPage
+   * @augments Page
+   * @description Initialize the MediaPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  dateCreated?: Date;
-}
-
-interface MediaListOptions extends ListOptions<MediaInstance> {
-  /**
-   * Only show media created on the given date. Should be formatted as `YYYY-MM-DD`. You can also specify inequality, such as `DateCreated<=YYYY-MM-DD` for media generated at or before midnight on a date, and `DateCreated>=YYYY-MM-DD` for media generated at or after midnight on a date.
-   */
-  dateCreated?: Date;
-}
-
-interface MediaListPageOptions extends PageOptions<MediaPage> {
-  /**
-   * Only show media created on the given date. Should be formatted as `YYYY-MM-DD`. You can also specify inequality, such as `DateCreated<=YYYY-MM-DD` for media generated at or before midnight on a date, and `DateCreated>=YYYY-MM-DD` for media generated at or after midnight on a date.
-   */
-  dateCreated?: Date;
-}
-
-interface MediaListInstance {
-  /**
-   * Gets context of a single Media resource
-   *
-   * @param sid - Fetch by unique media Sid
-   */
-  (sid: string): MediaContext;
-  /**
-   * Streams MediaInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: MediaListEachOptions): void;
-  /**
-   * Streams MediaInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: MediaInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Media resource
-   *
-   * @param sid - Fetch by unique media Sid
-   */
-  get(sid: string): MediaContext;
-  /**
-   * Retrieve a single target page of MediaInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<MediaPage>;
-  /**
-   * Retrieve a single target page of MediaInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: MediaPage) => any): void;
-  /**
-   * Lists MediaInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: MediaListOptions): Promise<MediaInstance[]>;
-  /**
-   * Lists MediaInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: MediaListOptions, callback: (error: Error | null, items: MediaInstance[]) => any): void;
-  /**
-   * Lists MediaInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: MediaInstance[]) => any): void;
-  /**
-   * Retrieve a single page of MediaInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: MediaListPageOptions): Promise<MediaPage>;
-  /**
-   * Retrieve a single page of MediaInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: MediaListPageOptions, callback: (error: Error | null, items: MediaPage) => any): void;
-  /**
-   * Retrieve a single page of MediaInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: MediaPage) => any): void;
-}
-
-declare class MediaPage extends Page<V2010, MediaPayload, MediaResource, MediaInstance> {
-  constructor(version: V2010, response: Response<string>, solution: MediaSolution);
+  constructor(version: Twilio.Api.V2010, response: object, solution: object);
 
   /**
    * Build an instance of MediaInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Api.V2010.AccountContext.MessageContext.MediaPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: MediaPayload): MediaInstance;
+  getInstance(payload: object);
 }
 
-declare class MediaInstance extends SerializableClass {
+declare class MediaInstance {
   /**
+   * @constructor Twilio.Api.V2010.AccountContext.MessageContext.MediaInstance
+   * @description Initialize the MediaContext
+   *
+   * @property accountSid - The unique sid that identifies this account
+   * @property contentType - The default mime-type of the media
+   * @property dateCreated - The date this resource was created
+   * @property dateUpdated - The date this resource was last updated
+   * @property parentSid - The unique id of the resource that created the media.
+   * @property sid - A string that uniquely identifies this media
+   * @property uri - The URI for this resource
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
+   * @param accountSid - The unique sid that identifies this account
+   * @param messageSid - A string that uniquely identifies this message
+   * @param sid - Fetch by unique media Sid
+   */
+  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, messageSid: sid, sid: sid);
+
+  _proxy?: MediaContext;
+  /**
+   * fetch a MediaInstance
+   *
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.MessageContext.MediaInstance
+   * @instance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: function);
+  /**
+   * remove a MediaInstance
+   *
+   * @function remove
+   * @memberof Twilio.Api.V2010.AccountContext.MessageContext.MediaInstance
+   * @instance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: function);
+  /**
+   * Produce a plain JSON object version of the MediaInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Api.V2010.AccountContext.MessageContext.MediaInstance
+   * @instance
+   */
+  toJSON();
+}
+
+declare class MediaContext {
+  /**
+   * @constructor Twilio.Api.V2010.AccountContext.MessageContext.MediaContext
+   * @description Initialize the MediaContext
+   *
+   * @param version - Version of the resource
    * @param accountSid - The account_sid
    * @param messageSid - The message_sid
    * @param sid - Fetch by unique media Sid
    */
-  constructor(version: V2010, payload: MediaPayload, accountSid: string, messageSid: string, sid: string);
+  constructor(version: Twilio.Api.V2010, accountSid: sid, messageSid: sid, sid: sid);
 
-  private _proxy: MediaContext;
-  /**
-   * The unique id of the [Account](https://www.twilio.com/docs/api/rest/account) responsible for this media.
-   */
-  accountSid: string;
-  /**
-   * The default [mime-type](http://en.wikipedia.org/wiki/Internet_media_type) of the media, for example `image/jpeg`, `image/png`, or `image/gif`
-   */
-  contentType: string;
-  /**
-   * The date that this resource was created, given in [RFC 2822](http://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-   */
-  dateCreated: Date;
-  /**
-   * The date that this resource was last updated, given in [RFC 2822](http://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
-   */
-  dateUpdated: Date;
   /**
    * fetch a MediaInstance
    *
-   * @returns Promise that resolves to processed MediaInstance
-   */
-  fetch(): Promise<MediaInstance>;
-  /**
-   * fetch a MediaInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.MessageContext.MediaContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: MediaInstance) => any): void;
-  /**
-   * The unique id of the resource that created the media.
-   */
-  parentSid: string;
+  fetch(callback?: function);
   /**
    * remove a MediaInstance
    *
-   * @returns Promise that resolves to processed MediaInstance
-   */
-  remove(): Promise<MediaInstance>;
-  /**
-   * remove a MediaInstance
+   * @function remove
+   * @memberof Twilio.Api.V2010.AccountContext.MessageContext.MediaContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: MediaInstance) => any): void;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * The URI for this resource, relative to `https://api.twilio.com`
-   */
-  uri: string;
+  remove(callback?: function);
 }
 
-declare class MediaContext {
-  constructor(version: V2010, accountSid: string, messageSid: string, sid: string);
-
-  /**
-   * fetch a MediaInstance
-   *
-   * @returns Promise that resolves to processed MediaInstance
-   */
-  fetch(): Promise<MediaInstance>;
-  /**
-   * fetch a MediaInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  fetch(callback: (error: Error | null, items: MediaInstance) => any): void;
-  /**
-   * remove a MediaInstance
-   *
-   * @returns Promise that resolves to processed MediaInstance
-   */
-  remove(): Promise<MediaInstance>;
-  /**
-   * remove a MediaInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback: (error: Error | null, items: MediaInstance) => any): void;
-}
-
-export { MediaContext, MediaInstance, MediaList, MediaListEachOptions, MediaListInstance, MediaListOptions, MediaListPageOptions, MediaPage, MediaPayload, MediaResource, MediaSolution }
+export { MediaContext, MediaInstance, MediaList, MediaPage }

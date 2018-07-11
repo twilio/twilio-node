@@ -6,451 +6,181 @@
  */
 
 import Page = require('../../../../../base/Page');
-import Response = require('../../../../../http/response');
-import V2 = require('../../../V2');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../interfaces';
-import { SerializableClass } from '../../../../../interfaces';
+import deserialize = require('../../../../../base/deserialize');
+import serialize = require('../../../../../base/serialize');
+import values = require('../../../../../base/values');
 
-declare function MemberList(version: V2, serviceSid: string, channelSid: string): MemberListInstance
 
-interface MemberResource {
-  /**
-   * The unique id of the [Account](https://www.twilio.com/console) responsible for this member.
-   */
-  account_sid: string;
-  /**
-   * The unique id of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) for this member.
-   */
-  channel_sid: string;
-  /**
-   * The date that this resource was created.
-   */
-  date_created: Date;
-  /**
-   * The date that this resource was last updated.
-   */
-  date_updated: Date;
-  /**
-   * A unique string identifier for this [User](https://www.twilio.com/docs/api/chat/rest/users) in this [Service](https://www.twilio.com/docs/api/chat/rest/services). See the [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) docs for more details.
-   */
-  identity: string;
-  /**
-   * An Integer representing index of the last [Message](https://www.twilio.com/docs/api/chat/rest/messages) this Member has read within this [Channel](https://www.twilio.com/docs/api/chat/rest/channels)
-   */
-  last_consumed_message_index: number;
-  /**
-   * An ISO8601 based timestamp string representing the datetime of the last [Message](https://www.twilio.com/docs/api/chat/rest/messages) read event for this Member within this [Channel](https://www.twilio.com/docs/api/chat/rest/channels)
-   */
-  last_consumption_timestamp: Date;
-  /**
-   * The [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to this member.
-   */
-  role_sid: string;
-  /**
-   * The unique id of the [Service](https://www.twilio.com/docs/api/chat/rest/services) this member belongs to.
-   */
-  service_sid: string;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * An absolute URL for this member.
-   */
-  url: string;
-}
-
-interface MemberPayload extends MemberResource, Page.TwilioResponsePayload {
-}
-
-interface MemberSolution {
-  channelSid: string;
-  serviceSid: string;
-}
-
-interface MemberListCreateOptions {
-  /**
-   * The ISO8601 time specifying the datetime the Members should be set as being created.  Will be set to the current time by the Chat service if not specified.  Note that this should only be used in cases where a Member is being recreated from a backup/separate source
-   */
+/**
+ * Options to pass to update
+ *
+ * @property roleSid - The role to be assigned to this member.
+ * @property lastConsumedMessageIndex - Field used to specify the last consumed Message index for the Channel for this Member.
+ * @property lastConsumptionTimestamp - ISO8601 time indicating the last datetime the Member consumed a Message in the Channel.
+ * @property dateCreated - The ISO8601 time specifying the datetime the Members should be set as being created.
+ * @property dateUpdated - The ISO8601 time specifying the datetime the Member should be set as having been last updated.
+ */
+export interface UpdateOptions {
   dateCreated?: Date;
-  /**
-   * The ISO8601 time specifying the datetime the Member should be set as having been last updated.  Will be set to the `null` by the Chat service if not specified.  Note that this should only be used in cases where a Member is being recreated from a backup/separate source  and where a Member was previously updated.
-   */
   dateUpdated?: Date;
-  /**
-   * A unique string identifier for this [User](https://www.twilio.com/docs/api/chat/rest/users) in this [Service](https://www.twilio.com/docs/api/chat/rest/services). See the [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) docs for more details.
-   */
-  identity: string;
-  /**
-   * Field used to specify the last consumed Message index for the Channel for this Member.  Should only be used when recreating a Member from a backup/separate source.
-   */
   lastConsumedMessageIndex?: number;
-  /**
-   * ISO8601 time indicating the last datetime the Member consumed a Message in the Channel.  Should only be used when recreating a Member from a backup/separate source
-   */
   lastConsumptionTimestamp?: Date;
-  /**
-   * The role to be assigned to this member. Defaults to the roles specified on the [Service](https://www.twilio.com/docs/chat/api/services).
-   */
   roleSid?: string;
 }
 
-interface MemberListEachOptions extends ListEachOptions<MemberInstance> {
-  /**
-   * A unique string identifier for this [User](https://www.twilio.com/docs/api/chat/rest/users) in this [Service](https://www.twilio.com/docs/api/chat/rest/services). See the [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) docs for more details.
-   */
-  identity?: string[];
-}
-
-interface MemberListOptions extends ListOptions<MemberInstance> {
-  /**
-   * A unique string identifier for this [User](https://www.twilio.com/docs/api/chat/rest/users) in this [Service](https://www.twilio.com/docs/api/chat/rest/services). See the [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) docs for more details.
-   */
-  identity?: string[];
-}
-
-interface MemberListPageOptions extends PageOptions<MemberPage> {
-  /**
-   * A unique string identifier for this [User](https://www.twilio.com/docs/api/chat/rest/users) in this [Service](https://www.twilio.com/docs/api/chat/rest/services). See the [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) docs for more details.
-   */
-  identity?: string[];
-}
-
-interface MemberListInstance {
-  /**
-   * Gets context of a single Member resource
-   *
-   * @param sid - The sid
-   */
-  (sid: string): MemberContext;
-  /**
-   * create a MemberInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed MemberInstance
-   */
-  create(opts: MemberListCreateOptions): Promise<MemberInstance>;
-  /**
-   * create a MemberInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: MemberListCreateOptions, callback: (error: Error | null, items: MemberInstance) => any): void;
-  /**
-   * Streams MemberInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: MemberListEachOptions): void;
-  /**
-   * Streams MemberInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: MemberInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Member resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): MemberContext;
-  /**
-   * Retrieve a single target page of MemberInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<MemberPage>;
-  /**
-   * Retrieve a single target page of MemberInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: MemberPage) => any): void;
-  /**
-   * Lists MemberInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: MemberListOptions): Promise<MemberInstance[]>;
-  /**
-   * Lists MemberInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: MemberListOptions, callback: (error: Error | null, items: MemberInstance[]) => any): void;
-  /**
-   * Lists MemberInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: MemberInstance[]) => any): void;
-  /**
-   * Retrieve a single page of MemberInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: MemberListPageOptions): Promise<MemberPage>;
-  /**
-   * Retrieve a single page of MemberInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: MemberListPageOptions, callback: (error: Error | null, items: MemberPage) => any): void;
-  /**
-   * Retrieve a single page of MemberInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: MemberPage) => any): void;
-}
-
-interface MemberListFetchOptions {
-  /**
-   * The ISO8601 time specifying the datetime the Members should be set as being created.  Will be set to the current time by the Chat service if not specified.  Note that this should only be used in cases where a Member is being recreated from a backup/separate source
-   */
+/**
+ * Options to pass to update
+ *
+ * @property roleSid - The role to be assigned to this member.
+ * @property lastConsumedMessageIndex - Field used to specify the last consumed Message index for the Channel for this Member.
+ * @property lastConsumptionTimestamp - ISO8601 time indicating the last datetime the Member consumed a Message in the Channel.
+ * @property dateCreated - The ISO8601 time specifying the datetime the Members should be set as being created.
+ * @property dateUpdated - The ISO8601 time specifying the datetime the Member should be set as having been last updated.
+ */
+export interface UpdateOptions {
   dateCreated?: Date;
-  /**
-   * The ISO8601 time specifying the datetime the Member should be set as having been last updated.  Will be set to the `null` by the Chat service if not specified.  Note that this should only be used in cases where a Member is being recreated from a backup/separate source  and where a Member was previously updated.
-   */
   dateUpdated?: Date;
-  /**
-   * Field used to specify the last consumed Message index for the Channel for this Member.  Should only be used when recreating a Member from a backup/separate source.
-   */
   lastConsumedMessageIndex?: number;
-  /**
-   * ISO8601 time indicating the last datetime the Member consumed a Message in the Channel.  Should only be used when recreating a Member from a backup/separate source
-   */
   lastConsumptionTimestamp?: Date;
-  /**
-   * The role to be assigned to this member. Defaults to the roles specified on the [Service](https://www.twilio.com/docs/chat/api/services).
-   */
   roleSid?: string;
 }
 
-interface MemberListFetchOptions {
-  /**
-   * The ISO8601 time specifying the datetime the Members should be set as being created.  Will be set to the current time by the Chat service if not specified.  Note that this should only be used in cases where a Member is being recreated from a backup/separate source
-   */
-  dateCreated?: Date;
-  /**
-   * The ISO8601 time specifying the datetime the Member should be set as having been last updated.  Will be set to the `null` by the Chat service if not specified.  Note that this should only be used in cases where a Member is being recreated from a backup/separate source  and where a Member was previously updated.
-   */
-  dateUpdated?: Date;
-  /**
-   * Field used to specify the last consumed Message index for the Channel for this Member.  Should only be used when recreating a Member from a backup/separate source.
-   */
-  lastConsumedMessageIndex?: number;
-  /**
-   * ISO8601 time indicating the last datetime the Member consumed a Message in the Channel.  Should only be used when recreating a Member from a backup/separate source
-   */
-  lastConsumptionTimestamp?: Date;
-  /**
-   * The role to be assigned to this member. Defaults to the roles specified on the [Service](https://www.twilio.com/docs/chat/api/services).
-   */
-  roleSid?: string;
-}
 
-declare class MemberPage extends Page<V2, MemberPayload, MemberResource, MemberInstance> {
-  constructor(version: V2, response: Response<string>, solution: MemberSolution);
+declare class MemberPage extends Page {
+  /**
+   * @constructor Twilio.Chat.V2.ServiceContext.ChannelContext.MemberPage
+   * @augments Page
+   * @description Initialize the MemberPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Chat.V2, response: object, solution: object);
 
   /**
    * Build an instance of MemberInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Chat.V2.ServiceContext.ChannelContext.MemberPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: MemberPayload): MemberInstance;
+  getInstance(payload: object);
 }
 
-declare class MemberInstance extends SerializableClass {
+declare class MemberInstance {
   /**
+   * @constructor Twilio.Chat.V2.ServiceContext.ChannelContext.MemberInstance
+   * @description Initialize the MemberContext
+   *
+   * @property sid - A 34 character string that uniquely identifies this resource.
+   * @property accountSid - The unique id of the Account responsible for this member.
+   * @property channelSid - The unique id of the Channel for this member.
+   * @property serviceSid - The unique id of the Service this member belongs to.
+   * @property identity - A unique string identifier for this User in this Service.
+   * @property dateCreated - The date that this resource was created.
+   * @property dateUpdated - The date that this resource was last updated.
+   * @property roleSid - The Role assigned to this member.
+   * @property lastConsumedMessageIndex - An Integer representing index of the last Message this Member has read within this Channel
+   * @property lastConsumptionTimestamp - An ISO8601 based timestamp string representing the datetime of the last Message read event for this Member within this Channel
+   * @property url - An absolute URL for this member.
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
+   * @param serviceSid - The unique id of the Service this member belongs to.
+   * @param channelSid - The unique id of the Channel for this member.
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Chat.V2, payload: object, serviceSid: sid, channelSid: sid, sid: sid_like);
+
+  _proxy?: MemberContext;
+  /**
+   * fetch a MemberInstance
+   *
+   * @function fetch
+   * @memberof Twilio.Chat.V2.ServiceContext.ChannelContext.MemberInstance
+   * @instance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: function);
+  /**
+   * remove a MemberInstance
+   *
+   * @function remove
+   * @memberof Twilio.Chat.V2.ServiceContext.ChannelContext.MemberInstance
+   * @instance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: function);
+  /**
+   * Produce a plain JSON object version of the MemberInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Chat.V2.ServiceContext.ChannelContext.MemberInstance
+   * @instance
+   */
+  toJSON();
+  /**
+   * update a MemberInstance
+   *
+   * @function update
+   * @memberof Twilio.Chat.V2.ServiceContext.ChannelContext.MemberInstance
+   * @instance
+   *
+   * @param opts - ...
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: object, callback?: function);
+}
+
+declare class MemberContext {
+  /**
+   * @constructor Twilio.Chat.V2.ServiceContext.ChannelContext.MemberContext
+   * @description Initialize the MemberContext
+   *
+   * @param version - Version of the resource
    * @param serviceSid - The service_sid
    * @param channelSid - The channel_sid
    * @param sid - The sid
    */
-  constructor(version: V2, payload: MemberPayload, serviceSid: string, channelSid: string, sid: string);
+  constructor(version: Twilio.Chat.V2, serviceSid: sid, channelSid: sid_like, sid: sid_like);
 
-  private _proxy: MemberContext;
-  /**
-   * The unique id of the [Account](https://www.twilio.com/console) responsible for this member.
-   */
-  accountSid: string;
-  /**
-   * The unique id of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) for this member.
-   */
-  channelSid: string;
-  /**
-   * The date that this resource was created.
-   */
-  dateCreated: Date;
-  /**
-   * The date that this resource was last updated.
-   */
-  dateUpdated: Date;
   /**
    * fetch a MemberInstance
    *
-   * @returns Promise that resolves to processed MemberInstance
-   */
-  fetch(): Promise<MemberInstance>;
-  /**
-   * fetch a MemberInstance
+   * @function fetch
+   * @memberof Twilio.Chat.V2.ServiceContext.ChannelContext.MemberContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: MemberInstance) => any): void;
-  /**
-   * A unique string identifier for this [User](https://www.twilio.com/docs/api/chat/rest/users) in this [Service](https://www.twilio.com/docs/api/chat/rest/services). See the [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) docs for more details.
-   */
-  identity: string;
-  /**
-   * An Integer representing index of the last [Message](https://www.twilio.com/docs/api/chat/rest/messages) this Member has read within this [Channel](https://www.twilio.com/docs/api/chat/rest/channels)
-   */
-  lastConsumedMessageIndex: number;
-  /**
-   * An ISO8601 based timestamp string representing the datetime of the last [Message](https://www.twilio.com/docs/api/chat/rest/messages) read event for this Member within this [Channel](https://www.twilio.com/docs/api/chat/rest/channels)
-   */
-  lastConsumptionTimestamp: Date;
+  fetch(callback?: function);
   /**
    * remove a MemberInstance
    *
-   * @returns Promise that resolves to processed MemberInstance
-   */
-  remove(): Promise<MemberInstance>;
-  /**
-   * remove a MemberInstance
+   * @function remove
+   * @memberof Twilio.Chat.V2.ServiceContext.ChannelContext.MemberContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: MemberInstance) => any): void;
-  /**
-   * The [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to this member.
-   */
-  roleSid: string;
-  /**
-   * The unique id of the [Service](https://www.twilio.com/docs/api/chat/rest/services) this member belongs to.
-   */
-  serviceSid: string;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
+  remove(callback?: function);
   /**
    * update a MemberInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Chat.V2.ServiceContext.ChannelContext.MemberContext
+   * @instance
    *
-   * @returns Promise that resolves to processed MemberInstance
-   */
-  update(opts?: MemberListFetchOptions): Promise<MemberInstance>;
-  /**
-   * update a MemberInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: MemberListFetchOptions, callback: (error: Error | null, items: MemberInstance) => any): void;
-  /**
-   * update a MemberInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: MemberInstance) => any): void;
-  /**
-   * An absolute URL for this member.
-   */
-  url: string;
+  update(opts?: object, callback?: function);
 }
 
-declare class MemberContext {
-  constructor(version: V2, serviceSid: string, channelSid: string, sid: string);
-
-  /**
-   * fetch a MemberInstance
-   *
-   * @returns Promise that resolves to processed MemberInstance
-   */
-  fetch(): Promise<MemberInstance>;
-  /**
-   * fetch a MemberInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  fetch(callback: (error: Error | null, items: MemberInstance) => any): void;
-  /**
-   * remove a MemberInstance
-   *
-   * @returns Promise that resolves to processed MemberInstance
-   */
-  remove(): Promise<MemberInstance>;
-  /**
-   * remove a MemberInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback: (error: Error | null, items: MemberInstance) => any): void;
-  /**
-   * update a MemberInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed MemberInstance
-   */
-  update(opts?: MemberListFetchOptions): Promise<MemberInstance>;
-  /**
-   * update a MemberInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts: MemberListFetchOptions, callback: (error: Error | null, items: MemberInstance) => any): void;
-  /**
-   * update a MemberInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: MemberInstance) => any): void;
-}
-
-export { MemberContext, MemberInstance, MemberList, MemberListCreateOptions, MemberListEachOptions, MemberListFetchOptions, MemberListInstance, MemberListOptions, MemberListPageOptions, MemberPage, MemberPayload, MemberResource, MemberSolution }
+export { MemberContext, MemberInstance, MemberList, MemberPage }

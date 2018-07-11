@@ -6,297 +6,118 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V1 = require('../../V1');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { SerializableClass } from '../../../../interfaces';
+import deserialize = require('../../../../base/deserialize');
+import values = require('../../../../base/values');
 
-declare function CredentialListList(version: V1, trunkSid: string): CredentialListListInstance
 
-interface CredentialListResource {
-  /**
-   * The account_sid
-   */
-  account_sid: string;
-  /**
-   * The date_created
-   */
-  date_created: Date;
-  /**
-   * The date_updated
-   */
-  date_updated: Date;
-  /**
-   * The friendly_name
-   */
-  friendly_name: string;
-  /**
-   * The sid
-   */
-  sid: string;
-  /**
-   * The trunk_sid
-   */
-  trunk_sid: string;
-  /**
-   * The url
-   */
-  url: string;
-}
 
-interface CredentialListPayload extends CredentialListResource, Page.TwilioResponsePayload {
-}
-
-interface CredentialListSolution {
-  trunkSid: string;
-}
-
-interface CredentialListListCreateOptions {
+declare class CredentialListPage extends Page {
   /**
-   * The SID of the [Credential List](https://www.twilio.com/docs/api/rest/credential-list) that you want to associate with this trunk. Once associated, Twilio will start authenticating access to the trunk against this list.
+   * @constructor Twilio.Trunking.V1.TrunkContext.CredentialListPage
+   * @augments Page
+   * @description Initialize the CredentialListPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  credentialListSid: string;
-}
-
-interface CredentialListListEachOptions extends ListEachOptions<CredentialListInstance> {
-}
-
-interface CredentialListListOptions extends ListOptions<CredentialListInstance> {
-}
-
-interface CredentialListListPageOptions extends PageOptions<CredentialListPage> {
-}
-
-interface CredentialListListInstance {
-  /**
-   * Gets context of a single CredentialList resource
-   *
-   * @param sid - The sid
-   */
-  (sid: string): CredentialListContext;
-  /**
-   * create a CredentialListInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed CredentialListInstance
-   */
-  create(opts: CredentialListListCreateOptions): Promise<CredentialListInstance>;
-  /**
-   * create a CredentialListInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: CredentialListListCreateOptions, callback: (error: Error | null, items: CredentialListInstance) => any): void;
-  /**
-   * Streams CredentialListInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: CredentialListListEachOptions): void;
-  /**
-   * Streams CredentialListInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: CredentialListInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single CredentialList resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): CredentialListContext;
-  /**
-   * Retrieve a single target page of CredentialListInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<CredentialListPage>;
-  /**
-   * Retrieve a single target page of CredentialListInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: CredentialListPage) => any): void;
-  /**
-   * Lists CredentialListInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: CredentialListListOptions): Promise<CredentialListInstance[]>;
-  /**
-   * Lists CredentialListInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: CredentialListListOptions, callback: (error: Error | null, items: CredentialListInstance[]) => any): void;
-  /**
-   * Lists CredentialListInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: CredentialListInstance[]) => any): void;
-  /**
-   * Retrieve a single page of CredentialListInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: CredentialListListPageOptions): Promise<CredentialListPage>;
-  /**
-   * Retrieve a single page of CredentialListInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: CredentialListListPageOptions, callback: (error: Error | null, items: CredentialListPage) => any): void;
-  /**
-   * Retrieve a single page of CredentialListInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: CredentialListPage) => any): void;
-}
-
-declare class CredentialListPage extends Page<V1, CredentialListPayload, CredentialListResource, CredentialListInstance> {
-  constructor(version: V1, response: Response<string>, solution: CredentialListSolution);
+  constructor(version: Twilio.Trunking.V1, response: object, solution: object);
 
   /**
    * Build an instance of CredentialListInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Trunking.V1.TrunkContext.CredentialListPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: CredentialListPayload): CredentialListInstance;
+  getInstance(payload: object);
 }
 
-declare class CredentialListInstance extends SerializableClass {
+declare class CredentialListInstance {
   /**
+   * @constructor Twilio.Trunking.V1.TrunkContext.CredentialListInstance
+   * @description Initialize the CredentialListContext
+   *
+   * @property accountSid - The account_sid
+   * @property sid - The sid
+   * @property trunkSid - The trunk_sid
+   * @property friendlyName - The friendly_name
+   * @property dateCreated - The date_created
+   * @property dateUpdated - The date_updated
+   * @property url - The url
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param trunkSid - The trunk_sid
    * @param sid - The sid
    */
-  constructor(version: V1, payload: CredentialListPayload, trunkSid: string, sid: string);
+  constructor(version: Twilio.Trunking.V1, payload: object, trunkSid: sid, sid: sid);
 
-  private _proxy: CredentialListContext;
-  /**
-   * The account_sid
-   */
-  accountSid: string;
-  /**
-   * The date_created
-   */
-  dateCreated: Date;
-  /**
-   * The date_updated
-   */
-  dateUpdated: Date;
+  _proxy?: CredentialListContext;
   /**
    * fetch a CredentialListInstance
    *
-   * @returns Promise that resolves to processed CredentialListInstance
-   */
-  fetch(): Promise<CredentialListInstance>;
-  /**
-   * fetch a CredentialListInstance
+   * @function fetch
+   * @memberof Twilio.Trunking.V1.TrunkContext.CredentialListInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: CredentialListInstance) => any): void;
-  /**
-   * The friendly_name
-   */
-  friendlyName: string;
+  fetch(callback?: function);
   /**
    * remove a CredentialListInstance
    *
-   * @returns Promise that resolves to processed CredentialListInstance
-   */
-  remove(): Promise<CredentialListInstance>;
-  /**
-   * remove a CredentialListInstance
+   * @function remove
+   * @memberof Twilio.Trunking.V1.TrunkContext.CredentialListInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: CredentialListInstance) => any): void;
+  remove(callback?: function);
   /**
-   * The sid
+   * Produce a plain JSON object version of the CredentialListInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Trunking.V1.TrunkContext.CredentialListInstance
+   * @instance
    */
-  sid: string;
-  /**
-   * The trunk_sid
-   */
-  trunkSid: string;
-  /**
-   * The url
-   */
-  url: string;
+  toJSON();
 }
 
 declare class CredentialListContext {
-  constructor(version: V1, trunkSid: string, sid: string);
+  /**
+   * @constructor Twilio.Trunking.V1.TrunkContext.CredentialListContext
+   * @description Initialize the CredentialListContext
+   *
+   * @param version - Version of the resource
+   * @param trunkSid - The trunk_sid
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Trunking.V1, trunkSid: sid, sid: sid);
 
   /**
    * fetch a CredentialListInstance
    *
-   * @returns Promise that resolves to processed CredentialListInstance
-   */
-  fetch(): Promise<CredentialListInstance>;
-  /**
-   * fetch a CredentialListInstance
+   * @function fetch
+   * @memberof Twilio.Trunking.V1.TrunkContext.CredentialListContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: CredentialListInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a CredentialListInstance
    *
-   * @returns Promise that resolves to processed CredentialListInstance
-   */
-  remove(): Promise<CredentialListInstance>;
-  /**
-   * remove a CredentialListInstance
+   * @function remove
+   * @memberof Twilio.Trunking.V1.TrunkContext.CredentialListContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: CredentialListInstance) => any): void;
+  remove(callback?: function);
 }
 
-export { CredentialListContext, CredentialListInstance, CredentialListList, CredentialListListCreateOptions, CredentialListListEachOptions, CredentialListListInstance, CredentialListListOptions, CredentialListListPageOptions, CredentialListPage, CredentialListPayload, CredentialListResource, CredentialListSolution }
+export { CredentialListContext, CredentialListInstance, CredentialListList, CredentialListPage }

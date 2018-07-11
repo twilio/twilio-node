@@ -6,524 +6,229 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V1 = require('../../V1');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { ReservationListInstance } from './worker/reservation';
-import { SerializableClass } from '../../../../interfaces';
-import { WorkerChannelListInstance } from './worker/workerChannel';
-import { WorkerStatisticsListInstance } from './worker/workerStatistics';
-import { WorkersCumulativeStatisticsListInstance } from './worker/workersCumulativeStatistics';
-import { WorkersRealTimeStatisticsListInstance } from './worker/workersRealTimeStatistics';
+import deserialize = require('../../../../base/deserialize');
+import values = require('../../../../base/values');
+import { ReservationList } from './worker/reservation';
+import { WorkerChannelList } from './worker/workerChannel';
+import { WorkerStatisticsList } from './worker/workerStatistics';
+import { WorkersCumulativeStatisticsList } from './worker/workersCumulativeStatistics';
+import { WorkersRealTimeStatisticsList } from './worker/workersRealTimeStatistics';
+import { WorkersStatisticsList } from './worker/workersStatistics';
 
-declare function WorkerList(version: V1, workspaceSid: string): WorkerListInstance
 
-interface WorkerResource {
-  /**
-   * The ID of the account that owns this worker
-   */
-  account_sid: string;
-  /**
-   * Filter by workers that are in a particular Activity by Friendly Name
-   */
-  activity_name: string;
-  /**
-   * Filter by workers that are in a particular Activity by SID
-   */
-  activity_sid: string;
-  /**
-   * JSON object describing this worker. For example: `{ 'email: 'Bob@foo.com', 'phone': '8675309' }`. This data will be passed to the Assignment Callback URL whenever TaskRouter assigns a Task to this worker. Defaults to {}.
-   */
-  attributes: string;
-  /**
-   * Filter by workers that are available or unavailable. (Note: This can be 'true', '1' or 'yes' to indicate a true value. All other values will represent false)
-   */
-  available: boolean;
-  /**
-   * DateTime this worker was created
-   */
-  date_created: Date;
-  /**
-   * DateTime of the last change to the Worker's activity. Used to calculate Workflow statistics.
-   */
-  date_status_changed: Date;
-  /**
-   * DateTime of the last update
-   */
-  date_updated: Date;
-  /**
-   * Filter by a worker's friendly name
-   */
-  friendly_name: string;
-  /**
-   * The links
-   */
-  links: string;
-  /**
-   * The unique ID of the worker
-   */
-  sid: string;
-  /**
-   * The url
-   */
-  url: string;
-  /**
-   * The ID of the Workflow this worker is associated with
-   */
-  workspace_sid: string;
-}
-
-interface WorkerPayload extends WorkerResource, Page.TwilioResponsePayload {
-}
-
-interface WorkerSolution {
-  workspaceSid: string;
-}
-
-interface WorkerListEachOptions extends ListEachOptions<WorkerInstance> {
-  /**
-   * Filter by workers that are in a particular Activity by Friendly Name
-   */
-  activityName?: string;
-  /**
-   * Filter by workers that are in a particular Activity by SID
-   */
+/**
+ * Options to pass to update
+ *
+ * @property activitySid - The activity_sid
+ * @property attributes - The attributes
+ * @property friendlyName - The friendly_name
+ */
+export interface UpdateOptions {
   activitySid?: string;
-  /**
-   * Filter by workers that are available or unavailable. (Note: This can be 'true', '1' or 'yes' to indicate a true value. All other values will represent false)
-   */
-  available?: string;
-  /**
-   * Filter by a worker's friendly name
-   */
-  friendlyName?: string;
-  /**
-   * Filter by workers that would match an expression on a TaskQueue. This is helpful for debugging which workers would match a potential queue.
-   */
-  targetWorkersExpression?: string;
-  /**
-   * Filter by workers that are eligible for a TaskQueue by Friendly Name
-   */
-  taskQueueName?: string;
-  /**
-   * Filter by workers that are eligible for a TaskQueue by SID
-   */
-  taskQueueSid?: string;
-}
-
-interface WorkerListOptions extends ListOptions<WorkerInstance> {
-  /**
-   * Filter by workers that are in a particular Activity by Friendly Name
-   */
-  activityName?: string;
-  /**
-   * Filter by workers that are in a particular Activity by SID
-   */
-  activitySid?: string;
-  /**
-   * Filter by workers that are available or unavailable. (Note: This can be 'true', '1' or 'yes' to indicate a true value. All other values will represent false)
-   */
-  available?: string;
-  /**
-   * Filter by a worker's friendly name
-   */
-  friendlyName?: string;
-  /**
-   * Filter by workers that would match an expression on a TaskQueue. This is helpful for debugging which workers would match a potential queue.
-   */
-  targetWorkersExpression?: string;
-  /**
-   * Filter by workers that are eligible for a TaskQueue by Friendly Name
-   */
-  taskQueueName?: string;
-  /**
-   * Filter by workers that are eligible for a TaskQueue by SID
-   */
-  taskQueueSid?: string;
-}
-
-interface WorkerListPageOptions extends PageOptions<WorkerPage> {
-  /**
-   * Filter by workers that are in a particular Activity by Friendly Name
-   */
-  activityName?: string;
-  /**
-   * Filter by workers that are in a particular Activity by SID
-   */
-  activitySid?: string;
-  /**
-   * Filter by workers that are available or unavailable. (Note: This can be 'true', '1' or 'yes' to indicate a true value. All other values will represent false)
-   */
-  available?: string;
-  /**
-   * Filter by a worker's friendly name
-   */
-  friendlyName?: string;
-  /**
-   * Filter by workers that would match an expression on a TaskQueue. This is helpful for debugging which workers would match a potential queue.
-   */
-  targetWorkersExpression?: string;
-  /**
-   * Filter by workers that are eligible for a TaskQueue by Friendly Name
-   */
-  taskQueueName?: string;
-  /**
-   * Filter by workers that are eligible for a TaskQueue by SID
-   */
-  taskQueueSid?: string;
-}
-
-interface WorkerListCreateOptions {
-  /**
-   * A valid Activity describing the worker's initial state. See Activities for more information. If not provided, new Workers will be use the DefaultActivitySid configured on the Workspace.
-   */
-  activitySid?: string;
-  /**
-   * JSON object describing this worker. For example: `{ 'email: 'Bob@foo.com', 'phone': '8675309' }`. This data will be passed to the Assignment Callback URL whenever TaskRouter assigns a Task to this worker. Defaults to {}.
-   */
   attributes?: string;
-  /**
-   * String representing user-friendly name for the Worker.
-   */
-  friendlyName: string;
-}
-
-interface WorkerListInstance {
-  /**
-   * Gets context of a single Worker resource
-   *
-   * @param sid - The sid
-   */
-  (sid: string): WorkerContext;
-  /**
-   * create a WorkerInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed WorkerInstance
-   */
-  create(opts: WorkerListCreateOptions): Promise<WorkerInstance>;
-  /**
-   * create a WorkerInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: WorkerListCreateOptions, callback: (error: Error | null, items: WorkerInstance) => any): void;
-  /**
-   * Streams WorkerInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: WorkerListEachOptions): void;
-  /**
-   * Streams WorkerInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: WorkerInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Worker resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): WorkerContext;
-  /**
-   * Retrieve a single target page of WorkerInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<WorkerPage>;
-  /**
-   * Retrieve a single target page of WorkerInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: WorkerPage) => any): void;
-  /**
-   * Lists WorkerInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: WorkerListOptions): Promise<WorkerInstance[]>;
-  /**
-   * Lists WorkerInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: WorkerListOptions, callback: (error: Error | null, items: WorkerInstance[]) => any): void;
-  /**
-   * Lists WorkerInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: WorkerInstance[]) => any): void;
-  /**
-   * Retrieve a single page of WorkerInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: WorkerListPageOptions): Promise<WorkerPage>;
-  /**
-   * Retrieve a single page of WorkerInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: WorkerListPageOptions, callback: (error: Error | null, items: WorkerPage) => any): void;
-  /**
-   * Retrieve a single page of WorkerInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: WorkerPage) => any): void;
-}
-
-interface WorkerListFetchOptions {
-  /**
-   * The activity_sid
-   */
-  activitySid?: string;
-  /**
-   * The attributes
-   */
-  attributes?: string;
-  /**
-   * The friendly_name
-   */
   friendlyName?: string;
 }
 
-interface WorkerListFetchOptions {
-  /**
-   * The activity_sid
-   */
+/**
+ * Options to pass to update
+ *
+ * @property activitySid - The activity_sid
+ * @property attributes - The attributes
+ * @property friendlyName - The friendly_name
+ */
+export interface UpdateOptions {
   activitySid?: string;
-  /**
-   * The attributes
-   */
   attributes?: string;
-  /**
-   * The friendly_name
-   */
   friendlyName?: string;
 }
 
-declare class WorkerPage extends Page<V1, WorkerPayload, WorkerResource, WorkerInstance> {
-  constructor(version: V1, response: Response<string>, solution: WorkerSolution);
+
+declare class WorkerPage extends Page {
+  /**
+   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkerPage
+   * @augments Page
+   * @description Initialize the WorkerPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Taskrouter.V1, response: object, solution: object);
 
   /**
    * Build an instance of WorkerInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: WorkerPayload): WorkerInstance;
+  getInstance(payload: object);
 }
 
-declare class WorkerInstance extends SerializableClass {
+declare class WorkerInstance {
   /**
+   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkerInstance
+   * @description Initialize the WorkerContext
+   *
+   * @property accountSid - The ID of the account that owns this worker
+   * @property activityName - Filter by workers that are in a particular Activity by Friendly Name
+   * @property activitySid - Filter by workers that are in a particular Activity by SID
+   * @property attributes - JSON object describing this worker.
+   * @property available - Filter by workers that are available or unavailable.
+   * @property dateCreated - DateTime this worker was created
+   * @property dateStatusChanged - DateTime of the last change to the Worker's activity.
+   * @property dateUpdated - DateTime of the last update
+   * @property friendlyName - Filter by a worker's friendly name
+   * @property sid - The unique ID of the worker
+   * @property workspaceSid - The ID of the Workflow this worker is associated with
+   * @property url - The url
+   * @property links - The links
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param workspaceSid - The workspace_sid
+   * @param workspaceSid - The ID of the Workflow this worker is associated with
    * @param sid - The sid
    */
-  constructor(version: V1, payload: WorkerPayload, workspaceSid: string, sid: string);
+  constructor(version: Twilio.Taskrouter.V1, payload: object, workspaceSid: sid, sid: sid);
 
-  private _proxy: WorkerContext;
+  _proxy?: WorkerContext;
   /**
-   * The ID of the account that owns this worker
+   * Access the cumulativeStatistics
+   *
+   * @function cumulativeStatistics
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerInstance
+   * @instance
    */
-  accountSid: string;
-  /**
-   * Filter by workers that are in a particular Activity by Friendly Name
-   */
-  activityName: string;
-  /**
-   * Filter by workers that are in a particular Activity by SID
-   */
-  activitySid: string;
-  /**
-   * JSON object describing this worker. For example: `{ 'email: 'Bob@foo.com', 'phone': '8675309' }`. This data will be passed to the Assignment Callback URL whenever TaskRouter assigns a Task to this worker. Defaults to {}.
-   */
-  attributes: string;
-  /**
-   * Filter by workers that are available or unavailable. (Note: This can be 'true', '1' or 'yes' to indicate a true value. All other values will represent false)
-   */
-  available: boolean;
-  cumulativeStatistics(): WorkersCumulativeStatisticsListInstance;
-  /**
-   * DateTime this worker was created
-   */
-  dateCreated: Date;
-  /**
-   * DateTime of the last change to the Worker's activity. Used to calculate Workflow statistics.
-   */
-  dateStatusChanged: Date;
-  /**
-   * DateTime of the last update
-   */
-  dateUpdated: Date;
+  cumulativeStatistics();
   /**
    * fetch a WorkerInstance
    *
-   * @returns Promise that resolves to processed WorkerInstance
-   */
-  fetch(): Promise<WorkerInstance>;
-  /**
-   * fetch a WorkerInstance
+   * @function fetch
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: WorkerInstance) => any): void;
+  fetch(callback?: function);
   /**
-   * Filter by a worker's friendly name
+   * Access the realTimeStatistics
+   *
+   * @function realTimeStatistics
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerInstance
+   * @instance
    */
-  friendlyName: string;
-  /**
-   * The links
-   */
-  links: string;
-  realTimeStatistics(): WorkersRealTimeStatisticsListInstance;
+  realTimeStatistics();
   /**
    * remove a WorkerInstance
    *
-   * @returns Promise that resolves to processed WorkerInstance
-   */
-  remove(): Promise<WorkerInstance>;
-  /**
-   * remove a WorkerInstance
+   * @function remove
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: WorkerInstance) => any): void;
-  reservations(): ReservationListInstance;
+  remove(callback?: function);
   /**
-   * The unique ID of the worker
+   * Access the reservations
+   *
+   * @function reservations
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerInstance
+   * @instance
    */
-  sid: string;
-  statistics(): WorkerStatisticsListInstance;
+  reservations();
+  /**
+   * Access the statistics
+   *
+   * @function statistics
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerInstance
+   * @instance
+   */
+  statistics();
+  /**
+   * Produce a plain JSON object version of the WorkerInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerInstance
+   * @instance
+   */
+  toJSON();
   /**
    * update a WorkerInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed WorkerInstance
-   */
-  update(opts?: WorkerListFetchOptions): Promise<WorkerInstance>;
-  /**
-   * update a WorkerInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: WorkerListFetchOptions, callback: (error: Error | null, items: WorkerInstance) => any): void;
+  update(opts?: object, callback?: function);
   /**
-   * update a WorkerInstance
+   * Access the workerChannels
    *
-   * @param callback - Callback to handle processed record
+   * @function workerChannels
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerInstance
+   * @instance
    */
-  update(callback: (error: Error | null, items: WorkerInstance) => any): void;
-  /**
-   * The url
-   */
-  url: string;
-  workerChannels(): WorkerChannelListInstance;
-  /**
-   * The ID of the Workflow this worker is associated with
-   */
-  workspaceSid: string;
+  workerChannels();
 }
 
 declare class WorkerContext {
-  constructor(version: V1, workspaceSid: string, sid: string);
+  /**
+   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext
+   * @description Initialize the WorkerContext
+   *
+   * @property realTimeStatistics - realTimeStatistics resource
+   * @property cumulativeStatistics - cumulativeStatistics resource
+   * @property statistics - statistics resource
+   * @property reservations - reservations resource
+   * @property workerChannels - workerChannels resource
+   *
+   * @param version - Version of the resource
+   * @param workspaceSid - The workspace_sid
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Taskrouter.V1, workspaceSid: sid, sid: sid);
 
-  cumulativeStatistics: WorkersCumulativeStatisticsListInstance;
+  cumulativeStatistics?: Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkersCumulativeStatisticsList;
   /**
    * fetch a WorkerInstance
    *
-   * @returns Promise that resolves to processed WorkerInstance
-   */
-  fetch(): Promise<WorkerInstance>;
-  /**
-   * fetch a WorkerInstance
+   * @function fetch
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: WorkerInstance) => any): void;
-  realTimeStatistics: WorkersRealTimeStatisticsListInstance;
+  fetch(callback?: function);
+  realTimeStatistics?: Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkersRealTimeStatisticsList;
   /**
    * remove a WorkerInstance
    *
-   * @returns Promise that resolves to processed WorkerInstance
-   */
-  remove(): Promise<WorkerInstance>;
-  /**
-   * remove a WorkerInstance
+   * @function remove
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: WorkerInstance) => any): void;
-  reservations: ReservationListInstance;
-  statistics: WorkerStatisticsListInstance;
+  remove(callback?: function);
+  reservations?: Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.ReservationList;
+  statistics?: Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkerStatisticsList;
   /**
    * update a WorkerInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext
+   * @instance
    *
-   * @returns Promise that resolves to processed WorkerInstance
-   */
-  update(opts?: WorkerListFetchOptions): Promise<WorkerInstance>;
-  /**
-   * update a WorkerInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: WorkerListFetchOptions, callback: (error: Error | null, items: WorkerInstance) => any): void;
-  /**
-   * update a WorkerInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: WorkerInstance) => any): void;
-  workerChannels: WorkerChannelListInstance;
+  update(opts?: object, callback?: function);
+  workerChannels?: Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkerChannelList;
 }
 
-export { WorkerContext, WorkerInstance, WorkerList, WorkerListCreateOptions, WorkerListEachOptions, WorkerListFetchOptions, WorkerListInstance, WorkerListOptions, WorkerListPageOptions, WorkerPage, WorkerPayload, WorkerResource, WorkerSolution }
+export { WorkerContext, WorkerInstance, WorkerList, WorkerPage }

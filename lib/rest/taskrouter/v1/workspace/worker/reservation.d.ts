@@ -6,743 +6,337 @@
  */
 
 import Page = require('../../../../../base/Page');
-import Response = require('../../../../../http/response');
-import V1 = require('../../../V1');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../interfaces';
-import { SerializableClass } from '../../../../../interfaces';
+import deserialize = require('../../../../../base/deserialize');
+import serialize = require('../../../../../base/serialize');
+import values = require('../../../../../base/values');
 
-declare function ReservationList(version: V1, workspaceSid: string, workerSid: string): ReservationListInstance
 
-type ReservationStatus = 'pending'|'accepted'|'rejected'|'timeout'|'canceled'|'rescinded';
-
-type ReservationCallStatus = 'initiated'|'ringing'|'answered'|'completed';
-
-type ReservationConferenceEvent = 'start'|'end'|'join'|'leave'|'mute'|'hold'|'speaker';
-
-interface ReservationResource {
-  /**
-   * The account_sid
-   */
-  account_sid: string;
-  /**
-   * The date_created
-   */
-  date_created: Date;
-  /**
-   * The date_updated
-   */
-  date_updated: Date;
-  /**
-   * The links
-   */
-  links: string;
-  /**
-   * Filter by a worker's reservation status (pending, accepted, rejected, timeout, canceled, rescinded)
-   */
-  reservation_status: ReservationStatus;
-  /**
-   * The sid
-   */
-  sid: string;
-  /**
-   * The task_sid
-   */
-  task_sid: string;
-  /**
-   * The url
-   */
-  url: string;
-  /**
-   * The worker_name
-   */
-  worker_name: string;
-  /**
-   * The worker_sid
-   */
-  worker_sid: string;
-  /**
-   * The workspace_sid
-   */
-  workspace_sid: string;
-}
-
-interface ReservationPayload extends ReservationResource, Page.TwilioResponsePayload {
-}
-
-interface ReservationSolution {
-  workerSid: string;
-  workspaceSid: string;
-}
-
-interface ReservationListEachOptions extends ListEachOptions<ReservationInstance> {
-  /**
-   * Filter by a worker's reservation status (pending, accepted, rejected, timeout, canceled, rescinded)
-   */
-  reservationStatus?: ReservationStatus;
-}
-
-interface ReservationListOptions extends ListOptions<ReservationInstance> {
-  /**
-   * Filter by a worker's reservation status (pending, accepted, rejected, timeout, canceled, rescinded)
-   */
-  reservationStatus?: ReservationStatus;
-}
-
-interface ReservationListPageOptions extends PageOptions<ReservationPage> {
-  /**
-   * Filter by a worker's reservation status (pending, accepted, rejected, timeout, canceled, rescinded)
-   */
-  reservationStatus?: ReservationStatus;
-}
-
-interface ReservationListInstance {
-  /**
-   * Gets context of a single Reservation resource
-   *
-   * @param sid - The sid
-   */
-  (sid: string): ReservationContext;
-  /**
-   * Streams ReservationInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: ReservationListEachOptions): void;
-  /**
-   * Streams ReservationInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: ReservationInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Reservation resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): ReservationContext;
-  /**
-   * Retrieve a single target page of ReservationInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<ReservationPage>;
-  /**
-   * Retrieve a single target page of ReservationInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: ReservationPage) => any): void;
-  /**
-   * Lists ReservationInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: ReservationListOptions): Promise<ReservationInstance[]>;
-  /**
-   * Lists ReservationInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: ReservationListOptions, callback: (error: Error | null, items: ReservationInstance[]) => any): void;
-  /**
-   * Lists ReservationInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: ReservationInstance[]) => any): void;
-  /**
-   * Retrieve a single page of ReservationInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: ReservationListPageOptions): Promise<ReservationPage>;
-  /**
-   * Retrieve a single page of ReservationInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: ReservationListPageOptions, callback: (error: Error | null, items: ReservationPage) => any): void;
-  /**
-   * Retrieve a single page of ReservationInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: ReservationPage) => any): void;
-}
-
-interface ReservationListFetchOptions {
-  /**
-   * The beep
-   */
+/**
+ * Options to pass to update
+ *
+ * @property reservationStatus - Yes
+ * @property workerActivitySid - No
+ * @property instruction - Yes
+ * @property dequeuePostWorkActivitySid - No
+ * @property dequeueFrom - Yes
+ * @property dequeueRecord - The dequeue_record
+ * @property dequeueTimeout - The dequeue_timeout
+ * @property dequeueTo - The dequeue_to
+ * @property dequeueStatusCallbackUrl - The dequeue_status_callback_url
+ * @property callFrom - Yes
+ * @property callRecord - The call_record
+ * @property callTimeout - The call_timeout
+ * @property callTo - The call_to
+ * @property callUrl - Yes
+ * @property callStatusCallbackUrl - No
+ * @property callAccept - No
+ * @property redirectCallSid - The redirect_call_sid
+ * @property redirectAccept - The redirect_accept
+ * @property redirectUrl - The redirect_url
+ * @property to - The to
+ * @property from - The from
+ * @property statusCallback - The status_callback
+ * @property statusCallbackMethod - The status_callback_method
+ * @property statusCallbackEvent - The status_callback_event
+ * @property timeout - The timeout
+ * @property record - The record
+ * @property muted - The muted
+ * @property beep - The beep
+ * @property startConferenceOnEnter - The start_conference_on_enter
+ * @property endConferenceOnExit - The end_conference_on_exit
+ * @property waitUrl - The wait_url
+ * @property waitMethod - The wait_method
+ * @property earlyMedia - The early_media
+ * @property maxParticipants - The max_participants
+ * @property conferenceStatusCallback - The conference_status_callback
+ * @property conferenceStatusCallbackMethod - The conference_status_callback_method
+ * @property conferenceStatusCallbackEvent - The conference_status_callback_event
+ * @property conferenceRecord - The conference_record
+ * @property conferenceTrim - The conference_trim
+ * @property recordingChannels - The recording_channels
+ * @property recordingStatusCallback - The recording_status_callback
+ * @property recordingStatusCallbackMethod - The recording_status_callback_method
+ * @property conferenceRecordingStatusCallback - The conference_recording_status_callback
+ * @property conferenceRecordingStatusCallbackMethod - The conference_recording_status_callback_method
+ * @property region - The region
+ * @property sipAuthUsername - The sip_auth_username
+ * @property sipAuthPassword - The sip_auth_password
+ * @property dequeueStatusCallbackEvent - The dequeue_status_callback_event
+ * @property postWorkActivitySid - The post_work_activity_sid
+ */
+export interface UpdateOptions {
   beep?: string;
-  /**
-   * No
-   */
   callAccept?: boolean;
-  /**
-   * Yes
-   */
   callFrom?: string;
-  /**
-   * The call_record
-   */
   callRecord?: string;
-  /**
-   * No
-   */
   callStatusCallbackUrl?: string;
-  /**
-   * The call_timeout
-   */
   callTimeout?: number;
-  /**
-   * The call_to
-   */
   callTo?: string;
-  /**
-   * Yes
-   */
   callUrl?: string;
-  /**
-   * The conference_record
-   */
   conferenceRecord?: string;
-  /**
-   * The conference_recording_status_callback
-   */
   conferenceRecordingStatusCallback?: string;
-  /**
-   * The conference_recording_status_callback_method
-   */
   conferenceRecordingStatusCallbackMethod?: string;
-  /**
-   * The conference_status_callback
-   */
   conferenceStatusCallback?: string;
-  /**
-   * The conference_status_callback_event
-   */
-  conferenceStatusCallbackEvent?: ReservationConferenceEvent[];
-  /**
-   * The conference_status_callback_method
-   */
+  conferenceStatusCallbackEvent?: reservation.conference_event|list;
   conferenceStatusCallbackMethod?: string;
-  /**
-   * The conference_trim
-   */
   conferenceTrim?: string;
-  /**
-   * Yes
-   */
   dequeueFrom?: string;
-  /**
-   * No
-   */
   dequeuePostWorkActivitySid?: string;
-  /**
-   * The dequeue_record
-   */
   dequeueRecord?: string;
-  /**
-   * The dequeue_status_callback_event
-   */
-  dequeueStatusCallbackEvent?: string[];
-  /**
-   * The dequeue_status_callback_url
-   */
+  dequeueStatusCallbackEvent?: string|list;
   dequeueStatusCallbackUrl?: string;
-  /**
-   * The dequeue_timeout
-   */
   dequeueTimeout?: number;
-  /**
-   * The dequeue_to
-   */
   dequeueTo?: string;
-  /**
-   * The early_media
-   */
   earlyMedia?: boolean;
-  /**
-   * The end_conference_on_exit
-   */
   endConferenceOnExit?: boolean;
-  /**
-   * The from
-   */
   from?: string;
-  /**
-   * Yes
-   */
   instruction?: string;
-  /**
-   * The max_participants
-   */
   maxParticipants?: number;
-  /**
-   * The muted
-   */
   muted?: boolean;
-  /**
-   * The post_work_activity_sid
-   */
   postWorkActivitySid?: string;
-  /**
-   * The record
-   */
   record?: boolean;
-  /**
-   * The recording_channels
-   */
   recordingChannels?: string;
-  /**
-   * The recording_status_callback
-   */
   recordingStatusCallback?: string;
-  /**
-   * The recording_status_callback_method
-   */
   recordingStatusCallbackMethod?: string;
-  /**
-   * The redirect_accept
-   */
   redirectAccept?: boolean;
-  /**
-   * The redirect_call_sid
-   */
   redirectCallSid?: string;
-  /**
-   * The redirect_url
-   */
   redirectUrl?: string;
-  /**
-   * The region
-   */
   region?: string;
-  /**
-   * Yes
-   */
-  reservationStatus?: ReservationStatus;
-  /**
-   * The sip_auth_password
-   */
+  reservationStatus?: reservation.status;
   sipAuthPassword?: string;
-  /**
-   * The sip_auth_username
-   */
   sipAuthUsername?: string;
-  /**
-   * The start_conference_on_enter
-   */
   startConferenceOnEnter?: boolean;
-  /**
-   * The status_callback
-   */
   statusCallback?: string;
-  /**
-   * The status_callback_event
-   */
-  statusCallbackEvent?: ReservationCallStatus[];
-  /**
-   * The status_callback_method
-   */
+  statusCallbackEvent?: reservation.call_status|list;
   statusCallbackMethod?: string;
-  /**
-   * The timeout
-   */
   timeout?: number;
-  /**
-   * The to
-   */
   to?: string;
-  /**
-   * The wait_method
-   */
   waitMethod?: string;
-  /**
-   * The wait_url
-   */
   waitUrl?: string;
-  /**
-   * No
-   */
   workerActivitySid?: string;
 }
 
-interface ReservationListFetchOptions {
-  /**
-   * The beep
-   */
+/**
+ * Options to pass to update
+ *
+ * @property reservationStatus - Yes
+ * @property workerActivitySid - No
+ * @property instruction - Yes
+ * @property dequeuePostWorkActivitySid - No
+ * @property dequeueFrom - Yes
+ * @property dequeueRecord - The dequeue_record
+ * @property dequeueTimeout - The dequeue_timeout
+ * @property dequeueTo - The dequeue_to
+ * @property dequeueStatusCallbackUrl - The dequeue_status_callback_url
+ * @property callFrom - Yes
+ * @property callRecord - The call_record
+ * @property callTimeout - The call_timeout
+ * @property callTo - The call_to
+ * @property callUrl - Yes
+ * @property callStatusCallbackUrl - No
+ * @property callAccept - No
+ * @property redirectCallSid - The redirect_call_sid
+ * @property redirectAccept - The redirect_accept
+ * @property redirectUrl - The redirect_url
+ * @property to - The to
+ * @property from - The from
+ * @property statusCallback - The status_callback
+ * @property statusCallbackMethod - The status_callback_method
+ * @property statusCallbackEvent - The status_callback_event
+ * @property timeout - The timeout
+ * @property record - The record
+ * @property muted - The muted
+ * @property beep - The beep
+ * @property startConferenceOnEnter - The start_conference_on_enter
+ * @property endConferenceOnExit - The end_conference_on_exit
+ * @property waitUrl - The wait_url
+ * @property waitMethod - The wait_method
+ * @property earlyMedia - The early_media
+ * @property maxParticipants - The max_participants
+ * @property conferenceStatusCallback - The conference_status_callback
+ * @property conferenceStatusCallbackMethod - The conference_status_callback_method
+ * @property conferenceStatusCallbackEvent - The conference_status_callback_event
+ * @property conferenceRecord - The conference_record
+ * @property conferenceTrim - The conference_trim
+ * @property recordingChannels - The recording_channels
+ * @property recordingStatusCallback - The recording_status_callback
+ * @property recordingStatusCallbackMethod - The recording_status_callback_method
+ * @property conferenceRecordingStatusCallback - The conference_recording_status_callback
+ * @property conferenceRecordingStatusCallbackMethod - The conference_recording_status_callback_method
+ * @property region - The region
+ * @property sipAuthUsername - The sip_auth_username
+ * @property sipAuthPassword - The sip_auth_password
+ * @property dequeueStatusCallbackEvent - The dequeue_status_callback_event
+ * @property postWorkActivitySid - The post_work_activity_sid
+ */
+export interface UpdateOptions {
   beep?: string;
-  /**
-   * No
-   */
   callAccept?: boolean;
-  /**
-   * Yes
-   */
   callFrom?: string;
-  /**
-   * The call_record
-   */
   callRecord?: string;
-  /**
-   * No
-   */
   callStatusCallbackUrl?: string;
-  /**
-   * The call_timeout
-   */
   callTimeout?: number;
-  /**
-   * The call_to
-   */
   callTo?: string;
-  /**
-   * Yes
-   */
   callUrl?: string;
-  /**
-   * The conference_record
-   */
   conferenceRecord?: string;
-  /**
-   * The conference_recording_status_callback
-   */
   conferenceRecordingStatusCallback?: string;
-  /**
-   * The conference_recording_status_callback_method
-   */
   conferenceRecordingStatusCallbackMethod?: string;
-  /**
-   * The conference_status_callback
-   */
   conferenceStatusCallback?: string;
-  /**
-   * The conference_status_callback_event
-   */
-  conferenceStatusCallbackEvent?: ReservationConferenceEvent[];
-  /**
-   * The conference_status_callback_method
-   */
+  conferenceStatusCallbackEvent?: reservation.conference_event|list;
   conferenceStatusCallbackMethod?: string;
-  /**
-   * The conference_trim
-   */
   conferenceTrim?: string;
-  /**
-   * Yes
-   */
   dequeueFrom?: string;
-  /**
-   * No
-   */
   dequeuePostWorkActivitySid?: string;
-  /**
-   * The dequeue_record
-   */
   dequeueRecord?: string;
-  /**
-   * The dequeue_status_callback_event
-   */
-  dequeueStatusCallbackEvent?: string[];
-  /**
-   * The dequeue_status_callback_url
-   */
+  dequeueStatusCallbackEvent?: string|list;
   dequeueStatusCallbackUrl?: string;
-  /**
-   * The dequeue_timeout
-   */
   dequeueTimeout?: number;
-  /**
-   * The dequeue_to
-   */
   dequeueTo?: string;
-  /**
-   * The early_media
-   */
   earlyMedia?: boolean;
-  /**
-   * The end_conference_on_exit
-   */
   endConferenceOnExit?: boolean;
-  /**
-   * The from
-   */
   from?: string;
-  /**
-   * Yes
-   */
   instruction?: string;
-  /**
-   * The max_participants
-   */
   maxParticipants?: number;
-  /**
-   * The muted
-   */
   muted?: boolean;
-  /**
-   * The post_work_activity_sid
-   */
   postWorkActivitySid?: string;
-  /**
-   * The record
-   */
   record?: boolean;
-  /**
-   * The recording_channels
-   */
   recordingChannels?: string;
-  /**
-   * The recording_status_callback
-   */
   recordingStatusCallback?: string;
-  /**
-   * The recording_status_callback_method
-   */
   recordingStatusCallbackMethod?: string;
-  /**
-   * The redirect_accept
-   */
   redirectAccept?: boolean;
-  /**
-   * The redirect_call_sid
-   */
   redirectCallSid?: string;
-  /**
-   * The redirect_url
-   */
   redirectUrl?: string;
-  /**
-   * The region
-   */
   region?: string;
-  /**
-   * Yes
-   */
-  reservationStatus?: ReservationStatus;
-  /**
-   * The sip_auth_password
-   */
+  reservationStatus?: reservation.status;
   sipAuthPassword?: string;
-  /**
-   * The sip_auth_username
-   */
   sipAuthUsername?: string;
-  /**
-   * The start_conference_on_enter
-   */
   startConferenceOnEnter?: boolean;
-  /**
-   * The status_callback
-   */
   statusCallback?: string;
-  /**
-   * The status_callback_event
-   */
-  statusCallbackEvent?: ReservationCallStatus[];
-  /**
-   * The status_callback_method
-   */
+  statusCallbackEvent?: reservation.call_status|list;
   statusCallbackMethod?: string;
-  /**
-   * The timeout
-   */
   timeout?: number;
-  /**
-   * The to
-   */
   to?: string;
-  /**
-   * The wait_method
-   */
   waitMethod?: string;
-  /**
-   * The wait_url
-   */
   waitUrl?: string;
-  /**
-   * No
-   */
   workerActivitySid?: string;
 }
 
-declare class ReservationPage extends Page<V1, ReservationPayload, ReservationResource, ReservationInstance> {
-  constructor(version: V1, response: Response<string>, solution: ReservationSolution);
+
+declare class ReservationPage extends Page {
+  /**
+   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.ReservationPage
+   * @augments Page
+   * @description Initialize the ReservationPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Taskrouter.V1, response: object, solution: object);
 
   /**
    * Build an instance of ReservationInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.ReservationPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: ReservationPayload): ReservationInstance;
+  getInstance(payload: object);
 }
 
-declare class ReservationInstance extends SerializableClass {
+declare class ReservationInstance {
   /**
+   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.ReservationInstance
+   * @description Initialize the ReservationContext
+   *
+   * @property accountSid - The account_sid
+   * @property dateCreated - The date_created
+   * @property dateUpdated - The date_updated
+   * @property reservationStatus - Filter by a worker's reservation status
+   * @property sid - The sid
+   * @property taskSid - The task_sid
+   * @property workerName - The worker_name
+   * @property workerSid - The worker_sid
+   * @property workspaceSid - The workspace_sid
+   * @property url - The url
+   * @property links - The links
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param workspaceSid - The workspace_sid
    * @param workerSid - The worker_sid
    * @param sid - The sid
    */
-  constructor(version: V1, payload: ReservationPayload, workspaceSid: string, workerSid: string, sid: string);
+  constructor(version: Twilio.Taskrouter.V1, payload: object, workspaceSid: sid, workerSid: sid, sid: sid);
 
-  private _proxy: ReservationContext;
-  /**
-   * The account_sid
-   */
-  accountSid: string;
-  /**
-   * The date_created
-   */
-  dateCreated: Date;
-  /**
-   * The date_updated
-   */
-  dateUpdated: Date;
+  _proxy?: ReservationContext;
   /**
    * fetch a ReservationInstance
    *
-   * @returns Promise that resolves to processed ReservationInstance
-   */
-  fetch(): Promise<ReservationInstance>;
-  /**
-   * fetch a ReservationInstance
+   * @function fetch
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.ReservationInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: ReservationInstance) => any): void;
+  fetch(callback?: function);
   /**
-   * The links
+   * Produce a plain JSON object version of the ReservationInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.ReservationInstance
+   * @instance
    */
-  links: string;
-  /**
-   * Filter by a worker's reservation status (pending, accepted, rejected, timeout, canceled, rescinded)
-   */
-  reservationStatus: ReservationStatus;
-  /**
-   * The sid
-   */
-  sid: string;
-  /**
-   * The task_sid
-   */
-  taskSid: string;
+  toJSON();
   /**
    * update a ReservationInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.ReservationInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed ReservationInstance
-   */
-  update(opts?: ReservationListFetchOptions): Promise<ReservationInstance>;
-  /**
-   * update a ReservationInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: ReservationListFetchOptions, callback: (error: Error | null, items: ReservationInstance) => any): void;
-  /**
-   * update a ReservationInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: ReservationInstance) => any): void;
-  /**
-   * The url
-   */
-  url: string;
-  /**
-   * The worker_name
-   */
-  workerName: string;
-  /**
-   * The worker_sid
-   */
-  workerSid: string;
-  /**
-   * The workspace_sid
-   */
-  workspaceSid: string;
+  update(opts?: object, callback?: function);
 }
 
 declare class ReservationContext {
-  constructor(version: V1, workspaceSid: string, workerSid: string, sid: string);
+  /**
+   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.ReservationContext
+   * @description Initialize the ReservationContext
+   *
+   * @param version - Version of the resource
+   * @param workspaceSid - The workspace_sid
+   * @param workerSid - The worker_sid
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Taskrouter.V1, workspaceSid: sid, workerSid: sid, sid: sid);
 
   /**
    * fetch a ReservationInstance
    *
-   * @returns Promise that resolves to processed ReservationInstance
-   */
-  fetch(): Promise<ReservationInstance>;
-  /**
-   * fetch a ReservationInstance
+   * @function fetch
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.ReservationContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: ReservationInstance) => any): void;
+  fetch(callback?: function);
   /**
    * update a ReservationInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.ReservationContext
+   * @instance
    *
-   * @returns Promise that resolves to processed ReservationInstance
-   */
-  update(opts?: ReservationListFetchOptions): Promise<ReservationInstance>;
-  /**
-   * update a ReservationInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: ReservationListFetchOptions, callback: (error: Error | null, items: ReservationInstance) => any): void;
-  /**
-   * update a ReservationInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: ReservationInstance) => any): void;
+  update(opts?: object, callback?: function);
 }
 
-export { ReservationCallStatus, ReservationConferenceEvent, ReservationContext, ReservationInstance, ReservationList, ReservationListEachOptions, ReservationListFetchOptions, ReservationListInstance, ReservationListOptions, ReservationListPageOptions, ReservationPage, ReservationPayload, ReservationResource, ReservationSolution, ReservationStatus }
+export { ReservationContext, ReservationInstance, ReservationList, ReservationPage }

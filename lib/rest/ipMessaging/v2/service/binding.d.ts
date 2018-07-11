@@ -6,341 +6,124 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V2 = require('../../V2');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { SerializableClass } from '../../../../interfaces';
+import deserialize = require('../../../../base/deserialize');
+import serialize = require('../../../../base/serialize');
+import values = require('../../../../base/values');
 
-declare function BindingList(version: V2, serviceSid: string): BindingListInstance
 
-type BindingBindingType = 'gcm'|'apn'|'fcm';
 
-interface BindingResource {
+declare class BindingPage extends Page {
   /**
-   * The unique id of the [Account](https://www.twilio.com/console) responsible for this binding.
-   */
-  account_sid: string;
-  /**
-   * The push technology to use for this Binding.  Supported values are apn, gcm and fcm.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more information.
-   */
-  binding_type: BindingBindingType;
-  /**
-   * The unique id of the [Credential](https://www.twilio.com/docs/api/chat/rest/credentials) for this binding.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more information.
-   */
-  credential_sid: string;
-  /**
-   * The date that this resource was created.
-   */
-  date_created: Date;
-  /**
-   * The date that this resource was last updated.
-   */
-  date_updated: Date;
-  /**
-   * The unique endpoint identifier for this Binding, the composition of which depends on the binding type.
-   */
-  endpoint: string;
-  /**
-   * A unique string identifier for the [User](https://www.twilio.com/docs/api/chat/rest/users) this Binding is for in this [Service](https://www.twilio.com/docs/api/chat/rest/services). See the [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) docs for more details.
-   */
-  identity: string;
-  /**
-   * Absolute URLs to access the [Users](https://www.twilio.com/docs/chat/api/users) for this Binding.
-   */
-  links: string;
-  /**
-   * List of the Programmable Chat message types this binding is subcribed to.
-   */
-  message_types: string;
-  /**
-   * The unique id of the [Service](https://www.twilio.com/docs/api/chat/rest/services) this binding belongs to.
-   */
-  service_sid: string;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * An absolute URL for this binding.
-   */
-  url: string;
-}
-
-interface BindingPayload extends BindingResource, Page.TwilioResponsePayload {
-}
-
-interface BindingSolution {
-  serviceSid: string;
-}
-
-interface BindingListEachOptions extends ListEachOptions<BindingInstance> {
-  /**
-   * The push technology used for the returned Bindings.  Supported values are apn, gcm and fcm.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more information.
-   */
-  bindingType?: BindingBindingType[];
-  /**
-   * The identity
-   */
-  identity?: string[];
-}
-
-interface BindingListOptions extends ListOptions<BindingInstance> {
-  /**
-   * The push technology used for the returned Bindings.  Supported values are apn, gcm and fcm.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more information.
-   */
-  bindingType?: BindingBindingType[];
-  /**
-   * The identity
-   */
-  identity?: string[];
-}
-
-interface BindingListPageOptions extends PageOptions<BindingPage> {
-  /**
-   * The push technology used for the returned Bindings.  Supported values are apn, gcm and fcm.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more information.
-   */
-  bindingType?: BindingBindingType[];
-  /**
-   * The identity
-   */
-  identity?: string[];
-}
-
-interface BindingListInstance {
-  /**
-   * Gets context of a single Binding resource
+   * @constructor Twilio.IpMessaging.V2.ServiceContext.BindingPage
+   * @augments Page
+   * @description Initialize the BindingPage
    *
-   * @param sid - The sid
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  (sid: string): BindingContext;
-  /**
-   * Streams BindingInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: BindingListEachOptions): void;
-  /**
-   * Streams BindingInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: BindingInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Binding resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): BindingContext;
-  /**
-   * Retrieve a single target page of BindingInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<BindingPage>;
-  /**
-   * Retrieve a single target page of BindingInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: BindingPage) => any): void;
-  /**
-   * Lists BindingInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: BindingListOptions): Promise<BindingInstance[]>;
-  /**
-   * Lists BindingInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: BindingListOptions, callback: (error: Error | null, items: BindingInstance[]) => any): void;
-  /**
-   * Lists BindingInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: BindingInstance[]) => any): void;
-  /**
-   * Retrieve a single page of BindingInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: BindingListPageOptions): Promise<BindingPage>;
-  /**
-   * Retrieve a single page of BindingInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: BindingListPageOptions, callback: (error: Error | null, items: BindingPage) => any): void;
-  /**
-   * Retrieve a single page of BindingInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: BindingPage) => any): void;
-}
-
-declare class BindingPage extends Page<V2, BindingPayload, BindingResource, BindingInstance> {
-  constructor(version: V2, response: Response<string>, solution: BindingSolution);
+  constructor(version: Twilio.IpMessaging.V2, response: object, solution: object);
 
   /**
    * Build an instance of BindingInstance
    *
+   * @function getInstance
+   * @memberof Twilio.IpMessaging.V2.ServiceContext.BindingPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: BindingPayload): BindingInstance;
+  getInstance(payload: object);
 }
 
-declare class BindingInstance extends SerializableClass {
+declare class BindingInstance {
   /**
+   * @constructor Twilio.IpMessaging.V2.ServiceContext.BindingInstance
+   * @description Initialize the BindingContext
+   *
+   * @property sid - A 34 character string that uniquely identifies this resource.
+   * @property accountSid - The unique id of the Account responsible for this binding.
+   * @property serviceSid - The unique id of the Service this binding belongs to.
+   * @property dateCreated - The date that this resource was created.
+   * @property dateUpdated - The date that this resource was last updated.
+   * @property endpoint - The unique endpoint identifier for this Binding.
+   * @property identity - A unique string identifier for the Binding for this User in this Service.
+   * @property credentialSid - The unique id of the Credential for this binding.
+   * @property bindingType - The push technology to use for this binding.
+   * @property messageTypes - List of message types for this binding.
+   * @property url - An absolute URL for this binding.
+   * @property links - Absolute URLs to access the Users for this Binding.
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The service_sid
+   * @param serviceSid - The unique id of the Service this binding belongs to.
    * @param sid - The sid
    */
-  constructor(version: V2, payload: BindingPayload, serviceSid: string, sid: string);
+  constructor(version: Twilio.IpMessaging.V2, payload: object, serviceSid: sid, sid: sid);
 
-  private _proxy: BindingContext;
-  /**
-   * The unique id of the [Account](https://www.twilio.com/console) responsible for this binding.
-   */
-  accountSid: string;
-  /**
-   * The push technology to use for this Binding.  Supported values are apn, gcm and fcm.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more information.
-   */
-  bindingType: BindingBindingType;
-  /**
-   * The unique id of the [Credential](https://www.twilio.com/docs/api/chat/rest/credentials) for this binding.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more information.
-   */
-  credentialSid: string;
-  /**
-   * The date that this resource was created.
-   */
-  dateCreated: Date;
-  /**
-   * The date that this resource was last updated.
-   */
-  dateUpdated: Date;
-  /**
-   * The unique endpoint identifier for this Binding, the composition of which depends on the binding type.
-   */
-  endpoint: string;
+  _proxy?: BindingContext;
   /**
    * fetch a BindingInstance
    *
-   * @returns Promise that resolves to processed BindingInstance
-   */
-  fetch(): Promise<BindingInstance>;
-  /**
-   * fetch a BindingInstance
+   * @function fetch
+   * @memberof Twilio.IpMessaging.V2.ServiceContext.BindingInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: BindingInstance) => any): void;
-  /**
-   * A unique string identifier for the [User](https://www.twilio.com/docs/api/chat/rest/users) this Binding is for in this [Service](https://www.twilio.com/docs/api/chat/rest/services). See the [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) docs for more details.
-   */
-  identity: string;
-  /**
-   * Absolute URLs to access the [Users](https://www.twilio.com/docs/chat/api/users) for this Binding.
-   */
-  links: string;
-  /**
-   * List of the Programmable Chat message types this binding is subcribed to.
-   */
-  messageTypes: string;
+  fetch(callback?: function);
   /**
    * remove a BindingInstance
    *
-   * @returns Promise that resolves to processed BindingInstance
-   */
-  remove(): Promise<BindingInstance>;
-  /**
-   * remove a BindingInstance
+   * @function remove
+   * @memberof Twilio.IpMessaging.V2.ServiceContext.BindingInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: BindingInstance) => any): void;
+  remove(callback?: function);
   /**
-   * The unique id of the [Service](https://www.twilio.com/docs/api/chat/rest/services) this binding belongs to.
+   * Produce a plain JSON object version of the BindingInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.IpMessaging.V2.ServiceContext.BindingInstance
+   * @instance
    */
-  serviceSid: string;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * An absolute URL for this binding.
-   */
-  url: string;
+  toJSON();
 }
 
 declare class BindingContext {
-  constructor(version: V2, serviceSid: string, sid: string);
+  /**
+   * @constructor Twilio.IpMessaging.V2.ServiceContext.BindingContext
+   * @description Initialize the BindingContext
+   *
+   * @param version - Version of the resource
+   * @param serviceSid - The service_sid
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.IpMessaging.V2, serviceSid: sid, sid: sid);
 
   /**
    * fetch a BindingInstance
    *
-   * @returns Promise that resolves to processed BindingInstance
-   */
-  fetch(): Promise<BindingInstance>;
-  /**
-   * fetch a BindingInstance
+   * @function fetch
+   * @memberof Twilio.IpMessaging.V2.ServiceContext.BindingContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: BindingInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a BindingInstance
    *
-   * @returns Promise that resolves to processed BindingInstance
-   */
-  remove(): Promise<BindingInstance>;
-  /**
-   * remove a BindingInstance
+   * @function remove
+   * @memberof Twilio.IpMessaging.V2.ServiceContext.BindingContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: BindingInstance) => any): void;
+  remove(callback?: function);
 }
 
-export { BindingBindingType, BindingContext, BindingInstance, BindingList, BindingListEachOptions, BindingListInstance, BindingListOptions, BindingListPageOptions, BindingPage, BindingPayload, BindingResource, BindingSolution }
+export { BindingContext, BindingInstance, BindingList, BindingPage }

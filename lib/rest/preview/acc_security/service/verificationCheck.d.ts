@@ -5,144 +5,68 @@
  *       /       /
  */
 
-import AccSecurity = require('../../AccSecurity');
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import { SerializableClass } from '../../../../interfaces';
+import deserialize = require('../../../../base/deserialize');
+import values = require('../../../../base/values');
 
-declare function VerificationCheckList(version: AccSecurity, serviceSid: string): VerificationCheckListInstance
 
-type VerificationCheckChannel = 'sms'|'call';
 
-interface VerificationCheckResource {
+declare class VerificationCheckPage extends Page {
   /**
-   * The unique SID identifier of the Account.
-   */
-  account_sid: string;
-  /**
-   * The method in which the phone will be verified. Either sms or call
-   */
-  channel: VerificationCheckChannel;
-  /**
-   * The date that this Verification Check was created, given in ISO 8601 format.
-   */
-  date_created: Date;
-  /**
-   * The date that this Verification Check was updated, given in ISO 8601 format.
-   */
-  date_updated: Date;
-  /**
-   * The unique SID identifier of the Service.
-   */
-  service_sid: string;
-  /**
-   * A 34 character string that uniquely identifies this Verification Check.
-   */
-  sid: string;
-  /**
-   * String with the current status of the verification
-   */
-  status: string;
-  /**
-   * The To phonenumber of the phone being verified
-   */
-  to: string;
-  /**
-   * Boolean flag specifying if the verification was successful.
-   */
-  valid: boolean;
-}
-
-interface VerificationCheckPayload extends VerificationCheckResource, Page.TwilioResponsePayload {
-}
-
-interface VerificationCheckSolution {
-  serviceSid: string;
-}
-
-interface VerificationCheckListCreateOptions {
-  /**
-   * The 4-10 character string being verified
-   */
-  code: string;
-  /**
-   * The To phonenumber of the phone being verified
-   */
-  to?: string;
-}
-
-interface VerificationCheckListInstance {
-  /**
-   * create a VerificationCheckInstance
+   * @constructor Twilio.Preview.AccSecurity.ServiceContext.VerificationCheckPage
+   * @augments Page
+   * @description Initialize the VerificationCheckPage
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed VerificationCheckInstance
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  create(opts: VerificationCheckListCreateOptions): Promise<VerificationCheckInstance>;
-  /**
-   * create a VerificationCheckInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: VerificationCheckListCreateOptions, callback: (error: Error | null, items: VerificationCheckInstance) => any): void;
-}
-
-declare class VerificationCheckPage extends Page<AccSecurity, VerificationCheckPayload, VerificationCheckResource, VerificationCheckInstance> {
-  constructor(version: AccSecurity, response: Response<string>, solution: VerificationCheckSolution);
+  constructor(version: Twilio.Preview.AccSecurity, response: object, solution: object);
 
   /**
    * Build an instance of VerificationCheckInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Preview.AccSecurity.ServiceContext.VerificationCheckPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: VerificationCheckPayload): VerificationCheckInstance;
+  getInstance(payload: object);
 }
 
-declare class VerificationCheckInstance extends SerializableClass {
+declare class VerificationCheckInstance {
   /**
+   * @constructor Twilio.Preview.AccSecurity.ServiceContext.VerificationCheckInstance
+   * @description Initialize the VerificationCheckContext
+   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property sid - A string that uniquely identifies this Verification Check.
+   * @property serviceSid - Service Sid.
+   * @property accountSid - Account Sid.
+   * @property to - To phonenumber
+   * @property channel - sms or call
+   * @property status - pending, approved, denied or expired
+   * @property valid - successful verification
+   * @property dateCreated - The date this Verification Check was created
+   * @property dateUpdated - The date this Verification Check was updated
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
+   * @param serviceSid - Service Sid.
    */
-  constructor(version: AccSecurity, payload: VerificationCheckPayload);
+  constructor(version: Twilio.Preview.AccSecurity, payload: object, serviceSid: sid);
 
   /**
-   * The unique SID identifier of the Account.
+   * Produce a plain JSON object version of the VerificationCheckInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Preview.AccSecurity.ServiceContext.VerificationCheckInstance
+   * @instance
    */
-  accountSid: string;
-  /**
-   * The method in which the phone will be verified. Either sms or call
-   */
-  channel: VerificationCheckChannel;
-  /**
-   * The date that this Verification Check was created, given in ISO 8601 format.
-   */
-  dateCreated: Date;
-  /**
-   * The date that this Verification Check was updated, given in ISO 8601 format.
-   */
-  dateUpdated: Date;
-  /**
-   * The unique SID identifier of the Service.
-   */
-  serviceSid: string;
-  /**
-   * A 34 character string that uniquely identifies this Verification Check.
-   */
-  sid: string;
-  /**
-   * String with the current status of the verification
-   */
-  status: string;
-  /**
-   * The To phonenumber of the phone being verified
-   */
-  to: string;
-  /**
-   * Boolean flag specifying if the verification was successful.
-   */
-  valid: boolean;
+  toJSON();
 }
 
-export { VerificationCheckChannel, VerificationCheckInstance, VerificationCheckList, VerificationCheckListCreateOptions, VerificationCheckListInstance, VerificationCheckPage, VerificationCheckPayload, VerificationCheckResource, VerificationCheckSolution }
+export { VerificationCheckInstance, VerificationCheckList, VerificationCheckPage }

@@ -6,470 +6,214 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V1 = require('../../V1');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { SerializableClass } from '../../../../interfaces';
-import { WorkflowCumulativeStatisticsListInstance } from './workflow/workflowCumulativeStatistics';
-import { WorkflowRealTimeStatisticsListInstance } from './workflow/workflowRealTimeStatistics';
-import { WorkflowStatisticsListInstance } from './workflow/workflowStatistics';
+import deserialize = require('../../../../base/deserialize');
+import values = require('../../../../base/values');
+import { WorkflowCumulativeStatisticsList } from './workflow/workflowCumulativeStatistics';
+import { WorkflowRealTimeStatisticsList } from './workflow/workflowRealTimeStatistics';
+import { WorkflowStatisticsList } from './workflow/workflowStatistics';
 
-declare function WorkflowList(version: V1, workspaceSid: string): WorkflowListInstance
 
-interface WorkflowResource {
-  /**
-   * The ID of the account that owns this Workflow
-   */
-  account_sid: string;
-  /**
-   * The URL that will be called whenever a task managed by this Workflow is assigned to a Worker. See Assignment Callback URL for more information.
-   */
-  assignment_callback_url: string;
-  /**
-   * JSON document configuring the rules for this Workflow. See [Configuring Workflows](https://www.twilio.com/docs/api/taskrouter/workflow-configuration) for more information.
-   */
-  configuration: string;
-  /**
-   * The date this workflow was created.
-   */
-  date_created: Date;
-  /**
-   * The date this workflow was last updated.
-   */
-  date_updated: Date;
-  /**
-   * The document_content_type
-   */
-  document_content_type: string;
-  /**
-   * If the request to the AssignmentCallbackUrl fails, the assignment callback will be made to this URL.
-   */
-  fallback_assignment_callback_url: string;
-  /**
-   * Human readable description of this Workflow (for example "Customer Support" or "2014 Election Campaign")
-   */
-  friendly_name: string;
-  /**
-   * The links
-   */
-  links: string;
-  /**
-   * The unique ID of the Workflow
-   */
-  sid: string;
-  /**
-   * Determines how long TaskRouter will wait for a confirmation response from your application after assigning a Task to a worker. Defaults to 120 seconds. Maximum value is 86400 (24 hours)
-   */
-  task_reservation_timeout: number;
-  /**
-   * The url
-   */
-  url: string;
-  /**
-   * The ID of the Workspace that contains this Workflow
-   */
-  workspace_sid: string;
-}
-
-interface WorkflowPayload extends WorkflowResource, Page.TwilioResponsePayload {
-}
-
-interface WorkflowSolution {
-  workspaceSid: string;
-}
-
-interface WorkflowListEachOptions extends ListEachOptions<WorkflowInstance> {
-  /**
-   * Human readable description of this Workflow (for example "Customer Support" or "2014 Election Campaign")
-   */
-  friendlyName?: string;
-}
-
-interface WorkflowListOptions extends ListOptions<WorkflowInstance> {
-  /**
-   * Human readable description of this Workflow (for example "Customer Support" or "2014 Election Campaign")
-   */
-  friendlyName?: string;
-}
-
-interface WorkflowListPageOptions extends PageOptions<WorkflowPage> {
-  /**
-   * Human readable description of this Workflow (for example "Customer Support" or "2014 Election Campaign")
-   */
-  friendlyName?: string;
-}
-
-interface WorkflowListCreateOptions {
-  /**
-   * A valid URL for the application that will process task assignment events. See [Handling Task Assignment Callback](https://www.twilio.com/docs/api/taskrouter/handling-assignment-callbacks) for more details.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A string representing a human readable name for this Workflow.
+ * @property assignmentCallbackUrl - A valid URL for the application that will process task assignment events.
+ * @property fallbackAssignmentCallbackUrl - If the request to the AssignmentCallbackUrl fails, the assignment callback will be made to this URL.
+ * @property configuration - JSON document configuring the rules for this Workflow.
+ * @property taskReservationTimeout - An integer value controlling how long in seconds TaskRouter will wait for a confirmation response from your application after assigning a Task to a worker.
+ */
+export interface UpdateOptions {
   assignmentCallbackUrl?: string;
-  /**
-   * JSON document configuring the rules for this Workflow. See [Configuring Workflows](https://www.twilio.com/docs/api/taskrouter/workflow-configuration) for more information.
-   */
-  configuration: string;
-  /**
-   * If the request to the AssignmentCallbackUrl fails, the assignment callback will be made to this URL.
-   */
-  fallbackAssignmentCallbackUrl?: string;
-  /**
-   * A string representing a human readable name for this Workflow. Examples include 'Inbound Call Workflow' or '2014 Outbound Campaign'.
-   */
-  friendlyName: string;
-  /**
-   * An integer value controlling how long in seconds TaskRouter will wait for a confirmation response from your application after assigning a Task to a worker. See Task Assignment Callback for more information. Defaults to 120 seconds. Maximum value is 86400 (24 hours)
-   */
-  taskReservationTimeout?: number;
-}
-
-interface WorkflowListInstance {
-  /**
-   * Gets context of a single Workflow resource
-   *
-   * @param sid - The sid
-   */
-  (sid: string): WorkflowContext;
-  /**
-   * create a WorkflowInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed WorkflowInstance
-   */
-  create(opts: WorkflowListCreateOptions): Promise<WorkflowInstance>;
-  /**
-   * create a WorkflowInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: WorkflowListCreateOptions, callback: (error: Error | null, items: WorkflowInstance) => any): void;
-  /**
-   * Streams WorkflowInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: WorkflowListEachOptions): void;
-  /**
-   * Streams WorkflowInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: WorkflowInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Workflow resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): WorkflowContext;
-  /**
-   * Retrieve a single target page of WorkflowInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<WorkflowPage>;
-  /**
-   * Retrieve a single target page of WorkflowInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: WorkflowPage) => any): void;
-  /**
-   * Lists WorkflowInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: WorkflowListOptions): Promise<WorkflowInstance[]>;
-  /**
-   * Lists WorkflowInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: WorkflowListOptions, callback: (error: Error | null, items: WorkflowInstance[]) => any): void;
-  /**
-   * Lists WorkflowInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: WorkflowInstance[]) => any): void;
-  /**
-   * Retrieve a single page of WorkflowInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: WorkflowListPageOptions): Promise<WorkflowPage>;
-  /**
-   * Retrieve a single page of WorkflowInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: WorkflowListPageOptions, callback: (error: Error | null, items: WorkflowPage) => any): void;
-  /**
-   * Retrieve a single page of WorkflowInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: WorkflowPage) => any): void;
-}
-
-interface WorkflowListFetchOptions {
-  /**
-   * A valid URL for the application that will process task assignment events. See [Handling Task Assignment Callback](https://www.twilio.com/docs/api/taskrouter/handling-assignment-callbacks) for more details.
-   */
-  assignmentCallbackUrl?: string;
-  /**
-   * JSON document configuring the rules for this Workflow. See [Configuring Workflows](https://www.twilio.com/docs/api/taskrouter/workflow-configuration) for more information.
-   */
   configuration?: string;
-  /**
-   * If the request to the AssignmentCallbackUrl fails, the assignment callback will be made to this URL.
-   */
   fallbackAssignmentCallbackUrl?: string;
-  /**
-   * A string representing a human readable name for this Workflow. Examples include 'Customer Support' or 'Sales Team'.
-   */
   friendlyName?: string;
-  /**
-   * An integer value controlling how long in seconds TaskRouter will wait for a confirmation response from your application after assigning a Task to a worker. Defaults to 120 seconds. Maximum value is 86400 (24 hours)
-   */
   taskReservationTimeout?: number;
 }
 
-interface WorkflowListFetchOptions {
-  /**
-   * A valid URL for the application that will process task assignment events. See [Handling Task Assignment Callback](https://www.twilio.com/docs/api/taskrouter/handling-assignment-callbacks) for more details.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A string representing a human readable name for this Workflow.
+ * @property assignmentCallbackUrl - A valid URL for the application that will process task assignment events.
+ * @property fallbackAssignmentCallbackUrl - If the request to the AssignmentCallbackUrl fails, the assignment callback will be made to this URL.
+ * @property configuration - JSON document configuring the rules for this Workflow.
+ * @property taskReservationTimeout - An integer value controlling how long in seconds TaskRouter will wait for a confirmation response from your application after assigning a Task to a worker.
+ */
+export interface UpdateOptions {
   assignmentCallbackUrl?: string;
-  /**
-   * JSON document configuring the rules for this Workflow. See [Configuring Workflows](https://www.twilio.com/docs/api/taskrouter/workflow-configuration) for more information.
-   */
   configuration?: string;
-  /**
-   * If the request to the AssignmentCallbackUrl fails, the assignment callback will be made to this URL.
-   */
   fallbackAssignmentCallbackUrl?: string;
-  /**
-   * A string representing a human readable name for this Workflow. Examples include 'Customer Support' or 'Sales Team'.
-   */
   friendlyName?: string;
-  /**
-   * An integer value controlling how long in seconds TaskRouter will wait for a confirmation response from your application after assigning a Task to a worker. Defaults to 120 seconds. Maximum value is 86400 (24 hours)
-   */
   taskReservationTimeout?: number;
 }
 
-declare class WorkflowPage extends Page<V1, WorkflowPayload, WorkflowResource, WorkflowInstance> {
-  constructor(version: V1, response: Response<string>, solution: WorkflowSolution);
+
+declare class WorkflowPage extends Page {
+  /**
+   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkflowPage
+   * @augments Page
+   * @description Initialize the WorkflowPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Taskrouter.V1, response: object, solution: object);
 
   /**
    * Build an instance of WorkflowInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkflowPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: WorkflowPayload): WorkflowInstance;
+  getInstance(payload: object);
 }
 
-declare class WorkflowInstance extends SerializableClass {
+declare class WorkflowInstance {
   /**
+   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkflowInstance
+   * @description Initialize the WorkflowContext
+   *
+   * @property accountSid - The ID of the account that owns this Workflow
+   * @property assignmentCallbackUrl - The URL that will be called whenever a task managed by this Workflow is assigned to a Worker.
+   * @property configuration - JSON document configuring the rules for this Workflow.
+   * @property dateCreated - The date this workflow was created.
+   * @property dateUpdated - The date this workflow was last updated.
+   * @property documentContentType - The document_content_type
+   * @property fallbackAssignmentCallbackUrl - If the request to the AssignmentCallbackUrl fails, the assignment callback will be made to this URL.
+   * @property friendlyName - Human readable description of this Workflow
+   * @property sid - The unique ID of the Workflow
+   * @property taskReservationTimeout - Determines how long TaskRouter will wait for a confirmation response from your application after assigning a Task to a worker.
+   * @property workspaceSid - The ID of the Workspace that contains this Workflow
+   * @property url - The url
+   * @property links - The links
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param workspaceSid - The workspace_sid
+   * @param workspaceSid - The ID of the Workspace that contains this Workflow
    * @param sid - The sid
    */
-  constructor(version: V1, payload: WorkflowPayload, workspaceSid: string, sid: string);
+  constructor(version: Twilio.Taskrouter.V1, payload: object, workspaceSid: sid, sid: sid);
 
-  private _proxy: WorkflowContext;
+  _proxy?: WorkflowContext;
   /**
-   * The ID of the account that owns this Workflow
+   * Access the cumulativeStatistics
+   *
+   * @function cumulativeStatistics
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkflowInstance
+   * @instance
    */
-  accountSid: string;
-  /**
-   * The URL that will be called whenever a task managed by this Workflow is assigned to a Worker. See Assignment Callback URL for more information.
-   */
-  assignmentCallbackUrl: string;
-  /**
-   * JSON document configuring the rules for this Workflow. See [Configuring Workflows](https://www.twilio.com/docs/api/taskrouter/workflow-configuration) for more information.
-   */
-  configuration: string;
-  cumulativeStatistics(): WorkflowCumulativeStatisticsListInstance;
-  /**
-   * The date this workflow was created.
-   */
-  dateCreated: Date;
-  /**
-   * The date this workflow was last updated.
-   */
-  dateUpdated: Date;
-  /**
-   * The document_content_type
-   */
-  documentContentType: string;
-  /**
-   * If the request to the AssignmentCallbackUrl fails, the assignment callback will be made to this URL.
-   */
-  fallbackAssignmentCallbackUrl: string;
+  cumulativeStatistics();
   /**
    * fetch a WorkflowInstance
    *
-   * @returns Promise that resolves to processed WorkflowInstance
-   */
-  fetch(): Promise<WorkflowInstance>;
-  /**
-   * fetch a WorkflowInstance
+   * @function fetch
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkflowInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: WorkflowInstance) => any): void;
+  fetch(callback?: function);
   /**
-   * Human readable description of this Workflow (for example "Customer Support" or "2014 Election Campaign")
+   * Access the realTimeStatistics
+   *
+   * @function realTimeStatistics
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkflowInstance
+   * @instance
    */
-  friendlyName: string;
-  /**
-   * The links
-   */
-  links: string;
-  realTimeStatistics(): WorkflowRealTimeStatisticsListInstance;
+  realTimeStatistics();
   /**
    * remove a WorkflowInstance
    *
-   * @returns Promise that resolves to processed WorkflowInstance
-   */
-  remove(): Promise<WorkflowInstance>;
-  /**
-   * remove a WorkflowInstance
+   * @function remove
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkflowInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: WorkflowInstance) => any): void;
+  remove(callback?: function);
   /**
-   * The unique ID of the Workflow
+   * Access the statistics
+   *
+   * @function statistics
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkflowInstance
+   * @instance
    */
-  sid: string;
-  statistics(): WorkflowStatisticsListInstance;
+  statistics();
   /**
-   * Determines how long TaskRouter will wait for a confirmation response from your application after assigning a Task to a worker. Defaults to 120 seconds. Maximum value is 86400 (24 hours)
+   * Produce a plain JSON object version of the WorkflowInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkflowInstance
+   * @instance
    */
-  taskReservationTimeout: number;
+  toJSON();
   /**
    * update a WorkflowInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkflowInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed WorkflowInstance
-   */
-  update(opts?: WorkflowListFetchOptions): Promise<WorkflowInstance>;
-  /**
-   * update a WorkflowInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: WorkflowListFetchOptions, callback: (error: Error | null, items: WorkflowInstance) => any): void;
-  /**
-   * update a WorkflowInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: WorkflowInstance) => any): void;
-  /**
-   * The url
-   */
-  url: string;
-  /**
-   * The ID of the Workspace that contains this Workflow
-   */
-  workspaceSid: string;
+  update(opts?: object, callback?: function);
 }
 
 declare class WorkflowContext {
-  constructor(version: V1, workspaceSid: string, sid: string);
+  /**
+   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkflowContext
+   * @description Initialize the WorkflowContext
+   *
+   * @property statistics - statistics resource
+   * @property realTimeStatistics - realTimeStatistics resource
+   * @property cumulativeStatistics - cumulativeStatistics resource
+   *
+   * @param version - Version of the resource
+   * @param workspaceSid - The workspace_sid
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Taskrouter.V1, workspaceSid: sid, sid: sid);
 
-  cumulativeStatistics: WorkflowCumulativeStatisticsListInstance;
+  cumulativeStatistics?: Twilio.Taskrouter.V1.WorkspaceContext.WorkflowContext.WorkflowCumulativeStatisticsList;
   /**
    * fetch a WorkflowInstance
    *
-   * @returns Promise that resolves to processed WorkflowInstance
-   */
-  fetch(): Promise<WorkflowInstance>;
-  /**
-   * fetch a WorkflowInstance
+   * @function fetch
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkflowContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: WorkflowInstance) => any): void;
-  realTimeStatistics: WorkflowRealTimeStatisticsListInstance;
+  fetch(callback?: function);
+  realTimeStatistics?: Twilio.Taskrouter.V1.WorkspaceContext.WorkflowContext.WorkflowRealTimeStatisticsList;
   /**
    * remove a WorkflowInstance
    *
-   * @returns Promise that resolves to processed WorkflowInstance
-   */
-  remove(): Promise<WorkflowInstance>;
-  /**
-   * remove a WorkflowInstance
+   * @function remove
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkflowContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: WorkflowInstance) => any): void;
-  statistics: WorkflowStatisticsListInstance;
+  remove(callback?: function);
+  statistics?: Twilio.Taskrouter.V1.WorkspaceContext.WorkflowContext.WorkflowStatisticsList;
   /**
    * update a WorkflowInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkflowContext
+   * @instance
    *
-   * @returns Promise that resolves to processed WorkflowInstance
-   */
-  update(opts?: WorkflowListFetchOptions): Promise<WorkflowInstance>;
-  /**
-   * update a WorkflowInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: WorkflowListFetchOptions, callback: (error: Error | null, items: WorkflowInstance) => any): void;
-  /**
-   * update a WorkflowInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: WorkflowInstance) => any): void;
+  update(opts?: object, callback?: function);
 }
 
-export { WorkflowContext, WorkflowInstance, WorkflowList, WorkflowListCreateOptions, WorkflowListEachOptions, WorkflowListFetchOptions, WorkflowListInstance, WorkflowListOptions, WorkflowListPageOptions, WorkflowPage, WorkflowPayload, WorkflowResource, WorkflowSolution }
+export { WorkflowContext, WorkflowInstance, WorkflowList, WorkflowPage }

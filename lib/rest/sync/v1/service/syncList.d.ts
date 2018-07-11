@@ -6,401 +6,188 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V1 = require('../../V1');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { SerializableClass } from '../../../../interfaces';
-import { SyncListItemListInstance } from './syncList/syncListItem';
-import { SyncListPermissionListInstance } from './syncList/syncListPermission';
+import deserialize = require('../../../../base/deserialize');
+import values = require('../../../../base/values');
+import { SyncListItemList } from './syncList/syncListItem';
+import { SyncListPermissionList } from './syncList/syncListPermission';
 
-declare function SyncListList(version: V1, serviceSid: string): SyncListListInstance
 
-interface SyncListResource {
-  /**
-   * The unique SID identifier of the Twilio Account.
-   */
-  account_sid: string;
-  /**
-   * The identity of the List creator. If the List is created from the client SDK, the value matches the Access Token's `identity` field. If the List was created from the REST API, the value is `system`.
-   */
-  created_by: string;
-  /**
-   * The date this List was created, given in UTC ISO 8601 format.
-   */
-  date_created: Date;
-  /**
-   * Contains the date this List expires and gets deleted automatically. Contains null if the List persists permanently.
-   */
-  date_expires: Date;
-  /**
-   * Specifies the date this List was last updated, given in UTC ISO 8601 format.
-   */
-  date_updated: Date;
-  /**
-   * A dictionary of URL links to nested resources of this List.
-   */
-  links: string;
-  /**
-   * Contains the current revision of this List, represented by a string identifier.
-   */
-  revision: string;
-  /**
-   * The unique SID identifier of the Service Instance that hosts this List object.
-   */
-  service_sid: string;
-  /**
-   * The unique 34-character SID identifier of the List.
-   */
-  sid: string;
-  /**
-   * The unique and addressable name of this List. Optional, up to 256 characters long.
-   */
-  unique_name: string;
-  /**
-   * The absolute URL for this List.
-   */
-  url: string;
-}
-
-interface SyncListPayload extends SyncListResource, Page.TwilioResponsePayload {
-}
-
-interface SyncListSolution {
-  serviceSid: string;
-}
-
-interface SyncListListCreateOptions {
-  /**
-   * Time-to-live of this List in seconds, defaults to no expiration. In the range [1, 31 536 000 (1 year)], or 0 for infinity.
-   */
-  ttl?: number;
-  /**
-   * Human-readable name for this list
-   */
-  uniqueName?: string;
-}
-
-interface SyncListListEachOptions extends ListEachOptions<SyncListInstance> {
-}
-
-interface SyncListListOptions extends ListOptions<SyncListInstance> {
-}
-
-interface SyncListListPageOptions extends PageOptions<SyncListPage> {
-}
-
-interface SyncListListInstance {
-  /**
-   * Gets context of a single SyncList resource
-   *
-   * @param sid - The sid
-   */
-  (sid: string): SyncListContext;
-  /**
-   * create a SyncListInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed SyncListInstance
-   */
-  create(opts?: SyncListListCreateOptions): Promise<SyncListInstance>;
-  /**
-   * create a SyncListInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: SyncListListCreateOptions, callback: (error: Error | null, items: SyncListInstance) => any): void;
-  /**
-   * create a SyncListInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  create(callback: (error: Error | null, items: SyncListInstance) => any): void;
-  /**
-   * Streams SyncListInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: SyncListListEachOptions): void;
-  /**
-   * Streams SyncListInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: SyncListInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single SyncList resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): SyncListContext;
-  /**
-   * Retrieve a single target page of SyncListInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<SyncListPage>;
-  /**
-   * Retrieve a single target page of SyncListInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: SyncListPage) => any): void;
-  /**
-   * Lists SyncListInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: SyncListListOptions): Promise<SyncListInstance[]>;
-  /**
-   * Lists SyncListInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: SyncListListOptions, callback: (error: Error | null, items: SyncListInstance[]) => any): void;
-  /**
-   * Lists SyncListInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: SyncListInstance[]) => any): void;
-  /**
-   * Retrieve a single page of SyncListInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: SyncListListPageOptions): Promise<SyncListPage>;
-  /**
-   * Retrieve a single page of SyncListInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: SyncListListPageOptions, callback: (error: Error | null, items: SyncListPage) => any): void;
-  /**
-   * Retrieve a single page of SyncListInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: SyncListPage) => any): void;
-}
-
-interface SyncListListFetchOptions {
-  /**
-   * Time-to-live of this List in seconds, defaults to no expiration. In the range [1, 31 536 000 (1 year)], or 0 for infinity.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property ttl - Time-to-live of this List in seconds, defaults to no expiration.
+ */
+export interface UpdateOptions {
   ttl?: number;
 }
 
-interface SyncListListFetchOptions {
-  /**
-   * Time-to-live of this List in seconds, defaults to no expiration. In the range [1, 31 536 000 (1 year)], or 0 for infinity.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property ttl - Time-to-live of this List in seconds, defaults to no expiration.
+ */
+export interface UpdateOptions {
   ttl?: number;
 }
 
-declare class SyncListPage extends Page<V1, SyncListPayload, SyncListResource, SyncListInstance> {
-  constructor(version: V1, response: Response<string>, solution: SyncListSolution);
+
+declare class SyncListPage extends Page {
+  /**
+   * @constructor Twilio.Sync.V1.ServiceContext.SyncListPage
+   * @augments Page
+   * @description Initialize the SyncListPage
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Sync.V1, response: object, solution: object);
 
   /**
    * Build an instance of SyncListInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Sync.V1.ServiceContext.SyncListPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: SyncListPayload): SyncListInstance;
+  getInstance(payload: object);
 }
 
-declare class SyncListInstance extends SerializableClass {
+declare class SyncListInstance {
   /**
+   * @constructor Twilio.Sync.V1.ServiceContext.SyncListInstance
+   * @description Initialize the SyncListContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property sid - The unique 34-character SID identifier of the List.
+   * @property uniqueName - The unique and addressable name of this List.
+   * @property accountSid - The unique SID identifier of the Twilio Account.
+   * @property serviceSid - The unique SID identifier of the Service Instance that hosts this List object.
+   * @property url - The absolute URL for this List.
+   * @property links - A dictionary of URL links to nested resources of this List.
+   * @property revision - Contains the current revision of this List, represented by a string identifier.
+   * @property dateExpires - Contains the date this List expires and gets deleted automatically.
+   * @property dateCreated - The date this List was created, given in UTC ISO 8601 format.
+   * @property dateUpdated - Specifies the date this List was last updated, given in UTC ISO 8601 format.
+   * @property createdBy - The identity of the List creator.
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The service_sid
+   * @param serviceSid - The unique SID identifier of the Service Instance that hosts this List object.
    * @param sid - The sid
    */
-  constructor(version: V1, payload: SyncListPayload, serviceSid: string, sid: string);
+  constructor(version: Twilio.Sync.V1, payload: object, serviceSid: sid, sid: sid_like);
 
-  private _proxy: SyncListContext;
-  /**
-   * The unique SID identifier of the Twilio Account.
-   */
-  accountSid: string;
-  /**
-   * The identity of the List creator. If the List is created from the client SDK, the value matches the Access Token's `identity` field. If the List was created from the REST API, the value is `system`.
-   */
-  createdBy: string;
-  /**
-   * The date this List was created, given in UTC ISO 8601 format.
-   */
-  dateCreated: Date;
-  /**
-   * Contains the date this List expires and gets deleted automatically. Contains null if the List persists permanently.
-   */
-  dateExpires: Date;
-  /**
-   * Specifies the date this List was last updated, given in UTC ISO 8601 format.
-   */
-  dateUpdated: Date;
+  _proxy?: SyncListContext;
   /**
    * fetch a SyncListInstance
    *
-   * @returns Promise that resolves to processed SyncListInstance
-   */
-  fetch(): Promise<SyncListInstance>;
-  /**
-   * fetch a SyncListInstance
+   * @function fetch
+   * @memberof Twilio.Sync.V1.ServiceContext.SyncListInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: SyncListInstance) => any): void;
-  /**
-   * A dictionary of URL links to nested resources of this List.
-   */
-  links: string;
+  fetch(callback?: function);
   /**
    * remove a SyncListInstance
    *
-   * @returns Promise that resolves to processed SyncListInstance
-   */
-  remove(): Promise<SyncListInstance>;
-  /**
-   * remove a SyncListInstance
+   * @function remove
+   * @memberof Twilio.Sync.V1.ServiceContext.SyncListInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: SyncListInstance) => any): void;
+  remove(callback?: function);
   /**
-   * Contains the current revision of this List, represented by a string identifier.
+   * Access the syncListItems
+   *
+   * @function syncListItems
+   * @memberof Twilio.Sync.V1.ServiceContext.SyncListInstance
+   * @instance
    */
-  revision: string;
+  syncListItems();
   /**
-   * The unique SID identifier of the Service Instance that hosts this List object.
+   * Access the syncListPermissions
+   *
+   * @function syncListPermissions
+   * @memberof Twilio.Sync.V1.ServiceContext.SyncListInstance
+   * @instance
    */
-  serviceSid: string;
+  syncListPermissions();
   /**
-   * The unique 34-character SID identifier of the List.
+   * Produce a plain JSON object version of the SyncListInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Sync.V1.ServiceContext.SyncListInstance
+   * @instance
    */
-  sid: string;
-  syncListItems(): SyncListItemListInstance;
-  syncListPermissions(): SyncListPermissionListInstance;
-  /**
-   * The unique and addressable name of this List. Optional, up to 256 characters long.
-   */
-  uniqueName: string;
+  toJSON();
   /**
    * update a SyncListInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Sync.V1.ServiceContext.SyncListInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed SyncListInstance
-   */
-  update(opts?: SyncListListFetchOptions): Promise<SyncListInstance>;
-  /**
-   * update a SyncListInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: SyncListListFetchOptions, callback: (error: Error | null, items: SyncListInstance) => any): void;
-  /**
-   * update a SyncListInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: SyncListInstance) => any): void;
-  /**
-   * The absolute URL for this List.
-   */
-  url: string;
+  update(opts?: object, callback?: function);
 }
 
 declare class SyncListContext {
-  constructor(version: V1, serviceSid: string, sid: string);
+  /**
+   * @constructor Twilio.Sync.V1.ServiceContext.SyncListContext
+   * @description Initialize the SyncListContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property syncListItems - syncListItems resource
+   * @property syncListPermissions - syncListPermissions resource
+   *
+   * @param version - Version of the resource
+   * @param serviceSid - The service_sid
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Sync.V1, serviceSid: sid_like, sid: sid_like);
 
   /**
    * fetch a SyncListInstance
    *
-   * @returns Promise that resolves to processed SyncListInstance
-   */
-  fetch(): Promise<SyncListInstance>;
-  /**
-   * fetch a SyncListInstance
+   * @function fetch
+   * @memberof Twilio.Sync.V1.ServiceContext.SyncListContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: SyncListInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a SyncListInstance
    *
-   * @returns Promise that resolves to processed SyncListInstance
-   */
-  remove(): Promise<SyncListInstance>;
-  /**
-   * remove a SyncListInstance
+   * @function remove
+   * @memberof Twilio.Sync.V1.ServiceContext.SyncListContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: SyncListInstance) => any): void;
-  syncListItems: SyncListItemListInstance;
-  syncListPermissions: SyncListPermissionListInstance;
+  remove(callback?: function);
+  syncListItems?: Twilio.Sync.V1.ServiceContext.SyncListContext.SyncListItemList;
+  syncListPermissions?: Twilio.Sync.V1.ServiceContext.SyncListContext.SyncListPermissionList;
   /**
    * update a SyncListInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Sync.V1.ServiceContext.SyncListContext
+   * @instance
    *
-   * @returns Promise that resolves to processed SyncListInstance
-   */
-  update(opts?: SyncListListFetchOptions): Promise<SyncListInstance>;
-  /**
-   * update a SyncListInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: SyncListListFetchOptions, callback: (error: Error | null, items: SyncListInstance) => any): void;
-  /**
-   * update a SyncListInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: SyncListInstance) => any): void;
+  update(opts?: object, callback?: function);
 }
 
-export { SyncListContext, SyncListInstance, SyncListList, SyncListListCreateOptions, SyncListListEachOptions, SyncListListFetchOptions, SyncListListInstance, SyncListListOptions, SyncListListPageOptions, SyncListPage, SyncListPayload, SyncListResource, SyncListSolution }
+export { SyncListContext, SyncListInstance, SyncListList, SyncListPage }

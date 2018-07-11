@@ -6,357 +6,99 @@
  */
 
 import Page = require('../../../base/Page');
-import Response = require('../../../http/response');
-import V1 = require('../V1');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
-import { SerializableClass } from '../../../interfaces';
+import deserialize = require('../../../base/deserialize');
+import values = require('../../../base/values');
 
-declare function CommandList(version: V1): CommandListInstance
 
-type CommandDirection = 'from_sim'|'to_sim';
 
-type CommandStatus = 'queued'|'sent'|'delivered'|'received'|'failed';
-
-type CommandCommandMode = 'text'|'binary';
-
-interface CommandResource {
+declare class CommandPage extends Page {
   /**
-   * The unique id of the [Account](https://www.twilio.com/docs/api/rest/account) that this Command belongs to.
-   */
-  account_sid: string;
-  /**
-   * The message being sent to or from the SIM. For text mode messages, this can be up to 160 characters. For binary mode messages, this is a series of up to 140 bytes of data encoded using base64.
-   */
-  command: string;
-  /**
-   * A string representing which mode the SMS was sent or received using. May be `text` or `binary`.
-   */
-  command_mode: CommandCommandMode;
-  /**
-   * The date that this resource was created, given as GMT in [ISO 8601](http://www.iso.org/iso/home/standards/iso8601.htm) format.
-   */
-  date_created: Date;
-  /**
-   * The date that this resource was last updated, given as GMT in [ISO 8601](http://www.iso.org/iso/home/standards/iso8601.htm) format.
-   */
-  date_updated: Date;
-  /**
-   * The direction of the Command. May be `to_sim` or `from_sim`.  `to_sim` is synonymous with the term `mobile terminated`, `from_sim` is synonymous with the term `mobile originated`.
-   */
-  direction: CommandDirection;
-  /**
-   * A 34 character string that uniquely identifies this resource.
-   */
-  sid: string;
-  /**
-   * The unique ID of the [`SIM`](https://www.twilio.com/docs/api/wireless/rest-api/sim) that this Command was sent to or from.
-   */
-  sim_sid: string;
-  /**
-   * A string representing the status of the Command. May be `queued`, `sent`, `delivered`, `received` or `failed`. See [Status Values](https://www.twilio.com/docs/api/wireless/rest-api/command#instance-status-values) for a description of each state.
-   */
-  status: CommandStatus;
-  /**
-   * The URL for this resource.
-   */
-  url: string;
-}
-
-interface CommandPayload extends CommandResource, Page.TwilioResponsePayload {
-}
-
-interface CommandSolution {
-}
-
-interface CommandListEachOptions extends ListEachOptions<CommandInstance> {
-  /**
-   * Only return Commands with this direction value.
-   */
-  direction?: CommandDirection;
-  /**
-   * Only return Commands to or from this SIM.
-   */
-  sim?: string;
-  /**
-   * Only return Commands with this status value.
-   */
-  status?: CommandStatus;
-}
-
-interface CommandListOptions extends ListOptions<CommandInstance> {
-  /**
-   * Only return Commands with this direction value.
-   */
-  direction?: CommandDirection;
-  /**
-   * Only return Commands to or from this SIM.
-   */
-  sim?: string;
-  /**
-   * Only return Commands with this status value.
-   */
-  status?: CommandStatus;
-}
-
-interface CommandListPageOptions extends PageOptions<CommandPage> {
-  /**
-   * Only return Commands with this direction value.
-   */
-  direction?: CommandDirection;
-  /**
-   * Only return Commands to or from this SIM.
-   */
-  sim?: string;
-  /**
-   * Only return Commands with this status value.
-   */
-  status?: CommandStatus;
-}
-
-interface CommandListCreateOptions {
-  /**
-   * The HTTP method Twilio will use when making a request to the callback URL (valid options are GET or POST). Defaults to POST.
-   */
-  callbackMethod?: string;
-  /**
-   * Twilio will make a request to this URL when the Command has finished sending (delivered or failed).
-   */
-  callbackUrl?: string;
-  /**
-   * The message body of the Command (in text mode) or a Base64 encoded byte string in binary mode.
-   */
-  command: string;
-  /**
-   * A string representing which mode to send the SMS message using. May be `text` or `binary`. If omitted, the default SMS mode is `text`.
-   */
-  commandMode?: CommandCommandMode;
-  /**
-   * When sending a Command to a SIM in text mode, Twilio can automatically include the Sid of the Command in the message body, which could be used to ensure that the device does not process the same Command more than once. The options for inclusion are `none`, `start` and `end`. The default behavior is `none`. When using `start` or `end`, the CommandSid will be prepended or appended to the message body, with a space character separating the CommandSid and the message body. The length of the CommandSid contributes toward the 160 character limit, i.e. the SMS body must be 128 characters or less before the Command Sid is included.
-   */
-  includeSid?: string;
-  /**
-   * The Sid or UniqueName of the [SIM](https://www.twilio.com/docs/api/wireless/rest-api/sim) to send the Command to.
-   */
-  sim?: string;
-}
-
-interface CommandListInstance {
-  /**
-   * Gets context of a single Command resource
+   * @constructor Twilio.Wireless.V1.CommandPage
+   * @augments Page
+   * @description Initialize the CommandPage
    *
-   * @param sid - The sid
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  (sid: string): CommandContext;
-  /**
-   * create a CommandInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed CommandInstance
-   */
-  create(opts: CommandListCreateOptions): Promise<CommandInstance>;
-  /**
-   * create a CommandInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: CommandListCreateOptions, callback: (error: Error | null, items: CommandInstance) => any): void;
-  /**
-   * Streams CommandInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: CommandListEachOptions): void;
-  /**
-   * Streams CommandInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: CommandInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Command resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): CommandContext;
-  /**
-   * Retrieve a single target page of CommandInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<CommandPage>;
-  /**
-   * Retrieve a single target page of CommandInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: CommandPage) => any): void;
-  /**
-   * Lists CommandInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: CommandListOptions): Promise<CommandInstance[]>;
-  /**
-   * Lists CommandInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: CommandListOptions, callback: (error: Error | null, items: CommandInstance[]) => any): void;
-  /**
-   * Lists CommandInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: CommandInstance[]) => any): void;
-  /**
-   * Retrieve a single page of CommandInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: CommandListPageOptions): Promise<CommandPage>;
-  /**
-   * Retrieve a single page of CommandInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: CommandListPageOptions, callback: (error: Error | null, items: CommandPage) => any): void;
-  /**
-   * Retrieve a single page of CommandInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: CommandPage) => any): void;
-}
-
-declare class CommandPage extends Page<V1, CommandPayload, CommandResource, CommandInstance> {
-  constructor(version: V1, response: Response<string>, solution: CommandSolution);
+  constructor(version: Twilio.Wireless.V1, response: object, solution: object);
 
   /**
    * Build an instance of CommandInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Wireless.V1.CommandPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: CommandPayload): CommandInstance;
+  getInstance(payload: object);
 }
 
-declare class CommandInstance extends SerializableClass {
+declare class CommandInstance {
   /**
+   * @constructor Twilio.Wireless.V1.CommandInstance
+   * @description Initialize the CommandContext
+   *
+   * @property sid - A 34 character string that uniquely identifies this resource.
+   * @property accountSid - The unique id of the Account that this Command belongs to.
+   * @property simSid - The unique ID of the SIM that this Command was sent to or from.
+   * @property command - The message being sent to or from the SIM.
+   * @property commandMode - A string representing which mode the SMS was sent or received using.
+   * @property status - A string representing the status of the Command.
+   * @property direction - The direction of the Command.
+   * @property dateCreated - The date that this resource was created, given as GMT in ISO 8601 format.
+   * @property dateUpdated - The date that this resource was last updated, given as GMT in ISO 8601 format.
+   * @property url - The URL for this resource.
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param sid - The sid
    */
-  constructor(version: V1, payload: CommandPayload, sid: string);
+  constructor(version: Twilio.Wireless.V1, payload: object, sid: sid);
 
-  private _proxy: CommandContext;
-  /**
-   * The unique id of the [Account](https://www.twilio.com/docs/api/rest/account) that this Command belongs to.
-   */
-  accountSid: string;
-  /**
-   * The message being sent to or from the SIM. For text mode messages, this can be up to 160 characters. For binary mode messages, this is a series of up to 140 bytes of data encoded using base64.
-   */
-  command: string;
-  /**
-   * A string representing which mode the SMS was sent or received using. May be `text` or `binary`.
-   */
-  commandMode: CommandCommandMode;
-  /**
-   * The date that this resource was created, given as GMT in [ISO 8601](http://www.iso.org/iso/home/standards/iso8601.htm) format.
-   */
-  dateCreated: Date;
-  /**
-   * The date that this resource was last updated, given as GMT in [ISO 8601](http://www.iso.org/iso/home/standards/iso8601.htm) format.
-   */
-  dateUpdated: Date;
-  /**
-   * The direction of the Command. May be `to_sim` or `from_sim`.  `to_sim` is synonymous with the term `mobile terminated`, `from_sim` is synonymous with the term `mobile originated`.
-   */
-  direction: CommandDirection;
+  _proxy?: CommandContext;
   /**
    * fetch a CommandInstance
    *
-   * @returns Promise that resolves to processed CommandInstance
-   */
-  fetch(): Promise<CommandInstance>;
-  /**
-   * fetch a CommandInstance
+   * @function fetch
+   * @memberof Twilio.Wireless.V1.CommandInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: CommandInstance) => any): void;
+  fetch(callback?: function);
   /**
-   * A 34 character string that uniquely identifies this resource.
+   * Produce a plain JSON object version of the CommandInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Wireless.V1.CommandInstance
+   * @instance
    */
-  sid: string;
-  /**
-   * The unique ID of the [`SIM`](https://www.twilio.com/docs/api/wireless/rest-api/sim) that this Command was sent to or from.
-   */
-  simSid: string;
-  /**
-   * A string representing the status of the Command. May be `queued`, `sent`, `delivered`, `received` or `failed`. See [Status Values](https://www.twilio.com/docs/api/wireless/rest-api/command#instance-status-values) for a description of each state.
-   */
-  status: CommandStatus;
-  /**
-   * The URL for this resource.
-   */
-  url: string;
+  toJSON();
 }
 
 declare class CommandContext {
-  constructor(version: V1, sid: string);
+  /**
+   * @constructor Twilio.Wireless.V1.CommandContext
+   * @description Initialize the CommandContext
+   *
+   * @param version - Version of the resource
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Wireless.V1, sid: sid);
 
   /**
    * fetch a CommandInstance
    *
-   * @returns Promise that resolves to processed CommandInstance
-   */
-  fetch(): Promise<CommandInstance>;
-  /**
-   * fetch a CommandInstance
+   * @function fetch
+   * @memberof Twilio.Wireless.V1.CommandContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: CommandInstance) => any): void;
+  fetch(callback?: function);
 }
 
-export { CommandCommandMode, CommandContext, CommandDirection, CommandInstance, CommandList, CommandListCreateOptions, CommandListEachOptions, CommandListInstance, CommandListOptions, CommandListPageOptions, CommandPage, CommandPayload, CommandResource, CommandSolution, CommandStatus }
+export { CommandContext, CommandInstance, CommandList, CommandPage }

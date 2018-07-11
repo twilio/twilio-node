@@ -6,259 +6,99 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V1 = require('../../V1');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { SerializableClass } from '../../../../interfaces';
+import deserialize = require('../../../../base/deserialize');
+import values = require('../../../../base/values');
 
-declare function TaskChannelList(version: V1, workspaceSid: string): TaskChannelListInstance
 
-interface TaskChannelResource {
-  /**
-   * The account_sid
-   */
-  account_sid: string;
-  /**
-   * The date_created
-   */
-  date_created: Date;
-  /**
-   * The date_updated
-   */
-  date_updated: Date;
-  /**
-   * The friendly_name
-   */
-  friendly_name: string;
-  /**
-   * The sid
-   */
-  sid: string;
-  /**
-   * The unique_name
-   */
-  unique_name: string;
-  /**
-   * The url
-   */
-  url: string;
-  /**
-   * The workspace_sid
-   */
-  workspace_sid: string;
-}
 
-interface TaskChannelPayload extends TaskChannelResource, Page.TwilioResponsePayload {
-}
-
-interface TaskChannelSolution {
-  workspaceSid: string;
-}
-
-interface TaskChannelListEachOptions extends ListEachOptions<TaskChannelInstance> {
-}
-
-interface TaskChannelListOptions extends ListOptions<TaskChannelInstance> {
-}
-
-interface TaskChannelListPageOptions extends PageOptions<TaskChannelPage> {
-}
-
-interface TaskChannelListInstance {
+declare class TaskChannelPage extends Page {
   /**
-   * Gets context of a single TaskChannel resource
+   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.TaskChannelPage
+   * @augments Page
+   * @description Initialize the TaskChannelPage
    *
-   * @param sid - The sid
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  (sid: string): TaskChannelContext;
-  /**
-   * Streams TaskChannelInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: TaskChannelListEachOptions): void;
-  /**
-   * Streams TaskChannelInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: TaskChannelInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single TaskChannel resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): TaskChannelContext;
-  /**
-   * Retrieve a single target page of TaskChannelInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<TaskChannelPage>;
-  /**
-   * Retrieve a single target page of TaskChannelInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: TaskChannelPage) => any): void;
-  /**
-   * Lists TaskChannelInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: TaskChannelListOptions): Promise<TaskChannelInstance[]>;
-  /**
-   * Lists TaskChannelInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: TaskChannelListOptions, callback: (error: Error | null, items: TaskChannelInstance[]) => any): void;
-  /**
-   * Lists TaskChannelInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: TaskChannelInstance[]) => any): void;
-  /**
-   * Retrieve a single page of TaskChannelInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: TaskChannelListPageOptions): Promise<TaskChannelPage>;
-  /**
-   * Retrieve a single page of TaskChannelInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: TaskChannelListPageOptions, callback: (error: Error | null, items: TaskChannelPage) => any): void;
-  /**
-   * Retrieve a single page of TaskChannelInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: TaskChannelPage) => any): void;
-}
-
-declare class TaskChannelPage extends Page<V1, TaskChannelPayload, TaskChannelResource, TaskChannelInstance> {
-  constructor(version: V1, response: Response<string>, solution: TaskChannelSolution);
+  constructor(version: Twilio.Taskrouter.V1, response: object, solution: object);
 
   /**
    * Build an instance of TaskChannelInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.TaskChannelPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: TaskChannelPayload): TaskChannelInstance;
+  getInstance(payload: object);
 }
 
-declare class TaskChannelInstance extends SerializableClass {
+declare class TaskChannelInstance {
   /**
+   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.TaskChannelInstance
+   * @description Initialize the TaskChannelContext
+   *
+   * @property accountSid - The account_sid
+   * @property dateCreated - The date_created
+   * @property dateUpdated - The date_updated
+   * @property friendlyName - The friendly_name
+   * @property sid - The sid
+   * @property uniqueName - The unique_name
+   * @property workspaceSid - The workspace_sid
+   * @property url - The url
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param workspaceSid - The workspace_sid
    * @param sid - The sid
    */
-  constructor(version: V1, payload: TaskChannelPayload, workspaceSid: string, sid: string);
+  constructor(version: Twilio.Taskrouter.V1, payload: object, workspaceSid: sid, sid: sid_like);
 
-  private _proxy: TaskChannelContext;
-  /**
-   * The account_sid
-   */
-  accountSid: string;
-  /**
-   * The date_created
-   */
-  dateCreated: Date;
-  /**
-   * The date_updated
-   */
-  dateUpdated: Date;
+  _proxy?: TaskChannelContext;
   /**
    * fetch a TaskChannelInstance
    *
-   * @returns Promise that resolves to processed TaskChannelInstance
-   */
-  fetch(): Promise<TaskChannelInstance>;
-  /**
-   * fetch a TaskChannelInstance
+   * @function fetch
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.TaskChannelInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: TaskChannelInstance) => any): void;
+  fetch(callback?: function);
   /**
-   * The friendly_name
+   * Produce a plain JSON object version of the TaskChannelInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.TaskChannelInstance
+   * @instance
    */
-  friendlyName: string;
-  /**
-   * The sid
-   */
-  sid: string;
-  /**
-   * The unique_name
-   */
-  uniqueName: string;
-  /**
-   * The url
-   */
-  url: string;
-  /**
-   * The workspace_sid
-   */
-  workspaceSid: string;
+  toJSON();
 }
 
 declare class TaskChannelContext {
-  constructor(version: V1, workspaceSid: string, sid: string);
+  /**
+   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.TaskChannelContext
+   * @description Initialize the TaskChannelContext
+   *
+   * @param version - Version of the resource
+   * @param workspaceSid - The workspace_sid
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Taskrouter.V1, workspaceSid: sid, sid: sid_like);
 
   /**
    * fetch a TaskChannelInstance
    *
-   * @returns Promise that resolves to processed TaskChannelInstance
-   */
-  fetch(): Promise<TaskChannelInstance>;
-  /**
-   * fetch a TaskChannelInstance
+   * @function fetch
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.TaskChannelContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: TaskChannelInstance) => any): void;
+  fetch(callback?: function);
 }
 
-export { TaskChannelContext, TaskChannelInstance, TaskChannelList, TaskChannelListEachOptions, TaskChannelListInstance, TaskChannelListOptions, TaskChannelListPageOptions, TaskChannelPage, TaskChannelPayload, TaskChannelResource, TaskChannelSolution }
+export { TaskChannelContext, TaskChannelInstance, TaskChannelList, TaskChannelPage }

@@ -6,418 +6,183 @@
  */
 
 import Page = require('../../../../base/Page');
-import Response = require('../../../../http/response');
-import V1 = require('../../V1');
-import { DocumentPermissionListInstance } from './document/documentPermission';
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
-import { SerializableClass } from '../../../../interfaces';
+import deserialize = require('../../../../base/deserialize');
+import serialize = require('../../../../base/serialize');
+import values = require('../../../../base/values');
+import { DocumentPermissionList } from './document/documentPermission';
 
-declare function DocumentList(version: V1, serviceSid: string): DocumentListInstance
 
-interface DocumentResource {
-  /**
-   * The unique SID identifier of the Twilio Account.
-   */
-  account_sid: string;
-  /**
-   * The identity of the Document creator. If the Document is created from the client SDK, the value matches the Access Token's 'identity' field. If the Document was created from the REST API, the value is `system`.
-   */
-  created_by: string;
-  /**
-   * Contains arbitrary user-defined, schema-less data that this Document stores, represented by a JSON object, up to 16KB.
-   */
-  data: string;
-  /**
-   * The date this Document was created, given in UTC ISO 8601 format.
-   */
-  date_created: Date;
-  /**
-   * Contains the date this Document expires and gets deleted automatically. Contains null if the Document persists permanently.
-   */
-  date_expires: Date;
-  /**
-   * Specifies the date this Document was last updated, given in UTC ISO 8601 format.
-   */
-  date_updated: Date;
-  /**
-   * A dictionary of URL links to nested resources of this Document.
-   */
-  links: string;
-  /**
-   * Contains the current revision of this Document, represented by a string identifier. Revision is used with conditional updates to ensure data consistency.
-   */
-  revision: string;
-  /**
-   * The unique SID identifier of the Service Instance that hosts this Document.
-   */
-  service_sid: string;
-  /**
-   * The unique 34-character SID identifier of the Document.
-   */
-  sid: string;
-  /**
-   * The unique and addressable name of this Document. Optional, up to 256 characters long.
-   */
-  unique_name: string;
-  /**
-   * The absolute URL for this Document.
-   */
-  url: string;
-}
-
-interface DocumentPayload extends DocumentResource, Page.TwilioResponsePayload {
-}
-
-interface DocumentSolution {
-  serviceSid: string;
-}
-
-interface DocumentListCreateOptions {
-  /**
-   * JSON data to be stored in this document
-   */
+/**
+ * Options to pass to update
+ *
+ * @property data - Contains an arbitrary JSON object to be stored in this Document.
+ * @property ttl - New time-to-live of this Document in seconds.
+ */
+export interface UpdateOptions {
   data?: string;
-  /**
-   * Time-to-live of this Document in seconds, defaults to no expiration. In the range [1, 31 536 000 (1 year)], or 0 for infinity.
-   */
-  ttl?: number;
-  /**
-   * Human-readable name for this document
-   */
-  uniqueName?: string;
-}
-
-interface DocumentListEachOptions extends ListEachOptions<DocumentInstance> {
-}
-
-interface DocumentListOptions extends ListOptions<DocumentInstance> {
-}
-
-interface DocumentListPageOptions extends PageOptions<DocumentPage> {
-}
-
-interface DocumentListInstance {
-  /**
-   * Gets context of a single Document resource
-   *
-   * @param sid - The sid
-   */
-  (sid: string): DocumentContext;
-  /**
-   * create a DocumentInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed DocumentInstance
-   */
-  create(opts?: DocumentListCreateOptions): Promise<DocumentInstance>;
-  /**
-   * create a DocumentInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: DocumentListCreateOptions, callback: (error: Error | null, items: DocumentInstance) => any): void;
-  /**
-   * create a DocumentInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  create(callback: (error: Error | null, items: DocumentInstance) => any): void;
-  /**
-   * Streams DocumentInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: DocumentListEachOptions): void;
-  /**
-   * Streams DocumentInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: DocumentInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Document resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): DocumentContext;
-  /**
-   * Retrieve a single target page of DocumentInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<DocumentPage>;
-  /**
-   * Retrieve a single target page of DocumentInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: DocumentPage) => any): void;
-  /**
-   * Lists DocumentInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: DocumentListOptions): Promise<DocumentInstance[]>;
-  /**
-   * Lists DocumentInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: DocumentListOptions, callback: (error: Error | null, items: DocumentInstance[]) => any): void;
-  /**
-   * Lists DocumentInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: DocumentInstance[]) => any): void;
-  /**
-   * Retrieve a single page of DocumentInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: DocumentListPageOptions): Promise<DocumentPage>;
-  /**
-   * Retrieve a single page of DocumentInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: DocumentListPageOptions, callback: (error: Error | null, items: DocumentPage) => any): void;
-  /**
-   * Retrieve a single page of DocumentInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: DocumentPage) => any): void;
-}
-
-interface DocumentListFetchOptions {
-  /**
-   * Contains an arbitrary JSON object to be stored in this Document. Serialized to string to respect HTTP form input, up to 16KB.
-   */
-  data?: string;
-  /**
-   * New time-to-live of this Document in seconds. In the range [1, 31 536 000 (1 year)], or 0 for infinity.
-   */
   ttl?: number;
 }
 
-interface DocumentListFetchOptions {
-  /**
-   * Contains an arbitrary JSON object to be stored in this Document. Serialized to string to respect HTTP form input, up to 16KB.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property data - Contains an arbitrary JSON object to be stored in this Document.
+ * @property ttl - New time-to-live of this Document in seconds.
+ */
+export interface UpdateOptions {
   data?: string;
-  /**
-   * New time-to-live of this Document in seconds. In the range [1, 31 536 000 (1 year)], or 0 for infinity.
-   */
   ttl?: number;
 }
 
-declare class DocumentPage extends Page<V1, DocumentPayload, DocumentResource, DocumentInstance> {
-  constructor(version: V1, response: Response<string>, solution: DocumentSolution);
+
+declare class DocumentPage extends Page {
+  /**
+   * @constructor Twilio.Sync.V1.ServiceContext.DocumentPage
+   * @augments Page
+   * @description Initialize the DocumentPage
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Sync.V1, response: object, solution: object);
 
   /**
    * Build an instance of DocumentInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Sync.V1.ServiceContext.DocumentPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: DocumentPayload): DocumentInstance;
+  getInstance(payload: object);
 }
 
-declare class DocumentInstance extends SerializableClass {
+declare class DocumentInstance {
   /**
+   * @constructor Twilio.Sync.V1.ServiceContext.DocumentInstance
+   * @description Initialize the DocumentContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property sid - The unique 34-character SID identifier of the Document.
+   * @property uniqueName - The unique and addressable name of this Document.
+   * @property accountSid - The unique SID identifier of the Twilio Account.
+   * @property serviceSid - The unique SID identifier of the Service Instance that hosts this Document.
+   * @property url - The absolute URL for this Document.
+   * @property links - A dictionary of URL links to nested resources of this Document.
+   * @property revision - Contains the current revision of this Document, represented by a string identifier.
+   * @property data - Contains arbitrary user-defined, schema-less data that this Document stores, represented by a JSON object, up to 16KB.
+   * @property dateExpires - Contains the date this Document expires and gets deleted automatically.
+   * @property dateCreated - The date this Document was created, given in UTC ISO 8601 format.
+   * @property dateUpdated - Specifies the date this Document was last updated, given in UTC ISO 8601 format.
+   * @property createdBy - The identity of the Document creator.
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param serviceSid - The service_sid
+   * @param serviceSid - The unique SID identifier of the Service Instance that hosts this Document.
    * @param sid - The sid
    */
-  constructor(version: V1, payload: DocumentPayload, serviceSid: string, sid: string);
+  constructor(version: Twilio.Sync.V1, payload: object, serviceSid: sid, sid: sid_like);
 
-  private _proxy: DocumentContext;
+  _proxy?: DocumentContext;
   /**
-   * The unique SID identifier of the Twilio Account.
+   * Access the documentPermissions
+   *
+   * @function documentPermissions
+   * @memberof Twilio.Sync.V1.ServiceContext.DocumentInstance
+   * @instance
    */
-  accountSid: string;
-  /**
-   * The identity of the Document creator. If the Document is created from the client SDK, the value matches the Access Token's 'identity' field. If the Document was created from the REST API, the value is `system`.
-   */
-  createdBy: string;
-  /**
-   * Contains arbitrary user-defined, schema-less data that this Document stores, represented by a JSON object, up to 16KB.
-   */
-  data: string;
-  /**
-   * The date this Document was created, given in UTC ISO 8601 format.
-   */
-  dateCreated: Date;
-  /**
-   * Contains the date this Document expires and gets deleted automatically. Contains null if the Document persists permanently.
-   */
-  dateExpires: Date;
-  /**
-   * Specifies the date this Document was last updated, given in UTC ISO 8601 format.
-   */
-  dateUpdated: Date;
-  documentPermissions(): DocumentPermissionListInstance;
+  documentPermissions();
   /**
    * fetch a DocumentInstance
    *
-   * @returns Promise that resolves to processed DocumentInstance
-   */
-  fetch(): Promise<DocumentInstance>;
-  /**
-   * fetch a DocumentInstance
+   * @function fetch
+   * @memberof Twilio.Sync.V1.ServiceContext.DocumentInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: DocumentInstance) => any): void;
-  /**
-   * A dictionary of URL links to nested resources of this Document.
-   */
-  links: string;
+  fetch(callback?: function);
   /**
    * remove a DocumentInstance
    *
-   * @returns Promise that resolves to processed DocumentInstance
-   */
-  remove(): Promise<DocumentInstance>;
-  /**
-   * remove a DocumentInstance
+   * @function remove
+   * @memberof Twilio.Sync.V1.ServiceContext.DocumentInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: DocumentInstance) => any): void;
+  remove(callback?: function);
   /**
-   * Contains the current revision of this Document, represented by a string identifier. Revision is used with conditional updates to ensure data consistency.
+   * Produce a plain JSON object version of the DocumentInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Sync.V1.ServiceContext.DocumentInstance
+   * @instance
    */
-  revision: string;
-  /**
-   * The unique SID identifier of the Service Instance that hosts this Document.
-   */
-  serviceSid: string;
-  /**
-   * The unique 34-character SID identifier of the Document.
-   */
-  sid: string;
-  /**
-   * The unique and addressable name of this Document. Optional, up to 256 characters long.
-   */
-  uniqueName: string;
+  toJSON();
   /**
    * update a DocumentInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Sync.V1.ServiceContext.DocumentInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed DocumentInstance
-   */
-  update(opts?: DocumentListFetchOptions): Promise<DocumentInstance>;
-  /**
-   * update a DocumentInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: DocumentListFetchOptions, callback: (error: Error | null, items: DocumentInstance) => any): void;
-  /**
-   * update a DocumentInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: DocumentInstance) => any): void;
-  /**
-   * The absolute URL for this Document.
-   */
-  url: string;
+  update(opts?: object, callback?: function);
 }
 
 declare class DocumentContext {
-  constructor(version: V1, serviceSid: string, sid: string);
+  /**
+   * @constructor Twilio.Sync.V1.ServiceContext.DocumentContext
+   * @description Initialize the DocumentContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property documentPermissions - documentPermissions resource
+   *
+   * @param version - Version of the resource
+   * @param serviceSid - The service_sid
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Sync.V1, serviceSid: sid_like, sid: sid_like);
 
-  documentPermissions: DocumentPermissionListInstance;
+  documentPermissions?: Twilio.Sync.V1.ServiceContext.DocumentContext.DocumentPermissionList;
   /**
    * fetch a DocumentInstance
    *
-   * @returns Promise that resolves to processed DocumentInstance
-   */
-  fetch(): Promise<DocumentInstance>;
-  /**
-   * fetch a DocumentInstance
+   * @function fetch
+   * @memberof Twilio.Sync.V1.ServiceContext.DocumentContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: DocumentInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a DocumentInstance
    *
-   * @returns Promise that resolves to processed DocumentInstance
-   */
-  remove(): Promise<DocumentInstance>;
-  /**
-   * remove a DocumentInstance
+   * @function remove
+   * @memberof Twilio.Sync.V1.ServiceContext.DocumentContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: DocumentInstance) => any): void;
+  remove(callback?: function);
   /**
    * update a DocumentInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Sync.V1.ServiceContext.DocumentContext
+   * @instance
    *
-   * @returns Promise that resolves to processed DocumentInstance
-   */
-  update(opts?: DocumentListFetchOptions): Promise<DocumentInstance>;
-  /**
-   * update a DocumentInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: DocumentListFetchOptions, callback: (error: Error | null, items: DocumentInstance) => any): void;
-  /**
-   * update a DocumentInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: DocumentInstance) => any): void;
+  update(opts?: object, callback?: function);
 }
 
-export { DocumentContext, DocumentInstance, DocumentList, DocumentListCreateOptions, DocumentListEachOptions, DocumentListFetchOptions, DocumentListInstance, DocumentListOptions, DocumentListPageOptions, DocumentPage, DocumentPayload, DocumentResource, DocumentSolution }
+export { DocumentContext, DocumentInstance, DocumentList, DocumentPage }

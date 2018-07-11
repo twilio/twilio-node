@@ -6,296 +6,120 @@
  */
 
 import Page = require('../../../../../base/Page');
-import Response = require('../../../../../http/response');
-import V1 = require('../../../V1');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../interfaces';
-import { SerializableClass } from '../../../../../interfaces';
-import { StepContextListInstance } from './step/stepContext';
+import deserialize = require('../../../../../base/deserialize');
+import values = require('../../../../../base/values');
+import { StepContextList } from './step/stepContext';
 
-declare function StepList(version: V1, flowSid: string, engagementSid: string): StepListInstance
 
-interface StepResource {
-  /**
-   * The account_sid
-   */
-  account_sid: string;
-  /**
-   * The context
-   */
-  context: string;
-  /**
-   * The date_created
-   */
-  date_created: Date;
-  /**
-   * The date_updated
-   */
-  date_updated: Date;
-  /**
-   * The engagement_sid
-   */
-  engagement_sid: string;
-  /**
-   * The flow_sid
-   */
-  flow_sid: string;
-  /**
-   * The links
-   */
-  links: string;
-  /**
-   * The name
-   */
-  name: string;
-  /**
-   * The sid
-   */
-  sid: string;
-  /**
-   * The transitioned_from
-   */
-  transitioned_from: string;
-  /**
-   * The transitioned_to
-   */
-  transitioned_to: string;
-  /**
-   * The url
-   */
-  url: string;
-}
 
-interface StepPayload extends StepResource, Page.TwilioResponsePayload {
-}
-
-interface StepSolution {
-  engagementSid: string;
-  flowSid: string;
-}
-
-interface StepListEachOptions extends ListEachOptions<StepInstance> {
-}
-
-interface StepListOptions extends ListOptions<StepInstance> {
-}
-
-interface StepListPageOptions extends PageOptions<StepPage> {
-}
-
-interface StepListInstance {
+declare class StepPage extends Page {
   /**
-   * Gets context of a single Step resource
+   * @constructor Twilio.Studio.V1.FlowContext.EngagementContext.StepPage
+   * @augments Page
+   * @description Initialize the StepPage
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
-   * @param sid - The sid
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  (sid: string): StepContext;
-  /**
-   * Streams StepInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: StepListEachOptions): void;
-  /**
-   * Streams StepInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: StepInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Step resource
-   *
-   * @param sid - The sid
-   */
-  get(sid: string): StepContext;
-  /**
-   * Retrieve a single target page of StepInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<StepPage>;
-  /**
-   * Retrieve a single target page of StepInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: StepPage) => any): void;
-  /**
-   * Lists StepInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: StepListOptions): Promise<StepInstance[]>;
-  /**
-   * Lists StepInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: StepListOptions, callback: (error: Error | null, items: StepInstance[]) => any): void;
-  /**
-   * Lists StepInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: StepInstance[]) => any): void;
-  /**
-   * Retrieve a single page of StepInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: StepListPageOptions): Promise<StepPage>;
-  /**
-   * Retrieve a single page of StepInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: StepListPageOptions, callback: (error: Error | null, items: StepPage) => any): void;
-  /**
-   * Retrieve a single page of StepInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: StepPage) => any): void;
-}
-
-declare class StepPage extends Page<V1, StepPayload, StepResource, StepInstance> {
-  constructor(version: V1, response: Response<string>, solution: StepSolution);
+  constructor(version: Twilio.Studio.V1, response: object, solution: object);
 
   /**
    * Build an instance of StepInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Studio.V1.FlowContext.EngagementContext.StepPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: StepPayload): StepInstance;
+  getInstance(payload: object);
 }
 
-declare class StepInstance extends SerializableClass {
+declare class StepInstance {
   /**
+   * @constructor Twilio.Studio.V1.FlowContext.EngagementContext.StepInstance
+   * @description Initialize the StepContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property sid - The sid
+   * @property accountSid - The account_sid
+   * @property flowSid - The flow_sid
+   * @property engagementSid - The engagement_sid
+   * @property name - The name
+   * @property context - The context
+   * @property transitionedFrom - The transitioned_from
+   * @property transitionedTo - The transitioned_to
+   * @property dateCreated - The date_created
+   * @property dateUpdated - The date_updated
+   * @property url - The url
+   * @property links - The links
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param flowSid - The flow_sid
    * @param engagementSid - The engagement_sid
    * @param sid - The sid
    */
-  constructor(version: V1, payload: StepPayload, flowSid: string, engagementSid: string, sid: string);
+  constructor(version: Twilio.Studio.V1, payload: object, flowSid: sid, engagementSid: sid, sid: sid);
 
-  private _proxy: StepContext;
-  /**
-   * The account_sid
-   */
-  accountSid: string;
-  /**
-   * The context
-   */
-  context: string;
-  /**
-   * The date_created
-   */
-  dateCreated: Date;
-  /**
-   * The date_updated
-   */
-  dateUpdated: Date;
-  /**
-   * The engagement_sid
-   */
-  engagementSid: string;
+  _proxy?: StepContext;
   /**
    * fetch a StepInstance
    *
-   * @returns Promise that resolves to processed StepInstance
-   */
-  fetch(): Promise<StepInstance>;
-  /**
-   * fetch a StepInstance
+   * @function fetch
+   * @memberof Twilio.Studio.V1.FlowContext.EngagementContext.StepInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: StepInstance) => any): void;
+  fetch(callback?: function);
   /**
-   * The flow_sid
+   * Access the stepContext
+   *
+   * @function stepContext
+   * @memberof Twilio.Studio.V1.FlowContext.EngagementContext.StepInstance
+   * @instance
    */
-  flowSid: string;
+  stepContext();
   /**
-   * The links
+   * Produce a plain JSON object version of the StepInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Studio.V1.FlowContext.EngagementContext.StepInstance
+   * @instance
    */
-  links: string;
-  /**
-   * The name
-   */
-  name: string;
-  /**
-   * The sid
-   */
-  sid: string;
-  stepContext(): StepContextListInstance;
-  /**
-   * The transitioned_from
-   */
-  transitionedFrom: string;
-  /**
-   * The transitioned_to
-   */
-  transitionedTo: string;
-  /**
-   * The url
-   */
-  url: string;
+  toJSON();
 }
 
 declare class StepContext {
-  constructor(version: V1, flowSid: string, engagementSid: string, sid: string);
+  /**
+   * @constructor Twilio.Studio.V1.FlowContext.EngagementContext.StepContext
+   * @description Initialize the StepContext
+   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property stepContext - stepContext resource
+   *
+   * @param version - Version of the resource
+   * @param flowSid - The flow_sid
+   * @param engagementSid - The engagement_sid
+   * @param sid - The sid
+   */
+  constructor(version: Twilio.Studio.V1, flowSid: sid, engagementSid: sid, sid: sid);
 
   /**
    * fetch a StepInstance
    *
-   * @returns Promise that resolves to processed StepInstance
-   */
-  fetch(): Promise<StepInstance>;
-  /**
-   * fetch a StepInstance
+   * @function fetch
+   * @memberof Twilio.Studio.V1.FlowContext.EngagementContext.StepContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: StepInstance) => any): void;
-  stepContext: StepContextListInstance;
+  fetch(callback?: function);
+  stepContext?: Twilio.Studio.V1.FlowContext.EngagementContext.StepContext.StepContextList;
 }
 
-export { StepContext, StepInstance, StepList, StepListEachOptions, StepListInstance, StepListOptions, StepListPageOptions, StepPage, StepPayload, StepResource, StepSolution }
+export { StepContext, StepInstance, StepList, StepPage }

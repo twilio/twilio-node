@@ -6,507 +6,175 @@
  */
 
 import Page = require('../../../../../base/Page');
-import Response = require('../../../../../http/response');
-import V2010 = require('../../../V2010');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../interfaces';
-import { SerializableClass } from '../../../../../interfaces';
+import deserialize = require('../../../../../base/deserialize');
+import values = require('../../../../../base/values');
 
-declare function TriggerList(version: V2010, accountSid: string): TriggerListInstance
 
-type TriggerUsageCategory = 'answering-machine-detection'|'authy-authentications'|'authy-calls-outbound'|'authy-monthly-fees'|'authy-phone-intelligence'|'authy-phone-verifications'|'authy-sms-outbound'|'call-progess-events'|'calleridlookups'|'calls'|'calls-client'|'calls-globalconference'|'calls-inbound'|'calls-inbound-local'|'calls-inbound-mobile'|'calls-inbound-tollfree'|'calls-outbound'|'calls-recordings'|'calls-sip'|'calls-sip-inbound'|'calls-sip-outbound'|'carrier-lookups'|'conversations'|'conversations-api-requests'|'conversations-conversation-events'|'conversations-endpoint-connectivity'|'conversations-events'|'conversations-participant-events'|'conversations-participants'|'fraud-lookups'|'cps'|'group-rooms'|'group-rooms-data-track'|'group-rooms-encrypted-media-recorded'|'group-rooms-media-downloaded'|'group-rooms-media-recorded'|'group-rooms-media-routed'|'group-rooms-media-stored'|'group-rooms-participant-minutes'|'group-rooms-recorded-minutes'|'ip-messaging'|'ip-messaging-commands'|'ip-messaging-data-storage'|'ip-messaging-data-transfer'|'ip-messaging-endpoint-connectivity'|'lookups'|'marketplace'|'marketplace-algorithmia-named-entity-recognition'|'marketplace-digital-segment-business-info'|'marketplace-google-speech-to-text'|'marketplace-ibm-watson-message-insights'|'marketplace-ibm-watson-message-sentiment'|'marketplace-ibm-watson-recording-analysis'|'marketplace-icehook-systems-scout'|'marketplace-infogroup-dataaxle-bizinfo'|'marketplace-cadence-transcription'|'marketplace-cadence-translation'|'marketplace-capio-speech-to-text'|'marketplace-facebook-offline-conversions'|'marketplace-keen-io-contact-center-analytics'|'marketplace-marchex-cleancall'|'marketplace-marchex-sentiment-analysis-for-sms'|'marketplace-marketplace-nextcaller-social-id'|'marketplace-mobile-commons-opt-out-classifier'|'marketplace-nexiwave-voicemail-to-text'|'marketplace-nextcaller-advanced-caller-identification'|'marketplace-nomorobo-spam-score'|'marketplace-payfone-tcpa-compliance'|'marketplace-telo-opencnam'|'marketplace-truecnam-true-spam'|'marketplace-twilio-caller-name-lookup-us'|'marketplace-twilio-carrier-information-lookup'|'marketplace-voicebase-pci'|'marketplace-voicebase-transcription'|'marketplace-whitepages-pro-caller-identification'|'marketplace-whitepages-pro-phone-intelligence'|'marketplace-whitepages-pro-phone-reputation'|'marketplace-wolfram-short-answer'|'marketplace-wolfarm-spoken-results'|'marketplace-deepgram-phrase-detector'|'marketplace-convriza-ababa'|'marketplace-ibm-watson-tone-analyzer'|'marketplace-remeeting-automatic-speech-recognition'|'marketplace-tcpa-defense-solutions-blacklist-feed'|'marketplace-voicebase-transcription-custom-vocabulary'|'marketplace-ytica-contact-center-reporting-analytics'|'mediastorage'|'mms'|'mms-inbound'|'mms-inbound-longcode'|'mms-inbound-shortcode'|'mms-outbound'|'mms-outbound-longcode'|'mms-outbound-shortcode'|'monitor-reads'|'monitor-storage'|'monitor-writes'|'notify'|'notify-actions-attempts'|'notify-channels'|'number-format-lookups'|'pchat'|'pchat-actions'|'pchat-aps'|'pchat-notifications'|'pchat-reads'|'pchat-users'|'pchat-messages'|'peer-to-peer-rooms-participant-minutes'|'pfax'|'pfax-minutes'|'pfax-minutes-inbound'|'pfax-minutes-outbound'|'pfax-pages'|'phonenumbers'|'phonenumbers-cps'|'phonenumbers-emergency'|'phonenumbers-local'|'phonenumbers-mobile'|'phonenumbers-setups'|'phonenumbers-tollfree'|'premiumsupport'|'proxy'|'pv'|'pv-composition-media-downloaded'|'pv-composition-media-encrypted'|'pv-composition-media-stored'|'pv-composition-minutes'|'pv-recording-compositions'|'pv-room-participants'|'pv-room-participants-au1'|'pv-room-participants-br1'|'pv-room-participants-ie1'|'pv-room-participants-jp1'|'pv-room-participants-sg1'|'pv-room-participants-us1'|'pv-room-participants-us2'|'pv-rooms'|'pv-sip-endpoint-registrations'|'recordings'|'recordingstorage'|'rooms-group-minutes'|'rooms-group-bandwidth'|'rooms-peer-to-peer-minutes'|'shortcodes'|'shortcodes-customerowned'|'shortcodes-mms-enablement'|'shortcodes-mps'|'shortcodes-random'|'shortcodes-uk'|'shortcodes-vanity'|'sms'|'sms-inbound'|'sms-inbound-longcode'|'sms-inbound-shortcode'|'sms-outbound'|'sms-outbound-content-inspection'|'sms-outbound-longcode'|'sms-outbound-shortcode'|'sms-messages-features'|'sms-messages-features-senderid'|'speech-recognition'|'studio-engagements'|'sync'|'sync-actions'|'sync-endpoint-hours'|'sync-endpoint-hours-above-daily-cap'|'taskrouter-tasks'|'totalprice'|'transcriptions'|'trunking-cps'|'trunking-emergency-calls'|'trunking-origination'|'trunking-origination-local'|'trunking-origination-mobile'|'trunking-origination-tollfree'|'trunking-recordings'|'trunking-secure'|'trunking-termination'|'turnmegabytes'|'turnmegabytes-australia'|'turnmegabytes-brasil'|'turnmegabytes-india'|'turnmegabytes-ireland'|'turnmegabytes-japan'|'turnmegabytes-singapore'|'turnmegabytes-useast'|'turnmegabytes-uswest'|'twilio-interconnect'|'video-recordings'|'voice-insights'|'voice-insights-client-insights-on-demand-minute'|'voice-insights-ptsn-insights-on-demand-minute'|'voice-insights-sip-interface-insights-on-demand-minute'|'voice-insights-sip-trunking-insights-on-demand-minute'|'wireless'|'wireless-orders'|'wireless-orders-artwork'|'wireless-orders-bulk'|'wireless-orders-esim'|'wireless-orders-starter'|'wireless-usage'|'wireless-usage-commands'|'wireless-usage-commands-africa'|'wireless-usage-commands-asia'|'wireless-usage-commands-centralandsouthamerica'|'wireless-usage-commands-europe'|'wireless-usage-commands-home'|'wireless-usage-commands-northamerica'|'wireless-usage-commands-oceania'|'wireless-usage-commands-roaming'|'wireless-usage-data'|'wireless-usage-data-africa'|'wireless-usage-data-asia'|'wireless-usage-data-centralandsouthamerica'|'wireless-usage-data-custom-additionalmb'|'wireless-usage-data-custom-first5mb'|'wireless-usage-data-domestic-roaming'|'wireless-usage-data-europe'|'wireless-usage-data-individual-additionalgb'|'wireless-usage-data-individual-firstgb'|'wireless-usage-data-international-roaming-canada'|'wireless-usage-data-international-roaming-india'|'wireless-usage-data-international-roaming-mexico'|'wireless-usage-data-northamerica'|'wireless-usage-data-oceania'|'wireless-usage-data-pooled'|'wireless-usage-data-pooled-downlink'|'wireless-usage-data-pooled-uplink'|'wireless-usage-mrc'|'wireless-usage-mrc-custom'|'wireless-usage-mrc-individual'|'wireless-usage-mrc-pooled'|'wireless-usage-mrc-suspended'|'wireless-usage-voice'|'wireless-usage-sms';
-
-type TriggerRecurring = 'daily'|'monthly'|'yearly'|'alltime';
-
-type TriggerTriggerField = 'count'|'usage'|'price';
-
-interface TriggerResource {
-  /**
-   * The account this trigger monitors.
-   */
-  account_sid: string;
-  /**
-   * The api_version
-   */
-  api_version: string;
-  /**
-   * The HTTP method Twilio will use when making a request to the CallbackUrl.  GET or POST.
-   */
-  callback_method: string;
-  /**
-   * Twilio will make a request to this url when the trigger fires.
-   */
-  callback_url: string;
-  /**
-   * The current value of the field the trigger is watching.
-   */
-  current_value: string;
-  /**
-   * The date the trigger was created, given as GMT [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
-   */
-  date_created: Date;
-  /**
-   * The date the trigger was last fired, given as GMT [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
-   */
-  date_fired: Date;
-  /**
-   * The date the trigger was last updated, given as GMT [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
-   */
-  date_updated: Date;
-  /**
-   * A user-specified, human-readable name for the trigger.
-   */
-  friendly_name: string;
-  /**
-   * How this trigger recurs.  Empty for non-recurring triggers.  One of `daily`, `monthly`, or `yearly` for recurring triggers.  A trigger will only fire once during each recurring period.  Recurring periods are in GMT.
-   */
-  recurring: TriggerRecurring;
-  /**
-   * The trigger's unique Sid.
-   */
-  sid: string;
-  /**
-   * The field in the [UsageRecord](https://www.twilio.com/docs/api/rest/usage-records) that fires the trigger.  One of `count`, `usage`, or `price`, as described in the [UsageRecords documentation](https://www.twilio.com/docs/api/rest/usage-records#usage-count-price).
-   */
-  trigger_by: TriggerTriggerField;
-  /**
-   * The value at which the trigger will fire.  Must be a positive numeric value.
-   */
-  trigger_value: string;
-  /**
-   * The URI for this resource, relative to `https://api.twilio.com`.
-   */
-  uri: string;
-  /**
-   * The usage category the trigger watches.  One of the supported [usage categories](https://www.twilio.com/docs/api/rest/usage-records#usage-categories).
-   */
-  usage_category: TriggerUsageCategory;
-  /**
-   * The URI of the [UsageRecord](https://www.twilio.com/docs/api/rest/usage-records) this trigger is watching, relative to `https://api.twilio.com`.
-   */
-  usage_record_uri: string;
-}
-
-interface TriggerPayload extends TriggerResource, Page.TwilioResponsePayload {
-}
-
-interface TriggerSolution {
-  accountSid: string;
-}
-
-interface TriggerListCreateOptions {
-  /**
-   * Twilio will use this HTTP method when making a request to the CallbackUrl.  `GET` or `POST`.  The default is `POST`.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property callbackMethod - HTTP method to use with callback_url
+ * @property callbackUrl - URL Twilio will request when the trigger fires
+ * @property friendlyName - A user-specified, human-readable name for the trigger.
+ */
+export interface UpdateOptions {
   callbackMethod?: string;
-  /**
-   * Twilio will make a request to this url when the trigger fires.
-   */
-  callbackUrl: string;
-  /**
-   * A human readable description of the new trigger.  Maximum 64 characters.
-   */
-  friendlyName?: string;
-  /**
-   * How this trigger recurs. Empty for non-recurring triggers. One of `daily`, `monthly`, or `yearly` for recurring triggers.  A trigger will only fire once during each recurring period.  Recurring periods are in GMT.
-   */
-  recurring?: TriggerRecurring;
-  /**
-   * The field in the [UsageRecord](https://www.twilio.com/docs/api/rest/usage-records) that will fire the trigger.  One of `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/api/rest/usage-records#usage-count-price).  The default is `usage`.
-   */
-  triggerBy?: TriggerTriggerField;
-  /**
-   * The trigger will fire when usage reaches this value.  For convenience, you can use an offset like `+30`, which tells Twilio to create the UsageTrigger with its TriggerValue 30 units higher than the current usage. (just be sure to urlencode the `+` as `%2B`).
-   */
-  triggerValue: string;
-  /**
-   * The trigger will watch this usage category.  One of the supported [usage categories](https://www.twilio.com/docs/api/rest/usage-records#usage-categories).
-   */
-  usageCategory: TriggerUsageCategory;
-}
-
-interface TriggerListEachOptions extends ListEachOptions<TriggerInstance> {
-  /**
-   * Only show UsageTriggers that count over this interval.  One of `daily`, `monthly`, or `yearly`.  To retrieve non-recurring triggers, leave this empty or use `alltime`.
-   */
-  recurring?: TriggerRecurring;
-  /**
-   * Only show UsageTriggers that trigger by this field in the UsageRecord.  Must be one of: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/api/rest/usage-records#usage-count-price).
-   */
-  triggerBy?: TriggerTriggerField;
-  /**
-   * Only show UsageTriggers that watch this usage category.  Must be one of the supported [usage categories](https://www.twilio.com/docs/api/rest/usage-records#usage-categories).
-   */
-  usageCategory?: TriggerUsageCategory;
-}
-
-interface TriggerListOptions extends ListOptions<TriggerInstance> {
-  /**
-   * Only show UsageTriggers that count over this interval.  One of `daily`, `monthly`, or `yearly`.  To retrieve non-recurring triggers, leave this empty or use `alltime`.
-   */
-  recurring?: TriggerRecurring;
-  /**
-   * Only show UsageTriggers that trigger by this field in the UsageRecord.  Must be one of: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/api/rest/usage-records#usage-count-price).
-   */
-  triggerBy?: TriggerTriggerField;
-  /**
-   * Only show UsageTriggers that watch this usage category.  Must be one of the supported [usage categories](https://www.twilio.com/docs/api/rest/usage-records#usage-categories).
-   */
-  usageCategory?: TriggerUsageCategory;
-}
-
-interface TriggerListPageOptions extends PageOptions<TriggerPage> {
-  /**
-   * Only show UsageTriggers that count over this interval.  One of `daily`, `monthly`, or `yearly`.  To retrieve non-recurring triggers, leave this empty or use `alltime`.
-   */
-  recurring?: TriggerRecurring;
-  /**
-   * Only show UsageTriggers that trigger by this field in the UsageRecord.  Must be one of: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/api/rest/usage-records#usage-count-price).
-   */
-  triggerBy?: TriggerTriggerField;
-  /**
-   * Only show UsageTriggers that watch this usage category.  Must be one of the supported [usage categories](https://www.twilio.com/docs/api/rest/usage-records#usage-categories).
-   */
-  usageCategory?: TriggerUsageCategory;
-}
-
-interface TriggerListInstance {
-  /**
-   * Gets context of a single Trigger resource
-   *
-   * @param sid - Fetch by unique usage-trigger Sid
-   */
-  (sid: string): TriggerContext;
-  /**
-   * create a TriggerInstance
-   *
-   * @param opts - Options for request
-   *
-   * @returns Promise that resolves to processed TriggerInstance
-   */
-  create(opts: TriggerListCreateOptions): Promise<TriggerInstance>;
-  /**
-   * create a TriggerInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  create(opts: TriggerListCreateOptions, callback: (error: Error | null, items: TriggerInstance) => any): void;
-  /**
-   * Streams TriggerInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  each(opts?: TriggerListEachOptions): void;
-  /**
-   * Streams TriggerInstance records from the API.
-   *
-   * This operation lazily loads records as efficiently as possible until the limit
-   * is reached.
-   *
-   * The results are passed into the callback function, so this operation is memory efficient.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  each(callback: (item: TriggerInstance, done: (err?: Error) => void) => void): any;
-  /**
-   * Gets context of a single Trigger resource
-   *
-   * @param sid - Fetch by unique usage-trigger Sid
-   */
-  get(sid: string): TriggerContext;
-  /**
-   * Retrieve a single target page of TriggerInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   */
-  getPage(targetUrl: string): Promise<TriggerPage>;
-  /**
-   * Retrieve a single target page of TriggerInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param targetUrl - API-generated URL for the requested results page
-   * @param callback - Callback to handle processed record
-   */
-  getPage(targetUrl: string, callback: (error: Error | null, items: TriggerPage) => any): void;
-  /**
-   * Lists TriggerInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  list(opts?: TriggerListOptions): Promise<TriggerInstance[]>;
-  /**
-   * Lists TriggerInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  list(opts: TriggerListOptions, callback: (error: Error | null, items: TriggerInstance[]) => any): void;
-  /**
-   * Lists TriggerInstance records from the API as a list.
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  list(callback: (error: Error | null, items: TriggerInstance[]) => any): void;
-  /**
-   * Retrieve a single page of TriggerInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   */
-  page(opts?: TriggerListPageOptions): Promise<TriggerPage>;
-  /**
-   * Retrieve a single page of TriggerInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  page(opts: TriggerListPageOptions, callback: (error: Error | null, items: TriggerPage) => any): void;
-  /**
-   * Retrieve a single page of TriggerInstance records from the API.
-   * Request is executed immediately
-   *
-   * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @param callback - Callback to handle processed record
-   */
-  page(callback: (error: Error | null, items: TriggerPage) => any): void;
-}
-
-interface TriggerListFetchOptions {
-  /**
-   * The HTTP method Twilio will use when making a request to the CallbackUrl.  `GET` or `POST`.
-   */
-  callbackMethod?: string;
-  /**
-   * Twilio will make a request to this url when the trigger fires.
-   */
   callbackUrl?: string;
-  /**
-   * A user-specified, human-readable name for the trigger.
-   */
   friendlyName?: string;
 }
 
-interface TriggerListFetchOptions {
-  /**
-   * The HTTP method Twilio will use when making a request to the CallbackUrl.  `GET` or `POST`.
-   */
+/**
+ * Options to pass to update
+ *
+ * @property callbackMethod - HTTP method to use with callback_url
+ * @property callbackUrl - URL Twilio will request when the trigger fires
+ * @property friendlyName - A user-specified, human-readable name for the trigger.
+ */
+export interface UpdateOptions {
   callbackMethod?: string;
-  /**
-   * Twilio will make a request to this url when the trigger fires.
-   */
   callbackUrl?: string;
-  /**
-   * A user-specified, human-readable name for the trigger.
-   */
   friendlyName?: string;
 }
 
-declare class TriggerPage extends Page<V2010, TriggerPayload, TriggerResource, TriggerInstance> {
-  constructor(version: V2010, response: Response<string>, solution: TriggerSolution);
+
+declare class TriggerPage extends Page {
+  /**
+   * @constructor Twilio.Api.V2010.AccountContext.UsageContext.TriggerPage
+   * @augments Page
+   * @description Initialize the TriggerPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Api.V2010, response: object, solution: object);
 
   /**
    * Build an instance of TriggerInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Api.V2010.AccountContext.UsageContext.TriggerPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: TriggerPayload): TriggerInstance;
+  getInstance(payload: object);
 }
 
-declare class TriggerInstance extends SerializableClass {
+declare class TriggerInstance {
   /**
+   * @constructor Twilio.Api.V2010.AccountContext.UsageContext.TriggerInstance
+   * @description Initialize the TriggerContext
+   *
+   * @property accountSid - The account this trigger monitors.
+   * @property apiVersion - The api_version
+   * @property callbackMethod - HTTP method to use with callback_url
+   * @property callbackUrl - URL Twilio will request when the trigger fires
+   * @property currentValue - The current value of the field the trigger is watching.
+   * @property dateCreated - The date this resource was created
+   * @property dateFired - The date the trigger was last fired
+   * @property dateUpdated - The date this resource was last updated
+   * @property friendlyName - A user-specified, human-readable name for the trigger.
+   * @property recurring - How this trigger recurs
+   * @property sid - The trigger's unique Sid
+   * @property triggerBy - The field in the UsageRecord that fires the trigger
+   * @property triggerValue - the value at which the trigger will fire
+   * @property uri - The URI for this resource
+   * @property usageCategory - The usage category the trigger watches
+   * @property usageRecordUri - The URI of the UsageRecord this trigger is watching
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The account_sid
+   * @param accountSid - A 34 character string that uniquely identifies this resource.
    * @param sid - Fetch by unique usage-trigger Sid
    */
-  constructor(version: V2010, payload: TriggerPayload, accountSid: string, sid: string);
+  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, sid: sid);
 
-  private _proxy: TriggerContext;
-  /**
-   * The account this trigger monitors.
-   */
-  accountSid: string;
-  /**
-   * The api_version
-   */
-  apiVersion: string;
-  /**
-   * The HTTP method Twilio will use when making a request to the CallbackUrl.  GET or POST.
-   */
-  callbackMethod: string;
-  /**
-   * Twilio will make a request to this url when the trigger fires.
-   */
-  callbackUrl: string;
-  /**
-   * The current value of the field the trigger is watching.
-   */
-  currentValue: string;
-  /**
-   * The date the trigger was created, given as GMT [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
-   */
-  dateCreated: Date;
-  /**
-   * The date the trigger was last fired, given as GMT [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
-   */
-  dateFired: Date;
-  /**
-   * The date the trigger was last updated, given as GMT [RFC 2822](http://www.ietf.org/rfc/rfc2822.txt) format.
-   */
-  dateUpdated: Date;
+  _proxy?: TriggerContext;
   /**
    * fetch a TriggerInstance
    *
-   * @returns Promise that resolves to processed TriggerInstance
-   */
-  fetch(): Promise<TriggerInstance>;
-  /**
-   * fetch a TriggerInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.UsageContext.TriggerInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: TriggerInstance) => any): void;
-  /**
-   * A user-specified, human-readable name for the trigger.
-   */
-  friendlyName: string;
-  /**
-   * How this trigger recurs.  Empty for non-recurring triggers.  One of `daily`, `monthly`, or `yearly` for recurring triggers.  A trigger will only fire once during each recurring period.  Recurring periods are in GMT.
-   */
-  recurring: TriggerRecurring;
+  fetch(callback?: function);
   /**
    * remove a TriggerInstance
    *
-   * @returns Promise that resolves to processed TriggerInstance
-   */
-  remove(): Promise<TriggerInstance>;
-  /**
-   * remove a TriggerInstance
+   * @function remove
+   * @memberof Twilio.Api.V2010.AccountContext.UsageContext.TriggerInstance
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: TriggerInstance) => any): void;
+  remove(callback?: function);
   /**
-   * The trigger's unique Sid.
+   * Produce a plain JSON object version of the TriggerInstance for serialization.
+   * Removes any circular references in the object.
+   *
+   * @function toJSON
+   * @memberof Twilio.Api.V2010.AccountContext.UsageContext.TriggerInstance
+   * @instance
    */
-  sid: string;
-  /**
-   * The field in the [UsageRecord](https://www.twilio.com/docs/api/rest/usage-records) that fires the trigger.  One of `count`, `usage`, or `price`, as described in the [UsageRecords documentation](https://www.twilio.com/docs/api/rest/usage-records#usage-count-price).
-   */
-  triggerBy: TriggerTriggerField;
-  /**
-   * The value at which the trigger will fire.  Must be a positive numeric value.
-   */
-  triggerValue: string;
+  toJSON();
   /**
    * update a TriggerInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Api.V2010.AccountContext.UsageContext.TriggerInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed TriggerInstance
-   */
-  update(opts?: TriggerListFetchOptions): Promise<TriggerInstance>;
-  /**
-   * update a TriggerInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: TriggerListFetchOptions, callback: (error: Error | null, items: TriggerInstance) => any): void;
-  /**
-   * update a TriggerInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: TriggerInstance) => any): void;
-  /**
-   * The URI for this resource, relative to `https://api.twilio.com`.
-   */
-  uri: string;
-  /**
-   * The usage category the trigger watches.  One of the supported [usage categories](https://www.twilio.com/docs/api/rest/usage-records#usage-categories).
-   */
-  usageCategory: TriggerUsageCategory;
-  /**
-   * The URI of the [UsageRecord](https://www.twilio.com/docs/api/rest/usage-records) this trigger is watching, relative to `https://api.twilio.com`.
-   */
-  usageRecordUri: string;
+  update(opts?: object, callback?: function);
 }
 
 declare class TriggerContext {
-  constructor(version: V2010, accountSid: string, sid: string);
+  /**
+   * @constructor Twilio.Api.V2010.AccountContext.UsageContext.TriggerContext
+   * @description Initialize the TriggerContext
+   *
+   * @param version - Version of the resource
+   * @param accountSid - The account_sid
+   * @param sid - Fetch by unique usage-trigger Sid
+   */
+  constructor(version: Twilio.Api.V2010, accountSid: sid, sid: sid);
 
   /**
    * fetch a TriggerInstance
    *
-   * @returns Promise that resolves to processed TriggerInstance
-   */
-  fetch(): Promise<TriggerInstance>;
-  /**
-   * fetch a TriggerInstance
+   * @function fetch
+   * @memberof Twilio.Api.V2010.AccountContext.UsageContext.TriggerContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback: (error: Error | null, items: TriggerInstance) => any): void;
+  fetch(callback?: function);
   /**
    * remove a TriggerInstance
    *
-   * @returns Promise that resolves to processed TriggerInstance
-   */
-  remove(): Promise<TriggerInstance>;
-  /**
-   * remove a TriggerInstance
+   * @function remove
+   * @memberof Twilio.Api.V2010.AccountContext.UsageContext.TriggerContext
+   * @instance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback: (error: Error | null, items: TriggerInstance) => any): void;
+  remove(callback?: function);
   /**
    * update a TriggerInstance
    *
-   * @param opts - Options for request
+   * @function update
+   * @memberof Twilio.Api.V2010.AccountContext.UsageContext.TriggerContext
+   * @instance
    *
-   * @returns Promise that resolves to processed TriggerInstance
-   */
-  update(opts?: TriggerListFetchOptions): Promise<TriggerInstance>;
-  /**
-   * update a TriggerInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  update(opts: TriggerListFetchOptions, callback: (error: Error | null, items: TriggerInstance) => any): void;
-  /**
-   * update a TriggerInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  update(callback: (error: Error | null, items: TriggerInstance) => any): void;
+  update(opts?: object, callback?: function);
 }
 
-export { TriggerContext, TriggerInstance, TriggerList, TriggerListCreateOptions, TriggerListEachOptions, TriggerListFetchOptions, TriggerListInstance, TriggerListOptions, TriggerListPageOptions, TriggerPage, TriggerPayload, TriggerRecurring, TriggerResource, TriggerSolution, TriggerTriggerField, TriggerUsageCategory }
+export { TriggerContext, TriggerInstance, TriggerList, TriggerPage }

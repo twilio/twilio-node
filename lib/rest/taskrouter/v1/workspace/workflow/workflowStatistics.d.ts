@@ -6,196 +6,133 @@
  */
 
 import Page = require('../../../../../base/Page');
-import Response = require('../../../../../http/response');
-import V1 = require('../../../V1');
-import { SerializableClass } from '../../../../../interfaces';
+import serialize = require('../../../../../base/serialize');
+import values = require('../../../../../base/values');
 
-declare function WorkflowStatisticsList(version: V1, workspaceSid: string, workflowSid: string): WorkflowStatisticsListInstance
 
-interface WorkflowStatisticsResource {
-  /**
-   * The account_sid
-   */
-  account_sid: string;
-  /**
-   * The cumulative
-   */
-  cumulative: string;
-  /**
-   * The realtime
-   */
-  realtime: string;
-  /**
-   * The url
-   */
-  url: string;
-  /**
-   * The workflow_sid
-   */
-  workflow_sid: string;
-  /**
-   * The workspace_sid
-   */
-  workspace_sid: string;
-}
-
-interface WorkflowStatisticsPayload extends WorkflowStatisticsResource, Page.TwilioResponsePayload {
-}
-
-interface WorkflowStatisticsSolution {
-  workflowSid: string;
-  workspaceSid: string;
-}
-
-interface WorkflowStatisticsListInstance {
-  /**
-   * Gets context of a single WorkflowStatistics resource
-   */
-  (): WorkflowStatisticsContext;
-  /**
-   * Gets context of a single WorkflowStatistics resource
-   */
-  get(): WorkflowStatisticsContext;
-}
-
-interface WorkflowStatisticsListFetchOptions {
-  /**
-   * Filter cumulative statistics by an end date. This is helpful for defining a range of statistics to capture. Input is a GMT ISO 8601 Timestamp
-   */
+/**
+ * Options to pass to fetch
+ *
+ * @property minutes - Filter cumulative statistics by up to 'x' minutes in the past.
+ * @property startDate - Filter cumulative statistics by a start date.
+ * @property endDate - Filter cumulative statistics by an end date.
+ * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
+ * @property splitByWaitTime - A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
+ */
+export interface FetchOptions {
   endDate?: Date;
-  /**
-   * Filter cumulative statistics by up to 'x' minutes in the past. This is helpful for statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends. Defaults to 15 minutes.
-   */
   minutes?: number;
-  /**
-   * A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds. Ex: "5,30" would show splits of tasks that were canceled or accepted before or after 5 seconds and respectively, 30 seconds. This is great for showing short abandoned tasks or tasks that failed to meet your SLA.
-   */
   splitByWaitTime?: string;
-  /**
-   * Filter cumulative statistics by a start date. This is helpful for defining a range of statistics to capture. Input is a GMT ISO 8601 Timestamp
-   */
   startDate?: Date;
-  /**
-   * Filter real-time and cumulative statistics by TaskChannel. Takes in a Unique Name ("voice", "sms", "default", etc.) or a TaskChannelSid.
-   */
   taskChannel?: string;
 }
 
-interface WorkflowStatisticsListFetchOptions {
-  /**
-   * Filter cumulative statistics by an end date. This is helpful for defining a range of statistics to capture. Input is a GMT ISO 8601 Timestamp
-   */
+/**
+ * Options to pass to fetch
+ *
+ * @property minutes - Filter cumulative statistics by up to 'x' minutes in the past.
+ * @property startDate - Filter cumulative statistics by a start date.
+ * @property endDate - Filter cumulative statistics by an end date.
+ * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
+ * @property splitByWaitTime - A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
+ */
+export interface FetchOptions {
   endDate?: Date;
-  /**
-   * Filter cumulative statistics by up to 'x' minutes in the past. This is helpful for statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends. Defaults to 15 minutes.
-   */
   minutes?: number;
-  /**
-   * A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds. Ex: "5,30" would show splits of tasks that were canceled or accepted before or after 5 seconds and respectively, 30 seconds. This is great for showing short abandoned tasks or tasks that failed to meet your SLA.
-   */
   splitByWaitTime?: string;
-  /**
-   * Filter cumulative statistics by a start date. This is helpful for defining a range of statistics to capture. Input is a GMT ISO 8601 Timestamp
-   */
   startDate?: Date;
-  /**
-   * Filter real-time and cumulative statistics by TaskChannel. Takes in a Unique Name ("voice", "sms", "default", etc.) or a TaskChannelSid.
-   */
   taskChannel?: string;
 }
 
-declare class WorkflowStatisticsPage extends Page<V1, WorkflowStatisticsPayload, WorkflowStatisticsResource, WorkflowStatisticsInstance> {
-  constructor(version: V1, response: Response<string>, solution: WorkflowStatisticsSolution);
+
+declare class WorkflowStatisticsPage extends Page {
+  /**
+   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkflowContext.WorkflowStatisticsPage
+   * @augments Page
+   * @description Initialize the WorkflowStatisticsPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: Twilio.Taskrouter.V1, response: object, solution: object);
 
   /**
    * Build an instance of WorkflowStatisticsInstance
    *
+   * @function getInstance
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkflowContext.WorkflowStatisticsPage
+   * @instance
+   *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: WorkflowStatisticsPayload): WorkflowStatisticsInstance;
+  getInstance(payload: object);
 }
 
-declare class WorkflowStatisticsInstance extends SerializableClass {
+declare class WorkflowStatisticsInstance {
   /**
+   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkflowContext.WorkflowStatisticsInstance
+   * @description Initialize the WorkflowStatisticsContext
+   *
+   * @property accountSid - The account_sid
+   * @property cumulative - The cumulative
+   * @property realtime - The realtime
+   * @property workflowSid - The workflow_sid
+   * @property workspaceSid - The workspace_sid
+   * @property url - The url
+   *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param workspaceSid - The workspace_sid
    * @param workflowSid - The workflow_sid
    */
-  constructor(version: V1, payload: WorkflowStatisticsPayload, workspaceSid: string, workflowSid: string);
+  constructor(version: Twilio.Taskrouter.V1, payload: object, workspaceSid: sid, workflowSid: sid);
 
-  private _proxy: WorkflowStatisticsContext;
-  /**
-   * The account_sid
-   */
-  accountSid: string;
-  /**
-   * The cumulative
-   */
-  cumulative: string;
+  _proxy?: WorkflowStatisticsContext;
   /**
    * fetch a WorkflowStatisticsInstance
    *
-   * @param opts - Options for request
+   * @function fetch
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkflowContext.WorkflowStatisticsInstance
+   * @instance
    *
-   * @returns Promise that resolves to processed WorkflowStatisticsInstance
-   */
-  fetch(opts?: WorkflowStatisticsListFetchOptions): Promise<WorkflowStatisticsInstance>;
-  /**
-   * fetch a WorkflowStatisticsInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  fetch(opts: WorkflowStatisticsListFetchOptions, callback: (error: Error | null, items: WorkflowStatisticsInstance) => any): void;
+  fetch(opts?: object, callback?: function);
   /**
-   * fetch a WorkflowStatisticsInstance
+   * Produce a plain JSON object version of the WorkflowStatisticsInstance for serialization.
+   * Removes any circular references in the object.
    *
-   * @param callback - Callback to handle processed record
+   * @function toJSON
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkflowContext.WorkflowStatisticsInstance
+   * @instance
    */
-  fetch(callback: (error: Error | null, items: WorkflowStatisticsInstance) => any): void;
-  /**
-   * The realtime
-   */
-  realtime: string;
-  /**
-   * The url
-   */
-  url: string;
-  /**
-   * The workflow_sid
-   */
-  workflowSid: string;
-  /**
-   * The workspace_sid
-   */
-  workspaceSid: string;
+  toJSON();
 }
 
 declare class WorkflowStatisticsContext {
-  constructor(version: V1, workspaceSid: string, workflowSid: string);
+  /**
+   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkflowContext.WorkflowStatisticsContext
+   * @description Initialize the WorkflowStatisticsContext
+   *
+   * @param version - Version of the resource
+   * @param workspaceSid - The workspace_sid
+   * @param workflowSid - The workflow_sid
+   */
+  constructor(version: Twilio.Taskrouter.V1, workspaceSid: sid, workflowSid: sid);
 
   /**
    * fetch a WorkflowStatisticsInstance
    *
-   * @param opts - Options for request
+   * @function fetch
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkflowContext.WorkflowStatisticsContext
+   * @instance
    *
-   * @returns Promise that resolves to processed WorkflowStatisticsInstance
-   */
-  fetch(opts?: WorkflowStatisticsListFetchOptions): Promise<WorkflowStatisticsInstance>;
-  /**
-   * fetch a WorkflowStatisticsInstance
-   *
-   * @param opts - Options for request
+   * @param opts - ...
    * @param callback - Callback to handle processed record
    */
-  fetch(opts: WorkflowStatisticsListFetchOptions, callback: (error: Error | null, items: WorkflowStatisticsInstance) => any): void;
-  /**
-   * fetch a WorkflowStatisticsInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  fetch(callback: (error: Error | null, items: WorkflowStatisticsInstance) => any): void;
+  fetch(opts?: object, callback?: function);
 }
 
-export { WorkflowStatisticsContext, WorkflowStatisticsInstance, WorkflowStatisticsList, WorkflowStatisticsListFetchOptions, WorkflowStatisticsListInstance, WorkflowStatisticsPage, WorkflowStatisticsPayload, WorkflowStatisticsResource, WorkflowStatisticsSolution }
+export { WorkflowStatisticsContext, WorkflowStatisticsInstance, WorkflowStatisticsList, WorkflowStatisticsPage }
