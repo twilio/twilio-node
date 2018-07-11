@@ -6,35 +6,27 @@
  */
 
 import Domain = require('../base/Domain');
-import TwilioClient = require('./Twilio');
+import Twilio = require('./Twilio');
 import V1 = require('./video/V1');
 import { CompositionListInstance } from './video/v1/composition';
+import { CompositionSettingsListInstance } from './video/v1/compositionSettings';
 import { RecordingListInstance } from './video/v1/recording';
+import { RecordingSettingsListInstance } from './video/v1/recordingSettings';
 import { RoomListInstance } from './video/v1/room';
 
 
-/**
- * Initialize video domain
- */
 declare class Video extends Domain {
   /**
    * Initialize video domain
    *
    * @param twilio - The twilio client
    */
-  constructor(twilio: TwilioClient);
+  constructor(twilio: Twilio);
 
-  /**
-   * Composition resource
-   */
+  readonly compositionSettings: CompositionSettingsListInstance;
   readonly compositions: CompositionListInstance;
-  /**
-   * Recording resource
-   */
+  readonly recordingSettings: RecordingSettingsListInstance;
   readonly recordings: RecordingListInstance;
-  /**
-   * Room resource
-   */
   readonly rooms: RoomListInstance;
   readonly v1: V1;
 }

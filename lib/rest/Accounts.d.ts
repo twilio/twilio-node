@@ -6,25 +6,19 @@
  */
 
 import Domain = require('../base/Domain');
-import TwilioClient = require('./Twilio');
+import Twilio = require('./Twilio');
 import V1 = require('./accounts/V1');
 import { CredentialListInstance } from './accounts/v1/credential';
 
 
-/**
- * Initialize accounts domain
- */
 declare class Accounts extends Domain {
   /**
    * Initialize accounts domain
    *
    * @param twilio - The twilio client
    */
-  constructor(twilio: TwilioClient);
+  constructor(twilio: Twilio);
 
-  /**
-   * Credential resource
-   */
   readonly credentials: CredentialListInstance;
   readonly v1: V1;
 }

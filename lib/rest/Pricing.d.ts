@@ -6,36 +6,24 @@
  */
 
 import Domain = require('../base/Domain');
-import TwilioClient = require('./Twilio');
+import Twilio = require('./Twilio');
 import V1 = require('./pricing/V1');
 import { MessagingListInstance } from './pricing/v1/messaging';
 import { PhoneNumberListInstance } from './pricing/v1/phoneNumber';
 import { VoiceListInstance } from './pricing/v1/voice';
 
 
-/**
- * Initialize pricing domain
- */
 declare class Pricing extends Domain {
   /**
    * Initialize pricing domain
    *
    * @param twilio - The twilio client
    */
-  constructor(twilio: TwilioClient);
+  constructor(twilio: Twilio);
 
-  /**
-   * Messaging resource
-   */
   readonly messaging: MessagingListInstance;
-  /**
-   * PhoneNumber resource
-   */
   readonly phoneNumbers: PhoneNumberListInstance;
   readonly v1: V1;
-  /**
-   * Voice resource
-   */
   readonly voice: VoiceListInstance;
 }
 

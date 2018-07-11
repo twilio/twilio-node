@@ -6,30 +6,21 @@
  */
 
 import Domain = require('../base/Domain');
-import TwilioClient = require('./Twilio');
+import Twilio = require('./Twilio');
 import V1 = require('./notify/V1');
 import { CredentialListInstance } from './notify/v1/credential';
 import { ServiceListInstance } from './notify/v1/service';
 
 
-/**
- * Initialize notify domain
- */
 declare class Notify extends Domain {
   /**
    * Initialize notify domain
    *
    * @param twilio - The twilio client
    */
-  constructor(twilio: TwilioClient);
+  constructor(twilio: Twilio);
 
-  /**
-   * Credential resource
-   */
   readonly credentials: CredentialListInstance;
-  /**
-   * Service resource
-   */
   readonly services: ServiceListInstance;
   readonly v1: V1;
 }

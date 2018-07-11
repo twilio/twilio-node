@@ -6,25 +6,19 @@
  */
 
 import Domain = require('../base/Domain');
-import TwilioClient = require('./Twilio');
+import Twilio = require('./Twilio');
 import V1 = require('./messaging/V1');
 import { ServiceListInstance } from './messaging/v1/service';
 
 
-/**
- * Initialize messaging domain
- */
 declare class Messaging extends Domain {
   /**
    * Initialize messaging domain
    *
    * @param twilio - The twilio client
    */
-  constructor(twilio: TwilioClient);
+  constructor(twilio: Twilio);
 
-  /**
-   * Service resource
-   */
   readonly services: ServiceListInstance;
   readonly v1: V1;
 }

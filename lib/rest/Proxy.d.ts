@@ -6,25 +6,19 @@
  */
 
 import Domain = require('../base/Domain');
-import TwilioClient = require('./Twilio');
+import Twilio = require('./Twilio');
 import V1 = require('./proxy/V1');
 import { ServiceListInstance } from './proxy/v1/service';
 
 
-/**
- * Initialize proxy domain
- */
 declare class Proxy extends Domain {
   /**
    * Initialize proxy domain
    *
    * @param twilio - The twilio client
    */
-  constructor(twilio: TwilioClient);
+  constructor(twilio: Twilio);
 
-  /**
-   * Service resource
-   */
   readonly services: ServiceListInstance;
   readonly v1: V1;
 }

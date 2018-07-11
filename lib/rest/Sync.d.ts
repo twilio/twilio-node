@@ -6,25 +6,19 @@
  */
 
 import Domain = require('../base/Domain');
-import TwilioClient = require('./Twilio');
+import Twilio = require('./Twilio');
 import V1 = require('./sync/V1');
 import { ServiceListInstance } from './sync/v1/service';
 
 
-/**
- * Initialize sync domain
- */
 declare class Sync extends Domain {
   /**
    * Initialize sync domain
    *
    * @param twilio - The twilio client
    */
-  constructor(twilio: TwilioClient);
+  constructor(twilio: Twilio);
 
-  /**
-   * Service resource
-   */
   readonly services: ServiceListInstance;
   readonly v1: V1;
 }

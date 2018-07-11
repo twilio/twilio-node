@@ -6,30 +6,21 @@
  */
 
 import Domain = require('../base/Domain');
-import TwilioClient = require('./Twilio');
+import Twilio = require('./Twilio');
 import V1 = require('./monitor/V1');
 import { AlertListInstance } from './monitor/v1/alert';
 import { EventListInstance } from './monitor/v1/event';
 
 
-/**
- * Initialize monitor domain
- */
 declare class Monitor extends Domain {
   /**
    * Initialize monitor domain
    *
    * @param twilio - The twilio client
    */
-  constructor(twilio: TwilioClient);
+  constructor(twilio: Twilio);
 
-  /**
-   * Alert resource
-   */
   readonly alerts: AlertListInstance;
-  /**
-   * Event resource
-   */
   readonly events: EventListInstance;
   readonly v1: V1;
 }
