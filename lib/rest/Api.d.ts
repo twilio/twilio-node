@@ -39,8 +39,6 @@ declare class Api extends Domain {
   /**
    * Initialize api domain
    *
-   * @constructor Twilio.Api
-   *
    * @param twilio - The twilio client
    */
   constructor(twilio: Twilio);
