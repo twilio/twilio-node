@@ -21,7 +21,7 @@ declare class FaxResponse {
   /**
    * Convert to XML
    */
-  toString(): any;
+  toString(): string;
 }
 
 declare namespace FaxResponse {

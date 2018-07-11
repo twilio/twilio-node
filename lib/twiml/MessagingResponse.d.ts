@@ -29,7 +29,7 @@ declare class MessagingResponse {
   /**
    * Convert to XML
    */
-  toString(): any;
+  toString(): string;
 }
 
 declare namespace MessagingResponse {

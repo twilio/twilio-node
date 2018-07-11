@@ -106,7 +106,7 @@ declare class VoiceResponse {
   /**
    * Convert to XML
    */
-  toString(): any;
+  toString(): string;
 }
 
 declare namespace VoiceResponse {

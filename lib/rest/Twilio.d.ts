@@ -69,7 +69,7 @@ declare class Twilio {
    *
    * @param opts - The options argument
    */
-  request(opts: Twilio.RequestOptions): any;
+  request(opts: Twilio.RequestOptions): Promise<any>;
   shortCodes: (typeof Api.prototype.account.shortCodes);
   signingKeys: (typeof Api.prototype.account.signingKeys);
   sip: (typeof Api.prototype.account.sip);
@@ -84,7 +84,7 @@ declare class Twilio {
    * Validate that a request to the new SSL certificate is successful.
    * @throws {RestException} if the request fails
    */
-  validateSslCert(): any;
+  validateSslCert(): Promise<any>;
   validationRequests: (typeof Api.prototype.account.validationRequests);
   video: Video;
   wireless: Wireless;
