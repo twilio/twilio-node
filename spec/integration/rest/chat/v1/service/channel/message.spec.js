@@ -502,4 +502,3 @@ describe('Message', function() {
     }
   );
 });
-

@@ -470,4 +470,3 @@ describe('Fax', function() {
     }
   );
 });
-

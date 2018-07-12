@@ -451,4 +451,3 @@ describe('Credential', function() {
     }
   );
 });
-

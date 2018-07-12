@@ -405,4 +405,3 @@ describe('AuthorizationDocument', function() {
     }
   );
 });
-

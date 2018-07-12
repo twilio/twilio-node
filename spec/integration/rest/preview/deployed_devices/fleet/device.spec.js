@@ -435,4 +435,3 @@ describe('Device', function() {
     }
   );
 });
-

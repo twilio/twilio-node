@@ -449,4 +449,3 @@ describe('SyncList', function() {
     }
   );
 });
-

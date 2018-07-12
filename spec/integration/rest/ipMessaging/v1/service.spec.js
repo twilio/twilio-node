@@ -519,4 +519,3 @@ describe('Service', function() {
     }
   );
 });
-

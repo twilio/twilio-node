@@ -294,4 +294,3 @@ describe('Session', function() {
     }
   );
 });
-

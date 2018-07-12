@@ -262,4 +262,3 @@ describe('Mobile', function() {
     }
   );
 });
-

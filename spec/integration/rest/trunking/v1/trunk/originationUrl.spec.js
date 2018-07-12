@@ -452,4 +452,3 @@ describe('OriginationUrl', function() {
     }
   );
 });
-

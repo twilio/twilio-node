@@ -494,4 +494,3 @@ describe('Domain', function() {
     }
   );
 });
-

@@ -283,4 +283,3 @@ describe('DataSession', function() {
     }
   );
 });
-

@@ -181,4 +181,3 @@ describe('SegmentMembership', function() {
     }
   );
 });
-

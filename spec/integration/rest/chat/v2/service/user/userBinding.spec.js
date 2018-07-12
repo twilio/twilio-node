@@ -368,4 +368,3 @@ describe('UserBinding', function() {
     }
   );
 });
-

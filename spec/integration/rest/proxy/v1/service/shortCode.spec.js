@@ -356,4 +356,3 @@ describe('ShortCode', function() {
     }
   );
 });
-

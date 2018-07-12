@@ -146,4 +146,3 @@ describe('Step', function() {
     }
   );
 });
-

@@ -84,4 +84,3 @@ describe('VerificationCheck', function() {
     }
   );
 });
-

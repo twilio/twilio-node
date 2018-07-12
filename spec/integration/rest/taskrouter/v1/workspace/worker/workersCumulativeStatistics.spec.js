@@ -118,4 +118,3 @@ describe('WorkersCumulativeStatistics', function() {
     }
   );
 });
-

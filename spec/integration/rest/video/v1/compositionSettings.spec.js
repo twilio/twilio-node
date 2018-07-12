@@ -125,4 +125,3 @@ describe('CompositionSettings', function() {
     }
   );
 });
-

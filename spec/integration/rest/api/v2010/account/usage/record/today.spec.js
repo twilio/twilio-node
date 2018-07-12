@@ -297,4 +297,3 @@ describe('Today', function() {
     }
   );
 });
-

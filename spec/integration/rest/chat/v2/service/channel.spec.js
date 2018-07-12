@@ -491,4 +491,3 @@ describe('Channel', function() {
     }
   );
 });
-

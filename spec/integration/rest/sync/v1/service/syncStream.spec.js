@@ -435,4 +435,3 @@ describe('SyncStream', function() {
     }
   );
 });
-

@@ -387,4 +387,3 @@ describe('SyncListPermission', function() {
     }
   );
 });
-

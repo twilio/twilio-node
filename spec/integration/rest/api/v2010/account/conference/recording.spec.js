@@ -456,4 +456,3 @@ describe('Recording', function() {
     }
   );
 });
-

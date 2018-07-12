@@ -297,4 +297,3 @@ describe('LastMonth', function() {
     }
   );
 });
-

@@ -250,4 +250,3 @@ describe('Country', function() {
     }
   );
 });
-

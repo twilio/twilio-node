@@ -504,4 +504,3 @@ describe('PhoneNumber', function() {
     }
   );
 });
-

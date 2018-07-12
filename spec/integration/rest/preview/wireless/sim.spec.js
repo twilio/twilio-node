@@ -402,4 +402,3 @@ describe('Sim', function() {
     }
   );
 });
-

@@ -396,4 +396,3 @@ describe('User', function() {
     }
   );
 });
-
