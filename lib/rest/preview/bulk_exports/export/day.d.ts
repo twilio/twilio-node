@@ -5,6 +5,7 @@
  *       /       /
  */
 
+import BulkExports = require('../../BulkExports');
 import Page = require('../../../../base/Page');
 import deserialize = require('../../../../base/deserialize');
 import values = require('../../../../base/values');

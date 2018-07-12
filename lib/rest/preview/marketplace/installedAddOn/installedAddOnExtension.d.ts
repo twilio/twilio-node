@@ -5,6 +5,7 @@
  *       /       /
  */
 
+import Marketplace = require('../../Marketplace');
 import Page = require('../../../../base/Page');
 import serialize = require('../../../../base/serialize');
 import values = require('../../../../base/values');

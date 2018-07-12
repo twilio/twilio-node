@@ -6,6 +6,7 @@
  */
 
 import Page = require('../../../../base/Page');
+import Proxy = require('../../Proxy');
 import deserialize = require('../../../../base/deserialize');
 import values = require('../../../../base/values');
 

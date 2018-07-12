@@ -6,8 +6,7 @@
  */
 
 import Page = require('../../../base/Page');
-import { CountryList } from './voice/country';
-import { NumberList } from './voice/number';
+import V1 = require('../V1');
 
 
 

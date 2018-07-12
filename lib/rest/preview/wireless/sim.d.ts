@@ -6,6 +6,7 @@
  */
 
 import Page = require('../../../base/Page');
+import Wireless = require('../Wireless');
 import deserialize = require('../../../base/deserialize');
 import values = require('../../../base/values');
 import { UsageList } from './sim/usage';

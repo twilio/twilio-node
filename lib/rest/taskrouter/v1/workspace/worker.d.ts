@@ -6,6 +6,7 @@
  */
 
 import Page = require('../../../../base/Page');
+import V1 = require('../../V1');
 import deserialize = require('../../../../base/deserialize');
 import values = require('../../../../base/values');
 import { ReservationList } from './worker/reservation';
@@ -13,7 +14,6 @@ import { WorkerChannelList } from './worker/workerChannel';
 import { WorkerStatisticsList } from './worker/workerStatistics';
 import { WorkersCumulativeStatisticsList } from './worker/workersCumulativeStatistics';
 import { WorkersRealTimeStatisticsList } from './worker/workersRealTimeStatistics';
-import { WorkersStatisticsList } from './worker/workersStatistics';
 
 
 /**

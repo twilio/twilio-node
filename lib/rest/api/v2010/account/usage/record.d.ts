@@ -6,17 +6,10 @@
  */
 
 import Page = require('../../../../../base/Page');
+import V2010 = require('../../../V2010');
 import deserialize = require('../../../../../base/deserialize');
 import serialize = require('../../../../../base/serialize');
 import values = require('../../../../../base/values');
-import { AllTimeList } from './record/allTime';
-import { DailyList } from './record/daily';
-import { LastMonthList } from './record/lastMonth';
-import { MonthlyList } from './record/monthly';
-import { ThisMonthList } from './record/thisMonth';
-import { TodayList } from './record/today';
-import { YearlyList } from './record/yearly';
-import { YesterdayList } from './record/yesterday';
 
 
 

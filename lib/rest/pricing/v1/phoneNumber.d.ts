@@ -6,7 +6,7 @@
  */
 
 import Page = require('../../../base/Page');
-import { CountryList } from './phoneNumber/country';
+import V1 = require('../V1');
 
 
 

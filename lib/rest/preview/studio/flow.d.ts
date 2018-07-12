@@ -6,6 +6,7 @@
  */
 
 import Page = require('../../../base/Page');
+import Studio = require('../Studio');
 import deserialize = require('../../../base/deserialize');
 import values = require('../../../base/values');
 import { EngagementList } from './flow/engagement';

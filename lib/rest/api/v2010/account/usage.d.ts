@@ -5,8 +5,7 @@
  *       /       /
  */
 
-import { RecordList } from './usage/record';
-import { TriggerList } from './usage/trigger';
+import V2010 = require('../../V2010');
 
 
 

@@ -6,6 +6,7 @@
  */
 
 import Page = require('../../../base/Page');
+import V2 = require('../V2');
 import deserialize = require('../../../base/deserialize');
 import serialize = require('../../../base/serialize');
 import values = require('../../../base/values');

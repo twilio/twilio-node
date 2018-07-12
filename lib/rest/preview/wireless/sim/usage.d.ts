@@ -6,6 +6,7 @@
  */
 
 import Page = require('../../../../base/Page');
+import Wireless = require('../../Wireless');
 import values = require('../../../../base/values');
 
 

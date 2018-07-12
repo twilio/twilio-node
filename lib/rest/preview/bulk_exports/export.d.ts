@@ -5,6 +5,7 @@
  *       /       /
  */
 
+import BulkExports = require('../BulkExports');
 import Page = require('../../../base/Page');
 import values = require('../../../base/values');
 import { DayList } from './export/day';

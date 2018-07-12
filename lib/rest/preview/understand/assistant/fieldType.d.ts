@@ -6,6 +6,7 @@
  */
 
 import Page = require('../../../../base/Page');
+import Understand = require('../../Understand');
 import deserialize = require('../../../../base/deserialize');
 import values = require('../../../../base/values');
 import { FieldValueList } from './fieldType/fieldValue';

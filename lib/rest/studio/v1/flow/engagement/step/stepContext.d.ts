@@ -6,6 +6,7 @@
  */
 
 import Page = require('../../../../../../base/Page');
+import V1 = require('../../../../V1');
 import values = require('../../../../../../base/values');
 
 

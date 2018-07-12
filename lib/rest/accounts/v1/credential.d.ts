@@ -5,8 +5,7 @@
  *       /       /
  */
 
-import { AwsList } from './credential/aws';
-import { PublicKeyList } from './credential/publicKey';
+import V1 = require('../V1');
 
 
 
