@@ -36,6 +36,7 @@
     "jscs": "3.0.7",
     "jsdoc": "3.5.5",
     "jshint": "^2.8.0",
+    "node-mocks-http": "^1.7.0",
     "nsp": "^3.2.1",
     "proxyquire": "1.8.0"
   },
