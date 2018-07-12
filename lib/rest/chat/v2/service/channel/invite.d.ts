@@ -11,6 +11,15 @@ import deserialize = require('../../../../../base/deserialize');
 import serialize = require('../../../../../base/serialize');
 import values = require('../../../../../base/values');
 
+/**
+ * @constructor Twilio.Chat.V2.ServiceContext.ChannelContext.InviteList
+ * @description Initialize the InviteList
+ *
+ * @param version - Version of the resource
+ * @param serviceSid - The unique id of the Service this member belongs to.
+ * @param channelSid - The unique id of the Channel for this member.
+ */
+declare function InviteList(version: V2, serviceSid: string, channelSid: string): InviteListInstance;
 
 
 declare class InvitePage extends Page {
@@ -36,6 +45,7 @@ declare class InvitePage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class InviteInstance {
   /**
@@ -92,6 +102,7 @@ declare class InviteInstance {
    */
   toJSON();
 }
+
 
 declare class InviteContext {
   /**

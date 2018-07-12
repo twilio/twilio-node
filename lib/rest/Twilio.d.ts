@@ -131,6 +131,6 @@ declare namespace Twilio {
     uri: string;
     username?: string;
   }
-
 }
+
 export = Twilio;

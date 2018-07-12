@@ -10,6 +10,13 @@ import V1 = require('../../V1');
 import deserialize = require('../../../../base/deserialize');
 import values = require('../../../../base/values');
 
+/**
+ * @constructor Twilio.Accounts.V1.CredentialContext.PublicKeyList
+ * @description Initialize the PublicKeyList
+ *
+ * @param version - Version of the resource
+ */
+declare function PublicKeyList(version: V1): PublicKeyListInstance;
 
 /**
  * Options to pass to update
@@ -53,6 +60,7 @@ declare class PublicKeyPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class PublicKeyInstance {
   /**
@@ -114,6 +122,7 @@ declare class PublicKeyInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class PublicKeyContext {
   /**

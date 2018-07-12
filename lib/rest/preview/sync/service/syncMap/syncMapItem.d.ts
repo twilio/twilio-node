@@ -11,6 +11,16 @@ import deserialize = require('../../../../../base/deserialize');
 import serialize = require('../../../../../base/serialize');
 import values = require('../../../../../base/values');
 
+/**
+ * @constructor Twilio.Preview.Sync.ServiceContext.SyncMapContext.SyncMapItemList
+ * @description Initialize the SyncMapItemList
+ * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ *
+ * @param version - Version of the resource
+ * @param serviceSid - The service_sid
+ * @param mapSid - The map_sid
+ */
+declare function SyncMapItemList(version: Sync, serviceSid: string, mapSid: string): SyncMapItemListInstance;
 
 /**
  * Options to pass to update
@@ -55,6 +65,7 @@ declare class SyncMapItemPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class SyncMapItemInstance {
   /**
@@ -123,6 +134,7 @@ declare class SyncMapItemInstance {
    */
   update(opts: object, callback?: function);
 }
+
 
 declare class SyncMapItemContext {
   /**

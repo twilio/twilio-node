@@ -10,6 +10,14 @@ import V1 = require('../../V1');
 import deserialize = require('../../../../base/deserialize');
 import values = require('../../../../base/values');
 
+/**
+ * @constructor Twilio.Trunking.V1.TrunkContext.IpAccessControlListList
+ * @description Initialize the IpAccessControlListList
+ *
+ * @param version - Version of the resource
+ * @param trunkSid - The unique sid that identifies the associated Trunk
+ */
+declare function IpAccessControlListList(version: V1, trunkSid: string): IpAccessControlListListInstance;
 
 
 declare class IpAccessControlListPage extends Page {
@@ -35,6 +43,7 @@ declare class IpAccessControlListPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class IpAccessControlListInstance {
   /**
@@ -87,6 +96,7 @@ declare class IpAccessControlListInstance {
    */
   toJSON();
 }
+
 
 declare class IpAccessControlListContext {
   /**

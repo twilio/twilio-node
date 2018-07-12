@@ -13,6 +13,14 @@ import values = require('../../../../base/values');
 import { PublishedTrackList } from './roomParticipant/roomParticipantPublishedTrack';
 import { SubscribedTrackList } from './roomParticipant/roomParticipantSubscribedTrack';
 
+/**
+ * @constructor Twilio.Video.V1.RoomContext.ParticipantList
+ * @description Initialize the ParticipantList
+ *
+ * @param version - Version of the resource
+ * @param roomSid - A system-generated 34-character string that uniquely identifies.
+ */
+declare function ParticipantList(version: V1, roomSid: string): ParticipantListInstance;
 
 /**
  * Options to pass to update
@@ -56,6 +64,7 @@ declare class ParticipantPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class ParticipantInstance {
   /**
@@ -130,6 +139,7 @@ declare class ParticipantInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class ParticipantContext {
   /**

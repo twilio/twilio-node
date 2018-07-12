@@ -10,6 +10,14 @@ import V1 = require('../../V1');
 import serialize = require('../../../../base/serialize');
 import values = require('../../../../base/values');
 
+/**
+ * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkspaceStatisticsList
+ * @description Initialize the WorkspaceStatisticsList
+ *
+ * @param version - Version of the resource
+ * @param workspaceSid - The workspace_sid
+ */
+declare function WorkspaceStatisticsList(version: V1, workspaceSid: string): WorkspaceStatisticsListInstance;
 
 /**
  * Options to pass to fetch
@@ -70,6 +78,7 @@ declare class WorkspaceStatisticsPage extends Page {
   getInstance(payload: object);
 }
 
+
 declare class WorkspaceStatisticsInstance {
   /**
    * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkspaceStatisticsInstance
@@ -109,6 +118,7 @@ declare class WorkspaceStatisticsInstance {
    */
   toJSON();
 }
+
 
 declare class WorkspaceStatisticsContext {
   /**

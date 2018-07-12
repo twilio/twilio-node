@@ -11,6 +11,14 @@ import deserialize = require('../../../../../base/deserialize');
 import serialize = require('../../../../../base/serialize');
 import values = require('../../../../../base/values');
 
+/**
+ * @constructor Twilio.Api.V2010.AccountContext.IncomingPhoneNumberContext.LocalList
+ * @description Initialize the LocalList
+ *
+ * @param version - Version of the resource
+ * @param accountSid - The unique sid that identifies this account
+ */
+declare function LocalList(version: V2010, accountSid: string): LocalListInstance;
 
 
 declare class LocalPage extends Page {
@@ -36,6 +44,7 @@ declare class LocalPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class LocalInstance {
   /**

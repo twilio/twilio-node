@@ -12,6 +12,13 @@ import values = require('../../../base/values');
 import { DataSessionList } from './sim/dataSession';
 import { UsageRecordList } from './sim/usageRecord';
 
+/**
+ * @constructor Twilio.Wireless.V1.SimList
+ * @description Initialize the SimList
+ *
+ * @param version - Version of the resource
+ */
+declare function SimList(version: V1): SimListInstance;
 
 /**
  * Options to pass to update
@@ -116,6 +123,7 @@ declare class SimPage extends Page {
   getInstance(payload: object);
 }
 
+
 declare class SimInstance {
   /**
    * @constructor Twilio.Wireless.V1.SimInstance
@@ -199,6 +207,7 @@ declare class SimInstance {
    */
   usageRecords();
 }
+
 
 declare class SimContext {
   /**

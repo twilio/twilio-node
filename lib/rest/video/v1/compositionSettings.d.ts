@@ -10,6 +10,14 @@ import V1 = require('../V1');
 import serialize = require('../../../base/serialize');
 import values = require('../../../base/values');
 
+/**
+ * @constructor Twilio.Video.V1.CompositionSettingsList
+ * @description Initialize the CompositionSettingsList
+ * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ *
+ * @param version - Version of the resource
+ */
+declare function CompositionSettingsList(version: V1): CompositionSettingsListInstance;
 
 /**
  * Options to pass to create
@@ -75,6 +83,7 @@ declare class CompositionSettingsPage extends Page {
   getInstance(payload: object);
 }
 
+
 declare class CompositionSettingsInstance {
   /**
    * @constructor Twilio.Video.V1.CompositionSettingsInstance
@@ -127,6 +136,7 @@ declare class CompositionSettingsInstance {
    */
   toJSON();
 }
+
 
 declare class CompositionSettingsContext {
   /**

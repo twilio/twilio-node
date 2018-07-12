@@ -13,6 +13,13 @@ import values = require('../../../base/values');
 import { ParticipantList } from './room/roomParticipant';
 import { RoomRecordingList } from './room/recording';
 
+/**
+ * @constructor Twilio.Video.V1.RoomList
+ * @description Initialize the RoomList
+ *
+ * @param version - Version of the resource
+ */
+declare function RoomList(version: V1): RoomListInstance;
 
 /**
  * Options to pass to update
@@ -56,6 +63,7 @@ declare class RoomPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class RoomInstance {
   /**
@@ -135,6 +143,7 @@ declare class RoomInstance {
    */
   update(opts: object, callback?: function);
 }
+
 
 declare class RoomContext {
   /**

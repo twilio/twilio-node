@@ -11,6 +11,15 @@ import deserialize = require('../../../../base/deserialize');
 import serialize = require('../../../../base/serialize');
 import values = require('../../../../base/values');
 
+/**
+ * @constructor Twilio.Notify.V1.ServiceContext.NotificationList
+ * @description Initialize the NotificationList
+ * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ *
+ * @param version - Version of the resource
+ * @param serviceSid - The service_sid
+ */
+declare function NotificationList(version: V1, serviceSid: string): NotificationListInstance;
 
 
 declare class NotificationPage extends Page {
@@ -37,6 +46,7 @@ declare class NotificationPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class NotificationInstance {
   /**

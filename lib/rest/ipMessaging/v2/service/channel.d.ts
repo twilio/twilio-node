@@ -15,6 +15,14 @@ import { MemberList } from './channel/member';
 import { MessageList } from './channel/message';
 import { WebhookList } from './channel/webhook';
 
+/**
+ * @constructor Twilio.IpMessaging.V2.ServiceContext.ChannelList
+ * @description Initialize the ChannelList
+ *
+ * @param version - Version of the resource
+ * @param serviceSid - The unique id of the Service this channel belongs to.
+ */
+declare function ChannelList(version: V2, serviceSid: string): ChannelListInstance;
 
 /**
  * Options to pass to update
@@ -78,6 +86,7 @@ declare class ChannelPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class ChannelInstance {
   /**
@@ -180,6 +189,7 @@ declare class ChannelInstance {
    */
   webhooks();
 }
+
 
 declare class ChannelContext {
   /**

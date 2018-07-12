@@ -11,6 +11,15 @@ import deserialize = require('../../../../../base/deserialize');
 import serialize = require('../../../../../base/serialize');
 import values = require('../../../../../base/values');
 
+/**
+ * @constructor Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.TollFreeList
+ * @description Initialize the TollFreeList
+ *
+ * @param version - Version of the resource
+ * @param accountSid - The 34 character string that uniquely identifies your account.
+ * @param countryCode - The ISO Country code to lookup phone numbers for.
+ */
+declare function TollFreeList(version: V2010, accountSid: string, countryCode: string): TollFreeListInstance;
 
 
 declare class TollFreePage extends Page {
@@ -36,6 +45,7 @@ declare class TollFreePage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class TollFreeInstance {
   /**

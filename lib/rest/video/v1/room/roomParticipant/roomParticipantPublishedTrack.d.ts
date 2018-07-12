@@ -10,6 +10,15 @@ import V1 = require('../../../V1');
 import deserialize = require('../../../../../base/deserialize');
 import values = require('../../../../../base/values');
 
+/**
+ * @constructor Twilio.Video.V1.RoomContext.ParticipantContext.PublishedTrackList
+ * @description Initialize the PublishedTrackList
+ *
+ * @param version - Version of the resource
+ * @param roomSid - Unique Room identifier where this Track is published.
+ * @param participantSid - Unique Participant identifier that publishes this Track.
+ */
+declare function PublishedTrackList(version: V1, roomSid: string, participantSid: string): PublishedTrackListInstance;
 
 
 declare class PublishedTrackPage extends Page {
@@ -35,6 +44,7 @@ declare class PublishedTrackPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class PublishedTrackInstance {
   /**
@@ -80,6 +90,7 @@ declare class PublishedTrackInstance {
    */
   toJSON();
 }
+
 
 declare class PublishedTrackContext {
   /**

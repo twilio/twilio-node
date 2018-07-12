@@ -8,6 +8,13 @@
 import Page = require('../../../base/Page');
 import V1 = require('../V1');
 
+/**
+ * @constructor Twilio.Pricing.V1.VoiceList
+ * @description Initialize the VoiceList
+ *
+ * @param version - Version of the resource
+ */
+declare function VoiceList(version: V1): VoiceListInstance;
 
 
 declare class VoicePage extends Page {
@@ -33,6 +40,7 @@ declare class VoicePage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class VoiceInstance {
   /**

@@ -10,6 +10,14 @@ import V1 = require('../../V1');
 import serialize = require('../../../../base/serialize');
 import values = require('../../../../base/values');
 
+/**
+ * @constructor Twilio.Wireless.V1.SimContext.UsageRecordList
+ * @description Initialize the UsageRecordList
+ *
+ * @param version - Version of the resource
+ * @param simSid - The unique id of the SIM resource that this Usage Record is for.
+ */
+declare function UsageRecordList(version: V1, simSid: string): UsageRecordListInstance;
 
 
 declare class UsageRecordPage extends Page {
@@ -35,6 +43,7 @@ declare class UsageRecordPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class UsageRecordInstance {
   /**

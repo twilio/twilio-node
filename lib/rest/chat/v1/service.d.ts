@@ -14,6 +14,13 @@ import { ChannelList } from './service/channel';
 import { RoleList } from './service/role';
 import { UserList } from './service/user';
 
+/**
+ * @constructor Twilio.Chat.V1.ServiceList
+ * @description Initialize the ServiceList
+ *
+ * @param version - Version of the resource
+ */
+declare function ServiceList(version: V1): ServiceListInstance;
 
 /**
  * Options to pass to update
@@ -334,6 +341,7 @@ declare class ServicePage extends Page {
   getInstance(payload: object);
 }
 
+
 declare class ServiceInstance {
   /**
    * @constructor Twilio.Chat.V1.ServiceInstance
@@ -433,6 +441,7 @@ declare class ServiceInstance {
    */
   users();
 }
+
 
 declare class ServiceContext {
   /**

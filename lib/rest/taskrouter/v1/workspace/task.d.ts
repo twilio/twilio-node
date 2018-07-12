@@ -12,6 +12,14 @@ import serialize = require('../../../../base/serialize');
 import values = require('../../../../base/values');
 import { ReservationList } from './task/reservation';
 
+/**
+ * @constructor Twilio.Taskrouter.V1.WorkspaceContext.TaskList
+ * @description Initialize the TaskList
+ *
+ * @param version - Version of the resource
+ * @param workspaceSid - The ID of the Workspace that holds this Task
+ */
+declare function TaskList(version: V1, workspaceSid: string): TaskListInstance;
 
 /**
  * Options to pass to update
@@ -71,6 +79,7 @@ declare class TaskPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class TaskInstance {
   /**
@@ -155,6 +164,7 @@ declare class TaskInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class TaskContext {
   /**

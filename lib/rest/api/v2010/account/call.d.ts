@@ -14,6 +14,14 @@ import { FeedbackList } from './call/feedback';
 import { NotificationList } from './call/notification';
 import { RecordingList } from './call/recording';
 
+/**
+ * @constructor Twilio.Api.V2010.AccountContext.CallList
+ * @description Initialize the CallList
+ *
+ * @param version - Version of the resource
+ * @param accountSid - The unique id of the Account responsible for creating this Call
+ */
+declare function CallList(version: V2010, accountSid: string): CallListInstance;
 
 /**
  * Options to pass to update
@@ -81,6 +89,7 @@ declare class CallPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class CallInstance {
   /**
@@ -186,6 +195,7 @@ declare class CallInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class CallContext {
   /**

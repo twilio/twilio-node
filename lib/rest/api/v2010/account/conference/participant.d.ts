@@ -11,6 +11,15 @@ import deserialize = require('../../../../../base/deserialize');
 import serialize = require('../../../../../base/serialize');
 import values = require('../../../../../base/values');
 
+/**
+ * @constructor Twilio.Api.V2010.AccountContext.ConferenceContext.ParticipantList
+ * @description Initialize the ParticipantList
+ *
+ * @param version - Version of the resource
+ * @param accountSid - The unique sid that identifies this account
+ * @param conferenceSid - A string that uniquely identifies this conference
+ */
+declare function ParticipantList(version: V2010, accountSid: string, conferenceSid: string): ParticipantListInstance;
 
 /**
  * Options to pass to update
@@ -74,6 +83,7 @@ declare class ParticipantPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class ParticipantInstance {
   /**
@@ -142,6 +152,7 @@ declare class ParticipantInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class ParticipantContext {
   /**

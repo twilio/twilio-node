@@ -11,6 +11,14 @@ import deserialize = require('../../../../base/deserialize');
 import serialize = require('../../../../base/serialize');
 import values = require('../../../../base/values');
 
+/**
+ * @constructor Twilio.Trunking.V1.TrunkContext.OriginationUrlList
+ * @description Initialize the OriginationUrlList
+ *
+ * @param version - Version of the resource
+ * @param trunkSid - The unique ID of the Trunk that owns this Origination URL.
+ */
+declare function OriginationUrlList(version: V1, trunkSid: string): OriginationUrlListInstance;
 
 /**
  * Options to pass to update
@@ -70,6 +78,7 @@ declare class OriginationUrlPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class OriginationUrlInstance {
   /**
@@ -137,6 +146,7 @@ declare class OriginationUrlInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class OriginationUrlContext {
   /**

@@ -10,6 +10,16 @@ import V1 = require('../../../V1');
 import deserialize = require('../../../../../base/deserialize');
 import values = require('../../../../../base/values');
 
+/**
+ * @constructor Twilio.Proxy.V1.ServiceContext.SessionContext.InteractionList
+ * @description Initialize the InteractionList
+ * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ *
+ * @param version - Version of the resource
+ * @param serviceSid - Service Sid.
+ * @param sessionSid - Session Sid.
+ */
+declare function InteractionList(version: V1, serviceSid: string, sessionSid: string): InteractionListInstance;
 
 
 declare class InteractionPage extends Page {
@@ -36,6 +46,7 @@ declare class InteractionPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class InteractionInstance {
   /**
@@ -102,6 +113,7 @@ declare class InteractionInstance {
    */
   toJSON();
 }
+
 
 declare class InteractionContext {
   /**

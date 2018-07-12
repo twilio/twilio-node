@@ -10,6 +10,15 @@ import V2010 = require('../../../V2010');
 import deserialize = require('../../../../../base/deserialize');
 import values = require('../../../../../base/values');
 
+/**
+ * @constructor Twilio.Api.V2010.AccountContext.QueueContext.MemberList
+ * @description Initialize the MemberList
+ *
+ * @param version - Version of the resource
+ * @param accountSid - The account_sid
+ * @param queueSid - A string that uniquely identifies this queue
+ */
+declare function MemberList(version: V2010, accountSid: string, queueSid: string): MemberListInstance;
 
 /**
  * Options to pass to update
@@ -57,6 +66,7 @@ declare class MemberPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class MemberInstance {
   /**
@@ -109,6 +119,7 @@ declare class MemberInstance {
    */
   update(opts: object, callback?: function);
 }
+
 
 declare class MemberContext {
   /**

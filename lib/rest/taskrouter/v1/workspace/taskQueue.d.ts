@@ -13,6 +13,14 @@ import { TaskQueueCumulativeStatisticsList } from './taskQueue/taskQueueCumulati
 import { TaskQueueRealTimeStatisticsList } from './taskQueue/taskQueueRealTimeStatistics';
 import { TaskQueueStatisticsList } from './taskQueue/taskQueueStatistics';
 
+/**
+ * @constructor Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueList
+ * @description Initialize the TaskQueueList
+ *
+ * @param version - Version of the resource
+ * @param workspaceSid - The ID of the Workspace that owns this TaskQueue
+ */
+declare function TaskQueueList(version: V1, workspaceSid: string): TaskQueueListInstance;
 
 /**
  * Options to pass to update
@@ -76,6 +84,7 @@ declare class TaskQueuePage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class TaskQueueInstance {
   /**
@@ -171,6 +180,7 @@ declare class TaskQueueInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class TaskQueueContext {
   /**

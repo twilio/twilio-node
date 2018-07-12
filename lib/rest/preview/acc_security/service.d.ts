@@ -12,6 +12,14 @@ import values = require('../../../base/values');
 import { VerificationCheckList } from './service/verificationCheck';
 import { VerificationList } from './service/verification';
 
+/**
+ * @constructor Twilio.Preview.AccSecurity.ServiceList
+ * @description Initialize the ServiceList
+ * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ *
+ * @param version - Version of the resource
+ */
+declare function ServiceList(version: AccSecurity): ServiceListInstance;
 
 /**
  * Options to pass to update
@@ -60,6 +68,7 @@ declare class ServicePage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class ServiceInstance {
   /**
@@ -130,6 +139,7 @@ declare class ServiceInstance {
    */
   verifications();
 }
+
 
 declare class ServiceContext {
   /**

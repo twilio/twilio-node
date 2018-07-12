@@ -11,6 +11,14 @@ import deserialize = require('../../../../../../base/deserialize');
 import serialize = require('../../../../../../base/serialize');
 import values = require('../../../../../../base/values');
 
+/**
+ * @constructor Twilio.Api.V2010.AccountContext.UsageContext.RecordContext.LastMonthList
+ * @description Initialize the LastMonthList
+ *
+ * @param version - Version of the resource
+ * @param accountSid - A 34 character string that uniquely identifies this resource.
+ */
+declare function LastMonthList(version: V2010, accountSid: string): LastMonthListInstance;
 
 
 declare class LastMonthPage extends Page {
@@ -36,6 +44,7 @@ declare class LastMonthPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class LastMonthInstance {
   /**

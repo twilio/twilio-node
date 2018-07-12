@@ -10,6 +10,16 @@ import Understand = require('../../../Understand');
 import deserialize = require('../../../../../base/deserialize');
 import values = require('../../../../../base/values');
 
+/**
+ * @constructor Twilio.Preview.Understand.AssistantContext.IntentContext.SampleList
+ * @description Initialize the SampleList
+ * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ *
+ * @param version - Version of the resource
+ * @param assistantSid - The unique ID of the Assistant.
+ * @param intentSid - The unique ID of the Intent associated with this Sample.
+ */
+declare function SampleList(version: Understand, assistantSid: string, intentSid: string): SampleListInstance;
 
 /**
  * Options to pass to update
@@ -62,6 +72,7 @@ declare class SamplePage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class SampleInstance {
   /**
@@ -130,6 +141,7 @@ declare class SampleInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class SampleContext {
   /**

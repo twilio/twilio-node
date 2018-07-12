@@ -11,6 +11,14 @@ import deserialize = require('../../../../base/deserialize');
 import serialize = require('../../../../base/serialize');
 import values = require('../../../../base/values');
 
+/**
+ * @constructor Twilio.Chat.V2.ServiceContext.BindingList
+ * @description Initialize the BindingList
+ *
+ * @param version - Version of the resource
+ * @param serviceSid - The unique id of the Service this binding belongs to.
+ */
+declare function BindingList(version: V2, serviceSid: string): BindingListInstance;
 
 
 declare class BindingPage extends Page {
@@ -36,6 +44,7 @@ declare class BindingPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class BindingInstance {
   /**
@@ -93,6 +102,7 @@ declare class BindingInstance {
    */
   toJSON();
 }
+
 
 declare class BindingContext {
   /**

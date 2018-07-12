@@ -10,6 +10,16 @@ import V1 = require('../../../V1');
 import serialize = require('../../../../../base/serialize');
 import values = require('../../../../../base/values');
 
+/**
+ * @constructor Twilio.Sync.V1.ServiceContext.SyncMapContext.SyncMapPermissionList
+ * @description Initialize the SyncMapPermissionList
+ * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ *
+ * @param version - Version of the resource
+ * @param serviceSid - Sync Service Instance SID.
+ * @param mapSid - Sync Map SID.
+ */
+declare function SyncMapPermissionList(version: V1, serviceSid: string, mapSid: string): SyncMapPermissionListInstance;
 
 /**
  * Options to pass to update
@@ -62,6 +72,7 @@ declare class SyncMapPermissionPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class SyncMapPermissionInstance {
   /**
@@ -128,6 +139,7 @@ declare class SyncMapPermissionInstance {
    */
   update(opts: object, callback?: function);
 }
+
 
 declare class SyncMapPermissionContext {
   /**

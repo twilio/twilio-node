@@ -11,6 +11,15 @@ import deserialize = require('../../../../../base/deserialize');
 import serialize = require('../../../../../base/serialize');
 import values = require('../../../../../base/values');
 
+/**
+ * @constructor Twilio.IpMessaging.V2.ServiceContext.UserContext.UserBindingList
+ * @description Initialize the UserBindingList
+ *
+ * @param version - Version of the resource
+ * @param serviceSid - The unique id of the Service this binding belongs to.
+ * @param userSid - The unique id of the User for this binding.
+ */
+declare function UserBindingList(version: V2, serviceSid: string, userSid: string): UserBindingListInstance;
 
 
 declare class UserBindingPage extends Page {
@@ -36,6 +45,7 @@ declare class UserBindingPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class UserBindingInstance {
   /**
@@ -94,6 +104,7 @@ declare class UserBindingInstance {
    */
   toJSON();
 }
+
 
 declare class UserBindingContext {
   /**

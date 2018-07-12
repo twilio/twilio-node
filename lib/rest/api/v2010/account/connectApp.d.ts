@@ -10,6 +10,14 @@ import V2010 = require('../../V2010');
 import serialize = require('../../../../base/serialize');
 import values = require('../../../../base/values');
 
+/**
+ * @constructor Twilio.Api.V2010.AccountContext.ConnectAppList
+ * @description Initialize the ConnectAppList
+ *
+ * @param version - Version of the resource
+ * @param accountSid - The unique sid that identifies this account
+ */
+declare function ConnectAppList(version: V2010, accountSid: string): ConnectAppListInstance;
 
 /**
  * Options to pass to update
@@ -82,6 +90,7 @@ declare class ConnectAppPage extends Page {
   getInstance(payload: object);
 }
 
+
 declare class ConnectAppInstance {
   /**
    * @constructor Twilio.Api.V2010.AccountContext.ConnectAppInstance
@@ -138,6 +147,7 @@ declare class ConnectAppInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class ConnectAppContext {
   /**

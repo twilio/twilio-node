@@ -10,6 +10,15 @@ import V1 = require('../../V1');
 import deserialize = require('../../../../base/deserialize');
 import values = require('../../../../base/values');
 
+/**
+ * @constructor Twilio.Messaging.V1.ServiceContext.AlphaSenderList
+ * @description Initialize the AlphaSenderList
+ * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ *
+ * @param version - Version of the resource
+ * @param serviceSid - The 34 character unique sid of the Messaging Service.
+ */
+declare function AlphaSenderList(version: V1, serviceSid: string): AlphaSenderListInstance;
 
 
 declare class AlphaSenderPage extends Page {
@@ -36,6 +45,7 @@ declare class AlphaSenderPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class AlphaSenderInstance {
   /**
@@ -90,6 +100,7 @@ declare class AlphaSenderInstance {
    */
   toJSON();
 }
+
 
 declare class AlphaSenderContext {
   /**

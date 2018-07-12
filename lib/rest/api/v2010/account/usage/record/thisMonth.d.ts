@@ -11,6 +11,14 @@ import deserialize = require('../../../../../../base/deserialize');
 import serialize = require('../../../../../../base/serialize');
 import values = require('../../../../../../base/values');
 
+/**
+ * @constructor Twilio.Api.V2010.AccountContext.UsageContext.RecordContext.ThisMonthList
+ * @description Initialize the ThisMonthList
+ *
+ * @param version - Version of the resource
+ * @param accountSid - A 34 character string that uniquely identifies this resource.
+ */
+declare function ThisMonthList(version: V2010, accountSid: string): ThisMonthListInstance;
 
 
 declare class ThisMonthPage extends Page {
@@ -36,6 +44,7 @@ declare class ThisMonthPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class ThisMonthInstance {
   /**

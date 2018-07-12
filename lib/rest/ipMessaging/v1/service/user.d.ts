@@ -11,6 +11,14 @@ import deserialize = require('../../../../base/deserialize');
 import values = require('../../../../base/values');
 import { UserChannelList } from './user/userChannel';
 
+/**
+ * @constructor Twilio.IpMessaging.V1.ServiceContext.UserList
+ * @description Initialize the UserList
+ *
+ * @param version - Version of the resource
+ * @param serviceSid - The unique id of the Service this user belongs to.
+ */
+declare function UserList(version: V1, serviceSid: string): UserListInstance;
 
 /**
  * Options to pass to update
@@ -62,6 +70,7 @@ declare class UserPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class UserInstance {
   /**
@@ -140,6 +149,7 @@ declare class UserInstance {
    */
   userChannels();
 }
+
 
 declare class UserContext {
   /**

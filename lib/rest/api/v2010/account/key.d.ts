@@ -10,6 +10,14 @@ import V2010 = require('../../V2010');
 import deserialize = require('../../../../base/deserialize');
 import values = require('../../../../base/values');
 
+/**
+ * @constructor Twilio.Api.V2010.AccountContext.KeyList
+ * @description Initialize the KeyList
+ *
+ * @param version - Version of the resource
+ * @param accountSid - A 34 character string that uniquely identifies this resource.
+ */
+declare function KeyList(version: V2010, accountSid: string): KeyListInstance;
 
 /**
  * Options to pass to update
@@ -53,6 +61,7 @@ declare class KeyPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class KeyInstance {
   /**
@@ -113,6 +122,7 @@ declare class KeyInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class KeyContext {
   /**

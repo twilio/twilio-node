@@ -10,6 +10,15 @@ import Page = require('../../../../base/Page');
 import deserialize = require('../../../../base/deserialize');
 import values = require('../../../../base/values');
 
+/**
+ * @constructor Twilio.Preview.DeployedDevices.FleetContext.KeyList
+ * @description Initialize the KeyList
+ * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ *
+ * @param version - Version of the resource
+ * @param fleetSid - The unique identifier of the Fleet.
+ */
+declare function KeyList(version: DeployedDevices, fleetSid: string): KeyListInstance;
 
 /**
  * Options to pass to update
@@ -58,6 +67,7 @@ declare class KeyPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class KeyInstance {
   /**
@@ -124,6 +134,7 @@ declare class KeyInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class KeyContext {
   /**

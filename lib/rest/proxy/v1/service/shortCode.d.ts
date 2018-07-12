@@ -10,6 +10,15 @@ import V1 = require('../../V1');
 import deserialize = require('../../../../base/deserialize');
 import values = require('../../../../base/values');
 
+/**
+ * @constructor Twilio.Proxy.V1.ServiceContext.ShortCodeList
+ * @description Initialize the ShortCodeList
+ * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ *
+ * @param version - Version of the resource
+ * @param serviceSid - Service Sid.
+ */
+declare function ShortCodeList(version: V1, serviceSid: string): ShortCodeListInstance;
 
 
 declare class ShortCodePage extends Page {
@@ -36,6 +45,7 @@ declare class ShortCodePage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class ShortCodeInstance {
   /**
@@ -91,6 +101,7 @@ declare class ShortCodeInstance {
    */
   toJSON();
 }
+
 
 declare class ShortCodeContext {
   /**

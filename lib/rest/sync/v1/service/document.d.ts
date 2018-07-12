@@ -12,6 +12,15 @@ import serialize = require('../../../../base/serialize');
 import values = require('../../../../base/values');
 import { DocumentPermissionList } from './document/documentPermission';
 
+/**
+ * @constructor Twilio.Sync.V1.ServiceContext.DocumentList
+ * @description Initialize the DocumentList
+ * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ *
+ * @param version - Version of the resource
+ * @param serviceSid - The unique SID identifier of the Service Instance that hosts this Document.
+ */
+declare function DocumentList(version: V1, serviceSid: string): DocumentListInstance;
 
 /**
  * Options to pass to update
@@ -60,6 +69,7 @@ declare class DocumentPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class DocumentInstance {
   /**
@@ -137,6 +147,7 @@ declare class DocumentInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class DocumentContext {
   /**

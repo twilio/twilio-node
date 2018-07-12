@@ -10,6 +10,15 @@ import Page = require('../../../../base/Page');
 import deserialize = require('../../../../base/deserialize');
 import values = require('../../../../base/values');
 
+/**
+ * @constructor Twilio.Preview.DeployedDevices.FleetContext.DeploymentList
+ * @description Initialize the DeploymentList
+ * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ *
+ * @param version - Version of the resource
+ * @param fleetSid - The unique identifier of the Fleet.
+ */
+declare function DeploymentList(version: DeployedDevices, fleetSid: string): DeploymentListInstance;
 
 /**
  * Options to pass to update
@@ -58,6 +67,7 @@ declare class DeploymentPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class DeploymentInstance {
   /**
@@ -123,6 +133,7 @@ declare class DeploymentInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class DeploymentContext {
   /**

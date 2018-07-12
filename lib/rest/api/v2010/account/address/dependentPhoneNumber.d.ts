@@ -10,6 +10,15 @@ import V2010 = require('../../../V2010');
 import deserialize = require('../../../../../base/deserialize');
 import values = require('../../../../../base/values');
 
+/**
+ * @constructor Twilio.Api.V2010.AccountContext.AddressContext.DependentPhoneNumberList
+ * @description Initialize the DependentPhoneNumberList
+ *
+ * @param version - Version of the resource
+ * @param accountSid - The account_sid
+ * @param addressSid - A 34 character string that uniquely identifies this address.
+ */
+declare function DependentPhoneNumberList(version: V2010, accountSid: string, addressSid: string): DependentPhoneNumberListInstance;
 
 
 declare class DependentPhoneNumberPage extends Page {
@@ -35,6 +44,7 @@ declare class DependentPhoneNumberPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class DependentPhoneNumberInstance {
   /**

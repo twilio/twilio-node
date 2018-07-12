@@ -11,6 +11,14 @@ import deserialize = require('../../../../base/deserialize');
 import serialize = require('../../../../base/serialize');
 import values = require('../../../../base/values');
 
+/**
+ * @constructor Twilio.Api.V2010.AccountContext.ApplicationList
+ * @description Initialize the ApplicationList
+ *
+ * @param version - Version of the resource
+ * @param accountSid - A string that uniquely identifies this resource
+ */
+declare function ApplicationList(version: V2010, accountSid: string): ApplicationListInstance;
 
 /**
  * Options to pass to update
@@ -111,6 +119,7 @@ declare class ApplicationPage extends Page {
   getInstance(payload: object);
 }
 
+
 declare class ApplicationInstance {
   /**
    * @constructor Twilio.Api.V2010.AccountContext.ApplicationInstance
@@ -186,6 +195,7 @@ declare class ApplicationInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class ApplicationContext {
   /**

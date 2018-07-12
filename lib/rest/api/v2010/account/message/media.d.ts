@@ -11,6 +11,15 @@ import deserialize = require('../../../../../base/deserialize');
 import serialize = require('../../../../../base/serialize');
 import values = require('../../../../../base/values');
 
+/**
+ * @constructor Twilio.Api.V2010.AccountContext.MessageContext.MediaList
+ * @description Initialize the MediaList
+ *
+ * @param version - Version of the resource
+ * @param accountSid - The unique sid that identifies this account
+ * @param messageSid - A string that uniquely identifies this message
+ */
+declare function MediaList(version: V2010, accountSid: string, messageSid: string): MediaListInstance;
 
 
 declare class MediaPage extends Page {
@@ -36,6 +45,7 @@ declare class MediaPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class MediaInstance {
   /**
@@ -89,6 +99,7 @@ declare class MediaInstance {
    */
   toJSON();
 }
+
 
 declare class MediaContext {
   /**

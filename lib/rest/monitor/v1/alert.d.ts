@@ -11,6 +11,13 @@ import deserialize = require('../../../base/deserialize');
 import serialize = require('../../../base/serialize');
 import values = require('../../../base/values');
 
+/**
+ * @constructor Twilio.Monitor.V1.AlertList
+ * @description Initialize the AlertList
+ *
+ * @param version - Version of the resource
+ */
+declare function AlertList(version: V1): AlertListInstance;
 
 
 declare class AlertPage extends Page {
@@ -36,6 +43,7 @@ declare class AlertPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class AlertInstance {
   /**
@@ -97,6 +105,7 @@ declare class AlertInstance {
    */
   toJSON();
 }
+
 
 declare class AlertContext {
   /**

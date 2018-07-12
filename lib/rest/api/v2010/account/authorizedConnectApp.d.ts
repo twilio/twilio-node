@@ -10,6 +10,14 @@ import V2010 = require('../../V2010');
 import deserialize = require('../../../../base/deserialize');
 import values = require('../../../../base/values');
 
+/**
+ * @constructor Twilio.Api.V2010.AccountContext.AuthorizedConnectAppList
+ * @description Initialize the AuthorizedConnectAppList
+ *
+ * @param version - Version of the resource
+ * @param accountSid - The unique sid that identifies this account
+ */
+declare function AuthorizedConnectAppList(version: V2010, accountSid: string): AuthorizedConnectAppListInstance;
 
 
 declare class AuthorizedConnectAppPage extends Page {
@@ -35,6 +43,7 @@ declare class AuthorizedConnectAppPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class AuthorizedConnectAppInstance {
   /**
@@ -80,6 +89,7 @@ declare class AuthorizedConnectAppInstance {
    */
   toJSON();
 }
+
 
 declare class AuthorizedConnectAppContext {
   /**

@@ -15,6 +15,13 @@ import { IpAccessControlListList } from './trunk/ipAccessControlList';
 import { OriginationUrlList } from './trunk/originationUrl';
 import { PhoneNumberList } from './trunk/phoneNumber';
 
+/**
+ * @constructor Twilio.Trunking.V1.TrunkList
+ * @description Initialize the TrunkList
+ *
+ * @param version - Version of the resource
+ */
+declare function TrunkList(version: V1): TrunkListInstance;
 
 /**
  * Options to pass to update
@@ -82,6 +89,7 @@ declare class TrunkPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class TrunkInstance {
   /**
@@ -184,6 +192,7 @@ declare class TrunkInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class TrunkContext {
   /**

@@ -10,6 +10,15 @@ import Page = require('../../../../base/Page');
 import deserialize = require('../../../../base/deserialize');
 import values = require('../../../../base/values');
 
+/**
+ * @constructor Twilio.Preview.AccSecurity.ServiceContext.VerificationList
+ * @description Initialize the VerificationList
+ * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ *
+ * @param version - Version of the resource
+ * @param serviceSid - Service Sid.
+ */
+declare function VerificationList(version: AccSecurity, serviceSid: string): VerificationListInstance;
 
 
 declare class VerificationPage extends Page {
@@ -36,6 +45,7 @@ declare class VerificationPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class VerificationInstance {
   /**

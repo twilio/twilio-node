@@ -11,6 +11,14 @@ import deserialize = require('../../../base/deserialize');
 import serialize = require('../../../base/serialize');
 import values = require('../../../base/values');
 
+/**
+ * @constructor Twilio.Preview.Wireless.RatePlanList
+ * @description Initialize the RatePlanList
+ * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ *
+ * @param version - Version of the resource
+ */
+declare function RatePlanList(version: Wireless): RatePlanListInstance;
 
 /**
  * Options to pass to update
@@ -59,6 +67,7 @@ declare class RatePlanPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class RatePlanInstance {
   /**
@@ -129,6 +138,7 @@ declare class RatePlanInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class RatePlanContext {
   /**

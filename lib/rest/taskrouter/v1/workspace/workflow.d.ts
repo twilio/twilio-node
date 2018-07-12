@@ -13,6 +13,14 @@ import { WorkflowCumulativeStatisticsList } from './workflow/workflowCumulativeS
 import { WorkflowRealTimeStatisticsList } from './workflow/workflowRealTimeStatistics';
 import { WorkflowStatisticsList } from './workflow/workflowStatistics';
 
+/**
+ * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkflowList
+ * @description Initialize the WorkflowList
+ *
+ * @param version - Version of the resource
+ * @param workspaceSid - The ID of the Workspace that contains this Workflow
+ */
+declare function WorkflowList(version: V1, workspaceSid: string): WorkflowListInstance;
 
 /**
  * Options to pass to update
@@ -72,6 +80,7 @@ declare class WorkflowPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class WorkflowInstance {
   /**
@@ -165,6 +174,7 @@ declare class WorkflowInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class WorkflowContext {
   /**

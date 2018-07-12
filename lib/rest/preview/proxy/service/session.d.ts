@@ -13,6 +13,15 @@ import values = require('../../../../base/values');
 import { InteractionList } from './session/interaction';
 import { ParticipantList } from './session/participant';
 
+/**
+ * @constructor Twilio.Preview.Proxy.ServiceContext.SessionList
+ * @description Initialize the SessionList
+ * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ *
+ * @param version - Version of the resource
+ * @param serviceSid - Service Sid.
+ */
+declare function SessionList(version: Proxy, serviceSid: string): SessionListInstance;
 
 /**
  * Options to pass to update
@@ -69,6 +78,7 @@ declare class SessionPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class SessionInstance {
   /**
@@ -154,6 +164,7 @@ declare class SessionInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class SessionContext {
   /**

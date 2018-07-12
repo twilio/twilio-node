@@ -10,6 +10,15 @@ import V1 = require('../../../V1');
 import deserialize = require('../../../../../base/deserialize');
 import values = require('../../../../../base/values');
 
+/**
+ * @constructor Twilio.Chat.V1.ServiceContext.UserContext.UserChannelList
+ * @description Initialize the UserChannelList
+ *
+ * @param version - Version of the resource
+ * @param serviceSid - The service_sid
+ * @param userSid - A 34 character string that uniquely identifies this resource.
+ */
+declare function UserChannelList(version: V1, serviceSid: string, userSid: string): UserChannelListInstance;
 
 
 declare class UserChannelPage extends Page {
@@ -35,6 +44,7 @@ declare class UserChannelPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class UserChannelInstance {
   /**

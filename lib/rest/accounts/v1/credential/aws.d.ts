@@ -10,6 +10,13 @@ import V1 = require('../../V1');
 import deserialize = require('../../../../base/deserialize');
 import values = require('../../../../base/values');
 
+/**
+ * @constructor Twilio.Accounts.V1.CredentialContext.AwsList
+ * @description Initialize the AwsList
+ *
+ * @param version - Version of the resource
+ */
+declare function AwsList(version: V1): AwsListInstance;
 
 /**
  * Options to pass to update
@@ -53,6 +60,7 @@ declare class AwsPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class AwsInstance {
   /**
@@ -114,6 +122,7 @@ declare class AwsInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class AwsContext {
   /**

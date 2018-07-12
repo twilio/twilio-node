@@ -9,6 +9,16 @@ import Page = require('../../../../../base/Page');
 import V1 = require('../../../V1');
 import values = require('../../../../../base/values');
 
+/**
+ * @constructor Twilio.Notify.V1.ServiceContext.UserContext.SegmentMembershipList
+ * @description Initialize the SegmentMembershipList
+ * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ *
+ * @param version - Version of the resource
+ * @param serviceSid - The service_sid
+ * @param identity - The identity
+ */
+declare function SegmentMembershipList(version: V1, serviceSid: string, identity: string): SegmentMembershipListInstance;
 
 
 declare class SegmentMembershipPage extends Page {
@@ -35,6 +45,7 @@ declare class SegmentMembershipPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class SegmentMembershipInstance {
   /**
@@ -87,6 +98,7 @@ declare class SegmentMembershipInstance {
    */
   toJSON();
 }
+
 
 declare class SegmentMembershipContext {
   /**

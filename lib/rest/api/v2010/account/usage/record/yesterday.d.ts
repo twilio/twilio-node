@@ -11,6 +11,14 @@ import deserialize = require('../../../../../../base/deserialize');
 import serialize = require('../../../../../../base/serialize');
 import values = require('../../../../../../base/values');
 
+/**
+ * @constructor Twilio.Api.V2010.AccountContext.UsageContext.RecordContext.YesterdayList
+ * @description Initialize the YesterdayList
+ *
+ * @param version - Version of the resource
+ * @param accountSid - A 34 character string that uniquely identifies this resource.
+ */
+declare function YesterdayList(version: V2010, accountSid: string): YesterdayListInstance;
 
 
 declare class YesterdayPage extends Page {
@@ -36,6 +44,7 @@ declare class YesterdayPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class YesterdayInstance {
   /**

@@ -12,6 +12,15 @@ import values = require('../../../../base/values');
 import { SyncListItemList } from './syncList/syncListItem';
 import { SyncListPermissionList } from './syncList/syncListPermission';
 
+/**
+ * @constructor Twilio.Sync.V1.ServiceContext.SyncListList
+ * @description Initialize the SyncListList
+ * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ *
+ * @param version - Version of the resource
+ * @param serviceSid - The unique SID identifier of the Service Instance that hosts this List object.
+ */
+declare function SyncListList(version: V1, serviceSid: string): SyncListListInstance;
 
 /**
  * Options to pass to update
@@ -56,6 +65,7 @@ declare class SyncListPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class SyncListInstance {
   /**
@@ -140,6 +150,7 @@ declare class SyncListInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class SyncListContext {
   /**

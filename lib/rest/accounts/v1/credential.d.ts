@@ -7,6 +7,12 @@
 
 import V1 = require('../V1');
 
-
+/**
+ * @constructor Twilio.Accounts.V1.CredentialList
+ * @description Initialize the CredentialList
+ *
+ * @param version - Version of the resource
+ */
+declare function CredentialList(version: V1): CredentialListInstance;
 
 export = CredentialList;

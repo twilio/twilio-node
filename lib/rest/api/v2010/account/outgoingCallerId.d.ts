@@ -10,6 +10,14 @@ import V2010 = require('../../V2010');
 import deserialize = require('../../../../base/deserialize');
 import values = require('../../../../base/values');
 
+/**
+ * @constructor Twilio.Api.V2010.AccountContext.OutgoingCallerIdList
+ * @description Initialize the OutgoingCallerIdList
+ *
+ * @param version - Version of the resource
+ * @param accountSid - The unique sid that identifies this account
+ */
+declare function OutgoingCallerIdList(version: V2010, accountSid: string): OutgoingCallerIdListInstance;
 
 /**
  * Options to pass to update
@@ -53,6 +61,7 @@ declare class OutgoingCallerIdPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class OutgoingCallerIdInstance {
   /**
@@ -116,6 +125,7 @@ declare class OutgoingCallerIdInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class OutgoingCallerIdContext {
   /**

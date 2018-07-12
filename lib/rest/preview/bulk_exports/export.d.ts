@@ -10,6 +10,14 @@ import Page = require('../../../base/Page');
 import values = require('../../../base/values');
 import { DayList } from './export/day';
 
+/**
+ * @constructor Twilio.Preview.BulkExports.ExportList
+ * @description Initialize the ExportList
+ * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ *
+ * @param version - Version of the resource
+ */
+declare function ExportList(version: BulkExports): ExportListInstance;
 
 
 declare class ExportPage extends Page {
@@ -36,6 +44,7 @@ declare class ExportPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class ExportInstance {
   /**
@@ -82,6 +91,7 @@ declare class ExportInstance {
    */
   toJSON();
 }
+
 
 declare class ExportContext {
   /**

@@ -10,6 +10,14 @@ import V2010 = require('../../../V2010');
 import deserialize = require('../../../../../base/deserialize');
 import values = require('../../../../../base/values');
 
+/**
+ * @constructor Twilio.Api.V2010.AccountContext.UsageContext.TriggerList
+ * @description Initialize the TriggerList
+ *
+ * @param version - Version of the resource
+ * @param accountSid - A 34 character string that uniquely identifies this resource.
+ */
+declare function TriggerList(version: V2010, accountSid: string): TriggerListInstance;
 
 /**
  * Options to pass to update
@@ -61,6 +69,7 @@ declare class TriggerPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class TriggerInstance {
   /**
@@ -133,6 +142,7 @@ declare class TriggerInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class TriggerContext {
   /**

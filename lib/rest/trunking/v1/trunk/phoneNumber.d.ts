@@ -10,6 +10,14 @@ import V1 = require('../../V1');
 import deserialize = require('../../../../base/deserialize');
 import values = require('../../../../base/values');
 
+/**
+ * @constructor Twilio.Trunking.V1.TrunkContext.PhoneNumberList
+ * @description Initialize the PhoneNumberList
+ *
+ * @param version - Version of the resource
+ * @param trunkSid - The trunk_sid
+ */
+declare function PhoneNumberList(version: V1, trunkSid: string): PhoneNumberListInstance;
 
 
 declare class PhoneNumberPage extends Page {
@@ -35,6 +43,7 @@ declare class PhoneNumberPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class PhoneNumberInstance {
   /**
@@ -106,6 +115,7 @@ declare class PhoneNumberInstance {
    */
   toJSON();
 }
+
 
 declare class PhoneNumberContext {
   /**

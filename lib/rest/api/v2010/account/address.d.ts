@@ -12,6 +12,14 @@ import serialize = require('../../../../base/serialize');
 import values = require('../../../../base/values');
 import { DependentPhoneNumberList } from './address/dependentPhoneNumber';
 
+/**
+ * @constructor Twilio.Api.V2010.AccountContext.AddressList
+ * @description Initialize the AddressList
+ *
+ * @param version - Version of the resource
+ * @param accountSid - The unique id of the Account responsible for this address.
+ */
+declare function AddressList(version: V2010, accountSid: string): AddressListInstance;
 
 /**
  * Options to pass to update
@@ -83,6 +91,7 @@ declare class AddressPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class AddressInstance {
   /**
@@ -161,6 +170,7 @@ declare class AddressInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class AddressContext {
   /**

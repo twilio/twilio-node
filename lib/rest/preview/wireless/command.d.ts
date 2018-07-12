@@ -10,6 +10,14 @@ import Wireless = require('../Wireless');
 import deserialize = require('../../../base/deserialize');
 import values = require('../../../base/values');
 
+/**
+ * @constructor Twilio.Preview.Wireless.CommandList
+ * @description Initialize the CommandList
+ * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ *
+ * @param version - Version of the resource
+ */
+declare function CommandList(version: Wireless): CommandListInstance;
 
 
 declare class CommandPage extends Page {
@@ -36,6 +44,7 @@ declare class CommandPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class CommandInstance {
   /**
@@ -82,6 +91,7 @@ declare class CommandInstance {
    */
   toJSON();
 }
+
 
 declare class CommandContext {
   /**

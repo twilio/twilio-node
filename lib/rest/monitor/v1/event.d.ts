@@ -11,6 +11,13 @@ import deserialize = require('../../../base/deserialize');
 import serialize = require('../../../base/serialize');
 import values = require('../../../base/values');
 
+/**
+ * @constructor Twilio.Monitor.V1.EventList
+ * @description Initialize the EventList
+ *
+ * @param version - Version of the resource
+ */
+declare function EventList(version: V1): EventListInstance;
 
 
 declare class EventPage extends Page {
@@ -36,6 +43,7 @@ declare class EventPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class EventInstance {
   /**
@@ -84,6 +92,7 @@ declare class EventInstance {
    */
   toJSON();
 }
+
 
 declare class EventContext {
   /**

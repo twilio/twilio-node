@@ -11,6 +11,14 @@ import deserialize = require('../../../base/deserialize');
 import serialize = require('../../../base/serialize');
 import values = require('../../../base/values');
 
+/**
+ * @constructor Twilio.Preview.HostedNumbers.HostedNumberOrderList
+ * @description Initialize the HostedNumberOrderList
+ * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ *
+ * @param version - Version of the resource
+ */
+declare function HostedNumberOrderList(version: HostedNumbers): HostedNumberOrderListInstance;
 
 /**
  * Options to pass to update
@@ -92,6 +100,7 @@ declare class HostedNumberOrderPage extends Page {
   getInstance(payload: object);
 }
 
+
 declare class HostedNumberOrderInstance {
   /**
    * @constructor Twilio.Preview.HostedNumbers.HostedNumberOrderInstance
@@ -170,6 +179,7 @@ declare class HostedNumberOrderInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class HostedNumberOrderContext {
   /**

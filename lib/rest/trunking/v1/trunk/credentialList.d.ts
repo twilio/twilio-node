@@ -10,6 +10,14 @@ import V1 = require('../../V1');
 import deserialize = require('../../../../base/deserialize');
 import values = require('../../../../base/values');
 
+/**
+ * @constructor Twilio.Trunking.V1.TrunkContext.CredentialListList
+ * @description Initialize the CredentialListList
+ *
+ * @param version - Version of the resource
+ * @param trunkSid - The trunk_sid
+ */
+declare function CredentialListList(version: V1, trunkSid: string): CredentialListListInstance;
 
 
 declare class CredentialListPage extends Page {
@@ -35,6 +43,7 @@ declare class CredentialListPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class CredentialListInstance {
   /**
@@ -87,6 +96,7 @@ declare class CredentialListInstance {
    */
   toJSON();
 }
+
 
 declare class CredentialListContext {
   /**

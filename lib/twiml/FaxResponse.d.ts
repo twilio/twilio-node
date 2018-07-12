@@ -36,7 +36,6 @@ declare namespace FaxResponse {
     action?: string;
     method?: string;
   }
-
-
 }
+
 export = FaxResponse;

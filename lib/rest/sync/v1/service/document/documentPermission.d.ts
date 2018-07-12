@@ -10,6 +10,16 @@ import V1 = require('../../../V1');
 import serialize = require('../../../../../base/serialize');
 import values = require('../../../../../base/values');
 
+/**
+ * @constructor Twilio.Sync.V1.ServiceContext.DocumentContext.DocumentPermissionList
+ * @description Initialize the DocumentPermissionList
+ * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ *
+ * @param version - Version of the resource
+ * @param serviceSid - Sync Service Instance SID.
+ * @param documentSid - Sync Document SID.
+ */
+declare function DocumentPermissionList(version: V1, serviceSid: string, documentSid: string): DocumentPermissionListInstance;
 
 /**
  * Options to pass to update
@@ -62,6 +72,7 @@ declare class DocumentPermissionPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class DocumentPermissionInstance {
   /**
@@ -128,6 +139,7 @@ declare class DocumentPermissionInstance {
    */
   update(opts: object, callback?: function);
 }
+
 
 declare class DocumentPermissionContext {
   /**

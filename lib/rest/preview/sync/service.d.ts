@@ -14,6 +14,14 @@ import { DocumentList } from './service/document';
 import { SyncListList } from './service/syncList';
 import { SyncMapList } from './service/syncMap';
 
+/**
+ * @constructor Twilio.Preview.Sync.ServiceList
+ * @description Initialize the ServiceList
+ * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ *
+ * @param version - Version of the resource
+ */
+declare function ServiceList(version: Sync): ServiceListInstance;
 
 /**
  * Options to pass to update
@@ -70,6 +78,7 @@ declare class ServicePage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class ServiceInstance {
   /**
@@ -160,6 +169,7 @@ declare class ServiceInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class ServiceContext {
   /**

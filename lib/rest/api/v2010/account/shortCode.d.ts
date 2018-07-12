@@ -10,6 +10,14 @@ import V2010 = require('../../V2010');
 import deserialize = require('../../../../base/deserialize');
 import values = require('../../../../base/values');
 
+/**
+ * @constructor Twilio.Api.V2010.AccountContext.ShortCodeList
+ * @description Initialize the ShortCodeList
+ *
+ * @param version - Version of the resource
+ * @param accountSid - The unique sid that identifies this account
+ */
+declare function ShortCodeList(version: V2010, accountSid: string): ShortCodeListInstance;
 
 /**
  * Options to pass to update
@@ -74,6 +82,7 @@ declare class ShortCodePage extends Page {
   getInstance(payload: object);
 }
 
+
 declare class ShortCodeInstance {
   /**
    * @constructor Twilio.Api.V2010.AccountContext.ShortCodeInstance
@@ -131,6 +140,7 @@ declare class ShortCodeInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class ShortCodeContext {
   /**

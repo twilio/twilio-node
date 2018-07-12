@@ -11,6 +11,15 @@ import deserialize = require('../../../../../base/deserialize');
 import serialize = require('../../../../../base/serialize');
 import values = require('../../../../../base/values');
 
+/**
+ * @constructor Twilio.IpMessaging.V2.ServiceContext.ChannelContext.MemberList
+ * @description Initialize the MemberList
+ *
+ * @param version - Version of the resource
+ * @param serviceSid - The unique id of the Service this member belongs to.
+ * @param channelSid - The unique id of the Channel for this member.
+ */
+declare function MemberList(version: V2, serviceSid: string, channelSid: string): MemberListInstance;
 
 /**
  * Options to pass to update
@@ -70,6 +79,7 @@ declare class MemberPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class MemberInstance {
   /**
@@ -138,6 +148,7 @@ declare class MemberInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class MemberContext {
   /**

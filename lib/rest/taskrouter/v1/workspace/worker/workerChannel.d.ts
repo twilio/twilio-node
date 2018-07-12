@@ -11,6 +11,15 @@ import deserialize = require('../../../../../base/deserialize');
 import serialize = require('../../../../../base/serialize');
 import values = require('../../../../../base/values');
 
+/**
+ * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkerChannelList
+ * @description Initialize the WorkerChannelList
+ *
+ * @param version - Version of the resource
+ * @param workspaceSid - The unique ID of the Workspace that this WorkerChannel belongs to.
+ * @param workerSid - The unique ID of the Worker that this WorkerChannel belongs to.
+ */
+declare function WorkerChannelList(version: V1, workspaceSid: string, workerSid: string): WorkerChannelListInstance;
 
 /**
  * Options to pass to update
@@ -58,6 +67,7 @@ declare class WorkerChannelPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class WorkerChannelInstance {
   /**
@@ -118,6 +128,7 @@ declare class WorkerChannelInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class WorkerChannelContext {
   /**

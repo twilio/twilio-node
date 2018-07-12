@@ -13,6 +13,15 @@ import values = require('../../../../base/values');
 import { SegmentMembershipList } from './user/segmentMemberships';
 import { UserBindingList } from './user/userBinding';
 
+/**
+ * @constructor Twilio.Notify.V1.ServiceContext.UserList
+ * @description Initialize the UserList
+ * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ *
+ * @param version - Version of the resource
+ * @param serviceSid - The service_sid
+ */
+declare function UserList(version: V1, serviceSid: string): UserListInstance;
 
 
 declare class UserPage extends Page {
@@ -39,6 +48,7 @@ declare class UserPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class UserInstance {
   /**
@@ -110,6 +120,7 @@ declare class UserInstance {
    */
   toJSON();
 }
+
 
 declare class UserContext {
   /**

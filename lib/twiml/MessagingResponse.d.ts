@@ -78,8 +78,6 @@ declare namespace MessagingResponse {
      */
     media(attributes: MessagingResponse.MediaAttributes, url: string): void;
   }
-
-
-
 }
+
 export = MessagingResponse;

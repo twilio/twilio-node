@@ -11,6 +11,14 @@ import deserialize = require('../../../../base/deserialize');
 import serialize = require('../../../../base/serialize');
 import values = require('../../../../base/values');
 
+/**
+ * @constructor Twilio.Video.V1.RoomContext.RoomRecordingList
+ * @description Initialize the RoomRecordingList
+ *
+ * @param version - Version of the resource
+ * @param roomSid - The room_sid
+ */
+declare function RoomRecordingList(version: V1, roomSid: string): RoomRecordingListInstance;
 
 
 declare class RoomRecordingPage extends Page {
@@ -36,6 +44,7 @@ declare class RoomRecordingPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class RoomRecordingInstance {
   /**
@@ -86,6 +95,7 @@ declare class RoomRecordingInstance {
    */
   toJSON();
 }
+
 
 declare class RoomRecordingContext {
   /**

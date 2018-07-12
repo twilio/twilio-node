@@ -13,6 +13,14 @@ import values = require('../../../../base/values');
 import { AddOnResultList } from './recording/addOnResult';
 import { TranscriptionList } from './recording/transcription';
 
+/**
+ * @constructor Twilio.Api.V2010.AccountContext.RecordingList
+ * @description Initialize the RecordingList
+ *
+ * @param version - Version of the resource
+ * @param accountSid - The unique sid that identifies this account
+ */
+declare function RecordingList(version: V2010, accountSid: string): RecordingListInstance;
 
 
 declare class RecordingPage extends Page {
@@ -38,6 +46,7 @@ declare class RecordingPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class RecordingInstance {
   /**
@@ -117,6 +126,7 @@ declare class RecordingInstance {
    */
   transcriptions();
 }
+
 
 declare class RecordingContext {
   /**

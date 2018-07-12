@@ -11,6 +11,14 @@ import deserialize = require('../../../../../base/deserialize');
 import values = require('../../../../../base/values');
 import { IpAddressList } from './ipAccessControlList/ipAddress';
 
+/**
+ * @constructor Twilio.Api.V2010.AccountContext.SipContext.IpAccessControlListList
+ * @description Initialize the IpAccessControlListList
+ *
+ * @param version - Version of the resource
+ * @param accountSid - A 34 character string that uniquely identifies this resource.
+ */
+declare function IpAccessControlListList(version: V2010, accountSid: string): IpAccessControlListListInstance;
 
 /**
  * Options to pass to update
@@ -54,6 +62,7 @@ declare class IpAccessControlListPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class IpAccessControlListInstance {
   /**
@@ -125,6 +134,7 @@ declare class IpAccessControlListInstance {
    */
   update(opts: object, callback?: function);
 }
+
 
 declare class IpAccessControlListContext {
   /**

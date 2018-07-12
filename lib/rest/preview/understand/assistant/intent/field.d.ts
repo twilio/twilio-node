@@ -10,6 +10,16 @@ import Understand = require('../../../Understand');
 import deserialize = require('../../../../../base/deserialize');
 import values = require('../../../../../base/values');
 
+/**
+ * @constructor Twilio.Preview.Understand.AssistantContext.IntentContext.FieldList
+ * @description Initialize the FieldList
+ * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ *
+ * @param version - Version of the resource
+ * @param assistantSid - The unique ID of the parent Assistant.
+ * @param intentSid - The unique ID of the Intent associated with this Field.
+ */
+declare function FieldList(version: Understand, assistantSid: string, intentSid: string): FieldListInstance;
 
 
 declare class FieldPage extends Page {
@@ -36,6 +46,7 @@ declare class FieldPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class FieldInstance {
   /**
@@ -92,6 +103,7 @@ declare class FieldInstance {
    */
   toJSON();
 }
+
 
 declare class FieldContext {
   /**

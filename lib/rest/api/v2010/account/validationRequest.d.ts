@@ -10,6 +10,14 @@ import V2010 = require('../../V2010');
 import deserialize = require('../../../../base/deserialize');
 import values = require('../../../../base/values');
 
+/**
+ * @constructor Twilio.Api.V2010.AccountContext.ValidationRequestList
+ * @description Initialize the ValidationRequestList
+ *
+ * @param version - Version of the resource
+ * @param accountSid - The unique ID of the Account responsible for this Caller Id.
+ */
+declare function ValidationRequestList(version: V2010, accountSid: string): ValidationRequestListInstance;
 
 
 declare class ValidationRequestPage extends Page {
@@ -35,6 +43,7 @@ declare class ValidationRequestPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class ValidationRequestInstance {
   /**

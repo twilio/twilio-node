@@ -11,6 +11,15 @@ import deserialize = require('../../../../../base/deserialize');
 import serialize = require('../../../../../base/serialize');
 import values = require('../../../../../base/values');
 
+/**
+ * @constructor Twilio.Api.V2010.AccountContext.CallContext.RecordingList
+ * @description Initialize the RecordingList
+ *
+ * @param version - Version of the resource
+ * @param accountSid - The unique sid that identifies this account
+ * @param callSid - The unique id for the call leg that corresponds to the recording.
+ */
+declare function RecordingList(version: V2010, accountSid: string, callSid: string): RecordingListInstance;
 
 /**
  * Options to pass to update
@@ -54,6 +63,7 @@ declare class RecordingPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class RecordingInstance {
   /**
@@ -128,6 +138,7 @@ declare class RecordingInstance {
    */
   update(opts: object, callback?: function);
 }
+
 
 declare class RecordingContext {
   /**

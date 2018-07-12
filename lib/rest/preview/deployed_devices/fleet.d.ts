@@ -14,6 +14,14 @@ import { DeploymentList } from './fleet/deployment';
 import { DeviceList } from './fleet/device';
 import { KeyList } from './fleet/key';
 
+/**
+ * @constructor Twilio.Preview.DeployedDevices.FleetList
+ * @description Initialize the FleetList
+ * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ *
+ * @param version - Version of the resource
+ */
+declare function FleetList(version: DeployedDevices): FleetListInstance;
 
 /**
  * Options to pass to update
@@ -62,6 +70,7 @@ declare class FleetPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class FleetInstance {
   /**
@@ -159,6 +168,7 @@ declare class FleetInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class FleetContext {
   /**

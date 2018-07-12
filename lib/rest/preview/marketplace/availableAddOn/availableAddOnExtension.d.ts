@@ -9,6 +9,15 @@ import Marketplace = require('../../Marketplace');
 import Page = require('../../../../base/Page');
 import values = require('../../../../base/values');
 
+/**
+ * @constructor Twilio.Preview.Marketplace.AvailableAddOnContext.AvailableAddOnExtensionList
+ * @description Initialize the AvailableAddOnExtensionList
+ * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ *
+ * @param version - Version of the resource
+ * @param availableAddOnSid - The available_add_on_sid
+ */
+declare function AvailableAddOnExtensionList(version: Marketplace, availableAddOnSid: string): AvailableAddOnExtensionListInstance;
 
 
 declare class AvailableAddOnExtensionPage extends Page {
@@ -35,6 +44,7 @@ declare class AvailableAddOnExtensionPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class AvailableAddOnExtensionInstance {
   /**
@@ -77,6 +87,7 @@ declare class AvailableAddOnExtensionInstance {
    */
   toJSON();
 }
+
 
 declare class AvailableAddOnExtensionContext {
   /**

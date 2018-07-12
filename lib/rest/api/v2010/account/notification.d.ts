@@ -11,6 +11,14 @@ import deserialize = require('../../../../base/deserialize');
 import serialize = require('../../../../base/serialize');
 import values = require('../../../../base/values');
 
+/**
+ * @constructor Twilio.Api.V2010.AccountContext.NotificationList
+ * @description Initialize the NotificationList
+ *
+ * @param version - Version of the resource
+ * @param accountSid - The unique sid that identifies this account
+ */
+declare function NotificationList(version: V2010, accountSid: string): NotificationListInstance;
 
 
 declare class NotificationPage extends Page {
@@ -36,6 +44,7 @@ declare class NotificationPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class NotificationInstance {
   /**
@@ -98,6 +107,7 @@ declare class NotificationInstance {
    */
   toJSON();
 }
+
 
 declare class NotificationContext {
   /**

@@ -11,6 +11,15 @@ import deserialize = require('../../../../../base/deserialize');
 import serialize = require('../../../../../base/serialize');
 import values = require('../../../../../base/values');
 
+/**
+ * @constructor Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueueCumulativeStatisticsList
+ * @description Initialize the TaskQueueCumulativeStatisticsList
+ *
+ * @param version - Version of the resource
+ * @param workspaceSid - The workspace_sid
+ * @param taskQueueSid - The task_queue_sid
+ */
+declare function TaskQueueCumulativeStatisticsList(version: V1, workspaceSid: string, taskQueueSid: string): TaskQueueCumulativeStatisticsListInstance;
 
 /**
  * Options to pass to fetch
@@ -71,6 +80,7 @@ declare class TaskQueueCumulativeStatisticsPage extends Page {
   getInstance(payload: object);
 }
 
+
 declare class TaskQueueCumulativeStatisticsInstance {
   /**
    * @constructor Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueueCumulativeStatisticsInstance
@@ -127,6 +137,7 @@ declare class TaskQueueCumulativeStatisticsInstance {
    */
   toJSON();
 }
+
 
 declare class TaskQueueCumulativeStatisticsContext {
   /**

@@ -11,6 +11,15 @@ import deserialize = require('../../../../../base/deserialize');
 import serialize = require('../../../../../base/serialize');
 import values = require('../../../../../base/values');
 
+/**
+ * @constructor Twilio.IpMessaging.V2.ServiceContext.ChannelContext.WebhookList
+ * @description Initialize the WebhookList
+ *
+ * @param version - Version of the resource
+ * @param serviceSid - The service_sid
+ * @param channelSid - The channel_sid
+ */
+declare function WebhookList(version: V2, serviceSid: string, channelSid: string): WebhookListInstance;
 
 /**
  * Options to pass to update
@@ -74,6 +83,7 @@ declare class WebhookPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class WebhookInstance {
   /**
@@ -140,6 +150,7 @@ declare class WebhookInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class WebhookContext {
   /**

@@ -13,6 +13,14 @@ import values = require('../../../../base/values');
 import { ParticipantList } from './conference/participant';
 import { RecordingList } from './conference/recording';
 
+/**
+ * @constructor Twilio.Api.V2010.AccountContext.ConferenceList
+ * @description Initialize the ConferenceList
+ *
+ * @param version - Version of the resource
+ * @param accountSid - The unique sid that identifies this account
+ */
+declare function ConferenceList(version: V2010, accountSid: string): ConferenceListInstance;
 
 /**
  * Options to pass to update
@@ -64,6 +72,7 @@ declare class ConferencePage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class ConferenceInstance {
   /**
@@ -136,6 +145,7 @@ declare class ConferenceInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class ConferenceContext {
   /**

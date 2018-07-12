@@ -9,6 +9,13 @@ import Page = require('../../../../base/Page');
 import V1 = require('../../V1');
 import values = require('../../../../base/values');
 
+/**
+ * @constructor Twilio.Pricing.V1.VoiceContext.NumberList
+ * @description Initialize the NumberList
+ *
+ * @param version - Version of the resource
+ */
+declare function NumberList(version: V1): NumberListInstance;
 
 
 declare class NumberPage extends Page {
@@ -34,6 +41,7 @@ declare class NumberPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class NumberInstance {
   /**
@@ -75,6 +83,7 @@ declare class NumberInstance {
    */
   toJSON();
 }
+
 
 declare class NumberContext {
   /**

@@ -11,6 +11,15 @@ import deserialize = require('../../../../../base/deserialize');
 import serialize = require('../../../../../base/serialize');
 import values = require('../../../../../base/values');
 
+/**
+ * @constructor Twilio.Api.V2010.AccountContext.CallContext.FeedbackList
+ * @description Initialize the FeedbackList
+ *
+ * @param version - Version of the resource
+ * @param accountSid - The account_sid
+ * @param callSid - A 34-character string that uniquely identifies the Call resource.
+ */
+declare function FeedbackList(version: V2010, accountSid: string, callSid: string): FeedbackListInstance;
 
 /**
  * Options to pass to create
@@ -81,6 +90,7 @@ declare class FeedbackPage extends Page {
   getInstance(payload: object);
 }
 
+
 declare class FeedbackInstance {
   /**
    * @constructor Twilio.Api.V2010.AccountContext.CallContext.FeedbackInstance
@@ -143,6 +153,7 @@ declare class FeedbackInstance {
    */
   update(opts: object, callback?: function);
 }
+
 
 declare class FeedbackContext {
   /**

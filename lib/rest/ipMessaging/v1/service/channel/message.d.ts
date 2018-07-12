@@ -10,6 +10,15 @@ import V1 = require('../../../V1');
 import deserialize = require('../../../../../base/deserialize');
 import values = require('../../../../../base/values');
 
+/**
+ * @constructor Twilio.IpMessaging.V1.ServiceContext.ChannelContext.MessageList
+ * @description Initialize the MessageList
+ *
+ * @param version - Version of the resource
+ * @param serviceSid - The unique id of the Service this message belongs to.
+ * @param channelSid - The channel_sid
+ */
+declare function MessageList(version: V1, serviceSid: string, channelSid: string): MessageListInstance;
 
 /**
  * Options to pass to update
@@ -57,6 +66,7 @@ declare class MessagePage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class MessageInstance {
   /**
@@ -127,6 +137,7 @@ declare class MessageInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class MessageContext {
   /**

@@ -506,15 +506,6 @@ declare namespace VoiceResponse {
   }
 
 
-
-
-
-
-
-
-
-
-
   class Gather {
 
     /**
@@ -540,8 +531,6 @@ declare namespace VoiceResponse {
   }
 
 
-
-
   class Enqueue {
 
     /**
@@ -552,7 +541,6 @@ declare namespace VoiceResponse {
      */
     task(attributes: VoiceResponse.TaskAttributes, body: string): void;
   }
-
 
 
   class Dial {
@@ -600,12 +588,6 @@ declare namespace VoiceResponse {
      */
     sip(attributes: VoiceResponse.SipAttributes, sipUrl: string): void;
   }
-
-
-
-
-
-
-
 }
+
 export = VoiceResponse;

@@ -11,6 +11,15 @@ import deserialize = require('../../../../../base/deserialize');
 import serialize = require('../../../../../base/serialize');
 import values = require('../../../../../base/values');
 
+/**
+ * @constructor Twilio.Taskrouter.V1.WorkspaceContext.TaskContext.ReservationList
+ * @description Initialize the ReservationList
+ *
+ * @param version - Version of the resource
+ * @param workspaceSid - The ID of the Workspace that this task is contained within.
+ * @param taskSid - The ID of the reserved Task
+ */
+declare function ReservationList(version: V1, workspaceSid: string, taskSid: string): ReservationListInstance;
 
 /**
  * Options to pass to update
@@ -247,6 +256,7 @@ declare class ReservationPage extends Page {
   getInstance(payload: object);
 }
 
+
 declare class ReservationInstance {
   /**
    * @constructor Twilio.Taskrouter.V1.WorkspaceContext.TaskContext.ReservationInstance
@@ -304,6 +314,7 @@ declare class ReservationInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class ReservationContext {
   /**

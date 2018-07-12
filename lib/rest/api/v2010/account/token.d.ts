@@ -10,6 +10,14 @@ import V2010 = require('../../V2010');
 import deserialize = require('../../../../base/deserialize');
 import values = require('../../../../base/values');
 
+/**
+ * @constructor Twilio.Api.V2010.AccountContext.TokenList
+ * @description Initialize the TokenList
+ *
+ * @param version - Version of the resource
+ * @param accountSid - The unique sid that identifies this account
+ */
+declare function TokenList(version: V2010, accountSid: string): TokenListInstance;
 
 
 declare class TokenPage extends Page {
@@ -35,6 +43,7 @@ declare class TokenPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class TokenInstance {
   /**

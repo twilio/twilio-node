@@ -13,6 +13,14 @@ import values = require('../../../../../base/values');
 import { CredentialListMappingList } from './domain/credentialListMapping';
 import { IpAccessControlListMappingList } from './domain/ipAccessControlListMapping';
 
+/**
+ * @constructor Twilio.Api.V2010.AccountContext.SipContext.DomainList
+ * @description Initialize the DomainList
+ *
+ * @param version - Version of the resource
+ * @param accountSid - A 34 character string that uniquely identifies this resource.
+ */
+declare function DomainList(version: V2010, accountSid: string): DomainListInstance;
 
 /**
  * Options to pass to update
@@ -88,6 +96,7 @@ declare class DomainPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class DomainInstance {
   /**
@@ -177,6 +186,7 @@ declare class DomainInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class DomainContext {
   /**

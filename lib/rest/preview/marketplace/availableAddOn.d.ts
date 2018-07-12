@@ -10,6 +10,14 @@ import Page = require('../../../base/Page');
 import values = require('../../../base/values');
 import { AvailableAddOnExtensionList } from './availableAddOn/availableAddOnExtension';
 
+/**
+ * @constructor Twilio.Preview.Marketplace.AvailableAddOnList
+ * @description Initialize the AvailableAddOnList
+ * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ *
+ * @param version - Version of the resource
+ */
+declare function AvailableAddOnList(version: Marketplace): AvailableAddOnListInstance;
 
 
 declare class AvailableAddOnPage extends Page {
@@ -36,6 +44,7 @@ declare class AvailableAddOnPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class AvailableAddOnInstance {
   /**
@@ -86,6 +95,7 @@ declare class AvailableAddOnInstance {
    */
   toJSON();
 }
+
 
 declare class AvailableAddOnContext {
   /**

@@ -11,6 +11,14 @@ import deserialize = require('../../../../../base/deserialize');
 import serialize = require('../../../../../base/serialize');
 import values = require('../../../../../base/values');
 
+/**
+ * @constructor Twilio.Api.V2010.AccountContext.CallContext.FeedbackSummaryList
+ * @description Initialize the FeedbackSummaryList
+ *
+ * @param version - Version of the resource
+ * @param accountSid - The unique id of the Account responsible for creating this Call
+ */
+declare function FeedbackSummaryList(version: V2010, accountSid: string): FeedbackSummaryListInstance;
 
 
 declare class FeedbackSummaryPage extends Page {
@@ -36,6 +44,7 @@ declare class FeedbackSummaryPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class FeedbackSummaryInstance {
   /**
@@ -95,6 +104,7 @@ declare class FeedbackSummaryInstance {
    */
   toJSON();
 }
+
 
 declare class FeedbackSummaryContext {
   /**

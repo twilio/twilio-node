@@ -15,6 +15,14 @@ import { WorkerStatisticsList } from './worker/workerStatistics';
 import { WorkersCumulativeStatisticsList } from './worker/workersCumulativeStatistics';
 import { WorkersRealTimeStatisticsList } from './worker/workersRealTimeStatistics';
 
+/**
+ * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkerList
+ * @description Initialize the WorkerList
+ *
+ * @param version - Version of the resource
+ * @param workspaceSid - The ID of the Workflow this worker is associated with
+ */
+declare function WorkerList(version: V1, workspaceSid: string): WorkerListInstance;
 
 /**
  * Options to pass to update
@@ -66,6 +74,7 @@ declare class WorkerPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class WorkerInstance {
   /**
@@ -175,6 +184,7 @@ declare class WorkerInstance {
    */
   workerChannels();
 }
+
 
 declare class WorkerContext {
   /**

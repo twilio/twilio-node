@@ -10,6 +10,15 @@ import Proxy = require('../../Proxy');
 import deserialize = require('../../../../base/deserialize');
 import values = require('../../../../base/values');
 
+/**
+ * @constructor Twilio.Preview.Proxy.ServiceContext.PhoneNumberList
+ * @description Initialize the PhoneNumberList
+ * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ *
+ * @param version - Version of the resource
+ * @param serviceSid - Service Sid.
+ */
+declare function PhoneNumberList(version: Proxy, serviceSid: string): PhoneNumberListInstance;
 
 
 declare class PhoneNumberPage extends Page {
@@ -36,6 +45,7 @@ declare class PhoneNumberPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class PhoneNumberInstance {
   /**
@@ -91,6 +101,7 @@ declare class PhoneNumberInstance {
    */
   toJSON();
 }
+
 
 declare class PhoneNumberContext {
   /**

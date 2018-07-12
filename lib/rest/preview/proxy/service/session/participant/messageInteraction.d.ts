@@ -11,6 +11,17 @@ import deserialize = require('../../../../../../base/deserialize');
 import serialize = require('../../../../../../base/serialize');
 import values = require('../../../../../../base/values');
 
+/**
+ * @constructor Twilio.Preview.Proxy.ServiceContext.SessionContext.ParticipantContext.MessageInteractionList
+ * @description Initialize the MessageInteractionList
+ * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ *
+ * @param version - Version of the resource
+ * @param serviceSid - Service Sid.
+ * @param sessionSid - Session Sid.
+ * @param participantSid - The participant_sid
+ */
+declare function MessageInteractionList(version: Proxy, serviceSid: string, sessionSid: string, participantSid: string): MessageInteractionListInstance;
 
 
 declare class MessageInteractionPage extends Page {
@@ -37,6 +48,7 @@ declare class MessageInteractionPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class MessageInteractionInstance {
   /**
@@ -95,6 +107,7 @@ declare class MessageInteractionInstance {
    */
   toJSON();
 }
+
 
 declare class MessageInteractionContext {
   /**

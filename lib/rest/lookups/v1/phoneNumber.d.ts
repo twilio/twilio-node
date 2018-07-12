@@ -10,6 +10,13 @@ import V1 = require('../V1');
 import serialize = require('../../../base/serialize');
 import values = require('../../../base/values');
 
+/**
+ * @constructor Twilio.Lookups.V1.PhoneNumberList
+ * @description Initialize the PhoneNumberList
+ *
+ * @param version - Version of the resource
+ */
+declare function PhoneNumberList(version: V1): PhoneNumberListInstance;
 
 /**
  * Options to pass to fetch
@@ -66,6 +73,7 @@ declare class PhoneNumberPage extends Page {
   getInstance(payload: object);
 }
 
+
 declare class PhoneNumberInstance {
   /**
    * @constructor Twilio.Lookups.V1.PhoneNumberInstance
@@ -107,6 +115,7 @@ declare class PhoneNumberInstance {
    */
   toJSON();
 }
+
 
 declare class PhoneNumberContext {
   /**

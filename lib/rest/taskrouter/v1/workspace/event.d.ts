@@ -11,6 +11,14 @@ import deserialize = require('../../../../base/deserialize');
 import serialize = require('../../../../base/serialize');
 import values = require('../../../../base/values');
 
+/**
+ * @constructor Twilio.Taskrouter.V1.WorkspaceContext.EventList
+ * @description Initialize the EventList
+ *
+ * @param version - Version of the resource
+ * @param workspaceSid - The unique ID of the Workspace
+ */
+declare function EventList(version: V1, workspaceSid: string): EventListInstance;
 
 
 declare class EventPage extends Page {
@@ -36,6 +44,7 @@ declare class EventPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class EventInstance {
   /**
@@ -86,6 +95,7 @@ declare class EventInstance {
    */
   toJSON();
 }
+
 
 declare class EventContext {
   /**

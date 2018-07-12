@@ -11,6 +11,16 @@ import deserialize = require('../../../../../base/deserialize');
 import values = require('../../../../../base/values');
 import { AssignedAddOnExtensionList } from './assignedAddOn/assignedAddOnExtension';
 
+/**
+ * @constructor Twilio.Api.V2010.AccountContext.IncomingPhoneNumberContext.AssignedAddOnList
+ * @description Initialize the AssignedAddOnList
+ * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ *
+ * @param version - Version of the resource
+ * @param accountSid - The Account id that has installed this Add-on
+ * @param resourceSid - The Phone Number id that has installed this Add-on
+ */
+declare function AssignedAddOnList(version: V2010, accountSid: string, resourceSid: string): AssignedAddOnListInstance;
 
 
 declare class AssignedAddOnPage extends Page {
@@ -37,6 +47,7 @@ declare class AssignedAddOnPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class AssignedAddOnInstance {
   /**
@@ -103,6 +114,7 @@ declare class AssignedAddOnInstance {
    */
   toJSON();
 }
+
 
 declare class AssignedAddOnContext {
   /**

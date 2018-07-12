@@ -10,6 +10,16 @@ import V2010 = require('../../../../V2010');
 import deserialize = require('../../../../../../base/deserialize');
 import values = require('../../../../../../base/values');
 
+/**
+ * @constructor Twilio.Api.V2010.AccountContext.RecordingContext.AddOnResultContext.PayloadList
+ * @description Initialize the PayloadList
+ *
+ * @param version - Version of the resource
+ * @param accountSid - The unique sid that identifies this account
+ * @param referenceSid - A string that uniquely identifies the recording.
+ * @param addOnResultSid - A string that uniquely identifies the result
+ */
+declare function PayloadList(version: V2010, accountSid: string, referenceSid: string, addOnResultSid: string): PayloadListInstance;
 
 
 declare class PayloadPage extends Page {
@@ -35,6 +45,7 @@ declare class PayloadPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class PayloadInstance {
   /**
@@ -93,6 +104,7 @@ declare class PayloadInstance {
    */
   toJSON();
 }
+
 
 declare class PayloadContext {
   /**

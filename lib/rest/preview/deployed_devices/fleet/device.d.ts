@@ -11,6 +11,15 @@ import deserialize = require('../../../../base/deserialize');
 import serialize = require('../../../../base/serialize');
 import values = require('../../../../base/values');
 
+/**
+ * @constructor Twilio.Preview.DeployedDevices.FleetContext.DeviceList
+ * @description Initialize the DeviceList
+ * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ *
+ * @param version - Version of the resource
+ * @param fleetSid - The unique identifier of the Fleet.
+ */
+declare function DeviceList(version: DeployedDevices, fleetSid: string): DeviceListInstance;
 
 /**
  * Options to pass to update
@@ -67,6 +76,7 @@ declare class DevicePage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class DeviceInstance {
   /**
@@ -136,6 +146,7 @@ declare class DeviceInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class DeviceContext {
   /**

@@ -11,6 +11,16 @@ import deserialize = require('../../../../../base/deserialize');
 import serialize = require('../../../../../base/serialize');
 import values = require('../../../../../base/values');
 
+/**
+ * @constructor Twilio.Preview.Sync.ServiceContext.SyncListContext.SyncListItemList
+ * @description Initialize the SyncListItemList
+ * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ *
+ * @param version - Version of the resource
+ * @param serviceSid - The service_sid
+ * @param listSid - The list_sid
+ */
+declare function SyncListItemList(version: Sync, serviceSid: string, listSid: string): SyncListItemListInstance;
 
 /**
  * Options to pass to update
@@ -55,6 +65,7 @@ declare class SyncListItemPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class SyncListItemInstance {
   /**
@@ -123,6 +134,7 @@ declare class SyncListItemInstance {
    */
   update(opts: object, callback?: function);
 }
+
 
 declare class SyncListItemContext {
   /**

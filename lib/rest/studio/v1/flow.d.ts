@@ -11,6 +11,14 @@ import deserialize = require('../../../base/deserialize');
 import values = require('../../../base/values');
 import { EngagementList } from './flow/engagement';
 
+/**
+ * @constructor Twilio.Studio.V1.FlowList
+ * @description Initialize the FlowList
+ * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ *
+ * @param version - Version of the resource
+ */
+declare function FlowList(version: V1): FlowListInstance;
 
 
 declare class FlowPage extends Page {
@@ -37,6 +45,7 @@ declare class FlowPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class FlowInstance {
   /**
@@ -99,6 +108,7 @@ declare class FlowInstance {
    */
   toJSON();
 }
+
 
 declare class FlowContext {
   /**

@@ -9,6 +9,17 @@ import Page = require('../../../../../../base/Page');
 import V2010 = require('../../../../V2010');
 import values = require('../../../../../../base/values');
 
+/**
+ * @constructor Twilio.Api.V2010.AccountContext.IncomingPhoneNumberContext.AssignedAddOnContext.AssignedAddOnExtensionList
+ * @description Initialize the AssignedAddOnExtensionList
+ * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ *
+ * @param version - Version of the resource
+ * @param accountSid - The Account id that has installed this Add-on
+ * @param resourceSid - The Phone Number id that has installed this Add-on
+ * @param assignedAddOnSid - A string that uniquely identifies the assigned Add-on installation
+ */
+declare function AssignedAddOnExtensionList(version: V2010, accountSid: string, resourceSid: string, assignedAddOnSid: string): AssignedAddOnExtensionListInstance;
 
 
 declare class AssignedAddOnExtensionPage extends Page {
@@ -35,6 +46,7 @@ declare class AssignedAddOnExtensionPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class AssignedAddOnExtensionInstance {
   /**
@@ -82,6 +94,7 @@ declare class AssignedAddOnExtensionInstance {
    */
   toJSON();
 }
+
 
 declare class AssignedAddOnExtensionContext {
   /**

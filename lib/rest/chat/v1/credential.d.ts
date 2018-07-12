@@ -11,6 +11,13 @@ import deserialize = require('../../../base/deserialize');
 import serialize = require('../../../base/serialize');
 import values = require('../../../base/values');
 
+/**
+ * @constructor Twilio.Chat.V1.CredentialList
+ * @description Initialize the CredentialList
+ *
+ * @param version - Version of the resource
+ */
+declare function CredentialList(version: V1): CredentialListInstance;
 
 /**
  * Options to pass to update
@@ -75,6 +82,7 @@ declare class CredentialPage extends Page {
   getInstance(payload: object);
 }
 
+
 declare class CredentialInstance {
   /**
    * @constructor Twilio.Chat.V1.CredentialInstance
@@ -137,6 +145,7 @@ declare class CredentialInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class CredentialContext {
   /**

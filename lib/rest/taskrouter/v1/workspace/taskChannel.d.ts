@@ -10,6 +10,14 @@ import V1 = require('../../V1');
 import deserialize = require('../../../../base/deserialize');
 import values = require('../../../../base/values');
 
+/**
+ * @constructor Twilio.Taskrouter.V1.WorkspaceContext.TaskChannelList
+ * @description Initialize the TaskChannelList
+ *
+ * @param version - Version of the resource
+ * @param workspaceSid - The workspace_sid
+ */
+declare function TaskChannelList(version: V1, workspaceSid: string): TaskChannelListInstance;
 
 
 declare class TaskChannelPage extends Page {
@@ -35,6 +43,7 @@ declare class TaskChannelPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class TaskChannelInstance {
   /**
@@ -78,6 +87,7 @@ declare class TaskChannelInstance {
    */
   toJSON();
 }
+
 
 declare class TaskChannelContext {
   /**

@@ -11,6 +11,16 @@ import deserialize = require('../../../../../base/deserialize');
 import values = require('../../../../../base/values');
 import { StepContextList } from './step/stepContext';
 
+/**
+ * @constructor Twilio.Studio.V1.FlowContext.EngagementContext.StepList
+ * @description Initialize the StepList
+ * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ *
+ * @param version - Version of the resource
+ * @param flowSid - The flow_sid
+ * @param engagementSid - The engagement_sid
+ */
+declare function StepList(version: V1, flowSid: string, engagementSid: string): StepListInstance;
 
 
 declare class StepPage extends Page {
@@ -37,6 +47,7 @@ declare class StepPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class StepInstance {
   /**
@@ -94,6 +105,7 @@ declare class StepInstance {
    */
   toJSON();
 }
+
 
 declare class StepContext {
   /**

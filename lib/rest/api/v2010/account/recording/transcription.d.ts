@@ -10,6 +10,15 @@ import V2010 = require('../../../V2010');
 import deserialize = require('../../../../../base/deserialize');
 import values = require('../../../../../base/values');
 
+/**
+ * @constructor Twilio.Api.V2010.AccountContext.RecordingContext.TranscriptionList
+ * @description Initialize the TranscriptionList
+ *
+ * @param version - Version of the resource
+ * @param accountSid - The account_sid
+ * @param recordingSid - The recording_sid
+ */
+declare function TranscriptionList(version: V2010, accountSid: string, recordingSid: string): TranscriptionListInstance;
 
 
 declare class TranscriptionPage extends Page {
@@ -35,6 +44,7 @@ declare class TranscriptionPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class TranscriptionInstance {
   /**
@@ -94,6 +104,7 @@ declare class TranscriptionInstance {
    */
   toJSON();
 }
+
 
 declare class TranscriptionContext {
   /**

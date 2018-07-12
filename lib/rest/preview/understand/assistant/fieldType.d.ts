@@ -11,6 +11,15 @@ import deserialize = require('../../../../base/deserialize');
 import values = require('../../../../base/values');
 import { FieldValueList } from './fieldType/fieldValue';
 
+/**
+ * @constructor Twilio.Preview.Understand.AssistantContext.FieldTypeList
+ * @description Initialize the FieldTypeList
+ * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ *
+ * @param version - Version of the resource
+ * @param assistantSid - The unique ID of the Assistant.
+ */
+declare function FieldTypeList(version: Understand, assistantSid: string): FieldTypeListInstance;
 
 /**
  * Options to pass to update
@@ -59,6 +68,7 @@ declare class FieldTypePage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class FieldTypeInstance {
   /**
@@ -133,6 +143,7 @@ declare class FieldTypeInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class FieldTypeContext {
   /**

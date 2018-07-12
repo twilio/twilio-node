@@ -11,6 +11,15 @@ import deserialize = require('../../../../../base/deserialize');
 import values = require('../../../../../base/values');
 import { PayloadList } from './addOnResult/payload';
 
+/**
+ * @constructor Twilio.Api.V2010.AccountContext.RecordingContext.AddOnResultList
+ * @description Initialize the AddOnResultList
+ *
+ * @param version - Version of the resource
+ * @param accountSid - The unique sid that identifies this account
+ * @param referenceSid - A string that uniquely identifies the recording.
+ */
+declare function AddOnResultList(version: V2010, accountSid: string, referenceSid: string): AddOnResultListInstance;
 
 
 declare class AddOnResultPage extends Page {
@@ -36,6 +45,7 @@ declare class AddOnResultPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class AddOnResultInstance {
   /**
@@ -100,6 +110,7 @@ declare class AddOnResultInstance {
    */
   toJSON();
 }
+
 
 declare class AddOnResultContext {
   /**

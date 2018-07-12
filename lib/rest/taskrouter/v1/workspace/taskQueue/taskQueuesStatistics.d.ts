@@ -10,6 +10,14 @@ import V1 = require('../../../V1');
 import serialize = require('../../../../../base/serialize');
 import values = require('../../../../../base/values');
 
+/**
+ * @constructor Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueuesStatisticsList
+ * @description Initialize the TaskQueuesStatisticsList
+ *
+ * @param version - Version of the resource
+ * @param workspaceSid - The ID of the Workspace that owns this TaskQueue
+ */
+declare function TaskQueuesStatisticsList(version: V1, workspaceSid: string): TaskQueuesStatisticsListInstance;
 
 
 declare class TaskQueuesStatisticsPage extends Page {
@@ -35,6 +43,7 @@ declare class TaskQueuesStatisticsPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class TaskQueuesStatisticsInstance {
   /**

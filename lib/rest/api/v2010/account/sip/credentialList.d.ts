@@ -11,6 +11,14 @@ import deserialize = require('../../../../../base/deserialize');
 import values = require('../../../../../base/values');
 import { CredentialList } from './credentialList/credential';
 
+/**
+ * @constructor Twilio.Api.V2010.AccountContext.SipContext.CredentialListList
+ * @description Initialize the CredentialListList
+ *
+ * @param version - Version of the resource
+ * @param accountSid - A 34 character string that uniquely identifies this resource.
+ */
+declare function CredentialListList(version: V2010, accountSid: string): CredentialListListInstance;
 
 /**
  * Options to pass to update
@@ -54,6 +62,7 @@ declare class CredentialListPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class CredentialListInstance {
   /**
@@ -125,6 +134,7 @@ declare class CredentialListInstance {
    */
   update(opts: object, callback?: function);
 }
+
 
 declare class CredentialListContext {
   /**

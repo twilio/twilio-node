@@ -11,6 +11,15 @@ import deserialize = require('../../../../base/deserialize');
 import serialize = require('../../../../base/serialize');
 import values = require('../../../../base/values');
 
+/**
+ * @constructor Twilio.Notify.V1.ServiceContext.BindingList
+ * @description Initialize the BindingList
+ * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ *
+ * @param version - Version of the resource
+ * @param serviceSid - The service_sid
+ */
+declare function BindingList(version: V1, serviceSid: string): BindingListInstance;
 
 
 declare class BindingPage extends Page {
@@ -37,6 +46,7 @@ declare class BindingPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class BindingInstance {
   /**
@@ -97,6 +107,7 @@ declare class BindingInstance {
    */
   toJSON();
 }
+
 
 declare class BindingContext {
   /**

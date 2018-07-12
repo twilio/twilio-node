@@ -10,6 +10,15 @@ import V1 = require('../../V1');
 import deserialize = require('../../../../base/deserialize');
 import values = require('../../../../base/values');
 
+/**
+ * @constructor Twilio.Fax.V1.FaxContext.FaxMediaList
+ * @description Initialize the FaxMediaList
+ * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ *
+ * @param version - Version of the resource
+ * @param faxSid - Fax SID
+ */
+declare function FaxMediaList(version: V1, faxSid: string): FaxMediaListInstance;
 
 
 declare class FaxMediaPage extends Page {
@@ -36,6 +45,7 @@ declare class FaxMediaPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class FaxMediaInstance {
   /**
@@ -89,6 +99,7 @@ declare class FaxMediaInstance {
    */
   toJSON();
 }
+
 
 declare class FaxMediaContext {
   /**

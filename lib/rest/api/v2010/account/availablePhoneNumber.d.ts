@@ -16,6 +16,14 @@ import { SharedCostList } from './availablePhoneNumber/sharedCost';
 import { TollFreeList } from './availablePhoneNumber/tollFree';
 import { VoipList } from './availablePhoneNumber/voip';
 
+/**
+ * @constructor Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryList
+ * @description Initialize the AvailablePhoneNumberCountryList
+ *
+ * @param version - Version of the resource
+ * @param accountSid - A 34 character string that uniquely identifies this resource.
+ */
+declare function AvailablePhoneNumberCountryList(version: V2010, accountSid: string): AvailablePhoneNumberCountryListInstance;
 
 
 declare class AvailablePhoneNumberCountryPage extends Page {
@@ -41,6 +49,7 @@ declare class AvailablePhoneNumberCountryPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class AvailablePhoneNumberCountryInstance {
   /**
@@ -137,6 +146,7 @@ declare class AvailablePhoneNumberCountryInstance {
    */
   voip();
 }
+
 
 declare class AvailablePhoneNumberCountryContext {
   /**

@@ -11,6 +11,14 @@ import deserialize = require('../../../../base/deserialize');
 import serialize = require('../../../../base/serialize');
 import values = require('../../../../base/values');
 
+/**
+ * @constructor Twilio.Wireless.V1.SimContext.DataSessionList
+ * @description Initialize the DataSessionList
+ *
+ * @param version - Version of the resource
+ * @param simSid - The unique id of the SIM resource that this Data Session is for.
+ */
+declare function DataSessionList(version: V1, simSid: string): DataSessionListInstance;
 
 
 declare class DataSessionPage extends Page {
@@ -36,6 +44,7 @@ declare class DataSessionPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class DataSessionInstance {
   /**

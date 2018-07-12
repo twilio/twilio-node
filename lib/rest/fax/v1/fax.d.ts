@@ -12,6 +12,14 @@ import serialize = require('../../../base/serialize');
 import values = require('../../../base/values');
 import { FaxMediaList } from './fax/faxMedia';
 
+/**
+ * @constructor Twilio.Fax.V1.FaxList
+ * @description Initialize the FaxList
+ * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ *
+ * @param version - Version of the resource
+ */
+declare function FaxList(version: V1): FaxListInstance;
 
 /**
  * Options to pass to update
@@ -56,6 +64,7 @@ declare class FaxPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class FaxInstance {
   /**
@@ -138,6 +147,7 @@ declare class FaxInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class FaxContext {
   /**

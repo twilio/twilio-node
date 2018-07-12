@@ -11,6 +11,14 @@ import deserialize = require('../../../../../../base/deserialize');
 import serialize = require('../../../../../../base/serialize');
 import values = require('../../../../../../base/values');
 
+/**
+ * @constructor Twilio.Api.V2010.AccountContext.UsageContext.RecordContext.AllTimeList
+ * @description Initialize the AllTimeList
+ *
+ * @param version - Version of the resource
+ * @param accountSid - A 34 character string that uniquely identifies this resource.
+ */
+declare function AllTimeList(version: V2010, accountSid: string): AllTimeListInstance;
 
 
 declare class AllTimePage extends Page {
@@ -36,6 +44,7 @@ declare class AllTimePage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class AllTimeInstance {
   /**

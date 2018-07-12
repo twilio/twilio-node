@@ -11,6 +11,14 @@ import deserialize = require('../../../base/deserialize');
 import serialize = require('../../../base/serialize');
 import values = require('../../../base/values');
 
+/**
+ * @constructor Twilio.Video.V1.CompositionList
+ * @description Initialize the CompositionList
+ * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ *
+ * @param version - Version of the resource
+ */
+declare function CompositionList(version: V1): CompositionListInstance;
 
 
 declare class CompositionPage extends Page {
@@ -37,6 +45,7 @@ declare class CompositionPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class CompositionInstance {
   /**
@@ -100,6 +109,7 @@ declare class CompositionInstance {
    */
   toJSON();
 }
+
 
 declare class CompositionContext {
   /**

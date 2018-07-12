@@ -9,6 +9,13 @@ import Page = require('../../../../base/Page');
 import V1 = require('../../V1');
 import values = require('../../../../base/values');
 
+/**
+ * @constructor Twilio.Pricing.V1.VoiceContext.CountryList
+ * @description Initialize the CountryList
+ *
+ * @param version - Version of the resource
+ */
+declare function CountryList(version: V1): CountryListInstance;
 
 
 declare class CountryPage extends Page {
@@ -34,6 +41,7 @@ declare class CountryPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class CountryInstance {
   /**
@@ -74,6 +82,7 @@ declare class CountryInstance {
    */
   toJSON();
 }
+
 
 declare class CountryContext {
   /**

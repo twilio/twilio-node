@@ -10,6 +10,16 @@ import V1 = require('../../../V1');
 import serialize = require('../../../../../base/serialize');
 import values = require('../../../../../base/values');
 
+/**
+ * @constructor Twilio.Sync.V1.ServiceContext.SyncStreamContext.StreamMessageList
+ * @description Initialize the StreamMessageList
+ * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ *
+ * @param version - Version of the resource
+ * @param serviceSid - Service Instance SID.
+ * @param streamSid - Stream SID.
+ */
+declare function StreamMessageList(version: V1, serviceSid: string, streamSid: string): StreamMessageListInstance;
 
 
 declare class StreamMessagePage extends Page {
@@ -36,6 +46,7 @@ declare class StreamMessagePage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class StreamMessageInstance {
   /**

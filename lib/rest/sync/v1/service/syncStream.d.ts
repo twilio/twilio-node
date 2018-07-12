@@ -11,6 +11,15 @@ import deserialize = require('../../../../base/deserialize');
 import values = require('../../../../base/values');
 import { StreamMessageList } from './syncStream/streamMessage';
 
+/**
+ * @constructor Twilio.Sync.V1.ServiceContext.SyncStreamList
+ * @description Initialize the SyncStreamList
+ * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ *
+ * @param version - Version of the resource
+ * @param serviceSid - Service Instance SID.
+ */
+declare function SyncStreamList(version: V1, serviceSid: string): SyncStreamListInstance;
 
 /**
  * Options to pass to update
@@ -55,6 +64,7 @@ declare class SyncStreamPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class SyncStreamInstance {
   /**
@@ -130,6 +140,7 @@ declare class SyncStreamInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class SyncStreamContext {
   /**

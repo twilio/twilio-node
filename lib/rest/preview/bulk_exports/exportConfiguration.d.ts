@@ -10,6 +10,14 @@ import Page = require('../../../base/Page');
 import serialize = require('../../../base/serialize');
 import values = require('../../../base/values');
 
+/**
+ * @constructor Twilio.Preview.BulkExports.ExportConfigurationList
+ * @description Initialize the ExportConfigurationList
+ * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ *
+ * @param version - Version of the resource
+ */
+declare function ExportConfigurationList(version: BulkExports): ExportConfigurationListInstance;
 
 /**
  * Options to pass to update
@@ -63,6 +71,7 @@ declare class ExportConfigurationPage extends Page {
   getInstance(payload: object);
 }
 
+
 declare class ExportConfigurationInstance {
   /**
    * @constructor Twilio.Preview.BulkExports.ExportConfigurationInstance
@@ -113,6 +122,7 @@ declare class ExportConfigurationInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class ExportConfigurationContext {
   /**

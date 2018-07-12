@@ -11,6 +11,14 @@ import deserialize = require('../../../base/deserialize');
 import values = require('../../../base/values');
 import { UsageList } from './sim/usage';
 
+/**
+ * @constructor Twilio.Preview.Wireless.SimList
+ * @description Initialize the SimList
+ * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ *
+ * @param version - Version of the resource
+ */
+declare function SimList(version: Wireless): SimListInstance;
 
 /**
  * Options to pass to update
@@ -116,6 +124,7 @@ declare class SimPage extends Page {
   getInstance(payload: object);
 }
 
+
 declare class SimInstance {
   /**
    * @constructor Twilio.Preview.Wireless.SimInstance
@@ -191,6 +200,7 @@ declare class SimInstance {
    */
   usage();
 }
+
 
 declare class SimContext {
   /**

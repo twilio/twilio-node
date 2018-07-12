@@ -11,6 +11,13 @@ import deserialize = require('../../../base/deserialize');
 import serialize = require('../../../base/serialize');
 import values = require('../../../base/values');
 
+/**
+ * @constructor Twilio.Video.V1.RecordingList
+ * @description Initialize the RecordingList
+ *
+ * @param version - Version of the resource
+ */
+declare function RecordingList(version: V1): RecordingListInstance;
 
 
 declare class RecordingPage extends Page {
@@ -36,6 +43,7 @@ declare class RecordingPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class RecordingInstance {
   /**
@@ -94,6 +102,7 @@ declare class RecordingInstance {
    */
   toJSON();
 }
+
 
 declare class RecordingContext {
   /**

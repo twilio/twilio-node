@@ -10,6 +10,15 @@ import Understand = require('../../Understand');
 import deserialize = require('../../../../base/deserialize');
 import values = require('../../../../base/values');
 
+/**
+ * @constructor Twilio.Preview.Understand.AssistantContext.QueryList
+ * @description Initialize the QueryList
+ * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ *
+ * @param version - Version of the resource
+ * @param assistantSid - The unique ID of the parent Assistant.
+ */
+declare function QueryList(version: Understand, assistantSid: string): QueryListInstance;
 
 /**
  * Options to pass to update
@@ -58,6 +67,7 @@ declare class QueryPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class QueryInstance {
   /**
@@ -128,6 +138,7 @@ declare class QueryInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class QueryContext {
   /**

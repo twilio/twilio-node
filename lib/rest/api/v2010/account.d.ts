@@ -33,6 +33,13 @@ import { TranscriptionList } from './account/transcription';
 import { UsageList } from './account/usage';
 import { ValidationRequestList } from './account/validationRequest';
 
+/**
+ * @constructor Twilio.Api.V2010.AccountList
+ * @description Initialize the AccountList
+ *
+ * @param version - Version of the resource
+ */
+declare function AccountList(version: V2010): AccountListInstance;
 
 /**
  * Options to pass to update
@@ -80,6 +87,7 @@ declare class AccountPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class AccountInstance {
   /**
@@ -319,6 +327,7 @@ declare class AccountInstance {
    */
   validationRequests();
 }
+
 
 declare class AccountContext {
   /**

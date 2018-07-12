@@ -11,6 +11,14 @@ import deserialize = require('../../../../base/deserialize');
 import serialize = require('../../../../base/serialize');
 import values = require('../../../../base/values');
 
+/**
+ * @constructor Twilio.Taskrouter.V1.WorkspaceContext.ActivityList
+ * @description Initialize the ActivityList
+ *
+ * @param version - Version of the resource
+ * @param workspaceSid - The unique ID of the Workspace that this Activity belongs to.
+ */
+declare function ActivityList(version: V1, workspaceSid: string): ActivityListInstance;
 
 /**
  * Options to pass to update
@@ -54,6 +62,7 @@ declare class ActivityPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class ActivityInstance {
   /**
@@ -118,6 +127,7 @@ declare class ActivityInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class ActivityContext {
   /**

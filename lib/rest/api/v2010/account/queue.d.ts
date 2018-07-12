@@ -11,6 +11,14 @@ import deserialize = require('../../../../base/deserialize');
 import values = require('../../../../base/values');
 import { MemberList } from './queue/member';
 
+/**
+ * @constructor Twilio.Api.V2010.AccountContext.QueueList
+ * @description Initialize the QueueList
+ *
+ * @param version - Version of the resource
+ * @param accountSid - The account_sid
+ */
+declare function QueueList(version: V2010, accountSid: string): QueueListInstance;
 
 /**
  * Options to pass to update
@@ -58,6 +66,7 @@ declare class QueuePage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class QueueInstance {
   /**
@@ -131,6 +140,7 @@ declare class QueueInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class QueueContext {
   /**

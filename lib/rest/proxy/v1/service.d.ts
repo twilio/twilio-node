@@ -13,6 +13,14 @@ import { PhoneNumberList } from './service/phoneNumber';
 import { SessionList } from './service/session';
 import { ShortCodeList } from './service/shortCode';
 
+/**
+ * @constructor Twilio.Proxy.V1.ServiceList
+ * @description Initialize the ServiceList
+ * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+ *
+ * @param version - Version of the resource
+ */
+declare function ServiceList(version: V1): ServiceListInstance;
 
 /**
  * Options to pass to update
@@ -81,6 +89,7 @@ declare class ServicePage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class ServiceInstance {
   /**
@@ -174,6 +183,7 @@ declare class ServiceInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class ServiceContext {
   /**

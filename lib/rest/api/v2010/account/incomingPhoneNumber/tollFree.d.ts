@@ -11,6 +11,14 @@ import deserialize = require('../../../../../base/deserialize');
 import serialize = require('../../../../../base/serialize');
 import values = require('../../../../../base/values');
 
+/**
+ * @constructor Twilio.Api.V2010.AccountContext.IncomingPhoneNumberContext.TollFreeList
+ * @description Initialize the TollFreeList
+ *
+ * @param version - Version of the resource
+ * @param accountSid - The unique sid that identifies this account
+ */
+declare function TollFreeList(version: V2010, accountSid: string): TollFreeListInstance;
 
 
 declare class TollFreePage extends Page {
@@ -36,6 +44,7 @@ declare class TollFreePage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class TollFreeInstance {
   /**

@@ -12,6 +12,15 @@ import values = require('../../../../base/values');
 import { FieldList } from './intent/field';
 import { SampleList } from './intent/sample';
 
+/**
+ * @constructor Twilio.Preview.Understand.AssistantContext.IntentList
+ * @description Initialize the IntentList
+ * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ *
+ * @param version - Version of the resource
+ * @param assistantSid - The unique ID of the Assistant.
+ */
+declare function IntentList(version: Understand, assistantSid: string): IntentListInstance;
 
 /**
  * Options to pass to update
@@ -60,6 +69,7 @@ declare class IntentPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class IntentInstance {
   /**
@@ -142,6 +152,7 @@ declare class IntentInstance {
    */
   update(opts?: object, callback?: function);
 }
+
 
 declare class IntentContext {
   /**

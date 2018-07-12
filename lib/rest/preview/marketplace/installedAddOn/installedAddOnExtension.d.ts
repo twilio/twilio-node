@@ -10,6 +10,15 @@ import Page = require('../../../../base/Page');
 import serialize = require('../../../../base/serialize');
 import values = require('../../../../base/values');
 
+/**
+ * @constructor Twilio.Preview.Marketplace.InstalledAddOnContext.InstalledAddOnExtensionList
+ * @description Initialize the InstalledAddOnExtensionList
+ * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ *
+ * @param version - Version of the resource
+ * @param installedAddOnSid - The installed_add_on_sid
+ */
+declare function InstalledAddOnExtensionList(version: Marketplace, installedAddOnSid: string): InstalledAddOnExtensionListInstance;
 
 /**
  * Options to pass to update
@@ -54,6 +63,7 @@ declare class InstalledAddOnExtensionPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class InstalledAddOnExtensionInstance {
   /**
@@ -108,6 +118,7 @@ declare class InstalledAddOnExtensionInstance {
    */
   update(opts: object, callback?: function);
 }
+
 
 declare class InstalledAddOnExtensionContext {
   /**

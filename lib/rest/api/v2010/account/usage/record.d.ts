@@ -11,6 +11,14 @@ import deserialize = require('../../../../../base/deserialize');
 import serialize = require('../../../../../base/serialize');
 import values = require('../../../../../base/values');
 
+/**
+ * @constructor Twilio.Api.V2010.AccountContext.UsageContext.RecordList
+ * @description Initialize the RecordList
+ *
+ * @param version - Version of the resource
+ * @param accountSid - A 34 character string that uniquely identifies this resource.
+ */
+declare function RecordList(version: V2010, accountSid: string): RecordListInstance;
 
 
 declare class RecordPage extends Page {
@@ -36,6 +44,7 @@ declare class RecordPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class RecordInstance {
   /**

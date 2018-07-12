@@ -11,6 +11,15 @@ import deserialize = require('../../../../../base/deserialize');
 import serialize = require('../../../../../base/serialize');
 import values = require('../../../../../base/values');
 
+/**
+ * @constructor Twilio.Video.V1.RoomContext.ParticipantContext.SubscribedTrackList
+ * @description Initialize the SubscribedTrackList
+ *
+ * @param version - Version of the resource
+ * @param roomSid - The room_sid
+ * @param subscriberSid - The subscriber_sid
+ */
+declare function SubscribedTrackList(version: V1, roomSid: string, subscriberSid: string): SubscribedTrackListInstance;
 
 
 declare class SubscribedTrackPage extends Page {
@@ -36,6 +45,7 @@ declare class SubscribedTrackPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class SubscribedTrackInstance {
   /**

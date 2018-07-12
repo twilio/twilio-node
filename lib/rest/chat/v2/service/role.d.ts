@@ -11,6 +11,14 @@ import deserialize = require('../../../../base/deserialize');
 import serialize = require('../../../../base/serialize');
 import values = require('../../../../base/values');
 
+/**
+ * @constructor Twilio.Chat.V2.ServiceContext.RoleList
+ * @description Initialize the RoleList
+ *
+ * @param version - Version of the resource
+ * @param serviceSid - The unique id of the Service this role belongs to.
+ */
+declare function RoleList(version: V2, serviceSid: string): RoleListInstance;
 
 /**
  * Options to pass to update
@@ -54,6 +62,7 @@ declare class RolePage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class RoleInstance {
   /**
@@ -119,6 +128,7 @@ declare class RoleInstance {
    */
   update(opts: object, callback?: function);
 }
+
 
 declare class RoleContext {
   /**

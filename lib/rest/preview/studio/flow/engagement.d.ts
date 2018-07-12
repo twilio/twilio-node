@@ -11,6 +11,15 @@ import deserialize = require('../../../../base/deserialize');
 import values = require('../../../../base/values');
 import { StepList } from './engagement/step';
 
+/**
+ * @constructor Twilio.Preview.Studio.FlowContext.EngagementList
+ * @description Initialize the EngagementList
+ * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+ *
+ * @param version - Version of the resource
+ * @param flowSid - Flow Sid.
+ */
+declare function EngagementList(version: Studio, flowSid: string): EngagementListInstance;
 
 
 declare class EngagementPage extends Page {
@@ -37,6 +46,7 @@ declare class EngagementPage extends Page {
    */
   getInstance(payload: object);
 }
+
 
 declare class EngagementInstance {
   /**
@@ -92,6 +102,7 @@ declare class EngagementInstance {
    */
   toJSON();
 }
+
 
 declare class EngagementContext {
   /**
