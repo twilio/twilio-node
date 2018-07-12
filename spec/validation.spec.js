@@ -93,9 +93,7 @@ describe('Request validation middleware', () => {
     });
 
     it('should validate standard requests', done => {
-        const request = httpMocks.createRequest({
-            ...defaultRequest,
-        });
+        const request = httpMocks.createRequest(defaultRequest);
 
         middleware(request, response, error => {
             // This test will only pass if the middleware calls next().
@@ -107,10 +105,9 @@ describe('Request validation middleware', () => {
 
     it('should send 403 for invalid signatures', () => {
         const newUrl = fullUrl.pathname + fullUrl.search + '&somethingUnexpected=true';
-        const request = httpMocks.createRequest({
-            ...defaultRequest,
+        const request = httpMocks.createRequest(Object.assign({}, defaultRequest, {
             originalUrl: newUrl,
-        });
+        }));
 
         middleware(request, response, error => {
             expect(true).toBeFalsy();
@@ -134,15 +131,13 @@ describe('Request validation middleware', () => {
     });
 
     it('should accept manual host+proto', done => {
-        const request = httpMocks.createRequest({
-            ...defaultRequest,
+        const request = httpMocks.createRequest(Object.assign({}, defaultRequest, {
             host: 'someothercompany.com',
             protocol: 'http',
-            headers: {
-                ...defaultRequest.headers,
+            headers: Object.assign({}, defaultRequest.headers, {
                 host: 'someothercompany.com',
-            },
-        });
+            }),
+        }));
 
         const middleware = webhook(token, {
             host: 'mycompany.com',
@@ -157,15 +152,13 @@ describe('Request validation middleware', () => {
     });
 
     it('should accept manual url and override host+proto', done => {
-        const request = httpMocks.createRequest({
-            ...defaultRequest,
+        const request = httpMocks.createRequest(Object.assign({}, defaultRequest, {
             host: 'someothercompany.com',
             protocol: 'http',
-            headers: {
-                ...defaultRequest.headers,
+            headers: Object.assign({}, defaultRequest.headers, {
                 host: 'someothercompany.com',
-            },
-        });
+            }),
+        }));
 
         const middleware = webhook(token, {
             host: 'myothercompany.com',
@@ -185,15 +178,14 @@ describe('Request validation middleware', () => {
     });
 
     it('should validate post body if given a query param', done => {
-        const request = httpMocks.createRequest({
+        const request = httpMocks.createRequest(Object.assign({}, defaultRequest, {
             ...defaultRequest,
             originalUrl: requestUrlWithHash.substring(requestUrlWithHash.indexOf('.com/') + 4),
             body,
-            headers: {
-                ...defaultRequest.headers,
+            headers: Object.assign({}, defaultRequest.headers, {
                 'X-Twilio-Signature': requestUrlWithHashSignature,
-            },
-        });
+            }),
+        }));
 
         middleware(request, response, error => {
             done();
@@ -207,15 +199,14 @@ describe('Request validation middleware', () => {
     });
 
     it('should fail validation of post body with wrong hash', () => {
-        const request = httpMocks.createRequest({
-            ...defaultRequest,
+        const request = httpMocks.createRequest(Object.assign({}, defaultRequest, {
             originalUrl: requestUrlWithHash.substring(requestUrlWithHash.indexOf('.com/') + 4).replace('Ch', 'Zh'),
             body,
-            headers: {
+            headers: Object.assign({}, defaultRequest.headers, {
                 ...defaultRequest.headers,
                 'X-Twilio-Signature': requestUrlWithHashSignature,
-            },
-        });
+            }),
+        }));
 
         middleware(request, response, error => {
             expect(true).toBeFalsy();
