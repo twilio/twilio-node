@@ -179,7 +179,6 @@ describe('Request validation middleware', () => {
 
     it('should validate post body if given a query param', done => {
         const request = httpMocks.createRequest(Object.assign({}, defaultRequest, {
-            ...defaultRequest,
             originalUrl: requestUrlWithHash.substring(requestUrlWithHash.indexOf('.com/') + 4),
             body,
             headers: Object.assign({}, defaultRequest.headers, {
@@ -203,7 +202,6 @@ describe('Request validation middleware', () => {
             originalUrl: requestUrlWithHash.substring(requestUrlWithHash.indexOf('.com/') + 4).replace('Ch', 'Zh'),
             body,
             headers: Object.assign({}, defaultRequest.headers, {
-                ...defaultRequest.headers,
                 'X-Twilio-Signature': requestUrlWithHashSignature,
             }),
         }));
