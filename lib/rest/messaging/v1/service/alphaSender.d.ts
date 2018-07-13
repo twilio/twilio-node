@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function AlphaSenderList(version: V1, serviceSid: string): AlphaSenderListInstance;
 
-export interface AlphaSenderResource {
+interface AlphaSenderResource {
   account_sid: string;
   alpha_sender: string;
   capabilities: string;

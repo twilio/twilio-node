@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function PhoneNumberList(version: Proxy, serviceSid: string): PhoneNumberListInstance;
 
-export interface PhoneNumberResource {
+interface PhoneNumberResource {
   account_sid: string;
   capabilities: string;
   country_code: string;

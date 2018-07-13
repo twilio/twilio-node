@@ -20,7 +20,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function MessageList(version: V2, serviceSid: string, channelSid: string): MessageListInstance;
 
-export interface MessageResource {
+interface MessageResource {
   account_sid: string;
   attributes: string;
   body: string;

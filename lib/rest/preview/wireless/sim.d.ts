@@ -19,7 +19,7 @@ import { UsageList } from './sim/usage';
  */
 declare function SimList(version: Wireless): SimListInstance;
 
-export interface SimResource {
+interface SimResource {
   account_sid: string;
   commands_callback_method: string;
   commands_callback_url: string;

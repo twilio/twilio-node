@@ -17,7 +17,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function WorkersRealTimeStatisticsList(version: V1, workspaceSid: string): WorkersRealTimeStatisticsListInstance;
 
-export interface WorkersRealTimeStatisticsResource {
+interface WorkersRealTimeStatisticsResource {
   account_sid: string;
   activity_statistics: string;
   total_workers: number;

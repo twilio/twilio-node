@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function UsageRecordList(version: V1, simSid: string): UsageRecordListInstance;
 
-export interface UsageRecordResource {
+interface UsageRecordResource {
   account_sid: string;
   commands: string;
   data: string;

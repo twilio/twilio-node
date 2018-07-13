@@ -18,7 +18,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function TaskChannelList(version: V1, workspaceSid: string): TaskChannelListInstance;
 
-export interface TaskChannelResource {
+interface TaskChannelResource {
   account_sid: string;
   date_created: Date;
   date_updated: Date;

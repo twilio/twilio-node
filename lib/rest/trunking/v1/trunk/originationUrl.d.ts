@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function OriginationUrlList(version: V1, trunkSid: string): OriginationUrlListInstance;
 
-export interface OriginationUrlResource {
+interface OriginationUrlResource {
   account_sid: string;
   date_created: Date;
   date_updated: Date;

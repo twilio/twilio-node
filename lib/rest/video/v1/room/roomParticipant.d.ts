@@ -21,7 +21,7 @@ import { SubscribedTrackList } from './roomParticipant/roomParticipantSubscribed
  */
 declare function ParticipantList(version: V1, roomSid: string): ParticipantListInstance;
 
-export interface ParticipantResource {
+interface ParticipantResource {
   account_sid: string;
   date_created: Date;
   date_updated: Date;

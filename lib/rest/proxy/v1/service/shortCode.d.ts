@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function ShortCodeList(version: V1, serviceSid: string): ShortCodeListInstance;
 
-export interface ShortCodeResource {
+interface ShortCodeResource {
   account_sid: string;
   capabilities: string;
   date_created: Date;

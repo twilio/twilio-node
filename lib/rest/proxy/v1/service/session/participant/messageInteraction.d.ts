@@ -22,7 +22,7 @@ import { SerializableClass } from '../../../../../../interfaces';
  */
 declare function MessageInteractionList(version: V1, serviceSid: string, sessionSid: string, participantSid: string): MessageInteractionListInstance;
 
-export interface MessageInteractionResource {
+interface MessageInteractionResource {
   account_sid: string;
   data: string;
   date_created: Date;

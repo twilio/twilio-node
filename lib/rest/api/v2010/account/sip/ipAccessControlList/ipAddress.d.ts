@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../../../interfaces';
  */
 declare function IpAddressList(version: V2010, accountSid: string, ipAccessControlListSid: string): IpAddressListInstance;
 
-export interface IpAddressResource {
+interface IpAddressResource {
   account_sid: string;
   date_created: Date;
   date_updated: Date;

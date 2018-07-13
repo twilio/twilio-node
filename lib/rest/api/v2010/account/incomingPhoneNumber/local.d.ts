@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function LocalList(version: V2010, accountSid: string): LocalListInstance;
 
-export interface LocalResource {
+interface LocalResource {
   account_sid: string;
   address_requirements: LocalAddressRequirement;
   address_sid: string;

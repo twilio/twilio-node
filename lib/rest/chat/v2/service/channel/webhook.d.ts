@@ -20,7 +20,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function WebhookList(version: V2, serviceSid: string, channelSid: string): WebhookListInstance;
 
-export interface WebhookResource {
+interface WebhookResource {
   account_sid: string;
   channel_sid: string;
   configuration: string;

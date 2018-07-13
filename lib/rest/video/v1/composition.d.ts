@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function CompositionList(version: V1): CompositionListInstance;
 
-export interface CompositionResource {
+interface CompositionResource {
   account_sid: string;
   audio_sources: string;
   audio_sources_excluded: string;

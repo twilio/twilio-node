@@ -20,7 +20,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function StepList(version: Studio, flowSid: string, engagementSid: string): StepListInstance;
 
-export interface StepResource {
+interface StepResource {
   account_sid: string;
   context: string;
   date_created: Date;

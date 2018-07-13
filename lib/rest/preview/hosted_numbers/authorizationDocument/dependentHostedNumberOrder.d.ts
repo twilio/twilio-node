@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function DependentHostedNumberOrderList(version: HostedNumbers, signingDocumentSid: string): DependentHostedNumberOrderListInstance;
 
-export interface DependentHostedNumberOrderResource {
+interface DependentHostedNumberOrderResource {
   account_sid: string;
   address_sid: string;
   call_delay: number;

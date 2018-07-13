@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../../../interfaces';
  */
 declare function IpAccessControlListMappingList(version: V2010, accountSid: string, domainSid: string): IpAccessControlListMappingListInstance;
 
-export interface IpAccessControlListMappingResource {
+interface IpAccessControlListMappingResource {
   account_sid: string;
   date_created: Date;
   date_updated: Date;

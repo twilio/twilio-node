@@ -21,7 +21,7 @@ import { SerializableClass } from '../../../../../../interfaces';
  */
 declare function AssignedAddOnExtensionList(version: V2010, accountSid: string, resourceSid: string, assignedAddOnSid: string): AssignedAddOnExtensionListInstance;
 
-export interface AssignedAddOnExtensionResource {
+interface AssignedAddOnExtensionResource {
   account_sid: string;
   assigned_add_on_sid: string;
   enabled: boolean;

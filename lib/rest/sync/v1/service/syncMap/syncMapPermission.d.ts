@@ -21,7 +21,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function SyncMapPermissionList(version: V1, serviceSid: string, mapSid: string): SyncMapPermissionListInstance;
 
-export interface SyncMapPermissionResource {
+interface SyncMapPermissionResource {
   account_sid: string;
   identity: string;
   manage: boolean;

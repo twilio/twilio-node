@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function PublishedTrackList(version: V1, roomSid: string, participantSid: string): PublishedTrackListInstance;
 
-export interface PublishedTrackResource {
+interface PublishedTrackResource {
   date_created: Date;
   date_updated: Date;
   enabled: boolean;

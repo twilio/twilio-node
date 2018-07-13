@@ -21,7 +21,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function IntentList(version: Understand, assistantSid: string): IntentListInstance;
 
-export interface IntentResource {
+interface IntentResource {
   account_sid: string;
   assistant_sid: string;
   date_created: Date;

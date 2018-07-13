@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function EngagementContextList(version: V1, flowSid: string, engagementSid: string): EngagementContextListInstance;
 
-export interface EngagementContextResource {
+interface EngagementContextResource {
   account_sid: string;
   context: string;
   engagement_sid: string;

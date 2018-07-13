@@ -22,7 +22,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function CallList(version: V2010, accountSid: string): CallListInstance;
 
-export interface CallResource {
+interface CallResource {
   account_sid: string;
   annotation: string;
   answered_by: string;

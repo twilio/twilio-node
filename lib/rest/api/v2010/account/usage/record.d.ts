@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function RecordList(version: V2010, accountSid: string): RecordListInstance;
 
-export interface RecordResource {
+interface RecordResource {
   account_sid: string;
   api_version: string;
   category: RecordCategory;

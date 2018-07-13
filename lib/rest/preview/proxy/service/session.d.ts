@@ -22,7 +22,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function SessionList(version: Proxy, serviceSid: string): SessionListInstance;
 
-export interface SessionResource {
+interface SessionResource {
   account_sid: string;
   date_created: Date;
   date_updated: Date;

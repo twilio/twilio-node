@@ -21,7 +21,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function AssignedAddOnList(version: V2010, accountSid: string, resourceSid: string): AssignedAddOnListInstance;
 
-export interface AssignedAddOnResource {
+interface AssignedAddOnResource {
   account_sid: string;
   configuration: string;
   date_created: Date;

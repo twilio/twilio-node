@@ -20,7 +20,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function InteractionList(version: V1, serviceSid: string, sessionSid: string): InteractionListInstance;
 
-export interface InteractionResource {
+interface InteractionResource {
   account_sid: string;
   data: string;
   date_created: Date;

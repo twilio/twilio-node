@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../../../interfaces';
  */
 declare function DailyList(version: V2010, accountSid: string): DailyListInstance;
 
-export interface DailyResource {
+interface DailyResource {
   account_sid: string;
   api_version: string;
   category: DailyCategory;

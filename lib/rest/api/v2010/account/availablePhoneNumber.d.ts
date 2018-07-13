@@ -25,7 +25,7 @@ import { VoipList } from './availablePhoneNumber/voip';
  */
 declare function AvailablePhoneNumberCountryList(version: V2010, accountSid: string): AvailablePhoneNumberCountryListInstance;
 
-export interface AvailablePhoneNumberCountryResource {
+interface AvailablePhoneNumberCountryResource {
   beta: boolean;
   country: string;
   country_code: string;

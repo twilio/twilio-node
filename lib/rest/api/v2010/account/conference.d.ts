@@ -21,7 +21,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function ConferenceList(version: V2010, accountSid: string): ConferenceListInstance;
 
-export interface ConferenceResource {
+interface ConferenceResource {
   account_sid: string;
   api_version: string;
   date_created: Date;

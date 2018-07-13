@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function FeedbackList(version: V2010, accountSid: string, callSid: string): FeedbackListInstance;
 
-export interface FeedbackResource {
+interface FeedbackResource {
   account_sid: string;
   date_created: Date;
   date_updated: Date;

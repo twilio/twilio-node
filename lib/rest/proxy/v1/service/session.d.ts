@@ -22,7 +22,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function SessionList(version: V1, serviceSid: string): SessionListInstance;
 
-export interface SessionResource {
+interface SessionResource {
   account_sid: string;
   closed_reason: string;
   date_created: Date;

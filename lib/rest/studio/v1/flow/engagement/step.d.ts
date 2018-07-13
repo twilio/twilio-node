@@ -21,7 +21,7 @@ import { StepContextList } from './step/stepContext';
  */
 declare function StepList(version: V1, flowSid: string, engagementSid: string): StepListInstance;
 
-export interface StepResource {
+interface StepResource {
   account_sid: string;
   context: string;
   date_created: Date;

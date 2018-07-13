@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function EventList(version: V1, workspaceSid: string): EventListInstance;
 
-export interface EventResource {
+interface EventResource {
   account_sid: string;
   actor_sid: string;
   actor_type: string;

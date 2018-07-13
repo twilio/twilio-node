@@ -18,7 +18,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function UsageList(version: Wireless, simSid: string): UsageListInstance;
 
-export interface UsageResource {
+interface UsageResource {
   account_sid: string;
   commands_costs: string;
   commands_usage: string;

@@ -15,7 +15,7 @@ import V2010 = require('../../V2010');
  */
 declare function SipList(version: V2010, accountSid: string): SipListInstance;
 
-export interface SipResource {
+interface SipResource {
 }
 
 interface SipListInstance {

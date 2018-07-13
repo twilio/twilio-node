@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function ActivityList(version: V1, workspaceSid: string): ActivityListInstance;
 
-export interface ActivityResource {
+interface ActivityResource {
   account_sid: string;
   available: boolean;
   date_created: Date;

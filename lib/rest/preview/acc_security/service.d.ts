@@ -20,7 +20,7 @@ import { VerificationList } from './service/verification';
  */
 declare function ServiceList(version: AccSecurity): ServiceListInstance;
 
-export interface ServiceResource {
+interface ServiceResource {
   account_sid: string;
   code_length: number;
   date_created: Date;

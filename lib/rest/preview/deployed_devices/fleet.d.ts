@@ -22,7 +22,7 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function FleetList(version: DeployedDevices): FleetListInstance;
 
-export interface FleetResource {
+interface FleetResource {
   account_sid: string;
   date_created: Date;
   date_updated: Date;

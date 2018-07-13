@@ -20,7 +20,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function DeviceList(version: DeployedDevices, fleetSid: string): DeviceListInstance;
 
-export interface DeviceResource {
+interface DeviceResource {
   account_sid: string;
   date_authenticated: Date;
   date_created: Date;

@@ -18,7 +18,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function OutgoingCallerIdList(version: V2010, accountSid: string): OutgoingCallerIdListInstance;
 
-export interface OutgoingCallerIdResource {
+interface OutgoingCallerIdResource {
   account_sid: string;
   date_created: Date;
   date_updated: Date;

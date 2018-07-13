@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function CredentialList(version: V1): CredentialListInstance;
 
-export interface CredentialResource {
+interface CredentialResource {
   account_sid: string;
   date_created: Date;
   date_updated: Date;

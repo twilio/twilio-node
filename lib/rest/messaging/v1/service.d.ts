@@ -22,7 +22,7 @@ import { ShortCodeList } from './service/shortCode';
  */
 declare function ServiceList(version: V1): ServiceListInstance;
 
-export interface ServiceResource {
+interface ServiceResource {
   account_sid: string;
   area_code_geomatch: boolean;
   date_created: Date;

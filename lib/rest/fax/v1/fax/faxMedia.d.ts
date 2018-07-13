@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function FaxMediaList(version: V1, faxSid: string): FaxMediaListInstance;
 
-export interface FaxMediaResource {
+interface FaxMediaResource {
   account_sid: string;
   content_type: string;
   date_created: Date;

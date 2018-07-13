@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function TaskQueueCumulativeStatisticsList(version: V1, workspaceSid: string, taskQueueSid: string): TaskQueueCumulativeStatisticsListInstance;
 
-export interface TaskQueueCumulativeStatisticsResource {
+interface TaskQueueCumulativeStatisticsResource {
   account_sid: string;
   avg_task_acceptance_time: number;
   end_time: Date;

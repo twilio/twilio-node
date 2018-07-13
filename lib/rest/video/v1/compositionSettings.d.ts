@@ -18,7 +18,7 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function CompositionSettingsList(version: V1): CompositionSettingsListInstance;
 
-export interface CompositionSettingsResource {
+interface CompositionSettingsResource {
   account_sid: string;
   aws_credentials_sid: string;
   aws_s3_url: string;

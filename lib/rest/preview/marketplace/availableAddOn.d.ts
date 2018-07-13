@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function AvailableAddOnList(version: Marketplace): AvailableAddOnListInstance;
 
-export interface AvailableAddOnResource {
+interface AvailableAddOnResource {
   configuration_schema: string;
   description: string;
   friendly_name: string;

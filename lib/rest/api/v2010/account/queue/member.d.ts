@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function MemberList(version: V2010, accountSid: string, queueSid: string): MemberListInstance;
 
-export interface MemberResource {
+interface MemberResource {
   call_sid: string;
   date_enqueued: Date;
   position: number;

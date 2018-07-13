@@ -20,7 +20,7 @@ import { SerializableClass } from '../../../../../../interfaces';
  */
 declare function PayloadList(version: V2010, accountSid: string, referenceSid: string, addOnResultSid: string): PayloadListInstance;
 
-export interface PayloadResource {
+interface PayloadResource {
   account_sid: string;
   add_on_configuration_sid: string;
   add_on_result_sid: string;

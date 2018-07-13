@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../../../interfaces';
  */
 declare function TodayList(version: V2010, accountSid: string): TodayListInstance;
 
-export interface TodayResource {
+interface TodayResource {
   account_sid: string;
   api_version: string;
   category: TodayCategory;

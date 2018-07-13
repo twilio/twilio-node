@@ -20,7 +20,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function FieldTypeList(version: Understand, assistantSid: string): FieldTypeListInstance;
 
-export interface FieldTypeResource {
+interface FieldTypeResource {
   account_sid: string;
   assistant_sid: string;
   date_created: Date;

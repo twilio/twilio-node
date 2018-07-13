@@ -22,7 +22,7 @@ import { ShortCodeList } from './service/shortCode';
  */
 declare function ServiceList(version: Proxy): ServiceListInstance;
 
-export interface ServiceResource {
+interface ServiceResource {
   account_sid: string;
   auto_create: boolean;
   callback_url: string;

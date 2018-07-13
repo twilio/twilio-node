@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function RoomRecordingList(version: V1, roomSid: string): RoomRecordingListInstance;
 
-export interface RoomRecordingResource {
+interface RoomRecordingResource {
   account_sid: string;
   codec: RoomRecordingCodec;
   container_format: RoomRecordingFormat;

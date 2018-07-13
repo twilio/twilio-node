@@ -21,7 +21,7 @@ import { TaskQueueStatisticsList } from './taskQueue/taskQueueStatistics';
  */
 declare function TaskQueueList(version: V1, workspaceSid: string): TaskQueueListInstance;
 
-export interface TaskQueueResource {
+interface TaskQueueResource {
   account_sid: string;
   assignment_activity_name: string;
   assignment_activity_sid: string;

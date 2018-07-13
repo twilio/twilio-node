@@ -21,7 +21,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function DocumentList(version: V1, serviceSid: string): DocumentListInstance;
 
-export interface DocumentResource {
+interface DocumentResource {
   account_sid: string;
   created_by: string;
   data: string;

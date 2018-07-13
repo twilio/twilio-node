@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function ConnectAppList(version: V2010, accountSid: string): ConnectAppListInstance;
 
-export interface ConnectAppResource {
+interface ConnectAppResource {
   account_sid: string;
   authorize_redirect_url: string;
   company_name: string;

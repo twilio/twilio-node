@@ -21,7 +21,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function MessageList(version: V2010, accountSid: string): MessageListInstance;
 
-export interface MessageResource {
+interface MessageResource {
   account_sid: string;
   api_version: string;
   body: string;

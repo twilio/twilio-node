@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function FlowList(version: V1): FlowListInstance;
 
-export interface FlowResource {
+interface FlowResource {
   account_sid: string;
   date_created: Date;
   date_updated: Date;

@@ -20,7 +20,7 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function RoomList(version: V1): RoomListInstance;
 
-export interface RoomResource {
+interface RoomResource {
   account_sid: string;
   date_created: Date;
   date_updated: Date;

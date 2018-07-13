@@ -18,7 +18,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function PhoneNumberList(version: V1, trunkSid: string): PhoneNumberListInstance;
 
-export interface PhoneNumberResource {
+interface PhoneNumberResource {
   account_sid: string;
   address_requirements: PhoneNumberAddressRequirement;
   api_version: string;

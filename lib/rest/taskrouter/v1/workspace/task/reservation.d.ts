@@ -20,7 +20,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function ReservationList(version: V1, workspaceSid: string, taskSid: string): ReservationListInstance;
 
-export interface ReservationResource {
+interface ReservationResource {
   account_sid: string;
   date_created: Date;
   date_updated: Date;

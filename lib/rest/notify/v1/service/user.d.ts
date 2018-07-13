@@ -22,7 +22,7 @@ import { UserBindingList } from './user/userBinding';
  */
 declare function UserList(version: V1, serviceSid: string): UserListInstance;
 
-export interface UserResource {
+interface UserResource {
   account_sid: string;
   date_created: Date;
   date_updated: Date;

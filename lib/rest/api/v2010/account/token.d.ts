@@ -17,7 +17,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function TokenList(version: V2010, accountSid: string): TokenListInstance;
 
-export interface TokenResource {
+interface TokenResource {
   account_sid: string;
   date_created: Date;
   date_updated: Date;

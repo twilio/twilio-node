@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function TaskQueueStatisticsList(version: V1, workspaceSid: string, taskQueueSid: string): TaskQueueStatisticsListInstance;
 
-export interface TaskQueueStatisticsResource {
+interface TaskQueueStatisticsResource {
   account_sid: string;
   cumulative: string;
   realtime: string;

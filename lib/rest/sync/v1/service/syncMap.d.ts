@@ -21,7 +21,7 @@ import { SyncMapPermissionList } from './syncMap/syncMapPermission';
  */
 declare function SyncMapList(version: V1, serviceSid: string): SyncMapListInstance;
 
-export interface SyncMapResource {
+interface SyncMapResource {
   account_sid: string;
   created_by: string;
   date_created: Date;

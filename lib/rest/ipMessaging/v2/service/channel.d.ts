@@ -23,7 +23,7 @@ import { WebhookList } from './channel/webhook';
  */
 declare function ChannelList(version: V2, serviceSid: string): ChannelListInstance;
 
-export interface ChannelResource {
+interface ChannelResource {
   account_sid: string;
   attributes: string;
   created_by: string;

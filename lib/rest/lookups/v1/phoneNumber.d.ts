@@ -17,7 +17,7 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function PhoneNumberList(version: V1): PhoneNumberListInstance;
 
-export interface PhoneNumberResource {
+interface PhoneNumberResource {
   add_ons: string;
   caller_name: string;
   carrier: string;

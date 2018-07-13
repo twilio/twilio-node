@@ -18,7 +18,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function TaskQueueRealTimeStatisticsList(version: V1, workspaceSid: string, taskQueueSid: string): TaskQueueRealTimeStatisticsListInstance;
 
-export interface TaskQueueRealTimeStatisticsResource {
+interface TaskQueueRealTimeStatisticsResource {
   account_sid: string;
   activity_statistics: string;
   longest_task_waiting_age: number;

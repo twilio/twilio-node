@@ -20,7 +20,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function SampleList(version: Understand, assistantSid: string, intentSid: string): SampleListInstance;
 
-export interface SampleResource {
+interface SampleResource {
   account_sid: string;
   assistant_sid: string;
   date_created: Date;

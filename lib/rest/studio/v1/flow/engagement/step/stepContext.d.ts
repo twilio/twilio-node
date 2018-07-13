@@ -20,7 +20,7 @@ import { SerializableClass } from '../../../../../../interfaces';
  */
 declare function StepContextList(version: V1, flowSid: string, engagementSid: string, stepSid: string): StepContextListInstance;
 
-export interface StepContextResource {
+interface StepContextResource {
   account_sid: string;
   context: string;
   engagement_sid: string;

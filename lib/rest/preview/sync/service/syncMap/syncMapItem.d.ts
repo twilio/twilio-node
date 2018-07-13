@@ -21,7 +21,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function SyncMapItemList(version: Sync, serviceSid: string, mapSid: string): SyncMapItemListInstance;
 
-export interface SyncMapItemResource {
+interface SyncMapItemResource {
   account_sid: string;
   created_by: string;
   data: string;

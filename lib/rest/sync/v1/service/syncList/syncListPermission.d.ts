@@ -21,7 +21,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function SyncListPermissionList(version: V1, serviceSid: string, listSid: string): SyncListPermissionListInstance;
 
-export interface SyncListPermissionResource {
+interface SyncListPermissionResource {
   account_sid: string;
   identity: string;
   list_sid: string;

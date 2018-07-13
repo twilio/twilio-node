@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function NotificationList(version: V1, serviceSid: string): NotificationListInstance;
 
-export interface NotificationResource {
+interface NotificationResource {
   account_sid: string;
   action: string;
   alexa: string;

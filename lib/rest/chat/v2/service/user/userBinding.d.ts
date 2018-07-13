@@ -20,7 +20,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function UserBindingList(version: V2, serviceSid: string, userSid: string): UserBindingListInstance;
 
-export interface UserBindingResource {
+interface UserBindingResource {
   account_sid: string;
   binding_type: UserBindingBindingType;
   credential_sid: string;

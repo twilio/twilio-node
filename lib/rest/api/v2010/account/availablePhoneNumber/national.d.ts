@@ -20,7 +20,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function NationalList(version: V2010, accountSid: string, countryCode: string): NationalListInstance;
 
-export interface NationalResource {
+interface NationalResource {
   address_requirements: string;
   beta: boolean;
   capabilities: string;

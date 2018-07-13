@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function DeploymentList(version: DeployedDevices, fleetSid: string): DeploymentListInstance;
 
-export interface DeploymentResource {
+interface DeploymentResource {
   account_sid: string;
   date_created: Date;
   date_updated: Date;

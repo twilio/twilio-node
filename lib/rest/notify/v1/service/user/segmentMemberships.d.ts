@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function SegmentMembershipList(version: V1, serviceSid: string, identity: string): SegmentMembershipListInstance;
 
-export interface SegmentMembershipResource {
+interface SegmentMembershipResource {
   account_sid: string;
   identity: string;
   segment: string;

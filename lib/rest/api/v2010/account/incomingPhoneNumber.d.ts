@@ -20,7 +20,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function IncomingPhoneNumberList(version: V2010, accountSid: string): IncomingPhoneNumberListInstance;
 
-export interface IncomingPhoneNumberResource {
+interface IncomingPhoneNumberResource {
   account_sid: string;
   address_requirements: IncomingPhoneNumberAddressRequirement;
   address_sid: string;

@@ -20,7 +20,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function VoipList(version: V2010, accountSid: string, countryCode: string): VoipListInstance;
 
-export interface VoipResource {
+interface VoipResource {
   address_requirements: string;
   beta: boolean;
   capabilities: string;

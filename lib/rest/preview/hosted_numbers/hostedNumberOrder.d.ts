@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function HostedNumberOrderList(version: HostedNumbers): HostedNumberOrderListInstance;
 
-export interface HostedNumberOrderResource {
+interface HostedNumberOrderResource {
   account_sid: string;
   address_sid: string;
   call_delay: number;

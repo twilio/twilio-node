@@ -17,7 +17,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function CountryList(version: V1): CountryListInstance;
 
-export interface CountryResource {
+interface CountryResource {
   country: string;
   inbound_call_prices?: string;
   iso_country: string;

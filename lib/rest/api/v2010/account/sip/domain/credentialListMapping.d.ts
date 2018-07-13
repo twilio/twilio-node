@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../../../interfaces';
  */
 declare function CredentialListMappingList(version: V2010, accountSid: string, domainSid: string): CredentialListMappingListInstance;
 
-export interface CredentialListMappingResource {
+interface CredentialListMappingResource {
   account_sid: string;
   date_created: Date;
   date_updated: Date;

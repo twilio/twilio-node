@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function ApplicationList(version: V2010, accountSid: string): ApplicationListInstance;
 
-export interface ApplicationResource {
+interface ApplicationResource {
   account_sid: string;
   api_version: string;
   date_created: Date;

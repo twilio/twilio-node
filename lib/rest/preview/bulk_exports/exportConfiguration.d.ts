@@ -18,7 +18,7 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function ExportConfigurationList(version: BulkExports): ExportConfigurationListInstance;
 
-export interface ExportConfigurationResource {
+interface ExportConfigurationResource {
   enabled: boolean;
   resource_type: string;
   url: string;

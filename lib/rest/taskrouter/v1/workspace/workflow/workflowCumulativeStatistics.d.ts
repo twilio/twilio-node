@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function WorkflowCumulativeStatisticsList(version: V1, workspaceSid: string, workflowSid: string): WorkflowCumulativeStatisticsListInstance;
 
-export interface WorkflowCumulativeStatisticsResource {
+interface WorkflowCumulativeStatisticsResource {
   account_sid: string;
   avg_task_acceptance_time: number;
   end_time: Date;

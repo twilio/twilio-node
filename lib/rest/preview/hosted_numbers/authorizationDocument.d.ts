@@ -20,7 +20,7 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function AuthorizationDocumentList(version: HostedNumbers): AuthorizationDocumentListInstance;
 
-export interface AuthorizationDocumentResource {
+interface AuthorizationDocumentResource {
   address_sid: string;
   cc_emails: string;
   date_created: Date;

@@ -22,7 +22,7 @@ import { UserList } from './service/user';
  */
 declare function ServiceList(version: V2): ServiceListInstance;
 
-export interface ServiceResource {
+interface ServiceResource {
   account_sid: string;
   consumption_report_interval: number;
   date_created: Date;

@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../../../interfaces';
  */
 declare function YesterdayList(version: V2010, accountSid: string): YesterdayListInstance;
 
-export interface YesterdayResource {
+interface YesterdayResource {
   account_sid: string;
   api_version: string;
   category: YesterdayCategory;

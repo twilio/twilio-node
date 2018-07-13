@@ -19,7 +19,7 @@ import { UsageRecordList } from './sim/usageRecord';
  */
 declare function SimList(version: V1): SimListInstance;
 
-export interface SimResource {
+interface SimResource {
   account_sid: string;
   commands_callback_method: string;
   commands_callback_url: string;

@@ -20,7 +20,7 @@ import { UserChannelList } from './user/userChannel';
  */
 declare function UserList(version: V2, serviceSid: string): UserListInstance;
 
-export interface UserResource {
+interface UserResource {
   account_sid: string;
   attributes: string;
   date_created: Date;

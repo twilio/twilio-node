@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function KeyList(version: DeployedDevices, fleetSid: string): KeyListInstance;
 
-export interface KeyResource {
+interface KeyResource {
   account_sid: string;
   date_created: Date;
   date_updated: Date;

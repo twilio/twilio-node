@@ -18,7 +18,7 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function RecordingSettingsList(version: V1): RecordingSettingsListInstance;
 
-export interface RecordingSettingsResource {
+interface RecordingSettingsResource {
   account_sid: string;
   aws_credentials_sid: string;
   aws_s3_url: string;

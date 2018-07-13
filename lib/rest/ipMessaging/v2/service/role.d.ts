@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function RoleList(version: V2, serviceSid: string): RoleListInstance;
 
-export interface RoleResource {
+interface RoleResource {
   account_sid: string;
   date_created: Date;
   date_updated: Date;

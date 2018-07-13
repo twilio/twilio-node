@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function TollFreeList(version: V2010, accountSid: string): TollFreeListInstance;
 
-export interface TollFreeResource {
+interface TollFreeResource {
   account_sid: string;
   address_requirements: TollFreeAddressRequirement;
   address_sid: string;

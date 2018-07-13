@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function DayList(version: BulkExports, resourceType: string): DayListInstance;
 
-export interface DayResource {
+interface DayResource {
   day?: string;
   redirect_to?: string;
   resource_type?: string;

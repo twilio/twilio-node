@@ -21,7 +21,7 @@ import { WorkflowStatisticsList } from './workflow/workflowStatistics';
  */
 declare function WorkflowList(version: V1, workspaceSid: string): WorkflowListInstance;
 
-export interface WorkflowResource {
+interface WorkflowResource {
   account_sid: string;
   assignment_callback_url: string;
   configuration: string;

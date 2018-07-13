@@ -20,7 +20,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function SharedCostList(version: V2010, accountSid: string, countryCode: string): SharedCostListInstance;
 
-export interface SharedCostResource {
+interface SharedCostResource {
   address_requirements: string;
   beta: boolean;
   capabilities: string;

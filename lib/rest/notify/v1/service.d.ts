@@ -23,7 +23,7 @@ import { UserList } from './service/user';
  */
 declare function ServiceList(version: V1): ServiceListInstance;
 
-export interface ServiceResource {
+interface ServiceResource {
   account_sid: string;
   alexa_skill_id: string;
   apn_credential_sid: string;

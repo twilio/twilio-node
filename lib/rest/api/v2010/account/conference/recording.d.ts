@@ -20,7 +20,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function RecordingList(version: V2010, accountSid: string, conferenceSid: string): RecordingListInstance;
 
-export interface RecordingResource {
+interface RecordingResource {
   account_sid: string;
   api_version: string;
   call_sid: string;

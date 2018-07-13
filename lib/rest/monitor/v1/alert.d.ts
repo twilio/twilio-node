@@ -18,7 +18,7 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function AlertList(version: V1): AlertListInstance;
 
-export interface AlertResource {
+interface AlertResource {
   account_sid: string;
   alert_text: string;
   api_version: string;

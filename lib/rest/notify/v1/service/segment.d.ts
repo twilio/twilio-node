@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function SegmentList(version: V1, serviceSid: string): SegmentListInstance;
 
-export interface SegmentResource {
+interface SegmentResource {
   account_sid: string;
   date_created: Date;
   date_updated: Date;

@@ -20,7 +20,7 @@ import { StreamMessageList } from './syncStream/streamMessage';
  */
 declare function SyncStreamList(version: V1, serviceSid: string): SyncStreamListInstance;
 
-export interface SyncStreamResource {
+interface SyncStreamResource {
   account_sid: string;
   created_by: string;
   date_created: Date;

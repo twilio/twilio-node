@@ -17,7 +17,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function NewKeyList(version: V2010, accountSid: string): NewKeyListInstance;
 
-export interface NewKeyResource {
+interface NewKeyResource {
   date_created: Date;
   date_updated: Date;
   friendly_name: string;

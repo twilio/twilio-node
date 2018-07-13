@@ -16,7 +16,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function NumberList(version: V1): NumberListInstance;
 
-export interface NumberResource {
+interface NumberResource {
   country: string;
   inbound_call_price: string;
   iso_country: string;

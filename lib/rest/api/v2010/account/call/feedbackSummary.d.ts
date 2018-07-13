@@ -18,7 +18,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function FeedbackSummaryList(version: V2010, accountSid: string): FeedbackSummaryListInstance;
 
-export interface FeedbackSummaryResource {
+interface FeedbackSummaryResource {
   account_sid: string;
   call_count: number;
   call_feedback_count: number;

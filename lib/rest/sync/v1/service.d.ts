@@ -23,7 +23,7 @@ import { SyncStreamList } from './service/syncStream';
  */
 declare function ServiceList(version: V1): ServiceListInstance;
 
-export interface ServiceResource {
+interface ServiceResource {
   account_sid: string;
   acl_enabled: boolean;
   date_created: Date;

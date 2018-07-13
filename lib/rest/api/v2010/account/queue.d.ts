@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function QueueList(version: V2010, accountSid: string): QueueListInstance;
 
-export interface QueueResource {
+interface QueueResource {
   account_sid: string;
   average_wait_time: number;
   current_size: number;

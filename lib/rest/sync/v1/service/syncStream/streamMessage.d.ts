@@ -20,7 +20,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function StreamMessageList(version: V1, serviceSid: string, streamSid: string): StreamMessageListInstance;
 
-export interface StreamMessageResource {
+interface StreamMessageResource {
   data: string;
   sid: string;
 }

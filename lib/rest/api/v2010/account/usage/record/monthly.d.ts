@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../../../interfaces';
  */
 declare function MonthlyList(version: V2010, accountSid: string): MonthlyListInstance;
 
-export interface MonthlyResource {
+interface MonthlyResource {
   account_sid: string;
   api_version: string;
   category: MonthlyCategory;

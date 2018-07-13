@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function QueryList(version: Understand, assistantSid: string): QueryListInstance;
 
-export interface QueryResource {
+interface QueryResource {
   account_sid: string;
   assistant_sid: string;
   date_created: Date;

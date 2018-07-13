@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function TranscriptionList(version: V2010, accountSid: string, recordingSid: string): TranscriptionListInstance;
 
-export interface TranscriptionResource {
+interface TranscriptionResource {
   account_sid: string;
   api_version: string;
   date_created: Date;

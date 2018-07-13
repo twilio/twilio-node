@@ -20,7 +20,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function MachineToMachineList(version: V2010, accountSid: string, countryCode: string): MachineToMachineListInstance;
 
-export interface MachineToMachineResource {
+interface MachineToMachineResource {
   address_requirements: string;
   beta: boolean;
   capabilities: string;

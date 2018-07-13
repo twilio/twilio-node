@@ -40,7 +40,7 @@ import { ValidationRequestList } from './account/validationRequest';
  */
 declare function AccountList(version: V2010): AccountListInstance;
 
-export interface AccountResource {
+interface AccountResource {
   auth_token: string;
   date_created: Date;
   date_updated: Date;

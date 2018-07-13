@@ -20,7 +20,7 @@ import { StepList } from './engagement/step';
  */
 declare function EngagementList(version: Studio, flowSid: string): EngagementListInstance;
 
-export interface EngagementResource {
+interface EngagementResource {
   account_sid: string;
   contact_channel_address: string;
   contact_sid: string;

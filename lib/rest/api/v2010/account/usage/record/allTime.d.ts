@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../../../interfaces';
  */
 declare function AllTimeList(version: V2010, accountSid: string): AllTimeListInstance;
 
-export interface AllTimeResource {
+interface AllTimeResource {
   account_sid: string;
   api_version: string;
   category: AllTimeCategory;

@@ -22,7 +22,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function ChannelList(version: V1, serviceSid: string): ChannelListInstance;
 
-export interface ChannelResource {
+interface ChannelResource {
   account_sid: string;
   attributes: string;
   created_by: string;

@@ -23,7 +23,7 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function AssistantList(version: Understand): AssistantListInstance;
 
-export interface AssistantResource {
+interface AssistantResource {
   account_sid: string;
   callback_events: string;
   callback_url: string;

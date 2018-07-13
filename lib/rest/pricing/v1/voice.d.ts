@@ -16,7 +16,7 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function VoiceList(version: V1): VoiceListInstance;
 
-export interface VoiceResource {
+interface VoiceResource {
   links: string;
   name: string;
   url: string;

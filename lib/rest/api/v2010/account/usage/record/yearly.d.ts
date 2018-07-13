@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../../../interfaces';
  */
 declare function YearlyList(version: V2010, accountSid: string): YearlyListInstance;
 
-export interface YearlyResource {
+interface YearlyResource {
   account_sid: string;
   api_version: string;
   category: YearlyCategory;

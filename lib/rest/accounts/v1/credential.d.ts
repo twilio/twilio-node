@@ -14,7 +14,7 @@ import V1 = require('../V1');
  */
 declare function CredentialList(version: V1): CredentialListInstance;
 
-export interface CredentialResource {
+interface CredentialResource {
 }
 
 interface CredentialListInstance {

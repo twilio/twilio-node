@@ -20,7 +20,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function AddOnResultList(version: V2010, accountSid: string, referenceSid: string): AddOnResultListInstance;
 
-export interface AddOnResultResource {
+interface AddOnResultResource {
   account_sid: string;
   add_on_configuration_sid: string;
   add_on_sid: string;

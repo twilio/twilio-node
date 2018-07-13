@@ -17,7 +17,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function AwsList(version: V1): AwsListInstance;
 
-export interface AwsResource {
+interface AwsResource {
   account_sid: string;
   date_created: Date;
   date_updated: Date;

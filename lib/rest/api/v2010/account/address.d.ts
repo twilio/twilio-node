@@ -20,7 +20,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function AddressList(version: V2010, accountSid: string): AddressListInstance;
 
-export interface AddressResource {
+interface AddressResource {
   account_sid: string;
   city: string;
   customer_name: string;

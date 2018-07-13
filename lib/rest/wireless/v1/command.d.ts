@@ -17,7 +17,7 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function CommandList(version: V1): CommandListInstance;
 
-export interface CommandResource {
+interface CommandResource {
   account_sid: string;
   command: string;
   command_mode: CommandCommandMode;

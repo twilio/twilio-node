@@ -17,7 +17,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function ValidationRequestList(version: V2010, accountSid: string): ValidationRequestListInstance;
 
-export interface ValidationRequestResource {
+interface ValidationRequestResource {
   account_sid: string;
   call_sid: string;
   friendly_name: string;

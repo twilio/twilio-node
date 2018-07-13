@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function DataSessionList(version: V1, simSid: string): DataSessionListInstance;
 
-export interface DataSessionResource {
+interface DataSessionResource {
   account_sid: string;
   cell_id: string;
   cell_location_estimate: string;

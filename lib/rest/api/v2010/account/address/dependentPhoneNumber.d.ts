@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function DependentPhoneNumberList(version: V2010, accountSid: string, addressSid: string): DependentPhoneNumberListInstance;
 
-export interface DependentPhoneNumberResource {
+interface DependentPhoneNumberResource {
   account_sid: string;
   address_requirements: DependentPhoneNumberAddressRequirement;
   api_version: string;

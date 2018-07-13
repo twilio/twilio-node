@@ -18,7 +18,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function WorkflowRealTimeStatisticsList(version: V1, workspaceSid: string, workflowSid: string): WorkflowRealTimeStatisticsListInstance;
 
-export interface WorkflowRealTimeStatisticsResource {
+interface WorkflowRealTimeStatisticsResource {
   account_sid: string;
   longest_task_waiting_age: number;
   tasks_by_priority: string;

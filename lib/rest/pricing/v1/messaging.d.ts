@@ -16,7 +16,7 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function MessagingList(version: V1): MessagingListInstance;
 
-export interface MessagingResource {
+interface MessagingResource {
   links: string;
   name: string;
   url: string;

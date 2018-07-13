@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function CertificateList(version: DeployedDevices, fleetSid: string): CertificateListInstance;
 
-export interface CertificateResource {
+interface CertificateResource {
   account_sid: string;
   date_created: Date;
   date_updated: Date;

@@ -18,7 +18,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function VerificationList(version: AccSecurity, serviceSid: string): VerificationListInstance;
 
-export interface VerificationResource {
+interface VerificationResource {
   account_sid: string;
   channel: VerificationChannel;
   date_created: Date;

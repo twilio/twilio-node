@@ -20,7 +20,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function MemberList(version: V2, serviceSid: string, channelSid: string): MemberListInstance;
 
-export interface MemberResource {
+interface MemberResource {
   account_sid: string;
   channel_sid: string;
   date_created: Date;

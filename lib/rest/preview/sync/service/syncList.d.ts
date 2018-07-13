@@ -21,7 +21,7 @@ import { SyncListPermissionList } from './syncList/syncListPermission';
  */
 declare function SyncListList(version: Sync, serviceSid: string): SyncListListInstance;
 
-export interface SyncListResource {
+interface SyncListResource {
   account_sid: string;
   created_by: string;
   date_created: Date;

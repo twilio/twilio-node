@@ -20,7 +20,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function InviteList(version: V1, serviceSid: string, channelSid: string): InviteListInstance;
 
-export interface InviteResource {
+interface InviteResource {
   account_sid: string;
   channel_sid: string;
   created_by: string;

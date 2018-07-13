@@ -21,7 +21,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function DocumentPermissionList(version: V1, serviceSid: string, documentSid: string): DocumentPermissionListInstance;
 
-export interface DocumentPermissionResource {
+interface DocumentPermissionResource {
   account_sid: string;
   document_sid: string;
   identity: string;

@@ -17,7 +17,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function PublicKeyList(version: V1): PublicKeyListInstance;
 
-export interface PublicKeyResource {
+interface PublicKeyResource {
   account_sid: string;
   date_created: Date;
   date_updated: Date;

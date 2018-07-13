@@ -20,7 +20,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function SubscribedTrackList(version: V1, roomSid: string, subscriberSid: string): SubscribedTrackListInstance;
 
-export interface SubscribedTrackResource {
+interface SubscribedTrackResource {
   date_created: Date;
   date_updated: Date;
   enabled: boolean;

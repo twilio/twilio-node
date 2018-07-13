@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../../../interfaces';
  */
 declare function LastMonthList(version: V2010, accountSid: string): LastMonthListInstance;
 
-export interface LastMonthResource {
+interface LastMonthResource {
   account_sid: string;
   api_version: string;
   category: LastMonthCategory;

@@ -20,7 +20,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function MobileList(version: V2010, accountSid: string, countryCode: string): MobileListInstance;
 
-export interface MobileResource {
+interface MobileResource {
   address_requirements: string;
   beta: boolean;
   capabilities: string;

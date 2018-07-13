@@ -18,7 +18,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function TriggerList(version: V2010, accountSid: string): TriggerListInstance;
 
-export interface TriggerResource {
+interface TriggerResource {
   account_sid: string;
   api_version: string;
   callback_method: string;

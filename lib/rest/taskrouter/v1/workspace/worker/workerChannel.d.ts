@@ -20,7 +20,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function WorkerChannelList(version: V1, workspaceSid: string, workerSid: string): WorkerChannelListInstance;
 
-export interface WorkerChannelResource {
+interface WorkerChannelResource {
   account_sid: string;
   assigned_tasks: number;
   available: boolean;

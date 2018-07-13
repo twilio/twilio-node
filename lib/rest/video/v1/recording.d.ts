@@ -18,7 +18,7 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function RecordingList(version: V1): RecordingListInstance;
 
-export interface RecordingResource {
+interface RecordingResource {
   account_sid: string;
   codec: RecordingCodec;
   container_format: RecordingFormat;

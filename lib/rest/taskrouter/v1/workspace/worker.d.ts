@@ -23,7 +23,7 @@ import { WorkersRealTimeStatisticsList } from './worker/workersRealTimeStatistic
  */
 declare function WorkerList(version: V1, workspaceSid: string): WorkerListInstance;
 
-export interface WorkerResource {
+interface WorkerResource {
   account_sid: string;
   activity_name: string;
   activity_sid: string;

@@ -20,7 +20,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function InstalledAddOnExtensionList(version: Marketplace, installedAddOnSid: string): InstalledAddOnExtensionListInstance;
 
-export interface InstalledAddOnExtensionResource {
+interface InstalledAddOnExtensionResource {
   enabled: boolean;
   friendly_name: string;
   installed_add_on_sid: string;

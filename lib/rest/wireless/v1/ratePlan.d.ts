@@ -18,7 +18,7 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function RatePlanList(version: V1): RatePlanListInstance;
 
-export interface RatePlanResource {
+interface RatePlanResource {
   account_sid: string;
   data_enabled: boolean;
   data_limit: number;

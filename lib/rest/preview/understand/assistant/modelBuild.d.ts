@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function ModelBuildList(version: Understand, assistantSid: string): ModelBuildListInstance;
 
-export interface ModelBuildResource {
+interface ModelBuildResource {
   account_sid: string;
   assistant_sid: string;
   build_duration: number;

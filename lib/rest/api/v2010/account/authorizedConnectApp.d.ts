@@ -18,7 +18,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function AuthorizedConnectAppList(version: V2010, accountSid: string): AuthorizedConnectAppListInstance;
 
-export interface AuthorizedConnectAppResource {
+interface AuthorizedConnectAppResource {
   account_sid: string;
   connect_app_company_name: string;
   connect_app_description: string;

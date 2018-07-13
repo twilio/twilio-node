@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function UserChannelList(version: V2, serviceSid: string, userSid: string): UserChannelListInstance;
 
-export interface UserChannelResource {
+interface UserChannelResource {
   account_sid: string;
   channel_sid: string;
   last_consumed_message_index: number;

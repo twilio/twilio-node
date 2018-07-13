@@ -22,7 +22,7 @@ import { SyncMapList } from './service/syncMap';
  */
 declare function ServiceList(version: Sync): ServiceListInstance;
 
-export interface ServiceResource {
+interface ServiceResource {
   account_sid: string;
   acl_enabled: boolean;
   date_created: Date;

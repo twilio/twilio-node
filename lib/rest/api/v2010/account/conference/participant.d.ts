@@ -20,7 +20,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function ParticipantList(version: V2010, accountSid: string, conferenceSid: string): ParticipantListInstance;
 
-export interface ParticipantResource {
+interface ParticipantResource {
   account_sid: string;
   call_sid: string;
   conference_sid: string;

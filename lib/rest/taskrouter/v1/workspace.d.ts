@@ -28,7 +28,7 @@ import { WorkspaceStatisticsList } from './workspace/workspaceStatistics';
  */
 declare function WorkspaceList(version: V1): WorkspaceListInstance;
 
-export interface WorkspaceResource {
+interface WorkspaceResource {
   account_sid: string;
   date_created: Date;
   date_updated: Date;

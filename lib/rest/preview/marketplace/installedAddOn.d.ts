@@ -20,7 +20,7 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function InstalledAddOnList(version: Marketplace): InstalledAddOnListInstance;
 
-export interface InstalledAddOnResource {
+interface InstalledAddOnResource {
   account_sid: string;
   configuration: string;
   date_created: Date;

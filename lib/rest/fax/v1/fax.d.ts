@@ -20,7 +20,7 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function FaxList(version: V1): FaxListInstance;
 
-export interface FaxResource {
+interface FaxResource {
   account_sid: string;
   api_version: string;
   date_created: Date;

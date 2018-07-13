@@ -21,7 +21,7 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function DomainList(version: V2010, accountSid: string): DomainListInstance;
 
-export interface DomainResource {
+interface DomainResource {
   account_sid: string;
   api_version: string;
   auth_type: string;

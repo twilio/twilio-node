@@ -22,7 +22,7 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function TrunkList(version: V1): TrunkListInstance;
 
-export interface TrunkResource {
+interface TrunkResource {
   account_sid: string;
   auth_type: string;
   auth_type_set: string;

@@ -18,7 +18,7 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function CommandList(version: Wireless): CommandListInstance;
 
-export interface CommandResource {
+interface CommandResource {
   account_sid: string;
   command: string;
   command_mode: string;

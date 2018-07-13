@@ -20,7 +20,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function BindingList(version: V1, serviceSid: string): BindingListInstance;
 
-export interface BindingResource {
+interface BindingResource {
   account_sid: string;
   address: string;
   binding_type: string;

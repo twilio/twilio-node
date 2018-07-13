@@ -18,7 +18,7 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function ExportList(version: BulkExports): ExportListInstance;
 
-export interface ExportResource {
+interface ExportResource {
   links: string;
   resource_type: string;
   url: string;

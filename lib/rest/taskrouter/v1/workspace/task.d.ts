@@ -20,7 +20,7 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function TaskList(version: V1, workspaceSid: string): TaskListInstance;
 
-export interface TaskResource {
+interface TaskResource {
   account_sid: string;
   addons: string;
   age: number;
