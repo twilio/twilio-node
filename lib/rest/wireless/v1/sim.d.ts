@@ -13,7 +13,6 @@ import { DataSessionList } from './sim/dataSession';
 import { UsageRecordList } from './sim/usageRecord';
 
 /**
- * @constructor Twilio.Wireless.V1.SimList
  * @description Initialize the SimList
  *
  * @param version - Version of the resource

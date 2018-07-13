@@ -16,7 +16,6 @@ import { OriginationUrlList } from './trunk/originationUrl';
 import { PhoneNumberList } from './trunk/phoneNumber';
 
 /**
- * @constructor Twilio.Trunking.V1.TrunkList
  * @description Initialize the TrunkList
  *
  * @param version - Version of the resource

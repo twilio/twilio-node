@@ -12,7 +12,6 @@ import values = require('../../../../base/values');
 import { StreamMessageList } from './syncStream/streamMessage';
 
 /**
- * @constructor Twilio.Sync.V1.ServiceContext.SyncStreamList
  * @description Initialize the SyncStreamList
  * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
  *

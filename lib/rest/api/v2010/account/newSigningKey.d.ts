@@ -11,7 +11,6 @@ import deserialize = require('../../../../base/deserialize');
 import values = require('../../../../base/values');
 
 /**
- * @constructor Twilio.Api.V2010.AccountContext.NewSigningKeyList
  * @description Initialize the NewSigningKeyList
  *
  * @param version - Version of the resource

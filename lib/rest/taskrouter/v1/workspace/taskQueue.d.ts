@@ -14,7 +14,6 @@ import { TaskQueueRealTimeStatisticsList } from './taskQueue/taskQueueRealTimeSt
 import { TaskQueueStatisticsList } from './taskQueue/taskQueueStatistics';
 
 /**
- * @constructor Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueList
  * @description Initialize the TaskQueueList
  *
  * @param version - Version of the resource

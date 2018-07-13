@@ -14,7 +14,6 @@ import { EngagementContextList } from './engagement/engagementContext';
 import { StepList } from './engagement/step';
 
 /**
- * @constructor Twilio.Studio.V1.FlowContext.EngagementList
  * @description Initialize the EngagementList
  * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
  *

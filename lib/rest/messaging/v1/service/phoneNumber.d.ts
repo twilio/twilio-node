@@ -11,7 +11,6 @@ import deserialize = require('../../../../base/deserialize');
 import values = require('../../../../base/values');
 
 /**
- * @constructor Twilio.Messaging.V1.ServiceContext.PhoneNumberList
  * @description Initialize the PhoneNumberList
  * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
  *

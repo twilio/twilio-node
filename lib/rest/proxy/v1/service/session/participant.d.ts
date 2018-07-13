@@ -12,7 +12,6 @@ import values = require('../../../../../base/values');
 import { MessageInteractionList } from './participant/messageInteraction';
 
 /**
- * @constructor Twilio.Proxy.V1.ServiceContext.SessionContext.ParticipantList
  * @description Initialize the ParticipantList
  * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
  *

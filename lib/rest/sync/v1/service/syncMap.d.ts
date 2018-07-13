@@ -13,7 +13,6 @@ import { SyncMapItemList } from './syncMap/syncMapItem';
 import { SyncMapPermissionList } from './syncMap/syncMapPermission';
 
 /**
- * @constructor Twilio.Sync.V1.ServiceContext.SyncMapList
  * @description Initialize the SyncMapList
  * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
  *

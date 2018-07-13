@@ -11,7 +11,6 @@ import deserialize = require('../../../../../base/deserialize');
 import values = require('../../../../../base/values');
 
 /**
- * @constructor Twilio.Video.V1.RoomContext.ParticipantContext.PublishedTrackList
  * @description Initialize the PublishedTrackList
  *
  * @param version - Version of the resource

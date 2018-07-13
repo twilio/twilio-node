@@ -11,7 +11,6 @@ import deserialize = require('../../../../base/deserialize');
 import values = require('../../../../base/values');
 
 /**
- * @constructor Twilio.Accounts.V1.CredentialContext.AwsList
  * @description Initialize the AwsList
  *
  * @param version - Version of the resource

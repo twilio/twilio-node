@@ -13,7 +13,6 @@ import values = require('../../../../base/values');
 import { AssignedAddOnList } from './incomingPhoneNumber/assignedAddOn';
 
 /**
- * @constructor Twilio.Api.V2010.AccountContext.IncomingPhoneNumberList
  * @description Initialize the IncomingPhoneNumberList
  *
  * @param version - Version of the resource

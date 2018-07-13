@@ -12,7 +12,6 @@ import serialize = require('../../../../../../base/serialize');
 import values = require('../../../../../../base/values');
 
 /**
- * @constructor Twilio.Api.V2010.AccountContext.UsageContext.RecordContext.YearlyList
  * @description Initialize the YearlyList
  *
  * @param version - Version of the resource

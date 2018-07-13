@@ -12,7 +12,6 @@ import serialize = require('../../../base/serialize');
 import values = require('../../../base/values');
 
 /**
- * @constructor Twilio.Video.V1.RecordingList
  * @description Initialize the RecordingList
  *
  * @param version - Version of the resource

@@ -14,7 +14,6 @@ import { InteractionList } from './session/interaction';
 import { ParticipantList } from './session/participant';
 
 /**
- * @constructor Twilio.Proxy.V1.ServiceContext.SessionList
  * @description Initialize the SessionList
  * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
  *

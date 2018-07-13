@@ -15,7 +15,6 @@ import { RoleList } from './service/role';
 import { UserList } from './service/user';
 
 /**
- * @constructor Twilio.Chat.V1.ServiceList
  * @description Initialize the ServiceList
  *
  * @param version - Version of the resource

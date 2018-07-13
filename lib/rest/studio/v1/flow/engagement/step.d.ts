@@ -12,7 +12,6 @@ import values = require('../../../../../base/values');
 import { StepContextList } from './step/stepContext';
 
 /**
- * @constructor Twilio.Studio.V1.FlowContext.EngagementContext.StepList
  * @description Initialize the StepList
  * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
  *

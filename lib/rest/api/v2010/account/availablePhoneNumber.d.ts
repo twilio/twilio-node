@@ -17,7 +17,6 @@ import { TollFreeList } from './availablePhoneNumber/tollFree';
 import { VoipList } from './availablePhoneNumber/voip';
 
 /**
- * @constructor Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryList
  * @description Initialize the AvailablePhoneNumberCountryList
  *
  * @param version - Version of the resource

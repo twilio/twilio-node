@@ -11,7 +11,6 @@ import deserialize = require('../../../../../base/deserialize');
 import values = require('../../../../../base/values');
 
 /**
- * @constructor Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueueRealTimeStatisticsList
  * @description Initialize the TaskQueueRealTimeStatisticsList
  *
  * @param version - Version of the resource

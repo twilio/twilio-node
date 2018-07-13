@@ -13,7 +13,6 @@ import { SyncListItemList } from './syncList/syncListItem';
 import { SyncListPermissionList } from './syncList/syncListPermission';
 
 /**
- * @constructor Twilio.Sync.V1.ServiceContext.SyncListList
  * @description Initialize the SyncListList
  * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
  *

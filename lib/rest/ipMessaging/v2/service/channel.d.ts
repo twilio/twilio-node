@@ -16,7 +16,6 @@ import { MessageList } from './channel/message';
 import { WebhookList } from './channel/webhook';
 
 /**
- * @constructor Twilio.IpMessaging.V2.ServiceContext.ChannelList
  * @description Initialize the ChannelList
  *
  * @param version - Version of the resource

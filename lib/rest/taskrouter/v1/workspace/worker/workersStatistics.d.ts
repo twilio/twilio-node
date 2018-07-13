@@ -11,7 +11,6 @@ import serialize = require('../../../../../base/serialize');
 import values = require('../../../../../base/values');
 
 /**
- * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkersStatisticsList
  * @description Initialize the WorkersStatisticsList
  *
  * @param version - Version of the resource

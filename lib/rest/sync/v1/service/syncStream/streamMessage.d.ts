@@ -11,7 +11,6 @@ import serialize = require('../../../../../base/serialize');
 import values = require('../../../../../base/values');
 
 /**
- * @constructor Twilio.Sync.V1.ServiceContext.SyncStreamContext.StreamMessageList
  * @description Initialize the StreamMessageList
  * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
  *

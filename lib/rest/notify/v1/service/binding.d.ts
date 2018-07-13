@@ -12,7 +12,6 @@ import serialize = require('../../../../base/serialize');
 import values = require('../../../../base/values');
 
 /**
- * @constructor Twilio.Notify.V1.ServiceContext.BindingList
  * @description Initialize the BindingList
  * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
  *

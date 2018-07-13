@@ -12,7 +12,6 @@ import serialize = require('../../../../../../base/serialize');
 import values = require('../../../../../../base/values');
 
 /**
- * @constructor Twilio.Api.V2010.AccountContext.UsageContext.RecordContext.LastMonthList
  * @description Initialize the LastMonthList
  *
  * @param version - Version of the resource

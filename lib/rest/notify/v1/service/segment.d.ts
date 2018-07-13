@@ -11,7 +11,6 @@ import deserialize = require('../../../../base/deserialize');
 import values = require('../../../../base/values');
 
 /**
- * @constructor Twilio.Notify.V1.ServiceContext.SegmentList
  * @description Initialize the SegmentList
  * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
  *

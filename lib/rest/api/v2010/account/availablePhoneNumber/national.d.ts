@@ -12,7 +12,6 @@ import serialize = require('../../../../../base/serialize');
 import values = require('../../../../../base/values');
 
 /**
- * @constructor Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.NationalList
  * @description Initialize the NationalList
  *
  * @param version - Version of the resource

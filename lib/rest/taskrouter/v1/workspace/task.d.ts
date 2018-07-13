@@ -13,7 +13,6 @@ import values = require('../../../../base/values');
 import { ReservationList } from './task/reservation';
 
 /**
- * @constructor Twilio.Taskrouter.V1.WorkspaceContext.TaskList
  * @description Initialize the TaskList
  *
  * @param version - Version of the resource

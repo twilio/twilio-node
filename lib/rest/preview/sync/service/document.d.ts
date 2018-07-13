@@ -13,7 +13,6 @@ import values = require('../../../../base/values');
 import { DocumentPermissionList } from './document/documentPermission';
 
 /**
- * @constructor Twilio.Preview.Sync.ServiceContext.DocumentList
  * @description Initialize the DocumentList
  * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
  *

@@ -14,7 +14,6 @@ import { ParticipantList } from './room/roomParticipant';
 import { RoomRecordingList } from './room/recording';
 
 /**
- * @constructor Twilio.Video.V1.RoomList
  * @description Initialize the RoomList
  *
  * @param version - Version of the resource

@@ -12,7 +12,6 @@ import serialize = require('../../../../../base/serialize');
 import values = require('../../../../../base/values');
 
 /**
- * @constructor Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueueCumulativeStatisticsList
  * @description Initialize the TaskQueueCumulativeStatisticsList
  *
  * @param version - Version of the resource

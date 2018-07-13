@@ -16,7 +16,6 @@ import { SyncMapList } from './service/syncMap';
 import { SyncStreamList } from './service/syncStream';
 
 /**
- * @constructor Twilio.Sync.V1.ServiceList
  * @description Initialize the ServiceList
  * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
  *

@@ -11,7 +11,6 @@ import deserialize = require('../../../../base/deserialize');
 import values = require('../../../../base/values');
 
 /**
- * @constructor Twilio.Trunking.V1.TrunkContext.CredentialListList
  * @description Initialize the CredentialListList
  *
  * @param version - Version of the resource

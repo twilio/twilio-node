@@ -14,7 +14,6 @@ import { ParticipantList } from './conference/participant';
 import { RecordingList } from './conference/recording';
 
 /**
- * @constructor Twilio.Api.V2010.AccountContext.ConferenceList
  * @description Initialize the ConferenceList
  *
  * @param version - Version of the resource

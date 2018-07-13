@@ -12,7 +12,6 @@ import serialize = require('../../../../../../base/serialize');
 import values = require('../../../../../../base/values');
 
 /**
- * @constructor Twilio.Proxy.V1.ServiceContext.SessionContext.ParticipantContext.MessageInteractionList
  * @description Initialize the MessageInteractionList
  * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
  *

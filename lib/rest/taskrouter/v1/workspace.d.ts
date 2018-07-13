@@ -22,7 +22,6 @@ import { WorkspaceRealTimeStatisticsList } from './workspace/workspaceRealTimeSt
 import { WorkspaceStatisticsList } from './workspace/workspaceStatistics';
 
 /**
- * @constructor Twilio.Taskrouter.V1.WorkspaceList
  * @description Initialize the WorkspaceList
  *
  * @param version - Version of the resource

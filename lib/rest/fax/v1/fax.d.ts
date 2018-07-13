@@ -13,7 +13,6 @@ import values = require('../../../base/values');
 import { FaxMediaList } from './fax/faxMedia';
 
 /**
- * @constructor Twilio.Fax.V1.FaxList
  * @description Initialize the FaxList
  * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
  *

@@ -13,7 +13,6 @@ import values = require('../../../../base/values');
 import { DependentPhoneNumberList } from './address/dependentPhoneNumber';
 
 /**
- * @constructor Twilio.Api.V2010.AccountContext.AddressList
  * @description Initialize the AddressList
  *
  * @param version - Version of the resource

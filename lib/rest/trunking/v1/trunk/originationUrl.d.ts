@@ -12,7 +12,6 @@ import serialize = require('../../../../base/serialize');
 import values = require('../../../../base/values');
 
 /**
- * @constructor Twilio.Trunking.V1.TrunkContext.OriginationUrlList
  * @description Initialize the OriginationUrlList
  *
  * @param version - Version of the resource

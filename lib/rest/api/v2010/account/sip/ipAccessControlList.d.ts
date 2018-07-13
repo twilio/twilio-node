@@ -12,7 +12,6 @@ import values = require('../../../../../base/values');
 import { IpAddressList } from './ipAccessControlList/ipAddress';
 
 /**
- * @constructor Twilio.Api.V2010.AccountContext.SipContext.IpAccessControlListList
  * @description Initialize the IpAccessControlListList
  *
  * @param version - Version of the resource

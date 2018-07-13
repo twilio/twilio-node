@@ -12,7 +12,6 @@ import serialize = require('../../../base/serialize');
 import values = require('../../../base/values');
 
 /**
- * @constructor Twilio.Monitor.V1.EventList
  * @description Initialize the EventList
  *
  * @param version - Version of the resource

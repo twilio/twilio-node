@@ -10,7 +10,6 @@ import V1 = require('../../V1');
 import values = require('../../../../base/values');
 
 /**
- * @constructor Twilio.Pricing.V1.MessagingContext.CountryList
  * @description Initialize the CountryList
  *
  * @param version - Version of the resource

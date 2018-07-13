@@ -16,7 +16,6 @@ import { WorkersCumulativeStatisticsList } from './worker/workersCumulativeStati
 import { WorkersRealTimeStatisticsList } from './worker/workersRealTimeStatistics';
 
 /**
- * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkerList
  * @description Initialize the WorkerList
  *
  * @param version - Version of the resource

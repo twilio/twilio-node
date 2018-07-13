@@ -12,7 +12,6 @@ import values = require('../../../../../base/values');
 import { AssignedAddOnExtensionList } from './assignedAddOn/assignedAddOnExtension';
 
 /**
- * @constructor Twilio.Api.V2010.AccountContext.IncomingPhoneNumberContext.AssignedAddOnList
  * @description Initialize the AssignedAddOnList
  * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
  *

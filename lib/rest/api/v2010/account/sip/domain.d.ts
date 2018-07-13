@@ -14,7 +14,6 @@ import { CredentialListMappingList } from './domain/credentialListMapping';
 import { IpAccessControlListMappingList } from './domain/ipAccessControlListMapping';
 
 /**
- * @constructor Twilio.Api.V2010.AccountContext.SipContext.DomainList
  * @description Initialize the DomainList
  *
  * @param version - Version of the resource

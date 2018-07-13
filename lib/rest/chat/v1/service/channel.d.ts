@@ -15,7 +15,6 @@ import { MemberList } from './channel/member';
 import { MessageList } from './channel/message';
 
 /**
- * @constructor Twilio.Chat.V1.ServiceContext.ChannelList
  * @description Initialize the ChannelList
  *
  * @param version - Version of the resource

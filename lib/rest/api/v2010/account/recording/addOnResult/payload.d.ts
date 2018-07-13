@@ -11,7 +11,6 @@ import deserialize = require('../../../../../../base/deserialize');
 import values = require('../../../../../../base/values');
 
 /**
- * @constructor Twilio.Api.V2010.AccountContext.RecordingContext.AddOnResultContext.PayloadList
  * @description Initialize the PayloadList
  *
  * @param version - Version of the resource

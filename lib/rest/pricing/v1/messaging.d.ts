@@ -9,7 +9,6 @@ import Page = require('../../../base/Page');
 import V1 = require('../V1');
 
 /**
- * @constructor Twilio.Pricing.V1.MessagingList
  * @description Initialize the MessagingList
  *
  * @param version - Version of the resource

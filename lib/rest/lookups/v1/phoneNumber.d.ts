@@ -11,7 +11,6 @@ import serialize = require('../../../base/serialize');
 import values = require('../../../base/values');
 
 /**
- * @constructor Twilio.Lookups.V1.PhoneNumberList
  * @description Initialize the PhoneNumberList
  *
  * @param version - Version of the resource

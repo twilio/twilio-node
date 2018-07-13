@@ -12,7 +12,6 @@ import serialize = require('../../../base/serialize');
 import values = require('../../../base/values');
 
 /**
- * @constructor Twilio.Wireless.V1.RatePlanList
  * @description Initialize the RatePlanList
  *
  * @param version - Version of the resource

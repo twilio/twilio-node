@@ -13,7 +13,6 @@ import { UserBindingList } from './user/userBinding';
 import { UserChannelList } from './user/userChannel';
 
 /**
- * @constructor Twilio.IpMessaging.V2.ServiceContext.UserList
  * @description Initialize the UserList
  *
  * @param version - Version of the resource

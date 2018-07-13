@@ -14,7 +14,6 @@ import { SegmentMembershipList } from './user/segmentMemberships';
 import { UserBindingList } from './user/userBinding';
 
 /**
- * @constructor Twilio.Notify.V1.ServiceContext.UserList
  * @description Initialize the UserList
  * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
  *

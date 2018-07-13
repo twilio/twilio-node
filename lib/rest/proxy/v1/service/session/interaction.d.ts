@@ -11,7 +11,6 @@ import deserialize = require('../../../../../base/deserialize');
 import values = require('../../../../../base/values');
 
 /**
- * @constructor Twilio.Proxy.V1.ServiceContext.SessionContext.InteractionList
  * @description Initialize the InteractionList
  * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
  *

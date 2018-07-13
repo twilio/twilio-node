@@ -34,7 +34,6 @@ import { UsageList } from './account/usage';
 import { ValidationRequestList } from './account/validationRequest';
 
 /**
- * @constructor Twilio.Api.V2010.AccountList
  * @description Initialize the AccountList
  *
  * @param version - Version of the resource

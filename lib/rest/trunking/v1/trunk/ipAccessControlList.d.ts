@@ -11,7 +11,6 @@ import deserialize = require('../../../../base/deserialize');
 import values = require('../../../../base/values');
 
 /**
- * @constructor Twilio.Trunking.V1.TrunkContext.IpAccessControlListList
  * @description Initialize the IpAccessControlListList
  *
  * @param version - Version of the resource

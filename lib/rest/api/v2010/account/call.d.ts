@@ -15,7 +15,6 @@ import { NotificationList } from './call/notification';
 import { RecordingList } from './call/recording';
 
 /**
- * @constructor Twilio.Api.V2010.AccountContext.CallList
  * @description Initialize the CallList
  *
  * @param version - Version of the resource

@@ -11,7 +11,6 @@ import serialize = require('../../../../base/serialize');
 import values = require('../../../../base/values');
 
 /**
- * @constructor Twilio.Wireless.V1.SimContext.UsageRecordList
  * @description Initialize the UsageRecordList
  *
  * @param version - Version of the resource

@@ -14,7 +14,6 @@ import { PublishedTrackList } from './roomParticipant/roomParticipantPublishedTr
 import { SubscribedTrackList } from './roomParticipant/roomParticipantSubscribedTrack';
 
 /**
- * @constructor Twilio.Video.V1.RoomContext.ParticipantList
  * @description Initialize the ParticipantList
  *
  * @param version - Version of the resource

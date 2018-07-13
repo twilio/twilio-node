@@ -12,7 +12,6 @@ import values = require('../../../../base/values');
 import { MemberList } from './queue/member';
 
 /**
- * @constructor Twilio.Api.V2010.AccountContext.QueueList
  * @description Initialize the QueueList
  *
  * @param version - Version of the resource

@@ -12,7 +12,6 @@ import serialize = require('../../../base/serialize');
 import values = require('../../../base/values');
 
 /**
- * @constructor Twilio.Monitor.V1.AlertList
  * @description Initialize the AlertList
  *
  * @param version - Version of the resource

@@ -10,7 +10,6 @@ import Page = require('../../../../base/Page');
 import values = require('../../../../base/values');
 
 /**
- * @constructor Twilio.Preview.Marketplace.AvailableAddOnContext.AvailableAddOnExtensionList
  * @description Initialize the AvailableAddOnExtensionList
  * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
  *

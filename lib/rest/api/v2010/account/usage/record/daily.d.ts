@@ -12,7 +12,6 @@ import serialize = require('../../../../../../base/serialize');
 import values = require('../../../../../../base/values');
 
 /**
- * @constructor Twilio.Api.V2010.AccountContext.UsageContext.RecordContext.DailyList
  * @description Initialize the DailyList
  *
  * @param version - Version of the resource

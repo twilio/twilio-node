@@ -12,7 +12,6 @@ import values = require('../../../../../base/values');
 import { PayloadList } from './addOnResult/payload';
 
 /**
- * @constructor Twilio.Api.V2010.AccountContext.RecordingContext.AddOnResultList
  * @description Initialize the AddOnResultList
  *
  * @param version - Version of the resource

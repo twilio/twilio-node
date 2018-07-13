@@ -14,7 +14,6 @@ import { FeedbackList } from './message/feedback';
 import { MediaList } from './message/media';
 
 /**
- * @constructor Twilio.Api.V2010.AccountContext.MessageList
  * @description Initialize the MessageList
  *
  * @param version - Version of the resource

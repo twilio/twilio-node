@@ -8,7 +8,6 @@
 import V2010 = require('../../V2010');
 
 /**
- * @constructor Twilio.Api.V2010.AccountContext.SipList
  * @description Initialize the SipList
  *
  * @param version - Version of the resource

@@ -11,7 +11,6 @@ import deserialize = require('../../../base/deserialize');
 import values = require('../../../base/values');
 
 /**
- * @constructor Twilio.Wireless.V1.CommandList
  * @description Initialize the CommandList
  *
  * @param version - Version of the resource

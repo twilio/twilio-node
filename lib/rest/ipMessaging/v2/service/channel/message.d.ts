@@ -12,7 +12,6 @@ import serialize = require('../../../../../base/serialize');
 import values = require('../../../../../base/values');
 
 /**
- * @constructor Twilio.IpMessaging.V2.ServiceContext.ChannelContext.MessageList
  * @description Initialize the MessageList
  *
  * @param version - Version of the resource

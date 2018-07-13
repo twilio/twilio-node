@@ -12,7 +12,6 @@ import values = require('../../../../../base/values');
 import { CredentialList } from './credentialList/credential';
 
 /**
- * @constructor Twilio.Api.V2010.AccountContext.SipContext.CredentialListList
  * @description Initialize the CredentialListList
  *
  * @param version - Version of the resource

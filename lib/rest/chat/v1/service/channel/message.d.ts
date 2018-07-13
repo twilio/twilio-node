@@ -11,7 +11,6 @@ import deserialize = require('../../../../../base/deserialize');
 import values = require('../../../../../base/values');
 
 /**
- * @constructor Twilio.Chat.V1.ServiceContext.ChannelContext.MessageList
  * @description Initialize the MessageList
  *
  * @param version - Version of the resource

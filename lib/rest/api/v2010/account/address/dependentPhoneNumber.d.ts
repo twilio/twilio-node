@@ -11,7 +11,6 @@ import deserialize = require('../../../../../base/deserialize');
 import values = require('../../../../../base/values');
 
 /**
- * @constructor Twilio.Api.V2010.AccountContext.AddressContext.DependentPhoneNumberList
  * @description Initialize the DependentPhoneNumberList
  *
  * @param version - Version of the resource

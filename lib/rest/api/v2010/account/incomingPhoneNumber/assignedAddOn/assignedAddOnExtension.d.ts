@@ -10,7 +10,6 @@ import V2010 = require('../../../../V2010');
 import values = require('../../../../../../base/values');
 
 /**
- * @constructor Twilio.Api.V2010.AccountContext.IncomingPhoneNumberContext.AssignedAddOnContext.AssignedAddOnExtensionList
  * @description Initialize the AssignedAddOnExtensionList
  * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
  *

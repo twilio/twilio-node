@@ -12,7 +12,6 @@ import serialize = require('../../../../../base/serialize');
 import values = require('../../../../../base/values');
 
 /**
- * @constructor Twilio.Api.V2010.AccountContext.IncomingPhoneNumberContext.TollFreeList
  * @description Initialize the TollFreeList
  *
  * @param version - Version of the resource

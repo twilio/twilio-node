@@ -12,7 +12,6 @@ import serialize = require('../../../../../base/serialize');
 import values = require('../../../../../base/values');
 
 /**
- * @constructor Twilio.Video.V1.RoomContext.ParticipantContext.SubscribedTrackList
  * @description Initialize the SubscribedTrackList
  *
  * @param version - Version of the resource

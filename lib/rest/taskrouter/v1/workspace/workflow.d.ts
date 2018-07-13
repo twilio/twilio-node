@@ -14,7 +14,6 @@ import { WorkflowRealTimeStatisticsList } from './workflow/workflowRealTimeStati
 import { WorkflowStatisticsList } from './workflow/workflowStatistics';
 
 /**
- * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkflowList
  * @description Initialize the WorkflowList
  *
  * @param version - Version of the resource

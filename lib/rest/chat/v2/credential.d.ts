@@ -12,7 +12,6 @@ import serialize = require('../../../base/serialize');
 import values = require('../../../base/values');
 
 /**
- * @constructor Twilio.Chat.V2.CredentialList
  * @description Initialize the CredentialList
  *
  * @param version - Version of the resource

@@ -12,7 +12,6 @@ import serialize = require('../../../../base/serialize');
 import values = require('../../../../base/values');
 
 /**
- * @constructor Twilio.IpMessaging.V1.ServiceContext.RoleList
  * @description Initialize the RoleList
  *
  * @param version - Version of the resource

@@ -14,7 +14,6 @@ import { AddOnResultList } from './recording/addOnResult';
 import { TranscriptionList } from './recording/transcription';
 
 /**
- * @constructor Twilio.Api.V2010.AccountContext.RecordingList
  * @description Initialize the RecordingList
  *
  * @param version - Version of the resource

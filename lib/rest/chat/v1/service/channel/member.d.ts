@@ -12,7 +12,6 @@ import serialize = require('../../../../../base/serialize');
 import values = require('../../../../../base/values');
 
 /**
- * @constructor Twilio.Chat.V1.ServiceContext.ChannelContext.MemberList
  * @description Initialize the MemberList
  *
  * @param version - Version of the resource
