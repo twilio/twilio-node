@@ -7,11 +7,11 @@
 
 import Page = require('../../../base/Page');
 import V1 = require('../V1');
-import deserialize = require('../../../base/deserialize');
 import serialize = require('../../../base/serialize');
-import values = require('../../../base/values');
 import { ActivityList } from './workspace/activity';
 import { EventList } from './workspace/event';
+import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
+import { SerializableClass } from '../../../interfaces';
 import { TaskChannelList } from './workspace/taskChannel';
 import { TaskList } from './workspace/task';
 import { TaskQueueList } from './workspace/taskQueue';

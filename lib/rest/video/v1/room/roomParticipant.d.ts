@@ -7,10 +7,10 @@
 
 import Page = require('../../../../base/Page');
 import V1 = require('../../V1');
-import deserialize = require('../../../../base/deserialize');
 import serialize = require('../../../../base/serialize');
-import values = require('../../../../base/values');
+import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
 import { PublishedTrackList } from './roomParticipant/roomParticipantPublishedTrack';
+import { SerializableClass } from '../../../../interfaces';
 import { SubscribedTrackList } from './roomParticipant/roomParticipantSubscribedTrack';
 
 /**

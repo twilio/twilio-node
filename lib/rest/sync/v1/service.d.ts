@@ -7,10 +7,10 @@
 
 import Page = require('../../../base/Page');
 import V1 = require('../V1');
-import deserialize = require('../../../base/deserialize');
 import serialize = require('../../../base/serialize');
-import values = require('../../../base/values');
 import { DocumentList } from './service/document';
+import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
+import { SerializableClass } from '../../../interfaces';
 import { SyncListList } from './service/syncList';
 import { SyncMapList } from './service/syncMap';
 import { SyncStreamList } from './service/syncStream';

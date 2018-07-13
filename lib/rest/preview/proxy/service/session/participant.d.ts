@@ -7,9 +7,9 @@
 
 import Page = require('../../../../../base/Page');
 import Proxy = require('../../../Proxy');
-import deserialize = require('../../../../../base/deserialize');
-import values = require('../../../../../base/values');
+import { ListEachOptions, ListOptions, PageOptions } from '../../../../../interfaces';
 import { MessageInteractionList } from './participant/messageInteraction';
+import { SerializableClass } from '../../../../../interfaces';
 
 /**
  * @description Initialize the ParticipantList

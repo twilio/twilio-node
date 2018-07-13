@@ -7,7 +7,7 @@
 
 import Page = require('../../../../base/Page');
 import V1 = require('../../V1');
-import values = require('../../../../base/values');
+import { SerializableClass } from '../../../../interfaces';
 
 /**
  * @description Initialize the NumberList

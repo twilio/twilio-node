@@ -7,11 +7,11 @@
 
 import Page = require('../../../base/Page');
 import V1 = require('../V1');
-import deserialize = require('../../../base/deserialize');
 import serialize = require('../../../base/serialize');
-import values = require('../../../base/values');
 import { AlphaSenderList } from './service/alphaSender';
+import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
 import { PhoneNumberList } from './service/phoneNumber';
+import { SerializableClass } from '../../../interfaces';
 import { ShortCodeList } from './service/shortCode';
 
 /**

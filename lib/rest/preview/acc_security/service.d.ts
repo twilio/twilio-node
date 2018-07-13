@@ -7,8 +7,8 @@
 
 import AccSecurity = require('../AccSecurity');
 import Page = require('../../../base/Page');
-import deserialize = require('../../../base/deserialize');
-import values = require('../../../base/values');
+import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
+import { SerializableClass } from '../../../interfaces';
 import { VerificationCheckList } from './service/verificationCheck';
 import { VerificationList } from './service/verification';
 

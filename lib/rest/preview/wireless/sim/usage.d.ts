@@ -7,7 +7,7 @@
 
 import Page = require('../../../../base/Page');
 import Wireless = require('../../Wireless');
-import values = require('../../../../base/values');
+import { SerializableClass } from '../../../../interfaces';
 
 /**
  * @description Initialize the UsageList

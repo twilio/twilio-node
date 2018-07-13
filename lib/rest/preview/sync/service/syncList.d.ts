@@ -7,8 +7,8 @@
 
 import Page = require('../../../../base/Page');
 import Sync = require('../../Sync');
-import deserialize = require('../../../../base/deserialize');
-import values = require('../../../../base/values');
+import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
+import { SerializableClass } from '../../../../interfaces';
 import { SyncListItemList } from './syncList/syncListItem';
 import { SyncListPermissionList } from './syncList/syncListPermission';
 

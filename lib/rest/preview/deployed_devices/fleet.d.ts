@@ -7,12 +7,12 @@
 
 import DeployedDevices = require('../DeployedDevices');
 import Page = require('../../../base/Page');
-import deserialize = require('../../../base/deserialize');
-import values = require('../../../base/values');
 import { CertificateList } from './fleet/certificate';
 import { DeploymentList } from './fleet/deployment';
 import { DeviceList } from './fleet/device';
 import { KeyList } from './fleet/key';
+import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
+import { SerializableClass } from '../../../interfaces';
 
 /**
  * @description Initialize the FleetList

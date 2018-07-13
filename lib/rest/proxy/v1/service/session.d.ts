@@ -7,11 +7,11 @@
 
 import Page = require('../../../../base/Page');
 import V1 = require('../../V1');
-import deserialize = require('../../../../base/deserialize');
 import serialize = require('../../../../base/serialize');
-import values = require('../../../../base/values');
 import { InteractionList } from './session/interaction';
+import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
 import { ParticipantList } from './session/participant';
+import { SerializableClass } from '../../../../interfaces';
 
 /**
  * @description Initialize the SessionList

@@ -7,9 +7,9 @@
 
 import Page = require('../../../../base/Page');
 import V1 = require('../../V1');
-import deserialize = require('../../../../base/deserialize');
-import values = require('../../../../base/values');
+import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
 import { ReservationList } from './worker/reservation';
+import { SerializableClass } from '../../../../interfaces';
 import { WorkerChannelList } from './worker/workerChannel';
 import { WorkerStatisticsList } from './worker/workerStatistics';
 import { WorkersCumulativeStatisticsList } from './worker/workersCumulativeStatistics';

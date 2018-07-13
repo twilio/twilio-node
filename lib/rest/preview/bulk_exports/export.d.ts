@@ -7,8 +7,8 @@
 
 import BulkExports = require('../BulkExports');
 import Page = require('../../../base/Page');
-import values = require('../../../base/values');
 import { DayList } from './export/day';
+import { SerializableClass } from '../../../interfaces';
 
 /**
  * @description Initialize the ExportList

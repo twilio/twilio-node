@@ -7,10 +7,10 @@
 
 import HostedNumbers = require('../HostedNumbers');
 import Page = require('../../../base/Page');
-import deserialize = require('../../../base/deserialize');
 import serialize = require('../../../base/serialize');
-import values = require('../../../base/values');
 import { DependentHostedNumberOrderList } from './authorizationDocument/dependentHostedNumberOrder';
+import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
+import { SerializableClass } from '../../../interfaces';
 
 /**
  * @description Initialize the AuthorizationDocumentList

@@ -7,8 +7,8 @@
 
 import Page = require('../../../base/Page');
 import Wireless = require('../Wireless');
-import deserialize = require('../../../base/deserialize');
-import values = require('../../../base/values');
+import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
+import { SerializableClass } from '../../../interfaces';
 import { UsageList } from './sim/usage';
 
 /**

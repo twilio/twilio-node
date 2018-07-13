@@ -7,11 +7,11 @@
 
 import Page = require('../../../base/Page');
 import V1 = require('../V1');
-import deserialize = require('../../../base/deserialize');
 import serialize = require('../../../base/serialize');
-import values = require('../../../base/values');
 import { ChannelList } from './service/channel';
+import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
 import { RoleList } from './service/role';
+import { SerializableClass } from '../../../interfaces';
 import { UserList } from './service/user';
 
 /**

@@ -7,13 +7,13 @@
 
 import Page = require('../../../base/Page');
 import Understand = require('../Understand');
-import deserialize = require('../../../base/deserialize');
 import serialize = require('../../../base/serialize');
-import values = require('../../../base/values');
 import { FieldTypeList } from './assistant/fieldType';
 import { IntentList } from './assistant/intent';
+import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
 import { ModelBuildList } from './assistant/modelBuild';
 import { QueryList } from './assistant/query';
+import { SerializableClass } from '../../../interfaces';
 
 /**
  * @description Initialize the AssistantList

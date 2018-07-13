@@ -7,12 +7,12 @@
 
 import Page = require('../../../base/Page');
 import V1 = require('../V1');
-import deserialize = require('../../../base/deserialize');
 import serialize = require('../../../base/serialize');
-import values = require('../../../base/values');
 import { BindingList } from './service/binding';
+import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
 import { NotificationList } from './service/notification';
 import { SegmentList } from './service/segment';
+import { SerializableClass } from '../../../interfaces';
 import { UserList } from './service/user';
 
 /**

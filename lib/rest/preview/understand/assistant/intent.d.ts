@@ -7,10 +7,10 @@
 
 import Page = require('../../../../base/Page');
 import Understand = require('../../Understand');
-import deserialize = require('../../../../base/deserialize');
-import values = require('../../../../base/values');
 import { FieldList } from './intent/field';
+import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
 import { SampleList } from './intent/sample';
+import { SerializableClass } from '../../../../interfaces';
 
 /**
  * @description Initialize the IntentList

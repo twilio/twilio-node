@@ -7,9 +7,9 @@
 
 import Page = require('../../../../base/Page');
 import Understand = require('../../Understand');
-import deserialize = require('../../../../base/deserialize');
-import values = require('../../../../base/values');
 import { FieldValueList } from './fieldType/fieldValue';
+import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
+import { SerializableClass } from '../../../../interfaces';
 
 /**
  * @description Initialize the FieldTypeList

@@ -7,12 +7,12 @@
 
 import Page = require('../../../../base/Page');
 import V2 = require('../../V2');
-import deserialize = require('../../../../base/deserialize');
 import serialize = require('../../../../base/serialize');
-import values = require('../../../../base/values');
 import { InviteList } from './channel/invite';
+import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
 import { MemberList } from './channel/member';
 import { MessageList } from './channel/message';
+import { SerializableClass } from '../../../../interfaces';
 import { WebhookList } from './channel/webhook';
 
 /**

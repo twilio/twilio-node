@@ -7,8 +7,7 @@
 
 import AccSecurity = require('../../AccSecurity');
 import Page = require('../../../../base/Page');
-import deserialize = require('../../../../base/deserialize');
-import values = require('../../../../base/values');
+import { SerializableClass } from '../../../../interfaces';
 
 /**
  * @description Initialize the VerificationCheckList

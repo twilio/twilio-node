@@ -7,11 +7,12 @@
 
 import Page = require('../../../../base/Page');
 import V2010 = require('../../V2010');
-import values = require('../../../../base/values');
+import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
 import { LocalList } from './availablePhoneNumber/local';
 import { MachineToMachineList } from './availablePhoneNumber/machineToMachine';
 import { MobileList } from './availablePhoneNumber/mobile';
 import { NationalList } from './availablePhoneNumber/national';
+import { SerializableClass } from '../../../../interfaces';
 import { SharedCostList } from './availablePhoneNumber/sharedCost';
 import { TollFreeList } from './availablePhoneNumber/tollFree';
 import { VoipList } from './availablePhoneNumber/voip';

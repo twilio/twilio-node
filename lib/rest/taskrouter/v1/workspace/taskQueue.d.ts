@@ -7,8 +7,8 @@
 
 import Page = require('../../../../base/Page');
 import V1 = require('../../V1');
-import deserialize = require('../../../../base/deserialize');
-import values = require('../../../../base/values');
+import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
+import { SerializableClass } from '../../../../interfaces';
 import { TaskQueueCumulativeStatisticsList } from './taskQueue/taskQueueCumulativeStatistics';
 import { TaskQueueRealTimeStatisticsList } from './taskQueue/taskQueueRealTimeStatistics';
 import { TaskQueueStatisticsList } from './taskQueue/taskQueueStatistics';

@@ -7,10 +7,10 @@
 
 import Page = require('../../../base/Page');
 import Proxy = require('../Proxy');
-import deserialize = require('../../../base/deserialize');
 import serialize = require('../../../base/serialize');
-import values = require('../../../base/values');
+import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
 import { PhoneNumberList } from './service/phoneNumber';
+import { SerializableClass } from '../../../interfaces';
 import { SessionList } from './service/session';
 import { ShortCodeList } from './service/shortCode';
 

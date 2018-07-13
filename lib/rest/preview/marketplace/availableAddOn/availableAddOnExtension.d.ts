@@ -7,7 +7,8 @@
 
 import Marketplace = require('../../Marketplace');
 import Page = require('../../../../base/Page');
-import values = require('../../../../base/values');
+import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
+import { SerializableClass } from '../../../../interfaces';
 
 /**
  * @description Initialize the AvailableAddOnExtensionList

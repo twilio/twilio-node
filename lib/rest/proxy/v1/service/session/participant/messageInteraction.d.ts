@@ -7,9 +7,9 @@
 
 import Page = require('../../../../../../base/Page');
 import V1 = require('../../../../V1');
-import deserialize = require('../../../../../../base/deserialize');
 import serialize = require('../../../../../../base/serialize');
-import values = require('../../../../../../base/values');
+import { ListEachOptions, ListOptions, PageOptions } from '../../../../../../interfaces';
+import { SerializableClass } from '../../../../../../interfaces';
 
 /**
  * @description Initialize the MessageInteractionList

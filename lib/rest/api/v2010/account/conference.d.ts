@@ -7,11 +7,11 @@
 
 import Page = require('../../../../base/Page');
 import V2010 = require('../../V2010');
-import deserialize = require('../../../../base/deserialize');
 import serialize = require('../../../../base/serialize');
-import values = require('../../../../base/values');
+import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
 import { ParticipantList } from './conference/participant';
 import { RecordingList } from './conference/recording';
+import { SerializableClass } from '../../../../interfaces';
 
 /**
  * @description Initialize the ConferenceList

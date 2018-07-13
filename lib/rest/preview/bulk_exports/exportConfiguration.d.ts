@@ -8,7 +8,7 @@
 import BulkExports = require('../BulkExports');
 import Page = require('../../../base/Page');
 import serialize = require('../../../base/serialize');
-import values = require('../../../base/values');
+import { SerializableClass } from '../../../interfaces';
 
 /**
  * @description Initialize the ExportConfigurationList

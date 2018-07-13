@@ -7,13 +7,13 @@
 
 import Page = require('../../../base/Page');
 import V1 = require('../V1');
-import deserialize = require('../../../base/deserialize');
 import serialize = require('../../../base/serialize');
-import values = require('../../../base/values');
 import { CredentialListList } from './trunk/credentialList';
 import { IpAccessControlListList } from './trunk/ipAccessControlList';
+import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
 import { OriginationUrlList } from './trunk/originationUrl';
 import { PhoneNumberList } from './trunk/phoneNumber';
+import { SerializableClass } from '../../../interfaces';
 
 /**
  * @description Initialize the TrunkList

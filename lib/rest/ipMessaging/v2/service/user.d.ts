@@ -7,8 +7,8 @@
 
 import Page = require('../../../../base/Page');
 import V2 = require('../../V2');
-import deserialize = require('../../../../base/deserialize');
-import values = require('../../../../base/values');
+import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
+import { SerializableClass } from '../../../../interfaces';
 import { UserBindingList } from './user/userBinding';
 import { UserChannelList } from './user/userChannel';
 
