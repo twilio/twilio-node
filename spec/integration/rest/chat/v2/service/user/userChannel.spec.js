@@ -236,4 +236,3 @@ describe('UserChannel', function() {
     }
   );
 });
-

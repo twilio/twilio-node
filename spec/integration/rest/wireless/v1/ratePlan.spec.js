@@ -466,4 +466,3 @@ describe('RatePlan', function() {
     }
   );
 });
-

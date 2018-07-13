@@ -528,4 +528,3 @@ describe('TaskQueue', function() {
     }
   );
 });
-

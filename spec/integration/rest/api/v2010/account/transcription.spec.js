@@ -343,4 +343,3 @@ describe('Transcription', function() {
     }
   );
 });
-

@@ -454,4 +454,3 @@ describe('SyncListItem', function() {
     }
   );
 });
-

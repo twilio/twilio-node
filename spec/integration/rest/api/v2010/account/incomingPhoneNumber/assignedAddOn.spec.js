@@ -417,4 +417,3 @@ describe('AssignedAddOn', function() {
     }
   );
 });
-

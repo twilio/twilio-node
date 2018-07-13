@@ -457,4 +457,3 @@ describe('SyncListItem', function() {
     }
   );
 });
-

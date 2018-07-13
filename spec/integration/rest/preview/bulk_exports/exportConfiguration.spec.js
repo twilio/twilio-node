@@ -117,4 +117,3 @@ describe('ExportConfiguration', function() {
     }
   );
 });
-

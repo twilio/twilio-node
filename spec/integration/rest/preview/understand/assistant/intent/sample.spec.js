@@ -448,4 +448,3 @@ describe('Sample', function() {
     }
   );
 });
-

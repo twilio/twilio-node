@@ -439,4 +439,3 @@ describe('Intent', function() {
     }
   );
 });
-

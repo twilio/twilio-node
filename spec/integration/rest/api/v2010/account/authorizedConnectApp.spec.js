@@ -296,4 +296,3 @@ describe('AuthorizedConnectApp', function() {
     }
   );
 });
-

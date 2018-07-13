@@ -420,4 +420,3 @@ describe('Binding', function() {
     }
   );
 });
-

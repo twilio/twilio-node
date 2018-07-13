@@ -288,4 +288,3 @@ describe('AssignedAddOnExtension', function() {
     }
   );
 });
-

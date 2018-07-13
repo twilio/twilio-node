@@ -87,4 +87,3 @@ describe('Token', function() {
     }
   );
 });
-

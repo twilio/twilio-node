@@ -324,4 +324,3 @@ describe('Event', function() {
     }
   );
 });
-

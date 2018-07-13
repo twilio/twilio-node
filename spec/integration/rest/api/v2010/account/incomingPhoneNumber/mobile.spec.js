@@ -405,4 +405,3 @@ describe('Mobile', function() {
     }
   );
 });
-

@@ -338,4 +338,3 @@ describe('AddOnResult', function() {
     }
   );
 });
-

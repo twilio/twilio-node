@@ -324,4 +324,3 @@ describe('Alert', function() {
     }
   );
 });
-

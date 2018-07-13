@@ -414,4 +414,3 @@ describe('Sim', function() {
     }
   );
 });
-

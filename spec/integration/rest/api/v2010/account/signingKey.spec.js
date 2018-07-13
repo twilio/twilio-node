@@ -330,4 +330,3 @@ describe('SigningKey', function() {
     }
   );
 });
-

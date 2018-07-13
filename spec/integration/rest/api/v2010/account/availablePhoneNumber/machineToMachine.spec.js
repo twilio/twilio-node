@@ -266,4 +266,3 @@ describe('MachineToMachine', function() {
     }
   );
 });
-

@@ -238,4 +238,3 @@ describe('Engagement', function() {
     }
   );
 });
-

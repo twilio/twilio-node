@@ -490,4 +490,3 @@ describe('Application', function() {
     }
   );
 });
-

@@ -314,4 +314,3 @@ describe('Participant', function() {
     }
   );
 });
-

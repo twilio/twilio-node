@@ -424,4 +424,3 @@ describe('Service', function() {
     }
   );
 });
-

@@ -386,4 +386,3 @@ describe('Aws', function() {
     }
   );
 });
-

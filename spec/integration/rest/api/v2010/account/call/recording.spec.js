@@ -519,4 +519,3 @@ describe('Recording', function() {
     }
   );
 });
-

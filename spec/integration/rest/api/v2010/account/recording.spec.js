@@ -393,4 +393,3 @@ describe('Recording', function() {
     }
   );
 });
-

@@ -328,4 +328,3 @@ describe('Media', function() {
     }
   );
 });
-

@@ -260,4 +260,3 @@ describe('Country', function() {
     }
   );
 });
-

@@ -554,4 +554,3 @@ describe('Task', function() {
     }
   );
 });
-

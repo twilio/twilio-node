@@ -479,4 +479,3 @@ describe('Workflow', function() {
     }
   );
 });
-

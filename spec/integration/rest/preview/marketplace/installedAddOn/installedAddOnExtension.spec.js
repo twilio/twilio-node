@@ -317,4 +317,3 @@ describe('InstalledAddOnExtension', function() {
     }
   );
 });
-

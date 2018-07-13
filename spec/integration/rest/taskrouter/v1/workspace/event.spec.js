@@ -346,4 +346,3 @@ describe('Event', function() {
     }
   );
 });
-

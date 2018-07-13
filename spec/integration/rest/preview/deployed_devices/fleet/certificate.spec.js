@@ -418,4 +418,3 @@ describe('Certificate', function() {
     }
   );
 });
-

@@ -485,4 +485,3 @@ describe('Member', function() {
     }
   );
 });
-

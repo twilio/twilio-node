@@ -438,4 +438,3 @@ describe('Service', function() {
     }
   );
 });
-

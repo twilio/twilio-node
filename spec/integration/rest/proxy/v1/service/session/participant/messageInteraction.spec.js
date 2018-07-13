@@ -226,4 +226,3 @@ describe('MessageInteraction', function() {
     }
   );
 });
-

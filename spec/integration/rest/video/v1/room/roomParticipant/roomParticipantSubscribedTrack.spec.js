@@ -282,4 +282,3 @@ describe('SubscribedTrack', function() {
     }
   );
 });
-

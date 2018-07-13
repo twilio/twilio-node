@@ -599,4 +599,3 @@ describe('IncomingPhoneNumber', function() {
     }
   );
 });
-

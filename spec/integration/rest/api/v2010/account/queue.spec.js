@@ -428,4 +428,3 @@ describe('Queue', function() {
     }
   );
 });
-

@@ -256,4 +256,3 @@ describe('AvailableAddOnExtension', function() {
     }
   );
 });
-

@@ -306,4 +306,3 @@ describe('Session', function() {
     }
   );
 });
-

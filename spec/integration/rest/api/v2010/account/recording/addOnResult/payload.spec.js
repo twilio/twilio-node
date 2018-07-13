@@ -356,4 +356,3 @@ describe('Payload', function() {
     }
   );
 });
-

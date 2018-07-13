@@ -601,4 +601,3 @@ describe('Service', function() {
     }
   );
 });
-
