@@ -18,6 +18,9 @@ import values = require('../../../../base/values');
  */
 declare function WorkspaceRealTimeStatisticsList(version: V1, workspaceSid: string): WorkspaceRealTimeStatisticsListInstance;
 
+interface WorkspaceRealTimeStatisticsListInstance {
+}
+
 /**
  * Options to pass to fetch
  *
@@ -130,4 +133,4 @@ declare class WorkspaceRealTimeStatisticsContext {
   fetch(opts?: object, callback?: function);
 }
 
-export { WorkspaceRealTimeStatisticsContext, WorkspaceRealTimeStatisticsInstance, WorkspaceRealTimeStatisticsList, WorkspaceRealTimeStatisticsPage }
+export { WorkspaceRealTimeStatisticsContext, WorkspaceRealTimeStatisticsInstance, WorkspaceRealTimeStatisticsList, WorkspaceRealTimeStatisticsListInstance, WorkspaceRealTimeStatisticsPage }

@@ -20,6 +20,387 @@ import values = require('../../../../../base/values');
  */
 declare function ParticipantList(version: V2010, accountSid: string, conferenceSid: string): ParticipantListInstance;
 
+interface ParticipantListInstance {
+  /* jshint ignore:start */
+  /**
+   * create a ParticipantInstance
+   *
+   * @function create
+   * @memberof Twilio.Api.V2010.AccountContext.ConferenceContext.ParticipantList
+   * @instance
+   *
+   * @param {object} opts - ...
+   * @param {string} opts.from -
+   *          The `from` phone number used to invite a participant.
+   * @param {string} opts.to -
+   *          The number, client id, or sip address of the new participant.
+   * @param {string} [opts.statusCallback] - URL for conference event callback.
+   * @param {string} [opts.statusCallbackMethod] -
+   *          Method Twilio should use to reach the status callback URL.
+   * @param {string|list} [opts.statusCallbackEvent] -
+   *          Set state change events that will trigger a callback.
+   * @param {number} [opts.timeout] -
+   *          Number of seconds Twilio will wait for an answer.
+   * @param {boolean} [opts.record] - Record the agent and their conferences.
+   * @param {boolean} [opts.muted] - Mute the agent.
+   * @param {string} [opts.beep] -
+   *          Play a beep when the participant joins the conference.
+   * @param {boolean} [opts.startConferenceOnEnter] -
+   *          Begin the conference when the participant joins.
+   * @param {boolean} [opts.endConferenceOnExit] -
+   *          End the conference when the participant leaves.
+   * @param {string} [opts.waitUrl] - URL that hosts pre-conference hold music
+   * @param {string} [opts.waitMethod] -
+   *          The method Twilio should use to request `WaitUrl`.
+   * @param {boolean} [opts.earlyMedia] -
+   *          Agents can hear the state of the outbound call.
+   * @param {number} [opts.maxParticipants] -
+   *          Maximum number of agent conference participants.
+   * @param {string} [opts.conferenceRecord] - Record the conference.
+   * @param {string} [opts.conferenceTrim] - Trim silence from audio files.
+   * @param {string} [opts.conferenceStatusCallback] -
+   *          Callback URL for conference events.
+   * @param {string} [opts.conferenceStatusCallbackMethod] -
+   *          HTTP method for requesting `ConferenceStatusCallback` URL.
+   * @param {string|list} [opts.conferenceStatusCallbackEvent] -
+   *          Set which conference state changes should webhook to the `ConferenceStatusCallback`
+   * @param {string} [opts.recordingChannels] -
+   *          Specify `mono` or `dual` recording channels.
+   * @param {string} [opts.recordingStatusCallback] -
+   *          The absolute URL for Twilio's webhook with recording status information.
+   * @param {string} [opts.recordingStatusCallbackMethod] -
+   *          HTTP method for `RecordingStatusCallback`
+   * @param {string} [opts.sipAuthUsername] - SIP username used for authenticating.
+   * @param {string} [opts.sipAuthPassword] - SIP password for authentication.
+   * @param {string} [opts.region] -
+   *          The region where Twilio should mix the conference audio.
+   * @param {string} [opts.conferenceRecordingStatusCallback] -
+   *          Conference recording callback URL.
+   * @param {string} [opts.conferenceRecordingStatusCallbackMethod] -
+   *          Method Twilio should use to request the `ConferenceRecordingStatusCallback` URL.
+   * @param {string|list} [opts.recordingStatusCallbackEvent] -
+   *          The recording_status_callback_event
+   * @param {string|list} [opts.conferenceRecordingStatusCallbackEvent] -
+   *          The conference_recording_status_callback_event
+   * @param {function} [callback] - Callback to handle processed record
+   *
+   * @returns {Promise} Resolves to processed ParticipantInstance
+   */
+  /* jshint ignore:end */
+  ParticipantListInstance.create = function create(opts, callback) {
+    if (_.isUndefined(opts)) {
+      throw new Error('Required parameter "opts" missing.');
+    }
+    if (_.isUndefined(opts.from)) {
+      throw new Error('Required parameter "opts.from" missing.');
+    }
+    if (_.isUndefined(opts.to)) {
+      throw new Error('Required parameter "opts.to" missing.');
+    }
+
+    var deferred = Q.defer();
+    var data = values.of({
+      'From': _.get(opts, 'from'),
+      'To': _.get(opts, 'to'),
+      'StatusCallback': _.get(opts, 'statusCallback'),
+      'StatusCallbackMethod': _.get(opts, 'statusCallbackMethod'),
+      'StatusCallbackEvent': serialize.map(_.get(opts, 'statusCallbackEvent'), function(e) { return e; }),
+      'Timeout': _.get(opts, 'timeout'),
+      'Record': serialize.bool(_.get(opts, 'record')),
+      'Muted': serialize.bool(_.get(opts, 'muted')),
+      'Beep': _.get(opts, 'beep'),
+      'StartConferenceOnEnter': serialize.bool(_.get(opts, 'startConferenceOnEnter')),
+      'EndConferenceOnExit': serialize.bool(_.get(opts, 'endConferenceOnExit')),
+      'WaitUrl': _.get(opts, 'waitUrl'),
+      'WaitMethod': _.get(opts, 'waitMethod'),
+      'EarlyMedia': serialize.bool(_.get(opts, 'earlyMedia')),
+      'MaxParticipants': _.get(opts, 'maxParticipants'),
+      'ConferenceRecord': _.get(opts, 'conferenceRecord'),
+      'ConferenceTrim': _.get(opts, 'conferenceTrim'),
+      'ConferenceStatusCallback': _.get(opts, 'conferenceStatusCallback'),
+      'ConferenceStatusCallbackMethod': _.get(opts, 'conferenceStatusCallbackMethod'),
+      'ConferenceStatusCallbackEvent': serialize.map(_.get(opts, 'conferenceStatusCallbackEvent'), function(e) { return e; }),
+      'RecordingChannels': _.get(opts, 'recordingChannels'),
+      'RecordingStatusCallback': _.get(opts, 'recordingStatusCallback'),
+      'RecordingStatusCallbackMethod': _.get(opts, 'recordingStatusCallbackMethod'),
+      'SipAuthUsername': _.get(opts, 'sipAuthUsername'),
+      'SipAuthPassword': _.get(opts, 'sipAuthPassword'),
+      'Region': _.get(opts, 'region'),
+      'ConferenceRecordingStatusCallback': _.get(opts, 'conferenceRecordingStatusCallback'),
+      'ConferenceRecordingStatusCallbackMethod': _.get(opts, 'conferenceRecordingStatusCallbackMethod'),
+      'RecordingStatusCallbackEvent': serialize.map(_.get(opts, 'recordingStatusCallbackEvent'), function(e) { return e; }),
+      'ConferenceRecordingStatusCallbackEvent': serialize.map(_.get(opts, 'conferenceRecordingStatusCallbackEvent'), function(e) { return e; })
+    });
+
+    var promise = this._version.create({uri: this._uri, method: 'POST', data: data});
+
+    promise = promise.then(function(payload) {
+      deferred.resolve(new ParticipantInstance(
+        this._version,
+        payload,
+        this._solution.accountSid,
+        this._solution.conferenceSid,
+        this._solution.callSid
+      ));
+    }.bind(this));
+
+    promise.catch(function(error) {
+      deferred.reject(error);
+    });
+
+    if (_.isFunction(callback)) {
+      deferred.promise.nodeify(callback);
+    }
+
+    return deferred.promise;
+  };
+  /* jshint ignore:start */
+  /**
+   * Streams ParticipantInstance records from the API.
+   *
+   * This operation lazily loads records as efficiently as possible until the limit
+   * is reached.
+   *
+   * The results are passed into the callback function, so this operation is memory efficient.
+   *
+   * If a function is passed as the first argument, it will be used as the callback function.
+   *
+   * @function each
+   * @memberof Twilio.Api.V2010.AccountContext.ConferenceContext.ParticipantList
+   * @instance
+   *
+   * @param {object} [opts] - ...
+   * @param {boolean} [opts.muted] - Filter by muted participants
+   * @param {boolean} [opts.hold] - Only show participants that are held or unheld.
+   * @param {number} [opts.limit] -
+   *         Upper limit for the number of records to return.
+   *         each() guarantees never to return more than limit.
+   *         Default is no limit
+   * @param {number} [opts.pageSize] -
+   *         Number of records to fetch per request,
+   *         when not set will use the default value of 50 records.
+   *         If no pageSize is defined but a limit is defined,
+   *         each() will attempt to read the limit with the most efficient
+   *         page size, i.e. min(limit, 1000)
+   * @param {Function} [opts.callback] -
+   *         Function to process each record. If this and a positional
+   *         callback are passed, this one will be used
+   * @param {Function} [opts.done] -
+   *          Function to be called upon completion of streaming
+   * @param {Function} [callback] - Function to process each record
+   */
+  /* jshint ignore:end */
+  ParticipantListInstance.each = function each(opts, callback) {
+    if (_.isFunction(opts)) {
+      callback = opts;
+      opts = {};
+    }
+    opts = opts || {};
+    if (opts.callback) {
+      callback = opts.callback;
+    }
+    if (_.isUndefined(callback)) {
+      throw new Error('Callback function must be provided');
+    }
+
+    var done = false;
+    var currentPage = 1;
+    var currentResource = 0;
+    var limits = this._version.readLimits({
+      limit: opts.limit,
+      pageSize: opts.pageSize
+    });
+
+    function onComplete(error) {
+      done = true;
+      if (_.isFunction(opts.done)) {
+        opts.done(error);
+      }
+    }
+
+    function fetchNextPage(fn) {
+      var promise = fn();
+      if (_.isUndefined(promise)) {
+        onComplete();
+        return;
+      }
+
+      promise.then(function(page) {
+        _.each(page.instances, function(instance) {
+          if (done || (!_.isUndefined(opts.limit) && currentResource >= opts.limit)) {
+            done = true;
+            return false;
+          }
+
+          currentResource++;
+          callback(instance, onComplete);
+        });
+
+        if ((limits.pageLimit && limits.pageLimit <= currentPage)) {
+          onComplete();
+        } else if (!done) {
+          currentPage++;
+          fetchNextPage(_.bind(page.nextPage, page));
+        }
+      });
+
+      promise.catch(onComplete);
+    }
+
+    fetchNextPage(_.bind(this.page, this, _.merge(opts, limits)));
+  };
+  /* jshint ignore:start */
+  /**
+   * Retrieve a single target page of ParticipantInstance records from the API.
+   * Request is executed immediately
+   *
+   * If a function is passed as the first argument, it will be used as the callback function.
+   *
+   * @function getPage
+   * @memberof Twilio.Api.V2010.AccountContext.ConferenceContext.ParticipantList
+   * @instance
+   *
+   * @param {string} [targetUrl] - API-generated URL for the requested results page
+   * @param {function} [callback] - Callback to handle list of records
+   *
+   * @returns {Promise} Resolves to a list of records
+   */
+  /* jshint ignore:end */
+  ParticipantListInstance.getPage = function getPage(targetUrl, callback) {
+    var deferred = Q.defer();
+
+    var promise = this._version._domain.twilio.request({method: 'GET', uri: targetUrl});
+
+    promise = promise.then(function(payload) {
+      deferred.resolve(new ParticipantPage(this._version, payload, this._solution));
+    }.bind(this));
+
+    promise.catch(function(error) {
+      deferred.reject(error);
+    });
+
+    if (_.isFunction(callback)) {
+      deferred.promise.nodeify(callback);
+    }
+
+    return deferred.promise;
+  };
+  /* jshint ignore:start */
+  /**
+   * @description Lists ParticipantInstance records from the API as a list.
+   *
+   * If a function is passed as the first argument, it will be used as the callback function.
+   *
+   * @function list
+   * @memberof Twilio.Api.V2010.AccountContext.ConferenceContext.ParticipantList
+   * @instance
+   *
+   * @param {object} [opts] - ...
+   * @param {boolean} [opts.muted] - Filter by muted participants
+   * @param {boolean} [opts.hold] - Only show participants that are held or unheld.
+   * @param {number} [opts.limit] -
+   *         Upper limit for the number of records to return.
+   *         list() guarantees never to return more than limit.
+   *         Default is no limit
+   * @param {number} [opts.pageSize] -
+   *         Number of records to fetch per request,
+   *         when not set will use the default value of 50 records.
+   *         If no page_size is defined but a limit is defined,
+   *         list() will attempt to read the limit with the most
+   *         efficient page size, i.e. min(limit, 1000)
+   * @param {function} [callback] - Callback to handle list of records
+   *
+   * @returns {Promise} Resolves to a list of records
+   */
+  /* jshint ignore:end */
+  ParticipantListInstance.list = function list(opts, callback) {
+    if (_.isFunction(opts)) {
+      callback = opts;
+      opts = {};
+    }
+    opts = opts || {};
+    var deferred = Q.defer();
+    var allResources = [];
+    opts.callback = function(resource, done) {
+      allResources.push(resource);
+
+      if (!_.isUndefined(opts.limit) && allResources.length === opts.limit) {
+        done();
+      }
+    };
+
+    opts.done = function(error) {
+      if (_.isUndefined(error)) {
+        deferred.resolve(allResources);
+      } else {
+        deferred.reject(error);
+      }
+    };
+
+    if (_.isFunction(callback)) {
+      deferred.promise.nodeify(callback);
+    }
+
+    this.each(opts);
+    return deferred.promise;
+  };
+  /* jshint ignore:start */
+  /**
+   * Retrieve a single page of ParticipantInstance records from the API.
+   * Request is executed immediately
+   *
+   * If a function is passed as the first argument, it will be used as the callback function.
+   *
+   * @function page
+   * @memberof Twilio.Api.V2010.AccountContext.ConferenceContext.ParticipantList
+   * @instance
+   *
+   * @param {object} [opts] - ...
+   * @param {boolean} [opts.muted] - Filter by muted participants
+   * @param {boolean} [opts.hold] - Only show participants that are held or unheld.
+   * @param {string} [opts.pageToken] - PageToken provided by the API
+   * @param {number} [opts.pageNumber] -
+   *          Page Number, this value is simply for client state
+   * @param {number} [opts.pageSize] - Number of records to return, defaults to 50
+   * @param {function} [callback] - Callback to handle list of records
+   *
+   * @returns {Promise} Resolves to a list of records
+   */
+  /* jshint ignore:end */
+  ParticipantListInstance.page = function page(opts, callback) {
+    if (_.isFunction(opts)) {
+      callback = opts;
+      opts = {};
+    }
+    opts = opts || {};
+
+    var deferred = Q.defer();
+    var data = values.of({
+      'Muted': serialize.bool(_.get(opts, 'muted')),
+      'Hold': serialize.bool(_.get(opts, 'hold')),
+      'PageToken': opts.pageToken,
+      'Page': opts.pageNumber,
+      'PageSize': opts.pageSize
+    });
+
+    var promise = this._version.page({uri: this._uri, method: 'GET', params: data});
+
+    promise = promise.then(function(payload) {
+      deferred.resolve(new ParticipantPage(this._version, payload, this._solution));
+    }.bind(this));
+
+    promise.catch(function(error) {
+      deferred.reject(error);
+    });
+
+    if (_.isFunction(callback)) {
+      deferred.promise.nodeify(callback);
+    }
+
+    return deferred.promise;
+  };
+}
+
 /**
  * Options to pass to update
  *
@@ -198,4 +579,4 @@ declare class ParticipantContext {
   update(opts?: object, callback?: function);
 }
 
-export { ParticipantContext, ParticipantInstance, ParticipantList, ParticipantPage }
+export { ParticipantContext, ParticipantInstance, ParticipantList, ParticipantListInstance, ParticipantPage }

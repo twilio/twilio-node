@@ -20,6 +20,96 @@ import values = require('../../../../base/values');
  */
 declare function NotificationList(version: V1, serviceSid: string): NotificationListInstance;
 
+interface NotificationListInstance {
+  /* jshint ignore:start */
+  /**
+   * create a NotificationInstance
+   *
+   * @function create
+   * @memberof Twilio.Notify.V1.ServiceContext.NotificationList
+   * @instance
+   *
+   * @param {object} [opts] - ...
+   * @param {string} [opts.body] - Indicates the notification body text.
+   * @param {notification.priority} [opts.priority] -
+   *          Two priorities defined: low and high.
+   * @param {number} [opts.ttl] -
+   *          This parameter specifies how long the notification is valid.
+   * @param {string} [opts.title] - Indicates the notification title.
+   * @param {string} [opts.sound] - Indicates a sound to be played.
+   * @param {string} [opts.action] -
+   *          Specifies the actions to be displayed for the notification.
+   * @param {string} [opts.data] -
+   *          This parameter specifies the custom key-value pairs of the notification's payload.
+   * @param {string} [opts.apn] -
+   *          APNS specific payload that overrides corresponding attributes in a generic payload for Bindings with the apn BindingType.
+   * @param {string} [opts.gcm] -
+   *          GCM specific payload that overrides corresponding attributes in generic payload for Bindings with gcm BindingType.
+   * @param {string} [opts.sms] -
+   *          SMS specific payload that overrides corresponding attributes in generic payload for Bindings with sms BindingType.
+   * @param {string} [opts.facebookMessenger] -
+   *          Messenger specific payload that overrides corresponding attributes in generic payload for Bindings with facebook-messenger BindingType.
+   * @param {string} [opts.fcm] -
+   *          FCM specific payload that overrides corresponding attributes in generic payload for Bindings with fcm BindingType.
+   * @param {string|list} [opts.segment] - The segment
+   * @param {string} [opts.alexa] - The alexa
+   * @param {string|list} [opts.toBinding] -
+   *          The destination address in a JSON object.
+   * @param {string|list} [opts.identity] -
+   *          Delivery will be attempted only to Bindings with an Identity in this list.
+   * @param {string|list} [opts.tag] -
+   *          Delivery will be attempted only to Bindings that have all of the Tags in this list.
+   * @param {function} [callback] - Callback to handle processed record
+   *
+   * @returns {Promise} Resolves to processed NotificationInstance
+   */
+  /* jshint ignore:end */
+  NotificationListInstance.create = function create(opts, callback) {
+    if (_.isFunction(opts)) {
+      callback = opts;
+      opts = {};
+    }
+    opts = opts || {};
+
+    var deferred = Q.defer();
+    var data = values.of({
+      'Identity': serialize.map(_.get(opts, 'identity'), function(e) { return e; }),
+      'Tag': serialize.map(_.get(opts, 'tag'), function(e) { return e; }),
+      'Body': _.get(opts, 'body'),
+      'Priority': _.get(opts, 'priority'),
+      'Ttl': _.get(opts, 'ttl'),
+      'Title': _.get(opts, 'title'),
+      'Sound': _.get(opts, 'sound'),
+      'Action': _.get(opts, 'action'),
+      'Data': serialize.object(_.get(opts, 'data')),
+      'Apn': serialize.object(_.get(opts, 'apn')),
+      'Gcm': serialize.object(_.get(opts, 'gcm')),
+      'Sms': serialize.object(_.get(opts, 'sms')),
+      'FacebookMessenger': serialize.object(_.get(opts, 'facebookMessenger')),
+      'Fcm': serialize.object(_.get(opts, 'fcm')),
+      'Segment': serialize.map(_.get(opts, 'segment'), function(e) { return e; }),
+      'Alexa': serialize.object(_.get(opts, 'alexa')),
+      'ToBinding': serialize.map(_.get(opts, 'toBinding'), function(e) { return e; })
+    });
+
+    var promise = this._version.create({uri: this._uri, method: 'POST', data: data});
+
+    promise = promise.then(function(payload) {
+      deferred.resolve(new NotificationInstance(this._version, payload));
+    }.bind(this));
+
+    promise.catch(function(error) {
+      deferred.reject(error);
+    });
+
+    if (_.isFunction(callback)) {
+      deferred.promise.nodeify(callback);
+    }
+
+    return deferred.promise;
+  };
+}
+
 
 declare class NotificationPage extends Page {
   /**
@@ -91,4 +181,4 @@ declare class NotificationInstance {
   toJSON();
 }
 
-export { NotificationInstance, NotificationList, NotificationPage }
+export { NotificationInstance, NotificationList, NotificationListInstance, NotificationPage }

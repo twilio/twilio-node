@@ -19,6 +19,9 @@ import values = require('../../../../../base/values');
  */
 declare function EngagementContextList(version: V1, flowSid: string, engagementSid: string): EngagementContextListInstance;
 
+interface EngagementContextListInstance {
+}
+
 
 declare class EngagementContextPage extends Page {
   /**
@@ -112,4 +115,4 @@ declare class EngagementContextContext {
   fetch(callback?: function);
 }
 
-export { EngagementContextContext, EngagementContextInstance, EngagementContextList, EngagementContextPage }
+export { EngagementContextContext, EngagementContextInstance, EngagementContextList, EngagementContextListInstance, EngagementContextPage }

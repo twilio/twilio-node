@@ -15,4 +15,7 @@ import V2010 = require('../../V2010');
  */
 declare function UsageList(version: V2010, accountSid: string): UsageListInstance;
 
-export = UsageList;
+interface UsageListInstance {
+}
+
+export { UsageList, UsageListInstance }

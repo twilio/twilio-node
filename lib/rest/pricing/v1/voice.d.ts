@@ -15,6 +15,9 @@ import V1 = require('../V1');
  */
 declare function VoiceList(version: V1): VoiceListInstance;
 
+interface VoiceListInstance {
+}
+
 
 declare class VoicePage extends Page {
   /**
@@ -66,4 +69,4 @@ declare class VoiceInstance {
   toJSON();
 }
 
-export { VoiceInstance, VoiceList, VoicePage }
+export { VoiceInstance, VoiceList, VoiceListInstance, VoicePage }

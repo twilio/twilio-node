@@ -20,6 +20,9 @@ import values = require('../../../../../base/values');
  */
 declare function WorkflowCumulativeStatisticsList(version: V1, workspaceSid: string, workflowSid: string): WorkflowCumulativeStatisticsListInstance;
 
+interface WorkflowCumulativeStatisticsListInstance {
+}
+
 /**
  * Options to pass to fetch
  *
@@ -163,4 +166,4 @@ declare class WorkflowCumulativeStatisticsContext {
   fetch(opts?: object, callback?: function);
 }
 
-export { WorkflowCumulativeStatisticsContext, WorkflowCumulativeStatisticsInstance, WorkflowCumulativeStatisticsList, WorkflowCumulativeStatisticsPage }
+export { WorkflowCumulativeStatisticsContext, WorkflowCumulativeStatisticsInstance, WorkflowCumulativeStatisticsList, WorkflowCumulativeStatisticsListInstance, WorkflowCumulativeStatisticsPage }

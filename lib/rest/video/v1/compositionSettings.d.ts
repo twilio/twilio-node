@@ -18,6 +18,9 @@ import values = require('../../../base/values');
  */
 declare function CompositionSettingsList(version: V1): CompositionSettingsListInstance;
 
+interface CompositionSettingsListInstance {
+}
+
 /**
  * Options to pass to create
  *
@@ -170,4 +173,4 @@ declare class CompositionSettingsContext {
   fetch(callback?: function);
 }
 
-export { CompositionSettingsContext, CompositionSettingsInstance, CompositionSettingsList, CompositionSettingsPage }
+export { CompositionSettingsContext, CompositionSettingsInstance, CompositionSettingsList, CompositionSettingsListInstance, CompositionSettingsPage }

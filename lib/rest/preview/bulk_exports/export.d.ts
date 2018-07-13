@@ -18,6 +18,9 @@ import { DayList } from './export/day';
  */
 declare function ExportList(version: BulkExports): ExportListInstance;
 
+interface ExportListInstance {
+}
+
 
 declare class ExportPage extends Page {
   /**
@@ -118,4 +121,4 @@ declare class ExportContext {
   fetch(callback?: function);
 }
 
-export { ExportContext, ExportInstance, ExportList, ExportPage }
+export { ExportContext, ExportInstance, ExportList, ExportListInstance, ExportPage }

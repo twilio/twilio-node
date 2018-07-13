@@ -15,6 +15,9 @@ import V1 = require('../V1');
  */
 declare function PhoneNumberList(version: V1): PhoneNumberListInstance;
 
+interface PhoneNumberListInstance {
+}
+
 
 declare class PhoneNumberPage extends Page {
   /**
@@ -66,4 +69,4 @@ declare class PhoneNumberInstance {
   toJSON();
 }
 
-export { PhoneNumberInstance, PhoneNumberList, PhoneNumberPage }
+export { PhoneNumberInstance, PhoneNumberList, PhoneNumberListInstance, PhoneNumberPage }

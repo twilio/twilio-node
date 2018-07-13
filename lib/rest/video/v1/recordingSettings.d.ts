@@ -18,6 +18,9 @@ import values = require('../../../base/values');
  */
 declare function RecordingSettingsList(version: V1): RecordingSettingsListInstance;
 
+interface RecordingSettingsListInstance {
+}
+
 /**
  * Options to pass to create
  *
@@ -170,4 +173,4 @@ declare class RecordingSettingsContext {
   fetch(callback?: function);
 }
 
-export { RecordingSettingsContext, RecordingSettingsInstance, RecordingSettingsList, RecordingSettingsPage }
+export { RecordingSettingsContext, RecordingSettingsInstance, RecordingSettingsList, RecordingSettingsListInstance, RecordingSettingsPage }

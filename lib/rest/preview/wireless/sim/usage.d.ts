@@ -18,6 +18,9 @@ import values = require('../../../../base/values');
  */
 declare function UsageList(version: Wireless, simSid: string): UsageListInstance;
 
+interface UsageListInstance {
+}
+
 /**
  * Options to pass to fetch
  *
@@ -137,4 +140,4 @@ declare class UsageContext {
   fetch(opts?: object, callback?: function);
 }
 
-export { UsageContext, UsageInstance, UsageList, UsagePage }
+export { UsageContext, UsageInstance, UsageList, UsageListInstance, UsagePage }

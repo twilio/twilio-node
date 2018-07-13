@@ -15,6 +15,9 @@ import V1 = require('../V1');
  */
 declare function MessagingList(version: V1): MessagingListInstance;
 
+interface MessagingListInstance {
+}
+
 
 declare class MessagingPage extends Page {
   /**
@@ -66,4 +69,4 @@ declare class MessagingInstance {
   toJSON();
 }
 
-export { MessagingInstance, MessagingList, MessagingPage }
+export { MessagingInstance, MessagingList, MessagingListInstance, MessagingPage }

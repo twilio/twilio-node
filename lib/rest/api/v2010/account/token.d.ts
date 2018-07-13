@@ -18,6 +18,50 @@ import values = require('../../../../base/values');
  */
 declare function TokenList(version: V2010, accountSid: string): TokenListInstance;
 
+interface TokenListInstance {
+  /* jshint ignore:start */
+  /**
+   * create a TokenInstance
+   *
+   * @function create
+   * @memberof Twilio.Api.V2010.AccountContext.TokenList
+   * @instance
+   *
+   * @param {object} [opts] - ...
+   * @param {number} [opts.ttl] - The duration in seconds the credentials are valid
+   * @param {function} [callback] - Callback to handle processed record
+   *
+   * @returns {Promise} Resolves to processed TokenInstance
+   */
+  /* jshint ignore:end */
+  TokenListInstance.create = function create(opts, callback) {
+    if (_.isFunction(opts)) {
+      callback = opts;
+      opts = {};
+    }
+    opts = opts || {};
+
+    var deferred = Q.defer();
+    var data = values.of({'Ttl': _.get(opts, 'ttl')});
+
+    var promise = this._version.create({uri: this._uri, method: 'POST', data: data});
+
+    promise = promise.then(function(payload) {
+      deferred.resolve(new TokenInstance(this._version, payload));
+    }.bind(this));
+
+    promise.catch(function(error) {
+      deferred.reject(error);
+    });
+
+    if (_.isFunction(callback)) {
+      deferred.promise.nodeify(callback);
+    }
+
+    return deferred.promise;
+  };
+}
+
 
 declare class TokenPage extends Page {
   /**
@@ -74,4 +118,4 @@ declare class TokenInstance {
   toJSON();
 }
 
-export { TokenInstance, TokenList, TokenPage }
+export { TokenInstance, TokenList, TokenListInstance, TokenPage }

@@ -18,6 +18,9 @@ import values = require('../../../base/values');
  */
 declare function ExportConfigurationList(version: BulkExports): ExportConfigurationListInstance;
 
+interface ExportConfigurationListInstance {
+}
+
 /**
  * Options to pass to update
  *
@@ -157,4 +160,4 @@ declare class ExportConfigurationContext {
   update(opts?: object, callback?: function);
 }
 
-export { ExportConfigurationContext, ExportConfigurationInstance, ExportConfigurationList, ExportConfigurationPage }
+export { ExportConfigurationContext, ExportConfigurationInstance, ExportConfigurationList, ExportConfigurationListInstance, ExportConfigurationPage }

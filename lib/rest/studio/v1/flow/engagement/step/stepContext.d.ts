@@ -20,6 +20,9 @@ import values = require('../../../../../../base/values');
  */
 declare function StepContextList(version: V1, flowSid: string, engagementSid: string, stepSid: string): StepContextListInstance;
 
+interface StepContextListInstance {
+}
+
 
 declare class StepContextPage extends Page {
   /**
@@ -116,4 +119,4 @@ declare class StepContextContext {
   fetch(callback?: function);
 }
 
-export { StepContextContext, StepContextInstance, StepContextList, StepContextPage }
+export { StepContextContext, StepContextInstance, StepContextList, StepContextListInstance, StepContextPage }

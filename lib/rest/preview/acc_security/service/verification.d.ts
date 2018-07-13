@@ -19,6 +19,60 @@ import values = require('../../../../base/values');
  */
 declare function VerificationList(version: AccSecurity, serviceSid: string): VerificationListInstance;
 
+interface VerificationListInstance {
+  /* jshint ignore:start */
+  /**
+   * create a VerificationInstance
+   *
+   * @function create
+   * @memberof Twilio.Preview.AccSecurity.ServiceContext.VerificationList
+   * @instance
+   *
+   * @param {object} opts - ...
+   * @param {string} opts.to - To phonenumber
+   * @param {string} opts.channel - sms or call
+   * @param {string} [opts.customMessage] - A custom message for this verification
+   * @param {function} [callback] - Callback to handle processed record
+   *
+   * @returns {Promise} Resolves to processed VerificationInstance
+   */
+  /* jshint ignore:end */
+  VerificationListInstance.create = function create(opts, callback) {
+    if (_.isUndefined(opts)) {
+      throw new Error('Required parameter "opts" missing.');
+    }
+    if (_.isUndefined(opts.to)) {
+      throw new Error('Required parameter "opts.to" missing.');
+    }
+    if (_.isUndefined(opts.channel)) {
+      throw new Error('Required parameter "opts.channel" missing.');
+    }
+
+    var deferred = Q.defer();
+    var data = values.of({
+      'To': _.get(opts, 'to'),
+      'Channel': _.get(opts, 'channel'),
+      'CustomMessage': _.get(opts, 'customMessage')
+    });
+
+    var promise = this._version.create({uri: this._uri, method: 'POST', data: data});
+
+    promise = promise.then(function(payload) {
+      deferred.resolve(new VerificationInstance(this._version, payload));
+    }.bind(this));
+
+    promise.catch(function(error) {
+      deferred.reject(error);
+    });
+
+    if (_.isFunction(callback)) {
+      deferred.promise.nodeify(callback);
+    }
+
+    return deferred.promise;
+  };
+}
+
 
 declare class VerificationPage extends Page {
   /**
@@ -79,4 +133,4 @@ declare class VerificationInstance {
   toJSON();
 }
 
-export { VerificationInstance, VerificationList, VerificationPage }
+export { VerificationInstance, VerificationList, VerificationListInstance, VerificationPage }

@@ -20,6 +20,51 @@ import values = require('../../../../../base/values');
  */
 declare function StreamMessageList(version: V1, serviceSid: string, streamSid: string): StreamMessageListInstance;
 
+interface StreamMessageListInstance {
+  /* jshint ignore:start */
+  /**
+   * create a StreamMessageInstance
+   *
+   * @function create
+   * @memberof Twilio.Sync.V1.ServiceContext.SyncStreamContext.StreamMessageList
+   * @instance
+   *
+   * @param {object} opts - ...
+   * @param {string} opts.data - Stream Message body.
+   * @param {function} [callback] - Callback to handle processed record
+   *
+   * @returns {Promise} Resolves to processed StreamMessageInstance
+   */
+  /* jshint ignore:end */
+  StreamMessageListInstance.create = function create(opts, callback) {
+    if (_.isUndefined(opts)) {
+      throw new Error('Required parameter "opts" missing.');
+    }
+    if (_.isUndefined(opts.data)) {
+      throw new Error('Required parameter "opts.data" missing.');
+    }
+
+    var deferred = Q.defer();
+    var data = values.of({'Data': serialize.object(_.get(opts, 'data'))});
+
+    var promise = this._version.create({uri: this._uri, method: 'POST', data: data});
+
+    promise = promise.then(function(payload) {
+      deferred.resolve(new StreamMessageInstance(this._version, payload));
+    }.bind(this));
+
+    promise.catch(function(error) {
+      deferred.reject(error);
+    });
+
+    if (_.isFunction(callback)) {
+      deferred.promise.nodeify(callback);
+    }
+
+    return deferred.promise;
+  };
+}
+
 
 declare class StreamMessagePage extends Page {
   /**
@@ -74,4 +119,4 @@ declare class StreamMessageInstance {
   toJSON();
 }
 
-export { StreamMessageInstance, StreamMessageList, StreamMessagePage }
+export { StreamMessageInstance, StreamMessageList, StreamMessageListInstance, StreamMessagePage }

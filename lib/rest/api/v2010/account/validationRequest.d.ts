@@ -18,6 +18,68 @@ import values = require('../../../../base/values');
  */
 declare function ValidationRequestList(version: V2010, accountSid: string): ValidationRequestListInstance;
 
+interface ValidationRequestListInstance {
+  /* jshint ignore:start */
+  /**
+   * create a ValidationRequestInstance
+   *
+   * @function create
+   * @memberof Twilio.Api.V2010.AccountContext.ValidationRequestList
+   * @instance
+   *
+   * @param {object} opts - ...
+   * @param {string} opts.phoneNumber - The phone number to verify.
+   * @param {string} [opts.friendlyName] -
+   *          A human readable description for the new caller ID with maximum length 64 characters.
+   * @param {number} [opts.callDelay] -
+   *          The number of seconds, between 0 and 60, to delay before initiating the verification call.
+   * @param {string} [opts.extension] -
+   *          Digits to dial after connecting the verification call.
+   * @param {string} [opts.statusCallback] -
+   *          A URL that Twilio will request when the verification call ends to notify your app if the verification process was successful or not.
+   * @param {string} [opts.statusCallbackMethod] -
+   *          The HTTP method Twilio should use when requesting the above URL.
+   * @param {function} [callback] - Callback to handle processed record
+   *
+   * @returns {Promise} Resolves to processed ValidationRequestInstance
+   */
+  /* jshint ignore:end */
+  ValidationRequestListInstance.create = function create(opts, callback) {
+    if (_.isUndefined(opts)) {
+      throw new Error('Required parameter "opts" missing.');
+    }
+    if (_.isUndefined(opts.phoneNumber)) {
+      throw new Error('Required parameter "opts.phoneNumber" missing.');
+    }
+
+    var deferred = Q.defer();
+    var data = values.of({
+      'PhoneNumber': _.get(opts, 'phoneNumber'),
+      'FriendlyName': _.get(opts, 'friendlyName'),
+      'CallDelay': _.get(opts, 'callDelay'),
+      'Extension': _.get(opts, 'extension'),
+      'StatusCallback': _.get(opts, 'statusCallback'),
+      'StatusCallbackMethod': _.get(opts, 'statusCallbackMethod')
+    });
+
+    var promise = this._version.create({uri: this._uri, method: 'POST', data: data});
+
+    promise = promise.then(function(payload) {
+      deferred.resolve(new ValidationRequestInstance(this._version, payload));
+    }.bind(this));
+
+    promise.catch(function(error) {
+      deferred.reject(error);
+    });
+
+    if (_.isFunction(callback)) {
+      deferred.promise.nodeify(callback);
+    }
+
+    return deferred.promise;
+  };
+}
+
 
 declare class ValidationRequestPage extends Page {
   /**
@@ -72,4 +134,4 @@ declare class ValidationRequestInstance {
   toJSON();
 }
 
-export { ValidationRequestInstance, ValidationRequestList, ValidationRequestPage }
+export { ValidationRequestInstance, ValidationRequestList, ValidationRequestListInstance, ValidationRequestPage }

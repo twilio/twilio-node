@@ -17,6 +17,9 @@ import values = require('../../../base/values');
  */
 declare function PhoneNumberList(version: V1): PhoneNumberListInstance;
 
+interface PhoneNumberListInstance {
+}
+
 /**
  * Options to pass to fetch
  *
@@ -139,4 +142,4 @@ declare class PhoneNumberContext {
   fetch(opts?: object, callback?: function);
 }
 
-export { PhoneNumberContext, PhoneNumberInstance, PhoneNumberList, PhoneNumberPage }
+export { PhoneNumberContext, PhoneNumberInstance, PhoneNumberList, PhoneNumberListInstance, PhoneNumberPage }

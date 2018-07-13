@@ -16,6 +16,9 @@ import values = require('../../../../base/values');
  */
 declare function NumberList(version: V1): NumberListInstance;
 
+interface NumberListInstance {
+}
+
 
 declare class NumberPage extends Page {
   /**
@@ -106,4 +109,4 @@ declare class NumberContext {
   fetch(callback?: function);
 }
 
-export { NumberContext, NumberInstance, NumberList, NumberPage }
+export { NumberContext, NumberInstance, NumberList, NumberListInstance, NumberPage }

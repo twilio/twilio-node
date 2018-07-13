@@ -19,6 +19,9 @@ import values = require('../../../../../base/values');
  */
 declare function TaskQueueRealTimeStatisticsList(version: V1, workspaceSid: string, taskQueueSid: string): TaskQueueRealTimeStatisticsListInstance;
 
+interface TaskQueueRealTimeStatisticsListInstance {
+}
+
 /**
  * Options to pass to fetch
  *
@@ -135,4 +138,4 @@ declare class TaskQueueRealTimeStatisticsContext {
   fetch(opts?: object, callback?: function);
 }
 
-export { TaskQueueRealTimeStatisticsContext, TaskQueueRealTimeStatisticsInstance, TaskQueueRealTimeStatisticsList, TaskQueueRealTimeStatisticsPage }
+export { TaskQueueRealTimeStatisticsContext, TaskQueueRealTimeStatisticsInstance, TaskQueueRealTimeStatisticsList, TaskQueueRealTimeStatisticsListInstance, TaskQueueRealTimeStatisticsPage }

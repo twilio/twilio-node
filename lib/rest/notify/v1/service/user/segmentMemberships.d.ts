@@ -19,6 +19,57 @@ import values = require('../../../../../base/values');
  */
 declare function SegmentMembershipList(version: V1, serviceSid: string, identity: string): SegmentMembershipListInstance;
 
+interface SegmentMembershipListInstance {
+  /* jshint ignore:start */
+  /**
+   * create a SegmentMembershipInstance
+   *
+   * @function create
+   * @memberof Twilio.Notify.V1.ServiceContext.UserContext.SegmentMembershipList
+   * @instance
+   *
+   * @param {object} opts - ...
+   * @param {string} opts.segment - The segment
+   * @param {function} [callback] - Callback to handle processed record
+   *
+   * @returns {Promise} Resolves to processed SegmentMembershipInstance
+   */
+  /* jshint ignore:end */
+  SegmentMembershipListInstance.create = function create(opts, callback) {
+    if (_.isUndefined(opts)) {
+      throw new Error('Required parameter "opts" missing.');
+    }
+    if (_.isUndefined(opts.segment)) {
+      throw new Error('Required parameter "opts.segment" missing.');
+    }
+
+    var deferred = Q.defer();
+    var data = values.of({'Segment': _.get(opts, 'segment')});
+
+    var promise = this._version.create({uri: this._uri, method: 'POST', data: data});
+
+    promise = promise.then(function(payload) {
+      deferred.resolve(new SegmentMembershipInstance(
+        this._version,
+        payload,
+        this._solution.serviceSid,
+        this._solution.identity,
+        this._solution.segment
+      ));
+    }.bind(this));
+
+    promise.catch(function(error) {
+      deferred.reject(error);
+    });
+
+    if (_.isFunction(callback)) {
+      deferred.promise.nodeify(callback);
+    }
+
+    return deferred.promise;
+  };
+}
+
 
 declare class SegmentMembershipPage extends Page {
   /**
@@ -134,4 +185,4 @@ declare class SegmentMembershipContext {
   remove(callback?: function);
 }
 
-export { SegmentMembershipContext, SegmentMembershipInstance, SegmentMembershipList, SegmentMembershipPage }
+export { SegmentMembershipContext, SegmentMembershipInstance, SegmentMembershipList, SegmentMembershipListInstance, SegmentMembershipPage }

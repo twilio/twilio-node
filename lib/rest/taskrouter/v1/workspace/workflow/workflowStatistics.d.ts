@@ -19,6 +19,9 @@ import values = require('../../../../../base/values');
  */
 declare function WorkflowStatisticsList(version: V1, workspaceSid: string, workflowSid: string): WorkflowStatisticsListInstance;
 
+interface WorkflowStatisticsListInstance {
+}
+
 /**
  * Options to pass to fetch
  *
@@ -146,4 +149,4 @@ declare class WorkflowStatisticsContext {
   fetch(opts?: object, callback?: function);
 }
 
-export { WorkflowStatisticsContext, WorkflowStatisticsInstance, WorkflowStatisticsList, WorkflowStatisticsPage }
+export { WorkflowStatisticsContext, WorkflowStatisticsInstance, WorkflowStatisticsList, WorkflowStatisticsListInstance, WorkflowStatisticsPage }

@@ -19,6 +19,9 @@ import values = require('../../../../base/values');
  */
 declare function WorkspaceCumulativeStatisticsList(version: V1, workspaceSid: string): WorkspaceCumulativeStatisticsListInstance;
 
+interface WorkspaceCumulativeStatisticsListInstance {
+}
+
 /**
  * Options to pass to fetch
  *
@@ -159,4 +162,4 @@ declare class WorkspaceCumulativeStatisticsContext {
   fetch(opts?: object, callback?: function);
 }
 
-export { WorkspaceCumulativeStatisticsContext, WorkspaceCumulativeStatisticsInstance, WorkspaceCumulativeStatisticsList, WorkspaceCumulativeStatisticsPage }
+export { WorkspaceCumulativeStatisticsContext, WorkspaceCumulativeStatisticsInstance, WorkspaceCumulativeStatisticsList, WorkspaceCumulativeStatisticsListInstance, WorkspaceCumulativeStatisticsPage }

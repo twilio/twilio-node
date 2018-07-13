@@ -20,6 +20,9 @@ import values = require('../../../../../base/values');
  */
 declare function TaskQueueCumulativeStatisticsList(version: V1, workspaceSid: string, taskQueueSid: string): TaskQueueCumulativeStatisticsListInstance;
 
+interface TaskQueueCumulativeStatisticsListInstance {
+}
+
 /**
  * Options to pass to fetch
  *
@@ -162,4 +165,4 @@ declare class TaskQueueCumulativeStatisticsContext {
   fetch(opts?: object, callback?: function);
 }
 
-export { TaskQueueCumulativeStatisticsContext, TaskQueueCumulativeStatisticsInstance, TaskQueueCumulativeStatisticsList, TaskQueueCumulativeStatisticsPage }
+export { TaskQueueCumulativeStatisticsContext, TaskQueueCumulativeStatisticsInstance, TaskQueueCumulativeStatisticsList, TaskQueueCumulativeStatisticsListInstance, TaskQueueCumulativeStatisticsPage }

@@ -19,6 +19,52 @@ import values = require('../../../../base/values');
  */
 declare function VerificationCheckList(version: AccSecurity, serviceSid: string): VerificationCheckListInstance;
 
+interface VerificationCheckListInstance {
+  /* jshint ignore:start */
+  /**
+   * create a VerificationCheckInstance
+   *
+   * @function create
+   * @memberof Twilio.Preview.AccSecurity.ServiceContext.VerificationCheckList
+   * @instance
+   *
+   * @param {object} opts - ...
+   * @param {string} opts.code - The verification string
+   * @param {string} [opts.to] - To phonenumber
+   * @param {function} [callback] - Callback to handle processed record
+   *
+   * @returns {Promise} Resolves to processed VerificationCheckInstance
+   */
+  /* jshint ignore:end */
+  VerificationCheckListInstance.create = function create(opts, callback) {
+    if (_.isUndefined(opts)) {
+      throw new Error('Required parameter "opts" missing.');
+    }
+    if (_.isUndefined(opts.code)) {
+      throw new Error('Required parameter "opts.code" missing.');
+    }
+
+    var deferred = Q.defer();
+    var data = values.of({'Code': _.get(opts, 'code'), 'To': _.get(opts, 'to')});
+
+    var promise = this._version.create({uri: this._uri, method: 'POST', data: data});
+
+    promise = promise.then(function(payload) {
+      deferred.resolve(new VerificationCheckInstance(this._version, payload));
+    }.bind(this));
+
+    promise.catch(function(error) {
+      deferred.reject(error);
+    });
+
+    if (_.isFunction(callback)) {
+      deferred.promise.nodeify(callback);
+    }
+
+    return deferred.promise;
+  };
+}
+
 
 declare class VerificationCheckPage extends Page {
   /**
@@ -79,4 +125,4 @@ declare class VerificationCheckInstance {
   toJSON();
 }
 
-export { VerificationCheckInstance, VerificationCheckList, VerificationCheckPage }
+export { VerificationCheckInstance, VerificationCheckList, VerificationCheckListInstance, VerificationCheckPage }

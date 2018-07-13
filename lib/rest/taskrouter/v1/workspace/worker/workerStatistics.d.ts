@@ -19,6 +19,9 @@ import values = require('../../../../../base/values');
  */
 declare function WorkerStatisticsList(version: V1, workspaceSid: string, workerSid: string): WorkerStatisticsListInstance;
 
+interface WorkerStatisticsListInstance {
+}
+
 /**
  * Options to pass to fetch
  *
@@ -141,4 +144,4 @@ declare class WorkerStatisticsContext {
   fetch(opts?: object, callback?: function);
 }
 
-export { WorkerStatisticsContext, WorkerStatisticsInstance, WorkerStatisticsList, WorkerStatisticsPage }
+export { WorkerStatisticsContext, WorkerStatisticsInstance, WorkerStatisticsList, WorkerStatisticsListInstance, WorkerStatisticsPage }

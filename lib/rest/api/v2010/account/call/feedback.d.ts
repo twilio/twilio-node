@@ -20,6 +20,9 @@ import values = require('../../../../../base/values');
  */
 declare function FeedbackList(version: V2010, accountSid: string, callSid: string): FeedbackListInstance;
 
+interface FeedbackListInstance {
+}
+
 /**
  * Options to pass to create
  *
@@ -199,4 +202,4 @@ declare class FeedbackContext {
   update(opts: object, callback?: function);
 }
 
-export { FeedbackContext, FeedbackInstance, FeedbackList, FeedbackPage }
+export { FeedbackContext, FeedbackInstance, FeedbackList, FeedbackListInstance, FeedbackPage }

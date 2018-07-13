@@ -18,6 +18,50 @@ import values = require('../../../../base/values');
  */
 declare function NewKeyList(version: V2010, accountSid: string): NewKeyListInstance;
 
+interface NewKeyListInstance {
+  /* jshint ignore:start */
+  /**
+   * create a NewKeyInstance
+   *
+   * @function create
+   * @memberof Twilio.Api.V2010.AccountContext.NewKeyList
+   * @instance
+   *
+   * @param {object} [opts] - ...
+   * @param {string} [opts.friendlyName] - The friendly_name
+   * @param {function} [callback] - Callback to handle processed record
+   *
+   * @returns {Promise} Resolves to processed NewKeyInstance
+   */
+  /* jshint ignore:end */
+  NewKeyListInstance.create = function create(opts, callback) {
+    if (_.isFunction(opts)) {
+      callback = opts;
+      opts = {};
+    }
+    opts = opts || {};
+
+    var deferred = Q.defer();
+    var data = values.of({'FriendlyName': _.get(opts, 'friendlyName')});
+
+    var promise = this._version.create({uri: this._uri, method: 'POST', data: data});
+
+    promise = promise.then(function(payload) {
+      deferred.resolve(new NewKeyInstance(this._version, payload));
+    }.bind(this));
+
+    promise.catch(function(error) {
+      deferred.reject(error);
+    });
+
+    if (_.isFunction(callback)) {
+      deferred.promise.nodeify(callback);
+    }
+
+    return deferred.promise;
+  };
+}
+
 
 declare class NewKeyPage extends Page {
   /**
@@ -72,4 +116,4 @@ declare class NewKeyInstance {
   toJSON();
 }
 
-export { NewKeyInstance, NewKeyList, NewKeyPage }
+export { NewKeyInstance, NewKeyList, NewKeyListInstance, NewKeyPage }
