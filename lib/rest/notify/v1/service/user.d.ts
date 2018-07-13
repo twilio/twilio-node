@@ -34,6 +34,9 @@ interface UserResource {
   url: string;
 }
 
+interface UserPayload extends UserResource, Page.TwilioResponsePayload {
+}
+
 interface UserListInstance {
   /* jshint ignore:start */
   /**
@@ -479,4 +482,4 @@ declare class UserContext {
   segmentMemberships?: Twilio.Notify.V1.ServiceContext.UserContext.SegmentMembershipList;
 }
 
-export { UserContext, UserInstance, UserList, UserListInstance, UserPage, UserResource }
+export { UserContext, UserInstance, UserList, UserListInstance, UserPage, UserPayload, UserResource }

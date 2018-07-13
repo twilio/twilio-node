@@ -25,6 +25,9 @@ interface NewSigningKeyResource {
   sid: string;
 }
 
+interface NewSigningKeyPayload extends NewSigningKeyResource, Page.TwilioResponsePayload {
+}
+
 interface NewSigningKeyListInstance {
   /* jshint ignore:start */
   /**
@@ -123,4 +126,4 @@ declare class NewSigningKeyInstance {
   toJSON();
 }
 
-export { NewSigningKeyInstance, NewSigningKeyList, NewSigningKeyListInstance, NewSigningKeyPage, NewSigningKeyResource }
+export { NewSigningKeyInstance, NewSigningKeyList, NewSigningKeyListInstance, NewSigningKeyPage, NewSigningKeyPayload, NewSigningKeyResource }

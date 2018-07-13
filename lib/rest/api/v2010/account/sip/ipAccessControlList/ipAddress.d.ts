@@ -30,6 +30,9 @@ interface IpAddressResource {
   uri: string;
 }
 
+interface IpAddressPayload extends IpAddressResource, Page.TwilioResponsePayload {
+}
+
 interface IpAddressListInstance {
   /* jshint ignore:start */
   /**
@@ -484,4 +487,4 @@ declare class IpAddressContext {
   update(opts?: object, callback?: function);
 }
 
-export { IpAddressContext, IpAddressInstance, IpAddressList, IpAddressListInstance, IpAddressPage, IpAddressResource }
+export { IpAddressContext, IpAddressInstance, IpAddressList, IpAddressListInstance, IpAddressPage, IpAddressPayload, IpAddressResource }

@@ -33,6 +33,9 @@ interface AddOnResultResource {
   subresource_uris: string;
 }
 
+interface AddOnResultPayload extends AddOnResultResource, Page.TwilioResponsePayload {
+}
+
 interface AddOnResultListInstance {
   /* jshint ignore:start */
   /**
@@ -401,4 +404,4 @@ declare class AddOnResultContext {
   remove(callback?: function);
 }
 
-export { AddOnResultContext, AddOnResultInstance, AddOnResultList, AddOnResultListInstance, AddOnResultPage, AddOnResultResource }
+export { AddOnResultContext, AddOnResultInstance, AddOnResultList, AddOnResultListInstance, AddOnResultPage, AddOnResultPayload, AddOnResultResource }

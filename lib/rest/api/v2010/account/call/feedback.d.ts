@@ -28,6 +28,9 @@ interface FeedbackResource {
   sid: string;
 }
 
+interface FeedbackPayload extends FeedbackResource, Page.TwilioResponsePayload {
+}
+
 interface FeedbackListInstance {
 }
 
@@ -210,4 +213,4 @@ declare class FeedbackContext {
   update(opts: object, callback?: function);
 }
 
-export { FeedbackContext, FeedbackInstance, FeedbackList, FeedbackListInstance, FeedbackPage, FeedbackResource }
+export { FeedbackContext, FeedbackInstance, FeedbackList, FeedbackListInstance, FeedbackPage, FeedbackPayload, FeedbackResource }

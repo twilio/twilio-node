@@ -33,6 +33,9 @@ interface InstalledAddOnResource {
   url: string;
 }
 
+interface InstalledAddOnPayload extends InstalledAddOnResource, Page.TwilioResponsePayload {
+}
+
 interface InstalledAddOnListInstance {
   /* jshint ignore:start */
   /**
@@ -501,4 +504,4 @@ declare class InstalledAddOnContext {
   update(opts?: object, callback?: function);
 }
 
-export { InstalledAddOnContext, InstalledAddOnInstance, InstalledAddOnList, InstalledAddOnListInstance, InstalledAddOnPage, InstalledAddOnResource }
+export { InstalledAddOnContext, InstalledAddOnInstance, InstalledAddOnList, InstalledAddOnListInstance, InstalledAddOnPage, InstalledAddOnPayload, InstalledAddOnResource }

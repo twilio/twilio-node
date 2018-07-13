@@ -30,6 +30,9 @@ interface MediaResource {
   uri: string;
 }
 
+interface MediaPayload extends MediaResource, Page.TwilioResponsePayload {
+}
+
 interface MediaListInstance {
   /* jshint ignore:start */
   /**
@@ -396,4 +399,4 @@ declare class MediaContext {
   remove(callback?: function);
 }
 
-export { MediaContext, MediaInstance, MediaList, MediaListInstance, MediaPage, MediaResource }
+export { MediaContext, MediaInstance, MediaList, MediaListInstance, MediaPage, MediaPayload, MediaResource }

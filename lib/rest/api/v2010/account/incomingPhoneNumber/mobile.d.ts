@@ -50,6 +50,9 @@ interface MobileResource {
   voice_url: string;
 }
 
+interface MobilePayload extends MobileResource, Page.TwilioResponsePayload {
+}
+
 interface MobileListInstance {
   /* jshint ignore:start */
   /**
@@ -486,4 +489,4 @@ declare class MobileInstance {
   toJSON();
 }
 
-export { MobileInstance, MobileList, MobileListInstance, MobilePage, MobileResource }
+export { MobileInstance, MobileList, MobileListInstance, MobilePage, MobilePayload, MobileResource }

@@ -35,6 +35,9 @@ interface EventResource {
   url: string;
 }
 
+interface EventPayload extends EventResource, Page.TwilioResponsePayload {
+}
+
 interface EventListInstance {
   /* jshint ignore:start */
   /**
@@ -396,4 +399,4 @@ declare class EventContext {
   fetch(callback?: function);
 }
 
-export { EventContext, EventInstance, EventList, EventListInstance, EventPage, EventResource }
+export { EventContext, EventInstance, EventList, EventListInstance, EventPage, EventPayload, EventResource }

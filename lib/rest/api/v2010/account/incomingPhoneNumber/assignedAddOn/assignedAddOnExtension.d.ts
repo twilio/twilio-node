@@ -33,6 +33,9 @@ interface AssignedAddOnExtensionResource {
   uri: string;
 }
 
+interface AssignedAddOnExtensionPayload extends AssignedAddOnExtensionResource, Page.TwilioResponsePayload {
+}
+
 interface AssignedAddOnExtensionListInstance {
   /* jshint ignore:start */
   /**
@@ -375,4 +378,4 @@ declare class AssignedAddOnExtensionContext {
   fetch(callback?: function);
 }
 
-export { AssignedAddOnExtensionContext, AssignedAddOnExtensionInstance, AssignedAddOnExtensionList, AssignedAddOnExtensionListInstance, AssignedAddOnExtensionPage, AssignedAddOnExtensionResource }
+export { AssignedAddOnExtensionContext, AssignedAddOnExtensionInstance, AssignedAddOnExtensionList, AssignedAddOnExtensionListInstance, AssignedAddOnExtensionPage, AssignedAddOnExtensionPayload, AssignedAddOnExtensionResource }

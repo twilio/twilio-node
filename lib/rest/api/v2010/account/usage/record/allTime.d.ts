@@ -36,6 +36,9 @@ interface AllTimeResource {
   usage_unit: string;
 }
 
+interface AllTimePayload extends AllTimeResource, Page.TwilioResponsePayload {
+}
+
 interface AllTimeListInstance {
   /* jshint ignore:start */
   /**
@@ -364,4 +367,4 @@ declare class AllTimeInstance {
   toJSON();
 }
 
-export { AllTimeInstance, AllTimeList, AllTimeListInstance, AllTimePage, AllTimeResource }
+export { AllTimeInstance, AllTimeList, AllTimeListInstance, AllTimePage, AllTimePayload, AllTimeResource }

@@ -29,6 +29,9 @@ interface RecordingSettingsResource {
   url: string;
 }
 
+interface RecordingSettingsPayload extends RecordingSettingsResource, Page.TwilioResponsePayload {
+}
+
 interface RecordingSettingsListInstance {
 }
 
@@ -184,4 +187,4 @@ declare class RecordingSettingsContext {
   fetch(callback?: function);
 }
 
-export { RecordingSettingsContext, RecordingSettingsInstance, RecordingSettingsList, RecordingSettingsListInstance, RecordingSettingsPage, RecordingSettingsResource }
+export { RecordingSettingsContext, RecordingSettingsInstance, RecordingSettingsList, RecordingSettingsListInstance, RecordingSettingsPage, RecordingSettingsPayload, RecordingSettingsResource }

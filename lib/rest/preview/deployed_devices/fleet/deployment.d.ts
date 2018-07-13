@@ -30,6 +30,9 @@ interface DeploymentResource {
   url: string;
 }
 
+interface DeploymentPayload extends DeploymentResource, Page.TwilioResponsePayload {
+}
+
 interface DeploymentListInstance {
   /* jshint ignore:start */
   /**
@@ -482,4 +485,4 @@ declare class DeploymentContext {
   update(opts?: object, callback?: function);
 }
 
-export { DeploymentContext, DeploymentInstance, DeploymentList, DeploymentListInstance, DeploymentPage, DeploymentResource }
+export { DeploymentContext, DeploymentInstance, DeploymentList, DeploymentListInstance, DeploymentPage, DeploymentPayload, DeploymentResource }

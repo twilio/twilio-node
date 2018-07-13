@@ -36,6 +36,9 @@ interface StepResource {
   url: string;
 }
 
+interface StepPayload extends StepResource, Page.TwilioResponsePayload {
+}
+
 interface StepListInstance {
   /* jshint ignore:start */
   /**
@@ -389,4 +392,4 @@ declare class StepContext {
   stepContext?: Twilio.Studio.V1.FlowContext.EngagementContext.StepContext.StepContextList;
 }
 
-export { StepContext, StepInstance, StepList, StepListInstance, StepPage, StepResource }
+export { StepContext, StepInstance, StepList, StepListInstance, StepPage, StepPayload, StepResource }

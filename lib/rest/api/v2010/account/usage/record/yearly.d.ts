@@ -36,6 +36,9 @@ interface YearlyResource {
   usage_unit: string;
 }
 
+interface YearlyPayload extends YearlyResource, Page.TwilioResponsePayload {
+}
+
 interface YearlyListInstance {
   /* jshint ignore:start */
   /**
@@ -364,4 +367,4 @@ declare class YearlyInstance {
   toJSON();
 }
 
-export { YearlyInstance, YearlyList, YearlyListInstance, YearlyPage, YearlyResource }
+export { YearlyInstance, YearlyList, YearlyListInstance, YearlyPage, YearlyPayload, YearlyResource }

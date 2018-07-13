@@ -34,6 +34,9 @@ interface EngagementResource {
   url: string;
 }
 
+interface EngagementPayload extends EngagementResource, Page.TwilioResponsePayload {
+}
+
 interface EngagementListInstance {
   /* jshint ignore:start */
   /**
@@ -440,4 +443,4 @@ declare class EngagementContext {
   steps?: Twilio.Preview.Studio.FlowContext.EngagementContext.StepList;
 }
 
-export { EngagementContext, EngagementInstance, EngagementList, EngagementListInstance, EngagementPage, EngagementResource }
+export { EngagementContext, EngagementInstance, EngagementList, EngagementListInstance, EngagementPage, EngagementPayload, EngagementResource }

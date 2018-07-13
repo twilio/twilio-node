@@ -36,6 +36,9 @@ interface DocumentResource {
   url: string;
 }
 
+interface DocumentPayload extends DocumentResource, Page.TwilioResponsePayload {
+}
+
 interface DocumentListInstance {
   /* jshint ignore:start */
   /**
@@ -504,4 +507,4 @@ declare class DocumentContext {
   update(opts?: object, callback?: function);
 }
 
-export { DocumentContext, DocumentInstance, DocumentList, DocumentListInstance, DocumentPage, DocumentResource }
+export { DocumentContext, DocumentInstance, DocumentList, DocumentListInstance, DocumentPage, DocumentPayload, DocumentResource }

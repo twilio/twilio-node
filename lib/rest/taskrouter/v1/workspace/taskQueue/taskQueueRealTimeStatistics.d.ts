@@ -32,6 +32,9 @@ interface TaskQueueRealTimeStatisticsResource {
   workspace_sid: string;
 }
 
+interface TaskQueueRealTimeStatisticsPayload extends TaskQueueRealTimeStatisticsResource, Page.TwilioResponsePayload {
+}
+
 interface TaskQueueRealTimeStatisticsListInstance {
 }
 
@@ -151,4 +154,4 @@ declare class TaskQueueRealTimeStatisticsContext {
   fetch(opts?: object, callback?: function);
 }
 
-export { TaskQueueRealTimeStatisticsContext, TaskQueueRealTimeStatisticsInstance, TaskQueueRealTimeStatisticsList, TaskQueueRealTimeStatisticsListInstance, TaskQueueRealTimeStatisticsPage, TaskQueueRealTimeStatisticsResource }
+export { TaskQueueRealTimeStatisticsContext, TaskQueueRealTimeStatisticsInstance, TaskQueueRealTimeStatisticsList, TaskQueueRealTimeStatisticsListInstance, TaskQueueRealTimeStatisticsPage, TaskQueueRealTimeStatisticsPayload, TaskQueueRealTimeStatisticsResource }

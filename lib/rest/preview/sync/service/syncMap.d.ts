@@ -34,6 +34,9 @@ interface SyncMapResource {
   url: string;
 }
 
+interface SyncMapPayload extends SyncMapResource, Page.TwilioResponsePayload {
+}
+
 interface SyncMapListInstance {
   /* jshint ignore:start */
   /**
@@ -459,4 +462,4 @@ declare class SyncMapContext {
   syncMapPermissions?: Twilio.Preview.Sync.ServiceContext.SyncMapContext.SyncMapPermissionList;
 }
 
-export { SyncMapContext, SyncMapInstance, SyncMapList, SyncMapListInstance, SyncMapPage, SyncMapResource }
+export { SyncMapContext, SyncMapInstance, SyncMapList, SyncMapListInstance, SyncMapPage, SyncMapPayload, SyncMapResource }

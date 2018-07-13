@@ -36,6 +36,9 @@ interface VoipResource {
   region: string;
 }
 
+interface VoipPayload extends VoipResource, Page.TwilioResponsePayload {
+}
+
 interface VoipListInstance {
   /* jshint ignore:start */
   /**
@@ -420,4 +423,4 @@ declare class VoipInstance {
   toJSON();
 }
 
-export { VoipInstance, VoipList, VoipListInstance, VoipPage, VoipResource }
+export { VoipInstance, VoipList, VoipListInstance, VoipPage, VoipPayload, VoipResource }

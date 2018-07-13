@@ -44,6 +44,9 @@ interface ServiceResource {
   url: string;
 }
 
+interface ServicePayload extends ServiceResource, Page.TwilioResponsePayload {
+}
+
 interface ServiceListInstance {
   /* jshint ignore:start */
   /**
@@ -612,4 +615,4 @@ declare class ServiceContext {
   users?: Twilio.Notify.V1.ServiceContext.UserList;
 }
 
-export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServicePage, ServiceResource }
+export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServicePage, ServicePayload, ServiceResource }

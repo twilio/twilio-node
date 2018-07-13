@@ -36,6 +36,9 @@ interface NationalResource {
   region: string;
 }
 
+interface NationalPayload extends NationalResource, Page.TwilioResponsePayload {
+}
+
 interface NationalListInstance {
   /* jshint ignore:start */
   /**
@@ -420,4 +423,4 @@ declare class NationalInstance {
   toJSON();
 }
 
-export { NationalInstance, NationalList, NationalListInstance, NationalPage, NationalResource }
+export { NationalInstance, NationalList, NationalListInstance, NationalPage, NationalPayload, NationalResource }

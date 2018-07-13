@@ -42,6 +42,9 @@ interface RecordingResource {
   uri: string;
 }
 
+interface RecordingPayload extends RecordingResource, Page.TwilioResponsePayload {
+}
+
 interface RecordingListInstance {
   /* jshint ignore:start */
   /**
@@ -446,4 +449,4 @@ declare class RecordingContext {
   transcriptions?: Twilio.Api.V2010.AccountContext.RecordingContext.TranscriptionList;
 }
 
-export { RecordingContext, RecordingInstance, RecordingList, RecordingListInstance, RecordingPage, RecordingResource }
+export { RecordingContext, RecordingInstance, RecordingList, RecordingListInstance, RecordingPage, RecordingPayload, RecordingResource }

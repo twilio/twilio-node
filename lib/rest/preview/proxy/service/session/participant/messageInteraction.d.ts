@@ -45,6 +45,9 @@ interface MessageInteractionResource {
   url: string;
 }
 
+interface MessageInteractionPayload extends MessageInteractionResource, Page.TwilioResponsePayload {
+}
+
 interface MessageInteractionListInstance {
   /* jshint ignore:start */
   /**
@@ -450,4 +453,4 @@ declare class MessageInteractionContext {
   fetch(callback?: function);
 }
 
-export { MessageInteractionContext, MessageInteractionInstance, MessageInteractionList, MessageInteractionListInstance, MessageInteractionPage, MessageInteractionResource }
+export { MessageInteractionContext, MessageInteractionInstance, MessageInteractionList, MessageInteractionListInstance, MessageInteractionPage, MessageInteractionPayload, MessageInteractionResource }

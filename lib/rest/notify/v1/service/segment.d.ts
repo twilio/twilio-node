@@ -28,6 +28,9 @@ interface SegmentResource {
   unique_name: string;
 }
 
+interface SegmentPayload extends SegmentResource, Page.TwilioResponsePayload {
+}
+
 interface SegmentListInstance {
   /* jshint ignore:start */
   /**
@@ -325,4 +328,4 @@ declare class SegmentInstance {
   toJSON();
 }
 
-export { SegmentInstance, SegmentList, SegmentListInstance, SegmentPage, SegmentResource }
+export { SegmentInstance, SegmentList, SegmentListInstance, SegmentPage, SegmentPayload, SegmentResource }

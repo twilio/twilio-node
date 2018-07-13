@@ -38,6 +38,9 @@ interface AlertResource {
   url: string;
 }
 
+interface AlertPayload extends AlertResource, Page.TwilioResponsePayload {
+}
+
 interface AlertListInstance {
   /* jshint ignore:start */
   /**
@@ -410,4 +413,4 @@ declare class AlertContext {
   remove(callback?: function);
 }
 
-export { AlertContext, AlertInstance, AlertList, AlertListInstance, AlertPage, AlertResource }
+export { AlertContext, AlertInstance, AlertList, AlertListInstance, AlertPage, AlertPayload, AlertResource }

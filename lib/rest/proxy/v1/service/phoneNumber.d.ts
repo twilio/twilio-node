@@ -32,6 +32,9 @@ interface PhoneNumberResource {
   url: string;
 }
 
+interface PhoneNumberPayload extends PhoneNumberResource, Page.TwilioResponsePayload {
+}
+
 interface PhoneNumberListInstance {
   /* jshint ignore:start */
   /**
@@ -439,4 +442,4 @@ declare class PhoneNumberContext {
   remove(callback?: function);
 }
 
-export { PhoneNumberContext, PhoneNumberInstance, PhoneNumberList, PhoneNumberListInstance, PhoneNumberPage, PhoneNumberResource }
+export { PhoneNumberContext, PhoneNumberInstance, PhoneNumberList, PhoneNumberListInstance, PhoneNumberPage, PhoneNumberPayload, PhoneNumberResource }

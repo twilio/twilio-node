@@ -27,6 +27,9 @@ interface UsageRecordResource {
   sim_sid: string;
 }
 
+interface UsageRecordPayload extends UsageRecordResource, Page.TwilioResponsePayload {
+}
+
 interface UsageRecordListInstance {
   /* jshint ignore:start */
   /**
@@ -342,4 +345,4 @@ declare class UsageRecordInstance {
   toJSON();
 }
 
-export { UsageRecordInstance, UsageRecordList, UsageRecordListInstance, UsageRecordPage, UsageRecordResource }
+export { UsageRecordInstance, UsageRecordList, UsageRecordListInstance, UsageRecordPage, UsageRecordPayload, UsageRecordResource }

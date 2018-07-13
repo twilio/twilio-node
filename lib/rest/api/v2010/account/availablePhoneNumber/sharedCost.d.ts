@@ -36,6 +36,9 @@ interface SharedCostResource {
   region: string;
 }
 
+interface SharedCostPayload extends SharedCostResource, Page.TwilioResponsePayload {
+}
+
 interface SharedCostListInstance {
   /* jshint ignore:start */
   /**
@@ -420,4 +423,4 @@ declare class SharedCostInstance {
   toJSON();
 }
 
-export { SharedCostInstance, SharedCostList, SharedCostListInstance, SharedCostPage, SharedCostResource }
+export { SharedCostInstance, SharedCostList, SharedCostListInstance, SharedCostPage, SharedCostPayload, SharedCostResource }

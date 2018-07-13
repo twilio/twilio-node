@@ -31,6 +31,9 @@ interface RoleResource {
   url: string;
 }
 
+interface RolePayload extends RoleResource, Page.TwilioResponsePayload {
+}
+
 interface RoleListInstance {
   /* jshint ignore:start */
   /**
@@ -484,4 +487,4 @@ declare class RoleContext {
   update(opts: object, callback?: function);
 }
 
-export { RoleContext, RoleInstance, RoleList, RoleListInstance, RolePage, RoleResource }
+export { RoleContext, RoleInstance, RoleList, RoleListInstance, RolePage, RolePayload, RoleResource }

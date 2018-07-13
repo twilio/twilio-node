@@ -30,6 +30,9 @@ interface AlphaSenderResource {
   url: string;
 }
 
+interface AlphaSenderPayload extends AlphaSenderResource, Page.TwilioResponsePayload {
+}
+
 interface AlphaSenderListInstance {
   /* jshint ignore:start */
   /**
@@ -434,4 +437,4 @@ declare class AlphaSenderContext {
   remove(callback?: function);
 }
 
-export { AlphaSenderContext, AlphaSenderInstance, AlphaSenderList, AlphaSenderListInstance, AlphaSenderPage, AlphaSenderResource }
+export { AlphaSenderContext, AlphaSenderInstance, AlphaSenderList, AlphaSenderListInstance, AlphaSenderPage, AlphaSenderPayload, AlphaSenderResource }

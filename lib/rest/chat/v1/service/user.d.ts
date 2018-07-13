@@ -36,6 +36,9 @@ interface UserResource {
   url: string;
 }
 
+interface UserPayload extends UserResource, Page.TwilioResponsePayload {
+}
+
 interface UserListInstance {
   /* jshint ignore:start */
   /**
@@ -513,4 +516,4 @@ declare class UserContext {
   userChannels?: Twilio.Chat.V1.ServiceContext.UserContext.UserChannelList;
 }
 
-export { UserContext, UserInstance, UserList, UserListInstance, UserPage, UserResource }
+export { UserContext, UserInstance, UserList, UserListInstance, UserPage, UserPayload, UserResource }

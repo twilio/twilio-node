@@ -36,6 +36,9 @@ interface RecordResource {
   usage_unit: string;
 }
 
+interface RecordPayload extends RecordResource, Page.TwilioResponsePayload {
+}
+
 interface RecordListInstance {
   /* jshint ignore:start */
   /**
@@ -358,4 +361,4 @@ declare class RecordInstance {
   toJSON();
 }
 
-export { RecordInstance, RecordList, RecordListInstance, RecordPage, RecordResource }
+export { RecordInstance, RecordList, RecordListInstance, RecordPage, RecordPayload, RecordResource }

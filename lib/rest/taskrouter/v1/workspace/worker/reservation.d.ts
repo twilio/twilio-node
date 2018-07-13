@@ -34,6 +34,9 @@ interface ReservationResource {
   workspace_sid: string;
 }
 
+interface ReservationPayload extends ReservationResource, Page.TwilioResponsePayload {
+}
+
 interface ReservationListInstance {
   /* jshint ignore:start */
   /**
@@ -611,4 +614,4 @@ declare class ReservationContext {
   update(opts?: object, callback?: function);
 }
 
-export { ReservationContext, ReservationInstance, ReservationList, ReservationListInstance, ReservationPage, ReservationResource }
+export { ReservationContext, ReservationInstance, ReservationList, ReservationListInstance, ReservationPage, ReservationPayload, ReservationResource }

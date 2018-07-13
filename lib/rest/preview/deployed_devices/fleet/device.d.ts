@@ -35,6 +35,9 @@ interface DeviceResource {
   url: string;
 }
 
+interface DevicePayload extends DeviceResource, Page.TwilioResponsePayload {
+}
+
 interface DeviceListInstance {
   /* jshint ignore:start */
   /**
@@ -511,4 +514,4 @@ declare class DeviceContext {
   update(opts?: object, callback?: function);
 }
 
-export { DeviceContext, DeviceInstance, DeviceList, DeviceListInstance, DevicePage, DeviceResource }
+export { DeviceContext, DeviceInstance, DeviceList, DeviceListInstance, DevicePage, DevicePayload, DeviceResource }

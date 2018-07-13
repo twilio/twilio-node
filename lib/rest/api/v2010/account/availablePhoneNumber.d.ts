@@ -33,6 +33,9 @@ interface AvailablePhoneNumberCountryResource {
   uri: string;
 }
 
+interface AvailablePhoneNumberCountryPayload extends AvailablePhoneNumberCountryResource, Page.TwilioResponsePayload {
+}
+
 interface AvailablePhoneNumberCountryListInstance {
   /* jshint ignore:start */
   /**
@@ -435,4 +438,4 @@ declare class AvailablePhoneNumberCountryContext {
   voip?: Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.VoipList;
 }
 
-export { AvailablePhoneNumberCountryContext, AvailablePhoneNumberCountryInstance, AvailablePhoneNumberCountryList, AvailablePhoneNumberCountryListInstance, AvailablePhoneNumberCountryPage, AvailablePhoneNumberCountryResource }
+export { AvailablePhoneNumberCountryContext, AvailablePhoneNumberCountryInstance, AvailablePhoneNumberCountryList, AvailablePhoneNumberCountryListInstance, AvailablePhoneNumberCountryPage, AvailablePhoneNumberCountryPayload, AvailablePhoneNumberCountryResource }

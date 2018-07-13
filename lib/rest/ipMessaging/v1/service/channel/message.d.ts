@@ -35,6 +35,9 @@ interface MessageResource {
   was_edited: boolean;
 }
 
+interface MessagePayload extends MessageResource, Page.TwilioResponsePayload {
+}
+
 interface MessageListInstance {
   /* jshint ignore:start */
   /**
@@ -497,4 +500,4 @@ declare class MessageContext {
   update(opts?: object, callback?: function);
 }
 
-export { MessageContext, MessageInstance, MessageList, MessageListInstance, MessagePage, MessageResource }
+export { MessageContext, MessageInstance, MessageList, MessageListInstance, MessagePage, MessagePayload, MessageResource }

@@ -36,6 +36,9 @@ interface WorkerChannelResource {
   workspace_sid: string;
 }
 
+interface WorkerChannelPayload extends WorkerChannelResource, Page.TwilioResponsePayload {
+}
+
 interface WorkerChannelListInstance {
   /* jshint ignore:start */
   /**
@@ -420,4 +423,4 @@ declare class WorkerChannelContext {
   update(opts?: object, callback?: function);
 }
 
-export { WorkerChannelContext, WorkerChannelInstance, WorkerChannelList, WorkerChannelListInstance, WorkerChannelPage, WorkerChannelResource }
+export { WorkerChannelContext, WorkerChannelInstance, WorkerChannelList, WorkerChannelListInstance, WorkerChannelPage, WorkerChannelPayload, WorkerChannelResource }

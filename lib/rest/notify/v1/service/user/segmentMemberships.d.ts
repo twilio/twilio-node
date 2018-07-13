@@ -27,6 +27,9 @@ interface SegmentMembershipResource {
   url: string;
 }
 
+interface SegmentMembershipPayload extends SegmentMembershipResource, Page.TwilioResponsePayload {
+}
+
 interface SegmentMembershipListInstance {
   /* jshint ignore:start */
   /**
@@ -193,4 +196,4 @@ declare class SegmentMembershipContext {
   remove(callback?: function);
 }
 
-export { SegmentMembershipContext, SegmentMembershipInstance, SegmentMembershipList, SegmentMembershipListInstance, SegmentMembershipPage, SegmentMembershipResource }
+export { SegmentMembershipContext, SegmentMembershipInstance, SegmentMembershipList, SegmentMembershipListInstance, SegmentMembershipPage, SegmentMembershipPayload, SegmentMembershipResource }

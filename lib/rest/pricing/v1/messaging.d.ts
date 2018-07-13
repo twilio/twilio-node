@@ -22,6 +22,9 @@ interface MessagingResource {
   url: string;
 }
 
+interface MessagingPayload extends MessagingResource, Page.TwilioResponsePayload {
+}
+
 interface MessagingListInstance {
 }
 
@@ -76,4 +79,4 @@ declare class MessagingInstance {
   toJSON();
 }
 
-export { MessagingInstance, MessagingList, MessagingListInstance, MessagingPage, MessagingResource }
+export { MessagingInstance, MessagingList, MessagingListInstance, MessagingPage, MessagingPayload, MessagingResource }

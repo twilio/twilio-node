@@ -34,6 +34,9 @@ interface MemberResource {
   url: string;
 }
 
+interface MemberPayload extends MemberResource, Page.TwilioResponsePayload {
+}
+
 interface MemberListInstance {
   /* jshint ignore:start */
   /**
@@ -521,4 +524,4 @@ declare class MemberContext {
   update(opts?: object, callback?: function);
 }
 
-export { MemberContext, MemberInstance, MemberList, MemberListInstance, MemberPage, MemberResource }
+export { MemberContext, MemberInstance, MemberList, MemberListInstance, MemberPage, MemberPayload, MemberResource }

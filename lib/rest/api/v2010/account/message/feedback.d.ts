@@ -27,6 +27,9 @@ interface FeedbackResource {
   uri: string;
 }
 
+interface FeedbackPayload extends FeedbackResource, Page.TwilioResponsePayload {
+}
+
 interface FeedbackListInstance {
   /* jshint ignore:start */
   /**
@@ -127,4 +130,4 @@ declare class FeedbackInstance {
   toJSON();
 }
 
-export { FeedbackInstance, FeedbackList, FeedbackListInstance, FeedbackPage, FeedbackResource }
+export { FeedbackInstance, FeedbackList, FeedbackListInstance, FeedbackPage, FeedbackPayload, FeedbackResource }

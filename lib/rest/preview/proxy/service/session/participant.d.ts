@@ -36,6 +36,9 @@ interface ParticipantResource {
   url: string;
 }
 
+interface ParticipantPayload extends ParticipantResource, Page.TwilioResponsePayload {
+}
+
 interface ParticipantListInstance {
   /* jshint ignore:start */
   /**
@@ -528,4 +531,4 @@ declare class ParticipantContext {
   update(opts?: object, callback?: function);
 }
 
-export { ParticipantContext, ParticipantInstance, ParticipantList, ParticipantListInstance, ParticipantPage, ParticipantResource }
+export { ParticipantContext, ParticipantInstance, ParticipantList, ParticipantListInstance, ParticipantPage, ParticipantPayload, ParticipantResource }

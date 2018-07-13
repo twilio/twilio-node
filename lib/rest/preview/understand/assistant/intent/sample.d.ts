@@ -33,6 +33,9 @@ interface SampleResource {
   url: string;
 }
 
+interface SamplePayload extends SampleResource, Page.TwilioResponsePayload {
+}
+
 interface SampleListInstance {
   /* jshint ignore:start */
   /**
@@ -504,4 +507,4 @@ declare class SampleContext {
   update(opts?: object, callback?: function);
 }
 
-export { SampleContext, SampleInstance, SampleList, SampleListInstance, SamplePage, SampleResource }
+export { SampleContext, SampleInstance, SampleList, SampleListInstance, SamplePage, SamplePayload, SampleResource }

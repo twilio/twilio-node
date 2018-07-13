@@ -44,6 +44,9 @@ interface DependentHostedNumberOrderResource {
   verification_type: DependentHostedNumberOrderVerificationType;
 }
 
+interface DependentHostedNumberOrderPayload extends DependentHostedNumberOrderResource, Page.TwilioResponsePayload {
+}
+
 interface DependentHostedNumberOrderListInstance {
   /* jshint ignore:start */
   /**
@@ -387,4 +390,4 @@ declare class DependentHostedNumberOrderInstance {
   toJSON();
 }
 
-export { DependentHostedNumberOrderInstance, DependentHostedNumberOrderList, DependentHostedNumberOrderListInstance, DependentHostedNumberOrderPage, DependentHostedNumberOrderResource }
+export { DependentHostedNumberOrderInstance, DependentHostedNumberOrderList, DependentHostedNumberOrderListInstance, DependentHostedNumberOrderPage, DependentHostedNumberOrderPayload, DependentHostedNumberOrderResource }

@@ -37,6 +37,9 @@ interface RoomRecordingResource {
   url: string;
 }
 
+interface RoomRecordingPayload extends RoomRecordingResource, Page.TwilioResponsePayload {
+}
+
 interface RoomRecordingListInstance {
   /* jshint ignore:start */
   /**
@@ -393,4 +396,4 @@ declare class RoomRecordingContext {
   fetch(callback?: function);
 }
 
-export { RoomRecordingContext, RoomRecordingInstance, RoomRecordingList, RoomRecordingListInstance, RoomRecordingPage, RoomRecordingResource }
+export { RoomRecordingContext, RoomRecordingInstance, RoomRecordingList, RoomRecordingListInstance, RoomRecordingPage, RoomRecordingPayload, RoomRecordingResource }

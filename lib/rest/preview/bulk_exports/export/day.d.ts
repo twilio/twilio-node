@@ -26,6 +26,9 @@ interface DayResource {
   size?: number;
 }
 
+interface DayPayload extends DayResource, Page.TwilioResponsePayload {
+}
+
 interface DayListInstance {
   /* jshint ignore:start */
   /**
@@ -321,4 +324,4 @@ declare class DayInstance {
   toJSON();
 }
 
-export { DayInstance, DayList, DayListInstance, DayPage, DayResource }
+export { DayInstance, DayList, DayListInstance, DayPage, DayPayload, DayResource }

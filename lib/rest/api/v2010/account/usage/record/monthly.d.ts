@@ -36,6 +36,9 @@ interface MonthlyResource {
   usage_unit: string;
 }
 
+interface MonthlyPayload extends MonthlyResource, Page.TwilioResponsePayload {
+}
+
 interface MonthlyListInstance {
   /* jshint ignore:start */
   /**
@@ -364,4 +367,4 @@ declare class MonthlyInstance {
   toJSON();
 }
 
-export { MonthlyInstance, MonthlyList, MonthlyListInstance, MonthlyPage, MonthlyResource }
+export { MonthlyInstance, MonthlyList, MonthlyListInstance, MonthlyPage, MonthlyPayload, MonthlyResource }

@@ -25,6 +25,9 @@ interface ValidationRequestResource {
   validation_code: number;
 }
 
+interface ValidationRequestPayload extends ValidationRequestResource, Page.TwilioResponsePayload {
+}
+
 interface ValidationRequestListInstance {
   /* jshint ignore:start */
   /**
@@ -141,4 +144,4 @@ declare class ValidationRequestInstance {
   toJSON();
 }
 
-export { ValidationRequestInstance, ValidationRequestList, ValidationRequestListInstance, ValidationRequestPage, ValidationRequestResource }
+export { ValidationRequestInstance, ValidationRequestList, ValidationRequestListInstance, ValidationRequestPage, ValidationRequestPayload, ValidationRequestResource }

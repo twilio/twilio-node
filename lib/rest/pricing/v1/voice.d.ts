@@ -22,6 +22,9 @@ interface VoiceResource {
   url: string;
 }
 
+interface VoicePayload extends VoiceResource, Page.TwilioResponsePayload {
+}
+
 interface VoiceListInstance {
 }
 
@@ -76,4 +79,4 @@ declare class VoiceInstance {
   toJSON();
 }
 
-export { VoiceInstance, VoiceList, VoiceListInstance, VoicePage, VoiceResource }
+export { VoiceInstance, VoiceList, VoiceListInstance, VoicePage, VoicePayload, VoiceResource }

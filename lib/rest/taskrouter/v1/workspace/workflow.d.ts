@@ -37,6 +37,9 @@ interface WorkflowResource {
   workspace_sid: string;
 }
 
+interface WorkflowPayload extends WorkflowResource, Page.TwilioResponsePayload {
+}
+
 interface WorkflowListInstance {
   /* jshint ignore:start */
   /**
@@ -554,4 +557,4 @@ declare class WorkflowContext {
   update(opts?: object, callback?: function);
 }
 
-export { WorkflowContext, WorkflowInstance, WorkflowList, WorkflowListInstance, WorkflowPage, WorkflowResource }
+export { WorkflowContext, WorkflowInstance, WorkflowList, WorkflowListInstance, WorkflowPage, WorkflowPayload, WorkflowResource }

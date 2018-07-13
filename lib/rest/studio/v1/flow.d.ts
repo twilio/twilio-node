@@ -31,6 +31,9 @@ interface FlowResource {
   version: number;
 }
 
+interface FlowPayload extends FlowResource, Page.TwilioResponsePayload {
+}
+
 interface FlowListInstance {
   /* jshint ignore:start */
   /**
@@ -397,4 +400,4 @@ declare class FlowContext {
   remove(callback?: function);
 }
 
-export { FlowContext, FlowInstance, FlowList, FlowListInstance, FlowPage, FlowResource }
+export { FlowContext, FlowInstance, FlowList, FlowListInstance, FlowPage, FlowPayload, FlowResource }

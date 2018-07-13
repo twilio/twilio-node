@@ -31,6 +31,9 @@ interface AuthorizedConnectAppResource {
   uri: string;
 }
 
+interface AuthorizedConnectAppPayload extends AuthorizedConnectAppResource, Page.TwilioResponsePayload {
+}
+
 interface AuthorizedConnectAppListInstance {
   /* jshint ignore:start */
   /**
@@ -367,4 +370,4 @@ declare class AuthorizedConnectAppContext {
   fetch(callback?: function);
 }
 
-export { AuthorizedConnectAppContext, AuthorizedConnectAppInstance, AuthorizedConnectAppList, AuthorizedConnectAppListInstance, AuthorizedConnectAppPage, AuthorizedConnectAppResource }
+export { AuthorizedConnectAppContext, AuthorizedConnectAppInstance, AuthorizedConnectAppList, AuthorizedConnectAppListInstance, AuthorizedConnectAppPage, AuthorizedConnectAppPayload, AuthorizedConnectAppResource }

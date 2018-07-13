@@ -39,6 +39,9 @@ interface NotificationResource {
   uri: string;
 }
 
+interface NotificationPayload extends NotificationResource, Page.TwilioResponsePayload {
+}
+
 interface NotificationListInstance {
   /* jshint ignore:start */
   /**
@@ -417,4 +420,4 @@ declare class NotificationContext {
   remove(callback?: function);
 }
 
-export { NotificationContext, NotificationInstance, NotificationList, NotificationListInstance, NotificationPage, NotificationResource }
+export { NotificationContext, NotificationInstance, NotificationList, NotificationListInstance, NotificationPage, NotificationPayload, NotificationResource }

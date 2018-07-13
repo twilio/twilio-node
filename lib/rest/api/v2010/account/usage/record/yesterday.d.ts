@@ -36,6 +36,9 @@ interface YesterdayResource {
   usage_unit: string;
 }
 
+interface YesterdayPayload extends YesterdayResource, Page.TwilioResponsePayload {
+}
+
 interface YesterdayListInstance {
   /* jshint ignore:start */
   /**
@@ -364,4 +367,4 @@ declare class YesterdayInstance {
   toJSON();
 }
 
-export { YesterdayInstance, YesterdayList, YesterdayListInstance, YesterdayPage, YesterdayResource }
+export { YesterdayInstance, YesterdayList, YesterdayListInstance, YesterdayPage, YesterdayPayload, YesterdayResource }

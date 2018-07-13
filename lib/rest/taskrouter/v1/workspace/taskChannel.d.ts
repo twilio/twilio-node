@@ -29,6 +29,9 @@ interface TaskChannelResource {
   workspace_sid: string;
 }
 
+interface TaskChannelPayload extends TaskChannelResource, Page.TwilioResponsePayload {
+}
+
 interface TaskChannelListInstance {
   /* jshint ignore:start */
   /**
@@ -362,4 +365,4 @@ declare class TaskChannelContext {
   fetch(callback?: function);
 }
 
-export { TaskChannelContext, TaskChannelInstance, TaskChannelList, TaskChannelListInstance, TaskChannelPage, TaskChannelResource }
+export { TaskChannelContext, TaskChannelInstance, TaskChannelList, TaskChannelListInstance, TaskChannelPage, TaskChannelPayload, TaskChannelResource }

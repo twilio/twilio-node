@@ -32,6 +32,9 @@ interface ModelBuildResource {
   url: string;
 }
 
+interface ModelBuildPayload extends ModelBuildResource, Page.TwilioResponsePayload {
+}
+
 interface ModelBuildListInstance {
   /* jshint ignore:start */
   /**
@@ -481,4 +484,4 @@ declare class ModelBuildContext {
   update(opts?: object, callback?: function);
 }
 
-export { ModelBuildContext, ModelBuildInstance, ModelBuildList, ModelBuildListInstance, ModelBuildPage, ModelBuildResource }
+export { ModelBuildContext, ModelBuildInstance, ModelBuildList, ModelBuildListInstance, ModelBuildPage, ModelBuildPayload, ModelBuildResource }

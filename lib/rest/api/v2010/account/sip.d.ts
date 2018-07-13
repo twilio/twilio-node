@@ -18,7 +18,10 @@ declare function SipList(version: V2010, accountSid: string): SipListInstance;
 interface SipResource {
 }
 
+interface SipPayload extends SipResource, Page.TwilioResponsePayload {
+}
+
 interface SipListInstance {
 }
 
-export { SipList, SipListInstance, SipResource }
+export { SipList, SipListInstance, SipPayload, SipResource }

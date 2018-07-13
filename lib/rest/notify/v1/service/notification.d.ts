@@ -42,6 +42,9 @@ interface NotificationResource {
   ttl: number;
 }
 
+interface NotificationPayload extends NotificationResource, Page.TwilioResponsePayload {
+}
+
 interface NotificationListInstance {
   /* jshint ignore:start */
   /**
@@ -203,4 +206,4 @@ declare class NotificationInstance {
   toJSON();
 }
 
-export { NotificationInstance, NotificationList, NotificationListInstance, NotificationPage, NotificationResource }
+export { NotificationInstance, NotificationList, NotificationListInstance, NotificationPage, NotificationPayload, NotificationResource }

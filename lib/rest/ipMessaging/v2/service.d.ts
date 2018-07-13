@@ -48,6 +48,9 @@ interface ServiceResource {
   webhook_method: string;
 }
 
+interface ServicePayload extends ServiceResource, Page.TwilioResponsePayload {
+}
+
 interface ServiceListInstance {
   /* jshint ignore:start */
   /**
@@ -658,4 +661,4 @@ declare class ServiceContext {
   users?: Twilio.IpMessaging.V2.ServiceContext.UserList;
 }
 
-export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServicePage, ServiceResource }
+export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServicePage, ServicePayload, ServiceResource }

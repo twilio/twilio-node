@@ -38,6 +38,9 @@ interface UserBindingResource {
   url: string;
 }
 
+interface UserBindingPayload extends UserBindingResource, Page.TwilioResponsePayload {
+}
+
 interface UserBindingListInstance {
   /* jshint ignore:start */
   /**
@@ -478,4 +481,4 @@ declare class UserBindingContext {
   remove(callback?: function);
 }
 
-export { UserBindingContext, UserBindingInstance, UserBindingList, UserBindingListInstance, UserBindingPage, UserBindingResource }
+export { UserBindingContext, UserBindingInstance, UserBindingList, UserBindingListInstance, UserBindingPage, UserBindingPayload, UserBindingResource }

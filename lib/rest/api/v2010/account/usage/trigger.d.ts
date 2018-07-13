@@ -37,6 +37,9 @@ interface TriggerResource {
   usage_record_uri: string;
 }
 
+interface TriggerPayload extends TriggerResource, Page.TwilioResponsePayload {
+}
+
 interface TriggerListInstance {
   /* jshint ignore:start */
   /**
@@ -529,4 +532,4 @@ declare class TriggerContext {
   update(opts?: object, callback?: function);
 }
 
-export { TriggerContext, TriggerInstance, TriggerList, TriggerListInstance, TriggerPage, TriggerResource }
+export { TriggerContext, TriggerInstance, TriggerList, TriggerListInstance, TriggerPage, TriggerPayload, TriggerResource }

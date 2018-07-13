@@ -28,6 +28,9 @@ interface OutgoingCallerIdResource {
   uri: string;
 }
 
+interface OutgoingCallerIdPayload extends OutgoingCallerIdResource, Page.TwilioResponsePayload {
+}
+
 interface OutgoingCallerIdListInstance {
   /* jshint ignore:start */
   /**
@@ -428,4 +431,4 @@ declare class OutgoingCallerIdContext {
   update(opts?: object, callback?: function);
 }
 
-export { OutgoingCallerIdContext, OutgoingCallerIdInstance, OutgoingCallerIdList, OutgoingCallerIdListInstance, OutgoingCallerIdPage, OutgoingCallerIdResource }
+export { OutgoingCallerIdContext, OutgoingCallerIdInstance, OutgoingCallerIdList, OutgoingCallerIdListInstance, OutgoingCallerIdPage, OutgoingCallerIdPayload, OutgoingCallerIdResource }

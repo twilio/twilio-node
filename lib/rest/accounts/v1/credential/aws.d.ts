@@ -26,6 +26,9 @@ interface AwsResource {
   url: string;
 }
 
+interface AwsPayload extends AwsResource, Page.TwilioResponsePayload {
+}
+
 interface AwsListInstance {
   /* jshint ignore:start */
   /**
@@ -463,4 +466,4 @@ declare class AwsContext {
   update(opts?: object, callback?: function);
 }
 
-export { AwsContext, AwsInstance, AwsList, AwsListInstance, AwsPage, AwsResource }
+export { AwsContext, AwsInstance, AwsList, AwsListInstance, AwsPage, AwsPayload, AwsResource }

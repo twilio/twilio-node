@@ -33,6 +33,9 @@ interface ConnectAppResource {
   uri: string;
 }
 
+interface ConnectAppPayload extends ConnectAppResource, Page.TwilioResponsePayload {
+}
+
 interface ConnectAppListInstance {
   /* jshint ignore:start */
   /**
@@ -437,4 +440,4 @@ declare class ConnectAppContext {
   update(opts?: object, callback?: function);
 }
 
-export { ConnectAppContext, ConnectAppInstance, ConnectAppList, ConnectAppListInstance, ConnectAppPage, ConnectAppResource }
+export { ConnectAppContext, ConnectAppInstance, ConnectAppList, ConnectAppListInstance, ConnectAppPage, ConnectAppPayload, ConnectAppResource }

@@ -24,6 +24,9 @@ interface ExportResource {
   url: string;
 }
 
+interface ExportPayload extends ExportResource, Page.TwilioResponsePayload {
+}
+
 interface ExportListInstance {
 }
 
@@ -127,4 +130,4 @@ declare class ExportContext {
   fetch(callback?: function);
 }
 
-export { ExportContext, ExportInstance, ExportList, ExportListInstance, ExportPage, ExportResource }
+export { ExportContext, ExportInstance, ExportList, ExportListInstance, ExportPage, ExportPayload, ExportResource }

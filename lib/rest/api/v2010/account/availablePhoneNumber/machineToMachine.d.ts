@@ -36,6 +36,9 @@ interface MachineToMachineResource {
   region: string;
 }
 
+interface MachineToMachinePayload extends MachineToMachineResource, Page.TwilioResponsePayload {
+}
+
 interface MachineToMachineListInstance {
   /* jshint ignore:start */
   /**
@@ -420,4 +423,4 @@ declare class MachineToMachineInstance {
   toJSON();
 }
 
-export { MachineToMachineInstance, MachineToMachineList, MachineToMachineListInstance, MachineToMachinePage, MachineToMachineResource }
+export { MachineToMachineInstance, MachineToMachineList, MachineToMachineListInstance, MachineToMachinePage, MachineToMachinePayload, MachineToMachineResource }

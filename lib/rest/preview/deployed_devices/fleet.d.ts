@@ -34,6 +34,9 @@ interface FleetResource {
   url: string;
 }
 
+interface FleetPayload extends FleetResource, Page.TwilioResponsePayload {
+}
+
 interface FleetListInstance {
   /* jshint ignore:start */
   /**
@@ -516,4 +519,4 @@ declare class FleetContext {
   update(opts?: object, callback?: function);
 }
 
-export { FleetContext, FleetInstance, FleetList, FleetListInstance, FleetPage, FleetResource }
+export { FleetContext, FleetInstance, FleetList, FleetListInstance, FleetPage, FleetPayload, FleetResource }

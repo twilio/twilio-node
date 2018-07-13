@@ -30,6 +30,9 @@ interface ActivityResource {
   workspace_sid: string;
 }
 
+interface ActivityPayload extends ActivityResource, Page.TwilioResponsePayload {
+}
+
 interface ActivityListInstance {
   /* jshint ignore:start */
   /**
@@ -487,4 +490,4 @@ declare class ActivityContext {
   update(opts?: object, callback?: function);
 }
 
-export { ActivityContext, ActivityInstance, ActivityList, ActivityListInstance, ActivityPage, ActivityResource }
+export { ActivityContext, ActivityInstance, ActivityList, ActivityListInstance, ActivityPage, ActivityPayload, ActivityResource }

@@ -40,6 +40,9 @@ interface AssistantResource {
   url: string;
 }
 
+interface AssistantPayload extends AssistantResource, Page.TwilioResponsePayload {
+}
+
 interface AssistantListInstance {
   /* jshint ignore:start */
   /**
@@ -564,4 +567,4 @@ declare class AssistantContext {
   update(opts?: object, callback?: function);
 }
 
-export { AssistantContext, AssistantInstance, AssistantList, AssistantListInstance, AssistantPage, AssistantResource }
+export { AssistantContext, AssistantInstance, AssistantList, AssistantListInstance, AssistantPage, AssistantPayload, AssistantResource }

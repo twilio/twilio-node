@@ -45,6 +45,9 @@ interface SimResource {
   voice_url: string;
 }
 
+interface SimPayload extends SimResource, Page.TwilioResponsePayload {
+}
+
 interface SimListInstance {
   /* jshint ignore:start */
   /**
@@ -532,4 +535,4 @@ declare class SimContext {
   usageRecords?: Twilio.Wireless.V1.SimContext.UsageRecordList;
 }
 
-export { SimContext, SimInstance, SimList, SimListInstance, SimPage, SimResource }
+export { SimContext, SimInstance, SimList, SimListInstance, SimPage, SimPayload, SimResource }

@@ -41,6 +41,9 @@ interface FaxResource {
   url: string;
 }
 
+interface FaxPayload extends FaxResource, Page.TwilioResponsePayload {
+}
+
 interface FaxListInstance {
   /* jshint ignore:start */
   /**
@@ -538,4 +541,4 @@ declare class FaxContext {
   update(opts?: object, callback?: function);
 }
 
-export { FaxContext, FaxInstance, FaxList, FaxListInstance, FaxPage, FaxResource }
+export { FaxContext, FaxInstance, FaxList, FaxListInstance, FaxPage, FaxPayload, FaxResource }

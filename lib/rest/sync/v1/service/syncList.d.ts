@@ -35,6 +35,9 @@ interface SyncListResource {
   url: string;
 }
 
+interface SyncListPayload extends SyncListResource, Page.TwilioResponsePayload {
+}
+
 interface SyncListListInstance {
   /* jshint ignore:start */
   /**
@@ -503,4 +506,4 @@ declare class SyncListContext {
   update(opts?: object, callback?: function);
 }
 
-export { SyncListContext, SyncListInstance, SyncListList, SyncListListInstance, SyncListPage, SyncListResource }
+export { SyncListContext, SyncListInstance, SyncListList, SyncListListInstance, SyncListPage, SyncListPayload, SyncListResource }

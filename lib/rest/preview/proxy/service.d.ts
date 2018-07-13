@@ -34,6 +34,9 @@ interface ServiceResource {
   url: string;
 }
 
+interface ServicePayload extends ServiceResource, Page.TwilioResponsePayload {
+}
+
 interface ServiceListInstance {
   /* jshint ignore:start */
   /**
@@ -517,4 +520,4 @@ declare class ServiceContext {
   update(opts?: object, callback?: function);
 }
 
-export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServicePage, ServiceResource }
+export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServicePage, ServicePayload, ServiceResource }

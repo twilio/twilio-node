@@ -29,6 +29,9 @@ interface WorkflowRealTimeStatisticsResource {
   workspace_sid: string;
 }
 
+interface WorkflowRealTimeStatisticsPayload extends WorkflowRealTimeStatisticsResource, Page.TwilioResponsePayload {
+}
+
 interface WorkflowRealTimeStatisticsListInstance {
 }
 
@@ -145,4 +148,4 @@ declare class WorkflowRealTimeStatisticsContext {
   fetch(opts?: object, callback?: function);
 }
 
-export { WorkflowRealTimeStatisticsContext, WorkflowRealTimeStatisticsInstance, WorkflowRealTimeStatisticsList, WorkflowRealTimeStatisticsListInstance, WorkflowRealTimeStatisticsPage, WorkflowRealTimeStatisticsResource }
+export { WorkflowRealTimeStatisticsContext, WorkflowRealTimeStatisticsInstance, WorkflowRealTimeStatisticsList, WorkflowRealTimeStatisticsListInstance, WorkflowRealTimeStatisticsPage, WorkflowRealTimeStatisticsPayload, WorkflowRealTimeStatisticsResource }

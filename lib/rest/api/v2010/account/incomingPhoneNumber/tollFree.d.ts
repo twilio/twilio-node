@@ -50,6 +50,9 @@ interface TollFreeResource {
   voice_url: string;
 }
 
+interface TollFreePayload extends TollFreeResource, Page.TwilioResponsePayload {
+}
+
 interface TollFreeListInstance {
   /* jshint ignore:start */
   /**
@@ -486,4 +489,4 @@ declare class TollFreeInstance {
   toJSON();
 }
 
-export { TollFreeInstance, TollFreeList, TollFreeListInstance, TollFreePage, TollFreeResource }
+export { TollFreeInstance, TollFreeList, TollFreeListInstance, TollFreePage, TollFreePayload, TollFreeResource }

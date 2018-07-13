@@ -30,6 +30,9 @@ interface UserChannelResource {
   unread_messages_count: number;
 }
 
+interface UserChannelPayload extends UserChannelResource, Page.TwilioResponsePayload {
+}
+
 interface UserChannelListInstance {
   /* jshint ignore:start */
   /**
@@ -328,4 +331,4 @@ declare class UserChannelInstance {
   toJSON();
 }
 
-export { UserChannelInstance, UserChannelList, UserChannelListInstance, UserChannelPage, UserChannelResource }
+export { UserChannelInstance, UserChannelList, UserChannelListInstance, UserChannelPage, UserChannelPayload, UserChannelResource }

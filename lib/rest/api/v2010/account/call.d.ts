@@ -50,6 +50,9 @@ interface CallResource {
   uri: string;
 }
 
+interface CallPayload extends CallResource, Page.TwilioResponsePayload {
+}
+
 interface CallListInstance {
   /* jshint ignore:start */
   /**
@@ -668,4 +671,4 @@ declare class CallContext {
   update(opts?: object, callback?: function);
 }
 
-export { CallContext, CallInstance, CallList, CallListInstance, CallPage, CallResource }
+export { CallContext, CallInstance, CallList, CallListInstance, CallPage, CallPayload, CallResource }

@@ -31,6 +31,9 @@ interface CertificateResource {
   url: string;
 }
 
+interface CertificatePayload extends CertificateResource, Page.TwilioResponsePayload {
+}
+
 interface CertificateListInstance {
   /* jshint ignore:start */
   /**
@@ -494,4 +497,4 @@ declare class CertificateContext {
   update(opts?: object, callback?: function);
 }
 
-export { CertificateContext, CertificateInstance, CertificateList, CertificateListInstance, CertificatePage, CertificateResource }
+export { CertificateContext, CertificateInstance, CertificateList, CertificateListInstance, CertificatePage, CertificatePayload, CertificateResource }

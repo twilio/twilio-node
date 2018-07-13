@@ -35,6 +35,9 @@ interface RecordingResource {
   url: string;
 }
 
+interface RecordingPayload extends RecordingResource, Page.TwilioResponsePayload {
+}
+
 interface RecordingListInstance {
   /* jshint ignore:start */
   /**
@@ -427,4 +430,4 @@ declare class RecordingContext {
   remove(callback?: function);
 }
 
-export { RecordingContext, RecordingInstance, RecordingList, RecordingListInstance, RecordingPage, RecordingResource }
+export { RecordingContext, RecordingInstance, RecordingList, RecordingListInstance, RecordingPage, RecordingPayload, RecordingResource }

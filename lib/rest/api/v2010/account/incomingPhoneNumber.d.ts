@@ -53,6 +53,9 @@ interface IncomingPhoneNumberResource {
   voice_url: string;
 }
 
+interface IncomingPhoneNumberPayload extends IncomingPhoneNumberResource, Page.TwilioResponsePayload {
+}
+
 interface IncomingPhoneNumberListInstance {
   /* jshint ignore:start */
   /**
@@ -684,4 +687,4 @@ declare class IncomingPhoneNumberContext {
   update(opts?: object, callback?: function);
 }
 
-export { IncomingPhoneNumberContext, IncomingPhoneNumberInstance, IncomingPhoneNumberList, IncomingPhoneNumberListInstance, IncomingPhoneNumberPage, IncomingPhoneNumberResource }
+export { IncomingPhoneNumberContext, IncomingPhoneNumberInstance, IncomingPhoneNumberList, IncomingPhoneNumberListInstance, IncomingPhoneNumberPage, IncomingPhoneNumberPayload, IncomingPhoneNumberResource }

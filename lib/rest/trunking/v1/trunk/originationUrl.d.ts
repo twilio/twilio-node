@@ -33,6 +33,9 @@ interface OriginationUrlResource {
   weight: number;
 }
 
+interface OriginationUrlPayload extends OriginationUrlResource, Page.TwilioResponsePayload {
+}
+
 interface OriginationUrlListInstance {
   /* jshint ignore:start */
   /**
@@ -518,4 +521,4 @@ declare class OriginationUrlContext {
   update(opts?: object, callback?: function);
 }
 
-export { OriginationUrlContext, OriginationUrlInstance, OriginationUrlList, OriginationUrlListInstance, OriginationUrlPage, OriginationUrlResource }
+export { OriginationUrlContext, OriginationUrlInstance, OriginationUrlList, OriginationUrlListInstance, OriginationUrlPage, OriginationUrlPayload, OriginationUrlResource }

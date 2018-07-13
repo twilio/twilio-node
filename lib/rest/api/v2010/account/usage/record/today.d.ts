@@ -36,6 +36,9 @@ interface TodayResource {
   usage_unit: string;
 }
 
+interface TodayPayload extends TodayResource, Page.TwilioResponsePayload {
+}
+
 interface TodayListInstance {
   /* jshint ignore:start */
   /**
@@ -364,4 +367,4 @@ declare class TodayInstance {
   toJSON();
 }
 
-export { TodayInstance, TodayList, TodayListInstance, TodayPage, TodayResource }
+export { TodayInstance, TodayList, TodayListInstance, TodayPage, TodayPayload, TodayResource }

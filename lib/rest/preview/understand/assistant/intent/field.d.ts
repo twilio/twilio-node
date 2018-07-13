@@ -32,6 +32,9 @@ interface FieldResource {
   url: string;
 }
 
+interface FieldPayload extends FieldResource, Page.TwilioResponsePayload {
+}
+
 interface FieldListInstance {
   /* jshint ignore:start */
   /**
@@ -448,4 +451,4 @@ declare class FieldContext {
   remove(callback?: function);
 }
 
-export { FieldContext, FieldInstance, FieldList, FieldListInstance, FieldPage, FieldResource }
+export { FieldContext, FieldInstance, FieldList, FieldListInstance, FieldPage, FieldPayload, FieldResource }

@@ -26,6 +26,9 @@ interface ExportConfigurationResource {
   webhook_url: string;
 }
 
+interface ExportConfigurationPayload extends ExportConfigurationResource, Page.TwilioResponsePayload {
+}
+
 interface ExportConfigurationListInstance {
 }
 
@@ -168,4 +171,4 @@ declare class ExportConfigurationContext {
   update(opts?: object, callback?: function);
 }
 
-export { ExportConfigurationContext, ExportConfigurationInstance, ExportConfigurationList, ExportConfigurationListInstance, ExportConfigurationPage, ExportConfigurationResource }
+export { ExportConfigurationContext, ExportConfigurationInstance, ExportConfigurationList, ExportConfigurationListInstance, ExportConfigurationPage, ExportConfigurationPayload, ExportConfigurationResource }

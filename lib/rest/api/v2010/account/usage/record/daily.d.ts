@@ -36,6 +36,9 @@ interface DailyResource {
   usage_unit: string;
 }
 
+interface DailyPayload extends DailyResource, Page.TwilioResponsePayload {
+}
+
 interface DailyListInstance {
   /* jshint ignore:start */
   /**
@@ -364,4 +367,4 @@ declare class DailyInstance {
   toJSON();
 }
 
-export { DailyInstance, DailyList, DailyListInstance, DailyPage, DailyResource }
+export { DailyInstance, DailyList, DailyListInstance, DailyPage, DailyPayload, DailyResource }

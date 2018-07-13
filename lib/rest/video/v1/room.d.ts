@@ -41,6 +41,9 @@ interface RoomResource {
   video_codecs: RoomVideoCodec;
 }
 
+interface RoomPayload extends RoomResource, Page.TwilioResponsePayload {
+}
+
 interface RoomListInstance {
   /* jshint ignore:start */
   /**
@@ -531,4 +534,4 @@ declare class RoomContext {
   update(opts: object, callback?: function);
 }
 
-export { RoomContext, RoomInstance, RoomList, RoomListInstance, RoomPage, RoomResource }
+export { RoomContext, RoomInstance, RoomList, RoomListInstance, RoomPage, RoomPayload, RoomResource }

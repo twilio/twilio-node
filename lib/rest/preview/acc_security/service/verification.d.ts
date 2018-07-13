@@ -30,6 +30,9 @@ interface VerificationResource {
   valid: boolean;
 }
 
+interface VerificationPayload extends VerificationResource, Page.TwilioResponsePayload {
+}
+
 interface VerificationListInstance {
   /* jshint ignore:start */
   /**
@@ -144,4 +147,4 @@ declare class VerificationInstance {
   toJSON();
 }
 
-export { VerificationInstance, VerificationList, VerificationListInstance, VerificationPage, VerificationResource }
+export { VerificationInstance, VerificationList, VerificationListInstance, VerificationPage, VerificationPayload, VerificationResource }

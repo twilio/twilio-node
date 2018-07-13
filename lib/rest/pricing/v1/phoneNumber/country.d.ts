@@ -25,6 +25,9 @@ interface CountryResource {
   url: string;
 }
 
+interface CountryPayload extends CountryResource, Page.TwilioResponsePayload {
+}
+
 interface CountryListInstance {
   /* jshint ignore:start */
   /**
@@ -353,4 +356,4 @@ declare class CountryContext {
   fetch(callback?: function);
 }
 
-export { CountryContext, CountryInstance, CountryList, CountryListInstance, CountryPage, CountryResource }
+export { CountryContext, CountryInstance, CountryList, CountryListInstance, CountryPage, CountryPayload, CountryResource }

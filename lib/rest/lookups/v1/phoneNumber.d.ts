@@ -27,6 +27,9 @@ interface PhoneNumberResource {
   url: string;
 }
 
+interface PhoneNumberPayload extends PhoneNumberResource, Page.TwilioResponsePayload {
+}
+
 interface PhoneNumberListInstance {
 }
 
@@ -152,4 +155,4 @@ declare class PhoneNumberContext {
   fetch(opts?: object, callback?: function);
 }
 
-export { PhoneNumberContext, PhoneNumberInstance, PhoneNumberList, PhoneNumberListInstance, PhoneNumberPage, PhoneNumberResource }
+export { PhoneNumberContext, PhoneNumberInstance, PhoneNumberList, PhoneNumberListInstance, PhoneNumberPage, PhoneNumberPayload, PhoneNumberResource }

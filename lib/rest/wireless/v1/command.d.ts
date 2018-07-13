@@ -30,6 +30,9 @@ interface CommandResource {
   url: string;
 }
 
+interface CommandPayload extends CommandResource, Page.TwilioResponsePayload {
+}
+
 interface CommandListInstance {
   /* jshint ignore:start */
   /**
@@ -441,4 +444,4 @@ declare class CommandContext {
   fetch(callback?: function);
 }
 
-export { CommandContext, CommandInstance, CommandList, CommandListInstance, CommandPage, CommandResource }
+export { CommandContext, CommandInstance, CommandList, CommandListInstance, CommandPage, CommandPayload, CommandResource }

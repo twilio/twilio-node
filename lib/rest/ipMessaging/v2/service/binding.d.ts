@@ -34,6 +34,9 @@ interface BindingResource {
   url: string;
 }
 
+interface BindingPayload extends BindingResource, Page.TwilioResponsePayload {
+}
+
 interface BindingListInstance {
   /* jshint ignore:start */
   /**
@@ -402,4 +405,4 @@ declare class BindingContext {
   remove(callback?: function);
 }
 
-export { BindingContext, BindingInstance, BindingList, BindingListInstance, BindingPage, BindingResource }
+export { BindingContext, BindingInstance, BindingList, BindingListInstance, BindingPage, BindingPayload, BindingResource }

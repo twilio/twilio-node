@@ -40,6 +40,9 @@ interface ChannelResource {
   url: string;
 }
 
+interface ChannelPayload extends ChannelResource, Page.TwilioResponsePayload {
+}
+
 interface ChannelListInstance {
   /* jshint ignore:start */
   /**
@@ -569,4 +572,4 @@ declare class ChannelContext {
   webhooks?: Twilio.IpMessaging.V2.ServiceContext.ChannelContext.WebhookList;
 }
 
-export { ChannelContext, ChannelInstance, ChannelList, ChannelListInstance, ChannelPage, ChannelResource }
+export { ChannelContext, ChannelInstance, ChannelList, ChannelListInstance, ChannelPage, ChannelPayload, ChannelResource }

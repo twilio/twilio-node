@@ -50,6 +50,9 @@ interface LocalResource {
   voice_url: string;
 }
 
+interface LocalPayload extends LocalResource, Page.TwilioResponsePayload {
+}
+
 interface LocalListInstance {
   /* jshint ignore:start */
   /**
@@ -486,4 +489,4 @@ declare class LocalInstance {
   toJSON();
 }
 
-export { LocalInstance, LocalList, LocalListInstance, LocalPage, LocalResource }
+export { LocalInstance, LocalList, LocalListInstance, LocalPage, LocalPayload, LocalResource }

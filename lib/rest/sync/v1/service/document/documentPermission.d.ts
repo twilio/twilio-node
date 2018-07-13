@@ -32,6 +32,9 @@ interface DocumentPermissionResource {
   write: boolean;
 }
 
+interface DocumentPermissionPayload extends DocumentPermissionResource, Page.TwilioResponsePayload {
+}
+
 interface DocumentPermissionListInstance {
   /* jshint ignore:start */
   /**
@@ -438,4 +441,4 @@ declare class DocumentPermissionContext {
   update(opts: object, callback?: function);
 }
 
-export { DocumentPermissionContext, DocumentPermissionInstance, DocumentPermissionList, DocumentPermissionListInstance, DocumentPermissionPage, DocumentPermissionResource }
+export { DocumentPermissionContext, DocumentPermissionInstance, DocumentPermissionList, DocumentPermissionListInstance, DocumentPermissionPage, DocumentPermissionPayload, DocumentPermissionResource }

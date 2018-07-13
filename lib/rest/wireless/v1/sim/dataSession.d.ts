@@ -37,6 +37,9 @@ interface DataSessionResource {
   start: Date;
 }
 
+interface DataSessionPayload extends DataSessionResource, Page.TwilioResponsePayload {
+}
+
 interface DataSessionListInstance {
   /* jshint ignore:start */
   /**
@@ -349,4 +352,4 @@ declare class DataSessionInstance {
   toJSON();
 }
 
-export { DataSessionInstance, DataSessionList, DataSessionListInstance, DataSessionPage, DataSessionResource }
+export { DataSessionInstance, DataSessionList, DataSessionListInstance, DataSessionPage, DataSessionPayload, DataSessionResource }

@@ -37,6 +37,9 @@ interface RatePlanResource {
   voice_enabled: boolean;
 }
 
+interface RatePlanPayload extends RatePlanResource, Page.TwilioResponsePayload {
+}
+
 interface RatePlanListInstance {
   /* jshint ignore:start */
   /**
@@ -513,4 +516,4 @@ declare class RatePlanContext {
   update(opts?: object, callback?: function);
 }
 
-export { RatePlanContext, RatePlanInstance, RatePlanList, RatePlanListInstance, RatePlanPage, RatePlanResource }
+export { RatePlanContext, RatePlanInstance, RatePlanList, RatePlanListInstance, RatePlanPage, RatePlanPayload, RatePlanResource }

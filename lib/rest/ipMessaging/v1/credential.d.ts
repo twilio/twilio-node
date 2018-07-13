@@ -29,6 +29,9 @@ interface CredentialResource {
   url: string;
 }
 
+interface CredentialPayload extends CredentialResource, Page.TwilioResponsePayload {
+}
+
 interface CredentialListInstance {
   /* jshint ignore:start */
   /**
@@ -501,4 +504,4 @@ declare class CredentialContext {
   update(opts?: object, callback?: function);
 }
 
-export { CredentialContext, CredentialInstance, CredentialList, CredentialListInstance, CredentialPage, CredentialResource }
+export { CredentialContext, CredentialInstance, CredentialList, CredentialListInstance, CredentialPage, CredentialPayload, CredentialResource }

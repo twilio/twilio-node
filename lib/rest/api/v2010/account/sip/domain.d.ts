@@ -41,6 +41,9 @@ interface DomainResource {
   voice_url: string;
 }
 
+interface DomainPayload extends DomainResource, Page.TwilioResponsePayload {
+}
+
 interface DomainListInstance {
   /* jshint ignore:start */
   /**
@@ -570,4 +573,4 @@ declare class DomainContext {
   update(opts?: object, callback?: function);
 }
 
-export { DomainContext, DomainInstance, DomainList, DomainListInstance, DomainPage, DomainResource }
+export { DomainContext, DomainInstance, DomainList, DomainListInstance, DomainPage, DomainPayload, DomainResource }

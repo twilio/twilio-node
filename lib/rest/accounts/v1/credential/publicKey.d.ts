@@ -26,6 +26,9 @@ interface PublicKeyResource {
   url: string;
 }
 
+interface PublicKeyPayload extends PublicKeyResource, Page.TwilioResponsePayload {
+}
+
 interface PublicKeyListInstance {
   /* jshint ignore:start */
   /**
@@ -465,4 +468,4 @@ declare class PublicKeyContext {
   update(opts?: object, callback?: function);
 }
 
-export { PublicKeyContext, PublicKeyInstance, PublicKeyList, PublicKeyListInstance, PublicKeyPage, PublicKeyResource }
+export { PublicKeyContext, PublicKeyInstance, PublicKeyList, PublicKeyListInstance, PublicKeyPage, PublicKeyPayload, PublicKeyResource }

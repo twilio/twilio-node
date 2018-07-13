@@ -43,6 +43,9 @@ interface TaskResource {
   workspace_sid: string;
 }
 
+interface TaskPayload extends TaskResource, Page.TwilioResponsePayload {
+}
+
 interface TaskListInstance {
   /* jshint ignore:start */
   /**
@@ -595,4 +598,4 @@ declare class TaskContext {
   update(opts?: object, callback?: function);
 }
 
-export { TaskContext, TaskInstance, TaskList, TaskListInstance, TaskPage, TaskResource }
+export { TaskContext, TaskInstance, TaskList, TaskListInstance, TaskPage, TaskPayload, TaskResource }

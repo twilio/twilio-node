@@ -34,6 +34,9 @@ interface SyncMapItemResource {
   url: string;
 }
 
+interface SyncMapItemPayload extends SyncMapItemResource, Page.TwilioResponsePayload {
+}
+
 interface SyncMapItemListInstance {
   /* jshint ignore:start */
   /**
@@ -498,4 +501,4 @@ declare class SyncMapItemContext {
   update(opts: object, callback?: function);
 }
 
-export { SyncMapItemContext, SyncMapItemInstance, SyncMapItemList, SyncMapItemListInstance, SyncMapItemPage, SyncMapItemResource }
+export { SyncMapItemContext, SyncMapItemInstance, SyncMapItemList, SyncMapItemListInstance, SyncMapItemPage, SyncMapItemPayload, SyncMapItemResource }

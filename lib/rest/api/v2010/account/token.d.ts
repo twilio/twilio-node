@@ -27,6 +27,9 @@ interface TokenResource {
   username: string;
 }
 
+interface TokenPayload extends TokenResource, Page.TwilioResponsePayload {
+}
+
 interface TokenListInstance {
   /* jshint ignore:start */
   /**
@@ -127,4 +130,4 @@ declare class TokenInstance {
   toJSON();
 }
 
-export { TokenInstance, TokenList, TokenListInstance, TokenPage, TokenResource }
+export { TokenInstance, TokenList, TokenListInstance, TokenPage, TokenPayload, TokenResource }

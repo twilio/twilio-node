@@ -29,6 +29,9 @@ interface FaxMediaResource {
   url: string;
 }
 
+interface FaxMediaPayload extends FaxMediaResource, Page.TwilioResponsePayload {
+}
+
 interface FaxMediaListInstance {
   /* jshint ignore:start */
   /**
@@ -384,4 +387,4 @@ declare class FaxMediaContext {
   remove(callback?: function);
 }
 
-export { FaxMediaContext, FaxMediaInstance, FaxMediaList, FaxMediaListInstance, FaxMediaPage, FaxMediaResource }
+export { FaxMediaContext, FaxMediaInstance, FaxMediaList, FaxMediaListInstance, FaxMediaPage, FaxMediaPayload, FaxMediaResource }

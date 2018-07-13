@@ -40,6 +40,9 @@ interface TrunkResource {
   url: string;
 }
 
+interface TrunkPayload extends TrunkResource, Page.TwilioResponsePayload {
+}
+
 interface TrunkListInstance {
   /* jshint ignore:start */
   /**
@@ -563,4 +566,4 @@ declare class TrunkContext {
   update(opts?: object, callback?: function);
 }
 
-export { TrunkContext, TrunkInstance, TrunkList, TrunkListInstance, TrunkPage, TrunkResource }
+export { TrunkContext, TrunkInstance, TrunkList, TrunkListInstance, TrunkPage, TrunkPayload, TrunkResource }

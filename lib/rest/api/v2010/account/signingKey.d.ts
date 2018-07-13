@@ -25,6 +25,9 @@ interface SigningKeyResource {
   sid: string;
 }
 
+interface SigningKeyPayload extends SigningKeyResource, Page.TwilioResponsePayload {
+}
+
 interface SigningKeyListInstance {
   /* jshint ignore:start */
   /**
@@ -414,4 +417,4 @@ declare class SigningKeyContext {
   update(opts?: object, callback?: function);
 }
 
-export { SigningKeyContext, SigningKeyInstance, SigningKeyList, SigningKeyListInstance, SigningKeyPage, SigningKeyResource }
+export { SigningKeyContext, SigningKeyInstance, SigningKeyList, SigningKeyListInstance, SigningKeyPage, SigningKeyPayload, SigningKeyResource }

@@ -32,6 +32,9 @@ interface SyncMapPermissionResource {
   write: boolean;
 }
 
+interface SyncMapPermissionPayload extends SyncMapPermissionResource, Page.TwilioResponsePayload {
+}
+
 interface SyncMapPermissionListInstance {
   /* jshint ignore:start */
   /**
@@ -438,4 +441,4 @@ declare class SyncMapPermissionContext {
   update(opts: object, callback?: function);
 }
 
-export { SyncMapPermissionContext, SyncMapPermissionInstance, SyncMapPermissionList, SyncMapPermissionListInstance, SyncMapPermissionPage, SyncMapPermissionResource }
+export { SyncMapPermissionContext, SyncMapPermissionInstance, SyncMapPermissionList, SyncMapPermissionListInstance, SyncMapPermissionPage, SyncMapPermissionPayload, SyncMapPermissionResource }

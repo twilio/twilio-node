@@ -39,6 +39,9 @@ interface WorkerResource {
   workspace_sid: string;
 }
 
+interface WorkerPayload extends WorkerResource, Page.TwilioResponsePayload {
+}
+
 interface WorkerListInstance {
   /* jshint ignore:start */
   /**
@@ -597,4 +600,4 @@ declare class WorkerContext {
   workerChannels?: Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkerChannelList;
 }
 
-export { WorkerContext, WorkerInstance, WorkerList, WorkerListInstance, WorkerPage, WorkerResource }
+export { WorkerContext, WorkerInstance, WorkerList, WorkerListInstance, WorkerPage, WorkerPayload, WorkerResource }

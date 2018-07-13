@@ -27,6 +27,9 @@ interface TaskQueuesStatisticsResource {
   workspace_sid: string;
 }
 
+interface TaskQueuesStatisticsPayload extends TaskQueuesStatisticsResource, Page.TwilioResponsePayload {
+}
+
 interface TaskQueuesStatisticsListInstance {
   /* jshint ignore:start */
   /**
@@ -358,4 +361,4 @@ declare class TaskQueuesStatisticsInstance {
   toJSON();
 }
 
-export { TaskQueuesStatisticsInstance, TaskQueuesStatisticsList, TaskQueuesStatisticsListInstance, TaskQueuesStatisticsPage, TaskQueuesStatisticsResource }
+export { TaskQueuesStatisticsInstance, TaskQueuesStatisticsList, TaskQueuesStatisticsListInstance, TaskQueuesStatisticsPage, TaskQueuesStatisticsPayload, TaskQueuesStatisticsResource }

@@ -31,6 +31,9 @@ interface QueueResource {
   uri: string;
 }
 
+interface QueuePayload extends QueueResource, Page.TwilioResponsePayload {
+}
+
 interface QueueListInstance {
   /* jshint ignore:start */
   /**
@@ -492,4 +495,4 @@ declare class QueueContext {
   update(opts?: object, callback?: function);
 }
 
-export { QueueContext, QueueInstance, QueueList, QueueListInstance, QueuePage, QueueResource }
+export { QueueContext, QueueInstance, QueueList, QueueListInstance, QueuePage, QueuePayload, QueueResource }

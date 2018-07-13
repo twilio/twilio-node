@@ -39,6 +39,9 @@ interface ChannelResource {
   url: string;
 }
 
+interface ChannelPayload extends ChannelResource, Page.TwilioResponsePayload {
+}
+
 interface ChannelListInstance {
   /* jshint ignore:start */
   /**
@@ -537,4 +540,4 @@ declare class ChannelContext {
   update(opts?: object, callback?: function);
 }
 
-export { ChannelContext, ChannelInstance, ChannelList, ChannelListInstance, ChannelPage, ChannelResource }
+export { ChannelContext, ChannelInstance, ChannelList, ChannelListInstance, ChannelPage, ChannelPayload, ChannelResource }

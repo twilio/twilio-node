@@ -35,6 +35,9 @@ interface FeedbackSummaryResource {
   status: FeedbackSummaryStatus;
 }
 
+interface FeedbackSummaryPayload extends FeedbackSummaryResource, Page.TwilioResponsePayload {
+}
+
 interface FeedbackSummaryListInstance {
   /* jshint ignore:start */
   /**
@@ -222,4 +225,4 @@ declare class FeedbackSummaryContext {
   remove(callback?: function);
 }
 
-export { FeedbackSummaryContext, FeedbackSummaryInstance, FeedbackSummaryList, FeedbackSummaryListInstance, FeedbackSummaryPage, FeedbackSummaryResource }
+export { FeedbackSummaryContext, FeedbackSummaryInstance, FeedbackSummaryList, FeedbackSummaryListInstance, FeedbackSummaryPage, FeedbackSummaryPayload, FeedbackSummaryResource }

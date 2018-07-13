@@ -44,6 +44,9 @@ interface WorkflowCumulativeStatisticsResource {
   workspace_sid: string;
 }
 
+interface WorkflowCumulativeStatisticsPayload extends WorkflowCumulativeStatisticsResource, Page.TwilioResponsePayload {
+}
+
 interface WorkflowCumulativeStatisticsListInstance {
 }
 
@@ -190,4 +193,4 @@ declare class WorkflowCumulativeStatisticsContext {
   fetch(opts?: object, callback?: function);
 }
 
-export { WorkflowCumulativeStatisticsContext, WorkflowCumulativeStatisticsInstance, WorkflowCumulativeStatisticsList, WorkflowCumulativeStatisticsListInstance, WorkflowCumulativeStatisticsPage, WorkflowCumulativeStatisticsResource }
+export { WorkflowCumulativeStatisticsContext, WorkflowCumulativeStatisticsInstance, WorkflowCumulativeStatisticsList, WorkflowCumulativeStatisticsListInstance, WorkflowCumulativeStatisticsPage, WorkflowCumulativeStatisticsPayload, WorkflowCumulativeStatisticsResource }

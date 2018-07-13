@@ -30,6 +30,9 @@ interface UsageResource {
   url: string;
 }
 
+interface UsagePayload extends UsageResource, Page.TwilioResponsePayload {
+}
+
 interface UsageListInstance {
 }
 
@@ -152,4 +155,4 @@ declare class UsageContext {
   fetch(opts?: object, callback?: function);
 }
 
-export { UsageContext, UsageInstance, UsageList, UsageListInstance, UsagePage, UsageResource }
+export { UsageContext, UsageInstance, UsageList, UsageListInstance, UsagePage, UsagePayload, UsageResource }

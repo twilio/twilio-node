@@ -29,6 +29,9 @@ interface StepContextResource {
   url: string;
 }
 
+interface StepContextPayload extends StepContextResource, Page.TwilioResponsePayload {
+}
+
 interface StepContextListInstance {
 }
 
@@ -128,4 +131,4 @@ declare class StepContextContext {
   fetch(callback?: function);
 }
 
-export { StepContextContext, StepContextInstance, StepContextList, StepContextListInstance, StepContextPage, StepContextResource }
+export { StepContextContext, StepContextInstance, StepContextList, StepContextListInstance, StepContextPage, StepContextPayload, StepContextResource }

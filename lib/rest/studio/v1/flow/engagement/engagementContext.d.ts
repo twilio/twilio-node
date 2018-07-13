@@ -27,6 +27,9 @@ interface EngagementContextResource {
   url: string;
 }
 
+interface EngagementContextPayload extends EngagementContextResource, Page.TwilioResponsePayload {
+}
+
 interface EngagementContextListInstance {
 }
 
@@ -123,4 +126,4 @@ declare class EngagementContextContext {
   fetch(callback?: function);
 }
 
-export { EngagementContextContext, EngagementContextInstance, EngagementContextList, EngagementContextListInstance, EngagementContextPage, EngagementContextResource }
+export { EngagementContextContext, EngagementContextInstance, EngagementContextList, EngagementContextListInstance, EngagementContextPage, EngagementContextPayload, EngagementContextResource }

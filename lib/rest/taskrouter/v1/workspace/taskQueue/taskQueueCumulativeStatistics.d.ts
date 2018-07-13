@@ -43,6 +43,9 @@ interface TaskQueueCumulativeStatisticsResource {
   workspace_sid: string;
 }
 
+interface TaskQueueCumulativeStatisticsPayload extends TaskQueueCumulativeStatisticsResource, Page.TwilioResponsePayload {
+}
+
 interface TaskQueueCumulativeStatisticsListInstance {
 }
 
@@ -188,4 +191,4 @@ declare class TaskQueueCumulativeStatisticsContext {
   fetch(opts?: object, callback?: function);
 }
 
-export { TaskQueueCumulativeStatisticsContext, TaskQueueCumulativeStatisticsInstance, TaskQueueCumulativeStatisticsList, TaskQueueCumulativeStatisticsListInstance, TaskQueueCumulativeStatisticsPage, TaskQueueCumulativeStatisticsResource }
+export { TaskQueueCumulativeStatisticsContext, TaskQueueCumulativeStatisticsInstance, TaskQueueCumulativeStatisticsList, TaskQueueCumulativeStatisticsListInstance, TaskQueueCumulativeStatisticsPage, TaskQueueCumulativeStatisticsPayload, TaskQueueCumulativeStatisticsResource }

@@ -31,6 +31,9 @@ interface ServiceResource {
   url: string;
 }
 
+interface ServicePayload extends ServiceResource, Page.TwilioResponsePayload {
+}
+
 interface ServiceListInstance {
   /* jshint ignore:start */
   /**
@@ -474,4 +477,4 @@ declare class ServiceContext {
   verifications?: Twilio.Preview.AccSecurity.ServiceContext.VerificationList;
 }
 
-export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServicePage, ServiceResource }
+export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServicePage, ServicePayload, ServiceResource }

@@ -31,6 +31,9 @@ interface KeyResource {
   url: string;
 }
 
+interface KeyPayload extends KeyResource, Page.TwilioResponsePayload {
+}
+
 interface KeyListInstance {
   /* jshint ignore:start */
   /**
@@ -491,4 +494,4 @@ declare class KeyContext {
   update(opts?: object, callback?: function);
 }
 
-export { KeyContext, KeyInstance, KeyList, KeyListInstance, KeyPage, KeyResource }
+export { KeyContext, KeyInstance, KeyList, KeyListInstance, KeyPage, KeyPayload, KeyResource }

@@ -33,6 +33,9 @@ interface SyncStreamResource {
   url: string;
 }
 
+interface SyncStreamPayload extends SyncStreamResource, Page.TwilioResponsePayload {
+}
+
 interface SyncStreamListInstance {
   /* jshint ignore:start */
   /**
@@ -489,4 +492,4 @@ declare class SyncStreamContext {
   update(opts?: object, callback?: function);
 }
 
-export { SyncStreamContext, SyncStreamInstance, SyncStreamList, SyncStreamListInstance, SyncStreamPage, SyncStreamResource }
+export { SyncStreamContext, SyncStreamInstance, SyncStreamList, SyncStreamListInstance, SyncStreamPage, SyncStreamPayload, SyncStreamResource }

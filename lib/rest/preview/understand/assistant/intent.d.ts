@@ -33,6 +33,9 @@ interface IntentResource {
   url: string;
 }
 
+interface IntentPayload extends IntentResource, Page.TwilioResponsePayload {
+}
+
 interface IntentListInstance {
   /* jshint ignore:start */
   /**
@@ -508,4 +511,4 @@ declare class IntentContext {
   update(opts?: object, callback?: function);
 }
 
-export { IntentContext, IntentInstance, IntentList, IntentListInstance, IntentPage, IntentResource }
+export { IntentContext, IntentInstance, IntentList, IntentListInstance, IntentPage, IntentPayload, IntentResource }

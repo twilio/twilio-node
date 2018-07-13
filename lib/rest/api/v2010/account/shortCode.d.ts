@@ -33,6 +33,9 @@ interface ShortCodeResource {
   uri: string;
 }
 
+interface ShortCodePayload extends ShortCodeResource, Page.TwilioResponsePayload {
+}
+
 interface ShortCodeListInstance {
   /* jshint ignore:start */
   /**
@@ -438,4 +441,4 @@ declare class ShortCodeContext {
   update(opts?: object, callback?: function);
 }
 
-export { ShortCodeContext, ShortCodeInstance, ShortCodeList, ShortCodeListInstance, ShortCodePage, ShortCodeResource }
+export { ShortCodeContext, ShortCodeInstance, ShortCodeList, ShortCodeListInstance, ShortCodePage, ShortCodePayload, ShortCodeResource }

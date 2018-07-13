@@ -32,6 +32,9 @@ interface WebhookResource {
   url: string;
 }
 
+interface WebhookPayload extends WebhookResource, Page.TwilioResponsePayload {
+}
+
 interface WebhookListInstance {
   /* jshint ignore:start */
   /**
@@ -512,4 +515,4 @@ declare class WebhookContext {
   update(opts?: object, callback?: function);
 }
 
-export { WebhookContext, WebhookInstance, WebhookList, WebhookListInstance, WebhookPage, WebhookResource }
+export { WebhookContext, WebhookInstance, WebhookList, WebhookListInstance, WebhookPage, WebhookPayload, WebhookResource }

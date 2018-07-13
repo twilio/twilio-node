@@ -22,6 +22,9 @@ interface PhoneNumberResource {
   url: string;
 }
 
+interface PhoneNumberPayload extends PhoneNumberResource, Page.TwilioResponsePayload {
+}
+
 interface PhoneNumberListInstance {
 }
 
@@ -76,4 +79,4 @@ declare class PhoneNumberInstance {
   toJSON();
 }
 
-export { PhoneNumberInstance, PhoneNumberList, PhoneNumberListInstance, PhoneNumberPage, PhoneNumberResource }
+export { PhoneNumberInstance, PhoneNumberList, PhoneNumberListInstance, PhoneNumberPage, PhoneNumberPayload, PhoneNumberResource }

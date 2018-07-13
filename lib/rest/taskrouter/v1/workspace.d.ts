@@ -46,6 +46,9 @@ interface WorkspaceResource {
   url: string;
 }
 
+interface WorkspacePayload extends WorkspaceResource, Page.TwilioResponsePayload {
+}
+
 interface WorkspaceListInstance {
   /* jshint ignore:start */
   /**
@@ -631,4 +634,4 @@ declare class WorkspaceContext {
   workflows?: Twilio.Taskrouter.V1.WorkspaceContext.WorkflowList;
 }
 
-export { WorkspaceContext, WorkspaceInstance, WorkspaceList, WorkspaceListInstance, WorkspacePage, WorkspaceResource }
+export { WorkspaceContext, WorkspaceInstance, WorkspaceList, WorkspaceListInstance, WorkspacePage, WorkspacePayload, WorkspaceResource }

@@ -53,6 +53,9 @@ interface AccountResource {
   uri: string;
 }
 
+interface AccountPayload extends AccountResource, Page.TwilioResponsePayload {
+}
+
 interface AccountListInstance {
   /* jshint ignore:start */
   /**
@@ -711,4 +714,4 @@ declare class AccountContext {
   validationRequests?: Twilio.Api.V2010.AccountContext.ValidationRequestList;
 }
 
-export { AccountContext, AccountInstance, AccountList, AccountListInstance, AccountPage, AccountResource }
+export { AccountContext, AccountInstance, AccountList, AccountListInstance, AccountPage, AccountPayload, AccountResource }

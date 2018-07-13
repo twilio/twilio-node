@@ -42,6 +42,9 @@ interface InteractionResource {
   url: string;
 }
 
+interface InteractionPayload extends InteractionResource, Page.TwilioResponsePayload {
+}
+
 interface InteractionListInstance {
   /* jshint ignore:start */
   /**
@@ -425,4 +428,4 @@ declare class InteractionContext {
   remove(callback?: function);
 }
 
-export { InteractionContext, InteractionInstance, InteractionList, InteractionListInstance, InteractionPage, InteractionResource }
+export { InteractionContext, InteractionInstance, InteractionList, InteractionListInstance, InteractionPage, InteractionPayload, InteractionResource }

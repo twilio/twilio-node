@@ -29,6 +29,9 @@ interface IpAccessControlListMappingResource {
   uri: string;
 }
 
+interface IpAccessControlListMappingPayload extends IpAccessControlListMappingResource, Page.TwilioResponsePayload {
+}
+
 interface IpAccessControlListMappingListInstance {
   /* jshint ignore:start */
   /**
@@ -433,4 +436,4 @@ declare class IpAccessControlListMappingContext {
   remove(callback?: function);
 }
 
-export { IpAccessControlListMappingContext, IpAccessControlListMappingInstance, IpAccessControlListMappingList, IpAccessControlListMappingListInstance, IpAccessControlListMappingPage, IpAccessControlListMappingResource }
+export { IpAccessControlListMappingContext, IpAccessControlListMappingInstance, IpAccessControlListMappingList, IpAccessControlListMappingListInstance, IpAccessControlListMappingPage, IpAccessControlListMappingPayload, IpAccessControlListMappingResource }

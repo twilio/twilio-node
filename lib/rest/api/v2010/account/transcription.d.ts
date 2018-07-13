@@ -34,6 +34,9 @@ interface TranscriptionResource {
   uri: string;
 }
 
+interface TranscriptionPayload extends TranscriptionResource, Page.TwilioResponsePayload {
+}
+
 interface TranscriptionListInstance {
   /* jshint ignore:start */
   /**
@@ -392,4 +395,4 @@ declare class TranscriptionContext {
   remove(callback?: function);
 }
 
-export { TranscriptionContext, TranscriptionInstance, TranscriptionList, TranscriptionListInstance, TranscriptionPage, TranscriptionResource }
+export { TranscriptionContext, TranscriptionInstance, TranscriptionList, TranscriptionListInstance, TranscriptionPage, TranscriptionPayload, TranscriptionResource }

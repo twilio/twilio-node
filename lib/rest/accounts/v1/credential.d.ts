@@ -17,7 +17,10 @@ declare function CredentialList(version: V1): CredentialListInstance;
 interface CredentialResource {
 }
 
+interface CredentialPayload extends CredentialResource, Page.TwilioResponsePayload {
+}
+
 interface CredentialListInstance {
 }
 
-export { CredentialList, CredentialListInstance, CredentialResource }
+export { CredentialList, CredentialListInstance, CredentialPayload, CredentialResource }

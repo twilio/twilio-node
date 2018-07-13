@@ -31,6 +31,9 @@ interface PublishedTrackResource {
   url: string;
 }
 
+interface PublishedTrackPayload extends PublishedTrackResource, Page.TwilioResponsePayload {
+}
+
 interface PublishedTrackListInstance {
   /* jshint ignore:start */
   /**
@@ -367,4 +370,4 @@ declare class PublishedTrackContext {
   fetch(callback?: function);
 }
 
-export { PublishedTrackContext, PublishedTrackInstance, PublishedTrackList, PublishedTrackListInstance, PublishedTrackPage, PublishedTrackResource }
+export { PublishedTrackContext, PublishedTrackInstance, PublishedTrackList, PublishedTrackListInstance, PublishedTrackPage, PublishedTrackPayload, PublishedTrackResource }

@@ -37,6 +37,9 @@ interface AddressResource {
   validated: boolean;
 }
 
+interface AddressPayload extends AddressResource, Page.TwilioResponsePayload {
+}
+
 interface AddressListInstance {
   /* jshint ignore:start */
   /**
@@ -583,4 +586,4 @@ declare class AddressContext {
   update(opts?: object, callback?: function);
 }
 
-export { AddressContext, AddressInstance, AddressList, AddressListInstance, AddressPage, AddressResource }
+export { AddressContext, AddressInstance, AddressList, AddressListInstance, AddressPage, AddressPayload, AddressResource }

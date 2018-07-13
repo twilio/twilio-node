@@ -33,6 +33,9 @@ interface WorkersCumulativeStatisticsResource {
   workspace_sid: string;
 }
 
+interface WorkersCumulativeStatisticsPayload extends WorkersCumulativeStatisticsResource, Page.TwilioResponsePayload {
+}
+
 interface WorkersCumulativeStatisticsListInstance {
 }
 
@@ -163,4 +166,4 @@ declare class WorkersCumulativeStatisticsContext {
   fetch(opts?: object, callback?: function);
 }
 
-export { WorkersCumulativeStatisticsContext, WorkersCumulativeStatisticsInstance, WorkersCumulativeStatisticsList, WorkersCumulativeStatisticsListInstance, WorkersCumulativeStatisticsPage, WorkersCumulativeStatisticsResource }
+export { WorkersCumulativeStatisticsContext, WorkersCumulativeStatisticsInstance, WorkersCumulativeStatisticsList, WorkersCumulativeStatisticsListInstance, WorkersCumulativeStatisticsPage, WorkersCumulativeStatisticsPayload, WorkersCumulativeStatisticsResource }

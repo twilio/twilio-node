@@ -34,6 +34,9 @@ interface SyncListResource {
   url: string;
 }
 
+interface SyncListPayload extends SyncListResource, Page.TwilioResponsePayload {
+}
+
 interface SyncListListInstance {
   /* jshint ignore:start */
   /**
@@ -459,4 +462,4 @@ declare class SyncListContext {
   syncListPermissions?: Twilio.Preview.Sync.ServiceContext.SyncListContext.SyncListPermissionList;
 }
 
-export { SyncListContext, SyncListInstance, SyncListList, SyncListListInstance, SyncListPage, SyncListResource }
+export { SyncListContext, SyncListInstance, SyncListList, SyncListListInstance, SyncListPage, SyncListPayload, SyncListResource }

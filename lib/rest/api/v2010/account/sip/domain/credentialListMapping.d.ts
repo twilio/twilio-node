@@ -29,6 +29,9 @@ interface CredentialListMappingResource {
   uri: string;
 }
 
+interface CredentialListMappingPayload extends CredentialListMappingResource, Page.TwilioResponsePayload {
+}
+
 interface CredentialListMappingListInstance {
   /* jshint ignore:start */
   /**
@@ -432,4 +435,4 @@ declare class CredentialListMappingContext {
   remove(callback?: function);
 }
 
-export { CredentialListMappingContext, CredentialListMappingInstance, CredentialListMappingList, CredentialListMappingListInstance, CredentialListMappingPage, CredentialListMappingResource }
+export { CredentialListMappingContext, CredentialListMappingInstance, CredentialListMappingList, CredentialListMappingListInstance, CredentialListMappingPage, CredentialListMappingPayload, CredentialListMappingResource }

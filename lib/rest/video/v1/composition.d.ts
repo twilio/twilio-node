@@ -40,6 +40,9 @@ interface CompositionResource {
   video_layout: string;
 }
 
+interface CompositionPayload extends CompositionResource, Page.TwilioResponsePayload {
+}
+
 interface CompositionListInstance {
   /* jshint ignore:start */
   /**
@@ -494,4 +497,4 @@ declare class CompositionContext {
   remove(callback?: function);
 }
 
-export { CompositionContext, CompositionInstance, CompositionList, CompositionListInstance, CompositionPage, CompositionResource }
+export { CompositionContext, CompositionInstance, CompositionList, CompositionListInstance, CompositionPage, CompositionPayload, CompositionResource }

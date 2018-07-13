@@ -28,6 +28,9 @@ interface TaskQueueStatisticsResource {
   workspace_sid: string;
 }
 
+interface TaskQueueStatisticsPayload extends TaskQueueStatisticsResource, Page.TwilioResponsePayload {
+}
+
 interface TaskQueueStatisticsListInstance {
 }
 
@@ -158,4 +161,4 @@ declare class TaskQueueStatisticsContext {
   fetch(opts?: object, callback?: function);
 }
 
-export { TaskQueueStatisticsContext, TaskQueueStatisticsInstance, TaskQueueStatisticsList, TaskQueueStatisticsListInstance, TaskQueueStatisticsPage, TaskQueueStatisticsResource }
+export { TaskQueueStatisticsContext, TaskQueueStatisticsInstance, TaskQueueStatisticsList, TaskQueueStatisticsListInstance, TaskQueueStatisticsPage, TaskQueueStatisticsPayload, TaskQueueStatisticsResource }

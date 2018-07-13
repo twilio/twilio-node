@@ -34,6 +34,9 @@ interface ConferenceResource {
   uri: string;
 }
 
+interface ConferencePayload extends ConferenceResource, Page.TwilioResponsePayload {
+}
+
 interface ConferenceListInstance {
   /* jshint ignore:start */
   /**
@@ -470,4 +473,4 @@ declare class ConferenceContext {
   update(opts?: object, callback?: function);
 }
 
-export { ConferenceContext, ConferenceInstance, ConferenceList, ConferenceListInstance, ConferencePage, ConferenceResource }
+export { ConferenceContext, ConferenceInstance, ConferenceList, ConferenceListInstance, ConferencePage, ConferencePayload, ConferenceResource }

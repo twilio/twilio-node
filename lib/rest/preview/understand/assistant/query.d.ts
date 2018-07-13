@@ -35,6 +35,9 @@ interface QueryResource {
   url: string;
 }
 
+interface QueryPayload extends QueryResource, Page.TwilioResponsePayload {
+}
+
 interface QueryListInstance {
   /* jshint ignore:start */
   /**
@@ -522,4 +525,4 @@ declare class QueryContext {
   update(opts?: object, callback?: function);
 }
 
-export { QueryContext, QueryInstance, QueryList, QueryListInstance, QueryPage, QueryResource }
+export { QueryContext, QueryInstance, QueryList, QueryListInstance, QueryPage, QueryPayload, QueryResource }

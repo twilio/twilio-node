@@ -48,6 +48,9 @@ interface DependentPhoneNumberResource {
   voice_url: string;
 }
 
+interface DependentPhoneNumberPayload extends DependentPhoneNumberResource, Page.TwilioResponsePayload {
+}
+
 interface DependentPhoneNumberListInstance {
   /* jshint ignore:start */
   /**
@@ -365,4 +368,4 @@ declare class DependentPhoneNumberInstance {
   toJSON();
 }
 
-export { DependentPhoneNumberInstance, DependentPhoneNumberList, DependentPhoneNumberListInstance, DependentPhoneNumberPage, DependentPhoneNumberResource }
+export { DependentPhoneNumberInstance, DependentPhoneNumberList, DependentPhoneNumberListInstance, DependentPhoneNumberPage, DependentPhoneNumberPayload, DependentPhoneNumberResource }

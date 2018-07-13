@@ -28,6 +28,9 @@ interface AvailableAddOnExtensionResource {
   url: string;
 }
 
+interface AvailableAddOnExtensionPayload extends AvailableAddOnExtensionResource, Page.TwilioResponsePayload {
+}
+
 interface AvailableAddOnExtensionListInstance {
   /* jshint ignore:start */
   /**
@@ -363,4 +366,4 @@ declare class AvailableAddOnExtensionContext {
   fetch(callback?: function);
 }
 
-export { AvailableAddOnExtensionContext, AvailableAddOnExtensionInstance, AvailableAddOnExtensionList, AvailableAddOnExtensionListInstance, AvailableAddOnExtensionPage, AvailableAddOnExtensionResource }
+export { AvailableAddOnExtensionContext, AvailableAddOnExtensionInstance, AvailableAddOnExtensionList, AvailableAddOnExtensionListInstance, AvailableAddOnExtensionPage, AvailableAddOnExtensionPayload, AvailableAddOnExtensionResource }

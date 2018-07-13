@@ -33,6 +33,9 @@ interface InviteResource {
   url: string;
 }
 
+interface InvitePayload extends InviteResource, Page.TwilioResponsePayload {
+}
+
 interface InviteListInstance {
   /* jshint ignore:start */
   /**
@@ -447,4 +450,4 @@ declare class InviteContext {
   remove(callback?: function);
 }
 
-export { InviteContext, InviteInstance, InviteList, InviteListInstance, InvitePage, InviteResource }
+export { InviteContext, InviteInstance, InviteList, InviteListInstance, InvitePage, InvitePayload, InviteResource }

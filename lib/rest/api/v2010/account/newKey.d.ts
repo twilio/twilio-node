@@ -25,6 +25,9 @@ interface NewKeyResource {
   sid: string;
 }
 
+interface NewKeyPayload extends NewKeyResource, Page.TwilioResponsePayload {
+}
+
 interface NewKeyListInstance {
   /* jshint ignore:start */
   /**
@@ -123,4 +126,4 @@ declare class NewKeyInstance {
   toJSON();
 }
 
-export { NewKeyInstance, NewKeyList, NewKeyListInstance, NewKeyPage, NewKeyResource }
+export { NewKeyInstance, NewKeyList, NewKeyListInstance, NewKeyPage, NewKeyPayload, NewKeyResource }

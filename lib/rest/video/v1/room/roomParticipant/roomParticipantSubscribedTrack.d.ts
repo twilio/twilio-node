@@ -32,6 +32,9 @@ interface SubscribedTrackResource {
   subscriber_sid: string;
 }
 
+interface SubscribedTrackPayload extends SubscribedTrackResource, Page.TwilioResponsePayload {
+}
+
 interface SubscribedTrackListInstance {
   /* jshint ignore:start */
   /**
@@ -400,4 +403,4 @@ declare class SubscribedTrackInstance {
   toJSON();
 }
 
-export { SubscribedTrackInstance, SubscribedTrackList, SubscribedTrackListInstance, SubscribedTrackPage, SubscribedTrackResource }
+export { SubscribedTrackInstance, SubscribedTrackList, SubscribedTrackListInstance, SubscribedTrackPage, SubscribedTrackPayload, SubscribedTrackResource }

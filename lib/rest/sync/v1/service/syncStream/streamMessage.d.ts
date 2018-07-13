@@ -25,6 +25,9 @@ interface StreamMessageResource {
   sid: string;
 }
 
+interface StreamMessagePayload extends StreamMessageResource, Page.TwilioResponsePayload {
+}
+
 interface StreamMessageListInstance {
   /* jshint ignore:start */
   /**
@@ -124,4 +127,4 @@ declare class StreamMessageInstance {
   toJSON();
 }
 
-export { StreamMessageInstance, StreamMessageList, StreamMessageListInstance, StreamMessagePage, StreamMessageResource }
+export { StreamMessageInstance, StreamMessageList, StreamMessageListInstance, StreamMessagePage, StreamMessagePayload, StreamMessageResource }

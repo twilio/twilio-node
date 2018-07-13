@@ -32,6 +32,9 @@ interface SyncListPermissionResource {
   write: boolean;
 }
 
+interface SyncListPermissionPayload extends SyncListPermissionResource, Page.TwilioResponsePayload {
+}
+
 interface SyncListPermissionListInstance {
   /* jshint ignore:start */
   /**
@@ -438,4 +441,4 @@ declare class SyncListPermissionContext {
   update(opts: object, callback?: function);
 }
 
-export { SyncListPermissionContext, SyncListPermissionInstance, SyncListPermissionList, SyncListPermissionListInstance, SyncListPermissionPage, SyncListPermissionResource }
+export { SyncListPermissionContext, SyncListPermissionInstance, SyncListPermissionList, SyncListPermissionListInstance, SyncListPermissionPage, SyncListPermissionPayload, SyncListPermissionResource }

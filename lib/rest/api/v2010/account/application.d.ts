@@ -42,6 +42,9 @@ interface ApplicationResource {
   voice_url: string;
 }
 
+interface ApplicationPayload extends ApplicationResource, Page.TwilioResponsePayload {
+}
+
 interface ApplicationListInstance {
   /* jshint ignore:start */
   /**
@@ -592,4 +595,4 @@ declare class ApplicationContext {
   update(opts?: object, callback?: function);
 }
 
-export { ApplicationContext, ApplicationInstance, ApplicationList, ApplicationListInstance, ApplicationPage, ApplicationResource }
+export { ApplicationContext, ApplicationInstance, ApplicationList, ApplicationListInstance, ApplicationPage, ApplicationPayload, ApplicationResource }

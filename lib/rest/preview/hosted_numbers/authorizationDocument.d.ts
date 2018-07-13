@@ -32,6 +32,9 @@ interface AuthorizationDocumentResource {
   url: string;
 }
 
+interface AuthorizationDocumentPayload extends AuthorizationDocumentResource, Page.TwilioResponsePayload {
+}
+
 interface AuthorizationDocumentListInstance {
   /* jshint ignore:start */
   /**
@@ -503,4 +506,4 @@ declare class AuthorizationDocumentContext {
   update(opts?: object, callback?: function);
 }
 
-export { AuthorizationDocumentContext, AuthorizationDocumentInstance, AuthorizationDocumentList, AuthorizationDocumentListInstance, AuthorizationDocumentPage, AuthorizationDocumentResource }
+export { AuthorizationDocumentContext, AuthorizationDocumentInstance, AuthorizationDocumentList, AuthorizationDocumentListInstance, AuthorizationDocumentPage, AuthorizationDocumentPayload, AuthorizationDocumentResource }

@@ -18,7 +18,10 @@ declare function UsageList(version: V2010, accountSid: string): UsageListInstanc
 interface UsageResource {
 }
 
+interface UsagePayload extends UsageResource, Page.TwilioResponsePayload {
+}
+
 interface UsageListInstance {
 }
 
-export { UsageList, UsageListInstance, UsageResource }
+export { UsageList, UsageListInstance, UsagePayload, UsageResource }

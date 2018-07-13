@@ -34,6 +34,9 @@ interface PayloadResource {
   subresource_uris: string;
 }
 
+interface PayloadPayload extends PayloadResource, Page.TwilioResponsePayload {
+}
+
 interface PayloadListInstance {
   /* jshint ignore:start */
   /**
@@ -394,4 +397,4 @@ declare class PayloadContext {
   remove(callback?: function);
 }
 
-export { PayloadContext, PayloadInstance, PayloadList, PayloadListInstance, PayloadPage, PayloadResource }
+export { PayloadContext, PayloadInstance, PayloadList, PayloadListInstance, PayloadPage, PayloadPayload, PayloadResource }

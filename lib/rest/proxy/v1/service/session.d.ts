@@ -41,6 +41,9 @@ interface SessionResource {
   url: string;
 }
 
+interface SessionPayload extends SessionResource, Page.TwilioResponsePayload {
+}
+
 interface SessionListInstance {
   /* jshint ignore:start */
   /**
@@ -549,4 +552,4 @@ declare class SessionContext {
   update(opts?: object, callback?: function);
 }
 
-export { SessionContext, SessionInstance, SessionList, SessionListInstance, SessionPage, SessionResource }
+export { SessionContext, SessionInstance, SessionList, SessionListInstance, SessionPage, SessionPayload, SessionResource }

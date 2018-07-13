@@ -29,6 +29,9 @@ interface CompositionSettingsResource {
   url: string;
 }
 
+interface CompositionSettingsPayload extends CompositionSettingsResource, Page.TwilioResponsePayload {
+}
+
 interface CompositionSettingsListInstance {
 }
 
@@ -184,4 +187,4 @@ declare class CompositionSettingsContext {
   fetch(callback?: function);
 }
 
-export { CompositionSettingsContext, CompositionSettingsInstance, CompositionSettingsList, CompositionSettingsListInstance, CompositionSettingsPage, CompositionSettingsResource }
+export { CompositionSettingsContext, CompositionSettingsInstance, CompositionSettingsList, CompositionSettingsListInstance, CompositionSettingsPage, CompositionSettingsPayload, CompositionSettingsResource }

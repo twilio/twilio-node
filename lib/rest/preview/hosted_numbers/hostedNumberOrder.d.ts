@@ -45,6 +45,9 @@ interface HostedNumberOrderResource {
   verification_type: HostedNumberOrderVerificationType;
 }
 
+interface HostedNumberOrderPayload extends HostedNumberOrderResource, Page.TwilioResponsePayload {
+}
+
 interface HostedNumberOrderListInstance {
   /* jshint ignore:start */
   /**
@@ -601,4 +604,4 @@ declare class HostedNumberOrderContext {
   update(opts?: object, callback?: function);
 }
 
-export { HostedNumberOrderContext, HostedNumberOrderInstance, HostedNumberOrderList, HostedNumberOrderListInstance, HostedNumberOrderPage, HostedNumberOrderResource }
+export { HostedNumberOrderContext, HostedNumberOrderInstance, HostedNumberOrderList, HostedNumberOrderListInstance, HostedNumberOrderPage, HostedNumberOrderPayload, HostedNumberOrderResource }
