@@ -21,6 +21,22 @@ import { ShortCodeList } from './service/shortCode';
  */
 declare function ServiceList(version: V1): ServiceListInstance;
 
+export interface ServiceResource {
+  account_sid: string;
+  callback_url: string;
+  date_created: Date;
+  date_updated: Date;
+  default_ttl: number;
+  geo_match_level: ServiceGeoMatchLevel;
+  intercept_callback_url: string;
+  links: string;
+  number_selection_behavior: ServiceNumberSelectionBehavior;
+  out_of_session_callback_url: string;
+  sid: string;
+  unique_name: string;
+  url: string;
+}
+
 interface ServiceListInstance {
   /* jshint ignore:start */
   /**
@@ -537,4 +553,4 @@ declare class ServiceContext {
   update(opts?: object, callback?: function);
 }
 
-export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServicePage }
+export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServicePage, ServiceResource }

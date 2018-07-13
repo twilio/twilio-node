@@ -20,6 +20,27 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function FaxList(version: V1): FaxListInstance;
 
+export interface FaxResource {
+  account_sid: string;
+  api_version: string;
+  date_created: Date;
+  date_updated: Date;
+  direction: FaxDirection;
+  duration: number;
+  from: string;
+  links: string;
+  media_sid: string;
+  media_url: string;
+  num_pages: number;
+  price: number;
+  price_unit: string;
+  quality: FaxQuality;
+  sid: string;
+  status: FaxStatus;
+  to: string;
+  url: string;
+}
+
 interface FaxListInstance {
   /* jshint ignore:start */
   /**
@@ -517,4 +538,4 @@ declare class FaxContext {
   update(opts?: object, callback?: function);
 }
 
-export { FaxContext, FaxInstance, FaxList, FaxListInstance, FaxPage }
+export { FaxContext, FaxInstance, FaxList, FaxListInstance, FaxPage, FaxResource }

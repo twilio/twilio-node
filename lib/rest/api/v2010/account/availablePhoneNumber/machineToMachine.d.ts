@@ -20,6 +20,22 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function MachineToMachineList(version: V2010, accountSid: string, countryCode: string): MachineToMachineListInstance;
 
+export interface MachineToMachineResource {
+  address_requirements: string;
+  beta: boolean;
+  capabilities: string;
+  friendly_name: string;
+  iso_country: string;
+  lata: string;
+  latitude: number;
+  locality: string;
+  longitude: number;
+  phone_number: string;
+  postal_code: string;
+  rate_center: string;
+  region: string;
+}
+
 interface MachineToMachineListInstance {
   /* jshint ignore:start */
   /**
@@ -404,4 +420,4 @@ declare class MachineToMachineInstance {
   toJSON();
 }
 
-export { MachineToMachineInstance, MachineToMachineList, MachineToMachineListInstance, MachineToMachinePage }
+export { MachineToMachineInstance, MachineToMachineList, MachineToMachineListInstance, MachineToMachinePage, MachineToMachineResource }

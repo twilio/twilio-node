@@ -19,6 +19,22 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function TranscriptionList(version: V2010, accountSid: string, recordingSid: string): TranscriptionListInstance;
 
+export interface TranscriptionResource {
+  account_sid: string;
+  api_version: string;
+  date_created: Date;
+  date_updated: Date;
+  duration: string;
+  price: number;
+  price_unit: string;
+  recording_sid: string;
+  sid: string;
+  status: TranscriptionStatus;
+  transcription_text: string;
+  type: string;
+  uri: string;
+}
+
 interface TranscriptionListInstance {
   /* jshint ignore:start */
   /**
@@ -379,4 +395,4 @@ declare class TranscriptionContext {
   remove(callback?: function);
 }
 
-export { TranscriptionContext, TranscriptionInstance, TranscriptionList, TranscriptionListInstance, TranscriptionPage }
+export { TranscriptionContext, TranscriptionInstance, TranscriptionList, TranscriptionListInstance, TranscriptionPage, TranscriptionResource }

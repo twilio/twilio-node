@@ -22,6 +22,21 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function SessionList(version: Proxy, serviceSid: string): SessionListInstance;
 
+export interface SessionResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  end_time: Date;
+  links: string;
+  service_sid: string;
+  sid: string;
+  start_time: Date;
+  status: SessionStatus;
+  ttl: number;
+  unique_name: string;
+  url: string;
+}
+
 interface SessionListInstance {
   /* jshint ignore:start */
   /**
@@ -521,4 +536,4 @@ declare class SessionContext {
   update(opts?: object, callback?: function);
 }
 
-export { SessionContext, SessionInstance, SessionList, SessionListInstance, SessionPage }
+export { SessionContext, SessionInstance, SessionList, SessionListInstance, SessionPage, SessionResource }

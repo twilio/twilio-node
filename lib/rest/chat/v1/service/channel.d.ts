@@ -22,6 +22,23 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function ChannelList(version: V1, serviceSid: string): ChannelListInstance;
 
+export interface ChannelResource {
+  account_sid: string;
+  attributes: string;
+  created_by: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  links: string;
+  members_count: number;
+  messages_count: number;
+  service_sid: string;
+  sid: string;
+  type: ChannelChannelType;
+  unique_name: string;
+  url: string;
+}
+
 interface ChannelListInstance {
   /* jshint ignore:start */
   /**
@@ -520,4 +537,4 @@ declare class ChannelContext {
   update(opts?: object, callback?: function);
 }
 
-export { ChannelContext, ChannelInstance, ChannelList, ChannelListInstance, ChannelPage }
+export { ChannelContext, ChannelInstance, ChannelList, ChannelListInstance, ChannelPage, ChannelResource }

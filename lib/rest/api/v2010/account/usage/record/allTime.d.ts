@@ -19,6 +19,23 @@ import { SerializableClass } from '../../../../../../interfaces';
  */
 declare function AllTimeList(version: V2010, accountSid: string): AllTimeListInstance;
 
+export interface AllTimeResource {
+  account_sid: string;
+  api_version: string;
+  category: AllTimeCategory;
+  count: string;
+  count_unit: string;
+  description: string;
+  end_date: Date;
+  price: number;
+  price_unit: string;
+  start_date: Date;
+  subresource_uris: string;
+  uri: string;
+  usage: string;
+  usage_unit: string;
+}
+
 interface AllTimeListInstance {
   /* jshint ignore:start */
   /**
@@ -347,4 +364,4 @@ declare class AllTimeInstance {
   toJSON();
 }
 
-export { AllTimeInstance, AllTimeList, AllTimeListInstance, AllTimePage }
+export { AllTimeInstance, AllTimeList, AllTimeListInstance, AllTimePage, AllTimeResource }

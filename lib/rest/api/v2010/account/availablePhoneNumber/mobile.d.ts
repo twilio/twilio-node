@@ -20,6 +20,22 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function MobileList(version: V2010, accountSid: string, countryCode: string): MobileListInstance;
 
+export interface MobileResource {
+  address_requirements: string;
+  beta: boolean;
+  capabilities: string;
+  friendly_name: string;
+  iso_country: string;
+  lata: string;
+  latitude: number;
+  locality: string;
+  longitude: number;
+  phone_number: string;
+  postal_code: string;
+  rate_center: string;
+  region: string;
+}
+
 interface MobileListInstance {
   /* jshint ignore:start */
   /**
@@ -437,4 +453,4 @@ declare class MobileInstance {
   toJSON();
 }
 
-export { MobileInstance, MobileList, MobileListInstance, MobilePage }
+export { MobileInstance, MobileList, MobileListInstance, MobilePage, MobileResource }

@@ -19,6 +19,23 @@ import { SerializableClass } from '../../../../../../interfaces';
  */
 declare function LastMonthList(version: V2010, accountSid: string): LastMonthListInstance;
 
+export interface LastMonthResource {
+  account_sid: string;
+  api_version: string;
+  category: LastMonthCategory;
+  count: string;
+  count_unit: string;
+  description: string;
+  end_date: Date;
+  price: number;
+  price_unit: string;
+  start_date: Date;
+  subresource_uris: string;
+  uri: string;
+  usage: string;
+  usage_unit: string;
+}
+
 interface LastMonthListInstance {
   /* jshint ignore:start */
   /**
@@ -347,4 +364,4 @@ declare class LastMonthInstance {
   toJSON();
 }
 
-export { LastMonthInstance, LastMonthList, LastMonthListInstance, LastMonthPage }
+export { LastMonthInstance, LastMonthList, LastMonthListInstance, LastMonthPage, LastMonthResource }

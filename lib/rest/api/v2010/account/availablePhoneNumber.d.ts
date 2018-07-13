@@ -25,6 +25,14 @@ import { VoipList } from './availablePhoneNumber/voip';
  */
 declare function AvailablePhoneNumberCountryList(version: V2010, accountSid: string): AvailablePhoneNumberCountryListInstance;
 
+export interface AvailablePhoneNumberCountryResource {
+  beta: boolean;
+  country: string;
+  country_code: string;
+  subresource_uris: string;
+  uri: string;
+}
+
 interface AvailablePhoneNumberCountryListInstance {
   /* jshint ignore:start */
   /**
@@ -427,4 +435,4 @@ declare class AvailablePhoneNumberCountryContext {
   voip?: Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.VoipList;
 }
 
-export { AvailablePhoneNumberCountryContext, AvailablePhoneNumberCountryInstance, AvailablePhoneNumberCountryList, AvailablePhoneNumberCountryListInstance, AvailablePhoneNumberCountryPage }
+export { AvailablePhoneNumberCountryContext, AvailablePhoneNumberCountryInstance, AvailablePhoneNumberCountryList, AvailablePhoneNumberCountryListInstance, AvailablePhoneNumberCountryPage, AvailablePhoneNumberCountryResource }

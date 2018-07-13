@@ -17,6 +17,15 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function AwsList(version: V1): AwsListInstance;
 
+export interface AwsResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  sid: string;
+  url: string;
+}
+
 interface AwsListInstance {
   /* jshint ignore:start */
   /**
@@ -454,4 +463,4 @@ declare class AwsContext {
   update(opts?: object, callback?: function);
 }
 
-export { AwsContext, AwsInstance, AwsList, AwsListInstance, AwsPage }
+export { AwsContext, AwsInstance, AwsList, AwsListInstance, AwsPage, AwsResource }

@@ -20,6 +20,18 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function FieldList(version: Understand, assistantSid: string, intentSid: string): FieldListInstance;
 
+export interface FieldResource {
+  account_sid: string;
+  assistant_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  field_type: string;
+  intent_sid: string;
+  sid: string;
+  unique_name: string;
+  url: string;
+}
+
 interface FieldListInstance {
   /* jshint ignore:start */
   /**
@@ -436,4 +448,4 @@ declare class FieldContext {
   remove(callback?: function);
 }
 
-export { FieldContext, FieldInstance, FieldList, FieldListInstance, FieldPage }
+export { FieldContext, FieldInstance, FieldList, FieldListInstance, FieldPage, FieldResource }

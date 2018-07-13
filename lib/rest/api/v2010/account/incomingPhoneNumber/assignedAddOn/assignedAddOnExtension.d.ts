@@ -21,6 +21,18 @@ import { SerializableClass } from '../../../../../../interfaces';
  */
 declare function AssignedAddOnExtensionList(version: V2010, accountSid: string, resourceSid: string, assignedAddOnSid: string): AssignedAddOnExtensionListInstance;
 
+export interface AssignedAddOnExtensionResource {
+  account_sid: string;
+  assigned_add_on_sid: string;
+  enabled: boolean;
+  friendly_name: string;
+  product_name: string;
+  resource_sid: string;
+  sid: string;
+  unique_name: string;
+  uri: string;
+}
+
 interface AssignedAddOnExtensionListInstance {
   /* jshint ignore:start */
   /**
@@ -363,4 +375,4 @@ declare class AssignedAddOnExtensionContext {
   fetch(callback?: function);
 }
 
-export { AssignedAddOnExtensionContext, AssignedAddOnExtensionInstance, AssignedAddOnExtensionList, AssignedAddOnExtensionListInstance, AssignedAddOnExtensionPage }
+export { AssignedAddOnExtensionContext, AssignedAddOnExtensionInstance, AssignedAddOnExtensionList, AssignedAddOnExtensionListInstance, AssignedAddOnExtensionPage, AssignedAddOnExtensionResource }

@@ -19,6 +19,15 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function SegmentList(version: V1, serviceSid: string): SegmentListInstance;
 
+export interface SegmentResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  service_sid: string;
+  sid: string;
+  unique_name: string;
+}
+
 interface SegmentListInstance {
   /* jshint ignore:start */
   /**
@@ -316,4 +325,4 @@ declare class SegmentInstance {
   toJSON();
 }
 
-export { SegmentInstance, SegmentList, SegmentListInstance, SegmentPage }
+export { SegmentInstance, SegmentList, SegmentListInstance, SegmentPage, SegmentResource }

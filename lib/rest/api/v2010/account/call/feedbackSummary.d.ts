@@ -18,6 +18,23 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function FeedbackSummaryList(version: V2010, accountSid: string): FeedbackSummaryListInstance;
 
+export interface FeedbackSummaryResource {
+  account_sid: string;
+  call_count: number;
+  call_feedback_count: number;
+  date_created: Date;
+  date_updated: Date;
+  end_date: Date;
+  include_subaccounts: boolean;
+  issues: string;
+  quality_score_average: number;
+  quality_score_median: number;
+  quality_score_standard_deviation: number;
+  sid: string;
+  start_date: Date;
+  status: FeedbackSummaryStatus;
+}
+
 interface FeedbackSummaryListInstance {
   /* jshint ignore:start */
   /**
@@ -205,4 +222,4 @@ declare class FeedbackSummaryContext {
   remove(callback?: function);
 }
 
-export { FeedbackSummaryContext, FeedbackSummaryInstance, FeedbackSummaryList, FeedbackSummaryListInstance, FeedbackSummaryPage }
+export { FeedbackSummaryContext, FeedbackSummaryInstance, FeedbackSummaryList, FeedbackSummaryListInstance, FeedbackSummaryPage, FeedbackSummaryResource }

@@ -20,6 +20,26 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function RecordingList(version: V2010, accountSid: string, callSid: string): RecordingListInstance;
 
+export interface RecordingResource {
+  account_sid: string;
+  api_version: string;
+  call_sid: string;
+  channels: number;
+  conference_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  duration: string;
+  encryption_details: string;
+  error_code: number;
+  price: number;
+  price_unit: string;
+  sid: string;
+  source: RecordingSource;
+  start_time: Date;
+  status: RecordingStatus;
+  uri: string;
+}
+
 interface RecordingListInstance {
   /* jshint ignore:start */
   /**
@@ -498,4 +518,4 @@ declare class RecordingContext {
   update(opts: object, callback?: function);
 }
 
-export { RecordingContext, RecordingInstance, RecordingList, RecordingListInstance, RecordingPage }
+export { RecordingContext, RecordingInstance, RecordingList, RecordingListInstance, RecordingPage, RecordingResource }

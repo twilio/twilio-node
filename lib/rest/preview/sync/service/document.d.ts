@@ -21,6 +21,20 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function DocumentList(version: Sync, serviceSid: string): DocumentListInstance;
 
+export interface DocumentResource {
+  account_sid: string;
+  created_by: string;
+  data: string;
+  date_created: Date;
+  date_updated: Date;
+  links: string;
+  revision: string;
+  service_sid: string;
+  sid: string;
+  unique_name: string;
+  url: string;
+}
+
 interface DocumentListInstance {
   /* jshint ignore:start */
   /**
@@ -481,4 +495,4 @@ declare class DocumentContext {
   update(opts: object, callback?: function);
 }
 
-export { DocumentContext, DocumentInstance, DocumentList, DocumentListInstance, DocumentPage }
+export { DocumentContext, DocumentInstance, DocumentList, DocumentListInstance, DocumentPage, DocumentResource }

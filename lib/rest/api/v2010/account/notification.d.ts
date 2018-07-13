@@ -19,6 +19,26 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function NotificationList(version: V2010, accountSid: string): NotificationListInstance;
 
+export interface NotificationResource {
+  account_sid: string;
+  api_version: string;
+  call_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  error_code: string;
+  log: string;
+  message_date: Date;
+  message_text: string;
+  more_info: string;
+  request_method: string;
+  request_url: string;
+  request_variables?: string;
+  response_body?: string;
+  response_headers?: string;
+  sid: string;
+  uri: string;
+}
+
 interface NotificationListInstance {
   /* jshint ignore:start */
   /**
@@ -397,4 +417,4 @@ declare class NotificationContext {
   remove(callback?: function);
 }
 
-export { NotificationContext, NotificationInstance, NotificationList, NotificationListInstance, NotificationPage }
+export { NotificationContext, NotificationInstance, NotificationList, NotificationListInstance, NotificationPage, NotificationResource }

@@ -20,6 +20,23 @@ import { UserChannelList } from './user/userChannel';
  */
 declare function UserList(version: V2, serviceSid: string): UserListInstance;
 
+export interface UserResource {
+  account_sid: string;
+  attributes: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  identity: string;
+  is_notifiable: boolean;
+  is_online: boolean;
+  joined_channels_count: number;
+  links: string;
+  role_sid: string;
+  service_sid: string;
+  sid: string;
+  url: string;
+}
+
 interface UserListInstance {
   /* jshint ignore:start */
   /**
@@ -507,4 +524,4 @@ declare class UserContext {
   userChannels?: Twilio.IpMessaging.V2.ServiceContext.UserContext.UserChannelList;
 }
 
-export { UserContext, UserInstance, UserList, UserListInstance, UserPage }
+export { UserContext, UserInstance, UserList, UserListInstance, UserPage, UserResource }

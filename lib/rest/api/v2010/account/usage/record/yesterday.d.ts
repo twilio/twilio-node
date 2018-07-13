@@ -19,6 +19,23 @@ import { SerializableClass } from '../../../../../../interfaces';
  */
 declare function YesterdayList(version: V2010, accountSid: string): YesterdayListInstance;
 
+export interface YesterdayResource {
+  account_sid: string;
+  api_version: string;
+  category: YesterdayCategory;
+  count: string;
+  count_unit: string;
+  description: string;
+  end_date: Date;
+  price: number;
+  price_unit: string;
+  start_date: Date;
+  subresource_uris: string;
+  uri: string;
+  usage: string;
+  usage_unit: string;
+}
+
 interface YesterdayListInstance {
   /* jshint ignore:start */
   /**
@@ -347,4 +364,4 @@ declare class YesterdayInstance {
   toJSON();
 }
 
-export { YesterdayInstance, YesterdayList, YesterdayListInstance, YesterdayPage }
+export { YesterdayInstance, YesterdayList, YesterdayListInstance, YesterdayPage, YesterdayResource }

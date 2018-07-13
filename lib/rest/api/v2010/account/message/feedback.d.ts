@@ -18,6 +18,15 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function FeedbackList(version: V2010, accountSid: string, messageSid: string): FeedbackListInstance;
 
+export interface FeedbackResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  message_sid: string;
+  outcome: FeedbackOutcome;
+  uri: string;
+}
+
 interface FeedbackListInstance {
   /* jshint ignore:start */
   /**
@@ -118,4 +127,4 @@ declare class FeedbackInstance {
   toJSON();
 }
 
-export { FeedbackInstance, FeedbackList, FeedbackListInstance, FeedbackPage }
+export { FeedbackInstance, FeedbackList, FeedbackListInstance, FeedbackPage, FeedbackResource }

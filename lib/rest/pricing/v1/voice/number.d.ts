@@ -16,6 +16,16 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function NumberList(version: V1): NumberListInstance;
 
+export interface NumberResource {
+  country: string;
+  inbound_call_price: string;
+  iso_country: string;
+  number: string;
+  outbound_call_price: string;
+  price_unit: string;
+  url: string;
+}
+
 interface NumberListInstance {
 }
 
@@ -109,4 +119,4 @@ declare class NumberContext {
   fetch(callback?: function);
 }
 
-export { NumberContext, NumberInstance, NumberList, NumberListInstance, NumberPage }
+export { NumberContext, NumberInstance, NumberList, NumberListInstance, NumberPage, NumberResource }

@@ -19,6 +19,13 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function DayList(version: BulkExports, resourceType: string): DayListInstance;
 
+export interface DayResource {
+  day?: string;
+  redirect_to?: string;
+  resource_type?: string;
+  size?: number;
+}
+
 interface DayListInstance {
   /* jshint ignore:start */
   /**
@@ -314,4 +321,4 @@ declare class DayInstance {
   toJSON();
 }
 
-export { DayInstance, DayList, DayListInstance, DayPage }
+export { DayInstance, DayList, DayListInstance, DayPage, DayResource }

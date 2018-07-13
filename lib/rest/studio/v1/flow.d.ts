@@ -19,6 +19,18 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function FlowList(version: V1): FlowListInstance;
 
+export interface FlowResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  links: string;
+  sid: string;
+  status: FlowStatus;
+  url: string;
+  version: number;
+}
+
 interface FlowListInstance {
   /* jshint ignore:start */
   /**
@@ -385,4 +397,4 @@ declare class FlowContext {
   remove(callback?: function);
 }
 
-export { FlowContext, FlowInstance, FlowList, FlowListInstance, FlowPage }
+export { FlowContext, FlowInstance, FlowList, FlowListInstance, FlowPage, FlowResource }

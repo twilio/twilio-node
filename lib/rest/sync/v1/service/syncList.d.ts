@@ -21,6 +21,20 @@ import { SyncListPermissionList } from './syncList/syncListPermission';
  */
 declare function SyncListList(version: V1, serviceSid: string): SyncListListInstance;
 
+export interface SyncListResource {
+  account_sid: string;
+  created_by: string;
+  date_created: Date;
+  date_expires: Date;
+  date_updated: Date;
+  links: string;
+  revision: string;
+  service_sid: string;
+  sid: string;
+  unique_name: string;
+  url: string;
+}
+
 interface SyncListListInstance {
   /* jshint ignore:start */
   /**
@@ -489,4 +503,4 @@ declare class SyncListContext {
   update(opts?: object, callback?: function);
 }
 
-export { SyncListContext, SyncListInstance, SyncListList, SyncListListInstance, SyncListPage }
+export { SyncListContext, SyncListInstance, SyncListList, SyncListListInstance, SyncListPage, SyncListResource }

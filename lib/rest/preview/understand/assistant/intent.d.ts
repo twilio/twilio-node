@@ -21,6 +21,18 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function IntentList(version: Understand, assistantSid: string): IntentListInstance;
 
+export interface IntentResource {
+  account_sid: string;
+  assistant_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  links: string;
+  sid: string;
+  unique_name: string;
+  url: string;
+}
+
 interface IntentListInstance {
   /* jshint ignore:start */
   /**
@@ -496,4 +508,4 @@ declare class IntentContext {
   update(opts?: object, callback?: function);
 }
 
-export { IntentContext, IntentInstance, IntentList, IntentListInstance, IntentPage }
+export { IntentContext, IntentInstance, IntentList, IntentListInstance, IntentPage, IntentResource }

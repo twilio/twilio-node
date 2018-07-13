@@ -20,6 +20,22 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function WorkerChannelList(version: V1, workspaceSid: string, workerSid: string): WorkerChannelListInstance;
 
+export interface WorkerChannelResource {
+  account_sid: string;
+  assigned_tasks: number;
+  available: boolean;
+  available_capacity_percentage: number;
+  configured_capacity: number;
+  date_created: Date;
+  date_updated: Date;
+  sid: string;
+  task_channel_sid: string;
+  task_channel_unique_name: string;
+  url: string;
+  worker_sid: string;
+  workspace_sid: string;
+}
+
 interface WorkerChannelListInstance {
   /* jshint ignore:start */
   /**
@@ -404,4 +420,4 @@ declare class WorkerChannelContext {
   update(opts?: object, callback?: function);
 }
 
-export { WorkerChannelContext, WorkerChannelInstance, WorkerChannelList, WorkerChannelListInstance, WorkerChannelPage }
+export { WorkerChannelContext, WorkerChannelInstance, WorkerChannelList, WorkerChannelListInstance, WorkerChannelPage, WorkerChannelResource }

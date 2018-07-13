@@ -20,6 +20,23 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function AddressList(version: V2010, accountSid: string): AddressListInstance;
 
+export interface AddressResource {
+  account_sid: string;
+  city: string;
+  customer_name: string;
+  date_created: Date;
+  date_updated: Date;
+  emergency_enabled: boolean;
+  friendly_name: string;
+  iso_country: string;
+  postal_code: string;
+  region: string;
+  sid: string;
+  street: string;
+  uri: string;
+  validated: boolean;
+}
+
 interface AddressListInstance {
   /* jshint ignore:start */
   /**
@@ -566,4 +583,4 @@ declare class AddressContext {
   update(opts?: object, callback?: function);
 }
 
-export { AddressContext, AddressInstance, AddressList, AddressListInstance, AddressPage }
+export { AddressContext, AddressInstance, AddressList, AddressListInstance, AddressPage, AddressResource }

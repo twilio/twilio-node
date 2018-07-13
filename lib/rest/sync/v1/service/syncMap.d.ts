@@ -21,6 +21,20 @@ import { SyncMapPermissionList } from './syncMap/syncMapPermission';
  */
 declare function SyncMapList(version: V1, serviceSid: string): SyncMapListInstance;
 
+export interface SyncMapResource {
+  account_sid: string;
+  created_by: string;
+  date_created: Date;
+  date_expires: Date;
+  date_updated: Date;
+  links: string;
+  revision: string;
+  service_sid: string;
+  sid: string;
+  unique_name: string;
+  url: string;
+}
+
 interface SyncMapListInstance {
   /* jshint ignore:start */
   /**
@@ -489,4 +503,4 @@ declare class SyncMapContext {
   update(opts?: object, callback?: function);
 }
 
-export { SyncMapContext, SyncMapInstance, SyncMapList, SyncMapListInstance, SyncMapPage }
+export { SyncMapContext, SyncMapInstance, SyncMapList, SyncMapListInstance, SyncMapPage, SyncMapResource }

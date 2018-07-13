@@ -21,6 +21,20 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function AssignedAddOnList(version: V2010, accountSid: string, resourceSid: string): AssignedAddOnListInstance;
 
+export interface AssignedAddOnResource {
+  account_sid: string;
+  configuration: string;
+  date_created: Date;
+  date_updated: Date;
+  description: string;
+  friendly_name: string;
+  resource_sid: string;
+  sid: string;
+  subresource_uris: string;
+  unique_name: string;
+  uri: string;
+}
+
 interface AssignedAddOnListInstance {
   /* jshint ignore:start */
   /**
@@ -442,4 +456,4 @@ declare class AssignedAddOnContext {
   remove(callback?: function);
 }
 
-export { AssignedAddOnContext, AssignedAddOnInstance, AssignedAddOnList, AssignedAddOnListInstance, AssignedAddOnPage }
+export { AssignedAddOnContext, AssignedAddOnInstance, AssignedAddOnList, AssignedAddOnListInstance, AssignedAddOnPage, AssignedAddOnResource }

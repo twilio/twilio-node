@@ -19,6 +19,16 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function FaxMediaList(version: V1, faxSid: string): FaxMediaListInstance;
 
+export interface FaxMediaResource {
+  account_sid: string;
+  content_type: string;
+  date_created: Date;
+  date_updated: Date;
+  fax_sid: string;
+  sid: string;
+  url: string;
+}
+
 interface FaxMediaListInstance {
   /* jshint ignore:start */
   /**
@@ -374,4 +384,4 @@ declare class FaxMediaContext {
   remove(callback?: function);
 }
 
-export { FaxMediaContext, FaxMediaInstance, FaxMediaList, FaxMediaListInstance, FaxMediaPage }
+export { FaxMediaContext, FaxMediaInstance, FaxMediaList, FaxMediaListInstance, FaxMediaPage, FaxMediaResource }

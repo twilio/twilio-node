@@ -20,6 +20,21 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function DeviceList(version: DeployedDevices, fleetSid: string): DeviceListInstance;
 
+export interface DeviceResource {
+  account_sid: string;
+  date_authenticated: Date;
+  date_created: Date;
+  date_updated: Date;
+  deployment_sid: string;
+  enabled: boolean;
+  fleet_sid: string;
+  friendly_name: string;
+  identity: string;
+  sid: string;
+  unique_name: string;
+  url: string;
+}
+
 interface DeviceListInstance {
   /* jshint ignore:start */
   /**
@@ -496,4 +511,4 @@ declare class DeviceContext {
   update(opts?: object, callback?: function);
 }
 
-export { DeviceContext, DeviceInstance, DeviceList, DeviceListInstance, DevicePage }
+export { DeviceContext, DeviceInstance, DeviceList, DeviceListInstance, DevicePage, DeviceResource }

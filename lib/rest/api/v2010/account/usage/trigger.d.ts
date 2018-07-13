@@ -18,6 +18,25 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function TriggerList(version: V2010, accountSid: string): TriggerListInstance;
 
+export interface TriggerResource {
+  account_sid: string;
+  api_version: string;
+  callback_method: string;
+  callback_url: string;
+  current_value: string;
+  date_created: Date;
+  date_fired: Date;
+  date_updated: Date;
+  friendly_name: string;
+  recurring: TriggerRecurring;
+  sid: string;
+  trigger_by: TriggerTriggerField;
+  trigger_value: string;
+  uri: string;
+  usage_category: TriggerUsageCategory;
+  usage_record_uri: string;
+}
+
 interface TriggerListInstance {
   /* jshint ignore:start */
   /**
@@ -510,4 +529,4 @@ declare class TriggerContext {
   update(opts?: object, callback?: function);
 }
 
-export { TriggerContext, TriggerInstance, TriggerList, TriggerListInstance, TriggerPage }
+export { TriggerContext, TriggerInstance, TriggerList, TriggerListInstance, TriggerPage, TriggerResource }

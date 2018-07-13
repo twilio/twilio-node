@@ -18,6 +18,25 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function RatePlanList(version: V1): RatePlanListInstance;
 
+export interface RatePlanResource {
+  account_sid: string;
+  data_enabled: boolean;
+  data_limit: number;
+  data_metering: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  international_roaming: string;
+  international_roaming_data_limit: number;
+  messaging_enabled: boolean;
+  national_roaming_data_limit: number;
+  national_roaming_enabled: boolean;
+  sid: string;
+  unique_name: string;
+  url: string;
+  voice_enabled: boolean;
+}
+
 interface RatePlanListInstance {
   /* jshint ignore:start */
   /**
@@ -494,4 +513,4 @@ declare class RatePlanContext {
   update(opts?: object, callback?: function);
 }
 
-export { RatePlanContext, RatePlanInstance, RatePlanList, RatePlanListInstance, RatePlanPage }
+export { RatePlanContext, RatePlanInstance, RatePlanList, RatePlanListInstance, RatePlanPage, RatePlanResource }

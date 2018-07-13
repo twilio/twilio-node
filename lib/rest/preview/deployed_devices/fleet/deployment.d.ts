@@ -19,6 +19,17 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function DeploymentList(version: DeployedDevices, fleetSid: string): DeploymentListInstance;
 
+export interface DeploymentResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  fleet_sid: string;
+  friendly_name: string;
+  sid: string;
+  sync_service_sid: string;
+  url: string;
+}
+
 interface DeploymentListInstance {
   /* jshint ignore:start */
   /**
@@ -471,4 +482,4 @@ declare class DeploymentContext {
   update(opts?: object, callback?: function);
 }
 
-export { DeploymentContext, DeploymentInstance, DeploymentList, DeploymentListInstance, DeploymentPage }
+export { DeploymentContext, DeploymentInstance, DeploymentList, DeploymentListInstance, DeploymentPage, DeploymentResource }

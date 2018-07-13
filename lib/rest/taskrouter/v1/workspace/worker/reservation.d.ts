@@ -20,6 +20,20 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function ReservationList(version: V1, workspaceSid: string, workerSid: string): ReservationListInstance;
 
+export interface ReservationResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  links: string;
+  reservation_status: ReservationStatus;
+  sid: string;
+  task_sid: string;
+  url: string;
+  worker_name: string;
+  worker_sid: string;
+  workspace_sid: string;
+}
+
 interface ReservationListInstance {
   /* jshint ignore:start */
   /**
@@ -597,4 +611,4 @@ declare class ReservationContext {
   update(opts?: object, callback?: function);
 }
 
-export { ReservationContext, ReservationInstance, ReservationList, ReservationListInstance, ReservationPage }
+export { ReservationContext, ReservationInstance, ReservationList, ReservationListInstance, ReservationPage, ReservationResource }

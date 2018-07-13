@@ -20,6 +20,19 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function FieldValueList(version: Understand, assistantSid: string, fieldTypeSid: string): FieldValueListInstance;
 
+export interface FieldValueResource {
+  account_sid: string;
+  assistant_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  field_type_sid: string;
+  language: string;
+  sid: string;
+  synonym_of: string;
+  url: string;
+  value: string;
+}
+
 interface FieldValueListInstance {
   /* jshint ignore:start */
   /**
@@ -446,4 +459,4 @@ declare class FieldValueContext {
   remove(callback?: function);
 }
 
-export { FieldValueContext, FieldValueInstance, FieldValueList, FieldValueListInstance, FieldValuePage }
+export { FieldValueContext, FieldValueInstance, FieldValueList, FieldValueListInstance, FieldValuePage, FieldValueResource }

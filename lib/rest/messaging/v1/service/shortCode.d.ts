@@ -19,6 +19,18 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function ShortCodeList(version: V1, serviceSid: string): ShortCodeListInstance;
 
+export interface ShortCodeResource {
+  account_sid: string;
+  capabilities: string;
+  country_code: string;
+  date_created: Date;
+  date_updated: Date;
+  service_sid: string;
+  short_code: string;
+  sid: string;
+  url: string;
+}
+
 interface ShortCodeListInstance {
   /* jshint ignore:start */
   /**
@@ -424,4 +436,4 @@ declare class ShortCodeContext {
   remove(callback?: function);
 }
 
-export { ShortCodeContext, ShortCodeInstance, ShortCodeList, ShortCodeListInstance, ShortCodePage }
+export { ShortCodeContext, ShortCodeInstance, ShortCodeList, ShortCodeListInstance, ShortCodePage, ShortCodeResource }

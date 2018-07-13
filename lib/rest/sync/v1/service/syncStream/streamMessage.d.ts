@@ -20,6 +20,11 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function StreamMessageList(version: V1, serviceSid: string, streamSid: string): StreamMessageListInstance;
 
+export interface StreamMessageResource {
+  data: string;
+  sid: string;
+}
+
 interface StreamMessageListInstance {
   /* jshint ignore:start */
   /**
@@ -119,4 +124,4 @@ declare class StreamMessageInstance {
   toJSON();
 }
 
-export { StreamMessageInstance, StreamMessageList, StreamMessageListInstance, StreamMessagePage }
+export { StreamMessageInstance, StreamMessageList, StreamMessageListInstance, StreamMessagePage, StreamMessageResource }

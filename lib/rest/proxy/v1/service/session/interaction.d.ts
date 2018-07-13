@@ -20,6 +20,28 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function InteractionList(version: V1, serviceSid: string, sessionSid: string): InteractionListInstance;
 
+export interface InteractionResource {
+  account_sid: string;
+  data: string;
+  date_created: Date;
+  date_updated: Date;
+  inbound_participant_sid: string;
+  inbound_resource_sid: string;
+  inbound_resource_status: InteractionResourceStatus;
+  inbound_resource_type: string;
+  inbound_resource_url: string;
+  outbound_participant_sid: string;
+  outbound_resource_sid: string;
+  outbound_resource_status: InteractionResourceStatus;
+  outbound_resource_type: string;
+  outbound_resource_url: string;
+  service_sid: string;
+  session_sid: string;
+  sid: string;
+  type: InteractionType;
+  url: string;
+}
+
 interface InteractionListInstance {
   /* jshint ignore:start */
   /**
@@ -403,4 +425,4 @@ declare class InteractionContext {
   remove(callback?: function);
 }
 
-export { InteractionContext, InteractionInstance, InteractionList, InteractionListInstance, InteractionPage }
+export { InteractionContext, InteractionInstance, InteractionList, InteractionListInstance, InteractionPage, InteractionResource }

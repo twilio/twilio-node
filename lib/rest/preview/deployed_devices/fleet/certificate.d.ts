@@ -19,6 +19,18 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function CertificateList(version: DeployedDevices, fleetSid: string): CertificateListInstance;
 
+export interface CertificateResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  device_sid: string;
+  fleet_sid: string;
+  friendly_name: string;
+  sid: string;
+  thumbprint: string;
+  url: string;
+}
+
 interface CertificateListInstance {
   /* jshint ignore:start */
   /**
@@ -482,4 +494,4 @@ declare class CertificateContext {
   update(opts?: object, callback?: function);
 }
 
-export { CertificateContext, CertificateInstance, CertificateList, CertificateListInstance, CertificatePage }
+export { CertificateContext, CertificateInstance, CertificateList, CertificateListInstance, CertificatePage, CertificateResource }

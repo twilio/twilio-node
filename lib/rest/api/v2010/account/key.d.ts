@@ -18,6 +18,13 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function KeyList(version: V2010, accountSid: string): KeyListInstance;
 
+export interface KeyResource {
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  sid: string;
+}
+
 interface KeyListInstance {
   /* jshint ignore:start */
   /**
@@ -407,4 +414,4 @@ declare class KeyContext {
   update(opts?: object, callback?: function);
 }
 
-export { KeyContext, KeyInstance, KeyList, KeyListInstance, KeyPage }
+export { KeyContext, KeyInstance, KeyList, KeyListInstance, KeyPage, KeyResource }

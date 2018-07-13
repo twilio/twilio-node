@@ -18,6 +18,26 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function AlertList(version: V1): AlertListInstance;
 
+export interface AlertResource {
+  account_sid: string;
+  alert_text: string;
+  api_version: string;
+  date_created: Date;
+  date_generated: Date;
+  date_updated: Date;
+  error_code: string;
+  log_level: string;
+  more_info: string;
+  request_method: string;
+  request_url: string;
+  request_variables?: string;
+  resource_sid: string;
+  response_body?: string;
+  response_headers?: string;
+  sid: string;
+  url: string;
+}
+
 interface AlertListInstance {
   /* jshint ignore:start */
   /**
@@ -390,4 +410,4 @@ declare class AlertContext {
   remove(callback?: function);
 }
 
-export { AlertContext, AlertInstance, AlertList, AlertListInstance, AlertPage }
+export { AlertContext, AlertInstance, AlertList, AlertListInstance, AlertPage, AlertResource }

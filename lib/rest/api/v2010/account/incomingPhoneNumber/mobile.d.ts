@@ -19,6 +19,37 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function MobileList(version: V2010, accountSid: string): MobileListInstance;
 
+export interface MobileResource {
+  account_sid: string;
+  address_requirements: MobileAddressRequirement;
+  address_sid: string;
+  api_version: string;
+  beta: boolean;
+  capabilities: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  identity_sid: string;
+  origin: string;
+  phone_number: string;
+  sid: string;
+  sms_application_sid: string;
+  sms_fallback_method: string;
+  sms_fallback_url: string;
+  sms_method: string;
+  sms_url: string;
+  status_callback: string;
+  status_callback_method: string;
+  trunk_sid: string;
+  uri: string;
+  voice_application_sid: string;
+  voice_caller_id_lookup: boolean;
+  voice_fallback_method: string;
+  voice_fallback_url: string;
+  voice_method: string;
+  voice_url: string;
+}
+
 interface MobileListInstance {
   /* jshint ignore:start */
   /**
@@ -455,4 +486,4 @@ declare class MobileInstance {
   toJSON();
 }
 
-export { MobileInstance, MobileList, MobileListInstance, MobilePage }
+export { MobileInstance, MobileList, MobileListInstance, MobilePage, MobileResource }

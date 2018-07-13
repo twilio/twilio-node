@@ -20,6 +20,22 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function NationalList(version: V2010, accountSid: string, countryCode: string): NationalListInstance;
 
+export interface NationalResource {
+  address_requirements: string;
+  beta: boolean;
+  capabilities: string;
+  friendly_name: string;
+  iso_country: string;
+  lata: string;
+  latitude: number;
+  locality: string;
+  longitude: number;
+  phone_number: string;
+  postal_code: string;
+  rate_center: string;
+  region: string;
+}
+
 interface NationalListInstance {
   /* jshint ignore:start */
   /**
@@ -404,4 +420,4 @@ declare class NationalInstance {
   toJSON();
 }
 
-export { NationalInstance, NationalList, NationalListInstance, NationalPage }
+export { NationalInstance, NationalList, NationalListInstance, NationalPage, NationalResource }

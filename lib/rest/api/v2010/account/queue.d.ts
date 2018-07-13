@@ -19,6 +19,18 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function QueueList(version: V2010, accountSid: string): QueueListInstance;
 
+export interface QueueResource {
+  account_sid: string;
+  average_wait_time: number;
+  current_size: number;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  max_size: number;
+  sid: string;
+  uri: string;
+}
+
 interface QueueListInstance {
   /* jshint ignore:start */
   /**
@@ -480,4 +492,4 @@ declare class QueueContext {
   update(opts?: object, callback?: function);
 }
 
-export { QueueContext, QueueInstance, QueueList, QueueListInstance, QueuePage }
+export { QueueContext, QueueInstance, QueueList, QueueListInstance, QueuePage, QueueResource }

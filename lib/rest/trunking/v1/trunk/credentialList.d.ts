@@ -18,6 +18,16 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function CredentialListList(version: V1, trunkSid: string): CredentialListListInstance;
 
+export interface CredentialListResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  sid: string;
+  trunk_sid: string;
+  url: string;
+}
+
 interface CredentialListListInstance {
   /* jshint ignore:start */
   /**
@@ -418,4 +428,4 @@ declare class CredentialListContext {
   remove(callback?: function);
 }
 
-export { CredentialListContext, CredentialListInstance, CredentialListList, CredentialListListInstance, CredentialListPage }
+export { CredentialListContext, CredentialListInstance, CredentialListList, CredentialListListInstance, CredentialListPage, CredentialListResource }

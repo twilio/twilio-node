@@ -21,6 +21,21 @@ import { StepContextList } from './step/stepContext';
  */
 declare function StepList(version: V1, flowSid: string, engagementSid: string): StepListInstance;
 
+export interface StepResource {
+  account_sid: string;
+  context: string;
+  date_created: Date;
+  date_updated: Date;
+  engagement_sid: string;
+  flow_sid: string;
+  links: string;
+  name: string;
+  sid: string;
+  transitioned_from: string;
+  transitioned_to: string;
+  url: string;
+}
+
 interface StepListInstance {
   /* jshint ignore:start */
   /**
@@ -374,4 +389,4 @@ declare class StepContext {
   stepContext?: Twilio.Studio.V1.FlowContext.EngagementContext.StepContext.StepContextList;
 }
 
-export { StepContext, StepInstance, StepList, StepListInstance, StepPage }
+export { StepContext, StepInstance, StepList, StepListInstance, StepPage, StepResource }

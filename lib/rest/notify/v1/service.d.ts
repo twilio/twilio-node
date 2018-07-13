@@ -23,6 +23,27 @@ import { UserList } from './service/user';
  */
 declare function ServiceList(version: V1): ServiceListInstance;
 
+export interface ServiceResource {
+  account_sid: string;
+  alexa_skill_id: string;
+  apn_credential_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  default_alexa_notification_protocol_version: string;
+  default_apn_notification_protocol_version: string;
+  default_fcm_notification_protocol_version: string;
+  default_gcm_notification_protocol_version: string;
+  facebook_messenger_page_id: string;
+  fcm_credential_sid: string;
+  friendly_name: string;
+  gcm_credential_sid: string;
+  links: string;
+  log_enabled: boolean;
+  messaging_service_sid: string;
+  sid: string;
+  url: string;
+}
+
 interface ServiceListInstance {
   /* jshint ignore:start */
   /**
@@ -591,4 +612,4 @@ declare class ServiceContext {
   users?: Twilio.Notify.V1.ServiceContext.UserList;
 }
 
-export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServicePage }
+export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServicePage, ServiceResource }

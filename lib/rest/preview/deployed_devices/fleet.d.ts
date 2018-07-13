@@ -22,6 +22,18 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function FleetList(version: DeployedDevices): FleetListInstance;
 
+export interface FleetResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  default_deployment_sid: string;
+  friendly_name: string;
+  links: string;
+  sid: string;
+  unique_name: string;
+  url: string;
+}
+
 interface FleetListInstance {
   /* jshint ignore:start */
   /**
@@ -504,4 +516,4 @@ declare class FleetContext {
   update(opts?: object, callback?: function);
 }
 
-export { FleetContext, FleetInstance, FleetList, FleetListInstance, FleetPage }
+export { FleetContext, FleetInstance, FleetList, FleetListInstance, FleetPage, FleetResource }

@@ -23,6 +23,23 @@ import { WebhookList } from './channel/webhook';
  */
 declare function ChannelList(version: V2, serviceSid: string): ChannelListInstance;
 
+export interface ChannelResource {
+  account_sid: string;
+  attributes: string;
+  created_by: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  links: string;
+  members_count: number;
+  messages_count: number;
+  service_sid: string;
+  sid: string;
+  type: ChannelChannelType;
+  unique_name: string;
+  url: string;
+}
+
 interface ChannelListInstance {
   /* jshint ignore:start */
   /**
@@ -552,4 +569,4 @@ declare class ChannelContext {
   webhooks?: Twilio.Chat.V2.ServiceContext.ChannelContext.WebhookList;
 }
 
-export { ChannelContext, ChannelInstance, ChannelList, ChannelListInstance, ChannelPage }
+export { ChannelContext, ChannelInstance, ChannelList, ChannelListInstance, ChannelPage, ChannelResource }

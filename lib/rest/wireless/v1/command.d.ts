@@ -17,6 +17,19 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function CommandList(version: V1): CommandListInstance;
 
+export interface CommandResource {
+  account_sid: string;
+  command: string;
+  command_mode: CommandCommandMode;
+  date_created: Date;
+  date_updated: Date;
+  direction: CommandDirection;
+  sid: string;
+  sim_sid: string;
+  status: CommandStatus;
+  url: string;
+}
+
 interface CommandListInstance {
   /* jshint ignore:start */
   /**
@@ -428,4 +441,4 @@ declare class CommandContext {
   fetch(callback?: function);
 }
 
-export { CommandContext, CommandInstance, CommandList, CommandListInstance, CommandPage }
+export { CommandContext, CommandInstance, CommandList, CommandListInstance, CommandPage, CommandResource }

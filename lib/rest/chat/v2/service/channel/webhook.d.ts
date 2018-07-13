@@ -20,6 +20,18 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function WebhookList(version: V2, serviceSid: string, channelSid: string): WebhookListInstance;
 
+export interface WebhookResource {
+  account_sid: string;
+  channel_sid: string;
+  configuration: string;
+  date_created: Date;
+  date_updated: Date;
+  service_sid: string;
+  sid: string;
+  type: string;
+  url: string;
+}
+
 interface WebhookListInstance {
   /* jshint ignore:start */
   /**
@@ -500,4 +512,4 @@ declare class WebhookContext {
   update(opts?: object, callback?: function);
 }
 
-export { WebhookContext, WebhookInstance, WebhookList, WebhookListInstance, WebhookPage }
+export { WebhookContext, WebhookInstance, WebhookList, WebhookListInstance, WebhookPage, WebhookResource }

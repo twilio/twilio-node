@@ -22,6 +22,19 @@ import { SyncMapList } from './service/syncMap';
  */
 declare function ServiceList(version: Sync): ServiceListInstance;
 
+export interface ServiceResource {
+  account_sid: string;
+  acl_enabled: boolean;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  links: string;
+  reachability_webhooks_enabled: boolean;
+  sid: string;
+  url: string;
+  webhook_url: string;
+}
+
 interface ServiceListInstance {
   /* jshint ignore:start */
   /**
@@ -511,4 +524,4 @@ declare class ServiceContext {
   update(opts?: object, callback?: function);
 }
 
-export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServicePage }
+export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServicePage, ServiceResource }

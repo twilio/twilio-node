@@ -19,6 +19,22 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function QueryList(version: Understand, assistantSid: string): QueryListInstance;
 
+export interface QueryResource {
+  account_sid: string;
+  assistant_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  language: string;
+  model_build_sid: string;
+  query: string;
+  results: string;
+  sample_sid: string;
+  sid: string;
+  source_channel: string;
+  status: string;
+  url: string;
+}
+
 interface QueryListInstance {
   /* jshint ignore:start */
   /**
@@ -506,4 +522,4 @@ declare class QueryContext {
   update(opts?: object, callback?: function);
 }
 
-export { QueryContext, QueryInstance, QueryList, QueryListInstance, QueryPage }
+export { QueryContext, QueryInstance, QueryList, QueryListInstance, QueryPage, QueryResource }

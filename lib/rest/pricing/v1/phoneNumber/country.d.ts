@@ -17,6 +17,14 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function CountryList(version: V1): CountryListInstance;
 
+export interface CountryResource {
+  country: string;
+  iso_country: string;
+  phone_number_prices?: string;
+  price_unit?: string;
+  url: string;
+}
+
 interface CountryListInstance {
   /* jshint ignore:start */
   /**
@@ -345,4 +353,4 @@ declare class CountryContext {
   fetch(callback?: function);
 }
 
-export { CountryContext, CountryInstance, CountryList, CountryListInstance, CountryPage }
+export { CountryContext, CountryInstance, CountryList, CountryListInstance, CountryPage, CountryResource }

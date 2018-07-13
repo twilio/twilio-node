@@ -19,6 +19,14 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function UsageRecordList(version: V1, simSid: string): UsageRecordListInstance;
 
+export interface UsageRecordResource {
+  account_sid: string;
+  commands: string;
+  data: string;
+  period: string;
+  sim_sid: string;
+}
+
 interface UsageRecordListInstance {
   /* jshint ignore:start */
   /**
@@ -334,4 +342,4 @@ declare class UsageRecordInstance {
   toJSON();
 }
 
-export { UsageRecordInstance, UsageRecordList, UsageRecordListInstance, UsageRecordPage }
+export { UsageRecordInstance, UsageRecordList, UsageRecordListInstance, UsageRecordPage, UsageRecordResource }

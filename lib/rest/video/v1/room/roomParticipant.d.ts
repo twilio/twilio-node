@@ -21,6 +21,21 @@ import { SubscribedTrackList } from './roomParticipant/roomParticipantSubscribed
  */
 declare function ParticipantList(version: V1, roomSid: string): ParticipantListInstance;
 
+export interface ParticipantResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  duration: number;
+  end_time: Date;
+  identity: string;
+  links: string;
+  room_sid: string;
+  sid: string;
+  start_time: Date;
+  status: ParticipantStatus;
+  url: string;
+}
+
 interface ParticipantListInstance {
   /* jshint ignore:start */
   /**
@@ -447,4 +462,4 @@ declare class ParticipantContext {
   update(opts?: object, callback?: function);
 }
 
-export { ParticipantContext, ParticipantInstance, ParticipantList, ParticipantListInstance, ParticipantPage }
+export { ParticipantContext, ParticipantInstance, ParticipantList, ParticipantListInstance, ParticipantPage, ParticipantResource }

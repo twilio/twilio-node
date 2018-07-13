@@ -17,6 +17,14 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function NewSigningKeyList(version: V2010, accountSid: string): NewSigningKeyListInstance;
 
+export interface NewSigningKeyResource {
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  secret: string;
+  sid: string;
+}
+
 interface NewSigningKeyListInstance {
   /* jshint ignore:start */
   /**
@@ -115,4 +123,4 @@ declare class NewSigningKeyInstance {
   toJSON();
 }
 
-export { NewSigningKeyInstance, NewSigningKeyList, NewSigningKeyListInstance, NewSigningKeyPage }
+export { NewSigningKeyInstance, NewSigningKeyList, NewSigningKeyListInstance, NewSigningKeyPage, NewSigningKeyResource }

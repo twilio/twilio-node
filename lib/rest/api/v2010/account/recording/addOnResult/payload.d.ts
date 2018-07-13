@@ -20,6 +20,20 @@ import { SerializableClass } from '../../../../../../interfaces';
  */
 declare function PayloadList(version: V2010, accountSid: string, referenceSid: string, addOnResultSid: string): PayloadListInstance;
 
+export interface PayloadResource {
+  account_sid: string;
+  add_on_configuration_sid: string;
+  add_on_result_sid: string;
+  add_on_sid: string;
+  content_type: string;
+  date_created: Date;
+  date_updated: Date;
+  label: string;
+  reference_sid: string;
+  sid: string;
+  subresource_uris: string;
+}
+
 interface PayloadListInstance {
   /* jshint ignore:start */
   /**
@@ -380,4 +394,4 @@ declare class PayloadContext {
   remove(callback?: function);
 }
 
-export { PayloadContext, PayloadInstance, PayloadList, PayloadListInstance, PayloadPage }
+export { PayloadContext, PayloadInstance, PayloadList, PayloadListInstance, PayloadPage, PayloadResource }

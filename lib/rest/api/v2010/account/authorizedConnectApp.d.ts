@@ -18,6 +18,19 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function AuthorizedConnectAppList(version: V2010, accountSid: string): AuthorizedConnectAppListInstance;
 
+export interface AuthorizedConnectAppResource {
+  account_sid: string;
+  connect_app_company_name: string;
+  connect_app_description: string;
+  connect_app_friendly_name: string;
+  connect_app_homepage_url: string;
+  connect_app_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  permissions: AuthorizedConnectAppPermission;
+  uri: string;
+}
+
 interface AuthorizedConnectAppListInstance {
   /* jshint ignore:start */
   /**
@@ -354,4 +367,4 @@ declare class AuthorizedConnectAppContext {
   fetch(callback?: function);
 }
 
-export { AuthorizedConnectAppContext, AuthorizedConnectAppInstance, AuthorizedConnectAppList, AuthorizedConnectAppListInstance, AuthorizedConnectAppPage }
+export { AuthorizedConnectAppContext, AuthorizedConnectAppInstance, AuthorizedConnectAppList, AuthorizedConnectAppListInstance, AuthorizedConnectAppPage, AuthorizedConnectAppResource }

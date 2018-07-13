@@ -20,6 +20,18 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function SubscribedTrackList(version: V1, roomSid: string, subscriberSid: string): SubscribedTrackListInstance;
 
+export interface SubscribedTrackResource {
+  date_created: Date;
+  date_updated: Date;
+  enabled: boolean;
+  kind: SubscribedTrackKind;
+  name: string;
+  publisher_sid: string;
+  room_sid: string;
+  sid: string;
+  subscriber_sid: string;
+}
+
 interface SubscribedTrackListInstance {
   /* jshint ignore:start */
   /**
@@ -388,4 +400,4 @@ declare class SubscribedTrackInstance {
   toJSON();
 }
 
-export { SubscribedTrackInstance, SubscribedTrackList, SubscribedTrackListInstance, SubscribedTrackPage }
+export { SubscribedTrackInstance, SubscribedTrackList, SubscribedTrackListInstance, SubscribedTrackPage, SubscribedTrackResource }

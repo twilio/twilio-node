@@ -22,6 +22,32 @@ import { UserList } from './service/user';
  */
 declare function ServiceList(version: V2): ServiceListInstance;
 
+export interface ServiceResource {
+  account_sid: string;
+  consumption_report_interval: number;
+  date_created: Date;
+  date_updated: Date;
+  default_channel_creator_role_sid: string;
+  default_channel_role_sid: string;
+  default_service_role_sid: string;
+  friendly_name: string;
+  limits: string;
+  links: string;
+  media: string;
+  notifications: string;
+  post_webhook_retry_count: number;
+  post_webhook_url: string;
+  pre_webhook_retry_count: number;
+  pre_webhook_url: string;
+  reachability_enabled: boolean;
+  read_status_enabled: boolean;
+  sid: string;
+  typing_indicator_timeout: number;
+  url: string;
+  webhook_filters: string;
+  webhook_method: string;
+}
+
 interface ServiceListInstance {
   /* jshint ignore:start */
   /**
@@ -632,4 +658,4 @@ declare class ServiceContext {
   users?: Twilio.IpMessaging.V2.ServiceContext.UserList;
 }
 
-export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServicePage }
+export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServicePage, ServiceResource }

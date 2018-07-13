@@ -19,6 +19,17 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function ActivityList(version: V1, workspaceSid: string): ActivityListInstance;
 
+export interface ActivityResource {
+  account_sid: string;
+  available: boolean;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  sid: string;
+  url: string;
+  workspace_sid: string;
+}
+
 interface ActivityListInstance {
   /* jshint ignore:start */
   /**
@@ -476,4 +487,4 @@ declare class ActivityContext {
   update(opts?: object, callback?: function);
 }
 
-export { ActivityContext, ActivityInstance, ActivityList, ActivityListInstance, ActivityPage }
+export { ActivityContext, ActivityInstance, ActivityList, ActivityListInstance, ActivityPage, ActivityResource }

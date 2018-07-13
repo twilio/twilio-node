@@ -22,6 +22,18 @@ import { UserBindingList } from './user/userBinding';
  */
 declare function UserList(version: V1, serviceSid: string): UserListInstance;
 
+export interface UserResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  identity: string;
+  links: string;
+  segments: string;
+  service_sid: string;
+  sid: string;
+  url: string;
+}
+
 interface UserListInstance {
   /* jshint ignore:start */
   /**
@@ -467,4 +479,4 @@ declare class UserContext {
   segmentMemberships?: Twilio.Notify.V1.ServiceContext.UserContext.SegmentMembershipList;
 }
 
-export { UserContext, UserInstance, UserList, UserListInstance, UserPage }
+export { UserContext, UserInstance, UserList, UserListInstance, UserPage, UserResource }

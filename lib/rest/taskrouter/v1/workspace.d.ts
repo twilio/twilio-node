@@ -28,6 +28,24 @@ import { WorkspaceStatisticsList } from './workspace/workspaceStatistics';
  */
 declare function WorkspaceList(version: V1): WorkspaceListInstance;
 
+export interface WorkspaceResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  default_activity_name: string;
+  default_activity_sid: string;
+  event_callback_url: string;
+  events_filter: string;
+  friendly_name: string;
+  links: string;
+  multi_task_enabled: boolean;
+  prioritize_queue_order: WorkspaceQueueOrder;
+  sid: string;
+  timeout_activity_name: string;
+  timeout_activity_sid: string;
+  url: string;
+}
+
 interface WorkspaceListInstance {
   /* jshint ignore:start */
   /**
@@ -613,4 +631,4 @@ declare class WorkspaceContext {
   workflows?: Twilio.Taskrouter.V1.WorkspaceContext.WorkflowList;
 }
 
-export { WorkspaceContext, WorkspaceInstance, WorkspaceList, WorkspaceListInstance, WorkspacePage }
+export { WorkspaceContext, WorkspaceInstance, WorkspaceList, WorkspaceListInstance, WorkspacePage, WorkspaceResource }

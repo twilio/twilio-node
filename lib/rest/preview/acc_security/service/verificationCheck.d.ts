@@ -18,6 +18,18 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function VerificationCheckList(version: AccSecurity, serviceSid: string): VerificationCheckListInstance;
 
+export interface VerificationCheckResource {
+  account_sid: string;
+  channel: VerificationCheckChannel;
+  date_created: Date;
+  date_updated: Date;
+  service_sid: string;
+  sid: string;
+  status: string;
+  to: string;
+  valid: boolean;
+}
+
 interface VerificationCheckListInstance {
   /* jshint ignore:start */
   /**
@@ -124,4 +136,4 @@ declare class VerificationCheckInstance {
   toJSON();
 }
 
-export { VerificationCheckInstance, VerificationCheckList, VerificationCheckListInstance, VerificationCheckPage }
+export { VerificationCheckInstance, VerificationCheckList, VerificationCheckListInstance, VerificationCheckPage, VerificationCheckResource }

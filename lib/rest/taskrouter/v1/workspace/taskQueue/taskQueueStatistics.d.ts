@@ -19,6 +19,15 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function TaskQueueStatisticsList(version: V1, workspaceSid: string, taskQueueSid: string): TaskQueueStatisticsListInstance;
 
+export interface TaskQueueStatisticsResource {
+  account_sid: string;
+  cumulative: string;
+  realtime: string;
+  task_queue_sid: string;
+  url: string;
+  workspace_sid: string;
+}
+
 interface TaskQueueStatisticsListInstance {
 }
 
@@ -149,4 +158,4 @@ declare class TaskQueueStatisticsContext {
   fetch(opts?: object, callback?: function);
 }
 
-export { TaskQueueStatisticsContext, TaskQueueStatisticsInstance, TaskQueueStatisticsList, TaskQueueStatisticsListInstance, TaskQueueStatisticsPage }
+export { TaskQueueStatisticsContext, TaskQueueStatisticsInstance, TaskQueueStatisticsList, TaskQueueStatisticsListInstance, TaskQueueStatisticsPage, TaskQueueStatisticsResource }

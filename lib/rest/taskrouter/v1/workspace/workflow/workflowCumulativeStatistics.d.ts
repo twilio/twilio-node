@@ -19,6 +19,31 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function WorkflowCumulativeStatisticsList(version: V1, workspaceSid: string, workflowSid: string): WorkflowCumulativeStatisticsListInstance;
 
+export interface WorkflowCumulativeStatisticsResource {
+  account_sid: string;
+  avg_task_acceptance_time: number;
+  end_time: Date;
+  reservations_accepted: number;
+  reservations_canceled: number;
+  reservations_created: number;
+  reservations_rejected: number;
+  reservations_rescinded: number;
+  reservations_timed_out: number;
+  split_by_wait_time: string;
+  start_time: Date;
+  tasks_canceled: number;
+  tasks_completed: number;
+  tasks_deleted: number;
+  tasks_entered: number;
+  tasks_moved: number;
+  tasks_timed_out_in_workflow: number;
+  url: string;
+  wait_duration_until_accepted: string;
+  wait_duration_until_canceled: string;
+  workflow_sid: string;
+  workspace_sid: string;
+}
+
 interface WorkflowCumulativeStatisticsListInstance {
 }
 
@@ -165,4 +190,4 @@ declare class WorkflowCumulativeStatisticsContext {
   fetch(opts?: object, callback?: function);
 }
 
-export { WorkflowCumulativeStatisticsContext, WorkflowCumulativeStatisticsInstance, WorkflowCumulativeStatisticsList, WorkflowCumulativeStatisticsListInstance, WorkflowCumulativeStatisticsPage }
+export { WorkflowCumulativeStatisticsContext, WorkflowCumulativeStatisticsInstance, WorkflowCumulativeStatisticsList, WorkflowCumulativeStatisticsListInstance, WorkflowCumulativeStatisticsPage, WorkflowCumulativeStatisticsResource }

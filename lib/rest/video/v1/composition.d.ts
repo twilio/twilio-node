@@ -19,6 +19,27 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function CompositionList(version: V1): CompositionListInstance;
 
+export interface CompositionResource {
+  account_sid: string;
+  audio_sources: string;
+  audio_sources_excluded: string;
+  bitrate: number;
+  date_completed: string;
+  date_created: Date;
+  date_deleted: string;
+  duration: number;
+  format: CompositionFormat;
+  links: string;
+  resolution: string;
+  room_sid: string;
+  sid: string;
+  size: number;
+  status: CompositionStatus;
+  trim: boolean;
+  url: string;
+  video_layout: string;
+}
+
 interface CompositionListInstance {
   /* jshint ignore:start */
   /**
@@ -473,4 +494,4 @@ declare class CompositionContext {
   remove(callback?: function);
 }
 
-export { CompositionContext, CompositionInstance, CompositionList, CompositionListInstance, CompositionPage }
+export { CompositionContext, CompositionInstance, CompositionList, CompositionListInstance, CompositionPage, CompositionResource }

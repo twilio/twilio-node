@@ -19,6 +19,32 @@ import { UsageRecordList } from './sim/usageRecord';
  */
 declare function SimList(version: V1): SimListInstance;
 
+export interface SimResource {
+  account_sid: string;
+  commands_callback_method: string;
+  commands_callback_url: string;
+  date_created: Date;
+  date_updated: Date;
+  e_id: string;
+  friendly_name: string;
+  iccid: string;
+  ip_address: string;
+  links: string;
+  rate_plan_sid: string;
+  sid: string;
+  sms_fallback_method: string;
+  sms_fallback_url: string;
+  sms_method: string;
+  sms_url: string;
+  status: SimStatus;
+  unique_name: string;
+  url: string;
+  voice_fallback_method: string;
+  voice_fallback_url: string;
+  voice_method: string;
+  voice_url: string;
+}
+
 interface SimListInstance {
   /* jshint ignore:start */
   /**
@@ -506,4 +532,4 @@ declare class SimContext {
   usageRecords?: Twilio.Wireless.V1.SimContext.UsageRecordList;
 }
 
-export { SimContext, SimInstance, SimList, SimListInstance, SimPage }
+export { SimContext, SimInstance, SimList, SimListInstance, SimPage, SimResource }

@@ -19,6 +19,24 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function RoomRecordingList(version: V1, roomSid: string): RoomRecordingListInstance;
 
+export interface RoomRecordingResource {
+  account_sid: string;
+  codec: RoomRecordingCodec;
+  container_format: RoomRecordingFormat;
+  date_created: Date;
+  duration: number;
+  grouping_sids: string;
+  links: string;
+  room_sid: string;
+  sid: string;
+  size: number;
+  source_sid: string;
+  status: RoomRecordingStatus;
+  track_name: string;
+  type: RoomRecordingType;
+  url: string;
+}
+
 interface RoomRecordingListInstance {
   /* jshint ignore:start */
   /**
@@ -375,4 +393,4 @@ declare class RoomRecordingContext {
   fetch(callback?: function);
 }
 
-export { RoomRecordingContext, RoomRecordingInstance, RoomRecordingList, RoomRecordingListInstance, RoomRecordingPage }
+export { RoomRecordingContext, RoomRecordingInstance, RoomRecordingList, RoomRecordingListInstance, RoomRecordingPage, RoomRecordingResource }

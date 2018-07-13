@@ -19,6 +19,29 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function ApplicationList(version: V2010, accountSid: string): ApplicationListInstance;
 
+export interface ApplicationResource {
+  account_sid: string;
+  api_version: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  message_status_callback: string;
+  sid: string;
+  sms_fallback_method: string;
+  sms_fallback_url: string;
+  sms_method: string;
+  sms_status_callback: string;
+  sms_url: string;
+  status_callback: string;
+  status_callback_method: string;
+  uri: string;
+  voice_caller_id_lookup: boolean;
+  voice_fallback_method: string;
+  voice_fallback_url: string;
+  voice_method: string;
+  voice_url: string;
+}
+
 interface ApplicationListInstance {
   /* jshint ignore:start */
   /**
@@ -569,4 +592,4 @@ declare class ApplicationContext {
   update(opts?: object, callback?: function);
 }
 
-export { ApplicationContext, ApplicationInstance, ApplicationList, ApplicationListInstance, ApplicationPage }
+export { ApplicationContext, ApplicationInstance, ApplicationList, ApplicationListInstance, ApplicationPage, ApplicationResource }

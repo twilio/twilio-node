@@ -21,6 +21,19 @@ import { SyncMapPermissionList } from './syncMap/syncMapPermission';
  */
 declare function SyncMapList(version: Sync, serviceSid: string): SyncMapListInstance;
 
+export interface SyncMapResource {
+  account_sid: string;
+  created_by: string;
+  date_created: Date;
+  date_updated: Date;
+  links: string;
+  revision: string;
+  service_sid: string;
+  sid: string;
+  unique_name: string;
+  url: string;
+}
+
 interface SyncMapListInstance {
   /* jshint ignore:start */
   /**
@@ -446,4 +459,4 @@ declare class SyncMapContext {
   syncMapPermissions?: Twilio.Preview.Sync.ServiceContext.SyncMapContext.SyncMapPermissionList;
 }
 
-export { SyncMapContext, SyncMapInstance, SyncMapList, SyncMapListInstance, SyncMapPage }
+export { SyncMapContext, SyncMapInstance, SyncMapList, SyncMapListInstance, SyncMapPage, SyncMapResource }

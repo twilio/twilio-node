@@ -19,6 +19,19 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function PhoneNumberList(version: V1, serviceSid: string): PhoneNumberListInstance;
 
+export interface PhoneNumberResource {
+  account_sid: string;
+  capabilities: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  iso_country: string;
+  phone_number: string;
+  service_sid: string;
+  sid: string;
+  url: string;
+}
+
 interface PhoneNumberListInstance {
   /* jshint ignore:start */
   /**
@@ -426,4 +439,4 @@ declare class PhoneNumberContext {
   remove(callback?: function);
 }
 
-export { PhoneNumberContext, PhoneNumberInstance, PhoneNumberList, PhoneNumberListInstance, PhoneNumberPage }
+export { PhoneNumberContext, PhoneNumberInstance, PhoneNumberList, PhoneNumberListInstance, PhoneNumberPage, PhoneNumberResource }

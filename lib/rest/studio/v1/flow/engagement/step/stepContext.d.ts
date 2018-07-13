@@ -20,6 +20,15 @@ import { SerializableClass } from '../../../../../../interfaces';
  */
 declare function StepContextList(version: V1, flowSid: string, engagementSid: string, stepSid: string): StepContextListInstance;
 
+export interface StepContextResource {
+  account_sid: string;
+  context: string;
+  engagement_sid: string;
+  flow_sid: string;
+  step_sid: string;
+  url: string;
+}
+
 interface StepContextListInstance {
 }
 
@@ -119,4 +128,4 @@ declare class StepContextContext {
   fetch(callback?: function);
 }
 
-export { StepContextContext, StepContextInstance, StepContextList, StepContextListInstance, StepContextPage }
+export { StepContextContext, StepContextInstance, StepContextList, StepContextListInstance, StepContextPage, StepContextResource }

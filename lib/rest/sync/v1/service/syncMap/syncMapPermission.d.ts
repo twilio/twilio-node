@@ -21,6 +21,17 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function SyncMapPermissionList(version: V1, serviceSid: string, mapSid: string): SyncMapPermissionListInstance;
 
+export interface SyncMapPermissionResource {
+  account_sid: string;
+  identity: string;
+  manage: boolean;
+  map_sid: string;
+  read: boolean;
+  service_sid: string;
+  url: string;
+  write: boolean;
+}
+
 interface SyncMapPermissionListInstance {
   /* jshint ignore:start */
   /**
@@ -427,4 +438,4 @@ declare class SyncMapPermissionContext {
   update(opts: object, callback?: function);
 }
 
-export { SyncMapPermissionContext, SyncMapPermissionInstance, SyncMapPermissionList, SyncMapPermissionListInstance, SyncMapPermissionPage }
+export { SyncMapPermissionContext, SyncMapPermissionInstance, SyncMapPermissionList, SyncMapPermissionListInstance, SyncMapPermissionPage, SyncMapPermissionResource }

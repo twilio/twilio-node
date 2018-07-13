@@ -18,6 +18,16 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function IpAccessControlListList(version: V1, trunkSid: string): IpAccessControlListListInstance;
 
+export interface IpAccessControlListResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  sid: string;
+  trunk_sid: string;
+  url: string;
+}
+
 interface IpAccessControlListListInstance {
   /* jshint ignore:start */
   /**
@@ -419,4 +429,4 @@ declare class IpAccessControlListContext {
   remove(callback?: function);
 }
 
-export { IpAccessControlListContext, IpAccessControlListInstance, IpAccessControlListList, IpAccessControlListListInstance, IpAccessControlListPage }
+export { IpAccessControlListContext, IpAccessControlListInstance, IpAccessControlListList, IpAccessControlListListInstance, IpAccessControlListPage, IpAccessControlListResource }

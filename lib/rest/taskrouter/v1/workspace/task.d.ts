@@ -20,6 +20,29 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function TaskList(version: V1, workspaceSid: string): TaskListInstance;
 
+export interface TaskResource {
+  account_sid: string;
+  addons: string;
+  age: number;
+  assignment_status: TaskStatus;
+  attributes: string;
+  date_created: Date;
+  date_updated: Date;
+  links: string;
+  priority: number;
+  reason: string;
+  sid: string;
+  task_channel_sid: string;
+  task_channel_unique_name: string;
+  task_queue_friendly_name: string;
+  task_queue_sid: string;
+  timeout: number;
+  url: string;
+  workflow_friendly_name: string;
+  workflow_sid: string;
+  workspace_sid: string;
+}
+
 interface TaskListInstance {
   /* jshint ignore:start */
   /**
@@ -572,4 +595,4 @@ declare class TaskContext {
   update(opts?: object, callback?: function);
 }
 
-export { TaskContext, TaskInstance, TaskList, TaskListInstance, TaskPage }
+export { TaskContext, TaskInstance, TaskList, TaskListInstance, TaskPage, TaskResource }

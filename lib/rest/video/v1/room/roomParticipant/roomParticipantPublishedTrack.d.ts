@@ -19,6 +19,18 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function PublishedTrackList(version: V1, roomSid: string, participantSid: string): PublishedTrackListInstance;
 
+export interface PublishedTrackResource {
+  date_created: Date;
+  date_updated: Date;
+  enabled: boolean;
+  kind: PublishedTrackKind;
+  name: string;
+  participant_sid: string;
+  room_sid: string;
+  sid: string;
+  url: string;
+}
+
 interface PublishedTrackListInstance {
   /* jshint ignore:start */
   /**
@@ -355,4 +367,4 @@ declare class PublishedTrackContext {
   fetch(callback?: function);
 }
 
-export { PublishedTrackContext, PublishedTrackInstance, PublishedTrackList, PublishedTrackListInstance, PublishedTrackPage }
+export { PublishedTrackContext, PublishedTrackInstance, PublishedTrackList, PublishedTrackListInstance, PublishedTrackPage, PublishedTrackResource }

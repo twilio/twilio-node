@@ -17,6 +17,14 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function ValidationRequestList(version: V2010, accountSid: string): ValidationRequestListInstance;
 
+export interface ValidationRequestResource {
+  account_sid: string;
+  call_sid: string;
+  friendly_name: string;
+  phone_number: string;
+  validation_code: number;
+}
+
 interface ValidationRequestListInstance {
   /* jshint ignore:start */
   /**
@@ -133,4 +141,4 @@ declare class ValidationRequestInstance {
   toJSON();
 }
 
-export { ValidationRequestInstance, ValidationRequestList, ValidationRequestListInstance, ValidationRequestPage }
+export { ValidationRequestInstance, ValidationRequestList, ValidationRequestListInstance, ValidationRequestPage, ValidationRequestResource }

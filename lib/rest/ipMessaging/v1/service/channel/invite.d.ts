@@ -20,6 +20,19 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function InviteList(version: V1, serviceSid: string, channelSid: string): InviteListInstance;
 
+export interface InviteResource {
+  account_sid: string;
+  channel_sid: string;
+  created_by: string;
+  date_created: Date;
+  date_updated: Date;
+  identity: string;
+  role_sid: string;
+  service_sid: string;
+  sid: string;
+  url: string;
+}
+
 interface InviteListInstance {
   /* jshint ignore:start */
   /**
@@ -434,4 +447,4 @@ declare class InviteContext {
   remove(callback?: function);
 }
 
-export { InviteContext, InviteInstance, InviteList, InviteListInstance, InvitePage }
+export { InviteContext, InviteInstance, InviteList, InviteListInstance, InvitePage, InviteResource }

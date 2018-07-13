@@ -17,6 +17,18 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function WorkspaceRealTimeStatisticsList(version: V1, workspaceSid: string): WorkspaceRealTimeStatisticsListInstance;
 
+export interface WorkspaceRealTimeStatisticsResource {
+  account_sid: string;
+  activity_statistics: string;
+  longest_task_waiting_age: number;
+  tasks_by_priority: string;
+  tasks_by_status: string;
+  total_tasks: number;
+  total_workers: number;
+  url: string;
+  workspace_sid: string;
+}
+
 interface WorkspaceRealTimeStatisticsListInstance {
 }
 
@@ -132,4 +144,4 @@ declare class WorkspaceRealTimeStatisticsContext {
   fetch(opts?: object, callback?: function);
 }
 
-export { WorkspaceRealTimeStatisticsContext, WorkspaceRealTimeStatisticsInstance, WorkspaceRealTimeStatisticsList, WorkspaceRealTimeStatisticsListInstance, WorkspaceRealTimeStatisticsPage }
+export { WorkspaceRealTimeStatisticsContext, WorkspaceRealTimeStatisticsInstance, WorkspaceRealTimeStatisticsList, WorkspaceRealTimeStatisticsListInstance, WorkspaceRealTimeStatisticsPage, WorkspaceRealTimeStatisticsResource }

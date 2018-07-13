@@ -19,6 +19,14 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function MemberList(version: V2010, accountSid: string, queueSid: string): MemberListInstance;
 
+export interface MemberResource {
+  call_sid: string;
+  date_enqueued: Date;
+  position: number;
+  uri: string;
+  wait_time: number;
+}
+
 interface MemberListInstance {
   /* jshint ignore:start */
   /**
@@ -395,4 +403,4 @@ declare class MemberContext {
   update(opts: object, callback?: function);
 }
 
-export { MemberContext, MemberInstance, MemberList, MemberListInstance, MemberPage }
+export { MemberContext, MemberInstance, MemberList, MemberListInstance, MemberPage, MemberResource }

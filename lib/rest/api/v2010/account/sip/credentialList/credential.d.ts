@@ -19,6 +19,16 @@ import { SerializableClass } from '../../../../../../interfaces';
  */
 declare function CredentialList(version: V2010, accountSid: string, credentialListSid: string): CredentialListInstance;
 
+export interface CredentialResource {
+  account_sid: string;
+  credential_list_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  sid: string;
+  uri: string;
+  username: string;
+}
+
 interface CredentialListInstance {
   /* jshint ignore:start */
   /**
@@ -466,4 +476,4 @@ declare class CredentialContext {
   update(opts?: object, callback?: function);
 }
 
-export { CredentialContext, CredentialInstance, CredentialList, CredentialListInstance, CredentialPage }
+export { CredentialContext, CredentialInstance, CredentialList, CredentialListInstance, CredentialPage, CredentialResource }

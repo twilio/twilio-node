@@ -18,6 +18,14 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function ExportConfigurationList(version: BulkExports): ExportConfigurationListInstance;
 
+export interface ExportConfigurationResource {
+  enabled: boolean;
+  resource_type: string;
+  url: string;
+  webhook_method: string;
+  webhook_url: string;
+}
+
 interface ExportConfigurationListInstance {
 }
 
@@ -160,4 +168,4 @@ declare class ExportConfigurationContext {
   update(opts?: object, callback?: function);
 }
 
-export { ExportConfigurationContext, ExportConfigurationInstance, ExportConfigurationList, ExportConfigurationListInstance, ExportConfigurationPage }
+export { ExportConfigurationContext, ExportConfigurationInstance, ExportConfigurationList, ExportConfigurationListInstance, ExportConfigurationPage, ExportConfigurationResource }

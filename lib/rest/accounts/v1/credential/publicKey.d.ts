@@ -17,6 +17,15 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function PublicKeyList(version: V1): PublicKeyListInstance;
 
+export interface PublicKeyResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  sid: string;
+  url: string;
+}
+
 interface PublicKeyListInstance {
   /* jshint ignore:start */
   /**
@@ -456,4 +465,4 @@ declare class PublicKeyContext {
   update(opts?: object, callback?: function);
 }
 
-export { PublicKeyContext, PublicKeyInstance, PublicKeyList, PublicKeyListInstance, PublicKeyPage }
+export { PublicKeyContext, PublicKeyInstance, PublicKeyList, PublicKeyListInstance, PublicKeyPage, PublicKeyResource }

@@ -21,6 +21,17 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function SyncListPermissionList(version: Sync, serviceSid: string, listSid: string): SyncListPermissionListInstance;
 
+export interface SyncListPermissionResource {
+  account_sid: string;
+  identity: string;
+  list_sid: string;
+  manage: boolean;
+  read: boolean;
+  service_sid: string;
+  url: string;
+  write: boolean;
+}
+
 interface SyncListPermissionListInstance {
   /* jshint ignore:start */
   /**
@@ -427,4 +438,4 @@ declare class SyncListPermissionContext {
   update(opts: object, callback?: function);
 }
 
-export { SyncListPermissionContext, SyncListPermissionInstance, SyncListPermissionList, SyncListPermissionListInstance, SyncListPermissionPage }
+export { SyncListPermissionContext, SyncListPermissionInstance, SyncListPermissionList, SyncListPermissionListInstance, SyncListPermissionPage, SyncListPermissionResource }

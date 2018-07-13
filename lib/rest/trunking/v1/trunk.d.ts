@@ -22,6 +22,24 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function TrunkList(version: V1): TrunkListInstance;
 
+export interface TrunkResource {
+  account_sid: string;
+  auth_type: string;
+  auth_type_set: string;
+  cnam_lookup_enabled: boolean;
+  date_created: Date;
+  date_updated: Date;
+  disaster_recovery_method: string;
+  disaster_recovery_url: string;
+  domain_name: string;
+  friendly_name: string;
+  links: string;
+  recording: string;
+  secure: boolean;
+  sid: string;
+  url: string;
+}
+
 interface TrunkListInstance {
   /* jshint ignore:start */
   /**
@@ -545,4 +563,4 @@ declare class TrunkContext {
   update(opts?: object, callback?: function);
 }
 
-export { TrunkContext, TrunkInstance, TrunkList, TrunkListInstance, TrunkPage }
+export { TrunkContext, TrunkInstance, TrunkList, TrunkListInstance, TrunkPage, TrunkResource }

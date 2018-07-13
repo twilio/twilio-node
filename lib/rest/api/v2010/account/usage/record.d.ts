@@ -19,6 +19,23 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function RecordList(version: V2010, accountSid: string): RecordListInstance;
 
+export interface RecordResource {
+  account_sid: string;
+  api_version: string;
+  category: RecordCategory;
+  count: string;
+  count_unit: string;
+  description: string;
+  end_date: Date;
+  price: number;
+  price_unit: string;
+  start_date: Date;
+  subresource_uris: string;
+  uri: string;
+  usage: string;
+  usage_unit: string;
+}
+
 interface RecordListInstance {
   /* jshint ignore:start */
   /**
@@ -341,4 +358,4 @@ declare class RecordInstance {
   toJSON();
 }
 
-export { RecordInstance, RecordList, RecordListInstance, RecordPage }
+export { RecordInstance, RecordList, RecordListInstance, RecordPage, RecordResource }

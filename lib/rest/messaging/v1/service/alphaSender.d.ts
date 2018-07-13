@@ -19,6 +19,17 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function AlphaSenderList(version: V1, serviceSid: string): AlphaSenderListInstance;
 
+export interface AlphaSenderResource {
+  account_sid: string;
+  alpha_sender: string;
+  capabilities: string;
+  date_created: Date;
+  date_updated: Date;
+  service_sid: string;
+  sid: string;
+  url: string;
+}
+
 interface AlphaSenderListInstance {
   /* jshint ignore:start */
   /**
@@ -423,4 +434,4 @@ declare class AlphaSenderContext {
   remove(callback?: function);
 }
 
-export { AlphaSenderContext, AlphaSenderInstance, AlphaSenderList, AlphaSenderListInstance, AlphaSenderPage }
+export { AlphaSenderContext, AlphaSenderInstance, AlphaSenderList, AlphaSenderListInstance, AlphaSenderPage, AlphaSenderResource }

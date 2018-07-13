@@ -21,6 +21,19 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function SyncMapItemList(version: Sync, serviceSid: string, mapSid: string): SyncMapItemListInstance;
 
+export interface SyncMapItemResource {
+  account_sid: string;
+  created_by: string;
+  data: string;
+  date_created: Date;
+  date_updated: Date;
+  key: string;
+  map_sid: string;
+  revision: string;
+  service_sid: string;
+  url: string;
+}
+
 interface SyncMapItemListInstance {
   /* jshint ignore:start */
   /**
@@ -485,4 +498,4 @@ declare class SyncMapItemContext {
   update(opts: object, callback?: function);
 }
 
-export { SyncMapItemContext, SyncMapItemInstance, SyncMapItemList, SyncMapItemListInstance, SyncMapItemPage }
+export { SyncMapItemContext, SyncMapItemInstance, SyncMapItemList, SyncMapItemListInstance, SyncMapItemPage, SyncMapItemResource }

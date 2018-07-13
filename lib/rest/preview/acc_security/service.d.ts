@@ -20,6 +20,17 @@ import { VerificationList } from './service/verification';
  */
 declare function ServiceList(version: AccSecurity): ServiceListInstance;
 
+export interface ServiceResource {
+  account_sid: string;
+  code_length: number;
+  date_created: Date;
+  date_updated: Date;
+  links: string;
+  name: string;
+  sid: string;
+  url: string;
+}
+
 interface ServiceListInstance {
   /* jshint ignore:start */
   /**
@@ -463,4 +474,4 @@ declare class ServiceContext {
   verifications?: Twilio.Preview.AccSecurity.ServiceContext.VerificationList;
 }
 
-export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServicePage }
+export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServicePage, ServiceResource }

@@ -20,6 +20,19 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function AddOnResultList(version: V2010, accountSid: string, referenceSid: string): AddOnResultListInstance;
 
+export interface AddOnResultResource {
+  account_sid: string;
+  add_on_configuration_sid: string;
+  add_on_sid: string;
+  date_completed: Date;
+  date_created: Date;
+  date_updated: Date;
+  reference_sid: string;
+  sid: string;
+  status: AddOnResultStatus;
+  subresource_uris: string;
+}
+
 interface AddOnResultListInstance {
   /* jshint ignore:start */
   /**
@@ -388,4 +401,4 @@ declare class AddOnResultContext {
   remove(callback?: function);
 }
 
-export { AddOnResultContext, AddOnResultInstance, AddOnResultList, AddOnResultListInstance, AddOnResultPage }
+export { AddOnResultContext, AddOnResultInstance, AddOnResultList, AddOnResultListInstance, AddOnResultPage, AddOnResultResource }

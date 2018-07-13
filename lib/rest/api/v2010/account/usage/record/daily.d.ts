@@ -19,6 +19,23 @@ import { SerializableClass } from '../../../../../../interfaces';
  */
 declare function DailyList(version: V2010, accountSid: string): DailyListInstance;
 
+export interface DailyResource {
+  account_sid: string;
+  api_version: string;
+  category: DailyCategory;
+  count: string;
+  count_unit: string;
+  description: string;
+  end_date: Date;
+  price: number;
+  price_unit: string;
+  start_date: Date;
+  subresource_uris: string;
+  uri: string;
+  usage: string;
+  usage_unit: string;
+}
+
 interface DailyListInstance {
   /* jshint ignore:start */
   /**
@@ -347,4 +364,4 @@ declare class DailyInstance {
   toJSON();
 }
 
-export { DailyInstance, DailyList, DailyListInstance, DailyPage }
+export { DailyInstance, DailyList, DailyListInstance, DailyPage, DailyResource }

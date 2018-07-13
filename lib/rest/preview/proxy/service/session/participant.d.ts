@@ -21,6 +21,21 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function ParticipantList(version: Proxy, serviceSid: string, sessionSid: string): ParticipantListInstance;
 
+export interface ParticipantResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  identifier: string;
+  links: string;
+  participant_type: ParticipantParticipantType;
+  proxy_identifier: string;
+  service_sid: string;
+  session_sid: string;
+  sid: string;
+  url: string;
+}
+
 interface ParticipantListInstance {
   /* jshint ignore:start */
   /**
@@ -513,4 +528,4 @@ declare class ParticipantContext {
   update(opts?: object, callback?: function);
 }
 
-export { ParticipantContext, ParticipantInstance, ParticipantList, ParticipantListInstance, ParticipantPage }
+export { ParticipantContext, ParticipantInstance, ParticipantList, ParticipantListInstance, ParticipantPage, ParticipantResource }

@@ -20,6 +20,19 @@ import { StreamMessageList } from './syncStream/streamMessage';
  */
 declare function SyncStreamList(version: V1, serviceSid: string): SyncStreamListInstance;
 
+export interface SyncStreamResource {
+  account_sid: string;
+  created_by: string;
+  date_created: Date;
+  date_expires: Date;
+  date_updated: Date;
+  links: string;
+  service_sid: string;
+  sid: string;
+  unique_name: string;
+  url: string;
+}
+
 interface SyncStreamListInstance {
   /* jshint ignore:start */
   /**
@@ -476,4 +489,4 @@ declare class SyncStreamContext {
   update(opts?: object, callback?: function);
 }
 
-export { SyncStreamContext, SyncStreamInstance, SyncStreamList, SyncStreamListInstance, SyncStreamPage }
+export { SyncStreamContext, SyncStreamInstance, SyncStreamList, SyncStreamListInstance, SyncStreamPage, SyncStreamResource }

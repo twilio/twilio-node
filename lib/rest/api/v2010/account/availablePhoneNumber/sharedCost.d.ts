@@ -20,6 +20,22 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function SharedCostList(version: V2010, accountSid: string, countryCode: string): SharedCostListInstance;
 
+export interface SharedCostResource {
+  address_requirements: string;
+  beta: boolean;
+  capabilities: string;
+  friendly_name: string;
+  iso_country: string;
+  lata: string;
+  latitude: number;
+  locality: string;
+  longitude: number;
+  phone_number: string;
+  postal_code: string;
+  rate_center: string;
+  region: string;
+}
+
 interface SharedCostListInstance {
   /* jshint ignore:start */
   /**
@@ -404,4 +420,4 @@ declare class SharedCostInstance {
   toJSON();
 }
 
-export { SharedCostInstance, SharedCostList, SharedCostListInstance, SharedCostPage }
+export { SharedCostInstance, SharedCostList, SharedCostListInstance, SharedCostPage, SharedCostResource }

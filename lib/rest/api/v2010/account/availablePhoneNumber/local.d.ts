@@ -20,6 +20,22 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function LocalList(version: V2010, accountSid: string, countryCode: string): LocalListInstance;
 
+export interface LocalResource {
+  address_requirements: string;
+  beta: boolean;
+  capabilities: string;
+  friendly_name: string;
+  iso_country: string;
+  lata: string;
+  latitude: number;
+  locality: string;
+  longitude: number;
+  phone_number: string;
+  postal_code: string;
+  rate_center: string;
+  region: string;
+}
+
 interface LocalListInstance {
   /* jshint ignore:start */
   /**
@@ -440,4 +456,4 @@ declare class LocalInstance {
   toJSON();
 }
 
-export { LocalInstance, LocalList, LocalListInstance, LocalPage }
+export { LocalInstance, LocalList, LocalListInstance, LocalPage, LocalResource }

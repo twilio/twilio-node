@@ -19,6 +19,20 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function OriginationUrlList(version: V1, trunkSid: string): OriginationUrlListInstance;
 
+export interface OriginationUrlResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  enabled: boolean;
+  friendly_name: string;
+  priority: number;
+  sid: string;
+  sip_url: string;
+  trunk_sid: string;
+  url: string;
+  weight: number;
+}
+
 interface OriginationUrlListInstance {
   /* jshint ignore:start */
   /**
@@ -504,4 +518,4 @@ declare class OriginationUrlContext {
   update(opts?: object, callback?: function);
 }
 
-export { OriginationUrlContext, OriginationUrlInstance, OriginationUrlList, OriginationUrlListInstance, OriginationUrlPage }
+export { OriginationUrlContext, OriginationUrlInstance, OriginationUrlList, OriginationUrlListInstance, OriginationUrlPage, OriginationUrlResource }

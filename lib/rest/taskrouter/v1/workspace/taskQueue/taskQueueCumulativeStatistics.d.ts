@@ -19,6 +19,30 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function TaskQueueCumulativeStatisticsList(version: V1, workspaceSid: string, taskQueueSid: string): TaskQueueCumulativeStatisticsListInstance;
 
+export interface TaskQueueCumulativeStatisticsResource {
+  account_sid: string;
+  avg_task_acceptance_time: number;
+  end_time: Date;
+  reservations_accepted: number;
+  reservations_canceled: number;
+  reservations_created: number;
+  reservations_rejected: number;
+  reservations_rescinded: number;
+  reservations_timed_out: number;
+  split_by_wait_time: string;
+  start_time: Date;
+  task_queue_sid: string;
+  tasks_canceled: number;
+  tasks_completed: number;
+  tasks_deleted: number;
+  tasks_entered: number;
+  tasks_moved: number;
+  url: string;
+  wait_duration_until_accepted: string;
+  wait_duration_until_canceled: string;
+  workspace_sid: string;
+}
+
 interface TaskQueueCumulativeStatisticsListInstance {
 }
 
@@ -164,4 +188,4 @@ declare class TaskQueueCumulativeStatisticsContext {
   fetch(opts?: object, callback?: function);
 }
 
-export { TaskQueueCumulativeStatisticsContext, TaskQueueCumulativeStatisticsInstance, TaskQueueCumulativeStatisticsList, TaskQueueCumulativeStatisticsListInstance, TaskQueueCumulativeStatisticsPage }
+export { TaskQueueCumulativeStatisticsContext, TaskQueueCumulativeStatisticsInstance, TaskQueueCumulativeStatisticsList, TaskQueueCumulativeStatisticsListInstance, TaskQueueCumulativeStatisticsPage, TaskQueueCumulativeStatisticsResource }

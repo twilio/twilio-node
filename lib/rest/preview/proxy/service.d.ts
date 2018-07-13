@@ -22,6 +22,18 @@ import { ShortCodeList } from './service/shortCode';
  */
 declare function ServiceList(version: Proxy): ServiceListInstance;
 
+export interface ServiceResource {
+  account_sid: string;
+  auto_create: boolean;
+  callback_url: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  links: string;
+  sid: string;
+  url: string;
+}
+
 interface ServiceListInstance {
   /* jshint ignore:start */
   /**
@@ -505,4 +517,4 @@ declare class ServiceContext {
   update(opts?: object, callback?: function);
 }
 
-export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServicePage }
+export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServicePage, ServiceResource }

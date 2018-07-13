@@ -21,6 +21,29 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function MessageList(version: V2010, accountSid: string): MessageListInstance;
 
+export interface MessageResource {
+  account_sid: string;
+  api_version: string;
+  body: string;
+  date_created: Date;
+  date_sent: Date;
+  date_updated: Date;
+  direction: MessageDirection;
+  error_code: number;
+  error_message: string;
+  from: string;
+  messaging_service_sid: string;
+  num_media: string;
+  num_segments: string;
+  price: number;
+  price_unit: string;
+  sid: string;
+  status: MessageStatus;
+  subresource_uris: string;
+  to: string;
+  uri: string;
+}
+
 interface MessageListInstance {
   /* jshint ignore:start */
   /**
@@ -555,4 +578,4 @@ declare class MessageContext {
   update(opts: object, callback?: function);
 }
 
-export { MessageContext, MessageInstance, MessageList, MessageListInstance, MessagePage }
+export { MessageContext, MessageInstance, MessageList, MessageListInstance, MessagePage, MessageResource }

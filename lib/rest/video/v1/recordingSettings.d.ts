@@ -18,6 +18,17 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function RecordingSettingsList(version: V1): RecordingSettingsListInstance;
 
+export interface RecordingSettingsResource {
+  account_sid: string;
+  aws_credentials_sid: string;
+  aws_s3_url: string;
+  aws_storage_enabled: boolean;
+  encryption_enabled: boolean;
+  encryption_key_sid: string;
+  friendly_name: string;
+  url: string;
+}
+
 interface RecordingSettingsListInstance {
 }
 
@@ -173,4 +184,4 @@ declare class RecordingSettingsContext {
   fetch(callback?: function);
 }
 
-export { RecordingSettingsContext, RecordingSettingsInstance, RecordingSettingsList, RecordingSettingsListInstance, RecordingSettingsPage }
+export { RecordingSettingsContext, RecordingSettingsInstance, RecordingSettingsList, RecordingSettingsListInstance, RecordingSettingsPage, RecordingSettingsResource }

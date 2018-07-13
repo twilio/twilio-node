@@ -19,6 +19,17 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function UserChannelList(version: V2, serviceSid: string, userSid: string): UserChannelListInstance;
 
+export interface UserChannelResource {
+  account_sid: string;
+  channel_sid: string;
+  last_consumed_message_index: number;
+  links: string;
+  member_sid: string;
+  service_sid: string;
+  status: UserChannelChannelStatus;
+  unread_messages_count: number;
+}
+
 interface UserChannelListInstance {
   /* jshint ignore:start */
   /**
@@ -317,4 +328,4 @@ declare class UserChannelInstance {
   toJSON();
 }
 
-export { UserChannelInstance, UserChannelList, UserChannelListInstance, UserChannelPage }
+export { UserChannelInstance, UserChannelList, UserChannelListInstance, UserChannelPage, UserChannelResource }

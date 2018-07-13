@@ -16,6 +16,12 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function VoiceList(version: V1): VoiceListInstance;
 
+export interface VoiceResource {
+  links: string;
+  name: string;
+  url: string;
+}
+
 interface VoiceListInstance {
 }
 
@@ -70,4 +76,4 @@ declare class VoiceInstance {
   toJSON();
 }
 
-export { VoiceInstance, VoiceList, VoiceListInstance, VoicePage }
+export { VoiceInstance, VoiceList, VoiceListInstance, VoicePage, VoiceResource }

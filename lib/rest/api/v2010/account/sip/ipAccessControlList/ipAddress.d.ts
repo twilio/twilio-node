@@ -19,6 +19,17 @@ import { SerializableClass } from '../../../../../../interfaces';
  */
 declare function IpAddressList(version: V2010, accountSid: string, ipAccessControlListSid: string): IpAddressListInstance;
 
+export interface IpAddressResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  ip_access_control_list_sid: string;
+  ip_address: string;
+  sid: string;
+  uri: string;
+}
+
 interface IpAddressListInstance {
   /* jshint ignore:start */
   /**
@@ -473,4 +484,4 @@ declare class IpAddressContext {
   update(opts?: object, callback?: function);
 }
 
-export { IpAddressContext, IpAddressInstance, IpAddressList, IpAddressListInstance, IpAddressPage }
+export { IpAddressContext, IpAddressInstance, IpAddressList, IpAddressListInstance, IpAddressPage, IpAddressResource }

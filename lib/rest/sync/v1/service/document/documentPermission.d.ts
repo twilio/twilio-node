@@ -21,6 +21,17 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function DocumentPermissionList(version: V1, serviceSid: string, documentSid: string): DocumentPermissionListInstance;
 
+export interface DocumentPermissionResource {
+  account_sid: string;
+  document_sid: string;
+  identity: string;
+  manage: boolean;
+  read: boolean;
+  service_sid: string;
+  url: string;
+  write: boolean;
+}
+
 interface DocumentPermissionListInstance {
   /* jshint ignore:start */
   /**
@@ -427,4 +438,4 @@ declare class DocumentPermissionContext {
   update(opts: object, callback?: function);
 }
 
-export { DocumentPermissionContext, DocumentPermissionInstance, DocumentPermissionList, DocumentPermissionListInstance, DocumentPermissionPage }
+export { DocumentPermissionContext, DocumentPermissionInstance, DocumentPermissionList, DocumentPermissionListInstance, DocumentPermissionPage, DocumentPermissionResource }

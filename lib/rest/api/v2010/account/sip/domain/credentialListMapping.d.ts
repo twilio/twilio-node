@@ -19,6 +19,16 @@ import { SerializableClass } from '../../../../../../interfaces';
  */
 declare function CredentialListMappingList(version: V2010, accountSid: string, domainSid: string): CredentialListMappingListInstance;
 
+export interface CredentialListMappingResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  sid: string;
+  subresource_uris: string;
+  uri: string;
+}
+
 interface CredentialListMappingListInstance {
   /* jshint ignore:start */
   /**
@@ -422,4 +432,4 @@ declare class CredentialListMappingContext {
   remove(callback?: function);
 }
 
-export { CredentialListMappingContext, CredentialListMappingInstance, CredentialListMappingList, CredentialListMappingListInstance, CredentialListMappingPage }
+export { CredentialListMappingContext, CredentialListMappingInstance, CredentialListMappingList, CredentialListMappingListInstance, CredentialListMappingPage, CredentialListMappingResource }

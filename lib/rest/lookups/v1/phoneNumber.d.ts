@@ -17,6 +17,16 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function PhoneNumberList(version: V1): PhoneNumberListInstance;
 
+export interface PhoneNumberResource {
+  add_ons: string;
+  caller_name: string;
+  carrier: string;
+  country_code: string;
+  national_format: string;
+  phone_number: string;
+  url: string;
+}
+
 interface PhoneNumberListInstance {
 }
 
@@ -142,4 +152,4 @@ declare class PhoneNumberContext {
   fetch(opts?: object, callback?: function);
 }
 
-export { PhoneNumberContext, PhoneNumberInstance, PhoneNumberList, PhoneNumberListInstance, PhoneNumberPage }
+export { PhoneNumberContext, PhoneNumberInstance, PhoneNumberList, PhoneNumberListInstance, PhoneNumberPage, PhoneNumberResource }

@@ -20,6 +20,19 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function InstalledAddOnList(version: Marketplace): InstalledAddOnListInstance;
 
+export interface InstalledAddOnResource {
+  account_sid: string;
+  configuration: string;
+  date_created: Date;
+  date_updated: Date;
+  description: string;
+  friendly_name: string;
+  links: string;
+  sid: string;
+  unique_name: string;
+  url: string;
+}
+
 interface InstalledAddOnListInstance {
   /* jshint ignore:start */
   /**
@@ -488,4 +501,4 @@ declare class InstalledAddOnContext {
   update(opts?: object, callback?: function);
 }
 
-export { InstalledAddOnContext, InstalledAddOnInstance, InstalledAddOnList, InstalledAddOnListInstance, InstalledAddOnPage }
+export { InstalledAddOnContext, InstalledAddOnInstance, InstalledAddOnList, InstalledAddOnListInstance, InstalledAddOnPage, InstalledAddOnResource }

@@ -17,6 +17,16 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function TokenList(version: V2010, accountSid: string): TokenListInstance;
 
+export interface TokenResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  ice_servers: string;
+  password: string;
+  ttl: string;
+  username: string;
+}
+
 interface TokenListInstance {
   /* jshint ignore:start */
   /**
@@ -117,4 +127,4 @@ declare class TokenInstance {
   toJSON();
 }
 
-export { TokenInstance, TokenList, TokenListInstance, TokenPage }
+export { TokenInstance, TokenList, TokenListInstance, TokenPage, TokenResource }

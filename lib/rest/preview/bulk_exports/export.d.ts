@@ -18,6 +18,12 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function ExportList(version: BulkExports): ExportListInstance;
 
+export interface ExportResource {
+  links: string;
+  resource_type: string;
+  url: string;
+}
+
 interface ExportListInstance {
 }
 
@@ -121,4 +127,4 @@ declare class ExportContext {
   fetch(callback?: function);
 }
 
-export { ExportContext, ExportInstance, ExportList, ExportListInstance, ExportPage }
+export { ExportContext, ExportInstance, ExportList, ExportListInstance, ExportPage, ExportResource }

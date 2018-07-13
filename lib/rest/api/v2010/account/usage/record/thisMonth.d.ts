@@ -19,6 +19,23 @@ import { SerializableClass } from '../../../../../../interfaces';
  */
 declare function ThisMonthList(version: V2010, accountSid: string): ThisMonthListInstance;
 
+export interface ThisMonthResource {
+  account_sid: string;
+  api_version: string;
+  category: ThisMonthCategory;
+  count: string;
+  count_unit: string;
+  description: string;
+  end_date: Date;
+  price: number;
+  price_unit: string;
+  start_date: Date;
+  subresource_uris: string;
+  uri: string;
+  usage: string;
+  usage_unit: string;
+}
+
 interface ThisMonthListInstance {
   /* jshint ignore:start */
   /**
@@ -347,4 +364,4 @@ declare class ThisMonthInstance {
   toJSON();
 }
 
-export { ThisMonthInstance, ThisMonthList, ThisMonthListInstance, ThisMonthPage }
+export { ThisMonthInstance, ThisMonthList, ThisMonthListInstance, ThisMonthPage, ThisMonthResource }

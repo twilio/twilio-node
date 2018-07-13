@@ -20,6 +20,22 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function TollFreeList(version: V2010, accountSid: string, countryCode: string): TollFreeListInstance;
 
+export interface TollFreeResource {
+  address_requirements: string;
+  beta: boolean;
+  capabilities: string;
+  friendly_name: string;
+  iso_country: string;
+  lata: string;
+  latitude: number;
+  locality: string;
+  longitude: number;
+  phone_number: string;
+  postal_code: string;
+  rate_center: string;
+  region: string;
+}
+
 interface TollFreeListInstance {
   /* jshint ignore:start */
   /**
@@ -437,4 +453,4 @@ declare class TollFreeInstance {
   toJSON();
 }
 
-export { TollFreeInstance, TollFreeList, TollFreeListInstance, TollFreePage }
+export { TollFreeInstance, TollFreeList, TollFreeListInstance, TollFreePage, TollFreeResource }

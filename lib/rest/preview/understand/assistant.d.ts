@@ -23,6 +23,23 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function AssistantList(version: Understand): AssistantListInstance;
 
+export interface AssistantResource {
+  account_sid: string;
+  callback_events: string;
+  callback_url: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  latest_model_build_sid: string;
+  links: string;
+  log_queries: boolean;
+  response_url: string;
+  sid: string;
+  ttl: number;
+  unique_name: string;
+  url: string;
+}
+
 interface AssistantListInstance {
   /* jshint ignore:start */
   /**
@@ -547,4 +564,4 @@ declare class AssistantContext {
   update(opts?: object, callback?: function);
 }
 
-export { AssistantContext, AssistantInstance, AssistantList, AssistantListInstance, AssistantPage }
+export { AssistantContext, AssistantInstance, AssistantList, AssistantListInstance, AssistantPage, AssistantResource }

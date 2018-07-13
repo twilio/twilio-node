@@ -20,6 +20,16 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function MediaList(version: V2010, accountSid: string, messageSid: string): MediaListInstance;
 
+export interface MediaResource {
+  account_sid: string;
+  content_type: string;
+  date_created: Date;
+  date_updated: Date;
+  parent_sid: string;
+  sid: string;
+  uri: string;
+}
+
 interface MediaListInstance {
   /* jshint ignore:start */
   /**
@@ -386,4 +396,4 @@ declare class MediaContext {
   remove(callback?: function);
 }
 
-export { MediaContext, MediaInstance, MediaList, MediaListInstance, MediaPage }
+export { MediaContext, MediaInstance, MediaList, MediaListInstance, MediaPage, MediaResource }

@@ -20,6 +20,22 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function VoipList(version: V2010, accountSid: string, countryCode: string): VoipListInstance;
 
+export interface VoipResource {
+  address_requirements: string;
+  beta: boolean;
+  capabilities: string;
+  friendly_name: string;
+  iso_country: string;
+  lata: string;
+  latitude: number;
+  locality: string;
+  longitude: number;
+  phone_number: string;
+  postal_code: string;
+  rate_center: string;
+  region: string;
+}
+
 interface VoipListInstance {
   /* jshint ignore:start */
   /**
@@ -404,4 +420,4 @@ declare class VoipInstance {
   toJSON();
 }
 
-export { VoipInstance, VoipList, VoipListInstance, VoipPage }
+export { VoipInstance, VoipList, VoipListInstance, VoipPage, VoipResource }

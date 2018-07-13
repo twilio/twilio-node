@@ -18,6 +18,16 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function OutgoingCallerIdList(version: V2010, accountSid: string): OutgoingCallerIdListInstance;
 
+export interface OutgoingCallerIdResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  phone_number: string;
+  sid: string;
+  uri: string;
+}
+
 interface OutgoingCallerIdListInstance {
   /* jshint ignore:start */
   /**
@@ -418,4 +428,4 @@ declare class OutgoingCallerIdContext {
   update(opts?: object, callback?: function);
 }
 
-export { OutgoingCallerIdContext, OutgoingCallerIdInstance, OutgoingCallerIdList, OutgoingCallerIdListInstance, OutgoingCallerIdPage }
+export { OutgoingCallerIdContext, OutgoingCallerIdInstance, OutgoingCallerIdList, OutgoingCallerIdListInstance, OutgoingCallerIdPage, OutgoingCallerIdResource }

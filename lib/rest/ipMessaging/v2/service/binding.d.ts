@@ -19,6 +19,21 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function BindingList(version: V2, serviceSid: string): BindingListInstance;
 
+export interface BindingResource {
+  account_sid: string;
+  binding_type: BindingBindingType;
+  credential_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  endpoint: string;
+  identity: string;
+  links: string;
+  message_types: string;
+  service_sid: string;
+  sid: string;
+  url: string;
+}
+
 interface BindingListInstance {
   /* jshint ignore:start */
   /**
@@ -387,4 +402,4 @@ declare class BindingContext {
   remove(callback?: function);
 }
 
-export { BindingContext, BindingInstance, BindingList, BindingListInstance, BindingPage }
+export { BindingContext, BindingInstance, BindingList, BindingListInstance, BindingPage, BindingResource }

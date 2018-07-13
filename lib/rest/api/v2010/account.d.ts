@@ -40,6 +40,19 @@ import { ValidationRequestList } from './account/validationRequest';
  */
 declare function AccountList(version: V2010): AccountListInstance;
 
+export interface AccountResource {
+  auth_token: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  owner_account_sid: string;
+  sid: string;
+  status: AccountStatus;
+  subresource_uris: string;
+  type: AccountType;
+  uri: string;
+}
+
 interface AccountListInstance {
   /* jshint ignore:start */
   /**
@@ -698,4 +711,4 @@ declare class AccountContext {
   validationRequests?: Twilio.Api.V2010.AccountContext.ValidationRequestList;
 }
 
-export { AccountContext, AccountInstance, AccountList, AccountListInstance, AccountPage }
+export { AccountContext, AccountInstance, AccountList, AccountListInstance, AccountPage, AccountResource }

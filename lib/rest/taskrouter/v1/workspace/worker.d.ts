@@ -23,6 +23,22 @@ import { WorkersRealTimeStatisticsList } from './worker/workersRealTimeStatistic
  */
 declare function WorkerList(version: V1, workspaceSid: string): WorkerListInstance;
 
+export interface WorkerResource {
+  account_sid: string;
+  activity_name: string;
+  activity_sid: string;
+  attributes: string;
+  available: boolean;
+  date_created: Date;
+  date_status_changed: Date;
+  date_updated: Date;
+  friendly_name: string;
+  links: string;
+  sid: string;
+  url: string;
+  workspace_sid: string;
+}
+
 interface WorkerListInstance {
   /* jshint ignore:start */
   /**
@@ -581,4 +597,4 @@ declare class WorkerContext {
   workerChannels?: Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkerChannelList;
 }
 
-export { WorkerContext, WorkerInstance, WorkerList, WorkerListInstance, WorkerPage }
+export { WorkerContext, WorkerInstance, WorkerList, WorkerListInstance, WorkerPage, WorkerResource }

@@ -19,6 +19,14 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function EngagementContextList(version: V1, flowSid: string, engagementSid: string): EngagementContextListInstance;
 
+export interface EngagementContextResource {
+  account_sid: string;
+  context: string;
+  engagement_sid: string;
+  flow_sid: string;
+  url: string;
+}
+
 interface EngagementContextListInstance {
 }
 
@@ -115,4 +123,4 @@ declare class EngagementContextContext {
   fetch(callback?: function);
 }
 
-export { EngagementContextContext, EngagementContextInstance, EngagementContextList, EngagementContextListInstance, EngagementContextPage }
+export { EngagementContextContext, EngagementContextInstance, EngagementContextList, EngagementContextListInstance, EngagementContextPage, EngagementContextResource }

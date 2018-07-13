@@ -21,6 +21,19 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function ConferenceList(version: V2010, accountSid: string): ConferenceListInstance;
 
+export interface ConferenceResource {
+  account_sid: string;
+  api_version: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  region: string;
+  sid: string;
+  status: ConferenceStatus;
+  subresource_uris: string;
+  uri: string;
+}
+
 interface ConferenceListInstance {
   /* jshint ignore:start */
   /**
@@ -457,4 +470,4 @@ declare class ConferenceContext {
   update(opts?: object, callback?: function);
 }
 
-export { ConferenceContext, ConferenceInstance, ConferenceList, ConferenceListInstance, ConferencePage }
+export { ConferenceContext, ConferenceInstance, ConferenceList, ConferenceListInstance, ConferencePage, ConferenceResource }

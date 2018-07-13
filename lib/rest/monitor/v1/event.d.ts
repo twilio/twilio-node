@@ -18,6 +18,23 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function EventList(version: V1): EventListInstance;
 
+export interface EventResource {
+  account_sid: string;
+  actor_sid: string;
+  actor_type: string;
+  description: string;
+  event_data: string;
+  event_date: Date;
+  event_type: string;
+  links: string;
+  resource_sid: string;
+  resource_type: string;
+  sid: string;
+  source: string;
+  source_ip_address: string;
+  url: string;
+}
+
 interface EventListInstance {
   /* jshint ignore:start */
   /**
@@ -379,4 +396,4 @@ declare class EventContext {
   fetch(callback?: function);
 }
 
-export { EventContext, EventInstance, EventList, EventListInstance, EventPage }
+export { EventContext, EventInstance, EventList, EventListInstance, EventPage, EventResource }

@@ -19,6 +19,14 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function TaskQueuesStatisticsList(version: V1, workspaceSid: string): TaskQueuesStatisticsListInstance;
 
+export interface TaskQueuesStatisticsResource {
+  account_sid: string;
+  cumulative: string;
+  realtime: string;
+  task_queue_sid: string;
+  workspace_sid: string;
+}
+
 interface TaskQueuesStatisticsListInstance {
   /* jshint ignore:start */
   /**
@@ -350,4 +358,4 @@ declare class TaskQueuesStatisticsInstance {
   toJSON();
 }
 
-export { TaskQueuesStatisticsInstance, TaskQueuesStatisticsList, TaskQueuesStatisticsListInstance, TaskQueuesStatisticsPage }
+export { TaskQueuesStatisticsInstance, TaskQueuesStatisticsList, TaskQueuesStatisticsListInstance, TaskQueuesStatisticsPage, TaskQueuesStatisticsResource }

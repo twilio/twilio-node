@@ -21,6 +21,22 @@ import { WorkflowStatisticsList } from './workflow/workflowStatistics';
  */
 declare function WorkflowList(version: V1, workspaceSid: string): WorkflowListInstance;
 
+export interface WorkflowResource {
+  account_sid: string;
+  assignment_callback_url: string;
+  configuration: string;
+  date_created: Date;
+  date_updated: Date;
+  document_content_type: string;
+  fallback_assignment_callback_url: string;
+  friendly_name: string;
+  links: string;
+  sid: string;
+  task_reservation_timeout: number;
+  url: string;
+  workspace_sid: string;
+}
+
 interface WorkflowListInstance {
   /* jshint ignore:start */
   /**
@@ -538,4 +554,4 @@ declare class WorkflowContext {
   update(opts?: object, callback?: function);
 }
 
-export { WorkflowContext, WorkflowInstance, WorkflowList, WorkflowListInstance, WorkflowPage }
+export { WorkflowContext, WorkflowInstance, WorkflowList, WorkflowListInstance, WorkflowPage, WorkflowResource }

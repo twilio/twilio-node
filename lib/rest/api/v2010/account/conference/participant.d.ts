@@ -20,6 +20,20 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function ParticipantList(version: V2010, accountSid: string, conferenceSid: string): ParticipantListInstance;
 
+export interface ParticipantResource {
+  account_sid: string;
+  call_sid: string;
+  conference_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  end_conference_on_exit: boolean;
+  hold: boolean;
+  muted: boolean;
+  start_conference_on_enter: boolean;
+  status: ParticipantStatus;
+  uri: string;
+}
+
 interface ParticipantListInstance {
   /* jshint ignore:start */
   /**
@@ -579,4 +593,4 @@ declare class ParticipantContext {
   update(opts?: object, callback?: function);
 }
 
-export { ParticipantContext, ParticipantInstance, ParticipantList, ParticipantListInstance, ParticipantPage }
+export { ParticipantContext, ParticipantInstance, ParticipantList, ParticipantListInstance, ParticipantPage, ParticipantResource }

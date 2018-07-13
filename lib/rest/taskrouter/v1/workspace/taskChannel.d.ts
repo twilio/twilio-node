@@ -18,6 +18,17 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function TaskChannelList(version: V1, workspaceSid: string): TaskChannelListInstance;
 
+export interface TaskChannelResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  sid: string;
+  unique_name: string;
+  url: string;
+  workspace_sid: string;
+}
+
 interface TaskChannelListInstance {
   /* jshint ignore:start */
   /**
@@ -351,4 +362,4 @@ declare class TaskChannelContext {
   fetch(callback?: function);
 }
 
-export { TaskChannelContext, TaskChannelInstance, TaskChannelList, TaskChannelListInstance, TaskChannelPage }
+export { TaskChannelContext, TaskChannelInstance, TaskChannelList, TaskChannelListInstance, TaskChannelPage, TaskChannelResource }

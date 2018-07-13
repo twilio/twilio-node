@@ -18,6 +18,13 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function SigningKeyList(version: V2010, accountSid: string): SigningKeyListInstance;
 
+export interface SigningKeyResource {
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  sid: string;
+}
+
 interface SigningKeyListInstance {
   /* jshint ignore:start */
   /**
@@ -407,4 +414,4 @@ declare class SigningKeyContext {
   update(opts?: object, callback?: function);
 }
 
-export { SigningKeyContext, SigningKeyInstance, SigningKeyList, SigningKeyListInstance, SigningKeyPage }
+export { SigningKeyContext, SigningKeyInstance, SigningKeyList, SigningKeyListInstance, SigningKeyPage, SigningKeyResource }

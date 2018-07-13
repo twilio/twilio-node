@@ -20,6 +20,19 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function SampleList(version: Understand, assistantSid: string, intentSid: string): SampleListInstance;
 
+export interface SampleResource {
+  account_sid: string;
+  assistant_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  intent_sid: string;
+  language: string;
+  sid: string;
+  source_channel: string;
+  tagged_text: string;
+  url: string;
+}
+
 interface SampleListInstance {
   /* jshint ignore:start */
   /**
@@ -491,4 +504,4 @@ declare class SampleContext {
   update(opts?: object, callback?: function);
 }
 
-export { SampleContext, SampleInstance, SampleList, SampleListInstance, SamplePage }
+export { SampleContext, SampleInstance, SampleList, SampleListInstance, SamplePage, SampleResource }

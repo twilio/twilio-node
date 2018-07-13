@@ -20,6 +20,18 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function AuthorizationDocumentList(version: HostedNumbers): AuthorizationDocumentListInstance;
 
+export interface AuthorizationDocumentResource {
+  address_sid: string;
+  cc_emails: string;
+  date_created: Date;
+  date_updated: Date;
+  email: string;
+  links: string;
+  sid: string;
+  status: AuthorizationDocumentStatus;
+  url: string;
+}
+
 interface AuthorizationDocumentListInstance {
   /* jshint ignore:start */
   /**
@@ -491,4 +503,4 @@ declare class AuthorizationDocumentContext {
   update(opts?: object, callback?: function);
 }
 
-export { AuthorizationDocumentContext, AuthorizationDocumentInstance, AuthorizationDocumentList, AuthorizationDocumentListInstance, AuthorizationDocumentPage }
+export { AuthorizationDocumentContext, AuthorizationDocumentInstance, AuthorizationDocumentList, AuthorizationDocumentListInstance, AuthorizationDocumentPage, AuthorizationDocumentResource }

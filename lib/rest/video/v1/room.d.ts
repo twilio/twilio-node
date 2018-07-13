@@ -20,6 +20,27 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function RoomList(version: V1): RoomListInstance;
 
+export interface RoomResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  duration: number;
+  enable_turn: boolean;
+  end_time: Date;
+  links: string;
+  max_participants: number;
+  media_region: string;
+  record_participants_on_connect: boolean;
+  sid: string;
+  status: RoomRoomStatus;
+  status_callback: string;
+  status_callback_method: string;
+  type: RoomRoomType;
+  unique_name: string;
+  url: string;
+  video_codecs: RoomVideoCodec;
+}
+
 interface RoomListInstance {
   /* jshint ignore:start */
   /**
@@ -510,4 +531,4 @@ declare class RoomContext {
   update(opts: object, callback?: function);
 }
 
-export { RoomContext, RoomInstance, RoomList, RoomListInstance, RoomPage }
+export { RoomContext, RoomInstance, RoomList, RoomListInstance, RoomPage, RoomResource }

@@ -18,6 +18,17 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function CompositionSettingsList(version: V1): CompositionSettingsListInstance;
 
+export interface CompositionSettingsResource {
+  account_sid: string;
+  aws_credentials_sid: string;
+  aws_s3_url: string;
+  aws_storage_enabled: boolean;
+  encryption_enabled: boolean;
+  encryption_key_sid: string;
+  friendly_name: string;
+  url: string;
+}
+
 interface CompositionSettingsListInstance {
 }
 
@@ -173,4 +184,4 @@ declare class CompositionSettingsContext {
   fetch(callback?: function);
 }
 
-export { CompositionSettingsContext, CompositionSettingsInstance, CompositionSettingsList, CompositionSettingsListInstance, CompositionSettingsPage }
+export { CompositionSettingsContext, CompositionSettingsInstance, CompositionSettingsList, CompositionSettingsListInstance, CompositionSettingsPage, CompositionSettingsResource }

@@ -18,6 +18,14 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function WorkersStatisticsList(version: V1, workspaceSid: string): WorkersStatisticsListInstance;
 
+export interface WorkersStatisticsResource {
+  account_sid: string;
+  cumulative: string;
+  realtime: string;
+  url: string;
+  workspace_sid: string;
+}
+
 interface WorkersStatisticsListInstance {
 }
 
@@ -153,4 +161,4 @@ declare class WorkersStatisticsContext {
   fetch(opts?: object, callback?: function);
 }
 
-export { WorkersStatisticsContext, WorkersStatisticsInstance, WorkersStatisticsList, WorkersStatisticsListInstance, WorkersStatisticsPage }
+export { WorkersStatisticsContext, WorkersStatisticsInstance, WorkersStatisticsList, WorkersStatisticsListInstance, WorkersStatisticsPage, WorkersStatisticsResource }

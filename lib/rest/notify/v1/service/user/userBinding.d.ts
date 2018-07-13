@@ -21,6 +21,23 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function UserBindingList(version: V1, serviceSid: string, identity: string): UserBindingListInstance;
 
+export interface UserBindingResource {
+  account_sid: string;
+  address: string;
+  binding_type: string;
+  credential_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  endpoint: string;
+  identity: string;
+  links: string;
+  notification_protocol_version: string;
+  service_sid: string;
+  sid: string;
+  tags: string;
+  url: string;
+}
+
 interface UserBindingListInstance {
   /* jshint ignore:start */
   /**
@@ -461,4 +478,4 @@ declare class UserBindingContext {
   remove(callback?: function);
 }
 
-export { UserBindingContext, UserBindingInstance, UserBindingList, UserBindingListInstance, UserBindingPage }
+export { UserBindingContext, UserBindingInstance, UserBindingList, UserBindingListInstance, UserBindingPage, UserBindingResource }

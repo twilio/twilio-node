@@ -19,6 +19,14 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function SegmentMembershipList(version: V1, serviceSid: string, identity: string): SegmentMembershipListInstance;
 
+export interface SegmentMembershipResource {
+  account_sid: string;
+  identity: string;
+  segment: string;
+  service_sid: string;
+  url: string;
+}
+
 interface SegmentMembershipListInstance {
   /* jshint ignore:start */
   /**
@@ -185,4 +193,4 @@ declare class SegmentMembershipContext {
   remove(callback?: function);
 }
 
-export { SegmentMembershipContext, SegmentMembershipInstance, SegmentMembershipList, SegmentMembershipListInstance, SegmentMembershipPage }
+export { SegmentMembershipContext, SegmentMembershipInstance, SegmentMembershipList, SegmentMembershipListInstance, SegmentMembershipPage, SegmentMembershipResource }

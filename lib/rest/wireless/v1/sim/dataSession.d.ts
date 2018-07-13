@@ -19,6 +19,24 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function DataSessionList(version: V1, simSid: string): DataSessionListInstance;
 
+export interface DataSessionResource {
+  account_sid: string;
+  cell_id: string;
+  cell_location_estimate: string;
+  end: Date;
+  last_updated: Date;
+  operator_country: string;
+  operator_mcc: string;
+  operator_mnc: string;
+  operator_name: string;
+  packets_downloaded: number;
+  packets_uploaded: number;
+  radio_link: string;
+  sid: string;
+  sim_sid: string;
+  start: Date;
+}
+
 interface DataSessionListInstance {
   /* jshint ignore:start */
   /**
@@ -331,4 +349,4 @@ declare class DataSessionInstance {
   toJSON();
 }
 
-export { DataSessionInstance, DataSessionList, DataSessionListInstance, DataSessionPage }
+export { DataSessionInstance, DataSessionList, DataSessionListInstance, DataSessionPage, DataSessionResource }

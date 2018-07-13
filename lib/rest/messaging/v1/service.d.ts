@@ -22,6 +22,29 @@ import { ShortCodeList } from './service/shortCode';
  */
 declare function ServiceList(version: V1): ServiceListInstance;
 
+export interface ServiceResource {
+  account_sid: string;
+  area_code_geomatch: boolean;
+  date_created: Date;
+  date_updated: Date;
+  fallback_method: string;
+  fallback_to_long_code: boolean;
+  fallback_url: string;
+  friendly_name: string;
+  inbound_method: string;
+  inbound_request_url: string;
+  links: string;
+  mms_converter: boolean;
+  scan_message_content: ServiceScanMessageContent;
+  sid: string;
+  smart_encoding: boolean;
+  status_callback: string;
+  sticky_sender: boolean;
+  synchronous_validation: boolean;
+  url: string;
+  validity_period: number;
+}
+
 interface ServiceListInstance {
   /* jshint ignore:start */
   /**
@@ -594,4 +617,4 @@ declare class ServiceContext {
   update(opts?: object, callback?: function);
 }
 
-export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServicePage }
+export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServicePage, ServiceResource }

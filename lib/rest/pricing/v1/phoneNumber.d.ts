@@ -16,6 +16,12 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function PhoneNumberList(version: V1): PhoneNumberListInstance;
 
+export interface PhoneNumberResource {
+  links: string;
+  name: string;
+  url: string;
+}
+
 interface PhoneNumberListInstance {
 }
 
@@ -70,4 +76,4 @@ declare class PhoneNumberInstance {
   toJSON();
 }
 
-export { PhoneNumberInstance, PhoneNumberList, PhoneNumberListInstance, PhoneNumberPage }
+export { PhoneNumberInstance, PhoneNumberList, PhoneNumberListInstance, PhoneNumberPage, PhoneNumberResource }

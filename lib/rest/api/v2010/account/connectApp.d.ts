@@ -19,6 +19,20 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function ConnectAppList(version: V2010, accountSid: string): ConnectAppListInstance;
 
+export interface ConnectAppResource {
+  account_sid: string;
+  authorize_redirect_url: string;
+  company_name: string;
+  deauthorize_callback_method: string;
+  deauthorize_callback_url: string;
+  description: string;
+  friendly_name: string;
+  homepage_url: string;
+  permissions: ConnectAppPermission;
+  sid: string;
+  uri: string;
+}
+
 interface ConnectAppListInstance {
   /* jshint ignore:start */
   /**
@@ -423,4 +437,4 @@ declare class ConnectAppContext {
   update(opts?: object, callback?: function);
 }
 
-export { ConnectAppContext, ConnectAppInstance, ConnectAppList, ConnectAppListInstance, ConnectAppPage }
+export { ConnectAppContext, ConnectAppInstance, ConnectAppList, ConnectAppListInstance, ConnectAppPage, ConnectAppResource }

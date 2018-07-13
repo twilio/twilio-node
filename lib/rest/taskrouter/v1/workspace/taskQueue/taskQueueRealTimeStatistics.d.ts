@@ -18,6 +18,20 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function TaskQueueRealTimeStatisticsList(version: V1, workspaceSid: string, taskQueueSid: string): TaskQueueRealTimeStatisticsListInstance;
 
+export interface TaskQueueRealTimeStatisticsResource {
+  account_sid: string;
+  activity_statistics: string;
+  longest_task_waiting_age: number;
+  task_queue_sid: string;
+  tasks_by_priority: string;
+  tasks_by_status: string;
+  total_available_workers: number;
+  total_eligible_workers: number;
+  total_tasks: number;
+  url: string;
+  workspace_sid: string;
+}
+
 interface TaskQueueRealTimeStatisticsListInstance {
 }
 
@@ -137,4 +151,4 @@ declare class TaskQueueRealTimeStatisticsContext {
   fetch(opts?: object, callback?: function);
 }
 
-export { TaskQueueRealTimeStatisticsContext, TaskQueueRealTimeStatisticsInstance, TaskQueueRealTimeStatisticsList, TaskQueueRealTimeStatisticsListInstance, TaskQueueRealTimeStatisticsPage }
+export { TaskQueueRealTimeStatisticsContext, TaskQueueRealTimeStatisticsInstance, TaskQueueRealTimeStatisticsList, TaskQueueRealTimeStatisticsListInstance, TaskQueueRealTimeStatisticsPage, TaskQueueRealTimeStatisticsResource }

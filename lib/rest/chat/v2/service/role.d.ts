@@ -19,6 +19,18 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function RoleList(version: V2, serviceSid: string): RoleListInstance;
 
+export interface RoleResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  permissions: string;
+  service_sid: string;
+  sid: string;
+  type: RoleRoleType;
+  url: string;
+}
+
 interface RoleListInstance {
   /* jshint ignore:start */
   /**
@@ -472,4 +484,4 @@ declare class RoleContext {
   update(opts: object, callback?: function);
 }
 
-export { RoleContext, RoleInstance, RoleList, RoleListInstance, RolePage }
+export { RoleContext, RoleInstance, RoleList, RoleListInstance, RolePage, RoleResource }

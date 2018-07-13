@@ -19,6 +19,15 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function FeedbackList(version: V2010, accountSid: string, callSid: string): FeedbackListInstance;
 
+export interface FeedbackResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  issues: FeedbackIssues;
+  quality_score: number;
+  sid: string;
+}
+
 interface FeedbackListInstance {
 }
 
@@ -201,4 +210,4 @@ declare class FeedbackContext {
   update(opts: object, callback?: function);
 }
 
-export { FeedbackContext, FeedbackInstance, FeedbackList, FeedbackListInstance, FeedbackPage }
+export { FeedbackContext, FeedbackInstance, FeedbackList, FeedbackListInstance, FeedbackPage, FeedbackResource }

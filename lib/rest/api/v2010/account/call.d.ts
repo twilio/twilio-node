@@ -22,6 +22,34 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function CallList(version: V2010, accountSid: string): CallListInstance;
 
+export interface CallResource {
+  account_sid: string;
+  annotation: string;
+  answered_by: string;
+  api_version: string;
+  caller_name: string;
+  date_created: Date;
+  date_updated: Date;
+  direction: string;
+  duration: string;
+  end_time: Date;
+  forwarded_from: string;
+  from: string;
+  from_formatted: string;
+  group_sid: string;
+  parent_call_sid: string;
+  phone_number_sid: string;
+  price: number;
+  price_unit: string;
+  sid: string;
+  start_time: Date;
+  status: CallStatus;
+  subresource_uris: string;
+  to: string;
+  to_formatted: string;
+  uri: string;
+}
+
 interface CallListInstance {
   /* jshint ignore:start */
   /**
@@ -640,4 +668,4 @@ declare class CallContext {
   update(opts?: object, callback?: function);
 }
 
-export { CallContext, CallInstance, CallList, CallListInstance, CallPage }
+export { CallContext, CallInstance, CallList, CallListInstance, CallPage, CallResource }

@@ -21,6 +21,20 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function SyncListItemList(version: V1, serviceSid: string, listSid: string): SyncListItemListInstance;
 
+export interface SyncListItemResource {
+  account_sid: string;
+  created_by: string;
+  data: string;
+  date_created: Date;
+  date_expires: Date;
+  date_updated: Date;
+  index: number;
+  list_sid: string;
+  revision: string;
+  service_sid: string;
+  url: string;
+}
+
 interface SyncListItemListInstance {
   /* jshint ignore:start */
   /**
@@ -489,4 +503,4 @@ declare class SyncListItemContext {
   update(opts?: object, callback?: function);
 }
 
-export { SyncListItemContext, SyncListItemInstance, SyncListItemList, SyncListItemListInstance, SyncListItemPage }
+export { SyncListItemContext, SyncListItemInstance, SyncListItemList, SyncListItemListInstance, SyncListItemPage, SyncListItemResource }

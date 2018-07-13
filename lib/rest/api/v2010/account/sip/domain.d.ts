@@ -21,6 +21,26 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function DomainList(version: V2010, accountSid: string): DomainListInstance;
 
+export interface DomainResource {
+  account_sid: string;
+  api_version: string;
+  auth_type: string;
+  date_created: Date;
+  date_updated: Date;
+  domain_name: string;
+  friendly_name: string;
+  sid: string;
+  sip_registration: boolean;
+  subresource_uris: string;
+  uri: string;
+  voice_fallback_method: string;
+  voice_fallback_url: string;
+  voice_method: string;
+  voice_status_callback_method: string;
+  voice_status_callback_url: string;
+  voice_url: string;
+}
+
 interface DomainListInstance {
   /* jshint ignore:start */
   /**
@@ -550,4 +570,4 @@ declare class DomainContext {
   update(opts?: object, callback?: function);
 }
 
-export { DomainContext, DomainInstance, DomainList, DomainListInstance, DomainPage }
+export { DomainContext, DomainInstance, DomainList, DomainListInstance, DomainPage, DomainResource }

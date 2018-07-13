@@ -19,6 +19,29 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function NotificationList(version: V1, serviceSid: string): NotificationListInstance;
 
+export interface NotificationResource {
+  account_sid: string;
+  action: string;
+  alexa: string;
+  apn: string;
+  body: string;
+  data: string;
+  date_created: Date;
+  facebook_messenger: string;
+  fcm: string;
+  gcm: string;
+  identities: string;
+  priority: NotificationPriority;
+  segments: string;
+  service_sid: string;
+  sid: string;
+  sms: string;
+  sound: string;
+  tags: string;
+  title: string;
+  ttl: number;
+}
+
 interface NotificationListInstance {
   /* jshint ignore:start */
   /**
@@ -180,4 +203,4 @@ declare class NotificationInstance {
   toJSON();
 }
 
-export { NotificationInstance, NotificationList, NotificationListInstance, NotificationPage }
+export { NotificationInstance, NotificationList, NotificationListInstance, NotificationPage, NotificationResource }

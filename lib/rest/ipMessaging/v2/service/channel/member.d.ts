@@ -20,6 +20,20 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function MemberList(version: V2, serviceSid: string, channelSid: string): MemberListInstance;
 
+export interface MemberResource {
+  account_sid: string;
+  channel_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  identity: string;
+  last_consumed_message_index: number;
+  last_consumption_timestamp: Date;
+  role_sid: string;
+  service_sid: string;
+  sid: string;
+  url: string;
+}
+
 interface MemberListInstance {
   /* jshint ignore:start */
   /**
@@ -507,4 +521,4 @@ declare class MemberContext {
   update(opts?: object, callback?: function);
 }
 
-export { MemberContext, MemberInstance, MemberList, MemberListInstance, MemberPage }
+export { MemberContext, MemberInstance, MemberList, MemberListInstance, MemberPage, MemberResource }

@@ -19,6 +19,16 @@ import { SerializableClass } from '../../../../../../interfaces';
  */
 declare function IpAccessControlListMappingList(version: V2010, accountSid: string, domainSid: string): IpAccessControlListMappingListInstance;
 
+export interface IpAccessControlListMappingResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  sid: string;
+  subresource_uris: string;
+  uri: string;
+}
+
 interface IpAccessControlListMappingListInstance {
   /* jshint ignore:start */
   /**
@@ -423,4 +433,4 @@ declare class IpAccessControlListMappingContext {
   remove(callback?: function);
 }
 
-export { IpAccessControlListMappingContext, IpAccessControlListMappingInstance, IpAccessControlListMappingList, IpAccessControlListMappingListInstance, IpAccessControlListMappingPage }
+export { IpAccessControlListMappingContext, IpAccessControlListMappingInstance, IpAccessControlListMappingList, IpAccessControlListMappingListInstance, IpAccessControlListMappingPage, IpAccessControlListMappingResource }

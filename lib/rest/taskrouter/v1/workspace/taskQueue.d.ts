@@ -21,6 +21,24 @@ import { TaskQueueStatisticsList } from './taskQueue/taskQueueStatistics';
  */
 declare function TaskQueueList(version: V1, workspaceSid: string): TaskQueueListInstance;
 
+export interface TaskQueueResource {
+  account_sid: string;
+  assignment_activity_name: string;
+  assignment_activity_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  links: string;
+  max_reserved_workers: number;
+  reservation_activity_name: string;
+  reservation_activity_sid: string;
+  sid: string;
+  target_workers: string;
+  task_order: TaskQueueTaskOrder;
+  url: string;
+  workspace_sid: string;
+}
+
 interface TaskQueueListInstance {
   /* jshint ignore:start */
   /**
@@ -560,4 +578,4 @@ declare class TaskQueueContext {
   update(opts?: object, callback?: function);
 }
 
-export { TaskQueueContext, TaskQueueInstance, TaskQueueList, TaskQueueListInstance, TaskQueuePage }
+export { TaskQueueContext, TaskQueueInstance, TaskQueueList, TaskQueueListInstance, TaskQueuePage, TaskQueueResource }

@@ -18,6 +18,18 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function UsageList(version: Wireless, simSid: string): UsageListInstance;
 
+export interface UsageResource {
+  account_sid: string;
+  commands_costs: string;
+  commands_usage: string;
+  data_costs: string;
+  data_usage: string;
+  period: string;
+  sim_sid: string;
+  sim_unique_name: string;
+  url: string;
+}
+
 interface UsageListInstance {
 }
 
@@ -140,4 +152,4 @@ declare class UsageContext {
   fetch(opts?: object, callback?: function);
 }
 
-export { UsageContext, UsageInstance, UsageList, UsageListInstance, UsagePage }
+export { UsageContext, UsageInstance, UsageList, UsageListInstance, UsagePage, UsageResource }

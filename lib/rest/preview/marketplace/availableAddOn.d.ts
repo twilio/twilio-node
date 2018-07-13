@@ -19,6 +19,16 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function AvailableAddOnList(version: Marketplace): AvailableAddOnListInstance;
 
+export interface AvailableAddOnResource {
+  configuration_schema: string;
+  description: string;
+  friendly_name: string;
+  links: string;
+  pricing_type: string;
+  sid: string;
+  url: string;
+}
+
 interface AvailableAddOnListInstance {
   /* jshint ignore:start */
   /**
@@ -363,4 +373,4 @@ declare class AvailableAddOnContext {
   fetch(callback?: function);
 }
 
-export { AvailableAddOnContext, AvailableAddOnInstance, AvailableAddOnList, AvailableAddOnListInstance, AvailableAddOnPage }
+export { AvailableAddOnContext, AvailableAddOnInstance, AvailableAddOnList, AvailableAddOnListInstance, AvailableAddOnPage, AvailableAddOnResource }

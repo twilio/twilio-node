@@ -18,6 +18,20 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function CommandList(version: Wireless): CommandListInstance;
 
+export interface CommandResource {
+  account_sid: string;
+  command: string;
+  command_mode: string;
+  date_created: Date;
+  date_updated: Date;
+  device_sid: string;
+  direction: string;
+  sid: string;
+  sim_sid: string;
+  status: string;
+  url: string;
+}
+
 interface CommandListInstance {
   /* jshint ignore:start */
   /**
@@ -427,4 +441,4 @@ declare class CommandContext {
   fetch(callback?: function);
 }
 
-export { CommandContext, CommandInstance, CommandList, CommandListInstance, CommandPage }
+export { CommandContext, CommandInstance, CommandList, CommandListInstance, CommandPage, CommandResource }

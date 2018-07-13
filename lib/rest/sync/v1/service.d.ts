@@ -23,6 +23,20 @@ import { SyncStreamList } from './service/syncStream';
  */
 declare function ServiceList(version: V1): ServiceListInstance;
 
+export interface ServiceResource {
+  account_sid: string;
+  acl_enabled: boolean;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  links: string;
+  reachability_webhooks_enabled: boolean;
+  sid: string;
+  unique_name: string;
+  url: string;
+  webhook_url: string;
+}
+
 interface ServiceListInstance {
   /* jshint ignore:start */
   /**
@@ -526,4 +540,4 @@ declare class ServiceContext {
   update(opts?: object, callback?: function);
 }
 
-export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServicePage }
+export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServicePage, ServiceResource }

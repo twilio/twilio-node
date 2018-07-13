@@ -20,6 +20,20 @@ import { StepList } from './engagement/step';
  */
 declare function EngagementList(version: Studio, flowSid: string): EngagementListInstance;
 
+export interface EngagementResource {
+  account_sid: string;
+  contact_channel_address: string;
+  contact_sid: string;
+  context: string;
+  date_created: Date;
+  date_updated: Date;
+  flow_sid: string;
+  links: string;
+  sid: string;
+  status: EngagementStatus;
+  url: string;
+}
+
 interface EngagementListInstance {
   /* jshint ignore:start */
   /**
@@ -426,4 +440,4 @@ declare class EngagementContext {
   steps?: Twilio.Preview.Studio.FlowContext.EngagementContext.StepList;
 }
 
-export { EngagementContext, EngagementInstance, EngagementList, EngagementListInstance, EngagementPage }
+export { EngagementContext, EngagementInstance, EngagementList, EngagementListInstance, EngagementPage, EngagementResource }

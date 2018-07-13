@@ -19,6 +19,19 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function ModelBuildList(version: Understand, assistantSid: string): ModelBuildListInstance;
 
+export interface ModelBuildResource {
+  account_sid: string;
+  assistant_sid: string;
+  build_duration: number;
+  date_created: Date;
+  date_updated: Date;
+  error_code: number;
+  sid: string;
+  status: ModelBuildStatus;
+  unique_name: string;
+  url: string;
+}
+
 interface ModelBuildListInstance {
   /* jshint ignore:start */
   /**
@@ -468,4 +481,4 @@ declare class ModelBuildContext {
   update(opts?: object, callback?: function);
 }
 
-export { ModelBuildContext, ModelBuildInstance, ModelBuildList, ModelBuildListInstance, ModelBuildPage }
+export { ModelBuildContext, ModelBuildInstance, ModelBuildList, ModelBuildListInstance, ModelBuildPage, ModelBuildResource }

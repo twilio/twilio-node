@@ -18,6 +18,23 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function RecordingList(version: V1): RecordingListInstance;
 
+export interface RecordingResource {
+  account_sid: string;
+  codec: RecordingCodec;
+  container_format: RecordingFormat;
+  date_created: Date;
+  duration: number;
+  grouping_sids: string;
+  links: string;
+  sid: string;
+  size: number;
+  source_sid: string;
+  status: RecordingStatus;
+  track_name: string;
+  type: RecordingType;
+  url: string;
+}
+
 interface RecordingListInstance {
   /* jshint ignore:start */
   /**
@@ -410,4 +427,4 @@ declare class RecordingContext {
   remove(callback?: function);
 }
 
-export { RecordingContext, RecordingInstance, RecordingList, RecordingListInstance, RecordingPage }
+export { RecordingContext, RecordingInstance, RecordingList, RecordingListInstance, RecordingPage, RecordingResource }
