@@ -512,4 +512,3 @@ describe('Workspace', function() {
     }
   );
 });
-

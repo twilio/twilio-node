@@ -89,4 +89,3 @@ describe('WorkflowRealTimeStatistics', function() {
     }
   );
 });
-

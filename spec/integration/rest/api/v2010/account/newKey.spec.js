@@ -76,4 +76,3 @@ describe('NewKey', function() {
     }
   );
 });
-

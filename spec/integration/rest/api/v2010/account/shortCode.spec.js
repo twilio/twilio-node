@@ -351,4 +351,3 @@ describe('ShortCode', function() {
     }
   );
 });
-

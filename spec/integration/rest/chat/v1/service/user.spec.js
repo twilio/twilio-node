@@ -467,4 +467,3 @@ describe('User', function() {
     }
   );
 });
-

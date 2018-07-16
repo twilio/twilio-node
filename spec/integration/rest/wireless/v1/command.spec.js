@@ -315,4 +315,3 @@ describe('Command', function() {
     }
   );
 });
-

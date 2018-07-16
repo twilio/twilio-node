@@ -1,6 +1,15 @@
 twilio-node changelog
 =====================
 
+[2018-07-16] Version 3.18.0
+----------------------------
+**Library**
+- PR #365: Add a request body validator. Thanks to @cjcodes!
+
+**Twiml**
+- Add support for SSML on Say verb, the message body is changed to be optional **(breaking change)**
+
+
 [2018-07-11] Version 3.17.6
 ----------------------------
 **Library**

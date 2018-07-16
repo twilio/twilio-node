@@ -432,4 +432,3 @@ describe('FieldType', function() {
     }
   );
 });
-

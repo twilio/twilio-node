@@ -345,4 +345,3 @@ describe('ConnectApp', function() {
     }
   );
 });
-

@@ -516,4 +516,3 @@ describe('Worker', function() {
     }
   );
 });
-

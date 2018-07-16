@@ -457,4 +457,3 @@ describe('SyncMapItem', function() {
     }
   );
 });
-

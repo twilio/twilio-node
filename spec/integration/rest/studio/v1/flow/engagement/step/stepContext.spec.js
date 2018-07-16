@@ -87,4 +87,3 @@ describe('StepContext', function() {
     }
   );
 });
-

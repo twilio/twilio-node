@@ -362,4 +362,3 @@ describe('WorkerChannel', function() {
     }
   );
 });
-

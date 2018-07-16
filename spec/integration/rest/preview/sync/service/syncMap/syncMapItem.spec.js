@@ -454,4 +454,3 @@ describe('SyncMapItem', function() {
     }
   );
 });
-

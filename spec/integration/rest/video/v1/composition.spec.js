@@ -620,4 +620,3 @@ describe('Composition', function() {
     }
   );
 });
-

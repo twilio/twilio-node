@@ -386,4 +386,3 @@ describe('Credential', function() {
     }
   );
 });
-

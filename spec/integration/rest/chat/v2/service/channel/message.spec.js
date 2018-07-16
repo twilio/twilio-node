@@ -693,4 +693,3 @@ describe('Message', function() {
     }
   );
 });
-

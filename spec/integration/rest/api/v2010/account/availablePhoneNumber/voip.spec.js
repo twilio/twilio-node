@@ -266,4 +266,3 @@ describe('Voip', function() {
     }
   );
 });
-

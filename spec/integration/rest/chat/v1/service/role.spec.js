@@ -463,4 +463,3 @@ describe('Role', function() {
     }
   );
 });
-

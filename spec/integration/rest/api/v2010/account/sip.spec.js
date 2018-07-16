@@ -31,4 +31,3 @@ describe('Sip', function() {
     });
   });
 });
-

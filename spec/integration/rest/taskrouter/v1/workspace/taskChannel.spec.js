@@ -271,4 +271,3 @@ describe('TaskChannel', function() {
     }
   );
 });
-

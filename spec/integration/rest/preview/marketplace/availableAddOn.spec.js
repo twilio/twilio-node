@@ -309,4 +309,3 @@ describe('AvailableAddOn', function() {
     }
   );
 });
-

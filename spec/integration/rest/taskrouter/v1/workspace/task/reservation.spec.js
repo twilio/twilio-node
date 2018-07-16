@@ -374,4 +374,3 @@ describe('Reservation', function() {
     }
   );
 });
-

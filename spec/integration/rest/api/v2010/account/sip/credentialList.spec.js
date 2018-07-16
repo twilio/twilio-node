@@ -421,4 +421,3 @@ describe('CredentialList', function() {
     }
   );
 });
-

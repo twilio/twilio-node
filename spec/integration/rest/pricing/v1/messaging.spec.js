@@ -31,4 +31,3 @@ describe('Messaging', function() {
     });
   });
 });
-

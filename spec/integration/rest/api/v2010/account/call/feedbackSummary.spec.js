@@ -211,4 +211,3 @@ describe('FeedbackSummary', function() {
     }
   );
 });
-

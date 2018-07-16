@@ -370,4 +370,3 @@ describe('PhoneNumber', function() {
     }
   );
 });
-

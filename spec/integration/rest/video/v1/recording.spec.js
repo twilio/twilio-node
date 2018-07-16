@@ -365,4 +365,3 @@ describe('Recording', function() {
     }
   );
 });
-

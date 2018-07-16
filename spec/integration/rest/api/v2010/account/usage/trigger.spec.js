@@ -503,4 +503,3 @@ describe('Trigger', function() {
     }
   );
 });
-

@@ -387,4 +387,3 @@ describe('SyncMapPermission', function() {
     }
   );
 });
-

@@ -207,4 +207,3 @@ describe('Segment', function() {
     }
   );
 });
-

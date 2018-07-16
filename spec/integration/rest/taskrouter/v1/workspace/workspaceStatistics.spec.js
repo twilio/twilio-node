@@ -134,4 +134,3 @@ describe('WorkspaceStatistics', function() {
     }
   );
 });
-

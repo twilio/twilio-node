@@ -321,4 +321,3 @@ describe('Command', function() {
     }
   );
 });
-

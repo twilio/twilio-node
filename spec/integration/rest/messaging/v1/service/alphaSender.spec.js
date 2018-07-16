@@ -332,4 +332,3 @@ describe('AlphaSender', function() {
     }
   );
 });
-

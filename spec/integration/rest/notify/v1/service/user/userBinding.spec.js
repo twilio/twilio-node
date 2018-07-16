@@ -478,4 +478,3 @@ describe('UserBinding', function() {
     }
   );
 });
-

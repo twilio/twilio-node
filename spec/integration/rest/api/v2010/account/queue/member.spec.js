@@ -328,4 +328,3 @@ describe('Member', function() {
     }
   );
 });
-
