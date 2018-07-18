@@ -37,7 +37,7 @@ interface ValidationRequestListInstance {
   /**
    * @param sid - sid of instance
    */
-  ValidationRequestListInstance(sid: string);
+  (sid: string): ValidationRequestContext;
   /**
    * create a ValidationRequestInstance
    *

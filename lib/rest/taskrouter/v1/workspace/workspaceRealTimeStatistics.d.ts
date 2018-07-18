@@ -41,7 +41,7 @@ interface WorkspaceRealTimeStatisticsListInstance {
   /**
    * @param sid - sid of instance
    */
-  WorkspaceRealTimeStatisticsListInstance(sid: string);
+  (sid: string): WorkspaceRealTimeStatisticsContext;
   /**
    * Constructs a workspace_real_time_statistics
    *

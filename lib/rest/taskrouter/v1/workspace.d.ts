@@ -57,7 +57,7 @@ interface WorkspaceListInstance {
   /**
    * @param sid - sid of instance
    */
-  WorkspaceListInstance(sid: string);
+  (sid: string): WorkspaceContext;
   /**
    * create a WorkspaceInstance
    *

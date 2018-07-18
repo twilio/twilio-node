@@ -55,7 +55,7 @@ interface SimListInstance {
   /**
    * @param sid - sid of instance
    */
-  SimListInstance(sid: string);
+  (sid: string): SimContext;
   /**
    * Streams SimInstance records from the API.
    *

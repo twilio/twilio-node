@@ -35,7 +35,7 @@ interface ExportListInstance {
   /**
    * @param sid - sid of instance
    */
-  ExportListInstance(sid: string);
+  (sid: string): ExportContext;
   /**
    * Constructs a export
    *

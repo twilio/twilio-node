@@ -49,7 +49,7 @@ interface UserListInstance {
   /**
    * @param sid - sid of instance
    */
-  UserListInstance(sid: string);
+  (sid: string): UserContext;
   /**
    * create a UserInstance
    *

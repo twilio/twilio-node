@@ -45,7 +45,7 @@ interface IntentListInstance {
   /**
    * @param sid - sid of instance
    */
-  IntentListInstance(sid: string);
+  (sid: string): IntentContext;
   /**
    * create a IntentInstance
    *

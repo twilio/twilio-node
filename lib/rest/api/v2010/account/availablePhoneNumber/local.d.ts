@@ -49,7 +49,7 @@ interface LocalListInstance {
   /**
    * @param sid - sid of instance
    */
-  LocalListInstance(sid: string);
+  (sid: string): LocalContext;
   /**
    * Streams LocalInstance records from the API.
    *

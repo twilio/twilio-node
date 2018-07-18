@@ -43,7 +43,7 @@ interface AuthorizationDocumentListInstance {
   /**
    * @param sid - sid of instance
    */
-  AuthorizationDocumentListInstance(sid: string);
+  (sid: string): AuthorizationDocumentContext;
   /**
    * create a AuthorizationDocumentInstance
    *

@@ -42,7 +42,7 @@ interface IpAccessControlListMappingListInstance {
   /**
    * @param sid - sid of instance
    */
-  IpAccessControlListMappingListInstance(sid: string);
+  (sid: string): IpAccessControlListMappingContext;
   /**
    * create a IpAccessControlListMappingInstance
    *

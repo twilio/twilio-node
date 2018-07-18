@@ -39,7 +39,7 @@ interface TaskQueuesStatisticsListInstance {
   /**
    * @param sid - sid of instance
    */
-  TaskQueuesStatisticsListInstance(sid: string);
+  (sid: string): TaskQueuesStatisticsContext;
   /**
    * Streams TaskQueuesStatisticsInstance records from the API.
    *

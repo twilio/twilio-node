@@ -62,7 +62,7 @@ interface CallListInstance {
   /**
    * @param sid - sid of instance
    */
-  CallListInstance(sid: string);
+  (sid: string): CallContext;
   /**
    * create a CallInstance
    *

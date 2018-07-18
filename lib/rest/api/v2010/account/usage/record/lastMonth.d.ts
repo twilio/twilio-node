@@ -48,7 +48,7 @@ interface LastMonthListInstance {
   /**
    * @param sid - sid of instance
    */
-  LastMonthListInstance(sid: string);
+  (sid: string): LastMonthContext;
   /**
    * Streams LastMonthInstance records from the API.
    *

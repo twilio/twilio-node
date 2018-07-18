@@ -45,7 +45,7 @@ interface AvailablePhoneNumberCountryListInstance {
   /**
    * @param sid - sid of instance
    */
-  AvailablePhoneNumberCountryListInstance(sid: string);
+  (sid: string): AvailablePhoneNumberCountryContext;
   /**
    * Streams AvailablePhoneNumberCountryInstance records from the API.
    *

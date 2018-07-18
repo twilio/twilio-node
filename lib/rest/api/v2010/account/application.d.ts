@@ -54,7 +54,7 @@ interface ApplicationListInstance {
   /**
    * @param sid - sid of instance
    */
-  ApplicationListInstance(sid: string);
+  (sid: string): ApplicationContext;
   /**
    * create a ApplicationInstance
    *

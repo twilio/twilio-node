@@ -42,7 +42,7 @@ interface ActivityListInstance {
   /**
    * @param sid - sid of instance
    */
-  ActivityListInstance(sid: string);
+  (sid: string): ActivityContext;
   /**
    * create a ActivityInstance
    *

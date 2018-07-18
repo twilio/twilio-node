@@ -45,7 +45,7 @@ interface SyncMapPermissionListInstance {
   /**
    * @param sid - sid of instance
    */
-  SyncMapPermissionListInstance(sid: string);
+  (sid: string): SyncMapPermissionContext;
   /**
    * Streams SyncMapPermissionInstance records from the API.
    *

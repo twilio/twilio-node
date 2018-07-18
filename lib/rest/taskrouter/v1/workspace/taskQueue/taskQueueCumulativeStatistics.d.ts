@@ -56,7 +56,7 @@ interface TaskQueueCumulativeStatisticsListInstance {
   /**
    * @param sid - sid of instance
    */
-  TaskQueueCumulativeStatisticsListInstance(sid: string);
+  (sid: string): TaskQueueCumulativeStatisticsContext;
   /**
    * Constructs a task_queue_cumulative_statistics
    *

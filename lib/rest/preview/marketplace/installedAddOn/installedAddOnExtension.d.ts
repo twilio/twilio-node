@@ -42,7 +42,7 @@ interface InstalledAddOnExtensionListInstance {
   /**
    * @param sid - sid of instance
    */
-  InstalledAddOnExtensionListInstance(sid: string);
+  (sid: string): InstalledAddOnExtensionContext;
   /**
    * Streams InstalledAddOnExtensionInstance records from the API.
    *

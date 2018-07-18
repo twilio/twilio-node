@@ -49,7 +49,7 @@ interface NationalListInstance {
   /**
    * @param sid - sid of instance
    */
-  NationalListInstance(sid: string);
+  (sid: string): NationalContext;
   /**
    * Streams NationalInstance records from the API.
    *

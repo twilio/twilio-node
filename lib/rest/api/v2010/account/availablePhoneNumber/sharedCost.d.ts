@@ -49,7 +49,7 @@ interface SharedCostListInstance {
   /**
    * @param sid - sid of instance
    */
-  SharedCostListInstance(sid: string);
+  (sid: string): SharedCostContext;
   /**
    * Streams SharedCostInstance records from the API.
    *

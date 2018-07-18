@@ -44,7 +44,7 @@ interface PublishedTrackListInstance {
   /**
    * @param sid - sid of instance
    */
-  PublishedTrackListInstance(sid: string);
+  (sid: string): PublishedTrackContext;
   /**
    * Streams PublishedTrackInstance records from the API.
    *

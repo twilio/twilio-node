@@ -48,7 +48,7 @@ interface AllTimeListInstance {
   /**
    * @param sid - sid of instance
    */
-  AllTimeListInstance(sid: string);
+  (sid: string): AllTimeContext;
   /**
    * Streams AllTimeInstance records from the API.
    *

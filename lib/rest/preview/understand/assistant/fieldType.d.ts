@@ -44,7 +44,7 @@ interface FieldTypeListInstance {
   /**
    * @param sid - sid of instance
    */
-  FieldTypeListInstance(sid: string);
+  (sid: string): FieldTypeContext;
   /**
    * create a FieldTypeInstance
    *

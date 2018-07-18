@@ -43,7 +43,7 @@ interface IpAddressListInstance {
   /**
    * @param sid - sid of instance
    */
-  IpAddressListInstance(sid: string);
+  (sid: string): IpAddressContext;
   /**
    * create a IpAddressInstance
    *

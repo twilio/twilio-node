@@ -45,7 +45,7 @@ interface TaskQueueRealTimeStatisticsListInstance {
   /**
    * @param sid - sid of instance
    */
-  TaskQueueRealTimeStatisticsListInstance(sid: string);
+  (sid: string): TaskQueueRealTimeStatisticsContext;
   /**
    * Constructs a task_queue_real_time_statistics
    *

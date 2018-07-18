@@ -49,7 +49,7 @@ interface AddressListInstance {
   /**
    * @param sid - sid of instance
    */
-  AddressListInstance(sid: string);
+  (sid: string): AddressContext;
   /**
    * create a AddressInstance
    *

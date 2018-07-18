@@ -43,7 +43,7 @@ interface CertificateListInstance {
   /**
    * @param sid - sid of instance
    */
-  CertificateListInstance(sid: string);
+  (sid: string): CertificateContext;
   /**
    * create a CertificateInstance
    *

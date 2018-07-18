@@ -53,7 +53,7 @@ interface DomainListInstance {
   /**
    * @param sid - sid of instance
    */
-  DomainListInstance(sid: string);
+  (sid: string): DomainContext;
   /**
    * create a DomainInstance
    *

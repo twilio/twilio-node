@@ -40,7 +40,7 @@ interface MemberListInstance {
   /**
    * @param sid - sid of instance
    */
-  MemberListInstance(sid: string);
+  (sid: string): MemberContext;
   /**
    * Streams MemberInstance records from the API.
    *

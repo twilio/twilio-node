@@ -55,7 +55,7 @@ interface InteractionListInstance {
   /**
    * @param sid - sid of instance
    */
-  InteractionListInstance(sid: string);
+  (sid: string): InteractionContext;
   /**
    * Streams InteractionInstance records from the API.
    *

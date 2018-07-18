@@ -49,7 +49,7 @@ interface WorkflowListInstance {
   /**
    * @param sid - sid of instance
    */
-  WorkflowListInstance(sid: string);
+  (sid: string): WorkflowContext;
   /**
    * create a WorkflowInstance
    *

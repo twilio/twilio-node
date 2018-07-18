@@ -41,7 +41,7 @@ interface FeedbackListInstance {
   /**
    * @param sid - sid of instance
    */
-  FeedbackListInstance(sid: string);
+  (sid: string): FeedbackContext;
   /**
    * Constructs a feedback
    *

@@ -65,7 +65,7 @@ interface IncomingPhoneNumberListInstance {
   /**
    * @param sid - sid of instance
    */
-  IncomingPhoneNumberListInstance(sid: string);
+  (sid: string): IncomingPhoneNumberContext;
   /**
    * create a IncomingPhoneNumberInstance
    *

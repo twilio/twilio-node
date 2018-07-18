@@ -48,7 +48,7 @@ interface MonthlyListInstance {
   /**
    * @param sid - sid of instance
    */
-  MonthlyListInstance(sid: string);
+  (sid: string): MonthlyContext;
   /**
    * Streams MonthlyInstance records from the API.
    *

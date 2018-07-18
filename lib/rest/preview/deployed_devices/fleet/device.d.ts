@@ -47,7 +47,7 @@ interface DeviceListInstance {
   /**
    * @param sid - sid of instance
    */
-  DeviceListInstance(sid: string);
+  (sid: string): DeviceContext;
   /**
    * create a DeviceInstance
    *

@@ -42,7 +42,7 @@ interface AlphaSenderListInstance {
   /**
    * @param sid - sid of instance
    */
-  AlphaSenderListInstance(sid: string);
+  (sid: string): AlphaSenderContext;
   /**
    * create a AlphaSenderInstance
    *

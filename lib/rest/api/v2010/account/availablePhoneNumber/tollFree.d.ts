@@ -49,7 +49,7 @@ interface TollFreeListInstance {
   /**
    * @param sid - sid of instance
    */
-  TollFreeListInstance(sid: string);
+  (sid: string): TollFreeContext;
   /**
    * Streams TollFreeInstance records from the API.
    *

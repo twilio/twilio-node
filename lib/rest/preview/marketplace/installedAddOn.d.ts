@@ -44,7 +44,7 @@ interface InstalledAddOnListInstance {
   /**
    * @param sid - sid of instance
    */
-  InstalledAddOnListInstance(sid: string);
+  (sid: string): InstalledAddOnContext;
   /**
    * create a InstalledAddOnInstance
    *

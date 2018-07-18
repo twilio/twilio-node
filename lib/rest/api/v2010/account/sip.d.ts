@@ -29,7 +29,7 @@ interface SipListInstance {
   /**
    * @param sid - sid of instance
    */
-  SipListInstance(sid: string);
+  (sid: string): SipContext;
   credentialLists?: object;
   domains?: object;
   ipAccessControlLists?: object;

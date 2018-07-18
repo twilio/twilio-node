@@ -43,7 +43,7 @@ interface ShortCodeListInstance {
   /**
    * @param sid - sid of instance
    */
-  ShortCodeListInstance(sid: string);
+  (sid: string): ShortCodeContext;
   /**
    * create a ShortCodeInstance
    *

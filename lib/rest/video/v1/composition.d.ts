@@ -51,7 +51,7 @@ interface CompositionListInstance {
   /**
    * @param sid - sid of instance
    */
-  CompositionListInstance(sid: string);
+  (sid: string): CompositionContext;
   /**
    * create a CompositionInstance
    *

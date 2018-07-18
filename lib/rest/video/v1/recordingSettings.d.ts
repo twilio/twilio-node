@@ -40,7 +40,7 @@ interface RecordingSettingsListInstance {
   /**
    * @param sid - sid of instance
    */
-  RecordingSettingsListInstance(sid: string);
+  (sid: string): RecordingSettingsContext;
   /**
    * Constructs a recording_settings
    *

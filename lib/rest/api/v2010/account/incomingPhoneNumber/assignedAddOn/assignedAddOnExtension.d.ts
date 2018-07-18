@@ -47,7 +47,7 @@ interface AssignedAddOnExtensionListInstance {
   /**
    * @param sid - sid of instance
    */
-  AssignedAddOnExtensionListInstance(sid: string);
+  (sid: string): AssignedAddOnExtensionContext;
   /**
    * Streams AssignedAddOnExtensionInstance records from the API.
    *

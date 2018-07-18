@@ -48,7 +48,7 @@ interface SyncListItemListInstance {
   /**
    * @param sid - sid of instance
    */
-  SyncListItemListInstance(sid: string);
+  (sid: string): SyncListItemContext;
   /**
    * create a SyncListItemInstance
    *

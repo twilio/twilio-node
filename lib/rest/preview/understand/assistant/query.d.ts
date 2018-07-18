@@ -47,7 +47,7 @@ interface QueryListInstance {
   /**
    * @param sid - sid of instance
    */
-  QueryListInstance(sid: string);
+  (sid: string): QueryContext;
   /**
    * create a QueryInstance
    *

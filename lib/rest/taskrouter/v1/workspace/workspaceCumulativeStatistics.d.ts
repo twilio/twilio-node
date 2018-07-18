@@ -54,7 +54,7 @@ interface WorkspaceCumulativeStatisticsListInstance {
   /**
    * @param sid - sid of instance
    */
-  WorkspaceCumulativeStatisticsListInstance(sid: string);
+  (sid: string): WorkspaceCumulativeStatisticsContext;
   /**
    * Constructs a workspace_cumulative_statistics
    *

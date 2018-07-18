@@ -49,7 +49,7 @@ interface ParticipantListInstance {
   /**
    * @param sid - sid of instance
    */
-  ParticipantListInstance(sid: string);
+  (sid: string): ParticipantContext;
   /**
    * create a ParticipantInstance
    *

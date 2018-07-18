@@ -51,7 +51,7 @@ interface TrunkListInstance {
   /**
    * @param sid - sid of instance
    */
-  TrunkListInstance(sid: string);
+  (sid: string): TrunkContext;
   /**
    * create a TrunkInstance
    *

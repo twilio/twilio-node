@@ -38,7 +38,7 @@ interface DayListInstance {
   /**
    * @param sid - sid of instance
    */
-  DayListInstance(sid: string);
+  (sid: string): DayContext;
   /**
    * Streams DayInstance records from the API.
    *

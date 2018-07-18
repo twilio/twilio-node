@@ -42,7 +42,7 @@ interface WorkflowRealTimeStatisticsListInstance {
   /**
    * @param sid - sid of instance
    */
-  WorkflowRealTimeStatisticsListInstance(sid: string);
+  (sid: string): WorkflowRealTimeStatisticsContext;
   /**
    * Constructs a workflow_real_time_statistics
    *

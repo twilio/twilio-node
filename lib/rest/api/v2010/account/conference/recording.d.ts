@@ -53,7 +53,7 @@ interface RecordingListInstance {
   /**
    * @param sid - sid of instance
    */
-  RecordingListInstance(sid: string);
+  (sid: string): RecordingContext;
   /**
    * Streams RecordingInstance records from the API.
    *

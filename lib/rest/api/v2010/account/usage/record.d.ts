@@ -48,7 +48,7 @@ interface RecordListInstance {
   /**
    * @param sid - sid of instance
    */
-  RecordListInstance(sid: string);
+  (sid: string): RecordContext;
   allTime?: object;
   daily?: object;
   /**

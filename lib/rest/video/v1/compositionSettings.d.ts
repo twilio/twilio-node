@@ -40,7 +40,7 @@ interface CompositionSettingsListInstance {
   /**
    * @param sid - sid of instance
    */
-  CompositionSettingsListInstance(sid: string);
+  (sid: string): CompositionSettingsContext;
   /**
    * Constructs a composition_settings
    *

@@ -37,7 +37,7 @@ interface AwsListInstance {
   /**
    * @param sid - sid of instance
    */
-  AwsListInstance(sid: string);
+  (sid: string): AwsContext;
   /**
    * create a AwsInstance
    *

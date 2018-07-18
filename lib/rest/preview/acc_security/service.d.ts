@@ -42,7 +42,7 @@ interface ServiceListInstance {
   /**
    * @param sid - sid of instance
    */
-  ServiceListInstance(sid: string);
+  (sid: string): ServiceContext;
   /**
    * create a ServiceInstance
    *

@@ -51,7 +51,7 @@ interface WorkerListInstance {
   /**
    * @param sid - sid of instance
    */
-  WorkerListInstance(sid: string);
+  (sid: string): WorkerContext;
   /**
    * create a WorkerInstance
    *

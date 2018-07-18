@@ -59,7 +59,7 @@ interface MessageInteractionListInstance {
   /**
    * @param sid - sid of instance
    */
-  MessageInteractionListInstance(sid: string);
+  (sid: string): MessageInteractionContext;
   /**
    * create a MessageInteractionInstance
    *

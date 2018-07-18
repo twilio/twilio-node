@@ -45,7 +45,7 @@ interface WorkersCumulativeStatisticsListInstance {
   /**
    * @param sid - sid of instance
    */
-  WorkersCumulativeStatisticsListInstance(sid: string);
+  (sid: string): WorkersCumulativeStatisticsContext;
   /**
    * Constructs a workers_cumulative_statistics
    *

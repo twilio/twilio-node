@@ -53,7 +53,7 @@ interface NotificationListInstance {
   /**
    * @param sid - sid of instance
    */
-  NotificationListInstance(sid: string);
+  (sid: string): NotificationContext;
   /**
    * Streams NotificationInstance records from the API.
    *

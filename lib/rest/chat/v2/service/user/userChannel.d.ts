@@ -43,7 +43,7 @@ interface UserChannelListInstance {
   /**
    * @param sid - sid of instance
    */
-  UserChannelListInstance(sid: string);
+  (sid: string): UserChannelContext;
   /**
    * Streams UserChannelInstance records from the API.
    *

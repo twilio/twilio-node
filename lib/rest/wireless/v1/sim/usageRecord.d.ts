@@ -39,7 +39,7 @@ interface UsageRecordListInstance {
   /**
    * @param sid - sid of instance
    */
-  UsageRecordListInstance(sid: string);
+  (sid: string): UsageRecordContext;
   /**
    * Streams UsageRecordInstance records from the API.
    *

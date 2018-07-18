@@ -49,7 +49,7 @@ interface WorkerChannelListInstance {
   /**
    * @param sid - sid of instance
    */
-  WorkerChannelListInstance(sid: string);
+  (sid: string): WorkerChannelContext;
   /**
    * Streams WorkerChannelInstance records from the API.
    *

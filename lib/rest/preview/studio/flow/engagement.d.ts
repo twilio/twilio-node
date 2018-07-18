@@ -46,7 +46,7 @@ interface EngagementListInstance {
   /**
    * @param sid - sid of instance
    */
-  EngagementListInstance(sid: string);
+  (sid: string): EngagementContext;
   /**
    * create a EngagementInstance
    *

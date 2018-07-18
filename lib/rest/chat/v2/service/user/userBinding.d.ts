@@ -48,7 +48,7 @@ interface UserBindingListInstance {
   /**
    * @param sid - sid of instance
    */
-  UserBindingListInstance(sid: string);
+  (sid: string): UserBindingContext;
   /**
    * Streams UserBindingInstance records from the API.
    *

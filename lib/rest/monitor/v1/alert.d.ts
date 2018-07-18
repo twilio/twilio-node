@@ -49,7 +49,7 @@ interface AlertListInstance {
   /**
    * @param sid - sid of instance
    */
-  AlertListInstance(sid: string);
+  (sid: string): AlertContext;
   /**
    * Streams AlertInstance records from the API.
    *

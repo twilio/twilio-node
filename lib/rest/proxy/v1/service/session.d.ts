@@ -53,7 +53,7 @@ interface SessionListInstance {
   /**
    * @param sid - sid of instance
    */
-  SessionListInstance(sid: string);
+  (sid: string): SessionContext;
   /**
    * create a SessionInstance
    *

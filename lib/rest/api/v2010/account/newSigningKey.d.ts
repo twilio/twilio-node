@@ -37,7 +37,7 @@ interface NewSigningKeyListInstance {
   /**
    * @param sid - sid of instance
    */
-  NewSigningKeyListInstance(sid: string);
+  (sid: string): NewSigningKeyContext;
   /**
    * create a NewSigningKeyInstance
    *

@@ -49,7 +49,7 @@ interface TriggerListInstance {
   /**
    * @param sid - sid of instance
    */
-  TriggerListInstance(sid: string);
+  (sid: string): TriggerContext;
   /**
    * create a TriggerInstance
    *

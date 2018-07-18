@@ -40,7 +40,7 @@ interface AvailableAddOnExtensionListInstance {
   /**
    * @param sid - sid of instance
    */
-  AvailableAddOnExtensionListInstance(sid: string);
+  (sid: string): AvailableAddOnExtensionContext;
   /**
    * Streams AvailableAddOnExtensionInstance records from the API.
    *

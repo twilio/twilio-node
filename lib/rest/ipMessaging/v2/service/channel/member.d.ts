@@ -47,7 +47,7 @@ interface MemberListInstance {
   /**
    * @param sid - sid of instance
    */
-  MemberListInstance(sid: string);
+  (sid: string): MemberContext;
   /**
    * create a MemberInstance
    *

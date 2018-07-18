@@ -45,7 +45,7 @@ interface FleetListInstance {
   /**
    * @param sid - sid of instance
    */
-  FleetListInstance(sid: string);
+  (sid: string): FleetContext;
   /**
    * create a FleetInstance
    *

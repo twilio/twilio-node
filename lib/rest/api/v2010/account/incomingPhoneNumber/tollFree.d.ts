@@ -62,7 +62,7 @@ interface TollFreeListInstance {
   /**
    * @param sid - sid of instance
    */
-  TollFreeListInstance(sid: string);
+  (sid: string): TollFreeContext;
   /**
    * create a TollFreeInstance
    *

@@ -40,7 +40,7 @@ interface WorkerStatisticsListInstance {
   /**
    * @param sid - sid of instance
    */
-  WorkerStatisticsListInstance(sid: string);
+  (sid: string): WorkerStatisticsContext;
   /**
    * Constructs a worker_statistics
    *

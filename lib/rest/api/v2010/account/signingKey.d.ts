@@ -37,7 +37,7 @@ interface SigningKeyListInstance {
   /**
    * @param sid - sid of instance
    */
-  SigningKeyListInstance(sid: string);
+  (sid: string): SigningKeyContext;
   /**
    * Streams SigningKeyInstance records from the API.
    *

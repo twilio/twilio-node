@@ -41,7 +41,7 @@ interface WorkflowStatisticsListInstance {
   /**
    * @param sid - sid of instance
    */
-  WorkflowStatisticsListInstance(sid: string);
+  (sid: string): WorkflowStatisticsContext;
   /**
    * Constructs a workflow_statistics
    *

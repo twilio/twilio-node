@@ -52,7 +52,7 @@ interface RoomListInstance {
   /**
    * @param sid - sid of instance
    */
-  RoomListInstance(sid: string);
+  (sid: string): RoomContext;
   /**
    * create a RoomInstance
    *

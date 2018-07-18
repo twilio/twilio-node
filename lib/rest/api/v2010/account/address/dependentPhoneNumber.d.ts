@@ -61,7 +61,7 @@ interface DependentPhoneNumberListInstance {
   /**
    * @param sid - sid of instance
    */
-  DependentPhoneNumberListInstance(sid: string);
+  (sid: string): DependentPhoneNumberContext;
   /**
    * Streams DependentPhoneNumberInstance records from the API.
    *

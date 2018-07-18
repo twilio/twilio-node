@@ -55,7 +55,7 @@ interface TaskListInstance {
   /**
    * @param sid - sid of instance
    */
-  TaskListInstance(sid: string);
+  (sid: string): TaskContext;
   /**
    * create a TaskInstance
    *

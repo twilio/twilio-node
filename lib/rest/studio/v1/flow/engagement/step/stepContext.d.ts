@@ -43,7 +43,7 @@ interface StepContextListInstance {
   /**
    * @param sid - sid of instance
    */
-  StepContextListInstance(sid: string);
+  (sid: string): StepContextContext;
   /**
    * Constructs a step_context
    *

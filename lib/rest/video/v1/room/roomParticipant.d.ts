@@ -48,7 +48,7 @@ interface ParticipantListInstance {
   /**
    * @param sid - sid of instance
    */
-  ParticipantListInstance(sid: string);
+  (sid: string): ParticipantContext;
   /**
    * Streams ParticipantInstance records from the API.
    *

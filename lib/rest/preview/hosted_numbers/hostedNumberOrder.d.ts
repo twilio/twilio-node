@@ -56,7 +56,7 @@ interface HostedNumberOrderListInstance {
   /**
    * @param sid - sid of instance
    */
-  HostedNumberOrderListInstance(sid: string);
+  (sid: string): HostedNumberOrderContext;
   /**
    * create a HostedNumberOrderInstance
    *

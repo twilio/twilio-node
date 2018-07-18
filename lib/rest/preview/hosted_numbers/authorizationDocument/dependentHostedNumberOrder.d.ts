@@ -56,7 +56,7 @@ interface DependentHostedNumberOrderListInstance {
   /**
    * @param sid - sid of instance
    */
-  DependentHostedNumberOrderListInstance(sid: string);
+  (sid: string): DependentHostedNumberOrderContext;
   /**
    * Streams DependentHostedNumberOrderInstance records from the API.
    *

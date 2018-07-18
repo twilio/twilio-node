@@ -48,7 +48,7 @@ interface AssignedAddOnListInstance {
   /**
    * @param sid - sid of instance
    */
-  AssignedAddOnListInstance(sid: string);
+  (sid: string): AssignedAddOnContext;
   /**
    * create a AssignedAddOnInstance
    *

@@ -29,7 +29,7 @@ interface UsageListInstance {
   /**
    * @param sid - sid of instance
    */
-  UsageListInstance(sid: string);
+  (sid: string): UsageContext;
   records?: object;
   triggers?: object;
 }

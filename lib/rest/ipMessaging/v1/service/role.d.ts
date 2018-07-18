@@ -43,7 +43,7 @@ interface RoleListInstance {
   /**
    * @param sid - sid of instance
    */
-  RoleListInstance(sid: string);
+  (sid: string): RoleContext;
   /**
    * create a RoleInstance
    *

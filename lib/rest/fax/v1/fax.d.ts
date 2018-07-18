@@ -52,7 +52,7 @@ interface FaxListInstance {
   /**
    * @param sid - sid of instance
    */
-  FaxListInstance(sid: string);
+  (sid: string): FaxContext;
   /**
    * create a FaxInstance
    *

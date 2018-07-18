@@ -41,7 +41,7 @@ interface IpAccessControlListListInstance {
   /**
    * @param sid - sid of instance
    */
-  IpAccessControlListListInstance(sid: string);
+  (sid: string): IpAccessControlListContext;
   /**
    * create a IpAccessControlListInstance
    *

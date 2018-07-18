@@ -49,7 +49,7 @@ interface DataSessionListInstance {
   /**
    * @param sid - sid of instance
    */
-  DataSessionListInstance(sid: string);
+  (sid: string): DataSessionContext;
   /**
    * Streams DataSessionInstance records from the API.
    *

@@ -40,7 +40,7 @@ interface AvailableAddOnListInstance {
   /**
    * @param sid - sid of instance
    */
-  AvailableAddOnListInstance(sid: string);
+  (sid: string): AvailableAddOnContext;
   /**
    * Streams AvailableAddOnInstance records from the API.
    *

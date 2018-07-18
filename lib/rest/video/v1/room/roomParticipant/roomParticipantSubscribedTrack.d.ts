@@ -45,7 +45,7 @@ interface SubscribedTrackListInstance {
   /**
    * @param sid - sid of instance
    */
-  SubscribedTrackListInstance(sid: string);
+  (sid: string): SubscribedTrackContext;
   /**
    * Streams SubscribedTrackInstance records from the API.
    *

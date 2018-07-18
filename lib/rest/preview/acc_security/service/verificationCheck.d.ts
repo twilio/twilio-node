@@ -42,7 +42,7 @@ interface VerificationCheckListInstance {
   /**
    * @param sid - sid of instance
    */
-  VerificationCheckListInstance(sid: string);
+  (sid: string): VerificationCheckContext;
   /**
    * create a VerificationCheckInstance
    *

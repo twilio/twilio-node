@@ -46,7 +46,7 @@ interface AddOnResultListInstance {
   /**
    * @param sid - sid of instance
    */
-  AddOnResultListInstance(sid: string);
+  (sid: string): AddOnResultContext;
   /**
    * Streams AddOnResultInstance records from the API.
    *

@@ -48,7 +48,7 @@ interface YearlyListInstance {
   /**
    * @param sid - sid of instance
    */
-  YearlyListInstance(sid: string);
+  (sid: string): YearlyContext;
   /**
    * Streams YearlyInstance records from the API.
    *

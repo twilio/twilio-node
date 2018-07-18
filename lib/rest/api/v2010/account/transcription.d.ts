@@ -46,7 +46,7 @@ interface TranscriptionListInstance {
   /**
    * @param sid - sid of instance
    */
-  TranscriptionListInstance(sid: string);
+  (sid: string): TranscriptionContext;
   /**
    * Streams TranscriptionInstance records from the API.
    *

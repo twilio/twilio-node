@@ -37,7 +37,7 @@ interface PublicKeyListInstance {
   /**
    * @param sid - sid of instance
    */
-  PublicKeyListInstance(sid: string);
+  (sid: string): PublicKeyContext;
   /**
    * create a PublicKeyInstance
    *

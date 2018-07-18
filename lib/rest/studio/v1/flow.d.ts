@@ -42,7 +42,7 @@ interface FlowListInstance {
   /**
    * @param sid - sid of instance
    */
-  FlowListInstance(sid: string);
+  (sid: string): FlowContext;
   /**
    * Streams FlowInstance records from the API.
    *

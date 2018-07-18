@@ -47,7 +47,7 @@ interface FeedbackSummaryListInstance {
   /**
    * @param sid - sid of instance
    */
-  FeedbackSummaryListInstance(sid: string);
+  (sid: string): FeedbackSummaryContext;
   /**
    * create a FeedbackSummaryInstance
    *

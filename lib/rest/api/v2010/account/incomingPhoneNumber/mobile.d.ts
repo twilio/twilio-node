@@ -62,7 +62,7 @@ interface MobileListInstance {
   /**
    * @param sid - sid of instance
    */
-  MobileListInstance(sid: string);
+  (sid: string): MobileContext;
   /**
    * create a MobileInstance
    *

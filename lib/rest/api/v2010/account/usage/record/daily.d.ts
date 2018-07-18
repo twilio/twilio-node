@@ -48,7 +48,7 @@ interface DailyListInstance {
   /**
    * @param sid - sid of instance
    */
-  DailyListInstance(sid: string);
+  (sid: string): DailyContext;
   /**
    * Streams DailyInstance records from the API.
    *

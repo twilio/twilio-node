@@ -44,7 +44,7 @@ interface ModelBuildListInstance {
   /**
    * @param sid - sid of instance
    */
-  ModelBuildListInstance(sid: string);
+  (sid: string): ModelBuildContext;
   /**
    * create a ModelBuildInstance
    *

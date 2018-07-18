@@ -49,7 +49,7 @@ interface EventListInstance {
   /**
    * @param sid - sid of instance
    */
-  EventListInstance(sid: string);
+  (sid: string): EventContext;
   /**
    * Streams EventInstance records from the API.
    *

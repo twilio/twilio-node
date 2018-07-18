@@ -43,7 +43,7 @@ interface QueueListInstance {
   /**
    * @param sid - sid of instance
    */
-  QueueListInstance(sid: string);
+  (sid: string): QueueContext;
   /**
    * create a QueueInstance
    *

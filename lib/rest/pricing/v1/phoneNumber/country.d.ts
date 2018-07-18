@@ -36,7 +36,7 @@ interface CountryListInstance {
   /**
    * @param sid - sid of instance
    */
-  CountryListInstance(sid: string);
+  (sid: string): CountryContext;
   /**
    * Streams CountryInstance records from the API.
    *

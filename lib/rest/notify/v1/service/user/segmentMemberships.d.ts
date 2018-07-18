@@ -40,7 +40,7 @@ interface SegmentMembershipListInstance {
   /**
    * @param sid - sid of instance
    */
-  SegmentMembershipListInstance(sid: string);
+  (sid: string): SegmentMembershipContext;
   /**
    * create a SegmentMembershipInstance
    *

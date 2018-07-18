@@ -37,7 +37,7 @@ interface KeyListInstance {
   /**
    * @param sid - sid of instance
    */
-  KeyListInstance(sid: string);
+  (sid: string): KeyContext;
   /**
    * Streams KeyInstance records from the API.
    *

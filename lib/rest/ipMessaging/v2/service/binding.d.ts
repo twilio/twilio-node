@@ -46,7 +46,7 @@ interface BindingListInstance {
   /**
    * @param sid - sid of instance
    */
-  BindingListInstance(sid: string);
+  (sid: string): BindingContext;
   /**
    * Streams BindingInstance records from the API.
    *

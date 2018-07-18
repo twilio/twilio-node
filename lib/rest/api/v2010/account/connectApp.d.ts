@@ -45,7 +45,7 @@ interface ConnectAppListInstance {
   /**
    * @param sid - sid of instance
    */
-  ConnectAppListInstance(sid: string);
+  (sid: string): ConnectAppContext;
   /**
    * Streams ConnectAppInstance records from the API.
    *

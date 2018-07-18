@@ -41,7 +41,7 @@ interface TaskQueueStatisticsListInstance {
   /**
    * @param sid - sid of instance
    */
-  TaskQueueStatisticsListInstance(sid: string);
+  (sid: string): TaskQueueStatisticsContext;
   /**
    * Constructs a task_queue_statistics
    *

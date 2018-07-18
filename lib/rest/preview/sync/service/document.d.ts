@@ -47,7 +47,7 @@ interface DocumentListInstance {
   /**
    * @param sid - sid of instance
    */
-  DocumentListInstance(sid: string);
+  (sid: string): DocumentContext;
   /**
    * create a DocumentInstance
    *

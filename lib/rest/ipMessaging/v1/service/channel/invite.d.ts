@@ -46,7 +46,7 @@ interface InviteListInstance {
   /**
    * @param sid - sid of instance
    */
-  InviteListInstance(sid: string);
+  (sid: string): InviteContext;
   /**
    * create a InviteInstance
    *

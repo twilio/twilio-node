@@ -49,7 +49,7 @@ interface BindingListInstance {
   /**
    * @param sid - sid of instance
    */
-  BindingListInstance(sid: string);
+  (sid: string): BindingContext;
   /**
    * create a BindingInstance
    *

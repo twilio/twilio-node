@@ -41,7 +41,7 @@ interface CredentialListInstance {
   /**
    * @param sid - sid of instance
    */
-  CredentialListInstance(sid: string);
+  (sid: string): CredentialContext;
   /**
    * create a CredentialInstance
    *

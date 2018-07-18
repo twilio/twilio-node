@@ -49,7 +49,7 @@ interface RoomRecordingListInstance {
   /**
    * @param sid - sid of instance
    */
-  RoomRecordingListInstance(sid: string);
+  (sid: string): RoomRecordingContext;
   /**
    * Streams RoomRecordingInstance records from the API.
    *

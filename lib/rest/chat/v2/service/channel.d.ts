@@ -52,7 +52,7 @@ interface ChannelListInstance {
   /**
    * @param sid - sid of instance
    */
-  ChannelListInstance(sid: string);
+  (sid: string): ChannelContext;
   /**
    * create a ChannelInstance
    *

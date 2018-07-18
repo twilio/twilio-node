@@ -27,7 +27,7 @@ interface CredentialListInstance {
   /**
    * @param sid - sid of instance
    */
-  CredentialListInstance(sid: string);
+  (sid: string): CredentialContext;
   aws?: object;
   publicKey?: object;
 }

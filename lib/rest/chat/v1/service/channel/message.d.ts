@@ -48,7 +48,7 @@ interface MessageListInstance {
   /**
    * @param sid - sid of instance
    */
-  MessageListInstance(sid: string);
+  (sid: string): MessageContext;
   /**
    * create a MessageInstance
    *

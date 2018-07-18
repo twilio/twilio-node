@@ -46,7 +46,7 @@ interface SampleListInstance {
   /**
    * @param sid - sid of instance
    */
-  SampleListInstance(sid: string);
+  (sid: string): SampleContext;
   /**
    * create a SampleInstance
    *

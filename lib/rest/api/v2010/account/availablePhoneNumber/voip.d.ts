@@ -49,7 +49,7 @@ interface VoipListInstance {
   /**
    * @param sid - sid of instance
    */
-  VoipListInstance(sid: string);
+  (sid: string): VoipContext;
   /**
    * Streams VoipInstance records from the API.
    *

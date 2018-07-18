@@ -57,7 +57,7 @@ interface WorkflowCumulativeStatisticsListInstance {
   /**
    * @param sid - sid of instance
    */
-  WorkflowCumulativeStatisticsListInstance(sid: string);
+  (sid: string): WorkflowCumulativeStatisticsContext;
   /**
    * Constructs a workflow_cumulative_statistics
    *

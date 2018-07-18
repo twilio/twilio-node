@@ -51,7 +51,7 @@ interface TaskQueueListInstance {
   /**
    * @param sid - sid of instance
    */
-  TaskQueueListInstance(sid: string);
+  (sid: string): TaskQueueContext;
   /**
    * create a TaskQueueInstance
    *

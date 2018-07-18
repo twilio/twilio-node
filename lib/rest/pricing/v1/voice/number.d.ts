@@ -37,7 +37,7 @@ interface NumberListInstance {
   /**
    * @param sid - sid of instance
    */
-  NumberListInstance(sid: string);
+  (sid: string): NumberContext;
   /**
    * Constructs a number
    *

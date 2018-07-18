@@ -59,7 +59,7 @@ interface PhoneNumberListInstance {
   /**
    * @param sid - sid of instance
    */
-  PhoneNumberListInstance(sid: string);
+  (sid: string): PhoneNumberContext;
   /**
    * create a PhoneNumberInstance
    *

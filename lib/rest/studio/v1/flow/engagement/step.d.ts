@@ -49,7 +49,7 @@ interface StepListInstance {
   /**
    * @param sid - sid of instance
    */
-  StepListInstance(sid: string);
+  (sid: string): StepContext;
   /**
    * Streams StepInstance records from the API.
    *

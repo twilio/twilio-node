@@ -41,7 +41,7 @@ interface TaskChannelListInstance {
   /**
    * @param sid - sid of instance
    */
-  TaskChannelListInstance(sid: string);
+  (sid: string): TaskChannelContext;
   /**
    * Streams TaskChannelInstance records from the API.
    *

@@ -45,7 +45,7 @@ interface WebhookListInstance {
   /**
    * @param sid - sid of instance
    */
-  WebhookListInstance(sid: string);
+  (sid: string): WebhookContext;
   /**
    * create a WebhookInstance
    *

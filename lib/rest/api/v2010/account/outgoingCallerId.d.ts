@@ -40,7 +40,7 @@ interface OutgoingCallerIdListInstance {
   /**
    * @param sid - sid of instance
    */
-  OutgoingCallerIdListInstance(sid: string);
+  (sid: string): OutgoingCallerIdContext;
   /**
    * Streams OutgoingCallerIdInstance records from the API.
    *

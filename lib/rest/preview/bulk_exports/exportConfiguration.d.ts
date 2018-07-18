@@ -37,7 +37,7 @@ interface ExportConfigurationListInstance {
   /**
    * @param sid - sid of instance
    */
-  ExportConfigurationListInstance(sid: string);
+  (sid: string): ExportConfigurationContext;
   /**
    * Constructs a export_configuration
    *

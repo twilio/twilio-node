@@ -45,7 +45,7 @@ interface DocumentPermissionListInstance {
   /**
    * @param sid - sid of instance
    */
-  DocumentPermissionListInstance(sid: string);
+  (sid: string): DocumentPermissionContext;
   /**
    * Streams DocumentPermissionInstance records from the API.
    *

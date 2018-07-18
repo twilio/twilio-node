@@ -42,7 +42,7 @@ interface DeploymentListInstance {
   /**
    * @param sid - sid of instance
    */
-  DeploymentListInstance(sid: string);
+  (sid: string): DeploymentContext;
   /**
    * create a DeploymentInstance
    *

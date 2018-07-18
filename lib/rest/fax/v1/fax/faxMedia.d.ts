@@ -41,7 +41,7 @@ interface FaxMediaListInstance {
   /**
    * @param sid - sid of instance
    */
-  FaxMediaListInstance(sid: string);
+  (sid: string): FaxMediaContext;
   /**
    * Streams FaxMediaInstance records from the API.
    *

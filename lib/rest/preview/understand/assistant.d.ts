@@ -51,7 +51,7 @@ interface AssistantListInstance {
   /**
    * @param sid - sid of instance
    */
-  AssistantListInstance(sid: string);
+  (sid: string): AssistantContext;
   /**
    * create a AssistantInstance
    *

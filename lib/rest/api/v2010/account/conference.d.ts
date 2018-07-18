@@ -46,7 +46,7 @@ interface ConferenceListInstance {
   /**
    * @param sid - sid of instance
    */
-  ConferenceListInstance(sid: string);
+  (sid: string): ConferenceContext;
   /**
    * Streams ConferenceInstance records from the API.
    *

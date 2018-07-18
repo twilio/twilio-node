@@ -38,7 +38,7 @@ interface WorkspaceStatisticsListInstance {
   /**
    * @param sid - sid of instance
    */
-  WorkspaceStatisticsListInstance(sid: string);
+  (sid: string): WorkspaceStatisticsContext;
   /**
    * Constructs a workspace_statistics
    *

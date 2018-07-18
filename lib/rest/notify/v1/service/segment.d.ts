@@ -40,7 +40,7 @@ interface SegmentListInstance {
   /**
    * @param sid - sid of instance
    */
-  SegmentListInstance(sid: string);
+  (sid: string): SegmentContext;
   /**
    * Streams SegmentInstance records from the API.
    *

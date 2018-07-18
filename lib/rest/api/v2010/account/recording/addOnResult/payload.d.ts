@@ -48,7 +48,7 @@ interface PayloadListInstance {
   /**
    * @param sid - sid of instance
    */
-  PayloadListInstance(sid: string);
+  (sid: string): PayloadContext;
   /**
    * Streams PayloadInstance records from the API.
    *

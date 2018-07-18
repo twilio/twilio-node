@@ -45,7 +45,7 @@ interface SyncStreamListInstance {
   /**
    * @param sid - sid of instance
    */
-  SyncStreamListInstance(sid: string);
+  (sid: string): SyncStreamContext;
   /**
    * create a SyncStreamInstance
    *

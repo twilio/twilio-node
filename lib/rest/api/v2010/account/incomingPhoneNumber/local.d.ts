@@ -62,7 +62,7 @@ interface LocalListInstance {
   /**
    * @param sid - sid of instance
    */
-  LocalListInstance(sid: string);
+  (sid: string): LocalContext;
   /**
    * create a LocalInstance
    *

@@ -48,7 +48,7 @@ interface YesterdayListInstance {
   /**
    * @param sid - sid of instance
    */
-  YesterdayListInstance(sid: string);
+  (sid: string): YesterdayContext;
   /**
    * Streams YesterdayInstance records from the API.
    *

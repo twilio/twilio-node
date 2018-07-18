@@ -46,7 +46,7 @@ interface SyncMapListInstance {
   /**
    * @param sid - sid of instance
    */
-  SyncMapListInstance(sid: string);
+  (sid: string): SyncMapContext;
   /**
    * create a SyncMapInstance
    *

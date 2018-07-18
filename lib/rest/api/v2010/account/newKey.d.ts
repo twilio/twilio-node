@@ -37,7 +37,7 @@ interface NewKeyListInstance {
   /**
    * @param sid - sid of instance
    */
-  NewKeyListInstance(sid: string);
+  (sid: string): NewKeyContext;
   /**
    * create a NewKeyInstance
    *

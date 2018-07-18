@@ -43,7 +43,7 @@ interface AuthorizedConnectAppListInstance {
   /**
    * @param sid - sid of instance
    */
-  AuthorizedConnectAppListInstance(sid: string);
+  (sid: string): AuthorizedConnectAppContext;
   /**
    * Streams AuthorizedConnectAppInstance records from the API.
    *

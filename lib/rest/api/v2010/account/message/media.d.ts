@@ -43,7 +43,7 @@ interface MediaListInstance {
   /**
    * @param sid - sid of instance
    */
-  MediaListInstance(sid: string);
+  (sid: string): MediaContext;
   /**
    * Streams MediaInstance records from the API.
    *

@@ -47,7 +47,7 @@ interface ReservationListInstance {
   /**
    * @param sid - sid of instance
    */
-  ReservationListInstance(sid: string);
+  (sid: string): ReservationContext;
   /**
    * Streams ReservationInstance records from the API.
    *

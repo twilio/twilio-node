@@ -64,7 +64,7 @@ interface AccountListInstance {
   /**
    * @param sid - sid of instance
    */
-  AccountListInstance(sid: string);
+  (sid: string): AccountContext;
   /**
    * create a AccountInstance
    *

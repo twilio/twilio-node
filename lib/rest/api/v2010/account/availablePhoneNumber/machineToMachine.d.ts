@@ -49,7 +49,7 @@ interface MachineToMachineListInstance {
   /**
    * @param sid - sid of instance
    */
-  MachineToMachineListInstance(sid: string);
+  (sid: string): MachineToMachineContext;
   /**
    * Streams MachineToMachineInstance records from the API.
    *

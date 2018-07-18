@@ -43,7 +43,7 @@ interface KeyListInstance {
   /**
    * @param sid - sid of instance
    */
-  KeyListInstance(sid: string);
+  (sid: string): KeyContext;
   /**
    * create a KeyInstance
    *

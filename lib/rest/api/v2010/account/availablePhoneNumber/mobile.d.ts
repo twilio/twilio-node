@@ -49,7 +49,7 @@ interface MobileListInstance {
   /**
    * @param sid - sid of instance
    */
-  MobileListInstance(sid: string);
+  (sid: string): MobileContext;
   /**
    * Streams MobileInstance records from the API.
    *

@@ -43,7 +43,7 @@ interface CommandListInstance {
   /**
    * @param sid - sid of instance
    */
-  CommandListInstance(sid: string);
+  (sid: string): CommandContext;
   /**
    * create a CommandInstance
    *

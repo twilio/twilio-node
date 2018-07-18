@@ -42,7 +42,7 @@ interface CredentialListMappingListInstance {
   /**
    * @param sid - sid of instance
    */
-  CredentialListMappingListInstance(sid: string);
+  (sid: string): CredentialListMappingContext;
   /**
    * create a CredentialListMappingInstance
    *

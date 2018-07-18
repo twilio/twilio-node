@@ -48,7 +48,7 @@ interface RatePlanListInstance {
   /**
    * @param sid - sid of instance
    */
-  RatePlanListInstance(sid: string);
+  (sid: string): RatePlanContext;
   /**
    * create a RatePlanInstance
    *

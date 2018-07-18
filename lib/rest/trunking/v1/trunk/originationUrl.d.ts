@@ -45,7 +45,7 @@ interface OriginationUrlListInstance {
   /**
    * @param sid - sid of instance
    */
-  OriginationUrlListInstance(sid: string);
+  (sid: string): OriginationUrlContext;
   /**
    * create a OriginationUrlInstance
    *

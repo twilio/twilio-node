@@ -45,7 +45,7 @@ interface ShortCodeListInstance {
   /**
    * @param sid - sid of instance
    */
-  ShortCodeListInstance(sid: string);
+  (sid: string): ShortCodeContext;
   /**
    * Streams ShortCodeInstance records from the API.
    *

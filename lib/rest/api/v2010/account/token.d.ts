@@ -39,7 +39,7 @@ interface TokenListInstance {
   /**
    * @param sid - sid of instance
    */
-  TokenListInstance(sid: string);
+  (sid: string): TokenContext;
   /**
    * create a TokenInstance
    *

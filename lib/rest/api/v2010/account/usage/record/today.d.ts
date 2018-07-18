@@ -48,7 +48,7 @@ interface TodayListInstance {
   /**
    * @param sid - sid of instance
    */
-  TodayListInstance(sid: string);
+  (sid: string): TodayContext;
   /**
    * Streams TodayInstance records from the API.
    *

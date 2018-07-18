@@ -38,7 +38,7 @@ interface StreamMessageListInstance {
   /**
    * @param sid - sid of instance
    */
-  StreamMessageListInstance(sid: string);
+  (sid: string): StreamMessageContext;
   /**
    * create a StreamMessageInstance
    *
