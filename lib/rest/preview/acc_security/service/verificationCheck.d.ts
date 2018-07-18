@@ -40,10 +40,6 @@ interface VerificationCheckSolution {
 
 interface VerificationCheckListInstance {
   /**
-   * @param sid - sid of instance
-   */
-  (sid: string): VerificationCheckContext;
-  /**
    * create a VerificationCheckInstance
    *
    * @function create

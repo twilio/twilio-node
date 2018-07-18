@@ -30,10 +30,6 @@ interface MessagingSolution {
 }
 
 interface MessagingListInstance {
-  /**
-   * @param sid - sid of instance
-   */
-  (sid: string): MessagingContext;
   countries?: object;
 }
 

@@ -30,10 +30,6 @@ interface VoiceSolution {
 }
 
 interface VoiceListInstance {
-  /**
-   * @param sid - sid of instance
-   */
-  (sid: string): VoiceContext;
   countries?: object;
   numbers?: object;
 }

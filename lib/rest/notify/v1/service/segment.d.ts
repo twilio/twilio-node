@@ -38,10 +38,6 @@ interface SegmentSolution {
 
 interface SegmentListInstance {
   /**
-   * @param sid - sid of instance
-   */
-  (sid: string): SegmentContext;
-  /**
    * Streams SegmentInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit

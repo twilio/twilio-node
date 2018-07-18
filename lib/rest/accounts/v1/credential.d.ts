@@ -5,6 +5,7 @@
  *       /       /
  */
 
+import Page = require('../../../base/Page');
 import V1 = require('../V1');
 
 /**
@@ -24,10 +25,6 @@ interface CredentialSolution {
 }
 
 interface CredentialListInstance {
-  /**
-   * @param sid - sid of instance
-   */
-  (sid: string): CredentialContext;
   aws?: object;
   publicKey?: object;
 }

@@ -37,10 +37,6 @@ interface TokenSolution {
 
 interface TokenListInstance {
   /**
-   * @param sid - sid of instance
-   */
-  (sid: string): TokenContext;
-  /**
    * create a TokenInstance
    *
    * @function create

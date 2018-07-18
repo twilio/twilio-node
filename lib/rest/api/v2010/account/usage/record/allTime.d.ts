@@ -46,10 +46,6 @@ interface AllTimeSolution {
 
 interface AllTimeListInstance {
   /**
-   * @param sid - sid of instance
-   */
-  (sid: string): AllTimeContext;
-  /**
    * Streams AllTimeInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit

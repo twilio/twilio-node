@@ -52,10 +52,6 @@ interface NotificationSolution {
 
 interface NotificationListInstance {
   /**
-   * @param sid - sid of instance
-   */
-  (sid: string): NotificationContext;
-  /**
    * create a NotificationInstance
    *
    * @function create

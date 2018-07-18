@@ -60,10 +60,6 @@ interface TollFreeSolution {
 
 interface TollFreeListInstance {
   /**
-   * @param sid - sid of instance
-   */
-  (sid: string): TollFreeContext;
-  /**
    * create a TollFreeInstance
    *
    * @function create

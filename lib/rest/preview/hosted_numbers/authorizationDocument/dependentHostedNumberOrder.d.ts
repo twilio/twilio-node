@@ -54,10 +54,6 @@ interface DependentHostedNumberOrderSolution {
 
 interface DependentHostedNumberOrderListInstance {
   /**
-   * @param sid - sid of instance
-   */
-  (sid: string): DependentHostedNumberOrderContext;
-  /**
    * Streams DependentHostedNumberOrderInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit

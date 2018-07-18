@@ -43,10 +43,6 @@ interface SubscribedTrackSolution {
 
 interface SubscribedTrackListInstance {
   /**
-   * @param sid - sid of instance
-   */
-  (sid: string): SubscribedTrackContext;
-  /**
    * Streams SubscribedTrackInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit

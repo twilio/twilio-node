@@ -60,10 +60,6 @@ interface MobileSolution {
 
 interface MobileListInstance {
   /**
-   * @param sid - sid of instance
-   */
-  (sid: string): MobileContext;
-  /**
    * create a MobileInstance
    *
    * @function create

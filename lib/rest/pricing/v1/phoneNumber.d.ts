@@ -30,10 +30,6 @@ interface PhoneNumberSolution {
 }
 
 interface PhoneNumberListInstance {
-  /**
-   * @param sid - sid of instance
-   */
-  (sid: string): PhoneNumberContext;
   countries?: object;
 }
 

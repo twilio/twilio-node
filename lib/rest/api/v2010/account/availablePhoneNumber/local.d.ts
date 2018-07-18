@@ -47,10 +47,6 @@ interface LocalSolution {
 
 interface LocalListInstance {
   /**
-   * @param sid - sid of instance
-   */
-  (sid: string): LocalContext;
-  /**
    * Streams LocalInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit

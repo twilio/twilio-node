@@ -35,10 +35,6 @@ interface NewKeySolution {
 
 interface NewKeyListInstance {
   /**
-   * @param sid - sid of instance
-   */
-  (sid: string): NewKeyContext;
-  /**
    * create a NewKeyInstance
    *
    * @function create

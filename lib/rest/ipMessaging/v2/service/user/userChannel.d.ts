@@ -41,10 +41,6 @@ interface UserChannelSolution {
 
 interface UserChannelListInstance {
   /**
-   * @param sid - sid of instance
-   */
-  (sid: string): UserChannelContext;
-  /**
    * Streams UserChannelInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit

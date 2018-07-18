@@ -47,10 +47,6 @@ interface VoipSolution {
 
 interface VoipListInstance {
   /**
-   * @param sid - sid of instance
-   */
-  (sid: string): VoipContext;
-  /**
    * Streams VoipInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit

@@ -36,10 +36,6 @@ interface DaySolution {
 
 interface DayListInstance {
   /**
-   * @param sid - sid of instance
-   */
-  (sid: string): DayContext;
-  /**
    * Streams DayInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit

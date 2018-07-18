@@ -5,6 +5,7 @@
  *       /       /
  */
 
+import Page = require('../../../../base/Page');
 import V2010 = require('../../V2010');
 
 /**
@@ -26,10 +27,6 @@ interface SipSolution {
 }
 
 interface SipListInstance {
-  /**
-   * @param sid - sid of instance
-   */
-  (sid: string): SipContext;
   credentialLists?: object;
   domains?: object;
   ipAccessControlLists?: object;

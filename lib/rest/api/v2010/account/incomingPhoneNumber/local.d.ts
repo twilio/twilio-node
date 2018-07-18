@@ -60,10 +60,6 @@ interface LocalSolution {
 
 interface LocalListInstance {
   /**
-   * @param sid - sid of instance
-   */
-  (sid: string): LocalContext;
-  /**
    * create a LocalInstance
    *
    * @function create

@@ -46,10 +46,6 @@ interface ThisMonthSolution {
 
 interface ThisMonthListInstance {
   /**
-   * @param sid - sid of instance
-   */
-  (sid: string): ThisMonthContext;
-  /**
    * Streams ThisMonthInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit

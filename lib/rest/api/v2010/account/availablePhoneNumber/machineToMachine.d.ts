@@ -47,10 +47,6 @@ interface MachineToMachineSolution {
 
 interface MachineToMachineListInstance {
   /**
-   * @param sid - sid of instance
-   */
-  (sid: string): MachineToMachineContext;
-  /**
    * Streams MachineToMachineInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit

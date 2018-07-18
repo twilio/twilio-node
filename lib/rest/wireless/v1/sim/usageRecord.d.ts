@@ -37,10 +37,6 @@ interface UsageRecordSolution {
 
 interface UsageRecordListInstance {
   /**
-   * @param sid - sid of instance
-   */
-  (sid: string): UsageRecordContext;
-  /**
    * Streams UsageRecordInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit

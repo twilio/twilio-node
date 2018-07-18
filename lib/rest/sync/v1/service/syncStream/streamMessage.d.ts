@@ -36,10 +36,6 @@ interface StreamMessageSolution {
 
 interface StreamMessageListInstance {
   /**
-   * @param sid - sid of instance
-   */
-  (sid: string): StreamMessageContext;
-  /**
    * create a StreamMessageInstance
    *
    * @function create

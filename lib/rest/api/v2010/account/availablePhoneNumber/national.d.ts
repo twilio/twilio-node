@@ -47,10 +47,6 @@ interface NationalSolution {
 
 interface NationalListInstance {
   /**
-   * @param sid - sid of instance
-   */
-  (sid: string): NationalContext;
-  /**
    * Streams NationalInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit

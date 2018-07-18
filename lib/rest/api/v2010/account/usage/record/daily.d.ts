@@ -46,10 +46,6 @@ interface DailySolution {
 
 interface DailyListInstance {
   /**
-   * @param sid - sid of instance
-   */
-  (sid: string): DailyContext;
-  /**
    * Streams DailyInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit

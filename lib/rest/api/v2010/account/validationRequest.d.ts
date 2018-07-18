@@ -35,10 +35,6 @@ interface ValidationRequestSolution {
 
 interface ValidationRequestListInstance {
   /**
-   * @param sid - sid of instance
-   */
-  (sid: string): ValidationRequestContext;
-  /**
    * create a ValidationRequestInstance
    *
    * @function create

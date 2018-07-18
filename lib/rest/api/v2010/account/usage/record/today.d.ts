@@ -46,10 +46,6 @@ interface TodaySolution {
 
 interface TodayListInstance {
   /**
-   * @param sid - sid of instance
-   */
-  (sid: string): TodayContext;
-  /**
    * Streams TodayInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit

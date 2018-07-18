@@ -47,10 +47,6 @@ interface DataSessionSolution {
 
 interface DataSessionListInstance {
   /**
-   * @param sid - sid of instance
-   */
-  (sid: string): DataSessionContext;
-  /**
    * Streams DataSessionInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit

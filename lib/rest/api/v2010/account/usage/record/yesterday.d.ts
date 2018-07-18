@@ -46,10 +46,6 @@ interface YesterdaySolution {
 
 interface YesterdayListInstance {
   /**
-   * @param sid - sid of instance
-   */
-  (sid: string): YesterdayContext;
-  /**
    * Streams YesterdayInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit

@@ -59,10 +59,6 @@ interface DependentPhoneNumberSolution {
 
 interface DependentPhoneNumberListInstance {
   /**
-   * @param sid - sid of instance
-   */
-  (sid: string): DependentPhoneNumberContext;
-  /**
    * Streams DependentPhoneNumberInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit

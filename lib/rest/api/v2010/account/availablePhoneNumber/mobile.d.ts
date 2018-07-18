@@ -47,10 +47,6 @@ interface MobileSolution {
 
 interface MobileListInstance {
   /**
-   * @param sid - sid of instance
-   */
-  (sid: string): MobileContext;
-  /**
    * Streams MobileInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit

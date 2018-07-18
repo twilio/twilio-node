@@ -5,6 +5,7 @@
  *       /       /
  */
 
+import Page = require('../../../../base/Page');
 import V2010 = require('../../V2010');
 
 /**
@@ -26,10 +27,6 @@ interface UsageSolution {
 }
 
 interface UsageListInstance {
-  /**
-   * @param sid - sid of instance
-   */
-  (sid: string): UsageContext;
   records?: object;
   triggers?: object;
 }

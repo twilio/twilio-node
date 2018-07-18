@@ -37,10 +37,6 @@ interface TaskQueuesStatisticsSolution {
 
 interface TaskQueuesStatisticsListInstance {
   /**
-   * @param sid - sid of instance
-   */
-  (sid: string): TaskQueuesStatisticsContext;
-  /**
    * Streams TaskQueuesStatisticsInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit

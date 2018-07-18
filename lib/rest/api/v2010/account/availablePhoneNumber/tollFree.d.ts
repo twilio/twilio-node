@@ -47,10 +47,6 @@ interface TollFreeSolution {
 
 interface TollFreeListInstance {
   /**
-   * @param sid - sid of instance
-   */
-  (sid: string): TollFreeContext;
-  /**
    * Streams TollFreeInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit

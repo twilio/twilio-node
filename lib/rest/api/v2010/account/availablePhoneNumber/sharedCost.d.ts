@@ -47,10 +47,6 @@ interface SharedCostSolution {
 
 interface SharedCostListInstance {
   /**
-   * @param sid - sid of instance
-   */
-  (sid: string): SharedCostContext;
-  /**
    * Streams SharedCostInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit

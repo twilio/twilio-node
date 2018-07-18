@@ -46,10 +46,6 @@ interface LastMonthSolution {
 
 interface LastMonthListInstance {
   /**
-   * @param sid - sid of instance
-   */
-  (sid: string): LastMonthContext;
-  /**
    * Streams LastMonthInstance records from the API.
    *
    * This operation lazily loads records as efficiently as possible until the limit

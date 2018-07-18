@@ -38,10 +38,6 @@ interface FeedbackSolution {
 
 interface FeedbackListInstance {
   /**
-   * @param sid - sid of instance
-   */
-  (sid: string): FeedbackContext;
-  /**
    * create a FeedbackInstance
    *
    * @function create
