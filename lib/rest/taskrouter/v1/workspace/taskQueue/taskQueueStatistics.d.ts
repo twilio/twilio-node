@@ -6,6 +6,7 @@
  */
 
 import Page = require('../../../../../base/Page');
+import Response = require('../../../../../http/response');
 import V1 = require('../../../V1');
 import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
@@ -31,7 +32,24 @@ interface TaskQueueStatisticsResource {
 interface TaskQueueStatisticsPayload extends TaskQueueStatisticsResource, Page.TwilioResponsePayload {
 }
 
+interface TaskQueueStatisticsSolution {
+  taskQueueSid?: string;
+  workspaceSid?: string;
+}
+
 interface TaskQueueStatisticsListInstance {
+  /**
+   * @param sid - sid of instance
+   */
+  TaskQueueStatisticsListInstance(sid: string);
+  /**
+   * Constructs a task_queue_statistics
+   *
+   * @function get
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueueStatisticsList
+   * @instance
+   */
+  get();
 }
 
 /**
@@ -79,7 +97,7 @@ declare class TaskQueueStatisticsPage extends Page {
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Taskrouter.V1, response: object, solution: object);
+  constructor(version: Twilio.Taskrouter.V1, response: Response<string>, solution: object);
 
   /**
    * Build an instance of TaskQueueStatisticsInstance
@@ -161,4 +179,4 @@ declare class TaskQueueStatisticsContext {
   fetch(opts?: object, callback?: function);
 }
 
-export { TaskQueueStatisticsContext, TaskQueueStatisticsInstance, TaskQueueStatisticsList, TaskQueueStatisticsListInstance, TaskQueueStatisticsPage, TaskQueueStatisticsPayload, TaskQueueStatisticsResource }
+export { TaskQueueStatisticsContext, TaskQueueStatisticsInstance, TaskQueueStatisticsList, TaskQueueStatisticsListInstance, TaskQueueStatisticsPage, TaskQueueStatisticsPayload, TaskQueueStatisticsResource, TaskQueueStatisticsSolution }

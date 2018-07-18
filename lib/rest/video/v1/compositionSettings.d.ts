@@ -6,6 +6,7 @@
  */
 
 import Page = require('../../../base/Page');
+import Response = require('../../../http/response');
 import V1 = require('../V1');
 import serialize = require('../../../base/serialize');
 import { SerializableClass } from '../../../interfaces';
@@ -32,7 +33,22 @@ interface CompositionSettingsResource {
 interface CompositionSettingsPayload extends CompositionSettingsResource, Page.TwilioResponsePayload {
 }
 
+interface CompositionSettingsSolution {
+}
+
 interface CompositionSettingsListInstance {
+  /**
+   * @param sid - sid of instance
+   */
+  CompositionSettingsListInstance(sid: string);
+  /**
+   * Constructs a composition_settings
+   *
+   * @function get
+   * @memberof Twilio.Video.V1.CompositionSettingsList
+   * @instance
+   */
+  get();
 }
 
 /**
@@ -85,7 +101,7 @@ declare class CompositionSettingsPage extends Page {
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Video.V1, response: object, solution: object);
+  constructor(version: Twilio.Video.V1, response: Response<string>, solution: object);
 
   /**
    * Build an instance of CompositionSettingsInstance
@@ -187,4 +203,4 @@ declare class CompositionSettingsContext {
   fetch(callback?: function);
 }
 
-export { CompositionSettingsContext, CompositionSettingsInstance, CompositionSettingsList, CompositionSettingsListInstance, CompositionSettingsPage, CompositionSettingsPayload, CompositionSettingsResource }
+export { CompositionSettingsContext, CompositionSettingsInstance, CompositionSettingsList, CompositionSettingsListInstance, CompositionSettingsPage, CompositionSettingsPayload, CompositionSettingsResource, CompositionSettingsSolution }

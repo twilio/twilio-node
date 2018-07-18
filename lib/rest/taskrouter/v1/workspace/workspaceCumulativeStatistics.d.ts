@@ -6,6 +6,7 @@
  */
 
 import Page = require('../../../../base/Page');
+import Response = require('../../../../http/response');
 import V1 = require('../../V1');
 import serialize = require('../../../../base/serialize');
 import { SerializableClass } from '../../../../interfaces';
@@ -45,7 +46,23 @@ interface WorkspaceCumulativeStatisticsResource {
 interface WorkspaceCumulativeStatisticsPayload extends WorkspaceCumulativeStatisticsResource, Page.TwilioResponsePayload {
 }
 
+interface WorkspaceCumulativeStatisticsSolution {
+  workspaceSid?: string;
+}
+
 interface WorkspaceCumulativeStatisticsListInstance {
+  /**
+   * @param sid - sid of instance
+   */
+  WorkspaceCumulativeStatisticsListInstance(sid: string);
+  /**
+   * Constructs a workspace_cumulative_statistics
+   *
+   * @function get
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkspaceCumulativeStatisticsList
+   * @instance
+   */
+  get();
 }
 
 /**
@@ -93,7 +110,7 @@ declare class WorkspaceCumulativeStatisticsPage extends Page {
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Taskrouter.V1, response: object, solution: object);
+  constructor(version: Twilio.Taskrouter.V1, response: Response<string>, solution: object);
 
   /**
    * Build an instance of WorkspaceCumulativeStatisticsInstance
@@ -188,4 +205,4 @@ declare class WorkspaceCumulativeStatisticsContext {
   fetch(opts?: object, callback?: function);
 }
 
-export { WorkspaceCumulativeStatisticsContext, WorkspaceCumulativeStatisticsInstance, WorkspaceCumulativeStatisticsList, WorkspaceCumulativeStatisticsListInstance, WorkspaceCumulativeStatisticsPage, WorkspaceCumulativeStatisticsPayload, WorkspaceCumulativeStatisticsResource }
+export { WorkspaceCumulativeStatisticsContext, WorkspaceCumulativeStatisticsInstance, WorkspaceCumulativeStatisticsList, WorkspaceCumulativeStatisticsListInstance, WorkspaceCumulativeStatisticsPage, WorkspaceCumulativeStatisticsPayload, WorkspaceCumulativeStatisticsResource, WorkspaceCumulativeStatisticsSolution }

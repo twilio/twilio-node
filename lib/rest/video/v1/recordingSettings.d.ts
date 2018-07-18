@@ -6,6 +6,7 @@
  */
 
 import Page = require('../../../base/Page');
+import Response = require('../../../http/response');
 import V1 = require('../V1');
 import serialize = require('../../../base/serialize');
 import { SerializableClass } from '../../../interfaces';
@@ -32,7 +33,22 @@ interface RecordingSettingsResource {
 interface RecordingSettingsPayload extends RecordingSettingsResource, Page.TwilioResponsePayload {
 }
 
+interface RecordingSettingsSolution {
+}
+
 interface RecordingSettingsListInstance {
+  /**
+   * @param sid - sid of instance
+   */
+  RecordingSettingsListInstance(sid: string);
+  /**
+   * Constructs a recording_settings
+   *
+   * @function get
+   * @memberof Twilio.Video.V1.RecordingSettingsList
+   * @instance
+   */
+  get();
 }
 
 /**
@@ -85,7 +101,7 @@ declare class RecordingSettingsPage extends Page {
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Video.V1, response: object, solution: object);
+  constructor(version: Twilio.Video.V1, response: Response<string>, solution: object);
 
   /**
    * Build an instance of RecordingSettingsInstance
@@ -187,4 +203,4 @@ declare class RecordingSettingsContext {
   fetch(callback?: function);
 }
 
-export { RecordingSettingsContext, RecordingSettingsInstance, RecordingSettingsList, RecordingSettingsListInstance, RecordingSettingsPage, RecordingSettingsPayload, RecordingSettingsResource }
+export { RecordingSettingsContext, RecordingSettingsInstance, RecordingSettingsList, RecordingSettingsListInstance, RecordingSettingsPage, RecordingSettingsPayload, RecordingSettingsResource, RecordingSettingsSolution }

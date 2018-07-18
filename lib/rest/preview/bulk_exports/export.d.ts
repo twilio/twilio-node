@@ -7,6 +7,7 @@
 
 import BulkExports = require('../BulkExports');
 import Page = require('../../../base/Page');
+import Response = require('../../../http/response');
 import { DayList } from './export/day';
 import { SerializableClass } from '../../../interfaces';
 
@@ -27,7 +28,24 @@ interface ExportResource {
 interface ExportPayload extends ExportResource, Page.TwilioResponsePayload {
 }
 
+interface ExportSolution {
+}
+
 interface ExportListInstance {
+  /**
+   * @param sid - sid of instance
+   */
+  ExportListInstance(sid: string);
+  /**
+   * Constructs a export
+   *
+   * @function get
+   * @memberof Twilio.Preview.BulkExports.ExportList
+   * @instance
+   *
+   * @param resourceType - The resource_type
+   */
+  get(resourceType: string);
 }
 
 
@@ -42,7 +60,7 @@ declare class ExportPage extends Page {
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Preview.BulkExports, response: object, solution: object);
+  constructor(version: Twilio.Preview.BulkExports, response: Response<string>, solution: object);
 
   /**
    * Build an instance of ExportInstance
@@ -130,4 +148,4 @@ declare class ExportContext {
   fetch(callback?: function);
 }
 
-export { ExportContext, ExportInstance, ExportList, ExportListInstance, ExportPage, ExportPayload, ExportResource }
+export { ExportContext, ExportInstance, ExportList, ExportListInstance, ExportPage, ExportPayload, ExportResource, ExportSolution }

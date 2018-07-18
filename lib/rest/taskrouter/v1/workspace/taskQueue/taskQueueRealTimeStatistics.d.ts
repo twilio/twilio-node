@@ -6,6 +6,7 @@
  */
 
 import Page = require('../../../../../base/Page');
+import Response = require('../../../../../http/response');
 import V1 = require('../../../V1');
 import { SerializableClass } from '../../../../../interfaces';
 
@@ -35,7 +36,24 @@ interface TaskQueueRealTimeStatisticsResource {
 interface TaskQueueRealTimeStatisticsPayload extends TaskQueueRealTimeStatisticsResource, Page.TwilioResponsePayload {
 }
 
+interface TaskQueueRealTimeStatisticsSolution {
+  taskQueueSid?: string;
+  workspaceSid?: string;
+}
+
 interface TaskQueueRealTimeStatisticsListInstance {
+  /**
+   * @param sid - sid of instance
+   */
+  TaskQueueRealTimeStatisticsListInstance(sid: string);
+  /**
+   * Constructs a task_queue_real_time_statistics
+   *
+   * @function get
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueueRealTimeStatisticsList
+   * @instance
+   */
+  get();
 }
 
 /**
@@ -67,7 +85,7 @@ declare class TaskQueueRealTimeStatisticsPage extends Page {
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Taskrouter.V1, response: object, solution: object);
+  constructor(version: Twilio.Taskrouter.V1, response: Response<string>, solution: object);
 
   /**
    * Build an instance of TaskQueueRealTimeStatisticsInstance
@@ -154,4 +172,4 @@ declare class TaskQueueRealTimeStatisticsContext {
   fetch(opts?: object, callback?: function);
 }
 
-export { TaskQueueRealTimeStatisticsContext, TaskQueueRealTimeStatisticsInstance, TaskQueueRealTimeStatisticsList, TaskQueueRealTimeStatisticsListInstance, TaskQueueRealTimeStatisticsPage, TaskQueueRealTimeStatisticsPayload, TaskQueueRealTimeStatisticsResource }
+export { TaskQueueRealTimeStatisticsContext, TaskQueueRealTimeStatisticsInstance, TaskQueueRealTimeStatisticsList, TaskQueueRealTimeStatisticsListInstance, TaskQueueRealTimeStatisticsPage, TaskQueueRealTimeStatisticsPayload, TaskQueueRealTimeStatisticsResource, TaskQueueRealTimeStatisticsSolution }

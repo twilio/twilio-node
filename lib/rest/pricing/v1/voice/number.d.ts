@@ -6,6 +6,7 @@
  */
 
 import Page = require('../../../../base/Page');
+import Response = require('../../../../http/response');
 import V1 = require('../../V1');
 import { SerializableClass } from '../../../../interfaces';
 
@@ -29,7 +30,24 @@ interface NumberResource {
 interface NumberPayload extends NumberResource, Page.TwilioResponsePayload {
 }
 
+interface NumberSolution {
+}
+
 interface NumberListInstance {
+  /**
+   * @param sid - sid of instance
+   */
+  NumberListInstance(sid: string);
+  /**
+   * Constructs a number
+   *
+   * @function get
+   * @memberof Twilio.Pricing.V1.VoiceContext.NumberList
+   * @instance
+   *
+   * @param number - The number
+   */
+  get(number: string);
 }
 
 
@@ -43,7 +61,7 @@ declare class NumberPage extends Page {
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Pricing.V1, response: object, solution: object);
+  constructor(version: Twilio.Pricing.V1, response: Response<string>, solution: object);
 
   /**
    * Build an instance of NumberInstance
@@ -122,4 +140,4 @@ declare class NumberContext {
   fetch(callback?: function);
 }
 
-export { NumberContext, NumberInstance, NumberList, NumberListInstance, NumberPage, NumberPayload, NumberResource }
+export { NumberContext, NumberInstance, NumberList, NumberListInstance, NumberPage, NumberPayload, NumberResource, NumberSolution }

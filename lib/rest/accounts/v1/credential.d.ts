@@ -20,7 +20,16 @@ interface CredentialResource {
 interface CredentialPayload extends CredentialResource, Page.TwilioResponsePayload {
 }
 
-interface CredentialListInstance {
+interface CredentialSolution {
 }
 
-export { CredentialList, CredentialListInstance, CredentialPayload, CredentialResource }
+interface CredentialListInstance {
+  /**
+   * @param sid - sid of instance
+   */
+  CredentialListInstance(sid: string);
+  aws?: object;
+  publicKey?: object;
+}
+
+export { CredentialList, CredentialListInstance, CredentialPayload, CredentialResource, CredentialSolution }

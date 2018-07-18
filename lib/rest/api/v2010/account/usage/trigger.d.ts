@@ -6,6 +6,7 @@
  */
 
 import Page = require('../../../../../base/Page');
+import Response = require('../../../../../http/response');
 import V2010 = require('../../../V2010');
 import { ListEachOptions, ListOptions, PageOptions } from '../../../../../interfaces';
 import { SerializableClass } from '../../../../../interfaces';
@@ -40,8 +41,15 @@ interface TriggerResource {
 interface TriggerPayload extends TriggerResource, Page.TwilioResponsePayload {
 }
 
+interface TriggerSolution {
+  accountSid?: string;
+}
+
 interface TriggerListInstance {
-  /* jshint ignore:start */
+  /**
+   * @param sid - sid of instance
+   */
+  TriggerListInstance(sid: string);
   /**
    * create a TriggerInstance
    *
@@ -49,70 +57,10 @@ interface TriggerListInstance {
    * @memberof Twilio.Api.V2010.AccountContext.UsageContext.TriggerList
    * @instance
    *
-   * @param {object} opts - ...
-   * @param {string} opts.callbackUrl -
-   *          URL Twilio will request when the trigger fires
-   * @param {string} opts.triggerValue - the value at which the trigger will fire
-   * @param {trigger.usage_category} opts.usageCategory -
-   *          The usage category the trigger watches
-   * @param {string} [opts.callbackMethod] - HTTP method to use with callback_url
-   * @param {string} [opts.friendlyName] -
-   *          A user-specified, human-readable name for the trigger.
-   * @param {trigger.recurring} [opts.recurring] - How this trigger recurs
-   * @param {trigger.trigger_field} [opts.triggerBy] -
-   *          The field in the UsageRecord that fires the trigger
-   * @param {function} [callback] - Callback to handle processed record
-   *
-   * @returns {Promise} Resolves to processed TriggerInstance
+   * @param opts - ...
+   * @param callback - Callback to handle processed record
    */
-  /* jshint ignore:end */
-  TriggerListInstance.create = function create(opts, callback) {
-    if (_.isUndefined(opts)) {
-      throw new Error('Required parameter "opts" missing.');
-    }
-    if (_.isUndefined(opts.callbackUrl)) {
-      throw new Error('Required parameter "opts.callbackUrl" missing.');
-    }
-    if (_.isUndefined(opts.triggerValue)) {
-      throw new Error('Required parameter "opts.triggerValue" missing.');
-    }
-    if (_.isUndefined(opts.usageCategory)) {
-      throw new Error('Required parameter "opts.usageCategory" missing.');
-    }
-
-    var deferred = Q.defer();
-    var data = values.of({
-      'CallbackUrl': _.get(opts, 'callbackUrl'),
-      'TriggerValue': _.get(opts, 'triggerValue'),
-      'UsageCategory': _.get(opts, 'usageCategory'),
-      'CallbackMethod': _.get(opts, 'callbackMethod'),
-      'FriendlyName': _.get(opts, 'friendlyName'),
-      'Recurring': _.get(opts, 'recurring'),
-      'TriggerBy': _.get(opts, 'triggerBy')
-    });
-
-    var promise = this._version.create({uri: this._uri, method: 'POST', data: data});
-
-    promise = promise.then(function(payload) {
-      deferred.resolve(new TriggerInstance(
-        this._version,
-        payload,
-        this._solution.accountSid,
-        this._solution.sid
-      ));
-    }.bind(this));
-
-    promise.catch(function(error) {
-      deferred.reject(error);
-    });
-
-    if (_.isFunction(callback)) {
-      deferred.promise.nodeify(callback);
-    }
-
-    return deferred.promise;
-  };
-  /* jshint ignore:start */
+  create(opts: object, callback?: function);
   /**
    * Streams TriggerInstance records from the API.
    *
@@ -127,88 +75,20 @@ interface TriggerListInstance {
    * @memberof Twilio.Api.V2010.AccountContext.UsageContext.TriggerList
    * @instance
    *
-   * @param {object} [opts] - ...
-   * @param {trigger.recurring} [opts.recurring] - Filter by recurring
-   * @param {trigger.trigger_field} [opts.triggerBy] - Filter by trigger by
-   * @param {trigger.usage_category} [opts.usageCategory] - Filter by Usage Category
-   * @param {number} [opts.limit] -
-   *         Upper limit for the number of records to return.
-   *         each() guarantees never to return more than limit.
-   *         Default is no limit
-   * @param {number} [opts.pageSize] -
-   *         Number of records to fetch per request,
-   *         when not set will use the default value of 50 records.
-   *         If no pageSize is defined but a limit is defined,
-   *         each() will attempt to read the limit with the most efficient
-   *         page size, i.e. min(limit, 1000)
-   * @param {Function} [opts.callback] -
-   *         Function to process each record. If this and a positional
-   *         callback are passed, this one will be used
-   * @param {Function} [opts.done] -
-   *          Function to be called upon completion of streaming
-   * @param {Function} [callback] - Function to process each record
+   * @param opts - ...
+   * @param callback - Function to process each record
    */
-  /* jshint ignore:end */
-  TriggerListInstance.each = function each(opts, callback) {
-    if (_.isFunction(opts)) {
-      callback = opts;
-      opts = {};
-    }
-    opts = opts || {};
-    if (opts.callback) {
-      callback = opts.callback;
-    }
-    if (_.isUndefined(callback)) {
-      throw new Error('Callback function must be provided');
-    }
-
-    var done = false;
-    var currentPage = 1;
-    var currentResource = 0;
-    var limits = this._version.readLimits({
-      limit: opts.limit,
-      pageSize: opts.pageSize
-    });
-
-    function onComplete(error) {
-      done = true;
-      if (_.isFunction(opts.done)) {
-        opts.done(error);
-      }
-    }
-
-    function fetchNextPage(fn) {
-      var promise = fn();
-      if (_.isUndefined(promise)) {
-        onComplete();
-        return;
-      }
-
-      promise.then(function(page) {
-        _.each(page.instances, function(instance) {
-          if (done || (!_.isUndefined(opts.limit) && currentResource >= opts.limit)) {
-            done = true;
-            return false;
-          }
-
-          currentResource++;
-          callback(instance, onComplete);
-        });
-
-        if ((limits.pageLimit && limits.pageLimit <= currentPage)) {
-          onComplete();
-        } else if (!done) {
-          currentPage++;
-          fetchNextPage(_.bind(page.nextPage, page));
-        }
-      });
-
-      promise.catch(onComplete);
-    }
-
-    fetchNextPage(_.bind(this.page, this, _.merge(opts, limits)));
-  };
-  /* jshint ignore:start */
+  each(opts?: object, callback?: Function);
+  /**
+   * Constructs a trigger
+   *
+   * @function get
+   * @memberof Twilio.Api.V2010.AccountContext.UsageContext.TriggerList
+   * @instance
+   *
+   * @param sid - Fetch by unique usage-trigger Sid
+   */
+  get(sid: string);
   /**
    * Retrieve a single target page of TriggerInstance records from the API.
    * Request is executed immediately
@@ -219,32 +99,10 @@ interface TriggerListInstance {
    * @memberof Twilio.Api.V2010.AccountContext.UsageContext.TriggerList
    * @instance
    *
-   * @param {string} [targetUrl] - API-generated URL for the requested results page
-   * @param {function} [callback] - Callback to handle list of records
-   *
-   * @returns {Promise} Resolves to a list of records
+   * @param targetUrl - API-generated URL for the requested results page
+   * @param callback - Callback to handle list of records
    */
-  /* jshint ignore:end */
-  TriggerListInstance.getPage = function getPage(targetUrl, callback) {
-    var deferred = Q.defer();
-
-    var promise = this._version._domain.twilio.request({method: 'GET', uri: targetUrl});
-
-    promise = promise.then(function(payload) {
-      deferred.resolve(new TriggerPage(this._version, payload, this._solution));
-    }.bind(this));
-
-    promise.catch(function(error) {
-      deferred.reject(error);
-    });
-
-    if (_.isFunction(callback)) {
-      deferred.promise.nodeify(callback);
-    }
-
-    return deferred.promise;
-  };
-  /* jshint ignore:start */
+  getPage(targetUrl?: string, callback?: function);
   /**
    * @description Lists TriggerInstance records from the API as a list.
    *
@@ -254,57 +112,10 @@ interface TriggerListInstance {
    * @memberof Twilio.Api.V2010.AccountContext.UsageContext.TriggerList
    * @instance
    *
-   * @param {object} [opts] - ...
-   * @param {trigger.recurring} [opts.recurring] - Filter by recurring
-   * @param {trigger.trigger_field} [opts.triggerBy] - Filter by trigger by
-   * @param {trigger.usage_category} [opts.usageCategory] - Filter by Usage Category
-   * @param {number} [opts.limit] -
-   *         Upper limit for the number of records to return.
-   *         list() guarantees never to return more than limit.
-   *         Default is no limit
-   * @param {number} [opts.pageSize] -
-   *         Number of records to fetch per request,
-   *         when not set will use the default value of 50 records.
-   *         If no page_size is defined but a limit is defined,
-   *         list() will attempt to read the limit with the most
-   *         efficient page size, i.e. min(limit, 1000)
-   * @param {function} [callback] - Callback to handle list of records
-   *
-   * @returns {Promise} Resolves to a list of records
+   * @param opts - ...
+   * @param callback - Callback to handle list of records
    */
-  /* jshint ignore:end */
-  TriggerListInstance.list = function list(opts, callback) {
-    if (_.isFunction(opts)) {
-      callback = opts;
-      opts = {};
-    }
-    opts = opts || {};
-    var deferred = Q.defer();
-    var allResources = [];
-    opts.callback = function(resource, done) {
-      allResources.push(resource);
-
-      if (!_.isUndefined(opts.limit) && allResources.length === opts.limit) {
-        done();
-      }
-    };
-
-    opts.done = function(error) {
-      if (_.isUndefined(error)) {
-        deferred.resolve(allResources);
-      } else {
-        deferred.reject(error);
-      }
-    };
-
-    if (_.isFunction(callback)) {
-      deferred.promise.nodeify(callback);
-    }
-
-    this.each(opts);
-    return deferred.promise;
-  };
-  /* jshint ignore:start */
+  list(opts?: object, callback?: function);
   /**
    * Retrieve a single page of TriggerInstance records from the API.
    * Request is executed immediately
@@ -315,52 +126,10 @@ interface TriggerListInstance {
    * @memberof Twilio.Api.V2010.AccountContext.UsageContext.TriggerList
    * @instance
    *
-   * @param {object} [opts] - ...
-   * @param {trigger.recurring} [opts.recurring] - Filter by recurring
-   * @param {trigger.trigger_field} [opts.triggerBy] - Filter by trigger by
-   * @param {trigger.usage_category} [opts.usageCategory] - Filter by Usage Category
-   * @param {string} [opts.pageToken] - PageToken provided by the API
-   * @param {number} [opts.pageNumber] -
-   *          Page Number, this value is simply for client state
-   * @param {number} [opts.pageSize] - Number of records to return, defaults to 50
-   * @param {function} [callback] - Callback to handle list of records
-   *
-   * @returns {Promise} Resolves to a list of records
+   * @param opts - ...
+   * @param callback - Callback to handle list of records
    */
-  /* jshint ignore:end */
-  TriggerListInstance.page = function page(opts, callback) {
-    if (_.isFunction(opts)) {
-      callback = opts;
-      opts = {};
-    }
-    opts = opts || {};
-
-    var deferred = Q.defer();
-    var data = values.of({
-      'Recurring': _.get(opts, 'recurring'),
-      'TriggerBy': _.get(opts, 'triggerBy'),
-      'UsageCategory': _.get(opts, 'usageCategory'),
-      'PageToken': opts.pageToken,
-      'Page': opts.pageNumber,
-      'PageSize': opts.pageSize
-    });
-
-    var promise = this._version.page({uri: this._uri, method: 'GET', params: data});
-
-    promise = promise.then(function(payload) {
-      deferred.resolve(new TriggerPage(this._version, payload, this._solution));
-    }.bind(this));
-
-    promise.catch(function(error) {
-      deferred.reject(error);
-    });
-
-    if (_.isFunction(callback)) {
-      deferred.promise.nodeify(callback);
-    }
-
-    return deferred.promise;
-  };
+  page(opts?: object, callback?: function);
 }
 
 /**
@@ -400,7 +169,7 @@ declare class TriggerPage extends Page {
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: object, solution: object);
+  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
 
   /**
    * Build an instance of TriggerInstance
@@ -532,4 +301,4 @@ declare class TriggerContext {
   update(opts?: object, callback?: function);
 }
 
-export { TriggerContext, TriggerInstance, TriggerList, TriggerListInstance, TriggerPage, TriggerPayload, TriggerResource }
+export { TriggerContext, TriggerInstance, TriggerList, TriggerListInstance, TriggerPage, TriggerPayload, TriggerResource, TriggerSolution }

@@ -6,6 +6,7 @@
  */
 
 import Page = require('../../../../base/Page');
+import Response = require('../../../../http/response');
 import Wireless = require('../../Wireless');
 import { SerializableClass } from '../../../../interfaces';
 
@@ -33,7 +34,23 @@ interface UsageResource {
 interface UsagePayload extends UsageResource, Page.TwilioResponsePayload {
 }
 
+interface UsageSolution {
+  simSid?: string;
+}
+
 interface UsageListInstance {
+  /**
+   * @param sid - sid of instance
+   */
+  UsageListInstance(sid: string);
+  /**
+   * Constructs a usage
+   *
+   * @function get
+   * @memberof Twilio.Preview.Wireless.SimContext.UsageList
+   * @instance
+   */
+  get();
 }
 
 /**
@@ -70,7 +87,7 @@ declare class UsagePage extends Page {
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Preview.Wireless, response: object, solution: object);
+  constructor(version: Twilio.Preview.Wireless, response: Response<string>, solution: object);
 
   /**
    * Build an instance of UsageInstance
@@ -155,4 +172,4 @@ declare class UsageContext {
   fetch(opts?: object, callback?: function);
 }
 
-export { UsageContext, UsageInstance, UsageList, UsageListInstance, UsagePage, UsagePayload, UsageResource }
+export { UsageContext, UsageInstance, UsageList, UsageListInstance, UsagePage, UsagePayload, UsageResource, UsageSolution }

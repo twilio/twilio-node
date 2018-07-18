@@ -6,6 +6,7 @@
  */
 
 import Page = require('../../../../base/Page');
+import Response = require('../../../../http/response');
 import V2010 = require('../../V2010');
 import serialize = require('../../../../base/serialize');
 import { FeedbackList } from './call/feedback';
@@ -53,8 +54,15 @@ interface CallResource {
 interface CallPayload extends CallResource, Page.TwilioResponsePayload {
 }
 
+interface CallSolution {
+  accountSid?: string;
+}
+
 interface CallListInstance {
-  /* jshint ignore:start */
+  /**
+   * @param sid - sid of instance
+   */
+  CallListInstance(sid: string);
   /**
    * create a CallInstance
    *
@@ -62,109 +70,10 @@ interface CallListInstance {
    * @memberof Twilio.Api.V2010.AccountContext.CallList
    * @instance
    *
-   * @param {object} opts - ...
-   * @param {string} opts.to -
-   *          Phone number, SIP address, or client identifier to call
-   * @param {string} opts.from - Twilio number from which to originate the call
-   * @param {string} [opts.method] - HTTP method to use to fetch TwiML
-   * @param {string} [opts.fallbackUrl] - Fallback URL in case of error
-   * @param {string} [opts.fallbackMethod] - HTTP Method to use with FallbackUrl
-   * @param {string} [opts.statusCallback] - Status Callback URL
-   * @param {string|list} [opts.statusCallbackEvent] -
-   *          The call progress events that Twilio will send webhooks on.
-   * @param {string} [opts.statusCallbackMethod] -
-   *          HTTP Method to use with StatusCallback
-   * @param {string} [opts.sendDigits] - Digits to send
-   * @param {string} [opts.ifMachine] - The if_machine
-   * @param {number} [opts.timeout] - Number of seconds to wait for an answer
-   * @param {boolean} [opts.record] - Whether or not to record the Call
-   * @param {string} [opts.recordingChannels] -
-   *          mono or dualSet this parameter to specify the number of channels in the final recording.
-   * @param {string} [opts.recordingStatusCallback] -
-   *          A URL that Twilio will send a webhook request to when the recording is available for access.
-   * @param {string} [opts.recordingStatusCallbackMethod] -
-   *          The HTTP method Twilio should use when requesting the `RecordingStatusCallback` URL.
-   * @param {string} [opts.sipAuthUsername] - The sip_auth_username
-   * @param {string} [opts.sipAuthPassword] - The sip_auth_password
-   * @param {string} [opts.machineDetection] -
-   *          Enable machine detection or end of greeting detection
-   * @param {number} [opts.machineDetectionTimeout] -
-   *          Number of miliseconds to wait for machine detection
-   * @param {string|list} [opts.recordingStatusCallbackEvent] -
-   *          The recording status changes that Twilio will send webhooks on to the URL specified in RecordingStatusCallback.
-   * @param {string} [opts.trim] -
-   *          Set this parameter to control trimming of silence on the recording.
-   * @param {string} [opts.callerId] -
-   *          The phone number, SIP address, or Client identifier that made this Call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`.
-   * @param {string} [opts.url] - Url from which to fetch TwiML
-   * @param {string} [opts.applicationSid] -
-   *          ApplicationSid that configures from where to fetch TwiML
-   * @param {function} [callback] - Callback to handle processed record
-   *
-   * @returns {Promise} Resolves to processed CallInstance
+   * @param opts - ...
+   * @param callback - Callback to handle processed record
    */
-  /* jshint ignore:end */
-  CallListInstance.create = function create(opts, callback) {
-    if (_.isUndefined(opts)) {
-      throw new Error('Required parameter "opts" missing.');
-    }
-    if (_.isUndefined(opts.to)) {
-      throw new Error('Required parameter "opts.to" missing.');
-    }
-    if (_.isUndefined(opts.from)) {
-      throw new Error('Required parameter "opts.from" missing.');
-    }
-
-    var deferred = Q.defer();
-    var data = values.of({
-      'To': _.get(opts, 'to'),
-      'From': _.get(opts, 'from'),
-      'Url': _.get(opts, 'url'),
-      'ApplicationSid': _.get(opts, 'applicationSid'),
-      'Method': _.get(opts, 'method'),
-      'FallbackUrl': _.get(opts, 'fallbackUrl'),
-      'FallbackMethod': _.get(opts, 'fallbackMethod'),
-      'StatusCallback': _.get(opts, 'statusCallback'),
-      'StatusCallbackEvent': serialize.map(_.get(opts, 'statusCallbackEvent'), function(e) { return e; }),
-      'StatusCallbackMethod': _.get(opts, 'statusCallbackMethod'),
-      'SendDigits': _.get(opts, 'sendDigits'),
-      'IfMachine': _.get(opts, 'ifMachine'),
-      'Timeout': _.get(opts, 'timeout'),
-      'Record': serialize.bool(_.get(opts, 'record')),
-      'RecordingChannels': _.get(opts, 'recordingChannels'),
-      'RecordingStatusCallback': _.get(opts, 'recordingStatusCallback'),
-      'RecordingStatusCallbackMethod': _.get(opts, 'recordingStatusCallbackMethod'),
-      'SipAuthUsername': _.get(opts, 'sipAuthUsername'),
-      'SipAuthPassword': _.get(opts, 'sipAuthPassword'),
-      'MachineDetection': _.get(opts, 'machineDetection'),
-      'MachineDetectionTimeout': _.get(opts, 'machineDetectionTimeout'),
-      'RecordingStatusCallbackEvent': serialize.map(_.get(opts, 'recordingStatusCallbackEvent'), function(e) { return e; }),
-      'Trim': _.get(opts, 'trim'),
-      'CallerId': _.get(opts, 'callerId')
-    });
-
-    var promise = this._version.create({uri: this._uri, method: 'POST', data: data});
-
-    promise = promise.then(function(payload) {
-      deferred.resolve(new CallInstance(
-        this._version,
-        payload,
-        this._solution.accountSid,
-        this._solution.sid
-      ));
-    }.bind(this));
-
-    promise.catch(function(error) {
-      deferred.reject(error);
-    });
-
-    if (_.isFunction(callback)) {
-      deferred.promise.nodeify(callback);
-    }
-
-    return deferred.promise;
-  };
-  /* jshint ignore:start */
+  create(opts: object, callback?: function);
   /**
    * Streams CallInstance records from the API.
    *
@@ -179,96 +88,21 @@ interface CallListInstance {
    * @memberof Twilio.Api.V2010.AccountContext.CallList
    * @instance
    *
-   * @param {object} [opts] - ...
-   * @param {string} [opts.to] - Phone number or Client identifier to filter `to` on
-   * @param {string} [opts.from] -
-   *          Phone number or Client identifier to filter `from` on
-   * @param {string} [opts.parentCallSid] - Parent Call Sid to filter on
-   * @param {call.status} [opts.status] - Status to filter on
-   * @param {Date} [opts.startTimeBefore] - StartTime to filter on
-   * @param {Date} [opts.startTime] - StartTime to filter on
-   * @param {Date} [opts.startTimeAfter] - StartTime to filter on
-   * @param {Date} [opts.endTimeBefore] - EndTime to filter on
-   * @param {Date} [opts.endTime] - EndTime to filter on
-   * @param {Date} [opts.endTimeAfter] - EndTime to filter on
-   * @param {number} [opts.limit] -
-   *         Upper limit for the number of records to return.
-   *         each() guarantees never to return more than limit.
-   *         Default is no limit
-   * @param {number} [opts.pageSize] -
-   *         Number of records to fetch per request,
-   *         when not set will use the default value of 50 records.
-   *         If no pageSize is defined but a limit is defined,
-   *         each() will attempt to read the limit with the most efficient
-   *         page size, i.e. min(limit, 1000)
-   * @param {Function} [opts.callback] -
-   *         Function to process each record. If this and a positional
-   *         callback are passed, this one will be used
-   * @param {Function} [opts.done] -
-   *          Function to be called upon completion of streaming
-   * @param {Function} [callback] - Function to process each record
+   * @param opts - ...
+   * @param callback - Function to process each record
    */
-  /* jshint ignore:end */
-  CallListInstance.each = function each(opts, callback) {
-    if (_.isFunction(opts)) {
-      callback = opts;
-      opts = {};
-    }
-    opts = opts || {};
-    if (opts.callback) {
-      callback = opts.callback;
-    }
-    if (_.isUndefined(callback)) {
-      throw new Error('Callback function must be provided');
-    }
-
-    var done = false;
-    var currentPage = 1;
-    var currentResource = 0;
-    var limits = this._version.readLimits({
-      limit: opts.limit,
-      pageSize: opts.pageSize
-    });
-
-    function onComplete(error) {
-      done = true;
-      if (_.isFunction(opts.done)) {
-        opts.done(error);
-      }
-    }
-
-    function fetchNextPage(fn) {
-      var promise = fn();
-      if (_.isUndefined(promise)) {
-        onComplete();
-        return;
-      }
-
-      promise.then(function(page) {
-        _.each(page.instances, function(instance) {
-          if (done || (!_.isUndefined(opts.limit) && currentResource >= opts.limit)) {
-            done = true;
-            return false;
-          }
-
-          currentResource++;
-          callback(instance, onComplete);
-        });
-
-        if ((limits.pageLimit && limits.pageLimit <= currentPage)) {
-          onComplete();
-        } else if (!done) {
-          currentPage++;
-          fetchNextPage(_.bind(page.nextPage, page));
-        }
-      });
-
-      promise.catch(onComplete);
-    }
-
-    fetchNextPage(_.bind(this.page, this, _.merge(opts, limits)));
-  };
-  /* jshint ignore:start */
+  each(opts?: object, callback?: Function);
+  feedbackSummaries?: object;
+  /**
+   * Constructs a call
+   *
+   * @function get
+   * @memberof Twilio.Api.V2010.AccountContext.CallList
+   * @instance
+   *
+   * @param sid - Call Sid that uniquely identifies the Call to fetch
+   */
+  get(sid: string);
   /**
    * Retrieve a single target page of CallInstance records from the API.
    * Request is executed immediately
@@ -279,32 +113,10 @@ interface CallListInstance {
    * @memberof Twilio.Api.V2010.AccountContext.CallList
    * @instance
    *
-   * @param {string} [targetUrl] - API-generated URL for the requested results page
-   * @param {function} [callback] - Callback to handle list of records
-   *
-   * @returns {Promise} Resolves to a list of records
+   * @param targetUrl - API-generated URL for the requested results page
+   * @param callback - Callback to handle list of records
    */
-  /* jshint ignore:end */
-  CallListInstance.getPage = function getPage(targetUrl, callback) {
-    var deferred = Q.defer();
-
-    var promise = this._version._domain.twilio.request({method: 'GET', uri: targetUrl});
-
-    promise = promise.then(function(payload) {
-      deferred.resolve(new CallPage(this._version, payload, this._solution));
-    }.bind(this));
-
-    promise.catch(function(error) {
-      deferred.reject(error);
-    });
-
-    if (_.isFunction(callback)) {
-      deferred.promise.nodeify(callback);
-    }
-
-    return deferred.promise;
-  };
-  /* jshint ignore:start */
+  getPage(targetUrl?: string, callback?: function);
   /**
    * @description Lists CallInstance records from the API as a list.
    *
@@ -314,65 +126,10 @@ interface CallListInstance {
    * @memberof Twilio.Api.V2010.AccountContext.CallList
    * @instance
    *
-   * @param {object} [opts] - ...
-   * @param {string} [opts.to] - Phone number or Client identifier to filter `to` on
-   * @param {string} [opts.from] -
-   *          Phone number or Client identifier to filter `from` on
-   * @param {string} [opts.parentCallSid] - Parent Call Sid to filter on
-   * @param {call.status} [opts.status] - Status to filter on
-   * @param {Date} [opts.startTimeBefore] - StartTime to filter on
-   * @param {Date} [opts.startTime] - StartTime to filter on
-   * @param {Date} [opts.startTimeAfter] - StartTime to filter on
-   * @param {Date} [opts.endTimeBefore] - EndTime to filter on
-   * @param {Date} [opts.endTime] - EndTime to filter on
-   * @param {Date} [opts.endTimeAfter] - EndTime to filter on
-   * @param {number} [opts.limit] -
-   *         Upper limit for the number of records to return.
-   *         list() guarantees never to return more than limit.
-   *         Default is no limit
-   * @param {number} [opts.pageSize] -
-   *         Number of records to fetch per request,
-   *         when not set will use the default value of 50 records.
-   *         If no page_size is defined but a limit is defined,
-   *         list() will attempt to read the limit with the most
-   *         efficient page size, i.e. min(limit, 1000)
-   * @param {function} [callback] - Callback to handle list of records
-   *
-   * @returns {Promise} Resolves to a list of records
+   * @param opts - ...
+   * @param callback - Callback to handle list of records
    */
-  /* jshint ignore:end */
-  CallListInstance.list = function list(opts, callback) {
-    if (_.isFunction(opts)) {
-      callback = opts;
-      opts = {};
-    }
-    opts = opts || {};
-    var deferred = Q.defer();
-    var allResources = [];
-    opts.callback = function(resource, done) {
-      allResources.push(resource);
-
-      if (!_.isUndefined(opts.limit) && allResources.length === opts.limit) {
-        done();
-      }
-    };
-
-    opts.done = function(error) {
-      if (_.isUndefined(error)) {
-        deferred.resolve(allResources);
-      } else {
-        deferred.reject(error);
-      }
-    };
-
-    if (_.isFunction(callback)) {
-      deferred.promise.nodeify(callback);
-    }
-
-    this.each(opts);
-    return deferred.promise;
-  };
-  /* jshint ignore:start */
+  list(opts?: object, callback?: function);
   /**
    * Retrieve a single page of CallInstance records from the API.
    * Request is executed immediately
@@ -383,67 +140,10 @@ interface CallListInstance {
    * @memberof Twilio.Api.V2010.AccountContext.CallList
    * @instance
    *
-   * @param {object} [opts] - ...
-   * @param {string} [opts.to] - Phone number or Client identifier to filter `to` on
-   * @param {string} [opts.from] -
-   *          Phone number or Client identifier to filter `from` on
-   * @param {string} [opts.parentCallSid] - Parent Call Sid to filter on
-   * @param {call.status} [opts.status] - Status to filter on
-   * @param {Date} [opts.startTimeBefore] - StartTime to filter on
-   * @param {Date} [opts.startTime] - StartTime to filter on
-   * @param {Date} [opts.startTimeAfter] - StartTime to filter on
-   * @param {Date} [opts.endTimeBefore] - EndTime to filter on
-   * @param {Date} [opts.endTime] - EndTime to filter on
-   * @param {Date} [opts.endTimeAfter] - EndTime to filter on
-   * @param {string} [opts.pageToken] - PageToken provided by the API
-   * @param {number} [opts.pageNumber] -
-   *          Page Number, this value is simply for client state
-   * @param {number} [opts.pageSize] - Number of records to return, defaults to 50
-   * @param {function} [callback] - Callback to handle list of records
-   *
-   * @returns {Promise} Resolves to a list of records
+   * @param opts - ...
+   * @param callback - Callback to handle list of records
    */
-  /* jshint ignore:end */
-  CallListInstance.page = function page(opts, callback) {
-    if (_.isFunction(opts)) {
-      callback = opts;
-      opts = {};
-    }
-    opts = opts || {};
-
-    var deferred = Q.defer();
-    var data = values.of({
-      'To': _.get(opts, 'to'),
-      'From': _.get(opts, 'from'),
-      'ParentCallSid': _.get(opts, 'parentCallSid'),
-      'Status': _.get(opts, 'status'),
-      'StartTime<': serialize.iso8601DateTime(_.get(opts, 'startTimeBefore')),
-      'StartTime': serialize.iso8601DateTime(_.get(opts, 'startTime')),
-      'StartTime>': serialize.iso8601DateTime(_.get(opts, 'startTimeAfter')),
-      'EndTime<': serialize.iso8601DateTime(_.get(opts, 'endTimeBefore')),
-      'EndTime': serialize.iso8601DateTime(_.get(opts, 'endTime')),
-      'EndTime>': serialize.iso8601DateTime(_.get(opts, 'endTimeAfter')),
-      'PageToken': opts.pageToken,
-      'Page': opts.pageNumber,
-      'PageSize': opts.pageSize
-    });
-
-    var promise = this._version.page({uri: this._uri, method: 'GET', params: data});
-
-    promise = promise.then(function(payload) {
-      deferred.resolve(new CallPage(this._version, payload, this._solution));
-    }.bind(this));
-
-    promise.catch(function(error) {
-      deferred.reject(error);
-    });
-
-    if (_.isFunction(callback)) {
-      deferred.promise.nodeify(callback);
-    }
-
-    return deferred.promise;
-  };
+  page(opts?: object, callback?: function);
 }
 
 /**
@@ -499,7 +199,7 @@ declare class CallPage extends Page {
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: object, solution: object);
+  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
 
   /**
    * Build an instance of CallInstance
@@ -671,4 +371,4 @@ declare class CallContext {
   update(opts?: object, callback?: function);
 }
 
-export { CallContext, CallInstance, CallList, CallListInstance, CallPage, CallPayload, CallResource }
+export { CallContext, CallInstance, CallList, CallListInstance, CallPage, CallPayload, CallResource, CallSolution }

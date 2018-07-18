@@ -6,6 +6,7 @@
  */
 
 import Page = require('../../../base/Page');
+import Response = require('../../../http/response');
 import V1 = require('../V1');
 import serialize = require('../../../base/serialize');
 import { SerializableClass } from '../../../interfaces';
@@ -30,7 +31,24 @@ interface PhoneNumberResource {
 interface PhoneNumberPayload extends PhoneNumberResource, Page.TwilioResponsePayload {
 }
 
+interface PhoneNumberSolution {
+}
+
 interface PhoneNumberListInstance {
+  /**
+   * @param sid - sid of instance
+   */
+  PhoneNumberListInstance(sid: string);
+  /**
+   * Constructs a phone_number
+   *
+   * @function get
+   * @memberof Twilio.Lookups.V1.PhoneNumberList
+   * @instance
+   *
+   * @param phoneNumber - The phone_number
+   */
+  get(phoneNumber: string);
 }
 
 /**
@@ -74,7 +92,7 @@ declare class PhoneNumberPage extends Page {
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Lookups.V1, response: object, solution: object);
+  constructor(version: Twilio.Lookups.V1, response: Response<string>, solution: object);
 
   /**
    * Build an instance of PhoneNumberInstance
@@ -155,4 +173,4 @@ declare class PhoneNumberContext {
   fetch(opts?: object, callback?: function);
 }
 
-export { PhoneNumberContext, PhoneNumberInstance, PhoneNumberList, PhoneNumberListInstance, PhoneNumberPage, PhoneNumberPayload, PhoneNumberResource }
+export { PhoneNumberContext, PhoneNumberInstance, PhoneNumberList, PhoneNumberListInstance, PhoneNumberPage, PhoneNumberPayload, PhoneNumberResource, PhoneNumberSolution }

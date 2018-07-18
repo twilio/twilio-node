@@ -6,6 +6,7 @@
  */
 
 import Page = require('../../../../../base/Page');
+import Response = require('../../../../../http/response');
 import V1 = require('../../../V1');
 import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
@@ -36,7 +37,23 @@ interface WorkersCumulativeStatisticsResource {
 interface WorkersCumulativeStatisticsPayload extends WorkersCumulativeStatisticsResource, Page.TwilioResponsePayload {
 }
 
+interface WorkersCumulativeStatisticsSolution {
+  workspaceSid?: string;
+}
+
 interface WorkersCumulativeStatisticsListInstance {
+  /**
+   * @param sid - sid of instance
+   */
+  WorkersCumulativeStatisticsListInstance(sid: string);
+  /**
+   * Constructs a workers_cumulative_statistics
+   *
+   * @function get
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkersCumulativeStatisticsList
+   * @instance
+   */
+  get();
 }
 
 /**
@@ -80,7 +97,7 @@ declare class WorkersCumulativeStatisticsPage extends Page {
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Taskrouter.V1, response: object, solution: object);
+  constructor(version: Twilio.Taskrouter.V1, response: Response<string>, solution: object);
 
   /**
    * Build an instance of WorkersCumulativeStatisticsInstance
@@ -166,4 +183,4 @@ declare class WorkersCumulativeStatisticsContext {
   fetch(opts?: object, callback?: function);
 }
 
-export { WorkersCumulativeStatisticsContext, WorkersCumulativeStatisticsInstance, WorkersCumulativeStatisticsList, WorkersCumulativeStatisticsListInstance, WorkersCumulativeStatisticsPage, WorkersCumulativeStatisticsPayload, WorkersCumulativeStatisticsResource }
+export { WorkersCumulativeStatisticsContext, WorkersCumulativeStatisticsInstance, WorkersCumulativeStatisticsList, WorkersCumulativeStatisticsListInstance, WorkersCumulativeStatisticsPage, WorkersCumulativeStatisticsPayload, WorkersCumulativeStatisticsResource, WorkersCumulativeStatisticsSolution }

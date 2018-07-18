@@ -6,6 +6,7 @@
  */
 
 import Page = require('../../../../../../base/Page');
+import Response = require('../../../../../../http/response');
 import V1 = require('../../../../V1');
 import { SerializableClass } from '../../../../../../interfaces';
 
@@ -32,7 +33,25 @@ interface StepContextResource {
 interface StepContextPayload extends StepContextResource, Page.TwilioResponsePayload {
 }
 
+interface StepContextSolution {
+  engagementSid?: string;
+  flowSid?: string;
+  stepSid?: string;
+}
+
 interface StepContextListInstance {
+  /**
+   * @param sid - sid of instance
+   */
+  StepContextListInstance(sid: string);
+  /**
+   * Constructs a step_context
+   *
+   * @function get
+   * @memberof Twilio.Studio.V1.FlowContext.EngagementContext.StepContext.StepContextList
+   * @instance
+   */
+  get();
 }
 
 
@@ -47,7 +66,7 @@ declare class StepContextPage extends Page {
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Studio.V1, response: object, solution: object);
+  constructor(version: Twilio.Studio.V1, response: Response<string>, solution: object);
 
   /**
    * Build an instance of StepContextInstance
@@ -131,4 +150,4 @@ declare class StepContextContext {
   fetch(callback?: function);
 }
 
-export { StepContextContext, StepContextInstance, StepContextList, StepContextListInstance, StepContextPage, StepContextPayload, StepContextResource }
+export { StepContextContext, StepContextInstance, StepContextList, StepContextListInstance, StepContextPage, StepContextPayload, StepContextResource, StepContextSolution }

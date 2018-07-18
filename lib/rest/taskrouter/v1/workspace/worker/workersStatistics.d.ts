@@ -6,6 +6,7 @@
  */
 
 import Page = require('../../../../../base/Page');
+import Response = require('../../../../../http/response');
 import V1 = require('../../../V1');
 import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
@@ -29,7 +30,23 @@ interface WorkersStatisticsResource {
 interface WorkersStatisticsPayload extends WorkersStatisticsResource, Page.TwilioResponsePayload {
 }
 
+interface WorkersStatisticsSolution {
+  workspaceSid?: string;
+}
+
 interface WorkersStatisticsListInstance {
+  /**
+   * @param sid - sid of instance
+   */
+  WorkersStatisticsListInstance(sid: string);
+  /**
+   * Constructs a workers_statistics
+   *
+   * @function get
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkersStatisticsList
+   * @instance
+   */
+  get();
 }
 
 /**
@@ -85,7 +102,7 @@ declare class WorkersStatisticsPage extends Page {
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Taskrouter.V1, response: object, solution: object);
+  constructor(version: Twilio.Taskrouter.V1, response: Response<string>, solution: object);
 
   /**
    * Build an instance of WorkersStatisticsInstance
@@ -164,4 +181,4 @@ declare class WorkersStatisticsContext {
   fetch(opts?: object, callback?: function);
 }
 
-export { WorkersStatisticsContext, WorkersStatisticsInstance, WorkersStatisticsList, WorkersStatisticsListInstance, WorkersStatisticsPage, WorkersStatisticsPayload, WorkersStatisticsResource }
+export { WorkersStatisticsContext, WorkersStatisticsInstance, WorkersStatisticsList, WorkersStatisticsListInstance, WorkersStatisticsPage, WorkersStatisticsPayload, WorkersStatisticsResource, WorkersStatisticsSolution }

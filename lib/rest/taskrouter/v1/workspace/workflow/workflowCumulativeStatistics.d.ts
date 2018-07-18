@@ -6,6 +6,7 @@
  */
 
 import Page = require('../../../../../base/Page');
+import Response = require('../../../../../http/response');
 import V1 = require('../../../V1');
 import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
@@ -47,7 +48,24 @@ interface WorkflowCumulativeStatisticsResource {
 interface WorkflowCumulativeStatisticsPayload extends WorkflowCumulativeStatisticsResource, Page.TwilioResponsePayload {
 }
 
+interface WorkflowCumulativeStatisticsSolution {
+  workflowSid?: string;
+  workspaceSid?: string;
+}
+
 interface WorkflowCumulativeStatisticsListInstance {
+  /**
+   * @param sid - sid of instance
+   */
+  WorkflowCumulativeStatisticsListInstance(sid: string);
+  /**
+   * Constructs a workflow_cumulative_statistics
+   *
+   * @function get
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkflowContext.WorkflowCumulativeStatisticsList
+   * @instance
+   */
+  get();
 }
 
 /**
@@ -95,7 +113,7 @@ declare class WorkflowCumulativeStatisticsPage extends Page {
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Taskrouter.V1, response: object, solution: object);
+  constructor(version: Twilio.Taskrouter.V1, response: Response<string>, solution: object);
 
   /**
    * Build an instance of WorkflowCumulativeStatisticsInstance
@@ -193,4 +211,4 @@ declare class WorkflowCumulativeStatisticsContext {
   fetch(opts?: object, callback?: function);
 }
 
-export { WorkflowCumulativeStatisticsContext, WorkflowCumulativeStatisticsInstance, WorkflowCumulativeStatisticsList, WorkflowCumulativeStatisticsListInstance, WorkflowCumulativeStatisticsPage, WorkflowCumulativeStatisticsPayload, WorkflowCumulativeStatisticsResource }
+export { WorkflowCumulativeStatisticsContext, WorkflowCumulativeStatisticsInstance, WorkflowCumulativeStatisticsList, WorkflowCumulativeStatisticsListInstance, WorkflowCumulativeStatisticsPage, WorkflowCumulativeStatisticsPayload, WorkflowCumulativeStatisticsResource, WorkflowCumulativeStatisticsSolution }

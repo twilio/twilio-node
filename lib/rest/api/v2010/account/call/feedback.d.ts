@@ -6,6 +6,7 @@
  */
 
 import Page = require('../../../../../base/Page');
+import Response = require('../../../../../http/response');
 import V2010 = require('../../../V2010');
 import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
@@ -31,7 +32,24 @@ interface FeedbackResource {
 interface FeedbackPayload extends FeedbackResource, Page.TwilioResponsePayload {
 }
 
+interface FeedbackSolution {
+  accountSid?: string;
+  callSid?: string;
+}
+
 interface FeedbackListInstance {
+  /**
+   * @param sid - sid of instance
+   */
+  FeedbackListInstance(sid: string);
+  /**
+   * Constructs a feedback
+   *
+   * @function get
+   * @memberof Twilio.Api.V2010.AccountContext.CallContext.FeedbackList
+   * @instance
+   */
+  get();
 }
 
 /**
@@ -89,7 +107,7 @@ declare class FeedbackPage extends Page {
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: object, solution: object);
+  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
 
   /**
    * Build an instance of FeedbackInstance
@@ -213,4 +231,4 @@ declare class FeedbackContext {
   update(opts: object, callback?: function);
 }
 
-export { FeedbackContext, FeedbackInstance, FeedbackList, FeedbackListInstance, FeedbackPage, FeedbackPayload, FeedbackResource }
+export { FeedbackContext, FeedbackInstance, FeedbackList, FeedbackListInstance, FeedbackPage, FeedbackPayload, FeedbackResource, FeedbackSolution }

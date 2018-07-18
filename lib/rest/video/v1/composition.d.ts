@@ -6,6 +6,7 @@
  */
 
 import Page = require('../../../base/Page');
+import Response = require('../../../http/response');
 import V1 = require('../V1');
 import serialize = require('../../../base/serialize');
 import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
@@ -43,8 +44,14 @@ interface CompositionResource {
 interface CompositionPayload extends CompositionResource, Page.TwilioResponsePayload {
 }
 
+interface CompositionSolution {
+}
+
 interface CompositionListInstance {
-  /* jshint ignore:start */
+  /**
+   * @param sid - sid of instance
+   */
+  CompositionListInstance(sid: string);
   /**
    * create a CompositionInstance
    *
@@ -52,64 +59,10 @@ interface CompositionListInstance {
    * @memberof Twilio.Video.V1.CompositionList
    * @instance
    *
-   * @param {object} [opts] - ...
-   * @param {string} [opts.roomSid] - Twilio Room SID.
-   * @param {string} [opts.videoLayout] - The JSON video layout description.
-   * @param {string|list} [opts.audioSources] -
-   *          A list of audio sources related to this Composition.
-   * @param {string|list} [opts.audioSourcesExcluded] -
-   *          A list of audio sources excluded related to this Composition.
-   * @param {string} [opts.resolution] - Pixel resolution of the composed video.
-   * @param {composition.format} [opts.format] -
-   *          Container format of the Composition media file. Any of the following: `mp4`, `webm`.
-   * @param {string} [opts.statusCallback] -
-   *          A URL that Twilio sends asynchronous webhook requests to on every composition event.
-   * @param {string} [opts.statusCallbackMethod] -
-   *          HTTP method Twilio should use when requesting the above URL.
-   * @param {boolean} [opts.trim] -
-   *          Boolean flag for clipping intervals that have no media.
-   * @param {function} [callback] - Callback to handle processed record
-   *
-   * @returns {Promise} Resolves to processed CompositionInstance
+   * @param opts - ...
+   * @param callback - Callback to handle processed record
    */
-  /* jshint ignore:end */
-  CompositionListInstance.create = function create(opts, callback) {
-    if (_.isFunction(opts)) {
-      callback = opts;
-      opts = {};
-    }
-    opts = opts || {};
-
-    var deferred = Q.defer();
-    var data = values.of({
-      'RoomSid': _.get(opts, 'roomSid'),
-      'VideoLayout': serialize.object(_.get(opts, 'videoLayout')),
-      'AudioSources': serialize.map(_.get(opts, 'audioSources'), function(e) { return e; }),
-      'AudioSourcesExcluded': serialize.map(_.get(opts, 'audioSourcesExcluded'), function(e) { return e; }),
-      'Resolution': _.get(opts, 'resolution'),
-      'Format': _.get(opts, 'format'),
-      'StatusCallback': _.get(opts, 'statusCallback'),
-      'StatusCallbackMethod': _.get(opts, 'statusCallbackMethod'),
-      'Trim': serialize.bool(_.get(opts, 'trim'))
-    });
-
-    var promise = this._version.create({uri: this._uri, method: 'POST', data: data});
-
-    promise = promise.then(function(payload) {
-      deferred.resolve(new CompositionInstance(this._version, payload, this._solution.sid));
-    }.bind(this));
-
-    promise.catch(function(error) {
-      deferred.reject(error);
-    });
-
-    if (_.isFunction(callback)) {
-      deferred.promise.nodeify(callback);
-    }
-
-    return deferred.promise;
-  };
-  /* jshint ignore:start */
+  create(opts?: object, callback?: function);
   /**
    * Streams CompositionInstance records from the API.
    *
@@ -124,92 +77,20 @@ interface CompositionListInstance {
    * @memberof Twilio.Video.V1.CompositionList
    * @instance
    *
-   * @param {object} [opts] - ...
-   * @param {composition.status} [opts.status] -
-   *          Only show Compositions with the given status.
-   * @param {Date} [opts.dateCreatedAfter] -
-   *          Only show Compositions that started on or after this ISO8601 date-time.
-   * @param {Date} [opts.dateCreatedBefore] -
-   *          Only show Compositions that started before this this ISO8601 date-time.
-   * @param {string} [opts.roomSid] - Only show Compositions with the given Room SID.
-   * @param {number} [opts.limit] -
-   *         Upper limit for the number of records to return.
-   *         each() guarantees never to return more than limit.
-   *         Default is no limit
-   * @param {number} [opts.pageSize] -
-   *         Number of records to fetch per request,
-   *         when not set will use the default value of 50 records.
-   *         If no pageSize is defined but a limit is defined,
-   *         each() will attempt to read the limit with the most efficient
-   *         page size, i.e. min(limit, 1000)
-   * @param {Function} [opts.callback] -
-   *         Function to process each record. If this and a positional
-   *         callback are passed, this one will be used
-   * @param {Function} [opts.done] -
-   *          Function to be called upon completion of streaming
-   * @param {Function} [callback] - Function to process each record
+   * @param opts - ...
+   * @param callback - Function to process each record
    */
-  /* jshint ignore:end */
-  CompositionListInstance.each = function each(opts, callback) {
-    if (_.isFunction(opts)) {
-      callback = opts;
-      opts = {};
-    }
-    opts = opts || {};
-    if (opts.callback) {
-      callback = opts.callback;
-    }
-    if (_.isUndefined(callback)) {
-      throw new Error('Callback function must be provided');
-    }
-
-    var done = false;
-    var currentPage = 1;
-    var currentResource = 0;
-    var limits = this._version.readLimits({
-      limit: opts.limit,
-      pageSize: opts.pageSize
-    });
-
-    function onComplete(error) {
-      done = true;
-      if (_.isFunction(opts.done)) {
-        opts.done(error);
-      }
-    }
-
-    function fetchNextPage(fn) {
-      var promise = fn();
-      if (_.isUndefined(promise)) {
-        onComplete();
-        return;
-      }
-
-      promise.then(function(page) {
-        _.each(page.instances, function(instance) {
-          if (done || (!_.isUndefined(opts.limit) && currentResource >= opts.limit)) {
-            done = true;
-            return false;
-          }
-
-          currentResource++;
-          callback(instance, onComplete);
-        });
-
-        if ((limits.pageLimit && limits.pageLimit <= currentPage)) {
-          onComplete();
-        } else if (!done) {
-          currentPage++;
-          fetchNextPage(_.bind(page.nextPage, page));
-        }
-      });
-
-      promise.catch(onComplete);
-    }
-
-    fetchNextPage(_.bind(this.page, this, _.merge(opts, limits)));
-  };
-  /* jshint ignore:start */
+  each(opts?: object, callback?: Function);
+  /**
+   * Constructs a composition
+   *
+   * @function get
+   * @memberof Twilio.Video.V1.CompositionList
+   * @instance
+   *
+   * @param sid - The Composition Sid that uniquely identifies the Composition to fetch.
+   */
+  get(sid: string);
   /**
    * Retrieve a single target page of CompositionInstance records from the API.
    * Request is executed immediately
@@ -220,32 +101,10 @@ interface CompositionListInstance {
    * @memberof Twilio.Video.V1.CompositionList
    * @instance
    *
-   * @param {string} [targetUrl] - API-generated URL for the requested results page
-   * @param {function} [callback] - Callback to handle list of records
-   *
-   * @returns {Promise} Resolves to a list of records
+   * @param targetUrl - API-generated URL for the requested results page
+   * @param callback - Callback to handle list of records
    */
-  /* jshint ignore:end */
-  CompositionListInstance.getPage = function getPage(targetUrl, callback) {
-    var deferred = Q.defer();
-
-    var promise = this._version._domain.twilio.request({method: 'GET', uri: targetUrl});
-
-    promise = promise.then(function(payload) {
-      deferred.resolve(new CompositionPage(this._version, payload, this._solution));
-    }.bind(this));
-
-    promise.catch(function(error) {
-      deferred.reject(error);
-    });
-
-    if (_.isFunction(callback)) {
-      deferred.promise.nodeify(callback);
-    }
-
-    return deferred.promise;
-  };
-  /* jshint ignore:start */
+  getPage(targetUrl?: string, callback?: function);
   /**
    * @description Lists CompositionInstance records from the API as a list.
    *
@@ -255,61 +114,10 @@ interface CompositionListInstance {
    * @memberof Twilio.Video.V1.CompositionList
    * @instance
    *
-   * @param {object} [opts] - ...
-   * @param {composition.status} [opts.status] -
-   *          Only show Compositions with the given status.
-   * @param {Date} [opts.dateCreatedAfter] -
-   *          Only show Compositions that started on or after this ISO8601 date-time.
-   * @param {Date} [opts.dateCreatedBefore] -
-   *          Only show Compositions that started before this this ISO8601 date-time.
-   * @param {string} [opts.roomSid] - Only show Compositions with the given Room SID.
-   * @param {number} [opts.limit] -
-   *         Upper limit for the number of records to return.
-   *         list() guarantees never to return more than limit.
-   *         Default is no limit
-   * @param {number} [opts.pageSize] -
-   *         Number of records to fetch per request,
-   *         when not set will use the default value of 50 records.
-   *         If no page_size is defined but a limit is defined,
-   *         list() will attempt to read the limit with the most
-   *         efficient page size, i.e. min(limit, 1000)
-   * @param {function} [callback] - Callback to handle list of records
-   *
-   * @returns {Promise} Resolves to a list of records
+   * @param opts - ...
+   * @param callback - Callback to handle list of records
    */
-  /* jshint ignore:end */
-  CompositionListInstance.list = function list(opts, callback) {
-    if (_.isFunction(opts)) {
-      callback = opts;
-      opts = {};
-    }
-    opts = opts || {};
-    var deferred = Q.defer();
-    var allResources = [];
-    opts.callback = function(resource, done) {
-      allResources.push(resource);
-
-      if (!_.isUndefined(opts.limit) && allResources.length === opts.limit) {
-        done();
-      }
-    };
-
-    opts.done = function(error) {
-      if (_.isUndefined(error)) {
-        deferred.resolve(allResources);
-      } else {
-        deferred.reject(error);
-      }
-    };
-
-    if (_.isFunction(callback)) {
-      deferred.promise.nodeify(callback);
-    }
-
-    this.each(opts);
-    return deferred.promise;
-  };
-  /* jshint ignore:start */
+  list(opts?: object, callback?: function);
   /**
    * Retrieve a single page of CompositionInstance records from the API.
    * Request is executed immediately
@@ -320,57 +128,10 @@ interface CompositionListInstance {
    * @memberof Twilio.Video.V1.CompositionList
    * @instance
    *
-   * @param {object} [opts] - ...
-   * @param {composition.status} [opts.status] -
-   *          Only show Compositions with the given status.
-   * @param {Date} [opts.dateCreatedAfter] -
-   *          Only show Compositions that started on or after this ISO8601 date-time.
-   * @param {Date} [opts.dateCreatedBefore] -
-   *          Only show Compositions that started before this this ISO8601 date-time.
-   * @param {string} [opts.roomSid] - Only show Compositions with the given Room SID.
-   * @param {string} [opts.pageToken] - PageToken provided by the API
-   * @param {number} [opts.pageNumber] -
-   *          Page Number, this value is simply for client state
-   * @param {number} [opts.pageSize] - Number of records to return, defaults to 50
-   * @param {function} [callback] - Callback to handle list of records
-   *
-   * @returns {Promise} Resolves to a list of records
+   * @param opts - ...
+   * @param callback - Callback to handle list of records
    */
-  /* jshint ignore:end */
-  CompositionListInstance.page = function page(opts, callback) {
-    if (_.isFunction(opts)) {
-      callback = opts;
-      opts = {};
-    }
-    opts = opts || {};
-
-    var deferred = Q.defer();
-    var data = values.of({
-      'Status': _.get(opts, 'status'),
-      'DateCreatedAfter': serialize.iso8601DateTime(_.get(opts, 'dateCreatedAfter')),
-      'DateCreatedBefore': serialize.iso8601DateTime(_.get(opts, 'dateCreatedBefore')),
-      'RoomSid': _.get(opts, 'roomSid'),
-      'PageToken': opts.pageToken,
-      'Page': opts.pageNumber,
-      'PageSize': opts.pageSize
-    });
-
-    var promise = this._version.page({uri: this._uri, method: 'GET', params: data});
-
-    promise = promise.then(function(payload) {
-      deferred.resolve(new CompositionPage(this._version, payload, this._solution));
-    }.bind(this));
-
-    promise.catch(function(error) {
-      deferred.reject(error);
-    });
-
-    if (_.isFunction(callback)) {
-      deferred.promise.nodeify(callback);
-    }
-
-    return deferred.promise;
-  };
+  page(opts?: object, callback?: function);
 }
 
 
@@ -385,7 +146,7 @@ declare class CompositionPage extends Page {
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Video.V1, response: object, solution: object);
+  constructor(version: Twilio.Video.V1, response: Response<string>, solution: object);
 
   /**
    * Build an instance of CompositionInstance
@@ -497,4 +258,4 @@ declare class CompositionContext {
   remove(callback?: function);
 }
 
-export { CompositionContext, CompositionInstance, CompositionList, CompositionListInstance, CompositionPage, CompositionPayload, CompositionResource }
+export { CompositionContext, CompositionInstance, CompositionList, CompositionListInstance, CompositionPage, CompositionPayload, CompositionResource, CompositionSolution }

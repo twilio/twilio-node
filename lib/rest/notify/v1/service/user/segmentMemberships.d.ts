@@ -6,6 +6,7 @@
  */
 
 import Page = require('../../../../../base/Page');
+import Response = require('../../../../../http/response');
 import V1 = require('../../../V1');
 import { SerializableClass } from '../../../../../interfaces';
 
@@ -30,8 +31,16 @@ interface SegmentMembershipResource {
 interface SegmentMembershipPayload extends SegmentMembershipResource, Page.TwilioResponsePayload {
 }
 
+interface SegmentMembershipSolution {
+  identity?: string;
+  serviceSid?: string;
+}
+
 interface SegmentMembershipListInstance {
-  /* jshint ignore:start */
+  /**
+   * @param sid - sid of instance
+   */
+  SegmentMembershipListInstance(sid: string);
   /**
    * create a SegmentMembershipInstance
    *
@@ -39,46 +48,20 @@ interface SegmentMembershipListInstance {
    * @memberof Twilio.Notify.V1.ServiceContext.UserContext.SegmentMembershipList
    * @instance
    *
-   * @param {object} opts - ...
-   * @param {string} opts.segment - The segment
-   * @param {function} [callback] - Callback to handle processed record
-   *
-   * @returns {Promise} Resolves to processed SegmentMembershipInstance
+   * @param opts - ...
+   * @param callback - Callback to handle processed record
    */
-  /* jshint ignore:end */
-  SegmentMembershipListInstance.create = function create(opts, callback) {
-    if (_.isUndefined(opts)) {
-      throw new Error('Required parameter "opts" missing.');
-    }
-    if (_.isUndefined(opts.segment)) {
-      throw new Error('Required parameter "opts.segment" missing.');
-    }
-
-    var deferred = Q.defer();
-    var data = values.of({'Segment': _.get(opts, 'segment')});
-
-    var promise = this._version.create({uri: this._uri, method: 'POST', data: data});
-
-    promise = promise.then(function(payload) {
-      deferred.resolve(new SegmentMembershipInstance(
-        this._version,
-        payload,
-        this._solution.serviceSid,
-        this._solution.identity,
-        this._solution.segment
-      ));
-    }.bind(this));
-
-    promise.catch(function(error) {
-      deferred.reject(error);
-    });
-
-    if (_.isFunction(callback)) {
-      deferred.promise.nodeify(callback);
-    }
-
-    return deferred.promise;
-  };
+  create(opts: object, callback?: function);
+  /**
+   * Constructs a segment_membership
+   *
+   * @function get
+   * @memberof Twilio.Notify.V1.ServiceContext.UserContext.SegmentMembershipList
+   * @instance
+   *
+   * @param segment - The segment
+   */
+  get(segment: string);
 }
 
 
@@ -93,7 +76,7 @@ declare class SegmentMembershipPage extends Page {
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Notify.V1, response: object, solution: object);
+  constructor(version: Twilio.Notify.V1, response: Response<string>, solution: object);
 
   /**
    * Build an instance of SegmentMembershipInstance
@@ -196,4 +179,4 @@ declare class SegmentMembershipContext {
   remove(callback?: function);
 }
 
-export { SegmentMembershipContext, SegmentMembershipInstance, SegmentMembershipList, SegmentMembershipListInstance, SegmentMembershipPage, SegmentMembershipPayload, SegmentMembershipResource }
+export { SegmentMembershipContext, SegmentMembershipInstance, SegmentMembershipList, SegmentMembershipListInstance, SegmentMembershipPage, SegmentMembershipPayload, SegmentMembershipResource, SegmentMembershipSolution }

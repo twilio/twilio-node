@@ -21,7 +21,18 @@ interface SipResource {
 interface SipPayload extends SipResource, Page.TwilioResponsePayload {
 }
 
-interface SipListInstance {
+interface SipSolution {
+  accountSid?: string;
 }
 
-export { SipList, SipListInstance, SipPayload, SipResource }
+interface SipListInstance {
+  /**
+   * @param sid - sid of instance
+   */
+  SipListInstance(sid: string);
+  credentialLists?: object;
+  domains?: object;
+  ipAccessControlLists?: object;
+}
+
+export { SipList, SipListInstance, SipPayload, SipResource, SipSolution }

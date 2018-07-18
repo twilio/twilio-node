@@ -6,6 +6,7 @@
  */
 
 import Page = require('../../../../base/Page');
+import Response = require('../../../../http/response');
 import V1 = require('../../V1');
 import serialize = require('../../../../base/serialize');
 import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
@@ -40,8 +41,15 @@ interface BindingResource {
 interface BindingPayload extends BindingResource, Page.TwilioResponsePayload {
 }
 
+interface BindingSolution {
+  serviceSid?: string;
+}
+
 interface BindingListInstance {
-  /* jshint ignore:start */
+  /**
+   * @param sid - sid of instance
+   */
+  BindingListInstance(sid: string);
   /**
    * create a BindingInstance
    *
@@ -49,68 +57,10 @@ interface BindingListInstance {
    * @memberof Twilio.Notify.V1.ServiceContext.BindingList
    * @instance
    *
-   * @param {object} opts - ...
-   * @param {string} opts.identity - The Identity to which this Binding belongs to.
-   * @param {binding.binding_type} opts.bindingType - The type of the Binding.
-   * @param {string} opts.address - The address specific to the channel.
-   * @param {string|list} [opts.tag] - The list of tags associated with this Binding.
-   * @param {string} [opts.notificationProtocolVersion] -
-   *          The version of the protocol used to send the notification.
-   * @param {string} [opts.credentialSid] -
-   *          The unique identifier of the Credential resource to be used to send notifications to this Binding.
-   * @param {string} [opts.endpoint] - DEPRECATED*
-   * @param {function} [callback] - Callback to handle processed record
-   *
-   * @returns {Promise} Resolves to processed BindingInstance
+   * @param opts - ...
+   * @param callback - Callback to handle processed record
    */
-  /* jshint ignore:end */
-  BindingListInstance.create = function create(opts, callback) {
-    if (_.isUndefined(opts)) {
-      throw new Error('Required parameter "opts" missing.');
-    }
-    if (_.isUndefined(opts.identity)) {
-      throw new Error('Required parameter "opts.identity" missing.');
-    }
-    if (_.isUndefined(opts.bindingType)) {
-      throw new Error('Required parameter "opts.bindingType" missing.');
-    }
-    if (_.isUndefined(opts.address)) {
-      throw new Error('Required parameter "opts.address" missing.');
-    }
-
-    var deferred = Q.defer();
-    var data = values.of({
-      'Identity': _.get(opts, 'identity'),
-      'BindingType': _.get(opts, 'bindingType'),
-      'Address': _.get(opts, 'address'),
-      'Tag': serialize.map(_.get(opts, 'tag'), function(e) { return e; }),
-      'NotificationProtocolVersion': _.get(opts, 'notificationProtocolVersion'),
-      'CredentialSid': _.get(opts, 'credentialSid'),
-      'Endpoint': _.get(opts, 'endpoint')
-    });
-
-    var promise = this._version.create({uri: this._uri, method: 'POST', data: data});
-
-    promise = promise.then(function(payload) {
-      deferred.resolve(new BindingInstance(
-        this._version,
-        payload,
-        this._solution.serviceSid,
-        this._solution.sid
-      ));
-    }.bind(this));
-
-    promise.catch(function(error) {
-      deferred.reject(error);
-    });
-
-    if (_.isFunction(callback)) {
-      deferred.promise.nodeify(callback);
-    }
-
-    return deferred.promise;
-  };
-  /* jshint ignore:start */
+  create(opts: object, callback?: function);
   /**
    * Streams BindingInstance records from the API.
    *
@@ -125,93 +75,20 @@ interface BindingListInstance {
    * @memberof Twilio.Notify.V1.ServiceContext.BindingList
    * @instance
    *
-   * @param {object} [opts] - ...
-   * @param {Date} [opts.startDate] -
-   *          Only list Bindings created on or after the given date.
-   * @param {Date} [opts.endDate] -
-   *          Only list Bindings created on or before the given date.
-   * @param {string|list} [opts.identity] -
-   *          Only list Bindings that have any of the specified Identities.
-   * @param {string|list} [opts.tag] -
-   *          Only list Bindings that have all of the specified Tags.
-   * @param {number} [opts.limit] -
-   *         Upper limit for the number of records to return.
-   *         each() guarantees never to return more than limit.
-   *         Default is no limit
-   * @param {number} [opts.pageSize] -
-   *         Number of records to fetch per request,
-   *         when not set will use the default value of 50 records.
-   *         If no pageSize is defined but a limit is defined,
-   *         each() will attempt to read the limit with the most efficient
-   *         page size, i.e. min(limit, 1000)
-   * @param {Function} [opts.callback] -
-   *         Function to process each record. If this and a positional
-   *         callback are passed, this one will be used
-   * @param {Function} [opts.done] -
-   *          Function to be called upon completion of streaming
-   * @param {Function} [callback] - Function to process each record
+   * @param opts - ...
+   * @param callback - Function to process each record
    */
-  /* jshint ignore:end */
-  BindingListInstance.each = function each(opts, callback) {
-    if (_.isFunction(opts)) {
-      callback = opts;
-      opts = {};
-    }
-    opts = opts || {};
-    if (opts.callback) {
-      callback = opts.callback;
-    }
-    if (_.isUndefined(callback)) {
-      throw new Error('Callback function must be provided');
-    }
-
-    var done = false;
-    var currentPage = 1;
-    var currentResource = 0;
-    var limits = this._version.readLimits({
-      limit: opts.limit,
-      pageSize: opts.pageSize
-    });
-
-    function onComplete(error) {
-      done = true;
-      if (_.isFunction(opts.done)) {
-        opts.done(error);
-      }
-    }
-
-    function fetchNextPage(fn) {
-      var promise = fn();
-      if (_.isUndefined(promise)) {
-        onComplete();
-        return;
-      }
-
-      promise.then(function(page) {
-        _.each(page.instances, function(instance) {
-          if (done || (!_.isUndefined(opts.limit) && currentResource >= opts.limit)) {
-            done = true;
-            return false;
-          }
-
-          currentResource++;
-          callback(instance, onComplete);
-        });
-
-        if ((limits.pageLimit && limits.pageLimit <= currentPage)) {
-          onComplete();
-        } else if (!done) {
-          currentPage++;
-          fetchNextPage(_.bind(page.nextPage, page));
-        }
-      });
-
-      promise.catch(onComplete);
-    }
-
-    fetchNextPage(_.bind(this.page, this, _.merge(opts, limits)));
-  };
-  /* jshint ignore:start */
+  each(opts?: object, callback?: Function);
+  /**
+   * Constructs a binding
+   *
+   * @function get
+   * @memberof Twilio.Notify.V1.ServiceContext.BindingList
+   * @instance
+   *
+   * @param sid - The sid
+   */
+  get(sid: string);
   /**
    * Retrieve a single target page of BindingInstance records from the API.
    * Request is executed immediately
@@ -222,32 +99,10 @@ interface BindingListInstance {
    * @memberof Twilio.Notify.V1.ServiceContext.BindingList
    * @instance
    *
-   * @param {string} [targetUrl] - API-generated URL for the requested results page
-   * @param {function} [callback] - Callback to handle list of records
-   *
-   * @returns {Promise} Resolves to a list of records
+   * @param targetUrl - API-generated URL for the requested results page
+   * @param callback - Callback to handle list of records
    */
-  /* jshint ignore:end */
-  BindingListInstance.getPage = function getPage(targetUrl, callback) {
-    var deferred = Q.defer();
-
-    var promise = this._version._domain.twilio.request({method: 'GET', uri: targetUrl});
-
-    promise = promise.then(function(payload) {
-      deferred.resolve(new BindingPage(this._version, payload, this._solution));
-    }.bind(this));
-
-    promise.catch(function(error) {
-      deferred.reject(error);
-    });
-
-    if (_.isFunction(callback)) {
-      deferred.promise.nodeify(callback);
-    }
-
-    return deferred.promise;
-  };
-  /* jshint ignore:start */
+  getPage(targetUrl?: string, callback?: function);
   /**
    * @description Lists BindingInstance records from the API as a list.
    *
@@ -257,62 +112,10 @@ interface BindingListInstance {
    * @memberof Twilio.Notify.V1.ServiceContext.BindingList
    * @instance
    *
-   * @param {object} [opts] - ...
-   * @param {Date} [opts.startDate] -
-   *          Only list Bindings created on or after the given date.
-   * @param {Date} [opts.endDate] -
-   *          Only list Bindings created on or before the given date.
-   * @param {string|list} [opts.identity] -
-   *          Only list Bindings that have any of the specified Identities.
-   * @param {string|list} [opts.tag] -
-   *          Only list Bindings that have all of the specified Tags.
-   * @param {number} [opts.limit] -
-   *         Upper limit for the number of records to return.
-   *         list() guarantees never to return more than limit.
-   *         Default is no limit
-   * @param {number} [opts.pageSize] -
-   *         Number of records to fetch per request,
-   *         when not set will use the default value of 50 records.
-   *         If no page_size is defined but a limit is defined,
-   *         list() will attempt to read the limit with the most
-   *         efficient page size, i.e. min(limit, 1000)
-   * @param {function} [callback] - Callback to handle list of records
-   *
-   * @returns {Promise} Resolves to a list of records
+   * @param opts - ...
+   * @param callback - Callback to handle list of records
    */
-  /* jshint ignore:end */
-  BindingListInstance.list = function list(opts, callback) {
-    if (_.isFunction(opts)) {
-      callback = opts;
-      opts = {};
-    }
-    opts = opts || {};
-    var deferred = Q.defer();
-    var allResources = [];
-    opts.callback = function(resource, done) {
-      allResources.push(resource);
-
-      if (!_.isUndefined(opts.limit) && allResources.length === opts.limit) {
-        done();
-      }
-    };
-
-    opts.done = function(error) {
-      if (_.isUndefined(error)) {
-        deferred.resolve(allResources);
-      } else {
-        deferred.reject(error);
-      }
-    };
-
-    if (_.isFunction(callback)) {
-      deferred.promise.nodeify(callback);
-    }
-
-    this.each(opts);
-    return deferred.promise;
-  };
-  /* jshint ignore:start */
+  list(opts?: object, callback?: function);
   /**
    * Retrieve a single page of BindingInstance records from the API.
    * Request is executed immediately
@@ -323,58 +126,10 @@ interface BindingListInstance {
    * @memberof Twilio.Notify.V1.ServiceContext.BindingList
    * @instance
    *
-   * @param {object} [opts] - ...
-   * @param {Date} [opts.startDate] -
-   *          Only list Bindings created on or after the given date.
-   * @param {Date} [opts.endDate] -
-   *          Only list Bindings created on or before the given date.
-   * @param {string|list} [opts.identity] -
-   *          Only list Bindings that have any of the specified Identities.
-   * @param {string|list} [opts.tag] -
-   *          Only list Bindings that have all of the specified Tags.
-   * @param {string} [opts.pageToken] - PageToken provided by the API
-   * @param {number} [opts.pageNumber] -
-   *          Page Number, this value is simply for client state
-   * @param {number} [opts.pageSize] - Number of records to return, defaults to 50
-   * @param {function} [callback] - Callback to handle list of records
-   *
-   * @returns {Promise} Resolves to a list of records
+   * @param opts - ...
+   * @param callback - Callback to handle list of records
    */
-  /* jshint ignore:end */
-  BindingListInstance.page = function page(opts, callback) {
-    if (_.isFunction(opts)) {
-      callback = opts;
-      opts = {};
-    }
-    opts = opts || {};
-
-    var deferred = Q.defer();
-    var data = values.of({
-      'StartDate': serialize.iso8601Date(_.get(opts, 'startDate')),
-      'EndDate': serialize.iso8601Date(_.get(opts, 'endDate')),
-      'Identity': serialize.map(_.get(opts, 'identity'), function(e) { return e; }),
-      'Tag': serialize.map(_.get(opts, 'tag'), function(e) { return e; }),
-      'PageToken': opts.pageToken,
-      'Page': opts.pageNumber,
-      'PageSize': opts.pageSize
-    });
-
-    var promise = this._version.page({uri: this._uri, method: 'GET', params: data});
-
-    promise = promise.then(function(payload) {
-      deferred.resolve(new BindingPage(this._version, payload, this._solution));
-    }.bind(this));
-
-    promise.catch(function(error) {
-      deferred.reject(error);
-    });
-
-    if (_.isFunction(callback)) {
-      deferred.promise.nodeify(callback);
-    }
-
-    return deferred.promise;
-  };
+  page(opts?: object, callback?: function);
 }
 
 
@@ -389,7 +144,7 @@ declare class BindingPage extends Page {
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Notify.V1, response: object, solution: object);
+  constructor(version: Twilio.Notify.V1, response: Response<string>, solution: object);
 
   /**
    * Build an instance of BindingInstance
@@ -499,4 +254,4 @@ declare class BindingContext {
   remove(callback?: function);
 }
 
-export { BindingContext, BindingInstance, BindingList, BindingListInstance, BindingPage, BindingPayload, BindingResource }
+export { BindingContext, BindingInstance, BindingList, BindingListInstance, BindingPage, BindingPayload, BindingResource, BindingSolution }

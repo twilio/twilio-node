@@ -6,6 +6,7 @@
  */
 
 import Page = require('../../../base/Page');
+import Response = require('../../../http/response');
 import Wireless = require('../Wireless');
 import serialize = require('../../../base/serialize');
 import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
@@ -39,8 +40,14 @@ interface RatePlanResource {
 interface RatePlanPayload extends RatePlanResource, Page.TwilioResponsePayload {
 }
 
+interface RatePlanSolution {
+}
+
 interface RatePlanListInstance {
-  /* jshint ignore:start */
+  /**
+   * @param sid - sid of instance
+   */
+  RatePlanListInstance(sid: string);
   /**
    * create a RatePlanInstance
    *
@@ -48,60 +55,10 @@ interface RatePlanListInstance {
    * @memberof Twilio.Preview.Wireless.RatePlanList
    * @instance
    *
-   * @param {object} [opts] - ...
-   * @param {string} [opts.uniqueName] - The unique_name
-   * @param {string} [opts.friendlyName] - The friendly_name
-   * @param {boolean} [opts.dataEnabled] - The data_enabled
-   * @param {number} [opts.dataLimit] - The data_limit
-   * @param {string} [opts.dataMetering] - The data_metering
-   * @param {boolean} [opts.messagingEnabled] - The messaging_enabled
-   * @param {boolean} [opts.voiceEnabled] - The voice_enabled
-   * @param {boolean} [opts.commandsEnabled] - The commands_enabled
-   * @param {boolean} [opts.nationalRoamingEnabled] - The national_roaming_enabled
-   * @param {string|list} [opts.internationalRoaming] - The international_roaming
-   * @param {function} [callback] - Callback to handle processed record
-   *
-   * @returns {Promise} Resolves to processed RatePlanInstance
+   * @param opts - ...
+   * @param callback - Callback to handle processed record
    */
-  /* jshint ignore:end */
-  RatePlanListInstance.create = function create(opts, callback) {
-    if (_.isFunction(opts)) {
-      callback = opts;
-      opts = {};
-    }
-    opts = opts || {};
-
-    var deferred = Q.defer();
-    var data = values.of({
-      'UniqueName': _.get(opts, 'uniqueName'),
-      'FriendlyName': _.get(opts, 'friendlyName'),
-      'DataEnabled': serialize.bool(_.get(opts, 'dataEnabled')),
-      'DataLimit': _.get(opts, 'dataLimit'),
-      'DataMetering': _.get(opts, 'dataMetering'),
-      'MessagingEnabled': serialize.bool(_.get(opts, 'messagingEnabled')),
-      'VoiceEnabled': serialize.bool(_.get(opts, 'voiceEnabled')),
-      'CommandsEnabled': serialize.bool(_.get(opts, 'commandsEnabled')),
-      'NationalRoamingEnabled': serialize.bool(_.get(opts, 'nationalRoamingEnabled')),
-      'InternationalRoaming': serialize.map(_.get(opts, 'internationalRoaming'), function(e) { return e; })
-    });
-
-    var promise = this._version.create({uri: this._uri, method: 'POST', data: data});
-
-    promise = promise.then(function(payload) {
-      deferred.resolve(new RatePlanInstance(this._version, payload, this._solution.sid));
-    }.bind(this));
-
-    promise.catch(function(error) {
-      deferred.reject(error);
-    });
-
-    if (_.isFunction(callback)) {
-      deferred.promise.nodeify(callback);
-    }
-
-    return deferred.promise;
-  };
-  /* jshint ignore:start */
+  create(opts?: object, callback?: function);
   /**
    * Streams RatePlanInstance records from the API.
    *
@@ -116,85 +73,20 @@ interface RatePlanListInstance {
    * @memberof Twilio.Preview.Wireless.RatePlanList
    * @instance
    *
-   * @param {object} [opts] - ...
-   * @param {number} [opts.limit] -
-   *         Upper limit for the number of records to return.
-   *         each() guarantees never to return more than limit.
-   *         Default is no limit
-   * @param {number} [opts.pageSize] -
-   *         Number of records to fetch per request,
-   *         when not set will use the default value of 50 records.
-   *         If no pageSize is defined but a limit is defined,
-   *         each() will attempt to read the limit with the most efficient
-   *         page size, i.e. min(limit, 1000)
-   * @param {Function} [opts.callback] -
-   *         Function to process each record. If this and a positional
-   *         callback are passed, this one will be used
-   * @param {Function} [opts.done] -
-   *          Function to be called upon completion of streaming
-   * @param {Function} [callback] - Function to process each record
+   * @param opts - ...
+   * @param callback - Function to process each record
    */
-  /* jshint ignore:end */
-  RatePlanListInstance.each = function each(opts, callback) {
-    if (_.isFunction(opts)) {
-      callback = opts;
-      opts = {};
-    }
-    opts = opts || {};
-    if (opts.callback) {
-      callback = opts.callback;
-    }
-    if (_.isUndefined(callback)) {
-      throw new Error('Callback function must be provided');
-    }
-
-    var done = false;
-    var currentPage = 1;
-    var currentResource = 0;
-    var limits = this._version.readLimits({
-      limit: opts.limit,
-      pageSize: opts.pageSize
-    });
-
-    function onComplete(error) {
-      done = true;
-      if (_.isFunction(opts.done)) {
-        opts.done(error);
-      }
-    }
-
-    function fetchNextPage(fn) {
-      var promise = fn();
-      if (_.isUndefined(promise)) {
-        onComplete();
-        return;
-      }
-
-      promise.then(function(page) {
-        _.each(page.instances, function(instance) {
-          if (done || (!_.isUndefined(opts.limit) && currentResource >= opts.limit)) {
-            done = true;
-            return false;
-          }
-
-          currentResource++;
-          callback(instance, onComplete);
-        });
-
-        if ((limits.pageLimit && limits.pageLimit <= currentPage)) {
-          onComplete();
-        } else if (!done) {
-          currentPage++;
-          fetchNextPage(_.bind(page.nextPage, page));
-        }
-      });
-
-      promise.catch(onComplete);
-    }
-
-    fetchNextPage(_.bind(this.page, this, _.merge(opts, limits)));
-  };
-  /* jshint ignore:start */
+  each(opts?: object, callback?: Function);
+  /**
+   * Constructs a rate_plan
+   *
+   * @function get
+   * @memberof Twilio.Preview.Wireless.RatePlanList
+   * @instance
+   *
+   * @param sid - The sid
+   */
+  get(sid: string);
   /**
    * Retrieve a single target page of RatePlanInstance records from the API.
    * Request is executed immediately
@@ -205,32 +97,10 @@ interface RatePlanListInstance {
    * @memberof Twilio.Preview.Wireless.RatePlanList
    * @instance
    *
-   * @param {string} [targetUrl] - API-generated URL for the requested results page
-   * @param {function} [callback] - Callback to handle list of records
-   *
-   * @returns {Promise} Resolves to a list of records
+   * @param targetUrl - API-generated URL for the requested results page
+   * @param callback - Callback to handle list of records
    */
-  /* jshint ignore:end */
-  RatePlanListInstance.getPage = function getPage(targetUrl, callback) {
-    var deferred = Q.defer();
-
-    var promise = this._version._domain.twilio.request({method: 'GET', uri: targetUrl});
-
-    promise = promise.then(function(payload) {
-      deferred.resolve(new RatePlanPage(this._version, payload, this._solution));
-    }.bind(this));
-
-    promise.catch(function(error) {
-      deferred.reject(error);
-    });
-
-    if (_.isFunction(callback)) {
-      deferred.promise.nodeify(callback);
-    }
-
-    return deferred.promise;
-  };
-  /* jshint ignore:start */
+  getPage(targetUrl?: string, callback?: function);
   /**
    * @description Lists RatePlanInstance records from the API as a list.
    *
@@ -240,54 +110,10 @@ interface RatePlanListInstance {
    * @memberof Twilio.Preview.Wireless.RatePlanList
    * @instance
    *
-   * @param {object} [opts] - ...
-   * @param {number} [opts.limit] -
-   *         Upper limit for the number of records to return.
-   *         list() guarantees never to return more than limit.
-   *         Default is no limit
-   * @param {number} [opts.pageSize] -
-   *         Number of records to fetch per request,
-   *         when not set will use the default value of 50 records.
-   *         If no page_size is defined but a limit is defined,
-   *         list() will attempt to read the limit with the most
-   *         efficient page size, i.e. min(limit, 1000)
-   * @param {function} [callback] - Callback to handle list of records
-   *
-   * @returns {Promise} Resolves to a list of records
+   * @param opts - ...
+   * @param callback - Callback to handle list of records
    */
-  /* jshint ignore:end */
-  RatePlanListInstance.list = function list(opts, callback) {
-    if (_.isFunction(opts)) {
-      callback = opts;
-      opts = {};
-    }
-    opts = opts || {};
-    var deferred = Q.defer();
-    var allResources = [];
-    opts.callback = function(resource, done) {
-      allResources.push(resource);
-
-      if (!_.isUndefined(opts.limit) && allResources.length === opts.limit) {
-        done();
-      }
-    };
-
-    opts.done = function(error) {
-      if (_.isUndefined(error)) {
-        deferred.resolve(allResources);
-      } else {
-        deferred.reject(error);
-      }
-    };
-
-    if (_.isFunction(callback)) {
-      deferred.promise.nodeify(callback);
-    }
-
-    this.each(opts);
-    return deferred.promise;
-  };
-  /* jshint ignore:start */
+  list(opts?: object, callback?: function);
   /**
    * Retrieve a single page of RatePlanInstance records from the API.
    * Request is executed immediately
@@ -298,46 +124,10 @@ interface RatePlanListInstance {
    * @memberof Twilio.Preview.Wireless.RatePlanList
    * @instance
    *
-   * @param {object} [opts] - ...
-   * @param {string} [opts.pageToken] - PageToken provided by the API
-   * @param {number} [opts.pageNumber] -
-   *          Page Number, this value is simply for client state
-   * @param {number} [opts.pageSize] - Number of records to return, defaults to 50
-   * @param {function} [callback] - Callback to handle list of records
-   *
-   * @returns {Promise} Resolves to a list of records
+   * @param opts - ...
+   * @param callback - Callback to handle list of records
    */
-  /* jshint ignore:end */
-  RatePlanListInstance.page = function page(opts, callback) {
-    if (_.isFunction(opts)) {
-      callback = opts;
-      opts = {};
-    }
-    opts = opts || {};
-
-    var deferred = Q.defer();
-    var data = values.of({
-      'PageToken': opts.pageToken,
-      'Page': opts.pageNumber,
-      'PageSize': opts.pageSize
-    });
-
-    var promise = this._version.page({uri: this._uri, method: 'GET', params: data});
-
-    promise = promise.then(function(payload) {
-      deferred.resolve(new RatePlanPage(this._version, payload, this._solution));
-    }.bind(this));
-
-    promise.catch(function(error) {
-      deferred.reject(error);
-    });
-
-    if (_.isFunction(callback)) {
-      deferred.promise.nodeify(callback);
-    }
-
-    return deferred.promise;
-  };
+  page(opts?: object, callback?: function);
 }
 
 /**
@@ -374,7 +164,7 @@ declare class RatePlanPage extends Page {
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Preview.Wireless, response: object, solution: object);
+  constructor(version: Twilio.Preview.Wireless, response: Response<string>, solution: object);
 
   /**
    * Build an instance of RatePlanInstance
@@ -504,4 +294,4 @@ declare class RatePlanContext {
   update(opts?: object, callback?: function);
 }
 
-export { RatePlanContext, RatePlanInstance, RatePlanList, RatePlanListInstance, RatePlanPage, RatePlanPayload, RatePlanResource }
+export { RatePlanContext, RatePlanInstance, RatePlanList, RatePlanListInstance, RatePlanPage, RatePlanPayload, RatePlanResource, RatePlanSolution }

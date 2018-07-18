@@ -6,6 +6,7 @@
  */
 
 import Page = require('../../../../../base/Page');
+import Response = require('../../../../../http/response');
 import V1 = require('../../../V1');
 import { SerializableClass } from '../../../../../interfaces';
 
@@ -30,7 +31,24 @@ interface EngagementContextResource {
 interface EngagementContextPayload extends EngagementContextResource, Page.TwilioResponsePayload {
 }
 
+interface EngagementContextSolution {
+  engagementSid?: string;
+  flowSid?: string;
+}
+
 interface EngagementContextListInstance {
+  /**
+   * @param sid - sid of instance
+   */
+  EngagementContextListInstance(sid: string);
+  /**
+   * Constructs a engagement_context
+   *
+   * @function get
+   * @memberof Twilio.Studio.V1.FlowContext.EngagementContext.EngagementContextList
+   * @instance
+   */
+  get();
 }
 
 
@@ -45,7 +63,7 @@ declare class EngagementContextPage extends Page {
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Studio.V1, response: object, solution: object);
+  constructor(version: Twilio.Studio.V1, response: Response<string>, solution: object);
 
   /**
    * Build an instance of EngagementContextInstance
@@ -126,4 +144,4 @@ declare class EngagementContextContext {
   fetch(callback?: function);
 }
 
-export { EngagementContextContext, EngagementContextInstance, EngagementContextList, EngagementContextListInstance, EngagementContextPage, EngagementContextPayload, EngagementContextResource }
+export { EngagementContextContext, EngagementContextInstance, EngagementContextList, EngagementContextListInstance, EngagementContextPage, EngagementContextPayload, EngagementContextResource, EngagementContextSolution }

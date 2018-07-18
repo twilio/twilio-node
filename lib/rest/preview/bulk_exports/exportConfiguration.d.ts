@@ -7,6 +7,7 @@
 
 import BulkExports = require('../BulkExports');
 import Page = require('../../../base/Page');
+import Response = require('../../../http/response');
 import serialize = require('../../../base/serialize');
 import { SerializableClass } from '../../../interfaces';
 
@@ -29,7 +30,24 @@ interface ExportConfigurationResource {
 interface ExportConfigurationPayload extends ExportConfigurationResource, Page.TwilioResponsePayload {
 }
 
+interface ExportConfigurationSolution {
+}
+
 interface ExportConfigurationListInstance {
+  /**
+   * @param sid - sid of instance
+   */
+  ExportConfigurationListInstance(sid: string);
+  /**
+   * Constructs a export_configuration
+   *
+   * @function get
+   * @memberof Twilio.Preview.BulkExports.ExportConfigurationList
+   * @instance
+   *
+   * @param resourceType - The resource_type
+   */
+  get(resourceType: string);
 }
 
 /**
@@ -70,7 +88,7 @@ declare class ExportConfigurationPage extends Page {
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Preview.BulkExports, response: object, solution: object);
+  constructor(version: Twilio.Preview.BulkExports, response: Response<string>, solution: object);
 
   /**
    * Build an instance of ExportConfigurationInstance
@@ -171,4 +189,4 @@ declare class ExportConfigurationContext {
   update(opts?: object, callback?: function);
 }
 
-export { ExportConfigurationContext, ExportConfigurationInstance, ExportConfigurationList, ExportConfigurationListInstance, ExportConfigurationPage, ExportConfigurationPayload, ExportConfigurationResource }
+export { ExportConfigurationContext, ExportConfigurationInstance, ExportConfigurationList, ExportConfigurationListInstance, ExportConfigurationPage, ExportConfigurationPayload, ExportConfigurationResource, ExportConfigurationSolution }

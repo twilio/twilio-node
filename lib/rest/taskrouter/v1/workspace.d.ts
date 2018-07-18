@@ -6,6 +6,7 @@
  */
 
 import Page = require('../../../base/Page');
+import Response = require('../../../http/response');
 import V1 = require('../V1');
 import serialize = require('../../../base/serialize');
 import { ActivityList } from './workspace/activity';
@@ -49,8 +50,14 @@ interface WorkspaceResource {
 interface WorkspacePayload extends WorkspaceResource, Page.TwilioResponsePayload {
 }
 
+interface WorkspaceSolution {
+}
+
 interface WorkspaceListInstance {
-  /* jshint ignore:start */
+  /**
+   * @param sid - sid of instance
+   */
+  WorkspaceListInstance(sid: string);
   /**
    * create a WorkspaceInstance
    *
@@ -58,57 +65,10 @@ interface WorkspaceListInstance {
    * @memberof Twilio.Taskrouter.V1.WorkspaceList
    * @instance
    *
-   * @param {object} opts - ...
-   * @param {string} opts.friendlyName - Human readable description of this workspace
-   * @param {string} [opts.eventCallbackUrl] -
-   *          If provided, the Workspace will publish events to this URL.
-   * @param {string} [opts.eventsFilter] -
-   *          Use this parameter to receive webhooks on EventCallbackUrl for specific events on a workspace.
-   * @param {boolean} [opts.multiTaskEnabled] -
-   *          Multi tasking allows workers to handle multiple tasks simultaneously.
-   * @param {string} [opts.template] - One of the available template names.
-   * @param {workspace.queue_order} [opts.prioritizeQueueOrder] -
-   *          Use this parameter to configure whether to prioritize LIFO or FIFO when workers are receiving Tasks from combination of LIFO and FIFO TaskQueues.
-   * @param {function} [callback] - Callback to handle processed record
-   *
-   * @returns {Promise} Resolves to processed WorkspaceInstance
+   * @param opts - ...
+   * @param callback - Callback to handle processed record
    */
-  /* jshint ignore:end */
-  WorkspaceListInstance.create = function create(opts, callback) {
-    if (_.isUndefined(opts)) {
-      throw new Error('Required parameter "opts" missing.');
-    }
-    if (_.isUndefined(opts.friendlyName)) {
-      throw new Error('Required parameter "opts.friendlyName" missing.');
-    }
-
-    var deferred = Q.defer();
-    var data = values.of({
-      'FriendlyName': _.get(opts, 'friendlyName'),
-      'EventCallbackUrl': _.get(opts, 'eventCallbackUrl'),
-      'EventsFilter': _.get(opts, 'eventsFilter'),
-      'MultiTaskEnabled': serialize.bool(_.get(opts, 'multiTaskEnabled')),
-      'Template': _.get(opts, 'template'),
-      'PrioritizeQueueOrder': _.get(opts, 'prioritizeQueueOrder')
-    });
-
-    var promise = this._version.create({uri: this._uri, method: 'POST', data: data});
-
-    promise = promise.then(function(payload) {
-      deferred.resolve(new WorkspaceInstance(this._version, payload, this._solution.sid));
-    }.bind(this));
-
-    promise.catch(function(error) {
-      deferred.reject(error);
-    });
-
-    if (_.isFunction(callback)) {
-      deferred.promise.nodeify(callback);
-    }
-
-    return deferred.promise;
-  };
-  /* jshint ignore:start */
+  create(opts: object, callback?: function);
   /**
    * Streams WorkspaceInstance records from the API.
    *
@@ -123,86 +83,20 @@ interface WorkspaceListInstance {
    * @memberof Twilio.Taskrouter.V1.WorkspaceList
    * @instance
    *
-   * @param {object} [opts] - ...
-   * @param {string} [opts.friendlyName] - Filter by a workspace's friendly name.
-   * @param {number} [opts.limit] -
-   *         Upper limit for the number of records to return.
-   *         each() guarantees never to return more than limit.
-   *         Default is no limit
-   * @param {number} [opts.pageSize] -
-   *         Number of records to fetch per request,
-   *         when not set will use the default value of 50 records.
-   *         If no pageSize is defined but a limit is defined,
-   *         each() will attempt to read the limit with the most efficient
-   *         page size, i.e. min(limit, 1000)
-   * @param {Function} [opts.callback] -
-   *         Function to process each record. If this and a positional
-   *         callback are passed, this one will be used
-   * @param {Function} [opts.done] -
-   *          Function to be called upon completion of streaming
-   * @param {Function} [callback] - Function to process each record
+   * @param opts - ...
+   * @param callback - Function to process each record
    */
-  /* jshint ignore:end */
-  WorkspaceListInstance.each = function each(opts, callback) {
-    if (_.isFunction(opts)) {
-      callback = opts;
-      opts = {};
-    }
-    opts = opts || {};
-    if (opts.callback) {
-      callback = opts.callback;
-    }
-    if (_.isUndefined(callback)) {
-      throw new Error('Callback function must be provided');
-    }
-
-    var done = false;
-    var currentPage = 1;
-    var currentResource = 0;
-    var limits = this._version.readLimits({
-      limit: opts.limit,
-      pageSize: opts.pageSize
-    });
-
-    function onComplete(error) {
-      done = true;
-      if (_.isFunction(opts.done)) {
-        opts.done(error);
-      }
-    }
-
-    function fetchNextPage(fn) {
-      var promise = fn();
-      if (_.isUndefined(promise)) {
-        onComplete();
-        return;
-      }
-
-      promise.then(function(page) {
-        _.each(page.instances, function(instance) {
-          if (done || (!_.isUndefined(opts.limit) && currentResource >= opts.limit)) {
-            done = true;
-            return false;
-          }
-
-          currentResource++;
-          callback(instance, onComplete);
-        });
-
-        if ((limits.pageLimit && limits.pageLimit <= currentPage)) {
-          onComplete();
-        } else if (!done) {
-          currentPage++;
-          fetchNextPage(_.bind(page.nextPage, page));
-        }
-      });
-
-      promise.catch(onComplete);
-    }
-
-    fetchNextPage(_.bind(this.page, this, _.merge(opts, limits)));
-  };
-  /* jshint ignore:start */
+  each(opts?: object, callback?: Function);
+  /**
+   * Constructs a workspace
+   *
+   * @function get
+   * @memberof Twilio.Taskrouter.V1.WorkspaceList
+   * @instance
+   *
+   * @param sid - The sid
+   */
+  get(sid: string);
   /**
    * Retrieve a single target page of WorkspaceInstance records from the API.
    * Request is executed immediately
@@ -213,32 +107,10 @@ interface WorkspaceListInstance {
    * @memberof Twilio.Taskrouter.V1.WorkspaceList
    * @instance
    *
-   * @param {string} [targetUrl] - API-generated URL for the requested results page
-   * @param {function} [callback] - Callback to handle list of records
-   *
-   * @returns {Promise} Resolves to a list of records
+   * @param targetUrl - API-generated URL for the requested results page
+   * @param callback - Callback to handle list of records
    */
-  /* jshint ignore:end */
-  WorkspaceListInstance.getPage = function getPage(targetUrl, callback) {
-    var deferred = Q.defer();
-
-    var promise = this._version._domain.twilio.request({method: 'GET', uri: targetUrl});
-
-    promise = promise.then(function(payload) {
-      deferred.resolve(new WorkspacePage(this._version, payload, this._solution));
-    }.bind(this));
-
-    promise.catch(function(error) {
-      deferred.reject(error);
-    });
-
-    if (_.isFunction(callback)) {
-      deferred.promise.nodeify(callback);
-    }
-
-    return deferred.promise;
-  };
-  /* jshint ignore:start */
+  getPage(targetUrl?: string, callback?: function);
   /**
    * @description Lists WorkspaceInstance records from the API as a list.
    *
@@ -248,55 +120,10 @@ interface WorkspaceListInstance {
    * @memberof Twilio.Taskrouter.V1.WorkspaceList
    * @instance
    *
-   * @param {object} [opts] - ...
-   * @param {string} [opts.friendlyName] - Filter by a workspace's friendly name.
-   * @param {number} [opts.limit] -
-   *         Upper limit for the number of records to return.
-   *         list() guarantees never to return more than limit.
-   *         Default is no limit
-   * @param {number} [opts.pageSize] -
-   *         Number of records to fetch per request,
-   *         when not set will use the default value of 50 records.
-   *         If no page_size is defined but a limit is defined,
-   *         list() will attempt to read the limit with the most
-   *         efficient page size, i.e. min(limit, 1000)
-   * @param {function} [callback] - Callback to handle list of records
-   *
-   * @returns {Promise} Resolves to a list of records
+   * @param opts - ...
+   * @param callback - Callback to handle list of records
    */
-  /* jshint ignore:end */
-  WorkspaceListInstance.list = function list(opts, callback) {
-    if (_.isFunction(opts)) {
-      callback = opts;
-      opts = {};
-    }
-    opts = opts || {};
-    var deferred = Q.defer();
-    var allResources = [];
-    opts.callback = function(resource, done) {
-      allResources.push(resource);
-
-      if (!_.isUndefined(opts.limit) && allResources.length === opts.limit) {
-        done();
-      }
-    };
-
-    opts.done = function(error) {
-      if (_.isUndefined(error)) {
-        deferred.resolve(allResources);
-      } else {
-        deferred.reject(error);
-      }
-    };
-
-    if (_.isFunction(callback)) {
-      deferred.promise.nodeify(callback);
-    }
-
-    this.each(opts);
-    return deferred.promise;
-  };
-  /* jshint ignore:start */
+  list(opts?: object, callback?: function);
   /**
    * Retrieve a single page of WorkspaceInstance records from the API.
    * Request is executed immediately
@@ -307,48 +134,10 @@ interface WorkspaceListInstance {
    * @memberof Twilio.Taskrouter.V1.WorkspaceList
    * @instance
    *
-   * @param {object} [opts] - ...
-   * @param {string} [opts.friendlyName] - Filter by a workspace's friendly name.
-   * @param {string} [opts.pageToken] - PageToken provided by the API
-   * @param {number} [opts.pageNumber] -
-   *          Page Number, this value is simply for client state
-   * @param {number} [opts.pageSize] - Number of records to return, defaults to 50
-   * @param {function} [callback] - Callback to handle list of records
-   *
-   * @returns {Promise} Resolves to a list of records
+   * @param opts - ...
+   * @param callback - Callback to handle list of records
    */
-  /* jshint ignore:end */
-  WorkspaceListInstance.page = function page(opts, callback) {
-    if (_.isFunction(opts)) {
-      callback = opts;
-      opts = {};
-    }
-    opts = opts || {};
-
-    var deferred = Q.defer();
-    var data = values.of({
-      'FriendlyName': _.get(opts, 'friendlyName'),
-      'PageToken': opts.pageToken,
-      'Page': opts.pageNumber,
-      'PageSize': opts.pageSize
-    });
-
-    var promise = this._version.page({uri: this._uri, method: 'GET', params: data});
-
-    promise = promise.then(function(payload) {
-      deferred.resolve(new WorkspacePage(this._version, payload, this._solution));
-    }.bind(this));
-
-    promise.catch(function(error) {
-      deferred.reject(error);
-    });
-
-    if (_.isFunction(callback)) {
-      deferred.promise.nodeify(callback);
-    }
-
-    return deferred.promise;
-  };
+  page(opts?: object, callback?: function);
 }
 
 /**
@@ -404,7 +193,7 @@ declare class WorkspacePage extends Page {
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Taskrouter.V1, response: object, solution: object);
+  constructor(version: Twilio.Taskrouter.V1, response: Response<string>, solution: object);
 
   /**
    * Build an instance of WorkspaceInstance
@@ -634,4 +423,4 @@ declare class WorkspaceContext {
   workflows?: Twilio.Taskrouter.V1.WorkspaceContext.WorkflowList;
 }
 
-export { WorkspaceContext, WorkspaceInstance, WorkspaceList, WorkspaceListInstance, WorkspacePage, WorkspacePayload, WorkspaceResource }
+export { WorkspaceContext, WorkspaceInstance, WorkspaceList, WorkspaceListInstance, WorkspacePage, WorkspacePayload, WorkspaceResource, WorkspaceSolution }

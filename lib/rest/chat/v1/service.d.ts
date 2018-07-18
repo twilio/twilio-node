@@ -6,6 +6,7 @@
  */
 
 import Page = require('../../../base/Page');
+import Response = require('../../../http/response');
 import V1 = require('../V1');
 import serialize = require('../../../base/serialize');
 import { ChannelList } from './service/channel';
@@ -48,8 +49,14 @@ interface ServiceResource {
 interface ServicePayload extends ServiceResource, Page.TwilioResponsePayload {
 }
 
+interface ServiceSolution {
+}
+
 interface ServiceListInstance {
-  /* jshint ignore:start */
+  /**
+   * @param sid - sid of instance
+   */
+  ServiceListInstance(sid: string);
   /**
    * create a ServiceInstance
    *
@@ -57,42 +64,10 @@ interface ServiceListInstance {
    * @memberof Twilio.Chat.V1.ServiceList
    * @instance
    *
-   * @param {object} opts - ...
-   * @param {string} opts.friendlyName -
-   *          Human-readable name for this service instance
-   * @param {function} [callback] - Callback to handle processed record
-   *
-   * @returns {Promise} Resolves to processed ServiceInstance
+   * @param opts - ...
+   * @param callback - Callback to handle processed record
    */
-  /* jshint ignore:end */
-  ServiceListInstance.create = function create(opts, callback) {
-    if (_.isUndefined(opts)) {
-      throw new Error('Required parameter "opts" missing.');
-    }
-    if (_.isUndefined(opts.friendlyName)) {
-      throw new Error('Required parameter "opts.friendlyName" missing.');
-    }
-
-    var deferred = Q.defer();
-    var data = values.of({'FriendlyName': _.get(opts, 'friendlyName')});
-
-    var promise = this._version.create({uri: this._uri, method: 'POST', data: data});
-
-    promise = promise.then(function(payload) {
-      deferred.resolve(new ServiceInstance(this._version, payload, this._solution.sid));
-    }.bind(this));
-
-    promise.catch(function(error) {
-      deferred.reject(error);
-    });
-
-    if (_.isFunction(callback)) {
-      deferred.promise.nodeify(callback);
-    }
-
-    return deferred.promise;
-  };
-  /* jshint ignore:start */
+  create(opts: object, callback?: function);
   /**
    * Streams ServiceInstance records from the API.
    *
@@ -107,85 +82,20 @@ interface ServiceListInstance {
    * @memberof Twilio.Chat.V1.ServiceList
    * @instance
    *
-   * @param {object} [opts] - ...
-   * @param {number} [opts.limit] -
-   *         Upper limit for the number of records to return.
-   *         each() guarantees never to return more than limit.
-   *         Default is no limit
-   * @param {number} [opts.pageSize] -
-   *         Number of records to fetch per request,
-   *         when not set will use the default value of 50 records.
-   *         If no pageSize is defined but a limit is defined,
-   *         each() will attempt to read the limit with the most efficient
-   *         page size, i.e. min(limit, 1000)
-   * @param {Function} [opts.callback] -
-   *         Function to process each record. If this and a positional
-   *         callback are passed, this one will be used
-   * @param {Function} [opts.done] -
-   *          Function to be called upon completion of streaming
-   * @param {Function} [callback] - Function to process each record
+   * @param opts - ...
+   * @param callback - Function to process each record
    */
-  /* jshint ignore:end */
-  ServiceListInstance.each = function each(opts, callback) {
-    if (_.isFunction(opts)) {
-      callback = opts;
-      opts = {};
-    }
-    opts = opts || {};
-    if (opts.callback) {
-      callback = opts.callback;
-    }
-    if (_.isUndefined(callback)) {
-      throw new Error('Callback function must be provided');
-    }
-
-    var done = false;
-    var currentPage = 1;
-    var currentResource = 0;
-    var limits = this._version.readLimits({
-      limit: opts.limit,
-      pageSize: opts.pageSize
-    });
-
-    function onComplete(error) {
-      done = true;
-      if (_.isFunction(opts.done)) {
-        opts.done(error);
-      }
-    }
-
-    function fetchNextPage(fn) {
-      var promise = fn();
-      if (_.isUndefined(promise)) {
-        onComplete();
-        return;
-      }
-
-      promise.then(function(page) {
-        _.each(page.instances, function(instance) {
-          if (done || (!_.isUndefined(opts.limit) && currentResource >= opts.limit)) {
-            done = true;
-            return false;
-          }
-
-          currentResource++;
-          callback(instance, onComplete);
-        });
-
-        if ((limits.pageLimit && limits.pageLimit <= currentPage)) {
-          onComplete();
-        } else if (!done) {
-          currentPage++;
-          fetchNextPage(_.bind(page.nextPage, page));
-        }
-      });
-
-      promise.catch(onComplete);
-    }
-
-    fetchNextPage(_.bind(this.page, this, _.merge(opts, limits)));
-  };
-  /* jshint ignore:start */
+  each(opts?: object, callback?: Function);
+  /**
+   * Constructs a service
+   *
+   * @function get
+   * @memberof Twilio.Chat.V1.ServiceList
+   * @instance
+   *
+   * @param sid - The sid
+   */
+  get(sid: string);
   /**
    * Retrieve a single target page of ServiceInstance records from the API.
    * Request is executed immediately
@@ -196,32 +106,10 @@ interface ServiceListInstance {
    * @memberof Twilio.Chat.V1.ServiceList
    * @instance
    *
-   * @param {string} [targetUrl] - API-generated URL for the requested results page
-   * @param {function} [callback] - Callback to handle list of records
-   *
-   * @returns {Promise} Resolves to a list of records
+   * @param targetUrl - API-generated URL for the requested results page
+   * @param callback - Callback to handle list of records
    */
-  /* jshint ignore:end */
-  ServiceListInstance.getPage = function getPage(targetUrl, callback) {
-    var deferred = Q.defer();
-
-    var promise = this._version._domain.twilio.request({method: 'GET', uri: targetUrl});
-
-    promise = promise.then(function(payload) {
-      deferred.resolve(new ServicePage(this._version, payload, this._solution));
-    }.bind(this));
-
-    promise.catch(function(error) {
-      deferred.reject(error);
-    });
-
-    if (_.isFunction(callback)) {
-      deferred.promise.nodeify(callback);
-    }
-
-    return deferred.promise;
-  };
-  /* jshint ignore:start */
+  getPage(targetUrl?: string, callback?: function);
   /**
    * @description Lists ServiceInstance records from the API as a list.
    *
@@ -231,54 +119,10 @@ interface ServiceListInstance {
    * @memberof Twilio.Chat.V1.ServiceList
    * @instance
    *
-   * @param {object} [opts] - ...
-   * @param {number} [opts.limit] -
-   *         Upper limit for the number of records to return.
-   *         list() guarantees never to return more than limit.
-   *         Default is no limit
-   * @param {number} [opts.pageSize] -
-   *         Number of records to fetch per request,
-   *         when not set will use the default value of 50 records.
-   *         If no page_size is defined but a limit is defined,
-   *         list() will attempt to read the limit with the most
-   *         efficient page size, i.e. min(limit, 1000)
-   * @param {function} [callback] - Callback to handle list of records
-   *
-   * @returns {Promise} Resolves to a list of records
+   * @param opts - ...
+   * @param callback - Callback to handle list of records
    */
-  /* jshint ignore:end */
-  ServiceListInstance.list = function list(opts, callback) {
-    if (_.isFunction(opts)) {
-      callback = opts;
-      opts = {};
-    }
-    opts = opts || {};
-    var deferred = Q.defer();
-    var allResources = [];
-    opts.callback = function(resource, done) {
-      allResources.push(resource);
-
-      if (!_.isUndefined(opts.limit) && allResources.length === opts.limit) {
-        done();
-      }
-    };
-
-    opts.done = function(error) {
-      if (_.isUndefined(error)) {
-        deferred.resolve(allResources);
-      } else {
-        deferred.reject(error);
-      }
-    };
-
-    if (_.isFunction(callback)) {
-      deferred.promise.nodeify(callback);
-    }
-
-    this.each(opts);
-    return deferred.promise;
-  };
-  /* jshint ignore:start */
+  list(opts?: object, callback?: function);
   /**
    * Retrieve a single page of ServiceInstance records from the API.
    * Request is executed immediately
@@ -289,46 +133,10 @@ interface ServiceListInstance {
    * @memberof Twilio.Chat.V1.ServiceList
    * @instance
    *
-   * @param {object} [opts] - ...
-   * @param {string} [opts.pageToken] - PageToken provided by the API
-   * @param {number} [opts.pageNumber] -
-   *          Page Number, this value is simply for client state
-   * @param {number} [opts.pageSize] - Number of records to return, defaults to 50
-   * @param {function} [callback] - Callback to handle list of records
-   *
-   * @returns {Promise} Resolves to a list of records
+   * @param opts - ...
+   * @param callback - Callback to handle list of records
    */
-  /* jshint ignore:end */
-  ServiceListInstance.page = function page(opts, callback) {
-    if (_.isFunction(opts)) {
-      callback = opts;
-      opts = {};
-    }
-    opts = opts || {};
-
-    var deferred = Q.defer();
-    var data = values.of({
-      'PageToken': opts.pageToken,
-      'Page': opts.pageNumber,
-      'PageSize': opts.pageSize
-    });
-
-    var promise = this._version.page({uri: this._uri, method: 'GET', params: data});
-
-    promise = promise.then(function(payload) {
-      deferred.resolve(new ServicePage(this._version, payload, this._solution));
-    }.bind(this));
-
-    promise.catch(function(error) {
-      deferred.reject(error);
-    });
-
-    if (_.isFunction(callback)) {
-      deferred.promise.nodeify(callback);
-    }
-
-    return deferred.promise;
-  };
+  page(opts?: object, callback?: function);
 }
 
 /**
@@ -342,133 +150,85 @@ interface ServiceListInstance {
  * @property reachabilityEnabled - true if the reachability feature should be enabled.
  * @property typingIndicatorTimeout - ISO 8601 duration indicating the timeout after "started typing" event when client should assume that user is not typing anymore even if no "ended typing" message received
  * @property consumptionReportInterval - ISO 8601 duration indicating the interval between consumption reports sent from client endpoints.
- * @property "notifications.newMessage.enabled" - The notifications.new_message.enabled
- * @property "notifications.newMessage.template" - The notifications.new_message.template
- * @property "notifications.addedToChannel.enabled" - The notifications.added_to_channel.enabled
- * @property "notifications.addedToChannel.template" - The notifications.added_to_channel.template
- * @property "notifications.removedFromChannel.enabled" - The notifications.removed_from_channel.enabled
- * @property "notifications.removedFromChannel.template" - The notifications.removed_from_channel.template
- * @property "notifications.invitedToChannel.enabled" - The notifications.invited_to_channel.enabled
- * @property "notifications.invitedToChannel.template" - The notifications.invited_to_channel.template
+ * @property notifications.newMessage.enabled - The notifications.new_message.enabled
+ * @property notifications.newMessage.template - The notifications.new_message.template
+ * @property notifications.addedToChannel.enabled - The notifications.added_to_channel.enabled
+ * @property notifications.addedToChannel.template - The notifications.added_to_channel.template
+ * @property notifications.removedFromChannel.enabled - The notifications.removed_from_channel.enabled
+ * @property notifications.removedFromChannel.template - The notifications.removed_from_channel.template
+ * @property notifications.invitedToChannel.enabled - The notifications.invited_to_channel.enabled
+ * @property notifications.invitedToChannel.template - The notifications.invited_to_channel.template
  * @property preWebhookUrl - The webhook URL for PRE-Event webhooks.
  * @property postWebhookUrl - The webhook URL for POST-Event webhooks.
  * @property webhookMethod - The webhook request format to use.
  * @property webhookFilters - The list of WebHook events that are enabled for this Service instance.
- * @property "webhooks.onMessageSend.url" - The webhooks.on_message_send.url
- * @property "webhooks.onMessageSend.method" - The webhooks.on_message_send.method
- * @property "webhooks.onMessageSend.format" - The webhooks.on_message_send.format
- * @property "webhooks.onMessageUpdate.url" - The webhooks.on_message_update.url
- * @property "webhooks.onMessageUpdate.method" - The webhooks.on_message_update.method
- * @property "webhooks.onMessageUpdate.format" - The webhooks.on_message_update.format
- * @property "webhooks.onMessageRemove.url" - The webhooks.on_message_remove.url
- * @property "webhooks.onMessageRemove.method" - The webhooks.on_message_remove.method
- * @property "webhooks.onMessageRemove.format" - The webhooks.on_message_remove.format
- * @property "webhooks.onChannelAdd.url" - The webhooks.on_channel_add.url
- * @property "webhooks.onChannelAdd.method" - The webhooks.on_channel_add.method
- * @property "webhooks.onChannelAdd.format" - The webhooks.on_channel_add.format
- * @property "webhooks.onChannelDestroy.url" - The webhooks.on_channel_destroy.url
- * @property "webhooks.onChannelDestroy.method" - The webhooks.on_channel_destroy.method
- * @property "webhooks.onChannelDestroy.format" - The webhooks.on_channel_destroy.format
- * @property "webhooks.onChannelUpdate.url" - The webhooks.on_channel_update.url
- * @property "webhooks.onChannelUpdate.method" - The webhooks.on_channel_update.method
- * @property "webhooks.onChannelUpdate.format" - The webhooks.on_channel_update.format
- * @property "webhooks.onMemberAdd.url" - The webhooks.on_member_add.url
- * @property "webhooks.onMemberAdd.method" - The webhooks.on_member_add.method
- * @property "webhooks.onMemberAdd.format" - The webhooks.on_member_add.format
- * @property "webhooks.onMemberRemove.url" - The webhooks.on_member_remove.url
- * @property "webhooks.onMemberRemove.method" - The webhooks.on_member_remove.method
- * @property "webhooks.onMemberRemove.format" - The webhooks.on_member_remove.format
- * @property "webhooks.onMessageSent.url" - The webhooks.on_message_sent.url
- * @property "webhooks.onMessageSent.method" - The webhooks.on_message_sent.method
- * @property "webhooks.onMessageSent.format" - The webhooks.on_message_sent.format
- * @property "webhooks.onMessageUpdated.url" - The webhooks.on_message_updated.url
- * @property "webhooks.onMessageUpdated.method" - The webhooks.on_message_updated.method
- * @property "webhooks.onMessageUpdated.format" - The webhooks.on_message_updated.format
- * @property "webhooks.onMessageRemoved.url" - The webhooks.on_message_removed.url
- * @property "webhooks.onMessageRemoved.method" - The webhooks.on_message_removed.method
- * @property "webhooks.onMessageRemoved.format" - The webhooks.on_message_removed.format
- * @property "webhooks.onChannelAdded.url" - The webhooks.on_channel_added.url
- * @property "webhooks.onChannelAdded.method" - The webhooks.on_channel_added.method
- * @property "webhooks.onChannelAdded.format" - The webhooks.on_channel_added.format
- * @property "webhooks.onChannelDestroyed.url" - The webhooks.on_channel_destroyed.url
- * @property "webhooks.onChannelDestroyed.method" - The webhooks.on_channel_destroyed.method
- * @property "webhooks.onChannelDestroyed.format" - The webhooks.on_channel_destroyed.format
- * @property "webhooks.onChannelUpdated.url" - The webhooks.on_channel_updated.url
- * @property "webhooks.onChannelUpdated.method" - The webhooks.on_channel_updated.method
- * @property "webhooks.onChannelUpdated.format" - The webhooks.on_channel_updated.format
- * @property "webhooks.onMemberAdded.url" - The webhooks.on_member_added.url
- * @property "webhooks.onMemberAdded.method" - The webhooks.on_member_added.method
- * @property "webhooks.onMemberAdded.format" - The webhooks.on_member_added.format
- * @property "webhooks.onMemberRemoved.url" - The webhooks.on_member_removed.url
- * @property "webhooks.onMemberRemoved.method" - The webhooks.on_member_removed.method
- * @property "webhooks.onMemberRemoved.format" - The webhooks.on_member_removed.format
- * @property "limits.channelMembers" - The limits.channel_members
- * @property "limits.userChannels" - The limits.user_channels
+ * @property webhooks.onMessageSend.url - The webhooks.on_message_send.url
+ * @property webhooks.onMessageSend.method - The webhooks.on_message_send.method
+ * @property webhooks.onMessageSend.format - The webhooks.on_message_send.format
+ * @property webhooks.onMessageUpdate.url - The webhooks.on_message_update.url
+ * @property webhooks.onMessageUpdate.method - The webhooks.on_message_update.method
+ * @property webhooks.onMessageUpdate.format - The webhooks.on_message_update.format
+ * @property webhooks.onMessageRemove.url - The webhooks.on_message_remove.url
+ * @property webhooks.onMessageRemove.method - The webhooks.on_message_remove.method
+ * @property webhooks.onMessageRemove.format - The webhooks.on_message_remove.format
+ * @property webhooks.onChannelAdd.url - The webhooks.on_channel_add.url
+ * @property webhooks.onChannelAdd.method - The webhooks.on_channel_add.method
+ * @property webhooks.onChannelAdd.format - The webhooks.on_channel_add.format
+ * @property webhooks.onChannelDestroy.url - The webhooks.on_channel_destroy.url
+ * @property webhooks.onChannelDestroy.method - The webhooks.on_channel_destroy.method
+ * @property webhooks.onChannelDestroy.format - The webhooks.on_channel_destroy.format
+ * @property webhooks.onChannelUpdate.url - The webhooks.on_channel_update.url
+ * @property webhooks.onChannelUpdate.method - The webhooks.on_channel_update.method
+ * @property webhooks.onChannelUpdate.format - The webhooks.on_channel_update.format
+ * @property webhooks.onMemberAdd.url - The webhooks.on_member_add.url
+ * @property webhooks.onMemberAdd.method - The webhooks.on_member_add.method
+ * @property webhooks.onMemberAdd.format - The webhooks.on_member_add.format
+ * @property webhooks.onMemberRemove.url - The webhooks.on_member_remove.url
+ * @property webhooks.onMemberRemove.method - The webhooks.on_member_remove.method
+ * @property webhooks.onMemberRemove.format - The webhooks.on_member_remove.format
+ * @property webhooks.onMessageSent.url - The webhooks.on_message_sent.url
+ * @property webhooks.onMessageSent.method - The webhooks.on_message_sent.method
+ * @property webhooks.onMessageSent.format - The webhooks.on_message_sent.format
+ * @property webhooks.onMessageUpdated.url - The webhooks.on_message_updated.url
+ * @property webhooks.onMessageUpdated.method - The webhooks.on_message_updated.method
+ * @property webhooks.onMessageUpdated.format - The webhooks.on_message_updated.format
+ * @property webhooks.onMessageRemoved.url - The webhooks.on_message_removed.url
+ * @property webhooks.onMessageRemoved.method - The webhooks.on_message_removed.method
+ * @property webhooks.onMessageRemoved.format - The webhooks.on_message_removed.format
+ * @property webhooks.onChannelAdded.url - The webhooks.on_channel_added.url
+ * @property webhooks.onChannelAdded.method - The webhooks.on_channel_added.method
+ * @property webhooks.onChannelAdded.format - The webhooks.on_channel_added.format
+ * @property webhooks.onChannelDestroyed.url - The webhooks.on_channel_destroyed.url
+ * @property webhooks.onChannelDestroyed.method - The webhooks.on_channel_destroyed.method
+ * @property webhooks.onChannelDestroyed.format - The webhooks.on_channel_destroyed.format
+ * @property webhooks.onChannelUpdated.url - The webhooks.on_channel_updated.url
+ * @property webhooks.onChannelUpdated.method - The webhooks.on_channel_updated.method
+ * @property webhooks.onChannelUpdated.format - The webhooks.on_channel_updated.format
+ * @property webhooks.onMemberAdded.url - The webhooks.on_member_added.url
+ * @property webhooks.onMemberAdded.method - The webhooks.on_member_added.method
+ * @property webhooks.onMemberAdded.format - The webhooks.on_member_added.format
+ * @property webhooks.onMemberRemoved.url - The webhooks.on_member_removed.url
+ * @property webhooks.onMemberRemoved.method - The webhooks.on_member_removed.method
+ * @property webhooks.onMemberRemoved.format - The webhooks.on_member_removed.format
+ * @property limits.channelMembers - The limits.channel_members
+ * @property limits.userChannels - The limits.user_channels
  */
 export interface UpdateOptions {
-  "limits.channelMembers"?: number;
-  "limits.userChannels"?: number;
-  "notifications.addedToChannel.enabled"?: boolean;
-  "notifications.addedToChannel.template"?: string;
-  "notifications.invitedToChannel.enabled"?: boolean;
-  "notifications.invitedToChannel.template"?: string;
-  "notifications.newMessage.enabled"?: boolean;
-  "notifications.newMessage.template"?: string;
-  "notifications.removedFromChannel.enabled"?: boolean;
-  "notifications.removedFromChannel.template"?: string;
-  "webhooks.onChannelAdd.format"?: string;
-  "webhooks.onChannelAdd.method"?: string;
-  "webhooks.onChannelAdd.url"?: string;
-  "webhooks.onChannelAdded.format"?: string;
-  "webhooks.onChannelAdded.method"?: string;
-  "webhooks.onChannelAdded.url"?: string;
-  "webhooks.onChannelDestroy.format"?: string;
-  "webhooks.onChannelDestroy.method"?: string;
-  "webhooks.onChannelDestroy.url"?: string;
-  "webhooks.onChannelDestroyed.format"?: string;
-  "webhooks.onChannelDestroyed.method"?: string;
-  "webhooks.onChannelDestroyed.url"?: string;
-  "webhooks.onChannelUpdate.format"?: string;
-  "webhooks.onChannelUpdate.method"?: string;
-  "webhooks.onChannelUpdate.url"?: string;
-  "webhooks.onChannelUpdated.format"?: string;
-  "webhooks.onChannelUpdated.method"?: string;
-  "webhooks.onChannelUpdated.url"?: string;
-  "webhooks.onMemberAdd.format"?: string;
-  "webhooks.onMemberAdd.method"?: string;
-  "webhooks.onMemberAdd.url"?: string;
-  "webhooks.onMemberAdded.format"?: string;
-  "webhooks.onMemberAdded.method"?: string;
-  "webhooks.onMemberAdded.url"?: string;
-  "webhooks.onMemberRemove.format"?: string;
-  "webhooks.onMemberRemove.method"?: string;
-  "webhooks.onMemberRemove.url"?: string;
-  "webhooks.onMemberRemoved.format"?: string;
-  "webhooks.onMemberRemoved.method"?: string;
-  "webhooks.onMemberRemoved.url"?: string;
-  "webhooks.onMessageRemove.format"?: string;
-  "webhooks.onMessageRemove.method"?: string;
-  "webhooks.onMessageRemove.url"?: string;
-  "webhooks.onMessageRemoved.format"?: string;
-  "webhooks.onMessageRemoved.method"?: string;
-  "webhooks.onMessageRemoved.url"?: string;
-  "webhooks.onMessageSend.format"?: string;
-  "webhooks.onMessageSend.method"?: string;
-  "webhooks.onMessageSend.url"?: string;
-  "webhooks.onMessageSent.format"?: string;
-  "webhooks.onMessageSent.method"?: string;
-  "webhooks.onMessageSent.url"?: string;
-  "webhooks.onMessageUpdate.format"?: string;
-  "webhooks.onMessageUpdate.method"?: string;
-  "webhooks.onMessageUpdate.url"?: string;
-  "webhooks.onMessageUpdated.format"?: string;
-  "webhooks.onMessageUpdated.method"?: string;
-  "webhooks.onMessageUpdated.url"?: string;
   consumptionReportInterval?: number;
   defaultChannelCreatorRoleSid?: string;
   defaultChannelRoleSid?: string;
   defaultServiceRoleSid?: string;
   friendlyName?: string;
+  limits.channelMembers?: number;
+  limits.userChannels?: number;
+  notifications.addedToChannel.enabled?: boolean;
+  notifications.addedToChannel.template?: string;
+  notifications.invitedToChannel.enabled?: boolean;
+  notifications.invitedToChannel.template?: string;
+  notifications.newMessage.enabled?: boolean;
+  notifications.newMessage.template?: string;
+  notifications.removedFromChannel.enabled?: boolean;
+  notifications.removedFromChannel.template?: string;
   postWebhookUrl?: string;
   preWebhookUrl?: string;
   reachabilityEnabled?: boolean;
@@ -476,6 +236,54 @@ export interface UpdateOptions {
   typingIndicatorTimeout?: number;
   webhookFilters?: string|list;
   webhookMethod?: string;
+  webhooks.onChannelAdd.format?: string;
+  webhooks.onChannelAdd.method?: string;
+  webhooks.onChannelAdd.url?: string;
+  webhooks.onChannelAdded.format?: string;
+  webhooks.onChannelAdded.method?: string;
+  webhooks.onChannelAdded.url?: string;
+  webhooks.onChannelDestroy.format?: string;
+  webhooks.onChannelDestroy.method?: string;
+  webhooks.onChannelDestroy.url?: string;
+  webhooks.onChannelDestroyed.format?: string;
+  webhooks.onChannelDestroyed.method?: string;
+  webhooks.onChannelDestroyed.url?: string;
+  webhooks.onChannelUpdate.format?: string;
+  webhooks.onChannelUpdate.method?: string;
+  webhooks.onChannelUpdate.url?: string;
+  webhooks.onChannelUpdated.format?: string;
+  webhooks.onChannelUpdated.method?: string;
+  webhooks.onChannelUpdated.url?: string;
+  webhooks.onMemberAdd.format?: string;
+  webhooks.onMemberAdd.method?: string;
+  webhooks.onMemberAdd.url?: string;
+  webhooks.onMemberAdded.format?: string;
+  webhooks.onMemberAdded.method?: string;
+  webhooks.onMemberAdded.url?: string;
+  webhooks.onMemberRemove.format?: string;
+  webhooks.onMemberRemove.method?: string;
+  webhooks.onMemberRemove.url?: string;
+  webhooks.onMemberRemoved.format?: string;
+  webhooks.onMemberRemoved.method?: string;
+  webhooks.onMemberRemoved.url?: string;
+  webhooks.onMessageRemove.format?: string;
+  webhooks.onMessageRemove.method?: string;
+  webhooks.onMessageRemove.url?: string;
+  webhooks.onMessageRemoved.format?: string;
+  webhooks.onMessageRemoved.method?: string;
+  webhooks.onMessageRemoved.url?: string;
+  webhooks.onMessageSend.format?: string;
+  webhooks.onMessageSend.method?: string;
+  webhooks.onMessageSend.url?: string;
+  webhooks.onMessageSent.format?: string;
+  webhooks.onMessageSent.method?: string;
+  webhooks.onMessageSent.url?: string;
+  webhooks.onMessageUpdate.format?: string;
+  webhooks.onMessageUpdate.method?: string;
+  webhooks.onMessageUpdate.url?: string;
+  webhooks.onMessageUpdated.format?: string;
+  webhooks.onMessageUpdated.method?: string;
+  webhooks.onMessageUpdated.url?: string;
 }
 
 /**
@@ -489,133 +297,85 @@ export interface UpdateOptions {
  * @property reachabilityEnabled - true if the reachability feature should be enabled.
  * @property typingIndicatorTimeout - ISO 8601 duration indicating the timeout after "started typing" event when client should assume that user is not typing anymore even if no "ended typing" message received
  * @property consumptionReportInterval - ISO 8601 duration indicating the interval between consumption reports sent from client endpoints.
- * @property "notifications.newMessage.enabled" - The notifications.new_message.enabled
- * @property "notifications.newMessage.template" - The notifications.new_message.template
- * @property "notifications.addedToChannel.enabled" - The notifications.added_to_channel.enabled
- * @property "notifications.addedToChannel.template" - The notifications.added_to_channel.template
- * @property "notifications.removedFromChannel.enabled" - The notifications.removed_from_channel.enabled
- * @property "notifications.removedFromChannel.template" - The notifications.removed_from_channel.template
- * @property "notifications.invitedToChannel.enabled" - The notifications.invited_to_channel.enabled
- * @property "notifications.invitedToChannel.template" - The notifications.invited_to_channel.template
+ * @property notifications.newMessage.enabled - The notifications.new_message.enabled
+ * @property notifications.newMessage.template - The notifications.new_message.template
+ * @property notifications.addedToChannel.enabled - The notifications.added_to_channel.enabled
+ * @property notifications.addedToChannel.template - The notifications.added_to_channel.template
+ * @property notifications.removedFromChannel.enabled - The notifications.removed_from_channel.enabled
+ * @property notifications.removedFromChannel.template - The notifications.removed_from_channel.template
+ * @property notifications.invitedToChannel.enabled - The notifications.invited_to_channel.enabled
+ * @property notifications.invitedToChannel.template - The notifications.invited_to_channel.template
  * @property preWebhookUrl - The webhook URL for PRE-Event webhooks.
  * @property postWebhookUrl - The webhook URL for POST-Event webhooks.
  * @property webhookMethod - The webhook request format to use.
  * @property webhookFilters - The list of WebHook events that are enabled for this Service instance.
- * @property "webhooks.onMessageSend.url" - The webhooks.on_message_send.url
- * @property "webhooks.onMessageSend.method" - The webhooks.on_message_send.method
- * @property "webhooks.onMessageSend.format" - The webhooks.on_message_send.format
- * @property "webhooks.onMessageUpdate.url" - The webhooks.on_message_update.url
- * @property "webhooks.onMessageUpdate.method" - The webhooks.on_message_update.method
- * @property "webhooks.onMessageUpdate.format" - The webhooks.on_message_update.format
- * @property "webhooks.onMessageRemove.url" - The webhooks.on_message_remove.url
- * @property "webhooks.onMessageRemove.method" - The webhooks.on_message_remove.method
- * @property "webhooks.onMessageRemove.format" - The webhooks.on_message_remove.format
- * @property "webhooks.onChannelAdd.url" - The webhooks.on_channel_add.url
- * @property "webhooks.onChannelAdd.method" - The webhooks.on_channel_add.method
- * @property "webhooks.onChannelAdd.format" - The webhooks.on_channel_add.format
- * @property "webhooks.onChannelDestroy.url" - The webhooks.on_channel_destroy.url
- * @property "webhooks.onChannelDestroy.method" - The webhooks.on_channel_destroy.method
- * @property "webhooks.onChannelDestroy.format" - The webhooks.on_channel_destroy.format
- * @property "webhooks.onChannelUpdate.url" - The webhooks.on_channel_update.url
- * @property "webhooks.onChannelUpdate.method" - The webhooks.on_channel_update.method
- * @property "webhooks.onChannelUpdate.format" - The webhooks.on_channel_update.format
- * @property "webhooks.onMemberAdd.url" - The webhooks.on_member_add.url
- * @property "webhooks.onMemberAdd.method" - The webhooks.on_member_add.method
- * @property "webhooks.onMemberAdd.format" - The webhooks.on_member_add.format
- * @property "webhooks.onMemberRemove.url" - The webhooks.on_member_remove.url
- * @property "webhooks.onMemberRemove.method" - The webhooks.on_member_remove.method
- * @property "webhooks.onMemberRemove.format" - The webhooks.on_member_remove.format
- * @property "webhooks.onMessageSent.url" - The webhooks.on_message_sent.url
- * @property "webhooks.onMessageSent.method" - The webhooks.on_message_sent.method
- * @property "webhooks.onMessageSent.format" - The webhooks.on_message_sent.format
- * @property "webhooks.onMessageUpdated.url" - The webhooks.on_message_updated.url
- * @property "webhooks.onMessageUpdated.method" - The webhooks.on_message_updated.method
- * @property "webhooks.onMessageUpdated.format" - The webhooks.on_message_updated.format
- * @property "webhooks.onMessageRemoved.url" - The webhooks.on_message_removed.url
- * @property "webhooks.onMessageRemoved.method" - The webhooks.on_message_removed.method
- * @property "webhooks.onMessageRemoved.format" - The webhooks.on_message_removed.format
- * @property "webhooks.onChannelAdded.url" - The webhooks.on_channel_added.url
- * @property "webhooks.onChannelAdded.method" - The webhooks.on_channel_added.method
- * @property "webhooks.onChannelAdded.format" - The webhooks.on_channel_added.format
- * @property "webhooks.onChannelDestroyed.url" - The webhooks.on_channel_destroyed.url
- * @property "webhooks.onChannelDestroyed.method" - The webhooks.on_channel_destroyed.method
- * @property "webhooks.onChannelDestroyed.format" - The webhooks.on_channel_destroyed.format
- * @property "webhooks.onChannelUpdated.url" - The webhooks.on_channel_updated.url
- * @property "webhooks.onChannelUpdated.method" - The webhooks.on_channel_updated.method
- * @property "webhooks.onChannelUpdated.format" - The webhooks.on_channel_updated.format
- * @property "webhooks.onMemberAdded.url" - The webhooks.on_member_added.url
- * @property "webhooks.onMemberAdded.method" - The webhooks.on_member_added.method
- * @property "webhooks.onMemberAdded.format" - The webhooks.on_member_added.format
- * @property "webhooks.onMemberRemoved.url" - The webhooks.on_member_removed.url
- * @property "webhooks.onMemberRemoved.method" - The webhooks.on_member_removed.method
- * @property "webhooks.onMemberRemoved.format" - The webhooks.on_member_removed.format
- * @property "limits.channelMembers" - The limits.channel_members
- * @property "limits.userChannels" - The limits.user_channels
+ * @property webhooks.onMessageSend.url - The webhooks.on_message_send.url
+ * @property webhooks.onMessageSend.method - The webhooks.on_message_send.method
+ * @property webhooks.onMessageSend.format - The webhooks.on_message_send.format
+ * @property webhooks.onMessageUpdate.url - The webhooks.on_message_update.url
+ * @property webhooks.onMessageUpdate.method - The webhooks.on_message_update.method
+ * @property webhooks.onMessageUpdate.format - The webhooks.on_message_update.format
+ * @property webhooks.onMessageRemove.url - The webhooks.on_message_remove.url
+ * @property webhooks.onMessageRemove.method - The webhooks.on_message_remove.method
+ * @property webhooks.onMessageRemove.format - The webhooks.on_message_remove.format
+ * @property webhooks.onChannelAdd.url - The webhooks.on_channel_add.url
+ * @property webhooks.onChannelAdd.method - The webhooks.on_channel_add.method
+ * @property webhooks.onChannelAdd.format - The webhooks.on_channel_add.format
+ * @property webhooks.onChannelDestroy.url - The webhooks.on_channel_destroy.url
+ * @property webhooks.onChannelDestroy.method - The webhooks.on_channel_destroy.method
+ * @property webhooks.onChannelDestroy.format - The webhooks.on_channel_destroy.format
+ * @property webhooks.onChannelUpdate.url - The webhooks.on_channel_update.url
+ * @property webhooks.onChannelUpdate.method - The webhooks.on_channel_update.method
+ * @property webhooks.onChannelUpdate.format - The webhooks.on_channel_update.format
+ * @property webhooks.onMemberAdd.url - The webhooks.on_member_add.url
+ * @property webhooks.onMemberAdd.method - The webhooks.on_member_add.method
+ * @property webhooks.onMemberAdd.format - The webhooks.on_member_add.format
+ * @property webhooks.onMemberRemove.url - The webhooks.on_member_remove.url
+ * @property webhooks.onMemberRemove.method - The webhooks.on_member_remove.method
+ * @property webhooks.onMemberRemove.format - The webhooks.on_member_remove.format
+ * @property webhooks.onMessageSent.url - The webhooks.on_message_sent.url
+ * @property webhooks.onMessageSent.method - The webhooks.on_message_sent.method
+ * @property webhooks.onMessageSent.format - The webhooks.on_message_sent.format
+ * @property webhooks.onMessageUpdated.url - The webhooks.on_message_updated.url
+ * @property webhooks.onMessageUpdated.method - The webhooks.on_message_updated.method
+ * @property webhooks.onMessageUpdated.format - The webhooks.on_message_updated.format
+ * @property webhooks.onMessageRemoved.url - The webhooks.on_message_removed.url
+ * @property webhooks.onMessageRemoved.method - The webhooks.on_message_removed.method
+ * @property webhooks.onMessageRemoved.format - The webhooks.on_message_removed.format
+ * @property webhooks.onChannelAdded.url - The webhooks.on_channel_added.url
+ * @property webhooks.onChannelAdded.method - The webhooks.on_channel_added.method
+ * @property webhooks.onChannelAdded.format - The webhooks.on_channel_added.format
+ * @property webhooks.onChannelDestroyed.url - The webhooks.on_channel_destroyed.url
+ * @property webhooks.onChannelDestroyed.method - The webhooks.on_channel_destroyed.method
+ * @property webhooks.onChannelDestroyed.format - The webhooks.on_channel_destroyed.format
+ * @property webhooks.onChannelUpdated.url - The webhooks.on_channel_updated.url
+ * @property webhooks.onChannelUpdated.method - The webhooks.on_channel_updated.method
+ * @property webhooks.onChannelUpdated.format - The webhooks.on_channel_updated.format
+ * @property webhooks.onMemberAdded.url - The webhooks.on_member_added.url
+ * @property webhooks.onMemberAdded.method - The webhooks.on_member_added.method
+ * @property webhooks.onMemberAdded.format - The webhooks.on_member_added.format
+ * @property webhooks.onMemberRemoved.url - The webhooks.on_member_removed.url
+ * @property webhooks.onMemberRemoved.method - The webhooks.on_member_removed.method
+ * @property webhooks.onMemberRemoved.format - The webhooks.on_member_removed.format
+ * @property limits.channelMembers - The limits.channel_members
+ * @property limits.userChannels - The limits.user_channels
  */
 export interface UpdateOptions {
-  "limits.channelMembers"?: number;
-  "limits.userChannels"?: number;
-  "notifications.addedToChannel.enabled"?: boolean;
-  "notifications.addedToChannel.template"?: string;
-  "notifications.invitedToChannel.enabled"?: boolean;
-  "notifications.invitedToChannel.template"?: string;
-  "notifications.newMessage.enabled"?: boolean;
-  "notifications.newMessage.template"?: string;
-  "notifications.removedFromChannel.enabled"?: boolean;
-  "notifications.removedFromChannel.template"?: string;
-  "webhooks.onChannelAdd.format"?: string;
-  "webhooks.onChannelAdd.method"?: string;
-  "webhooks.onChannelAdd.url"?: string;
-  "webhooks.onChannelAdded.format"?: string;
-  "webhooks.onChannelAdded.method"?: string;
-  "webhooks.onChannelAdded.url"?: string;
-  "webhooks.onChannelDestroy.format"?: string;
-  "webhooks.onChannelDestroy.method"?: string;
-  "webhooks.onChannelDestroy.url"?: string;
-  "webhooks.onChannelDestroyed.format"?: string;
-  "webhooks.onChannelDestroyed.method"?: string;
-  "webhooks.onChannelDestroyed.url"?: string;
-  "webhooks.onChannelUpdate.format"?: string;
-  "webhooks.onChannelUpdate.method"?: string;
-  "webhooks.onChannelUpdate.url"?: string;
-  "webhooks.onChannelUpdated.format"?: string;
-  "webhooks.onChannelUpdated.method"?: string;
-  "webhooks.onChannelUpdated.url"?: string;
-  "webhooks.onMemberAdd.format"?: string;
-  "webhooks.onMemberAdd.method"?: string;
-  "webhooks.onMemberAdd.url"?: string;
-  "webhooks.onMemberAdded.format"?: string;
-  "webhooks.onMemberAdded.method"?: string;
-  "webhooks.onMemberAdded.url"?: string;
-  "webhooks.onMemberRemove.format"?: string;
-  "webhooks.onMemberRemove.method"?: string;
-  "webhooks.onMemberRemove.url"?: string;
-  "webhooks.onMemberRemoved.format"?: string;
-  "webhooks.onMemberRemoved.method"?: string;
-  "webhooks.onMemberRemoved.url"?: string;
-  "webhooks.onMessageRemove.format"?: string;
-  "webhooks.onMessageRemove.method"?: string;
-  "webhooks.onMessageRemove.url"?: string;
-  "webhooks.onMessageRemoved.format"?: string;
-  "webhooks.onMessageRemoved.method"?: string;
-  "webhooks.onMessageRemoved.url"?: string;
-  "webhooks.onMessageSend.format"?: string;
-  "webhooks.onMessageSend.method"?: string;
-  "webhooks.onMessageSend.url"?: string;
-  "webhooks.onMessageSent.format"?: string;
-  "webhooks.onMessageSent.method"?: string;
-  "webhooks.onMessageSent.url"?: string;
-  "webhooks.onMessageUpdate.format"?: string;
-  "webhooks.onMessageUpdate.method"?: string;
-  "webhooks.onMessageUpdate.url"?: string;
-  "webhooks.onMessageUpdated.format"?: string;
-  "webhooks.onMessageUpdated.method"?: string;
-  "webhooks.onMessageUpdated.url"?: string;
   consumptionReportInterval?: number;
   defaultChannelCreatorRoleSid?: string;
   defaultChannelRoleSid?: string;
   defaultServiceRoleSid?: string;
   friendlyName?: string;
+  limits.channelMembers?: number;
+  limits.userChannels?: number;
+  notifications.addedToChannel.enabled?: boolean;
+  notifications.addedToChannel.template?: string;
+  notifications.invitedToChannel.enabled?: boolean;
+  notifications.invitedToChannel.template?: string;
+  notifications.newMessage.enabled?: boolean;
+  notifications.newMessage.template?: string;
+  notifications.removedFromChannel.enabled?: boolean;
+  notifications.removedFromChannel.template?: string;
   postWebhookUrl?: string;
   preWebhookUrl?: string;
   reachabilityEnabled?: boolean;
@@ -623,6 +383,54 @@ export interface UpdateOptions {
   typingIndicatorTimeout?: number;
   webhookFilters?: string|list;
   webhookMethod?: string;
+  webhooks.onChannelAdd.format?: string;
+  webhooks.onChannelAdd.method?: string;
+  webhooks.onChannelAdd.url?: string;
+  webhooks.onChannelAdded.format?: string;
+  webhooks.onChannelAdded.method?: string;
+  webhooks.onChannelAdded.url?: string;
+  webhooks.onChannelDestroy.format?: string;
+  webhooks.onChannelDestroy.method?: string;
+  webhooks.onChannelDestroy.url?: string;
+  webhooks.onChannelDestroyed.format?: string;
+  webhooks.onChannelDestroyed.method?: string;
+  webhooks.onChannelDestroyed.url?: string;
+  webhooks.onChannelUpdate.format?: string;
+  webhooks.onChannelUpdate.method?: string;
+  webhooks.onChannelUpdate.url?: string;
+  webhooks.onChannelUpdated.format?: string;
+  webhooks.onChannelUpdated.method?: string;
+  webhooks.onChannelUpdated.url?: string;
+  webhooks.onMemberAdd.format?: string;
+  webhooks.onMemberAdd.method?: string;
+  webhooks.onMemberAdd.url?: string;
+  webhooks.onMemberAdded.format?: string;
+  webhooks.onMemberAdded.method?: string;
+  webhooks.onMemberAdded.url?: string;
+  webhooks.onMemberRemove.format?: string;
+  webhooks.onMemberRemove.method?: string;
+  webhooks.onMemberRemove.url?: string;
+  webhooks.onMemberRemoved.format?: string;
+  webhooks.onMemberRemoved.method?: string;
+  webhooks.onMemberRemoved.url?: string;
+  webhooks.onMessageRemove.format?: string;
+  webhooks.onMessageRemove.method?: string;
+  webhooks.onMessageRemove.url?: string;
+  webhooks.onMessageRemoved.format?: string;
+  webhooks.onMessageRemoved.method?: string;
+  webhooks.onMessageRemoved.url?: string;
+  webhooks.onMessageSend.format?: string;
+  webhooks.onMessageSend.method?: string;
+  webhooks.onMessageSend.url?: string;
+  webhooks.onMessageSent.format?: string;
+  webhooks.onMessageSent.method?: string;
+  webhooks.onMessageSent.url?: string;
+  webhooks.onMessageUpdate.format?: string;
+  webhooks.onMessageUpdate.method?: string;
+  webhooks.onMessageUpdate.url?: string;
+  webhooks.onMessageUpdated.format?: string;
+  webhooks.onMessageUpdated.method?: string;
+  webhooks.onMessageUpdated.url?: string;
 }
 
 
@@ -636,7 +444,7 @@ declare class ServicePage extends Page {
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Chat.V1, response: object, solution: object);
+  constructor(version: Twilio.Chat.V1, response: Response<string>, solution: object);
 
   /**
    * Build an instance of ServiceInstance
@@ -802,4 +610,4 @@ declare class ServiceContext {
   users?: Twilio.Chat.V1.ServiceContext.UserList;
 }
 
-export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServicePage, ServicePayload, ServiceResource }
+export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServicePage, ServicePayload, ServiceResource, ServiceSolution }

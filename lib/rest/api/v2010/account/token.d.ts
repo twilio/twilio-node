@@ -6,6 +6,7 @@
  */
 
 import Page = require('../../../../base/Page');
+import Response = require('../../../../http/response');
 import V2010 = require('../../V2010');
 import { SerializableClass } from '../../../../interfaces';
 
@@ -30,8 +31,15 @@ interface TokenResource {
 interface TokenPayload extends TokenResource, Page.TwilioResponsePayload {
 }
 
+interface TokenSolution {
+  accountSid?: string;
+}
+
 interface TokenListInstance {
-  /* jshint ignore:start */
+  /**
+   * @param sid - sid of instance
+   */
+  TokenListInstance(sid: string);
   /**
    * create a TokenInstance
    *
@@ -39,39 +47,10 @@ interface TokenListInstance {
    * @memberof Twilio.Api.V2010.AccountContext.TokenList
    * @instance
    *
-   * @param {object} [opts] - ...
-   * @param {number} [opts.ttl] - The duration in seconds the credentials are valid
-   * @param {function} [callback] - Callback to handle processed record
-   *
-   * @returns {Promise} Resolves to processed TokenInstance
+   * @param opts - ...
+   * @param callback - Callback to handle processed record
    */
-  /* jshint ignore:end */
-  TokenListInstance.create = function create(opts, callback) {
-    if (_.isFunction(opts)) {
-      callback = opts;
-      opts = {};
-    }
-    opts = opts || {};
-
-    var deferred = Q.defer();
-    var data = values.of({'Ttl': _.get(opts, 'ttl')});
-
-    var promise = this._version.create({uri: this._uri, method: 'POST', data: data});
-
-    promise = promise.then(function(payload) {
-      deferred.resolve(new TokenInstance(this._version, payload));
-    }.bind(this));
-
-    promise.catch(function(error) {
-      deferred.reject(error);
-    });
-
-    if (_.isFunction(callback)) {
-      deferred.promise.nodeify(callback);
-    }
-
-    return deferred.promise;
-  };
+  create(opts?: object, callback?: function);
 }
 
 
@@ -85,7 +64,7 @@ declare class TokenPage extends Page {
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: object, solution: object);
+  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
 
   /**
    * Build an instance of TokenInstance
@@ -130,4 +109,4 @@ declare class TokenInstance {
   toJSON();
 }
 
-export { TokenInstance, TokenList, TokenListInstance, TokenPage, TokenPayload, TokenResource }
+export { TokenInstance, TokenList, TokenListInstance, TokenPage, TokenPayload, TokenResource, TokenSolution }

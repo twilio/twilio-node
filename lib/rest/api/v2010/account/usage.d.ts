@@ -21,7 +21,17 @@ interface UsageResource {
 interface UsagePayload extends UsageResource, Page.TwilioResponsePayload {
 }
 
-interface UsageListInstance {
+interface UsageSolution {
+  accountSid?: string;
 }
 
-export { UsageList, UsageListInstance, UsagePayload, UsageResource }
+interface UsageListInstance {
+  /**
+   * @param sid - sid of instance
+   */
+  UsageListInstance(sid: string);
+  records?: object;
+  triggers?: object;
+}
+
+export { UsageList, UsageListInstance, UsagePayload, UsageResource, UsageSolution }

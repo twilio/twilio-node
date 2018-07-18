@@ -6,6 +6,7 @@
  */
 
 import Page = require('../../../../../base/Page');
+import Response = require('../../../../../http/response');
 import V1 = require('../../../V1');
 import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
@@ -46,7 +47,24 @@ interface TaskQueueCumulativeStatisticsResource {
 interface TaskQueueCumulativeStatisticsPayload extends TaskQueueCumulativeStatisticsResource, Page.TwilioResponsePayload {
 }
 
+interface TaskQueueCumulativeStatisticsSolution {
+  taskQueueSid?: string;
+  workspaceSid?: string;
+}
+
 interface TaskQueueCumulativeStatisticsListInstance {
+  /**
+   * @param sid - sid of instance
+   */
+  TaskQueueCumulativeStatisticsListInstance(sid: string);
+  /**
+   * Constructs a task_queue_cumulative_statistics
+   *
+   * @function get
+   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueueCumulativeStatisticsList
+   * @instance
+   */
+  get();
 }
 
 /**
@@ -94,7 +112,7 @@ declare class TaskQueueCumulativeStatisticsPage extends Page {
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Taskrouter.V1, response: object, solution: object);
+  constructor(version: Twilio.Taskrouter.V1, response: Response<string>, solution: object);
 
   /**
    * Build an instance of TaskQueueCumulativeStatisticsInstance
@@ -191,4 +209,4 @@ declare class TaskQueueCumulativeStatisticsContext {
   fetch(opts?: object, callback?: function);
 }
 
-export { TaskQueueCumulativeStatisticsContext, TaskQueueCumulativeStatisticsInstance, TaskQueueCumulativeStatisticsList, TaskQueueCumulativeStatisticsListInstance, TaskQueueCumulativeStatisticsPage, TaskQueueCumulativeStatisticsPayload, TaskQueueCumulativeStatisticsResource }
+export { TaskQueueCumulativeStatisticsContext, TaskQueueCumulativeStatisticsInstance, TaskQueueCumulativeStatisticsList, TaskQueueCumulativeStatisticsListInstance, TaskQueueCumulativeStatisticsPage, TaskQueueCumulativeStatisticsPayload, TaskQueueCumulativeStatisticsResource, TaskQueueCumulativeStatisticsSolution }

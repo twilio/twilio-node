@@ -6,6 +6,7 @@
  */
 
 import Page = require('../../../../../base/Page');
+import Response = require('../../../../../http/response');
 import V1 = require('../../../V1');
 import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
@@ -28,8 +29,16 @@ interface StreamMessageResource {
 interface StreamMessagePayload extends StreamMessageResource, Page.TwilioResponsePayload {
 }
 
+interface StreamMessageSolution {
+  serviceSid?: string;
+  streamSid?: string;
+}
+
 interface StreamMessageListInstance {
-  /* jshint ignore:start */
+  /**
+   * @param sid - sid of instance
+   */
+  StreamMessageListInstance(sid: string);
   /**
    * create a StreamMessageInstance
    *
@@ -37,40 +46,10 @@ interface StreamMessageListInstance {
    * @memberof Twilio.Sync.V1.ServiceContext.SyncStreamContext.StreamMessageList
    * @instance
    *
-   * @param {object} opts - ...
-   * @param {string} opts.data - Stream Message body.
-   * @param {function} [callback] - Callback to handle processed record
-   *
-   * @returns {Promise} Resolves to processed StreamMessageInstance
+   * @param opts - ...
+   * @param callback - Callback to handle processed record
    */
-  /* jshint ignore:end */
-  StreamMessageListInstance.create = function create(opts, callback) {
-    if (_.isUndefined(opts)) {
-      throw new Error('Required parameter "opts" missing.');
-    }
-    if (_.isUndefined(opts.data)) {
-      throw new Error('Required parameter "opts.data" missing.');
-    }
-
-    var deferred = Q.defer();
-    var data = values.of({'Data': serialize.object(_.get(opts, 'data'))});
-
-    var promise = this._version.create({uri: this._uri, method: 'POST', data: data});
-
-    promise = promise.then(function(payload) {
-      deferred.resolve(new StreamMessageInstance(this._version, payload));
-    }.bind(this));
-
-    promise.catch(function(error) {
-      deferred.reject(error);
-    });
-
-    if (_.isFunction(callback)) {
-      deferred.promise.nodeify(callback);
-    }
-
-    return deferred.promise;
-  };
+  create(opts: object, callback?: function);
 }
 
 
@@ -85,7 +64,7 @@ declare class StreamMessagePage extends Page {
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Sync.V1, response: object, solution: object);
+  constructor(version: Twilio.Sync.V1, response: Response<string>, solution: object);
 
   /**
    * Build an instance of StreamMessageInstance
@@ -127,4 +106,4 @@ declare class StreamMessageInstance {
   toJSON();
 }
 
-export { StreamMessageInstance, StreamMessageList, StreamMessageListInstance, StreamMessagePage, StreamMessagePayload, StreamMessageResource }
+export { StreamMessageInstance, StreamMessageList, StreamMessageListInstance, StreamMessagePage, StreamMessagePayload, StreamMessageResource, StreamMessageSolution }

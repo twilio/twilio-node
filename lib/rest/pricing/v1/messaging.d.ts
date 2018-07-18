@@ -6,6 +6,7 @@
  */
 
 import Page = require('../../../base/Page');
+import Response = require('../../../http/response');
 import V1 = require('../V1');
 import { SerializableClass } from '../../../interfaces';
 
@@ -25,7 +26,15 @@ interface MessagingResource {
 interface MessagingPayload extends MessagingResource, Page.TwilioResponsePayload {
 }
 
+interface MessagingSolution {
+}
+
 interface MessagingListInstance {
+  /**
+   * @param sid - sid of instance
+   */
+  MessagingListInstance(sid: string);
+  countries?: object;
 }
 
 
@@ -39,7 +48,7 @@ declare class MessagingPage extends Page {
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Pricing.V1, response: object, solution: object);
+  constructor(version: Twilio.Pricing.V1, response: Response<string>, solution: object);
 
   /**
    * Build an instance of MessagingInstance
@@ -79,4 +88,4 @@ declare class MessagingInstance {
   toJSON();
 }
 
-export { MessagingInstance, MessagingList, MessagingListInstance, MessagingPage, MessagingPayload, MessagingResource }
+export { MessagingInstance, MessagingList, MessagingListInstance, MessagingPage, MessagingPayload, MessagingResource, MessagingSolution }

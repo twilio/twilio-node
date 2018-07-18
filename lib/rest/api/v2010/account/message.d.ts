@@ -6,6 +6,7 @@
  */
 
 import Page = require('../../../../base/Page');
+import Response = require('../../../../http/response');
 import V2010 = require('../../V2010');
 import serialize = require('../../../../base/serialize');
 import { FeedbackList } from './message/feedback';
@@ -47,8 +48,15 @@ interface MessageResource {
 interface MessagePayload extends MessageResource, Page.TwilioResponsePayload {
 }
 
+interface MessageSolution {
+  accountSid?: string;
+}
+
 interface MessageListInstance {
-  /* jshint ignore:start */
+  /**
+   * @param sid - sid of instance
+   */
+  MessageListInstance(sid: string);
   /**
    * create a MessageInstance
    *
@@ -56,87 +64,10 @@ interface MessageListInstance {
    * @memberof Twilio.Api.V2010.AccountContext.MessageList
    * @instance
    *
-   * @param {object} opts - ...
-   * @param {string} opts.to - The phone number to receive the message
-   * @param {string} [opts.statusCallback] -
-   *          URL Twilio will request when the status changes
-   * @param {string} [opts.applicationSid] - The application to use for callbacks
-   * @param {number} [opts.maxPrice] -
-   *          The total maximum price up to the fourth decimal in US dollars acceptable for the message to be delivered.
-   * @param {boolean} [opts.provideFeedback] -
-   *          Set this value to true if you are sending messages that have a trackable user action and you intend to confirm delivery of the message using the Message Feedback API.
-   * @param {number} [opts.validityPeriod] -
-   *          The number of seconds that the message can remain in a Twilio queue.
-   * @param {string} [opts.maxRate] - The max_rate
-   * @param {boolean} [opts.forceDelivery] - The force_delivery
-   * @param {string} [opts.providerSid] - The provider_sid
-   * @param {message.content_retention} [opts.contentRetention] -
-   *          The content_retention
-   * @param {message.address_retention} [opts.addressRetention] -
-   *          The address_retention
-   * @param {boolean} [opts.smartEncoded] - The smart_encoded
-   * @param {string} [opts.from] - The phone number that initiated the message
-   * @param {string} [opts.messagingServiceSid] -
-   *          The 34 character unique id of the Messaging Service you want to associate with this Message.
-   * @param {string} [opts.body] -
-   *          The text of the message you want to send, limited to 1600 characters.
-   * @param {string|list} [opts.mediaUrl] -
-   *          The URL of the media you wish to send out with the message.
-   * @param {function} [callback] - Callback to handle processed record
-   *
-   * @returns {Promise} Resolves to processed MessageInstance
+   * @param opts - ...
+   * @param callback - Callback to handle processed record
    */
-  /* jshint ignore:end */
-  MessageListInstance.create = function create(opts, callback) {
-    if (_.isUndefined(opts)) {
-      throw new Error('Required parameter "opts" missing.');
-    }
-    if (_.isUndefined(opts.to)) {
-      throw new Error('Required parameter "opts.to" missing.');
-    }
-
-    var deferred = Q.defer();
-    var data = values.of({
-      'To': _.get(opts, 'to'),
-      'From': _.get(opts, 'from'),
-      'MessagingServiceSid': _.get(opts, 'messagingServiceSid'),
-      'Body': _.get(opts, 'body'),
-      'MediaUrl': serialize.map(_.get(opts, 'mediaUrl'), function(e) { return e; }),
-      'StatusCallback': _.get(opts, 'statusCallback'),
-      'ApplicationSid': _.get(opts, 'applicationSid'),
-      'MaxPrice': _.get(opts, 'maxPrice'),
-      'ProvideFeedback': serialize.bool(_.get(opts, 'provideFeedback')),
-      'ValidityPeriod': _.get(opts, 'validityPeriod'),
-      'MaxRate': _.get(opts, 'maxRate'),
-      'ForceDelivery': serialize.bool(_.get(opts, 'forceDelivery')),
-      'ProviderSid': _.get(opts, 'providerSid'),
-      'ContentRetention': _.get(opts, 'contentRetention'),
-      'AddressRetention': _.get(opts, 'addressRetention'),
-      'SmartEncoded': serialize.bool(_.get(opts, 'smartEncoded'))
-    });
-
-    var promise = this._version.create({uri: this._uri, method: 'POST', data: data});
-
-    promise = promise.then(function(payload) {
-      deferred.resolve(new MessageInstance(
-        this._version,
-        payload,
-        this._solution.accountSid,
-        this._solution.sid
-      ));
-    }.bind(this));
-
-    promise.catch(function(error) {
-      deferred.reject(error);
-    });
-
-    if (_.isFunction(callback)) {
-      deferred.promise.nodeify(callback);
-    }
-
-    return deferred.promise;
-  };
-  /* jshint ignore:start */
+  create(opts: object, callback?: function);
   /**
    * Streams MessageInstance records from the API.
    *
@@ -151,90 +82,20 @@ interface MessageListInstance {
    * @memberof Twilio.Api.V2010.AccountContext.MessageList
    * @instance
    *
-   * @param {object} [opts] - ...
-   * @param {string} [opts.to] - Filter by messages to this number
-   * @param {string} [opts.from] - Filter by from number
-   * @param {Date} [opts.dateSentBefore] - Filter by date sent
-   * @param {Date} [opts.dateSent] - Filter by date sent
-   * @param {Date} [opts.dateSentAfter] - Filter by date sent
-   * @param {number} [opts.limit] -
-   *         Upper limit for the number of records to return.
-   *         each() guarantees never to return more than limit.
-   *         Default is no limit
-   * @param {number} [opts.pageSize] -
-   *         Number of records to fetch per request,
-   *         when not set will use the default value of 50 records.
-   *         If no pageSize is defined but a limit is defined,
-   *         each() will attempt to read the limit with the most efficient
-   *         page size, i.e. min(limit, 1000)
-   * @param {Function} [opts.callback] -
-   *         Function to process each record. If this and a positional
-   *         callback are passed, this one will be used
-   * @param {Function} [opts.done] -
-   *          Function to be called upon completion of streaming
-   * @param {Function} [callback] - Function to process each record
+   * @param opts - ...
+   * @param callback - Function to process each record
    */
-  /* jshint ignore:end */
-  MessageListInstance.each = function each(opts, callback) {
-    if (_.isFunction(opts)) {
-      callback = opts;
-      opts = {};
-    }
-    opts = opts || {};
-    if (opts.callback) {
-      callback = opts.callback;
-    }
-    if (_.isUndefined(callback)) {
-      throw new Error('Callback function must be provided');
-    }
-
-    var done = false;
-    var currentPage = 1;
-    var currentResource = 0;
-    var limits = this._version.readLimits({
-      limit: opts.limit,
-      pageSize: opts.pageSize
-    });
-
-    function onComplete(error) {
-      done = true;
-      if (_.isFunction(opts.done)) {
-        opts.done(error);
-      }
-    }
-
-    function fetchNextPage(fn) {
-      var promise = fn();
-      if (_.isUndefined(promise)) {
-        onComplete();
-        return;
-      }
-
-      promise.then(function(page) {
-        _.each(page.instances, function(instance) {
-          if (done || (!_.isUndefined(opts.limit) && currentResource >= opts.limit)) {
-            done = true;
-            return false;
-          }
-
-          currentResource++;
-          callback(instance, onComplete);
-        });
-
-        if ((limits.pageLimit && limits.pageLimit <= currentPage)) {
-          onComplete();
-        } else if (!done) {
-          currentPage++;
-          fetchNextPage(_.bind(page.nextPage, page));
-        }
-      });
-
-      promise.catch(onComplete);
-    }
-
-    fetchNextPage(_.bind(this.page, this, _.merge(opts, limits)));
-  };
-  /* jshint ignore:start */
+  each(opts?: object, callback?: Function);
+  /**
+   * Constructs a message
+   *
+   * @function get
+   * @memberof Twilio.Api.V2010.AccountContext.MessageList
+   * @instance
+   *
+   * @param sid - Fetch by unique message Sid
+   */
+  get(sid: string);
   /**
    * Retrieve a single target page of MessageInstance records from the API.
    * Request is executed immediately
@@ -245,32 +106,10 @@ interface MessageListInstance {
    * @memberof Twilio.Api.V2010.AccountContext.MessageList
    * @instance
    *
-   * @param {string} [targetUrl] - API-generated URL for the requested results page
-   * @param {function} [callback] - Callback to handle list of records
-   *
-   * @returns {Promise} Resolves to a list of records
+   * @param targetUrl - API-generated URL for the requested results page
+   * @param callback - Callback to handle list of records
    */
-  /* jshint ignore:end */
-  MessageListInstance.getPage = function getPage(targetUrl, callback) {
-    var deferred = Q.defer();
-
-    var promise = this._version._domain.twilio.request({method: 'GET', uri: targetUrl});
-
-    promise = promise.then(function(payload) {
-      deferred.resolve(new MessagePage(this._version, payload, this._solution));
-    }.bind(this));
-
-    promise.catch(function(error) {
-      deferred.reject(error);
-    });
-
-    if (_.isFunction(callback)) {
-      deferred.promise.nodeify(callback);
-    }
-
-    return deferred.promise;
-  };
-  /* jshint ignore:start */
+  getPage(targetUrl?: string, callback?: function);
   /**
    * @description Lists MessageInstance records from the API as a list.
    *
@@ -280,59 +119,10 @@ interface MessageListInstance {
    * @memberof Twilio.Api.V2010.AccountContext.MessageList
    * @instance
    *
-   * @param {object} [opts] - ...
-   * @param {string} [opts.to] - Filter by messages to this number
-   * @param {string} [opts.from] - Filter by from number
-   * @param {Date} [opts.dateSentBefore] - Filter by date sent
-   * @param {Date} [opts.dateSent] - Filter by date sent
-   * @param {Date} [opts.dateSentAfter] - Filter by date sent
-   * @param {number} [opts.limit] -
-   *         Upper limit for the number of records to return.
-   *         list() guarantees never to return more than limit.
-   *         Default is no limit
-   * @param {number} [opts.pageSize] -
-   *         Number of records to fetch per request,
-   *         when not set will use the default value of 50 records.
-   *         If no page_size is defined but a limit is defined,
-   *         list() will attempt to read the limit with the most
-   *         efficient page size, i.e. min(limit, 1000)
-   * @param {function} [callback] - Callback to handle list of records
-   *
-   * @returns {Promise} Resolves to a list of records
+   * @param opts - ...
+   * @param callback - Callback to handle list of records
    */
-  /* jshint ignore:end */
-  MessageListInstance.list = function list(opts, callback) {
-    if (_.isFunction(opts)) {
-      callback = opts;
-      opts = {};
-    }
-    opts = opts || {};
-    var deferred = Q.defer();
-    var allResources = [];
-    opts.callback = function(resource, done) {
-      allResources.push(resource);
-
-      if (!_.isUndefined(opts.limit) && allResources.length === opts.limit) {
-        done();
-      }
-    };
-
-    opts.done = function(error) {
-      if (_.isUndefined(error)) {
-        deferred.resolve(allResources);
-      } else {
-        deferred.reject(error);
-      }
-    };
-
-    if (_.isFunction(callback)) {
-      deferred.promise.nodeify(callback);
-    }
-
-    this.each(opts);
-    return deferred.promise;
-  };
-  /* jshint ignore:start */
+  list(opts?: object, callback?: function);
   /**
    * Retrieve a single page of MessageInstance records from the API.
    * Request is executed immediately
@@ -343,56 +133,10 @@ interface MessageListInstance {
    * @memberof Twilio.Api.V2010.AccountContext.MessageList
    * @instance
    *
-   * @param {object} [opts] - ...
-   * @param {string} [opts.to] - Filter by messages to this number
-   * @param {string} [opts.from] - Filter by from number
-   * @param {Date} [opts.dateSentBefore] - Filter by date sent
-   * @param {Date} [opts.dateSent] - Filter by date sent
-   * @param {Date} [opts.dateSentAfter] - Filter by date sent
-   * @param {string} [opts.pageToken] - PageToken provided by the API
-   * @param {number} [opts.pageNumber] -
-   *          Page Number, this value is simply for client state
-   * @param {number} [opts.pageSize] - Number of records to return, defaults to 50
-   * @param {function} [callback] - Callback to handle list of records
-   *
-   * @returns {Promise} Resolves to a list of records
+   * @param opts - ...
+   * @param callback - Callback to handle list of records
    */
-  /* jshint ignore:end */
-  MessageListInstance.page = function page(opts, callback) {
-    if (_.isFunction(opts)) {
-      callback = opts;
-      opts = {};
-    }
-    opts = opts || {};
-
-    var deferred = Q.defer();
-    var data = values.of({
-      'To': _.get(opts, 'to'),
-      'From': _.get(opts, 'from'),
-      'DateSent<': serialize.iso8601DateTime(_.get(opts, 'dateSentBefore')),
-      'DateSent': serialize.iso8601DateTime(_.get(opts, 'dateSent')),
-      'DateSent>': serialize.iso8601DateTime(_.get(opts, 'dateSentAfter')),
-      'PageToken': opts.pageToken,
-      'Page': opts.pageNumber,
-      'PageSize': opts.pageSize
-    });
-
-    var promise = this._version.page({uri: this._uri, method: 'GET', params: data});
-
-    promise = promise.then(function(payload) {
-      deferred.resolve(new MessagePage(this._version, payload, this._solution));
-    }.bind(this));
-
-    promise.catch(function(error) {
-      deferred.reject(error);
-    });
-
-    if (_.isFunction(callback)) {
-      deferred.promise.nodeify(callback);
-    }
-
-    return deferred.promise;
-  };
+  page(opts?: object, callback?: function);
 }
 
 /**
@@ -424,7 +168,7 @@ declare class MessagePage extends Page {
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: object, solution: object);
+  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
 
   /**
    * Build an instance of MessageInstance
@@ -581,4 +325,4 @@ declare class MessageContext {
   update(opts: object, callback?: function);
 }
 
-export { MessageContext, MessageInstance, MessageList, MessageListInstance, MessagePage, MessagePayload, MessageResource }
+export { MessageContext, MessageInstance, MessageList, MessageListInstance, MessagePage, MessagePayload, MessageResource, MessageSolution }

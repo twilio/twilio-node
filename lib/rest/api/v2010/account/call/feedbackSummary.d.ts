@@ -6,6 +6,7 @@
  */
 
 import Page = require('../../../../../base/Page');
+import Response = require('../../../../../http/response');
 import V2010 = require('../../../V2010');
 import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
@@ -38,8 +39,15 @@ interface FeedbackSummaryResource {
 interface FeedbackSummaryPayload extends FeedbackSummaryResource, Page.TwilioResponsePayload {
 }
 
+interface FeedbackSummarySolution {
+  accountSid?: string;
+}
+
 interface FeedbackSummaryListInstance {
-  /* jshint ignore:start */
+  /**
+   * @param sid - sid of instance
+   */
+  FeedbackSummaryListInstance(sid: string);
   /**
    * create a FeedbackSummaryInstance
    *
@@ -47,63 +55,20 @@ interface FeedbackSummaryListInstance {
    * @memberof Twilio.Api.V2010.AccountContext.CallContext.FeedbackSummaryList
    * @instance
    *
-   * @param {object} opts - ...
-   * @param {Date} opts.startDate -
-   *          Only include usage that has occurred on or after this date.
-   * @param {Date} opts.endDate -
-   *          Only include usage that has occurred on or before this date.
-   * @param {boolean} [opts.includeSubaccounts] -
-   *          true to include feedback entries for the master account and all subaccounts.
-   * @param {string} [opts.statusCallback] -
-   *          The URL that Twilio will request when the Feedback Summary is completed.
-   * @param {string} [opts.statusCallbackMethod] -
-   *          The HTTP method Twilio will use to make requests to the StatusCallback URL.
-   * @param {function} [callback] - Callback to handle processed record
-   *
-   * @returns {Promise} Resolves to processed FeedbackSummaryInstance
+   * @param opts - ...
+   * @param callback - Callback to handle processed record
    */
-  /* jshint ignore:end */
-  FeedbackSummaryListInstance.create = function create(opts, callback) {
-    if (_.isUndefined(opts)) {
-      throw new Error('Required parameter "opts" missing.');
-    }
-    if (_.isUndefined(opts.startDate)) {
-      throw new Error('Required parameter "opts.startDate" missing.');
-    }
-    if (_.isUndefined(opts.endDate)) {
-      throw new Error('Required parameter "opts.endDate" missing.');
-    }
-
-    var deferred = Q.defer();
-    var data = values.of({
-      'StartDate': serialize.iso8601Date(_.get(opts, 'startDate')),
-      'EndDate': serialize.iso8601Date(_.get(opts, 'endDate')),
-      'IncludeSubaccounts': serialize.bool(_.get(opts, 'includeSubaccounts')),
-      'StatusCallback': _.get(opts, 'statusCallback'),
-      'StatusCallbackMethod': _.get(opts, 'statusCallbackMethod')
-    });
-
-    var promise = this._version.create({uri: this._uri, method: 'POST', data: data});
-
-    promise = promise.then(function(payload) {
-      deferred.resolve(new FeedbackSummaryInstance(
-        this._version,
-        payload,
-        this._solution.accountSid,
-        this._solution.sid
-      ));
-    }.bind(this));
-
-    promise.catch(function(error) {
-      deferred.reject(error);
-    });
-
-    if (_.isFunction(callback)) {
-      deferred.promise.nodeify(callback);
-    }
-
-    return deferred.promise;
-  };
+  create(opts: object, callback?: function);
+  /**
+   * Constructs a feedback_summary
+   *
+   * @function get
+   * @memberof Twilio.Api.V2010.AccountContext.CallContext.FeedbackSummaryList
+   * @instance
+   *
+   * @param sid - The sid
+   */
+  get(sid: string);
 }
 
 
@@ -117,7 +82,7 @@ declare class FeedbackSummaryPage extends Page {
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: object, solution: object);
+  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
 
   /**
    * Build an instance of FeedbackSummaryInstance
@@ -225,4 +190,4 @@ declare class FeedbackSummaryContext {
   remove(callback?: function);
 }
 
-export { FeedbackSummaryContext, FeedbackSummaryInstance, FeedbackSummaryList, FeedbackSummaryListInstance, FeedbackSummaryPage, FeedbackSummaryPayload, FeedbackSummaryResource }
+export { FeedbackSummaryContext, FeedbackSummaryInstance, FeedbackSummaryList, FeedbackSummaryListInstance, FeedbackSummaryPage, FeedbackSummaryPayload, FeedbackSummaryResource, FeedbackSummarySolution }

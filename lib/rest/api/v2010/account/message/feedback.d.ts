@@ -6,6 +6,7 @@
  */
 
 import Page = require('../../../../../base/Page');
+import Response = require('../../../../../http/response');
 import V2010 = require('../../../V2010');
 import { SerializableClass } from '../../../../../interfaces';
 
@@ -30,8 +31,16 @@ interface FeedbackResource {
 interface FeedbackPayload extends FeedbackResource, Page.TwilioResponsePayload {
 }
 
+interface FeedbackSolution {
+  accountSid?: string;
+  messageSid?: string;
+}
+
 interface FeedbackListInstance {
-  /* jshint ignore:start */
+  /**
+   * @param sid - sid of instance
+   */
+  FeedbackListInstance(sid: string);
   /**
    * create a FeedbackInstance
    *
@@ -39,39 +48,10 @@ interface FeedbackListInstance {
    * @memberof Twilio.Api.V2010.AccountContext.MessageContext.FeedbackList
    * @instance
    *
-   * @param {object} [opts] - ...
-   * @param {feedback.outcome} [opts.outcome] - The outcome
-   * @param {function} [callback] - Callback to handle processed record
-   *
-   * @returns {Promise} Resolves to processed FeedbackInstance
+   * @param opts - ...
+   * @param callback - Callback to handle processed record
    */
-  /* jshint ignore:end */
-  FeedbackListInstance.create = function create(opts, callback) {
-    if (_.isFunction(opts)) {
-      callback = opts;
-      opts = {};
-    }
-    opts = opts || {};
-
-    var deferred = Q.defer();
-    var data = values.of({'Outcome': _.get(opts, 'outcome')});
-
-    var promise = this._version.create({uri: this._uri, method: 'POST', data: data});
-
-    promise = promise.then(function(payload) {
-      deferred.resolve(new FeedbackInstance(this._version, payload));
-    }.bind(this));
-
-    promise.catch(function(error) {
-      deferred.reject(error);
-    });
-
-    if (_.isFunction(callback)) {
-      deferred.promise.nodeify(callback);
-    }
-
-    return deferred.promise;
-  };
+  create(opts?: object, callback?: function);
 }
 
 
@@ -85,7 +65,7 @@ declare class FeedbackPage extends Page {
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: object, solution: object);
+  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
 
   /**
    * Build an instance of FeedbackInstance
@@ -130,4 +110,4 @@ declare class FeedbackInstance {
   toJSON();
 }
 
-export { FeedbackInstance, FeedbackList, FeedbackListInstance, FeedbackPage, FeedbackPayload, FeedbackResource }
+export { FeedbackInstance, FeedbackList, FeedbackListInstance, FeedbackPage, FeedbackPayload, FeedbackResource, FeedbackSolution }
