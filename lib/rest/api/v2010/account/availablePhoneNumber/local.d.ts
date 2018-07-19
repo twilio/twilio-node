@@ -9,7 +9,6 @@ import Page = require('../../../../../base/Page');
 import Response = require('../../../../../http/response');
 import V2010 = require('../../../V2010');
 import serialize = require('../../../../../base/serialize');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../interfaces';
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
@@ -56,23 +55,15 @@ interface LocalListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.LocalList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: LocalListInstanceEachOptions, callback?: Function);
   /**
    * Retrieve a single target page of LocalInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @function getPage
-   * @memberof Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.LocalList
-   * @instance
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -83,28 +74,185 @@ interface LocalListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.LocalList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: LocalListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of LocalInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.LocalList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: LocalListInstancePageOptions, callback?: function);
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property areaCode - Find phone numbers in the specified area code.
+ * @property contains - A pattern on which to match phone numbers.
+ * @property smsEnabled - This indicates whether the phone numbers can receive text messages.
+ * @property mmsEnabled - This indicates whether the phone numbers can receive MMS messages.
+ * @property voiceEnabled - This indicates whether the phone numbers can receive calls.
+ * @property excludeAllAddressRequired - Indicates whether the response includes phone numbers which require any Address.
+ * @property excludeLocalAddressRequired - Indicates whether the response includes phone numbers which require a local Address.
+ * @property excludeForeignAddressRequired - Indicates whether the response includes phone numbers which require a foreign Address.
+ * @property beta - Include phone numbers new to the Twilio platform.
+ * @property nearNumber - Given a phone number, find a geographically close number within Distance miles. (US/Canada only)
+ * @property nearLatLong - Given a latitude/longitude pair lat,long find geographically close numbers within Distance miles. (US/Canada only)
+ * @property distance - Specifies the search radius for a Near- query in miles. (US/Canada only)
+ * @property inPostalCode - Limit results to a particular postal code. (US/Canada only)
+ * @property inRegion - Limit results to a particular region. (US/Canada only)
+ * @property inRateCenter - Limit results to a specific rate center, or given a phone number search within the same rate center as that number. (US/Canada only)
+ * @property inLata - Limit results to a specific Local access and transport area. (US/Canada only)
+ * @property inLocality - Limit results to a particular locality. (US/Canada only)
+ * @property faxEnabled - This indicates whether the phone numbers can receive faxes.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface LocalListInstanceEachOptions {
+  areaCode?: number;
+  beta?: boolean;
+  callback?: Function;
+  contains?: string;
+  distance?: number;
+  done?: Function;
+  excludeAllAddressRequired?: boolean;
+  excludeForeignAddressRequired?: boolean;
+  excludeLocalAddressRequired?: boolean;
+  faxEnabled?: boolean;
+  inLata?: string;
+  inLocality?: string;
+  inPostalCode?: string;
+  inRateCenter?: string;
+  inRegion?: string;
+  limit?: number;
+  mmsEnabled?: boolean;
+  nearLatLong?: string;
+  nearNumber?: string;
+  pageSize?: number;
+  smsEnabled?: boolean;
+  voiceEnabled?: boolean;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property areaCode - Find phone numbers in the specified area code.
+ * @property contains - A pattern on which to match phone numbers.
+ * @property smsEnabled - This indicates whether the phone numbers can receive text messages.
+ * @property mmsEnabled - This indicates whether the phone numbers can receive MMS messages.
+ * @property voiceEnabled - This indicates whether the phone numbers can receive calls.
+ * @property excludeAllAddressRequired - Indicates whether the response includes phone numbers which require any Address.
+ * @property excludeLocalAddressRequired - Indicates whether the response includes phone numbers which require a local Address.
+ * @property excludeForeignAddressRequired - Indicates whether the response includes phone numbers which require a foreign Address.
+ * @property beta - Include phone numbers new to the Twilio platform.
+ * @property nearNumber - Given a phone number, find a geographically close number within Distance miles. (US/Canada only)
+ * @property nearLatLong - Given a latitude/longitude pair lat,long find geographically close numbers within Distance miles. (US/Canada only)
+ * @property distance - Specifies the search radius for a Near- query in miles. (US/Canada only)
+ * @property inPostalCode - Limit results to a particular postal code. (US/Canada only)
+ * @property inRegion - Limit results to a particular region. (US/Canada only)
+ * @property inRateCenter - Limit results to a specific rate center, or given a phone number search within the same rate center as that number. (US/Canada only)
+ * @property inLata - Limit results to a specific Local access and transport area. (US/Canada only)
+ * @property inLocality - Limit results to a particular locality. (US/Canada only)
+ * @property faxEnabled - This indicates whether the phone numbers can receive faxes.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface LocalListInstanceOptions {
+  areaCode?: number;
+  beta?: boolean;
+  contains?: string;
+  distance?: number;
+  excludeAllAddressRequired?: boolean;
+  excludeForeignAddressRequired?: boolean;
+  excludeLocalAddressRequired?: boolean;
+  faxEnabled?: boolean;
+  inLata?: string;
+  inLocality?: string;
+  inPostalCode?: string;
+  inRateCenter?: string;
+  inRegion?: string;
+  limit?: number;
+  mmsEnabled?: boolean;
+  nearLatLong?: string;
+  nearNumber?: string;
+  pageSize?: number;
+  smsEnabled?: boolean;
+  voiceEnabled?: boolean;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property areaCode - Find phone numbers in the specified area code.
+ * @property contains - A pattern on which to match phone numbers.
+ * @property smsEnabled - This indicates whether the phone numbers can receive text messages.
+ * @property mmsEnabled - This indicates whether the phone numbers can receive MMS messages.
+ * @property voiceEnabled - This indicates whether the phone numbers can receive calls.
+ * @property excludeAllAddressRequired - Indicates whether the response includes phone numbers which require any Address.
+ * @property excludeLocalAddressRequired - Indicates whether the response includes phone numbers which require a local Address.
+ * @property excludeForeignAddressRequired - Indicates whether the response includes phone numbers which require a foreign Address.
+ * @property beta - Include phone numbers new to the Twilio platform.
+ * @property nearNumber - Given a phone number, find a geographically close number within Distance miles. (US/Canada only)
+ * @property nearLatLong - Given a latitude/longitude pair lat,long find geographically close numbers within Distance miles. (US/Canada only)
+ * @property distance - Specifies the search radius for a Near- query in miles. (US/Canada only)
+ * @property inPostalCode - Limit results to a particular postal code. (US/Canada only)
+ * @property inRegion - Limit results to a particular region. (US/Canada only)
+ * @property inRateCenter - Limit results to a specific rate center, or given a phone number search within the same rate center as that number. (US/Canada only)
+ * @property inLata - Limit results to a specific Local access and transport area. (US/Canada only)
+ * @property inLocality - Limit results to a particular locality. (US/Canada only)
+ * @property faxEnabled - This indicates whether the phone numbers can receive faxes.
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface LocalListInstancePageOptions {
+  areaCode?: number;
+  beta?: boolean;
+  contains?: string;
+  distance?: number;
+  excludeAllAddressRequired?: boolean;
+  excludeForeignAddressRequired?: boolean;
+  excludeLocalAddressRequired?: boolean;
+  faxEnabled?: boolean;
+  inLata?: string;
+  inLocality?: string;
+  inPostalCode?: string;
+  inRateCenter?: string;
+  inRegion?: string;
+  mmsEnabled?: boolean;
+  nearLatLong?: string;
+  nearNumber?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  smsEnabled?: boolean;
+  voiceEnabled?: boolean;
 }
 
 
@@ -122,10 +270,6 @@ declare class LocalPage extends Page {
 
   /**
    * Build an instance of LocalInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.LocalPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -162,10 +306,6 @@ declare class LocalInstance {
   /**
    * Produce a plain JSON object version of the LocalInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.LocalInstance
-   * @instance
    */
   toJSON();
 }

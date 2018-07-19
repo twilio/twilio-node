@@ -38,14 +38,19 @@ interface StreamMessageListInstance {
   /**
    * create a StreamMessageInstance
    *
-   * @function create
-   * @memberof Twilio.Sync.V1.ServiceContext.SyncStreamContext.StreamMessageList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: object, callback?: function);
+  create(opts: StreamMessageListInstanceCreateOptions, callback?: function);
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property data - Stream Message body.
+ */
+export interface StreamMessageListInstanceCreateOptions {
+  data: string;
 }
 
 
@@ -64,10 +69,6 @@ declare class StreamMessagePage extends Page {
 
   /**
    * Build an instance of StreamMessageInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Sync.V1.ServiceContext.SyncStreamContext.StreamMessagePage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -94,10 +95,6 @@ declare class StreamMessageInstance {
   /**
    * Produce a plain JSON object version of the StreamMessageInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Sync.V1.ServiceContext.SyncStreamContext.StreamMessageInstance
-   * @instance
    */
   toJSON();
 }

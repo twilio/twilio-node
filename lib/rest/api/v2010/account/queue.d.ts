@@ -8,7 +8,6 @@
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V2010 = require('../../V2010');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
 import { MemberList } from './queue/member';
 import { SerializableClass } from '../../../../interfaces';
 
@@ -47,14 +46,10 @@ interface QueueListInstance {
   /**
    * create a QueueInstance
    *
-   * @function create
-   * @memberof Twilio.Api.V2010.AccountContext.QueueList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: object, callback?: function);
+  create(opts: QueueListInstanceCreateOptions, callback?: function);
   /**
    * Streams QueueInstance records from the API.
    *
@@ -65,20 +60,12 @@ interface QueueListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Api.V2010.AccountContext.QueueList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: QueueListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a queue
-   *
-   * @function get
-   * @memberof Twilio.Api.V2010.AccountContext.QueueList
-   * @instance
    *
    * @param sid - Fetch by unique queue Sid
    */
@@ -89,10 +76,6 @@ interface QueueListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Api.V2010.AccountContext.QueueList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -102,28 +85,20 @@ interface QueueListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Api.V2010.AccountContext.QueueList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: QueueListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of QueueInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Api.V2010.AccountContext.QueueList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: QueueListInstancePageOptions, callback?: function);
 }
 
 /**
@@ -132,7 +107,7 @@ interface QueueListInstance {
  * @property friendlyName - A human readable description of the queue
  * @property maxSize - The max number of members allowed in the queue
  */
-export interface UpdateOptions {
+export interface QueueInstanceUpdateOptions {
   friendlyName?: string;
   maxSize?: number;
 }
@@ -143,8 +118,76 @@ export interface UpdateOptions {
  * @property friendlyName - A human readable description of the queue
  * @property maxSize - The max number of members allowed in the queue
  */
-export interface UpdateOptions {
+export interface QueueContextUpdateOptions {
   friendlyName?: string;
+  maxSize?: number;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface QueueListInstanceEachOptions {
+  callback?: Function;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface QueueListInstanceOptions {
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface QueueListInstancePageOptions {
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property friendlyName - A user-provided string that identifies this queue.
+ * @property maxSize - The max number of calls allowed in the queue
+ */
+export interface QueueListInstanceCreateOptions {
+  friendlyName: string;
   maxSize?: number;
 }
 
@@ -163,10 +206,6 @@ declare class QueuePage extends Page {
 
   /**
    * Build an instance of QueueInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Api.V2010.AccountContext.QueuePage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -200,27 +239,15 @@ declare class QueueInstance {
   /**
    * fetch a QueueInstance
    *
-   * @function fetch
-   * @memberof Twilio.Api.V2010.AccountContext.QueueInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * Access the members
-   *
-   * @function members
-   * @memberof Twilio.Api.V2010.AccountContext.QueueInstance
-   * @instance
    */
   members();
   /**
    * remove a QueueInstance
-   *
-   * @function remove
-   * @memberof Twilio.Api.V2010.AccountContext.QueueInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -228,23 +255,15 @@ declare class QueueInstance {
   /**
    * Produce a plain JSON object version of the QueueInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Api.V2010.AccountContext.QueueInstance
-   * @instance
    */
   toJSON();
   /**
    * update a QueueInstance
    *
-   * @function update
-   * @memberof Twilio.Api.V2010.AccountContext.QueueInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: QueueInstanceUpdateOptions, callback?: function);
 }
 
 
@@ -264,10 +283,6 @@ declare class QueueContext {
   /**
    * fetch a QueueInstance
    *
-   * @function fetch
-   * @memberof Twilio.Api.V2010.AccountContext.QueueContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
@@ -275,24 +290,16 @@ declare class QueueContext {
   /**
    * remove a QueueInstance
    *
-   * @function remove
-   * @memberof Twilio.Api.V2010.AccountContext.QueueContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: function);
   /**
    * update a QueueInstance
    *
-   * @function update
-   * @memberof Twilio.Api.V2010.AccountContext.QueueContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: QueueContextUpdateOptions, callback?: function);
 }
 
 export { QueueContext, QueueInstance, QueueList, QueueListInstance, QueuePage, QueuePayload, QueueResource, QueueSolution }

@@ -51,24 +51,33 @@ interface FeedbackSummaryListInstance {
   /**
    * create a FeedbackSummaryInstance
    *
-   * @function create
-   * @memberof Twilio.Api.V2010.AccountContext.CallContext.FeedbackSummaryList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: object, callback?: function);
+  create(opts: FeedbackSummaryListInstanceCreateOptions, callback?: function);
   /**
    * Constructs a feedback_summary
-   *
-   * @function get
-   * @memberof Twilio.Api.V2010.AccountContext.CallContext.FeedbackSummaryList
-   * @instance
    *
    * @param sid - The sid
    */
   get(sid: string);
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property startDate - Only include usage that has occurred on or after this date.
+ * @property endDate - Only include usage that has occurred on or before this date.
+ * @property includeSubaccounts - true to include feedback entries for the master account and all subaccounts.
+ * @property statusCallback - The URL that Twilio will request when the Feedback Summary is completed.
+ * @property statusCallbackMethod - The HTTP method Twilio will use to make requests to the StatusCallback URL.
+ */
+export interface FeedbackSummaryListInstanceCreateOptions {
+  endDate: Date;
+  includeSubaccounts?: boolean;
+  startDate: Date;
+  statusCallback?: string;
+  statusCallbackMethod?: string;
 }
 
 
@@ -86,10 +95,6 @@ declare class FeedbackSummaryPage extends Page {
 
   /**
    * Build an instance of FeedbackSummaryInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Api.V2010.AccountContext.CallContext.FeedbackSummaryPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -128,19 +133,11 @@ declare class FeedbackSummaryInstance {
   /**
    * fetch a FeedbackSummaryInstance
    *
-   * @function fetch
-   * @memberof Twilio.Api.V2010.AccountContext.CallContext.FeedbackSummaryInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a FeedbackSummaryInstance
-   *
-   * @function remove
-   * @memberof Twilio.Api.V2010.AccountContext.CallContext.FeedbackSummaryInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -148,10 +145,6 @@ declare class FeedbackSummaryInstance {
   /**
    * Produce a plain JSON object version of the FeedbackSummaryInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Api.V2010.AccountContext.CallContext.FeedbackSummaryInstance
-   * @instance
    */
   toJSON();
 }
@@ -171,19 +164,11 @@ declare class FeedbackSummaryContext {
   /**
    * fetch a FeedbackSummaryInstance
    *
-   * @function fetch
-   * @memberof Twilio.Api.V2010.AccountContext.CallContext.FeedbackSummaryContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a FeedbackSummaryInstance
-   *
-   * @function remove
-   * @memberof Twilio.Api.V2010.AccountContext.CallContext.FeedbackSummaryContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */

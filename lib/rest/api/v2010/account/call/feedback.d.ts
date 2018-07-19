@@ -44,10 +44,6 @@ interface FeedbackListInstance {
   (sid: string): FeedbackContext;
   /**
    * Constructs a feedback
-   *
-   * @function get
-   * @memberof Twilio.Api.V2010.AccountContext.CallContext.FeedbackList
-   * @instance
    */
   get();
 }
@@ -58,7 +54,7 @@ interface FeedbackListInstance {
  * @property qualityScore - An integer from 1 to 5
  * @property issue - Issues experienced during the call
  */
-export interface CreateOptions {
+export interface FeedbackInstanceCreateOptions {
   issue?: feedback.issues|list;
   qualityScore: number;
 }
@@ -69,7 +65,7 @@ export interface CreateOptions {
  * @property qualityScore - An integer from 1 to 5
  * @property issue - Issues experienced during the call
  */
-export interface UpdateOptions {
+export interface FeedbackInstanceUpdateOptions {
   issue?: feedback.issues|list;
   qualityScore: number;
 }
@@ -80,7 +76,7 @@ export interface UpdateOptions {
  * @property qualityScore - An integer from 1 to 5
  * @property issue - Issues experienced during the call
  */
-export interface CreateOptions {
+export interface FeedbackContextCreateOptions {
   issue?: feedback.issues|list;
   qualityScore: number;
 }
@@ -91,7 +87,7 @@ export interface CreateOptions {
  * @property qualityScore - An integer from 1 to 5
  * @property issue - Issues experienced during the call
  */
-export interface UpdateOptions {
+export interface FeedbackContextUpdateOptions {
   issue?: feedback.issues|list;
   qualityScore: number;
 }
@@ -111,10 +107,6 @@ declare class FeedbackPage extends Page {
 
   /**
    * Build an instance of FeedbackInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Api.V2010.AccountContext.CallContext.FeedbackPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -145,20 +137,12 @@ declare class FeedbackInstance {
   /**
    * create a FeedbackInstance
    *
-   * @function create
-   * @memberof Twilio.Api.V2010.AccountContext.CallContext.FeedbackInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: object, callback?: function);
+  create(opts: FeedbackInstanceCreateOptions, callback?: function);
   /**
    * fetch a FeedbackInstance
-   *
-   * @function fetch
-   * @memberof Twilio.Api.V2010.AccountContext.CallContext.FeedbackInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -166,23 +150,15 @@ declare class FeedbackInstance {
   /**
    * Produce a plain JSON object version of the FeedbackInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Api.V2010.AccountContext.CallContext.FeedbackInstance
-   * @instance
    */
   toJSON();
   /**
    * update a FeedbackInstance
    *
-   * @function update
-   * @memberof Twilio.Api.V2010.AccountContext.CallContext.FeedbackInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: object, callback?: function);
+  update(opts: FeedbackInstanceUpdateOptions, callback?: function);
 }
 
 
@@ -200,20 +176,12 @@ declare class FeedbackContext {
   /**
    * create a FeedbackInstance
    *
-   * @function create
-   * @memberof Twilio.Api.V2010.AccountContext.CallContext.FeedbackContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: object, callback?: function);
+  create(opts: FeedbackContextCreateOptions, callback?: function);
   /**
    * fetch a FeedbackInstance
-   *
-   * @function fetch
-   * @memberof Twilio.Api.V2010.AccountContext.CallContext.FeedbackContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -221,14 +189,10 @@ declare class FeedbackContext {
   /**
    * update a FeedbackInstance
    *
-   * @function update
-   * @memberof Twilio.Api.V2010.AccountContext.CallContext.FeedbackContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: object, callback?: function);
+  update(opts: FeedbackContextUpdateOptions, callback?: function);
 }
 
 export { FeedbackContext, FeedbackInstance, FeedbackList, FeedbackListInstance, FeedbackPage, FeedbackPayload, FeedbackResource, FeedbackSolution }

@@ -8,7 +8,6 @@
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V2 = require('../../V2');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
 import { SerializableClass } from '../../../../interfaces';
 import { UserBindingList } from './user/userBinding';
 import { UserChannelList } from './user/userChannel';
@@ -53,14 +52,10 @@ interface UserListInstance {
   /**
    * create a UserInstance
    *
-   * @function create
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.UserList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: object, callback?: function);
+  create(opts: UserListInstanceCreateOptions, callback?: function);
   /**
    * Streams UserInstance records from the API.
    *
@@ -71,20 +66,12 @@ interface UserListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.UserList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: UserListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a user
-   *
-   * @function get
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.UserList
-   * @instance
    *
    * @param sid - The sid
    */
@@ -95,10 +82,6 @@ interface UserListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.UserList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -108,28 +91,20 @@ interface UserListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.UserList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: UserListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of UserInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.UserList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: UserListInstancePageOptions, callback?: function);
 }
 
 /**
@@ -139,7 +114,7 @@ interface UserListInstance {
  * @property attributes - An optional string used to contain any metadata or other information for the User.
  * @property friendlyName - An optional human readable string representing the user.
  */
-export interface UpdateOptions {
+export interface UserInstanceUpdateOptions {
   attributes?: string;
   friendlyName?: string;
   roleSid?: string;
@@ -152,10 +127,82 @@ export interface UpdateOptions {
  * @property attributes - An optional string used to contain any metadata or other information for the User.
  * @property friendlyName - An optional human readable string representing the user.
  */
-export interface UpdateOptions {
+export interface UserContextUpdateOptions {
   attributes?: string;
   friendlyName?: string;
   roleSid?: string;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property identity - A unique string that identifies the user within this service - often a username or email address.
+ * @property roleSid - The unique id of the Role assigned to this user.
+ * @property attributes - An optional string used to contain any metadata or other information for the User.
+ * @property friendlyName - An optional human readable string representing the user.
+ */
+export interface UserListInstanceCreateOptions {
+  attributes?: string;
+  friendlyName?: string;
+  identity: string;
+  roleSid?: string;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface UserListInstanceEachOptions {
+  callback?: Function;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface UserListInstanceOptions {
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface UserListInstancePageOptions {
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
 }
 
 
@@ -173,10 +220,6 @@ declare class UserPage extends Page {
 
   /**
    * Build an instance of UserInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.UserPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -215,19 +258,11 @@ declare class UserInstance {
   /**
    * fetch a UserInstance
    *
-   * @function fetch
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.UserInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a UserInstance
-   *
-   * @function remove
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.UserInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -235,37 +270,21 @@ declare class UserInstance {
   /**
    * Produce a plain JSON object version of the UserInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.UserInstance
-   * @instance
    */
   toJSON();
   /**
    * update a UserInstance
    *
-   * @function update
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.UserInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: UserInstanceUpdateOptions, callback?: function);
   /**
    * Access the userBindings
-   *
-   * @function userBindings
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.UserInstance
-   * @instance
    */
   userBindings();
   /**
    * Access the userChannels
-   *
-   * @function userChannels
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.UserInstance
-   * @instance
    */
   userChannels();
 }
@@ -288,19 +307,11 @@ declare class UserContext {
   /**
    * fetch a UserInstance
    *
-   * @function fetch
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.UserContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a UserInstance
-   *
-   * @function remove
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.UserContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -308,14 +319,10 @@ declare class UserContext {
   /**
    * update a UserInstance
    *
-   * @function update
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.UserContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: UserContextUpdateOptions, callback?: function);
   userBindings?: Twilio.IpMessaging.V2.ServiceContext.UserContext.UserBindingList;
   userChannels?: Twilio.IpMessaging.V2.ServiceContext.UserContext.UserChannelList;
 }

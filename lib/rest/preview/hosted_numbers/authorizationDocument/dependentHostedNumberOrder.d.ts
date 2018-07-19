@@ -8,7 +8,6 @@
 import HostedNumbers = require('../../HostedNumbers');
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
 import { SerializableClass } from '../../../../interfaces';
 
 /**
@@ -63,23 +62,15 @@ interface DependentHostedNumberOrderListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Preview.HostedNumbers.AuthorizationDocumentContext.DependentHostedNumberOrderList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: DependentHostedNumberOrderListInstanceEachOptions, callback?: Function);
   /**
    * Retrieve a single target page of DependentHostedNumberOrderInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @function getPage
-   * @memberof Twilio.Preview.HostedNumbers.AuthorizationDocumentContext.DependentHostedNumberOrderList
-   * @instance
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -90,28 +81,107 @@ interface DependentHostedNumberOrderListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Preview.HostedNumbers.AuthorizationDocumentContext.DependentHostedNumberOrderList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: DependentHostedNumberOrderListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of DependentHostedNumberOrderInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Preview.HostedNumbers.AuthorizationDocumentContext.DependentHostedNumberOrderList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: DependentHostedNumberOrderListInstancePageOptions, callback?: function);
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property status - The Status of this HostedNumberOrder.
+ * @property phoneNumber - An E164 formatted phone number.
+ * @property incomingPhoneNumberSid - IncomingPhoneNumber sid.
+ * @property friendlyName - A human readable description of this resource.
+ * @property uniqueName - A unique, developer assigned name of this HostedNumberOrder.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface DependentHostedNumberOrderListInstanceEachOptions {
+  callback?: Function;
+  done?: Function;
+  friendlyName?: string;
+  incomingPhoneNumberSid?: string;
+  limit?: number;
+  pageSize?: number;
+  phoneNumber?: string;
+  status?: dependent_hosted_number_order.status;
+  uniqueName?: string;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property status - The Status of this HostedNumberOrder.
+ * @property phoneNumber - An E164 formatted phone number.
+ * @property incomingPhoneNumberSid - IncomingPhoneNumber sid.
+ * @property friendlyName - A human readable description of this resource.
+ * @property uniqueName - A unique, developer assigned name of this HostedNumberOrder.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface DependentHostedNumberOrderListInstanceOptions {
+  friendlyName?: string;
+  incomingPhoneNumberSid?: string;
+  limit?: number;
+  pageSize?: number;
+  phoneNumber?: string;
+  status?: dependent_hosted_number_order.status;
+  uniqueName?: string;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property status - The Status of this HostedNumberOrder.
+ * @property phoneNumber - An E164 formatted phone number.
+ * @property incomingPhoneNumberSid - IncomingPhoneNumber sid.
+ * @property friendlyName - A human readable description of this resource.
+ * @property uniqueName - A unique, developer assigned name of this HostedNumberOrder.
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface DependentHostedNumberOrderListInstancePageOptions {
+  friendlyName?: string;
+  incomingPhoneNumberSid?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  phoneNumber?: string;
+  status?: dependent_hosted_number_order.status;
+  uniqueName?: string;
 }
 
 
@@ -130,10 +200,6 @@ declare class DependentHostedNumberOrderPage extends Page {
 
   /**
    * Build an instance of DependentHostedNumberOrderInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Preview.HostedNumbers.AuthorizationDocumentContext.DependentHostedNumberOrderPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -179,10 +245,6 @@ declare class DependentHostedNumberOrderInstance {
   /**
    * Produce a plain JSON object version of the DependentHostedNumberOrderInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Preview.HostedNumbers.AuthorizationDocumentContext.DependentHostedNumberOrderInstance
-   * @instance
    */
   toJSON();
 }

@@ -9,7 +9,6 @@ import Page = require('../../../../../base/Page');
 import Response = require('../../../../../http/response');
 import Sync = require('../../../Sync');
 import serialize = require('../../../../../base/serialize');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../interfaces';
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
@@ -51,14 +50,10 @@ interface SyncListItemListInstance {
   /**
    * create a SyncListItemInstance
    *
-   * @function create
-   * @memberof Twilio.Preview.Sync.ServiceContext.SyncListContext.SyncListItemList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: object, callback?: function);
+  create(opts: SyncListItemListInstanceCreateOptions, callback?: function);
   /**
    * Streams SyncListItemInstance records from the API.
    *
@@ -69,20 +64,12 @@ interface SyncListItemListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Preview.Sync.ServiceContext.SyncListContext.SyncListItemList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: SyncListItemListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a sync_list_item
-   *
-   * @function get
-   * @memberof Twilio.Preview.Sync.ServiceContext.SyncListContext.SyncListItemList
-   * @instance
    *
    * @param index - The index
    */
@@ -93,10 +80,6 @@ interface SyncListItemListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Preview.Sync.ServiceContext.SyncListContext.SyncListItemList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -106,28 +89,20 @@ interface SyncListItemListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Preview.Sync.ServiceContext.SyncListContext.SyncListItemList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: SyncListItemListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of SyncListItemInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Preview.Sync.ServiceContext.SyncListContext.SyncListItemList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: SyncListItemListInstancePageOptions, callback?: function);
 }
 
 /**
@@ -135,7 +110,7 @@ interface SyncListItemListInstance {
  *
  * @property data - The data
  */
-export interface UpdateOptions {
+export interface SyncListItemInstanceUpdateOptions {
   data: string;
 }
 
@@ -144,8 +119,92 @@ export interface UpdateOptions {
  *
  * @property data - The data
  */
-export interface UpdateOptions {
+export interface SyncListItemContextUpdateOptions {
   data: string;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property data - The data
+ */
+export interface SyncListItemListInstanceCreateOptions {
+  data: string;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property order - The order
+ * @property from - The from
+ * @property bounds - The bounds
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface SyncListItemListInstanceEachOptions {
+  bounds?: sync_list_item.query_from_bound_type;
+  callback?: Function;
+  done?: Function;
+  from?: string;
+  limit?: number;
+  order?: sync_list_item.query_result_order;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property order - The order
+ * @property from - The from
+ * @property bounds - The bounds
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface SyncListItemListInstanceOptions {
+  bounds?: sync_list_item.query_from_bound_type;
+  from?: string;
+  limit?: number;
+  order?: sync_list_item.query_result_order;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property order - The order
+ * @property from - The from
+ * @property bounds - The bounds
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface SyncListItemListInstancePageOptions {
+  bounds?: sync_list_item.query_from_bound_type;
+  from?: string;
+  order?: sync_list_item.query_result_order;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
 }
 
 
@@ -164,10 +223,6 @@ declare class SyncListItemPage extends Page {
 
   /**
    * Build an instance of SyncListItemInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Preview.Sync.ServiceContext.SyncListContext.SyncListItemPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -204,19 +259,11 @@ declare class SyncListItemInstance {
   /**
    * fetch a SyncListItemInstance
    *
-   * @function fetch
-   * @memberof Twilio.Preview.Sync.ServiceContext.SyncListContext.SyncListItemInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a SyncListItemInstance
-   *
-   * @function remove
-   * @memberof Twilio.Preview.Sync.ServiceContext.SyncListContext.SyncListItemInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -224,23 +271,15 @@ declare class SyncListItemInstance {
   /**
    * Produce a plain JSON object version of the SyncListItemInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Preview.Sync.ServiceContext.SyncListContext.SyncListItemInstance
-   * @instance
    */
   toJSON();
   /**
    * update a SyncListItemInstance
    *
-   * @function update
-   * @memberof Twilio.Preview.Sync.ServiceContext.SyncListContext.SyncListItemInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: object, callback?: function);
+  update(opts: SyncListItemInstanceUpdateOptions, callback?: function);
 }
 
 
@@ -260,19 +299,11 @@ declare class SyncListItemContext {
   /**
    * fetch a SyncListItemInstance
    *
-   * @function fetch
-   * @memberof Twilio.Preview.Sync.ServiceContext.SyncListContext.SyncListItemContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a SyncListItemInstance
-   *
-   * @function remove
-   * @memberof Twilio.Preview.Sync.ServiceContext.SyncListContext.SyncListItemContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -280,14 +311,10 @@ declare class SyncListItemContext {
   /**
    * update a SyncListItemInstance
    *
-   * @function update
-   * @memberof Twilio.Preview.Sync.ServiceContext.SyncListContext.SyncListItemContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: object, callback?: function);
+  update(opts: SyncListItemContextUpdateOptions, callback?: function);
 }
 
 export { SyncListItemContext, SyncListItemInstance, SyncListItemList, SyncListItemListInstance, SyncListItemPage, SyncListItemPayload, SyncListItemResource, SyncListItemSolution }

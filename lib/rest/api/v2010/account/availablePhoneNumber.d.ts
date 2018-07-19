@@ -8,7 +8,6 @@
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V2010 = require('../../V2010');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
 import { LocalList } from './availablePhoneNumber/local';
 import { MachineToMachineList } from './availablePhoneNumber/machineToMachine';
 import { MobileList } from './availablePhoneNumber/mobile';
@@ -56,20 +55,12 @@ interface AvailablePhoneNumberCountryListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: AvailablePhoneNumberCountryListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a available_phone_number_country
-   *
-   * @function get
-   * @memberof Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryList
-   * @instance
    *
    * @param countryCode - The country_code
    */
@@ -80,10 +71,6 @@ interface AvailablePhoneNumberCountryListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -93,28 +80,77 @@ interface AvailablePhoneNumberCountryListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: AvailablePhoneNumberCountryListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of AvailablePhoneNumberCountryInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: AvailablePhoneNumberCountryListInstancePageOptions, callback?: function);
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface AvailablePhoneNumberCountryListInstanceEachOptions {
+  callback?: Function;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface AvailablePhoneNumberCountryListInstanceOptions {
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface AvailablePhoneNumberCountryListInstancePageOptions {
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
 }
 
 
@@ -132,10 +168,6 @@ declare class AvailablePhoneNumberCountryPage extends Page {
 
   /**
    * Build an instance of AvailablePhoneNumberCountryInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -165,76 +197,40 @@ declare class AvailablePhoneNumberCountryInstance {
   /**
    * fetch a AvailablePhoneNumberCountryInstance
    *
-   * @function fetch
-   * @memberof Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * Access the local
-   *
-   * @function local
-   * @memberof Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryInstance
-   * @instance
    */
   local();
   /**
    * Access the machineToMachine
-   *
-   * @function machineToMachine
-   * @memberof Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryInstance
-   * @instance
    */
   machineToMachine();
   /**
    * Access the mobile
-   *
-   * @function mobile
-   * @memberof Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryInstance
-   * @instance
    */
   mobile();
   /**
    * Access the national
-   *
-   * @function national
-   * @memberof Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryInstance
-   * @instance
    */
   national();
   /**
    * Access the sharedCost
-   *
-   * @function sharedCost
-   * @memberof Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryInstance
-   * @instance
    */
   sharedCost();
   /**
    * Produce a plain JSON object version of the AvailablePhoneNumberCountryInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryInstance
-   * @instance
    */
   toJSON();
   /**
    * Access the tollFree
-   *
-   * @function tollFree
-   * @memberof Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryInstance
-   * @instance
    */
   tollFree();
   /**
    * Access the voip
-   *
-   * @function voip
-   * @memberof Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryInstance
-   * @instance
    */
   voip();
 }
@@ -261,10 +257,6 @@ declare class AvailablePhoneNumberCountryContext {
 
   /**
    * fetch a AvailablePhoneNumberCountryInstance
-   *
-   * @function fetch
-   * @memberof Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */

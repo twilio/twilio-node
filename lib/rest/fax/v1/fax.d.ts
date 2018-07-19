@@ -10,7 +10,6 @@ import Response = require('../../../http/response');
 import V1 = require('../V1');
 import serialize = require('../../../base/serialize');
 import { FaxMediaList } from './fax/faxMedia';
-import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
 import { SerializableClass } from '../../../interfaces';
 
 /**
@@ -56,14 +55,10 @@ interface FaxListInstance {
   /**
    * create a FaxInstance
    *
-   * @function create
-   * @memberof Twilio.Fax.V1.FaxList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: object, callback?: function);
+  create(opts: FaxListInstanceCreateOptions, callback?: function);
   /**
    * Streams FaxInstance records from the API.
    *
@@ -74,20 +69,12 @@ interface FaxListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Fax.V1.FaxList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: FaxListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a fax
-   *
-   * @function get
-   * @memberof Twilio.Fax.V1.FaxList
-   * @instance
    *
    * @param sid - A string that uniquely identifies this fax.
    */
@@ -98,10 +85,6 @@ interface FaxListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Fax.V1.FaxList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -111,28 +94,20 @@ interface FaxListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Fax.V1.FaxList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: FaxListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of FaxInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Fax.V1.FaxList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: FaxListInstancePageOptions, callback?: function);
 }
 
 /**
@@ -140,7 +115,7 @@ interface FaxListInstance {
  *
  * @property status - The updated status of this fax
  */
-export interface UpdateOptions {
+export interface FaxInstanceUpdateOptions {
   status?: fax.update_status;
 }
 
@@ -149,8 +124,114 @@ export interface UpdateOptions {
  *
  * @property status - The updated status of this fax
  */
-export interface UpdateOptions {
+export interface FaxContextUpdateOptions {
   status?: fax.update_status;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property from - Include only faxes sent from
+ * @property to - Include only faxes sent to
+ * @property dateCreatedOnOrBefore - Include only faxes created on or before
+ * @property dateCreatedAfter - Include only faxes created after
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface FaxListInstanceEachOptions {
+  callback?: Function;
+  dateCreatedAfter?: Date;
+  dateCreatedOnOrBefore?: Date;
+  done?: Function;
+  from?: string;
+  limit?: number;
+  pageSize?: number;
+  to?: string;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property from - Include only faxes sent from
+ * @property to - Include only faxes sent to
+ * @property dateCreatedOnOrBefore - Include only faxes created on or before
+ * @property dateCreatedAfter - Include only faxes created after
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface FaxListInstanceOptions {
+  dateCreatedAfter?: Date;
+  dateCreatedOnOrBefore?: Date;
+  from?: string;
+  limit?: number;
+  pageSize?: number;
+  to?: string;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property from - Include only faxes sent from
+ * @property to - Include only faxes sent to
+ * @property dateCreatedOnOrBefore - Include only faxes created on or before
+ * @property dateCreatedAfter - Include only faxes created after
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface FaxListInstancePageOptions {
+  dateCreatedAfter?: Date;
+  dateCreatedOnOrBefore?: Date;
+  from?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  to?: string;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property to - The phone number or SIP address to send the fax to
+ * @property mediaUrl - URL that points to the fax media
+ * @property quality - The quality of this fax
+ * @property statusCallback - URL for fax status callbacks
+ * @property from - Twilio number from which to originate the fax
+ * @property sipAuthUsername - Username for SIP authentication
+ * @property sipAuthPassword - Password for SIP authentication
+ * @property storeMedia - Whether or not to store media
+ * @property ttl - How many minutes to attempt a fax
+ */
+export interface FaxListInstanceCreateOptions {
+  from?: string;
+  mediaUrl: string;
+  quality?: fax.quality;
+  sipAuthPassword?: string;
+  sipAuthUsername?: string;
+  statusCallback?: string;
+  storeMedia?: boolean;
+  to: string;
+  ttl?: number;
 }
 
 
@@ -169,10 +250,6 @@ declare class FaxPage extends Page {
 
   /**
    * Build an instance of FaxInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Fax.V1.FaxPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -215,27 +292,15 @@ declare class FaxInstance {
   /**
    * fetch a FaxInstance
    *
-   * @function fetch
-   * @memberof Twilio.Fax.V1.FaxInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * Access the media
-   *
-   * @function media
-   * @memberof Twilio.Fax.V1.FaxInstance
-   * @instance
    */
   media();
   /**
    * remove a FaxInstance
-   *
-   * @function remove
-   * @memberof Twilio.Fax.V1.FaxInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -243,23 +308,15 @@ declare class FaxInstance {
   /**
    * Produce a plain JSON object version of the FaxInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Fax.V1.FaxInstance
-   * @instance
    */
   toJSON();
   /**
    * update a FaxInstance
    *
-   * @function update
-   * @memberof Twilio.Fax.V1.FaxInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: FaxInstanceUpdateOptions, callback?: function);
 }
 
 
@@ -279,10 +336,6 @@ declare class FaxContext {
   /**
    * fetch a FaxInstance
    *
-   * @function fetch
-   * @memberof Twilio.Fax.V1.FaxContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
@@ -290,24 +343,16 @@ declare class FaxContext {
   /**
    * remove a FaxInstance
    *
-   * @function remove
-   * @memberof Twilio.Fax.V1.FaxContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: function);
   /**
    * update a FaxInstance
    *
-   * @function update
-   * @memberof Twilio.Fax.V1.FaxContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: FaxContextUpdateOptions, callback?: function);
 }
 
 export { FaxContext, FaxInstance, FaxList, FaxListInstance, FaxPage, FaxPayload, FaxResource, FaxSolution }

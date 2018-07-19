@@ -43,10 +43,6 @@ interface EngagementContextListInstance {
   (sid: string): EngagementContextContext;
   /**
    * Constructs a engagement_context
-   *
-   * @function get
-   * @memberof Twilio.Studio.V1.FlowContext.EngagementContext.EngagementContextList
-   * @instance
    */
   get();
 }
@@ -67,10 +63,6 @@ declare class EngagementContextPage extends Page {
 
   /**
    * Build an instance of EngagementContextInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Studio.V1.FlowContext.EngagementContext.EngagementContextPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -101,20 +93,12 @@ declare class EngagementContextInstance {
   /**
    * fetch a EngagementContextInstance
    *
-   * @function fetch
-   * @memberof Twilio.Studio.V1.FlowContext.EngagementContext.EngagementContextInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * Produce a plain JSON object version of the EngagementContextInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Studio.V1.FlowContext.EngagementContext.EngagementContextInstance
-   * @instance
    */
   toJSON();
 }
@@ -134,10 +118,6 @@ declare class EngagementContextContext {
 
   /**
    * fetch a EngagementContextInstance
-   *
-   * @function fetch
-   * @memberof Twilio.Studio.V1.FlowContext.EngagementContext.EngagementContextContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */

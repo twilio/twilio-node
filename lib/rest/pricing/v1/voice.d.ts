@@ -50,10 +50,6 @@ declare class VoicePage extends Page {
   /**
    * Build an instance of VoiceInstance
    *
-   * @function getInstance
-   * @memberof Twilio.Pricing.V1.VoicePage
-   * @instance
-   *
    * @param payload - Payload response from the API
    */
   getInstance(payload: object);
@@ -77,10 +73,6 @@ declare class VoiceInstance {
   /**
    * Produce a plain JSON object version of the VoiceInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Pricing.V1.VoiceInstance
-   * @instance
    */
   toJSON();
 }

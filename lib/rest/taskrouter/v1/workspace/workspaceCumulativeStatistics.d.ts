@@ -57,10 +57,6 @@ interface WorkspaceCumulativeStatisticsListInstance {
   (sid: string): WorkspaceCumulativeStatisticsContext;
   /**
    * Constructs a workspace_cumulative_statistics
-   *
-   * @function get
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkspaceCumulativeStatisticsList
-   * @instance
    */
   get();
 }
@@ -74,7 +70,7 @@ interface WorkspaceCumulativeStatisticsListInstance {
  * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
  * @property splitByWaitTime - A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
  */
-export interface FetchOptions {
+export interface WorkspaceCumulativeStatisticsInstanceFetchOptions {
   endDate?: Date;
   minutes?: number;
   splitByWaitTime?: string;
@@ -91,7 +87,7 @@ export interface FetchOptions {
  * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
  * @property splitByWaitTime - A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
  */
-export interface FetchOptions {
+export interface WorkspaceCumulativeStatisticsContextFetchOptions {
   endDate?: Date;
   minutes?: number;
   splitByWaitTime?: string;
@@ -114,10 +110,6 @@ declare class WorkspaceCumulativeStatisticsPage extends Page {
 
   /**
    * Build an instance of WorkspaceCumulativeStatisticsInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkspaceCumulativeStatisticsPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -162,21 +154,13 @@ declare class WorkspaceCumulativeStatisticsInstance {
   /**
    * fetch a WorkspaceCumulativeStatisticsInstance
    *
-   * @function fetch
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkspaceCumulativeStatisticsInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: object, callback?: function);
+  fetch(opts?: WorkspaceCumulativeStatisticsInstanceFetchOptions, callback?: function);
   /**
    * Produce a plain JSON object version of the WorkspaceCumulativeStatisticsInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkspaceCumulativeStatisticsInstance
-   * @instance
    */
   toJSON();
 }
@@ -195,14 +179,10 @@ declare class WorkspaceCumulativeStatisticsContext {
   /**
    * fetch a WorkspaceCumulativeStatisticsInstance
    *
-   * @function fetch
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkspaceCumulativeStatisticsContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: object, callback?: function);
+  fetch(opts?: WorkspaceCumulativeStatisticsContextFetchOptions, callback?: function);
 }
 
 export { WorkspaceCumulativeStatisticsContext, WorkspaceCumulativeStatisticsInstance, WorkspaceCumulativeStatisticsList, WorkspaceCumulativeStatisticsListInstance, WorkspaceCumulativeStatisticsPage, WorkspaceCumulativeStatisticsPayload, WorkspaceCumulativeStatisticsResource, WorkspaceCumulativeStatisticsSolution }

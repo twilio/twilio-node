@@ -41,10 +41,6 @@ interface NumberListInstance {
   /**
    * Constructs a number
    *
-   * @function get
-   * @memberof Twilio.Pricing.V1.VoiceContext.NumberList
-   * @instance
-   *
    * @param number - The number
    */
   get(number: string);
@@ -65,10 +61,6 @@ declare class NumberPage extends Page {
 
   /**
    * Build an instance of NumberInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Pricing.V1.VoiceContext.NumberPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -99,20 +91,12 @@ declare class NumberInstance {
   /**
    * fetch a NumberInstance
    *
-   * @function fetch
-   * @memberof Twilio.Pricing.V1.VoiceContext.NumberInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * Produce a plain JSON object version of the NumberInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Pricing.V1.VoiceContext.NumberInstance
-   * @instance
    */
   toJSON();
 }
@@ -130,10 +114,6 @@ declare class NumberContext {
 
   /**
    * fetch a NumberInstance
-   *
-   * @function fetch
-   * @memberof Twilio.Pricing.V1.VoiceContext.NumberContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */

@@ -12,7 +12,6 @@ import { CertificateList } from './fleet/certificate';
 import { DeploymentList } from './fleet/deployment';
 import { DeviceList } from './fleet/device';
 import { KeyList } from './fleet/key';
-import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
 import { SerializableClass } from '../../../interfaces';
 
 /**
@@ -49,14 +48,10 @@ interface FleetListInstance {
   /**
    * create a FleetInstance
    *
-   * @function create
-   * @memberof Twilio.Preview.DeployedDevices.FleetList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: object, callback?: function);
+  create(opts?: FleetListInstanceCreateOptions, callback?: function);
   /**
    * Streams FleetInstance records from the API.
    *
@@ -67,20 +62,12 @@ interface FleetListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Preview.DeployedDevices.FleetList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: FleetListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a fleet
-   *
-   * @function get
-   * @memberof Twilio.Preview.DeployedDevices.FleetList
-   * @instance
    *
    * @param sid - A string that uniquely identifies the Fleet.
    */
@@ -91,10 +78,6 @@ interface FleetListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Preview.DeployedDevices.FleetList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -104,28 +87,20 @@ interface FleetListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Preview.DeployedDevices.FleetList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: FleetListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of FleetInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Preview.DeployedDevices.FleetList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: FleetListInstancePageOptions, callback?: function);
 }
 
 /**
@@ -134,7 +109,7 @@ interface FleetListInstance {
  * @property friendlyName - A human readable description for this Fleet.
  * @property defaultDeploymentSid - A default Deployment SID.
  */
-export interface UpdateOptions {
+export interface FleetInstanceUpdateOptions {
   defaultDeploymentSid?: string;
   friendlyName?: string;
 }
@@ -145,9 +120,75 @@ export interface UpdateOptions {
  * @property friendlyName - A human readable description for this Fleet.
  * @property defaultDeploymentSid - A default Deployment SID.
  */
-export interface UpdateOptions {
+export interface FleetContextUpdateOptions {
   defaultDeploymentSid?: string;
   friendlyName?: string;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property friendlyName - A human readable description for this Fleet.
+ */
+export interface FleetListInstanceCreateOptions {
+  friendlyName?: string;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface FleetListInstanceEachOptions {
+  callback?: Function;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface FleetListInstanceOptions {
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface FleetListInstancePageOptions {
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
 }
 
 
@@ -166,10 +207,6 @@ declare class FleetPage extends Page {
 
   /**
    * Build an instance of FleetInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Preview.DeployedDevices.FleetPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -202,52 +239,28 @@ declare class FleetInstance {
   _proxy?: FleetContext;
   /**
    * Access the certificates
-   *
-   * @function certificates
-   * @memberof Twilio.Preview.DeployedDevices.FleetInstance
-   * @instance
    */
   certificates();
   /**
    * Access the deployments
-   *
-   * @function deployments
-   * @memberof Twilio.Preview.DeployedDevices.FleetInstance
-   * @instance
    */
   deployments();
   /**
    * Access the devices
-   *
-   * @function devices
-   * @memberof Twilio.Preview.DeployedDevices.FleetInstance
-   * @instance
    */
   devices();
   /**
    * fetch a FleetInstance
-   *
-   * @function fetch
-   * @memberof Twilio.Preview.DeployedDevices.FleetInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * Access the keys
-   *
-   * @function keys
-   * @memberof Twilio.Preview.DeployedDevices.FleetInstance
-   * @instance
    */
   keys();
   /**
    * remove a FleetInstance
-   *
-   * @function remove
-   * @memberof Twilio.Preview.DeployedDevices.FleetInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -255,23 +268,15 @@ declare class FleetInstance {
   /**
    * Produce a plain JSON object version of the FleetInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Preview.DeployedDevices.FleetInstance
-   * @instance
    */
   toJSON();
   /**
    * update a FleetInstance
    *
-   * @function update
-   * @memberof Twilio.Preview.DeployedDevices.FleetInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: FleetInstanceUpdateOptions, callback?: function);
 }
 
 
@@ -297,10 +302,6 @@ declare class FleetContext {
   /**
    * fetch a FleetInstance
    *
-   * @function fetch
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
@@ -308,24 +309,16 @@ declare class FleetContext {
   /**
    * remove a FleetInstance
    *
-   * @function remove
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: function);
   /**
    * update a FleetInstance
    *
-   * @function update
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: FleetContextUpdateOptions, callback?: function);
 }
 
 export { FleetContext, FleetInstance, FleetList, FleetListInstance, FleetPage, FleetPayload, FleetResource, FleetSolution }

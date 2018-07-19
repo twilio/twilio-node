@@ -17,7 +17,6 @@ import { ConferenceList } from './account/conference';
 import { ConnectAppList } from './account/connectApp';
 import { IncomingPhoneNumberList } from './account/incomingPhoneNumber';
 import { KeyList } from './account/key';
-import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
 import { MessageList } from './account/message';
 import { NewKeyList } from './account/newKey';
 import { NewSigningKeyList } from './account/newSigningKey';
@@ -68,14 +67,10 @@ interface AccountListInstance {
   /**
    * create a AccountInstance
    *
-   * @function create
-   * @memberof Twilio.Api.V2010.AccountList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: object, callback?: function);
+  create(opts?: AccountListInstanceCreateOptions, callback?: function);
   /**
    * Streams AccountInstance records from the API.
    *
@@ -86,20 +81,12 @@ interface AccountListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Api.V2010.AccountList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: AccountListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a account
-   *
-   * @function get
-   * @memberof Twilio.Api.V2010.AccountList
-   * @instance
    *
    * @param sid - Fetch by unique Account Sid
    */
@@ -110,10 +97,6 @@ interface AccountListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Api.V2010.AccountList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -123,28 +106,20 @@ interface AccountListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Api.V2010.AccountList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: AccountListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of AccountInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Api.V2010.AccountList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: AccountListInstancePageOptions, callback?: function);
 }
 
 /**
@@ -153,7 +128,7 @@ interface AccountListInstance {
  * @property friendlyName - FriendlyName to update
  * @property status - Status to update the Account with
  */
-export interface UpdateOptions {
+export interface AccountInstanceUpdateOptions {
   friendlyName?: string;
   status?: account.status;
 }
@@ -164,8 +139,86 @@ export interface UpdateOptions {
  * @property friendlyName - FriendlyName to update
  * @property status - Status to update the Account with
  */
-export interface UpdateOptions {
+export interface AccountContextUpdateOptions {
   friendlyName?: string;
+  status?: account.status;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property friendlyName - A human readable description of the account
+ */
+export interface AccountListInstanceCreateOptions {
+  friendlyName?: string;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property friendlyName - FriendlyName to filter on
+ * @property status - Status to filter on
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface AccountListInstanceEachOptions {
+  callback?: Function;
+  done?: Function;
+  friendlyName?: string;
+  limit?: number;
+  pageSize?: number;
+  status?: account.status;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property friendlyName - FriendlyName to filter on
+ * @property status - Status to filter on
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface AccountListInstanceOptions {
+  friendlyName?: string;
+  limit?: number;
+  pageSize?: number;
+  status?: account.status;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property friendlyName - FriendlyName to filter on
+ * @property status - Status to filter on
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface AccountListInstancePageOptions {
+  friendlyName?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
   status?: account.status;
 }
 
@@ -184,10 +237,6 @@ declare class AccountPage extends Page {
 
   /**
    * Build an instance of AccountInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Api.V2010.AccountPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -220,216 +269,112 @@ declare class AccountInstance {
   _proxy?: AccountContext;
   /**
    * Access the addresses
-   *
-   * @function addresses
-   * @memberof Twilio.Api.V2010.AccountInstance
-   * @instance
    */
   addresses();
   /**
    * Access the applications
-   *
-   * @function applications
-   * @memberof Twilio.Api.V2010.AccountInstance
-   * @instance
    */
   applications();
   /**
    * Access the authorizedConnectApps
-   *
-   * @function authorizedConnectApps
-   * @memberof Twilio.Api.V2010.AccountInstance
-   * @instance
    */
   authorizedConnectApps();
   /**
    * Access the availablePhoneNumbers
-   *
-   * @function availablePhoneNumbers
-   * @memberof Twilio.Api.V2010.AccountInstance
-   * @instance
    */
   availablePhoneNumbers();
   /**
    * Access the calls
-   *
-   * @function calls
-   * @memberof Twilio.Api.V2010.AccountInstance
-   * @instance
    */
   calls();
   /**
    * Access the conferences
-   *
-   * @function conferences
-   * @memberof Twilio.Api.V2010.AccountInstance
-   * @instance
    */
   conferences();
   /**
    * Access the connectApps
-   *
-   * @function connectApps
-   * @memberof Twilio.Api.V2010.AccountInstance
-   * @instance
    */
   connectApps();
   /**
    * fetch a AccountInstance
-   *
-   * @function fetch
-   * @memberof Twilio.Api.V2010.AccountInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * Access the incomingPhoneNumbers
-   *
-   * @function incomingPhoneNumbers
-   * @memberof Twilio.Api.V2010.AccountInstance
-   * @instance
    */
   incomingPhoneNumbers();
   /**
    * Access the keys
-   *
-   * @function keys
-   * @memberof Twilio.Api.V2010.AccountInstance
-   * @instance
    */
   keys();
   /**
    * Access the messages
-   *
-   * @function messages
-   * @memberof Twilio.Api.V2010.AccountInstance
-   * @instance
    */
   messages();
   /**
    * Access the newKeys
-   *
-   * @function newKeys
-   * @memberof Twilio.Api.V2010.AccountInstance
-   * @instance
    */
   newKeys();
   /**
    * Access the newSigningKeys
-   *
-   * @function newSigningKeys
-   * @memberof Twilio.Api.V2010.AccountInstance
-   * @instance
    */
   newSigningKeys();
   /**
    * Access the notifications
-   *
-   * @function notifications
-   * @memberof Twilio.Api.V2010.AccountInstance
-   * @instance
    */
   notifications();
   /**
    * Access the outgoingCallerIds
-   *
-   * @function outgoingCallerIds
-   * @memberof Twilio.Api.V2010.AccountInstance
-   * @instance
    */
   outgoingCallerIds();
   /**
    * Access the queues
-   *
-   * @function queues
-   * @memberof Twilio.Api.V2010.AccountInstance
-   * @instance
    */
   queues();
   /**
    * Access the recordings
-   *
-   * @function recordings
-   * @memberof Twilio.Api.V2010.AccountInstance
-   * @instance
    */
   recordings();
   /**
    * Access the shortCodes
-   *
-   * @function shortCodes
-   * @memberof Twilio.Api.V2010.AccountInstance
-   * @instance
    */
   shortCodes();
   /**
    * Access the signingKeys
-   *
-   * @function signingKeys
-   * @memberof Twilio.Api.V2010.AccountInstance
-   * @instance
    */
   signingKeys();
   /**
    * Access the sip
-   *
-   * @function sip
-   * @memberof Twilio.Api.V2010.AccountInstance
-   * @instance
    */
   sip();
   /**
    * Produce a plain JSON object version of the AccountInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Api.V2010.AccountInstance
-   * @instance
    */
   toJSON();
   /**
    * Access the tokens
-   *
-   * @function tokens
-   * @memberof Twilio.Api.V2010.AccountInstance
-   * @instance
    */
   tokens();
   /**
    * Access the transcriptions
-   *
-   * @function transcriptions
-   * @memberof Twilio.Api.V2010.AccountInstance
-   * @instance
    */
   transcriptions();
   /**
    * update a AccountInstance
    *
-   * @function update
-   * @memberof Twilio.Api.V2010.AccountInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: AccountInstanceUpdateOptions, callback?: function);
   /**
    * Access the usage
-   *
-   * @function usage
-   * @memberof Twilio.Api.V2010.AccountInstance
-   * @instance
    */
   usage();
   /**
    * Access the validationRequests
-   *
-   * @function validationRequests
-   * @memberof Twilio.Api.V2010.AccountInstance
-   * @instance
    */
   validationRequests();
 }
@@ -479,10 +424,6 @@ declare class AccountContext {
   /**
    * fetch a AccountInstance
    *
-   * @function fetch
-   * @memberof Twilio.Api.V2010.AccountContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
@@ -503,14 +444,10 @@ declare class AccountContext {
   /**
    * update a AccountInstance
    *
-   * @function update
-   * @memberof Twilio.Api.V2010.AccountContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: AccountContextUpdateOptions, callback?: function);
   usage?: Twilio.Api.V2010.AccountContext.UsageList;
   validationRequests?: Twilio.Api.V2010.AccountContext.ValidationRequestList;
 }

@@ -9,7 +9,6 @@ import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V2010 = require('../../V2010');
 import serialize = require('../../../../base/serialize');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
 import { SerializableClass } from '../../../../interfaces';
 
 /**
@@ -62,20 +61,12 @@ interface NotificationListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Api.V2010.AccountContext.NotificationList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: NotificationListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a notification
-   *
-   * @function get
-   * @memberof Twilio.Api.V2010.AccountContext.NotificationList
-   * @instance
    *
    * @param sid - Fetch by unique notification Sid
    */
@@ -86,10 +77,6 @@ interface NotificationListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Api.V2010.AccountContext.NotificationList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -99,28 +86,101 @@ interface NotificationListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Api.V2010.AccountContext.NotificationList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: NotificationListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of NotificationInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Api.V2010.AccountContext.NotificationList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: NotificationListInstancePageOptions, callback?: function);
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property log - Filter by log level
+ * @property messageDateBefore - Filter by date
+ * @property messageDate - Filter by date
+ * @property messageDateAfter - Filter by date
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface NotificationListInstanceEachOptions {
+  callback?: Function;
+  done?: Function;
+  limit?: number;
+  log?: number;
+  messageDate?: Date;
+  messageDateAfter?: Date;
+  messageDateBefore?: Date;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property log - Filter by log level
+ * @property messageDateBefore - Filter by date
+ * @property messageDate - Filter by date
+ * @property messageDateAfter - Filter by date
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface NotificationListInstanceOptions {
+  limit?: number;
+  log?: number;
+  messageDate?: Date;
+  messageDateAfter?: Date;
+  messageDateBefore?: Date;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property log - Filter by log level
+ * @property messageDateBefore - Filter by date
+ * @property messageDate - Filter by date
+ * @property messageDateAfter - Filter by date
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface NotificationListInstancePageOptions {
+  log?: number;
+  messageDate?: Date;
+  messageDateAfter?: Date;
+  messageDateBefore?: Date;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
 }
 
 
@@ -138,10 +198,6 @@ declare class NotificationPage extends Page {
 
   /**
    * Build an instance of NotificationInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Api.V2010.AccountContext.NotificationPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -183,19 +239,11 @@ declare class NotificationInstance {
   /**
    * fetch a NotificationInstance
    *
-   * @function fetch
-   * @memberof Twilio.Api.V2010.AccountContext.NotificationInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a NotificationInstance
-   *
-   * @function remove
-   * @memberof Twilio.Api.V2010.AccountContext.NotificationInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -203,10 +251,6 @@ declare class NotificationInstance {
   /**
    * Produce a plain JSON object version of the NotificationInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Api.V2010.AccountContext.NotificationInstance
-   * @instance
    */
   toJSON();
 }
@@ -226,19 +270,11 @@ declare class NotificationContext {
   /**
    * fetch a NotificationInstance
    *
-   * @function fetch
-   * @memberof Twilio.Api.V2010.AccountContext.NotificationContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a NotificationInstance
-   *
-   * @function remove
-   * @memberof Twilio.Api.V2010.AccountContext.NotificationContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */

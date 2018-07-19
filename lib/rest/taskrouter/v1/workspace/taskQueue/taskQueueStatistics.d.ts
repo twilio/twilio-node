@@ -44,10 +44,6 @@ interface TaskQueueStatisticsListInstance {
   (sid: string): TaskQueueStatisticsContext;
   /**
    * Constructs a task_queue_statistics
-   *
-   * @function get
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueueStatisticsList
-   * @instance
    */
   get();
 }
@@ -61,7 +57,7 @@ interface TaskQueueStatisticsListInstance {
  * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
  * @property splitByWaitTime - A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
  */
-export interface FetchOptions {
+export interface TaskQueueStatisticsInstanceFetchOptions {
   endDate?: Date;
   minutes?: number;
   splitByWaitTime?: string;
@@ -78,7 +74,7 @@ export interface FetchOptions {
  * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
  * @property splitByWaitTime - A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
  */
-export interface FetchOptions {
+export interface TaskQueueStatisticsContextFetchOptions {
   endDate?: Date;
   minutes?: number;
   splitByWaitTime?: string;
@@ -101,10 +97,6 @@ declare class TaskQueueStatisticsPage extends Page {
 
   /**
    * Build an instance of TaskQueueStatisticsInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueueStatisticsPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -135,21 +127,13 @@ declare class TaskQueueStatisticsInstance {
   /**
    * fetch a TaskQueueStatisticsInstance
    *
-   * @function fetch
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueueStatisticsInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: object, callback?: function);
+  fetch(opts?: TaskQueueStatisticsInstanceFetchOptions, callback?: function);
   /**
    * Produce a plain JSON object version of the TaskQueueStatisticsInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueueStatisticsInstance
-   * @instance
    */
   toJSON();
 }
@@ -169,14 +153,10 @@ declare class TaskQueueStatisticsContext {
   /**
    * fetch a TaskQueueStatisticsInstance
    *
-   * @function fetch
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueueStatisticsContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: object, callback?: function);
+  fetch(opts?: TaskQueueStatisticsContextFetchOptions, callback?: function);
 }
 
 export { TaskQueueStatisticsContext, TaskQueueStatisticsInstance, TaskQueueStatisticsList, TaskQueueStatisticsListInstance, TaskQueueStatisticsPage, TaskQueueStatisticsPayload, TaskQueueStatisticsResource, TaskQueueStatisticsSolution }

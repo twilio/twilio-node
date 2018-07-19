@@ -8,7 +8,6 @@
 import Page = require('../../../../../../base/Page');
 import Response = require('../../../../../../http/response');
 import V2010 = require('../../../../V2010');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../../interfaces';
 import { SerializableClass } from '../../../../../../interfaces';
 
 /**
@@ -47,14 +46,10 @@ interface IpAddressListInstance {
   /**
    * create a IpAddressInstance
    *
-   * @function create
-   * @memberof Twilio.Api.V2010.AccountContext.SipContext.IpAccessControlListContext.IpAddressList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: object, callback?: function);
+  create(opts: IpAddressListInstanceCreateOptions, callback?: function);
   /**
    * Streams IpAddressInstance records from the API.
    *
@@ -65,20 +60,12 @@ interface IpAddressListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Api.V2010.AccountContext.SipContext.IpAccessControlListContext.IpAddressList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: IpAddressListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a ip_address
-   *
-   * @function get
-   * @memberof Twilio.Api.V2010.AccountContext.SipContext.IpAccessControlListContext.IpAddressList
-   * @instance
    *
    * @param sid - The sid
    */
@@ -89,10 +76,6 @@ interface IpAddressListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Api.V2010.AccountContext.SipContext.IpAccessControlListContext.IpAddressList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -102,28 +85,20 @@ interface IpAddressListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Api.V2010.AccountContext.SipContext.IpAccessControlListContext.IpAddressList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: IpAddressListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of IpAddressInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Api.V2010.AccountContext.SipContext.IpAccessControlListContext.IpAddressList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: IpAddressListInstancePageOptions, callback?: function);
 }
 
 /**
@@ -132,7 +107,7 @@ interface IpAddressListInstance {
  * @property ipAddress - The ip_address
  * @property friendlyName - The friendly_name
  */
-export interface UpdateOptions {
+export interface IpAddressInstanceUpdateOptions {
   friendlyName?: string;
   ipAddress?: string;
 }
@@ -143,9 +118,77 @@ export interface UpdateOptions {
  * @property ipAddress - The ip_address
  * @property friendlyName - The friendly_name
  */
-export interface UpdateOptions {
+export interface IpAddressContextUpdateOptions {
   friendlyName?: string;
   ipAddress?: string;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface IpAddressListInstanceEachOptions {
+  callback?: Function;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface IpAddressListInstanceOptions {
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface IpAddressListInstancePageOptions {
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property friendlyName - The friendly_name
+ * @property ipAddress - The ip_address
+ */
+export interface IpAddressListInstanceCreateOptions {
+  friendlyName: string;
+  ipAddress: string;
 }
 
 
@@ -163,10 +206,6 @@ declare class IpAddressPage extends Page {
 
   /**
    * Build an instance of IpAddressInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Api.V2010.AccountContext.SipContext.IpAccessControlListContext.IpAddressPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -200,19 +239,11 @@ declare class IpAddressInstance {
   /**
    * fetch a IpAddressInstance
    *
-   * @function fetch
-   * @memberof Twilio.Api.V2010.AccountContext.SipContext.IpAccessControlListContext.IpAddressInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a IpAddressInstance
-   *
-   * @function remove
-   * @memberof Twilio.Api.V2010.AccountContext.SipContext.IpAccessControlListContext.IpAddressInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -220,23 +251,15 @@ declare class IpAddressInstance {
   /**
    * Produce a plain JSON object version of the IpAddressInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Api.V2010.AccountContext.SipContext.IpAccessControlListContext.IpAddressInstance
-   * @instance
    */
   toJSON();
   /**
    * update a IpAddressInstance
    *
-   * @function update
-   * @memberof Twilio.Api.V2010.AccountContext.SipContext.IpAccessControlListContext.IpAddressInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: IpAddressInstanceUpdateOptions, callback?: function);
 }
 
 
@@ -255,19 +278,11 @@ declare class IpAddressContext {
   /**
    * fetch a IpAddressInstance
    *
-   * @function fetch
-   * @memberof Twilio.Api.V2010.AccountContext.SipContext.IpAccessControlListContext.IpAddressContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a IpAddressInstance
-   *
-   * @function remove
-   * @memberof Twilio.Api.V2010.AccountContext.SipContext.IpAccessControlListContext.IpAddressContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -275,14 +290,10 @@ declare class IpAddressContext {
   /**
    * update a IpAddressInstance
    *
-   * @function update
-   * @memberof Twilio.Api.V2010.AccountContext.SipContext.IpAccessControlListContext.IpAddressContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: IpAddressContextUpdateOptions, callback?: function);
 }
 
 export { IpAddressContext, IpAddressInstance, IpAddressList, IpAddressListInstance, IpAddressPage, IpAddressPayload, IpAddressResource, IpAddressSolution }

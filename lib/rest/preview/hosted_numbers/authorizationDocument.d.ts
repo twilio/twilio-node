@@ -10,7 +10,6 @@ import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import serialize = require('../../../base/serialize');
 import { DependentHostedNumberOrderList } from './authorizationDocument/dependentHostedNumberOrder';
-import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
 import { SerializableClass } from '../../../interfaces';
 
 /**
@@ -47,14 +46,10 @@ interface AuthorizationDocumentListInstance {
   /**
    * create a AuthorizationDocumentInstance
    *
-   * @function create
-   * @memberof Twilio.Preview.HostedNumbers.AuthorizationDocumentList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: object, callback?: function);
+  create(opts: AuthorizationDocumentListInstanceCreateOptions, callback?: function);
   /**
    * Streams AuthorizationDocumentInstance records from the API.
    *
@@ -65,20 +60,12 @@ interface AuthorizationDocumentListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Preview.HostedNumbers.AuthorizationDocumentList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: AuthorizationDocumentListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a authorization_document
-   *
-   * @function get
-   * @memberof Twilio.Preview.HostedNumbers.AuthorizationDocumentList
-   * @instance
    *
    * @param sid - AuthorizationDocument sid.
    */
@@ -89,10 +76,6 @@ interface AuthorizationDocumentListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Preview.HostedNumbers.AuthorizationDocumentList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -102,28 +85,20 @@ interface AuthorizationDocumentListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Preview.HostedNumbers.AuthorizationDocumentList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: AuthorizationDocumentListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of AuthorizationDocumentInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Preview.HostedNumbers.AuthorizationDocumentList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: AuthorizationDocumentListInstancePageOptions, callback?: function);
 }
 
 /**
@@ -135,7 +110,7 @@ interface AuthorizationDocumentListInstance {
  * @property ccEmails - A list of emails.
  * @property status - The Status of this AuthorizationDocument.
  */
-export interface UpdateOptions {
+export interface AuthorizationDocumentInstanceUpdateOptions {
   addressSid?: string;
   ccEmails?: string|list;
   email?: string;
@@ -152,12 +127,96 @@ export interface UpdateOptions {
  * @property ccEmails - A list of emails.
  * @property status - The Status of this AuthorizationDocument.
  */
-export interface UpdateOptions {
+export interface AuthorizationDocumentContextUpdateOptions {
   addressSid?: string;
   ccEmails?: string|list;
   email?: string;
   hostedNumberOrderSids?: string|list;
   status?: authorization_document.status;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property email - Email.
+ * @property status - The Status of this AuthorizationDocument.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface AuthorizationDocumentListInstanceEachOptions {
+  callback?: Function;
+  done?: Function;
+  email?: string;
+  limit?: number;
+  pageSize?: number;
+  status?: authorization_document.status;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property email - Email.
+ * @property status - The Status of this AuthorizationDocument.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface AuthorizationDocumentListInstanceOptions {
+  email?: string;
+  limit?: number;
+  pageSize?: number;
+  status?: authorization_document.status;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property email - Email.
+ * @property status - The Status of this AuthorizationDocument.
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface AuthorizationDocumentListInstancePageOptions {
+  email?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  status?: authorization_document.status;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property hostedNumberOrderSids - A list of HostedNumberOrder sids.
+ * @property addressSid - Address sid.
+ * @property email - Email.
+ * @property ccEmails - A list of emails.
+ */
+export interface AuthorizationDocumentListInstanceCreateOptions {
+  addressSid: string;
+  ccEmails?: string|list;
+  email: string;
+  hostedNumberOrderSids: string|list;
 }
 
 
@@ -176,10 +235,6 @@ declare class AuthorizationDocumentPage extends Page {
 
   /**
    * Build an instance of AuthorizationDocumentInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Preview.HostedNumbers.AuthorizationDocumentPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -212,18 +267,10 @@ declare class AuthorizationDocumentInstance {
   _proxy?: AuthorizationDocumentContext;
   /**
    * Access the dependentHostedNumberOrders
-   *
-   * @function dependentHostedNumberOrders
-   * @memberof Twilio.Preview.HostedNumbers.AuthorizationDocumentInstance
-   * @instance
    */
   dependentHostedNumberOrders();
   /**
    * fetch a AuthorizationDocumentInstance
-   *
-   * @function fetch
-   * @memberof Twilio.Preview.HostedNumbers.AuthorizationDocumentInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -231,23 +278,15 @@ declare class AuthorizationDocumentInstance {
   /**
    * Produce a plain JSON object version of the AuthorizationDocumentInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Preview.HostedNumbers.AuthorizationDocumentInstance
-   * @instance
    */
   toJSON();
   /**
    * update a AuthorizationDocumentInstance
    *
-   * @function update
-   * @memberof Twilio.Preview.HostedNumbers.AuthorizationDocumentInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: AuthorizationDocumentInstanceUpdateOptions, callback?: function);
 }
 
 
@@ -268,24 +307,16 @@ declare class AuthorizationDocumentContext {
   /**
    * fetch a AuthorizationDocumentInstance
    *
-   * @function fetch
-   * @memberof Twilio.Preview.HostedNumbers.AuthorizationDocumentContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * update a AuthorizationDocumentInstance
    *
-   * @function update
-   * @memberof Twilio.Preview.HostedNumbers.AuthorizationDocumentContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: AuthorizationDocumentContextUpdateOptions, callback?: function);
 }
 
 export { AuthorizationDocumentContext, AuthorizationDocumentInstance, AuthorizationDocumentList, AuthorizationDocumentListInstance, AuthorizationDocumentPage, AuthorizationDocumentPayload, AuthorizationDocumentResource, AuthorizationDocumentSolution }

@@ -8,7 +8,6 @@
 import DeployedDevices = require('../../DeployedDevices');
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
 import { SerializableClass } from '../../../../interfaces';
 
 /**
@@ -47,14 +46,10 @@ interface CertificateListInstance {
   /**
    * create a CertificateInstance
    *
-   * @function create
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext.CertificateList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: object, callback?: function);
+  create(opts: CertificateListInstanceCreateOptions, callback?: function);
   /**
    * Streams CertificateInstance records from the API.
    *
@@ -65,20 +60,12 @@ interface CertificateListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext.CertificateList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: CertificateListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a certificate
-   *
-   * @function get
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext.CertificateList
-   * @instance
    *
    * @param sid - A string that uniquely identifies the Certificate.
    */
@@ -89,10 +76,6 @@ interface CertificateListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext.CertificateList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -102,28 +85,20 @@ interface CertificateListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext.CertificateList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: CertificateListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of CertificateInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext.CertificateList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: CertificateListInstancePageOptions, callback?: function);
 }
 
 /**
@@ -132,7 +107,7 @@ interface CertificateListInstance {
  * @property friendlyName - The human readable description for this Certificate.
  * @property deviceSid - The unique identifier of a Device to be authenticated.
  */
-export interface UpdateOptions {
+export interface CertificateInstanceUpdateOptions {
   deviceSid?: string;
   friendlyName?: string;
 }
@@ -143,9 +118,85 @@ export interface UpdateOptions {
  * @property friendlyName - The human readable description for this Certificate.
  * @property deviceSid - The unique identifier of a Device to be authenticated.
  */
-export interface UpdateOptions {
+export interface CertificateContextUpdateOptions {
   deviceSid?: string;
   friendlyName?: string;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property certificateData - The public certificate data.
+ * @property friendlyName - The human readable description for this Certificate.
+ * @property deviceSid - The unique identifier of a Device to be authenticated.
+ */
+export interface CertificateListInstanceCreateOptions {
+  certificateData: string;
+  deviceSid?: string;
+  friendlyName?: string;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property deviceSid - Find all Certificates authenticating specified Device.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface CertificateListInstanceEachOptions {
+  callback?: Function;
+  deviceSid?: string;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property deviceSid - Find all Certificates authenticating specified Device.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface CertificateListInstanceOptions {
+  deviceSid?: string;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property deviceSid - Find all Certificates authenticating specified Device.
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface CertificateListInstancePageOptions {
+  deviceSid?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
 }
 
 
@@ -164,10 +215,6 @@ declare class CertificatePage extends Page {
 
   /**
    * Build an instance of CertificateInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext.CertificatePage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -202,19 +249,11 @@ declare class CertificateInstance {
   /**
    * fetch a CertificateInstance
    *
-   * @function fetch
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext.CertificateInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a CertificateInstance
-   *
-   * @function remove
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext.CertificateInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -222,23 +261,15 @@ declare class CertificateInstance {
   /**
    * Produce a plain JSON object version of the CertificateInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext.CertificateInstance
-   * @instance
    */
   toJSON();
   /**
    * update a CertificateInstance
    *
-   * @function update
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext.CertificateInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: CertificateInstanceUpdateOptions, callback?: function);
 }
 
 
@@ -257,19 +288,11 @@ declare class CertificateContext {
   /**
    * fetch a CertificateInstance
    *
-   * @function fetch
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext.CertificateContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a CertificateInstance
-   *
-   * @function remove
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext.CertificateContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -277,14 +300,10 @@ declare class CertificateContext {
   /**
    * update a CertificateInstance
    *
-   * @function update
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext.CertificateContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: CertificateContextUpdateOptions, callback?: function);
 }
 
 export { CertificateContext, CertificateInstance, CertificateList, CertificateListInstance, CertificatePage, CertificatePayload, CertificateResource, CertificateSolution }

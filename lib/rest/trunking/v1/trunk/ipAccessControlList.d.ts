@@ -8,7 +8,6 @@
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V1 = require('../../V1');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
 import { SerializableClass } from '../../../../interfaces';
 
 /**
@@ -44,14 +43,10 @@ interface IpAccessControlListListInstance {
   /**
    * create a IpAccessControlListInstance
    *
-   * @function create
-   * @memberof Twilio.Trunking.V1.TrunkContext.IpAccessControlListList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: object, callback?: function);
+  create(opts: IpAccessControlListListInstanceCreateOptions, callback?: function);
   /**
    * Streams IpAccessControlListInstance records from the API.
    *
@@ -62,20 +57,12 @@ interface IpAccessControlListListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Trunking.V1.TrunkContext.IpAccessControlListList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: IpAccessControlListListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a ip_access_control_list
-   *
-   * @function get
-   * @memberof Twilio.Trunking.V1.TrunkContext.IpAccessControlListList
-   * @instance
    *
    * @param sid - The sid
    */
@@ -86,10 +73,6 @@ interface IpAccessControlListListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Trunking.V1.TrunkContext.IpAccessControlListList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -99,28 +82,86 @@ interface IpAccessControlListListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Trunking.V1.TrunkContext.IpAccessControlListList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: IpAccessControlListListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of IpAccessControlListInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Trunking.V1.TrunkContext.IpAccessControlListList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: IpAccessControlListListInstancePageOptions, callback?: function);
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property ipAccessControlListSid - The SID of the IP Access Control List that you want to associate with this trunk.
+ */
+export interface IpAccessControlListListInstanceCreateOptions {
+  ipAccessControlListSid: string;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface IpAccessControlListListInstanceEachOptions {
+  callback?: Function;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface IpAccessControlListListInstanceOptions {
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface IpAccessControlListListInstancePageOptions {
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
 }
 
 
@@ -138,10 +179,6 @@ declare class IpAccessControlListPage extends Page {
 
   /**
    * Build an instance of IpAccessControlListInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Trunking.V1.TrunkContext.IpAccessControlListPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -173,19 +210,11 @@ declare class IpAccessControlListInstance {
   /**
    * fetch a IpAccessControlListInstance
    *
-   * @function fetch
-   * @memberof Twilio.Trunking.V1.TrunkContext.IpAccessControlListInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a IpAccessControlListInstance
-   *
-   * @function remove
-   * @memberof Twilio.Trunking.V1.TrunkContext.IpAccessControlListInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -193,10 +222,6 @@ declare class IpAccessControlListInstance {
   /**
    * Produce a plain JSON object version of the IpAccessControlListInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Trunking.V1.TrunkContext.IpAccessControlListInstance
-   * @instance
    */
   toJSON();
 }
@@ -216,19 +241,11 @@ declare class IpAccessControlListContext {
   /**
    * fetch a IpAccessControlListInstance
    *
-   * @function fetch
-   * @memberof Twilio.Trunking.V1.TrunkContext.IpAccessControlListContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a IpAccessControlListInstance
-   *
-   * @function remove
-   * @memberof Twilio.Trunking.V1.TrunkContext.IpAccessControlListContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */

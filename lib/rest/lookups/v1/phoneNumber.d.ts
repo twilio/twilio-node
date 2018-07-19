@@ -42,10 +42,6 @@ interface PhoneNumberListInstance {
   /**
    * Constructs a phone_number
    *
-   * @function get
-   * @memberof Twilio.Lookups.V1.PhoneNumberList
-   * @instance
-   *
    * @param phoneNumber - The phone_number
    */
   get(phoneNumber: string);
@@ -59,7 +55,7 @@ interface PhoneNumberListInstance {
  * @property addOns - Indicates the particular Add-on you would like to use to get more information.
  * @property addOnsData - The add_ons_data
  */
-export interface FetchOptions {
+export interface PhoneNumberInstanceFetchOptions {
   addOns?: string|list;
   addOnsData?: object;
   countryCode?: string;
@@ -74,7 +70,7 @@ export interface FetchOptions {
  * @property addOns - Indicates the particular Add-on you would like to use to get more information.
  * @property addOnsData - The add_ons_data
  */
-export interface FetchOptions {
+export interface PhoneNumberContextFetchOptions {
   addOns?: string|list;
   addOnsData?: object;
   countryCode?: string;
@@ -96,10 +92,6 @@ declare class PhoneNumberPage extends Page {
 
   /**
    * Build an instance of PhoneNumberInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Lookups.V1.PhoneNumberPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -130,21 +122,13 @@ declare class PhoneNumberInstance {
   /**
    * fetch a PhoneNumberInstance
    *
-   * @function fetch
-   * @memberof Twilio.Lookups.V1.PhoneNumberInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: object, callback?: function);
+  fetch(opts?: PhoneNumberInstanceFetchOptions, callback?: function);
   /**
    * Produce a plain JSON object version of the PhoneNumberInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Lookups.V1.PhoneNumberInstance
-   * @instance
    */
   toJSON();
 }
@@ -163,14 +147,10 @@ declare class PhoneNumberContext {
   /**
    * fetch a PhoneNumberInstance
    *
-   * @function fetch
-   * @memberof Twilio.Lookups.V1.PhoneNumberContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: object, callback?: function);
+  fetch(opts?: PhoneNumberContextFetchOptions, callback?: function);
 }
 
 export { PhoneNumberContext, PhoneNumberInstance, PhoneNumberList, PhoneNumberListInstance, PhoneNumberPage, PhoneNumberPayload, PhoneNumberResource, PhoneNumberSolution }

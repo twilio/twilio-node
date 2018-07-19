@@ -9,7 +9,6 @@ import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import V1 = require('../V1');
 import serialize = require('../../../base/serialize');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
 import { SerializableClass } from '../../../interfaces';
 
 /**
@@ -57,20 +56,12 @@ interface EventListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Monitor.V1.EventList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: EventListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a event
-   *
-   * @function get
-   * @memberof Twilio.Monitor.V1.EventList
-   * @instance
    *
    * @param sid - The sid
    */
@@ -81,10 +72,6 @@ interface EventListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Monitor.V1.EventList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -94,28 +81,113 @@ interface EventListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Monitor.V1.EventList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: EventListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of EventInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Monitor.V1.EventList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: EventListInstancePageOptions, callback?: function);
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property actorSid - The actor_sid
+ * @property eventType - The event_type
+ * @property resourceSid - The resource_sid
+ * @property sourceIpAddress - The source_ip_address
+ * @property startDate - The start_date
+ * @property endDate - The end_date
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface EventListInstanceEachOptions {
+  actorSid?: string;
+  callback?: Function;
+  done?: Function;
+  endDate?: Date;
+  eventType?: string;
+  limit?: number;
+  pageSize?: number;
+  resourceSid?: string;
+  sourceIpAddress?: string;
+  startDate?: Date;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property actorSid - The actor_sid
+ * @property eventType - The event_type
+ * @property resourceSid - The resource_sid
+ * @property sourceIpAddress - The source_ip_address
+ * @property startDate - The start_date
+ * @property endDate - The end_date
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface EventListInstanceOptions {
+  actorSid?: string;
+  endDate?: Date;
+  eventType?: string;
+  limit?: number;
+  pageSize?: number;
+  resourceSid?: string;
+  sourceIpAddress?: string;
+  startDate?: Date;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property actorSid - The actor_sid
+ * @property eventType - The event_type
+ * @property resourceSid - The resource_sid
+ * @property sourceIpAddress - The source_ip_address
+ * @property startDate - The start_date
+ * @property endDate - The end_date
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface EventListInstancePageOptions {
+  actorSid?: string;
+  endDate?: Date;
+  eventType?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  resourceSid?: string;
+  sourceIpAddress?: string;
+  startDate?: Date;
 }
 
 
@@ -133,10 +205,6 @@ declare class EventPage extends Page {
 
   /**
    * Build an instance of EventInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Monitor.V1.EventPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -174,20 +242,12 @@ declare class EventInstance {
   /**
    * fetch a EventInstance
    *
-   * @function fetch
-   * @memberof Twilio.Monitor.V1.EventInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * Produce a plain JSON object version of the EventInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Monitor.V1.EventInstance
-   * @instance
    */
   toJSON();
 }
@@ -205,10 +265,6 @@ declare class EventContext {
 
   /**
    * fetch a EventInstance
-   *
-   * @function fetch
-   * @memberof Twilio.Monitor.V1.EventContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */

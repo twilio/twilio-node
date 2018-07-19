@@ -9,7 +9,6 @@ import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V1 = require('../../V1');
 import serialize = require('../../../../base/serialize');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
 import { SerializableClass } from '../../../../interfaces';
 
 /**
@@ -46,23 +45,15 @@ interface UsageRecordListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Wireless.V1.SimContext.UsageRecordList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: UsageRecordListInstanceEachOptions, callback?: Function);
   /**
    * Retrieve a single target page of UsageRecordInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @function getPage
-   * @memberof Twilio.Wireless.V1.SimContext.UsageRecordList
-   * @instance
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -73,28 +64,95 @@ interface UsageRecordListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Wireless.V1.SimContext.UsageRecordList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: UsageRecordListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of UsageRecordInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Wireless.V1.SimContext.UsageRecordList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: UsageRecordListInstancePageOptions, callback?: function);
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property end - Only include usage that has occurred on or before this date.
+ * @property start - Only include usage that has occurred on or after this date.
+ * @property granularity - The time-based grouping that results are aggregated by.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface UsageRecordListInstanceEachOptions {
+  callback?: Function;
+  done?: Function;
+  end?: Date;
+  granularity?: usage_record.granularity;
+  limit?: number;
+  pageSize?: number;
+  start?: Date;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property end - Only include usage that has occurred on or before this date.
+ * @property start - Only include usage that has occurred on or after this date.
+ * @property granularity - The time-based grouping that results are aggregated by.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface UsageRecordListInstanceOptions {
+  end?: Date;
+  granularity?: usage_record.granularity;
+  limit?: number;
+  pageSize?: number;
+  start?: Date;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property end - Only include usage that has occurred on or before this date.
+ * @property start - Only include usage that has occurred on or after this date.
+ * @property granularity - The time-based grouping that results are aggregated by.
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface UsageRecordListInstancePageOptions {
+  end?: Date;
+  granularity?: usage_record.granularity;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  start?: Date;
 }
 
 
@@ -112,10 +170,6 @@ declare class UsageRecordPage extends Page {
 
   /**
    * Build an instance of UsageRecordInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Wireless.V1.SimContext.UsageRecordPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -143,10 +197,6 @@ declare class UsageRecordInstance {
   /**
    * Produce a plain JSON object version of the UsageRecordInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Wireless.V1.SimContext.UsageRecordInstance
-   * @instance
    */
   toJSON();
 }

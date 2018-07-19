@@ -42,14 +42,23 @@ interface VerificationListInstance {
   /**
    * create a VerificationInstance
    *
-   * @function create
-   * @memberof Twilio.Preview.AccSecurity.ServiceContext.VerificationList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: object, callback?: function);
+  create(opts: VerificationListInstanceCreateOptions, callback?: function);
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property to - To phonenumber
+ * @property channel - sms or call
+ * @property customMessage - A custom message for this verification
+ */
+export interface VerificationListInstanceCreateOptions {
+  channel: string;
+  customMessage?: string;
+  to: string;
 }
 
 
@@ -68,10 +77,6 @@ declare class VerificationPage extends Page {
 
   /**
    * Build an instance of VerificationInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Preview.AccSecurity.ServiceContext.VerificationPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -104,10 +109,6 @@ declare class VerificationInstance {
   /**
    * Produce a plain JSON object version of the VerificationInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Preview.AccSecurity.ServiceContext.VerificationInstance
-   * @instance
    */
   toJSON();
 }

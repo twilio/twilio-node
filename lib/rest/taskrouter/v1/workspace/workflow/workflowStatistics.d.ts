@@ -44,10 +44,6 @@ interface WorkflowStatisticsListInstance {
   (sid: string): WorkflowStatisticsContext;
   /**
    * Constructs a workflow_statistics
-   *
-   * @function get
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkflowContext.WorkflowStatisticsList
-   * @instance
    */
   get();
 }
@@ -61,7 +57,7 @@ interface WorkflowStatisticsListInstance {
  * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
  * @property splitByWaitTime - A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
  */
-export interface FetchOptions {
+export interface WorkflowStatisticsInstanceFetchOptions {
   endDate?: Date;
   minutes?: number;
   splitByWaitTime?: string;
@@ -78,7 +74,7 @@ export interface FetchOptions {
  * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
  * @property splitByWaitTime - A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
  */
-export interface FetchOptions {
+export interface WorkflowStatisticsContextFetchOptions {
   endDate?: Date;
   minutes?: number;
   splitByWaitTime?: string;
@@ -101,10 +97,6 @@ declare class WorkflowStatisticsPage extends Page {
 
   /**
    * Build an instance of WorkflowStatisticsInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkflowContext.WorkflowStatisticsPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -135,21 +127,13 @@ declare class WorkflowStatisticsInstance {
   /**
    * fetch a WorkflowStatisticsInstance
    *
-   * @function fetch
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkflowContext.WorkflowStatisticsInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: object, callback?: function);
+  fetch(opts?: WorkflowStatisticsInstanceFetchOptions, callback?: function);
   /**
    * Produce a plain JSON object version of the WorkflowStatisticsInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkflowContext.WorkflowStatisticsInstance
-   * @instance
    */
   toJSON();
 }
@@ -169,14 +153,10 @@ declare class WorkflowStatisticsContext {
   /**
    * fetch a WorkflowStatisticsInstance
    *
-   * @function fetch
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkflowContext.WorkflowStatisticsContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: object, callback?: function);
+  fetch(opts?: WorkflowStatisticsContextFetchOptions, callback?: function);
 }
 
 export { WorkflowStatisticsContext, WorkflowStatisticsInstance, WorkflowStatisticsList, WorkflowStatisticsListInstance, WorkflowStatisticsPage, WorkflowStatisticsPayload, WorkflowStatisticsResource, WorkflowStatisticsSolution }

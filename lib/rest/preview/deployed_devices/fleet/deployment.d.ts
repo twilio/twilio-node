@@ -8,7 +8,6 @@
 import DeployedDevices = require('../../DeployedDevices');
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
 import { SerializableClass } from '../../../../interfaces';
 
 /**
@@ -46,14 +45,10 @@ interface DeploymentListInstance {
   /**
    * create a DeploymentInstance
    *
-   * @function create
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext.DeploymentList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: object, callback?: function);
+  create(opts?: DeploymentListInstanceCreateOptions, callback?: function);
   /**
    * Streams DeploymentInstance records from the API.
    *
@@ -64,20 +59,12 @@ interface DeploymentListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext.DeploymentList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: DeploymentListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a deployment
-   *
-   * @function get
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext.DeploymentList
-   * @instance
    *
    * @param sid - A string that uniquely identifies the Deployment.
    */
@@ -88,10 +75,6 @@ interface DeploymentListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext.DeploymentList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -101,28 +84,20 @@ interface DeploymentListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext.DeploymentList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: DeploymentListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of DeploymentInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext.DeploymentList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: DeploymentListInstancePageOptions, callback?: function);
 }
 
 /**
@@ -131,7 +106,7 @@ interface DeploymentListInstance {
  * @property friendlyName - A human readable description for this Deployment.
  * @property syncServiceSid - The unique identifier of the Sync service instance.
  */
-export interface UpdateOptions {
+export interface DeploymentInstanceUpdateOptions {
   friendlyName?: string;
   syncServiceSid?: string;
 }
@@ -142,9 +117,77 @@ export interface UpdateOptions {
  * @property friendlyName - A human readable description for this Deployment.
  * @property syncServiceSid - The unique identifier of the Sync service instance.
  */
-export interface UpdateOptions {
+export interface DeploymentContextUpdateOptions {
   friendlyName?: string;
   syncServiceSid?: string;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property friendlyName - A human readable description for this Deployment.
+ * @property syncServiceSid - The unique identifier of the Sync service instance.
+ */
+export interface DeploymentListInstanceCreateOptions {
+  friendlyName?: string;
+  syncServiceSid?: string;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface DeploymentListInstanceEachOptions {
+  callback?: Function;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface DeploymentListInstanceOptions {
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface DeploymentListInstancePageOptions {
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
 }
 
 
@@ -163,10 +206,6 @@ declare class DeploymentPage extends Page {
 
   /**
    * Build an instance of DeploymentInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext.DeploymentPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -200,19 +239,11 @@ declare class DeploymentInstance {
   /**
    * fetch a DeploymentInstance
    *
-   * @function fetch
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext.DeploymentInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a DeploymentInstance
-   *
-   * @function remove
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext.DeploymentInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -220,23 +251,15 @@ declare class DeploymentInstance {
   /**
    * Produce a plain JSON object version of the DeploymentInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext.DeploymentInstance
-   * @instance
    */
   toJSON();
   /**
    * update a DeploymentInstance
    *
-   * @function update
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext.DeploymentInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: DeploymentInstanceUpdateOptions, callback?: function);
 }
 
 
@@ -255,19 +278,11 @@ declare class DeploymentContext {
   /**
    * fetch a DeploymentInstance
    *
-   * @function fetch
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext.DeploymentContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a DeploymentInstance
-   *
-   * @function remove
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext.DeploymentContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -275,14 +290,10 @@ declare class DeploymentContext {
   /**
    * update a DeploymentInstance
    *
-   * @function update
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext.DeploymentContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: DeploymentContextUpdateOptions, callback?: function);
 }
 
 export { DeploymentContext, DeploymentInstance, DeploymentList, DeploymentListInstance, DeploymentPage, DeploymentPayload, DeploymentResource, DeploymentSolution }

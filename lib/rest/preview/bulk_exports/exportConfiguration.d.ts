@@ -41,10 +41,6 @@ interface ExportConfigurationListInstance {
   /**
    * Constructs a export_configuration
    *
-   * @function get
-   * @memberof Twilio.Preview.BulkExports.ExportConfigurationList
-   * @instance
-   *
    * @param resourceType - The resource_type
    */
   get(resourceType: string);
@@ -57,7 +53,7 @@ interface ExportConfigurationListInstance {
  * @property webhookUrl - The webhook_url
  * @property webhookMethod - The webhook_method
  */
-export interface UpdateOptions {
+export interface ExportConfigurationInstanceUpdateOptions {
   enabled?: boolean;
   webhookMethod?: string;
   webhookUrl?: string;
@@ -70,7 +66,7 @@ export interface UpdateOptions {
  * @property webhookUrl - The webhook_url
  * @property webhookMethod - The webhook_method
  */
-export interface UpdateOptions {
+export interface ExportConfigurationContextUpdateOptions {
   enabled?: boolean;
   webhookMethod?: string;
   webhookUrl?: string;
@@ -92,10 +88,6 @@ declare class ExportConfigurationPage extends Page {
 
   /**
    * Build an instance of ExportConfigurationInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Preview.BulkExports.ExportConfigurationPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -125,33 +117,21 @@ declare class ExportConfigurationInstance {
   /**
    * fetch a ExportConfigurationInstance
    *
-   * @function fetch
-   * @memberof Twilio.Preview.BulkExports.ExportConfigurationInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * Produce a plain JSON object version of the ExportConfigurationInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Preview.BulkExports.ExportConfigurationInstance
-   * @instance
    */
   toJSON();
   /**
    * update a ExportConfigurationInstance
    *
-   * @function update
-   * @memberof Twilio.Preview.BulkExports.ExportConfigurationInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: ExportConfigurationInstanceUpdateOptions, callback?: function);
 }
 
 
@@ -169,24 +149,16 @@ declare class ExportConfigurationContext {
   /**
    * fetch a ExportConfigurationInstance
    *
-   * @function fetch
-   * @memberof Twilio.Preview.BulkExports.ExportConfigurationContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * update a ExportConfigurationInstance
    *
-   * @function update
-   * @memberof Twilio.Preview.BulkExports.ExportConfigurationContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: ExportConfigurationContextUpdateOptions, callback?: function);
 }
 
 export { ExportConfigurationContext, ExportConfigurationInstance, ExportConfigurationList, ExportConfigurationListInstance, ExportConfigurationPage, ExportConfigurationPayload, ExportConfigurationResource, ExportConfigurationSolution }

@@ -11,7 +11,6 @@ import V2 = require('../V2');
 import serialize = require('../../../base/serialize');
 import { BindingList } from './service/binding';
 import { ChannelList } from './service/channel';
-import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
 import { RoleList } from './service/role';
 import { SerializableClass } from '../../../interfaces';
 import { UserList } from './service/user';
@@ -63,14 +62,10 @@ interface ServiceListInstance {
   /**
    * create a ServiceInstance
    *
-   * @function create
-   * @memberof Twilio.IpMessaging.V2.ServiceList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: object, callback?: function);
+  create(opts: ServiceListInstanceCreateOptions, callback?: function);
   /**
    * Streams ServiceInstance records from the API.
    *
@@ -81,20 +76,12 @@ interface ServiceListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.IpMessaging.V2.ServiceList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: ServiceListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a service
-   *
-   * @function get
-   * @memberof Twilio.IpMessaging.V2.ServiceList
-   * @instance
    *
    * @param sid - The sid
    */
@@ -105,10 +92,6 @@ interface ServiceListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.IpMessaging.V2.ServiceList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -118,28 +101,20 @@ interface ServiceListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.IpMessaging.V2.ServiceList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: ServiceListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of ServiceInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.IpMessaging.V2.ServiceList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: ServiceListInstancePageOptions, callback?: function);
 }
 
 /**
@@ -177,7 +152,7 @@ interface ServiceListInstance {
  * @property postWebhookRetryCount - Count of times webhook will be retried in case of timeout or 429/503/504 HTTP responses.
  * @property notifications.logEnabled - The notifications.log_enabled
  */
-export interface UpdateOptions {
+export interface ServiceInstanceUpdateOptions {
   consumptionReportInterval?: number;
   defaultChannelCreatorRoleSid?: string;
   defaultChannelRoleSid?: string;
@@ -246,7 +221,7 @@ export interface UpdateOptions {
  * @property postWebhookRetryCount - Count of times webhook will be retried in case of timeout or 429/503/504 HTTP responses.
  * @property notifications.logEnabled - The notifications.log_enabled
  */
-export interface UpdateOptions {
+export interface ServiceContextUpdateOptions {
   consumptionReportInterval?: number;
   defaultChannelCreatorRoleSid?: string;
   defaultChannelRoleSid?: string;
@@ -278,6 +253,72 @@ export interface UpdateOptions {
   typingIndicatorTimeout?: number;
   webhookFilters?: string|list;
   webhookMethod?: string;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property friendlyName - Human-readable name for this service instance
+ */
+export interface ServiceListInstanceCreateOptions {
+  friendlyName: string;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface ServiceListInstanceEachOptions {
+  callback?: Function;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface ServiceListInstanceOptions {
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface ServiceListInstancePageOptions {
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
 }
 
 
@@ -295,10 +336,6 @@ declare class ServicePage extends Page {
 
   /**
    * Build an instance of ServiceInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.IpMessaging.V2.ServicePage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -344,26 +381,14 @@ declare class ServiceInstance {
   _proxy?: ServiceContext;
   /**
    * Access the bindings
-   *
-   * @function bindings
-   * @memberof Twilio.IpMessaging.V2.ServiceInstance
-   * @instance
    */
   bindings();
   /**
    * Access the channels
-   *
-   * @function channels
-   * @memberof Twilio.IpMessaging.V2.ServiceInstance
-   * @instance
    */
   channels();
   /**
    * fetch a ServiceInstance
-   *
-   * @function fetch
-   * @memberof Twilio.IpMessaging.V2.ServiceInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -371,47 +396,27 @@ declare class ServiceInstance {
   /**
    * remove a ServiceInstance
    *
-   * @function remove
-   * @memberof Twilio.IpMessaging.V2.ServiceInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: function);
   /**
    * Access the roles
-   *
-   * @function roles
-   * @memberof Twilio.IpMessaging.V2.ServiceInstance
-   * @instance
    */
   roles();
   /**
    * Produce a plain JSON object version of the ServiceInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.IpMessaging.V2.ServiceInstance
-   * @instance
    */
   toJSON();
   /**
    * update a ServiceInstance
    *
-   * @function update
-   * @memberof Twilio.IpMessaging.V2.ServiceInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: ServiceInstanceUpdateOptions, callback?: function);
   /**
    * Access the users
-   *
-   * @function users
-   * @memberof Twilio.IpMessaging.V2.ServiceInstance
-   * @instance
    */
   users();
 }
@@ -437,19 +442,11 @@ declare class ServiceContext {
   /**
    * fetch a ServiceInstance
    *
-   * @function fetch
-   * @memberof Twilio.IpMessaging.V2.ServiceContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a ServiceInstance
-   *
-   * @function remove
-   * @memberof Twilio.IpMessaging.V2.ServiceContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -458,14 +455,10 @@ declare class ServiceContext {
   /**
    * update a ServiceInstance
    *
-   * @function update
-   * @memberof Twilio.IpMessaging.V2.ServiceContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: ServiceContextUpdateOptions, callback?: function);
   users?: Twilio.IpMessaging.V2.ServiceContext.UserList;
 }
 

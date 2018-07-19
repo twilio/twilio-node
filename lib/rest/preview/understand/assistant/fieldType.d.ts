@@ -9,7 +9,6 @@ import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import Understand = require('../../Understand');
 import { FieldValueList } from './fieldType/fieldValue';
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
 import { SerializableClass } from '../../../../interfaces';
 
 /**
@@ -48,14 +47,10 @@ interface FieldTypeListInstance {
   /**
    * create a FieldTypeInstance
    *
-   * @function create
-   * @memberof Twilio.Preview.Understand.AssistantContext.FieldTypeList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: object, callback?: function);
+  create(opts: FieldTypeListInstanceCreateOptions, callback?: function);
   /**
    * Streams FieldTypeInstance records from the API.
    *
@@ -66,20 +61,12 @@ interface FieldTypeListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Preview.Understand.AssistantContext.FieldTypeList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: FieldTypeListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a field_type
-   *
-   * @function get
-   * @memberof Twilio.Preview.Understand.AssistantContext.FieldTypeList
-   * @instance
    *
    * @param sid - The sid
    */
@@ -90,10 +77,6 @@ interface FieldTypeListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Preview.Understand.AssistantContext.FieldTypeList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -103,28 +86,20 @@ interface FieldTypeListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Preview.Understand.AssistantContext.FieldTypeList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: FieldTypeListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of FieldTypeInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Preview.Understand.AssistantContext.FieldTypeList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: FieldTypeListInstancePageOptions, callback?: function);
 }
 
 /**
@@ -133,7 +108,7 @@ interface FieldTypeListInstance {
  * @property friendlyName - A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
  * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
  */
-export interface UpdateOptions {
+export interface FieldTypeInstanceUpdateOptions {
   friendlyName?: string;
   uniqueName?: string;
 }
@@ -144,9 +119,77 @@ export interface UpdateOptions {
  * @property friendlyName - A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
  * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
  */
-export interface UpdateOptions {
+export interface FieldTypeContextUpdateOptions {
   friendlyName?: string;
   uniqueName?: string;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface FieldTypeListInstanceEachOptions {
+  callback?: Function;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface FieldTypeListInstanceOptions {
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface FieldTypeListInstancePageOptions {
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+ * @property friendlyName - A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
+ */
+export interface FieldTypeListInstanceCreateOptions {
+  friendlyName?: string;
+  uniqueName: string;
 }
 
 
@@ -165,10 +208,6 @@ declare class FieldTypePage extends Page {
 
   /**
    * Build an instance of FieldTypeInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Preview.Understand.AssistantContext.FieldTypePage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -203,27 +242,15 @@ declare class FieldTypeInstance {
   /**
    * fetch a FieldTypeInstance
    *
-   * @function fetch
-   * @memberof Twilio.Preview.Understand.AssistantContext.FieldTypeInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * Access the fieldValues
-   *
-   * @function fieldValues
-   * @memberof Twilio.Preview.Understand.AssistantContext.FieldTypeInstance
-   * @instance
    */
   fieldValues();
   /**
    * remove a FieldTypeInstance
-   *
-   * @function remove
-   * @memberof Twilio.Preview.Understand.AssistantContext.FieldTypeInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -231,23 +258,15 @@ declare class FieldTypeInstance {
   /**
    * Produce a plain JSON object version of the FieldTypeInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Preview.Understand.AssistantContext.FieldTypeInstance
-   * @instance
    */
   toJSON();
   /**
    * update a FieldTypeInstance
    *
-   * @function update
-   * @memberof Twilio.Preview.Understand.AssistantContext.FieldTypeInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: FieldTypeInstanceUpdateOptions, callback?: function);
 }
 
 
@@ -268,10 +287,6 @@ declare class FieldTypeContext {
   /**
    * fetch a FieldTypeInstance
    *
-   * @function fetch
-   * @memberof Twilio.Preview.Understand.AssistantContext.FieldTypeContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
@@ -279,24 +294,16 @@ declare class FieldTypeContext {
   /**
    * remove a FieldTypeInstance
    *
-   * @function remove
-   * @memberof Twilio.Preview.Understand.AssistantContext.FieldTypeContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: function);
   /**
    * update a FieldTypeInstance
    *
-   * @function update
-   * @memberof Twilio.Preview.Understand.AssistantContext.FieldTypeContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: FieldTypeContextUpdateOptions, callback?: function);
 }
 
 export { FieldTypeContext, FieldTypeInstance, FieldTypeList, FieldTypeListInstance, FieldTypePage, FieldTypePayload, FieldTypeResource, FieldTypeSolution }

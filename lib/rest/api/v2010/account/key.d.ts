@@ -8,7 +8,6 @@
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V2010 = require('../../V2010');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
 import { SerializableClass } from '../../../../interfaces';
 
 /**
@@ -48,20 +47,12 @@ interface KeyListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Api.V2010.AccountContext.KeyList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: KeyListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a key
-   *
-   * @function get
-   * @memberof Twilio.Api.V2010.AccountContext.KeyList
-   * @instance
    *
    * @param sid - The sid
    */
@@ -72,10 +63,6 @@ interface KeyListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Api.V2010.AccountContext.KeyList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -85,28 +72,20 @@ interface KeyListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Api.V2010.AccountContext.KeyList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: KeyListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of KeyInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Api.V2010.AccountContext.KeyList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: KeyListInstancePageOptions, callback?: function);
 }
 
 /**
@@ -114,7 +93,7 @@ interface KeyListInstance {
  *
  * @property friendlyName - A descriptive string for this resource, chosen by your application, up to 64 characters long.
  */
-export interface UpdateOptions {
+export interface KeyInstanceUpdateOptions {
   friendlyName?: string;
 }
 
@@ -123,8 +102,65 @@ export interface UpdateOptions {
  *
  * @property friendlyName - A descriptive string for this resource, chosen by your application, up to 64 characters long.
  */
-export interface UpdateOptions {
+export interface KeyContextUpdateOptions {
   friendlyName?: string;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface KeyListInstanceEachOptions {
+  callback?: Function;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface KeyListInstanceOptions {
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface KeyListInstancePageOptions {
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
 }
 
 
@@ -142,10 +178,6 @@ declare class KeyPage extends Page {
 
   /**
    * Build an instance of KeyInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Api.V2010.AccountContext.KeyPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -174,19 +206,11 @@ declare class KeyInstance {
   /**
    * fetch a KeyInstance
    *
-   * @function fetch
-   * @memberof Twilio.Api.V2010.AccountContext.KeyInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a KeyInstance
-   *
-   * @function remove
-   * @memberof Twilio.Api.V2010.AccountContext.KeyInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -194,23 +218,15 @@ declare class KeyInstance {
   /**
    * Produce a plain JSON object version of the KeyInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Api.V2010.AccountContext.KeyInstance
-   * @instance
    */
   toJSON();
   /**
    * update a KeyInstance
    *
-   * @function update
-   * @memberof Twilio.Api.V2010.AccountContext.KeyInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: KeyInstanceUpdateOptions, callback?: function);
 }
 
 
@@ -228,19 +244,11 @@ declare class KeyContext {
   /**
    * fetch a KeyInstance
    *
-   * @function fetch
-   * @memberof Twilio.Api.V2010.AccountContext.KeyContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a KeyInstance
-   *
-   * @function remove
-   * @memberof Twilio.Api.V2010.AccountContext.KeyContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -248,14 +256,10 @@ declare class KeyContext {
   /**
    * update a KeyInstance
    *
-   * @function update
-   * @memberof Twilio.Api.V2010.AccountContext.KeyContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: KeyContextUpdateOptions, callback?: function);
 }
 
 export { KeyContext, KeyInstance, KeyList, KeyListInstance, KeyPage, KeyPayload, KeyResource, KeySolution }

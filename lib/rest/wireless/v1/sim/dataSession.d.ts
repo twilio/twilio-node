@@ -9,7 +9,6 @@ import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V1 = require('../../V1');
 import serialize = require('../../../../base/serialize');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
 import { SerializableClass } from '../../../../interfaces';
 
 /**
@@ -56,23 +55,15 @@ interface DataSessionListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Wireless.V1.SimContext.DataSessionList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: DataSessionListInstanceEachOptions, callback?: Function);
   /**
    * Retrieve a single target page of DataSessionInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @function getPage
-   * @memberof Twilio.Wireless.V1.SimContext.DataSessionList
-   * @instance
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -83,28 +74,89 @@ interface DataSessionListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Wireless.V1.SimContext.DataSessionList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: DataSessionListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of DataSessionInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Wireless.V1.SimContext.DataSessionList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: DataSessionListInstancePageOptions, callback?: function);
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property end - The end
+ * @property start - The start
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface DataSessionListInstanceEachOptions {
+  callback?: Function;
+  done?: Function;
+  end?: Date;
+  limit?: number;
+  pageSize?: number;
+  start?: Date;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property end - The end
+ * @property start - The start
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface DataSessionListInstanceOptions {
+  end?: Date;
+  limit?: number;
+  pageSize?: number;
+  start?: Date;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property end - The end
+ * @property start - The start
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface DataSessionListInstancePageOptions {
+  end?: Date;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  start?: Date;
 }
 
 
@@ -122,10 +174,6 @@ declare class DataSessionPage extends Page {
 
   /**
    * Build an instance of DataSessionInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Wireless.V1.SimContext.DataSessionPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -163,10 +211,6 @@ declare class DataSessionInstance {
   /**
    * Produce a plain JSON object version of the DataSessionInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Wireless.V1.SimContext.DataSessionInstance
-   * @instance
    */
   toJSON();
 }

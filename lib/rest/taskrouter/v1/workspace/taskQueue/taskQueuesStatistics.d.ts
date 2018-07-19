@@ -9,7 +9,6 @@ import Page = require('../../../../../base/Page');
 import Response = require('../../../../../http/response');
 import V1 = require('../../../V1');
 import serialize = require('../../../../../base/serialize');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../interfaces';
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
@@ -46,23 +45,15 @@ interface TaskQueuesStatisticsListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueuesStatisticsList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: TaskQueuesStatisticsListInstanceEachOptions, callback?: Function);
   /**
    * Retrieve a single target page of TaskQueuesStatisticsInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @function getPage
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueuesStatisticsList
-   * @instance
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -73,28 +64,113 @@ interface TaskQueuesStatisticsListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueuesStatisticsList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: TaskQueuesStatisticsListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of TaskQueuesStatisticsInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueuesStatisticsList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: TaskQueuesStatisticsListInstancePageOptions, callback?: function);
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property endDate - Filter cumulative statistics by an end date.
+ * @property friendlyName - Filter the TaskQueue stats based on a TaskQueue's name
+ * @property minutes - Filter cumulative statistics by up to 'x' minutes in the past.
+ * @property startDate - Filter cumulative statistics by a start date.
+ * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
+ * @property splitByWaitTime - A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface TaskQueuesStatisticsListInstanceEachOptions {
+  callback?: Function;
+  done?: Function;
+  endDate?: Date;
+  friendlyName?: string;
+  limit?: number;
+  minutes?: number;
+  pageSize?: number;
+  splitByWaitTime?: string;
+  startDate?: Date;
+  taskChannel?: string;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property endDate - Filter cumulative statistics by an end date.
+ * @property friendlyName - Filter the TaskQueue stats based on a TaskQueue's name
+ * @property minutes - Filter cumulative statistics by up to 'x' minutes in the past.
+ * @property startDate - Filter cumulative statistics by a start date.
+ * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
+ * @property splitByWaitTime - A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface TaskQueuesStatisticsListInstanceOptions {
+  endDate?: Date;
+  friendlyName?: string;
+  limit?: number;
+  minutes?: number;
+  pageSize?: number;
+  splitByWaitTime?: string;
+  startDate?: Date;
+  taskChannel?: string;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property endDate - Filter cumulative statistics by an end date.
+ * @property friendlyName - Filter the TaskQueue stats based on a TaskQueue's name
+ * @property minutes - Filter cumulative statistics by up to 'x' minutes in the past.
+ * @property startDate - Filter cumulative statistics by a start date.
+ * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
+ * @property splitByWaitTime - A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface TaskQueuesStatisticsListInstancePageOptions {
+  endDate?: Date;
+  friendlyName?: string;
+  minutes?: number;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  splitByWaitTime?: string;
+  startDate?: Date;
+  taskChannel?: string;
 }
 
 
@@ -112,10 +188,6 @@ declare class TaskQueuesStatisticsPage extends Page {
 
   /**
    * Build an instance of TaskQueuesStatisticsInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueuesStatisticsPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -143,10 +215,6 @@ declare class TaskQueuesStatisticsInstance {
   /**
    * Produce a plain JSON object version of the TaskQueuesStatisticsInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueuesStatisticsInstance
-   * @instance
    */
   toJSON();
 }

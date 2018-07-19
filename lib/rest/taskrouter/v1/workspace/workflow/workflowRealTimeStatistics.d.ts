@@ -45,10 +45,6 @@ interface WorkflowRealTimeStatisticsListInstance {
   (sid: string): WorkflowRealTimeStatisticsContext;
   /**
    * Constructs a workflow_real_time_statistics
-   *
-   * @function get
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkflowContext.WorkflowRealTimeStatisticsList
-   * @instance
    */
   get();
 }
@@ -58,7 +54,7 @@ interface WorkflowRealTimeStatisticsListInstance {
  *
  * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
  */
-export interface FetchOptions {
+export interface WorkflowRealTimeStatisticsInstanceFetchOptions {
   taskChannel?: string;
 }
 
@@ -67,7 +63,7 @@ export interface FetchOptions {
  *
  * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
  */
-export interface FetchOptions {
+export interface WorkflowRealTimeStatisticsContextFetchOptions {
   taskChannel?: string;
 }
 
@@ -86,10 +82,6 @@ declare class WorkflowRealTimeStatisticsPage extends Page {
 
   /**
    * Build an instance of WorkflowRealTimeStatisticsInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkflowContext.WorkflowRealTimeStatisticsPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -122,21 +114,13 @@ declare class WorkflowRealTimeStatisticsInstance {
   /**
    * fetch a WorkflowRealTimeStatisticsInstance
    *
-   * @function fetch
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkflowContext.WorkflowRealTimeStatisticsInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: object, callback?: function);
+  fetch(opts?: WorkflowRealTimeStatisticsInstanceFetchOptions, callback?: function);
   /**
    * Produce a plain JSON object version of the WorkflowRealTimeStatisticsInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkflowContext.WorkflowRealTimeStatisticsInstance
-   * @instance
    */
   toJSON();
 }
@@ -156,14 +140,10 @@ declare class WorkflowRealTimeStatisticsContext {
   /**
    * fetch a WorkflowRealTimeStatisticsInstance
    *
-   * @function fetch
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkflowContext.WorkflowRealTimeStatisticsContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: object, callback?: function);
+  fetch(opts?: WorkflowRealTimeStatisticsContextFetchOptions, callback?: function);
 }
 
 export { WorkflowRealTimeStatisticsContext, WorkflowRealTimeStatisticsInstance, WorkflowRealTimeStatisticsList, WorkflowRealTimeStatisticsListInstance, WorkflowRealTimeStatisticsPage, WorkflowRealTimeStatisticsPayload, WorkflowRealTimeStatisticsResource, WorkflowRealTimeStatisticsSolution }

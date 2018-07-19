@@ -45,10 +45,6 @@ interface UsageListInstance {
   (sid: string): UsageContext;
   /**
    * Constructs a usage
-   *
-   * @function get
-   * @memberof Twilio.Preview.Wireless.SimContext.UsageList
-   * @instance
    */
   get();
 }
@@ -59,7 +55,7 @@ interface UsageListInstance {
  * @property end - The end
  * @property start - The start
  */
-export interface FetchOptions {
+export interface UsageInstanceFetchOptions {
   end?: string;
   start?: string;
 }
@@ -70,7 +66,7 @@ export interface FetchOptions {
  * @property end - The end
  * @property start - The start
  */
-export interface FetchOptions {
+export interface UsageContextFetchOptions {
   end?: string;
   start?: string;
 }
@@ -91,10 +87,6 @@ declare class UsagePage extends Page {
 
   /**
    * Build an instance of UsageInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Preview.Wireless.SimContext.UsagePage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -128,21 +120,13 @@ declare class UsageInstance {
   /**
    * fetch a UsageInstance
    *
-   * @function fetch
-   * @memberof Twilio.Preview.Wireless.SimContext.UsageInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: object, callback?: function);
+  fetch(opts?: UsageInstanceFetchOptions, callback?: function);
   /**
    * Produce a plain JSON object version of the UsageInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Preview.Wireless.SimContext.UsageInstance
-   * @instance
    */
   toJSON();
 }
@@ -162,14 +146,10 @@ declare class UsageContext {
   /**
    * fetch a UsageInstance
    *
-   * @function fetch
-   * @memberof Twilio.Preview.Wireless.SimContext.UsageContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: object, callback?: function);
+  fetch(opts?: UsageContextFetchOptions, callback?: function);
 }
 
 export { UsageContext, UsageInstance, UsageList, UsageListInstance, UsagePage, UsagePayload, UsageResource, UsageSolution }

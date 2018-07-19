@@ -9,7 +9,6 @@ import Page = require('../../../../../base/Page');
 import Response = require('../../../../../http/response');
 import V2010 = require('../../../V2010');
 import serialize = require('../../../../../base/serialize');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../interfaces';
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
@@ -64,20 +63,12 @@ interface RecordingListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Api.V2010.AccountContext.ConferenceContext.RecordingList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: RecordingListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a recording
-   *
-   * @function get
-   * @memberof Twilio.Api.V2010.AccountContext.ConferenceContext.RecordingList
-   * @instance
    *
    * @param sid - Fetch by unique recording Sid
    */
@@ -88,10 +79,6 @@ interface RecordingListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Api.V2010.AccountContext.ConferenceContext.RecordingList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -101,28 +88,20 @@ interface RecordingListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Api.V2010.AccountContext.ConferenceContext.RecordingList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: RecordingListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of RecordingInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Api.V2010.AccountContext.ConferenceContext.RecordingList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: RecordingListInstancePageOptions, callback?: function);
 }
 
 /**
@@ -130,7 +109,7 @@ interface RecordingListInstance {
  *
  * @property status - The status to change the recording to.
  */
-export interface UpdateOptions {
+export interface RecordingInstanceUpdateOptions {
   status: recording.status;
 }
 
@@ -139,8 +118,83 @@ export interface UpdateOptions {
  *
  * @property status - The status to change the recording to.
  */
-export interface UpdateOptions {
+export interface RecordingContextUpdateOptions {
   status: recording.status;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property dateCreatedBefore - Filter by date created
+ * @property dateCreated - Filter by date created
+ * @property dateCreatedAfter - Filter by date created
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface RecordingListInstanceEachOptions {
+  callback?: Function;
+  dateCreated?: Date;
+  dateCreatedAfter?: Date;
+  dateCreatedBefore?: Date;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property dateCreatedBefore - Filter by date created
+ * @property dateCreated - Filter by date created
+ * @property dateCreatedAfter - Filter by date created
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface RecordingListInstanceOptions {
+  dateCreated?: Date;
+  dateCreatedAfter?: Date;
+  dateCreatedBefore?: Date;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property dateCreatedBefore - Filter by date created
+ * @property dateCreated - Filter by date created
+ * @property dateCreatedAfter - Filter by date created
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface RecordingListInstancePageOptions {
+  dateCreated?: Date;
+  dateCreatedAfter?: Date;
+  dateCreatedBefore?: Date;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
 }
 
 
@@ -158,10 +212,6 @@ declare class RecordingPage extends Page {
 
   /**
    * Build an instance of RecordingInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Api.V2010.AccountContext.ConferenceContext.RecordingPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -204,19 +254,11 @@ declare class RecordingInstance {
   /**
    * fetch a RecordingInstance
    *
-   * @function fetch
-   * @memberof Twilio.Api.V2010.AccountContext.ConferenceContext.RecordingInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a RecordingInstance
-   *
-   * @function remove
-   * @memberof Twilio.Api.V2010.AccountContext.ConferenceContext.RecordingInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -224,23 +266,15 @@ declare class RecordingInstance {
   /**
    * Produce a plain JSON object version of the RecordingInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Api.V2010.AccountContext.ConferenceContext.RecordingInstance
-   * @instance
    */
   toJSON();
   /**
    * update a RecordingInstance
    *
-   * @function update
-   * @memberof Twilio.Api.V2010.AccountContext.ConferenceContext.RecordingInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: object, callback?: function);
+  update(opts: RecordingInstanceUpdateOptions, callback?: function);
 }
 
 
@@ -259,19 +293,11 @@ declare class RecordingContext {
   /**
    * fetch a RecordingInstance
    *
-   * @function fetch
-   * @memberof Twilio.Api.V2010.AccountContext.ConferenceContext.RecordingContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a RecordingInstance
-   *
-   * @function remove
-   * @memberof Twilio.Api.V2010.AccountContext.ConferenceContext.RecordingContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -279,14 +305,10 @@ declare class RecordingContext {
   /**
    * update a RecordingInstance
    *
-   * @function update
-   * @memberof Twilio.Api.V2010.AccountContext.ConferenceContext.RecordingContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: object, callback?: function);
+  update(opts: RecordingContextUpdateOptions, callback?: function);
 }
 
 export { RecordingContext, RecordingInstance, RecordingList, RecordingListInstance, RecordingPage, RecordingPayload, RecordingResource, RecordingSolution }

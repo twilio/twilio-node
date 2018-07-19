@@ -8,7 +8,6 @@
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V2010 = require('../../V2010');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
 import { SerializableClass } from '../../../../interfaces';
 
 /**
@@ -56,20 +55,12 @@ interface ShortCodeListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Api.V2010.AccountContext.ShortCodeList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: ShortCodeListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a short_code
-   *
-   * @function get
-   * @memberof Twilio.Api.V2010.AccountContext.ShortCodeList
-   * @instance
    *
    * @param sid - Fetch by unique short-code Sid
    */
@@ -80,10 +71,6 @@ interface ShortCodeListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Api.V2010.AccountContext.ShortCodeList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -93,28 +80,20 @@ interface ShortCodeListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Api.V2010.AccountContext.ShortCodeList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: ShortCodeListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of ShortCodeInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Api.V2010.AccountContext.ShortCodeList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: ShortCodeListInstancePageOptions, callback?: function);
 }
 
 /**
@@ -127,7 +106,7 @@ interface ShortCodeListInstance {
  * @property smsFallbackUrl - URL Twilio will request if an error occurs in executing TwiML
  * @property smsFallbackMethod - HTTP method Twilio will use with sms fallback url
  */
-export interface UpdateOptions {
+export interface ShortCodeInstanceUpdateOptions {
   apiVersion?: string;
   friendlyName?: string;
   smsFallbackMethod?: string;
@@ -146,13 +125,82 @@ export interface UpdateOptions {
  * @property smsFallbackUrl - URL Twilio will request if an error occurs in executing TwiML
  * @property smsFallbackMethod - HTTP method Twilio will use with sms fallback url
  */
-export interface UpdateOptions {
+export interface ShortCodeContextUpdateOptions {
   apiVersion?: string;
   friendlyName?: string;
   smsFallbackMethod?: string;
   smsFallbackUrl?: string;
   smsMethod?: string;
   smsUrl?: string;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property friendlyName - Filter by friendly name
+ * @property shortCode - Filter by ShortCode
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface ShortCodeListInstanceEachOptions {
+  callback?: Function;
+  done?: Function;
+  friendlyName?: string;
+  limit?: number;
+  pageSize?: number;
+  shortCode?: string;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property friendlyName - Filter by friendly name
+ * @property shortCode - Filter by ShortCode
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface ShortCodeListInstanceOptions {
+  friendlyName?: string;
+  limit?: number;
+  pageSize?: number;
+  shortCode?: string;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property friendlyName - Filter by friendly name
+ * @property shortCode - Filter by ShortCode
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface ShortCodeListInstancePageOptions {
+  friendlyName?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  shortCode?: string;
 }
 
 
@@ -170,10 +218,6 @@ declare class ShortCodePage extends Page {
 
   /**
    * Build an instance of ShortCodeInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Api.V2010.AccountContext.ShortCodePage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -210,33 +254,21 @@ declare class ShortCodeInstance {
   /**
    * fetch a ShortCodeInstance
    *
-   * @function fetch
-   * @memberof Twilio.Api.V2010.AccountContext.ShortCodeInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * Produce a plain JSON object version of the ShortCodeInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Api.V2010.AccountContext.ShortCodeInstance
-   * @instance
    */
   toJSON();
   /**
    * update a ShortCodeInstance
    *
-   * @function update
-   * @memberof Twilio.Api.V2010.AccountContext.ShortCodeInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: ShortCodeInstanceUpdateOptions, callback?: function);
 }
 
 
@@ -254,24 +286,16 @@ declare class ShortCodeContext {
   /**
    * fetch a ShortCodeInstance
    *
-   * @function fetch
-   * @memberof Twilio.Api.V2010.AccountContext.ShortCodeContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * update a ShortCodeInstance
    *
-   * @function update
-   * @memberof Twilio.Api.V2010.AccountContext.ShortCodeContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: ShortCodeContextUpdateOptions, callback?: function);
 }
 
 export { ShortCodeContext, ShortCodeInstance, ShortCodeList, ShortCodeListInstance, ShortCodePage, ShortCodePayload, ShortCodeResource, ShortCodeSolution }

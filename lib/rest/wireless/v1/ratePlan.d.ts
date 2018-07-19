@@ -9,7 +9,6 @@ import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import V1 = require('../V1');
 import serialize = require('../../../base/serialize');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
 import { SerializableClass } from '../../../interfaces';
 
 /**
@@ -52,14 +51,10 @@ interface RatePlanListInstance {
   /**
    * create a RatePlanInstance
    *
-   * @function create
-   * @memberof Twilio.Wireless.V1.RatePlanList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: object, callback?: function);
+  create(opts?: RatePlanListInstanceCreateOptions, callback?: function);
   /**
    * Streams RatePlanInstance records from the API.
    *
@@ -70,20 +65,12 @@ interface RatePlanListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Wireless.V1.RatePlanList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: RatePlanListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a rate_plan
-   *
-   * @function get
-   * @memberof Twilio.Wireless.V1.RatePlanList
-   * @instance
    *
    * @param sid - The sid
    */
@@ -94,10 +81,6 @@ interface RatePlanListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Wireless.V1.RatePlanList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -107,28 +90,20 @@ interface RatePlanListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Wireless.V1.RatePlanList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: RatePlanListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of RatePlanInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Wireless.V1.RatePlanList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: RatePlanListInstancePageOptions, callback?: function);
 }
 
 /**
@@ -137,7 +112,7 @@ interface RatePlanListInstance {
  * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the Sid.
  * @property friendlyName - A user-provided string that identifies this resource.
  */
-export interface UpdateOptions {
+export interface RatePlanInstanceUpdateOptions {
   friendlyName?: string;
   uniqueName?: string;
 }
@@ -148,9 +123,95 @@ export interface UpdateOptions {
  * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the Sid.
  * @property friendlyName - A user-provided string that identifies this resource.
  */
-export interface UpdateOptions {
+export interface RatePlanContextUpdateOptions {
   friendlyName?: string;
   uniqueName?: string;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface RatePlanListInstanceEachOptions {
+  callback?: Function;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface RatePlanListInstanceOptions {
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface RatePlanListInstancePageOptions {
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the Sid.
+ * @property friendlyName - A user-provided string that identifies this resource.
+ * @property dataEnabled - Defines whether SIMs are capable of using GPRS/3G/LTE data connectivity.
+ * @property dataLimit - Network-enforced limit specifying the total Megabytes of data usage allowed during one month on the home network.
+ * @property dataMetering - The model by which to meter data usage, in accordance with the two available data metering models.
+ * @property messagingEnabled - Defines whether SIMs are capable of making and sending and receiving SMS messages via either Commands or Programmable SMS APIs.
+ * @property voiceEnabled - Defines whether SIMs are capable of making and receiving voice calls.
+ * @property nationalRoamingEnabled - Defines whether SIMs can roam onto other networks in the SIM's home country.
+ * @property internationalRoaming - The international_roaming
+ * @property nationalRoamingDataLimit - Network-enforced limit specifying the total Megabytes of national roaming data usage allowed during one month.
+ * @property internationalRoamingDataLimit - The international_roaming_data_limit
+ */
+export interface RatePlanListInstanceCreateOptions {
+  dataEnabled?: boolean;
+  dataLimit?: number;
+  dataMetering?: string;
+  friendlyName?: string;
+  internationalRoaming?: string|list;
+  internationalRoamingDataLimit?: number;
+  messagingEnabled?: boolean;
+  nationalRoamingDataLimit?: number;
+  nationalRoamingEnabled?: boolean;
+  uniqueName?: string;
+  voiceEnabled?: boolean;
 }
 
 
@@ -168,10 +229,6 @@ declare class RatePlanPage extends Page {
 
   /**
    * Build an instance of RatePlanInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Wireless.V1.RatePlanPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -211,19 +268,11 @@ declare class RatePlanInstance {
   /**
    * fetch a RatePlanInstance
    *
-   * @function fetch
-   * @memberof Twilio.Wireless.V1.RatePlanInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a RatePlanInstance
-   *
-   * @function remove
-   * @memberof Twilio.Wireless.V1.RatePlanInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -231,23 +280,15 @@ declare class RatePlanInstance {
   /**
    * Produce a plain JSON object version of the RatePlanInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Wireless.V1.RatePlanInstance
-   * @instance
    */
   toJSON();
   /**
    * update a RatePlanInstance
    *
-   * @function update
-   * @memberof Twilio.Wireless.V1.RatePlanInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: RatePlanInstanceUpdateOptions, callback?: function);
 }
 
 
@@ -264,19 +305,11 @@ declare class RatePlanContext {
   /**
    * fetch a RatePlanInstance
    *
-   * @function fetch
-   * @memberof Twilio.Wireless.V1.RatePlanContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a RatePlanInstance
-   *
-   * @function remove
-   * @memberof Twilio.Wireless.V1.RatePlanContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -284,14 +317,10 @@ declare class RatePlanContext {
   /**
    * update a RatePlanInstance
    *
-   * @function update
-   * @memberof Twilio.Wireless.V1.RatePlanContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: RatePlanContextUpdateOptions, callback?: function);
 }
 
 export { RatePlanContext, RatePlanInstance, RatePlanList, RatePlanListInstance, RatePlanPage, RatePlanPayload, RatePlanResource, RatePlanSolution }

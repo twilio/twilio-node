@@ -10,7 +10,6 @@ import Response = require('../../../http/response');
 import V1 = require('../V1');
 import serialize = require('../../../base/serialize');
 import { BindingList } from './service/binding';
-import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
 import { NotificationList } from './service/notification';
 import { SegmentList } from './service/segment';
 import { SerializableClass } from '../../../interfaces';
@@ -59,14 +58,10 @@ interface ServiceListInstance {
   /**
    * create a ServiceInstance
    *
-   * @function create
-   * @memberof Twilio.Notify.V1.ServiceList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: object, callback?: function);
+  create(opts?: ServiceListInstanceCreateOptions, callback?: function);
   /**
    * Streams ServiceInstance records from the API.
    *
@@ -77,20 +72,12 @@ interface ServiceListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Notify.V1.ServiceList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: ServiceListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a service
-   *
-   * @function get
-   * @memberof Twilio.Notify.V1.ServiceList
-   * @instance
    *
    * @param sid - The sid
    */
@@ -101,10 +88,6 @@ interface ServiceListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Notify.V1.ServiceList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -114,28 +97,20 @@ interface ServiceListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Notify.V1.ServiceList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: ServiceListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of ServiceInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Notify.V1.ServiceList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: ServiceListInstancePageOptions, callback?: function);
 }
 
 /**
@@ -154,7 +129,7 @@ interface ServiceListInstance {
  * @property alexaSkillId - The alexa_skill_id
  * @property defaultAlexaNotificationProtocolVersion - The default_alexa_notification_protocol_version
  */
-export interface UpdateOptions {
+export interface ServiceInstanceUpdateOptions {
   alexaSkillId?: string;
   apnCredentialSid?: string;
   defaultAlexaNotificationProtocolVersion?: string;
@@ -185,7 +160,7 @@ export interface UpdateOptions {
  * @property alexaSkillId - The alexa_skill_id
  * @property defaultAlexaNotificationProtocolVersion - The default_alexa_notification_protocol_version
  */
-export interface UpdateOptions {
+export interface ServiceContextUpdateOptions {
   alexaSkillId?: string;
   apnCredentialSid?: string;
   defaultAlexaNotificationProtocolVersion?: string;
@@ -198,6 +173,100 @@ export interface UpdateOptions {
   gcmCredentialSid?: string;
   logEnabled?: boolean;
   messagingServiceSid?: string;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property friendlyName - Human-readable name for this service instance
+ * @property apnCredentialSid - The SID of the Credential to be used for APN Bindings.
+ * @property gcmCredentialSid - The SID of the Credential to be used for GCM Bindings.
+ * @property messagingServiceSid - The SID of the Messaging Service to be used for SMS Bindings.
+ * @property facebookMessengerPageId - The Page ID to be used to send for Facebook Messenger Bindings.
+ * @property defaultApnNotificationProtocolVersion - The version of the protocol to be used for sending APNS notifications.
+ * @property defaultGcmNotificationProtocolVersion - The version of the protocol to be used for sending GCM notifications.
+ * @property fcmCredentialSid - The SID of the Credential to be used for FCM Bindings.
+ * @property defaultFcmNotificationProtocolVersion - The version of the protocol to be used for sending FCM notifications.
+ * @property logEnabled - The log_enabled
+ * @property alexaSkillId - The alexa_skill_id
+ * @property defaultAlexaNotificationProtocolVersion - The default_alexa_notification_protocol_version
+ */
+export interface ServiceListInstanceCreateOptions {
+  alexaSkillId?: string;
+  apnCredentialSid?: string;
+  defaultAlexaNotificationProtocolVersion?: string;
+  defaultApnNotificationProtocolVersion?: string;
+  defaultFcmNotificationProtocolVersion?: string;
+  defaultGcmNotificationProtocolVersion?: string;
+  facebookMessengerPageId?: string;
+  fcmCredentialSid?: string;
+  friendlyName?: string;
+  gcmCredentialSid?: string;
+  logEnabled?: boolean;
+  messagingServiceSid?: string;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property friendlyName - Filter services by FriendlyName
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface ServiceListInstanceEachOptions {
+  callback?: Function;
+  done?: Function;
+  friendlyName?: string;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property friendlyName - Filter services by FriendlyName
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface ServiceListInstanceOptions {
+  friendlyName?: string;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property friendlyName - Filter services by FriendlyName
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface ServiceListInstancePageOptions {
+  friendlyName?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
 }
 
 
@@ -216,10 +285,6 @@ declare class ServicePage extends Page {
 
   /**
    * Build an instance of ServiceInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Notify.V1.ServicePage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -261,74 +326,42 @@ declare class ServiceInstance {
   _proxy?: ServiceContext;
   /**
    * Access the bindings
-   *
-   * @function bindings
-   * @memberof Twilio.Notify.V1.ServiceInstance
-   * @instance
    */
   bindings();
   /**
    * fetch a ServiceInstance
-   *
-   * @function fetch
-   * @memberof Twilio.Notify.V1.ServiceInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * Access the notifications
-   *
-   * @function notifications
-   * @memberof Twilio.Notify.V1.ServiceInstance
-   * @instance
    */
   notifications();
   /**
    * remove a ServiceInstance
-   *
-   * @function remove
-   * @memberof Twilio.Notify.V1.ServiceInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: function);
   /**
    * Access the segments
-   *
-   * @function segments
-   * @memberof Twilio.Notify.V1.ServiceInstance
-   * @instance
    */
   segments();
   /**
    * Produce a plain JSON object version of the ServiceInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Notify.V1.ServiceInstance
-   * @instance
    */
   toJSON();
   /**
    * update a ServiceInstance
    *
-   * @function update
-   * @memberof Twilio.Notify.V1.ServiceInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: ServiceInstanceUpdateOptions, callback?: function);
   /**
    * Access the users
-   *
-   * @function users
-   * @memberof Twilio.Notify.V1.ServiceInstance
-   * @instance
    */
   users();
 }
@@ -354,20 +387,12 @@ declare class ServiceContext {
   /**
    * fetch a ServiceInstance
    *
-   * @function fetch
-   * @memberof Twilio.Notify.V1.ServiceContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   notifications?: Twilio.Notify.V1.ServiceContext.NotificationList;
   /**
    * remove a ServiceInstance
-   *
-   * @function remove
-   * @memberof Twilio.Notify.V1.ServiceContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -376,14 +401,10 @@ declare class ServiceContext {
   /**
    * update a ServiceInstance
    *
-   * @function update
-   * @memberof Twilio.Notify.V1.ServiceContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: ServiceContextUpdateOptions, callback?: function);
   users?: Twilio.Notify.V1.ServiceContext.UserList;
 }
 

@@ -8,7 +8,6 @@
 import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import Wireless = require('../Wireless');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
 import { SerializableClass } from '../../../interfaces';
 import { UsageList } from './sim/usage';
 
@@ -66,20 +65,12 @@ interface SimListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Preview.Wireless.SimList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: SimListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a sim
-   *
-   * @function get
-   * @memberof Twilio.Preview.Wireless.SimList
-   * @instance
    *
    * @param sid - The sid
    */
@@ -90,10 +81,6 @@ interface SimListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Preview.Wireless.SimList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -103,28 +90,20 @@ interface SimListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Preview.Wireless.SimList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: SimListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of SimInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Preview.Wireless.SimList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: SimListInstancePageOptions, callback?: function);
 }
 
 /**
@@ -147,7 +126,7 @@ interface SimListInstance {
  * @property voiceMethod - The voice_method
  * @property voiceUrl - The voice_url
  */
-export interface UpdateOptions {
+export interface SimInstanceUpdateOptions {
   callbackMethod?: string;
   callbackUrl?: string;
   commandsCallbackMethod?: string;
@@ -186,7 +165,7 @@ export interface UpdateOptions {
  * @property voiceMethod - The voice_method
  * @property voiceUrl - The voice_url
  */
-export interface UpdateOptions {
+export interface SimContextUpdateOptions {
   callbackMethod?: string;
   callbackUrl?: string;
   commandsCallbackMethod?: string;
@@ -203,6 +182,93 @@ export interface UpdateOptions {
   voiceFallbackUrl?: string;
   voiceMethod?: string;
   voiceUrl?: string;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property status - The status
+ * @property iccid - The iccid
+ * @property ratePlan - The rate_plan
+ * @property eId - The e_id
+ * @property simRegistrationCode - The sim_registration_code
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface SimListInstanceEachOptions {
+  callback?: Function;
+  done?: Function;
+  eId?: string;
+  iccid?: string;
+  limit?: number;
+  pageSize?: number;
+  ratePlan?: string;
+  simRegistrationCode?: string;
+  status?: string;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property status - The status
+ * @property iccid - The iccid
+ * @property ratePlan - The rate_plan
+ * @property eId - The e_id
+ * @property simRegistrationCode - The sim_registration_code
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface SimListInstanceOptions {
+  eId?: string;
+  iccid?: string;
+  limit?: number;
+  pageSize?: number;
+  ratePlan?: string;
+  simRegistrationCode?: string;
+  status?: string;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property status - The status
+ * @property iccid - The iccid
+ * @property ratePlan - The rate_plan
+ * @property eId - The e_id
+ * @property simRegistrationCode - The sim_registration_code
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface SimListInstancePageOptions {
+  eId?: string;
+  iccid?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  ratePlan?: string;
+  simRegistrationCode?: string;
+  status?: string;
 }
 
 
@@ -221,10 +287,6 @@ declare class SimPage extends Page {
 
   /**
    * Build an instance of SimInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Preview.Wireless.SimPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -271,39 +333,23 @@ declare class SimInstance {
   /**
    * fetch a SimInstance
    *
-   * @function fetch
-   * @memberof Twilio.Preview.Wireless.SimInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * Produce a plain JSON object version of the SimInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Preview.Wireless.SimInstance
-   * @instance
    */
   toJSON();
   /**
    * update a SimInstance
    *
-   * @function update
-   * @memberof Twilio.Preview.Wireless.SimInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: SimInstanceUpdateOptions, callback?: function);
   /**
    * Access the usage
-   *
-   * @function usage
-   * @memberof Twilio.Preview.Wireless.SimInstance
-   * @instance
    */
   usage();
 }
@@ -325,24 +371,16 @@ declare class SimContext {
   /**
    * fetch a SimInstance
    *
-   * @function fetch
-   * @memberof Twilio.Preview.Wireless.SimContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * update a SimInstance
    *
-   * @function update
-   * @memberof Twilio.Preview.Wireless.SimContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: SimContextUpdateOptions, callback?: function);
   usage?: Twilio.Preview.Wireless.SimContext.UsageList;
 }
 

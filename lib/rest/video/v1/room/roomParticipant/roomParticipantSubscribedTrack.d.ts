@@ -9,7 +9,6 @@ import Page = require('../../../../../base/Page');
 import Response = require('../../../../../http/response');
 import V1 = require('../../../V1');
 import serialize = require('../../../../../base/serialize');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../interfaces';
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
@@ -52,23 +51,15 @@ interface SubscribedTrackListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Video.V1.RoomContext.ParticipantContext.SubscribedTrackList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: SubscribedTrackListInstanceEachOptions, callback?: Function);
   /**
    * Retrieve a single target page of SubscribedTrackInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @function getPage
-   * @memberof Twilio.Video.V1.RoomContext.ParticipantContext.SubscribedTrackList
-   * @instance
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -79,39 +70,129 @@ interface SubscribedTrackListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Video.V1.RoomContext.ParticipantContext.SubscribedTrackList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: SubscribedTrackListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of SubscribedTrackInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Video.V1.RoomContext.ParticipantContext.SubscribedTrackList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: SubscribedTrackListInstancePageOptions, callback?: function);
   /**
    * update a SubscribedTrackInstance
    *
-   * @function update
-   * @memberof Twilio.Video.V1.RoomContext.ParticipantContext.SubscribedTrackList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: SubscribedTrackListInstanceUpdateOptions, callback?: function);
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property dateCreatedAfter - The date_created_after
+ * @property dateCreatedBefore - The date_created_before
+ * @property track - The track
+ * @property publisher - The publisher
+ * @property kind - The kind
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface SubscribedTrackListInstanceEachOptions {
+  callback?: Function;
+  dateCreatedAfter?: Date;
+  dateCreatedBefore?: Date;
+  done?: Function;
+  kind?: subscribed_track.kind;
+  limit?: number;
+  pageSize?: number;
+  publisher?: string;
+  track?: string;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property dateCreatedAfter - The date_created_after
+ * @property dateCreatedBefore - The date_created_before
+ * @property track - The track
+ * @property publisher - The publisher
+ * @property kind - The kind
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface SubscribedTrackListInstanceOptions {
+  dateCreatedAfter?: Date;
+  dateCreatedBefore?: Date;
+  kind?: subscribed_track.kind;
+  limit?: number;
+  pageSize?: number;
+  publisher?: string;
+  track?: string;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property dateCreatedAfter - The date_created_after
+ * @property dateCreatedBefore - The date_created_before
+ * @property track - The track
+ * @property publisher - The publisher
+ * @property kind - The kind
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface SubscribedTrackListInstancePageOptions {
+  dateCreatedAfter?: Date;
+  dateCreatedBefore?: Date;
+  kind?: subscribed_track.kind;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  publisher?: string;
+  track?: string;
+}
+
+/**
+ * Options to pass to update
+ *
+ * @property track - The track
+ * @property publisher - The publisher
+ * @property kind - The kind
+ * @property status - The status
+ */
+export interface SubscribedTrackListInstanceUpdateOptions {
+  kind?: subscribed_track.kind;
+  publisher?: string;
+  status?: subscribed_track.status;
+  track?: string;
 }
 
 
@@ -129,10 +210,6 @@ declare class SubscribedTrackPage extends Page {
 
   /**
    * Build an instance of SubscribedTrackInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Video.V1.RoomContext.ParticipantContext.SubscribedTrackPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -165,10 +242,6 @@ declare class SubscribedTrackInstance {
   /**
    * Produce a plain JSON object version of the SubscribedTrackInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Video.V1.RoomContext.ParticipantContext.SubscribedTrackInstance
-   * @instance
    */
   toJSON();
 }

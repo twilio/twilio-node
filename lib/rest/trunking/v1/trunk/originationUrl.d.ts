@@ -9,7 +9,6 @@ import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V1 = require('../../V1');
 import serialize = require('../../../../base/serialize');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
 import { SerializableClass } from '../../../../interfaces';
 
 /**
@@ -49,14 +48,10 @@ interface OriginationUrlListInstance {
   /**
    * create a OriginationUrlInstance
    *
-   * @function create
-   * @memberof Twilio.Trunking.V1.TrunkContext.OriginationUrlList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: object, callback?: function);
+  create(opts: OriginationUrlListInstanceCreateOptions, callback?: function);
   /**
    * Streams OriginationUrlInstance records from the API.
    *
@@ -67,20 +62,12 @@ interface OriginationUrlListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Trunking.V1.TrunkContext.OriginationUrlList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: OriginationUrlListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a origination_url
-   *
-   * @function get
-   * @memberof Twilio.Trunking.V1.TrunkContext.OriginationUrlList
-   * @instance
    *
    * @param sid - The sid
    */
@@ -91,10 +78,6 @@ interface OriginationUrlListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Trunking.V1.TrunkContext.OriginationUrlList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -104,28 +87,20 @@ interface OriginationUrlListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Trunking.V1.TrunkContext.OriginationUrlList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: OriginationUrlListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of OriginationUrlInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Trunking.V1.TrunkContext.OriginationUrlList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: OriginationUrlListInstancePageOptions, callback?: function);
 }
 
 /**
@@ -137,7 +112,7 @@ interface OriginationUrlListInstance {
  * @property friendlyName - A human readable descriptive text, up to 64 characters long.
  * @property sipUrl - The SIP address you want Twilio to route your Origination calls to.
  */
-export interface UpdateOptions {
+export interface OriginationUrlInstanceUpdateOptions {
   enabled?: boolean;
   friendlyName?: string;
   priority?: number;
@@ -154,12 +129,86 @@ export interface UpdateOptions {
  * @property friendlyName - A human readable descriptive text, up to 64 characters long.
  * @property sipUrl - The SIP address you want Twilio to route your Origination calls to.
  */
-export interface UpdateOptions {
+export interface OriginationUrlContextUpdateOptions {
   enabled?: boolean;
   friendlyName?: string;
   priority?: number;
   sipUrl?: string;
   weight?: number;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property weight - Weight is used to determine the share of load when more than one URI has the same priority.
+ * @property priority - Priority ranks the importance of the URI.
+ * @property enabled - A boolean value indicating whether the URL is enabled or disabled.
+ * @property friendlyName - A human readable descriptive text, up to 64 characters long.
+ * @property sipUrl - The SIP address you want Twilio to route your Origination calls to.
+ */
+export interface OriginationUrlListInstanceCreateOptions {
+  enabled: boolean;
+  friendlyName: string;
+  priority: number;
+  sipUrl: string;
+  weight: number;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface OriginationUrlListInstanceEachOptions {
+  callback?: Function;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface OriginationUrlListInstanceOptions {
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface OriginationUrlListInstancePageOptions {
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
 }
 
 
@@ -177,10 +226,6 @@ declare class OriginationUrlPage extends Page {
 
   /**
    * Build an instance of OriginationUrlInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Trunking.V1.TrunkContext.OriginationUrlPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -216,19 +261,11 @@ declare class OriginationUrlInstance {
   /**
    * fetch a OriginationUrlInstance
    *
-   * @function fetch
-   * @memberof Twilio.Trunking.V1.TrunkContext.OriginationUrlInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a OriginationUrlInstance
-   *
-   * @function remove
-   * @memberof Twilio.Trunking.V1.TrunkContext.OriginationUrlInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -236,23 +273,15 @@ declare class OriginationUrlInstance {
   /**
    * Produce a plain JSON object version of the OriginationUrlInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Trunking.V1.TrunkContext.OriginationUrlInstance
-   * @instance
    */
   toJSON();
   /**
    * update a OriginationUrlInstance
    *
-   * @function update
-   * @memberof Twilio.Trunking.V1.TrunkContext.OriginationUrlInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: OriginationUrlInstanceUpdateOptions, callback?: function);
 }
 
 
@@ -270,19 +299,11 @@ declare class OriginationUrlContext {
   /**
    * fetch a OriginationUrlInstance
    *
-   * @function fetch
-   * @memberof Twilio.Trunking.V1.TrunkContext.OriginationUrlContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a OriginationUrlInstance
-   *
-   * @function remove
-   * @memberof Twilio.Trunking.V1.TrunkContext.OriginationUrlContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -290,14 +311,10 @@ declare class OriginationUrlContext {
   /**
    * update a OriginationUrlInstance
    *
-   * @function update
-   * @memberof Twilio.Trunking.V1.TrunkContext.OriginationUrlContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: OriginationUrlContextUpdateOptions, callback?: function);
 }
 
 export { OriginationUrlContext, OriginationUrlInstance, OriginationUrlList, OriginationUrlListInstance, OriginationUrlPage, OriginationUrlPayload, OriginationUrlResource, OriginationUrlSolution }

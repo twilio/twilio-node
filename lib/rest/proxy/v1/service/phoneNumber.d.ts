@@ -8,7 +8,6 @@
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V1 = require('../../V1');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
 import { SerializableClass } from '../../../../interfaces';
 
 /**
@@ -48,14 +47,10 @@ interface PhoneNumberListInstance {
   /**
    * create a PhoneNumberInstance
    *
-   * @function create
-   * @memberof Twilio.Proxy.V1.ServiceContext.PhoneNumberList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: object, callback?: function);
+  create(opts?: PhoneNumberListInstanceCreateOptions, callback?: function);
   /**
    * Streams PhoneNumberInstance records from the API.
    *
@@ -66,20 +61,12 @@ interface PhoneNumberListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Proxy.V1.ServiceContext.PhoneNumberList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: PhoneNumberListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a phone_number
-   *
-   * @function get
-   * @memberof Twilio.Proxy.V1.ServiceContext.PhoneNumberList
-   * @instance
    *
    * @param sid - A string that uniquely identifies this Phone Number.
    */
@@ -90,10 +77,6 @@ interface PhoneNumberListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Proxy.V1.ServiceContext.PhoneNumberList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -103,28 +86,88 @@ interface PhoneNumberListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Proxy.V1.ServiceContext.PhoneNumberList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: PhoneNumberListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of PhoneNumberInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Proxy.V1.ServiceContext.PhoneNumberList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: PhoneNumberListInstancePageOptions, callback?: function);
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property sid - Phone Number Sid of Twilio Number to assign to your Proxy Service
+ * @property phoneNumber - Twilio Number to assign to your Proxy Service
+ */
+export interface PhoneNumberListInstanceCreateOptions {
+  phoneNumber?: string;
+  sid?: string;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface PhoneNumberListInstanceEachOptions {
+  callback?: Function;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface PhoneNumberListInstanceOptions {
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface PhoneNumberListInstancePageOptions {
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
 }
 
 
@@ -143,10 +186,6 @@ declare class PhoneNumberPage extends Page {
 
   /**
    * Build an instance of PhoneNumberInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Proxy.V1.ServiceContext.PhoneNumberPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -182,19 +221,11 @@ declare class PhoneNumberInstance {
   /**
    * fetch a PhoneNumberInstance
    *
-   * @function fetch
-   * @memberof Twilio.Proxy.V1.ServiceContext.PhoneNumberInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a PhoneNumberInstance
-   *
-   * @function remove
-   * @memberof Twilio.Proxy.V1.ServiceContext.PhoneNumberInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -202,10 +233,6 @@ declare class PhoneNumberInstance {
   /**
    * Produce a plain JSON object version of the PhoneNumberInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Proxy.V1.ServiceContext.PhoneNumberInstance
-   * @instance
    */
   toJSON();
 }
@@ -226,19 +253,11 @@ declare class PhoneNumberContext {
   /**
    * fetch a PhoneNumberInstance
    *
-   * @function fetch
-   * @memberof Twilio.Proxy.V1.ServiceContext.PhoneNumberContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a PhoneNumberInstance
-   *
-   * @function remove
-   * @memberof Twilio.Proxy.V1.ServiceContext.PhoneNumberContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */

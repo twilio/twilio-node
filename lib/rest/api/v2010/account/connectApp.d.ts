@@ -9,7 +9,6 @@ import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V2010 = require('../../V2010');
 import serialize = require('../../../../base/serialize');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
 import { SerializableClass } from '../../../../interfaces';
 
 /**
@@ -56,20 +55,12 @@ interface ConnectAppListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Api.V2010.AccountContext.ConnectAppList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: ConnectAppListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a connect_app
-   *
-   * @function get
-   * @memberof Twilio.Api.V2010.AccountContext.ConnectAppList
-   * @instance
    *
    * @param sid - Fetch by unique connect-app Sid
    */
@@ -80,10 +71,6 @@ interface ConnectAppListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Api.V2010.AccountContext.ConnectAppList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -93,28 +80,20 @@ interface ConnectAppListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Api.V2010.AccountContext.ConnectAppList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: ConnectAppListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of ConnectAppInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Api.V2010.AccountContext.ConnectAppList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: ConnectAppListInstancePageOptions, callback?: function);
 }
 
 /**
@@ -129,7 +108,7 @@ interface ConnectAppListInstance {
  * @property homepageUrl - The URL users can obtain more information
  * @property permissions - The set of permissions that your ConnectApp requests.
  */
-export interface UpdateOptions {
+export interface ConnectAppInstanceUpdateOptions {
   authorizeRedirectUrl?: string;
   companyName?: string;
   deauthorizeCallbackMethod?: string;
@@ -152,7 +131,7 @@ export interface UpdateOptions {
  * @property homepageUrl - The URL users can obtain more information
  * @property permissions - The set of permissions that your ConnectApp requests.
  */
-export interface UpdateOptions {
+export interface ConnectAppContextUpdateOptions {
   authorizeRedirectUrl?: string;
   companyName?: string;
   deauthorizeCallbackMethod?: string;
@@ -161,6 +140,63 @@ export interface UpdateOptions {
   friendlyName?: string;
   homepageUrl?: string;
   permissions?: connect_app.permission|list;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface ConnectAppListInstanceEachOptions {
+  callback?: Function;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface ConnectAppListInstanceOptions {
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface ConnectAppListInstancePageOptions {
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
 }
 
 
@@ -178,10 +214,6 @@ declare class ConnectAppPage extends Page {
 
   /**
    * Build an instance of ConnectAppInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Api.V2010.AccountContext.ConnectAppPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -217,33 +249,21 @@ declare class ConnectAppInstance {
   /**
    * fetch a ConnectAppInstance
    *
-   * @function fetch
-   * @memberof Twilio.Api.V2010.AccountContext.ConnectAppInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * Produce a plain JSON object version of the ConnectAppInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Api.V2010.AccountContext.ConnectAppInstance
-   * @instance
    */
   toJSON();
   /**
    * update a ConnectAppInstance
    *
-   * @function update
-   * @memberof Twilio.Api.V2010.AccountContext.ConnectAppInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: ConnectAppInstanceUpdateOptions, callback?: function);
 }
 
 
@@ -261,24 +281,16 @@ declare class ConnectAppContext {
   /**
    * fetch a ConnectAppInstance
    *
-   * @function fetch
-   * @memberof Twilio.Api.V2010.AccountContext.ConnectAppContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * update a ConnectAppInstance
    *
-   * @function update
-   * @memberof Twilio.Api.V2010.AccountContext.ConnectAppContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: ConnectAppContextUpdateOptions, callback?: function);
 }
 
 export { ConnectAppContext, ConnectAppInstance, ConnectAppList, ConnectAppListInstance, ConnectAppPage, ConnectAppPayload, ConnectAppResource, ConnectAppSolution }

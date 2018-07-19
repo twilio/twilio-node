@@ -9,7 +9,6 @@ import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V1 = require('../../V1');
 import serialize = require('../../../../base/serialize');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
 import { SegmentMembershipList } from './user/segmentMemberships';
 import { SerializableClass } from '../../../../interfaces';
 import { UserBindingList } from './user/userBinding';
@@ -50,14 +49,10 @@ interface UserListInstance {
   /**
    * create a UserInstance
    *
-   * @function create
-   * @memberof Twilio.Notify.V1.ServiceContext.UserList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: object, callback?: function);
+  create(opts: UserListInstanceCreateOptions, callback?: function);
   /**
    * Streams UserInstance records from the API.
    *
@@ -68,20 +63,12 @@ interface UserListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Notify.V1.ServiceContext.UserList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: UserListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a user
-   *
-   * @function get
-   * @memberof Twilio.Notify.V1.ServiceContext.UserList
-   * @instance
    *
    * @param identity - The identity
    */
@@ -92,10 +79,6 @@ interface UserListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Notify.V1.ServiceContext.UserList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -105,28 +88,100 @@ interface UserListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Notify.V1.ServiceContext.UserList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: UserListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of UserInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Notify.V1.ServiceContext.UserList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: UserListInstancePageOptions, callback?: function);
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property identity - The identifier of the User, defined by your application.
+ * @property segment - The list of segments this User belongs to. Segments can be used to select recipients of a notification. Maximum 20 Segments per User allowed.
+ */
+export interface UserListInstanceCreateOptions {
+  identity: string;
+  segment?: string|list;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property identity - The identifier of the User, defined by your application.
+ * @property segment - The list of segments this User belongs to. Segments can be used to select recipients of a notification. Maximum 20 Segments per User allowed.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface UserListInstanceEachOptions {
+  callback?: Function;
+  done?: Function;
+  identity?: string|list;
+  limit?: number;
+  pageSize?: number;
+  segment?: string;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property identity - The identifier of the User, defined by your application.
+ * @property segment - The list of segments this User belongs to. Segments can be used to select recipients of a notification. Maximum 20 Segments per User allowed.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface UserListInstanceOptions {
+  identity?: string|list;
+  limit?: number;
+  pageSize?: number;
+  segment?: string;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property identity - The identifier of the User, defined by your application.
+ * @property segment - The list of segments this User belongs to. Segments can be used to select recipients of a notification. Maximum 20 Segments per User allowed.
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface UserListInstancePageOptions {
+  identity?: string|list;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  segment?: string;
 }
 
 
@@ -145,10 +200,6 @@ declare class UserPage extends Page {
 
   /**
    * Build an instance of UserInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Notify.V1.ServiceContext.UserPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -182,18 +233,10 @@ declare class UserInstance {
   _proxy?: UserContext;
   /**
    * Access the bindings
-   *
-   * @function bindings
-   * @memberof Twilio.Notify.V1.ServiceContext.UserInstance
-   * @instance
    */
   bindings();
   /**
    * fetch a UserInstance
-   *
-   * @function fetch
-   * @memberof Twilio.Notify.V1.ServiceContext.UserInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -201,28 +244,16 @@ declare class UserInstance {
   /**
    * remove a UserInstance
    *
-   * @function remove
-   * @memberof Twilio.Notify.V1.ServiceContext.UserInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: function);
   /**
    * Access the segmentMemberships
-   *
-   * @function segmentMemberships
-   * @memberof Twilio.Notify.V1.ServiceContext.UserInstance
-   * @instance
    */
   segmentMemberships();
   /**
    * Produce a plain JSON object version of the UserInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Notify.V1.ServiceContext.UserInstance
-   * @instance
    */
   toJSON();
 }
@@ -247,19 +278,11 @@ declare class UserContext {
   /**
    * fetch a UserInstance
    *
-   * @function fetch
-   * @memberof Twilio.Notify.V1.ServiceContext.UserContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a UserInstance
-   *
-   * @function remove
-   * @memberof Twilio.Notify.V1.ServiceContext.UserContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */

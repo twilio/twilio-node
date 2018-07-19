@@ -8,7 +8,6 @@
 import Page = require('../../../../../base/Page');
 import Response = require('../../../../../http/response');
 import Understand = require('../../../Understand');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../interfaces';
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
@@ -50,14 +49,10 @@ interface SampleListInstance {
   /**
    * create a SampleInstance
    *
-   * @function create
-   * @memberof Twilio.Preview.Understand.AssistantContext.IntentContext.SampleList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: object, callback?: function);
+  create(opts: SampleListInstanceCreateOptions, callback?: function);
   /**
    * Streams SampleInstance records from the API.
    *
@@ -68,20 +63,12 @@ interface SampleListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Preview.Understand.AssistantContext.IntentContext.SampleList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: SampleListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a sample
-   *
-   * @function get
-   * @memberof Twilio.Preview.Understand.AssistantContext.IntentContext.SampleList
-   * @instance
    *
    * @param sid - The sid
    */
@@ -92,10 +79,6 @@ interface SampleListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Preview.Understand.AssistantContext.IntentContext.SampleList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -105,28 +88,20 @@ interface SampleListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Preview.Understand.AssistantContext.IntentContext.SampleList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: SampleListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of SampleInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Preview.Understand.AssistantContext.IntentContext.SampleList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: SampleListInstancePageOptions, callback?: function);
 }
 
 /**
@@ -136,7 +111,7 @@ interface SampleListInstance {
  * @property taggedText - The text example of how end-users may express this intent. The sample may contain Field tag blocks.
  * @property sourceChannel - The communication channel the sample was captured. It can be: voice, sms, chat, alexa, google-assistant, or slack. If not included the value will be null
  */
-export interface UpdateOptions {
+export interface SampleInstanceUpdateOptions {
   language?: string;
   sourceChannel?: string;
   taggedText?: string;
@@ -149,10 +124,86 @@ export interface UpdateOptions {
  * @property taggedText - The text example of how end-users may express this intent. The sample may contain Field tag blocks.
  * @property sourceChannel - The communication channel the sample was captured. It can be: voice, sms, chat, alexa, google-assistant, or slack. If not included the value will be null
  */
-export interface UpdateOptions {
+export interface SampleContextUpdateOptions {
   language?: string;
   sourceChannel?: string;
   taggedText?: string;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property language - An ISO language-country string of the sample.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface SampleListInstanceEachOptions {
+  callback?: Function;
+  done?: Function;
+  language?: string;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property language - An ISO language-country string of the sample.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface SampleListInstanceOptions {
+  language?: string;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property language - An ISO language-country string of the sample.
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface SampleListInstancePageOptions {
+  language?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property language - An ISO language-country string of the sample.
+ * @property taggedText - The text example of how end-users may express this intent. The sample may contain Field tag blocks.
+ * @property sourceChannel - The communication channel the sample was captured. It can be: voice, sms, chat, alexa, google-assistant, or slack. If not included the value will be null
+ */
+export interface SampleListInstanceCreateOptions {
+  language: string;
+  sourceChannel?: string;
+  taggedText: string;
 }
 
 
@@ -171,10 +222,6 @@ declare class SamplePage extends Page {
 
   /**
    * Build an instance of SampleInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Preview.Understand.AssistantContext.IntentContext.SamplePage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -211,19 +258,11 @@ declare class SampleInstance {
   /**
    * fetch a SampleInstance
    *
-   * @function fetch
-   * @memberof Twilio.Preview.Understand.AssistantContext.IntentContext.SampleInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a SampleInstance
-   *
-   * @function remove
-   * @memberof Twilio.Preview.Understand.AssistantContext.IntentContext.SampleInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -231,23 +270,15 @@ declare class SampleInstance {
   /**
    * Produce a plain JSON object version of the SampleInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Preview.Understand.AssistantContext.IntentContext.SampleInstance
-   * @instance
    */
   toJSON();
   /**
    * update a SampleInstance
    *
-   * @function update
-   * @memberof Twilio.Preview.Understand.AssistantContext.IntentContext.SampleInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: SampleInstanceUpdateOptions, callback?: function);
 }
 
 
@@ -267,19 +298,11 @@ declare class SampleContext {
   /**
    * fetch a SampleInstance
    *
-   * @function fetch
-   * @memberof Twilio.Preview.Understand.AssistantContext.IntentContext.SampleContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a SampleInstance
-   *
-   * @function remove
-   * @memberof Twilio.Preview.Understand.AssistantContext.IntentContext.SampleContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -287,14 +310,10 @@ declare class SampleContext {
   /**
    * update a SampleInstance
    *
-   * @function update
-   * @memberof Twilio.Preview.Understand.AssistantContext.IntentContext.SampleContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: SampleContextUpdateOptions, callback?: function);
 }
 
 export { SampleContext, SampleInstance, SampleList, SampleListInstance, SamplePage, SamplePayload, SampleResource, SampleSolution }

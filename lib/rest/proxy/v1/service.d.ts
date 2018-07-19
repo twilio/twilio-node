@@ -8,7 +8,6 @@
 import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import V1 = require('../V1');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
 import { PhoneNumberList } from './service/phoneNumber';
 import { SerializableClass } from '../../../interfaces';
 import { SessionList } from './service/session';
@@ -52,14 +51,10 @@ interface ServiceListInstance {
   /**
    * create a ServiceInstance
    *
-   * @function create
-   * @memberof Twilio.Proxy.V1.ServiceList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: object, callback?: function);
+  create(opts: ServiceListInstanceCreateOptions, callback?: function);
   /**
    * Streams ServiceInstance records from the API.
    *
@@ -70,20 +65,12 @@ interface ServiceListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Proxy.V1.ServiceList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: ServiceListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a service
-   *
-   * @function get
-   * @memberof Twilio.Proxy.V1.ServiceList
-   * @instance
    *
    * @param sid - A string that uniquely identifies this Service.
    */
@@ -94,10 +81,6 @@ interface ServiceListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Proxy.V1.ServiceList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -107,28 +90,20 @@ interface ServiceListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Proxy.V1.ServiceList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: ServiceListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of ServiceInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Proxy.V1.ServiceList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: ServiceListInstancePageOptions, callback?: function);
 }
 
 /**
@@ -142,7 +117,7 @@ interface ServiceListInstance {
  * @property interceptCallbackUrl - A URL for Twilio call before each Interaction.
  * @property outOfSessionCallbackUrl - A URL for Twilio call when a new Interaction has no Session.
  */
-export interface UpdateOptions {
+export interface ServiceInstanceUpdateOptions {
   callbackUrl?: string;
   defaultTtl?: number;
   geoMatchLevel?: service.geo_match_level;
@@ -163,7 +138,7 @@ export interface UpdateOptions {
  * @property interceptCallbackUrl - A URL for Twilio call before each Interaction.
  * @property outOfSessionCallbackUrl - A URL for Twilio call when a new Interaction has no Session.
  */
-export interface UpdateOptions {
+export interface ServiceContextUpdateOptions {
   callbackUrl?: string;
   defaultTtl?: number;
   geoMatchLevel?: service.geo_match_level;
@@ -171,6 +146,84 @@ export interface UpdateOptions {
   numberSelectionBehavior?: service.number_selection_behavior;
   outOfSessionCallbackUrl?: string;
   uniqueName?: string;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface ServiceListInstanceEachOptions {
+  callback?: Function;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface ServiceListInstanceOptions {
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface ServiceListInstancePageOptions {
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property uniqueName - The human-readable string that uniquely identifies this Service.
+ * @property defaultTtl - Default TTL for Sessions in Service, in seconds.
+ * @property callbackUrl - URL Twilio will send callbacks to
+ * @property geoMatchLevel - Whether proxy number selected must be in the same area code as the participant identifier.
+ * @property numberSelectionBehavior - What behavior to use when choosing a proxy number.
+ * @property interceptCallbackUrl - A URL for Twilio call before each Interaction.
+ * @property outOfSessionCallbackUrl - A URL for Twilio call when a new Interaction has no Session.
+ */
+export interface ServiceListInstanceCreateOptions {
+  callbackUrl?: string;
+  defaultTtl?: number;
+  geoMatchLevel?: service.geo_match_level;
+  interceptCallbackUrl?: string;
+  numberSelectionBehavior?: service.number_selection_behavior;
+  outOfSessionCallbackUrl?: string;
+  uniqueName: string;
 }
 
 
@@ -189,10 +242,6 @@ declare class ServicePage extends Page {
 
   /**
    * Build an instance of ServiceInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Proxy.V1.ServicePage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -230,67 +279,39 @@ declare class ServiceInstance {
   /**
    * fetch a ServiceInstance
    *
-   * @function fetch
-   * @memberof Twilio.Proxy.V1.ServiceInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * Access the phoneNumbers
-   *
-   * @function phoneNumbers
-   * @memberof Twilio.Proxy.V1.ServiceInstance
-   * @instance
    */
   phoneNumbers();
   /**
    * remove a ServiceInstance
-   *
-   * @function remove
-   * @memberof Twilio.Proxy.V1.ServiceInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: function);
   /**
    * Access the sessions
-   *
-   * @function sessions
-   * @memberof Twilio.Proxy.V1.ServiceInstance
-   * @instance
    */
   sessions();
   /**
    * Access the shortCodes
-   *
-   * @function shortCodes
-   * @memberof Twilio.Proxy.V1.ServiceInstance
-   * @instance
    */
   shortCodes();
   /**
    * Produce a plain JSON object version of the ServiceInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Proxy.V1.ServiceInstance
-   * @instance
    */
   toJSON();
   /**
    * update a ServiceInstance
    *
-   * @function update
-   * @memberof Twilio.Proxy.V1.ServiceInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: ServiceInstanceUpdateOptions, callback?: function);
 }
 
 
@@ -312,20 +333,12 @@ declare class ServiceContext {
   /**
    * fetch a ServiceInstance
    *
-   * @function fetch
-   * @memberof Twilio.Proxy.V1.ServiceContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   phoneNumbers?: Twilio.Proxy.V1.ServiceContext.PhoneNumberList;
   /**
    * remove a ServiceInstance
-   *
-   * @function remove
-   * @memberof Twilio.Proxy.V1.ServiceContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -335,14 +348,10 @@ declare class ServiceContext {
   /**
    * update a ServiceInstance
    *
-   * @function update
-   * @memberof Twilio.Proxy.V1.ServiceContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: ServiceContextUpdateOptions, callback?: function);
 }
 
 export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServicePage, ServicePayload, ServiceResource, ServiceSolution }

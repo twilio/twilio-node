@@ -9,7 +9,6 @@ import Page = require('../../../../../base/Page');
 import Response = require('../../../../../http/response');
 import V1 = require('../../../V1');
 import serialize = require('../../../../../base/serialize');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../interfaces';
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
@@ -52,14 +51,10 @@ interface SyncMapItemListInstance {
   /**
    * create a SyncMapItemInstance
    *
-   * @function create
-   * @memberof Twilio.Sync.V1.ServiceContext.SyncMapContext.SyncMapItemList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: object, callback?: function);
+  create(opts: SyncMapItemListInstanceCreateOptions, callback?: function);
   /**
    * Streams SyncMapItemInstance records from the API.
    *
@@ -70,20 +65,12 @@ interface SyncMapItemListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Sync.V1.ServiceContext.SyncMapContext.SyncMapItemList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: SyncMapItemListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a sync_map_item
-   *
-   * @function get
-   * @memberof Twilio.Sync.V1.ServiceContext.SyncMapContext.SyncMapItemList
-   * @instance
    *
    * @param key - The key
    */
@@ -94,10 +81,6 @@ interface SyncMapItemListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Sync.V1.ServiceContext.SyncMapContext.SyncMapItemList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -107,28 +90,20 @@ interface SyncMapItemListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Sync.V1.ServiceContext.SyncMapContext.SyncMapItemList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: SyncMapItemListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of SyncMapItemInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Sync.V1.ServiceContext.SyncMapContext.SyncMapItemList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: SyncMapItemListInstancePageOptions, callback?: function);
 }
 
 /**
@@ -137,7 +112,7 @@ interface SyncMapItemListInstance {
  * @property data - Contains an arbitrary JSON object to be stored in this Map Item.
  * @property ttl - New time-to-live of this Map in seconds.
  */
-export interface UpdateOptions {
+export interface SyncMapItemInstanceUpdateOptions {
   data?: string;
   ttl?: number;
 }
@@ -148,9 +123,97 @@ export interface UpdateOptions {
  * @property data - Contains an arbitrary JSON object to be stored in this Map Item.
  * @property ttl - New time-to-live of this Map in seconds.
  */
-export interface UpdateOptions {
+export interface SyncMapItemContextUpdateOptions {
   data?: string;
   ttl?: number;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property key - The unique user-defined key of this Map Item.
+ * @property data - Contains arbitrary user-defined, schema-less data that this Map Item stores, represented by a JSON object, up to 16KB.
+ * @property ttl - Time-to-live of this Map in seconds, defaults to no expiration.
+ */
+export interface SyncMapItemListInstanceCreateOptions {
+  data: string;
+  key: string;
+  ttl?: number;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property order - A string; asc or desc. Map Items are ordered lexicographically by Item key.
+ * @property from - The Item key offset (including the specified key).
+ * @property bounds - The bounds
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface SyncMapItemListInstanceEachOptions {
+  bounds?: sync_map_item.query_from_bound_type;
+  callback?: Function;
+  done?: Function;
+  from?: string;
+  limit?: number;
+  order?: sync_map_item.query_result_order;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property order - A string; asc or desc. Map Items are ordered lexicographically by Item key.
+ * @property from - The Item key offset (including the specified key).
+ * @property bounds - The bounds
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface SyncMapItemListInstanceOptions {
+  bounds?: sync_map_item.query_from_bound_type;
+  from?: string;
+  limit?: number;
+  order?: sync_map_item.query_result_order;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property order - A string; asc or desc. Map Items are ordered lexicographically by Item key.
+ * @property from - The Item key offset (including the specified key).
+ * @property bounds - The bounds
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface SyncMapItemListInstancePageOptions {
+  bounds?: sync_map_item.query_from_bound_type;
+  from?: string;
+  order?: sync_map_item.query_result_order;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
 }
 
 
@@ -169,10 +232,6 @@ declare class SyncMapItemPage extends Page {
 
   /**
    * Build an instance of SyncMapItemInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Sync.V1.ServiceContext.SyncMapContext.SyncMapItemPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -210,19 +269,11 @@ declare class SyncMapItemInstance {
   /**
    * fetch a SyncMapItemInstance
    *
-   * @function fetch
-   * @memberof Twilio.Sync.V1.ServiceContext.SyncMapContext.SyncMapItemInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a SyncMapItemInstance
-   *
-   * @function remove
-   * @memberof Twilio.Sync.V1.ServiceContext.SyncMapContext.SyncMapItemInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -230,23 +281,15 @@ declare class SyncMapItemInstance {
   /**
    * Produce a plain JSON object version of the SyncMapItemInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Sync.V1.ServiceContext.SyncMapContext.SyncMapItemInstance
-   * @instance
    */
   toJSON();
   /**
    * update a SyncMapItemInstance
    *
-   * @function update
-   * @memberof Twilio.Sync.V1.ServiceContext.SyncMapContext.SyncMapItemInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: SyncMapItemInstanceUpdateOptions, callback?: function);
 }
 
 
@@ -266,19 +309,11 @@ declare class SyncMapItemContext {
   /**
    * fetch a SyncMapItemInstance
    *
-   * @function fetch
-   * @memberof Twilio.Sync.V1.ServiceContext.SyncMapContext.SyncMapItemContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a SyncMapItemInstance
-   *
-   * @function remove
-   * @memberof Twilio.Sync.V1.ServiceContext.SyncMapContext.SyncMapItemContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -286,14 +321,10 @@ declare class SyncMapItemContext {
   /**
    * update a SyncMapItemInstance
    *
-   * @function update
-   * @memberof Twilio.Sync.V1.ServiceContext.SyncMapContext.SyncMapItemContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: SyncMapItemContextUpdateOptions, callback?: function);
 }
 
 export { SyncMapItemContext, SyncMapItemInstance, SyncMapItemList, SyncMapItemListInstance, SyncMapItemPage, SyncMapItemPayload, SyncMapItemResource, SyncMapItemSolution }

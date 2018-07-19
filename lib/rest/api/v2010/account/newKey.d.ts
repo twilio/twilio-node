@@ -37,14 +37,19 @@ interface NewKeyListInstance {
   /**
    * create a NewKeyInstance
    *
-   * @function create
-   * @memberof Twilio.Api.V2010.AccountContext.NewKeyList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: object, callback?: function);
+  create(opts?: NewKeyListInstanceCreateOptions, callback?: function);
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property friendlyName - The friendly_name
+ */
+export interface NewKeyListInstanceCreateOptions {
+  friendlyName?: string;
 }
 
 
@@ -62,10 +67,6 @@ declare class NewKeyPage extends Page {
 
   /**
    * Build an instance of NewKeyInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Api.V2010.AccountContext.NewKeyPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -93,10 +94,6 @@ declare class NewKeyInstance {
   /**
    * Produce a plain JSON object version of the NewKeyInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Api.V2010.AccountContext.NewKeyInstance
-   * @instance
    */
   toJSON();
 }

@@ -11,7 +11,6 @@ import Understand = require('../Understand');
 import serialize = require('../../../base/serialize');
 import { FieldTypeList } from './assistant/fieldType';
 import { IntentList } from './assistant/intent';
-import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
 import { ModelBuildList } from './assistant/modelBuild';
 import { QueryList } from './assistant/query';
 import { SerializableClass } from '../../../interfaces';
@@ -55,14 +54,10 @@ interface AssistantListInstance {
   /**
    * create a AssistantInstance
    *
-   * @function create
-   * @memberof Twilio.Preview.Understand.AssistantList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: object, callback?: function);
+  create(opts?: AssistantListInstanceCreateOptions, callback?: function);
   /**
    * Streams AssistantInstance records from the API.
    *
@@ -73,20 +68,12 @@ interface AssistantListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Preview.Understand.AssistantList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: AssistantListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a assistant
-   *
-   * @function get
-   * @memberof Twilio.Preview.Understand.AssistantList
-   * @instance
    *
    * @param sid - The sid
    */
@@ -97,10 +84,6 @@ interface AssistantListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Preview.Understand.AssistantList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -110,28 +93,20 @@ interface AssistantListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Preview.Understand.AssistantList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: AssistantListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of AssistantInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Preview.Understand.AssistantList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: AssistantListInstancePageOptions, callback?: function);
 }
 
 /**
@@ -145,7 +120,7 @@ interface AssistantListInstance {
  * @property callbackUrl - The callback_url
  * @property callbackEvents - The callback_events
  */
-export interface UpdateOptions {
+export interface AssistantInstanceUpdateOptions {
   callbackEvents?: string;
   callbackUrl?: string;
   friendlyName?: string;
@@ -166,7 +141,85 @@ export interface UpdateOptions {
  * @property callbackUrl - The callback_url
  * @property callbackEvents - The callback_events
  */
-export interface UpdateOptions {
+export interface AssistantContextUpdateOptions {
+  callbackEvents?: string;
+  callbackUrl?: string;
+  friendlyName?: string;
+  logQueries?: boolean;
+  responseUrl?: string;
+  ttl?: number;
+  uniqueName?: string;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface AssistantListInstanceEachOptions {
+  callback?: Function;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface AssistantListInstanceOptions {
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface AssistantListInstancePageOptions {
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property friendlyName - A text description for the Assistant. It is non-unique and can up to 255 characters long.
+ * @property logQueries - A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
+ * @property ttl - The ttl
+ * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+ * @property responseUrl - The webhook URL called to fetch the response to an incoming communication expressed in Assistant TwiML.
+ * @property callbackUrl - The callback_url
+ * @property callbackEvents - The callback_events
+ */
+export interface AssistantListInstanceCreateOptions {
   callbackEvents?: string;
   callbackUrl?: string;
   friendlyName?: string;
@@ -192,10 +245,6 @@ declare class AssistantPage extends Page {
 
   /**
    * Build an instance of AssistantInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Preview.Understand.AssistantPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -234,51 +283,27 @@ declare class AssistantInstance {
   /**
    * fetch a AssistantInstance
    *
-   * @function fetch
-   * @memberof Twilio.Preview.Understand.AssistantInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * Access the fieldTypes
-   *
-   * @function fieldTypes
-   * @memberof Twilio.Preview.Understand.AssistantInstance
-   * @instance
    */
   fieldTypes();
   /**
    * Access the intents
-   *
-   * @function intents
-   * @memberof Twilio.Preview.Understand.AssistantInstance
-   * @instance
    */
   intents();
   /**
    * Access the modelBuilds
-   *
-   * @function modelBuilds
-   * @memberof Twilio.Preview.Understand.AssistantInstance
-   * @instance
    */
   modelBuilds();
   /**
    * Access the queries
-   *
-   * @function queries
-   * @memberof Twilio.Preview.Understand.AssistantInstance
-   * @instance
    */
   queries();
   /**
    * remove a AssistantInstance
-   *
-   * @function remove
-   * @memberof Twilio.Preview.Understand.AssistantInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -286,23 +311,15 @@ declare class AssistantInstance {
   /**
    * Produce a plain JSON object version of the AssistantInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Preview.Understand.AssistantInstance
-   * @instance
    */
   toJSON();
   /**
    * update a AssistantInstance
    *
-   * @function update
-   * @memberof Twilio.Preview.Understand.AssistantInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: AssistantInstanceUpdateOptions, callback?: function);
 }
 
 
@@ -325,10 +342,6 @@ declare class AssistantContext {
   /**
    * fetch a AssistantInstance
    *
-   * @function fetch
-   * @memberof Twilio.Preview.Understand.AssistantContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
@@ -339,24 +352,16 @@ declare class AssistantContext {
   /**
    * remove a AssistantInstance
    *
-   * @function remove
-   * @memberof Twilio.Preview.Understand.AssistantContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: function);
   /**
    * update a AssistantInstance
    *
-   * @function update
-   * @memberof Twilio.Preview.Understand.AssistantContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: AssistantContextUpdateOptions, callback?: function);
 }
 
 export { AssistantContext, AssistantInstance, AssistantList, AssistantListInstance, AssistantPage, AssistantPayload, AssistantResource, AssistantSolution }

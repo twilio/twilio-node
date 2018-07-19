@@ -9,7 +9,6 @@ import Page = require('../../../../../base/Page');
 import Response = require('../../../../../http/response');
 import V2 = require('../../../V2');
 import serialize = require('../../../../../base/serialize');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../interfaces';
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
@@ -59,20 +58,12 @@ interface UserBindingListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.UserContext.UserBindingList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: UserBindingListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a user_binding
-   *
-   * @function get
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.UserContext.UserBindingList
-   * @instance
    *
    * @param sid - The sid
    */
@@ -83,10 +74,6 @@ interface UserBindingListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.UserContext.UserBindingList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -96,28 +83,83 @@ interface UserBindingListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.UserContext.UserBindingList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: UserBindingListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of UserBindingInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.UserContext.UserBindingList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: UserBindingListInstancePageOptions, callback?: function);
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property bindingType - The push technology used for the bindings returned.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface UserBindingListInstanceEachOptions {
+  bindingType?: user_binding.binding_type|list;
+  callback?: Function;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property bindingType - The push technology used for the bindings returned.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface UserBindingListInstanceOptions {
+  bindingType?: user_binding.binding_type|list;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property bindingType - The push technology used for the bindings returned.
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface UserBindingListInstancePageOptions {
+  bindingType?: user_binding.binding_type|list;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
 }
 
 
@@ -135,10 +177,6 @@ declare class UserBindingPage extends Page {
 
   /**
    * Build an instance of UserBindingInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.UserContext.UserBindingPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -176,19 +214,11 @@ declare class UserBindingInstance {
   /**
    * fetch a UserBindingInstance
    *
-   * @function fetch
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.UserContext.UserBindingInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a UserBindingInstance
-   *
-   * @function remove
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.UserContext.UserBindingInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -196,10 +226,6 @@ declare class UserBindingInstance {
   /**
    * Produce a plain JSON object version of the UserBindingInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.UserContext.UserBindingInstance
-   * @instance
    */
   toJSON();
 }
@@ -220,19 +246,11 @@ declare class UserBindingContext {
   /**
    * fetch a UserBindingInstance
    *
-   * @function fetch
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.UserContext.UserBindingContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a UserBindingInstance
-   *
-   * @function remove
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.UserContext.UserBindingContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */

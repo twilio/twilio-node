@@ -9,7 +9,6 @@ import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import V1 = require('../V1');
 import serialize = require('../../../base/serialize');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
 import { SerializableClass } from '../../../interfaces';
 
 /**
@@ -57,20 +56,12 @@ interface RecordingListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Video.V1.RecordingList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: RecordingListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a recording
-   *
-   * @function get
-   * @memberof Twilio.Video.V1.RecordingList
-   * @instance
    *
    * @param sid - The Recording Sid that uniquely identifies the Recording to fetch.
    */
@@ -81,10 +72,6 @@ interface RecordingListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Video.V1.RecordingList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -94,28 +81,107 @@ interface RecordingListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Video.V1.RecordingList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: RecordingListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of RecordingInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Video.V1.RecordingList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: RecordingListInstancePageOptions, callback?: function);
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property status - Only show Recordings with the given status.
+ * @property sourceSid - Only show the Recordings with the given source Sid.
+ * @property groupingSid - Only show Recordings that have this GroupingSid.
+ * @property dateCreatedAfter - Only show Recordings that started on or after this ISO8601 date-time.
+ * @property dateCreatedBefore - Only show Recordings that started before this this ISO8601 date-time.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface RecordingListInstanceEachOptions {
+  callback?: Function;
+  dateCreatedAfter?: Date;
+  dateCreatedBefore?: Date;
+  done?: Function;
+  groupingSid?: string|list;
+  limit?: number;
+  pageSize?: number;
+  sourceSid?: string;
+  status?: recording.status;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property status - Only show Recordings with the given status.
+ * @property sourceSid - Only show the Recordings with the given source Sid.
+ * @property groupingSid - Only show Recordings that have this GroupingSid.
+ * @property dateCreatedAfter - Only show Recordings that started on or after this ISO8601 date-time.
+ * @property dateCreatedBefore - Only show Recordings that started before this this ISO8601 date-time.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface RecordingListInstanceOptions {
+  dateCreatedAfter?: Date;
+  dateCreatedBefore?: Date;
+  groupingSid?: string|list;
+  limit?: number;
+  pageSize?: number;
+  sourceSid?: string;
+  status?: recording.status;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property status - Only show Recordings with the given status.
+ * @property sourceSid - Only show the Recordings with the given source Sid.
+ * @property groupingSid - Only show Recordings that have this GroupingSid.
+ * @property dateCreatedAfter - Only show Recordings that started on or after this ISO8601 date-time.
+ * @property dateCreatedBefore - Only show Recordings that started before this this ISO8601 date-time.
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface RecordingListInstancePageOptions {
+  dateCreatedAfter?: Date;
+  dateCreatedBefore?: Date;
+  groupingSid?: string|list;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  sourceSid?: string;
+  status?: recording.status;
 }
 
 
@@ -133,10 +199,6 @@ declare class RecordingPage extends Page {
 
   /**
    * Build an instance of RecordingInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Video.V1.RecordingPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -174,19 +236,11 @@ declare class RecordingInstance {
   /**
    * fetch a RecordingInstance
    *
-   * @function fetch
-   * @memberof Twilio.Video.V1.RecordingInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a RecordingInstance
-   *
-   * @function remove
-   * @memberof Twilio.Video.V1.RecordingInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -194,10 +248,6 @@ declare class RecordingInstance {
   /**
    * Produce a plain JSON object version of the RecordingInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Video.V1.RecordingInstance
-   * @instance
    */
   toJSON();
 }
@@ -216,19 +266,11 @@ declare class RecordingContext {
   /**
    * fetch a RecordingInstance
    *
-   * @function fetch
-   * @memberof Twilio.Video.V1.RecordingContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a RecordingInstance
-   *
-   * @function remove
-   * @memberof Twilio.Video.V1.RecordingContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */

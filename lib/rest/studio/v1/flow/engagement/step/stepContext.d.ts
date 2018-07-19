@@ -46,10 +46,6 @@ interface StepContextListInstance {
   (sid: string): StepContextContext;
   /**
    * Constructs a step_context
-   *
-   * @function get
-   * @memberof Twilio.Studio.V1.FlowContext.EngagementContext.StepContext.StepContextList
-   * @instance
    */
   get();
 }
@@ -70,10 +66,6 @@ declare class StepContextPage extends Page {
 
   /**
    * Build an instance of StepContextInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Studio.V1.FlowContext.EngagementContext.StepContext.StepContextPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -106,20 +98,12 @@ declare class StepContextInstance {
   /**
    * fetch a StepContextInstance
    *
-   * @function fetch
-   * @memberof Twilio.Studio.V1.FlowContext.EngagementContext.StepContext.StepContextInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * Produce a plain JSON object version of the StepContextInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Studio.V1.FlowContext.EngagementContext.StepContext.StepContextInstance
-   * @instance
    */
   toJSON();
 }
@@ -140,10 +124,6 @@ declare class StepContextContext {
 
   /**
    * fetch a StepContextInstance
-   *
-   * @function fetch
-   * @memberof Twilio.Studio.V1.FlowContext.EngagementContext.StepContext.StepContextContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */

@@ -10,7 +10,6 @@ import Response = require('../../../../http/response');
 import V2010 = require('../../V2010');
 import serialize = require('../../../../base/serialize');
 import { DependentPhoneNumberList } from './address/dependentPhoneNumber';
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
 import { SerializableClass } from '../../../../interfaces';
 
 /**
@@ -53,14 +52,10 @@ interface AddressListInstance {
   /**
    * create a AddressInstance
    *
-   * @function create
-   * @memberof Twilio.Api.V2010.AccountContext.AddressList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: object, callback?: function);
+  create(opts: AddressListInstanceCreateOptions, callback?: function);
   /**
    * Streams AddressInstance records from the API.
    *
@@ -71,20 +66,12 @@ interface AddressListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Api.V2010.AccountContext.AddressList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: AddressListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a address
-   *
-   * @function get
-   * @memberof Twilio.Api.V2010.AccountContext.AddressList
-   * @instance
    *
    * @param sid - The sid
    */
@@ -95,10 +82,6 @@ interface AddressListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Api.V2010.AccountContext.AddressList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -108,28 +91,20 @@ interface AddressListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Api.V2010.AccountContext.AddressList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: AddressListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of AddressInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Api.V2010.AccountContext.AddressList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: AddressListInstancePageOptions, callback?: function);
 }
 
 /**
@@ -144,7 +119,7 @@ interface AddressListInstance {
  * @property emergencyEnabled - The emergency_enabled
  * @property autoCorrectAddress - If you don't set a value for this parameter, or if you set it to true, then the system will, if necessary, auto-correct the address you provide.
  */
-export interface UpdateOptions {
+export interface AddressInstanceUpdateOptions {
   autoCorrectAddress?: boolean;
   city?: string;
   customerName?: string;
@@ -167,7 +142,7 @@ export interface UpdateOptions {
  * @property emergencyEnabled - The emergency_enabled
  * @property autoCorrectAddress - If you don't set a value for this parameter, or if you set it to true, then the system will, if necessary, auto-correct the address you provide.
  */
-export interface UpdateOptions {
+export interface AddressContextUpdateOptions {
   autoCorrectAddress?: boolean;
   city?: string;
   customerName?: string;
@@ -176,6 +151,106 @@ export interface UpdateOptions {
   postalCode?: string;
   region?: string;
   street?: string;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property customerName - Your name or business name, or that of your customer.
+ * @property street - The number and street address where you or your customer is located.
+ * @property city - The city in which you or your customer is located.
+ * @property region - The state or region in which you or your customer is located.
+ * @property postalCode - The postal code in which you or your customer is located.
+ * @property isoCountry - The ISO country code of your or your customer's address.
+ * @property friendlyName - A human-readable description of the new address.
+ * @property emergencyEnabled - The emergency_enabled
+ * @property autoCorrectAddress - If you don't set a value for this parameter, or if you set it to true, then the system will, if necessary, auto-correct the address you provide.
+ */
+export interface AddressListInstanceCreateOptions {
+  autoCorrectAddress?: boolean;
+  city: string;
+  customerName: string;
+  emergencyEnabled?: boolean;
+  friendlyName?: string;
+  isoCountry: string;
+  postalCode: string;
+  region: string;
+  street: string;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property customerName - Only return the Address resources with customer names that exactly match this name.
+ * @property friendlyName - Only return the Address resources with friendly names that exactly match this name.
+ * @property isoCountry - Only return the Address resources in this country.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface AddressListInstanceEachOptions {
+  callback?: Function;
+  customerName?: string;
+  done?: Function;
+  friendlyName?: string;
+  isoCountry?: string;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property customerName - Only return the Address resources with customer names that exactly match this name.
+ * @property friendlyName - Only return the Address resources with friendly names that exactly match this name.
+ * @property isoCountry - Only return the Address resources in this country.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface AddressListInstanceOptions {
+  customerName?: string;
+  friendlyName?: string;
+  isoCountry?: string;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property customerName - Only return the Address resources with customer names that exactly match this name.
+ * @property friendlyName - Only return the Address resources with friendly names that exactly match this name.
+ * @property isoCountry - Only return the Address resources in this country.
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface AddressListInstancePageOptions {
+  customerName?: string;
+  friendlyName?: string;
+  isoCountry?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
 }
 
 
@@ -193,10 +268,6 @@ declare class AddressPage extends Page {
 
   /**
    * Build an instance of AddressInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Api.V2010.AccountContext.AddressPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -234,18 +305,10 @@ declare class AddressInstance {
   _proxy?: AddressContext;
   /**
    * Access the dependentPhoneNumbers
-   *
-   * @function dependentPhoneNumbers
-   * @memberof Twilio.Api.V2010.AccountContext.AddressInstance
-   * @instance
    */
   dependentPhoneNumbers();
   /**
    * fetch a AddressInstance
-   *
-   * @function fetch
-   * @memberof Twilio.Api.V2010.AccountContext.AddressInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -253,33 +316,21 @@ declare class AddressInstance {
   /**
    * remove a AddressInstance
    *
-   * @function remove
-   * @memberof Twilio.Api.V2010.AccountContext.AddressInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: function);
   /**
    * Produce a plain JSON object version of the AddressInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Api.V2010.AccountContext.AddressInstance
-   * @instance
    */
   toJSON();
   /**
    * update a AddressInstance
    *
-   * @function update
-   * @memberof Twilio.Api.V2010.AccountContext.AddressInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: AddressInstanceUpdateOptions, callback?: function);
 }
 
 
@@ -300,19 +351,11 @@ declare class AddressContext {
   /**
    * fetch a AddressInstance
    *
-   * @function fetch
-   * @memberof Twilio.Api.V2010.AccountContext.AddressContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a AddressInstance
-   *
-   * @function remove
-   * @memberof Twilio.Api.V2010.AccountContext.AddressContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -320,14 +363,10 @@ declare class AddressContext {
   /**
    * update a AddressInstance
    *
-   * @function update
-   * @memberof Twilio.Api.V2010.AccountContext.AddressContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: AddressContextUpdateOptions, callback?: function);
 }
 
 export { AddressContext, AddressInstance, AddressList, AddressListInstance, AddressPage, AddressPayload, AddressResource, AddressSolution }

@@ -37,14 +37,29 @@ interface ValidationRequestListInstance {
   /**
    * create a ValidationRequestInstance
    *
-   * @function create
-   * @memberof Twilio.Api.V2010.AccountContext.ValidationRequestList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: object, callback?: function);
+  create(opts: ValidationRequestListInstanceCreateOptions, callback?: function);
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property phoneNumber - The phone number to verify.
+ * @property friendlyName - A human readable description for the new caller ID with maximum length 64 characters.
+ * @property callDelay - The number of seconds, between 0 and 60, to delay before initiating the verification call.
+ * @property extension - Digits to dial after connecting the verification call.
+ * @property statusCallback - A URL that Twilio will request when the verification call ends to notify your app if the verification process was successful or not.
+ * @property statusCallbackMethod - The HTTP method Twilio should use when requesting the above URL.
+ */
+export interface ValidationRequestListInstanceCreateOptions {
+  callDelay?: number;
+  extension?: string;
+  friendlyName?: string;
+  phoneNumber: string;
+  statusCallback?: string;
+  statusCallbackMethod?: string;
 }
 
 
@@ -62,10 +77,6 @@ declare class ValidationRequestPage extends Page {
 
   /**
    * Build an instance of ValidationRequestInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Api.V2010.AccountContext.ValidationRequestPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -93,10 +104,6 @@ declare class ValidationRequestInstance {
   /**
    * Produce a plain JSON object version of the ValidationRequestInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Api.V2010.AccountContext.ValidationRequestInstance
-   * @instance
    */
   toJSON();
 }

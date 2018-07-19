@@ -9,7 +9,6 @@ import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V1 = require('../../V1');
 import serialize = require('../../../../base/serialize');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
 import { SerializableClass } from '../../../../interfaces';
 
 /**
@@ -60,20 +59,12 @@ interface RoomRecordingListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Video.V1.RoomContext.RoomRecordingList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: RoomRecordingListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a room_recording
-   *
-   * @function get
-   * @memberof Twilio.Video.V1.RoomContext.RoomRecordingList
-   * @instance
    *
    * @param sid - The sid
    */
@@ -84,10 +75,6 @@ interface RoomRecordingListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Video.V1.RoomContext.RoomRecordingList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -97,28 +84,101 @@ interface RoomRecordingListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Video.V1.RoomContext.RoomRecordingList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: RoomRecordingListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of RoomRecordingInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Video.V1.RoomContext.RoomRecordingList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: RoomRecordingListInstancePageOptions, callback?: function);
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property status - The status
+ * @property sourceSid - The source_sid
+ * @property dateCreatedAfter - The date_created_after
+ * @property dateCreatedBefore - The date_created_before
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface RoomRecordingListInstanceEachOptions {
+  callback?: Function;
+  dateCreatedAfter?: Date;
+  dateCreatedBefore?: Date;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+  sourceSid?: string;
+  status?: room_recording.status;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property status - The status
+ * @property sourceSid - The source_sid
+ * @property dateCreatedAfter - The date_created_after
+ * @property dateCreatedBefore - The date_created_before
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface RoomRecordingListInstanceOptions {
+  dateCreatedAfter?: Date;
+  dateCreatedBefore?: Date;
+  limit?: number;
+  pageSize?: number;
+  sourceSid?: string;
+  status?: room_recording.status;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property status - The status
+ * @property sourceSid - The source_sid
+ * @property dateCreatedAfter - The date_created_after
+ * @property dateCreatedBefore - The date_created_before
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface RoomRecordingListInstancePageOptions {
+  dateCreatedAfter?: Date;
+  dateCreatedBefore?: Date;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  sourceSid?: string;
+  status?: room_recording.status;
 }
 
 
@@ -136,10 +196,6 @@ declare class RoomRecordingPage extends Page {
 
   /**
    * Build an instance of RoomRecordingInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Video.V1.RoomContext.RoomRecordingPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -179,20 +235,12 @@ declare class RoomRecordingInstance {
   /**
    * fetch a RoomRecordingInstance
    *
-   * @function fetch
-   * @memberof Twilio.Video.V1.RoomContext.RoomRecordingInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * Produce a plain JSON object version of the RoomRecordingInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Video.V1.RoomContext.RoomRecordingInstance
-   * @instance
    */
   toJSON();
 }
@@ -211,10 +259,6 @@ declare class RoomRecordingContext {
 
   /**
    * fetch a RoomRecordingInstance
-   *
-   * @function fetch
-   * @memberof Twilio.Video.V1.RoomContext.RoomRecordingContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */

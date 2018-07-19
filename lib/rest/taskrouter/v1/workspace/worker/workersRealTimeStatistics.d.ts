@@ -40,10 +40,6 @@ interface WorkersRealTimeStatisticsListInstance {
   (sid: string): WorkersRealTimeStatisticsContext;
   /**
    * Constructs a workers_real_time_statistics
-   *
-   * @function get
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkersRealTimeStatisticsList
-   * @instance
    */
   get();
 }
@@ -53,7 +49,7 @@ interface WorkersRealTimeStatisticsListInstance {
  *
  * @property taskChannel - Filter cumulative statistics by TaskChannel.
  */
-export interface FetchOptions {
+export interface WorkersRealTimeStatisticsInstanceFetchOptions {
   taskChannel?: string;
 }
 
@@ -62,7 +58,7 @@ export interface FetchOptions {
  *
  * @property taskChannel - Filter cumulative statistics by TaskChannel.
  */
-export interface FetchOptions {
+export interface WorkersRealTimeStatisticsContextFetchOptions {
   taskChannel?: string;
 }
 
@@ -81,10 +77,6 @@ declare class WorkersRealTimeStatisticsPage extends Page {
 
   /**
    * Build an instance of WorkersRealTimeStatisticsInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkersRealTimeStatisticsPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -113,21 +105,13 @@ declare class WorkersRealTimeStatisticsInstance {
   /**
    * fetch a WorkersRealTimeStatisticsInstance
    *
-   * @function fetch
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkersRealTimeStatisticsInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: object, callback?: function);
+  fetch(opts?: WorkersRealTimeStatisticsInstanceFetchOptions, callback?: function);
   /**
    * Produce a plain JSON object version of the WorkersRealTimeStatisticsInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkersRealTimeStatisticsInstance
-   * @instance
    */
   toJSON();
 }
@@ -146,14 +130,10 @@ declare class WorkersRealTimeStatisticsContext {
   /**
    * fetch a WorkersRealTimeStatisticsInstance
    *
-   * @function fetch
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkersRealTimeStatisticsContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: object, callback?: function);
+  fetch(opts?: WorkersRealTimeStatisticsContextFetchOptions, callback?: function);
 }
 
 export { WorkersRealTimeStatisticsContext, WorkersRealTimeStatisticsInstance, WorkersRealTimeStatisticsList, WorkersRealTimeStatisticsListInstance, WorkersRealTimeStatisticsPage, WorkersRealTimeStatisticsPayload, WorkersRealTimeStatisticsResource, WorkersRealTimeStatisticsSolution }

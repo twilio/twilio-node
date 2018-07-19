@@ -8,7 +8,6 @@
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import Understand = require('../../Understand');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
 import { SerializableClass } from '../../../../interfaces';
 
 /**
@@ -51,14 +50,10 @@ interface QueryListInstance {
   /**
    * create a QueryInstance
    *
-   * @function create
-   * @memberof Twilio.Preview.Understand.AssistantContext.QueryList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: object, callback?: function);
+  create(opts: QueryListInstanceCreateOptions, callback?: function);
   /**
    * Streams QueryInstance records from the API.
    *
@@ -69,20 +64,12 @@ interface QueryListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Preview.Understand.AssistantContext.QueryList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: QueryListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a query
-   *
-   * @function get
-   * @memberof Twilio.Preview.Understand.AssistantContext.QueryList
-   * @instance
    *
    * @param sid - The sid
    */
@@ -93,10 +80,6 @@ interface QueryListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Preview.Understand.AssistantContext.QueryList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -106,28 +89,20 @@ interface QueryListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Preview.Understand.AssistantContext.QueryList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: QueryListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of QueryInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Preview.Understand.AssistantContext.QueryList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: QueryListInstancePageOptions, callback?: function);
 }
 
 /**
@@ -136,7 +111,7 @@ interface QueryListInstance {
  * @property sampleSid - The sample_sid
  * @property status - A string that described the query status. The values can be: pending_review, reviewed, discarded
  */
-export interface UpdateOptions {
+export interface QueryInstanceUpdateOptions {
   sampleSid?: string;
   status?: string;
 }
@@ -147,9 +122,101 @@ export interface UpdateOptions {
  * @property sampleSid - The sample_sid
  * @property status - A string that described the query status. The values can be: pending_review, reviewed, discarded
  */
-export interface UpdateOptions {
+export interface QueryContextUpdateOptions {
   sampleSid?: string;
   status?: string;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property language - An ISO language-country string of the sample.
+ * @property modelBuild - The Model Build Sid or unique name of the Model Build to be queried.
+ * @property status - A string that described the query status. The values can be: pending_review, reviewed, discarded
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface QueryListInstanceEachOptions {
+  callback?: Function;
+  done?: Function;
+  language?: string;
+  limit?: number;
+  modelBuild?: string;
+  pageSize?: number;
+  status?: string;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property language - An ISO language-country string of the sample.
+ * @property modelBuild - The Model Build Sid or unique name of the Model Build to be queried.
+ * @property status - A string that described the query status. The values can be: pending_review, reviewed, discarded
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface QueryListInstanceOptions {
+  language?: string;
+  limit?: number;
+  modelBuild?: string;
+  pageSize?: number;
+  status?: string;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property language - An ISO language-country string of the sample.
+ * @property modelBuild - The Model Build Sid or unique name of the Model Build to be queried.
+ * @property status - A string that described the query status. The values can be: pending_review, reviewed, discarded
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface QueryListInstancePageOptions {
+  language?: string;
+  modelBuild?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  status?: string;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property language - An ISO language-country string of the sample.
+ * @property query - A user-provided string that uniquely identifies this resource as an alternative to the sid. It can be up to 2048 characters long.
+ * @property intents - Constraints the query to a set of intents. Useful when you need to constrain the paths the user can take. Intents should be comma separated intent-unique-name-1, intent-unique-name-2
+ * @property modelBuild - The Model Build Sid or unique name of the Model Build to be queried.
+ * @property field - Constraints the query to a given Field with an intent. Useful when you know the Field you are expecting. It accepts one field in the format intent-unique-name-1:field-unique-name
+ */
+export interface QueryListInstanceCreateOptions {
+  field?: string;
+  intents?: string;
+  language: string;
+  modelBuild?: string;
+  query: string;
 }
 
 
@@ -168,10 +235,6 @@ declare class QueryPage extends Page {
 
   /**
    * Build an instance of QueryInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Preview.Understand.AssistantContext.QueryPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -210,19 +273,11 @@ declare class QueryInstance {
   /**
    * fetch a QueryInstance
    *
-   * @function fetch
-   * @memberof Twilio.Preview.Understand.AssistantContext.QueryInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a QueryInstance
-   *
-   * @function remove
-   * @memberof Twilio.Preview.Understand.AssistantContext.QueryInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -230,23 +285,15 @@ declare class QueryInstance {
   /**
    * Produce a plain JSON object version of the QueryInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Preview.Understand.AssistantContext.QueryInstance
-   * @instance
    */
   toJSON();
   /**
    * update a QueryInstance
    *
-   * @function update
-   * @memberof Twilio.Preview.Understand.AssistantContext.QueryInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: QueryInstanceUpdateOptions, callback?: function);
 }
 
 
@@ -265,19 +312,11 @@ declare class QueryContext {
   /**
    * fetch a QueryInstance
    *
-   * @function fetch
-   * @memberof Twilio.Preview.Understand.AssistantContext.QueryContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a QueryInstance
-   *
-   * @function remove
-   * @memberof Twilio.Preview.Understand.AssistantContext.QueryContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -285,14 +324,10 @@ declare class QueryContext {
   /**
    * update a QueryInstance
    *
-   * @function update
-   * @memberof Twilio.Preview.Understand.AssistantContext.QueryContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: QueryContextUpdateOptions, callback?: function);
 }
 
 export { QueryContext, QueryInstance, QueryList, QueryListInstance, QueryPage, QueryPayload, QueryResource, QuerySolution }

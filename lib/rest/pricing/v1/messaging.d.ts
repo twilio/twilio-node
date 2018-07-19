@@ -49,10 +49,6 @@ declare class MessagingPage extends Page {
   /**
    * Build an instance of MessagingInstance
    *
-   * @function getInstance
-   * @memberof Twilio.Pricing.V1.MessagingPage
-   * @instance
-   *
    * @param payload - Payload response from the API
    */
   getInstance(payload: object);
@@ -76,10 +72,6 @@ declare class MessagingInstance {
   /**
    * Produce a plain JSON object version of the MessagingInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Pricing.V1.MessagingInstance
-   * @instance
    */
   toJSON();
 }

@@ -44,24 +44,25 @@ interface SegmentMembershipListInstance {
   /**
    * create a SegmentMembershipInstance
    *
-   * @function create
-   * @memberof Twilio.Notify.V1.ServiceContext.UserContext.SegmentMembershipList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: object, callback?: function);
+  create(opts: SegmentMembershipListInstanceCreateOptions, callback?: function);
   /**
    * Constructs a segment_membership
-   *
-   * @function get
-   * @memberof Twilio.Notify.V1.ServiceContext.UserContext.SegmentMembershipList
-   * @instance
    *
    * @param segment - The segment
    */
   get(segment: string);
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property segment - The segment
+ */
+export interface SegmentMembershipListInstanceCreateOptions {
+  segment: string;
 }
 
 
@@ -80,10 +81,6 @@ declare class SegmentMembershipPage extends Page {
 
   /**
    * Build an instance of SegmentMembershipInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Notify.V1.ServiceContext.UserContext.SegmentMembershipPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -115,19 +112,11 @@ declare class SegmentMembershipInstance {
   /**
    * fetch a SegmentMembershipInstance
    *
-   * @function fetch
-   * @memberof Twilio.Notify.V1.ServiceContext.UserContext.SegmentMembershipInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a SegmentMembershipInstance
-   *
-   * @function remove
-   * @memberof Twilio.Notify.V1.ServiceContext.UserContext.SegmentMembershipInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -135,10 +124,6 @@ declare class SegmentMembershipInstance {
   /**
    * Produce a plain JSON object version of the SegmentMembershipInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Notify.V1.ServiceContext.UserContext.SegmentMembershipInstance
-   * @instance
    */
   toJSON();
 }
@@ -160,19 +145,11 @@ declare class SegmentMembershipContext {
   /**
    * fetch a SegmentMembershipInstance
    *
-   * @function fetch
-   * @memberof Twilio.Notify.V1.ServiceContext.UserContext.SegmentMembershipContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a SegmentMembershipInstance
-   *
-   * @function remove
-   * @memberof Twilio.Notify.V1.ServiceContext.UserContext.SegmentMembershipContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */

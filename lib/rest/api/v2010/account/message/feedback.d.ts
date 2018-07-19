@@ -40,14 +40,19 @@ interface FeedbackListInstance {
   /**
    * create a FeedbackInstance
    *
-   * @function create
-   * @memberof Twilio.Api.V2010.AccountContext.MessageContext.FeedbackList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: object, callback?: function);
+  create(opts?: FeedbackListInstanceCreateOptions, callback?: function);
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property outcome - The outcome
+ */
+export interface FeedbackListInstanceCreateOptions {
+  outcome?: feedback.outcome;
 }
 
 
@@ -65,10 +70,6 @@ declare class FeedbackPage extends Page {
 
   /**
    * Build an instance of FeedbackInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Api.V2010.AccountContext.MessageContext.FeedbackPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -98,10 +99,6 @@ declare class FeedbackInstance {
   /**
    * Produce a plain JSON object version of the FeedbackInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Api.V2010.AccountContext.MessageContext.FeedbackInstance
-   * @instance
    */
   toJSON();
 }

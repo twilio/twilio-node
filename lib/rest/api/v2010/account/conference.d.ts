@@ -9,7 +9,6 @@ import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V2010 = require('../../V2010');
 import serialize = require('../../../../base/serialize');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
 import { ParticipantList } from './conference/participant';
 import { RecordingList } from './conference/recording';
 import { SerializableClass } from '../../../../interfaces';
@@ -57,20 +56,12 @@ interface ConferenceListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Api.V2010.AccountContext.ConferenceList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: ConferenceListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a conference
-   *
-   * @function get
-   * @memberof Twilio.Api.V2010.AccountContext.ConferenceList
-   * @instance
    *
    * @param sid - Fetch by unique conference Sid
    */
@@ -81,10 +72,6 @@ interface ConferenceListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Api.V2010.AccountContext.ConferenceList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -94,28 +81,20 @@ interface ConferenceListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Api.V2010.AccountContext.ConferenceList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: ConferenceListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of ConferenceInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Api.V2010.AccountContext.ConferenceList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: ConferenceListInstancePageOptions, callback?: function);
 }
 
 /**
@@ -125,7 +104,7 @@ interface ConferenceListInstance {
  * @property announceUrl - The 'AnnounceUrl' attribute lets you specify a URL for announcing something into a conference.
  * @property announceMethod - Specify GET or POST, defaults to POST
  */
-export interface UpdateOptions {
+export interface ConferenceInstanceUpdateOptions {
   announceMethod?: string;
   announceUrl?: string;
   status?: conference.update_status;
@@ -138,10 +117,115 @@ export interface UpdateOptions {
  * @property announceUrl - The 'AnnounceUrl' attribute lets you specify a URL for announcing something into a conference.
  * @property announceMethod - Specify GET or POST, defaults to POST
  */
-export interface UpdateOptions {
+export interface ConferenceContextUpdateOptions {
   announceMethod?: string;
   announceUrl?: string;
   status?: conference.update_status;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property dateCreatedBefore - Filter by date created
+ * @property dateCreated - Filter by date created
+ * @property dateCreatedAfter - Filter by date created
+ * @property dateUpdatedBefore - Filter by date updated
+ * @property dateUpdated - Filter by date updated
+ * @property dateUpdatedAfter - Filter by date updated
+ * @property friendlyName - Filter by friendly name
+ * @property status - The status of the conference
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface ConferenceListInstanceEachOptions {
+  callback?: Function;
+  dateCreated?: Date;
+  dateCreatedAfter?: Date;
+  dateCreatedBefore?: Date;
+  dateUpdated?: Date;
+  dateUpdatedAfter?: Date;
+  dateUpdatedBefore?: Date;
+  done?: Function;
+  friendlyName?: string;
+  limit?: number;
+  pageSize?: number;
+  status?: conference.status;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property dateCreatedBefore - Filter by date created
+ * @property dateCreated - Filter by date created
+ * @property dateCreatedAfter - Filter by date created
+ * @property dateUpdatedBefore - Filter by date updated
+ * @property dateUpdated - Filter by date updated
+ * @property dateUpdatedAfter - Filter by date updated
+ * @property friendlyName - Filter by friendly name
+ * @property status - The status of the conference
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface ConferenceListInstanceOptions {
+  dateCreated?: Date;
+  dateCreatedAfter?: Date;
+  dateCreatedBefore?: Date;
+  dateUpdated?: Date;
+  dateUpdatedAfter?: Date;
+  dateUpdatedBefore?: Date;
+  friendlyName?: string;
+  limit?: number;
+  pageSize?: number;
+  status?: conference.status;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property dateCreatedBefore - Filter by date created
+ * @property dateCreated - Filter by date created
+ * @property dateCreatedAfter - Filter by date created
+ * @property dateUpdatedBefore - Filter by date updated
+ * @property dateUpdated - Filter by date updated
+ * @property dateUpdatedAfter - Filter by date updated
+ * @property friendlyName - Filter by friendly name
+ * @property status - The status of the conference
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface ConferenceListInstancePageOptions {
+  dateCreated?: Date;
+  dateCreatedAfter?: Date;
+  dateCreatedBefore?: Date;
+  dateUpdated?: Date;
+  dateUpdatedAfter?: Date;
+  dateUpdatedBefore?: Date;
+  friendlyName?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  status?: conference.status;
 }
 
 
@@ -159,10 +243,6 @@ declare class ConferencePage extends Page {
 
   /**
    * Build an instance of ConferenceInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Api.V2010.AccountContext.ConferencePage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -197,49 +277,29 @@ declare class ConferenceInstance {
   /**
    * fetch a ConferenceInstance
    *
-   * @function fetch
-   * @memberof Twilio.Api.V2010.AccountContext.ConferenceInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * Access the participants
-   *
-   * @function participants
-   * @memberof Twilio.Api.V2010.AccountContext.ConferenceInstance
-   * @instance
    */
   participants();
   /**
    * Access the recordings
-   *
-   * @function recordings
-   * @memberof Twilio.Api.V2010.AccountContext.ConferenceInstance
-   * @instance
    */
   recordings();
   /**
    * Produce a plain JSON object version of the ConferenceInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Api.V2010.AccountContext.ConferenceInstance
-   * @instance
    */
   toJSON();
   /**
    * update a ConferenceInstance
    *
-   * @function update
-   * @memberof Twilio.Api.V2010.AccountContext.ConferenceInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: ConferenceInstanceUpdateOptions, callback?: function);
 }
 
 
@@ -260,10 +320,6 @@ declare class ConferenceContext {
   /**
    * fetch a ConferenceInstance
    *
-   * @function fetch
-   * @memberof Twilio.Api.V2010.AccountContext.ConferenceContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
@@ -272,14 +328,10 @@ declare class ConferenceContext {
   /**
    * update a ConferenceInstance
    *
-   * @function update
-   * @memberof Twilio.Api.V2010.AccountContext.ConferenceContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: ConferenceContextUpdateOptions, callback?: function);
 }
 
 export { ConferenceContext, ConferenceInstance, ConferenceList, ConferenceListInstance, ConferencePage, ConferencePayload, ConferenceResource, ConferenceSolution }

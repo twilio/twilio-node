@@ -43,10 +43,6 @@ interface CompositionSettingsListInstance {
   (sid: string): CompositionSettingsContext;
   /**
    * Constructs a composition_settings
-   *
-   * @function get
-   * @memberof Twilio.Video.V1.CompositionSettingsList
-   * @instance
    */
   get();
 }
@@ -61,7 +57,7 @@ interface CompositionSettingsListInstance {
  * @property awsStorageEnabled - true|false When set to true, all Compositions will be written to the AwsS3Url specified above. When set to false, all Compositions will be stored in Twilio's cloud.
  * @property encryptionEnabled - true|false When set to true, all Compositions will be stored encrypted.
  */
-export interface CreateOptions {
+export interface CompositionSettingsInstanceCreateOptions {
   awsCredentialsSid?: string;
   awsS3Url?: string;
   awsStorageEnabled?: boolean;
@@ -80,7 +76,7 @@ export interface CreateOptions {
  * @property awsStorageEnabled - true|false When set to true, all Compositions will be written to the AwsS3Url specified above. When set to false, all Compositions will be stored in Twilio's cloud.
  * @property encryptionEnabled - true|false When set to true, all Compositions will be stored encrypted.
  */
-export interface CreateOptions {
+export interface CompositionSettingsContextCreateOptions {
   awsCredentialsSid?: string;
   awsS3Url?: string;
   awsStorageEnabled?: boolean;
@@ -105,10 +101,6 @@ declare class CompositionSettingsPage extends Page {
 
   /**
    * Build an instance of CompositionSettingsInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Video.V1.CompositionSettingsPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -140,20 +132,12 @@ declare class CompositionSettingsInstance {
   /**
    * create a CompositionSettingsInstance
    *
-   * @function create
-   * @memberof Twilio.Video.V1.CompositionSettingsInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: object, callback?: function);
+  create(opts: CompositionSettingsInstanceCreateOptions, callback?: function);
   /**
    * fetch a CompositionSettingsInstance
-   *
-   * @function fetch
-   * @memberof Twilio.Video.V1.CompositionSettingsInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -161,10 +145,6 @@ declare class CompositionSettingsInstance {
   /**
    * Produce a plain JSON object version of the CompositionSettingsInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Video.V1.CompositionSettingsInstance
-   * @instance
    */
   toJSON();
 }
@@ -183,20 +163,12 @@ declare class CompositionSettingsContext {
   /**
    * create a CompositionSettingsInstance
    *
-   * @function create
-   * @memberof Twilio.Video.V1.CompositionSettingsContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: object, callback?: function);
+  create(opts: CompositionSettingsContextCreateOptions, callback?: function);
   /**
    * fetch a CompositionSettingsInstance
-   *
-   * @function fetch
-   * @memberof Twilio.Video.V1.CompositionSettingsContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */

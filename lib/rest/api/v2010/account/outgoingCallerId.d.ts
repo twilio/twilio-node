@@ -8,7 +8,6 @@
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V2010 = require('../../V2010');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
 import { SerializableClass } from '../../../../interfaces';
 
 /**
@@ -51,20 +50,12 @@ interface OutgoingCallerIdListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Api.V2010.AccountContext.OutgoingCallerIdList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: OutgoingCallerIdListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a outgoing_caller_id
-   *
-   * @function get
-   * @memberof Twilio.Api.V2010.AccountContext.OutgoingCallerIdList
-   * @instance
    *
    * @param sid - Fetch by unique outgoing-caller-id Sid
    */
@@ -75,10 +66,6 @@ interface OutgoingCallerIdListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Api.V2010.AccountContext.OutgoingCallerIdList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -88,28 +75,20 @@ interface OutgoingCallerIdListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Api.V2010.AccountContext.OutgoingCallerIdList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: OutgoingCallerIdListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of OutgoingCallerIdInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Api.V2010.AccountContext.OutgoingCallerIdList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: OutgoingCallerIdListInstancePageOptions, callback?: function);
 }
 
 /**
@@ -117,7 +96,7 @@ interface OutgoingCallerIdListInstance {
  *
  * @property friendlyName - A human readable description of the caller ID
  */
-export interface UpdateOptions {
+export interface OutgoingCallerIdInstanceUpdateOptions {
   friendlyName?: string;
 }
 
@@ -126,8 +105,77 @@ export interface UpdateOptions {
  *
  * @property friendlyName - A human readable description of the caller ID
  */
-export interface UpdateOptions {
+export interface OutgoingCallerIdContextUpdateOptions {
   friendlyName?: string;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property phoneNumber - Filter by phone number
+ * @property friendlyName - Filter by friendly name
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface OutgoingCallerIdListInstanceEachOptions {
+  callback?: Function;
+  done?: Function;
+  friendlyName?: string;
+  limit?: number;
+  pageSize?: number;
+  phoneNumber?: string;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property phoneNumber - Filter by phone number
+ * @property friendlyName - Filter by friendly name
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface OutgoingCallerIdListInstanceOptions {
+  friendlyName?: string;
+  limit?: number;
+  pageSize?: number;
+  phoneNumber?: string;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property phoneNumber - Filter by phone number
+ * @property friendlyName - Filter by friendly name
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface OutgoingCallerIdListInstancePageOptions {
+  friendlyName?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  phoneNumber?: string;
 }
 
 
@@ -145,10 +193,6 @@ declare class OutgoingCallerIdPage extends Page {
 
   /**
    * Build an instance of OutgoingCallerIdInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Api.V2010.AccountContext.OutgoingCallerIdPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -180,19 +224,11 @@ declare class OutgoingCallerIdInstance {
   /**
    * fetch a OutgoingCallerIdInstance
    *
-   * @function fetch
-   * @memberof Twilio.Api.V2010.AccountContext.OutgoingCallerIdInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a OutgoingCallerIdInstance
-   *
-   * @function remove
-   * @memberof Twilio.Api.V2010.AccountContext.OutgoingCallerIdInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -200,23 +236,15 @@ declare class OutgoingCallerIdInstance {
   /**
    * Produce a plain JSON object version of the OutgoingCallerIdInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Api.V2010.AccountContext.OutgoingCallerIdInstance
-   * @instance
    */
   toJSON();
   /**
    * update a OutgoingCallerIdInstance
    *
-   * @function update
-   * @memberof Twilio.Api.V2010.AccountContext.OutgoingCallerIdInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: OutgoingCallerIdInstanceUpdateOptions, callback?: function);
 }
 
 
@@ -234,19 +262,11 @@ declare class OutgoingCallerIdContext {
   /**
    * fetch a OutgoingCallerIdInstance
    *
-   * @function fetch
-   * @memberof Twilio.Api.V2010.AccountContext.OutgoingCallerIdContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a OutgoingCallerIdInstance
-   *
-   * @function remove
-   * @memberof Twilio.Api.V2010.AccountContext.OutgoingCallerIdContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -254,14 +274,10 @@ declare class OutgoingCallerIdContext {
   /**
    * update a OutgoingCallerIdInstance
    *
-   * @function update
-   * @memberof Twilio.Api.V2010.AccountContext.OutgoingCallerIdContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: OutgoingCallerIdContextUpdateOptions, callback?: function);
 }
 
 export { OutgoingCallerIdContext, OutgoingCallerIdInstance, OutgoingCallerIdList, OutgoingCallerIdListInstance, OutgoingCallerIdPage, OutgoingCallerIdPayload, OutgoingCallerIdResource, OutgoingCallerIdSolution }

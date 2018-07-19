@@ -9,7 +9,6 @@ import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V2010 = require('../../V2010');
 import serialize = require('../../../../base/serialize');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
 import { SerializableClass } from '../../../../interfaces';
 
 /**
@@ -58,14 +57,10 @@ interface ApplicationListInstance {
   /**
    * create a ApplicationInstance
    *
-   * @function create
-   * @memberof Twilio.Api.V2010.AccountContext.ApplicationList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: object, callback?: function);
+  create(opts: ApplicationListInstanceCreateOptions, callback?: function);
   /**
    * Streams ApplicationInstance records from the API.
    *
@@ -76,20 +71,12 @@ interface ApplicationListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Api.V2010.AccountContext.ApplicationList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: ApplicationListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a application
-   *
-   * @function get
-   * @memberof Twilio.Api.V2010.AccountContext.ApplicationList
-   * @instance
    *
    * @param sid - Fetch by unique Application Sid
    */
@@ -100,10 +87,6 @@ interface ApplicationListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Api.V2010.AccountContext.ApplicationList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -113,28 +96,20 @@ interface ApplicationListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Api.V2010.AccountContext.ApplicationList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: ApplicationListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of ApplicationInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Api.V2010.AccountContext.ApplicationList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: ApplicationListInstancePageOptions, callback?: function);
 }
 
 /**
@@ -156,7 +131,7 @@ interface ApplicationListInstance {
  * @property smsStatusCallback - URL Twilio with request with status updates
  * @property messageStatusCallback - URL to make requests to with status updates
  */
-export interface UpdateOptions {
+export interface ApplicationInstanceUpdateOptions {
   apiVersion?: string;
   friendlyName?: string;
   messageStatusCallback?: string;
@@ -193,7 +168,7 @@ export interface UpdateOptions {
  * @property smsStatusCallback - URL Twilio with request with status updates
  * @property messageStatusCallback - URL to make requests to with status updates
  */
-export interface UpdateOptions {
+export interface ApplicationContextUpdateOptions {
   apiVersion?: string;
   friendlyName?: string;
   messageStatusCallback?: string;
@@ -209,6 +184,106 @@ export interface UpdateOptions {
   voiceFallbackUrl?: string;
   voiceMethod?: string;
   voiceUrl?: string;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property friendlyName - A human readable description of the application
+ * @property apiVersion - The API version to use
+ * @property voiceUrl - URL Twilio will make requests to when relieving a call
+ * @property voiceMethod - HTTP method to use with the URL
+ * @property voiceFallbackUrl - Fallback URL
+ * @property voiceFallbackMethod - HTTP method to use with the fallback url
+ * @property statusCallback - URL to hit with status updates
+ * @property statusCallbackMethod - HTTP method to use with the status callback
+ * @property voiceCallerIdLookup - True or False
+ * @property smsUrl - URL Twilio will request when receiving an SMS
+ * @property smsMethod - HTTP method to use with sms_url
+ * @property smsFallbackUrl - Fallback URL if there's an error parsing TwiML
+ * @property smsFallbackMethod - HTTP method to use with sms_fallback_method
+ * @property smsStatusCallback - URL Twilio with request with status updates
+ * @property messageStatusCallback - URL to make requests to with status updates
+ */
+export interface ApplicationListInstanceCreateOptions {
+  apiVersion?: string;
+  friendlyName: string;
+  messageStatusCallback?: string;
+  smsFallbackMethod?: string;
+  smsFallbackUrl?: string;
+  smsMethod?: string;
+  smsStatusCallback?: string;
+  smsUrl?: string;
+  statusCallback?: string;
+  statusCallbackMethod?: string;
+  voiceCallerIdLookup?: boolean;
+  voiceFallbackMethod?: string;
+  voiceFallbackUrl?: string;
+  voiceMethod?: string;
+  voiceUrl?: string;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property friendlyName - Filter by friendly name
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface ApplicationListInstanceEachOptions {
+  callback?: Function;
+  done?: Function;
+  friendlyName?: string;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property friendlyName - Filter by friendly name
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface ApplicationListInstanceOptions {
+  friendlyName?: string;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property friendlyName - Filter by friendly name
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface ApplicationListInstancePageOptions {
+  friendlyName?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
 }
 
 
@@ -226,10 +301,6 @@ declare class ApplicationPage extends Page {
 
   /**
    * Build an instance of ApplicationInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Api.V2010.AccountContext.ApplicationPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -274,19 +345,11 @@ declare class ApplicationInstance {
   /**
    * fetch a ApplicationInstance
    *
-   * @function fetch
-   * @memberof Twilio.Api.V2010.AccountContext.ApplicationInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a ApplicationInstance
-   *
-   * @function remove
-   * @memberof Twilio.Api.V2010.AccountContext.ApplicationInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -294,23 +357,15 @@ declare class ApplicationInstance {
   /**
    * Produce a plain JSON object version of the ApplicationInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Api.V2010.AccountContext.ApplicationInstance
-   * @instance
    */
   toJSON();
   /**
    * update a ApplicationInstance
    *
-   * @function update
-   * @memberof Twilio.Api.V2010.AccountContext.ApplicationInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: ApplicationInstanceUpdateOptions, callback?: function);
 }
 
 
@@ -328,19 +383,11 @@ declare class ApplicationContext {
   /**
    * fetch a ApplicationInstance
    *
-   * @function fetch
-   * @memberof Twilio.Api.V2010.AccountContext.ApplicationContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a ApplicationInstance
-   *
-   * @function remove
-   * @memberof Twilio.Api.V2010.AccountContext.ApplicationContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -348,14 +395,10 @@ declare class ApplicationContext {
   /**
    * update a ApplicationInstance
    *
-   * @function update
-   * @memberof Twilio.Api.V2010.AccountContext.ApplicationContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: ApplicationContextUpdateOptions, callback?: function);
 }
 
 export { ApplicationContext, ApplicationInstance, ApplicationList, ApplicationListInstance, ApplicationPage, ApplicationPayload, ApplicationResource, ApplicationSolution }

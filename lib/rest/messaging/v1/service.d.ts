@@ -10,7 +10,6 @@ import Response = require('../../../http/response');
 import V1 = require('../V1');
 import serialize = require('../../../base/serialize');
 import { AlphaSenderList } from './service/alphaSender';
-import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
 import { PhoneNumberList } from './service/phoneNumber';
 import { SerializableClass } from '../../../interfaces';
 import { ShortCodeList } from './service/shortCode';
@@ -60,14 +59,10 @@ interface ServiceListInstance {
   /**
    * create a ServiceInstance
    *
-   * @function create
-   * @memberof Twilio.Messaging.V1.ServiceList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: object, callback?: function);
+  create(opts: ServiceListInstanceCreateOptions, callback?: function);
   /**
    * Streams ServiceInstance records from the API.
    *
@@ -78,20 +73,12 @@ interface ServiceListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Messaging.V1.ServiceList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: ServiceListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a service
-   *
-   * @function get
-   * @memberof Twilio.Messaging.V1.ServiceList
-   * @instance
    *
    * @param sid - The sid
    */
@@ -102,10 +89,6 @@ interface ServiceListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Messaging.V1.ServiceList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -115,28 +98,20 @@ interface ServiceListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Messaging.V1.ServiceList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: ServiceListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of ServiceInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Messaging.V1.ServiceList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: ServiceListInstancePageOptions, callback?: function);
 }
 
 /**
@@ -157,7 +132,7 @@ interface ServiceListInstance {
  * @property validityPeriod - The validity_period
  * @property synchronousValidation - The synchronous_validation
  */
-export interface UpdateOptions {
+export interface ServiceInstanceUpdateOptions {
   areaCodeGeomatch?: boolean;
   fallbackMethod?: string;
   fallbackToLongCode?: boolean;
@@ -192,7 +167,7 @@ export interface UpdateOptions {
  * @property validityPeriod - The validity_period
  * @property synchronousValidation - The synchronous_validation
  */
-export interface UpdateOptions {
+export interface ServiceContextUpdateOptions {
   areaCodeGeomatch?: boolean;
   fallbackMethod?: string;
   fallbackToLongCode?: boolean;
@@ -207,6 +182,98 @@ export interface UpdateOptions {
   stickySender?: boolean;
   synchronousValidation?: boolean;
   validityPeriod?: number;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property friendlyName - A human readable descriptive text for this resource, up to 64 characters.
+ * @property inboundRequestUrl - A webhook request is made to the Inbound Request URL when a message is received by any phone number or shortcode associated to your Messaging Service.
+ * @property inboundMethod - The HTTP method used when making requests to the Inbound Request URL.
+ * @property fallbackUrl - A request is made to the Fallback URL if an error occurs with retrieving or executing the TwiML from you Inbound Request URL.
+ * @property fallbackMethod - The HTTP method used when requesting the Fallback URL.
+ * @property statusCallback - A webhook request is made to the Status Callback to pass status updates about your messages.
+ * @property stickySender - Configuration to enable or disable Sticky Sender on your Service Instance.
+ * @property mmsConverter - Configuration to enable or disable MMS Converter on your Service Instance.
+ * @property smartEncoding - Configuration to enable or disable Smart Encoding.
+ * @property scanMessageContent - The scan_message_content
+ * @property fallbackToLongCode - Configuration to enable or disable Fallback to Long Code.
+ * @property areaCodeGeomatch - Configuration to enable or disable Area Code Geomatch.
+ * @property validityPeriod - Configuration to set the validity period of all messages sent from your Service, in seconds.
+ * @property synchronousValidation - The synchronous_validation
+ */
+export interface ServiceListInstanceCreateOptions {
+  areaCodeGeomatch?: boolean;
+  fallbackMethod?: string;
+  fallbackToLongCode?: boolean;
+  fallbackUrl?: string;
+  friendlyName: string;
+  inboundMethod?: string;
+  inboundRequestUrl?: string;
+  mmsConverter?: boolean;
+  scanMessageContent?: service.scan_message_content;
+  smartEncoding?: boolean;
+  statusCallback?: string;
+  stickySender?: boolean;
+  synchronousValidation?: boolean;
+  validityPeriod?: number;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface ServiceListInstanceEachOptions {
+  callback?: Function;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface ServiceListInstanceOptions {
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface ServiceListInstancePageOptions {
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
 }
 
 
@@ -225,10 +292,6 @@ declare class ServicePage extends Page {
 
   /**
    * Build an instance of ServiceInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Messaging.V1.ServicePage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -272,68 +335,40 @@ declare class ServiceInstance {
   _proxy?: ServiceContext;
   /**
    * Access the alphaSenders
-   *
-   * @function alphaSenders
-   * @memberof Twilio.Messaging.V1.ServiceInstance
-   * @instance
    */
   alphaSenders();
   /**
    * fetch a ServiceInstance
-   *
-   * @function fetch
-   * @memberof Twilio.Messaging.V1.ServiceInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * Access the phoneNumbers
-   *
-   * @function phoneNumbers
-   * @memberof Twilio.Messaging.V1.ServiceInstance
-   * @instance
    */
   phoneNumbers();
   /**
    * remove a ServiceInstance
-   *
-   * @function remove
-   * @memberof Twilio.Messaging.V1.ServiceInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: function);
   /**
    * Access the shortCodes
-   *
-   * @function shortCodes
-   * @memberof Twilio.Messaging.V1.ServiceInstance
-   * @instance
    */
   shortCodes();
   /**
    * Produce a plain JSON object version of the ServiceInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Messaging.V1.ServiceInstance
-   * @instance
    */
   toJSON();
   /**
    * update a ServiceInstance
    *
-   * @function update
-   * @memberof Twilio.Messaging.V1.ServiceInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: ServiceInstanceUpdateOptions, callback?: function);
 }
 
 
@@ -356,20 +391,12 @@ declare class ServiceContext {
   /**
    * fetch a ServiceInstance
    *
-   * @function fetch
-   * @memberof Twilio.Messaging.V1.ServiceContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   phoneNumbers?: Twilio.Messaging.V1.ServiceContext.PhoneNumberList;
   /**
    * remove a ServiceInstance
-   *
-   * @function remove
-   * @memberof Twilio.Messaging.V1.ServiceContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -378,14 +405,10 @@ declare class ServiceContext {
   /**
    * update a ServiceInstance
    *
-   * @function update
-   * @memberof Twilio.Messaging.V1.ServiceContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: ServiceContextUpdateOptions, callback?: function);
 }
 
 export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServicePage, ServicePayload, ServiceResource, ServiceSolution }

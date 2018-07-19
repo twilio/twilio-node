@@ -8,7 +8,6 @@
 import Page = require('../../../../../base/Page');
 import Proxy = require('../../../Proxy');
 import Response = require('../../../../../http/response');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../interfaces';
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
@@ -66,20 +65,12 @@ interface InteractionListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Preview.Proxy.ServiceContext.SessionContext.InteractionList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: InteractionListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a interaction
-   *
-   * @function get
-   * @memberof Twilio.Preview.Proxy.ServiceContext.SessionContext.InteractionList
-   * @instance
    *
    * @param sid - A string that uniquely identifies this Interaction.
    */
@@ -90,10 +81,6 @@ interface InteractionListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Preview.Proxy.ServiceContext.SessionContext.InteractionList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -103,28 +90,89 @@ interface InteractionListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Preview.Proxy.ServiceContext.SessionContext.InteractionList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: InteractionListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of InteractionInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Preview.Proxy.ServiceContext.SessionContext.InteractionList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: InteractionListInstancePageOptions, callback?: function);
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property inboundParticipantStatus - The Inbound Participant Status of this Interaction
+ * @property outboundParticipantStatus - The Outbound Participant Status of this Interaction
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface InteractionListInstanceEachOptions {
+  callback?: Function;
+  done?: Function;
+  inboundParticipantStatus?: interaction.resource_status;
+  limit?: number;
+  outboundParticipantStatus?: interaction.resource_status;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property inboundParticipantStatus - The Inbound Participant Status of this Interaction
+ * @property outboundParticipantStatus - The Outbound Participant Status of this Interaction
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface InteractionListInstanceOptions {
+  inboundParticipantStatus?: interaction.resource_status;
+  limit?: number;
+  outboundParticipantStatus?: interaction.resource_status;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property inboundParticipantStatus - The Inbound Participant Status of this Interaction
+ * @property outboundParticipantStatus - The Outbound Participant Status of this Interaction
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface InteractionListInstancePageOptions {
+  inboundParticipantStatus?: interaction.resource_status;
+  outboundParticipantStatus?: interaction.resource_status;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
 }
 
 
@@ -143,10 +191,6 @@ declare class InteractionPage extends Page {
 
   /**
    * Build an instance of InteractionInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Preview.Proxy.ServiceContext.SessionContext.InteractionPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -192,20 +236,12 @@ declare class InteractionInstance {
   /**
    * fetch a InteractionInstance
    *
-   * @function fetch
-   * @memberof Twilio.Preview.Proxy.ServiceContext.SessionContext.InteractionInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * Produce a plain JSON object version of the InteractionInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Preview.Proxy.ServiceContext.SessionContext.InteractionInstance
-   * @instance
    */
   toJSON();
 }
@@ -226,10 +262,6 @@ declare class InteractionContext {
 
   /**
    * fetch a InteractionInstance
-   *
-   * @function fetch
-   * @memberof Twilio.Preview.Proxy.ServiceContext.SessionContext.InteractionContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */

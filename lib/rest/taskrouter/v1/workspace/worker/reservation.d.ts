@@ -9,7 +9,6 @@ import Page = require('../../../../../base/Page');
 import Response = require('../../../../../http/response');
 import V1 = require('../../../V1');
 import serialize = require('../../../../../base/serialize');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../interfaces';
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
@@ -58,20 +57,12 @@ interface ReservationListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.ReservationList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: ReservationListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a reservation
-   *
-   * @function get
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.ReservationList
-   * @instance
    *
    * @param sid - The sid
    */
@@ -82,10 +73,6 @@ interface ReservationListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.ReservationList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -95,28 +82,20 @@ interface ReservationListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.ReservationList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: ReservationListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of ReservationInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.ReservationList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: ReservationListInstancePageOptions, callback?: function);
 }
 
 /**
@@ -172,7 +151,7 @@ interface ReservationListInstance {
  * @property dequeueStatusCallbackEvent - The dequeue_status_callback_event
  * @property postWorkActivitySid - The post_work_activity_sid
  */
-export interface UpdateOptions {
+export interface ReservationInstanceUpdateOptions {
   beep?: string;
   callAccept?: boolean;
   callFrom?: string;
@@ -277,7 +256,7 @@ export interface UpdateOptions {
  * @property dequeueStatusCallbackEvent - The dequeue_status_callback_event
  * @property postWorkActivitySid - The post_work_activity_sid
  */
-export interface UpdateOptions {
+export interface ReservationContextUpdateOptions {
   beep?: string;
   callAccept?: boolean;
   callFrom?: string;
@@ -327,6 +306,69 @@ export interface UpdateOptions {
   waitMethod?: string;
   waitUrl?: string;
   workerActivitySid?: string;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property reservationStatus - Filter by a worker's reservation status
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface ReservationListInstanceEachOptions {
+  callback?: Function;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+  reservationStatus?: reservation.status;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property reservationStatus - Filter by a worker's reservation status
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface ReservationListInstanceOptions {
+  limit?: number;
+  pageSize?: number;
+  reservationStatus?: reservation.status;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property reservationStatus - Filter by a worker's reservation status
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface ReservationListInstancePageOptions {
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  reservationStatus?: reservation.status;
 }
 
 
@@ -344,10 +386,6 @@ declare class ReservationPage extends Page {
 
   /**
    * Build an instance of ReservationInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.ReservationPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -384,33 +422,21 @@ declare class ReservationInstance {
   /**
    * fetch a ReservationInstance
    *
-   * @function fetch
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.ReservationInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * Produce a plain JSON object version of the ReservationInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.ReservationInstance
-   * @instance
    */
   toJSON();
   /**
    * update a ReservationInstance
    *
-   * @function update
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.ReservationInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: ReservationInstanceUpdateOptions, callback?: function);
 }
 
 
@@ -429,24 +455,16 @@ declare class ReservationContext {
   /**
    * fetch a ReservationInstance
    *
-   * @function fetch
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.ReservationContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * update a ReservationInstance
    *
-   * @function update
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.ReservationContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: ReservationContextUpdateOptions, callback?: function);
 }
 
 export { ReservationContext, ReservationInstance, ReservationList, ReservationListInstance, ReservationPage, ReservationPayload, ReservationResource, ReservationSolution }

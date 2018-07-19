@@ -39,14 +39,19 @@ interface TokenListInstance {
   /**
    * create a TokenInstance
    *
-   * @function create
-   * @memberof Twilio.Api.V2010.AccountContext.TokenList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: object, callback?: function);
+  create(opts?: TokenListInstanceCreateOptions, callback?: function);
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property ttl - The duration in seconds the credentials are valid
+ */
+export interface TokenListInstanceCreateOptions {
+  ttl?: number;
 }
 
 
@@ -64,10 +69,6 @@ declare class TokenPage extends Page {
 
   /**
    * Build an instance of TokenInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Api.V2010.AccountContext.TokenPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -97,10 +98,6 @@ declare class TokenInstance {
   /**
    * Produce a plain JSON object version of the TokenInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Api.V2010.AccountContext.TokenInstance
-   * @instance
    */
   toJSON();
 }

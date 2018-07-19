@@ -49,10 +49,6 @@ declare class PhoneNumberPage extends Page {
   /**
    * Build an instance of PhoneNumberInstance
    *
-   * @function getInstance
-   * @memberof Twilio.Pricing.V1.PhoneNumberPage
-   * @instance
-   *
    * @param payload - Payload response from the API
    */
   getInstance(payload: object);
@@ -76,10 +72,6 @@ declare class PhoneNumberInstance {
   /**
    * Produce a plain JSON object version of the PhoneNumberInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Pricing.V1.PhoneNumberInstance
-   * @instance
    */
   toJSON();
 }

@@ -42,14 +42,21 @@ interface VerificationCheckListInstance {
   /**
    * create a VerificationCheckInstance
    *
-   * @function create
-   * @memberof Twilio.Preview.AccSecurity.ServiceContext.VerificationCheckList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: object, callback?: function);
+  create(opts: VerificationCheckListInstanceCreateOptions, callback?: function);
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property code - The verification string
+ * @property to - To phonenumber
+ */
+export interface VerificationCheckListInstanceCreateOptions {
+  code: string;
+  to?: string;
 }
 
 
@@ -68,10 +75,6 @@ declare class VerificationCheckPage extends Page {
 
   /**
    * Build an instance of VerificationCheckInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Preview.AccSecurity.ServiceContext.VerificationCheckPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -104,10 +107,6 @@ declare class VerificationCheckInstance {
   /**
    * Produce a plain JSON object version of the VerificationCheckInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Preview.AccSecurity.ServiceContext.VerificationCheckInstance
-   * @instance
    */
   toJSON();
 }

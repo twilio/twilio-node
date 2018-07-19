@@ -9,7 +9,6 @@ import Page = require('../../../../../base/Page');
 import Response = require('../../../../../http/response');
 import V1 = require('../../../V1');
 import serialize = require('../../../../../base/serialize');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../interfaces';
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
@@ -51,14 +50,10 @@ interface MemberListInstance {
   /**
    * create a MemberInstance
    *
-   * @function create
-   * @memberof Twilio.Chat.V1.ServiceContext.ChannelContext.MemberList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: object, callback?: function);
+  create(opts: MemberListInstanceCreateOptions, callback?: function);
   /**
    * Streams MemberInstance records from the API.
    *
@@ -69,20 +64,12 @@ interface MemberListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Chat.V1.ServiceContext.ChannelContext.MemberList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: MemberListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a member
-   *
-   * @function get
-   * @memberof Twilio.Chat.V1.ServiceContext.ChannelContext.MemberList
-   * @instance
    *
    * @param sid - The sid
    */
@@ -93,10 +80,6 @@ interface MemberListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Chat.V1.ServiceContext.ChannelContext.MemberList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -106,28 +89,20 @@ interface MemberListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Chat.V1.ServiceContext.ChannelContext.MemberList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: MemberListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of MemberInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Chat.V1.ServiceContext.ChannelContext.MemberList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: MemberListInstancePageOptions, callback?: function);
 }
 
 /**
@@ -136,7 +111,7 @@ interface MemberListInstance {
  * @property roleSid - The Role assigned to this member.
  * @property lastConsumedMessageIndex - An Integer representing index of the last Message this Member has read within this Channel
  */
-export interface UpdateOptions {
+export interface MemberInstanceUpdateOptions {
   lastConsumedMessageIndex?: number;
   roleSid?: string;
 }
@@ -147,9 +122,83 @@ export interface UpdateOptions {
  * @property roleSid - The Role assigned to this member.
  * @property lastConsumedMessageIndex - An Integer representing index of the last Message this Member has read within this Channel
  */
-export interface UpdateOptions {
+export interface MemberContextUpdateOptions {
   lastConsumedMessageIndex?: number;
   roleSid?: string;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property identity - A unique string identifier for this User in this Service.
+ * @property roleSid - The Role assigned to this member.
+ */
+export interface MemberListInstanceCreateOptions {
+  identity: string;
+  roleSid?: string;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property identity - A unique string identifier for this User in this Service.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface MemberListInstanceEachOptions {
+  callback?: Function;
+  done?: Function;
+  identity?: string|list;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property identity - A unique string identifier for this User in this Service.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface MemberListInstanceOptions {
+  identity?: string|list;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property identity - A unique string identifier for this User in this Service.
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface MemberListInstancePageOptions {
+  identity?: string|list;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
 }
 
 
@@ -167,10 +216,6 @@ declare class MemberPage extends Page {
 
   /**
    * Build an instance of MemberInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Chat.V1.ServiceContext.ChannelContext.MemberPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -207,19 +252,11 @@ declare class MemberInstance {
   /**
    * fetch a MemberInstance
    *
-   * @function fetch
-   * @memberof Twilio.Chat.V1.ServiceContext.ChannelContext.MemberInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a MemberInstance
-   *
-   * @function remove
-   * @memberof Twilio.Chat.V1.ServiceContext.ChannelContext.MemberInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -227,23 +264,15 @@ declare class MemberInstance {
   /**
    * Produce a plain JSON object version of the MemberInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Chat.V1.ServiceContext.ChannelContext.MemberInstance
-   * @instance
    */
   toJSON();
   /**
    * update a MemberInstance
    *
-   * @function update
-   * @memberof Twilio.Chat.V1.ServiceContext.ChannelContext.MemberInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: MemberInstanceUpdateOptions, callback?: function);
 }
 
 
@@ -262,19 +291,11 @@ declare class MemberContext {
   /**
    * fetch a MemberInstance
    *
-   * @function fetch
-   * @memberof Twilio.Chat.V1.ServiceContext.ChannelContext.MemberContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a MemberInstance
-   *
-   * @function remove
-   * @memberof Twilio.Chat.V1.ServiceContext.ChannelContext.MemberContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -282,14 +303,10 @@ declare class MemberContext {
   /**
    * update a MemberInstance
    *
-   * @function update
-   * @memberof Twilio.Chat.V1.ServiceContext.ChannelContext.MemberContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: MemberContextUpdateOptions, callback?: function);
 }
 
 export { MemberContext, MemberInstance, MemberList, MemberListInstance, MemberPage, MemberPayload, MemberResource, MemberSolution }

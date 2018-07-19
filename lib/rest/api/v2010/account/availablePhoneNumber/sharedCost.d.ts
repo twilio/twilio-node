@@ -9,7 +9,6 @@ import Page = require('../../../../../base/Page');
 import Response = require('../../../../../http/response');
 import V2010 = require('../../../V2010');
 import serialize = require('../../../../../base/serialize');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../interfaces';
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
@@ -56,23 +55,15 @@ interface SharedCostListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.SharedCostList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: SharedCostListInstanceEachOptions, callback?: Function);
   /**
    * Retrieve a single target page of SharedCostInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @function getPage
-   * @memberof Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.SharedCostList
-   * @instance
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -83,28 +74,185 @@ interface SharedCostListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.SharedCostList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: SharedCostListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of SharedCostInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.SharedCostList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: SharedCostListInstancePageOptions, callback?: function);
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property areaCode - The area_code
+ * @property contains - The contains
+ * @property smsEnabled - The sms_enabled
+ * @property mmsEnabled - The mms_enabled
+ * @property voiceEnabled - The voice_enabled
+ * @property excludeAllAddressRequired - The exclude_all_address_required
+ * @property excludeLocalAddressRequired - The exclude_local_address_required
+ * @property excludeForeignAddressRequired - The exclude_foreign_address_required
+ * @property beta - The beta
+ * @property nearNumber - The near_number
+ * @property nearLatLong - The near_lat_long
+ * @property distance - The distance
+ * @property inPostalCode - The in_postal_code
+ * @property inRegion - The in_region
+ * @property inRateCenter - The in_rate_center
+ * @property inLata - The in_lata
+ * @property inLocality - The in_locality
+ * @property faxEnabled - The fax_enabled
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface SharedCostListInstanceEachOptions {
+  areaCode?: number;
+  beta?: boolean;
+  callback?: Function;
+  contains?: string;
+  distance?: number;
+  done?: Function;
+  excludeAllAddressRequired?: boolean;
+  excludeForeignAddressRequired?: boolean;
+  excludeLocalAddressRequired?: boolean;
+  faxEnabled?: boolean;
+  inLata?: string;
+  inLocality?: string;
+  inPostalCode?: string;
+  inRateCenter?: string;
+  inRegion?: string;
+  limit?: number;
+  mmsEnabled?: boolean;
+  nearLatLong?: string;
+  nearNumber?: string;
+  pageSize?: number;
+  smsEnabled?: boolean;
+  voiceEnabled?: boolean;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property areaCode - The area_code
+ * @property contains - The contains
+ * @property smsEnabled - The sms_enabled
+ * @property mmsEnabled - The mms_enabled
+ * @property voiceEnabled - The voice_enabled
+ * @property excludeAllAddressRequired - The exclude_all_address_required
+ * @property excludeLocalAddressRequired - The exclude_local_address_required
+ * @property excludeForeignAddressRequired - The exclude_foreign_address_required
+ * @property beta - The beta
+ * @property nearNumber - The near_number
+ * @property nearLatLong - The near_lat_long
+ * @property distance - The distance
+ * @property inPostalCode - The in_postal_code
+ * @property inRegion - The in_region
+ * @property inRateCenter - The in_rate_center
+ * @property inLata - The in_lata
+ * @property inLocality - The in_locality
+ * @property faxEnabled - The fax_enabled
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface SharedCostListInstanceOptions {
+  areaCode?: number;
+  beta?: boolean;
+  contains?: string;
+  distance?: number;
+  excludeAllAddressRequired?: boolean;
+  excludeForeignAddressRequired?: boolean;
+  excludeLocalAddressRequired?: boolean;
+  faxEnabled?: boolean;
+  inLata?: string;
+  inLocality?: string;
+  inPostalCode?: string;
+  inRateCenter?: string;
+  inRegion?: string;
+  limit?: number;
+  mmsEnabled?: boolean;
+  nearLatLong?: string;
+  nearNumber?: string;
+  pageSize?: number;
+  smsEnabled?: boolean;
+  voiceEnabled?: boolean;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property areaCode - The area_code
+ * @property contains - The contains
+ * @property smsEnabled - The sms_enabled
+ * @property mmsEnabled - The mms_enabled
+ * @property voiceEnabled - The voice_enabled
+ * @property excludeAllAddressRequired - The exclude_all_address_required
+ * @property excludeLocalAddressRequired - The exclude_local_address_required
+ * @property excludeForeignAddressRequired - The exclude_foreign_address_required
+ * @property beta - The beta
+ * @property nearNumber - The near_number
+ * @property nearLatLong - The near_lat_long
+ * @property distance - The distance
+ * @property inPostalCode - The in_postal_code
+ * @property inRegion - The in_region
+ * @property inRateCenter - The in_rate_center
+ * @property inLata - The in_lata
+ * @property inLocality - The in_locality
+ * @property faxEnabled - The fax_enabled
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface SharedCostListInstancePageOptions {
+  areaCode?: number;
+  beta?: boolean;
+  contains?: string;
+  distance?: number;
+  excludeAllAddressRequired?: boolean;
+  excludeForeignAddressRequired?: boolean;
+  excludeLocalAddressRequired?: boolean;
+  faxEnabled?: boolean;
+  inLata?: string;
+  inLocality?: string;
+  inPostalCode?: string;
+  inRateCenter?: string;
+  inRegion?: string;
+  mmsEnabled?: boolean;
+  nearLatLong?: string;
+  nearNumber?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  smsEnabled?: boolean;
+  voiceEnabled?: boolean;
 }
 
 
@@ -122,10 +270,6 @@ declare class SharedCostPage extends Page {
 
   /**
    * Build an instance of SharedCostInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.SharedCostPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -162,10 +306,6 @@ declare class SharedCostInstance {
   /**
    * Produce a plain JSON object version of the SharedCostInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.SharedCostInstance
-   * @instance
    */
   toJSON();
 }

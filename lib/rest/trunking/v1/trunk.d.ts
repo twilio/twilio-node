@@ -11,7 +11,6 @@ import V1 = require('../V1');
 import serialize = require('../../../base/serialize');
 import { CredentialListList } from './trunk/credentialList';
 import { IpAccessControlListList } from './trunk/ipAccessControlList';
-import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
 import { OriginationUrlList } from './trunk/originationUrl';
 import { PhoneNumberList } from './trunk/phoneNumber';
 import { SerializableClass } from '../../../interfaces';
@@ -55,14 +54,10 @@ interface TrunkListInstance {
   /**
    * create a TrunkInstance
    *
-   * @function create
-   * @memberof Twilio.Trunking.V1.TrunkList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: object, callback?: function);
+  create(opts?: TrunkListInstanceCreateOptions, callback?: function);
   /**
    * Streams TrunkInstance records from the API.
    *
@@ -73,20 +68,12 @@ interface TrunkListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Trunking.V1.TrunkList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: TrunkListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a trunk
-   *
-   * @function get
-   * @memberof Twilio.Trunking.V1.TrunkList
-   * @instance
    *
    * @param sid - The sid
    */
@@ -97,10 +84,6 @@ interface TrunkListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Trunking.V1.TrunkList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -110,28 +93,20 @@ interface TrunkListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Trunking.V1.TrunkList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: TrunkListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of TrunkInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Trunking.V1.TrunkList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: TrunkListInstancePageOptions, callback?: function);
 }
 
 /**
@@ -145,7 +120,7 @@ interface TrunkListInstance {
  * @property secure - The Secure Trunking  settings for this trunk.
  * @property cnamLookupEnabled - The Caller ID Name (CNAM) lookup setting for this trunk.
  */
-export interface UpdateOptions {
+export interface TrunkInstanceUpdateOptions {
   cnamLookupEnabled?: boolean;
   disasterRecoveryMethod?: string;
   disasterRecoveryUrl?: string;
@@ -166,7 +141,7 @@ export interface UpdateOptions {
  * @property secure - The Secure Trunking  settings for this trunk.
  * @property cnamLookupEnabled - The Caller ID Name (CNAM) lookup setting for this trunk.
  */
-export interface UpdateOptions {
+export interface TrunkContextUpdateOptions {
   cnamLookupEnabled?: boolean;
   disasterRecoveryMethod?: string;
   disasterRecoveryUrl?: string;
@@ -174,6 +149,84 @@ export interface UpdateOptions {
   friendlyName?: string;
   recording?: trunk.recording_setting;
   secure?: boolean;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property friendlyName - A human-readable name for the Trunk.
+ * @property domainName - The unique address you reserve on Twilio to which you route your SIP traffic.
+ * @property disasterRecoveryUrl - The HTTP URL that Twilio will request if an error occurs while sending SIP traffic towards your configured Origination URL.
+ * @property disasterRecoveryMethod - The HTTP method Twilio will use when requesting the DisasterRecoveryUrl.
+ * @property recording - The recording settings for this trunk.
+ * @property secure - The Secure Trunking  settings for this trunk.
+ * @property cnamLookupEnabled - The Caller ID Name (CNAM) lookup setting for this trunk.
+ */
+export interface TrunkListInstanceCreateOptions {
+  cnamLookupEnabled?: boolean;
+  disasterRecoveryMethod?: string;
+  disasterRecoveryUrl?: string;
+  domainName?: string;
+  friendlyName?: string;
+  recording?: trunk.recording_setting;
+  secure?: boolean;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface TrunkListInstanceEachOptions {
+  callback?: Function;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface TrunkListInstanceOptions {
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface TrunkListInstancePageOptions {
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
 }
 
 
@@ -191,10 +244,6 @@ declare class TrunkPage extends Page {
 
   /**
    * Build an instance of TrunkInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Trunking.V1.TrunkPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -232,52 +281,28 @@ declare class TrunkInstance {
   _proxy?: TrunkContext;
   /**
    * Access the credentialsLists
-   *
-   * @function credentialsLists
-   * @memberof Twilio.Trunking.V1.TrunkInstance
-   * @instance
    */
   credentialsLists();
   /**
    * fetch a TrunkInstance
-   *
-   * @function fetch
-   * @memberof Twilio.Trunking.V1.TrunkInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * Access the ipAccessControlLists
-   *
-   * @function ipAccessControlLists
-   * @memberof Twilio.Trunking.V1.TrunkInstance
-   * @instance
    */
   ipAccessControlLists();
   /**
    * Access the originationUrls
-   *
-   * @function originationUrls
-   * @memberof Twilio.Trunking.V1.TrunkInstance
-   * @instance
    */
   originationUrls();
   /**
    * Access the phoneNumbers
-   *
-   * @function phoneNumbers
-   * @memberof Twilio.Trunking.V1.TrunkInstance
-   * @instance
    */
   phoneNumbers();
   /**
    * remove a TrunkInstance
-   *
-   * @function remove
-   * @memberof Twilio.Trunking.V1.TrunkInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -285,23 +310,15 @@ declare class TrunkInstance {
   /**
    * Produce a plain JSON object version of the TrunkInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Trunking.V1.TrunkInstance
-   * @instance
    */
   toJSON();
   /**
    * update a TrunkInstance
    *
-   * @function update
-   * @memberof Twilio.Trunking.V1.TrunkInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: TrunkInstanceUpdateOptions, callback?: function);
 }
 
 
@@ -324,10 +341,6 @@ declare class TrunkContext {
   /**
    * fetch a TrunkInstance
    *
-   * @function fetch
-   * @memberof Twilio.Trunking.V1.TrunkContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
@@ -337,24 +350,16 @@ declare class TrunkContext {
   /**
    * remove a TrunkInstance
    *
-   * @function remove
-   * @memberof Twilio.Trunking.V1.TrunkContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: function);
   /**
    * update a TrunkInstance
    *
-   * @function update
-   * @memberof Twilio.Trunking.V1.TrunkContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: TrunkContextUpdateOptions, callback?: function);
 }
 
 export { TrunkContext, TrunkInstance, TrunkList, TrunkListInstance, TrunkPage, TrunkPayload, TrunkResource, TrunkSolution }

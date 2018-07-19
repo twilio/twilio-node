@@ -10,7 +10,6 @@ import Response = require('../../../../http/response');
 import V2 = require('../../V2');
 import serialize = require('../../../../base/serialize');
 import { InviteList } from './channel/invite';
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
 import { MemberList } from './channel/member';
 import { MessageList } from './channel/message';
 import { SerializableClass } from '../../../../interfaces';
@@ -56,14 +55,10 @@ interface ChannelListInstance {
   /**
    * create a ChannelInstance
    *
-   * @function create
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.ChannelList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: object, callback?: function);
+  create(opts?: ChannelListInstanceCreateOptions, callback?: function);
   /**
    * Streams ChannelInstance records from the API.
    *
@@ -74,20 +69,12 @@ interface ChannelListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.ChannelList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: ChannelListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a channel
-   *
-   * @function get
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.ChannelList
-   * @instance
    *
    * @param sid - The sid
    */
@@ -98,10 +85,6 @@ interface ChannelListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.ChannelList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -111,28 +94,20 @@ interface ChannelListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.ChannelList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: ChannelListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of ChannelInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.ChannelList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: ChannelListInstancePageOptions, callback?: function);
 }
 
 /**
@@ -145,7 +120,7 @@ interface ChannelListInstance {
  * @property dateUpdated - The optional ISO8601 time specifying the datetime the Channel should be set as having been last updated.
  * @property createdBy - Optional field to specify the Identity of the User that created the Channel.
  */
-export interface UpdateOptions {
+export interface ChannelInstanceUpdateOptions {
   attributes?: string;
   createdBy?: string;
   dateCreated?: Date;
@@ -164,13 +139,97 @@ export interface UpdateOptions {
  * @property dateUpdated - The optional ISO8601 time specifying the datetime the Channel should be set as having been last updated.
  * @property createdBy - Optional field to specify the Identity of the User that created the Channel.
  */
-export interface UpdateOptions {
+export interface ChannelContextUpdateOptions {
   attributes?: string;
   createdBy?: string;
   dateCreated?: Date;
   dateUpdated?: Date;
   friendlyName?: string;
   uniqueName?: string;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property friendlyName - A human-readable name for the Channel.
+ * @property uniqueName - A unique, addressable name for the Channel.
+ * @property attributes - An optional metadata field you can use to store any data you wish.
+ * @property type - The visibility of the channel - public or private.
+ * @property dateCreated - The optional ISO8601 time specifying the datetime the Channel should be set as being created.
+ * @property dateUpdated - The optional ISO8601 time specifying the datetime the Channel should be set as having been last updated.
+ * @property createdBy - Optional field to specify the Identity of the User that created the Channel.
+ */
+export interface ChannelListInstanceCreateOptions {
+  attributes?: string;
+  createdBy?: string;
+  dateCreated?: Date;
+  dateUpdated?: Date;
+  friendlyName?: string;
+  type?: channel.channel_type;
+  uniqueName?: string;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property type - The type
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface ChannelListInstanceEachOptions {
+  callback?: Function;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+  type?: channel.channel_type|list;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property type - The type
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface ChannelListInstanceOptions {
+  limit?: number;
+  pageSize?: number;
+  type?: channel.channel_type|list;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property type - The type
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface ChannelListInstancePageOptions {
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  type?: channel.channel_type|list;
 }
 
 
@@ -188,10 +247,6 @@ declare class ChannelPage extends Page {
 
   /**
    * Build an instance of ChannelInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.ChannelPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -230,43 +285,23 @@ declare class ChannelInstance {
   /**
    * fetch a ChannelInstance
    *
-   * @function fetch
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.ChannelInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * Access the invites
-   *
-   * @function invites
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.ChannelInstance
-   * @instance
    */
   invites();
   /**
    * Access the members
-   *
-   * @function members
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.ChannelInstance
-   * @instance
    */
   members();
   /**
    * Access the messages
-   *
-   * @function messages
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.ChannelInstance
-   * @instance
    */
   messages();
   /**
    * remove a ChannelInstance
-   *
-   * @function remove
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.ChannelInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -274,29 +309,17 @@ declare class ChannelInstance {
   /**
    * Produce a plain JSON object version of the ChannelInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.ChannelInstance
-   * @instance
    */
   toJSON();
   /**
    * update a ChannelInstance
    *
-   * @function update
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.ChannelInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: ChannelInstanceUpdateOptions, callback?: function);
   /**
    * Access the webhooks
-   *
-   * @function webhooks
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.ChannelInstance
-   * @instance
    */
   webhooks();
 }
@@ -321,10 +344,6 @@ declare class ChannelContext {
   /**
    * fetch a ChannelInstance
    *
-   * @function fetch
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.ChannelContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
@@ -334,24 +353,16 @@ declare class ChannelContext {
   /**
    * remove a ChannelInstance
    *
-   * @function remove
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.ChannelContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: function);
   /**
    * update a ChannelInstance
    *
-   * @function update
-   * @memberof Twilio.IpMessaging.V2.ServiceContext.ChannelContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: ChannelContextUpdateOptions, callback?: function);
   webhooks?: Twilio.IpMessaging.V2.ServiceContext.ChannelContext.WebhookList;
 }
 

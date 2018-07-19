@@ -10,7 +10,6 @@ import Response = require('../../../../http/response');
 import V1 = require('../../V1');
 import serialize = require('../../../../base/serialize');
 import { DocumentPermissionList } from './document/documentPermission';
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
 import { SerializableClass } from '../../../../interfaces';
 
 /**
@@ -52,14 +51,10 @@ interface DocumentListInstance {
   /**
    * create a DocumentInstance
    *
-   * @function create
-   * @memberof Twilio.Sync.V1.ServiceContext.DocumentList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: object, callback?: function);
+  create(opts?: DocumentListInstanceCreateOptions, callback?: function);
   /**
    * Streams DocumentInstance records from the API.
    *
@@ -70,20 +65,12 @@ interface DocumentListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Sync.V1.ServiceContext.DocumentList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: DocumentListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a document
-   *
-   * @function get
-   * @memberof Twilio.Sync.V1.ServiceContext.DocumentList
-   * @instance
    *
    * @param sid - The sid
    */
@@ -94,10 +81,6 @@ interface DocumentListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Sync.V1.ServiceContext.DocumentList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -107,28 +90,20 @@ interface DocumentListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Sync.V1.ServiceContext.DocumentList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: DocumentListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of DocumentInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Sync.V1.ServiceContext.DocumentList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: DocumentListInstancePageOptions, callback?: function);
 }
 
 /**
@@ -137,7 +112,7 @@ interface DocumentListInstance {
  * @property data - Contains an arbitrary JSON object to be stored in this Document.
  * @property ttl - New time-to-live of this Document in seconds.
  */
-export interface UpdateOptions {
+export interface DocumentInstanceUpdateOptions {
   data?: string;
   ttl?: number;
 }
@@ -148,9 +123,79 @@ export interface UpdateOptions {
  * @property data - Contains an arbitrary JSON object to be stored in this Document.
  * @property ttl - New time-to-live of this Document in seconds.
  */
-export interface UpdateOptions {
+export interface DocumentContextUpdateOptions {
   data?: string;
   ttl?: number;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property uniqueName - Human-readable name for this document
+ * @property data - JSON data to be stored in this document
+ * @property ttl - Time-to-live of this Document in seconds, defaults to no expiration.
+ */
+export interface DocumentListInstanceCreateOptions {
+  data?: string;
+  ttl?: number;
+  uniqueName?: string;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface DocumentListInstanceEachOptions {
+  callback?: Function;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface DocumentListInstanceOptions {
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface DocumentListInstancePageOptions {
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
 }
 
 
@@ -169,10 +214,6 @@ declare class DocumentPage extends Page {
 
   /**
    * Build an instance of DocumentInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Sync.V1.ServiceContext.DocumentPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -209,18 +250,10 @@ declare class DocumentInstance {
   _proxy?: DocumentContext;
   /**
    * Access the documentPermissions
-   *
-   * @function documentPermissions
-   * @memberof Twilio.Sync.V1.ServiceContext.DocumentInstance
-   * @instance
    */
   documentPermissions();
   /**
    * fetch a DocumentInstance
-   *
-   * @function fetch
-   * @memberof Twilio.Sync.V1.ServiceContext.DocumentInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -228,33 +261,21 @@ declare class DocumentInstance {
   /**
    * remove a DocumentInstance
    *
-   * @function remove
-   * @memberof Twilio.Sync.V1.ServiceContext.DocumentInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: function);
   /**
    * Produce a plain JSON object version of the DocumentInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Sync.V1.ServiceContext.DocumentInstance
-   * @instance
    */
   toJSON();
   /**
    * update a DocumentInstance
    *
-   * @function update
-   * @memberof Twilio.Sync.V1.ServiceContext.DocumentInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: DocumentInstanceUpdateOptions, callback?: function);
 }
 
 
@@ -276,19 +297,11 @@ declare class DocumentContext {
   /**
    * fetch a DocumentInstance
    *
-   * @function fetch
-   * @memberof Twilio.Sync.V1.ServiceContext.DocumentContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a DocumentInstance
-   *
-   * @function remove
-   * @memberof Twilio.Sync.V1.ServiceContext.DocumentContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -296,14 +309,10 @@ declare class DocumentContext {
   /**
    * update a DocumentInstance
    *
-   * @function update
-   * @memberof Twilio.Sync.V1.ServiceContext.DocumentContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: DocumentContextUpdateOptions, callback?: function);
 }
 
 export { DocumentContext, DocumentInstance, DocumentList, DocumentListInstance, DocumentPage, DocumentPayload, DocumentResource, DocumentSolution }

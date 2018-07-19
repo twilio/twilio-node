@@ -8,7 +8,6 @@
 import Page = require('../../../../../base/Page');
 import Proxy = require('../../../Proxy');
 import Response = require('../../../../../http/response');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../interfaces';
 import { MessageInteractionList } from './participant/messageInteraction';
 import { SerializableClass } from '../../../../../interfaces';
 
@@ -53,14 +52,10 @@ interface ParticipantListInstance {
   /**
    * create a ParticipantInstance
    *
-   * @function create
-   * @memberof Twilio.Preview.Proxy.ServiceContext.SessionContext.ParticipantList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: object, callback?: function);
+  create(opts: ParticipantListInstanceCreateOptions, callback?: function);
   /**
    * Streams ParticipantInstance records from the API.
    *
@@ -71,20 +66,12 @@ interface ParticipantListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Preview.Proxy.ServiceContext.SessionContext.ParticipantList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: ParticipantListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a participant
-   *
-   * @function get
-   * @memberof Twilio.Preview.Proxy.ServiceContext.SessionContext.ParticipantList
-   * @instance
    *
    * @param sid - A string that uniquely identifies this Participant.
    */
@@ -95,10 +82,6 @@ interface ParticipantListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Preview.Proxy.ServiceContext.SessionContext.ParticipantList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -108,28 +91,20 @@ interface ParticipantListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Preview.Proxy.ServiceContext.SessionContext.ParticipantList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: ParticipantListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of ParticipantInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Preview.Proxy.ServiceContext.SessionContext.ParticipantList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: ParticipantListInstancePageOptions, callback?: function);
 }
 
 /**
@@ -139,7 +114,7 @@ interface ParticipantListInstance {
  * @property identifier - The Participant's contact identifier, normally a phone number.
  * @property friendlyName - A human readable description of this resource
  */
-export interface UpdateOptions {
+export interface ParticipantInstanceUpdateOptions {
   friendlyName?: string;
   identifier?: string;
   participantType?: participant.participant_type;
@@ -152,9 +127,91 @@ export interface UpdateOptions {
  * @property identifier - The Participant's contact identifier, normally a phone number.
  * @property friendlyName - A human readable description of this resource
  */
-export interface UpdateOptions {
+export interface ParticipantContextUpdateOptions {
   friendlyName?: string;
   identifier?: string;
+  participantType?: participant.participant_type;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property identifier - The Participant's contact identifier, normally a phone number.
+ * @property participantType - The Type of this Participant
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface ParticipantListInstanceEachOptions {
+  callback?: Function;
+  done?: Function;
+  identifier?: string;
+  limit?: number;
+  pageSize?: number;
+  participantType?: participant.participant_type;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property identifier - The Participant's contact identifier, normally a phone number.
+ * @property participantType - The Type of this Participant
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface ParticipantListInstanceOptions {
+  identifier?: string;
+  limit?: number;
+  pageSize?: number;
+  participantType?: participant.participant_type;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property identifier - The Participant's contact identifier, normally a phone number.
+ * @property participantType - The Type of this Participant
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface ParticipantListInstancePageOptions {
+  identifier?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  participantType?: participant.participant_type;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property identifier - The Participant's contact identifier, normally a phone number.
+ * @property friendlyName - A human readable description of this resource
+ * @property participantType - The Type of this Participant
+ */
+export interface ParticipantListInstanceCreateOptions {
+  friendlyName?: string;
+  identifier: string;
   participantType?: participant.participant_type;
 }
 
@@ -174,10 +231,6 @@ declare class ParticipantPage extends Page {
 
   /**
    * Build an instance of ParticipantInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Preview.Proxy.ServiceContext.SessionContext.ParticipantPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -216,27 +269,15 @@ declare class ParticipantInstance {
   /**
    * fetch a ParticipantInstance
    *
-   * @function fetch
-   * @memberof Twilio.Preview.Proxy.ServiceContext.SessionContext.ParticipantInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * Access the messageInteractions
-   *
-   * @function messageInteractions
-   * @memberof Twilio.Preview.Proxy.ServiceContext.SessionContext.ParticipantInstance
-   * @instance
    */
   messageInteractions();
   /**
    * remove a ParticipantInstance
-   *
-   * @function remove
-   * @memberof Twilio.Preview.Proxy.ServiceContext.SessionContext.ParticipantInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -244,23 +285,15 @@ declare class ParticipantInstance {
   /**
    * Produce a plain JSON object version of the ParticipantInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Preview.Proxy.ServiceContext.SessionContext.ParticipantInstance
-   * @instance
    */
   toJSON();
   /**
    * update a ParticipantInstance
    *
-   * @function update
-   * @memberof Twilio.Preview.Proxy.ServiceContext.SessionContext.ParticipantInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: ParticipantInstanceUpdateOptions, callback?: function);
 }
 
 
@@ -282,10 +315,6 @@ declare class ParticipantContext {
   /**
    * fetch a ParticipantInstance
    *
-   * @function fetch
-   * @memberof Twilio.Preview.Proxy.ServiceContext.SessionContext.ParticipantContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
@@ -293,24 +322,16 @@ declare class ParticipantContext {
   /**
    * remove a ParticipantInstance
    *
-   * @function remove
-   * @memberof Twilio.Preview.Proxy.ServiceContext.SessionContext.ParticipantContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: function);
   /**
    * update a ParticipantInstance
    *
-   * @function update
-   * @memberof Twilio.Preview.Proxy.ServiceContext.SessionContext.ParticipantContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: ParticipantContextUpdateOptions, callback?: function);
 }
 
 export { ParticipantContext, ParticipantInstance, ParticipantList, ParticipantListInstance, ParticipantPage, ParticipantPayload, ParticipantResource, ParticipantSolution }

@@ -37,14 +37,19 @@ interface NewSigningKeyListInstance {
   /**
    * create a NewSigningKeyInstance
    *
-   * @function create
-   * @memberof Twilio.Api.V2010.AccountContext.NewSigningKeyList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: object, callback?: function);
+  create(opts?: NewSigningKeyListInstanceCreateOptions, callback?: function);
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property friendlyName - The friendly_name
+ */
+export interface NewSigningKeyListInstanceCreateOptions {
+  friendlyName?: string;
 }
 
 
@@ -62,10 +67,6 @@ declare class NewSigningKeyPage extends Page {
 
   /**
    * Build an instance of NewSigningKeyInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Api.V2010.AccountContext.NewSigningKeyPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -93,10 +94,6 @@ declare class NewSigningKeyInstance {
   /**
    * Produce a plain JSON object version of the NewSigningKeyInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Api.V2010.AccountContext.NewSigningKeyInstance
-   * @instance
    */
   toJSON();
 }

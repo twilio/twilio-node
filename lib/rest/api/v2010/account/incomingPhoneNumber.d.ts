@@ -10,7 +10,6 @@ import Response = require('../../../../http/response');
 import V2010 = require('../../V2010');
 import serialize = require('../../../../base/serialize');
 import { AssignedAddOnList } from './incomingPhoneNumber/assignedAddOn';
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
 import { SerializableClass } from '../../../../interfaces';
 
 /**
@@ -69,14 +68,10 @@ interface IncomingPhoneNumberListInstance {
   /**
    * create a IncomingPhoneNumberInstance
    *
-   * @function create
-   * @memberof Twilio.Api.V2010.AccountContext.IncomingPhoneNumberList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: object, callback?: function);
+  create(opts?: IncomingPhoneNumberListInstanceCreateOptions, callback?: function);
   /**
    * Streams IncomingPhoneNumberInstance records from the API.
    *
@@ -87,20 +82,12 @@ interface IncomingPhoneNumberListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Api.V2010.AccountContext.IncomingPhoneNumberList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: IncomingPhoneNumberListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a incoming_phone_number
-   *
-   * @function get
-   * @memberof Twilio.Api.V2010.AccountContext.IncomingPhoneNumberList
-   * @instance
    *
    * @param sid - Fetch by unique incoming-phone-number Sid
    */
@@ -111,10 +98,6 @@ interface IncomingPhoneNumberListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Api.V2010.AccountContext.IncomingPhoneNumberList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -124,14 +107,10 @@ interface IncomingPhoneNumberListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Api.V2010.AccountContext.IncomingPhoneNumberList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: IncomingPhoneNumberListInstanceOptions, callback?: function);
   local?: object;
   mobile?: object;
   /**
@@ -140,14 +119,10 @@ interface IncomingPhoneNumberListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Api.V2010.AccountContext.IncomingPhoneNumberList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: IncomingPhoneNumberListInstancePageOptions, callback?: function);
   tollFree?: object;
 }
 
@@ -177,7 +152,7 @@ interface IncomingPhoneNumberListInstance {
  * @property identitySid - Unique string that identifies the identity associated with number
  * @property addressSid - Unique string that identifies the address associated with number
  */
-export interface UpdateOptions {
+export interface IncomingPhoneNumberInstanceUpdateOptions {
   accountSid?: string;
   addressSid?: string;
   apiVersion?: string;
@@ -228,7 +203,7 @@ export interface UpdateOptions {
  * @property identitySid - Unique string that identifies the identity associated with number
  * @property addressSid - Unique string that identifies the address associated with number
  */
-export interface UpdateOptions {
+export interface IncomingPhoneNumberContextUpdateOptions {
   accountSid?: string;
   addressSid?: string;
   apiVersion?: string;
@@ -253,6 +228,138 @@ export interface UpdateOptions {
   voiceUrl?: string;
 }
 
+/**
+ * Options to pass to each
+ *
+ * @property beta - Include new phone numbers
+ * @property friendlyName - Filter by friendly name
+ * @property phoneNumber - Filter by incoming phone number
+ * @property origin - Include phone numbers based on the origin, by default, phone numbers of all origin are included.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface IncomingPhoneNumberListInstanceEachOptions {
+  beta?: boolean;
+  callback?: Function;
+  done?: Function;
+  friendlyName?: string;
+  limit?: number;
+  origin?: string;
+  pageSize?: number;
+  phoneNumber?: string;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property beta - Include new phone numbers
+ * @property friendlyName - Filter by friendly name
+ * @property phoneNumber - Filter by incoming phone number
+ * @property origin - Include phone numbers based on the origin, by default, phone numbers of all origin are included.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface IncomingPhoneNumberListInstanceOptions {
+  beta?: boolean;
+  friendlyName?: string;
+  limit?: number;
+  origin?: string;
+  pageSize?: number;
+  phoneNumber?: string;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property beta - Include new phone numbers
+ * @property friendlyName - Filter by friendly name
+ * @property phoneNumber - Filter by incoming phone number
+ * @property origin - Include phone numbers based on the origin, by default, phone numbers of all origin are included.
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface IncomingPhoneNumberListInstancePageOptions {
+  beta?: boolean;
+  friendlyName?: string;
+  origin?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  phoneNumber?: string;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property apiVersion - The Twilio Rest API version to use
+ * @property friendlyName - A human readable description of this resource
+ * @property smsApplicationSid - Unique string that identifies the application
+ * @property smsFallbackMethod - HTTP method used with sms fallback url
+ * @property smsFallbackUrl - URL Twilio will request if an error occurs in executing TwiML
+ * @property smsMethod - HTTP method to use with sms url
+ * @property smsUrl - URL Twilio will request when receiving an SMS
+ * @property statusCallback - URL Twilio will use to pass status parameters
+ * @property statusCallbackMethod - HTTP method twilio will use with status callback
+ * @property voiceApplicationSid - The unique sid of the application to handle this number
+ * @property voiceCallerIdLookup - Look up the caller's caller-ID
+ * @property voiceFallbackMethod - HTTP method used with fallback_url
+ * @property voiceFallbackUrl - URL Twilio will request when an error occurs in TwiML
+ * @property voiceMethod - HTTP method used with the voice url
+ * @property voiceUrl - URL Twilio will request when receiving a call
+ * @property emergencyStatus - The emergency_status
+ * @property emergencyAddressSid - The emergency_address_sid
+ * @property trunkSid - Unique string to identify the trunk
+ * @property identitySid - Unique string that identifies the identity associated with number
+ * @property addressSid - Unique string that identifies the address associated with number
+ * @property phoneNumber - The phone number
+ * @property areaCode - The desired area code for the new number
+ */
+export interface IncomingPhoneNumberListInstanceCreateOptions {
+  addressSid?: string;
+  apiVersion?: string;
+  areaCode?: string;
+  emergencyAddressSid?: string;
+  emergencyStatus?: incoming_phone_number.emergency_status;
+  friendlyName?: string;
+  identitySid?: string;
+  phoneNumber?: string;
+  smsApplicationSid?: string;
+  smsFallbackMethod?: string;
+  smsFallbackUrl?: string;
+  smsMethod?: string;
+  smsUrl?: string;
+  statusCallback?: string;
+  statusCallbackMethod?: string;
+  trunkSid?: string;
+  voiceApplicationSid?: string;
+  voiceCallerIdLookup?: boolean;
+  voiceFallbackMethod?: string;
+  voiceFallbackUrl?: string;
+  voiceMethod?: string;
+  voiceUrl?: string;
+}
+
 
 declare class IncomingPhoneNumberPage extends Page {
   /**
@@ -268,10 +375,6 @@ declare class IncomingPhoneNumberPage extends Page {
 
   /**
    * Build an instance of IncomingPhoneNumberInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Api.V2010.AccountContext.IncomingPhoneNumberPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -325,18 +428,10 @@ declare class IncomingPhoneNumberInstance {
   _proxy?: IncomingPhoneNumberContext;
   /**
    * Access the assignedAddOns
-   *
-   * @function assignedAddOns
-   * @memberof Twilio.Api.V2010.AccountContext.IncomingPhoneNumberInstance
-   * @instance
    */
   assignedAddOns();
   /**
    * fetch a IncomingPhoneNumberInstance
-   *
-   * @function fetch
-   * @memberof Twilio.Api.V2010.AccountContext.IncomingPhoneNumberInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -344,33 +439,21 @@ declare class IncomingPhoneNumberInstance {
   /**
    * remove a IncomingPhoneNumberInstance
    *
-   * @function remove
-   * @memberof Twilio.Api.V2010.AccountContext.IncomingPhoneNumberInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: function);
   /**
    * Produce a plain JSON object version of the IncomingPhoneNumberInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Api.V2010.AccountContext.IncomingPhoneNumberInstance
-   * @instance
    */
   toJSON();
   /**
    * update a IncomingPhoneNumberInstance
    *
-   * @function update
-   * @memberof Twilio.Api.V2010.AccountContext.IncomingPhoneNumberInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: IncomingPhoneNumberInstanceUpdateOptions, callback?: function);
 }
 
 
@@ -391,19 +474,11 @@ declare class IncomingPhoneNumberContext {
   /**
    * fetch a IncomingPhoneNumberInstance
    *
-   * @function fetch
-   * @memberof Twilio.Api.V2010.AccountContext.IncomingPhoneNumberContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a IncomingPhoneNumberInstance
-   *
-   * @function remove
-   * @memberof Twilio.Api.V2010.AccountContext.IncomingPhoneNumberContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -411,14 +486,10 @@ declare class IncomingPhoneNumberContext {
   /**
    * update a IncomingPhoneNumberInstance
    *
-   * @function update
-   * @memberof Twilio.Api.V2010.AccountContext.IncomingPhoneNumberContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: IncomingPhoneNumberContextUpdateOptions, callback?: function);
 }
 
 export { IncomingPhoneNumberContext, IncomingPhoneNumberInstance, IncomingPhoneNumberList, IncomingPhoneNumberListInstance, IncomingPhoneNumberPage, IncomingPhoneNumberPayload, IncomingPhoneNumberResource, IncomingPhoneNumberSolution }

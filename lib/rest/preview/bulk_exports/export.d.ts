@@ -39,10 +39,6 @@ interface ExportListInstance {
   /**
    * Constructs a export
    *
-   * @function get
-   * @memberof Twilio.Preview.BulkExports.ExportList
-   * @instance
-   *
    * @param resourceType - The resource_type
    */
   get(resourceType: string);
@@ -64,10 +60,6 @@ declare class ExportPage extends Page {
 
   /**
    * Build an instance of ExportInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Preview.BulkExports.ExportPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -94,18 +86,10 @@ declare class ExportInstance {
   _proxy?: ExportContext;
   /**
    * Access the days
-   *
-   * @function days
-   * @memberof Twilio.Preview.BulkExports.ExportInstance
-   * @instance
    */
   days();
   /**
    * fetch a ExportInstance
-   *
-   * @function fetch
-   * @memberof Twilio.Preview.BulkExports.ExportInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -113,10 +97,6 @@ declare class ExportInstance {
   /**
    * Produce a plain JSON object version of the ExportInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Preview.BulkExports.ExportInstance
-   * @instance
    */
   toJSON();
 }
@@ -138,10 +118,6 @@ declare class ExportContext {
   days?: Twilio.Preview.BulkExports.ExportContext.DayList;
   /**
    * fetch a ExportInstance
-   *
-   * @function fetch
-   * @memberof Twilio.Preview.BulkExports.ExportContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */

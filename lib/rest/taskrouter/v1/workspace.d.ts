@@ -11,7 +11,6 @@ import V1 = require('../V1');
 import serialize = require('../../../base/serialize');
 import { ActivityList } from './workspace/activity';
 import { EventList } from './workspace/event';
-import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
 import { SerializableClass } from '../../../interfaces';
 import { TaskChannelList } from './workspace/taskChannel';
 import { TaskList } from './workspace/task';
@@ -61,14 +60,10 @@ interface WorkspaceListInstance {
   /**
    * create a WorkspaceInstance
    *
-   * @function create
-   * @memberof Twilio.Taskrouter.V1.WorkspaceList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: object, callback?: function);
+  create(opts: WorkspaceListInstanceCreateOptions, callback?: function);
   /**
    * Streams WorkspaceInstance records from the API.
    *
@@ -79,20 +74,12 @@ interface WorkspaceListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Taskrouter.V1.WorkspaceList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: WorkspaceListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a workspace
-   *
-   * @function get
-   * @memberof Twilio.Taskrouter.V1.WorkspaceList
-   * @instance
    *
    * @param sid - The sid
    */
@@ -103,10 +90,6 @@ interface WorkspaceListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Taskrouter.V1.WorkspaceList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -116,28 +99,20 @@ interface WorkspaceListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Taskrouter.V1.WorkspaceList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: WorkspaceListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of WorkspaceInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Taskrouter.V1.WorkspaceList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: WorkspaceListInstancePageOptions, callback?: function);
 }
 
 /**
@@ -151,7 +126,7 @@ interface WorkspaceListInstance {
  * @property timeoutActivitySid - The ID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
  * @property prioritizeQueueOrder - Use this parameter to configure whether to prioritize LIFO or FIFO when workers are receiving Tasks from combination of LIFO and FIFO TaskQueues.
  */
-export interface UpdateOptions {
+export interface WorkspaceInstanceUpdateOptions {
   defaultActivitySid?: string;
   eventCallbackUrl?: string;
   eventsFilter?: string;
@@ -172,7 +147,7 @@ export interface UpdateOptions {
  * @property timeoutActivitySid - The ID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
  * @property prioritizeQueueOrder - Use this parameter to configure whether to prioritize LIFO or FIFO when workers are receiving Tasks from combination of LIFO and FIFO TaskQueues.
  */
-export interface UpdateOptions {
+export interface WorkspaceContextUpdateOptions {
   defaultActivitySid?: string;
   eventCallbackUrl?: string;
   eventsFilter?: string;
@@ -180,6 +155,88 @@ export interface UpdateOptions {
   multiTaskEnabled?: boolean;
   prioritizeQueueOrder?: workspace.queue_order;
   timeoutActivitySid?: string;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property friendlyName - Filter by a workspace's friendly name.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface WorkspaceListInstanceEachOptions {
+  callback?: Function;
+  done?: Function;
+  friendlyName?: string;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property friendlyName - Filter by a workspace's friendly name.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface WorkspaceListInstanceOptions {
+  friendlyName?: string;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property friendlyName - Filter by a workspace's friendly name.
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface WorkspaceListInstancePageOptions {
+  friendlyName?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property friendlyName - Human readable description of this workspace
+ * @property eventCallbackUrl - If provided, the Workspace will publish events to this URL.
+ * @property eventsFilter - Use this parameter to receive webhooks on EventCallbackUrl for specific events on a workspace.
+ * @property multiTaskEnabled - Multi tasking allows workers to handle multiple tasks simultaneously.
+ * @property template - One of the available template names.
+ * @property prioritizeQueueOrder - Use this parameter to configure whether to prioritize LIFO or FIFO when workers are receiving Tasks from combination of LIFO and FIFO TaskQueues.
+ */
+export interface WorkspaceListInstanceCreateOptions {
+  eventCallbackUrl?: string;
+  eventsFilter?: string;
+  friendlyName: string;
+  multiTaskEnabled?: boolean;
+  prioritizeQueueOrder?: workspace.queue_order;
+  template?: string;
 }
 
 
@@ -197,10 +254,6 @@ declare class WorkspacePage extends Page {
 
   /**
    * Build an instance of WorkspaceInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Taskrouter.V1.WorkspacePage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -238,122 +291,66 @@ declare class WorkspaceInstance {
   _proxy?: WorkspaceContext;
   /**
    * Access the activities
-   *
-   * @function activities
-   * @memberof Twilio.Taskrouter.V1.WorkspaceInstance
-   * @instance
    */
   activities();
   /**
    * Access the cumulativeStatistics
-   *
-   * @function cumulativeStatistics
-   * @memberof Twilio.Taskrouter.V1.WorkspaceInstance
-   * @instance
    */
   cumulativeStatistics();
   /**
    * Access the events
-   *
-   * @function events
-   * @memberof Twilio.Taskrouter.V1.WorkspaceInstance
-   * @instance
    */
   events();
   /**
    * fetch a WorkspaceInstance
-   *
-   * @function fetch
-   * @memberof Twilio.Taskrouter.V1.WorkspaceInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * Access the realTimeStatistics
-   *
-   * @function realTimeStatistics
-   * @memberof Twilio.Taskrouter.V1.WorkspaceInstance
-   * @instance
    */
   realTimeStatistics();
   /**
    * remove a WorkspaceInstance
-   *
-   * @function remove
-   * @memberof Twilio.Taskrouter.V1.WorkspaceInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: function);
   /**
    * Access the statistics
-   *
-   * @function statistics
-   * @memberof Twilio.Taskrouter.V1.WorkspaceInstance
-   * @instance
    */
   statistics();
   /**
    * Access the taskChannels
-   *
-   * @function taskChannels
-   * @memberof Twilio.Taskrouter.V1.WorkspaceInstance
-   * @instance
    */
   taskChannels();
   /**
    * Access the taskQueues
-   *
-   * @function taskQueues
-   * @memberof Twilio.Taskrouter.V1.WorkspaceInstance
-   * @instance
    */
   taskQueues();
   /**
    * Access the tasks
-   *
-   * @function tasks
-   * @memberof Twilio.Taskrouter.V1.WorkspaceInstance
-   * @instance
    */
   tasks();
   /**
    * Produce a plain JSON object version of the WorkspaceInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Taskrouter.V1.WorkspaceInstance
-   * @instance
    */
   toJSON();
   /**
    * update a WorkspaceInstance
    *
-   * @function update
-   * @memberof Twilio.Taskrouter.V1.WorkspaceInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: WorkspaceInstanceUpdateOptions, callback?: function);
   /**
    * Access the workers
-   *
-   * @function workers
-   * @memberof Twilio.Taskrouter.V1.WorkspaceInstance
-   * @instance
    */
   workers();
   /**
    * Access the workflows
-   *
-   * @function workflows
-   * @memberof Twilio.Taskrouter.V1.WorkspaceInstance
-   * @instance
    */
   workflows();
 }
@@ -386,20 +383,12 @@ declare class WorkspaceContext {
   /**
    * fetch a WorkspaceInstance
    *
-   * @function fetch
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   realTimeStatistics?: Twilio.Taskrouter.V1.WorkspaceContext.WorkspaceRealTimeStatisticsList;
   /**
    * remove a WorkspaceInstance
-   *
-   * @function remove
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -411,14 +400,10 @@ declare class WorkspaceContext {
   /**
    * update a WorkspaceInstance
    *
-   * @function update
-   * @memberof Twilio.Taskrouter.V1.WorkspaceContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: WorkspaceContextUpdateOptions, callback?: function);
   workers?: Twilio.Taskrouter.V1.WorkspaceContext.WorkerList;
   workflows?: Twilio.Taskrouter.V1.WorkspaceContext.WorkflowList;
 }

@@ -9,7 +9,6 @@ import Page = require('../../../../../../base/Page');
 import Response = require('../../../../../../http/response');
 import V2010 = require('../../../../V2010');
 import serialize = require('../../../../../../base/serialize');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../../interfaces';
 import { SerializableClass } from '../../../../../../interfaces';
 
 /**
@@ -55,23 +54,15 @@ interface LastMonthListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Api.V2010.AccountContext.UsageContext.RecordContext.LastMonthList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: LastMonthListInstanceEachOptions, callback?: Function);
   /**
    * Retrieve a single target page of LastMonthInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
-   *
-   * @function getPage
-   * @memberof Twilio.Api.V2010.AccountContext.UsageContext.RecordContext.LastMonthList
-   * @instance
    *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
@@ -82,28 +73,101 @@ interface LastMonthListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Api.V2010.AccountContext.UsageContext.RecordContext.LastMonthList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: LastMonthListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of LastMonthInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Api.V2010.AccountContext.UsageContext.RecordContext.LastMonthList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: LastMonthListInstancePageOptions, callback?: function);
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property category - Only include usage of this usage category.
+ * @property startDate - Only include usage that has occurred on or after this date.
+ * @property endDate - Only include usage that has occurred on or before this date.
+ * @property includeSubaccounts - The include_subaccounts
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface LastMonthListInstanceEachOptions {
+  callback?: Function;
+  category?: last_month.category;
+  done?: Function;
+  endDate?: Date;
+  includeSubaccounts?: boolean;
+  limit?: number;
+  pageSize?: number;
+  startDate?: Date;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property category - Only include usage of this usage category.
+ * @property startDate - Only include usage that has occurred on or after this date.
+ * @property endDate - Only include usage that has occurred on or before this date.
+ * @property includeSubaccounts - The include_subaccounts
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface LastMonthListInstanceOptions {
+  category?: last_month.category;
+  endDate?: Date;
+  includeSubaccounts?: boolean;
+  limit?: number;
+  pageSize?: number;
+  startDate?: Date;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property category - Only include usage of this usage category.
+ * @property startDate - Only include usage that has occurred on or after this date.
+ * @property endDate - Only include usage that has occurred on or before this date.
+ * @property includeSubaccounts - The include_subaccounts
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface LastMonthListInstancePageOptions {
+  category?: last_month.category;
+  endDate?: Date;
+  includeSubaccounts?: boolean;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  startDate?: Date;
 }
 
 
@@ -121,10 +185,6 @@ declare class LastMonthPage extends Page {
 
   /**
    * Build an instance of LastMonthInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Api.V2010.AccountContext.UsageContext.RecordContext.LastMonthPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -161,10 +221,6 @@ declare class LastMonthInstance {
   /**
    * Produce a plain JSON object version of the LastMonthInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Api.V2010.AccountContext.UsageContext.RecordContext.LastMonthInstance
-   * @instance
    */
   toJSON();
 }

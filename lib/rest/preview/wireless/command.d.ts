@@ -8,7 +8,6 @@
 import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import Wireless = require('../Wireless');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
 import { SerializableClass } from '../../../interfaces';
 
 /**
@@ -47,14 +46,10 @@ interface CommandListInstance {
   /**
    * create a CommandInstance
    *
-   * @function create
-   * @memberof Twilio.Preview.Wireless.CommandList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: object, callback?: function);
+  create(opts: CommandListInstanceCreateOptions, callback?: function);
   /**
    * Streams CommandInstance records from the API.
    *
@@ -65,20 +60,12 @@ interface CommandListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Preview.Wireless.CommandList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: CommandListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a command
-   *
-   * @function get
-   * @memberof Twilio.Preview.Wireless.CommandList
-   * @instance
    *
    * @param sid - The sid
    */
@@ -89,10 +76,6 @@ interface CommandListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Preview.Wireless.CommandList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -102,28 +85,122 @@ interface CommandListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Preview.Wireless.CommandList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: CommandListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of CommandInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Preview.Wireless.CommandList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: CommandListInstancePageOptions, callback?: function);
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property device - The device
+ * @property sim - The sim
+ * @property status - The status
+ * @property direction - The direction
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface CommandListInstanceEachOptions {
+  callback?: Function;
+  device?: string;
+  direction?: string;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+  sim?: string;
+  status?: string;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property device - The device
+ * @property sim - The sim
+ * @property status - The status
+ * @property direction - The direction
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface CommandListInstanceOptions {
+  device?: string;
+  direction?: string;
+  limit?: number;
+  pageSize?: number;
+  sim?: string;
+  status?: string;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property device - The device
+ * @property sim - The sim
+ * @property status - The status
+ * @property direction - The direction
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface CommandListInstancePageOptions {
+  device?: string;
+  direction?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  sim?: string;
+  status?: string;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property command - The command
+ * @property device - The device
+ * @property sim - The sim
+ * @property callbackMethod - The callback_method
+ * @property callbackUrl - The callback_url
+ * @property commandMode - The command_mode
+ * @property includeSid - The include_sid
+ */
+export interface CommandListInstanceCreateOptions {
+  callbackMethod?: string;
+  callbackUrl?: string;
+  command: string;
+  commandMode?: string;
+  device?: string;
+  includeSid?: string;
+  sim?: string;
 }
 
 
@@ -142,10 +219,6 @@ declare class CommandPage extends Page {
 
   /**
    * Build an instance of CommandInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Preview.Wireless.CommandPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -181,20 +254,12 @@ declare class CommandInstance {
   /**
    * fetch a CommandInstance
    *
-   * @function fetch
-   * @memberof Twilio.Preview.Wireless.CommandInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * Produce a plain JSON object version of the CommandInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Preview.Wireless.CommandInstance
-   * @instance
    */
   toJSON();
 }
@@ -213,10 +278,6 @@ declare class CommandContext {
 
   /**
    * fetch a CommandInstance
-   *
-   * @function fetch
-   * @memberof Twilio.Preview.Wireless.CommandContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */

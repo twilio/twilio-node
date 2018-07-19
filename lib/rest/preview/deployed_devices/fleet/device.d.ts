@@ -9,7 +9,6 @@ import DeployedDevices = require('../../DeployedDevices');
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import serialize = require('../../../../base/serialize');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
 import { SerializableClass } from '../../../../interfaces';
 
 /**
@@ -51,14 +50,10 @@ interface DeviceListInstance {
   /**
    * create a DeviceInstance
    *
-   * @function create
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext.DeviceList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: object, callback?: function);
+  create(opts?: DeviceListInstanceCreateOptions, callback?: function);
   /**
    * Streams DeviceInstance records from the API.
    *
@@ -69,20 +64,12 @@ interface DeviceListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext.DeviceList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: DeviceListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a device
-   *
-   * @function get
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext.DeviceList
-   * @instance
    *
    * @param sid - A string that uniquely identifies the Device.
    */
@@ -93,10 +80,6 @@ interface DeviceListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext.DeviceList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -106,28 +89,20 @@ interface DeviceListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext.DeviceList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: DeviceListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of DeviceInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext.DeviceList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: DeviceListInstancePageOptions, callback?: function);
 }
 
 /**
@@ -138,7 +113,7 @@ interface DeviceListInstance {
  * @property deploymentSid - The unique SID of the Deployment group.
  * @property enabled - The enabled
  */
-export interface UpdateOptions {
+export interface DeviceInstanceUpdateOptions {
   deploymentSid?: string;
   enabled?: boolean;
   friendlyName?: string;
@@ -153,11 +128,91 @@ export interface UpdateOptions {
  * @property deploymentSid - The unique SID of the Deployment group.
  * @property enabled - The enabled
  */
-export interface UpdateOptions {
+export interface DeviceContextUpdateOptions {
   deploymentSid?: string;
   enabled?: boolean;
   friendlyName?: string;
   identity?: string;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property uniqueName - A unique, addressable name of this Device.
+ * @property friendlyName - A human readable description for this Device.
+ * @property identity - An identifier of the Device user.
+ * @property deploymentSid - The unique SID of the Deployment group.
+ * @property enabled - The enabled
+ */
+export interface DeviceListInstanceCreateOptions {
+  deploymentSid?: string;
+  enabled?: boolean;
+  friendlyName?: string;
+  identity?: string;
+  uniqueName?: string;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property deploymentSid - Find all Devices grouped under the specified Deployment.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface DeviceListInstanceEachOptions {
+  callback?: Function;
+  deploymentSid?: string;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property deploymentSid - Find all Devices grouped under the specified Deployment.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface DeviceListInstanceOptions {
+  deploymentSid?: string;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property deploymentSid - Find all Devices grouped under the specified Deployment.
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface DeviceListInstancePageOptions {
+  deploymentSid?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
 }
 
 
@@ -176,10 +231,6 @@ declare class DevicePage extends Page {
 
   /**
    * Build an instance of DeviceInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext.DevicePage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -217,19 +268,11 @@ declare class DeviceInstance {
   /**
    * fetch a DeviceInstance
    *
-   * @function fetch
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext.DeviceInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a DeviceInstance
-   *
-   * @function remove
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext.DeviceInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -237,23 +280,15 @@ declare class DeviceInstance {
   /**
    * Produce a plain JSON object version of the DeviceInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext.DeviceInstance
-   * @instance
    */
   toJSON();
   /**
    * update a DeviceInstance
    *
-   * @function update
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext.DeviceInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: DeviceInstanceUpdateOptions, callback?: function);
 }
 
 
@@ -272,19 +307,11 @@ declare class DeviceContext {
   /**
    * fetch a DeviceInstance
    *
-   * @function fetch
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext.DeviceContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a DeviceInstance
-   *
-   * @function remove
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext.DeviceContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -292,14 +319,10 @@ declare class DeviceContext {
   /**
    * update a DeviceInstance
    *
-   * @function update
-   * @memberof Twilio.Preview.DeployedDevices.FleetContext.DeviceContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: DeviceContextUpdateOptions, callback?: function);
 }
 
 export { DeviceContext, DeviceInstance, DeviceList, DeviceListInstance, DevicePage, DevicePayload, DeviceResource, DeviceSolution }

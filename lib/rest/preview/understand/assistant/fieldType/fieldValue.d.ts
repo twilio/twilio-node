@@ -8,7 +8,6 @@
 import Page = require('../../../../../base/Page');
 import Response = require('../../../../../http/response');
 import Understand = require('../../../Understand');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../../interfaces';
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
@@ -50,14 +49,10 @@ interface FieldValueListInstance {
   /**
    * create a FieldValueInstance
    *
-   * @function create
-   * @memberof Twilio.Preview.Understand.AssistantContext.FieldTypeContext.FieldValueList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: object, callback?: function);
+  create(opts: FieldValueListInstanceCreateOptions, callback?: function);
   /**
    * Streams FieldValueInstance records from the API.
    *
@@ -68,20 +63,12 @@ interface FieldValueListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Preview.Understand.AssistantContext.FieldTypeContext.FieldValueList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: FieldValueListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a field_value
-   *
-   * @function get
-   * @memberof Twilio.Preview.Understand.AssistantContext.FieldTypeContext.FieldValueList
-   * @instance
    *
    * @param sid - The sid
    */
@@ -92,10 +79,6 @@ interface FieldValueListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Preview.Understand.AssistantContext.FieldTypeContext.FieldValueList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -105,28 +88,96 @@ interface FieldValueListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Preview.Understand.AssistantContext.FieldTypeContext.FieldValueList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: FieldValueListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of FieldValueInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Preview.Understand.AssistantContext.FieldTypeContext.FieldValueList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: FieldValueListInstancePageOptions, callback?: function);
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property language - An ISO language-country string of the value. For example: en-US
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface FieldValueListInstanceEachOptions {
+  callback?: Function;
+  done?: Function;
+  language?: string;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property language - An ISO language-country string of the value. For example: en-US
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface FieldValueListInstanceOptions {
+  language?: string;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property language - An ISO language-country string of the value. For example: en-US
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface FieldValueListInstancePageOptions {
+  language?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property language - An ISO language-country string of the value.
+ * @property value - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+ * @property synonymOf - A value that indicates this field value is a synonym of. Empty if the value is not a synonym.
+ */
+export interface FieldValueListInstanceCreateOptions {
+  language: string;
+  synonymOf?: string;
+  value: string;
 }
 
 
@@ -145,10 +196,6 @@ declare class FieldValuePage extends Page {
 
   /**
    * Build an instance of FieldValueInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Preview.Understand.AssistantContext.FieldTypeContext.FieldValuePage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -185,19 +232,11 @@ declare class FieldValueInstance {
   /**
    * fetch a FieldValueInstance
    *
-   * @function fetch
-   * @memberof Twilio.Preview.Understand.AssistantContext.FieldTypeContext.FieldValueInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a FieldValueInstance
-   *
-   * @function remove
-   * @memberof Twilio.Preview.Understand.AssistantContext.FieldTypeContext.FieldValueInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -205,10 +244,6 @@ declare class FieldValueInstance {
   /**
    * Produce a plain JSON object version of the FieldValueInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Preview.Understand.AssistantContext.FieldTypeContext.FieldValueInstance
-   * @instance
    */
   toJSON();
 }
@@ -230,19 +265,11 @@ declare class FieldValueContext {
   /**
    * fetch a FieldValueInstance
    *
-   * @function fetch
-   * @memberof Twilio.Preview.Understand.AssistantContext.FieldTypeContext.FieldValueContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a FieldValueInstance
-   *
-   * @function remove
-   * @memberof Twilio.Preview.Understand.AssistantContext.FieldTypeContext.FieldValueContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */

@@ -9,7 +9,6 @@ import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import V1 = require('../V1');
 import serialize = require('../../../base/serialize');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../interfaces';
 import { SerializableClass } from '../../../interfaces';
 
 /**
@@ -44,14 +43,10 @@ interface CredentialListInstance {
   /**
    * create a CredentialInstance
    *
-   * @function create
-   * @memberof Twilio.IpMessaging.V1.CredentialList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: object, callback?: function);
+  create(opts: CredentialListInstanceCreateOptions, callback?: function);
   /**
    * Streams CredentialInstance records from the API.
    *
@@ -62,20 +57,12 @@ interface CredentialListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.IpMessaging.V1.CredentialList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: CredentialListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a credential
-   *
-   * @function get
-   * @memberof Twilio.IpMessaging.V1.CredentialList
-   * @instance
    *
    * @param sid - The sid
    */
@@ -86,10 +73,6 @@ interface CredentialListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.IpMessaging.V1.CredentialList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -99,28 +82,20 @@ interface CredentialListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.IpMessaging.V1.CredentialList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: CredentialListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of CredentialInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.IpMessaging.V1.CredentialList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: CredentialListInstancePageOptions, callback?: function);
 }
 
 /**
@@ -133,7 +108,7 @@ interface CredentialListInstance {
  * @property apiKey - [GCM only] This is the "API key" for project from Google Developer console for your GCM Service application credential
  * @property secret - The secret
  */
-export interface UpdateOptions {
+export interface CredentialInstanceUpdateOptions {
   apiKey?: string;
   certificate?: string;
   friendlyName?: string;
@@ -152,13 +127,91 @@ export interface UpdateOptions {
  * @property apiKey - [GCM only] This is the "API key" for project from Google Developer console for your GCM Service application credential
  * @property secret - The secret
  */
-export interface UpdateOptions {
+export interface CredentialContextUpdateOptions {
   apiKey?: string;
   certificate?: string;
   friendlyName?: string;
   privateKey?: string;
   sandbox?: boolean;
   secret?: string;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface CredentialListInstanceEachOptions {
+  callback?: Function;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface CredentialListInstanceOptions {
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface CredentialListInstancePageOptions {
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property type - Credential type, one of "gcm" or "apn"
+ * @property friendlyName - Friendly name for stored credential
+ * @property certificate - [APN only] URL encoded representation of the certificate, e.
+ * @property privateKey - [APN only] URL encoded representation of the private key, e.
+ * @property sandbox - [APN only] use this credential for sending to production or sandbox APNs
+ * @property apiKey - [GCM only] This is the "API key" for project from Google Developer console for your GCM Service application credential
+ * @property secret - The secret
+ */
+export interface CredentialListInstanceCreateOptions {
+  apiKey?: string;
+  certificate?: string;
+  friendlyName?: string;
+  privateKey?: string;
+  sandbox?: boolean;
+  secret?: string;
+  type: credential.push_service;
 }
 
 
@@ -176,10 +229,6 @@ declare class CredentialPage extends Page {
 
   /**
    * Build an instance of CredentialInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.IpMessaging.V1.CredentialPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -211,19 +260,11 @@ declare class CredentialInstance {
   /**
    * fetch a CredentialInstance
    *
-   * @function fetch
-   * @memberof Twilio.IpMessaging.V1.CredentialInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a CredentialInstance
-   *
-   * @function remove
-   * @memberof Twilio.IpMessaging.V1.CredentialInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -231,23 +272,15 @@ declare class CredentialInstance {
   /**
    * Produce a plain JSON object version of the CredentialInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.IpMessaging.V1.CredentialInstance
-   * @instance
    */
   toJSON();
   /**
    * update a CredentialInstance
    *
-   * @function update
-   * @memberof Twilio.IpMessaging.V1.CredentialInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: CredentialInstanceUpdateOptions, callback?: function);
 }
 
 
@@ -264,19 +297,11 @@ declare class CredentialContext {
   /**
    * fetch a CredentialInstance
    *
-   * @function fetch
-   * @memberof Twilio.IpMessaging.V1.CredentialContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * remove a CredentialInstance
-   *
-   * @function remove
-   * @memberof Twilio.IpMessaging.V1.CredentialContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -284,14 +309,10 @@ declare class CredentialContext {
   /**
    * update a CredentialInstance
    *
-   * @function update
-   * @memberof Twilio.IpMessaging.V1.CredentialContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: CredentialContextUpdateOptions, callback?: function);
 }
 
 export { CredentialContext, CredentialInstance, CredentialList, CredentialListInstance, CredentialPage, CredentialPayload, CredentialResource, CredentialSolution }

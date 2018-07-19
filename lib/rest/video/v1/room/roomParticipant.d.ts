@@ -9,7 +9,6 @@ import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V1 = require('../../V1');
 import serialize = require('../../../../base/serialize');
-import { ListEachOptions, ListOptions, PageOptions } from '../../../../interfaces';
 import { PublishedTrackList } from './roomParticipant/roomParticipantPublishedTrack';
 import { SerializableClass } from '../../../../interfaces';
 import { SubscribedTrackList } from './roomParticipant/roomParticipantSubscribedTrack';
@@ -59,20 +58,12 @@ interface ParticipantListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function each
-   * @memberof Twilio.Video.V1.RoomContext.ParticipantList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: object, callback?: Function);
+  each(opts?: ParticipantListInstanceEachOptions, callback?: Function);
   /**
    * Constructs a participant
-   *
-   * @function get
-   * @memberof Twilio.Video.V1.RoomContext.ParticipantList
-   * @instance
    *
    * @param sid - The sid
    */
@@ -83,10 +74,6 @@ interface ParticipantListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function getPage
-   * @memberof Twilio.Video.V1.RoomContext.ParticipantList
-   * @instance
-   *
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
@@ -96,28 +83,20 @@ interface ParticipantListInstance {
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function list
-   * @memberof Twilio.Video.V1.RoomContext.ParticipantList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: object, callback?: function);
+  list(opts?: ParticipantListInstanceOptions, callback?: function);
   /**
    * Retrieve a single page of ParticipantInstance records from the API.
    * Request is executed immediately
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
-   * @function page
-   * @memberof Twilio.Video.V1.RoomContext.ParticipantList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: object, callback?: function);
+  page(opts?: ParticipantListInstancePageOptions, callback?: function);
 }
 
 /**
@@ -125,7 +104,7 @@ interface ParticipantListInstance {
  *
  * @property status - Set to disconnected to remove participant.
  */
-export interface UpdateOptions {
+export interface ParticipantInstanceUpdateOptions {
   status?: participant.status;
 }
 
@@ -134,7 +113,88 @@ export interface UpdateOptions {
  *
  * @property status - Set to disconnected to remove participant.
  */
-export interface UpdateOptions {
+export interface ParticipantContextUpdateOptions {
+  status?: participant.status;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property status - Only show Participants with the given Status.
+ * @property identity - Only show Participants that connected to the Room using the provided Identity.
+ * @property dateCreatedAfter - Only show Participants that started after this date, given as an UTC ISO 8601 Timestamp.
+ * @property dateCreatedBefore - Only show Participants that started before this date, given as an UTC ISO 8601 Timestamp.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+export interface ParticipantListInstanceEachOptions {
+  callback?: Function;
+  dateCreatedAfter?: Date;
+  dateCreatedBefore?: Date;
+  done?: Function;
+  identity?: string;
+  limit?: number;
+  pageSize?: number;
+  status?: participant.status;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property status - Only show Participants with the given Status.
+ * @property identity - Only show Participants that connected to the Room using the provided Identity.
+ * @property dateCreatedAfter - Only show Participants that started after this date, given as an UTC ISO 8601 Timestamp.
+ * @property dateCreatedBefore - Only show Participants that started before this date, given as an UTC ISO 8601 Timestamp.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+export interface ParticipantListInstanceOptions {
+  dateCreatedAfter?: Date;
+  dateCreatedBefore?: Date;
+  identity?: string;
+  limit?: number;
+  pageSize?: number;
+  status?: participant.status;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property status - Only show Participants with the given Status.
+ * @property identity - Only show Participants that connected to the Room using the provided Identity.
+ * @property dateCreatedAfter - Only show Participants that started after this date, given as an UTC ISO 8601 Timestamp.
+ * @property dateCreatedBefore - Only show Participants that started before this date, given as an UTC ISO 8601 Timestamp.
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+export interface ParticipantListInstancePageOptions {
+  dateCreatedAfter?: Date;
+  dateCreatedBefore?: Date;
+  identity?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
   status?: participant.status;
 }
 
@@ -153,10 +213,6 @@ declare class ParticipantPage extends Page {
 
   /**
    * Build an instance of ParticipantInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Video.V1.RoomContext.ParticipantPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -193,49 +249,29 @@ declare class ParticipantInstance {
   /**
    * fetch a ParticipantInstance
    *
-   * @function fetch
-   * @memberof Twilio.Video.V1.RoomContext.ParticipantInstance
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
   /**
    * Access the publishedTracks
-   *
-   * @function publishedTracks
-   * @memberof Twilio.Video.V1.RoomContext.ParticipantInstance
-   * @instance
    */
   publishedTracks();
   /**
    * Access the subscribedTracks
-   *
-   * @function subscribedTracks
-   * @memberof Twilio.Video.V1.RoomContext.ParticipantInstance
-   * @instance
    */
   subscribedTracks();
   /**
    * Produce a plain JSON object version of the ParticipantInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Video.V1.RoomContext.ParticipantInstance
-   * @instance
    */
   toJSON();
   /**
    * update a ParticipantInstance
    *
-   * @function update
-   * @memberof Twilio.Video.V1.RoomContext.ParticipantInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: ParticipantInstanceUpdateOptions, callback?: function);
 }
 
 
@@ -256,10 +292,6 @@ declare class ParticipantContext {
   /**
    * fetch a ParticipantInstance
    *
-   * @function fetch
-   * @memberof Twilio.Video.V1.RoomContext.ParticipantContext
-   * @instance
-   *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: function);
@@ -268,14 +300,10 @@ declare class ParticipantContext {
   /**
    * update a ParticipantInstance
    *
-   * @function update
-   * @memberof Twilio.Video.V1.RoomContext.ParticipantContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: object, callback?: function);
+  update(opts?: ParticipantContextUpdateOptions, callback?: function);
 }
 
 export { ParticipantContext, ParticipantInstance, ParticipantList, ParticipantListInstance, ParticipantPage, ParticipantPayload, ParticipantResource, ParticipantSolution }

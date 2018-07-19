@@ -43,10 +43,6 @@ interface RecordingSettingsListInstance {
   (sid: string): RecordingSettingsContext;
   /**
    * Constructs a recording_settings
-   *
-   * @function get
-   * @memberof Twilio.Video.V1.RecordingSettingsList
-   * @instance
    */
   get();
 }
@@ -61,7 +57,7 @@ interface RecordingSettingsListInstance {
  * @property awsStorageEnabled - true|false When set to true, all Recordings will be written to the AwsS3Url specified above. When set to false, all Recordings will be stored in Twilio's cloud.
  * @property encryptionEnabled - true|false When set to true, all Recordings will be stored encrypted.
  */
-export interface CreateOptions {
+export interface RecordingSettingsInstanceCreateOptions {
   awsCredentialsSid?: string;
   awsS3Url?: string;
   awsStorageEnabled?: boolean;
@@ -80,7 +76,7 @@ export interface CreateOptions {
  * @property awsStorageEnabled - true|false When set to true, all Recordings will be written to the AwsS3Url specified above. When set to false, all Recordings will be stored in Twilio's cloud.
  * @property encryptionEnabled - true|false When set to true, all Recordings will be stored encrypted.
  */
-export interface CreateOptions {
+export interface RecordingSettingsContextCreateOptions {
   awsCredentialsSid?: string;
   awsS3Url?: string;
   awsStorageEnabled?: boolean;
@@ -105,10 +101,6 @@ declare class RecordingSettingsPage extends Page {
 
   /**
    * Build an instance of RecordingSettingsInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Video.V1.RecordingSettingsPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -140,20 +132,12 @@ declare class RecordingSettingsInstance {
   /**
    * create a RecordingSettingsInstance
    *
-   * @function create
-   * @memberof Twilio.Video.V1.RecordingSettingsInstance
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: object, callback?: function);
+  create(opts: RecordingSettingsInstanceCreateOptions, callback?: function);
   /**
    * fetch a RecordingSettingsInstance
-   *
-   * @function fetch
-   * @memberof Twilio.Video.V1.RecordingSettingsInstance
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */
@@ -161,10 +145,6 @@ declare class RecordingSettingsInstance {
   /**
    * Produce a plain JSON object version of the RecordingSettingsInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Video.V1.RecordingSettingsInstance
-   * @instance
    */
   toJSON();
 }
@@ -183,20 +163,12 @@ declare class RecordingSettingsContext {
   /**
    * create a RecordingSettingsInstance
    *
-   * @function create
-   * @memberof Twilio.Video.V1.RecordingSettingsContext
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: object, callback?: function);
+  create(opts: RecordingSettingsContextCreateOptions, callback?: function);
   /**
    * fetch a RecordingSettingsInstance
-   *
-   * @function fetch
-   * @memberof Twilio.Video.V1.RecordingSettingsContext
-   * @instance
    *
    * @param callback - Callback to handle processed record
    */

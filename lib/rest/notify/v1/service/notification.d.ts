@@ -54,14 +54,51 @@ interface NotificationListInstance {
   /**
    * create a NotificationInstance
    *
-   * @function create
-   * @memberof Twilio.Notify.V1.ServiceContext.NotificationList
-   * @instance
-   *
-   * @param opts - ...
+   * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: object, callback?: function);
+  create(opts?: NotificationListInstanceCreateOptions, callback?: function);
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property body - Indicates the notification body text.
+ * @property priority - Two priorities defined: low and high.
+ * @property ttl - This parameter specifies how long the notification is valid.
+ * @property title - Indicates the notification title.
+ * @property sound - Indicates a sound to be played.
+ * @property action - Specifies the actions to be displayed for the notification.
+ * @property data - This parameter specifies the custom key-value pairs of the notification's payload.
+ * @property apn - APNS specific payload that overrides corresponding attributes in a generic payload for Bindings with the apn BindingType.
+ * @property gcm - GCM specific payload that overrides corresponding attributes in generic payload for Bindings with gcm BindingType.
+ * @property sms - SMS specific payload that overrides corresponding attributes in generic payload for Bindings with sms BindingType.
+ * @property facebookMessenger - Messenger specific payload that overrides corresponding attributes in generic payload for Bindings with facebook-messenger BindingType.
+ * @property fcm - FCM specific payload that overrides corresponding attributes in generic payload for Bindings with fcm BindingType.
+ * @property segment - The segment
+ * @property alexa - The alexa
+ * @property toBinding - The destination address in a JSON object.
+ * @property identity - Delivery will be attempted only to Bindings with an Identity in this list.
+ * @property tag - Delivery will be attempted only to Bindings that have all of the Tags in this list.
+ */
+export interface NotificationListInstanceCreateOptions {
+  action?: string;
+  alexa?: string;
+  apn?: string;
+  body?: string;
+  data?: string;
+  facebookMessenger?: string;
+  fcm?: string;
+  gcm?: string;
+  identity?: string|list;
+  priority?: notification.priority;
+  segment?: string|list;
+  sms?: string;
+  sound?: string;
+  tag?: string|list;
+  title?: string;
+  toBinding?: string|list;
+  ttl?: number;
 }
 
 
@@ -80,10 +117,6 @@ declare class NotificationPage extends Page {
 
   /**
    * Build an instance of NotificationInstance
-   *
-   * @function getInstance
-   * @memberof Twilio.Notify.V1.ServiceContext.NotificationPage
-   * @instance
    *
    * @param payload - Payload response from the API
    */
@@ -127,10 +160,6 @@ declare class NotificationInstance {
   /**
    * Produce a plain JSON object version of the NotificationInstance for serialization.
    * Removes any circular references in the object.
-   *
-   * @function toJSON
-   * @memberof Twilio.Notify.V1.ServiceContext.NotificationInstance
-   * @instance
    */
   toJSON();
 }
