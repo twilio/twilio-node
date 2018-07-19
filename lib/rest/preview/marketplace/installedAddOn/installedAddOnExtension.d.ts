@@ -55,13 +55,13 @@ interface InstalledAddOnExtensionListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: InstalledAddOnExtensionListInstanceEachOptions, callback?: (item: InstalledAddOnExtensionInstance, done: (err?: Error) => void) => void);
+  each(opts?: InstalledAddOnExtensionListInstanceEachOptions, callback?: (item: InstalledAddOnExtensionInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a installed_add_on_extension
    *
    * @param sid - The unique Extension Sid
    */
-  get(sid: string);
+  get(sid: string): InstalledAddOnExtensionContext;
   /**
    * Retrieve a single target page of InstalledAddOnExtensionInstance records from the API.
    * Request is executed immediately
@@ -71,7 +71,7 @@ interface InstalledAddOnExtensionListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<InstalledAddOnExtensionPage>;
   /**
    * @description Lists InstalledAddOnExtensionInstance records from the API as a list.
    *
@@ -80,7 +80,7 @@ interface InstalledAddOnExtensionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: InstalledAddOnExtensionListInstanceOptions, callback?: function);
+  list(opts?: InstalledAddOnExtensionListInstanceOptions, callback?: function): Promise<InstalledAddOnExtensionInstance[]>;
   /**
    * Retrieve a single page of InstalledAddOnExtensionInstance records from the API.
    * Request is executed immediately
@@ -90,7 +90,7 @@ interface InstalledAddOnExtensionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: InstalledAddOnExtensionListInstancePageOptions, callback?: function);
+  page(opts?: InstalledAddOnExtensionListInstancePageOptions, callback?: function): Promise<InstalledAddOnExtensionPage>;
 }
 
 /**
@@ -218,7 +218,7 @@ declare class InstalledAddOnExtensionInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: InstalledAddOnExtensionInstance) => any);
   /**
    * Produce a plain JSON object version of the InstalledAddOnExtensionInstance for serialization.
    * Removes any circular references in the object.
@@ -230,7 +230,7 @@ declare class InstalledAddOnExtensionInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: InstalledAddOnExtensionInstanceUpdateOptions, callback?: function);
+  update(opts: InstalledAddOnExtensionInstanceUpdateOptions, callback?: (error: Error | null, items: InstalledAddOnExtensionInstance) => any);
 }
 
 
@@ -251,14 +251,14 @@ declare class InstalledAddOnExtensionContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: InstalledAddOnExtensionContext) => any);
   /**
    * update a InstalledAddOnExtensionInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: InstalledAddOnExtensionContextUpdateOptions, callback?: function);
+  update(opts: InstalledAddOnExtensionContextUpdateOptions, callback?: (error: Error | null, items: InstalledAddOnExtensionContext) => any);
 }
 
 export { InstalledAddOnExtensionContext, InstalledAddOnExtensionInstance, InstalledAddOnExtensionList, InstalledAddOnExtensionListInstance, InstalledAddOnExtensionPage, InstalledAddOnExtensionPayload, InstalledAddOnExtensionResource, InstalledAddOnExtensionSolution }

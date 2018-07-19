@@ -65,7 +65,7 @@ interface MessageInteractionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: MessageInteractionListInstanceCreateOptions, callback?: function);
+  create(opts?: MessageInteractionListInstanceCreateOptions, callback?: (error: Error | null, items: MessageInteractionListInstance) => any): Promise<MessageInteractionInstance>;
   /**
    * Streams MessageInteractionInstance records from the API.
    *
@@ -79,13 +79,13 @@ interface MessageInteractionListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: MessageInteractionListInstanceEachOptions, callback?: (item: MessageInteractionInstance, done: (err?: Error) => void) => void);
+  each(opts?: MessageInteractionListInstanceEachOptions, callback?: (item: MessageInteractionInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a message_interaction
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): MessageInteractionContext;
   /**
    * Retrieve a single target page of MessageInteractionInstance records from the API.
    * Request is executed immediately
@@ -95,7 +95,7 @@ interface MessageInteractionListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<MessageInteractionPage>;
   /**
    * @description Lists MessageInteractionInstance records from the API as a list.
    *
@@ -104,7 +104,7 @@ interface MessageInteractionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: MessageInteractionListInstanceOptions, callback?: function);
+  list(opts?: MessageInteractionListInstanceOptions, callback?: function): Promise<MessageInteractionInstance[]>;
   /**
    * Retrieve a single page of MessageInteractionInstance records from the API.
    * Request is executed immediately
@@ -114,7 +114,7 @@ interface MessageInteractionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: MessageInteractionListInstancePageOptions, callback?: function);
+  page(opts?: MessageInteractionListInstancePageOptions, callback?: function): Promise<MessageInteractionPage>;
 }
 
 /**
@@ -250,7 +250,7 @@ declare class MessageInteractionInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: MessageInteractionInstance) => any);
   /**
    * Produce a plain JSON object version of the MessageInteractionInstance for serialization.
    * Removes any circular references in the object.
@@ -278,7 +278,7 @@ declare class MessageInteractionContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: MessageInteractionContext) => any);
 }
 
 export { MessageInteractionContext, MessageInteractionInstance, MessageInteractionList, MessageInteractionListInstance, MessageInteractionPage, MessageInteractionPayload, MessageInteractionResource, MessageInteractionSolution }

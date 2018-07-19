@@ -61,7 +61,7 @@ interface WorkflowCumulativeStatisticsListInstance {
   /**
    * Constructs a workflow_cumulative_statistics
    */
-  get();
+  get(): WorkflowCumulativeStatisticsContext;
 }
 
 /**
@@ -162,7 +162,7 @@ declare class WorkflowCumulativeStatisticsInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: WorkflowCumulativeStatisticsInstanceFetchOptions, callback?: function);
+  fetch(opts?: WorkflowCumulativeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkflowCumulativeStatisticsInstance) => any);
   /**
    * Produce a plain JSON object version of the WorkflowCumulativeStatisticsInstance for serialization.
    * Removes any circular references in the object.
@@ -188,7 +188,7 @@ declare class WorkflowCumulativeStatisticsContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: WorkflowCumulativeStatisticsContextFetchOptions, callback?: function);
+  fetch(opts?: WorkflowCumulativeStatisticsContextFetchOptions, callback?: (error: Error | null, items: WorkflowCumulativeStatisticsContext) => any);
 }
 
 export { WorkflowCumulativeStatisticsContext, WorkflowCumulativeStatisticsInstance, WorkflowCumulativeStatisticsList, WorkflowCumulativeStatisticsListInstance, WorkflowCumulativeStatisticsPage, WorkflowCumulativeStatisticsPayload, WorkflowCumulativeStatisticsResource, WorkflowCumulativeStatisticsSolution }

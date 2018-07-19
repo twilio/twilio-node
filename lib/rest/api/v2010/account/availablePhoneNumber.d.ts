@@ -58,13 +58,13 @@ interface AvailablePhoneNumberCountryListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: AvailablePhoneNumberCountryListInstanceEachOptions, callback?: (item: AvailablePhoneNumberCountryInstance, done: (err?: Error) => void) => void);
+  each(opts?: AvailablePhoneNumberCountryListInstanceEachOptions, callback?: (item: AvailablePhoneNumberCountryInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a available_phone_number_country
    *
    * @param countryCode - The country_code
    */
-  get(countryCode: string);
+  get(countryCode: string): AvailablePhoneNumberCountryContext;
   /**
    * Retrieve a single target page of AvailablePhoneNumberCountryInstance records from the API.
    * Request is executed immediately
@@ -74,7 +74,7 @@ interface AvailablePhoneNumberCountryListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<AvailablePhoneNumberCountryPage>;
   /**
    * @description Lists AvailablePhoneNumberCountryInstance records from the API as a list.
    *
@@ -83,7 +83,7 @@ interface AvailablePhoneNumberCountryListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: AvailablePhoneNumberCountryListInstanceOptions, callback?: function);
+  list(opts?: AvailablePhoneNumberCountryListInstanceOptions, callback?: function): Promise<AvailablePhoneNumberCountryInstance[]>;
   /**
    * Retrieve a single page of AvailablePhoneNumberCountryInstance records from the API.
    * Request is executed immediately
@@ -93,7 +93,7 @@ interface AvailablePhoneNumberCountryListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: AvailablePhoneNumberCountryListInstancePageOptions, callback?: function);
+  page(opts?: AvailablePhoneNumberCountryListInstancePageOptions, callback?: function): Promise<AvailablePhoneNumberCountryPage>;
 }
 
 /**
@@ -199,7 +199,7 @@ declare class AvailablePhoneNumberCountryInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: AvailablePhoneNumberCountryInstance) => any);
   /**
    * Access the local
    */
@@ -260,7 +260,7 @@ declare class AvailablePhoneNumberCountryContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: AvailablePhoneNumberCountryContext) => any);
   local?: Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.LocalList;
   machineToMachine?: Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.MachineToMachineList;
   mobile?: Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.MobileList;

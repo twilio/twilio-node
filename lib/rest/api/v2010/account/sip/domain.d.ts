@@ -59,7 +59,7 @@ interface DomainListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: DomainListInstanceCreateOptions, callback?: function);
+  create(opts: DomainListInstanceCreateOptions, callback?: (error: Error | null, items: DomainListInstance) => any): Promise<DomainInstance>;
   /**
    * Streams DomainInstance records from the API.
    *
@@ -73,13 +73,13 @@ interface DomainListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: DomainListInstanceEachOptions, callback?: (item: DomainInstance, done: (err?: Error) => void) => void);
+  each(opts?: DomainListInstanceEachOptions, callback?: (item: DomainInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a domain
    *
    * @param sid - Fetch by unique Domain Sid
    */
-  get(sid: string);
+  get(sid: string): DomainContext;
   /**
    * Retrieve a single target page of DomainInstance records from the API.
    * Request is executed immediately
@@ -89,7 +89,7 @@ interface DomainListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<DomainPage>;
   /**
    * @description Lists DomainInstance records from the API as a list.
    *
@@ -98,7 +98,7 @@ interface DomainListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: DomainListInstanceOptions, callback?: function);
+  list(opts?: DomainListInstanceOptions, callback?: function): Promise<DomainInstance[]>;
   /**
    * Retrieve a single page of DomainInstance records from the API.
    * Request is executed immediately
@@ -108,7 +108,7 @@ interface DomainListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: DomainListInstancePageOptions, callback?: function);
+  page(opts?: DomainListInstancePageOptions, callback?: function): Promise<DomainPage>;
 }
 
 /**
@@ -307,7 +307,7 @@ declare class DomainInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: DomainInstance) => any);
   /**
    * Access the ipAccessControlListMappings
    */
@@ -317,7 +317,7 @@ declare class DomainInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: DomainInstance) => any);
   /**
    * Produce a plain JSON object version of the DomainInstance for serialization.
    * Removes any circular references in the object.
@@ -329,7 +329,7 @@ declare class DomainInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: DomainInstanceUpdateOptions, callback?: function);
+  update(opts?: DomainInstanceUpdateOptions, callback?: (error: Error | null, items: DomainInstance) => any);
 }
 
 
@@ -353,21 +353,21 @@ declare class DomainContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: DomainContext) => any);
   ipAccessControlListMappings?: Twilio.Api.V2010.AccountContext.SipContext.DomainContext.IpAccessControlListMappingList;
   /**
    * remove a DomainInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: DomainContext) => any);
   /**
    * update a DomainInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: DomainContextUpdateOptions, callback?: function);
+  update(opts?: DomainContextUpdateOptions, callback?: (error: Error | null, items: DomainContext) => any);
 }
 
 export { DomainContext, DomainInstance, DomainList, DomainListInstance, DomainPage, DomainPayload, DomainResource, DomainSolution }

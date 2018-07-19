@@ -60,13 +60,13 @@ interface ReservationListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: ReservationListInstanceEachOptions, callback?: (item: ReservationInstance, done: (err?: Error) => void) => void);
+  each(opts?: ReservationListInstanceEachOptions, callback?: (item: ReservationInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a reservation
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): ReservationContext;
   /**
    * Retrieve a single target page of ReservationInstance records from the API.
    * Request is executed immediately
@@ -76,7 +76,7 @@ interface ReservationListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<ReservationPage>;
   /**
    * @description Lists ReservationInstance records from the API as a list.
    *
@@ -85,7 +85,7 @@ interface ReservationListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: ReservationListInstanceOptions, callback?: function);
+  list(opts?: ReservationListInstanceOptions, callback?: function): Promise<ReservationInstance[]>;
   /**
    * Retrieve a single page of ReservationInstance records from the API.
    * Request is executed immediately
@@ -95,7 +95,7 @@ interface ReservationListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: ReservationListInstancePageOptions, callback?: function);
+  page(opts?: ReservationListInstancePageOptions, callback?: function): Promise<ReservationPage>;
 }
 
 /**
@@ -424,7 +424,7 @@ declare class ReservationInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: ReservationInstance) => any);
   /**
    * Produce a plain JSON object version of the ReservationInstance for serialization.
    * Removes any circular references in the object.
@@ -436,7 +436,7 @@ declare class ReservationInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ReservationInstanceUpdateOptions, callback?: function);
+  update(opts?: ReservationInstanceUpdateOptions, callback?: (error: Error | null, items: ReservationInstance) => any);
 }
 
 
@@ -457,14 +457,14 @@ declare class ReservationContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: ReservationContext) => any);
   /**
    * update a ReservationInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ReservationContextUpdateOptions, callback?: function);
+  update(opts?: ReservationContextUpdateOptions, callback?: (error: Error | null, items: ReservationContext) => any);
 }
 
 export { ReservationContext, ReservationInstance, ReservationList, ReservationListInstance, ReservationPage, ReservationPayload, ReservationResource, ReservationSolution }

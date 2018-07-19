@@ -61,7 +61,7 @@ interface TaskListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: TaskListInstanceCreateOptions, callback?: function);
+  create(opts?: TaskListInstanceCreateOptions, callback?: (error: Error | null, items: TaskListInstance) => any): Promise<TaskInstance>;
   /**
    * Streams TaskInstance records from the API.
    *
@@ -75,13 +75,13 @@ interface TaskListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: TaskListInstanceEachOptions, callback?: (item: TaskInstance, done: (err?: Error) => void) => void);
+  each(opts?: TaskListInstanceEachOptions, callback?: (item: TaskInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a task
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): TaskContext;
   /**
    * Retrieve a single target page of TaskInstance records from the API.
    * Request is executed immediately
@@ -91,7 +91,7 @@ interface TaskListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<TaskPage>;
   /**
    * @description Lists TaskInstance records from the API as a list.
    *
@@ -100,7 +100,7 @@ interface TaskListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: TaskListInstanceOptions, callback?: function);
+  list(opts?: TaskListInstanceOptions, callback?: function): Promise<TaskInstance[]>;
   /**
    * Retrieve a single page of TaskInstance records from the API.
    * Request is executed immediately
@@ -110,7 +110,7 @@ interface TaskListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: TaskListInstancePageOptions, callback?: function);
+  page(opts?: TaskListInstancePageOptions, callback?: function): Promise<TaskPage>;
 }
 
 /**
@@ -336,13 +336,13 @@ declare class TaskInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: TaskInstance) => any);
   /**
    * remove a TaskInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: TaskInstance) => any);
   /**
    * Access the reservations
    */
@@ -358,7 +358,7 @@ declare class TaskInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: TaskInstanceUpdateOptions, callback?: function);
+  update(opts?: TaskInstanceUpdateOptions, callback?: (error: Error | null, items: TaskInstance) => any);
 }
 
 
@@ -380,13 +380,13 @@ declare class TaskContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: TaskContext) => any);
   /**
    * remove a TaskInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: TaskContext) => any);
   reservations?: Twilio.Taskrouter.V1.WorkspaceContext.TaskContext.ReservationList;
   /**
    * update a TaskInstance
@@ -394,7 +394,7 @@ declare class TaskContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: TaskContextUpdateOptions, callback?: function);
+  update(opts?: TaskContextUpdateOptions, callback?: (error: Error | null, items: TaskContext) => any);
 }
 
 export { TaskContext, TaskInstance, TaskList, TaskListInstance, TaskPage, TaskPayload, TaskResource, TaskSolution }

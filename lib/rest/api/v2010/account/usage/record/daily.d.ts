@@ -57,7 +57,7 @@ interface DailyListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: DailyListInstanceEachOptions, callback?: (item: DailyInstance, done: (err?: Error) => void) => void);
+  each(opts?: DailyListInstanceEachOptions, callback?: (item: DailyInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of DailyInstance records from the API.
    * Request is executed immediately
@@ -67,7 +67,7 @@ interface DailyListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<DailyPage>;
   /**
    * @description Lists DailyInstance records from the API as a list.
    *
@@ -76,7 +76,7 @@ interface DailyListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: DailyListInstanceOptions, callback?: function);
+  list(opts?: DailyListInstanceOptions, callback?: function): Promise<DailyInstance[]>;
   /**
    * Retrieve a single page of DailyInstance records from the API.
    * Request is executed immediately
@@ -86,7 +86,7 @@ interface DailyListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: DailyListInstancePageOptions, callback?: function);
+  page(opts?: DailyListInstancePageOptions, callback?: function): Promise<DailyPage>;
 }
 
 /**

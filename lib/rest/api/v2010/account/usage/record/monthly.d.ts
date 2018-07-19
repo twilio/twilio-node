@@ -57,7 +57,7 @@ interface MonthlyListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: MonthlyListInstanceEachOptions, callback?: (item: MonthlyInstance, done: (err?: Error) => void) => void);
+  each(opts?: MonthlyListInstanceEachOptions, callback?: (item: MonthlyInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of MonthlyInstance records from the API.
    * Request is executed immediately
@@ -67,7 +67,7 @@ interface MonthlyListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<MonthlyPage>;
   /**
    * @description Lists MonthlyInstance records from the API as a list.
    *
@@ -76,7 +76,7 @@ interface MonthlyListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: MonthlyListInstanceOptions, callback?: function);
+  list(opts?: MonthlyListInstanceOptions, callback?: function): Promise<MonthlyInstance[]>;
   /**
    * Retrieve a single page of MonthlyInstance records from the API.
    * Request is executed immediately
@@ -86,7 +86,7 @@ interface MonthlyListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: MonthlyListInstancePageOptions, callback?: function);
+  page(opts?: MonthlyListInstancePageOptions, callback?: function): Promise<MonthlyPage>;
 }
 
 /**

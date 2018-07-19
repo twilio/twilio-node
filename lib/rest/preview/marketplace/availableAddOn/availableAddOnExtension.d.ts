@@ -53,13 +53,13 @@ interface AvailableAddOnExtensionListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: AvailableAddOnExtensionListInstanceEachOptions, callback?: (item: AvailableAddOnExtensionInstance, done: (err?: Error) => void) => void);
+  each(opts?: AvailableAddOnExtensionListInstanceEachOptions, callback?: (item: AvailableAddOnExtensionInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a available_add_on_extension
    *
    * @param sid - The unique Extension Sid
    */
-  get(sid: string);
+  get(sid: string): AvailableAddOnExtensionContext;
   /**
    * Retrieve a single target page of AvailableAddOnExtensionInstance records from the API.
    * Request is executed immediately
@@ -69,7 +69,7 @@ interface AvailableAddOnExtensionListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<AvailableAddOnExtensionPage>;
   /**
    * @description Lists AvailableAddOnExtensionInstance records from the API as a list.
    *
@@ -78,7 +78,7 @@ interface AvailableAddOnExtensionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: AvailableAddOnExtensionListInstanceOptions, callback?: function);
+  list(opts?: AvailableAddOnExtensionListInstanceOptions, callback?: function): Promise<AvailableAddOnExtensionInstance[]>;
   /**
    * Retrieve a single page of AvailableAddOnExtensionInstance records from the API.
    * Request is executed immediately
@@ -88,7 +88,7 @@ interface AvailableAddOnExtensionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: AvailableAddOnExtensionListInstancePageOptions, callback?: function);
+  page(opts?: AvailableAddOnExtensionListInstancePageOptions, callback?: function): Promise<AvailableAddOnExtensionPage>;
 }
 
 /**
@@ -197,7 +197,7 @@ declare class AvailableAddOnExtensionInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: AvailableAddOnExtensionInstance) => any);
   /**
    * Produce a plain JSON object version of the AvailableAddOnExtensionInstance for serialization.
    * Removes any circular references in the object.
@@ -223,7 +223,7 @@ declare class AvailableAddOnExtensionContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: AvailableAddOnExtensionContext) => any);
 }
 
 export { AvailableAddOnExtensionContext, AvailableAddOnExtensionInstance, AvailableAddOnExtensionList, AvailableAddOnExtensionListInstance, AvailableAddOnExtensionPage, AvailableAddOnExtensionPayload, AvailableAddOnExtensionResource, AvailableAddOnExtensionSolution }

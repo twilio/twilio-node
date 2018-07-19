@@ -48,7 +48,7 @@ interface TaskQueuesStatisticsListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: TaskQueuesStatisticsListInstanceEachOptions, callback?: (item: TaskQueuesStatisticsInstance, done: (err?: Error) => void) => void);
+  each(opts?: TaskQueuesStatisticsListInstanceEachOptions, callback?: (item: TaskQueuesStatisticsInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of TaskQueuesStatisticsInstance records from the API.
    * Request is executed immediately
@@ -58,7 +58,7 @@ interface TaskQueuesStatisticsListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<TaskQueuesStatisticsPage>;
   /**
    * @description Lists TaskQueuesStatisticsInstance records from the API as a list.
    *
@@ -67,7 +67,7 @@ interface TaskQueuesStatisticsListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: TaskQueuesStatisticsListInstanceOptions, callback?: function);
+  list(opts?: TaskQueuesStatisticsListInstanceOptions, callback?: function): Promise<TaskQueuesStatisticsInstance[]>;
   /**
    * Retrieve a single page of TaskQueuesStatisticsInstance records from the API.
    * Request is executed immediately
@@ -77,7 +77,7 @@ interface TaskQueuesStatisticsListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: TaskQueuesStatisticsListInstancePageOptions, callback?: function);
+  page(opts?: TaskQueuesStatisticsListInstancePageOptions, callback?: function): Promise<TaskQueuesStatisticsPage>;
 }
 
 /**

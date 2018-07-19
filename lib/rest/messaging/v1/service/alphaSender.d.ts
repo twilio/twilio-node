@@ -48,7 +48,7 @@ interface AlphaSenderListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: AlphaSenderListInstanceCreateOptions, callback?: function);
+  create(opts: AlphaSenderListInstanceCreateOptions, callback?: (error: Error | null, items: AlphaSenderListInstance) => any): Promise<AlphaSenderInstance>;
   /**
    * Streams AlphaSenderInstance records from the API.
    *
@@ -62,13 +62,13 @@ interface AlphaSenderListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: AlphaSenderListInstanceEachOptions, callback?: (item: AlphaSenderInstance, done: (err?: Error) => void) => void);
+  each(opts?: AlphaSenderListInstanceEachOptions, callback?: (item: AlphaSenderInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a alpha_sender
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): AlphaSenderContext;
   /**
    * Retrieve a single target page of AlphaSenderInstance records from the API.
    * Request is executed immediately
@@ -78,7 +78,7 @@ interface AlphaSenderListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<AlphaSenderPage>;
   /**
    * @description Lists AlphaSenderInstance records from the API as a list.
    *
@@ -87,7 +87,7 @@ interface AlphaSenderListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: AlphaSenderListInstanceOptions, callback?: function);
+  list(opts?: AlphaSenderListInstanceOptions, callback?: function): Promise<AlphaSenderInstance[]>;
   /**
    * Retrieve a single page of AlphaSenderInstance records from the API.
    * Request is executed immediately
@@ -97,7 +97,7 @@ interface AlphaSenderListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: AlphaSenderListInstancePageOptions, callback?: function);
+  page(opts?: AlphaSenderListInstancePageOptions, callback?: function): Promise<AlphaSenderPage>;
 }
 
 /**
@@ -217,13 +217,13 @@ declare class AlphaSenderInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: AlphaSenderInstance) => any);
   /**
    * remove a AlphaSenderInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: AlphaSenderInstance) => any);
   /**
    * Produce a plain JSON object version of the AlphaSenderInstance for serialization.
    * Removes any circular references in the object.
@@ -249,13 +249,13 @@ declare class AlphaSenderContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: AlphaSenderContext) => any);
   /**
    * remove a AlphaSenderInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: AlphaSenderContext) => any);
 }
 
 export { AlphaSenderContext, AlphaSenderInstance, AlphaSenderList, AlphaSenderListInstance, AlphaSenderPage, AlphaSenderPayload, AlphaSenderResource, AlphaSenderSolution }

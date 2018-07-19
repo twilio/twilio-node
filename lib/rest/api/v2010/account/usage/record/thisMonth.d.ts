@@ -57,7 +57,7 @@ interface ThisMonthListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: ThisMonthListInstanceEachOptions, callback?: (item: ThisMonthInstance, done: (err?: Error) => void) => void);
+  each(opts?: ThisMonthListInstanceEachOptions, callback?: (item: ThisMonthInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of ThisMonthInstance records from the API.
    * Request is executed immediately
@@ -67,7 +67,7 @@ interface ThisMonthListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<ThisMonthPage>;
   /**
    * @description Lists ThisMonthInstance records from the API as a list.
    *
@@ -76,7 +76,7 @@ interface ThisMonthListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: ThisMonthListInstanceOptions, callback?: function);
+  list(opts?: ThisMonthListInstanceOptions, callback?: function): Promise<ThisMonthInstance[]>;
   /**
    * Retrieve a single page of ThisMonthInstance records from the API.
    * Request is executed immediately
@@ -86,7 +86,7 @@ interface ThisMonthListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: ThisMonthListInstancePageOptions, callback?: function);
+  page(opts?: ThisMonthListInstancePageOptions, callback?: function): Promise<ThisMonthPage>;
 }
 
 /**

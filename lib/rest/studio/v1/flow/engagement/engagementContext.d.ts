@@ -44,7 +44,7 @@ interface EngagementContextListInstance {
   /**
    * Constructs a engagement_context
    */
-  get();
+  get(): EngagementContextContext;
 }
 
 
@@ -95,7 +95,7 @@ declare class EngagementContextInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: EngagementContextInstance) => any);
   /**
    * Produce a plain JSON object version of the EngagementContextInstance for serialization.
    * Removes any circular references in the object.
@@ -121,7 +121,7 @@ declare class EngagementContextContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: EngagementContextContext) => any);
 }
 
 export { EngagementContextContext, EngagementContextInstance, EngagementContextList, EngagementContextListInstance, EngagementContextPage, EngagementContextPayload, EngagementContextResource, EngagementContextSolution }

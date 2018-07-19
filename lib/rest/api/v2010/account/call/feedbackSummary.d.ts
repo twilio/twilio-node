@@ -54,13 +54,13 @@ interface FeedbackSummaryListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: FeedbackSummaryListInstanceCreateOptions, callback?: function);
+  create(opts: FeedbackSummaryListInstanceCreateOptions, callback?: (error: Error | null, items: FeedbackSummaryListInstance) => any): Promise<FeedbackSummaryInstance>;
   /**
    * Constructs a feedback_summary
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): FeedbackSummaryContext;
 }
 
 /**
@@ -135,13 +135,13 @@ declare class FeedbackSummaryInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: FeedbackSummaryInstance) => any);
   /**
    * remove a FeedbackSummaryInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: FeedbackSummaryInstance) => any);
   /**
    * Produce a plain JSON object version of the FeedbackSummaryInstance for serialization.
    * Removes any circular references in the object.
@@ -166,13 +166,13 @@ declare class FeedbackSummaryContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: FeedbackSummaryContext) => any);
   /**
    * remove a FeedbackSummaryInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: FeedbackSummaryContext) => any);
 }
 
 export { FeedbackSummaryContext, FeedbackSummaryInstance, FeedbackSummaryList, FeedbackSummaryListInstance, FeedbackSummaryPage, FeedbackSummaryPayload, FeedbackSummaryResource, FeedbackSummarySolution }

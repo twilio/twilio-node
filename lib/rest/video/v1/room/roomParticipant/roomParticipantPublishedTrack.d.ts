@@ -57,13 +57,13 @@ interface PublishedTrackListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: PublishedTrackListInstanceEachOptions, callback?: (item: PublishedTrackInstance, done: (err?: Error) => void) => void);
+  each(opts?: PublishedTrackListInstanceEachOptions, callback?: (item: PublishedTrackInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a published_track
    *
    * @param sid - A 34 character string that uniquely identifies this resource.
    */
-  get(sid: string);
+  get(sid: string): PublishedTrackContext;
   /**
    * Retrieve a single target page of PublishedTrackInstance records from the API.
    * Request is executed immediately
@@ -73,7 +73,7 @@ interface PublishedTrackListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<PublishedTrackPage>;
   /**
    * @description Lists PublishedTrackInstance records from the API as a list.
    *
@@ -82,7 +82,7 @@ interface PublishedTrackListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: PublishedTrackListInstanceOptions, callback?: function);
+  list(opts?: PublishedTrackListInstanceOptions, callback?: function): Promise<PublishedTrackInstance[]>;
   /**
    * Retrieve a single page of PublishedTrackInstance records from the API.
    * Request is executed immediately
@@ -92,7 +92,7 @@ interface PublishedTrackListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: PublishedTrackListInstancePageOptions, callback?: function);
+  page(opts?: PublishedTrackListInstancePageOptions, callback?: function): Promise<PublishedTrackPage>;
 }
 
 /**
@@ -203,7 +203,7 @@ declare class PublishedTrackInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: PublishedTrackInstance) => any);
   /**
    * Produce a plain JSON object version of the PublishedTrackInstance for serialization.
    * Removes any circular references in the object.
@@ -229,7 +229,7 @@ declare class PublishedTrackContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: PublishedTrackContext) => any);
 }
 
 export { PublishedTrackContext, PublishedTrackInstance, PublishedTrackList, PublishedTrackListInstance, PublishedTrackPage, PublishedTrackPayload, PublishedTrackResource, PublishedTrackSolution }

@@ -51,7 +51,7 @@ interface OriginationUrlListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: OriginationUrlListInstanceCreateOptions, callback?: function);
+  create(opts: OriginationUrlListInstanceCreateOptions, callback?: (error: Error | null, items: OriginationUrlListInstance) => any): Promise<OriginationUrlInstance>;
   /**
    * Streams OriginationUrlInstance records from the API.
    *
@@ -65,13 +65,13 @@ interface OriginationUrlListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: OriginationUrlListInstanceEachOptions, callback?: (item: OriginationUrlInstance, done: (err?: Error) => void) => void);
+  each(opts?: OriginationUrlListInstanceEachOptions, callback?: (item: OriginationUrlInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a origination_url
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): OriginationUrlContext;
   /**
    * Retrieve a single target page of OriginationUrlInstance records from the API.
    * Request is executed immediately
@@ -81,7 +81,7 @@ interface OriginationUrlListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<OriginationUrlPage>;
   /**
    * @description Lists OriginationUrlInstance records from the API as a list.
    *
@@ -90,7 +90,7 @@ interface OriginationUrlListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: OriginationUrlListInstanceOptions, callback?: function);
+  list(opts?: OriginationUrlListInstanceOptions, callback?: function): Promise<OriginationUrlInstance[]>;
   /**
    * Retrieve a single page of OriginationUrlInstance records from the API.
    * Request is executed immediately
@@ -100,7 +100,7 @@ interface OriginationUrlListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: OriginationUrlListInstancePageOptions, callback?: function);
+  page(opts?: OriginationUrlListInstancePageOptions, callback?: function): Promise<OriginationUrlPage>;
 }
 
 /**
@@ -263,13 +263,13 @@ declare class OriginationUrlInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: OriginationUrlInstance) => any);
   /**
    * remove a OriginationUrlInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: OriginationUrlInstance) => any);
   /**
    * Produce a plain JSON object version of the OriginationUrlInstance for serialization.
    * Removes any circular references in the object.
@@ -281,7 +281,7 @@ declare class OriginationUrlInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: OriginationUrlInstanceUpdateOptions, callback?: function);
+  update(opts?: OriginationUrlInstanceUpdateOptions, callback?: (error: Error | null, items: OriginationUrlInstance) => any);
 }
 
 
@@ -301,20 +301,20 @@ declare class OriginationUrlContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: OriginationUrlContext) => any);
   /**
    * remove a OriginationUrlInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: OriginationUrlContext) => any);
   /**
    * update a OriginationUrlInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: OriginationUrlContextUpdateOptions, callback?: function);
+  update(opts?: OriginationUrlContextUpdateOptions, callback?: (error: Error | null, items: OriginationUrlContext) => any);
 }
 
 export { OriginationUrlContext, OriginationUrlInstance, OriginationUrlList, OriginationUrlListInstance, OriginationUrlPage, OriginationUrlPayload, OriginationUrlResource, OriginationUrlSolution }

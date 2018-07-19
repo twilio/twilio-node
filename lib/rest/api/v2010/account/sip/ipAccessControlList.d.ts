@@ -47,7 +47,7 @@ interface IpAccessControlListListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: IpAccessControlListListInstanceCreateOptions, callback?: function);
+  create(opts: IpAccessControlListListInstanceCreateOptions, callback?: (error: Error | null, items: IpAccessControlListListInstance) => any): Promise<IpAccessControlListInstance>;
   /**
    * Streams IpAccessControlListInstance records from the API.
    *
@@ -61,13 +61,13 @@ interface IpAccessControlListListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: IpAccessControlListListInstanceEachOptions, callback?: (item: IpAccessControlListInstance, done: (err?: Error) => void) => void);
+  each(opts?: IpAccessControlListListInstanceEachOptions, callback?: (item: IpAccessControlListInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a ip_access_control_list
    *
    * @param sid - Fetch by unique ip-access-control-list Sid
    */
-  get(sid: string);
+  get(sid: string): IpAccessControlListContext;
   /**
    * Retrieve a single target page of IpAccessControlListInstance records from the API.
    * Request is executed immediately
@@ -77,7 +77,7 @@ interface IpAccessControlListListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<IpAccessControlListPage>;
   /**
    * @description Lists IpAccessControlListInstance records from the API as a list.
    *
@@ -86,7 +86,7 @@ interface IpAccessControlListListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: IpAccessControlListListInstanceOptions, callback?: function);
+  list(opts?: IpAccessControlListListInstanceOptions, callback?: function): Promise<IpAccessControlListInstance[]>;
   /**
    * Retrieve a single page of IpAccessControlListInstance records from the API.
    * Request is executed immediately
@@ -96,7 +96,7 @@ interface IpAccessControlListListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: IpAccessControlListListInstancePageOptions, callback?: function);
+  page(opts?: IpAccessControlListListInstancePageOptions, callback?: function): Promise<IpAccessControlListPage>;
 }
 
 /**
@@ -231,7 +231,7 @@ declare class IpAccessControlListInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: IpAccessControlListInstance) => any);
   /**
    * Access the ipAddresses
    */
@@ -241,7 +241,7 @@ declare class IpAccessControlListInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: IpAccessControlListInstance) => any);
   /**
    * Produce a plain JSON object version of the IpAccessControlListInstance for serialization.
    * Removes any circular references in the object.
@@ -253,7 +253,7 @@ declare class IpAccessControlListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: IpAccessControlListInstanceUpdateOptions, callback?: function);
+  update(opts: IpAccessControlListInstanceUpdateOptions, callback?: (error: Error | null, items: IpAccessControlListInstance) => any);
 }
 
 
@@ -275,21 +275,21 @@ declare class IpAccessControlListContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: IpAccessControlListContext) => any);
   ipAddresses?: Twilio.Api.V2010.AccountContext.SipContext.IpAccessControlListContext.IpAddressList;
   /**
    * remove a IpAccessControlListInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: IpAccessControlListContext) => any);
   /**
    * update a IpAccessControlListInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: IpAccessControlListContextUpdateOptions, callback?: function);
+  update(opts: IpAccessControlListContextUpdateOptions, callback?: (error: Error | null, items: IpAccessControlListContext) => any);
 }
 
 export { IpAccessControlListContext, IpAccessControlListInstance, IpAccessControlListList, IpAccessControlListListInstance, IpAccessControlListPage, IpAccessControlListPayload, IpAccessControlListResource, IpAccessControlListSolution }

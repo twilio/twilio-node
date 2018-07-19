@@ -45,7 +45,7 @@ interface WorkflowStatisticsListInstance {
   /**
    * Constructs a workflow_statistics
    */
-  get();
+  get(): WorkflowStatisticsContext;
 }
 
 /**
@@ -130,7 +130,7 @@ declare class WorkflowStatisticsInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: WorkflowStatisticsInstanceFetchOptions, callback?: function);
+  fetch(opts?: WorkflowStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkflowStatisticsInstance) => any);
   /**
    * Produce a plain JSON object version of the WorkflowStatisticsInstance for serialization.
    * Removes any circular references in the object.
@@ -156,7 +156,7 @@ declare class WorkflowStatisticsContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: WorkflowStatisticsContextFetchOptions, callback?: function);
+  fetch(opts?: WorkflowStatisticsContextFetchOptions, callback?: (error: Error | null, items: WorkflowStatisticsContext) => any);
 }
 
 export { WorkflowStatisticsContext, WorkflowStatisticsInstance, WorkflowStatisticsList, WorkflowStatisticsListInstance, WorkflowStatisticsPage, WorkflowStatisticsPayload, WorkflowStatisticsResource, WorkflowStatisticsSolution }

@@ -44,7 +44,7 @@ interface WorkerStatisticsListInstance {
   /**
    * Constructs a worker_statistics
    */
-  get();
+  get(): WorkerStatisticsContext;
 }
 
 /**
@@ -124,7 +124,7 @@ declare class WorkerStatisticsInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: WorkerStatisticsInstanceFetchOptions, callback?: function);
+  fetch(opts?: WorkerStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkerStatisticsInstance) => any);
   /**
    * Produce a plain JSON object version of the WorkerStatisticsInstance for serialization.
    * Removes any circular references in the object.
@@ -150,7 +150,7 @@ declare class WorkerStatisticsContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: WorkerStatisticsContextFetchOptions, callback?: function);
+  fetch(opts?: WorkerStatisticsContextFetchOptions, callback?: (error: Error | null, items: WorkerStatisticsContext) => any);
 }
 
 export { WorkerStatisticsContext, WorkerStatisticsInstance, WorkerStatisticsList, WorkerStatisticsListInstance, WorkerStatisticsPage, WorkerStatisticsPayload, WorkerStatisticsResource, WorkerStatisticsSolution }

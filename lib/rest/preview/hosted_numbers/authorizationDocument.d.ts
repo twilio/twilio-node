@@ -49,7 +49,7 @@ interface AuthorizationDocumentListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: AuthorizationDocumentListInstanceCreateOptions, callback?: function);
+  create(opts: AuthorizationDocumentListInstanceCreateOptions, callback?: (error: Error | null, items: AuthorizationDocumentListInstance) => any): Promise<AuthorizationDocumentInstance>;
   /**
    * Streams AuthorizationDocumentInstance records from the API.
    *
@@ -63,13 +63,13 @@ interface AuthorizationDocumentListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: AuthorizationDocumentListInstanceEachOptions, callback?: (item: AuthorizationDocumentInstance, done: (err?: Error) => void) => void);
+  each(opts?: AuthorizationDocumentListInstanceEachOptions, callback?: (item: AuthorizationDocumentInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a authorization_document
    *
    * @param sid - AuthorizationDocument sid.
    */
-  get(sid: string);
+  get(sid: string): AuthorizationDocumentContext;
   /**
    * Retrieve a single target page of AuthorizationDocumentInstance records from the API.
    * Request is executed immediately
@@ -79,7 +79,7 @@ interface AuthorizationDocumentListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<AuthorizationDocumentPage>;
   /**
    * @description Lists AuthorizationDocumentInstance records from the API as a list.
    *
@@ -88,7 +88,7 @@ interface AuthorizationDocumentListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: AuthorizationDocumentListInstanceOptions, callback?: function);
+  list(opts?: AuthorizationDocumentListInstanceOptions, callback?: function): Promise<AuthorizationDocumentInstance[]>;
   /**
    * Retrieve a single page of AuthorizationDocumentInstance records from the API.
    * Request is executed immediately
@@ -98,7 +98,7 @@ interface AuthorizationDocumentListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: AuthorizationDocumentListInstancePageOptions, callback?: function);
+  page(opts?: AuthorizationDocumentListInstancePageOptions, callback?: function): Promise<AuthorizationDocumentPage>;
 }
 
 /**
@@ -274,7 +274,7 @@ declare class AuthorizationDocumentInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: AuthorizationDocumentInstance) => any);
   /**
    * Produce a plain JSON object version of the AuthorizationDocumentInstance for serialization.
    * Removes any circular references in the object.
@@ -286,7 +286,7 @@ declare class AuthorizationDocumentInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: AuthorizationDocumentInstanceUpdateOptions, callback?: function);
+  update(opts?: AuthorizationDocumentInstanceUpdateOptions, callback?: (error: Error | null, items: AuthorizationDocumentInstance) => any);
 }
 
 
@@ -309,14 +309,14 @@ declare class AuthorizationDocumentContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: AuthorizationDocumentContext) => any);
   /**
    * update a AuthorizationDocumentInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: AuthorizationDocumentContextUpdateOptions, callback?: function);
+  update(opts?: AuthorizationDocumentContextUpdateOptions, callback?: (error: Error | null, items: AuthorizationDocumentContext) => any);
 }
 
 export { AuthorizationDocumentContext, AuthorizationDocumentInstance, AuthorizationDocumentList, AuthorizationDocumentListInstance, AuthorizationDocumentPage, AuthorizationDocumentPayload, AuthorizationDocumentResource, AuthorizationDocumentSolution }

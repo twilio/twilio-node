@@ -48,7 +48,7 @@ interface CredentialListMappingListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: CredentialListMappingListInstanceCreateOptions, callback?: function);
+  create(opts: CredentialListMappingListInstanceCreateOptions, callback?: (error: Error | null, items: CredentialListMappingListInstance) => any): Promise<CredentialListMappingInstance>;
   /**
    * Streams CredentialListMappingInstance records from the API.
    *
@@ -62,13 +62,13 @@ interface CredentialListMappingListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: CredentialListMappingListInstanceEachOptions, callback?: (item: CredentialListMappingInstance, done: (err?: Error) => void) => void);
+  each(opts?: CredentialListMappingListInstanceEachOptions, callback?: (item: CredentialListMappingInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a credential_list_mapping
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): CredentialListMappingContext;
   /**
    * Retrieve a single target page of CredentialListMappingInstance records from the API.
    * Request is executed immediately
@@ -78,7 +78,7 @@ interface CredentialListMappingListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<CredentialListMappingPage>;
   /**
    * @description Lists CredentialListMappingInstance records from the API as a list.
    *
@@ -87,7 +87,7 @@ interface CredentialListMappingListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: CredentialListMappingListInstanceOptions, callback?: function);
+  list(opts?: CredentialListMappingListInstanceOptions, callback?: function): Promise<CredentialListMappingInstance[]>;
   /**
    * Retrieve a single page of CredentialListMappingInstance records from the API.
    * Request is executed immediately
@@ -97,7 +97,7 @@ interface CredentialListMappingListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: CredentialListMappingListInstancePageOptions, callback?: function);
+  page(opts?: CredentialListMappingListInstancePageOptions, callback?: function): Promise<CredentialListMappingPage>;
 }
 
 /**
@@ -215,13 +215,13 @@ declare class CredentialListMappingInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: CredentialListMappingInstance) => any);
   /**
    * remove a CredentialListMappingInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: CredentialListMappingInstance) => any);
   /**
    * Produce a plain JSON object version of the CredentialListMappingInstance for serialization.
    * Removes any circular references in the object.
@@ -247,13 +247,13 @@ declare class CredentialListMappingContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: CredentialListMappingContext) => any);
   /**
    * remove a CredentialListMappingInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: CredentialListMappingContext) => any);
 }
 
 export { CredentialListMappingContext, CredentialListMappingInstance, CredentialListMappingList, CredentialListMappingListInstance, CredentialListMappingPage, CredentialListMappingPayload, CredentialListMappingResource, CredentialListMappingSolution }

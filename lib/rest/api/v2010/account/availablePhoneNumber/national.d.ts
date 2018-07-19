@@ -58,7 +58,7 @@ interface NationalListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: NationalListInstanceEachOptions, callback?: (item: NationalInstance, done: (err?: Error) => void) => void);
+  each(opts?: NationalListInstanceEachOptions, callback?: (item: NationalInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of NationalInstance records from the API.
    * Request is executed immediately
@@ -68,7 +68,7 @@ interface NationalListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<NationalPage>;
   /**
    * @description Lists NationalInstance records from the API as a list.
    *
@@ -77,7 +77,7 @@ interface NationalListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: NationalListInstanceOptions, callback?: function);
+  list(opts?: NationalListInstanceOptions, callback?: function): Promise<NationalInstance[]>;
   /**
    * Retrieve a single page of NationalInstance records from the API.
    * Request is executed immediately
@@ -87,7 +87,7 @@ interface NationalListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: NationalListInstancePageOptions, callback?: function);
+  page(opts?: NationalListInstancePageOptions, callback?: function): Promise<NationalPage>;
 }
 
 /**

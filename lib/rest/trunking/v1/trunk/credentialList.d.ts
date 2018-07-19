@@ -46,7 +46,7 @@ interface CredentialListListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: CredentialListListInstanceCreateOptions, callback?: function);
+  create(opts: CredentialListListInstanceCreateOptions, callback?: (error: Error | null, items: CredentialListListInstance) => any): Promise<CredentialListInstance>;
   /**
    * Streams CredentialListInstance records from the API.
    *
@@ -60,13 +60,13 @@ interface CredentialListListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: CredentialListListInstanceEachOptions, callback?: (item: CredentialListInstance, done: (err?: Error) => void) => void);
+  each(opts?: CredentialListListInstanceEachOptions, callback?: (item: CredentialListInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a credential_list
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): CredentialListContext;
   /**
    * Retrieve a single target page of CredentialListInstance records from the API.
    * Request is executed immediately
@@ -76,7 +76,7 @@ interface CredentialListListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<CredentialListPage>;
   /**
    * @description Lists CredentialListInstance records from the API as a list.
    *
@@ -85,7 +85,7 @@ interface CredentialListListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: CredentialListListInstanceOptions, callback?: function);
+  list(opts?: CredentialListListInstanceOptions, callback?: function): Promise<CredentialListInstance[]>;
   /**
    * Retrieve a single page of CredentialListInstance records from the API.
    * Request is executed immediately
@@ -95,7 +95,7 @@ interface CredentialListListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: CredentialListListInstancePageOptions, callback?: function);
+  page(opts?: CredentialListListInstancePageOptions, callback?: function): Promise<CredentialListPage>;
 }
 
 /**
@@ -212,13 +212,13 @@ declare class CredentialListInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: CredentialListInstance) => any);
   /**
    * remove a CredentialListInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: CredentialListInstance) => any);
   /**
    * Produce a plain JSON object version of the CredentialListInstance for serialization.
    * Removes any circular references in the object.
@@ -243,13 +243,13 @@ declare class CredentialListContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: CredentialListContext) => any);
   /**
    * remove a CredentialListInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: CredentialListContext) => any);
 }
 
 export { CredentialListContext, CredentialListInstance, CredentialListList, CredentialListListInstance, CredentialListPage, CredentialListPayload, CredentialListResource, CredentialListSolution }

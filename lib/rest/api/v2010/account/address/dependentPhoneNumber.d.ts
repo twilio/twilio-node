@@ -70,7 +70,7 @@ interface DependentPhoneNumberListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: DependentPhoneNumberListInstanceEachOptions, callback?: (item: DependentPhoneNumberInstance, done: (err?: Error) => void) => void);
+  each(opts?: DependentPhoneNumberListInstanceEachOptions, callback?: (item: DependentPhoneNumberInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of DependentPhoneNumberInstance records from the API.
    * Request is executed immediately
@@ -80,7 +80,7 @@ interface DependentPhoneNumberListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<DependentPhoneNumberPage>;
   /**
    * @description Lists DependentPhoneNumberInstance records from the API as a list.
    *
@@ -89,7 +89,7 @@ interface DependentPhoneNumberListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: DependentPhoneNumberListInstanceOptions, callback?: function);
+  list(opts?: DependentPhoneNumberListInstanceOptions, callback?: function): Promise<DependentPhoneNumberInstance[]>;
   /**
    * Retrieve a single page of DependentPhoneNumberInstance records from the API.
    * Request is executed immediately
@@ -99,7 +99,7 @@ interface DependentPhoneNumberListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: DependentPhoneNumberListInstancePageOptions, callback?: function);
+  page(opts?: DependentPhoneNumberListInstancePageOptions, callback?: function): Promise<DependentPhoneNumberPage>;
 }
 
 /**

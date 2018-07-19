@@ -58,7 +58,7 @@ interface RoomListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: RoomListInstanceCreateOptions, callback?: function);
+  create(opts?: RoomListInstanceCreateOptions, callback?: (error: Error | null, items: RoomListInstance) => any): Promise<RoomInstance>;
   /**
    * Streams RoomInstance records from the API.
    *
@@ -72,13 +72,13 @@ interface RoomListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: RoomListInstanceEachOptions, callback?: (item: RoomInstance, done: (err?: Error) => void) => void);
+  each(opts?: RoomListInstanceEachOptions, callback?: (item: RoomInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a room
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): RoomContext;
   /**
    * Retrieve a single target page of RoomInstance records from the API.
    * Request is executed immediately
@@ -88,7 +88,7 @@ interface RoomListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<RoomPage>;
   /**
    * @description Lists RoomInstance records from the API as a list.
    *
@@ -97,7 +97,7 @@ interface RoomListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: RoomListInstanceOptions, callback?: function);
+  list(opts?: RoomListInstanceOptions, callback?: function): Promise<RoomInstance[]>;
   /**
    * Retrieve a single page of RoomInstance records from the API.
    * Request is executed immediately
@@ -107,7 +107,7 @@ interface RoomListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: RoomListInstancePageOptions, callback?: function);
+  page(opts?: RoomListInstancePageOptions, callback?: function): Promise<RoomPage>;
 }
 
 /**
@@ -292,7 +292,7 @@ declare class RoomInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: RoomInstance) => any);
   /**
    * Access the participants
    */
@@ -312,7 +312,7 @@ declare class RoomInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: RoomInstanceUpdateOptions, callback?: function);
+  update(opts: RoomInstanceUpdateOptions, callback?: (error: Error | null, items: RoomInstance) => any);
 }
 
 
@@ -334,7 +334,7 @@ declare class RoomContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: RoomContext) => any);
   participants?: Twilio.Video.V1.RoomContext.ParticipantList;
   recordings?: Twilio.Video.V1.RoomContext.RoomRecordingList;
   /**
@@ -343,7 +343,7 @@ declare class RoomContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: RoomContextUpdateOptions, callback?: function);
+  update(opts: RoomContextUpdateOptions, callback?: (error: Error | null, items: RoomContext) => any);
 }
 
 export { RoomContext, RoomInstance, RoomList, RoomListInstance, RoomPage, RoomPayload, RoomResource, RoomSolution }

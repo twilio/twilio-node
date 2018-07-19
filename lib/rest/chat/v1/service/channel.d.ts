@@ -57,7 +57,7 @@ interface ChannelListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: ChannelListInstanceCreateOptions, callback?: function);
+  create(opts?: ChannelListInstanceCreateOptions, callback?: (error: Error | null, items: ChannelListInstance) => any): Promise<ChannelInstance>;
   /**
    * Streams ChannelInstance records from the API.
    *
@@ -71,13 +71,13 @@ interface ChannelListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: ChannelListInstanceEachOptions, callback?: (item: ChannelInstance, done: (err?: Error) => void) => void);
+  each(opts?: ChannelListInstanceEachOptions, callback?: (item: ChannelInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a channel
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): ChannelContext;
   /**
    * Retrieve a single target page of ChannelInstance records from the API.
    * Request is executed immediately
@@ -87,7 +87,7 @@ interface ChannelListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<ChannelPage>;
   /**
    * @description Lists ChannelInstance records from the API as a list.
    *
@@ -96,7 +96,7 @@ interface ChannelListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: ChannelListInstanceOptions, callback?: function);
+  list(opts?: ChannelListInstanceOptions, callback?: function): Promise<ChannelInstance[]>;
   /**
    * Retrieve a single page of ChannelInstance records from the API.
    * Request is executed immediately
@@ -106,7 +106,7 @@ interface ChannelListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: ChannelListInstancePageOptions, callback?: function);
+  page(opts?: ChannelListInstancePageOptions, callback?: function): Promise<ChannelPage>;
 }
 
 /**
@@ -268,7 +268,7 @@ declare class ChannelInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: ChannelInstance) => any);
   /**
    * Access the invites
    */
@@ -286,7 +286,7 @@ declare class ChannelInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: ChannelInstance) => any);
   /**
    * Produce a plain JSON object version of the ChannelInstance for serialization.
    * Removes any circular references in the object.
@@ -298,7 +298,7 @@ declare class ChannelInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ChannelInstanceUpdateOptions, callback?: function);
+  update(opts?: ChannelInstanceUpdateOptions, callback?: (error: Error | null, items: ChannelInstance) => any);
 }
 
 
@@ -322,7 +322,7 @@ declare class ChannelContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: ChannelContext) => any);
   invites?: Twilio.Chat.V1.ServiceContext.ChannelContext.InviteList;
   members?: Twilio.Chat.V1.ServiceContext.ChannelContext.MemberList;
   messages?: Twilio.Chat.V1.ServiceContext.ChannelContext.MessageList;
@@ -331,14 +331,14 @@ declare class ChannelContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: ChannelContext) => any);
   /**
    * update a ChannelInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ChannelContextUpdateOptions, callback?: function);
+  update(opts?: ChannelContextUpdateOptions, callback?: (error: Error | null, items: ChannelContext) => any);
 }
 
 export { ChannelContext, ChannelInstance, ChannelList, ChannelListInstance, ChannelPage, ChannelPayload, ChannelResource, ChannelSolution }

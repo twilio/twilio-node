@@ -54,13 +54,13 @@ interface TaskChannelListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: TaskChannelListInstanceEachOptions, callback?: (item: TaskChannelInstance, done: (err?: Error) => void) => void);
+  each(opts?: TaskChannelListInstanceEachOptions, callback?: (item: TaskChannelInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a task_channel
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): TaskChannelContext;
   /**
    * Retrieve a single target page of TaskChannelInstance records from the API.
    * Request is executed immediately
@@ -70,7 +70,7 @@ interface TaskChannelListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<TaskChannelPage>;
   /**
    * @description Lists TaskChannelInstance records from the API as a list.
    *
@@ -79,7 +79,7 @@ interface TaskChannelListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: TaskChannelListInstanceOptions, callback?: function);
+  list(opts?: TaskChannelListInstanceOptions, callback?: function): Promise<TaskChannelInstance[]>;
   /**
    * Retrieve a single page of TaskChannelInstance records from the API.
    * Request is executed immediately
@@ -89,7 +89,7 @@ interface TaskChannelListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: TaskChannelListInstancePageOptions, callback?: function);
+  page(opts?: TaskChannelListInstancePageOptions, callback?: function): Promise<TaskChannelPage>;
 }
 
 /**
@@ -198,7 +198,7 @@ declare class TaskChannelInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: TaskChannelInstance) => any);
   /**
    * Produce a plain JSON object version of the TaskChannelInstance for serialization.
    * Removes any circular references in the object.
@@ -223,7 +223,7 @@ declare class TaskChannelContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: TaskChannelContext) => any);
 }
 
 export { TaskChannelContext, TaskChannelInstance, TaskChannelList, TaskChannelListInstance, TaskChannelPage, TaskChannelPayload, TaskChannelResource, TaskChannelSolution }

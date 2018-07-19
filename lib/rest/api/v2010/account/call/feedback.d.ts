@@ -45,7 +45,7 @@ interface FeedbackListInstance {
   /**
    * Constructs a feedback
    */
-  get();
+  get(): FeedbackContext;
 }
 
 /**
@@ -140,13 +140,13 @@ declare class FeedbackInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: FeedbackInstanceCreateOptions, callback?: function);
+  create(opts: FeedbackInstanceCreateOptions, callback?: (error: Error | null, items: FeedbackInstance) => any);
   /**
    * fetch a FeedbackInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: FeedbackInstance) => any);
   /**
    * Produce a plain JSON object version of the FeedbackInstance for serialization.
    * Removes any circular references in the object.
@@ -158,7 +158,7 @@ declare class FeedbackInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: FeedbackInstanceUpdateOptions, callback?: function);
+  update(opts: FeedbackInstanceUpdateOptions, callback?: (error: Error | null, items: FeedbackInstance) => any);
 }
 
 
@@ -179,20 +179,20 @@ declare class FeedbackContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: FeedbackContextCreateOptions, callback?: function);
+  create(opts: FeedbackContextCreateOptions, callback?: (error: Error | null, items: FeedbackContext) => any): Promise<FeedbackInstance>;
   /**
    * fetch a FeedbackInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: FeedbackContext) => any);
   /**
    * update a FeedbackInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: FeedbackContextUpdateOptions, callback?: function);
+  update(opts: FeedbackContextUpdateOptions, callback?: (error: Error | null, items: FeedbackContext) => any);
 }
 
 export { FeedbackContext, FeedbackInstance, FeedbackList, FeedbackListInstance, FeedbackPage, FeedbackPayload, FeedbackResource, FeedbackSolution }

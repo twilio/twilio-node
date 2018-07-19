@@ -49,7 +49,7 @@ interface CertificateListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: CertificateListInstanceCreateOptions, callback?: function);
+  create(opts: CertificateListInstanceCreateOptions, callback?: (error: Error | null, items: CertificateListInstance) => any): Promise<CertificateInstance>;
   /**
    * Streams CertificateInstance records from the API.
    *
@@ -63,13 +63,13 @@ interface CertificateListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: CertificateListInstanceEachOptions, callback?: (item: CertificateInstance, done: (err?: Error) => void) => void);
+  each(opts?: CertificateListInstanceEachOptions, callback?: (item: CertificateInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a certificate
    *
    * @param sid - A string that uniquely identifies the Certificate.
    */
-  get(sid: string);
+  get(sid: string): CertificateContext;
   /**
    * Retrieve a single target page of CertificateInstance records from the API.
    * Request is executed immediately
@@ -79,7 +79,7 @@ interface CertificateListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<CertificatePage>;
   /**
    * @description Lists CertificateInstance records from the API as a list.
    *
@@ -88,7 +88,7 @@ interface CertificateListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: CertificateListInstanceOptions, callback?: function);
+  list(opts?: CertificateListInstanceOptions, callback?: function): Promise<CertificateInstance[]>;
   /**
    * Retrieve a single page of CertificateInstance records from the API.
    * Request is executed immediately
@@ -98,7 +98,7 @@ interface CertificateListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: CertificateListInstancePageOptions, callback?: function);
+  page(opts?: CertificateListInstancePageOptions, callback?: function): Promise<CertificatePage>;
 }
 
 /**
@@ -251,13 +251,13 @@ declare class CertificateInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: CertificateInstance) => any);
   /**
    * remove a CertificateInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: CertificateInstance) => any);
   /**
    * Produce a plain JSON object version of the CertificateInstance for serialization.
    * Removes any circular references in the object.
@@ -269,7 +269,7 @@ declare class CertificateInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: CertificateInstanceUpdateOptions, callback?: function);
+  update(opts?: CertificateInstanceUpdateOptions, callback?: (error: Error | null, items: CertificateInstance) => any);
 }
 
 
@@ -290,20 +290,20 @@ declare class CertificateContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: CertificateContext) => any);
   /**
    * remove a CertificateInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: CertificateContext) => any);
   /**
    * update a CertificateInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: CertificateContextUpdateOptions, callback?: function);
+  update(opts?: CertificateContextUpdateOptions, callback?: (error: Error | null, items: CertificateContext) => any);
 }
 
 export { CertificateContext, CertificateInstance, CertificateList, CertificateListInstance, CertificatePage, CertificatePayload, CertificateResource, CertificateSolution }

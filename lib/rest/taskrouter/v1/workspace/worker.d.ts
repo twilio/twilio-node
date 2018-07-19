@@ -57,7 +57,7 @@ interface WorkerListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: WorkerListInstanceCreateOptions, callback?: function);
+  create(opts: WorkerListInstanceCreateOptions, callback?: (error: Error | null, items: WorkerListInstance) => any): Promise<WorkerInstance>;
   /**
    * Streams WorkerInstance records from the API.
    *
@@ -71,13 +71,13 @@ interface WorkerListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: WorkerListInstanceEachOptions, callback?: (item: WorkerInstance, done: (err?: Error) => void) => void);
+  each(opts?: WorkerListInstanceEachOptions, callback?: (item: WorkerInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a worker
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): WorkerContext;
   /**
    * Retrieve a single target page of WorkerInstance records from the API.
    * Request is executed immediately
@@ -87,7 +87,7 @@ interface WorkerListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<WorkerPage>;
   /**
    * @description Lists WorkerInstance records from the API as a list.
    *
@@ -96,7 +96,7 @@ interface WorkerListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: WorkerListInstanceOptions, callback?: function);
+  list(opts?: WorkerListInstanceOptions, callback?: function): Promise<WorkerInstance[]>;
   /**
    * Retrieve a single page of WorkerInstance records from the API.
    * Request is executed immediately
@@ -106,7 +106,7 @@ interface WorkerListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: WorkerListInstancePageOptions, callback?: function);
+  page(opts?: WorkerListInstancePageOptions, callback?: function): Promise<WorkerPage>;
   statistics?: object;
 }
 
@@ -306,7 +306,7 @@ declare class WorkerInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: WorkerInstance) => any);
   /**
    * Access the realTimeStatistics
    */
@@ -316,7 +316,7 @@ declare class WorkerInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: WorkerInstance) => any);
   /**
    * Access the reservations
    */
@@ -336,7 +336,7 @@ declare class WorkerInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: WorkerInstanceUpdateOptions, callback?: function);
+  update(opts?: WorkerInstanceUpdateOptions, callback?: (error: Error | null, items: WorkerInstance) => any);
   /**
    * Access the workerChannels
    */
@@ -367,14 +367,14 @@ declare class WorkerContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: WorkerContext) => any);
   realTimeStatistics?: Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkersRealTimeStatisticsList;
   /**
    * remove a WorkerInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: WorkerContext) => any);
   reservations?: Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.ReservationList;
   statistics?: Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkerStatisticsList;
   /**
@@ -383,7 +383,7 @@ declare class WorkerContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: WorkerContextUpdateOptions, callback?: function);
+  update(opts?: WorkerContextUpdateOptions, callback?: (error: Error | null, items: WorkerContext) => any);
   workerChannels?: Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkerChannelList;
 }
 

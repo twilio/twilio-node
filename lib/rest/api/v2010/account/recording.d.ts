@@ -67,13 +67,13 @@ interface RecordingListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: RecordingListInstanceEachOptions, callback?: (item: RecordingInstance, done: (err?: Error) => void) => void);
+  each(opts?: RecordingListInstanceEachOptions, callback?: (item: RecordingInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a recording
    *
    * @param sid - Fetch by unique recording Sid
    */
-  get(sid: string);
+  get(sid: string): RecordingContext;
   /**
    * Retrieve a single target page of RecordingInstance records from the API.
    * Request is executed immediately
@@ -83,7 +83,7 @@ interface RecordingListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<RecordingPage>;
   /**
    * @description Lists RecordingInstance records from the API as a list.
    *
@@ -92,7 +92,7 @@ interface RecordingListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: RecordingListInstanceOptions, callback?: function);
+  list(opts?: RecordingListInstanceOptions, callback?: function): Promise<RecordingInstance[]>;
   /**
    * Retrieve a single page of RecordingInstance records from the API.
    * Request is executed immediately
@@ -102,7 +102,7 @@ interface RecordingListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: RecordingListInstancePageOptions, callback?: function);
+  page(opts?: RecordingListInstancePageOptions, callback?: function): Promise<RecordingPage>;
 }
 
 /**
@@ -255,13 +255,13 @@ declare class RecordingInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: RecordingInstance) => any);
   /**
    * remove a RecordingInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: RecordingInstance) => any);
   /**
    * Produce a plain JSON object version of the RecordingInstance for serialization.
    * Removes any circular references in the object.
@@ -294,13 +294,13 @@ declare class RecordingContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: RecordingContext) => any);
   /**
    * remove a RecordingInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: RecordingContext) => any);
   transcriptions?: Twilio.Api.V2010.AccountContext.RecordingContext.TranscriptionList;
 }
 

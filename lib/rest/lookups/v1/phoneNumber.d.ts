@@ -44,7 +44,7 @@ interface PhoneNumberListInstance {
    *
    * @param phoneNumber - The phone_number
    */
-  get(phoneNumber: string);
+  get(phoneNumber: string): PhoneNumberContext;
 }
 
 /**
@@ -125,7 +125,7 @@ declare class PhoneNumberInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: PhoneNumberInstanceFetchOptions, callback?: function);
+  fetch(opts?: PhoneNumberInstanceFetchOptions, callback?: (error: Error | null, items: PhoneNumberInstance) => any);
   /**
    * Produce a plain JSON object version of the PhoneNumberInstance for serialization.
    * Removes any circular references in the object.
@@ -150,7 +150,7 @@ declare class PhoneNumberContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: PhoneNumberContextFetchOptions, callback?: function);
+  fetch(opts?: PhoneNumberContextFetchOptions, callback?: (error: Error | null, items: PhoneNumberContext) => any);
 }
 
 export { PhoneNumberContext, PhoneNumberInstance, PhoneNumberList, PhoneNumberListInstance, PhoneNumberPage, PhoneNumberPayload, PhoneNumberResource, PhoneNumberSolution }

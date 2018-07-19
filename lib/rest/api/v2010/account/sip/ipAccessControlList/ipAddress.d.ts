@@ -49,7 +49,7 @@ interface IpAddressListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: IpAddressListInstanceCreateOptions, callback?: function);
+  create(opts: IpAddressListInstanceCreateOptions, callback?: (error: Error | null, items: IpAddressListInstance) => any): Promise<IpAddressInstance>;
   /**
    * Streams IpAddressInstance records from the API.
    *
@@ -63,13 +63,13 @@ interface IpAddressListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: IpAddressListInstanceEachOptions, callback?: (item: IpAddressInstance, done: (err?: Error) => void) => void);
+  each(opts?: IpAddressListInstanceEachOptions, callback?: (item: IpAddressInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a ip_address
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): IpAddressContext;
   /**
    * Retrieve a single target page of IpAddressInstance records from the API.
    * Request is executed immediately
@@ -79,7 +79,7 @@ interface IpAddressListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<IpAddressPage>;
   /**
    * @description Lists IpAddressInstance records from the API as a list.
    *
@@ -88,7 +88,7 @@ interface IpAddressListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: IpAddressListInstanceOptions, callback?: function);
+  list(opts?: IpAddressListInstanceOptions, callback?: function): Promise<IpAddressInstance[]>;
   /**
    * Retrieve a single page of IpAddressInstance records from the API.
    * Request is executed immediately
@@ -98,7 +98,7 @@ interface IpAddressListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: IpAddressListInstancePageOptions, callback?: function);
+  page(opts?: IpAddressListInstancePageOptions, callback?: function): Promise<IpAddressPage>;
 }
 
 /**
@@ -241,13 +241,13 @@ declare class IpAddressInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: IpAddressInstance) => any);
   /**
    * remove a IpAddressInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: IpAddressInstance) => any);
   /**
    * Produce a plain JSON object version of the IpAddressInstance for serialization.
    * Removes any circular references in the object.
@@ -259,7 +259,7 @@ declare class IpAddressInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: IpAddressInstanceUpdateOptions, callback?: function);
+  update(opts?: IpAddressInstanceUpdateOptions, callback?: (error: Error | null, items: IpAddressInstance) => any);
 }
 
 
@@ -280,20 +280,20 @@ declare class IpAddressContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: IpAddressContext) => any);
   /**
    * remove a IpAddressInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: IpAddressContext) => any);
   /**
    * update a IpAddressInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: IpAddressContextUpdateOptions, callback?: function);
+  update(opts?: IpAddressContextUpdateOptions, callback?: (error: Error | null, items: IpAddressContext) => any);
 }
 
 export { IpAddressContext, IpAddressInstance, IpAddressList, IpAddressListInstance, IpAddressPage, IpAddressPayload, IpAddressResource, IpAddressSolution }

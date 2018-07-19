@@ -51,7 +51,7 @@ interface FieldListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: FieldListInstanceCreateOptions, callback?: function);
+  create(opts: FieldListInstanceCreateOptions, callback?: (error: Error | null, items: FieldListInstance) => any): Promise<FieldInstance>;
   /**
    * Streams FieldInstance records from the API.
    *
@@ -65,13 +65,13 @@ interface FieldListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: FieldListInstanceEachOptions, callback?: (item: FieldInstance, done: (err?: Error) => void) => void);
+  each(opts?: FieldListInstanceEachOptions, callback?: (item: FieldInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a field
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): FieldContext;
   /**
    * Retrieve a single target page of FieldInstance records from the API.
    * Request is executed immediately
@@ -81,7 +81,7 @@ interface FieldListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<FieldPage>;
   /**
    * @description Lists FieldInstance records from the API as a list.
    *
@@ -90,7 +90,7 @@ interface FieldListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: FieldListInstanceOptions, callback?: function);
+  list(opts?: FieldListInstanceOptions, callback?: function): Promise<FieldInstance[]>;
   /**
    * Retrieve a single page of FieldInstance records from the API.
    * Request is executed immediately
@@ -100,7 +100,7 @@ interface FieldListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: FieldListInstancePageOptions, callback?: function);
+  page(opts?: FieldListInstancePageOptions, callback?: function): Promise<FieldPage>;
 }
 
 /**
@@ -224,13 +224,13 @@ declare class FieldInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: FieldInstance) => any);
   /**
    * remove a FieldInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: FieldInstance) => any);
   /**
    * Produce a plain JSON object version of the FieldInstance for serialization.
    * Removes any circular references in the object.
@@ -257,13 +257,13 @@ declare class FieldContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: FieldContext) => any);
   /**
    * remove a FieldInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: FieldContext) => any);
 }
 
 export { FieldContext, FieldInstance, FieldList, FieldListInstance, FieldPage, FieldPayload, FieldResource, FieldSolution }

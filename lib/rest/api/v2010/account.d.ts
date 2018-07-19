@@ -70,7 +70,7 @@ interface AccountListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: AccountListInstanceCreateOptions, callback?: function);
+  create(opts?: AccountListInstanceCreateOptions, callback?: (error: Error | null, items: AccountListInstance) => any): Promise<AccountInstance>;
   /**
    * Streams AccountInstance records from the API.
    *
@@ -84,13 +84,13 @@ interface AccountListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: AccountListInstanceEachOptions, callback?: (item: AccountInstance, done: (err?: Error) => void) => void);
+  each(opts?: AccountListInstanceEachOptions, callback?: (item: AccountInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a account
    *
    * @param sid - Fetch by unique Account Sid
    */
-  get(sid: string);
+  get(sid: string): AccountContext;
   /**
    * Retrieve a single target page of AccountInstance records from the API.
    * Request is executed immediately
@@ -100,7 +100,7 @@ interface AccountListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<AccountPage>;
   /**
    * @description Lists AccountInstance records from the API as a list.
    *
@@ -109,7 +109,7 @@ interface AccountListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: AccountListInstanceOptions, callback?: function);
+  list(opts?: AccountListInstanceOptions, callback?: function): Promise<AccountInstance[]>;
   /**
    * Retrieve a single page of AccountInstance records from the API.
    * Request is executed immediately
@@ -119,7 +119,7 @@ interface AccountListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: AccountListInstancePageOptions, callback?: function);
+  page(opts?: AccountListInstancePageOptions, callback?: function): Promise<AccountPage>;
 }
 
 /**
@@ -300,7 +300,7 @@ declare class AccountInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: AccountInstance) => any);
   /**
    * Access the incomingPhoneNumbers
    */
@@ -368,7 +368,7 @@ declare class AccountInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: AccountInstanceUpdateOptions, callback?: function);
+  update(opts?: AccountInstanceUpdateOptions, callback?: (error: Error | null, items: AccountInstance) => any);
   /**
    * Access the usage
    */
@@ -426,7 +426,7 @@ declare class AccountContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: AccountContext) => any);
   incomingPhoneNumbers?: Twilio.Api.V2010.AccountContext.IncomingPhoneNumberList;
   keys?: Twilio.Api.V2010.AccountContext.KeyList;
   messages?: Twilio.Api.V2010.AccountContext.MessageList;
@@ -447,7 +447,7 @@ declare class AccountContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: AccountContextUpdateOptions, callback?: function);
+  update(opts?: AccountContextUpdateOptions, callback?: (error: Error | null, items: AccountContext) => any);
   usage?: Twilio.Api.V2010.AccountContext.UsageList;
   validationRequests?: Twilio.Api.V2010.AccountContext.ValidationRequestList;
 }

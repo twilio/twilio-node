@@ -45,7 +45,7 @@ interface VerificationCheckListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: VerificationCheckListInstanceCreateOptions, callback?: function);
+  create(opts: VerificationCheckListInstanceCreateOptions, callback?: (error: Error | null, items: VerificationCheckListInstance) => any): Promise<VerificationCheckInstance>;
 }
 
 /**

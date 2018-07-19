@@ -57,7 +57,7 @@ interface TodayListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: TodayListInstanceEachOptions, callback?: (item: TodayInstance, done: (err?: Error) => void) => void);
+  each(opts?: TodayListInstanceEachOptions, callback?: (item: TodayInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of TodayInstance records from the API.
    * Request is executed immediately
@@ -67,7 +67,7 @@ interface TodayListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<TodayPage>;
   /**
    * @description Lists TodayInstance records from the API as a list.
    *
@@ -76,7 +76,7 @@ interface TodayListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: TodayListInstanceOptions, callback?: function);
+  list(opts?: TodayListInstanceOptions, callback?: function): Promise<TodayInstance[]>;
   /**
    * Retrieve a single page of TodayInstance records from the API.
    * Request is executed immediately
@@ -86,7 +86,7 @@ interface TodayListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: TodayListInstancePageOptions, callback?: function);
+  page(opts?: TodayListInstancePageOptions, callback?: function): Promise<TodayPage>;
 }
 
 /**

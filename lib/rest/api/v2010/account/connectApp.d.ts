@@ -58,13 +58,13 @@ interface ConnectAppListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: ConnectAppListInstanceEachOptions, callback?: (item: ConnectAppInstance, done: (err?: Error) => void) => void);
+  each(opts?: ConnectAppListInstanceEachOptions, callback?: (item: ConnectAppInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a connect_app
    *
    * @param sid - Fetch by unique connect-app Sid
    */
-  get(sid: string);
+  get(sid: string): ConnectAppContext;
   /**
    * Retrieve a single target page of ConnectAppInstance records from the API.
    * Request is executed immediately
@@ -74,7 +74,7 @@ interface ConnectAppListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<ConnectAppPage>;
   /**
    * @description Lists ConnectAppInstance records from the API as a list.
    *
@@ -83,7 +83,7 @@ interface ConnectAppListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: ConnectAppListInstanceOptions, callback?: function);
+  list(opts?: ConnectAppListInstanceOptions, callback?: function): Promise<ConnectAppInstance[]>;
   /**
    * Retrieve a single page of ConnectAppInstance records from the API.
    * Request is executed immediately
@@ -93,7 +93,7 @@ interface ConnectAppListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: ConnectAppListInstancePageOptions, callback?: function);
+  page(opts?: ConnectAppListInstancePageOptions, callback?: function): Promise<ConnectAppPage>;
 }
 
 /**
@@ -251,7 +251,7 @@ declare class ConnectAppInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: ConnectAppInstance) => any);
   /**
    * Produce a plain JSON object version of the ConnectAppInstance for serialization.
    * Removes any circular references in the object.
@@ -263,7 +263,7 @@ declare class ConnectAppInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ConnectAppInstanceUpdateOptions, callback?: function);
+  update(opts?: ConnectAppInstanceUpdateOptions, callback?: (error: Error | null, items: ConnectAppInstance) => any);
 }
 
 
@@ -283,14 +283,14 @@ declare class ConnectAppContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: ConnectAppContext) => any);
   /**
    * update a ConnectAppInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ConnectAppContextUpdateOptions, callback?: function);
+  update(opts?: ConnectAppContextUpdateOptions, callback?: (error: Error | null, items: ConnectAppContext) => any);
 }
 
 export { ConnectAppContext, ConnectAppInstance, ConnectAppList, ConnectAppListInstance, ConnectAppPage, ConnectAppPayload, ConnectAppResource, ConnectAppSolution }

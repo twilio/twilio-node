@@ -52,7 +52,7 @@ interface SampleListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: SampleListInstanceCreateOptions, callback?: function);
+  create(opts: SampleListInstanceCreateOptions, callback?: (error: Error | null, items: SampleListInstance) => any): Promise<SampleInstance>;
   /**
    * Streams SampleInstance records from the API.
    *
@@ -66,13 +66,13 @@ interface SampleListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: SampleListInstanceEachOptions, callback?: (item: SampleInstance, done: (err?: Error) => void) => void);
+  each(opts?: SampleListInstanceEachOptions, callback?: (item: SampleInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a sample
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): SampleContext;
   /**
    * Retrieve a single target page of SampleInstance records from the API.
    * Request is executed immediately
@@ -82,7 +82,7 @@ interface SampleListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<SamplePage>;
   /**
    * @description Lists SampleInstance records from the API as a list.
    *
@@ -91,7 +91,7 @@ interface SampleListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: SampleListInstanceOptions, callback?: function);
+  list(opts?: SampleListInstanceOptions, callback?: function): Promise<SampleInstance[]>;
   /**
    * Retrieve a single page of SampleInstance records from the API.
    * Request is executed immediately
@@ -101,7 +101,7 @@ interface SampleListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: SampleListInstancePageOptions, callback?: function);
+  page(opts?: SampleListInstancePageOptions, callback?: function): Promise<SamplePage>;
 }
 
 /**
@@ -260,13 +260,13 @@ declare class SampleInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: SampleInstance) => any);
   /**
    * remove a SampleInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: SampleInstance) => any);
   /**
    * Produce a plain JSON object version of the SampleInstance for serialization.
    * Removes any circular references in the object.
@@ -278,7 +278,7 @@ declare class SampleInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: SampleInstanceUpdateOptions, callback?: function);
+  update(opts?: SampleInstanceUpdateOptions, callback?: (error: Error | null, items: SampleInstance) => any);
 }
 
 
@@ -300,20 +300,20 @@ declare class SampleContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: SampleContext) => any);
   /**
    * remove a SampleInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: SampleContext) => any);
   /**
    * update a SampleInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: SampleContextUpdateOptions, callback?: function);
+  update(opts?: SampleContextUpdateOptions, callback?: (error: Error | null, items: SampleContext) => any);
 }
 
 export { SampleContext, SampleInstance, SampleList, SampleListInstance, SamplePage, SamplePayload, SampleResource, SampleSolution }

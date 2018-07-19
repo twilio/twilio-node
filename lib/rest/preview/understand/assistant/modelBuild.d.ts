@@ -50,7 +50,7 @@ interface ModelBuildListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: ModelBuildListInstanceCreateOptions, callback?: function);
+  create(opts?: ModelBuildListInstanceCreateOptions, callback?: (error: Error | null, items: ModelBuildListInstance) => any): Promise<ModelBuildInstance>;
   /**
    * Streams ModelBuildInstance records from the API.
    *
@@ -64,13 +64,13 @@ interface ModelBuildListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: ModelBuildListInstanceEachOptions, callback?: (item: ModelBuildInstance, done: (err?: Error) => void) => void);
+  each(opts?: ModelBuildListInstanceEachOptions, callback?: (item: ModelBuildInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a model_build
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): ModelBuildContext;
   /**
    * Retrieve a single target page of ModelBuildInstance records from the API.
    * Request is executed immediately
@@ -80,7 +80,7 @@ interface ModelBuildListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<ModelBuildPage>;
   /**
    * @description Lists ModelBuildInstance records from the API as a list.
    *
@@ -89,7 +89,7 @@ interface ModelBuildListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: ModelBuildListInstanceOptions, callback?: function);
+  list(opts?: ModelBuildListInstanceOptions, callback?: function): Promise<ModelBuildInstance[]>;
   /**
    * Retrieve a single page of ModelBuildInstance records from the API.
    * Request is executed immediately
@@ -99,7 +99,7 @@ interface ModelBuildListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: ModelBuildListInstancePageOptions, callback?: function);
+  page(opts?: ModelBuildListInstancePageOptions, callback?: function): Promise<ModelBuildPage>;
 }
 
 /**
@@ -241,13 +241,13 @@ declare class ModelBuildInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: ModelBuildInstance) => any);
   /**
    * remove a ModelBuildInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: ModelBuildInstance) => any);
   /**
    * Produce a plain JSON object version of the ModelBuildInstance for serialization.
    * Removes any circular references in the object.
@@ -259,7 +259,7 @@ declare class ModelBuildInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ModelBuildInstanceUpdateOptions, callback?: function);
+  update(opts?: ModelBuildInstanceUpdateOptions, callback?: (error: Error | null, items: ModelBuildInstance) => any);
 }
 
 
@@ -280,20 +280,20 @@ declare class ModelBuildContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: ModelBuildContext) => any);
   /**
    * remove a ModelBuildInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: ModelBuildContext) => any);
   /**
    * update a ModelBuildInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ModelBuildContextUpdateOptions, callback?: function);
+  update(opts?: ModelBuildContextUpdateOptions, callback?: (error: Error | null, items: ModelBuildContext) => any);
 }
 
 export { ModelBuildContext, ModelBuildInstance, ModelBuildList, ModelBuildListInstance, ModelBuildPage, ModelBuildPayload, ModelBuildResource, ModelBuildSolution }

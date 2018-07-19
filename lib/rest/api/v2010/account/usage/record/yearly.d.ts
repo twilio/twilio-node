@@ -57,7 +57,7 @@ interface YearlyListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: YearlyListInstanceEachOptions, callback?: (item: YearlyInstance, done: (err?: Error) => void) => void);
+  each(opts?: YearlyListInstanceEachOptions, callback?: (item: YearlyInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of YearlyInstance records from the API.
    * Request is executed immediately
@@ -67,7 +67,7 @@ interface YearlyListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<YearlyPage>;
   /**
    * @description Lists YearlyInstance records from the API as a list.
    *
@@ -76,7 +76,7 @@ interface YearlyListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: YearlyListInstanceOptions, callback?: function);
+  list(opts?: YearlyListInstanceOptions, callback?: function): Promise<YearlyInstance[]>;
   /**
    * Retrieve a single page of YearlyInstance records from the API.
    * Request is executed immediately
@@ -86,7 +86,7 @@ interface YearlyListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: YearlyListInstancePageOptions, callback?: function);
+  page(opts?: YearlyListInstancePageOptions, callback?: function): Promise<YearlyPage>;
 }
 
 /**

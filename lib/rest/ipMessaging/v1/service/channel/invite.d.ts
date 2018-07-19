@@ -52,7 +52,7 @@ interface InviteListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: InviteListInstanceCreateOptions, callback?: function);
+  create(opts: InviteListInstanceCreateOptions, callback?: (error: Error | null, items: InviteListInstance) => any): Promise<InviteInstance>;
   /**
    * Streams InviteInstance records from the API.
    *
@@ -66,13 +66,13 @@ interface InviteListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: InviteListInstanceEachOptions, callback?: (item: InviteInstance, done: (err?: Error) => void) => void);
+  each(opts?: InviteListInstanceEachOptions, callback?: (item: InviteInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a invite
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): InviteContext;
   /**
    * Retrieve a single target page of InviteInstance records from the API.
    * Request is executed immediately
@@ -82,7 +82,7 @@ interface InviteListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<InvitePage>;
   /**
    * @description Lists InviteInstance records from the API as a list.
    *
@@ -91,7 +91,7 @@ interface InviteListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: InviteListInstanceOptions, callback?: function);
+  list(opts?: InviteListInstanceOptions, callback?: function): Promise<InviteInstance[]>;
   /**
    * Retrieve a single page of InviteInstance records from the API.
    * Request is executed immediately
@@ -101,7 +101,7 @@ interface InviteListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: InviteListInstancePageOptions, callback?: function);
+  page(opts?: InviteListInstancePageOptions, callback?: function): Promise<InvitePage>;
 }
 
 /**
@@ -230,13 +230,13 @@ declare class InviteInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: InviteInstance) => any);
   /**
    * remove a InviteInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: InviteInstance) => any);
   /**
    * Produce a plain JSON object version of the InviteInstance for serialization.
    * Removes any circular references in the object.
@@ -262,13 +262,13 @@ declare class InviteContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: InviteContext) => any);
   /**
    * remove a InviteInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: InviteContext) => any);
 }
 
 export { InviteContext, InviteInstance, InviteList, InviteListInstance, InvitePage, InvitePayload, InviteResource, InviteSolution }

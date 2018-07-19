@@ -58,7 +58,7 @@ interface VoipListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: VoipListInstanceEachOptions, callback?: (item: VoipInstance, done: (err?: Error) => void) => void);
+  each(opts?: VoipListInstanceEachOptions, callback?: (item: VoipInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of VoipInstance records from the API.
    * Request is executed immediately
@@ -68,7 +68,7 @@ interface VoipListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<VoipPage>;
   /**
    * @description Lists VoipInstance records from the API as a list.
    *
@@ -77,7 +77,7 @@ interface VoipListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: VoipListInstanceOptions, callback?: function);
+  list(opts?: VoipListInstanceOptions, callback?: function): Promise<VoipInstance[]>;
   /**
    * Retrieve a single page of VoipInstance records from the API.
    * Request is executed immediately
@@ -87,7 +87,7 @@ interface VoipListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: VoipListInstancePageOptions, callback?: function);
+  page(opts?: VoipListInstancePageOptions, callback?: function): Promise<VoipPage>;
 }
 
 /**

@@ -56,13 +56,13 @@ interface AuthorizedConnectAppListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: AuthorizedConnectAppListInstanceEachOptions, callback?: (item: AuthorizedConnectAppInstance, done: (err?: Error) => void) => void);
+  each(opts?: AuthorizedConnectAppListInstanceEachOptions, callback?: (item: AuthorizedConnectAppInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a authorized_connect_app
    *
    * @param connectAppSid - The connect_app_sid
    */
-  get(connectAppSid: string);
+  get(connectAppSid: string): AuthorizedConnectAppContext;
   /**
    * Retrieve a single target page of AuthorizedConnectAppInstance records from the API.
    * Request is executed immediately
@@ -72,7 +72,7 @@ interface AuthorizedConnectAppListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<AuthorizedConnectAppPage>;
   /**
    * @description Lists AuthorizedConnectAppInstance records from the API as a list.
    *
@@ -81,7 +81,7 @@ interface AuthorizedConnectAppListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: AuthorizedConnectAppListInstanceOptions, callback?: function);
+  list(opts?: AuthorizedConnectAppListInstanceOptions, callback?: function): Promise<AuthorizedConnectAppInstance[]>;
   /**
    * Retrieve a single page of AuthorizedConnectAppInstance records from the API.
    * Request is executed immediately
@@ -91,7 +91,7 @@ interface AuthorizedConnectAppListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: AuthorizedConnectAppListInstancePageOptions, callback?: function);
+  page(opts?: AuthorizedConnectAppListInstancePageOptions, callback?: function): Promise<AuthorizedConnectAppPage>;
 }
 
 /**
@@ -202,7 +202,7 @@ declare class AuthorizedConnectAppInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: AuthorizedConnectAppInstance) => any);
   /**
    * Produce a plain JSON object version of the AuthorizedConnectAppInstance for serialization.
    * Removes any circular references in the object.
@@ -227,7 +227,7 @@ declare class AuthorizedConnectAppContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: AuthorizedConnectAppContext) => any);
 }
 
 export { AuthorizedConnectAppContext, AuthorizedConnectAppInstance, AuthorizedConnectAppList, AuthorizedConnectAppListInstance, AuthorizedConnectAppPage, AuthorizedConnectAppPayload, AuthorizedConnectAppResource, AuthorizedConnectAppSolution }

@@ -64,7 +64,7 @@ interface MobileListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: MobileListInstanceCreateOptions, callback?: function);
+  create(opts: MobileListInstanceCreateOptions, callback?: (error: Error | null, items: MobileListInstance) => any): Promise<MobileInstance>;
   /**
    * Streams MobileInstance records from the API.
    *
@@ -78,7 +78,7 @@ interface MobileListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: MobileListInstanceEachOptions, callback?: (item: MobileInstance, done: (err?: Error) => void) => void);
+  each(opts?: MobileListInstanceEachOptions, callback?: (item: MobileInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of MobileInstance records from the API.
    * Request is executed immediately
@@ -88,7 +88,7 @@ interface MobileListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<MobilePage>;
   /**
    * @description Lists MobileInstance records from the API as a list.
    *
@@ -97,7 +97,7 @@ interface MobileListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: MobileListInstanceOptions, callback?: function);
+  list(opts?: MobileListInstanceOptions, callback?: function): Promise<MobileInstance[]>;
   /**
    * Retrieve a single page of MobileInstance records from the API.
    * Request is executed immediately
@@ -107,7 +107,7 @@ interface MobileListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: MobileListInstancePageOptions, callback?: function);
+  page(opts?: MobileListInstancePageOptions, callback?: function): Promise<MobilePage>;
 }
 
 /**

@@ -51,7 +51,7 @@ interface SyncStreamListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: SyncStreamListInstanceCreateOptions, callback?: function);
+  create(opts?: SyncStreamListInstanceCreateOptions, callback?: (error: Error | null, items: SyncStreamListInstance) => any): Promise<SyncStreamInstance>;
   /**
    * Streams SyncStreamInstance records from the API.
    *
@@ -65,13 +65,13 @@ interface SyncStreamListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: SyncStreamListInstanceEachOptions, callback?: (item: SyncStreamInstance, done: (err?: Error) => void) => void);
+  each(opts?: SyncStreamListInstanceEachOptions, callback?: (item: SyncStreamInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a sync_stream
    *
    * @param sid - Stream SID or unique name.
    */
-  get(sid: string);
+  get(sid: string): SyncStreamContext;
   /**
    * Retrieve a single target page of SyncStreamInstance records from the API.
    * Request is executed immediately
@@ -81,7 +81,7 @@ interface SyncStreamListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<SyncStreamPage>;
   /**
    * @description Lists SyncStreamInstance records from the API as a list.
    *
@@ -90,7 +90,7 @@ interface SyncStreamListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: SyncStreamListInstanceOptions, callback?: function);
+  list(opts?: SyncStreamListInstanceOptions, callback?: function): Promise<SyncStreamInstance[]>;
   /**
    * Retrieve a single page of SyncStreamInstance records from the API.
    * Request is executed immediately
@@ -100,7 +100,7 @@ interface SyncStreamListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: SyncStreamListInstancePageOptions, callback?: function);
+  page(opts?: SyncStreamListInstancePageOptions, callback?: function): Promise<SyncStreamPage>;
 }
 
 /**
@@ -242,13 +242,13 @@ declare class SyncStreamInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: SyncStreamInstance) => any);
   /**
    * remove a SyncStreamInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: SyncStreamInstance) => any);
   /**
    * Access the streamMessages
    */
@@ -264,7 +264,7 @@ declare class SyncStreamInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: SyncStreamInstanceUpdateOptions, callback?: function);
+  update(opts?: SyncStreamInstanceUpdateOptions, callback?: (error: Error | null, items: SyncStreamInstance) => any);
 }
 
 
@@ -287,13 +287,13 @@ declare class SyncStreamContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: SyncStreamContext) => any);
   /**
    * remove a SyncStreamInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: SyncStreamContext) => any);
   streamMessages?: Twilio.Sync.V1.ServiceContext.SyncStreamContext.StreamMessageList;
   /**
    * update a SyncStreamInstance
@@ -301,7 +301,7 @@ declare class SyncStreamContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: SyncStreamContextUpdateOptions, callback?: function);
+  update(opts?: SyncStreamContextUpdateOptions, callback?: (error: Error | null, items: SyncStreamContext) => any);
 }
 
 export { SyncStreamContext, SyncStreamInstance, SyncStreamList, SyncStreamListInstance, SyncStreamPage, SyncStreamPayload, SyncStreamResource, SyncStreamSolution }

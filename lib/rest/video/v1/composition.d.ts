@@ -57,7 +57,7 @@ interface CompositionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: CompositionListInstanceCreateOptions, callback?: function);
+  create(opts?: CompositionListInstanceCreateOptions, callback?: (error: Error | null, items: CompositionListInstance) => any): Promise<CompositionInstance>;
   /**
    * Streams CompositionInstance records from the API.
    *
@@ -71,13 +71,13 @@ interface CompositionListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: CompositionListInstanceEachOptions, callback?: (item: CompositionInstance, done: (err?: Error) => void) => void);
+  each(opts?: CompositionListInstanceEachOptions, callback?: (item: CompositionInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a composition
    *
    * @param sid - The Composition Sid that uniquely identifies the Composition to fetch.
    */
-  get(sid: string);
+  get(sid: string): CompositionContext;
   /**
    * Retrieve a single target page of CompositionInstance records from the API.
    * Request is executed immediately
@@ -87,7 +87,7 @@ interface CompositionListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<CompositionPage>;
   /**
    * @description Lists CompositionInstance records from the API as a list.
    *
@@ -96,7 +96,7 @@ interface CompositionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: CompositionListInstanceOptions, callback?: function);
+  list(opts?: CompositionListInstanceOptions, callback?: function): Promise<CompositionInstance[]>;
   /**
    * Retrieve a single page of CompositionInstance records from the API.
    * Request is executed immediately
@@ -106,7 +106,7 @@ interface CompositionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: CompositionListInstancePageOptions, callback?: function);
+  page(opts?: CompositionListInstancePageOptions, callback?: function): Promise<CompositionPage>;
 }
 
 /**
@@ -275,13 +275,13 @@ declare class CompositionInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: CompositionInstance) => any);
   /**
    * remove a CompositionInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: CompositionInstance) => any);
   /**
    * Produce a plain JSON object version of the CompositionInstance for serialization.
    * Removes any circular references in the object.
@@ -306,13 +306,13 @@ declare class CompositionContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: CompositionContext) => any);
   /**
    * remove a CompositionInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: CompositionContext) => any);
 }
 
 export { CompositionContext, CompositionInstance, CompositionList, CompositionListInstance, CompositionPage, CompositionPayload, CompositionResource, CompositionSolution }

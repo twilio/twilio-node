@@ -50,7 +50,7 @@ interface InstalledAddOnListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: InstalledAddOnListInstanceCreateOptions, callback?: function);
+  create(opts: InstalledAddOnListInstanceCreateOptions, callback?: (error: Error | null, items: InstalledAddOnListInstance) => any): Promise<InstalledAddOnInstance>;
   /**
    * Streams InstalledAddOnInstance records from the API.
    *
@@ -64,13 +64,13 @@ interface InstalledAddOnListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: InstalledAddOnListInstanceEachOptions, callback?: (item: InstalledAddOnInstance, done: (err?: Error) => void) => void);
+  each(opts?: InstalledAddOnListInstanceEachOptions, callback?: (item: InstalledAddOnInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a installed_add_on
    *
    * @param sid - The unique Installed Add-on Sid
    */
-  get(sid: string);
+  get(sid: string): InstalledAddOnContext;
   /**
    * Retrieve a single target page of InstalledAddOnInstance records from the API.
    * Request is executed immediately
@@ -80,7 +80,7 @@ interface InstalledAddOnListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<InstalledAddOnPage>;
   /**
    * @description Lists InstalledAddOnInstance records from the API as a list.
    *
@@ -89,7 +89,7 @@ interface InstalledAddOnListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: InstalledAddOnListInstanceOptions, callback?: function);
+  list(opts?: InstalledAddOnListInstanceOptions, callback?: function): Promise<InstalledAddOnInstance[]>;
   /**
    * Retrieve a single page of InstalledAddOnInstance records from the API.
    * Request is executed immediately
@@ -99,7 +99,7 @@ interface InstalledAddOnListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: InstalledAddOnListInstancePageOptions, callback?: function);
+  page(opts?: InstalledAddOnListInstancePageOptions, callback?: function): Promise<InstalledAddOnPage>;
 }
 
 /**
@@ -252,13 +252,13 @@ declare class InstalledAddOnInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: InstalledAddOnInstance) => any);
   /**
    * remove a InstalledAddOnInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: InstalledAddOnInstance) => any);
   /**
    * Produce a plain JSON object version of the InstalledAddOnInstance for serialization.
    * Removes any circular references in the object.
@@ -270,7 +270,7 @@ declare class InstalledAddOnInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: InstalledAddOnInstanceUpdateOptions, callback?: function);
+  update(opts?: InstalledAddOnInstanceUpdateOptions, callback?: (error: Error | null, items: InstalledAddOnInstance) => any);
 }
 
 
@@ -293,20 +293,20 @@ declare class InstalledAddOnContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: InstalledAddOnContext) => any);
   /**
    * remove a InstalledAddOnInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: InstalledAddOnContext) => any);
   /**
    * update a InstalledAddOnInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: InstalledAddOnContextUpdateOptions, callback?: function);
+  update(opts?: InstalledAddOnContextUpdateOptions, callback?: (error: Error | null, items: InstalledAddOnContext) => any);
 }
 
 export { InstalledAddOnContext, InstalledAddOnInstance, InstalledAddOnList, InstalledAddOnListInstance, InstalledAddOnPage, InstalledAddOnPayload, InstalledAddOnResource, InstalledAddOnSolution }

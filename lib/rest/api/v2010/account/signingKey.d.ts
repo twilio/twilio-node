@@ -50,13 +50,13 @@ interface SigningKeyListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: SigningKeyListInstanceEachOptions, callback?: (item: SigningKeyInstance, done: (err?: Error) => void) => void);
+  each(opts?: SigningKeyListInstanceEachOptions, callback?: (item: SigningKeyInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a signing_key
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): SigningKeyContext;
   /**
    * Retrieve a single target page of SigningKeyInstance records from the API.
    * Request is executed immediately
@@ -66,7 +66,7 @@ interface SigningKeyListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<SigningKeyPage>;
   /**
    * @description Lists SigningKeyInstance records from the API as a list.
    *
@@ -75,7 +75,7 @@ interface SigningKeyListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: SigningKeyListInstanceOptions, callback?: function);
+  list(opts?: SigningKeyListInstanceOptions, callback?: function): Promise<SigningKeyInstance[]>;
   /**
    * Retrieve a single page of SigningKeyInstance records from the API.
    * Request is executed immediately
@@ -85,7 +85,7 @@ interface SigningKeyListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: SigningKeyListInstancePageOptions, callback?: function);
+  page(opts?: SigningKeyListInstancePageOptions, callback?: function): Promise<SigningKeyPage>;
 }
 
 /**
@@ -208,13 +208,13 @@ declare class SigningKeyInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: SigningKeyInstance) => any);
   /**
    * remove a SigningKeyInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: SigningKeyInstance) => any);
   /**
    * Produce a plain JSON object version of the SigningKeyInstance for serialization.
    * Removes any circular references in the object.
@@ -226,7 +226,7 @@ declare class SigningKeyInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: SigningKeyInstanceUpdateOptions, callback?: function);
+  update(opts?: SigningKeyInstanceUpdateOptions, callback?: (error: Error | null, items: SigningKeyInstance) => any);
 }
 
 
@@ -246,20 +246,20 @@ declare class SigningKeyContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: SigningKeyContext) => any);
   /**
    * remove a SigningKeyInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: SigningKeyContext) => any);
   /**
    * update a SigningKeyInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: SigningKeyContextUpdateOptions, callback?: function);
+  update(opts?: SigningKeyContextUpdateOptions, callback?: (error: Error | null, items: SigningKeyContext) => any);
 }
 
 export { SigningKeyContext, SigningKeyInstance, SigningKeyList, SigningKeyListInstance, SigningKeyPage, SigningKeyPayload, SigningKeyResource, SigningKeySolution }

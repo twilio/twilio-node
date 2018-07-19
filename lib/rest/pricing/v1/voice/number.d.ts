@@ -43,7 +43,7 @@ interface NumberListInstance {
    *
    * @param number - The number
    */
-  get(number: string);
+  get(number: string): NumberContext;
 }
 
 
@@ -93,7 +93,7 @@ declare class NumberInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: NumberInstance) => any);
   /**
    * Produce a plain JSON object version of the NumberInstance for serialization.
    * Removes any circular references in the object.
@@ -117,7 +117,7 @@ declare class NumberContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: NumberContext) => any);
 }
 
 export { NumberContext, NumberInstance, NumberList, NumberListInstance, NumberPage, NumberPayload, NumberResource, NumberSolution }

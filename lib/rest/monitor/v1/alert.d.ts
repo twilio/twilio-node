@@ -62,13 +62,13 @@ interface AlertListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: AlertListInstanceEachOptions, callback?: (item: AlertInstance, done: (err?: Error) => void) => void);
+  each(opts?: AlertListInstanceEachOptions, callback?: (item: AlertInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a alert
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): AlertContext;
   /**
    * Retrieve a single target page of AlertInstance records from the API.
    * Request is executed immediately
@@ -78,7 +78,7 @@ interface AlertListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<AlertPage>;
   /**
    * @description Lists AlertInstance records from the API as a list.
    *
@@ -87,7 +87,7 @@ interface AlertListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: AlertListInstanceOptions, callback?: function);
+  list(opts?: AlertListInstanceOptions, callback?: function): Promise<AlertInstance[]>;
   /**
    * Retrieve a single page of AlertInstance records from the API.
    * Request is executed immediately
@@ -97,7 +97,7 @@ interface AlertListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: AlertListInstancePageOptions, callback?: function);
+  page(opts?: AlertListInstancePageOptions, callback?: function): Promise<AlertPage>;
 }
 
 /**
@@ -232,13 +232,13 @@ declare class AlertInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: AlertInstance) => any);
   /**
    * remove a AlertInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: AlertInstance) => any);
   /**
    * Produce a plain JSON object version of the AlertInstance for serialization.
    * Removes any circular references in the object.
@@ -262,13 +262,13 @@ declare class AlertContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: AlertContext) => any);
   /**
    * remove a AlertInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: AlertContext) => any);
 }
 
 export { AlertContext, AlertInstance, AlertList, AlertListInstance, AlertPage, AlertPayload, AlertResource, AlertSolution }

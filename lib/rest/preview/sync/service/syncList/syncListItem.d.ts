@@ -53,7 +53,7 @@ interface SyncListItemListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: SyncListItemListInstanceCreateOptions, callback?: function);
+  create(opts: SyncListItemListInstanceCreateOptions, callback?: (error: Error | null, items: SyncListItemListInstance) => any): Promise<SyncListItemInstance>;
   /**
    * Streams SyncListItemInstance records from the API.
    *
@@ -67,13 +67,13 @@ interface SyncListItemListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: SyncListItemListInstanceEachOptions, callback?: (item: SyncListItemInstance, done: (err?: Error) => void) => void);
+  each(opts?: SyncListItemListInstanceEachOptions, callback?: (item: SyncListItemInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a sync_list_item
    *
    * @param index - The index
    */
-  get(index: string);
+  get(index: string): SyncListItemContext;
   /**
    * Retrieve a single target page of SyncListItemInstance records from the API.
    * Request is executed immediately
@@ -83,7 +83,7 @@ interface SyncListItemListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<SyncListItemPage>;
   /**
    * @description Lists SyncListItemInstance records from the API as a list.
    *
@@ -92,7 +92,7 @@ interface SyncListItemListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: SyncListItemListInstanceOptions, callback?: function);
+  list(opts?: SyncListItemListInstanceOptions, callback?: function): Promise<SyncListItemInstance[]>;
   /**
    * Retrieve a single page of SyncListItemInstance records from the API.
    * Request is executed immediately
@@ -102,7 +102,7 @@ interface SyncListItemListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: SyncListItemListInstancePageOptions, callback?: function);
+  page(opts?: SyncListItemListInstancePageOptions, callback?: function): Promise<SyncListItemPage>;
 }
 
 /**
@@ -261,13 +261,13 @@ declare class SyncListItemInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: SyncListItemInstance) => any);
   /**
    * remove a SyncListItemInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: SyncListItemInstance) => any);
   /**
    * Produce a plain JSON object version of the SyncListItemInstance for serialization.
    * Removes any circular references in the object.
@@ -279,7 +279,7 @@ declare class SyncListItemInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: SyncListItemInstanceUpdateOptions, callback?: function);
+  update(opts: SyncListItemInstanceUpdateOptions, callback?: (error: Error | null, items: SyncListItemInstance) => any);
 }
 
 
@@ -301,20 +301,20 @@ declare class SyncListItemContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: SyncListItemContext) => any);
   /**
    * remove a SyncListItemInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: SyncListItemContext) => any);
   /**
    * update a SyncListItemInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: SyncListItemContextUpdateOptions, callback?: function);
+  update(opts: SyncListItemContextUpdateOptions, callback?: (error: Error | null, items: SyncListItemContext) => any);
 }
 
 export { SyncListItemContext, SyncListItemInstance, SyncListItemList, SyncListItemListInstance, SyncListItemPage, SyncListItemPayload, SyncListItemResource, SyncListItemSolution }

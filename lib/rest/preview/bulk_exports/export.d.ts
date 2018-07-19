@@ -41,7 +41,7 @@ interface ExportListInstance {
    *
    * @param resourceType - The resource_type
    */
-  get(resourceType: string);
+  get(resourceType: string): ExportContext;
 }
 
 
@@ -93,7 +93,7 @@ declare class ExportInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: ExportInstance) => any);
   /**
    * Produce a plain JSON object version of the ExportInstance for serialization.
    * Removes any circular references in the object.
@@ -121,7 +121,7 @@ declare class ExportContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: ExportContext) => any);
 }
 
 export { ExportContext, ExportInstance, ExportList, ExportListInstance, ExportPage, ExportPayload, ExportResource, ExportSolution }

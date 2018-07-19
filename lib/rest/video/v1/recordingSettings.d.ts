@@ -44,7 +44,7 @@ interface RecordingSettingsListInstance {
   /**
    * Constructs a recording_settings
    */
-  get();
+  get(): RecordingSettingsContext;
 }
 
 /**
@@ -135,13 +135,13 @@ declare class RecordingSettingsInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: RecordingSettingsInstanceCreateOptions, callback?: function);
+  create(opts: RecordingSettingsInstanceCreateOptions, callback?: (error: Error | null, items: RecordingSettingsInstance) => any);
   /**
    * fetch a RecordingSettingsInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: RecordingSettingsInstance) => any);
   /**
    * Produce a plain JSON object version of the RecordingSettingsInstance for serialization.
    * Removes any circular references in the object.
@@ -166,13 +166,13 @@ declare class RecordingSettingsContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: RecordingSettingsContextCreateOptions, callback?: function);
+  create(opts: RecordingSettingsContextCreateOptions, callback?: (error: Error | null, items: RecordingSettingsContext) => any): Promise<RecordingSettingsInstance>;
   /**
    * fetch a RecordingSettingsInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: RecordingSettingsContext) => any);
 }
 
 export { RecordingSettingsContext, RecordingSettingsInstance, RecordingSettingsList, RecordingSettingsListInstance, RecordingSettingsPage, RecordingSettingsPayload, RecordingSettingsResource, RecordingSettingsSolution }

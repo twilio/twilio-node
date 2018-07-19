@@ -71,7 +71,7 @@ interface IncomingPhoneNumberListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: IncomingPhoneNumberListInstanceCreateOptions, callback?: function);
+  create(opts?: IncomingPhoneNumberListInstanceCreateOptions, callback?: (error: Error | null, items: IncomingPhoneNumberListInstance) => any): Promise<IncomingPhoneNumberInstance>;
   /**
    * Streams IncomingPhoneNumberInstance records from the API.
    *
@@ -85,13 +85,13 @@ interface IncomingPhoneNumberListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: IncomingPhoneNumberListInstanceEachOptions, callback?: (item: IncomingPhoneNumberInstance, done: (err?: Error) => void) => void);
+  each(opts?: IncomingPhoneNumberListInstanceEachOptions, callback?: (item: IncomingPhoneNumberInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a incoming_phone_number
    *
    * @param sid - Fetch by unique incoming-phone-number Sid
    */
-  get(sid: string);
+  get(sid: string): IncomingPhoneNumberContext;
   /**
    * Retrieve a single target page of IncomingPhoneNumberInstance records from the API.
    * Request is executed immediately
@@ -101,7 +101,7 @@ interface IncomingPhoneNumberListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<IncomingPhoneNumberPage>;
   /**
    * @description Lists IncomingPhoneNumberInstance records from the API as a list.
    *
@@ -110,7 +110,7 @@ interface IncomingPhoneNumberListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: IncomingPhoneNumberListInstanceOptions, callback?: function);
+  list(opts?: IncomingPhoneNumberListInstanceOptions, callback?: function): Promise<IncomingPhoneNumberInstance[]>;
   local?: object;
   mobile?: object;
   /**
@@ -122,7 +122,7 @@ interface IncomingPhoneNumberListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: IncomingPhoneNumberListInstancePageOptions, callback?: function);
+  page(opts?: IncomingPhoneNumberListInstancePageOptions, callback?: function): Promise<IncomingPhoneNumberPage>;
   tollFree?: object;
 }
 
@@ -435,13 +435,13 @@ declare class IncomingPhoneNumberInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: IncomingPhoneNumberInstance) => any);
   /**
    * remove a IncomingPhoneNumberInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: IncomingPhoneNumberInstance) => any);
   /**
    * Produce a plain JSON object version of the IncomingPhoneNumberInstance for serialization.
    * Removes any circular references in the object.
@@ -453,7 +453,7 @@ declare class IncomingPhoneNumberInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: IncomingPhoneNumberInstanceUpdateOptions, callback?: function);
+  update(opts?: IncomingPhoneNumberInstanceUpdateOptions, callback?: (error: Error | null, items: IncomingPhoneNumberInstance) => any);
 }
 
 
@@ -476,20 +476,20 @@ declare class IncomingPhoneNumberContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: IncomingPhoneNumberContext) => any);
   /**
    * remove a IncomingPhoneNumberInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: IncomingPhoneNumberContext) => any);
   /**
    * update a IncomingPhoneNumberInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: IncomingPhoneNumberContextUpdateOptions, callback?: function);
+  update(opts?: IncomingPhoneNumberContextUpdateOptions, callback?: (error: Error | null, items: IncomingPhoneNumberContext) => any);
 }
 
 export { IncomingPhoneNumberContext, IncomingPhoneNumberInstance, IncomingPhoneNumberList, IncomingPhoneNumberListInstance, IncomingPhoneNumberPage, IncomingPhoneNumberPayload, IncomingPhoneNumberResource, IncomingPhoneNumberSolution }

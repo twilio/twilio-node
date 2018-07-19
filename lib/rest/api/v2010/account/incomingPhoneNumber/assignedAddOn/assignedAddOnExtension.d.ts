@@ -60,13 +60,13 @@ interface AssignedAddOnExtensionListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: AssignedAddOnExtensionListInstanceEachOptions, callback?: (item: AssignedAddOnExtensionInstance, done: (err?: Error) => void) => void);
+  each(opts?: AssignedAddOnExtensionListInstanceEachOptions, callback?: (item: AssignedAddOnExtensionInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a assigned_add_on_extension
    *
    * @param sid - The unique Extension Sid
    */
-  get(sid: string);
+  get(sid: string): AssignedAddOnExtensionContext;
   /**
    * Retrieve a single target page of AssignedAddOnExtensionInstance records from the API.
    * Request is executed immediately
@@ -76,7 +76,7 @@ interface AssignedAddOnExtensionListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<AssignedAddOnExtensionPage>;
   /**
    * @description Lists AssignedAddOnExtensionInstance records from the API as a list.
    *
@@ -85,7 +85,7 @@ interface AssignedAddOnExtensionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: AssignedAddOnExtensionListInstanceOptions, callback?: function);
+  list(opts?: AssignedAddOnExtensionListInstanceOptions, callback?: function): Promise<AssignedAddOnExtensionInstance[]>;
   /**
    * Retrieve a single page of AssignedAddOnExtensionInstance records from the API.
    * Request is executed immediately
@@ -95,7 +95,7 @@ interface AssignedAddOnExtensionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: AssignedAddOnExtensionListInstancePageOptions, callback?: function);
+  page(opts?: AssignedAddOnExtensionListInstancePageOptions, callback?: function): Promise<AssignedAddOnExtensionPage>;
 }
 
 /**
@@ -209,7 +209,7 @@ declare class AssignedAddOnExtensionInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: AssignedAddOnExtensionInstance) => any);
   /**
    * Produce a plain JSON object version of the AssignedAddOnExtensionInstance for serialization.
    * Removes any circular references in the object.
@@ -237,7 +237,7 @@ declare class AssignedAddOnExtensionContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: AssignedAddOnExtensionContext) => any);
 }
 
 export { AssignedAddOnExtensionContext, AssignedAddOnExtensionInstance, AssignedAddOnExtensionList, AssignedAddOnExtensionListInstance, AssignedAddOnExtensionPage, AssignedAddOnExtensionPayload, AssignedAddOnExtensionResource, AssignedAddOnExtensionSolution }

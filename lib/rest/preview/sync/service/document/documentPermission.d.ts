@@ -58,13 +58,13 @@ interface DocumentPermissionListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: DocumentPermissionListInstanceEachOptions, callback?: (item: DocumentPermissionInstance, done: (err?: Error) => void) => void);
+  each(opts?: DocumentPermissionListInstanceEachOptions, callback?: (item: DocumentPermissionInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a document_permission
    *
    * @param identity - Identity of the user to whom the Sync Document Permission applies.
    */
-  get(identity: string);
+  get(identity: string): DocumentPermissionContext;
   /**
    * Retrieve a single target page of DocumentPermissionInstance records from the API.
    * Request is executed immediately
@@ -74,7 +74,7 @@ interface DocumentPermissionListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<DocumentPermissionPage>;
   /**
    * @description Lists DocumentPermissionInstance records from the API as a list.
    *
@@ -83,7 +83,7 @@ interface DocumentPermissionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: DocumentPermissionListInstanceOptions, callback?: function);
+  list(opts?: DocumentPermissionListInstanceOptions, callback?: function): Promise<DocumentPermissionInstance[]>;
   /**
    * Retrieve a single page of DocumentPermissionInstance records from the API.
    * Request is executed immediately
@@ -93,7 +93,7 @@ interface DocumentPermissionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: DocumentPermissionListInstancePageOptions, callback?: function);
+  page(opts?: DocumentPermissionListInstancePageOptions, callback?: function): Promise<DocumentPermissionPage>;
 }
 
 /**
@@ -231,13 +231,13 @@ declare class DocumentPermissionInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: DocumentPermissionInstance) => any);
   /**
    * remove a DocumentPermissionInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: DocumentPermissionInstance) => any);
   /**
    * Produce a plain JSON object version of the DocumentPermissionInstance for serialization.
    * Removes any circular references in the object.
@@ -249,7 +249,7 @@ declare class DocumentPermissionInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: DocumentPermissionInstanceUpdateOptions, callback?: function);
+  update(opts: DocumentPermissionInstanceUpdateOptions, callback?: (error: Error | null, items: DocumentPermissionInstance) => any);
 }
 
 
@@ -271,20 +271,20 @@ declare class DocumentPermissionContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: DocumentPermissionContext) => any);
   /**
    * remove a DocumentPermissionInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: DocumentPermissionContext) => any);
   /**
    * update a DocumentPermissionInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: DocumentPermissionContextUpdateOptions, callback?: function);
+  update(opts: DocumentPermissionContextUpdateOptions, callback?: (error: Error | null, items: DocumentPermissionContext) => any);
 }
 
 export { DocumentPermissionContext, DocumentPermissionInstance, DocumentPermissionList, DocumentPermissionListInstance, DocumentPermissionPage, DocumentPermissionPayload, DocumentPermissionResource, DocumentPermissionSolution }

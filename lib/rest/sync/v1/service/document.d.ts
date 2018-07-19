@@ -54,7 +54,7 @@ interface DocumentListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: DocumentListInstanceCreateOptions, callback?: function);
+  create(opts?: DocumentListInstanceCreateOptions, callback?: (error: Error | null, items: DocumentListInstance) => any): Promise<DocumentInstance>;
   /**
    * Streams DocumentInstance records from the API.
    *
@@ -68,13 +68,13 @@ interface DocumentListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: DocumentListInstanceEachOptions, callback?: (item: DocumentInstance, done: (err?: Error) => void) => void);
+  each(opts?: DocumentListInstanceEachOptions, callback?: (item: DocumentInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a document
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): DocumentContext;
   /**
    * Retrieve a single target page of DocumentInstance records from the API.
    * Request is executed immediately
@@ -84,7 +84,7 @@ interface DocumentListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<DocumentPage>;
   /**
    * @description Lists DocumentInstance records from the API as a list.
    *
@@ -93,7 +93,7 @@ interface DocumentListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: DocumentListInstanceOptions, callback?: function);
+  list(opts?: DocumentListInstanceOptions, callback?: function): Promise<DocumentInstance[]>;
   /**
    * Retrieve a single page of DocumentInstance records from the API.
    * Request is executed immediately
@@ -103,7 +103,7 @@ interface DocumentListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: DocumentListInstancePageOptions, callback?: function);
+  page(opts?: DocumentListInstancePageOptions, callback?: function): Promise<DocumentPage>;
 }
 
 /**
@@ -257,13 +257,13 @@ declare class DocumentInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: DocumentInstance) => any);
   /**
    * remove a DocumentInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: DocumentInstance) => any);
   /**
    * Produce a plain JSON object version of the DocumentInstance for serialization.
    * Removes any circular references in the object.
@@ -275,7 +275,7 @@ declare class DocumentInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: DocumentInstanceUpdateOptions, callback?: function);
+  update(opts?: DocumentInstanceUpdateOptions, callback?: (error: Error | null, items: DocumentInstance) => any);
 }
 
 
@@ -299,20 +299,20 @@ declare class DocumentContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: DocumentContext) => any);
   /**
    * remove a DocumentInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: DocumentContext) => any);
   /**
    * update a DocumentInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: DocumentContextUpdateOptions, callback?: function);
+  update(opts?: DocumentContextUpdateOptions, callback?: (error: Error | null, items: DocumentContext) => any);
 }
 
 export { DocumentContext, DocumentInstance, DocumentList, DocumentListInstance, DocumentPage, DocumentPayload, DocumentResource, DocumentSolution }

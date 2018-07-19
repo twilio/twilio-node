@@ -62,7 +62,7 @@ interface HostedNumberOrderListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: HostedNumberOrderListInstanceCreateOptions, callback?: function);
+  create(opts: HostedNumberOrderListInstanceCreateOptions, callback?: (error: Error | null, items: HostedNumberOrderListInstance) => any): Promise<HostedNumberOrderInstance>;
   /**
    * Streams HostedNumberOrderInstance records from the API.
    *
@@ -76,13 +76,13 @@ interface HostedNumberOrderListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: HostedNumberOrderListInstanceEachOptions, callback?: (item: HostedNumberOrderInstance, done: (err?: Error) => void) => void);
+  each(opts?: HostedNumberOrderListInstanceEachOptions, callback?: (item: HostedNumberOrderInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a hosted_number_order
    *
    * @param sid - HostedNumberOrder sid.
    */
-  get(sid: string);
+  get(sid: string): HostedNumberOrderContext;
   /**
    * Retrieve a single target page of HostedNumberOrderInstance records from the API.
    * Request is executed immediately
@@ -92,7 +92,7 @@ interface HostedNumberOrderListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<HostedNumberOrderPage>;
   /**
    * @description Lists HostedNumberOrderInstance records from the API as a list.
    *
@@ -101,7 +101,7 @@ interface HostedNumberOrderListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: HostedNumberOrderListInstanceOptions, callback?: function);
+  list(opts?: HostedNumberOrderListInstanceOptions, callback?: function): Promise<HostedNumberOrderInstance[]>;
   /**
    * Retrieve a single page of HostedNumberOrderInstance records from the API.
    * Request is executed immediately
@@ -111,7 +111,7 @@ interface HostedNumberOrderListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: HostedNumberOrderListInstancePageOptions, callback?: function);
+  page(opts?: HostedNumberOrderListInstancePageOptions, callback?: function): Promise<HostedNumberOrderPage>;
 }
 
 /**
@@ -361,13 +361,13 @@ declare class HostedNumberOrderInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: HostedNumberOrderInstance) => any);
   /**
    * remove a HostedNumberOrderInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: HostedNumberOrderInstance) => any);
   /**
    * Produce a plain JSON object version of the HostedNumberOrderInstance for serialization.
    * Removes any circular references in the object.
@@ -379,7 +379,7 @@ declare class HostedNumberOrderInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: HostedNumberOrderInstanceUpdateOptions, callback?: function);
+  update(opts?: HostedNumberOrderInstanceUpdateOptions, callback?: (error: Error | null, items: HostedNumberOrderInstance) => any);
 }
 
 
@@ -399,20 +399,20 @@ declare class HostedNumberOrderContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: HostedNumberOrderContext) => any);
   /**
    * remove a HostedNumberOrderInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: HostedNumberOrderContext) => any);
   /**
    * update a HostedNumberOrderInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: HostedNumberOrderContextUpdateOptions, callback?: function);
+  update(opts?: HostedNumberOrderContextUpdateOptions, callback?: (error: Error | null, items: HostedNumberOrderContext) => any);
 }
 
 export { HostedNumberOrderContext, HostedNumberOrderInstance, HostedNumberOrderList, HostedNumberOrderListInstance, HostedNumberOrderPage, HostedNumberOrderPayload, HostedNumberOrderResource, HostedNumberOrderSolution }

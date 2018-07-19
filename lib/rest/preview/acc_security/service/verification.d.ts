@@ -45,7 +45,7 @@ interface VerificationListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: VerificationListInstanceCreateOptions, callback?: function);
+  create(opts: VerificationListInstanceCreateOptions, callback?: (error: Error | null, items: VerificationListInstance) => any): Promise<VerificationInstance>;
 }
 
 /**

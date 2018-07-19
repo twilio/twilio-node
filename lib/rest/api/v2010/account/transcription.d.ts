@@ -59,13 +59,13 @@ interface TranscriptionListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: TranscriptionListInstanceEachOptions, callback?: (item: TranscriptionInstance, done: (err?: Error) => void) => void);
+  each(opts?: TranscriptionListInstanceEachOptions, callback?: (item: TranscriptionInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a transcription
    *
    * @param sid - Fetch by unique transcription SID
    */
-  get(sid: string);
+  get(sid: string): TranscriptionContext;
   /**
    * Retrieve a single target page of TranscriptionInstance records from the API.
    * Request is executed immediately
@@ -75,7 +75,7 @@ interface TranscriptionListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<TranscriptionPage>;
   /**
    * @description Lists TranscriptionInstance records from the API as a list.
    *
@@ -84,7 +84,7 @@ interface TranscriptionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: TranscriptionListInstanceOptions, callback?: function);
+  list(opts?: TranscriptionListInstanceOptions, callback?: function): Promise<TranscriptionInstance[]>;
   /**
    * Retrieve a single page of TranscriptionInstance records from the API.
    * Request is executed immediately
@@ -94,7 +94,7 @@ interface TranscriptionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: TranscriptionListInstancePageOptions, callback?: function);
+  page(opts?: TranscriptionListInstancePageOptions, callback?: function): Promise<TranscriptionPage>;
 }
 
 /**
@@ -208,13 +208,13 @@ declare class TranscriptionInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: TranscriptionInstance) => any);
   /**
    * remove a TranscriptionInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: TranscriptionInstance) => any);
   /**
    * Produce a plain JSON object version of the TranscriptionInstance for serialization.
    * Removes any circular references in the object.
@@ -239,13 +239,13 @@ declare class TranscriptionContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: TranscriptionContext) => any);
   /**
    * remove a TranscriptionInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: TranscriptionContext) => any);
 }
 
 export { TranscriptionContext, TranscriptionInstance, TranscriptionList, TranscriptionListInstance, TranscriptionPage, TranscriptionPayload, TranscriptionResource, TranscriptionSolution }

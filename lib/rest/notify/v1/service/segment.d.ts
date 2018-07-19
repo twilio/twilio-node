@@ -49,7 +49,7 @@ interface SegmentListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: SegmentListInstanceEachOptions, callback?: (item: SegmentInstance, done: (err?: Error) => void) => void);
+  each(opts?: SegmentListInstanceEachOptions, callback?: (item: SegmentInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of SegmentInstance records from the API.
    * Request is executed immediately
@@ -59,7 +59,7 @@ interface SegmentListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<SegmentPage>;
   /**
    * @description Lists SegmentInstance records from the API as a list.
    *
@@ -68,7 +68,7 @@ interface SegmentListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: SegmentListInstanceOptions, callback?: function);
+  list(opts?: SegmentListInstanceOptions, callback?: function): Promise<SegmentInstance[]>;
   /**
    * Retrieve a single page of SegmentInstance records from the API.
    * Request is executed immediately
@@ -78,7 +78,7 @@ interface SegmentListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: SegmentListInstancePageOptions, callback?: function);
+  page(opts?: SegmentListInstancePageOptions, callback?: function): Promise<SegmentPage>;
 }
 
 /**

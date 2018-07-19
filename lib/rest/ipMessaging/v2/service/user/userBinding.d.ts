@@ -61,13 +61,13 @@ interface UserBindingListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: UserBindingListInstanceEachOptions, callback?: (item: UserBindingInstance, done: (err?: Error) => void) => void);
+  each(opts?: UserBindingListInstanceEachOptions, callback?: (item: UserBindingInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a user_binding
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): UserBindingContext;
   /**
    * Retrieve a single target page of UserBindingInstance records from the API.
    * Request is executed immediately
@@ -77,7 +77,7 @@ interface UserBindingListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<UserBindingPage>;
   /**
    * @description Lists UserBindingInstance records from the API as a list.
    *
@@ -86,7 +86,7 @@ interface UserBindingListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: UserBindingListInstanceOptions, callback?: function);
+  list(opts?: UserBindingListInstanceOptions, callback?: function): Promise<UserBindingInstance[]>;
   /**
    * Retrieve a single page of UserBindingInstance records from the API.
    * Request is executed immediately
@@ -96,7 +96,7 @@ interface UserBindingListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: UserBindingListInstancePageOptions, callback?: function);
+  page(opts?: UserBindingListInstancePageOptions, callback?: function): Promise<UserBindingPage>;
 }
 
 /**
@@ -216,13 +216,13 @@ declare class UserBindingInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: UserBindingInstance) => any);
   /**
    * remove a UserBindingInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: UserBindingInstance) => any);
   /**
    * Produce a plain JSON object version of the UserBindingInstance for serialization.
    * Removes any circular references in the object.
@@ -248,13 +248,13 @@ declare class UserBindingContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: UserBindingContext) => any);
   /**
    * remove a UserBindingInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: UserBindingContext) => any);
 }
 
 export { UserBindingContext, UserBindingInstance, UserBindingList, UserBindingListInstance, UserBindingPage, UserBindingPayload, UserBindingResource, UserBindingSolution }

@@ -59,13 +59,13 @@ interface ConferenceListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: ConferenceListInstanceEachOptions, callback?: (item: ConferenceInstance, done: (err?: Error) => void) => void);
+  each(opts?: ConferenceListInstanceEachOptions, callback?: (item: ConferenceInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a conference
    *
    * @param sid - Fetch by unique conference Sid
    */
-  get(sid: string);
+  get(sid: string): ConferenceContext;
   /**
    * Retrieve a single target page of ConferenceInstance records from the API.
    * Request is executed immediately
@@ -75,7 +75,7 @@ interface ConferenceListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<ConferencePage>;
   /**
    * @description Lists ConferenceInstance records from the API as a list.
    *
@@ -84,7 +84,7 @@ interface ConferenceListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: ConferenceListInstanceOptions, callback?: function);
+  list(opts?: ConferenceListInstanceOptions, callback?: function): Promise<ConferenceInstance[]>;
   /**
    * Retrieve a single page of ConferenceInstance records from the API.
    * Request is executed immediately
@@ -94,7 +94,7 @@ interface ConferenceListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: ConferenceListInstancePageOptions, callback?: function);
+  page(opts?: ConferenceListInstancePageOptions, callback?: function): Promise<ConferencePage>;
 }
 
 /**
@@ -279,7 +279,7 @@ declare class ConferenceInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: ConferenceInstance) => any);
   /**
    * Access the participants
    */
@@ -299,7 +299,7 @@ declare class ConferenceInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ConferenceInstanceUpdateOptions, callback?: function);
+  update(opts?: ConferenceInstanceUpdateOptions, callback?: (error: Error | null, items: ConferenceInstance) => any);
 }
 
 
@@ -322,7 +322,7 @@ declare class ConferenceContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: ConferenceContext) => any);
   participants?: Twilio.Api.V2010.AccountContext.ConferenceContext.ParticipantList;
   recordings?: Twilio.Api.V2010.AccountContext.ConferenceContext.RecordingList;
   /**
@@ -331,7 +331,7 @@ declare class ConferenceContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ConferenceContextUpdateOptions, callback?: function);
+  update(opts?: ConferenceContextUpdateOptions, callback?: (error: Error | null, items: ConferenceContext) => any);
 }
 
 export { ConferenceContext, ConferenceInstance, ConferenceList, ConferenceListInstance, ConferencePage, ConferencePayload, ConferenceResource, ConferenceSolution }

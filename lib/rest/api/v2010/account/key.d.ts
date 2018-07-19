@@ -50,13 +50,13 @@ interface KeyListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: KeyListInstanceEachOptions, callback?: (item: KeyInstance, done: (err?: Error) => void) => void);
+  each(opts?: KeyListInstanceEachOptions, callback?: (item: KeyInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a key
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): KeyContext;
   /**
    * Retrieve a single target page of KeyInstance records from the API.
    * Request is executed immediately
@@ -66,7 +66,7 @@ interface KeyListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<KeyPage>;
   /**
    * @description Lists KeyInstance records from the API as a list.
    *
@@ -75,7 +75,7 @@ interface KeyListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: KeyListInstanceOptions, callback?: function);
+  list(opts?: KeyListInstanceOptions, callback?: function): Promise<KeyInstance[]>;
   /**
    * Retrieve a single page of KeyInstance records from the API.
    * Request is executed immediately
@@ -85,7 +85,7 @@ interface KeyListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: KeyListInstancePageOptions, callback?: function);
+  page(opts?: KeyListInstancePageOptions, callback?: function): Promise<KeyPage>;
 }
 
 /**
@@ -208,13 +208,13 @@ declare class KeyInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: KeyInstance) => any);
   /**
    * remove a KeyInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: KeyInstance) => any);
   /**
    * Produce a plain JSON object version of the KeyInstance for serialization.
    * Removes any circular references in the object.
@@ -226,7 +226,7 @@ declare class KeyInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: KeyInstanceUpdateOptions, callback?: function);
+  update(opts?: KeyInstanceUpdateOptions, callback?: (error: Error | null, items: KeyInstance) => any);
 }
 
 
@@ -246,20 +246,20 @@ declare class KeyContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: KeyContext) => any);
   /**
    * remove a KeyInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: KeyContext) => any);
   /**
    * update a KeyInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: KeyContextUpdateOptions, callback?: function);
+  update(opts?: KeyContextUpdateOptions, callback?: (error: Error | null, items: KeyContext) => any);
 }
 
 export { KeyContext, KeyInstance, KeyList, KeyListInstance, KeyPage, KeyPayload, KeyResource, KeySolution }

@@ -55,7 +55,7 @@ interface SessionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: SessionListInstanceCreateOptions, callback?: function);
+  create(opts?: SessionListInstanceCreateOptions, callback?: (error: Error | null, items: SessionListInstance) => any): Promise<SessionInstance>;
   /**
    * Streams SessionInstance records from the API.
    *
@@ -69,13 +69,13 @@ interface SessionListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: SessionListInstanceEachOptions, callback?: (item: SessionInstance, done: (err?: Error) => void) => void);
+  each(opts?: SessionListInstanceEachOptions, callback?: (item: SessionInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a session
    *
    * @param sid - A string that uniquely identifies this Session.
    */
-  get(sid: string);
+  get(sid: string): SessionContext;
   /**
    * Retrieve a single target page of SessionInstance records from the API.
    * Request is executed immediately
@@ -85,7 +85,7 @@ interface SessionListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<SessionPage>;
   /**
    * @description Lists SessionInstance records from the API as a list.
    *
@@ -94,7 +94,7 @@ interface SessionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: SessionListInstanceOptions, callback?: function);
+  list(opts?: SessionListInstanceOptions, callback?: function): Promise<SessionInstance[]>;
   /**
    * Retrieve a single page of SessionInstance records from the API.
    * Request is executed immediately
@@ -104,7 +104,7 @@ interface SessionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: SessionListInstancePageOptions, callback?: function);
+  page(opts?: SessionListInstancePageOptions, callback?: function): Promise<SessionPage>;
 }
 
 /**
@@ -276,7 +276,7 @@ declare class SessionInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: SessionInstance) => any);
   /**
    * Access the interactions
    */
@@ -290,7 +290,7 @@ declare class SessionInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: SessionInstance) => any);
   /**
    * Produce a plain JSON object version of the SessionInstance for serialization.
    * Removes any circular references in the object.
@@ -302,7 +302,7 @@ declare class SessionInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: SessionInstanceUpdateOptions, callback?: function);
+  update(opts?: SessionInstanceUpdateOptions, callback?: (error: Error | null, items: SessionInstance) => any);
 }
 
 
@@ -326,7 +326,7 @@ declare class SessionContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: SessionContext) => any);
   interactions?: Twilio.Preview.Proxy.ServiceContext.SessionContext.InteractionList;
   participants?: Twilio.Preview.Proxy.ServiceContext.SessionContext.ParticipantList;
   /**
@@ -334,14 +334,14 @@ declare class SessionContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: SessionContext) => any);
   /**
    * update a SessionInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: SessionContextUpdateOptions, callback?: function);
+  update(opts?: SessionContextUpdateOptions, callback?: (error: Error | null, items: SessionContext) => any);
 }
 
 export { SessionContext, SessionInstance, SessionList, SessionListInstance, SessionPage, SessionPayload, SessionResource, SessionSolution }

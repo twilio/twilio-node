@@ -59,13 +59,13 @@ interface AddOnResultListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: AddOnResultListInstanceEachOptions, callback?: (item: AddOnResultInstance, done: (err?: Error) => void) => void);
+  each(opts?: AddOnResultListInstanceEachOptions, callback?: (item: AddOnResultInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a add_on_result
    *
    * @param sid - Fetch by unique result Sid
    */
-  get(sid: string);
+  get(sid: string): AddOnResultContext;
   /**
    * Retrieve a single target page of AddOnResultInstance records from the API.
    * Request is executed immediately
@@ -75,7 +75,7 @@ interface AddOnResultListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<AddOnResultPage>;
   /**
    * @description Lists AddOnResultInstance records from the API as a list.
    *
@@ -84,7 +84,7 @@ interface AddOnResultListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: AddOnResultListInstanceOptions, callback?: function);
+  list(opts?: AddOnResultListInstanceOptions, callback?: function): Promise<AddOnResultInstance[]>;
   /**
    * Retrieve a single page of AddOnResultInstance records from the API.
    * Request is executed immediately
@@ -94,7 +94,7 @@ interface AddOnResultListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: AddOnResultListInstancePageOptions, callback?: function);
+  page(opts?: AddOnResultListInstancePageOptions, callback?: function): Promise<AddOnResultPage>;
 }
 
 /**
@@ -206,7 +206,7 @@ declare class AddOnResultInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: AddOnResultInstance) => any);
   /**
    * Access the payloads
    */
@@ -216,7 +216,7 @@ declare class AddOnResultInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: AddOnResultInstance) => any);
   /**
    * Produce a plain JSON object version of the AddOnResultInstance for serialization.
    * Removes any circular references in the object.
@@ -244,14 +244,14 @@ declare class AddOnResultContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: AddOnResultContext) => any);
   payloads?: Twilio.Api.V2010.AccountContext.RecordingContext.AddOnResultContext.PayloadList;
   /**
    * remove a AddOnResultInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: AddOnResultContext) => any);
 }
 
 export { AddOnResultContext, AddOnResultInstance, AddOnResultList, AddOnResultListInstance, AddOnResultPage, AddOnResultPayload, AddOnResultResource, AddOnResultSolution }

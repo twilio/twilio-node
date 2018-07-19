@@ -56,13 +56,13 @@ interface MediaListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: MediaListInstanceEachOptions, callback?: (item: MediaInstance, done: (err?: Error) => void) => void);
+  each(opts?: MediaListInstanceEachOptions, callback?: (item: MediaInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a media
    *
    * @param sid - Fetch by unique media Sid
    */
-  get(sid: string);
+  get(sid: string): MediaContext;
   /**
    * Retrieve a single target page of MediaInstance records from the API.
    * Request is executed immediately
@@ -72,7 +72,7 @@ interface MediaListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<MediaPage>;
   /**
    * @description Lists MediaInstance records from the API as a list.
    *
@@ -81,7 +81,7 @@ interface MediaListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: MediaListInstanceOptions, callback?: function);
+  list(opts?: MediaListInstanceOptions, callback?: function): Promise<MediaInstance[]>;
   /**
    * Retrieve a single page of MediaInstance records from the API.
    * Request is executed immediately
@@ -91,7 +91,7 @@ interface MediaListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: MediaListInstancePageOptions, callback?: function);
+  page(opts?: MediaListInstancePageOptions, callback?: function): Promise<MediaPage>;
 }
 
 /**
@@ -218,13 +218,13 @@ declare class MediaInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: MediaInstance) => any);
   /**
    * remove a MediaInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: MediaInstance) => any);
   /**
    * Produce a plain JSON object version of the MediaInstance for serialization.
    * Removes any circular references in the object.
@@ -250,13 +250,13 @@ declare class MediaContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: MediaContext) => any);
   /**
    * remove a MediaInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: MediaContext) => any);
 }
 
 export { MediaContext, MediaInstance, MediaList, MediaListInstance, MediaPage, MediaPayload, MediaResource, MediaSolution }

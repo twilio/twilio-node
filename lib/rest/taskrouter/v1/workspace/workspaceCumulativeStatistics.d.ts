@@ -58,7 +58,7 @@ interface WorkspaceCumulativeStatisticsListInstance {
   /**
    * Constructs a workspace_cumulative_statistics
    */
-  get();
+  get(): WorkspaceCumulativeStatisticsContext;
 }
 
 /**
@@ -157,7 +157,7 @@ declare class WorkspaceCumulativeStatisticsInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: WorkspaceCumulativeStatisticsInstanceFetchOptions, callback?: function);
+  fetch(opts?: WorkspaceCumulativeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkspaceCumulativeStatisticsInstance) => any);
   /**
    * Produce a plain JSON object version of the WorkspaceCumulativeStatisticsInstance for serialization.
    * Removes any circular references in the object.
@@ -182,7 +182,7 @@ declare class WorkspaceCumulativeStatisticsContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: WorkspaceCumulativeStatisticsContextFetchOptions, callback?: function);
+  fetch(opts?: WorkspaceCumulativeStatisticsContextFetchOptions, callback?: (error: Error | null, items: WorkspaceCumulativeStatisticsContext) => any);
 }
 
 export { WorkspaceCumulativeStatisticsContext, WorkspaceCumulativeStatisticsInstance, WorkspaceCumulativeStatisticsList, WorkspaceCumulativeStatisticsListInstance, WorkspaceCumulativeStatisticsPage, WorkspaceCumulativeStatisticsPayload, WorkspaceCumulativeStatisticsResource, WorkspaceCumulativeStatisticsSolution }

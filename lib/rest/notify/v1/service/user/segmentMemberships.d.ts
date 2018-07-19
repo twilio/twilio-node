@@ -47,13 +47,13 @@ interface SegmentMembershipListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: SegmentMembershipListInstanceCreateOptions, callback?: function);
+  create(opts: SegmentMembershipListInstanceCreateOptions, callback?: (error: Error | null, items: SegmentMembershipListInstance) => any): Promise<SegmentMembershipInstance>;
   /**
    * Constructs a segment_membership
    *
    * @param segment - The segment
    */
-  get(segment: string);
+  get(segment: string): SegmentMembershipContext;
 }
 
 /**
@@ -114,13 +114,13 @@ declare class SegmentMembershipInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: SegmentMembershipInstance) => any);
   /**
    * remove a SegmentMembershipInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: SegmentMembershipInstance) => any);
   /**
    * Produce a plain JSON object version of the SegmentMembershipInstance for serialization.
    * Removes any circular references in the object.
@@ -147,13 +147,13 @@ declare class SegmentMembershipContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: SegmentMembershipContext) => any);
   /**
    * remove a SegmentMembershipInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: SegmentMembershipContext) => any);
 }
 
 export { SegmentMembershipContext, SegmentMembershipInstance, SegmentMembershipList, SegmentMembershipListInstance, SegmentMembershipPage, SegmentMembershipPayload, SegmentMembershipResource, SegmentMembershipSolution }

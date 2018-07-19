@@ -54,7 +54,7 @@ interface SubscribedTrackListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: SubscribedTrackListInstanceEachOptions, callback?: (item: SubscribedTrackInstance, done: (err?: Error) => void) => void);
+  each(opts?: SubscribedTrackListInstanceEachOptions, callback?: (item: SubscribedTrackInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of SubscribedTrackInstance records from the API.
    * Request is executed immediately
@@ -64,7 +64,7 @@ interface SubscribedTrackListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<SubscribedTrackPage>;
   /**
    * @description Lists SubscribedTrackInstance records from the API as a list.
    *
@@ -73,7 +73,7 @@ interface SubscribedTrackListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: SubscribedTrackListInstanceOptions, callback?: function);
+  list(opts?: SubscribedTrackListInstanceOptions, callback?: function): Promise<SubscribedTrackInstance[]>;
   /**
    * Retrieve a single page of SubscribedTrackInstance records from the API.
    * Request is executed immediately
@@ -83,14 +83,14 @@ interface SubscribedTrackListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: SubscribedTrackListInstancePageOptions, callback?: function);
+  page(opts?: SubscribedTrackListInstancePageOptions, callback?: function): Promise<SubscribedTrackPage>;
   /**
    * update a SubscribedTrackInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: SubscribedTrackListInstanceUpdateOptions, callback?: function);
+  update(opts?: SubscribedTrackListInstanceUpdateOptions, callback?: (error: Error | null, items: SubscribedTrackListInstance) => any);
 }
 
 /**

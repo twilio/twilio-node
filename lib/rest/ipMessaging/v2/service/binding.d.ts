@@ -59,13 +59,13 @@ interface BindingListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: BindingListInstanceEachOptions, callback?: (item: BindingInstance, done: (err?: Error) => void) => void);
+  each(opts?: BindingListInstanceEachOptions, callback?: (item: BindingInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a binding
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): BindingContext;
   /**
    * Retrieve a single target page of BindingInstance records from the API.
    * Request is executed immediately
@@ -75,7 +75,7 @@ interface BindingListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<BindingPage>;
   /**
    * @description Lists BindingInstance records from the API as a list.
    *
@@ -84,7 +84,7 @@ interface BindingListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: BindingListInstanceOptions, callback?: function);
+  list(opts?: BindingListInstanceOptions, callback?: function): Promise<BindingInstance[]>;
   /**
    * Retrieve a single page of BindingInstance records from the API.
    * Request is executed immediately
@@ -94,7 +94,7 @@ interface BindingListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: BindingListInstancePageOptions, callback?: function);
+  page(opts?: BindingListInstancePageOptions, callback?: function): Promise<BindingPage>;
 }
 
 /**
@@ -219,13 +219,13 @@ declare class BindingInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: BindingInstance) => any);
   /**
    * remove a BindingInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: BindingInstance) => any);
   /**
    * Produce a plain JSON object version of the BindingInstance for serialization.
    * Removes any circular references in the object.
@@ -250,13 +250,13 @@ declare class BindingContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: BindingContext) => any);
   /**
    * remove a BindingInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: BindingContext) => any);
 }
 
 export { BindingContext, BindingInstance, BindingList, BindingListInstance, BindingPage, BindingPayload, BindingResource, BindingSolution }

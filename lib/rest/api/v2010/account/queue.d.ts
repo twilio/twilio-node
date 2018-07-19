@@ -49,7 +49,7 @@ interface QueueListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: QueueListInstanceCreateOptions, callback?: function);
+  create(opts: QueueListInstanceCreateOptions, callback?: (error: Error | null, items: QueueListInstance) => any): Promise<QueueInstance>;
   /**
    * Streams QueueInstance records from the API.
    *
@@ -63,13 +63,13 @@ interface QueueListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: QueueListInstanceEachOptions, callback?: (item: QueueInstance, done: (err?: Error) => void) => void);
+  each(opts?: QueueListInstanceEachOptions, callback?: (item: QueueInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a queue
    *
    * @param sid - Fetch by unique queue Sid
    */
-  get(sid: string);
+  get(sid: string): QueueContext;
   /**
    * Retrieve a single target page of QueueInstance records from the API.
    * Request is executed immediately
@@ -79,7 +79,7 @@ interface QueueListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<QueuePage>;
   /**
    * @description Lists QueueInstance records from the API as a list.
    *
@@ -88,7 +88,7 @@ interface QueueListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: QueueListInstanceOptions, callback?: function);
+  list(opts?: QueueListInstanceOptions, callback?: function): Promise<QueueInstance[]>;
   /**
    * Retrieve a single page of QueueInstance records from the API.
    * Request is executed immediately
@@ -98,7 +98,7 @@ interface QueueListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: QueueListInstancePageOptions, callback?: function);
+  page(opts?: QueueListInstancePageOptions, callback?: function): Promise<QueuePage>;
 }
 
 /**
@@ -241,7 +241,7 @@ declare class QueueInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: QueueInstance) => any);
   /**
    * Access the members
    */
@@ -251,7 +251,7 @@ declare class QueueInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: QueueInstance) => any);
   /**
    * Produce a plain JSON object version of the QueueInstance for serialization.
    * Removes any circular references in the object.
@@ -263,7 +263,7 @@ declare class QueueInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: QueueInstanceUpdateOptions, callback?: function);
+  update(opts?: QueueInstanceUpdateOptions, callback?: (error: Error | null, items: QueueInstance) => any);
 }
 
 
@@ -285,21 +285,21 @@ declare class QueueContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: QueueContext) => any);
   members?: Twilio.Api.V2010.AccountContext.QueueContext.MemberList;
   /**
    * remove a QueueInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: QueueContext) => any);
   /**
    * update a QueueInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: QueueContextUpdateOptions, callback?: function);
+  update(opts?: QueueContextUpdateOptions, callback?: (error: Error | null, items: QueueContext) => any);
 }
 
 export { QueueContext, QueueInstance, QueueList, QueueListInstance, QueuePage, QueuePayload, QueueResource, QueueSolution }

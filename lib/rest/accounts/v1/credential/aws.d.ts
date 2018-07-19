@@ -43,7 +43,7 @@ interface AwsListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: AwsListInstanceCreateOptions, callback?: function);
+  create(opts: AwsListInstanceCreateOptions, callback?: (error: Error | null, items: AwsListInstance) => any): Promise<AwsInstance>;
   /**
    * Streams AwsInstance records from the API.
    *
@@ -57,13 +57,13 @@ interface AwsListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: AwsListInstanceEachOptions, callback?: (item: AwsInstance, done: (err?: Error) => void) => void);
+  each(opts?: AwsListInstanceEachOptions, callback?: (item: AwsInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a aws
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): AwsContext;
   /**
    * Retrieve a single target page of AwsInstance records from the API.
    * Request is executed immediately
@@ -73,7 +73,7 @@ interface AwsListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<AwsPage>;
   /**
    * @description Lists AwsInstance records from the API as a list.
    *
@@ -82,7 +82,7 @@ interface AwsListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: AwsListInstanceOptions, callback?: function);
+  list(opts?: AwsListInstanceOptions, callback?: function): Promise<AwsInstance[]>;
   /**
    * Retrieve a single page of AwsInstance records from the API.
    * Request is executed immediately
@@ -92,7 +92,7 @@ interface AwsListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: AwsListInstancePageOptions, callback?: function);
+  page(opts?: AwsListInstancePageOptions, callback?: function): Promise<AwsPage>;
 }
 
 /**
@@ -229,13 +229,13 @@ declare class AwsInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: AwsInstance) => any);
   /**
    * remove a AwsInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: AwsInstance) => any);
   /**
    * Produce a plain JSON object version of the AwsInstance for serialization.
    * Removes any circular references in the object.
@@ -247,7 +247,7 @@ declare class AwsInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: AwsInstanceUpdateOptions, callback?: function);
+  update(opts?: AwsInstanceUpdateOptions, callback?: (error: Error | null, items: AwsInstance) => any);
 }
 
 
@@ -266,20 +266,20 @@ declare class AwsContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: AwsContext) => any);
   /**
    * remove a AwsInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: AwsContext) => any);
   /**
    * update a AwsInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: AwsContextUpdateOptions, callback?: function);
+  update(opts?: AwsContextUpdateOptions, callback?: (error: Error | null, items: AwsContext) => any);
 }
 
 export { AwsContext, AwsInstance, AwsList, AwsListInstance, AwsPage, AwsPayload, AwsResource, AwsSolution }

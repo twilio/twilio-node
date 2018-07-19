@@ -52,7 +52,7 @@ interface SyncListListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: SyncListListInstanceCreateOptions, callback?: function);
+  create(opts?: SyncListListInstanceCreateOptions, callback?: (error: Error | null, items: SyncListListInstance) => any): Promise<SyncListInstance>;
   /**
    * Streams SyncListInstance records from the API.
    *
@@ -66,13 +66,13 @@ interface SyncListListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: SyncListListInstanceEachOptions, callback?: (item: SyncListInstance, done: (err?: Error) => void) => void);
+  each(opts?: SyncListListInstanceEachOptions, callback?: (item: SyncListInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a sync_list
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): SyncListContext;
   /**
    * Retrieve a single target page of SyncListInstance records from the API.
    * Request is executed immediately
@@ -82,7 +82,7 @@ interface SyncListListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<SyncListPage>;
   /**
    * @description Lists SyncListInstance records from the API as a list.
    *
@@ -91,7 +91,7 @@ interface SyncListListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: SyncListListInstanceOptions, callback?: function);
+  list(opts?: SyncListListInstanceOptions, callback?: function): Promise<SyncListInstance[]>;
   /**
    * Retrieve a single page of SyncListInstance records from the API.
    * Request is executed immediately
@@ -101,7 +101,7 @@ interface SyncListListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: SyncListListInstancePageOptions, callback?: function);
+  page(opts?: SyncListListInstancePageOptions, callback?: function): Promise<SyncListPage>;
 }
 
 /**
@@ -223,13 +223,13 @@ declare class SyncListInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: SyncListInstance) => any);
   /**
    * remove a SyncListInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: SyncListInstance) => any);
   /**
    * Access the syncListItems
    */
@@ -266,13 +266,13 @@ declare class SyncListContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: SyncListContext) => any);
   /**
    * remove a SyncListInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: SyncListContext) => any);
   syncListItems?: Twilio.Preview.Sync.ServiceContext.SyncListContext.SyncListItemList;
   syncListPermissions?: Twilio.Preview.Sync.ServiceContext.SyncListContext.SyncListPermissionList;
 }

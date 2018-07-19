@@ -61,13 +61,13 @@ interface ParticipantListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: ParticipantListInstanceEachOptions, callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void);
+  each(opts?: ParticipantListInstanceEachOptions, callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a participant
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): ParticipantContext;
   /**
    * Retrieve a single target page of ParticipantInstance records from the API.
    * Request is executed immediately
@@ -77,7 +77,7 @@ interface ParticipantListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<ParticipantPage>;
   /**
    * @description Lists ParticipantInstance records from the API as a list.
    *
@@ -86,7 +86,7 @@ interface ParticipantListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: ParticipantListInstanceOptions, callback?: function);
+  list(opts?: ParticipantListInstanceOptions, callback?: function): Promise<ParticipantInstance[]>;
   /**
    * Retrieve a single page of ParticipantInstance records from the API.
    * Request is executed immediately
@@ -96,7 +96,7 @@ interface ParticipantListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: ParticipantListInstancePageOptions, callback?: function);
+  page(opts?: ParticipantListInstancePageOptions, callback?: function): Promise<ParticipantPage>;
 }
 
 /**
@@ -251,7 +251,7 @@ declare class ParticipantInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: ParticipantInstance) => any);
   /**
    * Access the publishedTracks
    */
@@ -271,7 +271,7 @@ declare class ParticipantInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ParticipantInstanceUpdateOptions, callback?: function);
+  update(opts?: ParticipantInstanceUpdateOptions, callback?: (error: Error | null, items: ParticipantInstance) => any);
 }
 
 
@@ -294,7 +294,7 @@ declare class ParticipantContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: ParticipantContext) => any);
   publishedTracks?: Twilio.Video.V1.RoomContext.ParticipantContext.PublishedTrackList;
   subscribedTracks?: Twilio.Video.V1.RoomContext.ParticipantContext.SubscribedTrackList;
   /**
@@ -303,7 +303,7 @@ declare class ParticipantContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ParticipantContextUpdateOptions, callback?: function);
+  update(opts?: ParticipantContextUpdateOptions, callback?: (error: Error | null, items: ParticipantContext) => any);
 }
 
 export { ParticipantContext, ParticipantInstance, ParticipantList, ParticipantListInstance, ParticipantPage, ParticipantPayload, ParticipantResource, ParticipantSolution }

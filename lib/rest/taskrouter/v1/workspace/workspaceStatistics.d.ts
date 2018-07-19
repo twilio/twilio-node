@@ -42,7 +42,7 @@ interface WorkspaceStatisticsListInstance {
   /**
    * Constructs a workspace_statistics
    */
-  get();
+  get(): WorkspaceStatisticsContext;
 }
 
 /**
@@ -125,7 +125,7 @@ declare class WorkspaceStatisticsInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: WorkspaceStatisticsInstanceFetchOptions, callback?: function);
+  fetch(opts?: WorkspaceStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkspaceStatisticsInstance) => any);
   /**
    * Produce a plain JSON object version of the WorkspaceStatisticsInstance for serialization.
    * Removes any circular references in the object.
@@ -150,7 +150,7 @@ declare class WorkspaceStatisticsContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: WorkspaceStatisticsContextFetchOptions, callback?: function);
+  fetch(opts?: WorkspaceStatisticsContextFetchOptions, callback?: (error: Error | null, items: WorkspaceStatisticsContext) => any);
 }
 
 export { WorkspaceStatisticsContext, WorkspaceStatisticsInstance, WorkspaceStatisticsList, WorkspaceStatisticsListInstance, WorkspaceStatisticsPage, WorkspaceStatisticsPayload, WorkspaceStatisticsResource, WorkspaceStatisticsSolution }

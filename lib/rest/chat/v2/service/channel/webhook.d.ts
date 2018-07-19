@@ -51,7 +51,7 @@ interface WebhookListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: WebhookListInstanceCreateOptions, callback?: function);
+  create(opts: WebhookListInstanceCreateOptions, callback?: (error: Error | null, items: WebhookListInstance) => any): Promise<WebhookInstance>;
   /**
    * Streams WebhookInstance records from the API.
    *
@@ -65,13 +65,13 @@ interface WebhookListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: WebhookListInstanceEachOptions, callback?: (item: WebhookInstance, done: (err?: Error) => void) => void);
+  each(opts?: WebhookListInstanceEachOptions, callback?: (item: WebhookInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a webhook
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): WebhookContext;
   /**
    * Retrieve a single target page of WebhookInstance records from the API.
    * Request is executed immediately
@@ -81,7 +81,7 @@ interface WebhookListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<WebhookPage>;
   /**
    * @description Lists WebhookInstance records from the API as a list.
    *
@@ -90,7 +90,7 @@ interface WebhookListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: WebhookListInstanceOptions, callback?: function);
+  list(opts?: WebhookListInstanceOptions, callback?: function): Promise<WebhookInstance[]>;
   /**
    * Retrieve a single page of WebhookInstance records from the API.
    * Request is executed immediately
@@ -100,7 +100,7 @@ interface WebhookListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: WebhookListInstancePageOptions, callback?: function);
+  page(opts?: WebhookListInstancePageOptions, callback?: function): Promise<WebhookPage>;
 }
 
 /**
@@ -270,13 +270,13 @@ declare class WebhookInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: WebhookInstance) => any);
   /**
    * remove a WebhookInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: WebhookInstance) => any);
   /**
    * Produce a plain JSON object version of the WebhookInstance for serialization.
    * Removes any circular references in the object.
@@ -288,7 +288,7 @@ declare class WebhookInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: WebhookInstanceUpdateOptions, callback?: function);
+  update(opts?: WebhookInstanceUpdateOptions, callback?: (error: Error | null, items: WebhookInstance) => any);
 }
 
 
@@ -309,20 +309,20 @@ declare class WebhookContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: WebhookContext) => any);
   /**
    * remove a WebhookInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: WebhookContext) => any);
   /**
    * update a WebhookInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: WebhookContextUpdateOptions, callback?: function);
+  update(opts?: WebhookContextUpdateOptions, callback?: (error: Error | null, items: WebhookContext) => any);
 }
 
 export { WebhookContext, WebhookInstance, WebhookList, WebhookListInstance, WebhookPage, WebhookPayload, WebhookResource, WebhookSolution }

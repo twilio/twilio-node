@@ -54,7 +54,7 @@ interface RatePlanListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: RatePlanListInstanceCreateOptions, callback?: function);
+  create(opts?: RatePlanListInstanceCreateOptions, callback?: (error: Error | null, items: RatePlanListInstance) => any): Promise<RatePlanInstance>;
   /**
    * Streams RatePlanInstance records from the API.
    *
@@ -68,13 +68,13 @@ interface RatePlanListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: RatePlanListInstanceEachOptions, callback?: (item: RatePlanInstance, done: (err?: Error) => void) => void);
+  each(opts?: RatePlanListInstanceEachOptions, callback?: (item: RatePlanInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a rate_plan
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): RatePlanContext;
   /**
    * Retrieve a single target page of RatePlanInstance records from the API.
    * Request is executed immediately
@@ -84,7 +84,7 @@ interface RatePlanListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<RatePlanPage>;
   /**
    * @description Lists RatePlanInstance records from the API as a list.
    *
@@ -93,7 +93,7 @@ interface RatePlanListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: RatePlanListInstanceOptions, callback?: function);
+  list(opts?: RatePlanListInstanceOptions, callback?: function): Promise<RatePlanInstance[]>;
   /**
    * Retrieve a single page of RatePlanInstance records from the API.
    * Request is executed immediately
@@ -103,7 +103,7 @@ interface RatePlanListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: RatePlanListInstancePageOptions, callback?: function);
+  page(opts?: RatePlanListInstancePageOptions, callback?: function): Promise<RatePlanPage>;
 }
 
 /**
@@ -270,13 +270,13 @@ declare class RatePlanInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: RatePlanInstance) => any);
   /**
    * remove a RatePlanInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: RatePlanInstance) => any);
   /**
    * Produce a plain JSON object version of the RatePlanInstance for serialization.
    * Removes any circular references in the object.
@@ -288,7 +288,7 @@ declare class RatePlanInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: RatePlanInstanceUpdateOptions, callback?: function);
+  update(opts?: RatePlanInstanceUpdateOptions, callback?: (error: Error | null, items: RatePlanInstance) => any);
 }
 
 
@@ -307,20 +307,20 @@ declare class RatePlanContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: RatePlanContext) => any);
   /**
    * remove a RatePlanInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: RatePlanContext) => any);
   /**
    * update a RatePlanInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: RatePlanContextUpdateOptions, callback?: function);
+  update(opts?: RatePlanContextUpdateOptions, callback?: (error: Error | null, items: RatePlanContext) => any);
 }
 
 export { RatePlanContext, RatePlanInstance, RatePlanList, RatePlanListInstance, RatePlanPage, RatePlanPayload, RatePlanResource, RatePlanSolution }

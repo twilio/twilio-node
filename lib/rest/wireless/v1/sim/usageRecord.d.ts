@@ -48,7 +48,7 @@ interface UsageRecordListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: UsageRecordListInstanceEachOptions, callback?: (item: UsageRecordInstance, done: (err?: Error) => void) => void);
+  each(opts?: UsageRecordListInstanceEachOptions, callback?: (item: UsageRecordInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of UsageRecordInstance records from the API.
    * Request is executed immediately
@@ -58,7 +58,7 @@ interface UsageRecordListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<UsageRecordPage>;
   /**
    * @description Lists UsageRecordInstance records from the API as a list.
    *
@@ -67,7 +67,7 @@ interface UsageRecordListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: UsageRecordListInstanceOptions, callback?: function);
+  list(opts?: UsageRecordListInstanceOptions, callback?: function): Promise<UsageRecordInstance[]>;
   /**
    * Retrieve a single page of UsageRecordInstance records from the API.
    * Request is executed immediately
@@ -77,7 +77,7 @@ interface UsageRecordListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: UsageRecordListInstancePageOptions, callback?: function);
+  page(opts?: UsageRecordListInstancePageOptions, callback?: function): Promise<UsageRecordPage>;
 }
 
 /**

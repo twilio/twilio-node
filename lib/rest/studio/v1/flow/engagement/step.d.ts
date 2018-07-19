@@ -62,13 +62,13 @@ interface StepListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: StepListInstanceEachOptions, callback?: (item: StepInstance, done: (err?: Error) => void) => void);
+  each(opts?: StepListInstanceEachOptions, callback?: (item: StepInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a step
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): StepContext;
   /**
    * Retrieve a single target page of StepInstance records from the API.
    * Request is executed immediately
@@ -78,7 +78,7 @@ interface StepListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<StepPage>;
   /**
    * @description Lists StepInstance records from the API as a list.
    *
@@ -87,7 +87,7 @@ interface StepListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: StepListInstanceOptions, callback?: function);
+  list(opts?: StepListInstanceOptions, callback?: function): Promise<StepInstance[]>;
   /**
    * Retrieve a single page of StepInstance records from the API.
    * Request is executed immediately
@@ -97,7 +97,7 @@ interface StepListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: StepListInstancePageOptions, callback?: function);
+  page(opts?: StepListInstancePageOptions, callback?: function): Promise<StepPage>;
 }
 
 /**
@@ -213,7 +213,7 @@ declare class StepInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: StepInstance) => any);
   /**
    * Access the stepContext
    */
@@ -246,7 +246,7 @@ declare class StepContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: StepContext) => any);
   stepContext?: Twilio.Studio.V1.FlowContext.EngagementContext.StepContext.StepContextList;
 }
 

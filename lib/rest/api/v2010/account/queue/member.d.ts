@@ -53,13 +53,13 @@ interface MemberListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: MemberListInstanceEachOptions, callback?: (item: MemberInstance, done: (err?: Error) => void) => void);
+  each(opts?: MemberListInstanceEachOptions, callback?: (item: MemberInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a member
    *
    * @param callSid - The call_sid
    */
-  get(callSid: string);
+  get(callSid: string): MemberContext;
   /**
    * Retrieve a single target page of MemberInstance records from the API.
    * Request is executed immediately
@@ -69,7 +69,7 @@ interface MemberListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<MemberPage>;
   /**
    * @description Lists MemberInstance records from the API as a list.
    *
@@ -78,7 +78,7 @@ interface MemberListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: MemberListInstanceOptions, callback?: function);
+  list(opts?: MemberListInstanceOptions, callback?: function): Promise<MemberInstance[]>;
   /**
    * Retrieve a single page of MemberInstance records from the API.
    * Request is executed immediately
@@ -88,7 +88,7 @@ interface MemberListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: MemberListInstancePageOptions, callback?: function);
+  page(opts?: MemberListInstancePageOptions, callback?: function): Promise<MemberPage>;
 }
 
 /**
@@ -217,7 +217,7 @@ declare class MemberInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: MemberInstance) => any);
   /**
    * Produce a plain JSON object version of the MemberInstance for serialization.
    * Removes any circular references in the object.
@@ -229,7 +229,7 @@ declare class MemberInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: MemberInstanceUpdateOptions, callback?: function);
+  update(opts: MemberInstanceUpdateOptions, callback?: (error: Error | null, items: MemberInstance) => any);
 }
 
 
@@ -250,14 +250,14 @@ declare class MemberContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: MemberContext) => any);
   /**
    * update a MemberInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: MemberContextUpdateOptions, callback?: function);
+  update(opts: MemberContextUpdateOptions, callback?: (error: Error | null, items: MemberContext) => any);
 }
 
 export { MemberContext, MemberInstance, MemberList, MemberListInstance, MemberPage, MemberPayload, MemberResource, MemberSolution }

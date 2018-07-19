@@ -57,7 +57,7 @@ interface LastMonthListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: LastMonthListInstanceEachOptions, callback?: (item: LastMonthInstance, done: (err?: Error) => void) => void);
+  each(opts?: LastMonthListInstanceEachOptions, callback?: (item: LastMonthInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of LastMonthInstance records from the API.
    * Request is executed immediately
@@ -67,7 +67,7 @@ interface LastMonthListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<LastMonthPage>;
   /**
    * @description Lists LastMonthInstance records from the API as a list.
    *
@@ -76,7 +76,7 @@ interface LastMonthListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: LastMonthListInstanceOptions, callback?: function);
+  list(opts?: LastMonthListInstanceOptions, callback?: function): Promise<LastMonthInstance[]>;
   /**
    * Retrieve a single page of LastMonthInstance records from the API.
    * Request is executed immediately
@@ -86,7 +86,7 @@ interface LastMonthListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: LastMonthListInstancePageOptions, callback?: function);
+  page(opts?: LastMonthListInstancePageOptions, callback?: function): Promise<LastMonthPage>;
 }
 
 /**

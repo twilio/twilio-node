@@ -44,7 +44,7 @@ interface CompositionSettingsListInstance {
   /**
    * Constructs a composition_settings
    */
-  get();
+  get(): CompositionSettingsContext;
 }
 
 /**
@@ -135,13 +135,13 @@ declare class CompositionSettingsInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: CompositionSettingsInstanceCreateOptions, callback?: function);
+  create(opts: CompositionSettingsInstanceCreateOptions, callback?: (error: Error | null, items: CompositionSettingsInstance) => any);
   /**
    * fetch a CompositionSettingsInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: CompositionSettingsInstance) => any);
   /**
    * Produce a plain JSON object version of the CompositionSettingsInstance for serialization.
    * Removes any circular references in the object.
@@ -166,13 +166,13 @@ declare class CompositionSettingsContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: CompositionSettingsContextCreateOptions, callback?: function);
+  create(opts: CompositionSettingsContextCreateOptions, callback?: (error: Error | null, items: CompositionSettingsContext) => any): Promise<CompositionSettingsInstance>;
   /**
    * fetch a CompositionSettingsInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: CompositionSettingsContext) => any);
 }
 
 export { CompositionSettingsContext, CompositionSettingsInstance, CompositionSettingsList, CompositionSettingsListInstance, CompositionSettingsPage, CompositionSettingsPayload, CompositionSettingsResource, CompositionSettingsSolution }

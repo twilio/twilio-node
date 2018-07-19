@@ -64,13 +64,13 @@ interface NotificationListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: NotificationListInstanceEachOptions, callback?: (item: NotificationInstance, done: (err?: Error) => void) => void);
+  each(opts?: NotificationListInstanceEachOptions, callback?: (item: NotificationInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a notification
    *
    * @param sid - Fetch by unique notification Sid
    */
-  get(sid: string);
+  get(sid: string): NotificationContext;
   /**
    * Retrieve a single target page of NotificationInstance records from the API.
    * Request is executed immediately
@@ -80,7 +80,7 @@ interface NotificationListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<NotificationPage>;
   /**
    * @description Lists NotificationInstance records from the API as a list.
    *
@@ -89,7 +89,7 @@ interface NotificationListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: NotificationListInstanceOptions, callback?: function);
+  list(opts?: NotificationListInstanceOptions, callback?: function): Promise<NotificationInstance[]>;
   /**
    * Retrieve a single page of NotificationInstance records from the API.
    * Request is executed immediately
@@ -99,7 +99,7 @@ interface NotificationListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: NotificationListInstancePageOptions, callback?: function);
+  page(opts?: NotificationListInstancePageOptions, callback?: function): Promise<NotificationPage>;
 }
 
 /**
@@ -241,13 +241,13 @@ declare class NotificationInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: NotificationInstance) => any);
   /**
    * remove a NotificationInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: NotificationInstance) => any);
   /**
    * Produce a plain JSON object version of the NotificationInstance for serialization.
    * Removes any circular references in the object.
@@ -272,13 +272,13 @@ declare class NotificationContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: NotificationContext) => any);
   /**
    * remove a NotificationInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: NotificationContext) => any);
 }
 
 export { NotificationContext, NotificationInstance, NotificationList, NotificationListInstance, NotificationPage, NotificationPayload, NotificationResource, NotificationSolution }

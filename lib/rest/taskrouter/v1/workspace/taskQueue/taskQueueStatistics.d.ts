@@ -45,7 +45,7 @@ interface TaskQueueStatisticsListInstance {
   /**
    * Constructs a task_queue_statistics
    */
-  get();
+  get(): TaskQueueStatisticsContext;
 }
 
 /**
@@ -130,7 +130,7 @@ declare class TaskQueueStatisticsInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: TaskQueueStatisticsInstanceFetchOptions, callback?: function);
+  fetch(opts?: TaskQueueStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: TaskQueueStatisticsInstance) => any);
   /**
    * Produce a plain JSON object version of the TaskQueueStatisticsInstance for serialization.
    * Removes any circular references in the object.
@@ -156,7 +156,7 @@ declare class TaskQueueStatisticsContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: TaskQueueStatisticsContextFetchOptions, callback?: function);
+  fetch(opts?: TaskQueueStatisticsContextFetchOptions, callback?: (error: Error | null, items: TaskQueueStatisticsContext) => any);
 }
 
 export { TaskQueueStatisticsContext, TaskQueueStatisticsInstance, TaskQueueStatisticsList, TaskQueueStatisticsListInstance, TaskQueueStatisticsPage, TaskQueueStatisticsPayload, TaskQueueStatisticsResource, TaskQueueStatisticsSolution }

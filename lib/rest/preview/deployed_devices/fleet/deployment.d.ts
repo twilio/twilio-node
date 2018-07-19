@@ -48,7 +48,7 @@ interface DeploymentListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: DeploymentListInstanceCreateOptions, callback?: function);
+  create(opts?: DeploymentListInstanceCreateOptions, callback?: (error: Error | null, items: DeploymentListInstance) => any): Promise<DeploymentInstance>;
   /**
    * Streams DeploymentInstance records from the API.
    *
@@ -62,13 +62,13 @@ interface DeploymentListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: DeploymentListInstanceEachOptions, callback?: (item: DeploymentInstance, done: (err?: Error) => void) => void);
+  each(opts?: DeploymentListInstanceEachOptions, callback?: (item: DeploymentInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a deployment
    *
    * @param sid - A string that uniquely identifies the Deployment.
    */
-  get(sid: string);
+  get(sid: string): DeploymentContext;
   /**
    * Retrieve a single target page of DeploymentInstance records from the API.
    * Request is executed immediately
@@ -78,7 +78,7 @@ interface DeploymentListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<DeploymentPage>;
   /**
    * @description Lists DeploymentInstance records from the API as a list.
    *
@@ -87,7 +87,7 @@ interface DeploymentListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: DeploymentListInstanceOptions, callback?: function);
+  list(opts?: DeploymentListInstanceOptions, callback?: function): Promise<DeploymentInstance[]>;
   /**
    * Retrieve a single page of DeploymentInstance records from the API.
    * Request is executed immediately
@@ -97,7 +97,7 @@ interface DeploymentListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: DeploymentListInstancePageOptions, callback?: function);
+  page(opts?: DeploymentListInstancePageOptions, callback?: function): Promise<DeploymentPage>;
 }
 
 /**
@@ -241,13 +241,13 @@ declare class DeploymentInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: DeploymentInstance) => any);
   /**
    * remove a DeploymentInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: DeploymentInstance) => any);
   /**
    * Produce a plain JSON object version of the DeploymentInstance for serialization.
    * Removes any circular references in the object.
@@ -259,7 +259,7 @@ declare class DeploymentInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: DeploymentInstanceUpdateOptions, callback?: function);
+  update(opts?: DeploymentInstanceUpdateOptions, callback?: (error: Error | null, items: DeploymentInstance) => any);
 }
 
 
@@ -280,20 +280,20 @@ declare class DeploymentContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: DeploymentContext) => any);
   /**
    * remove a DeploymentInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: DeploymentContext) => any);
   /**
    * update a DeploymentInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: DeploymentContextUpdateOptions, callback?: function);
+  update(opts?: DeploymentContextUpdateOptions, callback?: (error: Error | null, items: DeploymentContext) => any);
 }
 
 export { DeploymentContext, DeploymentInstance, DeploymentList, DeploymentListInstance, DeploymentPage, DeploymentPayload, DeploymentResource, DeploymentSolution }

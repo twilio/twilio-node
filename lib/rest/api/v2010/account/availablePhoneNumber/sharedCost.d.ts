@@ -58,7 +58,7 @@ interface SharedCostListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: SharedCostListInstanceEachOptions, callback?: (item: SharedCostInstance, done: (err?: Error) => void) => void);
+  each(opts?: SharedCostListInstanceEachOptions, callback?: (item: SharedCostInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of SharedCostInstance records from the API.
    * Request is executed immediately
@@ -68,7 +68,7 @@ interface SharedCostListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<SharedCostPage>;
   /**
    * @description Lists SharedCostInstance records from the API as a list.
    *
@@ -77,7 +77,7 @@ interface SharedCostListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: SharedCostListInstanceOptions, callback?: function);
+  list(opts?: SharedCostListInstanceOptions, callback?: function): Promise<SharedCostInstance[]>;
   /**
    * Retrieve a single page of SharedCostInstance records from the API.
    * Request is executed immediately
@@ -87,7 +87,7 @@ interface SharedCostListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: SharedCostListInstancePageOptions, callback?: function);
+  page(opts?: SharedCostListInstancePageOptions, callback?: function): Promise<SharedCostPage>;
 }
 
 /**

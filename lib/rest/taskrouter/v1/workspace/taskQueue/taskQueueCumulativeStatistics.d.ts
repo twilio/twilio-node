@@ -60,7 +60,7 @@ interface TaskQueueCumulativeStatisticsListInstance {
   /**
    * Constructs a task_queue_cumulative_statistics
    */
-  get();
+  get(): TaskQueueCumulativeStatisticsContext;
 }
 
 /**
@@ -160,7 +160,7 @@ declare class TaskQueueCumulativeStatisticsInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: TaskQueueCumulativeStatisticsInstanceFetchOptions, callback?: function);
+  fetch(opts?: TaskQueueCumulativeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: TaskQueueCumulativeStatisticsInstance) => any);
   /**
    * Produce a plain JSON object version of the TaskQueueCumulativeStatisticsInstance for serialization.
    * Removes any circular references in the object.
@@ -186,7 +186,7 @@ declare class TaskQueueCumulativeStatisticsContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: TaskQueueCumulativeStatisticsContextFetchOptions, callback?: function);
+  fetch(opts?: TaskQueueCumulativeStatisticsContextFetchOptions, callback?: (error: Error | null, items: TaskQueueCumulativeStatisticsContext) => any);
 }
 
 export { TaskQueueCumulativeStatisticsContext, TaskQueueCumulativeStatisticsInstance, TaskQueueCumulativeStatisticsList, TaskQueueCumulativeStatisticsListInstance, TaskQueueCumulativeStatisticsPage, TaskQueueCumulativeStatisticsPayload, TaskQueueCumulativeStatisticsResource, TaskQueueCumulativeStatisticsSolution }

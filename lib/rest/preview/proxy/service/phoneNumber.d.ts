@@ -49,7 +49,7 @@ interface PhoneNumberListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: PhoneNumberListInstanceCreateOptions, callback?: function);
+  create(opts: PhoneNumberListInstanceCreateOptions, callback?: (error: Error | null, items: PhoneNumberListInstance) => any): Promise<PhoneNumberInstance>;
   /**
    * Streams PhoneNumberInstance records from the API.
    *
@@ -63,13 +63,13 @@ interface PhoneNumberListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: PhoneNumberListInstanceEachOptions, callback?: (item: PhoneNumberInstance, done: (err?: Error) => void) => void);
+  each(opts?: PhoneNumberListInstanceEachOptions, callback?: (item: PhoneNumberInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a phone_number
    *
    * @param sid - Fetch by unique phone-number Sid
    */
-  get(sid: string);
+  get(sid: string): PhoneNumberContext;
   /**
    * Retrieve a single target page of PhoneNumberInstance records from the API.
    * Request is executed immediately
@@ -79,7 +79,7 @@ interface PhoneNumberListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<PhoneNumberPage>;
   /**
    * @description Lists PhoneNumberInstance records from the API as a list.
    *
@@ -88,7 +88,7 @@ interface PhoneNumberListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: PhoneNumberListInstanceOptions, callback?: function);
+  list(opts?: PhoneNumberListInstanceOptions, callback?: function): Promise<PhoneNumberInstance[]>;
   /**
    * Retrieve a single page of PhoneNumberInstance records from the API.
    * Request is executed immediately
@@ -98,7 +98,7 @@ interface PhoneNumberListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: PhoneNumberListInstancePageOptions, callback?: function);
+  page(opts?: PhoneNumberListInstancePageOptions, callback?: function): Promise<PhoneNumberPage>;
 }
 
 /**
@@ -219,13 +219,13 @@ declare class PhoneNumberInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: PhoneNumberInstance) => any);
   /**
    * remove a PhoneNumberInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: PhoneNumberInstance) => any);
   /**
    * Produce a plain JSON object version of the PhoneNumberInstance for serialization.
    * Removes any circular references in the object.
@@ -251,13 +251,13 @@ declare class PhoneNumberContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: PhoneNumberContext) => any);
   /**
    * remove a PhoneNumberInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: PhoneNumberContext) => any);
 }
 
 export { PhoneNumberContext, PhoneNumberInstance, PhoneNumberList, PhoneNumberListInstance, PhoneNumberPage, PhoneNumberPayload, PhoneNumberResource, PhoneNumberSolution }

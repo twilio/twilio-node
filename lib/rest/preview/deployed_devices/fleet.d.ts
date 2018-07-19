@@ -51,7 +51,7 @@ interface FleetListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: FleetListInstanceCreateOptions, callback?: function);
+  create(opts?: FleetListInstanceCreateOptions, callback?: (error: Error | null, items: FleetListInstance) => any): Promise<FleetInstance>;
   /**
    * Streams FleetInstance records from the API.
    *
@@ -65,13 +65,13 @@ interface FleetListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: FleetListInstanceEachOptions, callback?: (item: FleetInstance, done: (err?: Error) => void) => void);
+  each(opts?: FleetListInstanceEachOptions, callback?: (item: FleetInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a fleet
    *
    * @param sid - A string that uniquely identifies the Fleet.
    */
-  get(sid: string);
+  get(sid: string): FleetContext;
   /**
    * Retrieve a single target page of FleetInstance records from the API.
    * Request is executed immediately
@@ -81,7 +81,7 @@ interface FleetListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<FleetPage>;
   /**
    * @description Lists FleetInstance records from the API as a list.
    *
@@ -90,7 +90,7 @@ interface FleetListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: FleetListInstanceOptions, callback?: function);
+  list(opts?: FleetListInstanceOptions, callback?: function): Promise<FleetInstance[]>;
   /**
    * Retrieve a single page of FleetInstance records from the API.
    * Request is executed immediately
@@ -100,7 +100,7 @@ interface FleetListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: FleetListInstancePageOptions, callback?: function);
+  page(opts?: FleetListInstancePageOptions, callback?: function): Promise<FleetPage>;
 }
 
 /**
@@ -254,7 +254,7 @@ declare class FleetInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: FleetInstance) => any);
   /**
    * Access the keys
    */
@@ -264,7 +264,7 @@ declare class FleetInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: FleetInstance) => any);
   /**
    * Produce a plain JSON object version of the FleetInstance for serialization.
    * Removes any circular references in the object.
@@ -276,7 +276,7 @@ declare class FleetInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: FleetInstanceUpdateOptions, callback?: function);
+  update(opts?: FleetInstanceUpdateOptions, callback?: (error: Error | null, items: FleetInstance) => any);
 }
 
 
@@ -304,21 +304,21 @@ declare class FleetContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: FleetContext) => any);
   keys?: Twilio.Preview.DeployedDevices.FleetContext.KeyList;
   /**
    * remove a FleetInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: FleetContext) => any);
   /**
    * update a FleetInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: FleetContextUpdateOptions, callback?: function);
+  update(opts?: FleetContextUpdateOptions, callback?: (error: Error | null, items: FleetContext) => any);
 }
 
 export { FleetContext, FleetInstance, FleetList, FleetListInstance, FleetPage, FleetPayload, FleetResource, FleetSolution }

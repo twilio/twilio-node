@@ -43,7 +43,7 @@ interface ExportConfigurationListInstance {
    *
    * @param resourceType - The resource_type
    */
-  get(resourceType: string);
+  get(resourceType: string): ExportConfigurationContext;
 }
 
 /**
@@ -119,7 +119,7 @@ declare class ExportConfigurationInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: ExportConfigurationInstance) => any);
   /**
    * Produce a plain JSON object version of the ExportConfigurationInstance for serialization.
    * Removes any circular references in the object.
@@ -131,7 +131,7 @@ declare class ExportConfigurationInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ExportConfigurationInstanceUpdateOptions, callback?: function);
+  update(opts?: ExportConfigurationInstanceUpdateOptions, callback?: (error: Error | null, items: ExportConfigurationInstance) => any);
 }
 
 
@@ -151,14 +151,14 @@ declare class ExportConfigurationContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: ExportConfigurationContext) => any);
   /**
    * update a ExportConfigurationInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ExportConfigurationContextUpdateOptions, callback?: function);
+  update(opts?: ExportConfigurationContextUpdateOptions, callback?: (error: Error | null, items: ExportConfigurationContext) => any);
 }
 
 export { ExportConfigurationContext, ExportConfigurationInstance, ExportConfigurationList, ExportConfigurationListInstance, ExportConfigurationPage, ExportConfigurationPayload, ExportConfigurationResource, ExportConfigurationSolution }

@@ -54,7 +54,7 @@ interface AssignedAddOnListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: AssignedAddOnListInstanceCreateOptions, callback?: function);
+  create(opts: AssignedAddOnListInstanceCreateOptions, callback?: (error: Error | null, items: AssignedAddOnListInstance) => any): Promise<AssignedAddOnInstance>;
   /**
    * Streams AssignedAddOnInstance records from the API.
    *
@@ -68,13 +68,13 @@ interface AssignedAddOnListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: AssignedAddOnListInstanceEachOptions, callback?: (item: AssignedAddOnInstance, done: (err?: Error) => void) => void);
+  each(opts?: AssignedAddOnListInstanceEachOptions, callback?: (item: AssignedAddOnInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a assigned_add_on
    *
    * @param sid - The unique Installed Add-on Sid
    */
-  get(sid: string);
+  get(sid: string): AssignedAddOnContext;
   /**
    * Retrieve a single target page of AssignedAddOnInstance records from the API.
    * Request is executed immediately
@@ -84,7 +84,7 @@ interface AssignedAddOnListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<AssignedAddOnPage>;
   /**
    * @description Lists AssignedAddOnInstance records from the API as a list.
    *
@@ -93,7 +93,7 @@ interface AssignedAddOnListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: AssignedAddOnListInstanceOptions, callback?: function);
+  list(opts?: AssignedAddOnListInstanceOptions, callback?: function): Promise<AssignedAddOnInstance[]>;
   /**
    * Retrieve a single page of AssignedAddOnInstance records from the API.
    * Request is executed immediately
@@ -103,7 +103,7 @@ interface AssignedAddOnListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: AssignedAddOnListInstancePageOptions, callback?: function);
+  page(opts?: AssignedAddOnListInstancePageOptions, callback?: function): Promise<AssignedAddOnPage>;
 }
 
 /**
@@ -231,13 +231,13 @@ declare class AssignedAddOnInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: AssignedAddOnInstance) => any);
   /**
    * remove a AssignedAddOnInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: AssignedAddOnInstance) => any);
   /**
    * Produce a plain JSON object version of the AssignedAddOnInstance for serialization.
    * Removes any circular references in the object.
@@ -267,13 +267,13 @@ declare class AssignedAddOnContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: AssignedAddOnContext) => any);
   /**
    * remove a AssignedAddOnInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: AssignedAddOnContext) => any);
 }
 
 export { AssignedAddOnContext, AssignedAddOnInstance, AssignedAddOnList, AssignedAddOnListInstance, AssignedAddOnPage, AssignedAddOnPayload, AssignedAddOnResource, AssignedAddOnSolution }

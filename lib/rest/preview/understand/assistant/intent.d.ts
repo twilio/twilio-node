@@ -51,7 +51,7 @@ interface IntentListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: IntentListInstanceCreateOptions, callback?: function);
+  create(opts: IntentListInstanceCreateOptions, callback?: (error: Error | null, items: IntentListInstance) => any): Promise<IntentInstance>;
   /**
    * Streams IntentInstance records from the API.
    *
@@ -65,13 +65,13 @@ interface IntentListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: IntentListInstanceEachOptions, callback?: (item: IntentInstance, done: (err?: Error) => void) => void);
+  each(opts?: IntentListInstanceEachOptions, callback?: (item: IntentInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a intent
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): IntentContext;
   /**
    * Retrieve a single target page of IntentInstance records from the API.
    * Request is executed immediately
@@ -81,7 +81,7 @@ interface IntentListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<IntentPage>;
   /**
    * @description Lists IntentInstance records from the API as a list.
    *
@@ -90,7 +90,7 @@ interface IntentListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: IntentListInstanceOptions, callback?: function);
+  list(opts?: IntentListInstanceOptions, callback?: function): Promise<IntentInstance[]>;
   /**
    * Retrieve a single page of IntentInstance records from the API.
    * Request is executed immediately
@@ -100,7 +100,7 @@ interface IntentListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: IntentListInstancePageOptions, callback?: function);
+  page(opts?: IntentListInstancePageOptions, callback?: function): Promise<IntentPage>;
 }
 
 /**
@@ -245,7 +245,7 @@ declare class IntentInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: IntentInstance) => any);
   /**
    * Access the fields
    */
@@ -255,7 +255,7 @@ declare class IntentInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: IntentInstance) => any);
   /**
    * Access the samples
    */
@@ -271,7 +271,7 @@ declare class IntentInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: IntentInstanceUpdateOptions, callback?: function);
+  update(opts?: IntentInstanceUpdateOptions, callback?: (error: Error | null, items: IntentInstance) => any);
 }
 
 
@@ -295,14 +295,14 @@ declare class IntentContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: IntentContext) => any);
   fields?: Twilio.Preview.Understand.AssistantContext.IntentContext.FieldList;
   /**
    * remove a IntentInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: IntentContext) => any);
   samples?: Twilio.Preview.Understand.AssistantContext.IntentContext.SampleList;
   /**
    * update a IntentInstance
@@ -310,7 +310,7 @@ declare class IntentContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: IntentContextUpdateOptions, callback?: function);
+  update(opts?: IntentContextUpdateOptions, callback?: (error: Error | null, items: IntentContext) => any);
 }
 
 export { IntentContext, IntentInstance, IntentList, IntentListInstance, IntentPage, IntentPayload, IntentResource, IntentSolution }

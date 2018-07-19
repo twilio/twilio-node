@@ -63,7 +63,7 @@ interface WorkspaceListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: WorkspaceListInstanceCreateOptions, callback?: function);
+  create(opts: WorkspaceListInstanceCreateOptions, callback?: (error: Error | null, items: WorkspaceListInstance) => any): Promise<WorkspaceInstance>;
   /**
    * Streams WorkspaceInstance records from the API.
    *
@@ -77,13 +77,13 @@ interface WorkspaceListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: WorkspaceListInstanceEachOptions, callback?: (item: WorkspaceInstance, done: (err?: Error) => void) => void);
+  each(opts?: WorkspaceListInstanceEachOptions, callback?: (item: WorkspaceInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a workspace
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): WorkspaceContext;
   /**
    * Retrieve a single target page of WorkspaceInstance records from the API.
    * Request is executed immediately
@@ -93,7 +93,7 @@ interface WorkspaceListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<WorkspacePage>;
   /**
    * @description Lists WorkspaceInstance records from the API as a list.
    *
@@ -102,7 +102,7 @@ interface WorkspaceListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: WorkspaceListInstanceOptions, callback?: function);
+  list(opts?: WorkspaceListInstanceOptions, callback?: function): Promise<WorkspaceInstance[]>;
   /**
    * Retrieve a single page of WorkspaceInstance records from the API.
    * Request is executed immediately
@@ -112,7 +112,7 @@ interface WorkspaceListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: WorkspaceListInstancePageOptions, callback?: function);
+  page(opts?: WorkspaceListInstancePageOptions, callback?: function): Promise<WorkspacePage>;
 }
 
 /**
@@ -306,7 +306,7 @@ declare class WorkspaceInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: WorkspaceInstance) => any);
   /**
    * Access the realTimeStatistics
    */
@@ -316,7 +316,7 @@ declare class WorkspaceInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: WorkspaceInstance) => any);
   /**
    * Access the statistics
    */
@@ -344,7 +344,7 @@ declare class WorkspaceInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: WorkspaceInstanceUpdateOptions, callback?: function);
+  update(opts?: WorkspaceInstanceUpdateOptions, callback?: (error: Error | null, items: WorkspaceInstance) => any);
   /**
    * Access the workers
    */
@@ -385,14 +385,14 @@ declare class WorkspaceContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: WorkspaceContext) => any);
   realTimeStatistics?: Twilio.Taskrouter.V1.WorkspaceContext.WorkspaceRealTimeStatisticsList;
   /**
    * remove a WorkspaceInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: WorkspaceContext) => any);
   statistics?: Twilio.Taskrouter.V1.WorkspaceContext.WorkspaceStatisticsList;
   taskChannels?: Twilio.Taskrouter.V1.WorkspaceContext.TaskChannelList;
   taskQueues?: Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueList;
@@ -403,7 +403,7 @@ declare class WorkspaceContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: WorkspaceContextUpdateOptions, callback?: function);
+  update(opts?: WorkspaceContextUpdateOptions, callback?: (error: Error | null, items: WorkspaceContext) => any);
   workers?: Twilio.Taskrouter.V1.WorkspaceContext.WorkerList;
   workflows?: Twilio.Taskrouter.V1.WorkspaceContext.WorkflowList;
 }

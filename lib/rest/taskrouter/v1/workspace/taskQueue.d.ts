@@ -57,7 +57,7 @@ interface TaskQueueListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: TaskQueueListInstanceCreateOptions, callback?: function);
+  create(opts: TaskQueueListInstanceCreateOptions, callback?: (error: Error | null, items: TaskQueueListInstance) => any): Promise<TaskQueueInstance>;
   /**
    * Streams TaskQueueInstance records from the API.
    *
@@ -71,13 +71,13 @@ interface TaskQueueListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: TaskQueueListInstanceEachOptions, callback?: (item: TaskQueueInstance, done: (err?: Error) => void) => void);
+  each(opts?: TaskQueueListInstanceEachOptions, callback?: (item: TaskQueueInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a task_queue
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): TaskQueueContext;
   /**
    * Retrieve a single target page of TaskQueueInstance records from the API.
    * Request is executed immediately
@@ -87,7 +87,7 @@ interface TaskQueueListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<TaskQueuePage>;
   /**
    * @description Lists TaskQueueInstance records from the API as a list.
    *
@@ -96,7 +96,7 @@ interface TaskQueueListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: TaskQueueListInstanceOptions, callback?: function);
+  list(opts?: TaskQueueListInstanceOptions, callback?: function): Promise<TaskQueueInstance[]>;
   /**
    * Retrieve a single page of TaskQueueInstance records from the API.
    * Request is executed immediately
@@ -106,7 +106,7 @@ interface TaskQueueListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: TaskQueueListInstancePageOptions, callback?: function);
+  page(opts?: TaskQueueListInstancePageOptions, callback?: function): Promise<TaskQueuePage>;
   statistics?: object;
 }
 
@@ -302,7 +302,7 @@ declare class TaskQueueInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: TaskQueueInstance) => any);
   /**
    * Access the realTimeStatistics
    */
@@ -312,7 +312,7 @@ declare class TaskQueueInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: TaskQueueInstance) => any);
   /**
    * Access the statistics
    */
@@ -328,7 +328,7 @@ declare class TaskQueueInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: TaskQueueInstanceUpdateOptions, callback?: function);
+  update(opts?: TaskQueueInstanceUpdateOptions, callback?: (error: Error | null, items: TaskQueueInstance) => any);
 }
 
 
@@ -353,14 +353,14 @@ declare class TaskQueueContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: TaskQueueContext) => any);
   realTimeStatistics?: Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueueRealTimeStatisticsList;
   /**
    * remove a TaskQueueInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: TaskQueueContext) => any);
   statistics?: Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueueStatisticsList;
   /**
    * update a TaskQueueInstance
@@ -368,7 +368,7 @@ declare class TaskQueueContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: TaskQueueContextUpdateOptions, callback?: function);
+  update(opts?: TaskQueueContextUpdateOptions, callback?: (error: Error | null, items: TaskQueueContext) => any);
 }
 
 export { TaskQueueContext, TaskQueueInstance, TaskQueueList, TaskQueueListInstance, TaskQueuePage, TaskQueuePayload, TaskQueueResource, TaskQueueSolution }

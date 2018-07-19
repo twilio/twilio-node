@@ -57,7 +57,7 @@ interface AssistantListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: AssistantListInstanceCreateOptions, callback?: function);
+  create(opts?: AssistantListInstanceCreateOptions, callback?: (error: Error | null, items: AssistantListInstance) => any): Promise<AssistantInstance>;
   /**
    * Streams AssistantInstance records from the API.
    *
@@ -71,13 +71,13 @@ interface AssistantListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: AssistantListInstanceEachOptions, callback?: (item: AssistantInstance, done: (err?: Error) => void) => void);
+  each(opts?: AssistantListInstanceEachOptions, callback?: (item: AssistantInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a assistant
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): AssistantContext;
   /**
    * Retrieve a single target page of AssistantInstance records from the API.
    * Request is executed immediately
@@ -87,7 +87,7 @@ interface AssistantListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<AssistantPage>;
   /**
    * @description Lists AssistantInstance records from the API as a list.
    *
@@ -96,7 +96,7 @@ interface AssistantListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: AssistantListInstanceOptions, callback?: function);
+  list(opts?: AssistantListInstanceOptions, callback?: function): Promise<AssistantInstance[]>;
   /**
    * Retrieve a single page of AssistantInstance records from the API.
    * Request is executed immediately
@@ -106,7 +106,7 @@ interface AssistantListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: AssistantListInstancePageOptions, callback?: function);
+  page(opts?: AssistantListInstancePageOptions, callback?: function): Promise<AssistantPage>;
 }
 
 /**
@@ -285,7 +285,7 @@ declare class AssistantInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: AssistantInstance) => any);
   /**
    * Access the fieldTypes
    */
@@ -307,7 +307,7 @@ declare class AssistantInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: AssistantInstance) => any);
   /**
    * Produce a plain JSON object version of the AssistantInstance for serialization.
    * Removes any circular references in the object.
@@ -319,7 +319,7 @@ declare class AssistantInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: AssistantInstanceUpdateOptions, callback?: function);
+  update(opts?: AssistantInstanceUpdateOptions, callback?: (error: Error | null, items: AssistantInstance) => any);
 }
 
 
@@ -344,7 +344,7 @@ declare class AssistantContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: AssistantContext) => any);
   fieldTypes?: Twilio.Preview.Understand.AssistantContext.FieldTypeList;
   intents?: Twilio.Preview.Understand.AssistantContext.IntentList;
   modelBuilds?: Twilio.Preview.Understand.AssistantContext.ModelBuildList;
@@ -354,14 +354,14 @@ declare class AssistantContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: AssistantContext) => any);
   /**
    * update a AssistantInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: AssistantContextUpdateOptions, callback?: function);
+  update(opts?: AssistantContextUpdateOptions, callback?: (error: Error | null, items: AssistantContext) => any);
 }
 
 export { AssistantContext, AssistantInstance, AssistantList, AssistantListInstance, AssistantPage, AssistantPayload, AssistantResource, AssistantSolution }

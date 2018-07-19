@@ -58,7 +58,7 @@ interface FaxListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: FaxListInstanceCreateOptions, callback?: function);
+  create(opts: FaxListInstanceCreateOptions, callback?: (error: Error | null, items: FaxListInstance) => any): Promise<FaxInstance>;
   /**
    * Streams FaxInstance records from the API.
    *
@@ -72,13 +72,13 @@ interface FaxListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: FaxListInstanceEachOptions, callback?: (item: FaxInstance, done: (err?: Error) => void) => void);
+  each(opts?: FaxListInstanceEachOptions, callback?: (item: FaxInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a fax
    *
    * @param sid - A string that uniquely identifies this fax.
    */
-  get(sid: string);
+  get(sid: string): FaxContext;
   /**
    * Retrieve a single target page of FaxInstance records from the API.
    * Request is executed immediately
@@ -88,7 +88,7 @@ interface FaxListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<FaxPage>;
   /**
    * @description Lists FaxInstance records from the API as a list.
    *
@@ -97,7 +97,7 @@ interface FaxListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: FaxListInstanceOptions, callback?: function);
+  list(opts?: FaxListInstanceOptions, callback?: function): Promise<FaxInstance[]>;
   /**
    * Retrieve a single page of FaxInstance records from the API.
    * Request is executed immediately
@@ -107,7 +107,7 @@ interface FaxListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: FaxListInstancePageOptions, callback?: function);
+  page(opts?: FaxListInstancePageOptions, callback?: function): Promise<FaxPage>;
 }
 
 /**
@@ -294,7 +294,7 @@ declare class FaxInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: FaxInstance) => any);
   /**
    * Access the media
    */
@@ -304,7 +304,7 @@ declare class FaxInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: FaxInstance) => any);
   /**
    * Produce a plain JSON object version of the FaxInstance for serialization.
    * Removes any circular references in the object.
@@ -316,7 +316,7 @@ declare class FaxInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: FaxInstanceUpdateOptions, callback?: function);
+  update(opts?: FaxInstanceUpdateOptions, callback?: (error: Error | null, items: FaxInstance) => any);
 }
 
 
@@ -338,21 +338,21 @@ declare class FaxContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: FaxContext) => any);
   media?: Twilio.Fax.V1.FaxContext.FaxMediaList;
   /**
    * remove a FaxInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: FaxContext) => any);
   /**
    * update a FaxInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: FaxContextUpdateOptions, callback?: function);
+  update(opts?: FaxContextUpdateOptions, callback?: (error: Error | null, items: FaxContext) => any);
 }
 
 export { FaxContext, FaxInstance, FaxList, FaxListInstance, FaxPage, FaxPayload, FaxResource, FaxSolution }

@@ -46,7 +46,7 @@ interface WorkflowRealTimeStatisticsListInstance {
   /**
    * Constructs a workflow_real_time_statistics
    */
-  get();
+  get(): WorkflowRealTimeStatisticsContext;
 }
 
 /**
@@ -117,7 +117,7 @@ declare class WorkflowRealTimeStatisticsInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: WorkflowRealTimeStatisticsInstanceFetchOptions, callback?: function);
+  fetch(opts?: WorkflowRealTimeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkflowRealTimeStatisticsInstance) => any);
   /**
    * Produce a plain JSON object version of the WorkflowRealTimeStatisticsInstance for serialization.
    * Removes any circular references in the object.
@@ -143,7 +143,7 @@ declare class WorkflowRealTimeStatisticsContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: WorkflowRealTimeStatisticsContextFetchOptions, callback?: function);
+  fetch(opts?: WorkflowRealTimeStatisticsContextFetchOptions, callback?: (error: Error | null, items: WorkflowRealTimeStatisticsContext) => any);
 }
 
 export { WorkflowRealTimeStatisticsContext, WorkflowRealTimeStatisticsInstance, WorkflowRealTimeStatisticsList, WorkflowRealTimeStatisticsListInstance, WorkflowRealTimeStatisticsPage, WorkflowRealTimeStatisticsPayload, WorkflowRealTimeStatisticsResource, WorkflowRealTimeStatisticsSolution }

@@ -53,13 +53,13 @@ interface OutgoingCallerIdListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: OutgoingCallerIdListInstanceEachOptions, callback?: (item: OutgoingCallerIdInstance, done: (err?: Error) => void) => void);
+  each(opts?: OutgoingCallerIdListInstanceEachOptions, callback?: (item: OutgoingCallerIdInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a outgoing_caller_id
    *
    * @param sid - Fetch by unique outgoing-caller-id Sid
    */
-  get(sid: string);
+  get(sid: string): OutgoingCallerIdContext;
   /**
    * Retrieve a single target page of OutgoingCallerIdInstance records from the API.
    * Request is executed immediately
@@ -69,7 +69,7 @@ interface OutgoingCallerIdListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<OutgoingCallerIdPage>;
   /**
    * @description Lists OutgoingCallerIdInstance records from the API as a list.
    *
@@ -78,7 +78,7 @@ interface OutgoingCallerIdListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: OutgoingCallerIdListInstanceOptions, callback?: function);
+  list(opts?: OutgoingCallerIdListInstanceOptions, callback?: function): Promise<OutgoingCallerIdInstance[]>;
   /**
    * Retrieve a single page of OutgoingCallerIdInstance records from the API.
    * Request is executed immediately
@@ -88,7 +88,7 @@ interface OutgoingCallerIdListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: OutgoingCallerIdListInstancePageOptions, callback?: function);
+  page(opts?: OutgoingCallerIdListInstancePageOptions, callback?: function): Promise<OutgoingCallerIdPage>;
 }
 
 /**
@@ -226,13 +226,13 @@ declare class OutgoingCallerIdInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: OutgoingCallerIdInstance) => any);
   /**
    * remove a OutgoingCallerIdInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: OutgoingCallerIdInstance) => any);
   /**
    * Produce a plain JSON object version of the OutgoingCallerIdInstance for serialization.
    * Removes any circular references in the object.
@@ -244,7 +244,7 @@ declare class OutgoingCallerIdInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: OutgoingCallerIdInstanceUpdateOptions, callback?: function);
+  update(opts?: OutgoingCallerIdInstanceUpdateOptions, callback?: (error: Error | null, items: OutgoingCallerIdInstance) => any);
 }
 
 
@@ -264,20 +264,20 @@ declare class OutgoingCallerIdContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: OutgoingCallerIdContext) => any);
   /**
    * remove a OutgoingCallerIdInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: OutgoingCallerIdContext) => any);
   /**
    * update a OutgoingCallerIdInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: OutgoingCallerIdContextUpdateOptions, callback?: function);
+  update(opts?: OutgoingCallerIdContextUpdateOptions, callback?: (error: Error | null, items: OutgoingCallerIdContext) => any);
 }
 
 export { OutgoingCallerIdContext, OutgoingCallerIdInstance, OutgoingCallerIdList, OutgoingCallerIdListInstance, OutgoingCallerIdPage, OutgoingCallerIdPayload, OutgoingCallerIdResource, OutgoingCallerIdSolution }

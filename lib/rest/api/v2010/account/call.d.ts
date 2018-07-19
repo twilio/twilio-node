@@ -68,7 +68,7 @@ interface CallListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: CallListInstanceCreateOptions, callback?: function);
+  create(opts: CallListInstanceCreateOptions, callback?: (error: Error | null, items: CallListInstance) => any): Promise<CallInstance>;
   /**
    * Streams CallInstance records from the API.
    *
@@ -82,14 +82,14 @@ interface CallListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: CallListInstanceEachOptions, callback?: (item: CallInstance, done: (err?: Error) => void) => void);
+  each(opts?: CallListInstanceEachOptions, callback?: (item: CallInstance, done: (err?: Error) => void) => void): void;
   feedbackSummaries?: object;
   /**
    * Constructs a call
    *
    * @param sid - Call Sid that uniquely identifies the Call to fetch
    */
-  get(sid: string);
+  get(sid: string): CallContext;
   /**
    * Retrieve a single target page of CallInstance records from the API.
    * Request is executed immediately
@@ -99,7 +99,7 @@ interface CallListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<CallPage>;
   /**
    * @description Lists CallInstance records from the API as a list.
    *
@@ -108,7 +108,7 @@ interface CallListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: CallListInstanceOptions, callback?: function);
+  list(opts?: CallListInstanceOptions, callback?: function): Promise<CallInstance[]>;
   /**
    * Retrieve a single page of CallInstance records from the API.
    * Request is executed immediately
@@ -118,7 +118,7 @@ interface CallListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: CallListInstancePageOptions, callback?: function);
+  page(opts?: CallListInstancePageOptions, callback?: function): Promise<CallPage>;
 }
 
 /**
@@ -405,7 +405,7 @@ declare class CallInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: CallInstance) => any);
   /**
    * Access the notifications
    */
@@ -419,7 +419,7 @@ declare class CallInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: CallInstance) => any);
   /**
    * Produce a plain JSON object version of the CallInstance for serialization.
    * Removes any circular references in the object.
@@ -431,7 +431,7 @@ declare class CallInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: CallInstanceUpdateOptions, callback?: function);
+  update(opts?: CallInstanceUpdateOptions, callback?: (error: Error | null, items: CallInstance) => any);
 }
 
 
@@ -456,7 +456,7 @@ declare class CallContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: CallContext) => any);
   notifications?: Twilio.Api.V2010.AccountContext.CallContext.NotificationList;
   recordings?: Twilio.Api.V2010.AccountContext.CallContext.RecordingList;
   /**
@@ -464,14 +464,14 @@ declare class CallContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: CallContext) => any);
   /**
    * update a CallInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: CallContextUpdateOptions, callback?: function);
+  update(opts?: CallContextUpdateOptions, callback?: (error: Error | null, items: CallContext) => any);
 }
 
 export { CallContext, CallInstance, CallList, CallListInstance, CallPage, CallPayload, CallResource, CallSolution }

@@ -61,13 +61,13 @@ interface PayloadListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: PayloadListInstanceEachOptions, callback?: (item: PayloadInstance, done: (err?: Error) => void) => void);
+  each(opts?: PayloadListInstanceEachOptions, callback?: (item: PayloadInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a payload
    *
    * @param sid - Fetch by unique payload Sid
    */
-  get(sid: string);
+  get(sid: string): PayloadContext;
   /**
    * Retrieve a single target page of PayloadInstance records from the API.
    * Request is executed immediately
@@ -77,7 +77,7 @@ interface PayloadListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<PayloadPage>;
   /**
    * @description Lists PayloadInstance records from the API as a list.
    *
@@ -86,7 +86,7 @@ interface PayloadListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: PayloadListInstanceOptions, callback?: function);
+  list(opts?: PayloadListInstanceOptions, callback?: function): Promise<PayloadInstance[]>;
   /**
    * Retrieve a single page of PayloadInstance records from the API.
    * Request is executed immediately
@@ -96,7 +96,7 @@ interface PayloadListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: PayloadListInstancePageOptions, callback?: function);
+  page(opts?: PayloadListInstancePageOptions, callback?: function): Promise<PayloadPage>;
 }
 
 /**
@@ -210,13 +210,13 @@ declare class PayloadInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: PayloadInstance) => any);
   /**
    * remove a PayloadInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: PayloadInstance) => any);
   /**
    * Produce a plain JSON object version of the PayloadInstance for serialization.
    * Removes any circular references in the object.
@@ -243,13 +243,13 @@ declare class PayloadContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: PayloadContext) => any);
   /**
    * remove a PayloadInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: PayloadContext) => any);
 }
 
 export { PayloadContext, PayloadInstance, PayloadList, PayloadListInstance, PayloadPage, PayloadPayload, PayloadResource, PayloadSolution }

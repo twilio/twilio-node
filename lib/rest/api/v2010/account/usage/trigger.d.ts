@@ -55,7 +55,7 @@ interface TriggerListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: TriggerListInstanceCreateOptions, callback?: function);
+  create(opts: TriggerListInstanceCreateOptions, callback?: (error: Error | null, items: TriggerListInstance) => any): Promise<TriggerInstance>;
   /**
    * Streams TriggerInstance records from the API.
    *
@@ -69,13 +69,13 @@ interface TriggerListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: TriggerListInstanceEachOptions, callback?: (item: TriggerInstance, done: (err?: Error) => void) => void);
+  each(opts?: TriggerListInstanceEachOptions, callback?: (item: TriggerInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a trigger
    *
    * @param sid - Fetch by unique usage-trigger Sid
    */
-  get(sid: string);
+  get(sid: string): TriggerContext;
   /**
    * Retrieve a single target page of TriggerInstance records from the API.
    * Request is executed immediately
@@ -85,7 +85,7 @@ interface TriggerListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<TriggerPage>;
   /**
    * @description Lists TriggerInstance records from the API as a list.
    *
@@ -94,7 +94,7 @@ interface TriggerListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: TriggerListInstanceOptions, callback?: function);
+  list(opts?: TriggerListInstanceOptions, callback?: function): Promise<TriggerInstance[]>;
   /**
    * Retrieve a single page of TriggerInstance records from the API.
    * Request is executed immediately
@@ -104,7 +104,7 @@ interface TriggerListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: TriggerListInstancePageOptions, callback?: function);
+  page(opts?: TriggerListInstancePageOptions, callback?: function): Promise<TriggerPage>;
 }
 
 /**
@@ -286,13 +286,13 @@ declare class TriggerInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: TriggerInstance) => any);
   /**
    * remove a TriggerInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: TriggerInstance) => any);
   /**
    * Produce a plain JSON object version of the TriggerInstance for serialization.
    * Removes any circular references in the object.
@@ -304,7 +304,7 @@ declare class TriggerInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: TriggerInstanceUpdateOptions, callback?: function);
+  update(opts?: TriggerInstanceUpdateOptions, callback?: (error: Error | null, items: TriggerInstance) => any);
 }
 
 
@@ -324,20 +324,20 @@ declare class TriggerContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: TriggerContext) => any);
   /**
    * remove a TriggerInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: TriggerContext) => any);
   /**
    * update a TriggerInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: TriggerContextUpdateOptions, callback?: function);
+  update(opts?: TriggerContextUpdateOptions, callback?: (error: Error | null, items: TriggerContext) => any);
 }
 
 export { TriggerContext, TriggerInstance, TriggerList, TriggerListInstance, TriggerPage, TriggerPayload, TriggerResource, TriggerSolution }

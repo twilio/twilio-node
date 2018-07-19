@@ -53,7 +53,7 @@ interface QueryListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: QueryListInstanceCreateOptions, callback?: function);
+  create(opts: QueryListInstanceCreateOptions, callback?: (error: Error | null, items: QueryListInstance) => any): Promise<QueryInstance>;
   /**
    * Streams QueryInstance records from the API.
    *
@@ -67,13 +67,13 @@ interface QueryListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: QueryListInstanceEachOptions, callback?: (item: QueryInstance, done: (err?: Error) => void) => void);
+  each(opts?: QueryListInstanceEachOptions, callback?: (item: QueryInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a query
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): QueryContext;
   /**
    * Retrieve a single target page of QueryInstance records from the API.
    * Request is executed immediately
@@ -83,7 +83,7 @@ interface QueryListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<QueryPage>;
   /**
    * @description Lists QueryInstance records from the API as a list.
    *
@@ -92,7 +92,7 @@ interface QueryListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: QueryListInstanceOptions, callback?: function);
+  list(opts?: QueryListInstanceOptions, callback?: function): Promise<QueryInstance[]>;
   /**
    * Retrieve a single page of QueryInstance records from the API.
    * Request is executed immediately
@@ -102,7 +102,7 @@ interface QueryListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: QueryListInstancePageOptions, callback?: function);
+  page(opts?: QueryListInstancePageOptions, callback?: function): Promise<QueryPage>;
 }
 
 /**
@@ -275,13 +275,13 @@ declare class QueryInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: QueryInstance) => any);
   /**
    * remove a QueryInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: QueryInstance) => any);
   /**
    * Produce a plain JSON object version of the QueryInstance for serialization.
    * Removes any circular references in the object.
@@ -293,7 +293,7 @@ declare class QueryInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: QueryInstanceUpdateOptions, callback?: function);
+  update(opts?: QueryInstanceUpdateOptions, callback?: (error: Error | null, items: QueryInstance) => any);
 }
 
 
@@ -314,20 +314,20 @@ declare class QueryContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: QueryContext) => any);
   /**
    * remove a QueryInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: QueryContext) => any);
   /**
    * update a QueryInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: QueryContextUpdateOptions, callback?: function);
+  update(opts?: QueryContextUpdateOptions, callback?: (error: Error | null, items: QueryContext) => any);
 }
 
 export { QueryContext, QueryInstance, QueryList, QueryListInstance, QueryPage, QueryPayload, QueryResource, QuerySolution }

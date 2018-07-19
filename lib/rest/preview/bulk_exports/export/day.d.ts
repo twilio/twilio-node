@@ -47,7 +47,7 @@ interface DayListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: DayListInstanceEachOptions, callback?: (item: DayInstance, done: (err?: Error) => void) => void);
+  each(opts?: DayListInstanceEachOptions, callback?: (item: DayInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of DayInstance records from the API.
    * Request is executed immediately
@@ -57,7 +57,7 @@ interface DayListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<DayPage>;
   /**
    * @description Lists DayInstance records from the API as a list.
    *
@@ -66,7 +66,7 @@ interface DayListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: DayListInstanceOptions, callback?: function);
+  list(opts?: DayListInstanceOptions, callback?: function): Promise<DayInstance[]>;
   /**
    * Retrieve a single page of DayInstance records from the API.
    * Request is executed immediately
@@ -76,7 +76,7 @@ interface DayListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: DayListInstancePageOptions, callback?: function);
+  page(opts?: DayListInstancePageOptions, callback?: function): Promise<DayPage>;
 }
 
 /**

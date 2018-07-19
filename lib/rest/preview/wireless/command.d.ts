@@ -49,7 +49,7 @@ interface CommandListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: CommandListInstanceCreateOptions, callback?: function);
+  create(opts: CommandListInstanceCreateOptions, callback?: (error: Error | null, items: CommandListInstance) => any): Promise<CommandInstance>;
   /**
    * Streams CommandInstance records from the API.
    *
@@ -63,13 +63,13 @@ interface CommandListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: CommandListInstanceEachOptions, callback?: (item: CommandInstance, done: (err?: Error) => void) => void);
+  each(opts?: CommandListInstanceEachOptions, callback?: (item: CommandInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a command
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): CommandContext;
   /**
    * Retrieve a single target page of CommandInstance records from the API.
    * Request is executed immediately
@@ -79,7 +79,7 @@ interface CommandListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<CommandPage>;
   /**
    * @description Lists CommandInstance records from the API as a list.
    *
@@ -88,7 +88,7 @@ interface CommandListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: CommandListInstanceOptions, callback?: function);
+  list(opts?: CommandListInstanceOptions, callback?: function): Promise<CommandInstance[]>;
   /**
    * Retrieve a single page of CommandInstance records from the API.
    * Request is executed immediately
@@ -98,7 +98,7 @@ interface CommandListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: CommandListInstancePageOptions, callback?: function);
+  page(opts?: CommandListInstancePageOptions, callback?: function): Promise<CommandPage>;
 }
 
 /**
@@ -256,7 +256,7 @@ declare class CommandInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: CommandInstance) => any);
   /**
    * Produce a plain JSON object version of the CommandInstance for serialization.
    * Removes any circular references in the object.
@@ -281,7 +281,7 @@ declare class CommandContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: CommandContext) => any);
 }
 
 export { CommandContext, CommandInstance, CommandList, CommandListInstance, CommandPage, CommandPayload, CommandResource, CommandSolution }

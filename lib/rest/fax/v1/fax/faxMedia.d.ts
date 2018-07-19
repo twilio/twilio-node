@@ -54,13 +54,13 @@ interface FaxMediaListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: FaxMediaListInstanceEachOptions, callback?: (item: FaxMediaInstance, done: (err?: Error) => void) => void);
+  each(opts?: FaxMediaListInstanceEachOptions, callback?: (item: FaxMediaInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a fax_media
    *
    * @param sid - A string that uniquely identifies this fax media
    */
-  get(sid: string);
+  get(sid: string): FaxMediaContext;
   /**
    * Retrieve a single target page of FaxMediaInstance records from the API.
    * Request is executed immediately
@@ -70,7 +70,7 @@ interface FaxMediaListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<FaxMediaPage>;
   /**
    * @description Lists FaxMediaInstance records from the API as a list.
    *
@@ -79,7 +79,7 @@ interface FaxMediaListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: FaxMediaListInstanceOptions, callback?: function);
+  list(opts?: FaxMediaListInstanceOptions, callback?: function): Promise<FaxMediaInstance[]>;
   /**
    * Retrieve a single page of FaxMediaInstance records from the API.
    * Request is executed immediately
@@ -89,7 +89,7 @@ interface FaxMediaListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: FaxMediaListInstancePageOptions, callback?: function);
+  page(opts?: FaxMediaListInstancePageOptions, callback?: function): Promise<FaxMediaPage>;
 }
 
 /**
@@ -199,13 +199,13 @@ declare class FaxMediaInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: FaxMediaInstance) => any);
   /**
    * remove a FaxMediaInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: FaxMediaInstance) => any);
   /**
    * Produce a plain JSON object version of the FaxMediaInstance for serialization.
    * Removes any circular references in the object.
@@ -231,13 +231,13 @@ declare class FaxMediaContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: FaxMediaContext) => any);
   /**
    * remove a FaxMediaInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: FaxMediaContext) => any);
 }
 
 export { FaxMediaContext, FaxMediaInstance, FaxMediaList, FaxMediaListInstance, FaxMediaPage, FaxMediaPayload, FaxMediaResource, FaxMediaSolution }

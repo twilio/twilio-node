@@ -58,7 +58,7 @@ interface DataSessionListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: DataSessionListInstanceEachOptions, callback?: (item: DataSessionInstance, done: (err?: Error) => void) => void);
+  each(opts?: DataSessionListInstanceEachOptions, callback?: (item: DataSessionInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of DataSessionInstance records from the API.
    * Request is executed immediately
@@ -68,7 +68,7 @@ interface DataSessionListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<DataSessionPage>;
   /**
    * @description Lists DataSessionInstance records from the API as a list.
    *
@@ -77,7 +77,7 @@ interface DataSessionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: DataSessionListInstanceOptions, callback?: function);
+  list(opts?: DataSessionListInstanceOptions, callback?: function): Promise<DataSessionInstance[]>;
   /**
    * Retrieve a single page of DataSessionInstance records from the API.
    * Request is executed immediately
@@ -87,7 +87,7 @@ interface DataSessionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: DataSessionListInstancePageOptions, callback?: function);
+  page(opts?: DataSessionListInstancePageOptions, callback?: function): Promise<DataSessionPage>;
 }
 
 /**

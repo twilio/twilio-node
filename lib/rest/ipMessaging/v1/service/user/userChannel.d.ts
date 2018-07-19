@@ -52,7 +52,7 @@ interface UserChannelListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: UserChannelListInstanceEachOptions, callback?: (item: UserChannelInstance, done: (err?: Error) => void) => void);
+  each(opts?: UserChannelListInstanceEachOptions, callback?: (item: UserChannelInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of UserChannelInstance records from the API.
    * Request is executed immediately
@@ -62,7 +62,7 @@ interface UserChannelListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<UserChannelPage>;
   /**
    * @description Lists UserChannelInstance records from the API as a list.
    *
@@ -71,7 +71,7 @@ interface UserChannelListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: UserChannelListInstanceOptions, callback?: function);
+  list(opts?: UserChannelListInstanceOptions, callback?: function): Promise<UserChannelInstance[]>;
   /**
    * Retrieve a single page of UserChannelInstance records from the API.
    * Request is executed immediately
@@ -81,7 +81,7 @@ interface UserChannelListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: UserChannelListInstancePageOptions, callback?: function);
+  page(opts?: UserChannelListInstancePageOptions, callback?: function): Promise<UserChannelPage>;
 }
 
 /**

@@ -58,13 +58,13 @@ interface SyncListPermissionListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: SyncListPermissionListInstanceEachOptions, callback?: (item: SyncListPermissionInstance, done: (err?: Error) => void) => void);
+  each(opts?: SyncListPermissionListInstanceEachOptions, callback?: (item: SyncListPermissionInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a sync_list_permission
    *
    * @param identity - Identity of the user to whom the Sync List Permission applies.
    */
-  get(identity: string);
+  get(identity: string): SyncListPermissionContext;
   /**
    * Retrieve a single target page of SyncListPermissionInstance records from the API.
    * Request is executed immediately
@@ -74,7 +74,7 @@ interface SyncListPermissionListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<SyncListPermissionPage>;
   /**
    * @description Lists SyncListPermissionInstance records from the API as a list.
    *
@@ -83,7 +83,7 @@ interface SyncListPermissionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: SyncListPermissionListInstanceOptions, callback?: function);
+  list(opts?: SyncListPermissionListInstanceOptions, callback?: function): Promise<SyncListPermissionInstance[]>;
   /**
    * Retrieve a single page of SyncListPermissionInstance records from the API.
    * Request is executed immediately
@@ -93,7 +93,7 @@ interface SyncListPermissionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: SyncListPermissionListInstancePageOptions, callback?: function);
+  page(opts?: SyncListPermissionListInstancePageOptions, callback?: function): Promise<SyncListPermissionPage>;
 }
 
 /**
@@ -231,13 +231,13 @@ declare class SyncListPermissionInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: SyncListPermissionInstance) => any);
   /**
    * remove a SyncListPermissionInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: SyncListPermissionInstance) => any);
   /**
    * Produce a plain JSON object version of the SyncListPermissionInstance for serialization.
    * Removes any circular references in the object.
@@ -249,7 +249,7 @@ declare class SyncListPermissionInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: SyncListPermissionInstanceUpdateOptions, callback?: function);
+  update(opts: SyncListPermissionInstanceUpdateOptions, callback?: (error: Error | null, items: SyncListPermissionInstance) => any);
 }
 
 
@@ -271,20 +271,20 @@ declare class SyncListPermissionContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: SyncListPermissionContext) => any);
   /**
    * remove a SyncListPermissionInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: SyncListPermissionContext) => any);
   /**
    * update a SyncListPermissionInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: SyncListPermissionContextUpdateOptions, callback?: function);
+  update(opts: SyncListPermissionContextUpdateOptions, callback?: (error: Error | null, items: SyncListPermissionContext) => any);
 }
 
 export { SyncListPermissionContext, SyncListPermissionInstance, SyncListPermissionList, SyncListPermissionListInstance, SyncListPermissionPage, SyncListPermissionPayload, SyncListPermissionResource, SyncListPermissionSolution }

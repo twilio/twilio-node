@@ -46,7 +46,7 @@ interface UsageListInstance {
   /**
    * Constructs a usage
    */
-  get();
+  get(): UsageContext;
 }
 
 /**
@@ -123,7 +123,7 @@ declare class UsageInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: UsageInstanceFetchOptions, callback?: function);
+  fetch(opts?: UsageInstanceFetchOptions, callback?: (error: Error | null, items: UsageInstance) => any);
   /**
    * Produce a plain JSON object version of the UsageInstance for serialization.
    * Removes any circular references in the object.
@@ -149,7 +149,7 @@ declare class UsageContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: UsageContextFetchOptions, callback?: function);
+  fetch(opts?: UsageContextFetchOptions, callback?: (error: Error | null, items: UsageContext) => any);
 }
 
 export { UsageContext, UsageInstance, UsageList, UsageListInstance, UsagePage, UsagePayload, UsageResource, UsageSolution }

@@ -54,7 +54,7 @@ interface MessageListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: MessageListInstanceCreateOptions, callback?: function);
+  create(opts: MessageListInstanceCreateOptions, callback?: (error: Error | null, items: MessageListInstance) => any): Promise<MessageInstance>;
   /**
    * Streams MessageInstance records from the API.
    *
@@ -68,13 +68,13 @@ interface MessageListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: MessageListInstanceEachOptions, callback?: (item: MessageInstance, done: (err?: Error) => void) => void);
+  each(opts?: MessageListInstanceEachOptions, callback?: (item: MessageInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a message
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): MessageContext;
   /**
    * Retrieve a single target page of MessageInstance records from the API.
    * Request is executed immediately
@@ -84,7 +84,7 @@ interface MessageListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<MessagePage>;
   /**
    * @description Lists MessageInstance records from the API as a list.
    *
@@ -93,7 +93,7 @@ interface MessageListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: MessageListInstanceOptions, callback?: function);
+  list(opts?: MessageListInstanceOptions, callback?: function): Promise<MessageInstance[]>;
   /**
    * Retrieve a single page of MessageInstance records from the API.
    * Request is executed immediately
@@ -103,7 +103,7 @@ interface MessageListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: MessageListInstancePageOptions, callback?: function);
+  page(opts?: MessageListInstancePageOptions, callback?: function): Promise<MessagePage>;
 }
 
 /**
@@ -259,13 +259,13 @@ declare class MessageInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: MessageInstance) => any);
   /**
    * remove a MessageInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: MessageInstance) => any);
   /**
    * Produce a plain JSON object version of the MessageInstance for serialization.
    * Removes any circular references in the object.
@@ -277,7 +277,7 @@ declare class MessageInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: MessageInstanceUpdateOptions, callback?: function);
+  update(opts?: MessageInstanceUpdateOptions, callback?: (error: Error | null, items: MessageInstance) => any);
 }
 
 
@@ -298,20 +298,20 @@ declare class MessageContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: MessageContext) => any);
   /**
    * remove a MessageInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: MessageContext) => any);
   /**
    * update a MessageInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: MessageContextUpdateOptions, callback?: function);
+  update(opts?: MessageContextUpdateOptions, callback?: (error: Error | null, items: MessageContext) => any);
 }
 
 export { MessageContext, MessageInstance, MessageList, MessageListInstance, MessagePage, MessagePayload, MessageResource, MessageSolution }

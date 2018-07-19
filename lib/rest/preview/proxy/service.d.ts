@@ -51,7 +51,7 @@ interface ServiceListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: ServiceListInstanceCreateOptions, callback?: function);
+  create(opts?: ServiceListInstanceCreateOptions, callback?: (error: Error | null, items: ServiceListInstance) => any): Promise<ServiceInstance>;
   /**
    * Streams ServiceInstance records from the API.
    *
@@ -65,13 +65,13 @@ interface ServiceListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: ServiceListInstanceEachOptions, callback?: (item: ServiceInstance, done: (err?: Error) => void) => void);
+  each(opts?: ServiceListInstanceEachOptions, callback?: (item: ServiceInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a service
    *
    * @param sid - A string that uniquely identifies this Service.
    */
-  get(sid: string);
+  get(sid: string): ServiceContext;
   /**
    * Retrieve a single target page of ServiceInstance records from the API.
    * Request is executed immediately
@@ -81,7 +81,7 @@ interface ServiceListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<ServicePage>;
   /**
    * @description Lists ServiceInstance records from the API as a list.
    *
@@ -90,7 +90,7 @@ interface ServiceListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: ServiceListInstanceOptions, callback?: function);
+  list(opts?: ServiceListInstanceOptions, callback?: function): Promise<ServiceInstance[]>;
   /**
    * Retrieve a single page of ServiceInstance records from the API.
    * Request is executed immediately
@@ -100,7 +100,7 @@ interface ServiceListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: ServiceListInstancePageOptions, callback?: function);
+  page(opts?: ServiceListInstancePageOptions, callback?: function): Promise<ServicePage>;
 }
 
 /**
@@ -250,7 +250,7 @@ declare class ServiceInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: ServiceInstance) => any);
   /**
    * Access the phoneNumbers
    */
@@ -260,7 +260,7 @@ declare class ServiceInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: ServiceInstance) => any);
   /**
    * Access the sessions
    */
@@ -280,7 +280,7 @@ declare class ServiceInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ServiceInstanceUpdateOptions, callback?: function);
+  update(opts?: ServiceInstanceUpdateOptions, callback?: (error: Error | null, items: ServiceInstance) => any);
 }
 
 
@@ -304,14 +304,14 @@ declare class ServiceContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: ServiceContext) => any);
   phoneNumbers?: Twilio.Preview.Proxy.ServiceContext.PhoneNumberList;
   /**
    * remove a ServiceInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: ServiceContext) => any);
   sessions?: Twilio.Preview.Proxy.ServiceContext.SessionList;
   shortCodes?: Twilio.Preview.Proxy.ServiceContext.ShortCodeList;
   /**
@@ -320,7 +320,7 @@ declare class ServiceContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ServiceContextUpdateOptions, callback?: function);
+  update(opts?: ServiceContextUpdateOptions, callback?: (error: Error | null, items: ServiceContext) => any);
 }
 
 export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServicePage, ServicePayload, ServiceResource, ServiceSolution }

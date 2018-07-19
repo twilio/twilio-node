@@ -62,13 +62,13 @@ interface WorkerChannelListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: WorkerChannelListInstanceEachOptions, callback?: (item: WorkerChannelInstance, done: (err?: Error) => void) => void);
+  each(opts?: WorkerChannelListInstanceEachOptions, callback?: (item: WorkerChannelInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a worker_channel
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): WorkerChannelContext;
   /**
    * Retrieve a single target page of WorkerChannelInstance records from the API.
    * Request is executed immediately
@@ -78,7 +78,7 @@ interface WorkerChannelListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<WorkerChannelPage>;
   /**
    * @description Lists WorkerChannelInstance records from the API as a list.
    *
@@ -87,7 +87,7 @@ interface WorkerChannelListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: WorkerChannelListInstanceOptions, callback?: function);
+  list(opts?: WorkerChannelListInstanceOptions, callback?: function): Promise<WorkerChannelInstance[]>;
   /**
    * Retrieve a single page of WorkerChannelInstance records from the API.
    * Request is executed immediately
@@ -97,7 +97,7 @@ interface WorkerChannelListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: WorkerChannelListInstancePageOptions, callback?: function);
+  page(opts?: WorkerChannelListInstancePageOptions, callback?: function): Promise<WorkerChannelPage>;
 }
 
 /**
@@ -234,7 +234,7 @@ declare class WorkerChannelInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: WorkerChannelInstance) => any);
   /**
    * Produce a plain JSON object version of the WorkerChannelInstance for serialization.
    * Removes any circular references in the object.
@@ -246,7 +246,7 @@ declare class WorkerChannelInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: WorkerChannelInstanceUpdateOptions, callback?: function);
+  update(opts?: WorkerChannelInstanceUpdateOptions, callback?: (error: Error | null, items: WorkerChannelInstance) => any);
 }
 
 
@@ -267,14 +267,14 @@ declare class WorkerChannelContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: WorkerChannelContext) => any);
   /**
    * update a WorkerChannelInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: WorkerChannelContextUpdateOptions, callback?: function);
+  update(opts?: WorkerChannelContextUpdateOptions, callback?: (error: Error | null, items: WorkerChannelContext) => any);
 }
 
 export { WorkerChannelContext, WorkerChannelInstance, WorkerChannelList, WorkerChannelListInstance, WorkerChannelPage, WorkerChannelPayload, WorkerChannelResource, WorkerChannelSolution }

@@ -57,7 +57,7 @@ interface TrunkListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: TrunkListInstanceCreateOptions, callback?: function);
+  create(opts?: TrunkListInstanceCreateOptions, callback?: (error: Error | null, items: TrunkListInstance) => any): Promise<TrunkInstance>;
   /**
    * Streams TrunkInstance records from the API.
    *
@@ -71,13 +71,13 @@ interface TrunkListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: TrunkListInstanceEachOptions, callback?: (item: TrunkInstance, done: (err?: Error) => void) => void);
+  each(opts?: TrunkListInstanceEachOptions, callback?: (item: TrunkInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a trunk
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): TrunkContext;
   /**
    * Retrieve a single target page of TrunkInstance records from the API.
    * Request is executed immediately
@@ -87,7 +87,7 @@ interface TrunkListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<TrunkPage>;
   /**
    * @description Lists TrunkInstance records from the API as a list.
    *
@@ -96,7 +96,7 @@ interface TrunkListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: TrunkListInstanceOptions, callback?: function);
+  list(opts?: TrunkListInstanceOptions, callback?: function): Promise<TrunkInstance[]>;
   /**
    * Retrieve a single page of TrunkInstance records from the API.
    * Request is executed immediately
@@ -106,7 +106,7 @@ interface TrunkListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: TrunkListInstancePageOptions, callback?: function);
+  page(opts?: TrunkListInstancePageOptions, callback?: function): Promise<TrunkPage>;
 }
 
 /**
@@ -288,7 +288,7 @@ declare class TrunkInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: TrunkInstance) => any);
   /**
    * Access the ipAccessControlLists
    */
@@ -306,7 +306,7 @@ declare class TrunkInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: TrunkInstance) => any);
   /**
    * Produce a plain JSON object version of the TrunkInstance for serialization.
    * Removes any circular references in the object.
@@ -318,7 +318,7 @@ declare class TrunkInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: TrunkInstanceUpdateOptions, callback?: function);
+  update(opts?: TrunkInstanceUpdateOptions, callback?: (error: Error | null, items: TrunkInstance) => any);
 }
 
 
@@ -343,7 +343,7 @@ declare class TrunkContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: TrunkContext) => any);
   ipAccessControlLists?: Twilio.Trunking.V1.TrunkContext.IpAccessControlListList;
   originationUrls?: Twilio.Trunking.V1.TrunkContext.OriginationUrlList;
   phoneNumbers?: Twilio.Trunking.V1.TrunkContext.PhoneNumberList;
@@ -352,14 +352,14 @@ declare class TrunkContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: TrunkContext) => any);
   /**
    * update a TrunkInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: TrunkContextUpdateOptions, callback?: function);
+  update(opts?: TrunkContextUpdateOptions, callback?: (error: Error | null, items: TrunkContext) => any);
 }
 
 export { TrunkContext, TrunkInstance, TrunkList, TrunkListInstance, TrunkPage, TrunkPayload, TrunkResource, TrunkSolution }

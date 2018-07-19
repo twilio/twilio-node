@@ -40,7 +40,7 @@ interface NewSigningKeyListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: NewSigningKeyListInstanceCreateOptions, callback?: function);
+  create(opts?: NewSigningKeyListInstanceCreateOptions, callback?: (error: Error | null, items: NewSigningKeyListInstance) => any): Promise<NewSigningKeyInstance>;
 }
 
 /**

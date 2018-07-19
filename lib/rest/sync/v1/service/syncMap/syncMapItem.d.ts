@@ -54,7 +54,7 @@ interface SyncMapItemListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: SyncMapItemListInstanceCreateOptions, callback?: function);
+  create(opts: SyncMapItemListInstanceCreateOptions, callback?: (error: Error | null, items: SyncMapItemListInstance) => any): Promise<SyncMapItemInstance>;
   /**
    * Streams SyncMapItemInstance records from the API.
    *
@@ -68,13 +68,13 @@ interface SyncMapItemListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: SyncMapItemListInstanceEachOptions, callback?: (item: SyncMapItemInstance, done: (err?: Error) => void) => void);
+  each(opts?: SyncMapItemListInstanceEachOptions, callback?: (item: SyncMapItemInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a sync_map_item
    *
    * @param key - The key
    */
-  get(key: string);
+  get(key: string): SyncMapItemContext;
   /**
    * Retrieve a single target page of SyncMapItemInstance records from the API.
    * Request is executed immediately
@@ -84,7 +84,7 @@ interface SyncMapItemListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<SyncMapItemPage>;
   /**
    * @description Lists SyncMapItemInstance records from the API as a list.
    *
@@ -93,7 +93,7 @@ interface SyncMapItemListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: SyncMapItemListInstanceOptions, callback?: function);
+  list(opts?: SyncMapItemListInstanceOptions, callback?: function): Promise<SyncMapItemInstance[]>;
   /**
    * Retrieve a single page of SyncMapItemInstance records from the API.
    * Request is executed immediately
@@ -103,7 +103,7 @@ interface SyncMapItemListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: SyncMapItemListInstancePageOptions, callback?: function);
+  page(opts?: SyncMapItemListInstancePageOptions, callback?: function): Promise<SyncMapItemPage>;
 }
 
 /**
@@ -271,13 +271,13 @@ declare class SyncMapItemInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: SyncMapItemInstance) => any);
   /**
    * remove a SyncMapItemInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: SyncMapItemInstance) => any);
   /**
    * Produce a plain JSON object version of the SyncMapItemInstance for serialization.
    * Removes any circular references in the object.
@@ -289,7 +289,7 @@ declare class SyncMapItemInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: SyncMapItemInstanceUpdateOptions, callback?: function);
+  update(opts?: SyncMapItemInstanceUpdateOptions, callback?: (error: Error | null, items: SyncMapItemInstance) => any);
 }
 
 
@@ -311,20 +311,20 @@ declare class SyncMapItemContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: SyncMapItemContext) => any);
   /**
    * remove a SyncMapItemInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: SyncMapItemContext) => any);
   /**
    * update a SyncMapItemInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: SyncMapItemContextUpdateOptions, callback?: function);
+  update(opts?: SyncMapItemContextUpdateOptions, callback?: (error: Error | null, items: SyncMapItemContext) => any);
 }
 
 export { SyncMapItemContext, SyncMapItemInstance, SyncMapItemList, SyncMapItemListInstance, SyncMapItemPage, SyncMapItemPayload, SyncMapItemResource, SyncMapItemSolution }

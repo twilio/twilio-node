@@ -60,7 +60,7 @@ interface ApplicationListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: ApplicationListInstanceCreateOptions, callback?: function);
+  create(opts: ApplicationListInstanceCreateOptions, callback?: (error: Error | null, items: ApplicationListInstance) => any): Promise<ApplicationInstance>;
   /**
    * Streams ApplicationInstance records from the API.
    *
@@ -74,13 +74,13 @@ interface ApplicationListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: ApplicationListInstanceEachOptions, callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void);
+  each(opts?: ApplicationListInstanceEachOptions, callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a application
    *
    * @param sid - Fetch by unique Application Sid
    */
-  get(sid: string);
+  get(sid: string): ApplicationContext;
   /**
    * Retrieve a single target page of ApplicationInstance records from the API.
    * Request is executed immediately
@@ -90,7 +90,7 @@ interface ApplicationListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<ApplicationPage>;
   /**
    * @description Lists ApplicationInstance records from the API as a list.
    *
@@ -99,7 +99,7 @@ interface ApplicationListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: ApplicationListInstanceOptions, callback?: function);
+  list(opts?: ApplicationListInstanceOptions, callback?: function): Promise<ApplicationInstance[]>;
   /**
    * Retrieve a single page of ApplicationInstance records from the API.
    * Request is executed immediately
@@ -109,7 +109,7 @@ interface ApplicationListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: ApplicationListInstancePageOptions, callback?: function);
+  page(opts?: ApplicationListInstancePageOptions, callback?: function): Promise<ApplicationPage>;
 }
 
 /**
@@ -347,13 +347,13 @@ declare class ApplicationInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: ApplicationInstance) => any);
   /**
    * remove a ApplicationInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: ApplicationInstance) => any);
   /**
    * Produce a plain JSON object version of the ApplicationInstance for serialization.
    * Removes any circular references in the object.
@@ -365,7 +365,7 @@ declare class ApplicationInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ApplicationInstanceUpdateOptions, callback?: function);
+  update(opts?: ApplicationInstanceUpdateOptions, callback?: (error: Error | null, items: ApplicationInstance) => any);
 }
 
 
@@ -385,20 +385,20 @@ declare class ApplicationContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: ApplicationContext) => any);
   /**
    * remove a ApplicationInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: ApplicationContext) => any);
   /**
    * update a ApplicationInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ApplicationContextUpdateOptions, callback?: function);
+  update(opts?: ApplicationContextUpdateOptions, callback?: (error: Error | null, items: ApplicationContext) => any);
 }
 
 export { ApplicationContext, ApplicationInstance, ApplicationList, ApplicationListInstance, ApplicationPage, ApplicationPayload, ApplicationResource, ApplicationSolution }

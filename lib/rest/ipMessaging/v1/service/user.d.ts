@@ -54,7 +54,7 @@ interface UserListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: UserListInstanceCreateOptions, callback?: function);
+  create(opts: UserListInstanceCreateOptions, callback?: (error: Error | null, items: UserListInstance) => any): Promise<UserInstance>;
   /**
    * Streams UserInstance records from the API.
    *
@@ -68,13 +68,13 @@ interface UserListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: UserListInstanceEachOptions, callback?: (item: UserInstance, done: (err?: Error) => void) => void);
+  each(opts?: UserListInstanceEachOptions, callback?: (item: UserInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a user
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): UserContext;
   /**
    * Retrieve a single target page of UserInstance records from the API.
    * Request is executed immediately
@@ -84,7 +84,7 @@ interface UserListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<UserPage>;
   /**
    * @description Lists UserInstance records from the API as a list.
    *
@@ -93,7 +93,7 @@ interface UserListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: UserListInstanceOptions, callback?: function);
+  list(opts?: UserListInstanceOptions, callback?: function): Promise<UserInstance[]>;
   /**
    * Retrieve a single page of UserInstance records from the API.
    * Request is executed immediately
@@ -103,7 +103,7 @@ interface UserListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: UserListInstancePageOptions, callback?: function);
+  page(opts?: UserListInstancePageOptions, callback?: function): Promise<UserPage>;
 }
 
 /**
@@ -259,13 +259,13 @@ declare class UserInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: UserInstance) => any);
   /**
    * remove a UserInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: UserInstance) => any);
   /**
    * Produce a plain JSON object version of the UserInstance for serialization.
    * Removes any circular references in the object.
@@ -277,7 +277,7 @@ declare class UserInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: UserInstanceUpdateOptions, callback?: function);
+  update(opts?: UserInstanceUpdateOptions, callback?: (error: Error | null, items: UserInstance) => any);
   /**
    * Access the userChannels
    */
@@ -303,20 +303,20 @@ declare class UserContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: UserContext) => any);
   /**
    * remove a UserInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: UserContext) => any);
   /**
    * update a UserInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: UserContextUpdateOptions, callback?: function);
+  update(opts?: UserContextUpdateOptions, callback?: (error: Error | null, items: UserContext) => any);
   userChannels?: Twilio.IpMessaging.V1.ServiceContext.UserContext.UserChannelList;
 }
 

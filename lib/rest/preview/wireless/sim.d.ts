@@ -68,13 +68,13 @@ interface SimListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: SimListInstanceEachOptions, callback?: (item: SimInstance, done: (err?: Error) => void) => void);
+  each(opts?: SimListInstanceEachOptions, callback?: (item: SimInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a sim
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): SimContext;
   /**
    * Retrieve a single target page of SimInstance records from the API.
    * Request is executed immediately
@@ -84,7 +84,7 @@ interface SimListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<SimPage>;
   /**
    * @description Lists SimInstance records from the API as a list.
    *
@@ -93,7 +93,7 @@ interface SimListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: SimListInstanceOptions, callback?: function);
+  list(opts?: SimListInstanceOptions, callback?: function): Promise<SimInstance[]>;
   /**
    * Retrieve a single page of SimInstance records from the API.
    * Request is executed immediately
@@ -103,7 +103,7 @@ interface SimListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: SimListInstancePageOptions, callback?: function);
+  page(opts?: SimListInstancePageOptions, callback?: function): Promise<SimPage>;
 }
 
 /**
@@ -335,7 +335,7 @@ declare class SimInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: SimInstance) => any);
   /**
    * Produce a plain JSON object version of the SimInstance for serialization.
    * Removes any circular references in the object.
@@ -347,7 +347,7 @@ declare class SimInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: SimInstanceUpdateOptions, callback?: function);
+  update(opts?: SimInstanceUpdateOptions, callback?: (error: Error | null, items: SimInstance) => any);
   /**
    * Access the usage
    */
@@ -373,14 +373,14 @@ declare class SimContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: SimContext) => any);
   /**
    * update a SimInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: SimContextUpdateOptions, callback?: function);
+  update(opts?: SimContextUpdateOptions, callback?: (error: Error | null, items: SimContext) => any);
   usage?: Twilio.Preview.Wireless.SimContext.UsageList;
 }
 

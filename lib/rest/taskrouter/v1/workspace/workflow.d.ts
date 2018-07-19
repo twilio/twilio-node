@@ -55,7 +55,7 @@ interface WorkflowListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: WorkflowListInstanceCreateOptions, callback?: function);
+  create(opts: WorkflowListInstanceCreateOptions, callback?: (error: Error | null, items: WorkflowListInstance) => any): Promise<WorkflowInstance>;
   /**
    * Streams WorkflowInstance records from the API.
    *
@@ -69,13 +69,13 @@ interface WorkflowListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: WorkflowListInstanceEachOptions, callback?: (item: WorkflowInstance, done: (err?: Error) => void) => void);
+  each(opts?: WorkflowListInstanceEachOptions, callback?: (item: WorkflowInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a workflow
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): WorkflowContext;
   /**
    * Retrieve a single target page of WorkflowInstance records from the API.
    * Request is executed immediately
@@ -85,7 +85,7 @@ interface WorkflowListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<WorkflowPage>;
   /**
    * @description Lists WorkflowInstance records from the API as a list.
    *
@@ -94,7 +94,7 @@ interface WorkflowListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: WorkflowListInstanceOptions, callback?: function);
+  list(opts?: WorkflowListInstanceOptions, callback?: function): Promise<WorkflowInstance[]>;
   /**
    * Retrieve a single page of WorkflowInstance records from the API.
    * Request is executed immediately
@@ -104,7 +104,7 @@ interface WorkflowListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: WorkflowListInstancePageOptions, callback?: function);
+  page(opts?: WorkflowListInstancePageOptions, callback?: function): Promise<WorkflowPage>;
 }
 
 /**
@@ -279,7 +279,7 @@ declare class WorkflowInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: WorkflowInstance) => any);
   /**
    * Access the realTimeStatistics
    */
@@ -289,7 +289,7 @@ declare class WorkflowInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: WorkflowInstance) => any);
   /**
    * Access the statistics
    */
@@ -305,7 +305,7 @@ declare class WorkflowInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: WorkflowInstanceUpdateOptions, callback?: function);
+  update(opts?: WorkflowInstanceUpdateOptions, callback?: (error: Error | null, items: WorkflowInstance) => any);
 }
 
 
@@ -330,14 +330,14 @@ declare class WorkflowContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: WorkflowContext) => any);
   realTimeStatistics?: Twilio.Taskrouter.V1.WorkspaceContext.WorkflowContext.WorkflowRealTimeStatisticsList;
   /**
    * remove a WorkflowInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: WorkflowContext) => any);
   statistics?: Twilio.Taskrouter.V1.WorkspaceContext.WorkflowContext.WorkflowStatisticsList;
   /**
    * update a WorkflowInstance
@@ -345,7 +345,7 @@ declare class WorkflowContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: WorkflowContextUpdateOptions, callback?: function);
+  update(opts?: WorkflowContextUpdateOptions, callback?: (error: Error | null, items: WorkflowContext) => any);
 }
 
 export { WorkflowContext, WorkflowInstance, WorkflowList, WorkflowListInstance, WorkflowPage, WorkflowPayload, WorkflowResource, WorkflowSolution }

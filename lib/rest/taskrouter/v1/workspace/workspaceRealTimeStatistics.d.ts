@@ -45,7 +45,7 @@ interface WorkspaceRealTimeStatisticsListInstance {
   /**
    * Constructs a workspace_real_time_statistics
    */
-  get();
+  get(): WorkspaceRealTimeStatisticsContext;
 }
 
 /**
@@ -116,7 +116,7 @@ declare class WorkspaceRealTimeStatisticsInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: WorkspaceRealTimeStatisticsInstanceFetchOptions, callback?: function);
+  fetch(opts?: WorkspaceRealTimeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkspaceRealTimeStatisticsInstance) => any);
   /**
    * Produce a plain JSON object version of the WorkspaceRealTimeStatisticsInstance for serialization.
    * Removes any circular references in the object.
@@ -141,7 +141,7 @@ declare class WorkspaceRealTimeStatisticsContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: WorkspaceRealTimeStatisticsContextFetchOptions, callback?: function);
+  fetch(opts?: WorkspaceRealTimeStatisticsContextFetchOptions, callback?: (error: Error | null, items: WorkspaceRealTimeStatisticsContext) => any);
 }
 
 export { WorkspaceRealTimeStatisticsContext, WorkspaceRealTimeStatisticsInstance, WorkspaceRealTimeStatisticsList, WorkspaceRealTimeStatisticsListInstance, WorkspaceRealTimeStatisticsPage, WorkspaceRealTimeStatisticsPayload, WorkspaceRealTimeStatisticsResource, WorkspaceRealTimeStatisticsSolution }

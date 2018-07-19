@@ -50,13 +50,13 @@ interface CountryListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: CountryListInstanceEachOptions, callback?: (item: CountryInstance, done: (err?: Error) => void) => void);
+  each(opts?: CountryListInstanceEachOptions, callback?: (item: CountryInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a country
    *
    * @param isoCountry - The iso_country
    */
-  get(isoCountry: string);
+  get(isoCountry: string): CountryContext;
   /**
    * Retrieve a single target page of CountryInstance records from the API.
    * Request is executed immediately
@@ -66,7 +66,7 @@ interface CountryListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<CountryPage>;
   /**
    * @description Lists CountryInstance records from the API as a list.
    *
@@ -75,7 +75,7 @@ interface CountryListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: CountryListInstanceOptions, callback?: function);
+  list(opts?: CountryListInstanceOptions, callback?: function): Promise<CountryInstance[]>;
   /**
    * Retrieve a single page of CountryInstance records from the API.
    * Request is executed immediately
@@ -85,7 +85,7 @@ interface CountryListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: CountryListInstancePageOptions, callback?: function);
+  page(opts?: CountryListInstancePageOptions, callback?: function): Promise<CountryPage>;
 }
 
 /**
@@ -191,7 +191,7 @@ declare class CountryInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: CountryInstance) => any);
   /**
    * Produce a plain JSON object version of the CountryInstance for serialization.
    * Removes any circular references in the object.
@@ -215,7 +215,7 @@ declare class CountryContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: CountryContext) => any);
 }
 
 export { CountryContext, CountryInstance, CountryList, CountryListInstance, CountryPage, CountryPayload, CountryResource, CountrySolution }

@@ -55,7 +55,7 @@ interface AddressListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: AddressListInstanceCreateOptions, callback?: function);
+  create(opts: AddressListInstanceCreateOptions, callback?: (error: Error | null, items: AddressListInstance) => any): Promise<AddressInstance>;
   /**
    * Streams AddressInstance records from the API.
    *
@@ -69,13 +69,13 @@ interface AddressListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: AddressListInstanceEachOptions, callback?: (item: AddressInstance, done: (err?: Error) => void) => void);
+  each(opts?: AddressListInstanceEachOptions, callback?: (item: AddressInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a address
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): AddressContext;
   /**
    * Retrieve a single target page of AddressInstance records from the API.
    * Request is executed immediately
@@ -85,7 +85,7 @@ interface AddressListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<AddressPage>;
   /**
    * @description Lists AddressInstance records from the API as a list.
    *
@@ -94,7 +94,7 @@ interface AddressListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: AddressListInstanceOptions, callback?: function);
+  list(opts?: AddressListInstanceOptions, callback?: function): Promise<AddressInstance[]>;
   /**
    * Retrieve a single page of AddressInstance records from the API.
    * Request is executed immediately
@@ -104,7 +104,7 @@ interface AddressListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: AddressListInstancePageOptions, callback?: function);
+  page(opts?: AddressListInstancePageOptions, callback?: function): Promise<AddressPage>;
 }
 
 /**
@@ -312,13 +312,13 @@ declare class AddressInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: AddressInstance) => any);
   /**
    * remove a AddressInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: AddressInstance) => any);
   /**
    * Produce a plain JSON object version of the AddressInstance for serialization.
    * Removes any circular references in the object.
@@ -330,7 +330,7 @@ declare class AddressInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: AddressInstanceUpdateOptions, callback?: function);
+  update(opts?: AddressInstanceUpdateOptions, callback?: (error: Error | null, items: AddressInstance) => any);
 }
 
 
@@ -353,20 +353,20 @@ declare class AddressContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: AddressContext) => any);
   /**
    * remove a AddressInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: AddressContext) => any);
   /**
    * update a AddressInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: AddressContextUpdateOptions, callback?: function);
+  update(opts?: AddressContextUpdateOptions, callback?: (error: Error | null, items: AddressContext) => any);
 }
 
 export { AddressContext, AddressInstance, AddressList, AddressListInstance, AddressPage, AddressPayload, AddressResource, AddressSolution }

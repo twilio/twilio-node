@@ -52,7 +52,7 @@ interface SyncMapListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: SyncMapListInstanceCreateOptions, callback?: function);
+  create(opts?: SyncMapListInstanceCreateOptions, callback?: (error: Error | null, items: SyncMapListInstance) => any): Promise<SyncMapInstance>;
   /**
    * Streams SyncMapInstance records from the API.
    *
@@ -66,13 +66,13 @@ interface SyncMapListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: SyncMapListInstanceEachOptions, callback?: (item: SyncMapInstance, done: (err?: Error) => void) => void);
+  each(opts?: SyncMapListInstanceEachOptions, callback?: (item: SyncMapInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a sync_map
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): SyncMapContext;
   /**
    * Retrieve a single target page of SyncMapInstance records from the API.
    * Request is executed immediately
@@ -82,7 +82,7 @@ interface SyncMapListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<SyncMapPage>;
   /**
    * @description Lists SyncMapInstance records from the API as a list.
    *
@@ -91,7 +91,7 @@ interface SyncMapListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: SyncMapListInstanceOptions, callback?: function);
+  list(opts?: SyncMapListInstanceOptions, callback?: function): Promise<SyncMapInstance[]>;
   /**
    * Retrieve a single page of SyncMapInstance records from the API.
    * Request is executed immediately
@@ -101,7 +101,7 @@ interface SyncMapListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: SyncMapListInstancePageOptions, callback?: function);
+  page(opts?: SyncMapListInstancePageOptions, callback?: function): Promise<SyncMapPage>;
 }
 
 /**
@@ -223,13 +223,13 @@ declare class SyncMapInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: SyncMapInstance) => any);
   /**
    * remove a SyncMapInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: SyncMapInstance) => any);
   /**
    * Access the syncMapItems
    */
@@ -266,13 +266,13 @@ declare class SyncMapContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: SyncMapContext) => any);
   /**
    * remove a SyncMapInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: SyncMapContext) => any);
   syncMapItems?: Twilio.Preview.Sync.ServiceContext.SyncMapContext.SyncMapItemList;
   syncMapPermissions?: Twilio.Preview.Sync.ServiceContext.SyncMapContext.SyncMapPermissionList;
 }

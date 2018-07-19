@@ -53,7 +53,7 @@ interface DeviceListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: DeviceListInstanceCreateOptions, callback?: function);
+  create(opts?: DeviceListInstanceCreateOptions, callback?: (error: Error | null, items: DeviceListInstance) => any): Promise<DeviceInstance>;
   /**
    * Streams DeviceInstance records from the API.
    *
@@ -67,13 +67,13 @@ interface DeviceListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: DeviceListInstanceEachOptions, callback?: (item: DeviceInstance, done: (err?: Error) => void) => void);
+  each(opts?: DeviceListInstanceEachOptions, callback?: (item: DeviceInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a device
    *
    * @param sid - A string that uniquely identifies the Device.
    */
-  get(sid: string);
+  get(sid: string): DeviceContext;
   /**
    * Retrieve a single target page of DeviceInstance records from the API.
    * Request is executed immediately
@@ -83,7 +83,7 @@ interface DeviceListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<DevicePage>;
   /**
    * @description Lists DeviceInstance records from the API as a list.
    *
@@ -92,7 +92,7 @@ interface DeviceListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: DeviceListInstanceOptions, callback?: function);
+  list(opts?: DeviceListInstanceOptions, callback?: function): Promise<DeviceInstance[]>;
   /**
    * Retrieve a single page of DeviceInstance records from the API.
    * Request is executed immediately
@@ -102,7 +102,7 @@ interface DeviceListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: DeviceListInstancePageOptions, callback?: function);
+  page(opts?: DeviceListInstancePageOptions, callback?: function): Promise<DevicePage>;
 }
 
 /**
@@ -270,13 +270,13 @@ declare class DeviceInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: DeviceInstance) => any);
   /**
    * remove a DeviceInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: DeviceInstance) => any);
   /**
    * Produce a plain JSON object version of the DeviceInstance for serialization.
    * Removes any circular references in the object.
@@ -288,7 +288,7 @@ declare class DeviceInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: DeviceInstanceUpdateOptions, callback?: function);
+  update(opts?: DeviceInstanceUpdateOptions, callback?: (error: Error | null, items: DeviceInstance) => any);
 }
 
 
@@ -309,20 +309,20 @@ declare class DeviceContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: DeviceContext) => any);
   /**
    * remove a DeviceInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: DeviceContext) => any);
   /**
    * update a DeviceInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: DeviceContextUpdateOptions, callback?: function);
+  update(opts?: DeviceContextUpdateOptions, callback?: (error: Error | null, items: DeviceContext) => any);
 }
 
 export { DeviceContext, DeviceInstance, DeviceList, DeviceListInstance, DevicePage, DevicePayload, DeviceResource, DeviceSolution }

@@ -43,7 +43,7 @@ interface PublicKeyListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: PublicKeyListInstanceCreateOptions, callback?: function);
+  create(opts: PublicKeyListInstanceCreateOptions, callback?: (error: Error | null, items: PublicKeyListInstance) => any): Promise<PublicKeyInstance>;
   /**
    * Streams PublicKeyInstance records from the API.
    *
@@ -57,13 +57,13 @@ interface PublicKeyListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: PublicKeyListInstanceEachOptions, callback?: (item: PublicKeyInstance, done: (err?: Error) => void) => void);
+  each(opts?: PublicKeyListInstanceEachOptions, callback?: (item: PublicKeyInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a public_key
    *
    * @param sid - Fetch by unique Credential Sid
    */
-  get(sid: string);
+  get(sid: string): PublicKeyContext;
   /**
    * Retrieve a single target page of PublicKeyInstance records from the API.
    * Request is executed immediately
@@ -73,7 +73,7 @@ interface PublicKeyListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<PublicKeyPage>;
   /**
    * @description Lists PublicKeyInstance records from the API as a list.
    *
@@ -82,7 +82,7 @@ interface PublicKeyListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: PublicKeyListInstanceOptions, callback?: function);
+  list(opts?: PublicKeyListInstanceOptions, callback?: function): Promise<PublicKeyInstance[]>;
   /**
    * Retrieve a single page of PublicKeyInstance records from the API.
    * Request is executed immediately
@@ -92,7 +92,7 @@ interface PublicKeyListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: PublicKeyListInstancePageOptions, callback?: function);
+  page(opts?: PublicKeyListInstancePageOptions, callback?: function): Promise<PublicKeyPage>;
 }
 
 /**
@@ -229,13 +229,13 @@ declare class PublicKeyInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: PublicKeyInstance) => any);
   /**
    * remove a PublicKeyInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: PublicKeyInstance) => any);
   /**
    * Produce a plain JSON object version of the PublicKeyInstance for serialization.
    * Removes any circular references in the object.
@@ -247,7 +247,7 @@ declare class PublicKeyInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: PublicKeyInstanceUpdateOptions, callback?: function);
+  update(opts?: PublicKeyInstanceUpdateOptions, callback?: (error: Error | null, items: PublicKeyInstance) => any);
 }
 
 
@@ -266,20 +266,20 @@ declare class PublicKeyContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: PublicKeyContext) => any);
   /**
    * remove a PublicKeyInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: PublicKeyContext) => any);
   /**
    * update a PublicKeyInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: PublicKeyContextUpdateOptions, callback?: function);
+  update(opts?: PublicKeyContextUpdateOptions, callback?: (error: Error | null, items: PublicKeyContext) => any);
 }
 
 export { PublicKeyContext, PublicKeyInstance, PublicKeyList, PublicKeyListInstance, PublicKeyPage, PublicKeyPayload, PublicKeyResource, PublicKeySolution }

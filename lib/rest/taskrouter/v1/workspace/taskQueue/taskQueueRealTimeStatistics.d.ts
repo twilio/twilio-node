@@ -49,7 +49,7 @@ interface TaskQueueRealTimeStatisticsListInstance {
   /**
    * Constructs a task_queue_real_time_statistics
    */
-  get();
+  get(): TaskQueueRealTimeStatisticsContext;
 }
 
 /**
@@ -123,7 +123,7 @@ declare class TaskQueueRealTimeStatisticsInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: TaskQueueRealTimeStatisticsInstanceFetchOptions, callback?: function);
+  fetch(opts?: TaskQueueRealTimeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: TaskQueueRealTimeStatisticsInstance) => any);
   /**
    * Produce a plain JSON object version of the TaskQueueRealTimeStatisticsInstance for serialization.
    * Removes any circular references in the object.
@@ -149,7 +149,7 @@ declare class TaskQueueRealTimeStatisticsContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: TaskQueueRealTimeStatisticsContextFetchOptions, callback?: function);
+  fetch(opts?: TaskQueueRealTimeStatisticsContextFetchOptions, callback?: (error: Error | null, items: TaskQueueRealTimeStatisticsContext) => any);
 }
 
 export { TaskQueueRealTimeStatisticsContext, TaskQueueRealTimeStatisticsInstance, TaskQueueRealTimeStatisticsList, TaskQueueRealTimeStatisticsListInstance, TaskQueueRealTimeStatisticsPage, TaskQueueRealTimeStatisticsPayload, TaskQueueRealTimeStatisticsResource, TaskQueueRealTimeStatisticsSolution }

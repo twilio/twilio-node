@@ -49,7 +49,7 @@ interface WorkersCumulativeStatisticsListInstance {
   /**
    * Constructs a workers_cumulative_statistics
    */
-  get();
+  get(): WorkersCumulativeStatisticsContext;
 }
 
 /**
@@ -135,7 +135,7 @@ declare class WorkersCumulativeStatisticsInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: WorkersCumulativeStatisticsInstanceFetchOptions, callback?: function);
+  fetch(opts?: WorkersCumulativeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkersCumulativeStatisticsInstance) => any);
   /**
    * Produce a plain JSON object version of the WorkersCumulativeStatisticsInstance for serialization.
    * Removes any circular references in the object.
@@ -160,7 +160,7 @@ declare class WorkersCumulativeStatisticsContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: WorkersCumulativeStatisticsContextFetchOptions, callback?: function);
+  fetch(opts?: WorkersCumulativeStatisticsContextFetchOptions, callback?: (error: Error | null, items: WorkersCumulativeStatisticsContext) => any);
 }
 
 export { WorkersCumulativeStatisticsContext, WorkersCumulativeStatisticsInstance, WorkersCumulativeStatisticsList, WorkersCumulativeStatisticsListInstance, WorkersCumulativeStatisticsPage, WorkersCumulativeStatisticsPayload, WorkersCumulativeStatisticsResource, WorkersCumulativeStatisticsSolution }

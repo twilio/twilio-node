@@ -57,7 +57,7 @@ interface AllTimeListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: AllTimeListInstanceEachOptions, callback?: (item: AllTimeInstance, done: (err?: Error) => void) => void);
+  each(opts?: AllTimeListInstanceEachOptions, callback?: (item: AllTimeInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of AllTimeInstance records from the API.
    * Request is executed immediately
@@ -67,7 +67,7 @@ interface AllTimeListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<AllTimePage>;
   /**
    * @description Lists AllTimeInstance records from the API as a list.
    *
@@ -76,7 +76,7 @@ interface AllTimeListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: AllTimeListInstanceOptions, callback?: function);
+  list(opts?: AllTimeListInstanceOptions, callback?: function): Promise<AllTimeInstance[]>;
   /**
    * Retrieve a single page of AllTimeInstance records from the API.
    * Request is executed immediately
@@ -86,7 +86,7 @@ interface AllTimeListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: AllTimeListInstancePageOptions, callback?: function);
+  page(opts?: AllTimeListInstancePageOptions, callback?: function): Promise<AllTimePage>;
 }
 
 /**

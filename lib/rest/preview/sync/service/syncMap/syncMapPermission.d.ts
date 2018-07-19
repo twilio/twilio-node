@@ -58,13 +58,13 @@ interface SyncMapPermissionListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: SyncMapPermissionListInstanceEachOptions, callback?: (item: SyncMapPermissionInstance, done: (err?: Error) => void) => void);
+  each(opts?: SyncMapPermissionListInstanceEachOptions, callback?: (item: SyncMapPermissionInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a sync_map_permission
    *
    * @param identity - Identity of the user to whom the Sync Map Permission applies.
    */
-  get(identity: string);
+  get(identity: string): SyncMapPermissionContext;
   /**
    * Retrieve a single target page of SyncMapPermissionInstance records from the API.
    * Request is executed immediately
@@ -74,7 +74,7 @@ interface SyncMapPermissionListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<SyncMapPermissionPage>;
   /**
    * @description Lists SyncMapPermissionInstance records from the API as a list.
    *
@@ -83,7 +83,7 @@ interface SyncMapPermissionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: SyncMapPermissionListInstanceOptions, callback?: function);
+  list(opts?: SyncMapPermissionListInstanceOptions, callback?: function): Promise<SyncMapPermissionInstance[]>;
   /**
    * Retrieve a single page of SyncMapPermissionInstance records from the API.
    * Request is executed immediately
@@ -93,7 +93,7 @@ interface SyncMapPermissionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: SyncMapPermissionListInstancePageOptions, callback?: function);
+  page(opts?: SyncMapPermissionListInstancePageOptions, callback?: function): Promise<SyncMapPermissionPage>;
 }
 
 /**
@@ -231,13 +231,13 @@ declare class SyncMapPermissionInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: SyncMapPermissionInstance) => any);
   /**
    * remove a SyncMapPermissionInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: SyncMapPermissionInstance) => any);
   /**
    * Produce a plain JSON object version of the SyncMapPermissionInstance for serialization.
    * Removes any circular references in the object.
@@ -249,7 +249,7 @@ declare class SyncMapPermissionInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: SyncMapPermissionInstanceUpdateOptions, callback?: function);
+  update(opts: SyncMapPermissionInstanceUpdateOptions, callback?: (error: Error | null, items: SyncMapPermissionInstance) => any);
 }
 
 
@@ -271,20 +271,20 @@ declare class SyncMapPermissionContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: SyncMapPermissionContext) => any);
   /**
    * remove a SyncMapPermissionInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: SyncMapPermissionContext) => any);
   /**
    * update a SyncMapPermissionInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: SyncMapPermissionContextUpdateOptions, callback?: function);
+  update(opts: SyncMapPermissionContextUpdateOptions, callback?: (error: Error | null, items: SyncMapPermissionContext) => any);
 }
 
 export { SyncMapPermissionContext, SyncMapPermissionInstance, SyncMapPermissionList, SyncMapPermissionListInstance, SyncMapPermissionPage, SyncMapPermissionPayload, SyncMapPermissionResource, SyncMapPermissionSolution }

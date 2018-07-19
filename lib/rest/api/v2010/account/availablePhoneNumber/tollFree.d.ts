@@ -58,7 +58,7 @@ interface TollFreeListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: TollFreeListInstanceEachOptions, callback?: (item: TollFreeInstance, done: (err?: Error) => void) => void);
+  each(opts?: TollFreeListInstanceEachOptions, callback?: (item: TollFreeInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of TollFreeInstance records from the API.
    * Request is executed immediately
@@ -68,7 +68,7 @@ interface TollFreeListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<TollFreePage>;
   /**
    * @description Lists TollFreeInstance records from the API as a list.
    *
@@ -77,7 +77,7 @@ interface TollFreeListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: TollFreeListInstanceOptions, callback?: function);
+  list(opts?: TollFreeListInstanceOptions, callback?: function): Promise<TollFreeInstance[]>;
   /**
    * Retrieve a single page of TollFreeInstance records from the API.
    * Request is executed immediately
@@ -87,7 +87,7 @@ interface TollFreeListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: TollFreeListInstancePageOptions, callback?: function);
+  page(opts?: TollFreeListInstancePageOptions, callback?: function): Promise<TollFreePage>;
 }
 
 /**

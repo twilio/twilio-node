@@ -48,7 +48,7 @@ interface IpAccessControlListMappingListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: IpAccessControlListMappingListInstanceCreateOptions, callback?: function);
+  create(opts: IpAccessControlListMappingListInstanceCreateOptions, callback?: (error: Error | null, items: IpAccessControlListMappingListInstance) => any): Promise<IpAccessControlListMappingInstance>;
   /**
    * Streams IpAccessControlListMappingInstance records from the API.
    *
@@ -62,13 +62,13 @@ interface IpAccessControlListMappingListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: IpAccessControlListMappingListInstanceEachOptions, callback?: (item: IpAccessControlListMappingInstance, done: (err?: Error) => void) => void);
+  each(opts?: IpAccessControlListMappingListInstanceEachOptions, callback?: (item: IpAccessControlListMappingInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a ip_access_control_list_mapping
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): IpAccessControlListMappingContext;
   /**
    * Retrieve a single target page of IpAccessControlListMappingInstance records from the API.
    * Request is executed immediately
@@ -78,7 +78,7 @@ interface IpAccessControlListMappingListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<IpAccessControlListMappingPage>;
   /**
    * @description Lists IpAccessControlListMappingInstance records from the API as a list.
    *
@@ -87,7 +87,7 @@ interface IpAccessControlListMappingListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: IpAccessControlListMappingListInstanceOptions, callback?: function);
+  list(opts?: IpAccessControlListMappingListInstanceOptions, callback?: function): Promise<IpAccessControlListMappingInstance[]>;
   /**
    * Retrieve a single page of IpAccessControlListMappingInstance records from the API.
    * Request is executed immediately
@@ -97,7 +97,7 @@ interface IpAccessControlListMappingListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: IpAccessControlListMappingListInstancePageOptions, callback?: function);
+  page(opts?: IpAccessControlListMappingListInstancePageOptions, callback?: function): Promise<IpAccessControlListMappingPage>;
 }
 
 /**
@@ -215,13 +215,13 @@ declare class IpAccessControlListMappingInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: IpAccessControlListMappingInstance) => any);
   /**
    * remove a IpAccessControlListMappingInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: IpAccessControlListMappingInstance) => any);
   /**
    * Produce a plain JSON object version of the IpAccessControlListMappingInstance for serialization.
    * Removes any circular references in the object.
@@ -247,13 +247,13 @@ declare class IpAccessControlListMappingContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: IpAccessControlListMappingContext) => any);
   /**
    * remove a IpAccessControlListMappingInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: IpAccessControlListMappingContext) => any);
 }
 
 export { IpAccessControlListMappingContext, IpAccessControlListMappingInstance, IpAccessControlListMappingList, IpAccessControlListMappingListInstance, IpAccessControlListMappingPage, IpAccessControlListMappingPayload, IpAccessControlListMappingResource, IpAccessControlListMappingSolution }

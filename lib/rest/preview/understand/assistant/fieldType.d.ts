@@ -50,7 +50,7 @@ interface FieldTypeListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: FieldTypeListInstanceCreateOptions, callback?: function);
+  create(opts: FieldTypeListInstanceCreateOptions, callback?: (error: Error | null, items: FieldTypeListInstance) => any): Promise<FieldTypeInstance>;
   /**
    * Streams FieldTypeInstance records from the API.
    *
@@ -64,13 +64,13 @@ interface FieldTypeListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: FieldTypeListInstanceEachOptions, callback?: (item: FieldTypeInstance, done: (err?: Error) => void) => void);
+  each(opts?: FieldTypeListInstanceEachOptions, callback?: (item: FieldTypeInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a field_type
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): FieldTypeContext;
   /**
    * Retrieve a single target page of FieldTypeInstance records from the API.
    * Request is executed immediately
@@ -80,7 +80,7 @@ interface FieldTypeListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<FieldTypePage>;
   /**
    * @description Lists FieldTypeInstance records from the API as a list.
    *
@@ -89,7 +89,7 @@ interface FieldTypeListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: FieldTypeListInstanceOptions, callback?: function);
+  list(opts?: FieldTypeListInstanceOptions, callback?: function): Promise<FieldTypeInstance[]>;
   /**
    * Retrieve a single page of FieldTypeInstance records from the API.
    * Request is executed immediately
@@ -99,7 +99,7 @@ interface FieldTypeListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: FieldTypeListInstancePageOptions, callback?: function);
+  page(opts?: FieldTypeListInstancePageOptions, callback?: function): Promise<FieldTypePage>;
 }
 
 /**
@@ -244,7 +244,7 @@ declare class FieldTypeInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: FieldTypeInstance) => any);
   /**
    * Access the fieldValues
    */
@@ -254,7 +254,7 @@ declare class FieldTypeInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: FieldTypeInstance) => any);
   /**
    * Produce a plain JSON object version of the FieldTypeInstance for serialization.
    * Removes any circular references in the object.
@@ -266,7 +266,7 @@ declare class FieldTypeInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: FieldTypeInstanceUpdateOptions, callback?: function);
+  update(opts?: FieldTypeInstanceUpdateOptions, callback?: (error: Error | null, items: FieldTypeInstance) => any);
 }
 
 
@@ -289,21 +289,21 @@ declare class FieldTypeContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: FieldTypeContext) => any);
   fieldValues?: Twilio.Preview.Understand.AssistantContext.FieldTypeContext.FieldValueList;
   /**
    * remove a FieldTypeInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: FieldTypeContext) => any);
   /**
    * update a FieldTypeInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: FieldTypeContextUpdateOptions, callback?: function);
+  update(opts?: FieldTypeContextUpdateOptions, callback?: (error: Error | null, items: FieldTypeContext) => any);
 }
 
 export { FieldTypeContext, FieldTypeInstance, FieldTypeList, FieldTypeListInstance, FieldTypePage, FieldTypePayload, FieldTypeResource, FieldTypeSolution }

@@ -59,7 +59,7 @@ interface RecordListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: RecordListInstanceEachOptions, callback?: (item: RecordInstance, done: (err?: Error) => void) => void);
+  each(opts?: RecordListInstanceEachOptions, callback?: (item: RecordInstance, done: (err?: Error) => void) => void): void;
   /**
    * Retrieve a single target page of RecordInstance records from the API.
    * Request is executed immediately
@@ -69,7 +69,7 @@ interface RecordListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<RecordPage>;
   lastMonth?: object;
   /**
    * @description Lists RecordInstance records from the API as a list.
@@ -79,7 +79,7 @@ interface RecordListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: RecordListInstanceOptions, callback?: function);
+  list(opts?: RecordListInstanceOptions, callback?: function): Promise<RecordInstance[]>;
   monthly?: object;
   /**
    * Retrieve a single page of RecordInstance records from the API.
@@ -90,7 +90,7 @@ interface RecordListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: RecordListInstancePageOptions, callback?: function);
+  page(opts?: RecordListInstancePageOptions, callback?: function): Promise<RecordPage>;
   thisMonth?: object;
   today?: object;
   yearly?: object;

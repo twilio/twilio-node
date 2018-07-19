@@ -48,7 +48,7 @@ interface ActivityListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: ActivityListInstanceCreateOptions, callback?: function);
+  create(opts: ActivityListInstanceCreateOptions, callback?: (error: Error | null, items: ActivityListInstance) => any): Promise<ActivityInstance>;
   /**
    * Streams ActivityInstance records from the API.
    *
@@ -62,13 +62,13 @@ interface ActivityListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: ActivityListInstanceEachOptions, callback?: (item: ActivityInstance, done: (err?: Error) => void) => void);
+  each(opts?: ActivityListInstanceEachOptions, callback?: (item: ActivityInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a activity
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): ActivityContext;
   /**
    * Retrieve a single target page of ActivityInstance records from the API.
    * Request is executed immediately
@@ -78,7 +78,7 @@ interface ActivityListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<ActivityPage>;
   /**
    * @description Lists ActivityInstance records from the API as a list.
    *
@@ -87,7 +87,7 @@ interface ActivityListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: ActivityListInstanceOptions, callback?: function);
+  list(opts?: ActivityListInstanceOptions, callback?: function): Promise<ActivityInstance[]>;
   /**
    * Retrieve a single page of ActivityInstance records from the API.
    * Request is executed immediately
@@ -97,7 +97,7 @@ interface ActivityListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: ActivityListInstancePageOptions, callback?: function);
+  page(opts?: ActivityListInstancePageOptions, callback?: function): Promise<ActivityPage>;
 }
 
 /**
@@ -247,13 +247,13 @@ declare class ActivityInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: ActivityInstance) => any);
   /**
    * remove a ActivityInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: ActivityInstance) => any);
   /**
    * Produce a plain JSON object version of the ActivityInstance for serialization.
    * Removes any circular references in the object.
@@ -265,7 +265,7 @@ declare class ActivityInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ActivityInstanceUpdateOptions, callback?: function);
+  update(opts?: ActivityInstanceUpdateOptions, callback?: (error: Error | null, items: ActivityInstance) => any);
 }
 
 
@@ -285,20 +285,20 @@ declare class ActivityContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: ActivityContext) => any);
   /**
    * remove a ActivityInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: ActivityContext) => any);
   /**
    * update a ActivityInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ActivityContextUpdateOptions, callback?: function);
+  update(opts?: ActivityContextUpdateOptions, callback?: (error: Error | null, items: ActivityContext) => any);
 }
 
 export { ActivityContext, ActivityInstance, ActivityList, ActivityListInstance, ActivityPage, ActivityPayload, ActivityResource, ActivitySolution }

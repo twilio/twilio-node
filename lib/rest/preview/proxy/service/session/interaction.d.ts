@@ -68,13 +68,13 @@ interface InteractionListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: InteractionListInstanceEachOptions, callback?: (item: InteractionInstance, done: (err?: Error) => void) => void);
+  each(opts?: InteractionListInstanceEachOptions, callback?: (item: InteractionInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a interaction
    *
    * @param sid - A string that uniquely identifies this Interaction.
    */
-  get(sid: string);
+  get(sid: string): InteractionContext;
   /**
    * Retrieve a single target page of InteractionInstance records from the API.
    * Request is executed immediately
@@ -84,7 +84,7 @@ interface InteractionListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<InteractionPage>;
   /**
    * @description Lists InteractionInstance records from the API as a list.
    *
@@ -93,7 +93,7 @@ interface InteractionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: InteractionListInstanceOptions, callback?: function);
+  list(opts?: InteractionListInstanceOptions, callback?: function): Promise<InteractionInstance[]>;
   /**
    * Retrieve a single page of InteractionInstance records from the API.
    * Request is executed immediately
@@ -103,7 +103,7 @@ interface InteractionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: InteractionListInstancePageOptions, callback?: function);
+  page(opts?: InteractionListInstancePageOptions, callback?: function): Promise<InteractionPage>;
 }
 
 /**
@@ -238,7 +238,7 @@ declare class InteractionInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: InteractionInstance) => any);
   /**
    * Produce a plain JSON object version of the InteractionInstance for serialization.
    * Removes any circular references in the object.
@@ -265,7 +265,7 @@ declare class InteractionContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: InteractionContext) => any);
 }
 
 export { InteractionContext, InteractionInstance, InteractionList, InteractionListInstance, InteractionPage, InteractionPayload, InteractionResource, InteractionSolution }

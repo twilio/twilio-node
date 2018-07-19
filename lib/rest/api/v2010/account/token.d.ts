@@ -42,7 +42,7 @@ interface TokenListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: TokenListInstanceCreateOptions, callback?: function);
+  create(opts?: TokenListInstanceCreateOptions, callback?: (error: Error | null, items: TokenListInstance) => any): Promise<TokenInstance>;
 }
 
 /**

@@ -46,7 +46,7 @@ interface CredentialListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: CredentialListInstanceCreateOptions, callback?: function);
+  create(opts: CredentialListInstanceCreateOptions, callback?: (error: Error | null, items: CredentialListInstance) => any): Promise<CredentialInstance>;
   /**
    * Streams CredentialInstance records from the API.
    *
@@ -60,13 +60,13 @@ interface CredentialListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: CredentialListInstanceEachOptions, callback?: (item: CredentialInstance, done: (err?: Error) => void) => void);
+  each(opts?: CredentialListInstanceEachOptions, callback?: (item: CredentialInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a credential
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): CredentialContext;
   /**
    * Retrieve a single target page of CredentialInstance records from the API.
    * Request is executed immediately
@@ -76,7 +76,7 @@ interface CredentialListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<CredentialPage>;
   /**
    * @description Lists CredentialInstance records from the API as a list.
    *
@@ -85,7 +85,7 @@ interface CredentialListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: CredentialListInstanceOptions, callback?: function);
+  list(opts?: CredentialListInstanceOptions, callback?: function): Promise<CredentialInstance[]>;
   /**
    * Retrieve a single page of CredentialInstance records from the API.
    * Request is executed immediately
@@ -95,7 +95,7 @@ interface CredentialListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: CredentialListInstancePageOptions, callback?: function);
+  page(opts?: CredentialListInstancePageOptions, callback?: function): Promise<CredentialPage>;
 }
 
 /**
@@ -262,13 +262,13 @@ declare class CredentialInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: CredentialInstance) => any);
   /**
    * remove a CredentialInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: CredentialInstance) => any);
   /**
    * Produce a plain JSON object version of the CredentialInstance for serialization.
    * Removes any circular references in the object.
@@ -280,7 +280,7 @@ declare class CredentialInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: CredentialInstanceUpdateOptions, callback?: function);
+  update(opts?: CredentialInstanceUpdateOptions, callback?: (error: Error | null, items: CredentialInstance) => any);
 }
 
 
@@ -299,20 +299,20 @@ declare class CredentialContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: CredentialContext) => any);
   /**
    * remove a CredentialInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: CredentialContext) => any);
   /**
    * update a CredentialInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: CredentialContextUpdateOptions, callback?: function);
+  update(opts?: CredentialContextUpdateOptions, callback?: (error: Error | null, items: CredentialContext) => any);
 }
 
 export { CredentialContext, CredentialInstance, CredentialList, CredentialListInstance, CredentialPage, CredentialPayload, CredentialResource, CredentialSolution }

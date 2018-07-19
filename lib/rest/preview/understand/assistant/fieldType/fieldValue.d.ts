@@ -52,7 +52,7 @@ interface FieldValueListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: FieldValueListInstanceCreateOptions, callback?: function);
+  create(opts: FieldValueListInstanceCreateOptions, callback?: (error: Error | null, items: FieldValueListInstance) => any): Promise<FieldValueInstance>;
   /**
    * Streams FieldValueInstance records from the API.
    *
@@ -66,13 +66,13 @@ interface FieldValueListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: FieldValueListInstanceEachOptions, callback?: (item: FieldValueInstance, done: (err?: Error) => void) => void);
+  each(opts?: FieldValueListInstanceEachOptions, callback?: (item: FieldValueInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a field_value
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): FieldValueContext;
   /**
    * Retrieve a single target page of FieldValueInstance records from the API.
    * Request is executed immediately
@@ -82,7 +82,7 @@ interface FieldValueListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<FieldValuePage>;
   /**
    * @description Lists FieldValueInstance records from the API as a list.
    *
@@ -91,7 +91,7 @@ interface FieldValueListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: FieldValueListInstanceOptions, callback?: function);
+  list(opts?: FieldValueListInstanceOptions, callback?: function): Promise<FieldValueInstance[]>;
   /**
    * Retrieve a single page of FieldValueInstance records from the API.
    * Request is executed immediately
@@ -101,7 +101,7 @@ interface FieldValueListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: FieldValueListInstancePageOptions, callback?: function);
+  page(opts?: FieldValueListInstancePageOptions, callback?: function): Promise<FieldValuePage>;
 }
 
 /**
@@ -234,13 +234,13 @@ declare class FieldValueInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: FieldValueInstance) => any);
   /**
    * remove a FieldValueInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: FieldValueInstance) => any);
   /**
    * Produce a plain JSON object version of the FieldValueInstance for serialization.
    * Removes any circular references in the object.
@@ -267,13 +267,13 @@ declare class FieldValueContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: FieldValueContext) => any);
   /**
    * remove a FieldValueInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: FieldValueContext) => any);
 }
 
 export { FieldValueContext, FieldValueInstance, FieldValueList, FieldValueListInstance, FieldValuePage, FieldValuePayload, FieldValueResource, FieldValueSolution }

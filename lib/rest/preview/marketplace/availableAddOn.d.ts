@@ -53,13 +53,13 @@ interface AvailableAddOnListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: AvailableAddOnListInstanceEachOptions, callback?: (item: AvailableAddOnInstance, done: (err?: Error) => void) => void);
+  each(opts?: AvailableAddOnListInstanceEachOptions, callback?: (item: AvailableAddOnInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a available_add_on
    *
    * @param sid - The unique Available Add-on Sid
    */
-  get(sid: string);
+  get(sid: string): AvailableAddOnContext;
   /**
    * Retrieve a single target page of AvailableAddOnInstance records from the API.
    * Request is executed immediately
@@ -69,7 +69,7 @@ interface AvailableAddOnListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<AvailableAddOnPage>;
   /**
    * @description Lists AvailableAddOnInstance records from the API as a list.
    *
@@ -78,7 +78,7 @@ interface AvailableAddOnListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: AvailableAddOnListInstanceOptions, callback?: function);
+  list(opts?: AvailableAddOnListInstanceOptions, callback?: function): Promise<AvailableAddOnInstance[]>;
   /**
    * Retrieve a single page of AvailableAddOnInstance records from the API.
    * Request is executed immediately
@@ -88,7 +88,7 @@ interface AvailableAddOnListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: AvailableAddOnListInstancePageOptions, callback?: function);
+  page(opts?: AvailableAddOnListInstancePageOptions, callback?: function): Promise<AvailableAddOnPage>;
 }
 
 /**
@@ -201,7 +201,7 @@ declare class AvailableAddOnInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: AvailableAddOnInstance) => any);
   /**
    * Produce a plain JSON object version of the AvailableAddOnInstance for serialization.
    * Removes any circular references in the object.
@@ -229,7 +229,7 @@ declare class AvailableAddOnContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: AvailableAddOnContext) => any);
 }
 
 export { AvailableAddOnContext, AvailableAddOnInstance, AvailableAddOnList, AvailableAddOnListInstance, AvailableAddOnPage, AvailableAddOnPayload, AvailableAddOnResource, AvailableAddOnSolution }

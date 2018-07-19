@@ -49,7 +49,7 @@ interface ShortCodeListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: ShortCodeListInstanceCreateOptions, callback?: function);
+  create(opts: ShortCodeListInstanceCreateOptions, callback?: (error: Error | null, items: ShortCodeListInstance) => any): Promise<ShortCodeInstance>;
   /**
    * Streams ShortCodeInstance records from the API.
    *
@@ -63,13 +63,13 @@ interface ShortCodeListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: ShortCodeListInstanceEachOptions, callback?: (item: ShortCodeInstance, done: (err?: Error) => void) => void);
+  each(opts?: ShortCodeListInstanceEachOptions, callback?: (item: ShortCodeInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a short_code
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): ShortCodeContext;
   /**
    * Retrieve a single target page of ShortCodeInstance records from the API.
    * Request is executed immediately
@@ -79,7 +79,7 @@ interface ShortCodeListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<ShortCodePage>;
   /**
    * @description Lists ShortCodeInstance records from the API as a list.
    *
@@ -88,7 +88,7 @@ interface ShortCodeListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: ShortCodeListInstanceOptions, callback?: function);
+  list(opts?: ShortCodeListInstanceOptions, callback?: function): Promise<ShortCodeInstance[]>;
   /**
    * Retrieve a single page of ShortCodeInstance records from the API.
    * Request is executed immediately
@@ -98,7 +98,7 @@ interface ShortCodeListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: ShortCodeListInstancePageOptions, callback?: function);
+  page(opts?: ShortCodeListInstancePageOptions, callback?: function): Promise<ShortCodePage>;
 }
 
 /**
@@ -219,13 +219,13 @@ declare class ShortCodeInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: ShortCodeInstance) => any);
   /**
    * remove a ShortCodeInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: ShortCodeInstance) => any);
   /**
    * Produce a plain JSON object version of the ShortCodeInstance for serialization.
    * Removes any circular references in the object.
@@ -251,13 +251,13 @@ declare class ShortCodeContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: ShortCodeContext) => any);
   /**
    * remove a ShortCodeInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: ShortCodeContext) => any);
 }
 
 export { ShortCodeContext, ShortCodeInstance, ShortCodeList, ShortCodeListInstance, ShortCodePage, ShortCodePayload, ShortCodeResource, ShortCodeSolution }

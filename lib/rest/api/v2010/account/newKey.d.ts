@@ -40,7 +40,7 @@ interface NewKeyListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: NewKeyListInstanceCreateOptions, callback?: function);
+  create(opts?: NewKeyListInstanceCreateOptions, callback?: (error: Error | null, items: NewKeyListInstance) => any): Promise<NewKeyInstance>;
 }
 
 /**

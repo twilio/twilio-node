@@ -49,7 +49,7 @@ interface RoleListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: RoleListInstanceCreateOptions, callback?: function);
+  create(opts: RoleListInstanceCreateOptions, callback?: (error: Error | null, items: RoleListInstance) => any): Promise<RoleInstance>;
   /**
    * Streams RoleInstance records from the API.
    *
@@ -63,13 +63,13 @@ interface RoleListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: RoleListInstanceEachOptions, callback?: (item: RoleInstance, done: (err?: Error) => void) => void);
+  each(opts?: RoleListInstanceEachOptions, callback?: (item: RoleInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a role
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): RoleContext;
   /**
    * Retrieve a single target page of RoleInstance records from the API.
    * Request is executed immediately
@@ -79,7 +79,7 @@ interface RoleListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<RolePage>;
   /**
    * @description Lists RoleInstance records from the API as a list.
    *
@@ -88,7 +88,7 @@ interface RoleListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: RoleListInstanceOptions, callback?: function);
+  list(opts?: RoleListInstanceOptions, callback?: function): Promise<RoleInstance[]>;
   /**
    * Retrieve a single page of RoleInstance records from the API.
    * Request is executed immediately
@@ -98,7 +98,7 @@ interface RoleListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: RoleListInstancePageOptions, callback?: function);
+  page(opts?: RoleListInstancePageOptions, callback?: function): Promise<RolePage>;
 }
 
 /**
@@ -239,13 +239,13 @@ declare class RoleInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: RoleInstance) => any);
   /**
    * remove a RoleInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: RoleInstance) => any);
   /**
    * Produce a plain JSON object version of the RoleInstance for serialization.
    * Removes any circular references in the object.
@@ -257,7 +257,7 @@ declare class RoleInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: RoleInstanceUpdateOptions, callback?: function);
+  update(opts: RoleInstanceUpdateOptions, callback?: (error: Error | null, items: RoleInstance) => any);
 }
 
 
@@ -277,20 +277,20 @@ declare class RoleContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: RoleContext) => any);
   /**
    * remove a RoleInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: function);
+  remove(callback?: (error: Error | null, items: RoleContext) => any);
   /**
    * update a RoleInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: RoleContextUpdateOptions, callback?: function);
+  update(opts: RoleContextUpdateOptions, callback?: (error: Error | null, items: RoleContext) => any);
 }
 
 export { RoleContext, RoleInstance, RoleList, RoleListInstance, RolePage, RolePayload, RoleResource, RoleSolution }

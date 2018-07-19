@@ -47,7 +47,7 @@ interface StepContextListInstance {
   /**
    * Constructs a step_context
    */
-  get();
+  get(): StepContextContext;
 }
 
 
@@ -100,7 +100,7 @@ declare class StepContextInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: StepContextInstance) => any);
   /**
    * Produce a plain JSON object version of the StepContextInstance for serialization.
    * Removes any circular references in the object.
@@ -127,7 +127,7 @@ declare class StepContextContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: StepContextContext) => any);
 }
 
 export { StepContextContext, StepContextInstance, StepContextList, StepContextListInstance, StepContextPage, StepContextPayload, StepContextResource, StepContextSolution }

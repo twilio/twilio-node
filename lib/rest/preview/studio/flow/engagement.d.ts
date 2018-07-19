@@ -52,7 +52,7 @@ interface EngagementListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: EngagementListInstanceCreateOptions, callback?: function);
+  create(opts: EngagementListInstanceCreateOptions, callback?: (error: Error | null, items: EngagementListInstance) => any): Promise<EngagementInstance>;
   /**
    * Streams EngagementInstance records from the API.
    *
@@ -66,13 +66,13 @@ interface EngagementListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: EngagementListInstanceEachOptions, callback?: (item: EngagementInstance, done: (err?: Error) => void) => void);
+  each(opts?: EngagementListInstanceEachOptions, callback?: (item: EngagementInstance, done: (err?: Error) => void) => void): void;
   /**
    * Constructs a engagement
    *
    * @param sid - The sid
    */
-  get(sid: string);
+  get(sid: string): EngagementContext;
   /**
    * Retrieve a single target page of EngagementInstance records from the API.
    * Request is executed immediately
@@ -82,7 +82,7 @@ interface EngagementListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function);
+  getPage(targetUrl?: string, callback?: function): Promise<EngagementPage>;
   /**
    * @description Lists EngagementInstance records from the API as a list.
    *
@@ -91,7 +91,7 @@ interface EngagementListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: EngagementListInstanceOptions, callback?: function);
+  list(opts?: EngagementListInstanceOptions, callback?: function): Promise<EngagementInstance[]>;
   /**
    * Retrieve a single page of EngagementInstance records from the API.
    * Request is executed immediately
@@ -101,7 +101,7 @@ interface EngagementListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: EngagementListInstancePageOptions, callback?: function);
+  page(opts?: EngagementListInstancePageOptions, callback?: function): Promise<EngagementPage>;
 }
 
 /**
@@ -228,7 +228,7 @@ declare class EngagementInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: EngagementInstance) => any);
   /**
    * Access the steps
    */
@@ -260,7 +260,7 @@ declare class EngagementContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: function);
+  fetch(callback?: (error: Error | null, items: EngagementContext) => any);
   steps?: Twilio.Preview.Studio.FlowContext.EngagementContext.StepList;
 }
 
