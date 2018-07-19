@@ -67,7 +67,7 @@ interface QueryListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: QueryListInstanceEachOptions, callback?: Function);
+  each(opts?: QueryListInstanceEachOptions, callback?: (item: QueryInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a query
    *
@@ -149,7 +149,7 @@ export interface QueryContextUpdateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface QueryListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: QueryInstance, done: (err?: Error) => void) => void;
   done?: Function;
   language?: string;
   limit?: number;

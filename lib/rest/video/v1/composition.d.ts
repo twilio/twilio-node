@@ -71,7 +71,7 @@ interface CompositionListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: CompositionListInstanceEachOptions, callback?: Function);
+  each(opts?: CompositionListInstanceEachOptions, callback?: (item: CompositionInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a composition
    *
@@ -132,7 +132,7 @@ interface CompositionListInstance {
  * @property done - Function to be called upon completion of streaming
  */
 export interface CompositionListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: CompositionInstance, done: (err?: Error) => void) => void;
   dateCreatedAfter?: Date;
   dateCreatedBefore?: Date;
   done?: Function;

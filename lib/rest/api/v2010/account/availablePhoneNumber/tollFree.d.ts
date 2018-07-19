@@ -58,7 +58,7 @@ interface TollFreeListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: TollFreeListInstanceEachOptions, callback?: Function);
+  each(opts?: TollFreeListInstanceEachOptions, callback?: (item: TollFreeInstance, done: (err?: Error) => void) => void);
   /**
    * Retrieve a single target page of TollFreeInstance records from the API.
    * Request is executed immediately
@@ -129,7 +129,7 @@ interface TollFreeListInstance {
 export interface TollFreeListInstanceEachOptions {
   areaCode?: number;
   beta?: boolean;
-  callback?: Function;
+  callback?: (item: TollFreeInstance, done: (err?: Error) => void) => void;
   contains?: string;
   distance?: number;
   done?: Function;

@@ -79,7 +79,7 @@ interface PhoneNumberListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: PhoneNumberListInstanceEachOptions, callback?: Function);
+  each(opts?: PhoneNumberListInstanceEachOptions, callback?: (item: PhoneNumberInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a phone_number
    *
@@ -145,7 +145,7 @@ export interface PhoneNumberListInstanceCreateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface PhoneNumberListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: PhoneNumberInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

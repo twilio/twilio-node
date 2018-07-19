@@ -59,7 +59,7 @@ interface EventListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: EventListInstanceEachOptions, callback?: Function);
+  each(opts?: EventListInstanceEachOptions, callback?: (item: EventInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a event
    *
@@ -123,7 +123,7 @@ interface EventListInstance {
  */
 export interface EventListInstanceEachOptions {
   actorSid?: string;
-  callback?: Function;
+  callback?: (item: EventInstance, done: (err?: Error) => void) => void;
   done?: Function;
   endDate?: Date;
   eventType?: string;

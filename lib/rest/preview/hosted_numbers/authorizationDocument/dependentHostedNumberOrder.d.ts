@@ -65,7 +65,7 @@ interface DependentHostedNumberOrderListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: DependentHostedNumberOrderListInstanceEachOptions, callback?: Function);
+  each(opts?: DependentHostedNumberOrderListInstanceEachOptions, callback?: (item: DependentHostedNumberOrderInstance, done: (err?: Error) => void) => void);
   /**
    * Retrieve a single target page of DependentHostedNumberOrderInstance records from the API.
    * Request is executed immediately
@@ -121,7 +121,7 @@ interface DependentHostedNumberOrderListInstance {
  * @property done - Function to be called upon completion of streaming
  */
 export interface DependentHostedNumberOrderListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: DependentHostedNumberOrderInstance, done: (err?: Error) => void) => void;
   done?: Function;
   friendlyName?: string;
   incomingPhoneNumberSid?: string;

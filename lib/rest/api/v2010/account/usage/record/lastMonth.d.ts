@@ -57,7 +57,7 @@ interface LastMonthListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: LastMonthListInstanceEachOptions, callback?: Function);
+  each(opts?: LastMonthListInstanceEachOptions, callback?: (item: LastMonthInstance, done: (err?: Error) => void) => void);
   /**
    * Retrieve a single target page of LastMonthInstance records from the API.
    * Request is executed immediately
@@ -112,7 +112,7 @@ interface LastMonthListInstance {
  * @property done - Function to be called upon completion of streaming
  */
 export interface LastMonthListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: LastMonthInstance, done: (err?: Error) => void) => void;
   category?: last_month.category;
   done?: Function;
   endDate?: Date;

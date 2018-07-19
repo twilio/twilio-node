@@ -70,7 +70,7 @@ interface DependentPhoneNumberListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: DependentPhoneNumberListInstanceEachOptions, callback?: Function);
+  each(opts?: DependentPhoneNumberListInstanceEachOptions, callback?: (item: DependentPhoneNumberInstance, done: (err?: Error) => void) => void);
   /**
    * Retrieve a single target page of DependentPhoneNumberInstance records from the API.
    * Request is executed immediately
@@ -121,7 +121,7 @@ interface DependentPhoneNumberListInstance {
  * @property done - Function to be called upon completion of streaming
  */
 export interface DependentPhoneNumberListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: DependentPhoneNumberInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

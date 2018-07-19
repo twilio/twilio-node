@@ -66,7 +66,7 @@ interface RecordingListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: RecordingListInstanceEachOptions, callback?: Function);
+  each(opts?: RecordingListInstanceEachOptions, callback?: (item: RecordingInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a recording
    *
@@ -144,7 +144,7 @@ export interface RecordingContextUpdateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface RecordingListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: RecordingInstance, done: (err?: Error) => void) => void;
   dateCreated?: Date;
   dateCreatedAfter?: Date;
   dateCreatedBefore?: Date;

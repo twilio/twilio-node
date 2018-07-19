@@ -48,7 +48,7 @@ interface UsageRecordListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: UsageRecordListInstanceEachOptions, callback?: Function);
+  each(opts?: UsageRecordListInstanceEachOptions, callback?: (item: UsageRecordInstance, done: (err?: Error) => void) => void);
   /**
    * Retrieve a single target page of UsageRecordInstance records from the API.
    * Request is executed immediately
@@ -102,7 +102,7 @@ interface UsageRecordListInstance {
  * @property done - Function to be called upon completion of streaming
  */
 export interface UsageRecordListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: UsageRecordInstance, done: (err?: Error) => void) => void;
   done?: Function;
   end?: Date;
   granularity?: usage_record.granularity;

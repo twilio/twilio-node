@@ -58,7 +58,7 @@ interface MachineToMachineListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: MachineToMachineListInstanceEachOptions, callback?: Function);
+  each(opts?: MachineToMachineListInstanceEachOptions, callback?: (item: MachineToMachineInstance, done: (err?: Error) => void) => void);
   /**
    * Retrieve a single target page of MachineToMachineInstance records from the API.
    * Request is executed immediately
@@ -129,7 +129,7 @@ interface MachineToMachineListInstance {
 export interface MachineToMachineListInstanceEachOptions {
   areaCode?: number;
   beta?: boolean;
-  callback?: Function;
+  callback?: (item: MachineToMachineInstance, done: (err?: Error) => void) => void;
   contains?: string;
   distance?: number;
   done?: Function;

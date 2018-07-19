@@ -50,7 +50,7 @@ interface SigningKeyListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: SigningKeyListInstanceEachOptions, callback?: Function);
+  each(opts?: SigningKeyListInstanceEachOptions, callback?: (item: SigningKeyInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a signing_key
    *
@@ -125,7 +125,7 @@ export interface SigningKeyContextUpdateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface SigningKeyListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: SigningKeyInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

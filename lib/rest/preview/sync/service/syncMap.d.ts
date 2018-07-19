@@ -66,7 +66,7 @@ interface SyncMapListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: SyncMapListInstanceEachOptions, callback?: Function);
+  each(opts?: SyncMapListInstanceEachOptions, callback?: (item: SyncMapInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a sync_map
    *
@@ -132,7 +132,7 @@ export interface SyncMapListInstanceCreateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface SyncMapListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: SyncMapInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

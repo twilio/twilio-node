@@ -63,7 +63,7 @@ interface IpAddressListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: IpAddressListInstanceEachOptions, callback?: Function);
+  each(opts?: IpAddressListInstanceEachOptions, callback?: (item: IpAddressInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a ip_address
    *
@@ -142,7 +142,7 @@ export interface IpAddressContextUpdateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface IpAddressListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: IpAddressInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

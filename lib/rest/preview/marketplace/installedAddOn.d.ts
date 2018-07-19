@@ -64,7 +64,7 @@ interface InstalledAddOnListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: InstalledAddOnListInstanceEachOptions, callback?: Function);
+  each(opts?: InstalledAddOnListInstanceEachOptions, callback?: (item: InstalledAddOnInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a installed_add_on
    *
@@ -158,7 +158,7 @@ export interface InstalledAddOnListInstanceCreateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface InstalledAddOnListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: InstalledAddOnInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

@@ -53,7 +53,7 @@ interface AvailableAddOnExtensionListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: AvailableAddOnExtensionListInstanceEachOptions, callback?: Function);
+  each(opts?: AvailableAddOnExtensionListInstanceEachOptions, callback?: (item: AvailableAddOnExtensionInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a available_add_on_extension
    *
@@ -110,7 +110,7 @@ interface AvailableAddOnExtensionListInstance {
  * @property done - Function to be called upon completion of streaming
  */
 export interface AvailableAddOnExtensionListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: AvailableAddOnExtensionInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

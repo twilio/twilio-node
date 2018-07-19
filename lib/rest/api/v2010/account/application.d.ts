@@ -74,7 +74,7 @@ interface ApplicationListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: ApplicationListInstanceEachOptions, callback?: Function);
+  each(opts?: ApplicationListInstanceEachOptions, callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a application
    *
@@ -243,7 +243,7 @@ export interface ApplicationListInstanceCreateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface ApplicationListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void;
   done?: Function;
   friendlyName?: string;
   limit?: number;

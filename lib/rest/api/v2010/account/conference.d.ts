@@ -59,7 +59,7 @@ interface ConferenceListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: ConferenceListInstanceEachOptions, callback?: Function);
+  each(opts?: ConferenceListInstanceEachOptions, callback?: (item: ConferenceInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a conference
    *
@@ -150,7 +150,7 @@ export interface ConferenceContextUpdateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface ConferenceListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: ConferenceInstance, done: (err?: Error) => void) => void;
   dateCreated?: Date;
   dateCreatedAfter?: Date;
   dateCreatedBefore?: Date;

@@ -72,7 +72,7 @@ interface FaxListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: FaxListInstanceEachOptions, callback?: Function);
+  each(opts?: FaxListInstanceEachOptions, callback?: (item: FaxInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a fax
    *
@@ -151,7 +151,7 @@ export interface FaxContextUpdateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface FaxListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: FaxInstance, done: (err?: Error) => void) => void;
   dateCreatedAfter?: Date;
   dateCreatedOnOrBefore?: Date;
   done?: Function;

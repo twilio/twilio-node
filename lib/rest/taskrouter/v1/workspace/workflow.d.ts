@@ -69,7 +69,7 @@ interface WorkflowListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: WorkflowListInstanceEachOptions, callback?: Function);
+  each(opts?: WorkflowListInstanceEachOptions, callback?: (item: WorkflowInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a workflow
    *
@@ -161,7 +161,7 @@ export interface WorkflowContextUpdateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface WorkflowListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: WorkflowInstance, done: (err?: Error) => void) => void;
   done?: Function;
   friendlyName?: string;
   limit?: number;

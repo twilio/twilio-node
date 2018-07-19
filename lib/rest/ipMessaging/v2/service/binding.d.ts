@@ -59,7 +59,7 @@ interface BindingListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: BindingListInstanceEachOptions, callback?: Function);
+  each(opts?: BindingListInstanceEachOptions, callback?: (item: BindingInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a binding
    *
@@ -119,7 +119,7 @@ interface BindingListInstance {
  */
 export interface BindingListInstanceEachOptions {
   bindingType?: binding.binding_type|list;
-  callback?: Function;
+  callback?: (item: BindingInstance, done: (err?: Error) => void) => void;
   done?: Function;
   identity?: string|list;
   limit?: number;

@@ -64,7 +64,7 @@ interface ModelBuildListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: ModelBuildListInstanceEachOptions, callback?: Function);
+  each(opts?: ModelBuildListInstanceEachOptions, callback?: (item: ModelBuildInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a model_build
    *
@@ -139,7 +139,7 @@ export interface ModelBuildContextUpdateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface ModelBuildListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: ModelBuildInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

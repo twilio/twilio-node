@@ -63,7 +63,7 @@ interface CertificateListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: CertificateListInstanceEachOptions, callback?: Function);
+  each(opts?: CertificateListInstanceEachOptions, callback?: (item: CertificateInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a certificate
    *
@@ -156,7 +156,7 @@ export interface CertificateListInstanceCreateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface CertificateListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: CertificateInstance, done: (err?: Error) => void) => void;
   deviceSid?: string;
   done?: Function;
   limit?: number;

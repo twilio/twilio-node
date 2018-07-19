@@ -73,7 +73,7 @@ interface DomainListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: DomainListInstanceEachOptions, callback?: Function);
+  each(opts?: DomainListInstanceEachOptions, callback?: (item: DomainInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a domain
    *
@@ -180,7 +180,7 @@ export interface DomainContextUpdateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface DomainListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: DomainInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

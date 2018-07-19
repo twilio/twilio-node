@@ -85,7 +85,7 @@ interface IncomingPhoneNumberListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: IncomingPhoneNumberListInstanceEachOptions, callback?: Function);
+  each(opts?: IncomingPhoneNumberListInstanceEachOptions, callback?: (item: IncomingPhoneNumberInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a incoming_phone_number
    *
@@ -252,7 +252,7 @@ export interface IncomingPhoneNumberContextUpdateOptions {
  */
 export interface IncomingPhoneNumberListInstanceEachOptions {
   beta?: boolean;
-  callback?: Function;
+  callback?: (item: IncomingPhoneNumberInstance, done: (err?: Error) => void) => void;
   done?: Function;
   friendlyName?: string;
   limit?: number;

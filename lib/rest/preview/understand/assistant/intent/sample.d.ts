@@ -66,7 +66,7 @@ interface SampleListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: SampleListInstanceEachOptions, callback?: Function);
+  each(opts?: SampleListInstanceEachOptions, callback?: (item: SampleInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a sample
    *
@@ -150,7 +150,7 @@ export interface SampleContextUpdateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface SampleListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: SampleInstance, done: (err?: Error) => void) => void;
   done?: Function;
   language?: string;
   limit?: number;

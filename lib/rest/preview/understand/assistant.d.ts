@@ -71,7 +71,7 @@ interface AssistantListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: AssistantListInstanceEachOptions, callback?: Function);
+  each(opts?: AssistantListInstanceEachOptions, callback?: (item: AssistantInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a assistant
    *
@@ -170,7 +170,7 @@ export interface AssistantContextUpdateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface AssistantListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: AssistantInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

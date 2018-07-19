@@ -57,7 +57,7 @@ interface YesterdayListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: YesterdayListInstanceEachOptions, callback?: Function);
+  each(opts?: YesterdayListInstanceEachOptions, callback?: (item: YesterdayInstance, done: (err?: Error) => void) => void);
   /**
    * Retrieve a single target page of YesterdayInstance records from the API.
    * Request is executed immediately
@@ -112,7 +112,7 @@ interface YesterdayListInstance {
  * @property done - Function to be called upon completion of streaming
  */
 export interface YesterdayListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: YesterdayInstance, done: (err?: Error) => void) => void;
   category?: yesterday.category;
   done?: Function;
   endDate?: Date;

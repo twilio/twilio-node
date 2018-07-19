@@ -69,7 +69,7 @@ interface BindingListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: BindingListInstanceEachOptions, callback?: Function);
+  each(opts?: BindingListInstanceEachOptions, callback?: (item: BindingInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a binding
    *
@@ -151,7 +151,7 @@ export interface BindingListInstanceCreateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface BindingListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: BindingInstance, done: (err?: Error) => void) => void;
   done?: Function;
   endDate?: Date;
   identity?: string|list;

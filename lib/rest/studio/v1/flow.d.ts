@@ -55,7 +55,7 @@ interface FlowListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: FlowListInstanceEachOptions, callback?: Function);
+  each(opts?: FlowListInstanceEachOptions, callback?: (item: FlowInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a flow
    *
@@ -112,7 +112,7 @@ interface FlowListInstance {
  * @property done - Function to be called upon completion of streaming
  */
 export interface FlowListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: FlowInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

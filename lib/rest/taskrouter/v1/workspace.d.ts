@@ -77,7 +77,7 @@ interface WorkspaceListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: WorkspaceListInstanceEachOptions, callback?: Function);
+  each(opts?: WorkspaceListInstanceEachOptions, callback?: (item: WorkspaceInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a workspace
    *
@@ -177,7 +177,7 @@ export interface WorkspaceContextUpdateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface WorkspaceListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: WorkspaceInstance, done: (err?: Error) => void) => void;
   done?: Function;
   friendlyName?: string;
   limit?: number;

@@ -61,7 +61,7 @@ interface UserBindingListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: UserBindingListInstanceEachOptions, callback?: Function);
+  each(opts?: UserBindingListInstanceEachOptions, callback?: (item: UserBindingInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a user_binding
    *
@@ -120,7 +120,7 @@ interface UserBindingListInstance {
  */
 export interface UserBindingListInstanceEachOptions {
   bindingType?: user_binding.binding_type|list;
-  callback?: Function;
+  callback?: (item: UserBindingInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

@@ -47,7 +47,7 @@ interface DayListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: DayListInstanceEachOptions, callback?: Function);
+  each(opts?: DayListInstanceEachOptions, callback?: (item: DayInstance, done: (err?: Error) => void) => void);
   /**
    * Retrieve a single target page of DayInstance records from the API.
    * Request is executed immediately
@@ -98,7 +98,7 @@ interface DayListInstance {
  * @property done - Function to be called upon completion of streaming
  */
 export interface DayListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: DayInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

@@ -67,7 +67,7 @@ interface MemberListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: MemberListInstanceEachOptions, callback?: Function);
+  each(opts?: MemberListInstanceEachOptions, callback?: (item: MemberInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a member
    *
@@ -178,7 +178,7 @@ export interface MemberListInstanceCreateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface MemberListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: MemberInstance, done: (err?: Error) => void) => void;
   done?: Function;
   identity?: string|list;
   limit?: number;

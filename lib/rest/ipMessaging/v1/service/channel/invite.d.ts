@@ -66,7 +66,7 @@ interface InviteListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: InviteListInstanceEachOptions, callback?: Function);
+  each(opts?: InviteListInstanceEachOptions, callback?: (item: InviteInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a invite
    *
@@ -135,7 +135,7 @@ export interface InviteListInstanceCreateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface InviteListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: InviteInstance, done: (err?: Error) => void) => void;
   done?: Function;
   identity?: string|list;
   limit?: number;

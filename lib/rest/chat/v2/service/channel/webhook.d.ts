@@ -65,7 +65,7 @@ interface WebhookListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: WebhookListInstanceEachOptions, callback?: Function);
+  each(opts?: WebhookListInstanceEachOptions, callback?: (item: WebhookInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a webhook
    *
@@ -160,7 +160,7 @@ export interface WebhookContextUpdateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface WebhookListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: WebhookInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

@@ -75,7 +75,7 @@ interface TaskListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: TaskListInstanceEachOptions, callback?: Function);
+  each(opts?: TaskListInstanceEachOptions, callback?: (item: TaskInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a task
    *
@@ -176,7 +176,7 @@ export interface TaskContextUpdateOptions {
  */
 export interface TaskListInstanceEachOptions {
   assignmentStatus?: string|list;
-  callback?: Function;
+  callback?: (item: TaskInstance, done: (err?: Error) => void) => void;
   done?: Function;
   evaluateTaskAttributes?: string;
   hasAddons?: boolean;

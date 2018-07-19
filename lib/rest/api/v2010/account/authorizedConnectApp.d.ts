@@ -56,7 +56,7 @@ interface AuthorizedConnectAppListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: AuthorizedConnectAppListInstanceEachOptions, callback?: Function);
+  each(opts?: AuthorizedConnectAppListInstanceEachOptions, callback?: (item: AuthorizedConnectAppInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a authorized_connect_app
    *
@@ -113,7 +113,7 @@ interface AuthorizedConnectAppListInstance {
  * @property done - Function to be called upon completion of streaming
  */
 export interface AuthorizedConnectAppListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: AuthorizedConnectAppInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

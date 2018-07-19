@@ -71,7 +71,7 @@ interface WorkerListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: WorkerListInstanceEachOptions, callback?: Function);
+  each(opts?: WorkerListInstanceEachOptions, callback?: (item: WorkerInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a worker
    *
@@ -165,7 +165,7 @@ export interface WorkerListInstanceEachOptions {
   activityName?: string;
   activitySid?: string;
   available?: string;
-  callback?: Function;
+  callback?: (item: WorkerInstance, done: (err?: Error) => void) => void;
   done?: Function;
   friendlyName?: string;
   limit?: number;

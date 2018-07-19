@@ -54,7 +54,7 @@ interface TaskChannelListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: TaskChannelListInstanceEachOptions, callback?: Function);
+  each(opts?: TaskChannelListInstanceEachOptions, callback?: (item: TaskChannelInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a task_channel
    *
@@ -111,7 +111,7 @@ interface TaskChannelListInstance {
  * @property done - Function to be called upon completion of streaming
  */
 export interface TaskChannelListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: TaskChannelInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

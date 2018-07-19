@@ -58,7 +58,7 @@ interface ConnectAppListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: ConnectAppListInstanceEachOptions, callback?: Function);
+  each(opts?: ConnectAppListInstanceEachOptions, callback?: (item: ConnectAppInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a connect_app
    *
@@ -161,7 +161,7 @@ export interface ConnectAppContextUpdateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface ConnectAppListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: ConnectAppInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

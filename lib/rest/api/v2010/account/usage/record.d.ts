@@ -59,7 +59,7 @@ interface RecordListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: RecordListInstanceEachOptions, callback?: Function);
+  each(opts?: RecordListInstanceEachOptions, callback?: (item: RecordInstance, done: (err?: Error) => void) => void);
   /**
    * Retrieve a single target page of RecordInstance records from the API.
    * Request is executed immediately
@@ -120,7 +120,7 @@ interface RecordListInstance {
  * @property done - Function to be called upon completion of streaming
  */
 export interface RecordListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: RecordInstance, done: (err?: Error) => void) => void;
   category?: record.category;
   done?: Function;
   endDate?: Date;

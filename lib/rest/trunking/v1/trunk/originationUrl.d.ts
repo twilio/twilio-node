@@ -65,7 +65,7 @@ interface OriginationUrlListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: OriginationUrlListInstanceEachOptions, callback?: Function);
+  each(opts?: OriginationUrlListInstanceEachOptions, callback?: (item: OriginationUrlInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a origination_url
    *
@@ -173,7 +173,7 @@ export interface OriginationUrlListInstanceCreateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface OriginationUrlListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: OriginationUrlInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

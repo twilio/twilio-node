@@ -57,7 +57,7 @@ interface DailyListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: DailyListInstanceEachOptions, callback?: Function);
+  each(opts?: DailyListInstanceEachOptions, callback?: (item: DailyInstance, done: (err?: Error) => void) => void);
   /**
    * Retrieve a single target page of DailyInstance records from the API.
    * Request is executed immediately
@@ -112,7 +112,7 @@ interface DailyListInstance {
  * @property done - Function to be called upon completion of streaming
  */
 export interface DailyListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: DailyInstance, done: (err?: Error) => void) => void;
   category?: daily.category;
   done?: Function;
   endDate?: Date;

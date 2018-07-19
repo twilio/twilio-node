@@ -67,7 +67,7 @@ interface SyncMapItemListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: SyncMapItemListInstanceEachOptions, callback?: Function);
+  each(opts?: SyncMapItemListInstanceEachOptions, callback?: (item: SyncMapItemInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a sync_map_item
    *
@@ -157,7 +157,7 @@ export interface SyncMapItemListInstanceCreateOptions {
  */
 export interface SyncMapItemListInstanceEachOptions {
   bounds?: sync_map_item.query_from_bound_type;
-  callback?: Function;
+  callback?: (item: SyncMapItemInstance, done: (err?: Error) => void) => void;
   done?: Function;
   from?: string;
   limit?: number;

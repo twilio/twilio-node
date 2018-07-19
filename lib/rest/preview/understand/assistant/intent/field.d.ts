@@ -65,7 +65,7 @@ interface FieldListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: FieldListInstanceEachOptions, callback?: Function);
+  each(opts?: FieldListInstanceEachOptions, callback?: (item: FieldInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a field
    *
@@ -122,7 +122,7 @@ interface FieldListInstance {
  * @property done - Function to be called upon completion of streaming
  */
 export interface FieldListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: FieldInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

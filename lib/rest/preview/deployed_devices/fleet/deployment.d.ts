@@ -62,7 +62,7 @@ interface DeploymentListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: DeploymentListInstanceEachOptions, callback?: Function);
+  each(opts?: DeploymentListInstanceEachOptions, callback?: (item: DeploymentInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a deployment
    *
@@ -152,7 +152,7 @@ export interface DeploymentListInstanceCreateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface DeploymentListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: DeploymentInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

@@ -78,7 +78,7 @@ interface LocalListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: LocalListInstanceEachOptions, callback?: Function);
+  each(opts?: LocalListInstanceEachOptions, callback?: (item: LocalInstance, done: (err?: Error) => void) => void);
   /**
    * Retrieve a single target page of LocalInstance records from the API.
    * Request is executed immediately
@@ -134,7 +134,7 @@ interface LocalListInstance {
  */
 export interface LocalListInstanceEachOptions {
   beta?: boolean;
-  callback?: Function;
+  callback?: (item: LocalInstance, done: (err?: Error) => void) => void;
   done?: Function;
   friendlyName?: string;
   limit?: number;

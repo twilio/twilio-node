@@ -72,7 +72,7 @@ interface ChannelListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: ChannelListInstanceEachOptions, callback?: Function);
+  each(opts?: ChannelListInstanceEachOptions, callback?: (item: ChannelInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a channel
    *
@@ -189,7 +189,7 @@ export interface ChannelListInstanceCreateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface ChannelListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: ChannelInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

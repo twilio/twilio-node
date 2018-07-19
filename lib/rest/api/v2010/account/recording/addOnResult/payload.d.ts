@@ -61,7 +61,7 @@ interface PayloadListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: PayloadListInstanceEachOptions, callback?: Function);
+  each(opts?: PayloadListInstanceEachOptions, callback?: (item: PayloadInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a payload
    *
@@ -118,7 +118,7 @@ interface PayloadListInstance {
  * @property done - Function to be called upon completion of streaming
  */
 export interface PayloadListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: PayloadInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

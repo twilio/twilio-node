@@ -57,7 +57,7 @@ interface AllTimeListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: AllTimeListInstanceEachOptions, callback?: Function);
+  each(opts?: AllTimeListInstanceEachOptions, callback?: (item: AllTimeInstance, done: (err?: Error) => void) => void);
   /**
    * Retrieve a single target page of AllTimeInstance records from the API.
    * Request is executed immediately
@@ -112,7 +112,7 @@ interface AllTimeListInstance {
  * @property done - Function to be called upon completion of streaming
  */
 export interface AllTimeListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: AllTimeInstance, done: (err?: Error) => void) => void;
   category?: all_time.category;
   done?: Function;
   endDate?: Date;

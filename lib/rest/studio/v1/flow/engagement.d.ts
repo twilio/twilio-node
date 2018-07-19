@@ -68,7 +68,7 @@ interface EngagementListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: EngagementListInstanceEachOptions, callback?: Function);
+  each(opts?: EngagementListInstanceEachOptions, callback?: (item: EngagementInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a engagement
    *
@@ -125,7 +125,7 @@ interface EngagementListInstance {
  * @property done - Function to be called upon completion of streaming
  */
 export interface EngagementListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: EngagementInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

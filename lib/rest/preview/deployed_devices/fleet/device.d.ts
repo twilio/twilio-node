@@ -67,7 +67,7 @@ interface DeviceListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: DeviceListInstanceEachOptions, callback?: Function);
+  each(opts?: DeviceListInstanceEachOptions, callback?: (item: DeviceInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a device
    *
@@ -172,7 +172,7 @@ export interface DeviceListInstanceCreateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface DeviceListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: DeviceInstance, done: (err?: Error) => void) => void;
   deploymentSid?: string;
   done?: Function;
   limit?: number;

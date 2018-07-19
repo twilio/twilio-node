@@ -62,7 +62,7 @@ interface AlphaSenderListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: AlphaSenderListInstanceEachOptions, callback?: Function);
+  each(opts?: AlphaSenderListInstanceEachOptions, callback?: (item: AlphaSenderInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a alpha_sender
    *
@@ -128,7 +128,7 @@ export interface AlphaSenderListInstanceCreateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface AlphaSenderListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: AlphaSenderInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

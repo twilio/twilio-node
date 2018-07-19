@@ -60,7 +60,7 @@ interface ReservationListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: ReservationListInstanceEachOptions, callback?: Function);
+  each(opts?: ReservationListInstanceEachOptions, callback?: (item: ReservationInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a reservation
    *
@@ -328,7 +328,7 @@ export interface ReservationContextUpdateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface ReservationListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: ReservationInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

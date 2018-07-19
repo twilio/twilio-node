@@ -68,7 +68,7 @@ interface AssignedAddOnListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: AssignedAddOnListInstanceEachOptions, callback?: Function);
+  each(opts?: AssignedAddOnListInstanceEachOptions, callback?: (item: AssignedAddOnInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a assigned_add_on
    *
@@ -125,7 +125,7 @@ interface AssignedAddOnListInstance {
  * @property done - Function to be called upon completion of streaming
  */
 export interface AssignedAddOnListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: AssignedAddOnInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

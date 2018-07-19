@@ -67,7 +67,7 @@ interface RecordingListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: RecordingListInstanceEachOptions, callback?: Function);
+  each(opts?: RecordingListInstanceEachOptions, callback?: (item: RecordingInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a recording
    *
@@ -130,7 +130,7 @@ interface RecordingListInstance {
  */
 export interface RecordingListInstanceEachOptions {
   callSid?: string;
-  callback?: Function;
+  callback?: (item: RecordingInstance, done: (err?: Error) => void) => void;
   conferenceSid?: string;
   dateCreated?: Date;
   dateCreatedAfter?: Date;

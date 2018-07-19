@@ -62,7 +62,7 @@ interface AlertListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: AlertListInstanceEachOptions, callback?: Function);
+  each(opts?: AlertListInstanceEachOptions, callback?: (item: AlertInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a alert
    *
@@ -122,7 +122,7 @@ interface AlertListInstance {
  * @property done - Function to be called upon completion of streaming
  */
 export interface AlertListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: AlertInstance, done: (err?: Error) => void) => void;
   done?: Function;
   endDate?: Date;
   limit?: number;

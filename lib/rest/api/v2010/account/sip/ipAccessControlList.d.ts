@@ -61,7 +61,7 @@ interface IpAccessControlListListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: IpAccessControlListListInstanceEachOptions, callback?: Function);
+  each(opts?: IpAccessControlListListInstanceEachOptions, callback?: (item: IpAccessControlListInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a ip_access_control_list
    *
@@ -136,7 +136,7 @@ export interface IpAccessControlListContextUpdateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface IpAccessControlListListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: IpAccessControlListInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

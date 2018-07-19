@@ -63,7 +63,7 @@ interface KeyListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: KeyListInstanceEachOptions, callback?: Function);
+  each(opts?: KeyListInstanceEachOptions, callback?: (item: KeyInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a key
    *
@@ -154,7 +154,7 @@ export interface KeyListInstanceCreateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface KeyListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: KeyInstance, done: (err?: Error) => void) => void;
   deviceSid?: string;
   done?: Function;
   limit?: number;

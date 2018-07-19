@@ -69,7 +69,7 @@ interface SessionListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: SessionListInstanceEachOptions, callback?: Function);
+  each(opts?: SessionListInstanceEachOptions, callback?: (item: SessionInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a session
    *
@@ -158,7 +158,7 @@ export interface SessionContextUpdateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface SessionListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: SessionInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

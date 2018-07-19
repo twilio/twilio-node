@@ -57,7 +57,7 @@ interface PublicKeyListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: PublicKeyListInstanceEachOptions, callback?: Function);
+  each(opts?: PublicKeyListInstanceEachOptions, callback?: (item: PublicKeyInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a public_key
    *
@@ -132,7 +132,7 @@ export interface PublicKeyContextUpdateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface PublicKeyListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: PublicKeyInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

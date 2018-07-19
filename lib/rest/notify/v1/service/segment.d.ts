@@ -49,7 +49,7 @@ interface SegmentListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: SegmentListInstanceEachOptions, callback?: Function);
+  each(opts?: SegmentListInstanceEachOptions, callback?: (item: SegmentInstance, done: (err?: Error) => void) => void);
   /**
    * Retrieve a single target page of SegmentInstance records from the API.
    * Request is executed immediately
@@ -100,7 +100,7 @@ interface SegmentListInstance {
  * @property done - Function to be called upon completion of streaming
  */
 export interface SegmentListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: SegmentInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

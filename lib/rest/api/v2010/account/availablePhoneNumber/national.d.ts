@@ -58,7 +58,7 @@ interface NationalListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: NationalListInstanceEachOptions, callback?: Function);
+  each(opts?: NationalListInstanceEachOptions, callback?: (item: NationalInstance, done: (err?: Error) => void) => void);
   /**
    * Retrieve a single target page of NationalInstance records from the API.
    * Request is executed immediately
@@ -129,7 +129,7 @@ interface NationalListInstance {
 export interface NationalListInstanceEachOptions {
   areaCode?: number;
   beta?: boolean;
-  callback?: Function;
+  callback?: (item: NationalInstance, done: (err?: Error) => void) => void;
   contains?: string;
   distance?: number;
   done?: Function;

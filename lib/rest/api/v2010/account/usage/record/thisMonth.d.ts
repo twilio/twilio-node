@@ -57,7 +57,7 @@ interface ThisMonthListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: ThisMonthListInstanceEachOptions, callback?: Function);
+  each(opts?: ThisMonthListInstanceEachOptions, callback?: (item: ThisMonthInstance, done: (err?: Error) => void) => void);
   /**
    * Retrieve a single target page of ThisMonthInstance records from the API.
    * Request is executed immediately
@@ -112,7 +112,7 @@ interface ThisMonthListInstance {
  * @property done - Function to be called upon completion of streaming
  */
 export interface ThisMonthListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: ThisMonthInstance, done: (err?: Error) => void) => void;
   category?: this_month.category;
   done?: Function;
   endDate?: Date;

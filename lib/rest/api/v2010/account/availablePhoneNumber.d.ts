@@ -58,7 +58,7 @@ interface AvailablePhoneNumberCountryListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: AvailablePhoneNumberCountryListInstanceEachOptions, callback?: Function);
+  each(opts?: AvailablePhoneNumberCountryListInstanceEachOptions, callback?: (item: AvailablePhoneNumberCountryInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a available_phone_number_country
    *
@@ -115,7 +115,7 @@ interface AvailablePhoneNumberCountryListInstance {
  * @property done - Function to be called upon completion of streaming
  */
 export interface AvailablePhoneNumberCountryListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: AvailablePhoneNumberCountryInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

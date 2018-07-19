@@ -48,7 +48,7 @@ interface TaskQueuesStatisticsListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: TaskQueuesStatisticsListInstanceEachOptions, callback?: Function);
+  each(opts?: TaskQueuesStatisticsListInstanceEachOptions, callback?: (item: TaskQueuesStatisticsInstance, done: (err?: Error) => void) => void);
   /**
    * Retrieve a single target page of TaskQueuesStatisticsInstance records from the API.
    * Request is executed immediately
@@ -105,7 +105,7 @@ interface TaskQueuesStatisticsListInstance {
  * @property done - Function to be called upon completion of streaming
  */
 export interface TaskQueuesStatisticsListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: TaskQueuesStatisticsInstance, done: (err?: Error) => void) => void;
   done?: Function;
   endDate?: Date;
   friendlyName?: string;

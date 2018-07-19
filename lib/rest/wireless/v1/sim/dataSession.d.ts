@@ -58,7 +58,7 @@ interface DataSessionListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: DataSessionListInstanceEachOptions, callback?: Function);
+  each(opts?: DataSessionListInstanceEachOptions, callback?: (item: DataSessionInstance, done: (err?: Error) => void) => void);
   /**
    * Retrieve a single target page of DataSessionInstance records from the API.
    * Request is executed immediately
@@ -111,7 +111,7 @@ interface DataSessionListInstance {
  * @property done - Function to be called upon completion of streaming
  */
 export interface DataSessionListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: DataSessionInstance, done: (err?: Error) => void) => void;
   done?: Function;
   end?: Date;
   limit?: number;

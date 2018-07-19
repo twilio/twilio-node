@@ -65,7 +65,7 @@ interface FleetListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: FleetListInstanceEachOptions, callback?: Function);
+  each(opts?: FleetListInstanceEachOptions, callback?: (item: FleetInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a fleet
    *
@@ -153,7 +153,7 @@ export interface FleetListInstanceCreateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface FleetListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: FleetInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

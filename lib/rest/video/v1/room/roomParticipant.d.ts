@@ -61,7 +61,7 @@ interface ParticipantListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: ParticipantListInstanceEachOptions, callback?: Function);
+  each(opts?: ParticipantListInstanceEachOptions, callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a participant
    *
@@ -140,7 +140,7 @@ export interface ParticipantContextUpdateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface ParticipantListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void;
   dateCreatedAfter?: Date;
   dateCreatedBefore?: Date;
   done?: Function;

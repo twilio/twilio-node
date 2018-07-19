@@ -56,7 +56,7 @@ interface MediaListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: MediaListInstanceEachOptions, callback?: Function);
+  each(opts?: MediaListInstanceEachOptions, callback?: (item: MediaInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a media
    *
@@ -116,7 +116,7 @@ interface MediaListInstance {
  * @property done - Function to be called upon completion of streaming
  */
 export interface MediaListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: MediaInstance, done: (err?: Error) => void) => void;
   dateCreated?: Date;
   dateCreatedAfter?: Date;
   dateCreatedBefore?: Date;

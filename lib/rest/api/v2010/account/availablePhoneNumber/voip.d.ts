@@ -58,7 +58,7 @@ interface VoipListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: VoipListInstanceEachOptions, callback?: Function);
+  each(opts?: VoipListInstanceEachOptions, callback?: (item: VoipInstance, done: (err?: Error) => void) => void);
   /**
    * Retrieve a single target page of VoipInstance records from the API.
    * Request is executed immediately
@@ -129,7 +129,7 @@ interface VoipListInstance {
 export interface VoipListInstanceEachOptions {
   areaCode?: number;
   beta?: boolean;
-  callback?: Function;
+  callback?: (item: VoipInstance, done: (err?: Error) => void) => void;
   contains?: string;
   distance?: number;
   done?: Function;

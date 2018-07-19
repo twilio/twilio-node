@@ -71,7 +71,7 @@ interface TrunkListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: TrunkListInstanceEachOptions, callback?: Function);
+  each(opts?: TrunkListInstanceEachOptions, callback?: (item: TrunkInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a trunk
    *
@@ -191,7 +191,7 @@ export interface TrunkListInstanceCreateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface TrunkListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: TrunkInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

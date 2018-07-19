@@ -69,7 +69,7 @@ interface AddressListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: AddressListInstanceEachOptions, callback?: Function);
+  each(opts?: AddressListInstanceEachOptions, callback?: (item: AddressInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a address
    *
@@ -200,7 +200,7 @@ export interface AddressListInstanceCreateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface AddressListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: AddressInstance, done: (err?: Error) => void) => void;
   customerName?: string;
   done?: Function;
   friendlyName?: string;

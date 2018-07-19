@@ -49,7 +49,7 @@ interface CountryListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: CountryListInstanceEachOptions, callback?: Function);
+  each(opts?: CountryListInstanceEachOptions, callback?: (item: CountryInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a country
    *
@@ -106,7 +106,7 @@ interface CountryListInstance {
  * @property done - Function to be called upon completion of streaming
  */
 export interface CountryListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: CountryInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

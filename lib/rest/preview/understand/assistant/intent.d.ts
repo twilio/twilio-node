@@ -65,7 +65,7 @@ interface IntentListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: IntentListInstanceEachOptions, callback?: Function);
+  each(opts?: IntentListInstanceEachOptions, callback?: (item: IntentInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a intent
    *
@@ -144,7 +144,7 @@ export interface IntentContextUpdateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface IntentListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: IntentInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

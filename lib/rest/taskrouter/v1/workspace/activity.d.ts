@@ -62,7 +62,7 @@ interface ActivityListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: ActivityListInstanceEachOptions, callback?: Function);
+  each(opts?: ActivityListInstanceEachOptions, callback?: (item: ActivityInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a activity
    *
@@ -140,7 +140,7 @@ export interface ActivityContextUpdateOptions {
  */
 export interface ActivityListInstanceEachOptions {
   available?: string;
-  callback?: Function;
+  callback?: (item: ActivityInstance, done: (err?: Error) => void) => void;
   done?: Function;
   friendlyName?: string;
   limit?: number;

@@ -68,7 +68,7 @@ interface MessageListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: MessageListInstanceEachOptions, callback?: Function);
+  each(opts?: MessageListInstanceEachOptions, callback?: (item: MessageInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a message
    *
@@ -161,7 +161,7 @@ export interface MessageListInstanceCreateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface MessageListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: MessageInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   order?: message.order_type;

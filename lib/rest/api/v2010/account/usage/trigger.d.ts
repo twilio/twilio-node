@@ -69,7 +69,7 @@ interface TriggerListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: TriggerListInstanceEachOptions, callback?: Function);
+  each(opts?: TriggerListInstanceEachOptions, callback?: (item: TriggerInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a trigger
    *
@@ -176,7 +176,7 @@ export interface TriggerListInstanceCreateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface TriggerListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: TriggerInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

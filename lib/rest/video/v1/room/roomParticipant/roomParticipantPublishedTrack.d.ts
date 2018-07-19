@@ -57,7 +57,7 @@ interface PublishedTrackListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: PublishedTrackListInstanceEachOptions, callback?: Function);
+  each(opts?: PublishedTrackListInstanceEachOptions, callback?: (item: PublishedTrackInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a published_track
    *
@@ -114,7 +114,7 @@ interface PublishedTrackListInstance {
  * @property done - Function to be called upon completion of streaming
  */
 export interface PublishedTrackListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: PublishedTrackInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

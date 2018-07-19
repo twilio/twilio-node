@@ -61,7 +61,7 @@ interface CredentialListListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: CredentialListListInstanceEachOptions, callback?: Function);
+  each(opts?: CredentialListListInstanceEachOptions, callback?: (item: CredentialListInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a credential_list
    *
@@ -136,7 +136,7 @@ export interface CredentialListContextUpdateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface CredentialListListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: CredentialListInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

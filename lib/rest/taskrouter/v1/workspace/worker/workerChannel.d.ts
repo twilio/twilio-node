@@ -62,7 +62,7 @@ interface WorkerChannelListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: WorkerChannelListInstanceEachOptions, callback?: Function);
+  each(opts?: WorkerChannelListInstanceEachOptions, callback?: (item: WorkerChannelInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a worker_channel
    *
@@ -141,7 +141,7 @@ export interface WorkerChannelContextUpdateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface WorkerChannelListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: WorkerChannelInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

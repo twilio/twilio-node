@@ -68,7 +68,7 @@ interface UserListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: UserListInstanceEachOptions, callback?: Function);
+  each(opts?: UserListInstanceEachOptions, callback?: (item: UserInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a user
    *
@@ -166,7 +166,7 @@ export interface UserListInstanceCreateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface UserListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: UserInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

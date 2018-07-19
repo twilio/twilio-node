@@ -76,7 +76,7 @@ interface ServiceListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: ServiceListInstanceEachOptions, callback?: Function);
+  each(opts?: ServiceListInstanceEachOptions, callback?: (item: ServiceInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a service
    *
@@ -436,7 +436,7 @@ export interface ServiceListInstanceCreateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface ServiceListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: ServiceInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

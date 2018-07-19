@@ -84,7 +84,7 @@ interface AccountListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: AccountListInstanceEachOptions, callback?: Function);
+  each(opts?: AccountListInstanceEachOptions, callback?: (item: AccountInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a account
    *
@@ -174,7 +174,7 @@ export interface AccountListInstanceCreateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface AccountListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: AccountInstance, done: (err?: Error) => void) => void;
   done?: Function;
   friendlyName?: string;
   limit?: number;

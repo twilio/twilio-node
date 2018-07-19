@@ -59,7 +59,7 @@ interface AddOnResultListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: AddOnResultListInstanceEachOptions, callback?: Function);
+  each(opts?: AddOnResultListInstanceEachOptions, callback?: (item: AddOnResultInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a add_on_result
    *
@@ -116,7 +116,7 @@ interface AddOnResultListInstance {
  * @property done - Function to be called upon completion of streaming
  */
 export interface AddOnResultListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: AddOnResultInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

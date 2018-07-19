@@ -58,7 +58,7 @@ interface ShortCodeListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: ShortCodeListInstanceEachOptions, callback?: Function);
+  each(opts?: ShortCodeListInstanceEachOptions, callback?: (item: ShortCodeInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a short_code
    *
@@ -155,7 +155,7 @@ export interface ShortCodeContextUpdateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface ShortCodeListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: ShortCodeInstance, done: (err?: Error) => void) => void;
   done?: Function;
   friendlyName?: string;
   limit?: number;

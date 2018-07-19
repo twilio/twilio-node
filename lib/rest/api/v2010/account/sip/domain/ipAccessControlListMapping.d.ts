@@ -62,7 +62,7 @@ interface IpAccessControlListMappingListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: IpAccessControlListMappingListInstanceEachOptions, callback?: Function);
+  each(opts?: IpAccessControlListMappingListInstanceEachOptions, callback?: (item: IpAccessControlListMappingInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a ip_access_control_list_mapping
    *
@@ -128,7 +128,7 @@ export interface IpAccessControlListMappingListInstanceCreateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface IpAccessControlListMappingListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: IpAccessControlListMappingInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

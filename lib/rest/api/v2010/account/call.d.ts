@@ -82,7 +82,7 @@ interface CallListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: CallListInstanceEachOptions, callback?: Function);
+  each(opts?: CallListInstanceEachOptions, callback?: (item: CallInstance, done: (err?: Error) => void) => void);
   feedbackSummaries?: object;
   /**
    * Constructs a call
@@ -247,7 +247,7 @@ export interface CallListInstanceCreateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface CallListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: CallInstance, done: (err?: Error) => void) => void;
   done?: Function;
   endTime?: Date;
   endTimeAfter?: Date;

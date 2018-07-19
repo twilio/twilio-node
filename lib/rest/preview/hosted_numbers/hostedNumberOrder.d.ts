@@ -76,7 +76,7 @@ interface HostedNumberOrderListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: HostedNumberOrderListInstanceEachOptions, callback?: Function);
+  each(opts?: HostedNumberOrderListInstanceEachOptions, callback?: (item: HostedNumberOrderInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a hosted_number_order
    *
@@ -192,7 +192,7 @@ export interface HostedNumberOrderContextUpdateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface HostedNumberOrderListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: HostedNumberOrderInstance, done: (err?: Error) => void) => void;
   done?: Function;
   friendlyName?: string;
   incomingPhoneNumberSid?: string;

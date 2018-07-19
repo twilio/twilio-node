@@ -68,7 +68,7 @@ interface RatePlanListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: RatePlanListInstanceEachOptions, callback?: Function);
+  each(opts?: RatePlanListInstanceEachOptions, callback?: (item: RatePlanInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a rate_plan
    *
@@ -147,7 +147,7 @@ export interface RatePlanContextUpdateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface RatePlanListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: RatePlanInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

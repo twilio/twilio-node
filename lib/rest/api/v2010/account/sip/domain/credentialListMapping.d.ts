@@ -62,7 +62,7 @@ interface CredentialListMappingListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: CredentialListMappingListInstanceEachOptions, callback?: Function);
+  each(opts?: CredentialListMappingListInstanceEachOptions, callback?: (item: CredentialListMappingInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a credential_list_mapping
    *
@@ -128,7 +128,7 @@ export interface CredentialListMappingListInstanceCreateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface CredentialListMappingListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: CredentialListMappingInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

@@ -67,7 +67,7 @@ interface DocumentListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: DocumentListInstanceEachOptions, callback?: Function);
+  each(opts?: DocumentListInstanceEachOptions, callback?: (item: DocumentInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a document
    *
@@ -153,7 +153,7 @@ export interface DocumentListInstanceCreateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface DocumentListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: DocumentInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

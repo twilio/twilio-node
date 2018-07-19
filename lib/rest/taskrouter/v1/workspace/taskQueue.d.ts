@@ -71,7 +71,7 @@ interface TaskQueueListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: TaskQueueListInstanceEachOptions, callback?: Function);
+  each(opts?: TaskQueueListInstanceEachOptions, callback?: (item: TaskQueueInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a task_queue
    *
@@ -170,7 +170,7 @@ export interface TaskQueueContextUpdateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface TaskQueueListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: TaskQueueInstance, done: (err?: Error) => void) => void;
   done?: Function;
   evaluateWorkerAttributes?: string;
   friendlyName?: string;

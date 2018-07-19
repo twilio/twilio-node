@@ -58,7 +58,7 @@ interface DocumentPermissionListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: DocumentPermissionListInstanceEachOptions, callback?: Function);
+  each(opts?: DocumentPermissionListInstanceEachOptions, callback?: (item: DocumentPermissionInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a document_permission
    *
@@ -141,7 +141,7 @@ export interface DocumentPermissionContextUpdateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface DocumentPermissionListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: DocumentPermissionInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

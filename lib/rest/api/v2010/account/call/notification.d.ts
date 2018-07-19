@@ -66,7 +66,7 @@ interface NotificationListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: NotificationListInstanceEachOptions, callback?: Function);
+  each(opts?: NotificationListInstanceEachOptions, callback?: (item: NotificationInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a notification
    *
@@ -127,7 +127,7 @@ interface NotificationListInstance {
  * @property done - Function to be called upon completion of streaming
  */
 export interface NotificationListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: NotificationInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   log?: number;

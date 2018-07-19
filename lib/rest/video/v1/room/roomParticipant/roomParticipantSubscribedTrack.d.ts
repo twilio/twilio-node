@@ -54,7 +54,7 @@ interface SubscribedTrackListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: SubscribedTrackListInstanceEachOptions, callback?: Function);
+  each(opts?: SubscribedTrackListInstanceEachOptions, callback?: (item: SubscribedTrackInstance, done: (err?: Error) => void) => void);
   /**
    * Retrieve a single target page of SubscribedTrackInstance records from the API.
    * Request is executed immediately
@@ -117,7 +117,7 @@ interface SubscribedTrackListInstance {
  * @property done - Function to be called upon completion of streaming
  */
 export interface SubscribedTrackListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: SubscribedTrackInstance, done: (err?: Error) => void) => void;
   dateCreatedAfter?: Date;
   dateCreatedBefore?: Date;
   done?: Function;

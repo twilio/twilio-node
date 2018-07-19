@@ -52,7 +52,7 @@ interface UserChannelListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: UserChannelListInstanceEachOptions, callback?: Function);
+  each(opts?: UserChannelListInstanceEachOptions, callback?: (item: UserChannelInstance, done: (err?: Error) => void) => void);
   /**
    * Retrieve a single target page of UserChannelInstance records from the API.
    * Request is executed immediately
@@ -103,7 +103,7 @@ interface UserChannelListInstance {
  * @property done - Function to be called upon completion of streaming
  */
 export interface UserChannelListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: UserChannelInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

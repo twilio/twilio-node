@@ -78,7 +78,7 @@ interface MobileListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: MobileListInstanceEachOptions, callback?: Function);
+  each(opts?: MobileListInstanceEachOptions, callback?: (item: MobileInstance, done: (err?: Error) => void) => void);
   /**
    * Retrieve a single target page of MobileInstance records from the API.
    * Request is executed immediately
@@ -134,7 +134,7 @@ interface MobileListInstance {
  */
 export interface MobileListInstanceEachOptions {
   beta?: boolean;
-  callback?: Function;
+  callback?: (item: MobileInstance, done: (err?: Error) => void) => void;
   done?: Function;
   friendlyName?: string;
   limit?: number;

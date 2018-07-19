@@ -57,7 +57,7 @@ interface TodayListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: TodayListInstanceEachOptions, callback?: Function);
+  each(opts?: TodayListInstanceEachOptions, callback?: (item: TodayInstance, done: (err?: Error) => void) => void);
   /**
    * Retrieve a single target page of TodayInstance records from the API.
    * Request is executed immediately
@@ -112,7 +112,7 @@ interface TodayListInstance {
  * @property done - Function to be called upon completion of streaming
  */
 export interface TodayListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: TodayInstance, done: (err?: Error) => void) => void;
   category?: today.category;
   done?: Function;
   endDate?: Date;

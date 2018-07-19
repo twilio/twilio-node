@@ -79,7 +79,7 @@ interface MessageInteractionListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: MessageInteractionListInstanceEachOptions, callback?: Function);
+  each(opts?: MessageInteractionListInstanceEachOptions, callback?: (item: MessageInteractionInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a message_interaction
    *
@@ -147,7 +147,7 @@ export interface MessageInteractionListInstanceCreateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface MessageInteractionListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: MessageInteractionInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

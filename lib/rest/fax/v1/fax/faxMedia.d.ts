@@ -54,7 +54,7 @@ interface FaxMediaListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: FaxMediaListInstanceEachOptions, callback?: Function);
+  each(opts?: FaxMediaListInstanceEachOptions, callback?: (item: FaxMediaInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a fax_media
    *
@@ -111,7 +111,7 @@ interface FaxMediaListInstance {
  * @property done - Function to be called upon completion of streaming
  */
 export interface FaxMediaListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: FaxMediaInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

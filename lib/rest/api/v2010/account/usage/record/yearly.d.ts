@@ -57,7 +57,7 @@ interface YearlyListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: YearlyListInstanceEachOptions, callback?: Function);
+  each(opts?: YearlyListInstanceEachOptions, callback?: (item: YearlyInstance, done: (err?: Error) => void) => void);
   /**
    * Retrieve a single target page of YearlyInstance records from the API.
    * Request is executed immediately
@@ -112,7 +112,7 @@ interface YearlyListInstance {
  * @property done - Function to be called upon completion of streaming
  */
 export interface YearlyListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: YearlyInstance, done: (err?: Error) => void) => void;
   category?: yearly.category;
   done?: Function;
   endDate?: Date;

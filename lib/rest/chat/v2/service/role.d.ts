@@ -63,7 +63,7 @@ interface RoleListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: RoleListInstanceEachOptions, callback?: Function);
+  each(opts?: RoleListInstanceEachOptions, callback?: (item: RoleInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a role
    *
@@ -151,7 +151,7 @@ export interface RoleListInstanceCreateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface RoleListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: RoleInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

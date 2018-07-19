@@ -63,7 +63,7 @@ interface AuthorizationDocumentListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: AuthorizationDocumentListInstanceEachOptions, callback?: Function);
+  each(opts?: AuthorizationDocumentListInstanceEachOptions, callback?: (item: AuthorizationDocumentInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a authorization_document
    *
@@ -156,7 +156,7 @@ export interface AuthorizationDocumentContextUpdateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface AuthorizationDocumentListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: AuthorizationDocumentInstance, done: (err?: Error) => void) => void;
   done?: Function;
   email?: string;
   limit?: number;

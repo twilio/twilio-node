@@ -62,7 +62,7 @@ interface RoomRecordingListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: RoomRecordingListInstanceEachOptions, callback?: Function);
+  each(opts?: RoomRecordingListInstanceEachOptions, callback?: (item: RoomRecordingInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a room_recording
    *
@@ -123,7 +123,7 @@ interface RoomRecordingListInstance {
  * @property done - Function to be called upon completion of streaming
  */
 export interface RoomRecordingListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: RoomRecordingInstance, done: (err?: Error) => void) => void;
   dateCreatedAfter?: Date;
   dateCreatedBefore?: Date;
   done?: Function;

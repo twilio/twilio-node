@@ -63,7 +63,7 @@ interface QueueListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: QueueListInstanceEachOptions, callback?: Function);
+  each(opts?: QueueListInstanceEachOptions, callback?: (item: QueueInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a queue
    *
@@ -142,7 +142,7 @@ export interface QueueContextUpdateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface QueueListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: QueueInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

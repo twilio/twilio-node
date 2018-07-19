@@ -63,7 +63,7 @@ interface CommandListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: CommandListInstanceEachOptions, callback?: Function);
+  each(opts?: CommandListInstanceEachOptions, callback?: (item: CommandInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a command
    *
@@ -124,7 +124,7 @@ interface CommandListInstance {
  * @property done - Function to be called upon completion of streaming
  */
 export interface CommandListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: CommandInstance, done: (err?: Error) => void) => void;
   device?: string;
   direction?: string;
   done?: Function;

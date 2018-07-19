@@ -65,7 +65,7 @@ interface SyncStreamListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: SyncStreamListInstanceEachOptions, callback?: Function);
+  each(opts?: SyncStreamListInstanceEachOptions, callback?: (item: SyncStreamInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a sync_stream
    *
@@ -151,7 +151,7 @@ export interface SyncStreamListInstanceCreateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface SyncStreamListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: SyncStreamInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

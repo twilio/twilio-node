@@ -57,7 +57,7 @@ interface AwsListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: AwsListInstanceEachOptions, callback?: Function);
+  each(opts?: AwsListInstanceEachOptions, callback?: (item: AwsInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a aws
    *
@@ -132,7 +132,7 @@ export interface AwsContextUpdateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface AwsListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: AwsInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

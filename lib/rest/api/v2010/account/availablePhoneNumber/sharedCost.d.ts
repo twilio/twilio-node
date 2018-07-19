@@ -58,7 +58,7 @@ interface SharedCostListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: SharedCostListInstanceEachOptions, callback?: Function);
+  each(opts?: SharedCostListInstanceEachOptions, callback?: (item: SharedCostInstance, done: (err?: Error) => void) => void);
   /**
    * Retrieve a single target page of SharedCostInstance records from the API.
    * Request is executed immediately
@@ -129,7 +129,7 @@ interface SharedCostListInstance {
 export interface SharedCostListInstanceEachOptions {
   areaCode?: number;
   beta?: boolean;
-  callback?: Function;
+  callback?: (item: SharedCostInstance, done: (err?: Error) => void) => void;
   contains?: string;
   distance?: number;
   done?: Function;

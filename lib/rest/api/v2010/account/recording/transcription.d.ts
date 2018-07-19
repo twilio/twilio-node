@@ -61,7 +61,7 @@ interface TranscriptionListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: TranscriptionListInstanceEachOptions, callback?: Function);
+  each(opts?: TranscriptionListInstanceEachOptions, callback?: (item: TranscriptionInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a transcription
    *
@@ -118,7 +118,7 @@ interface TranscriptionListInstance {
  * @property done - Function to be called upon completion of streaming
  */
 export interface TranscriptionListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: TranscriptionInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

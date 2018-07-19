@@ -68,7 +68,7 @@ interface InteractionListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: InteractionListInstanceEachOptions, callback?: Function);
+  each(opts?: InteractionListInstanceEachOptions, callback?: (item: InteractionInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a interaction
    *
@@ -127,7 +127,7 @@ interface InteractionListInstance {
  * @property done - Function to be called upon completion of streaming
  */
 export interface InteractionListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: InteractionInstance, done: (err?: Error) => void) => void;
   done?: Function;
   inboundParticipantStatus?: interaction.resource_status;
   limit?: number;

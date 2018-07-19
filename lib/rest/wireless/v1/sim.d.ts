@@ -69,7 +69,7 @@ interface SimListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: SimListInstanceEachOptions, callback?: Function);
+  each(opts?: SimListInstanceEachOptions, callback?: (item: SimInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a sim
    *
@@ -209,7 +209,7 @@ export interface SimContextUpdateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface SimListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: SimInstance, done: (err?: Error) => void) => void;
   done?: Function;
   eId?: string;
   iccid?: string;

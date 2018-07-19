@@ -60,7 +60,7 @@ interface StepListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: StepListInstanceEachOptions, callback?: Function);
+  each(opts?: StepListInstanceEachOptions, callback?: (item: StepInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a step
    *
@@ -117,7 +117,7 @@ interface StepListInstance {
  * @property done - Function to be called upon completion of streaming
  */
 export interface StepListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: StepInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

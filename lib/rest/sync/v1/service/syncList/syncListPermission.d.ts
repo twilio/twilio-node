@@ -58,7 +58,7 @@ interface SyncListPermissionListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: SyncListPermissionListInstanceEachOptions, callback?: Function);
+  each(opts?: SyncListPermissionListInstanceEachOptions, callback?: (item: SyncListPermissionInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a sync_list_permission
    *
@@ -141,7 +141,7 @@ export interface SyncListPermissionContextUpdateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface SyncListPermissionListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: SyncListPermissionInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;

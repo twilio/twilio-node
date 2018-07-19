@@ -53,7 +53,7 @@ interface OutgoingCallerIdListInstance {
    * @param opts - Options for request
    * @param callback - Function to process each record
    */
-  each(opts?: OutgoingCallerIdListInstanceEachOptions, callback?: Function);
+  each(opts?: OutgoingCallerIdListInstanceEachOptions, callback?: (item: OutgoingCallerIdInstance, done: (err?: Error) => void) => void);
   /**
    * Constructs a outgoing_caller_id
    *
@@ -130,7 +130,7 @@ export interface OutgoingCallerIdContextUpdateOptions {
  * @property done - Function to be called upon completion of streaming
  */
 export interface OutgoingCallerIdListInstanceEachOptions {
-  callback?: Function;
+  callback?: (item: OutgoingCallerIdInstance, done: (err?: Error) => void) => void;
   done?: Function;
   friendlyName?: string;
   limit?: number;
