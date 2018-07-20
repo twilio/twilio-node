@@ -100,16 +100,16 @@ interface AccountListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<AccountPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: AccountPage) => any): Promise<AccountPage>;
   /**
-   * @description Lists AccountInstance records from the API as a list.
+   * Lists AccountInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: AccountListInstanceOptions, callback?: function): Promise<AccountInstance[]>;
+  list(opts?: AccountListInstanceOptions, callback?: (error: Error | null, items: AccountInstance[]) => any): Promise<AccountInstance[]>;
   /**
    * Retrieve a single page of AccountInstance records from the API.
    * Request is executed immediately
@@ -119,7 +119,7 @@ interface AccountListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: AccountListInstancePageOptions, callback?: function): Promise<AccountPage>;
+  page(opts?: AccountListInstancePageOptions, callback?: (error: Error | null, items: AccountPage) => any): Promise<AccountPage>;
 }
 
 /**
@@ -128,7 +128,7 @@ interface AccountListInstance {
  * @property friendlyName - FriendlyName to update
  * @property status - Status to update the Account with
  */
-export interface AccountInstanceUpdateOptions {
+interface AccountInstanceUpdateOptions {
   friendlyName?: string;
   status?: account.status;
 }
@@ -139,115 +139,34 @@ export interface AccountInstanceUpdateOptions {
  * @property friendlyName - FriendlyName to update
  * @property status - Status to update the Account with
  */
-export interface AccountContextUpdateOptions {
+interface AccountInstanceUpdateOptions {
   friendlyName?: string;
   status?: account.status;
 }
 
-/**
- * Options to pass to create
- *
- * @property friendlyName - A human readable description of the account
- */
-export interface AccountListInstanceCreateOptions {
-  friendlyName?: string;
-}
 
-/**
- * Options to pass to each
- *
- * @property friendlyName - FriendlyName to filter on
- * @property status - Status to filter on
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface AccountListInstanceEachOptions {
-  callback?: (item: AccountInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  friendlyName?: string;
-  limit?: number;
-  pageSize?: number;
-  status?: account.status;
-}
-
-/**
- * Options to pass to list
- *
- * @property friendlyName - FriendlyName to filter on
- * @property status - Status to filter on
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface AccountListInstanceOptions {
-  friendlyName?: string;
-  limit?: number;
-  pageSize?: number;
-  status?: account.status;
-}
-
-/**
- * Options to pass to page
- *
- * @property friendlyName - FriendlyName to filter on
- * @property status - Status to filter on
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface AccountListInstancePageOptions {
-  friendlyName?: string;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-  status?: account.status;
-}
-
-
-declare class AccountPage extends Page {
+declare class AccountPage extends Page<V2010, AccountPayload, AccountResource, AccountInstance> {
   /**
-   * @constructor Twilio.Api.V2010.AccountPage
-   * @augments Page
-   * @description Initialize the AccountPage
+   * Initialize the AccountPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
+  constructor(version: V2010, response: Response<string>, solution: AccountSolution);
 
   /**
    * Build an instance of AccountInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: AccountPayload): AccountInstance;
 }
 
 
-declare class AccountInstance {
+declare class AccountInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Api.V2010.AccountInstance
-   * @description Initialize the AccountContext
+   * Initialize the AccountContext
    *
    * @property authToken - The authorization token for this account
    * @property dateCreated - The date this account was created
@@ -264,9 +183,9 @@ declare class AccountInstance {
    * @param payload - The instance payload
    * @param sid - Fetch by unique Account Sid
    */
-  constructor(version: Twilio.Api.V2010, payload: object, sid: sid);
+  constructor(version: V2010, payload: AccountPayload, sid: string);
 
-  _proxy?: AccountContext;
+  private _proxy: AccountContext;
   /**
    * Access the addresses
    */
@@ -275,6 +194,7 @@ declare class AccountInstance {
    * Access the applications
    */
   applications();
+  authToken: string;
   /**
    * Access the authorizedConnectApps
    */
@@ -295,12 +215,15 @@ declare class AccountInstance {
    * Access the connectApps
    */
   connectApps();
+  dateCreated: Date;
+  dateUpdated: Date;
   /**
    * fetch a AccountInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AccountInstance) => any);
+  fetch(callback?: (error: Error | null, items: AccountInstance) => any): void;
+  friendlyName: string;
   /**
    * Access the incomingPhoneNumbers
    */
@@ -329,6 +252,7 @@ declare class AccountInstance {
    * Access the outgoingCallerIds
    */
   outgoingCallerIds();
+  ownerAccountSid: string;
   /**
    * Access the queues
    */
@@ -341,6 +265,7 @@ declare class AccountInstance {
    * Access the shortCodes
    */
   shortCodes();
+  sid: string;
   /**
    * Access the signingKeys
    */
@@ -349,11 +274,13 @@ declare class AccountInstance {
    * Access the sip
    */
   sip();
+  status: account.status;
+  subresourceUris: string;
   /**
    * Produce a plain JSON object version of the AccountInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
   /**
    * Access the tokens
    */
@@ -362,13 +289,15 @@ declare class AccountInstance {
    * Access the transcriptions
    */
   transcriptions();
+  type: account.type;
   /**
    * update a AccountInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: AccountInstanceUpdateOptions, callback?: (error: Error | null, items: AccountInstance) => any);
+  update(opts?: AccountInstanceUpdateOptions, callback?: (error: Error | null, items: AccountInstance) => any): void;
+  uri: string;
   /**
    * Access the usage
    */
@@ -382,8 +311,7 @@ declare class AccountInstance {
 
 declare class AccountContext {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext
-   * @description Initialize the AccountContext
+   * Initialize the AccountContext
    *
    * @property addresses - addresses resource
    * @property applications - applications resource
@@ -412,7 +340,7 @@ declare class AccountContext {
    * @param version - Version of the resource
    * @param sid - Fetch by unique Account Sid
    */
-  constructor(version: Twilio.Api.V2010, sid: sid);
+  constructor(version: V2010, sid: string);
 
   addresses?: Twilio.Api.V2010.AccountContext.AddressList;
   applications?: Twilio.Api.V2010.AccountContext.ApplicationList;
@@ -426,7 +354,7 @@ declare class AccountContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AccountContext) => any);
+  fetch(callback?: (error: Error | null, items: AccountInstance) => any): void;
   incomingPhoneNumbers?: Twilio.Api.V2010.AccountContext.IncomingPhoneNumberList;
   keys?: Twilio.Api.V2010.AccountContext.KeyList;
   messages?: Twilio.Api.V2010.AccountContext.MessageList;
@@ -447,9 +375,9 @@ declare class AccountContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: AccountContextUpdateOptions, callback?: (error: Error | null, items: AccountContext) => any);
+  update(opts?: AccountInstanceUpdateOptions, callback?: (error: Error | null, items: AccountInstance) => any): void;
   usage?: Twilio.Api.V2010.AccountContext.UsageList;
   validationRequests?: Twilio.Api.V2010.AccountContext.ValidationRequestList;
 }
 
-export { AccountContext, AccountInstance, AccountList, AccountListInstance, AccountPage, AccountPayload, AccountResource, AccountSolution }
+export { AccountContext, AccountInstance, AccountList, AccountListInstance, AccountListInstanceCreateOptions, AccountListInstanceEachOptions, AccountListInstanceOptions, AccountListInstancePageOptions, AccountPage, AccountPayload, AccountResource, AccountSolution }

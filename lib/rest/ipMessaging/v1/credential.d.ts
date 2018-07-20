@@ -76,16 +76,16 @@ interface CredentialListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<CredentialPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: CredentialPage) => any): Promise<CredentialPage>;
   /**
-   * @description Lists CredentialInstance records from the API as a list.
+   * Lists CredentialInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: CredentialListInstanceOptions, callback?: function): Promise<CredentialInstance[]>;
+  list(opts?: CredentialListInstanceOptions, callback?: (error: Error | null, items: CredentialInstance[]) => any): Promise<CredentialInstance[]>;
   /**
    * Retrieve a single page of CredentialInstance records from the API.
    * Request is executed immediately
@@ -95,7 +95,7 @@ interface CredentialListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: CredentialListInstancePageOptions, callback?: function): Promise<CredentialPage>;
+  page(opts?: CredentialListInstancePageOptions, callback?: (error: Error | null, items: CredentialPage) => any): Promise<CredentialPage>;
 }
 
 /**
@@ -108,7 +108,7 @@ interface CredentialListInstance {
  * @property apiKey - [GCM only] This is the "API key" for project from Google Developer console for your GCM Service application credential
  * @property secret - The secret
  */
-export interface CredentialInstanceUpdateOptions {
+interface CredentialInstanceUpdateOptions {
   apiKey?: string;
   certificate?: string;
   friendlyName?: string;
@@ -127,7 +127,7 @@ export interface CredentialInstanceUpdateOptions {
  * @property apiKey - [GCM only] This is the "API key" for project from Google Developer console for your GCM Service application credential
  * @property secret - The secret
  */
-export interface CredentialContextUpdateOptions {
+interface CredentialInstanceUpdateOptions {
   apiKey?: string;
   certificate?: string;
   friendlyName?: string;
@@ -136,110 +136,29 @@ export interface CredentialContextUpdateOptions {
   secret?: string;
 }
 
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface CredentialListInstanceEachOptions {
-  callback?: (item: CredentialInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
 
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface CredentialListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface CredentialListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-}
-
-/**
- * Options to pass to create
- *
- * @property type - Credential type, one of "gcm" or "apn"
- * @property friendlyName - Friendly name for stored credential
- * @property certificate - [APN only] URL encoded representation of the certificate, e.
- * @property privateKey - [APN only] URL encoded representation of the private key, e.
- * @property sandbox - [APN only] use this credential for sending to production or sandbox APNs
- * @property apiKey - [GCM only] This is the "API key" for project from Google Developer console for your GCM Service application credential
- * @property secret - The secret
- */
-export interface CredentialListInstanceCreateOptions {
-  apiKey?: string;
-  certificate?: string;
-  friendlyName?: string;
-  privateKey?: string;
-  sandbox?: boolean;
-  secret?: string;
-  type: credential.push_service;
-}
-
-
-declare class CredentialPage extends Page {
+declare class CredentialPage extends Page<V1, CredentialPayload, CredentialResource, CredentialInstance> {
   /**
-   * @constructor Twilio.IpMessaging.V1.CredentialPage
-   * @augments Page
-   * @description Initialize the CredentialPage
+   * Initialize the CredentialPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.IpMessaging.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: CredentialSolution);
 
   /**
    * Build an instance of CredentialInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: CredentialPayload): CredentialInstance;
 }
 
 
-declare class CredentialInstance {
+declare class CredentialInstance extends SerializableClass {
   /**
-   * @constructor Twilio.IpMessaging.V1.CredentialInstance
-   * @description Initialize the CredentialContext
+   * Initialize the CredentialContext
    *
    * @property sid - A 34 character string that uniquely identifies this resource.
    * @property accountSid - The unique id of the Account[/console] responsible for this resource.
@@ -254,65 +173,72 @@ declare class CredentialInstance {
    * @param payload - The instance payload
    * @param sid - The sid
    */
-  constructor(version: Twilio.IpMessaging.V1, payload: object, sid: sid);
+  constructor(version: V1, payload: CredentialPayload, sid: string);
 
-  _proxy?: CredentialContext;
+  private _proxy: CredentialContext;
+  accountSid: string;
+  dateCreated: Date;
+  dateUpdated: Date;
   /**
    * fetch a CredentialInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CredentialInstance) => any);
+  fetch(callback?: (error: Error | null, items: CredentialInstance) => any): void;
+  friendlyName: string;
   /**
    * remove a CredentialInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: CredentialInstance) => any);
+  remove(callback?: (error: Error | null, items: CredentialInstance) => any): void;
+  sandbox: string;
+  sid: string;
   /**
    * Produce a plain JSON object version of the CredentialInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  type: credential.push_service;
   /**
    * update a CredentialInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: CredentialInstanceUpdateOptions, callback?: (error: Error | null, items: CredentialInstance) => any);
+  update(opts?: CredentialInstanceUpdateOptions, callback?: (error: Error | null, items: CredentialInstance) => any): void;
+  url: string;
 }
 
 
 declare class CredentialContext {
   /**
-   * @constructor Twilio.IpMessaging.V1.CredentialContext
-   * @description Initialize the CredentialContext
+   * Initialize the CredentialContext
    *
    * @param version - Version of the resource
    * @param sid - The sid
    */
-  constructor(version: Twilio.IpMessaging.V1, sid: sid);
+  constructor(version: V1, sid: string);
 
   /**
    * fetch a CredentialInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CredentialContext) => any);
+  fetch(callback?: (error: Error | null, items: CredentialInstance) => any): void;
   /**
    * remove a CredentialInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: CredentialContext) => any);
+  remove(callback?: (error: Error | null, items: CredentialInstance) => any): void;
   /**
    * update a CredentialInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: CredentialContextUpdateOptions, callback?: (error: Error | null, items: CredentialContext) => any);
+  update(opts?: CredentialInstanceUpdateOptions, callback?: (error: Error | null, items: CredentialInstance) => any): void;
 }
 
-export { CredentialContext, CredentialInstance, CredentialList, CredentialListInstance, CredentialPage, CredentialPayload, CredentialResource, CredentialSolution }
+export { CredentialContext, CredentialInstance, CredentialList, CredentialListInstance, CredentialListInstanceCreateOptions, CredentialListInstanceEachOptions, CredentialListInstanceOptions, CredentialListInstancePageOptions, CredentialPage, CredentialPayload, CredentialResource, CredentialSolution }

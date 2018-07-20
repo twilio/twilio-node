@@ -70,16 +70,16 @@ interface TaskChannelListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<TaskChannelPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: TaskChannelPage) => any): Promise<TaskChannelPage>;
   /**
-   * @description Lists TaskChannelInstance records from the API as a list.
+   * Lists TaskChannelInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: TaskChannelListInstanceOptions, callback?: function): Promise<TaskChannelInstance[]>;
+  list(opts?: TaskChannelListInstanceOptions, callback?: (error: Error | null, items: TaskChannelInstance[]) => any): Promise<TaskChannelInstance[]>;
   /**
    * Retrieve a single page of TaskChannelInstance records from the API.
    * Request is executed immediately
@@ -89,92 +89,32 @@ interface TaskChannelListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: TaskChannelListInstancePageOptions, callback?: function): Promise<TaskChannelPage>;
-}
-
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface TaskChannelListInstanceEachOptions {
-  callback?: (item: TaskChannelInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface TaskChannelListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface TaskChannelListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
+  page(opts?: TaskChannelListInstancePageOptions, callback?: (error: Error | null, items: TaskChannelPage) => any): Promise<TaskChannelPage>;
 }
 
 
-declare class TaskChannelPage extends Page {
+declare class TaskChannelPage extends Page<V1, TaskChannelPayload, TaskChannelResource, TaskChannelInstance> {
   /**
-   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.TaskChannelPage
-   * @augments Page
-   * @description Initialize the TaskChannelPage
+   * Initialize the TaskChannelPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Taskrouter.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: TaskChannelSolution);
 
   /**
    * Build an instance of TaskChannelInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: TaskChannelPayload): TaskChannelInstance;
 }
 
 
-declare class TaskChannelInstance {
+declare class TaskChannelInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.TaskChannelInstance
-   * @description Initialize the TaskChannelContext
+   * Initialize the TaskChannelContext
    *
    * @property accountSid - The account_sid
    * @property dateCreated - The date_created
@@ -190,40 +130,47 @@ declare class TaskChannelInstance {
    * @param workspaceSid - The workspace_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.Taskrouter.V1, payload: object, workspaceSid: sid, sid: sid_like);
+  constructor(version: V1, payload: TaskChannelPayload, workspaceSid: string, sid: string);
 
-  _proxy?: TaskChannelContext;
+  private _proxy: TaskChannelContext;
+  accountSid: string;
+  dateCreated: Date;
+  dateUpdated: Date;
   /**
    * fetch a TaskChannelInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: TaskChannelInstance) => any);
+  fetch(callback?: (error: Error | null, items: TaskChannelInstance) => any): void;
+  friendlyName: string;
+  sid: string;
   /**
    * Produce a plain JSON object version of the TaskChannelInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  uniqueName: string;
+  url: string;
+  workspaceSid: string;
 }
 
 
 declare class TaskChannelContext {
   /**
-   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.TaskChannelContext
-   * @description Initialize the TaskChannelContext
+   * Initialize the TaskChannelContext
    *
    * @param version - Version of the resource
    * @param workspaceSid - The workspace_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.Taskrouter.V1, workspaceSid: sid, sid: sid_like);
+  constructor(version: V1, workspaceSid: string, sid: string);
 
   /**
    * fetch a TaskChannelInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: TaskChannelContext) => any);
+  fetch(callback?: (error: Error | null, items: TaskChannelInstance) => any): void;
 }
 
-export { TaskChannelContext, TaskChannelInstance, TaskChannelList, TaskChannelListInstance, TaskChannelPage, TaskChannelPayload, TaskChannelResource, TaskChannelSolution }
+export { TaskChannelContext, TaskChannelInstance, TaskChannelList, TaskChannelListInstance, TaskChannelListInstanceEachOptions, TaskChannelListInstanceOptions, TaskChannelListInstancePageOptions, TaskChannelPage, TaskChannelPayload, TaskChannelResource, TaskChannelSolution }

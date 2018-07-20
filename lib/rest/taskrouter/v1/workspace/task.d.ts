@@ -91,16 +91,16 @@ interface TaskListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<TaskPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: TaskPage) => any): Promise<TaskPage>;
   /**
-   * @description Lists TaskInstance records from the API as a list.
+   * Lists TaskInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: TaskListInstanceOptions, callback?: function): Promise<TaskInstance[]>;
+  list(opts?: TaskListInstanceOptions, callback?: (error: Error | null, items: TaskInstance[]) => any): Promise<TaskInstance[]>;
   /**
    * Retrieve a single page of TaskInstance records from the API.
    * Request is executed immediately
@@ -110,7 +110,7 @@ interface TaskListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: TaskListInstancePageOptions, callback?: function): Promise<TaskPage>;
+  page(opts?: TaskListInstancePageOptions, callback?: (error: Error | null, items: TaskPage) => any): Promise<TaskPage>;
 }
 
 /**
@@ -122,7 +122,7 @@ interface TaskListInstance {
  * @property priority - Override priority for the Task.
  * @property taskChannel - The task_channel
  */
-export interface TaskInstanceUpdateOptions {
+interface TaskInstanceUpdateOptions {
   assignmentStatus?: task.status;
   attributes?: string;
   priority?: number;
@@ -139,7 +139,7 @@ export interface TaskInstanceUpdateOptions {
  * @property priority - Override priority for the Task.
  * @property taskChannel - The task_channel
  */
-export interface TaskContextUpdateOptions {
+interface TaskInstanceUpdateOptions {
   assignmentStatus?: task.status;
   attributes?: string;
   priority?: number;
@@ -147,160 +147,29 @@ export interface TaskContextUpdateOptions {
   taskChannel?: string;
 }
 
-/**
- * Options to pass to each
- *
- * @property priority - Retrieve the list of all Tasks in the workspace with the specified priority.
- * @property assignmentStatus - Returns the list of all Tasks in the workspace with the specified AssignmentStatus.
- * @property workflowSid - Returns the list of Tasks that are being controlled by the Workflow with the specified Sid value.
- * @property workflowName - Returns the list of Tasks that are being controlled by the Workflow with the specified FriendlyName value.
- * @property taskQueueSid - Returns the list of Tasks that are currently waiting in the TaskQueue identified by the Sid specified.
- * @property taskQueueName - Returns the list of Tasks that are currently waiting in the TaskQueue identified by the FriendlyName specified.
- * @property evaluateTaskAttributes - Provide a task attributes expression, and this will return tasks which match the attributes.
- * @property ordering - Use this parameter to control the order of the Tasks returned.
- * @property hasAddons - The has_addons
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface TaskListInstanceEachOptions {
-  assignmentStatus?: string|list;
-  callback?: (item: TaskInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  evaluateTaskAttributes?: string;
-  hasAddons?: boolean;
-  limit?: number;
-  ordering?: string;
-  pageSize?: number;
-  priority?: number;
-  taskQueueName?: string;
-  taskQueueSid?: string;
-  workflowName?: string;
-  workflowSid?: string;
-}
 
-/**
- * Options to pass to list
- *
- * @property priority - Retrieve the list of all Tasks in the workspace with the specified priority.
- * @property assignmentStatus - Returns the list of all Tasks in the workspace with the specified AssignmentStatus.
- * @property workflowSid - Returns the list of Tasks that are being controlled by the Workflow with the specified Sid value.
- * @property workflowName - Returns the list of Tasks that are being controlled by the Workflow with the specified FriendlyName value.
- * @property taskQueueSid - Returns the list of Tasks that are currently waiting in the TaskQueue identified by the Sid specified.
- * @property taskQueueName - Returns the list of Tasks that are currently waiting in the TaskQueue identified by the FriendlyName specified.
- * @property evaluateTaskAttributes - Provide a task attributes expression, and this will return tasks which match the attributes.
- * @property ordering - Use this parameter to control the order of the Tasks returned.
- * @property hasAddons - The has_addons
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface TaskListInstanceOptions {
-  assignmentStatus?: string|list;
-  evaluateTaskAttributes?: string;
-  hasAddons?: boolean;
-  limit?: number;
-  ordering?: string;
-  pageSize?: number;
-  priority?: number;
-  taskQueueName?: string;
-  taskQueueSid?: string;
-  workflowName?: string;
-  workflowSid?: string;
-}
-
-/**
- * Options to pass to page
- *
- * @property priority - Retrieve the list of all Tasks in the workspace with the specified priority.
- * @property assignmentStatus - Returns the list of all Tasks in the workspace with the specified AssignmentStatus.
- * @property workflowSid - Returns the list of Tasks that are being controlled by the Workflow with the specified Sid value.
- * @property workflowName - Returns the list of Tasks that are being controlled by the Workflow with the specified FriendlyName value.
- * @property taskQueueSid - Returns the list of Tasks that are currently waiting in the TaskQueue identified by the Sid specified.
- * @property taskQueueName - Returns the list of Tasks that are currently waiting in the TaskQueue identified by the FriendlyName specified.
- * @property evaluateTaskAttributes - Provide a task attributes expression, and this will return tasks which match the attributes.
- * @property ordering - Use this parameter to control the order of the Tasks returned.
- * @property hasAddons - The has_addons
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface TaskListInstancePageOptions {
-  assignmentStatus?: string|list;
-  evaluateTaskAttributes?: string;
-  hasAddons?: boolean;
-  ordering?: string;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-  priority?: number;
-  taskQueueName?: string;
-  taskQueueSid?: string;
-  workflowName?: string;
-  workflowSid?: string;
-}
-
-/**
- * Options to pass to create
- *
- * @property timeout - The amount of time in seconds the task is allowed to live up to a maximum of 2 weeks.
- * @property priority - Override priority for the Task.
- * @property taskChannel - When MultiTasking is enabled specify the type of the task by passing either TaskChannel Unique Name or Task Channel Sid.
- * @property workflowSid - The WorkflowSid for the Workflow that you would like to handle routing for this Task.
- * @property attributes - Url-encoded JSON string describing the attributes of this task.
- */
-export interface TaskListInstanceCreateOptions {
-  attributes?: string;
-  priority?: number;
-  taskChannel?: string;
-  timeout?: number;
-  workflowSid?: string;
-}
-
-
-declare class TaskPage extends Page {
+declare class TaskPage extends Page<V1, TaskPayload, TaskResource, TaskInstance> {
   /**
-   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.TaskPage
-   * @augments Page
-   * @description Initialize the TaskPage
+   * Initialize the TaskPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Taskrouter.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: TaskSolution);
 
   /**
    * Build an instance of TaskInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: TaskPayload): TaskInstance;
 }
 
 
-declare class TaskInstance {
+declare class TaskInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.TaskInstance
-   * @description Initialize the TaskContext
+   * Initialize the TaskContext
    *
    * @property accountSid - The ID of the account that owns this Task
    * @property age - The number of seconds since this task was created.
@@ -328,44 +197,63 @@ declare class TaskInstance {
    * @param workspaceSid - The ID of the Workspace that holds this Task
    * @param sid - The sid
    */
-  constructor(version: Twilio.Taskrouter.V1, payload: object, workspaceSid: sid, sid: sid);
+  constructor(version: V1, payload: TaskPayload, workspaceSid: string, sid: string);
 
-  _proxy?: TaskContext;
+  private _proxy: TaskContext;
+  accountSid: string;
+  addons: string;
+  age: number;
+  assignmentStatus: task.status;
+  attributes: string;
+  dateCreated: Date;
+  dateUpdated: Date;
   /**
    * fetch a TaskInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: TaskInstance) => any);
+  fetch(callback?: (error: Error | null, items: TaskInstance) => any): void;
+  links: string;
+  priority: number;
+  reason: string;
   /**
    * remove a TaskInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: TaskInstance) => any);
+  remove(callback?: (error: Error | null, items: TaskInstance) => any): void;
   /**
    * Access the reservations
    */
   reservations();
+  sid: string;
+  taskChannelSid: string;
+  taskChannelUniqueName: string;
+  taskQueueFriendlyName: string;
+  taskQueueSid: string;
+  timeout: number;
   /**
    * Produce a plain JSON object version of the TaskInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
   /**
    * update a TaskInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: TaskInstanceUpdateOptions, callback?: (error: Error | null, items: TaskInstance) => any);
+  update(opts?: TaskInstanceUpdateOptions, callback?: (error: Error | null, items: TaskInstance) => any): void;
+  url: string;
+  workflowFriendlyName: string;
+  workflowSid: string;
+  workspaceSid: string;
 }
 
 
 declare class TaskContext {
   /**
-   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.TaskContext
-   * @description Initialize the TaskContext
+   * Initialize the TaskContext
    *
    * @property reservations - reservations resource
    *
@@ -373,20 +261,20 @@ declare class TaskContext {
    * @param workspaceSid - The workspace_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.Taskrouter.V1, workspaceSid: sid, sid: sid);
+  constructor(version: V1, workspaceSid: string, sid: string);
 
   /**
    * fetch a TaskInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: TaskContext) => any);
+  fetch(callback?: (error: Error | null, items: TaskInstance) => any): void;
   /**
    * remove a TaskInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: TaskContext) => any);
+  remove(callback?: (error: Error | null, items: TaskInstance) => any): void;
   reservations?: Twilio.Taskrouter.V1.WorkspaceContext.TaskContext.ReservationList;
   /**
    * update a TaskInstance
@@ -394,7 +282,7 @@ declare class TaskContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: TaskContextUpdateOptions, callback?: (error: Error | null, items: TaskContext) => any);
+  update(opts?: TaskInstanceUpdateOptions, callback?: (error: Error | null, items: TaskInstance) => any): void;
 }
 
-export { TaskContext, TaskInstance, TaskList, TaskListInstance, TaskPage, TaskPayload, TaskResource, TaskSolution }
+export { TaskContext, TaskInstance, TaskList, TaskListInstance, TaskListInstanceCreateOptions, TaskListInstanceEachOptions, TaskListInstanceOptions, TaskListInstancePageOptions, TaskPage, TaskPayload, TaskResource, TaskSolution }

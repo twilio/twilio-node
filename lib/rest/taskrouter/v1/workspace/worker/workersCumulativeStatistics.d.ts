@@ -60,7 +60,7 @@ interface WorkersCumulativeStatisticsListInstance {
  * @property startDate - Filter cumulative statistics by a start date.
  * @property taskChannel - Filter cumulative statistics by TaskChannel.
  */
-export interface WorkersCumulativeStatisticsInstanceFetchOptions {
+interface WorkersCumulativeStatisticsInstanceFetchOptions {
   endDate?: Date;
   minutes?: number;
   startDate?: Date;
@@ -75,7 +75,7 @@ export interface WorkersCumulativeStatisticsInstanceFetchOptions {
  * @property startDate - Filter cumulative statistics by a start date.
  * @property taskChannel - Filter cumulative statistics by TaskChannel.
  */
-export interface WorkersCumulativeStatisticsContextFetchOptions {
+interface WorkersCumulativeStatisticsInstanceFetchOptions {
   endDate?: Date;
   minutes?: number;
   startDate?: Date;
@@ -83,31 +83,28 @@ export interface WorkersCumulativeStatisticsContextFetchOptions {
 }
 
 
-declare class WorkersCumulativeStatisticsPage extends Page {
+declare class WorkersCumulativeStatisticsPage extends Page<V1, WorkersCumulativeStatisticsPayload, WorkersCumulativeStatisticsResource, WorkersCumulativeStatisticsInstance> {
   /**
-   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkersCumulativeStatisticsPage
-   * @augments Page
-   * @description Initialize the WorkersCumulativeStatisticsPage
+   * Initialize the WorkersCumulativeStatisticsPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Taskrouter.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: WorkersCumulativeStatisticsSolution);
 
   /**
    * Build an instance of WorkersCumulativeStatisticsInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: WorkersCumulativeStatisticsPayload): WorkersCumulativeStatisticsInstance;
 }
 
 
-declare class WorkersCumulativeStatisticsInstance {
+declare class WorkersCumulativeStatisticsInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkersCumulativeStatisticsInstance
-   * @description Initialize the WorkersCumulativeStatisticsContext
+   * Initialize the WorkersCumulativeStatisticsContext
    *
    * @property accountSid - The account_sid
    * @property startTime - The start_time
@@ -126,33 +123,44 @@ declare class WorkersCumulativeStatisticsInstance {
    * @param payload - The instance payload
    * @param workspaceSid - The workspace_sid
    */
-  constructor(version: Twilio.Taskrouter.V1, payload: object, workspaceSid: sid);
+  constructor(version: V1, payload: WorkersCumulativeStatisticsPayload, workspaceSid: string);
 
-  _proxy?: WorkersCumulativeStatisticsContext;
+  private _proxy: WorkersCumulativeStatisticsContext;
+  accountSid: string;
+  activityDurations: string;
+  endTime: Date;
   /**
    * fetch a WorkersCumulativeStatisticsInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: WorkersCumulativeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkersCumulativeStatisticsInstance) => any);
+  fetch(opts?: WorkersCumulativeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkersCumulativeStatisticsInstance) => any): void;
+  reservationsAccepted: number;
+  reservationsCanceled: number;
+  reservationsCreated: number;
+  reservationsRejected: number;
+  reservationsRescinded: number;
+  reservationsTimedOut: number;
+  startTime: Date;
   /**
    * Produce a plain JSON object version of the WorkersCumulativeStatisticsInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  url: string;
+  workspaceSid: string;
 }
 
 
 declare class WorkersCumulativeStatisticsContext {
   /**
-   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkersCumulativeStatisticsContext
-   * @description Initialize the WorkersCumulativeStatisticsContext
+   * Initialize the WorkersCumulativeStatisticsContext
    *
    * @param version - Version of the resource
    * @param workspaceSid - The workspace_sid
    */
-  constructor(version: Twilio.Taskrouter.V1, workspaceSid: sid);
+  constructor(version: V1, workspaceSid: string);
 
   /**
    * fetch a WorkersCumulativeStatisticsInstance
@@ -160,7 +168,7 @@ declare class WorkersCumulativeStatisticsContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: WorkersCumulativeStatisticsContextFetchOptions, callback?: (error: Error | null, items: WorkersCumulativeStatisticsContext) => any);
+  fetch(opts?: WorkersCumulativeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkersCumulativeStatisticsInstance) => any): void;
 }
 
 export { WorkersCumulativeStatisticsContext, WorkersCumulativeStatisticsInstance, WorkersCumulativeStatisticsList, WorkersCumulativeStatisticsListInstance, WorkersCumulativeStatisticsPage, WorkersCumulativeStatisticsPayload, WorkersCumulativeStatisticsResource, WorkersCumulativeStatisticsSolution }

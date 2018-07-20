@@ -68,16 +68,16 @@ interface VoipListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<VoipPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: VoipPage) => any): Promise<VoipPage>;
   /**
-   * @description Lists VoipInstance records from the API as a list.
+   * Lists VoipInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: VoipListInstanceOptions, callback?: function): Promise<VoipInstance[]>;
+  list(opts?: VoipListInstanceOptions, callback?: (error: Error | null, items: VoipInstance[]) => any): Promise<VoipInstance[]>;
   /**
    * Retrieve a single page of VoipInstance records from the API.
    * Request is executed immediately
@@ -87,200 +87,32 @@ interface VoipListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: VoipListInstancePageOptions, callback?: function): Promise<VoipPage>;
-}
-
-/**
- * Options to pass to each
- *
- * @property areaCode - The area_code
- * @property contains - The contains
- * @property smsEnabled - The sms_enabled
- * @property mmsEnabled - The mms_enabled
- * @property voiceEnabled - The voice_enabled
- * @property excludeAllAddressRequired - The exclude_all_address_required
- * @property excludeLocalAddressRequired - The exclude_local_address_required
- * @property excludeForeignAddressRequired - The exclude_foreign_address_required
- * @property beta - The beta
- * @property nearNumber - The near_number
- * @property nearLatLong - The near_lat_long
- * @property distance - The distance
- * @property inPostalCode - The in_postal_code
- * @property inRegion - The in_region
- * @property inRateCenter - The in_rate_center
- * @property inLata - The in_lata
- * @property inLocality - The in_locality
- * @property faxEnabled - The fax_enabled
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface VoipListInstanceEachOptions {
-  areaCode?: number;
-  beta?: boolean;
-  callback?: (item: VoipInstance, done: (err?: Error) => void) => void;
-  contains?: string;
-  distance?: number;
-  done?: Function;
-  excludeAllAddressRequired?: boolean;
-  excludeForeignAddressRequired?: boolean;
-  excludeLocalAddressRequired?: boolean;
-  faxEnabled?: boolean;
-  inLata?: string;
-  inLocality?: string;
-  inPostalCode?: string;
-  inRateCenter?: string;
-  inRegion?: string;
-  limit?: number;
-  mmsEnabled?: boolean;
-  nearLatLong?: string;
-  nearNumber?: string;
-  pageSize?: number;
-  smsEnabled?: boolean;
-  voiceEnabled?: boolean;
-}
-
-/**
- * Options to pass to list
- *
- * @property areaCode - The area_code
- * @property contains - The contains
- * @property smsEnabled - The sms_enabled
- * @property mmsEnabled - The mms_enabled
- * @property voiceEnabled - The voice_enabled
- * @property excludeAllAddressRequired - The exclude_all_address_required
- * @property excludeLocalAddressRequired - The exclude_local_address_required
- * @property excludeForeignAddressRequired - The exclude_foreign_address_required
- * @property beta - The beta
- * @property nearNumber - The near_number
- * @property nearLatLong - The near_lat_long
- * @property distance - The distance
- * @property inPostalCode - The in_postal_code
- * @property inRegion - The in_region
- * @property inRateCenter - The in_rate_center
- * @property inLata - The in_lata
- * @property inLocality - The in_locality
- * @property faxEnabled - The fax_enabled
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface VoipListInstanceOptions {
-  areaCode?: number;
-  beta?: boolean;
-  contains?: string;
-  distance?: number;
-  excludeAllAddressRequired?: boolean;
-  excludeForeignAddressRequired?: boolean;
-  excludeLocalAddressRequired?: boolean;
-  faxEnabled?: boolean;
-  inLata?: string;
-  inLocality?: string;
-  inPostalCode?: string;
-  inRateCenter?: string;
-  inRegion?: string;
-  limit?: number;
-  mmsEnabled?: boolean;
-  nearLatLong?: string;
-  nearNumber?: string;
-  pageSize?: number;
-  smsEnabled?: boolean;
-  voiceEnabled?: boolean;
-}
-
-/**
- * Options to pass to page
- *
- * @property areaCode - The area_code
- * @property contains - The contains
- * @property smsEnabled - The sms_enabled
- * @property mmsEnabled - The mms_enabled
- * @property voiceEnabled - The voice_enabled
- * @property excludeAllAddressRequired - The exclude_all_address_required
- * @property excludeLocalAddressRequired - The exclude_local_address_required
- * @property excludeForeignAddressRequired - The exclude_foreign_address_required
- * @property beta - The beta
- * @property nearNumber - The near_number
- * @property nearLatLong - The near_lat_long
- * @property distance - The distance
- * @property inPostalCode - The in_postal_code
- * @property inRegion - The in_region
- * @property inRateCenter - The in_rate_center
- * @property inLata - The in_lata
- * @property inLocality - The in_locality
- * @property faxEnabled - The fax_enabled
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface VoipListInstancePageOptions {
-  areaCode?: number;
-  beta?: boolean;
-  contains?: string;
-  distance?: number;
-  excludeAllAddressRequired?: boolean;
-  excludeForeignAddressRequired?: boolean;
-  excludeLocalAddressRequired?: boolean;
-  faxEnabled?: boolean;
-  inLata?: string;
-  inLocality?: string;
-  inPostalCode?: string;
-  inRateCenter?: string;
-  inRegion?: string;
-  mmsEnabled?: boolean;
-  nearLatLong?: string;
-  nearNumber?: string;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-  smsEnabled?: boolean;
-  voiceEnabled?: boolean;
+  page(opts?: VoipListInstancePageOptions, callback?: (error: Error | null, items: VoipPage) => any): Promise<VoipPage>;
 }
 
 
-declare class VoipPage extends Page {
+declare class VoipPage extends Page<V2010, VoipPayload, VoipResource, VoipInstance> {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.VoipPage
-   * @augments Page
-   * @description Initialize the VoipPage
+   * Initialize the VoipPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
+  constructor(version: V2010, response: Response<string>, solution: VoipSolution);
 
   /**
    * Build an instance of VoipInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: VoipPayload): VoipInstance;
 }
 
 
-declare class VoipInstance {
+declare class VoipInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.VoipInstance
-   * @description Initialize the VoipContext
+   * Initialize the VoipContext
    *
    * @property friendlyName - The friendly_name
    * @property phoneNumber - The phone_number
@@ -301,13 +133,26 @@ declare class VoipInstance {
    * @param accountSid - The 34 character string that uniquely identifies your account.
    * @param countryCode - The ISO Country code to lookup phone numbers for.
    */
-  constructor(version: Twilio.Api.V2010, payload: object, accountSid: account_sid, countryCode: iso_country_code);
+  constructor(version: V2010, payload: VoipPayload, accountSid: string, countryCode: string);
 
+  addressRequirements: string;
+  beta: boolean;
+  capabilities: string;
+  friendlyName: string;
+  isoCountry: string;
+  lata: string;
+  latitude: number;
+  locality: string;
+  longitude: number;
+  phoneNumber: string;
+  postalCode: string;
+  rateCenter: string;
+  region: string;
   /**
    * Produce a plain JSON object version of the VoipInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
 }
 
-export { VoipInstance, VoipList, VoipListInstance, VoipPage, VoipPayload, VoipResource, VoipSolution }
+export { VoipInstance, VoipList, VoipListInstance, VoipListInstanceEachOptions, VoipListInstanceOptions, VoipListInstancePageOptions, VoipPage, VoipPayload, VoipResource, VoipSolution }

@@ -56,43 +56,29 @@ interface SegmentMembershipListInstance {
   get(segment: string): SegmentMembershipContext;
 }
 
-/**
- * Options to pass to create
- *
- * @property segment - The segment
- */
-export interface SegmentMembershipListInstanceCreateOptions {
-  segment: string;
-}
 
-
-declare class SegmentMembershipPage extends Page {
+declare class SegmentMembershipPage extends Page<V1, SegmentMembershipPayload, SegmentMembershipResource, SegmentMembershipInstance> {
   /**
-   * @constructor Twilio.Notify.V1.ServiceContext.UserContext.SegmentMembershipPage
-   * @augments Page
-   * @description Initialize the SegmentMembershipPage
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the SegmentMembershipPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Notify.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: SegmentMembershipSolution);
 
   /**
    * Build an instance of SegmentMembershipInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: SegmentMembershipPayload): SegmentMembershipInstance;
 }
 
 
-declare class SegmentMembershipInstance {
+declare class SegmentMembershipInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Notify.V1.ServiceContext.UserContext.SegmentMembershipInstance
-   * @description Initialize the SegmentMembershipContext
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the SegmentMembershipContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @property accountSid - The account_sid
    * @property serviceSid - The service_sid
@@ -106,54 +92,57 @@ declare class SegmentMembershipInstance {
    * @param identity - The identity
    * @param segment - The segment
    */
-  constructor(version: Twilio.Notify.V1, payload: object, serviceSid: sid, identity: string, segment: string);
+  constructor(version: V1, payload: SegmentMembershipPayload, serviceSid: string, identity: string, segment: string);
 
-  _proxy?: SegmentMembershipContext;
+  private _proxy: SegmentMembershipContext;
+  accountSid: string;
   /**
    * fetch a SegmentMembershipInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: SegmentMembershipInstance) => any);
+  fetch(callback?: (error: Error | null, items: SegmentMembershipInstance) => any): void;
+  identity: string;
   /**
    * remove a SegmentMembershipInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: SegmentMembershipInstance) => any);
+  remove(callback?: (error: Error | null, items: SegmentMembershipInstance) => any): void;
+  segment: string;
+  serviceSid: string;
   /**
    * Produce a plain JSON object version of the SegmentMembershipInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  url: string;
 }
 
 
 declare class SegmentMembershipContext {
   /**
-   * @constructor Twilio.Notify.V1.ServiceContext.UserContext.SegmentMembershipContext
-   * @description Initialize the SegmentMembershipContext
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the SegmentMembershipContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
    * @param serviceSid - The service_sid
    * @param identity - The identity
    * @param segment - The segment
    */
-  constructor(version: Twilio.Notify.V1, serviceSid: sid, identity: sid_like, segment: string);
+  constructor(version: V1, serviceSid: string, identity: string, segment: string);
 
   /**
    * fetch a SegmentMembershipInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: SegmentMembershipContext) => any);
+  fetch(callback?: (error: Error | null, items: SegmentMembershipInstance) => any): void;
   /**
    * remove a SegmentMembershipInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: SegmentMembershipContext) => any);
+  remove(callback?: (error: Error | null, items: SegmentMembershipInstance) => any): void;
 }
 
-export { SegmentMembershipContext, SegmentMembershipInstance, SegmentMembershipList, SegmentMembershipListInstance, SegmentMembershipPage, SegmentMembershipPayload, SegmentMembershipResource, SegmentMembershipSolution }
+export { SegmentMembershipContext, SegmentMembershipInstance, SegmentMembershipList, SegmentMembershipListInstance, SegmentMembershipListInstanceCreateOptions, SegmentMembershipPage, SegmentMembershipPayload, SegmentMembershipResource, SegmentMembershipSolution }

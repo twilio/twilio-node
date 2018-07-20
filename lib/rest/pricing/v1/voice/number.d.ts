@@ -47,31 +47,28 @@ interface NumberListInstance {
 }
 
 
-declare class NumberPage extends Page {
+declare class NumberPage extends Page<V1, NumberPayload, NumberResource, NumberInstance> {
   /**
-   * @constructor Twilio.Pricing.V1.VoiceContext.NumberPage
-   * @augments Page
-   * @description Initialize the NumberPage
+   * Initialize the NumberPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Pricing.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: NumberSolution);
 
   /**
    * Build an instance of NumberInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: NumberPayload): NumberInstance;
 }
 
 
-declare class NumberInstance {
+declare class NumberInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Pricing.V1.VoiceContext.NumberInstance
-   * @description Initialize the NumberContext
+   * Initialize the NumberContext
    *
    * @property number - The number
    * @property country - Name of the country
@@ -85,39 +82,45 @@ declare class NumberInstance {
    * @param payload - The instance payload
    * @param number - The number
    */
-  constructor(version: Twilio.Pricing.V1, payload: object, number: phone_number);
+  constructor(version: V1, payload: NumberPayload, number: string);
 
-  _proxy?: NumberContext;
+  private _proxy: NumberContext;
+  country: string;
   /**
    * fetch a NumberInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: NumberInstance) => any);
+  fetch(callback?: (error: Error | null, items: NumberInstance) => any): void;
+  inboundCallPrice: string;
+  isoCountry: string;
+  number: string;
+  outboundCallPrice: string;
+  priceUnit: string;
   /**
    * Produce a plain JSON object version of the NumberInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  url: string;
 }
 
 
 declare class NumberContext {
   /**
-   * @constructor Twilio.Pricing.V1.VoiceContext.NumberContext
-   * @description Initialize the NumberContext
+   * Initialize the NumberContext
    *
    * @param version - Version of the resource
    * @param number - The number
    */
-  constructor(version: Twilio.Pricing.V1, number: phone_number);
+  constructor(version: V1, number: string);
 
   /**
    * fetch a NumberInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: NumberContext) => any);
+  fetch(callback?: (error: Error | null, items: NumberInstance) => any): void;
 }
 
 export { NumberContext, NumberInstance, NumberList, NumberListInstance, NumberPage, NumberPayload, NumberResource, NumberSolution }

@@ -85,16 +85,16 @@ interface SimListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<SimPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: SimPage) => any): Promise<SimPage>;
   /**
-   * @description Lists SimInstance records from the API as a list.
+   * Lists SimInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: SimListInstanceOptions, callback?: function): Promise<SimInstance[]>;
+  list(opts?: SimListInstanceOptions, callback?: (error: Error | null, items: SimInstance[]) => any): Promise<SimInstance[]>;
   /**
    * Retrieve a single page of SimInstance records from the API.
    * Request is executed immediately
@@ -104,7 +104,7 @@ interface SimListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: SimListInstancePageOptions, callback?: function): Promise<SimPage>;
+  page(opts?: SimListInstancePageOptions, callback?: (error: Error | null, items: SimPage) => any): Promise<SimPage>;
 }
 
 /**
@@ -127,7 +127,7 @@ interface SimListInstance {
  * @property voiceMethod - The HTTP method Twilio will use when requesting the above Url.
  * @property voiceUrl - The URL Twilio will request when the SIM-connected device makes a call.
  */
-export interface SimInstanceUpdateOptions {
+interface SimInstanceUpdateOptions {
   callbackMethod?: string;
   callbackUrl?: string;
   commandsCallbackMethod?: string;
@@ -166,7 +166,7 @@ export interface SimInstanceUpdateOptions {
  * @property voiceMethod - The HTTP method Twilio will use when requesting the above Url.
  * @property voiceUrl - The URL Twilio will request when the SIM-connected device makes a call.
  */
-export interface SimContextUpdateOptions {
+interface SimInstanceUpdateOptions {
   callbackMethod?: string;
   callbackUrl?: string;
   commandsCallbackMethod?: string;
@@ -185,119 +185,29 @@ export interface SimContextUpdateOptions {
   voiceUrl?: string;
 }
 
-/**
- * Options to pass to each
- *
- * @property status - Only return Sims with this status.
- * @property iccid - Return Sims with this Iccid.
- * @property ratePlan - Only return Sims with this Rate Plan.
- * @property eId - The e_id
- * @property simRegistrationCode - The sim_registration_code
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface SimListInstanceEachOptions {
-  callback?: (item: SimInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  eId?: string;
-  iccid?: string;
-  limit?: number;
-  pageSize?: number;
-  ratePlan?: string;
-  simRegistrationCode?: string;
-  status?: sim.status;
-}
 
-/**
- * Options to pass to list
- *
- * @property status - Only return Sims with this status.
- * @property iccid - Return Sims with this Iccid.
- * @property ratePlan - Only return Sims with this Rate Plan.
- * @property eId - The e_id
- * @property simRegistrationCode - The sim_registration_code
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface SimListInstanceOptions {
-  eId?: string;
-  iccid?: string;
-  limit?: number;
-  pageSize?: number;
-  ratePlan?: string;
-  simRegistrationCode?: string;
-  status?: sim.status;
-}
-
-/**
- * Options to pass to page
- *
- * @property status - Only return Sims with this status.
- * @property iccid - Return Sims with this Iccid.
- * @property ratePlan - Only return Sims with this Rate Plan.
- * @property eId - The e_id
- * @property simRegistrationCode - The sim_registration_code
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface SimListInstancePageOptions {
-  eId?: string;
-  iccid?: string;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-  ratePlan?: string;
-  simRegistrationCode?: string;
-  status?: sim.status;
-}
-
-
-declare class SimPage extends Page {
+declare class SimPage extends Page<V1, SimPayload, SimResource, SimInstance> {
   /**
-   * @constructor Twilio.Wireless.V1.SimPage
-   * @augments Page
-   * @description Initialize the SimPage
+   * Initialize the SimPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Wireless.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: SimSolution);
 
   /**
    * Build an instance of SimInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: SimPayload): SimInstance;
 }
 
 
-declare class SimInstance {
+declare class SimInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Wireless.V1.SimInstance
-   * @description Initialize the SimContext
+   * Initialize the SimContext
    *
    * @property sid - A 34 character string that uniquely identifies this resource.
    * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid.
@@ -327,42 +237,64 @@ declare class SimInstance {
    * @param payload - The instance payload
    * @param sid - The sid
    */
-  constructor(version: Twilio.Wireless.V1, payload: object, sid: sid_like);
+  constructor(version: V1, payload: SimPayload, sid: string);
 
-  _proxy?: SimContext;
+  private _proxy: SimContext;
+  accountSid: string;
+  commandsCallbackMethod: string;
+  commandsCallbackUrl: string;
   /**
    * Access the dataSessions
    */
   dataSessions();
+  dateCreated: Date;
+  dateUpdated: Date;
+  eId: string;
   /**
    * fetch a SimInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: SimInstance) => any);
+  fetch(callback?: (error: Error | null, items: SimInstance) => any): void;
+  friendlyName: string;
+  iccid: string;
+  ipAddress: string;
+  links: string;
+  ratePlanSid: string;
+  sid: string;
+  smsFallbackMethod: string;
+  smsFallbackUrl: string;
+  smsMethod: string;
+  smsUrl: string;
+  status: sim.status;
   /**
    * Produce a plain JSON object version of the SimInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  uniqueName: string;
   /**
    * update a SimInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: SimInstanceUpdateOptions, callback?: (error: Error | null, items: SimInstance) => any);
+  update(opts?: SimInstanceUpdateOptions, callback?: (error: Error | null, items: SimInstance) => any): void;
+  url: string;
   /**
    * Access the usageRecords
    */
   usageRecords();
+  voiceFallbackMethod: string;
+  voiceFallbackUrl: string;
+  voiceMethod: string;
+  voiceUrl: string;
 }
 
 
 declare class SimContext {
   /**
-   * @constructor Twilio.Wireless.V1.SimContext
-   * @description Initialize the SimContext
+   * Initialize the SimContext
    *
    * @property usageRecords - usageRecords resource
    * @property dataSessions - dataSessions resource
@@ -370,7 +302,7 @@ declare class SimContext {
    * @param version - Version of the resource
    * @param sid - The sid
    */
-  constructor(version: Twilio.Wireless.V1, sid: sid_like);
+  constructor(version: V1, sid: string);
 
   dataSessions?: Twilio.Wireless.V1.SimContext.DataSessionList;
   /**
@@ -378,15 +310,15 @@ declare class SimContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: SimContext) => any);
+  fetch(callback?: (error: Error | null, items: SimInstance) => any): void;
   /**
    * update a SimInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: SimContextUpdateOptions, callback?: (error: Error | null, items: SimContext) => any);
+  update(opts?: SimInstanceUpdateOptions, callback?: (error: Error | null, items: SimInstance) => any): void;
   usageRecords?: Twilio.Wireless.V1.SimContext.UsageRecordList;
 }
 
-export { SimContext, SimInstance, SimList, SimListInstance, SimPage, SimPayload, SimResource, SimSolution }
+export { SimContext, SimInstance, SimList, SimListInstance, SimListInstanceEachOptions, SimListInstanceOptions, SimListInstancePageOptions, SimPage, SimPayload, SimResource, SimSolution }

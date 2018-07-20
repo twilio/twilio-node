@@ -67,16 +67,16 @@ interface AllTimeListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<AllTimePage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: AllTimePage) => any): Promise<AllTimePage>;
   /**
-   * @description Lists AllTimeInstance records from the API as a list.
+   * Lists AllTimeInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: AllTimeListInstanceOptions, callback?: function): Promise<AllTimeInstance[]>;
+  list(opts?: AllTimeListInstanceOptions, callback?: (error: Error | null, items: AllTimeInstance[]) => any): Promise<AllTimeInstance[]>;
   /**
    * Retrieve a single page of AllTimeInstance records from the API.
    * Request is executed immediately
@@ -86,116 +86,32 @@ interface AllTimeListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: AllTimeListInstancePageOptions, callback?: function): Promise<AllTimePage>;
-}
-
-/**
- * Options to pass to each
- *
- * @property category - Only include usage of this usage category.
- * @property startDate - Only include usage that has occurred on or after this date.
- * @property endDate - Only include usage that has occurred on or before this date.
- * @property includeSubaccounts - The include_subaccounts
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface AllTimeListInstanceEachOptions {
-  callback?: (item: AllTimeInstance, done: (err?: Error) => void) => void;
-  category?: all_time.category;
-  done?: Function;
-  endDate?: Date;
-  includeSubaccounts?: boolean;
-  limit?: number;
-  pageSize?: number;
-  startDate?: Date;
-}
-
-/**
- * Options to pass to list
- *
- * @property category - Only include usage of this usage category.
- * @property startDate - Only include usage that has occurred on or after this date.
- * @property endDate - Only include usage that has occurred on or before this date.
- * @property includeSubaccounts - The include_subaccounts
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface AllTimeListInstanceOptions {
-  category?: all_time.category;
-  endDate?: Date;
-  includeSubaccounts?: boolean;
-  limit?: number;
-  pageSize?: number;
-  startDate?: Date;
-}
-
-/**
- * Options to pass to page
- *
- * @property category - Only include usage of this usage category.
- * @property startDate - Only include usage that has occurred on or after this date.
- * @property endDate - Only include usage that has occurred on or before this date.
- * @property includeSubaccounts - The include_subaccounts
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface AllTimeListInstancePageOptions {
-  category?: all_time.category;
-  endDate?: Date;
-  includeSubaccounts?: boolean;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-  startDate?: Date;
+  page(opts?: AllTimeListInstancePageOptions, callback?: (error: Error | null, items: AllTimePage) => any): Promise<AllTimePage>;
 }
 
 
-declare class AllTimePage extends Page {
+declare class AllTimePage extends Page<V2010, AllTimePayload, AllTimeResource, AllTimeInstance> {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.UsageContext.RecordContext.AllTimePage
-   * @augments Page
-   * @description Initialize the AllTimePage
+   * Initialize the AllTimePage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
+  constructor(version: V2010, response: Response<string>, solution: AllTimeSolution);
 
   /**
    * Build an instance of AllTimeInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: AllTimePayload): AllTimeInstance;
 }
 
 
-declare class AllTimeInstance {
+declare class AllTimeInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.UsageContext.RecordContext.AllTimeInstance
-   * @description Initialize the AllTimeContext
+   * Initialize the AllTimeContext
    *
    * @property accountSid - The Account that accrued the usage.
    * @property apiVersion - The api_version
@@ -216,13 +132,27 @@ declare class AllTimeInstance {
    * @param payload - The instance payload
    * @param accountSid - A 34 character string that uniquely identifies this resource.
    */
-  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid);
+  constructor(version: V2010, payload: AllTimePayload, accountSid: string);
 
+  accountSid: string;
+  apiVersion: string;
+  category: all_time.category;
+  count: string;
+  countUnit: string;
+  description: string;
+  endDate: Date;
+  price: number;
+  priceUnit: string;
+  startDate: Date;
+  subresourceUris: string;
   /**
    * Produce a plain JSON object version of the AllTimeInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  uri: string;
+  usage: string;
+  usageUnit: string;
 }
 
-export { AllTimeInstance, AllTimeList, AllTimeListInstance, AllTimePage, AllTimePayload, AllTimeResource, AllTimeSolution }
+export { AllTimeInstance, AllTimeList, AllTimeListInstance, AllTimeListInstanceEachOptions, AllTimeListInstanceOptions, AllTimeListInstancePageOptions, AllTimePage, AllTimePayload, AllTimeResource, AllTimeSolution }

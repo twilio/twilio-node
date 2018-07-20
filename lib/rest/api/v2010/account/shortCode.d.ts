@@ -74,16 +74,16 @@ interface ShortCodeListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<ShortCodePage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: ShortCodePage) => any): Promise<ShortCodePage>;
   /**
-   * @description Lists ShortCodeInstance records from the API as a list.
+   * Lists ShortCodeInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: ShortCodeListInstanceOptions, callback?: function): Promise<ShortCodeInstance[]>;
+  list(opts?: ShortCodeListInstanceOptions, callback?: (error: Error | null, items: ShortCodeInstance[]) => any): Promise<ShortCodeInstance[]>;
   /**
    * Retrieve a single page of ShortCodeInstance records from the API.
    * Request is executed immediately
@@ -93,7 +93,7 @@ interface ShortCodeListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: ShortCodeListInstancePageOptions, callback?: function): Promise<ShortCodePage>;
+  page(opts?: ShortCodeListInstancePageOptions, callback?: (error: Error | null, items: ShortCodePage) => any): Promise<ShortCodePage>;
 }
 
 /**
@@ -106,7 +106,7 @@ interface ShortCodeListInstance {
  * @property smsFallbackUrl - URL Twilio will request if an error occurs in executing TwiML
  * @property smsFallbackMethod - HTTP method Twilio will use with sms fallback url
  */
-export interface ShortCodeInstanceUpdateOptions {
+interface ShortCodeInstanceUpdateOptions {
   apiVersion?: string;
   friendlyName?: string;
   smsFallbackMethod?: string;
@@ -125,7 +125,7 @@ export interface ShortCodeInstanceUpdateOptions {
  * @property smsFallbackUrl - URL Twilio will request if an error occurs in executing TwiML
  * @property smsFallbackMethod - HTTP method Twilio will use with sms fallback url
  */
-export interface ShortCodeContextUpdateOptions {
+interface ShortCodeInstanceUpdateOptions {
   apiVersion?: string;
   friendlyName?: string;
   smsFallbackMethod?: string;
@@ -134,101 +134,29 @@ export interface ShortCodeContextUpdateOptions {
   smsUrl?: string;
 }
 
-/**
- * Options to pass to each
- *
- * @property friendlyName - Filter by friendly name
- * @property shortCode - Filter by ShortCode
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface ShortCodeListInstanceEachOptions {
-  callback?: (item: ShortCodeInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  friendlyName?: string;
-  limit?: number;
-  pageSize?: number;
-  shortCode?: string;
-}
 
-/**
- * Options to pass to list
- *
- * @property friendlyName - Filter by friendly name
- * @property shortCode - Filter by ShortCode
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface ShortCodeListInstanceOptions {
-  friendlyName?: string;
-  limit?: number;
-  pageSize?: number;
-  shortCode?: string;
-}
-
-/**
- * Options to pass to page
- *
- * @property friendlyName - Filter by friendly name
- * @property shortCode - Filter by ShortCode
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface ShortCodeListInstancePageOptions {
-  friendlyName?: string;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-  shortCode?: string;
-}
-
-
-declare class ShortCodePage extends Page {
+declare class ShortCodePage extends Page<V2010, ShortCodePayload, ShortCodeResource, ShortCodeInstance> {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.ShortCodePage
-   * @augments Page
-   * @description Initialize the ShortCodePage
+   * Initialize the ShortCodePage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
+  constructor(version: V2010, response: Response<string>, solution: ShortCodeSolution);
 
   /**
    * Build an instance of ShortCodeInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: ShortCodePayload): ShortCodeInstance;
 }
 
 
-declare class ShortCodeInstance {
+declare class ShortCodeInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.ShortCodeInstance
-   * @description Initialize the ShortCodeContext
+   * Initialize the ShortCodeContext
    *
    * @property accountSid - The unique sid that identifies this account
    * @property apiVersion - The API version to use
@@ -248,54 +176,65 @@ declare class ShortCodeInstance {
    * @param accountSid - The unique sid that identifies this account
    * @param sid - Fetch by unique short-code Sid
    */
-  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, sid: sid);
+  constructor(version: V2010, payload: ShortCodePayload, accountSid: string, sid: string);
 
-  _proxy?: ShortCodeContext;
+  private _proxy: ShortCodeContext;
+  accountSid: string;
+  apiVersion: string;
+  dateCreated: Date;
+  dateUpdated: Date;
   /**
    * fetch a ShortCodeInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ShortCodeInstance) => any);
+  fetch(callback?: (error: Error | null, items: ShortCodeInstance) => any): void;
+  friendlyName: string;
+  shortCode: string;
+  sid: string;
+  smsFallbackMethod: string;
+  smsFallbackUrl: string;
+  smsMethod: string;
+  smsUrl: string;
   /**
    * Produce a plain JSON object version of the ShortCodeInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
   /**
    * update a ShortCodeInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ShortCodeInstanceUpdateOptions, callback?: (error: Error | null, items: ShortCodeInstance) => any);
+  update(opts?: ShortCodeInstanceUpdateOptions, callback?: (error: Error | null, items: ShortCodeInstance) => any): void;
+  uri: string;
 }
 
 
 declare class ShortCodeContext {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.ShortCodeContext
-   * @description Initialize the ShortCodeContext
+   * Initialize the ShortCodeContext
    *
    * @param version - Version of the resource
    * @param accountSid - The account_sid
    * @param sid - Fetch by unique short-code Sid
    */
-  constructor(version: Twilio.Api.V2010, accountSid: sid, sid: sid);
+  constructor(version: V2010, accountSid: string, sid: string);
 
   /**
    * fetch a ShortCodeInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ShortCodeContext) => any);
+  fetch(callback?: (error: Error | null, items: ShortCodeInstance) => any): void;
   /**
    * update a ShortCodeInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ShortCodeContextUpdateOptions, callback?: (error: Error | null, items: ShortCodeContext) => any);
+  update(opts?: ShortCodeInstanceUpdateOptions, callback?: (error: Error | null, items: ShortCodeInstance) => any): void;
 }
 
-export { ShortCodeContext, ShortCodeInstance, ShortCodeList, ShortCodeListInstance, ShortCodePage, ShortCodePayload, ShortCodeResource, ShortCodeSolution }
+export { ShortCodeContext, ShortCodeInstance, ShortCodeList, ShortCodeListInstance, ShortCodeListInstanceEachOptions, ShortCodeListInstanceOptions, ShortCodeListInstancePageOptions, ShortCodePage, ShortCodePayload, ShortCodeResource, ShortCodeSolution }

@@ -83,16 +83,16 @@ interface MemberListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<MemberPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: MemberPage) => any): Promise<MemberPage>;
   /**
-   * @description Lists MemberInstance records from the API as a list.
+   * Lists MemberInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: MemberListInstanceOptions, callback?: function): Promise<MemberInstance[]>;
+  list(opts?: MemberListInstanceOptions, callback?: (error: Error | null, items: MemberInstance[]) => any): Promise<MemberInstance[]>;
   /**
    * Retrieve a single page of MemberInstance records from the API.
    * Request is executed immediately
@@ -102,7 +102,7 @@ interface MemberListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: MemberListInstancePageOptions, callback?: function): Promise<MemberPage>;
+  page(opts?: MemberListInstancePageOptions, callback?: (error: Error | null, items: MemberPage) => any): Promise<MemberPage>;
 }
 
 /**
@@ -111,7 +111,7 @@ interface MemberListInstance {
  * @property roleSid - The Role assigned to this member.
  * @property lastConsumedMessageIndex - An Integer representing index of the last Message this Member has read within this Channel
  */
-export interface MemberInstanceUpdateOptions {
+interface MemberInstanceUpdateOptions {
   lastConsumedMessageIndex?: number;
   roleSid?: string;
 }
@@ -122,111 +122,34 @@ export interface MemberInstanceUpdateOptions {
  * @property roleSid - The Role assigned to this member.
  * @property lastConsumedMessageIndex - An Integer representing index of the last Message this Member has read within this Channel
  */
-export interface MemberContextUpdateOptions {
+interface MemberInstanceUpdateOptions {
   lastConsumedMessageIndex?: number;
   roleSid?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property identity - A unique string identifier for this User in this Service.
- * @property roleSid - The Role assigned to this member.
- */
-export interface MemberListInstanceCreateOptions {
-  identity: string;
-  roleSid?: string;
-}
 
-/**
- * Options to pass to each
- *
- * @property identity - A unique string identifier for this User in this Service.
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface MemberListInstanceEachOptions {
-  callback?: (item: MemberInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  identity?: string|list;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property identity - A unique string identifier for this User in this Service.
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface MemberListInstanceOptions {
-  identity?: string|list;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property identity - A unique string identifier for this User in this Service.
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface MemberListInstancePageOptions {
-  identity?: string|list;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-}
-
-
-declare class MemberPage extends Page {
+declare class MemberPage extends Page<V1, MemberPayload, MemberResource, MemberInstance> {
   /**
-   * @constructor Twilio.IpMessaging.V1.ServiceContext.ChannelContext.MemberPage
-   * @augments Page
-   * @description Initialize the MemberPage
+   * Initialize the MemberPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.IpMessaging.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: MemberSolution);
 
   /**
    * Build an instance of MemberInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: MemberPayload): MemberInstance;
 }
 
 
-declare class MemberInstance {
+declare class MemberInstance extends SerializableClass {
   /**
-   * @constructor Twilio.IpMessaging.V1.ServiceContext.ChannelContext.MemberInstance
-   * @description Initialize the MemberContext
+   * Initialize the MemberContext
    *
    * @property sid - A 34 character string that uniquely identifies this resource.
    * @property accountSid - The unique id of the Account responsible for this member.
@@ -246,67 +169,77 @@ declare class MemberInstance {
    * @param channelSid - The unique id of the Channel for this member.
    * @param sid - The sid
    */
-  constructor(version: Twilio.IpMessaging.V1, payload: object, serviceSid: sid, channelSid: sid, sid: sid);
+  constructor(version: V1, payload: MemberPayload, serviceSid: string, channelSid: string, sid: string);
 
-  _proxy?: MemberContext;
+  private _proxy: MemberContext;
+  accountSid: string;
+  channelSid: string;
+  dateCreated: Date;
+  dateUpdated: Date;
   /**
    * fetch a MemberInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: MemberInstance) => any);
+  fetch(callback?: (error: Error | null, items: MemberInstance) => any): void;
+  identity: string;
+  lastConsumedMessageIndex: number;
+  lastConsumptionTimestamp: Date;
   /**
    * remove a MemberInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: MemberInstance) => any);
+  remove(callback?: (error: Error | null, items: MemberInstance) => any): void;
+  roleSid: string;
+  serviceSid: string;
+  sid: string;
   /**
    * Produce a plain JSON object version of the MemberInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
   /**
    * update a MemberInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: MemberInstanceUpdateOptions, callback?: (error: Error | null, items: MemberInstance) => any);
+  update(opts?: MemberInstanceUpdateOptions, callback?: (error: Error | null, items: MemberInstance) => any): void;
+  url: string;
 }
 
 
 declare class MemberContext {
   /**
-   * @constructor Twilio.IpMessaging.V1.ServiceContext.ChannelContext.MemberContext
-   * @description Initialize the MemberContext
+   * Initialize the MemberContext
    *
    * @param version - Version of the resource
    * @param serviceSid - The service_sid
    * @param channelSid - The channel_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.IpMessaging.V1, serviceSid: sid, channelSid: sid_like, sid: sid);
+  constructor(version: V1, serviceSid: string, channelSid: string, sid: string);
 
   /**
    * fetch a MemberInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: MemberContext) => any);
+  fetch(callback?: (error: Error | null, items: MemberInstance) => any): void;
   /**
    * remove a MemberInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: MemberContext) => any);
+  remove(callback?: (error: Error | null, items: MemberInstance) => any): void;
   /**
    * update a MemberInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: MemberContextUpdateOptions, callback?: (error: Error | null, items: MemberContext) => any);
+  update(opts?: MemberInstanceUpdateOptions, callback?: (error: Error | null, items: MemberInstance) => any): void;
 }
 
-export { MemberContext, MemberInstance, MemberList, MemberListInstance, MemberPage, MemberPayload, MemberResource, MemberSolution }
+export { MemberContext, MemberInstance, MemberList, MemberListInstance, MemberListInstanceCreateOptions, MemberListInstanceEachOptions, MemberListInstanceOptions, MemberListInstancePageOptions, MemberPage, MemberPayload, MemberResource, MemberSolution }

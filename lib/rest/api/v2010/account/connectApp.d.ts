@@ -74,16 +74,16 @@ interface ConnectAppListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<ConnectAppPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: ConnectAppPage) => any): Promise<ConnectAppPage>;
   /**
-   * @description Lists ConnectAppInstance records from the API as a list.
+   * Lists ConnectAppInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: ConnectAppListInstanceOptions, callback?: function): Promise<ConnectAppInstance[]>;
+  list(opts?: ConnectAppListInstanceOptions, callback?: (error: Error | null, items: ConnectAppInstance[]) => any): Promise<ConnectAppInstance[]>;
   /**
    * Retrieve a single page of ConnectAppInstance records from the API.
    * Request is executed immediately
@@ -93,7 +93,7 @@ interface ConnectAppListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: ConnectAppListInstancePageOptions, callback?: function): Promise<ConnectAppPage>;
+  page(opts?: ConnectAppListInstancePageOptions, callback?: (error: Error | null, items: ConnectAppPage) => any): Promise<ConnectAppPage>;
 }
 
 /**
@@ -108,7 +108,7 @@ interface ConnectAppListInstance {
  * @property homepageUrl - The URL users can obtain more information
  * @property permissions - The set of permissions that your ConnectApp requests.
  */
-export interface ConnectAppInstanceUpdateOptions {
+interface ConnectAppInstanceUpdateOptions {
   authorizeRedirectUrl?: string;
   companyName?: string;
   deauthorizeCallbackMethod?: string;
@@ -131,7 +131,7 @@ export interface ConnectAppInstanceUpdateOptions {
  * @property homepageUrl - The URL users can obtain more information
  * @property permissions - The set of permissions that your ConnectApp requests.
  */
-export interface ConnectAppContextUpdateOptions {
+interface ConnectAppInstanceUpdateOptions {
   authorizeRedirectUrl?: string;
   companyName?: string;
   deauthorizeCallbackMethod?: string;
@@ -142,89 +142,29 @@ export interface ConnectAppContextUpdateOptions {
   permissions?: connect_app.permission|list;
 }
 
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface ConnectAppListInstanceEachOptions {
-  callback?: (item: ConnectAppInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
 
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface ConnectAppListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface ConnectAppListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-}
-
-
-declare class ConnectAppPage extends Page {
+declare class ConnectAppPage extends Page<V2010, ConnectAppPayload, ConnectAppResource, ConnectAppInstance> {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.ConnectAppPage
-   * @augments Page
-   * @description Initialize the ConnectAppPage
+   * Initialize the ConnectAppPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
+  constructor(version: V2010, response: Response<string>, solution: ConnectAppSolution);
 
   /**
    * Build an instance of ConnectAppInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: ConnectAppPayload): ConnectAppInstance;
 }
 
 
-declare class ConnectAppInstance {
+declare class ConnectAppInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.ConnectAppInstance
-   * @description Initialize the ConnectAppContext
+   * Initialize the ConnectAppContext
    *
    * @property accountSid - The unique sid that identifies this account
    * @property authorizeRedirectUrl - URIL Twilio sends requests when users authorize
@@ -243,54 +183,64 @@ declare class ConnectAppInstance {
    * @param accountSid - The unique sid that identifies this account
    * @param sid - Fetch by unique connect-app Sid
    */
-  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, sid: sid);
+  constructor(version: V2010, payload: ConnectAppPayload, accountSid: string, sid: string);
 
-  _proxy?: ConnectAppContext;
+  private _proxy: ConnectAppContext;
+  accountSid: string;
+  authorizeRedirectUrl: string;
+  companyName: string;
+  deauthorizeCallbackMethod: string;
+  deauthorizeCallbackUrl: string;
+  description: string;
   /**
    * fetch a ConnectAppInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ConnectAppInstance) => any);
+  fetch(callback?: (error: Error | null, items: ConnectAppInstance) => any): void;
+  friendlyName: string;
+  homepageUrl: string;
+  permissions: connect_app.permission;
+  sid: string;
   /**
    * Produce a plain JSON object version of the ConnectAppInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
   /**
    * update a ConnectAppInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ConnectAppInstanceUpdateOptions, callback?: (error: Error | null, items: ConnectAppInstance) => any);
+  update(opts?: ConnectAppInstanceUpdateOptions, callback?: (error: Error | null, items: ConnectAppInstance) => any): void;
+  uri: string;
 }
 
 
 declare class ConnectAppContext {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.ConnectAppContext
-   * @description Initialize the ConnectAppContext
+   * Initialize the ConnectAppContext
    *
    * @param version - Version of the resource
    * @param accountSid - The account_sid
    * @param sid - Fetch by unique connect-app Sid
    */
-  constructor(version: Twilio.Api.V2010, accountSid: sid, sid: sid);
+  constructor(version: V2010, accountSid: string, sid: string);
 
   /**
    * fetch a ConnectAppInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ConnectAppContext) => any);
+  fetch(callback?: (error: Error | null, items: ConnectAppInstance) => any): void;
   /**
    * update a ConnectAppInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ConnectAppContextUpdateOptions, callback?: (error: Error | null, items: ConnectAppContext) => any);
+  update(opts?: ConnectAppInstanceUpdateOptions, callback?: (error: Error | null, items: ConnectAppInstance) => any): void;
 }
 
-export { ConnectAppContext, ConnectAppInstance, ConnectAppList, ConnectAppListInstance, ConnectAppPage, ConnectAppPayload, ConnectAppResource, ConnectAppSolution }
+export { ConnectAppContext, ConnectAppInstance, ConnectAppList, ConnectAppListInstance, ConnectAppListInstanceEachOptions, ConnectAppListInstanceOptions, ConnectAppListInstancePageOptions, ConnectAppPage, ConnectAppPayload, ConnectAppResource, ConnectAppSolution }

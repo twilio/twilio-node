@@ -95,16 +95,16 @@ interface PhoneNumberListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<PhoneNumberPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: PhoneNumberPage) => any): Promise<PhoneNumberPage>;
   /**
-   * @description Lists PhoneNumberInstance records from the API as a list.
+   * Lists PhoneNumberInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: PhoneNumberListInstanceOptions, callback?: function): Promise<PhoneNumberInstance[]>;
+  list(opts?: PhoneNumberListInstanceOptions, callback?: (error: Error | null, items: PhoneNumberInstance[]) => any): Promise<PhoneNumberInstance[]>;
   /**
    * Retrieve a single page of PhoneNumberInstance records from the API.
    * Request is executed immediately
@@ -114,101 +114,32 @@ interface PhoneNumberListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: PhoneNumberListInstancePageOptions, callback?: function): Promise<PhoneNumberPage>;
-}
-
-/**
- * Options to pass to create
- *
- * @property phoneNumberSid - The SID of the Incoming Phone Number that you want to associate with this trunk.
- */
-export interface PhoneNumberListInstanceCreateOptions {
-  phoneNumberSid: string;
-}
-
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface PhoneNumberListInstanceEachOptions {
-  callback?: (item: PhoneNumberInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface PhoneNumberListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface PhoneNumberListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
+  page(opts?: PhoneNumberListInstancePageOptions, callback?: (error: Error | null, items: PhoneNumberPage) => any): Promise<PhoneNumberPage>;
 }
 
 
-declare class PhoneNumberPage extends Page {
+declare class PhoneNumberPage extends Page<V1, PhoneNumberPayload, PhoneNumberResource, PhoneNumberInstance> {
   /**
-   * @constructor Twilio.Trunking.V1.TrunkContext.PhoneNumberPage
-   * @augments Page
-   * @description Initialize the PhoneNumberPage
+   * Initialize the PhoneNumberPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Trunking.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: PhoneNumberSolution);
 
   /**
    * Build an instance of PhoneNumberInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: PhoneNumberPayload): PhoneNumberInstance;
 }
 
 
-declare class PhoneNumberInstance {
+declare class PhoneNumberInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Trunking.V1.TrunkContext.PhoneNumberInstance
-   * @description Initialize the PhoneNumberContext
+   * Initialize the PhoneNumberContext
    *
    * @property accountSid - The account_sid
    * @property addressRequirements - The address_requirements
@@ -242,52 +173,77 @@ declare class PhoneNumberInstance {
    * @param trunkSid - The trunk_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.Trunking.V1, payload: object, trunkSid: sid, sid: sid);
+  constructor(version: V1, payload: PhoneNumberPayload, trunkSid: string, sid: string);
 
-  _proxy?: PhoneNumberContext;
+  private _proxy: PhoneNumberContext;
+  accountSid: string;
+  addressRequirements: phone_number.address_requirement;
+  apiVersion: string;
+  beta: boolean;
+  capabilities: string;
+  dateCreated: Date;
+  dateUpdated: Date;
   /**
    * fetch a PhoneNumberInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: PhoneNumberInstance) => any);
+  fetch(callback?: (error: Error | null, items: PhoneNumberInstance) => any): void;
+  friendlyName: string;
+  links: string;
+  phoneNumber: string;
   /**
    * remove a PhoneNumberInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: PhoneNumberInstance) => any);
+  remove(callback?: (error: Error | null, items: PhoneNumberInstance) => any): void;
+  sid: string;
+  smsApplicationSid: string;
+  smsFallbackMethod: string;
+  smsFallbackUrl: string;
+  smsMethod: string;
+  smsUrl: string;
+  statusCallback: string;
+  statusCallbackMethod: string;
   /**
    * Produce a plain JSON object version of the PhoneNumberInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  trunkSid: string;
+  url: string;
+  voiceApplicationSid: string;
+  voiceCallerIdLookup: boolean;
+  voiceFallbackMethod: string;
+  voiceFallbackUrl: string;
+  voiceMethod: string;
+  voiceUrl: string;
 }
 
 
 declare class PhoneNumberContext {
   /**
-   * @constructor Twilio.Trunking.V1.TrunkContext.PhoneNumberContext
-   * @description Initialize the PhoneNumberContext
+   * Initialize the PhoneNumberContext
    *
    * @param version - Version of the resource
    * @param trunkSid - The trunk_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.Trunking.V1, trunkSid: sid, sid: sid);
+  constructor(version: V1, trunkSid: string, sid: string);
 
   /**
    * fetch a PhoneNumberInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: PhoneNumberContext) => any);
+  fetch(callback?: (error: Error | null, items: PhoneNumberInstance) => any): void;
   /**
    * remove a PhoneNumberInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: PhoneNumberContext) => any);
+  remove(callback?: (error: Error | null, items: PhoneNumberInstance) => any): void;
 }
 
-export { PhoneNumberContext, PhoneNumberInstance, PhoneNumberList, PhoneNumberListInstance, PhoneNumberPage, PhoneNumberPayload, PhoneNumberResource, PhoneNumberSolution }
+export { PhoneNumberContext, PhoneNumberInstance, PhoneNumberList, PhoneNumberListInstance, PhoneNumberListInstanceCreateOptions, PhoneNumberListInstanceEachOptions, PhoneNumberListInstanceOptions, PhoneNumberListInstancePageOptions, PhoneNumberPage, PhoneNumberPayload, PhoneNumberResource, PhoneNumberSolution }

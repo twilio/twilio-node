@@ -48,33 +48,28 @@ interface EngagementContextListInstance {
 }
 
 
-declare class EngagementContextPage extends Page {
+declare class EngagementContextPage extends Page<V1, EngagementContextPayload, EngagementContextResource, EngagementContextInstance> {
   /**
-   * @constructor Twilio.Studio.V1.FlowContext.EngagementContext.EngagementContextPage
-   * @augments Page
-   * @description Initialize the EngagementContextPage
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the EngagementContextPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Studio.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: EngagementContextSolution);
 
   /**
    * Build an instance of EngagementContextInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: EngagementContextPayload): EngagementContextInstance;
 }
 
 
-declare class EngagementContextInstance {
+declare class EngagementContextInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Studio.V1.FlowContext.EngagementContext.EngagementContextInstance
-   * @description Initialize the EngagementContextContext
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the EngagementContextContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @property accountSid - The account_sid
    * @property context - The context
@@ -87,41 +82,44 @@ declare class EngagementContextInstance {
    * @param flowSid - The flow_sid
    * @param engagementSid - The engagement_sid
    */
-  constructor(version: Twilio.Studio.V1, payload: object, flowSid: sid, engagementSid: sid);
+  constructor(version: V1, payload: EngagementContextPayload, flowSid: string, engagementSid: string);
 
-  _proxy?: EngagementContextContext;
+  private _proxy: EngagementContextContext;
+  accountSid: string;
+  context: string;
+  engagementSid: string;
   /**
    * fetch a EngagementContextInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: EngagementContextInstance) => any);
+  fetch(callback?: (error: Error | null, items: EngagementContextInstance) => any): void;
+  flowSid: string;
   /**
    * Produce a plain JSON object version of the EngagementContextInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  url: string;
 }
 
 
 declare class EngagementContextContext {
   /**
-   * @constructor Twilio.Studio.V1.FlowContext.EngagementContext.EngagementContextContext
-   * @description Initialize the EngagementContextContext
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the EngagementContextContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
    * @param flowSid - The flow_sid
    * @param engagementSid - The engagement_sid
    */
-  constructor(version: Twilio.Studio.V1, flowSid: sid, engagementSid: sid);
+  constructor(version: V1, flowSid: string, engagementSid: string);
 
   /**
    * fetch a EngagementContextInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: EngagementContextContext) => any);
+  fetch(callback?: (error: Error | null, items: EngagementContextInstance) => any): void;
 }
 
 export { EngagementContextContext, EngagementContextInstance, EngagementContextList, EngagementContextListInstance, EngagementContextPage, EngagementContextPayload, EngagementContextResource, EngagementContextSolution }

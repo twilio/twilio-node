@@ -84,16 +84,16 @@ interface SyncMapItemListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<SyncMapItemPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: SyncMapItemPage) => any): Promise<SyncMapItemPage>;
   /**
-   * @description Lists SyncMapItemInstance records from the API as a list.
+   * Lists SyncMapItemInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: SyncMapItemListInstanceOptions, callback?: function): Promise<SyncMapItemInstance[]>;
+  list(opts?: SyncMapItemListInstanceOptions, callback?: (error: Error | null, items: SyncMapItemInstance[]) => any): Promise<SyncMapItemInstance[]>;
   /**
    * Retrieve a single page of SyncMapItemInstance records from the API.
    * Request is executed immediately
@@ -103,7 +103,7 @@ interface SyncMapItemListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: SyncMapItemListInstancePageOptions, callback?: function): Promise<SyncMapItemPage>;
+  page(opts?: SyncMapItemListInstancePageOptions, callback?: (error: Error | null, items: SyncMapItemPage) => any): Promise<SyncMapItemPage>;
 }
 
 /**
@@ -112,7 +112,7 @@ interface SyncMapItemListInstance {
  * @property data - Contains an arbitrary JSON object to be stored in this Map Item.
  * @property ttl - New time-to-live of this Map in seconds.
  */
-export interface SyncMapItemInstanceUpdateOptions {
+interface SyncMapItemInstanceUpdateOptions {
   data?: string;
   ttl?: number;
 }
@@ -123,127 +123,34 @@ export interface SyncMapItemInstanceUpdateOptions {
  * @property data - Contains an arbitrary JSON object to be stored in this Map Item.
  * @property ttl - New time-to-live of this Map in seconds.
  */
-export interface SyncMapItemContextUpdateOptions {
+interface SyncMapItemInstanceUpdateOptions {
   data?: string;
   ttl?: number;
 }
 
-/**
- * Options to pass to create
- *
- * @property key - The unique user-defined key of this Map Item.
- * @property data - Contains arbitrary user-defined, schema-less data that this Map Item stores, represented by a JSON object, up to 16KB.
- * @property ttl - Time-to-live of this Map in seconds, defaults to no expiration.
- */
-export interface SyncMapItemListInstanceCreateOptions {
-  data: string;
-  key: string;
-  ttl?: number;
-}
 
-/**
- * Options to pass to each
- *
- * @property order - A string; asc or desc. Map Items are ordered lexicographically by Item key.
- * @property from - The Item key offset (including the specified key).
- * @property bounds - The bounds
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface SyncMapItemListInstanceEachOptions {
-  bounds?: sync_map_item.query_from_bound_type;
-  callback?: (item: SyncMapItemInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  from?: string;
-  limit?: number;
-  order?: sync_map_item.query_result_order;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property order - A string; asc or desc. Map Items are ordered lexicographically by Item key.
- * @property from - The Item key offset (including the specified key).
- * @property bounds - The bounds
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface SyncMapItemListInstanceOptions {
-  bounds?: sync_map_item.query_from_bound_type;
-  from?: string;
-  limit?: number;
-  order?: sync_map_item.query_result_order;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property order - A string; asc or desc. Map Items are ordered lexicographically by Item key.
- * @property from - The Item key offset (including the specified key).
- * @property bounds - The bounds
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface SyncMapItemListInstancePageOptions {
-  bounds?: sync_map_item.query_from_bound_type;
-  from?: string;
-  order?: sync_map_item.query_result_order;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-}
-
-
-declare class SyncMapItemPage extends Page {
+declare class SyncMapItemPage extends Page<V1, SyncMapItemPayload, SyncMapItemResource, SyncMapItemInstance> {
   /**
-   * @constructor Twilio.Sync.V1.ServiceContext.SyncMapContext.SyncMapItemPage
-   * @augments Page
-   * @description Initialize the SyncMapItemPage
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the SyncMapItemPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Sync.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: SyncMapItemSolution);
 
   /**
    * Build an instance of SyncMapItemInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: SyncMapItemPayload): SyncMapItemInstance;
 }
 
 
-declare class SyncMapItemInstance {
+declare class SyncMapItemInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Sync.V1.ServiceContext.SyncMapContext.SyncMapItemInstance
-   * @description Initialize the SyncMapItemContext
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the SyncMapItemContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @property key - The unique user-defined key of this Map Item.
    * @property accountSid - The unique SID identifier of the Twilio Account.
@@ -263,68 +170,77 @@ declare class SyncMapItemInstance {
    * @param mapSid - The unique 34-character SID identifier of the Map containing this Item.
    * @param key - The key
    */
-  constructor(version: Twilio.Sync.V1, payload: object, serviceSid: sid, mapSid: sid, key: string);
+  constructor(version: V1, payload: SyncMapItemPayload, serviceSid: string, mapSid: string, key: string);
 
-  _proxy?: SyncMapItemContext;
+  private _proxy: SyncMapItemContext;
+  accountSid: string;
+  createdBy: string;
+  data: string;
+  dateCreated: Date;
+  dateExpires: Date;
+  dateUpdated: Date;
   /**
    * fetch a SyncMapItemInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: SyncMapItemInstance) => any);
+  fetch(callback?: (error: Error | null, items: SyncMapItemInstance) => any): void;
+  key: string;
+  mapSid: string;
   /**
    * remove a SyncMapItemInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: SyncMapItemInstance) => any);
+  remove(callback?: (error: Error | null, items: SyncMapItemInstance) => any): void;
+  revision: string;
+  serviceSid: string;
   /**
    * Produce a plain JSON object version of the SyncMapItemInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
   /**
    * update a SyncMapItemInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: SyncMapItemInstanceUpdateOptions, callback?: (error: Error | null, items: SyncMapItemInstance) => any);
+  update(opts?: SyncMapItemInstanceUpdateOptions, callback?: (error: Error | null, items: SyncMapItemInstance) => any): void;
+  url: string;
 }
 
 
 declare class SyncMapItemContext {
   /**
-   * @constructor Twilio.Sync.V1.ServiceContext.SyncMapContext.SyncMapItemContext
-   * @description Initialize the SyncMapItemContext
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the SyncMapItemContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
    * @param serviceSid - The service_sid
    * @param mapSid - The map_sid
    * @param key - The key
    */
-  constructor(version: Twilio.Sync.V1, serviceSid: sid_like, mapSid: sid_like, key: string);
+  constructor(version: V1, serviceSid: string, mapSid: string, key: string);
 
   /**
    * fetch a SyncMapItemInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: SyncMapItemContext) => any);
+  fetch(callback?: (error: Error | null, items: SyncMapItemInstance) => any): void;
   /**
    * remove a SyncMapItemInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: SyncMapItemContext) => any);
+  remove(callback?: (error: Error | null, items: SyncMapItemInstance) => any): void;
   /**
    * update a SyncMapItemInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: SyncMapItemContextUpdateOptions, callback?: (error: Error | null, items: SyncMapItemContext) => any);
+  update(opts?: SyncMapItemInstanceUpdateOptions, callback?: (error: Error | null, items: SyncMapItemInstance) => any): void;
 }
 
-export { SyncMapItemContext, SyncMapItemInstance, SyncMapItemList, SyncMapItemListInstance, SyncMapItemPage, SyncMapItemPayload, SyncMapItemResource, SyncMapItemSolution }
+export { SyncMapItemContext, SyncMapItemInstance, SyncMapItemList, SyncMapItemListInstance, SyncMapItemListInstanceCreateOptions, SyncMapItemListInstanceEachOptions, SyncMapItemListInstanceOptions, SyncMapItemListInstancePageOptions, SyncMapItemPage, SyncMapItemPayload, SyncMapItemResource, SyncMapItemSolution }

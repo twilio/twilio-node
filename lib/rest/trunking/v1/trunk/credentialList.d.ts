@@ -76,16 +76,16 @@ interface CredentialListListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<CredentialListPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: CredentialListPage) => any): Promise<CredentialListPage>;
   /**
-   * @description Lists CredentialListInstance records from the API as a list.
+   * Lists CredentialListInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: CredentialListListInstanceOptions, callback?: function): Promise<CredentialListInstance[]>;
+  list(opts?: CredentialListListInstanceOptions, callback?: (error: Error | null, items: CredentialListInstance[]) => any): Promise<CredentialListInstance[]>;
   /**
    * Retrieve a single page of CredentialListInstance records from the API.
    * Request is executed immediately
@@ -95,101 +95,32 @@ interface CredentialListListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: CredentialListListInstancePageOptions, callback?: function): Promise<CredentialListPage>;
-}
-
-/**
- * Options to pass to create
- *
- * @property credentialListSid - The SID of the Credential List that you want to associate with this trunk. Once associated, Twilio will start authenticating access to the trunk against this list.
- */
-export interface CredentialListListInstanceCreateOptions {
-  credentialListSid: string;
-}
-
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface CredentialListListInstanceEachOptions {
-  callback?: (item: CredentialListInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface CredentialListListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface CredentialListListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
+  page(opts?: CredentialListListInstancePageOptions, callback?: (error: Error | null, items: CredentialListPage) => any): Promise<CredentialListPage>;
 }
 
 
-declare class CredentialListPage extends Page {
+declare class CredentialListPage extends Page<V1, CredentialListPayload, CredentialListResource, CredentialListInstance> {
   /**
-   * @constructor Twilio.Trunking.V1.TrunkContext.CredentialListPage
-   * @augments Page
-   * @description Initialize the CredentialListPage
+   * Initialize the CredentialListPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Trunking.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: CredentialListSolution);
 
   /**
    * Build an instance of CredentialListInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: CredentialListPayload): CredentialListInstance;
 }
 
 
-declare class CredentialListInstance {
+declare class CredentialListInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Trunking.V1.TrunkContext.CredentialListInstance
-   * @description Initialize the CredentialListContext
+   * Initialize the CredentialListContext
    *
    * @property accountSid - The account_sid
    * @property sid - The sid
@@ -204,52 +135,58 @@ declare class CredentialListInstance {
    * @param trunkSid - The trunk_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.Trunking.V1, payload: object, trunkSid: sid, sid: sid);
+  constructor(version: V1, payload: CredentialListPayload, trunkSid: string, sid: string);
 
-  _proxy?: CredentialListContext;
+  private _proxy: CredentialListContext;
+  accountSid: string;
+  dateCreated: Date;
+  dateUpdated: Date;
   /**
    * fetch a CredentialListInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CredentialListInstance) => any);
+  fetch(callback?: (error: Error | null, items: CredentialListInstance) => any): void;
+  friendlyName: string;
   /**
    * remove a CredentialListInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: CredentialListInstance) => any);
+  remove(callback?: (error: Error | null, items: CredentialListInstance) => any): void;
+  sid: string;
   /**
    * Produce a plain JSON object version of the CredentialListInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  trunkSid: string;
+  url: string;
 }
 
 
 declare class CredentialListContext {
   /**
-   * @constructor Twilio.Trunking.V1.TrunkContext.CredentialListContext
-   * @description Initialize the CredentialListContext
+   * Initialize the CredentialListContext
    *
    * @param version - Version of the resource
    * @param trunkSid - The trunk_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.Trunking.V1, trunkSid: sid, sid: sid);
+  constructor(version: V1, trunkSid: string, sid: string);
 
   /**
    * fetch a CredentialListInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CredentialListContext) => any);
+  fetch(callback?: (error: Error | null, items: CredentialListInstance) => any): void;
   /**
    * remove a CredentialListInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: CredentialListContext) => any);
+  remove(callback?: (error: Error | null, items: CredentialListInstance) => any): void;
 }
 
-export { CredentialListContext, CredentialListInstance, CredentialListList, CredentialListListInstance, CredentialListPage, CredentialListPayload, CredentialListResource, CredentialListSolution }
+export { CredentialListContext, CredentialListInstance, CredentialListList, CredentialListListInstance, CredentialListListInstanceCreateOptions, CredentialListListInstanceEachOptions, CredentialListListInstanceOptions, CredentialListListInstancePageOptions, CredentialListPage, CredentialListPayload, CredentialListResource, CredentialListSolution }

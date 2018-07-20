@@ -78,16 +78,16 @@ interface RoomRecordingListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<RoomRecordingPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: RoomRecordingPage) => any): Promise<RoomRecordingPage>;
   /**
-   * @description Lists RoomRecordingInstance records from the API as a list.
+   * Lists RoomRecordingInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: RoomRecordingListInstanceOptions, callback?: function): Promise<RoomRecordingInstance[]>;
+  list(opts?: RoomRecordingListInstanceOptions, callback?: (error: Error | null, items: RoomRecordingInstance[]) => any): Promise<RoomRecordingInstance[]>;
   /**
    * Retrieve a single page of RoomRecordingInstance records from the API.
    * Request is executed immediately
@@ -97,116 +97,32 @@ interface RoomRecordingListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: RoomRecordingListInstancePageOptions, callback?: function): Promise<RoomRecordingPage>;
-}
-
-/**
- * Options to pass to each
- *
- * @property status - The status
- * @property sourceSid - The source_sid
- * @property dateCreatedAfter - The date_created_after
- * @property dateCreatedBefore - The date_created_before
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface RoomRecordingListInstanceEachOptions {
-  callback?: (item: RoomRecordingInstance, done: (err?: Error) => void) => void;
-  dateCreatedAfter?: Date;
-  dateCreatedBefore?: Date;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-  sourceSid?: string;
-  status?: room_recording.status;
-}
-
-/**
- * Options to pass to list
- *
- * @property status - The status
- * @property sourceSid - The source_sid
- * @property dateCreatedAfter - The date_created_after
- * @property dateCreatedBefore - The date_created_before
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface RoomRecordingListInstanceOptions {
-  dateCreatedAfter?: Date;
-  dateCreatedBefore?: Date;
-  limit?: number;
-  pageSize?: number;
-  sourceSid?: string;
-  status?: room_recording.status;
-}
-
-/**
- * Options to pass to page
- *
- * @property status - The status
- * @property sourceSid - The source_sid
- * @property dateCreatedAfter - The date_created_after
- * @property dateCreatedBefore - The date_created_before
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface RoomRecordingListInstancePageOptions {
-  dateCreatedAfter?: Date;
-  dateCreatedBefore?: Date;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-  sourceSid?: string;
-  status?: room_recording.status;
+  page(opts?: RoomRecordingListInstancePageOptions, callback?: (error: Error | null, items: RoomRecordingPage) => any): Promise<RoomRecordingPage>;
 }
 
 
-declare class RoomRecordingPage extends Page {
+declare class RoomRecordingPage extends Page<V1, RoomRecordingPayload, RoomRecordingResource, RoomRecordingInstance> {
   /**
-   * @constructor Twilio.Video.V1.RoomContext.RoomRecordingPage
-   * @augments Page
-   * @description Initialize the RoomRecordingPage
+   * Initialize the RoomRecordingPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Video.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: RoomRecordingSolution);
 
   /**
    * Build an instance of RoomRecordingInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: RoomRecordingPayload): RoomRecordingInstance;
 }
 
 
-declare class RoomRecordingInstance {
+declare class RoomRecordingInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Video.V1.RoomContext.RoomRecordingInstance
-   * @description Initialize the RoomRecordingContext
+   * Initialize the RoomRecordingContext
    *
    * @property accountSid - The account_sid
    * @property status - The status
@@ -229,40 +145,54 @@ declare class RoomRecordingInstance {
    * @param roomSid - The room_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.Video.V1, payload: object, roomSid: sid, sid: sid);
+  constructor(version: V1, payload: RoomRecordingPayload, roomSid: string, sid: string);
 
-  _proxy?: RoomRecordingContext;
+  private _proxy: RoomRecordingContext;
+  accountSid: string;
+  codec: room_recording.codec;
+  containerFormat: room_recording.format;
+  dateCreated: Date;
+  duration: number;
   /**
    * fetch a RoomRecordingInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: RoomRecordingInstance) => any);
+  fetch(callback?: (error: Error | null, items: RoomRecordingInstance) => any): void;
+  groupingSids: string;
+  links: string;
+  roomSid: string;
+  sid: string;
+  size: number;
+  sourceSid: string;
+  status: room_recording.status;
   /**
    * Produce a plain JSON object version of the RoomRecordingInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  trackName: string;
+  type: room_recording.type;
+  url: string;
 }
 
 
 declare class RoomRecordingContext {
   /**
-   * @constructor Twilio.Video.V1.RoomContext.RoomRecordingContext
-   * @description Initialize the RoomRecordingContext
+   * Initialize the RoomRecordingContext
    *
    * @param version - Version of the resource
    * @param roomSid - The room_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.Video.V1, roomSid: sid, sid: sid);
+  constructor(version: V1, roomSid: string, sid: string);
 
   /**
    * fetch a RoomRecordingInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: RoomRecordingContext) => any);
+  fetch(callback?: (error: Error | null, items: RoomRecordingInstance) => any): void;
 }
 
-export { RoomRecordingContext, RoomRecordingInstance, RoomRecordingList, RoomRecordingListInstance, RoomRecordingPage, RoomRecordingPayload, RoomRecordingResource, RoomRecordingSolution }
+export { RoomRecordingContext, RoomRecordingInstance, RoomRecordingList, RoomRecordingListInstance, RoomRecordingListInstanceEachOptions, RoomRecordingListInstanceOptions, RoomRecordingListInstancePageOptions, RoomRecordingPage, RoomRecordingPayload, RoomRecordingResource, RoomRecordingSolution }

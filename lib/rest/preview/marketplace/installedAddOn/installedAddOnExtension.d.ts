@@ -71,16 +71,16 @@ interface InstalledAddOnExtensionListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<InstalledAddOnExtensionPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: InstalledAddOnExtensionPage) => any): Promise<InstalledAddOnExtensionPage>;
   /**
-   * @description Lists InstalledAddOnExtensionInstance records from the API as a list.
+   * Lists InstalledAddOnExtensionInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: InstalledAddOnExtensionListInstanceOptions, callback?: function): Promise<InstalledAddOnExtensionInstance[]>;
+  list(opts?: InstalledAddOnExtensionListInstanceOptions, callback?: (error: Error | null, items: InstalledAddOnExtensionInstance[]) => any): Promise<InstalledAddOnExtensionInstance[]>;
   /**
    * Retrieve a single page of InstalledAddOnExtensionInstance records from the API.
    * Request is executed immediately
@@ -90,7 +90,7 @@ interface InstalledAddOnExtensionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: InstalledAddOnExtensionListInstancePageOptions, callback?: function): Promise<InstalledAddOnExtensionPage>;
+  page(opts?: InstalledAddOnExtensionListInstancePageOptions, callback?: (error: Error | null, items: InstalledAddOnExtensionPage) => any): Promise<InstalledAddOnExtensionPage>;
 }
 
 /**
@@ -98,7 +98,7 @@ interface InstalledAddOnExtensionListInstance {
  *
  * @property enabled - A Boolean indicating if the Extension will be invoked
  */
-export interface InstalledAddOnExtensionInstanceUpdateOptions {
+interface InstalledAddOnExtensionInstanceUpdateOptions {
   enabled: boolean;
 }
 
@@ -107,95 +107,33 @@ export interface InstalledAddOnExtensionInstanceUpdateOptions {
  *
  * @property enabled - A Boolean indicating if the Extension will be invoked
  */
-export interface InstalledAddOnExtensionContextUpdateOptions {
+interface InstalledAddOnExtensionInstanceUpdateOptions {
   enabled: boolean;
 }
 
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface InstalledAddOnExtensionListInstanceEachOptions {
-  callback?: (item: InstalledAddOnExtensionInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
 
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface InstalledAddOnExtensionListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface InstalledAddOnExtensionListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-}
-
-
-declare class InstalledAddOnExtensionPage extends Page {
+declare class InstalledAddOnExtensionPage extends Page<Marketplace, InstalledAddOnExtensionPayload, InstalledAddOnExtensionResource, InstalledAddOnExtensionInstance> {
   /**
-   * @constructor Twilio.Preview.Marketplace.InstalledAddOnContext.InstalledAddOnExtensionPage
-   * @augments Page
-   * @description Initialize the InstalledAddOnExtensionPage
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the InstalledAddOnExtensionPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Preview.Marketplace, response: Response<string>, solution: object);
+  constructor(version: Marketplace, response: Response<string>, solution: InstalledAddOnExtensionSolution);
 
   /**
    * Build an instance of InstalledAddOnExtensionInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: InstalledAddOnExtensionPayload): InstalledAddOnExtensionInstance;
 }
 
 
-declare class InstalledAddOnExtensionInstance {
+declare class InstalledAddOnExtensionInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Preview.Marketplace.InstalledAddOnContext.InstalledAddOnExtensionInstance
-   * @description Initialize the InstalledAddOnExtensionContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the InstalledAddOnExtensionContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @property sid - A string that uniquely identifies this Extension
    * @property installedAddOnSid - The installed_add_on_sid
@@ -210,55 +148,60 @@ declare class InstalledAddOnExtensionInstance {
    * @param installedAddOnSid - The installed_add_on_sid
    * @param sid - The unique Extension Sid
    */
-  constructor(version: Twilio.Preview.Marketplace, payload: object, installedAddOnSid: sid, sid: sid);
+  constructor(version: Marketplace, payload: InstalledAddOnExtensionPayload, installedAddOnSid: string, sid: string);
 
-  _proxy?: InstalledAddOnExtensionContext;
+  private _proxy: InstalledAddOnExtensionContext;
+  enabled: boolean;
   /**
    * fetch a InstalledAddOnExtensionInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: InstalledAddOnExtensionInstance) => any);
+  fetch(callback?: (error: Error | null, items: InstalledAddOnExtensionInstance) => any): void;
+  friendlyName: string;
+  installedAddOnSid: string;
+  productName: string;
+  sid: string;
   /**
    * Produce a plain JSON object version of the InstalledAddOnExtensionInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  uniqueName: string;
   /**
    * update a InstalledAddOnExtensionInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: InstalledAddOnExtensionInstanceUpdateOptions, callback?: (error: Error | null, items: InstalledAddOnExtensionInstance) => any);
+  update(opts: InstalledAddOnExtensionInstanceUpdateOptions, callback?: (error: Error | null, items: InstalledAddOnExtensionInstance) => any): void;
+  url: string;
 }
 
 
 declare class InstalledAddOnExtensionContext {
   /**
-   * @constructor Twilio.Preview.Marketplace.InstalledAddOnContext.InstalledAddOnExtensionContext
-   * @description Initialize the InstalledAddOnExtensionContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the InstalledAddOnExtensionContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param installedAddOnSid - The installed_add_on_sid
    * @param sid - The unique Extension Sid
    */
-  constructor(version: Twilio.Preview.Marketplace, installedAddOnSid: sid, sid: sid);
+  constructor(version: Marketplace, installedAddOnSid: string, sid: string);
 
   /**
    * fetch a InstalledAddOnExtensionInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: InstalledAddOnExtensionContext) => any);
+  fetch(callback?: (error: Error | null, items: InstalledAddOnExtensionInstance) => any): void;
   /**
    * update a InstalledAddOnExtensionInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: InstalledAddOnExtensionContextUpdateOptions, callback?: (error: Error | null, items: InstalledAddOnExtensionContext) => any);
+  update(opts: InstalledAddOnExtensionInstanceUpdateOptions, callback?: (error: Error | null, items: InstalledAddOnExtensionInstance) => any): void;
 }
 
-export { InstalledAddOnExtensionContext, InstalledAddOnExtensionInstance, InstalledAddOnExtensionList, InstalledAddOnExtensionListInstance, InstalledAddOnExtensionPage, InstalledAddOnExtensionPayload, InstalledAddOnExtensionResource, InstalledAddOnExtensionSolution }
+export { InstalledAddOnExtensionContext, InstalledAddOnExtensionInstance, InstalledAddOnExtensionList, InstalledAddOnExtensionListInstance, InstalledAddOnExtensionListInstanceEachOptions, InstalledAddOnExtensionListInstanceOptions, InstalledAddOnExtensionListInstancePageOptions, InstalledAddOnExtensionPage, InstalledAddOnExtensionPayload, InstalledAddOnExtensionResource, InstalledAddOnExtensionSolution }

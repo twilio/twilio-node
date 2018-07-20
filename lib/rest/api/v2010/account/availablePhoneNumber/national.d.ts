@@ -68,16 +68,16 @@ interface NationalListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<NationalPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: NationalPage) => any): Promise<NationalPage>;
   /**
-   * @description Lists NationalInstance records from the API as a list.
+   * Lists NationalInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: NationalListInstanceOptions, callback?: function): Promise<NationalInstance[]>;
+  list(opts?: NationalListInstanceOptions, callback?: (error: Error | null, items: NationalInstance[]) => any): Promise<NationalInstance[]>;
   /**
    * Retrieve a single page of NationalInstance records from the API.
    * Request is executed immediately
@@ -87,200 +87,32 @@ interface NationalListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: NationalListInstancePageOptions, callback?: function): Promise<NationalPage>;
-}
-
-/**
- * Options to pass to each
- *
- * @property areaCode - The area_code
- * @property contains - The contains
- * @property smsEnabled - The sms_enabled
- * @property mmsEnabled - The mms_enabled
- * @property voiceEnabled - The voice_enabled
- * @property excludeAllAddressRequired - The exclude_all_address_required
- * @property excludeLocalAddressRequired - The exclude_local_address_required
- * @property excludeForeignAddressRequired - The exclude_foreign_address_required
- * @property beta - The beta
- * @property nearNumber - The near_number
- * @property nearLatLong - The near_lat_long
- * @property distance - The distance
- * @property inPostalCode - The in_postal_code
- * @property inRegion - The in_region
- * @property inRateCenter - The in_rate_center
- * @property inLata - The in_lata
- * @property inLocality - The in_locality
- * @property faxEnabled - The fax_enabled
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface NationalListInstanceEachOptions {
-  areaCode?: number;
-  beta?: boolean;
-  callback?: (item: NationalInstance, done: (err?: Error) => void) => void;
-  contains?: string;
-  distance?: number;
-  done?: Function;
-  excludeAllAddressRequired?: boolean;
-  excludeForeignAddressRequired?: boolean;
-  excludeLocalAddressRequired?: boolean;
-  faxEnabled?: boolean;
-  inLata?: string;
-  inLocality?: string;
-  inPostalCode?: string;
-  inRateCenter?: string;
-  inRegion?: string;
-  limit?: number;
-  mmsEnabled?: boolean;
-  nearLatLong?: string;
-  nearNumber?: string;
-  pageSize?: number;
-  smsEnabled?: boolean;
-  voiceEnabled?: boolean;
-}
-
-/**
- * Options to pass to list
- *
- * @property areaCode - The area_code
- * @property contains - The contains
- * @property smsEnabled - The sms_enabled
- * @property mmsEnabled - The mms_enabled
- * @property voiceEnabled - The voice_enabled
- * @property excludeAllAddressRequired - The exclude_all_address_required
- * @property excludeLocalAddressRequired - The exclude_local_address_required
- * @property excludeForeignAddressRequired - The exclude_foreign_address_required
- * @property beta - The beta
- * @property nearNumber - The near_number
- * @property nearLatLong - The near_lat_long
- * @property distance - The distance
- * @property inPostalCode - The in_postal_code
- * @property inRegion - The in_region
- * @property inRateCenter - The in_rate_center
- * @property inLata - The in_lata
- * @property inLocality - The in_locality
- * @property faxEnabled - The fax_enabled
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface NationalListInstanceOptions {
-  areaCode?: number;
-  beta?: boolean;
-  contains?: string;
-  distance?: number;
-  excludeAllAddressRequired?: boolean;
-  excludeForeignAddressRequired?: boolean;
-  excludeLocalAddressRequired?: boolean;
-  faxEnabled?: boolean;
-  inLata?: string;
-  inLocality?: string;
-  inPostalCode?: string;
-  inRateCenter?: string;
-  inRegion?: string;
-  limit?: number;
-  mmsEnabled?: boolean;
-  nearLatLong?: string;
-  nearNumber?: string;
-  pageSize?: number;
-  smsEnabled?: boolean;
-  voiceEnabled?: boolean;
-}
-
-/**
- * Options to pass to page
- *
- * @property areaCode - The area_code
- * @property contains - The contains
- * @property smsEnabled - The sms_enabled
- * @property mmsEnabled - The mms_enabled
- * @property voiceEnabled - The voice_enabled
- * @property excludeAllAddressRequired - The exclude_all_address_required
- * @property excludeLocalAddressRequired - The exclude_local_address_required
- * @property excludeForeignAddressRequired - The exclude_foreign_address_required
- * @property beta - The beta
- * @property nearNumber - The near_number
- * @property nearLatLong - The near_lat_long
- * @property distance - The distance
- * @property inPostalCode - The in_postal_code
- * @property inRegion - The in_region
- * @property inRateCenter - The in_rate_center
- * @property inLata - The in_lata
- * @property inLocality - The in_locality
- * @property faxEnabled - The fax_enabled
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface NationalListInstancePageOptions {
-  areaCode?: number;
-  beta?: boolean;
-  contains?: string;
-  distance?: number;
-  excludeAllAddressRequired?: boolean;
-  excludeForeignAddressRequired?: boolean;
-  excludeLocalAddressRequired?: boolean;
-  faxEnabled?: boolean;
-  inLata?: string;
-  inLocality?: string;
-  inPostalCode?: string;
-  inRateCenter?: string;
-  inRegion?: string;
-  mmsEnabled?: boolean;
-  nearLatLong?: string;
-  nearNumber?: string;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-  smsEnabled?: boolean;
-  voiceEnabled?: boolean;
+  page(opts?: NationalListInstancePageOptions, callback?: (error: Error | null, items: NationalPage) => any): Promise<NationalPage>;
 }
 
 
-declare class NationalPage extends Page {
+declare class NationalPage extends Page<V2010, NationalPayload, NationalResource, NationalInstance> {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.NationalPage
-   * @augments Page
-   * @description Initialize the NationalPage
+   * Initialize the NationalPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
+  constructor(version: V2010, response: Response<string>, solution: NationalSolution);
 
   /**
    * Build an instance of NationalInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: NationalPayload): NationalInstance;
 }
 
 
-declare class NationalInstance {
+declare class NationalInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.NationalInstance
-   * @description Initialize the NationalContext
+   * Initialize the NationalContext
    *
    * @property friendlyName - The friendly_name
    * @property phoneNumber - The phone_number
@@ -301,13 +133,26 @@ declare class NationalInstance {
    * @param accountSid - The 34 character string that uniquely identifies your account.
    * @param countryCode - The ISO Country code to lookup phone numbers for.
    */
-  constructor(version: Twilio.Api.V2010, payload: object, accountSid: account_sid, countryCode: iso_country_code);
+  constructor(version: V2010, payload: NationalPayload, accountSid: string, countryCode: string);
 
+  addressRequirements: string;
+  beta: boolean;
+  capabilities: string;
+  friendlyName: string;
+  isoCountry: string;
+  lata: string;
+  latitude: number;
+  locality: string;
+  longitude: number;
+  phoneNumber: string;
+  postalCode: string;
+  rateCenter: string;
+  region: string;
   /**
    * Produce a plain JSON object version of the NationalInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
 }
 
-export { NationalInstance, NationalList, NationalListInstance, NationalPage, NationalPayload, NationalResource, NationalSolution }
+export { NationalInstance, NationalList, NationalListInstance, NationalListInstanceEachOptions, NationalListInstanceOptions, NationalListInstancePageOptions, NationalPage, NationalPayload, NationalResource, NationalSolution }

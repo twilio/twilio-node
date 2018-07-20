@@ -87,16 +87,16 @@ interface AssistantListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<AssistantPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: AssistantPage) => any): Promise<AssistantPage>;
   /**
-   * @description Lists AssistantInstance records from the API as a list.
+   * Lists AssistantInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: AssistantListInstanceOptions, callback?: function): Promise<AssistantInstance[]>;
+  list(opts?: AssistantListInstanceOptions, callback?: (error: Error | null, items: AssistantInstance[]) => any): Promise<AssistantInstance[]>;
   /**
    * Retrieve a single page of AssistantInstance records from the API.
    * Request is executed immediately
@@ -106,7 +106,7 @@ interface AssistantListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: AssistantListInstancePageOptions, callback?: function): Promise<AssistantPage>;
+  page(opts?: AssistantListInstancePageOptions, callback?: (error: Error | null, items: AssistantPage) => any): Promise<AssistantPage>;
 }
 
 /**
@@ -120,7 +120,7 @@ interface AssistantListInstance {
  * @property callbackUrl - The callback_url
  * @property callbackEvents - The callback_events
  */
-export interface AssistantInstanceUpdateOptions {
+interface AssistantInstanceUpdateOptions {
   callbackEvents?: string;
   callbackUrl?: string;
   friendlyName?: string;
@@ -141,85 +141,7 @@ export interface AssistantInstanceUpdateOptions {
  * @property callbackUrl - The callback_url
  * @property callbackEvents - The callback_events
  */
-export interface AssistantContextUpdateOptions {
-  callbackEvents?: string;
-  callbackUrl?: string;
-  friendlyName?: string;
-  logQueries?: boolean;
-  responseUrl?: string;
-  ttl?: number;
-  uniqueName?: string;
-}
-
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface AssistantListInstanceEachOptions {
-  callback?: (item: AssistantInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface AssistantListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface AssistantListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-}
-
-/**
- * Options to pass to create
- *
- * @property friendlyName - A text description for the Assistant. It is non-unique and can up to 255 characters long.
- * @property logQueries - A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
- * @property ttl - The ttl
- * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
- * @property responseUrl - The webhook URL called to fetch the response to an incoming communication expressed in Assistant TwiML.
- * @property callbackUrl - The callback_url
- * @property callbackEvents - The callback_events
- */
-export interface AssistantListInstanceCreateOptions {
+interface AssistantInstanceUpdateOptions {
   callbackEvents?: string;
   callbackUrl?: string;
   friendlyName?: string;
@@ -230,33 +152,28 @@ export interface AssistantListInstanceCreateOptions {
 }
 
 
-declare class AssistantPage extends Page {
+declare class AssistantPage extends Page<Understand, AssistantPayload, AssistantResource, AssistantInstance> {
   /**
-   * @constructor Twilio.Preview.Understand.AssistantPage
-   * @augments Page
-   * @description Initialize the AssistantPage
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the AssistantPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Preview.Understand, response: Response<string>, solution: object);
+  constructor(version: Understand, response: Response<string>, solution: AssistantSolution);
 
   /**
    * Build an instance of AssistantInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: AssistantPayload): AssistantInstance;
 }
 
 
-declare class AssistantInstance {
+declare class AssistantInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Preview.Understand.AssistantInstance
-   * @description Initialize the AssistantContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the AssistantContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @property accountSid - The unique ID of the Account that created this Assistant.
    * @property dateCreated - The date that this resource was created
@@ -277,23 +194,32 @@ declare class AssistantInstance {
    * @param payload - The instance payload
    * @param sid - The sid
    */
-  constructor(version: Twilio.Preview.Understand, payload: object, sid: sid_like);
+  constructor(version: Understand, payload: AssistantPayload, sid: string);
 
-  _proxy?: AssistantContext;
+  private _proxy: AssistantContext;
+  accountSid: string;
+  callbackEvents: string;
+  callbackUrl: string;
+  dateCreated: Date;
+  dateUpdated: Date;
   /**
    * fetch a AssistantInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AssistantInstance) => any);
+  fetch(callback?: (error: Error | null, items: AssistantInstance) => any): void;
   /**
    * Access the fieldTypes
    */
   fieldTypes();
+  friendlyName: string;
   /**
    * Access the intents
    */
   intents();
+  latestModelBuildSid: string;
+  links: string;
+  logQueries: boolean;
   /**
    * Access the modelBuilds
    */
@@ -307,27 +233,30 @@ declare class AssistantInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: AssistantInstance) => any);
+  remove(callback?: (error: Error | null, items: AssistantInstance) => any): void;
+  responseUrl: string;
+  sid: string;
   /**
    * Produce a plain JSON object version of the AssistantInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  ttl: number;
+  uniqueName: string;
   /**
    * update a AssistantInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: AssistantInstanceUpdateOptions, callback?: (error: Error | null, items: AssistantInstance) => any);
+  update(opts?: AssistantInstanceUpdateOptions, callback?: (error: Error | null, items: AssistantInstance) => any): void;
+  url: string;
 }
 
 
 declare class AssistantContext {
   /**
-   * @constructor Twilio.Preview.Understand.AssistantContext
-   * @description Initialize the AssistantContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the AssistantContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @property fieldTypes - fieldTypes resource
    * @property intents - intents resource
@@ -337,14 +266,14 @@ declare class AssistantContext {
    * @param version - Version of the resource
    * @param sid - The sid
    */
-  constructor(version: Twilio.Preview.Understand, sid: sid_like);
+  constructor(version: Understand, sid: string);
 
   /**
    * fetch a AssistantInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AssistantContext) => any);
+  fetch(callback?: (error: Error | null, items: AssistantInstance) => any): void;
   fieldTypes?: Twilio.Preview.Understand.AssistantContext.FieldTypeList;
   intents?: Twilio.Preview.Understand.AssistantContext.IntentList;
   modelBuilds?: Twilio.Preview.Understand.AssistantContext.ModelBuildList;
@@ -354,14 +283,14 @@ declare class AssistantContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: AssistantContext) => any);
+  remove(callback?: (error: Error | null, items: AssistantInstance) => any): void;
   /**
    * update a AssistantInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: AssistantContextUpdateOptions, callback?: (error: Error | null, items: AssistantContext) => any);
+  update(opts?: AssistantInstanceUpdateOptions, callback?: (error: Error | null, items: AssistantInstance) => any): void;
 }
 
-export { AssistantContext, AssistantInstance, AssistantList, AssistantListInstance, AssistantPage, AssistantPayload, AssistantResource, AssistantSolution }
+export { AssistantContext, AssistantInstance, AssistantList, AssistantListInstance, AssistantListInstanceCreateOptions, AssistantListInstanceEachOptions, AssistantListInstanceOptions, AssistantListInstancePageOptions, AssistantPage, AssistantPayload, AssistantResource, AssistantSolution }

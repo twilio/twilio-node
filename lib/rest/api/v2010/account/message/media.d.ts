@@ -72,16 +72,16 @@ interface MediaListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<MediaPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: MediaPage) => any): Promise<MediaPage>;
   /**
-   * @description Lists MediaInstance records from the API as a list.
+   * Lists MediaInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: MediaListInstanceOptions, callback?: function): Promise<MediaInstance[]>;
+  list(opts?: MediaListInstanceOptions, callback?: (error: Error | null, items: MediaInstance[]) => any): Promise<MediaInstance[]>;
   /**
    * Retrieve a single page of MediaInstance records from the API.
    * Request is executed immediately
@@ -91,110 +91,32 @@ interface MediaListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: MediaListInstancePageOptions, callback?: function): Promise<MediaPage>;
-}
-
-/**
- * Options to pass to each
- *
- * @property dateCreatedBefore - Filter by date created
- * @property dateCreated - Filter by date created
- * @property dateCreatedAfter - Filter by date created
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface MediaListInstanceEachOptions {
-  callback?: (item: MediaInstance, done: (err?: Error) => void) => void;
-  dateCreated?: Date;
-  dateCreatedAfter?: Date;
-  dateCreatedBefore?: Date;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property dateCreatedBefore - Filter by date created
- * @property dateCreated - Filter by date created
- * @property dateCreatedAfter - Filter by date created
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface MediaListInstanceOptions {
-  dateCreated?: Date;
-  dateCreatedAfter?: Date;
-  dateCreatedBefore?: Date;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property dateCreatedBefore - Filter by date created
- * @property dateCreated - Filter by date created
- * @property dateCreatedAfter - Filter by date created
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface MediaListInstancePageOptions {
-  dateCreated?: Date;
-  dateCreatedAfter?: Date;
-  dateCreatedBefore?: Date;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
+  page(opts?: MediaListInstancePageOptions, callback?: (error: Error | null, items: MediaPage) => any): Promise<MediaPage>;
 }
 
 
-declare class MediaPage extends Page {
+declare class MediaPage extends Page<V2010, MediaPayload, MediaResource, MediaInstance> {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.MessageContext.MediaPage
-   * @augments Page
-   * @description Initialize the MediaPage
+   * Initialize the MediaPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
+  constructor(version: V2010, response: Response<string>, solution: MediaSolution);
 
   /**
    * Build an instance of MediaInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: MediaPayload): MediaInstance;
 }
 
 
-declare class MediaInstance {
+declare class MediaInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.MessageContext.MediaInstance
-   * @description Initialize the MediaContext
+   * Initialize the MediaContext
    *
    * @property accountSid - The unique sid that identifies this account
    * @property contentType - The default mime-type of the media
@@ -210,53 +132,59 @@ declare class MediaInstance {
    * @param messageSid - A string that uniquely identifies this message
    * @param sid - Fetch by unique media Sid
    */
-  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, messageSid: sid, sid: sid);
+  constructor(version: V2010, payload: MediaPayload, accountSid: string, messageSid: string, sid: string);
 
-  _proxy?: MediaContext;
+  private _proxy: MediaContext;
+  accountSid: string;
+  contentType: string;
+  dateCreated: Date;
+  dateUpdated: Date;
   /**
    * fetch a MediaInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: MediaInstance) => any);
+  fetch(callback?: (error: Error | null, items: MediaInstance) => any): void;
+  parentSid: string;
   /**
    * remove a MediaInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: MediaInstance) => any);
+  remove(callback?: (error: Error | null, items: MediaInstance) => any): void;
+  sid: string;
   /**
    * Produce a plain JSON object version of the MediaInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  uri: string;
 }
 
 
 declare class MediaContext {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.MessageContext.MediaContext
-   * @description Initialize the MediaContext
+   * Initialize the MediaContext
    *
    * @param version - Version of the resource
    * @param accountSid - The account_sid
    * @param messageSid - The message_sid
    * @param sid - Fetch by unique media Sid
    */
-  constructor(version: Twilio.Api.V2010, accountSid: sid, messageSid: sid, sid: sid);
+  constructor(version: V2010, accountSid: string, messageSid: string, sid: string);
 
   /**
    * fetch a MediaInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: MediaContext) => any);
+  fetch(callback?: (error: Error | null, items: MediaInstance) => any): void;
   /**
    * remove a MediaInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: MediaContext) => any);
+  remove(callback?: (error: Error | null, items: MediaInstance) => any): void;
 }
 
-export { MediaContext, MediaInstance, MediaList, MediaListInstance, MediaPage, MediaPayload, MediaResource, MediaSolution }
+export { MediaContext, MediaInstance, MediaList, MediaListInstance, MediaListInstanceEachOptions, MediaListInstanceOptions, MediaListInstancePageOptions, MediaPage, MediaPayload, MediaResource, MediaSolution }

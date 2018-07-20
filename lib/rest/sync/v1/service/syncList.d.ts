@@ -83,16 +83,16 @@ interface SyncListListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<SyncListPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: SyncListPage) => any): Promise<SyncListPage>;
   /**
-   * @description Lists SyncListInstance records from the API as a list.
+   * Lists SyncListInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: SyncListListInstanceOptions, callback?: function): Promise<SyncListInstance[]>;
+  list(opts?: SyncListListInstanceOptions, callback?: (error: Error | null, items: SyncListInstance[]) => any): Promise<SyncListInstance[]>;
   /**
    * Retrieve a single page of SyncListInstance records from the API.
    * Request is executed immediately
@@ -102,7 +102,7 @@ interface SyncListListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: SyncListListInstancePageOptions, callback?: function): Promise<SyncListPage>;
+  page(opts?: SyncListListInstancePageOptions, callback?: (error: Error | null, items: SyncListPage) => any): Promise<SyncListPage>;
 }
 
 /**
@@ -110,7 +110,7 @@ interface SyncListListInstance {
  *
  * @property ttl - Time-to-live of this List in seconds, defaults to no expiration.
  */
-export interface SyncListInstanceUpdateOptions {
+interface SyncListInstanceUpdateOptions {
   ttl?: number;
 }
 
@@ -119,106 +119,33 @@ export interface SyncListInstanceUpdateOptions {
  *
  * @property ttl - Time-to-live of this List in seconds, defaults to no expiration.
  */
-export interface SyncListContextUpdateOptions {
+interface SyncListInstanceUpdateOptions {
   ttl?: number;
 }
 
-/**
- * Options to pass to create
- *
- * @property uniqueName - Human-readable name for this list
- * @property ttl - Time-to-live of this List in seconds, defaults to no expiration.
- */
-export interface SyncListListInstanceCreateOptions {
-  ttl?: number;
-  uniqueName?: string;
-}
 
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface SyncListListInstanceEachOptions {
-  callback?: (item: SyncListInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface SyncListListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface SyncListListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-}
-
-
-declare class SyncListPage extends Page {
+declare class SyncListPage extends Page<V1, SyncListPayload, SyncListResource, SyncListInstance> {
   /**
-   * @constructor Twilio.Sync.V1.ServiceContext.SyncListPage
-   * @augments Page
-   * @description Initialize the SyncListPage
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the SyncListPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Sync.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: SyncListSolution);
 
   /**
    * Build an instance of SyncListInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: SyncListPayload): SyncListInstance;
 }
 
 
-declare class SyncListInstance {
+declare class SyncListInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Sync.V1.ServiceContext.SyncListInstance
-   * @description Initialize the SyncListContext
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the SyncListContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @property sid - The unique 34-character SID identifier of the List.
    * @property uniqueName - The unique and addressable name of this List.
@@ -237,21 +164,30 @@ declare class SyncListInstance {
    * @param serviceSid - The unique SID identifier of the Service Instance that hosts this List object.
    * @param sid - The sid
    */
-  constructor(version: Twilio.Sync.V1, payload: object, serviceSid: sid, sid: sid_like);
+  constructor(version: V1, payload: SyncListPayload, serviceSid: string, sid: string);
 
-  _proxy?: SyncListContext;
+  private _proxy: SyncListContext;
+  accountSid: string;
+  createdBy: string;
+  dateCreated: Date;
+  dateExpires: Date;
+  dateUpdated: Date;
   /**
    * fetch a SyncListInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: SyncListInstance) => any);
+  fetch(callback?: (error: Error | null, items: SyncListInstance) => any): void;
+  links: string;
   /**
    * remove a SyncListInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: SyncListInstance) => any);
+  remove(callback?: (error: Error | null, items: SyncListInstance) => any): void;
+  revision: string;
+  serviceSid: string;
+  sid: string;
   /**
    * Access the syncListItems
    */
@@ -264,22 +200,22 @@ declare class SyncListInstance {
    * Produce a plain JSON object version of the SyncListInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  uniqueName: string;
   /**
    * update a SyncListInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: SyncListInstanceUpdateOptions, callback?: (error: Error | null, items: SyncListInstance) => any);
+  update(opts?: SyncListInstanceUpdateOptions, callback?: (error: Error | null, items: SyncListInstance) => any): void;
+  url: string;
 }
 
 
 declare class SyncListContext {
   /**
-   * @constructor Twilio.Sync.V1.ServiceContext.SyncListContext
-   * @description Initialize the SyncListContext
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the SyncListContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @property syncListItems - syncListItems resource
    * @property syncListPermissions - syncListPermissions resource
@@ -288,20 +224,20 @@ declare class SyncListContext {
    * @param serviceSid - The service_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.Sync.V1, serviceSid: sid_like, sid: sid_like);
+  constructor(version: V1, serviceSid: string, sid: string);
 
   /**
    * fetch a SyncListInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: SyncListContext) => any);
+  fetch(callback?: (error: Error | null, items: SyncListInstance) => any): void;
   /**
    * remove a SyncListInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: SyncListContext) => any);
+  remove(callback?: (error: Error | null, items: SyncListInstance) => any): void;
   syncListItems?: Twilio.Sync.V1.ServiceContext.SyncListContext.SyncListItemList;
   syncListPermissions?: Twilio.Sync.V1.ServiceContext.SyncListContext.SyncListPermissionList;
   /**
@@ -310,7 +246,7 @@ declare class SyncListContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: SyncListContextUpdateOptions, callback?: (error: Error | null, items: SyncListContext) => any);
+  update(opts?: SyncListInstanceUpdateOptions, callback?: (error: Error | null, items: SyncListInstance) => any): void;
 }
 
-export { SyncListContext, SyncListInstance, SyncListList, SyncListListInstance, SyncListPage, SyncListPayload, SyncListResource, SyncListSolution }
+export { SyncListContext, SyncListInstance, SyncListList, SyncListListInstance, SyncListListInstanceCreateOptions, SyncListListInstanceEachOptions, SyncListListInstanceOptions, SyncListListInstancePageOptions, SyncListPage, SyncListPayload, SyncListResource, SyncListSolution }

@@ -99,16 +99,16 @@ interface CallListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<CallPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: CallPage) => any): Promise<CallPage>;
   /**
-   * @description Lists CallInstance records from the API as a list.
+   * Lists CallInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: CallListInstanceOptions, callback?: function): Promise<CallInstance[]>;
+  list(opts?: CallListInstanceOptions, callback?: (error: Error | null, items: CallInstance[]) => any): Promise<CallInstance[]>;
   /**
    * Retrieve a single page of CallInstance records from the API.
    * Request is executed immediately
@@ -118,7 +118,7 @@ interface CallListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: CallListInstancePageOptions, callback?: function): Promise<CallPage>;
+  page(opts?: CallListInstancePageOptions, callback?: (error: Error | null, items: CallPage) => any): Promise<CallPage>;
 }
 
 /**
@@ -132,7 +132,7 @@ interface CallListInstance {
  * @property statusCallback - Status Callback URL
  * @property statusCallbackMethod - HTTP Method to use with StatusCallback
  */
-export interface CallInstanceUpdateOptions {
+interface CallInstanceUpdateOptions {
   fallbackMethod?: string;
   fallbackUrl?: string;
   method?: string;
@@ -153,7 +153,7 @@ export interface CallInstanceUpdateOptions {
  * @property statusCallback - Status Callback URL
  * @property statusCallbackMethod - HTTP Method to use with StatusCallback
  */
-export interface CallContextUpdateOptions {
+interface CallInstanceUpdateOptions {
   fallbackMethod?: string;
   fallbackUrl?: string;
   method?: string;
@@ -163,204 +163,29 @@ export interface CallContextUpdateOptions {
   url?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property to - Phone number, SIP address, or client identifier to call
- * @property from - Twilio number from which to originate the call
- * @property method - HTTP method to use to fetch TwiML
- * @property fallbackUrl - Fallback URL in case of error
- * @property fallbackMethod - HTTP Method to use with FallbackUrl
- * @property statusCallback - Status Callback URL
- * @property statusCallbackEvent - The call progress events that Twilio will send webhooks on.
- * @property statusCallbackMethod - HTTP Method to use with StatusCallback
- * @property sendDigits - Digits to send
- * @property ifMachine - The if_machine
- * @property timeout - Number of seconds to wait for an answer
- * @property record - Whether or not to record the Call
- * @property recordingChannels - mono or dualSet this parameter to specify the number of channels in the final recording.
- * @property recordingStatusCallback - A URL that Twilio will send a webhook request to when the recording is available for access.
- * @property recordingStatusCallbackMethod - The HTTP method Twilio should use when requesting the `RecordingStatusCallback` URL.
- * @property sipAuthUsername - The sip_auth_username
- * @property sipAuthPassword - The sip_auth_password
- * @property machineDetection - Enable machine detection or end of greeting detection
- * @property machineDetectionTimeout - Number of miliseconds to wait for machine detection
- * @property recordingStatusCallbackEvent - The recording status changes that Twilio will send webhooks on to the URL specified in RecordingStatusCallback.
- * @property trim - Set this parameter to control trimming of silence on the recording.
- * @property callerId - The phone number, SIP address, or Client identifier that made this Call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`.
- * @property url - Url from which to fetch TwiML
- * @property applicationSid - ApplicationSid that configures from where to fetch TwiML
- */
-export interface CallListInstanceCreateOptions {
-  applicationSid?: string;
-  callerId?: string;
-  fallbackMethod?: string;
-  fallbackUrl?: string;
-  from: string;
-  ifMachine?: string;
-  machineDetection?: string;
-  machineDetectionTimeout?: number;
-  method?: string;
-  record?: boolean;
-  recordingChannels?: string;
-  recordingStatusCallback?: string;
-  recordingStatusCallbackEvent?: string|list;
-  recordingStatusCallbackMethod?: string;
-  sendDigits?: string;
-  sipAuthPassword?: string;
-  sipAuthUsername?: string;
-  statusCallback?: string;
-  statusCallbackEvent?: string|list;
-  statusCallbackMethod?: string;
-  timeout?: number;
-  to: string;
-  trim?: string;
-  url?: string;
-}
 
-/**
- * Options to pass to each
- *
- * @property to - Phone number or Client identifier to filter `to` on
- * @property from - Phone number or Client identifier to filter `from` on
- * @property parentCallSid - Parent Call Sid to filter on
- * @property status - Status to filter on
- * @property startTimeBefore - StartTime to filter on
- * @property startTime - StartTime to filter on
- * @property startTimeAfter - StartTime to filter on
- * @property endTimeBefore - EndTime to filter on
- * @property endTime - EndTime to filter on
- * @property endTimeAfter - EndTime to filter on
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface CallListInstanceEachOptions {
-  callback?: (item: CallInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  endTime?: Date;
-  endTimeAfter?: Date;
-  endTimeBefore?: Date;
-  from?: string;
-  limit?: number;
-  pageSize?: number;
-  parentCallSid?: string;
-  startTime?: Date;
-  startTimeAfter?: Date;
-  startTimeBefore?: Date;
-  status?: call.status;
-  to?: string;
-}
-
-/**
- * Options to pass to list
- *
- * @property to - Phone number or Client identifier to filter `to` on
- * @property from - Phone number or Client identifier to filter `from` on
- * @property parentCallSid - Parent Call Sid to filter on
- * @property status - Status to filter on
- * @property startTimeBefore - StartTime to filter on
- * @property startTime - StartTime to filter on
- * @property startTimeAfter - StartTime to filter on
- * @property endTimeBefore - EndTime to filter on
- * @property endTime - EndTime to filter on
- * @property endTimeAfter - EndTime to filter on
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface CallListInstanceOptions {
-  endTime?: Date;
-  endTimeAfter?: Date;
-  endTimeBefore?: Date;
-  from?: string;
-  limit?: number;
-  pageSize?: number;
-  parentCallSid?: string;
-  startTime?: Date;
-  startTimeAfter?: Date;
-  startTimeBefore?: Date;
-  status?: call.status;
-  to?: string;
-}
-
-/**
- * Options to pass to page
- *
- * @property to - Phone number or Client identifier to filter `to` on
- * @property from - Phone number or Client identifier to filter `from` on
- * @property parentCallSid - Parent Call Sid to filter on
- * @property status - Status to filter on
- * @property startTimeBefore - StartTime to filter on
- * @property startTime - StartTime to filter on
- * @property startTimeAfter - StartTime to filter on
- * @property endTimeBefore - EndTime to filter on
- * @property endTime - EndTime to filter on
- * @property endTimeAfter - EndTime to filter on
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface CallListInstancePageOptions {
-  endTime?: Date;
-  endTimeAfter?: Date;
-  endTimeBefore?: Date;
-  from?: string;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-  parentCallSid?: string;
-  startTime?: Date;
-  startTimeAfter?: Date;
-  startTimeBefore?: Date;
-  status?: call.status;
-  to?: string;
-}
-
-
-declare class CallPage extends Page {
+declare class CallPage extends Page<V2010, CallPayload, CallResource, CallInstance> {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.CallPage
-   * @augments Page
-   * @description Initialize the CallPage
+   * Initialize the CallPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
+  constructor(version: V2010, response: Response<string>, solution: CallSolution);
 
   /**
    * Build an instance of CallInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: CallPayload): CallInstance;
 }
 
 
-declare class CallInstance {
+declare class CallInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.CallInstance
-   * @description Initialize the CallContext
+   * Initialize the CallContext
    *
    * @property accountSid - The unique id of the Account responsible for creating this Call
    * @property annotation - The annotation provided for the Call
@@ -393,9 +218,19 @@ declare class CallInstance {
    * @param accountSid - The unique id of the Account responsible for creating this Call
    * @param sid - Call Sid that uniquely identifies the Call to fetch
    */
-  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, sid: sid);
+  constructor(version: V2010, payload: CallPayload, accountSid: string, sid: string);
 
-  _proxy?: CallContext;
+  private _proxy: CallContext;
+  accountSid: string;
+  annotation: string;
+  answeredBy: string;
+  apiVersion: string;
+  callerName: string;
+  dateCreated: Date;
+  dateUpdated: Date;
+  direction: string;
+  duration: string;
+  endTime: Date;
   /**
    * Access the feedback
    */
@@ -405,11 +240,19 @@ declare class CallInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CallInstance) => any);
+  fetch(callback?: (error: Error | null, items: CallInstance) => any): void;
+  forwardedFrom: string;
+  from: string;
+  fromFormatted: string;
+  groupSid: string;
   /**
    * Access the notifications
    */
   notifications();
+  parentCallSid: string;
+  phoneNumberSid: string;
+  price: number;
+  priceUnit: string;
   /**
    * Access the recordings
    */
@@ -419,26 +262,32 @@ declare class CallInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: CallInstance) => any);
+  remove(callback?: (error: Error | null, items: CallInstance) => any): void;
+  sid: string;
+  startTime: Date;
+  status: call.status;
+  subresourceUris: string;
+  to: string;
+  toFormatted: string;
   /**
    * Produce a plain JSON object version of the CallInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
   /**
    * update a CallInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: CallInstanceUpdateOptions, callback?: (error: Error | null, items: CallInstance) => any);
+  update(opts?: CallInstanceUpdateOptions, callback?: (error: Error | null, items: CallInstance) => any): void;
+  uri: string;
 }
 
 
 declare class CallContext {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.CallContext
-   * @description Initialize the CallContext
+   * Initialize the CallContext
    *
    * @property recordings - recordings resource
    * @property notifications - notifications resource
@@ -448,7 +297,7 @@ declare class CallContext {
    * @param accountSid - The account_sid
    * @param sid - Call Sid that uniquely identifies the Call to fetch
    */
-  constructor(version: Twilio.Api.V2010, accountSid: sid, sid: sid);
+  constructor(version: V2010, accountSid: string, sid: string);
 
   feedback?: Twilio.Api.V2010.AccountContext.CallContext.FeedbackList;
   /**
@@ -456,7 +305,7 @@ declare class CallContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CallContext) => any);
+  fetch(callback?: (error: Error | null, items: CallInstance) => any): void;
   notifications?: Twilio.Api.V2010.AccountContext.CallContext.NotificationList;
   recordings?: Twilio.Api.V2010.AccountContext.CallContext.RecordingList;
   /**
@@ -464,14 +313,14 @@ declare class CallContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: CallContext) => any);
+  remove(callback?: (error: Error | null, items: CallInstance) => any): void;
   /**
    * update a CallInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: CallContextUpdateOptions, callback?: (error: Error | null, items: CallContext) => any);
+  update(opts?: CallInstanceUpdateOptions, callback?: (error: Error | null, items: CallInstance) => any): void;
 }
 
-export { CallContext, CallInstance, CallList, CallListInstance, CallPage, CallPayload, CallResource, CallSolution }
+export { CallContext, CallInstance, CallList, CallListInstance, CallListInstanceCreateOptions, CallListInstanceEachOptions, CallListInstanceOptions, CallListInstancePageOptions, CallPage, CallPayload, CallResource, CallSolution }

@@ -43,41 +43,29 @@ interface NewSigningKeyListInstance {
   create(opts?: NewSigningKeyListInstanceCreateOptions, callback?: (error: Error | null, items: NewSigningKeyListInstance) => any): Promise<NewSigningKeyInstance>;
 }
 
-/**
- * Options to pass to create
- *
- * @property friendlyName - The friendly_name
- */
-export interface NewSigningKeyListInstanceCreateOptions {
-  friendlyName?: string;
-}
 
-
-declare class NewSigningKeyPage extends Page {
+declare class NewSigningKeyPage extends Page<V2010, NewSigningKeyPayload, NewSigningKeyResource, NewSigningKeyInstance> {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.NewSigningKeyPage
-   * @augments Page
-   * @description Initialize the NewSigningKeyPage
+   * Initialize the NewSigningKeyPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
+  constructor(version: V2010, response: Response<string>, solution: NewSigningKeySolution);
 
   /**
    * Build an instance of NewSigningKeyInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: NewSigningKeyPayload): NewSigningKeyInstance;
 }
 
 
-declare class NewSigningKeyInstance {
+declare class NewSigningKeyInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.NewSigningKeyInstance
-   * @description Initialize the NewSigningKeyContext
+   * Initialize the NewSigningKeyContext
    *
    * @property sid - The sid
    * @property friendlyName - The friendly_name
@@ -89,13 +77,18 @@ declare class NewSigningKeyInstance {
    * @param payload - The instance payload
    * @param accountSid - A 34 character string that uniquely identifies this resource.
    */
-  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid);
+  constructor(version: V2010, payload: NewSigningKeyPayload, accountSid: string);
 
+  dateCreated: Date;
+  dateUpdated: Date;
+  friendlyName: string;
+  secret: string;
+  sid: string;
   /**
    * Produce a plain JSON object version of the NewSigningKeyInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
 }
 
-export { NewSigningKeyInstance, NewSigningKeyList, NewSigningKeyListInstance, NewSigningKeyPage, NewSigningKeyPayload, NewSigningKeyResource, NewSigningKeySolution }
+export { NewSigningKeyInstance, NewSigningKeyList, NewSigningKeyListInstance, NewSigningKeyListInstanceCreateOptions, NewSigningKeyPage, NewSigningKeyPayload, NewSigningKeyResource, NewSigningKeySolution }

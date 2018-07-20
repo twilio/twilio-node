@@ -71,16 +71,16 @@ interface FlowListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<FlowPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: FlowPage) => any): Promise<FlowPage>;
   /**
-   * @description Lists FlowInstance records from the API as a list.
+   * Lists FlowInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: FlowListInstanceOptions, callback?: function): Promise<FlowInstance[]>;
+  list(opts?: FlowListInstanceOptions, callback?: (error: Error | null, items: FlowInstance[]) => any): Promise<FlowInstance[]>;
   /**
    * Retrieve a single page of FlowInstance records from the API.
    * Request is executed immediately
@@ -90,94 +90,32 @@ interface FlowListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: FlowListInstancePageOptions, callback?: function): Promise<FlowPage>;
-}
-
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface FlowListInstanceEachOptions {
-  callback?: (item: FlowInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface FlowListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface FlowListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
+  page(opts?: FlowListInstancePageOptions, callback?: (error: Error | null, items: FlowPage) => any): Promise<FlowPage>;
 }
 
 
-declare class FlowPage extends Page {
+declare class FlowPage extends Page<V1, FlowPayload, FlowResource, FlowInstance> {
   /**
-   * @constructor Twilio.Studio.V1.FlowPage
-   * @augments Page
-   * @description Initialize the FlowPage
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the FlowPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Studio.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: FlowSolution);
 
   /**
    * Build an instance of FlowInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: FlowPayload): FlowInstance;
 }
 
 
-declare class FlowInstance {
+declare class FlowInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Studio.V1.FlowInstance
-   * @description Initialize the FlowContext
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the FlowContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @property sid - The sid
    * @property accountSid - The account_sid
@@ -193,9 +131,12 @@ declare class FlowInstance {
    * @param payload - The instance payload
    * @param sid - The sid
    */
-  constructor(version: Twilio.Studio.V1, payload: object, sid: sid);
+  constructor(version: V1, payload: FlowPayload, sid: string);
 
-  _proxy?: FlowContext;
+  private _proxy: FlowContext;
+  accountSid: string;
+  dateCreated: Date;
+  dateUpdated: Date;
   /**
    * Access the engagements
    */
@@ -205,33 +146,37 @@ declare class FlowInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: FlowInstance) => any);
+  fetch(callback?: (error: Error | null, items: FlowInstance) => any): void;
+  friendlyName: string;
+  links: string;
   /**
    * remove a FlowInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: FlowInstance) => any);
+  remove(callback?: (error: Error | null, items: FlowInstance) => any): void;
+  sid: string;
+  status: flow.status;
   /**
    * Produce a plain JSON object version of the FlowInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  url: string;
+  version: number;
 }
 
 
 declare class FlowContext {
   /**
-   * @constructor Twilio.Studio.V1.FlowContext
-   * @description Initialize the FlowContext
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the FlowContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @property engagements - engagements resource
    *
    * @param version - Version of the resource
    * @param sid - The sid
    */
-  constructor(version: Twilio.Studio.V1, sid: sid);
+  constructor(version: V1, sid: string);
 
   engagements?: Twilio.Studio.V1.FlowContext.EngagementList;
   /**
@@ -239,13 +184,13 @@ declare class FlowContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: FlowContext) => any);
+  fetch(callback?: (error: Error | null, items: FlowInstance) => any): void;
   /**
    * remove a FlowInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: FlowContext) => any);
+  remove(callback?: (error: Error | null, items: FlowInstance) => any): void;
 }
 
-export { FlowContext, FlowInstance, FlowList, FlowListInstance, FlowPage, FlowPayload, FlowResource, FlowSolution }
+export { FlowContext, FlowInstance, FlowList, FlowListInstance, FlowListInstanceEachOptions, FlowListInstanceOptions, FlowListInstancePageOptions, FlowPage, FlowPayload, FlowResource, FlowSolution }

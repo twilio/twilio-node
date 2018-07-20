@@ -43,41 +43,29 @@ interface NewKeyListInstance {
   create(opts?: NewKeyListInstanceCreateOptions, callback?: (error: Error | null, items: NewKeyListInstance) => any): Promise<NewKeyInstance>;
 }
 
-/**
- * Options to pass to create
- *
- * @property friendlyName - The friendly_name
- */
-export interface NewKeyListInstanceCreateOptions {
-  friendlyName?: string;
-}
 
-
-declare class NewKeyPage extends Page {
+declare class NewKeyPage extends Page<V2010, NewKeyPayload, NewKeyResource, NewKeyInstance> {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.NewKeyPage
-   * @augments Page
-   * @description Initialize the NewKeyPage
+   * Initialize the NewKeyPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
+  constructor(version: V2010, response: Response<string>, solution: NewKeySolution);
 
   /**
    * Build an instance of NewKeyInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: NewKeyPayload): NewKeyInstance;
 }
 
 
-declare class NewKeyInstance {
+declare class NewKeyInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.NewKeyInstance
-   * @description Initialize the NewKeyContext
+   * Initialize the NewKeyContext
    *
    * @property sid - The sid
    * @property friendlyName - The friendly_name
@@ -89,13 +77,18 @@ declare class NewKeyInstance {
    * @param payload - The instance payload
    * @param accountSid - A 34 character string that uniquely identifies this resource.
    */
-  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid);
+  constructor(version: V2010, payload: NewKeyPayload, accountSid: string);
 
+  dateCreated: Date;
+  dateUpdated: Date;
+  friendlyName: string;
+  secret: string;
+  sid: string;
   /**
    * Produce a plain JSON object version of the NewKeyInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
 }
 
-export { NewKeyInstance, NewKeyList, NewKeyListInstance, NewKeyPage, NewKeyPayload, NewKeyResource, NewKeySolution }
+export { NewKeyInstance, NewKeyList, NewKeyListInstance, NewKeyListInstanceCreateOptions, NewKeyPage, NewKeyPayload, NewKeyResource, NewKeySolution }

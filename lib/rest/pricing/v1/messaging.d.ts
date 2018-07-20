@@ -34,31 +34,28 @@ interface MessagingListInstance {
 }
 
 
-declare class MessagingPage extends Page {
+declare class MessagingPage extends Page<V1, MessagingPayload, MessagingResource, MessagingInstance> {
   /**
-   * @constructor Twilio.Pricing.V1.MessagingPage
-   * @augments Page
-   * @description Initialize the MessagingPage
+   * Initialize the MessagingPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Pricing.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: MessagingSolution);
 
   /**
    * Build an instance of MessagingInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: MessagingPayload): MessagingInstance;
 }
 
 
-declare class MessagingInstance {
+declare class MessagingInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Pricing.V1.MessagingInstance
-   * @description Initialize the MessagingContext
+   * Initialize the MessagingContext
    *
    * @property name - The name
    * @property url - The url
@@ -67,13 +64,16 @@ declare class MessagingInstance {
    * @param version - Version of the resource
    * @param payload - The instance payload
    */
-  constructor(version: Twilio.Pricing.V1, payload: object);
+  constructor(version: V1, payload: MessagingPayload);
 
+  links: string;
+  name: string;
   /**
    * Produce a plain JSON object version of the MessagingInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  url: string;
 }
 
 export { MessagingInstance, MessagingList, MessagingListInstance, MessagingPage, MessagingPayload, MessagingResource, MessagingSolution }

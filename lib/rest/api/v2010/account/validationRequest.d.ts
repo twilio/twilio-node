@@ -43,51 +43,29 @@ interface ValidationRequestListInstance {
   create(opts: ValidationRequestListInstanceCreateOptions, callback?: (error: Error | null, items: ValidationRequestListInstance) => any): Promise<ValidationRequestInstance>;
 }
 
-/**
- * Options to pass to create
- *
- * @property phoneNumber - The phone number to verify.
- * @property friendlyName - A human readable description for the new caller ID with maximum length 64 characters.
- * @property callDelay - The number of seconds, between 0 and 60, to delay before initiating the verification call.
- * @property extension - Digits to dial after connecting the verification call.
- * @property statusCallback - A URL that Twilio will request when the verification call ends to notify your app if the verification process was successful or not.
- * @property statusCallbackMethod - The HTTP method Twilio should use when requesting the above URL.
- */
-export interface ValidationRequestListInstanceCreateOptions {
-  callDelay?: number;
-  extension?: string;
-  friendlyName?: string;
-  phoneNumber: string;
-  statusCallback?: string;
-  statusCallbackMethod?: string;
-}
 
-
-declare class ValidationRequestPage extends Page {
+declare class ValidationRequestPage extends Page<V2010, ValidationRequestPayload, ValidationRequestResource, ValidationRequestInstance> {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.ValidationRequestPage
-   * @augments Page
-   * @description Initialize the ValidationRequestPage
+   * Initialize the ValidationRequestPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
+  constructor(version: V2010, response: Response<string>, solution: ValidationRequestSolution);
 
   /**
    * Build an instance of ValidationRequestInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: ValidationRequestPayload): ValidationRequestInstance;
 }
 
 
-declare class ValidationRequestInstance {
+declare class ValidationRequestInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.ValidationRequestInstance
-   * @description Initialize the ValidationRequestContext
+   * Initialize the ValidationRequestContext
    *
    * @property accountSid - The unique ID of the Account responsible for this Caller Id.
    * @property phoneNumber - The incoming phone number.
@@ -99,13 +77,18 @@ declare class ValidationRequestInstance {
    * @param payload - The instance payload
    * @param accountSid - The unique ID of the Account responsible for this Caller Id.
    */
-  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid);
+  constructor(version: V2010, payload: ValidationRequestPayload, accountSid: string);
 
+  accountSid: string;
+  callSid: string;
+  friendlyName: string;
+  phoneNumber: string;
   /**
    * Produce a plain JSON object version of the ValidationRequestInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  validationCode: number;
 }
 
-export { ValidationRequestInstance, ValidationRequestList, ValidationRequestListInstance, ValidationRequestPage, ValidationRequestPayload, ValidationRequestResource, ValidationRequestSolution }
+export { ValidationRequestInstance, ValidationRequestList, ValidationRequestListInstance, ValidationRequestListInstanceCreateOptions, ValidationRequestPage, ValidationRequestPayload, ValidationRequestResource, ValidationRequestSolution }

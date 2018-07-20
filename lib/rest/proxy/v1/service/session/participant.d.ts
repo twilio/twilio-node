@@ -86,16 +86,16 @@ interface ParticipantListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<ParticipantPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
   /**
-   * @description Lists ParticipantInstance records from the API as a list.
+   * Lists ParticipantInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: ParticipantListInstanceOptions, callback?: function): Promise<ParticipantInstance[]>;
+  list(opts?: ParticipantListInstanceOptions, callback?: (error: Error | null, items: ParticipantInstance[]) => any): Promise<ParticipantInstance[]>;
   /**
    * Retrieve a single page of ParticipantInstance records from the API.
    * Request is executed immediately
@@ -105,115 +105,32 @@ interface ParticipantListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: ParticipantListInstancePageOptions, callback?: function): Promise<ParticipantPage>;
-}
-
-/**
- * Options to pass to each
- *
- * @property identifier - The identifier
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface ParticipantListInstanceEachOptions {
-  callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  identifier?: string;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property identifier - The identifier
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface ParticipantListInstanceOptions {
-  identifier?: string;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property identifier - The identifier
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface ParticipantListInstancePageOptions {
-  identifier?: string;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-}
-
-/**
- * Options to pass to create
- *
- * @property identifier - The phone number of this Participant.
- * @property friendlyName - A human-readable description of this resource.
- * @property proxyIdentifier - The proxy phone number to use for this Participant.
- * @property proxyIdentifierSid - The proxy_identifier_sid
- */
-export interface ParticipantListInstanceCreateOptions {
-  friendlyName?: string;
-  identifier: string;
-  proxyIdentifier?: string;
-  proxyIdentifierSid?: string;
+  page(opts?: ParticipantListInstancePageOptions, callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
 }
 
 
-declare class ParticipantPage extends Page {
+declare class ParticipantPage extends Page<V1, ParticipantPayload, ParticipantResource, ParticipantInstance> {
   /**
-   * @constructor Twilio.Proxy.V1.ServiceContext.SessionContext.ParticipantPage
-   * @augments Page
-   * @description Initialize the ParticipantPage
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the ParticipantPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Proxy.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: ParticipantSolution);
 
   /**
    * Build an instance of ParticipantInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: ParticipantPayload): ParticipantInstance;
 }
 
 
-declare class ParticipantInstance {
+declare class ParticipantInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Proxy.V1.ServiceContext.SessionContext.ParticipantInstance
-   * @description Initialize the ParticipantContext
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the ParticipantContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @property sid - A string that uniquely identifies this Participant.
    * @property sessionSid - Session Sid.
@@ -235,38 +152,49 @@ declare class ParticipantInstance {
    * @param sessionSid - Session Sid.
    * @param sid - A string that uniquely identifies this Participant.
    */
-  constructor(version: Twilio.Proxy.V1, payload: object, serviceSid: sid, sessionSid: sid, sid: sid);
+  constructor(version: V1, payload: ParticipantPayload, serviceSid: string, sessionSid: string, sid: string);
 
-  _proxy?: ParticipantContext;
+  private _proxy: ParticipantContext;
+  accountSid: string;
+  dateCreated: Date;
+  dateDeleted: Date;
+  dateUpdated: Date;
   /**
    * fetch a ParticipantInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ParticipantInstance) => any);
+  fetch(callback?: (error: Error | null, items: ParticipantInstance) => any): void;
+  friendlyName: string;
+  identifier: string;
+  links: string;
   /**
    * Access the messageInteractions
    */
   messageInteractions();
+  proxyIdentifier: string;
+  proxyIdentifierSid: string;
   /**
    * remove a ParticipantInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ParticipantInstance) => any);
+  remove(callback?: (error: Error | null, items: ParticipantInstance) => any): void;
+  serviceSid: string;
+  sessionSid: string;
+  sid: string;
   /**
    * Produce a plain JSON object version of the ParticipantInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  url: string;
 }
 
 
 declare class ParticipantContext {
   /**
-   * @constructor Twilio.Proxy.V1.ServiceContext.SessionContext.ParticipantContext
-   * @description Initialize the ParticipantContext
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the ParticipantContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @property messageInteractions - messageInteractions resource
    *
@@ -275,21 +203,21 @@ declare class ParticipantContext {
    * @param sessionSid - Session Sid.
    * @param sid - A string that uniquely identifies this Participant.
    */
-  constructor(version: Twilio.Proxy.V1, serviceSid: sid, sessionSid: sid, sid: sid);
+  constructor(version: V1, serviceSid: string, sessionSid: string, sid: string);
 
   /**
    * fetch a ParticipantInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ParticipantContext) => any);
+  fetch(callback?: (error: Error | null, items: ParticipantInstance) => any): void;
   messageInteractions?: Twilio.Proxy.V1.ServiceContext.SessionContext.ParticipantContext.MessageInteractionList;
   /**
    * remove a ParticipantInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ParticipantContext) => any);
+  remove(callback?: (error: Error | null, items: ParticipantInstance) => any): void;
 }
 
-export { ParticipantContext, ParticipantInstance, ParticipantList, ParticipantListInstance, ParticipantPage, ParticipantPayload, ParticipantResource, ParticipantSolution }
+export { ParticipantContext, ParticipantInstance, ParticipantList, ParticipantListInstance, ParticipantListInstanceCreateOptions, ParticipantListInstanceEachOptions, ParticipantListInstanceOptions, ParticipantListInstancePageOptions, ParticipantPage, ParticipantPayload, ParticipantResource, ParticipantSolution }

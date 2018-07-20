@@ -80,16 +80,16 @@ interface FieldTypeListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<FieldTypePage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: FieldTypePage) => any): Promise<FieldTypePage>;
   /**
-   * @description Lists FieldTypeInstance records from the API as a list.
+   * Lists FieldTypeInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: FieldTypeListInstanceOptions, callback?: function): Promise<FieldTypeInstance[]>;
+  list(opts?: FieldTypeListInstanceOptions, callback?: (error: Error | null, items: FieldTypeInstance[]) => any): Promise<FieldTypeInstance[]>;
   /**
    * Retrieve a single page of FieldTypeInstance records from the API.
    * Request is executed immediately
@@ -99,7 +99,7 @@ interface FieldTypeListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: FieldTypeListInstancePageOptions, callback?: function): Promise<FieldTypePage>;
+  page(opts?: FieldTypeListInstancePageOptions, callback?: (error: Error | null, items: FieldTypePage) => any): Promise<FieldTypePage>;
 }
 
 /**
@@ -108,7 +108,7 @@ interface FieldTypeListInstance {
  * @property friendlyName - A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
  * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
  */
-export interface FieldTypeInstanceUpdateOptions {
+interface FieldTypeInstanceUpdateOptions {
   friendlyName?: string;
   uniqueName?: string;
 }
@@ -119,107 +119,34 @@ export interface FieldTypeInstanceUpdateOptions {
  * @property friendlyName - A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
  * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
  */
-export interface FieldTypeContextUpdateOptions {
+interface FieldTypeInstanceUpdateOptions {
   friendlyName?: string;
   uniqueName?: string;
 }
 
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface FieldTypeListInstanceEachOptions {
-  callback?: (item: FieldTypeInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
 
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface FieldTypeListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface FieldTypeListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-}
-
-/**
- * Options to pass to create
- *
- * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
- * @property friendlyName - A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
- */
-export interface FieldTypeListInstanceCreateOptions {
-  friendlyName?: string;
-  uniqueName: string;
-}
-
-
-declare class FieldTypePage extends Page {
+declare class FieldTypePage extends Page<Understand, FieldTypePayload, FieldTypeResource, FieldTypeInstance> {
   /**
-   * @constructor Twilio.Preview.Understand.AssistantContext.FieldTypePage
-   * @augments Page
-   * @description Initialize the FieldTypePage
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the FieldTypePagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Preview.Understand, response: Response<string>, solution: object);
+  constructor(version: Understand, response: Response<string>, solution: FieldTypeSolution);
 
   /**
    * Build an instance of FieldTypeInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: FieldTypePayload): FieldTypeInstance;
 }
 
 
-declare class FieldTypeInstance {
+declare class FieldTypeInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Preview.Understand.AssistantContext.FieldTypeInstance
-   * @description Initialize the FieldTypeContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the FieldTypeContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @property accountSid - The unique ID of the Account that created this Field Type.
    * @property dateCreated - The date that this resource was created
@@ -236,45 +163,52 @@ declare class FieldTypeInstance {
    * @param assistantSid - The unique ID of the Assistant.
    * @param sid - The sid
    */
-  constructor(version: Twilio.Preview.Understand, payload: object, assistantSid: sid, sid: sid_like);
+  constructor(version: Understand, payload: FieldTypePayload, assistantSid: string, sid: string);
 
-  _proxy?: FieldTypeContext;
+  private _proxy: FieldTypeContext;
+  accountSid: string;
+  assistantSid: string;
+  dateCreated: Date;
+  dateUpdated: Date;
   /**
    * fetch a FieldTypeInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: FieldTypeInstance) => any);
+  fetch(callback?: (error: Error | null, items: FieldTypeInstance) => any): void;
   /**
    * Access the fieldValues
    */
   fieldValues();
+  friendlyName: string;
+  links: string;
   /**
    * remove a FieldTypeInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: FieldTypeInstance) => any);
+  remove(callback?: (error: Error | null, items: FieldTypeInstance) => any): void;
+  sid: string;
   /**
    * Produce a plain JSON object version of the FieldTypeInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  uniqueName: string;
   /**
    * update a FieldTypeInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: FieldTypeInstanceUpdateOptions, callback?: (error: Error | null, items: FieldTypeInstance) => any);
+  update(opts?: FieldTypeInstanceUpdateOptions, callback?: (error: Error | null, items: FieldTypeInstance) => any): void;
+  url: string;
 }
 
 
 declare class FieldTypeContext {
   /**
-   * @constructor Twilio.Preview.Understand.AssistantContext.FieldTypeContext
-   * @description Initialize the FieldTypeContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the FieldTypeContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @property fieldValues - fieldValues resource
    *
@@ -282,28 +216,28 @@ declare class FieldTypeContext {
    * @param assistantSid - The assistant_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.Preview.Understand, assistantSid: sid_like, sid: sid_like);
+  constructor(version: Understand, assistantSid: string, sid: string);
 
   /**
    * fetch a FieldTypeInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: FieldTypeContext) => any);
+  fetch(callback?: (error: Error | null, items: FieldTypeInstance) => any): void;
   fieldValues?: Twilio.Preview.Understand.AssistantContext.FieldTypeContext.FieldValueList;
   /**
    * remove a FieldTypeInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: FieldTypeContext) => any);
+  remove(callback?: (error: Error | null, items: FieldTypeInstance) => any): void;
   /**
    * update a FieldTypeInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: FieldTypeContextUpdateOptions, callback?: (error: Error | null, items: FieldTypeContext) => any);
+  update(opts?: FieldTypeInstanceUpdateOptions, callback?: (error: Error | null, items: FieldTypeInstance) => any): void;
 }
 
-export { FieldTypeContext, FieldTypeInstance, FieldTypeList, FieldTypeListInstance, FieldTypePage, FieldTypePayload, FieldTypeResource, FieldTypeSolution }
+export { FieldTypeContext, FieldTypeInstance, FieldTypeList, FieldTypeListInstance, FieldTypeListInstanceCreateOptions, FieldTypeListInstanceEachOptions, FieldTypeListInstanceOptions, FieldTypeListInstancePageOptions, FieldTypePage, FieldTypePayload, FieldTypeResource, FieldTypeSolution }

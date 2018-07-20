@@ -89,16 +89,16 @@ interface DomainListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<DomainPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: DomainPage) => any): Promise<DomainPage>;
   /**
-   * @description Lists DomainInstance records from the API as a list.
+   * Lists DomainInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: DomainListInstanceOptions, callback?: function): Promise<DomainInstance[]>;
+  list(opts?: DomainListInstanceOptions, callback?: (error: Error | null, items: DomainInstance[]) => any): Promise<DomainInstance[]>;
   /**
    * Retrieve a single page of DomainInstance records from the API.
    * Request is executed immediately
@@ -108,7 +108,7 @@ interface DomainListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: DomainListInstancePageOptions, callback?: function): Promise<DomainPage>;
+  page(opts?: DomainListInstancePageOptions, callback?: (error: Error | null, items: DomainPage) => any): Promise<DomainPage>;
 }
 
 /**
@@ -124,7 +124,7 @@ interface DomainListInstance {
  * @property voiceUrl - The voice_url
  * @property sipRegistration - The sip_registration
  */
-export interface DomainInstanceUpdateOptions {
+interface DomainInstanceUpdateOptions {
   authType?: string;
   friendlyName?: string;
   sipRegistration?: boolean;
@@ -149,7 +149,7 @@ export interface DomainInstanceUpdateOptions {
  * @property voiceUrl - The voice_url
  * @property sipRegistration - The sip_registration
  */
-export interface DomainContextUpdateOptions {
+interface DomainInstanceUpdateOptions {
   authType?: string;
   friendlyName?: string;
   sipRegistration?: boolean;
@@ -161,116 +161,29 @@ export interface DomainContextUpdateOptions {
   voiceUrl?: string;
 }
 
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface DomainListInstanceEachOptions {
-  callback?: (item: DomainInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
 
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface DomainListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface DomainListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-}
-
-/**
- * Options to pass to create
- *
- * @property domainName - The unique address on Twilio to route SIP traffic
- * @property friendlyName - A user-specified, human-readable name for the trigger.
- * @property authType - The types of authentication mapped to the domain
- * @property voiceUrl - URL Twilio will request when receiving a call
- * @property voiceMethod - HTTP method to use with voice_url
- * @property voiceFallbackUrl - URL Twilio will request if an error occurs in executing TwiML
- * @property voiceFallbackMethod - HTTP method used with voice_fallback_url
- * @property voiceStatusCallbackUrl - URL that Twilio will request with status updates
- * @property voiceStatusCallbackMethod - The HTTP method Twilio will use to make requests to the StatusCallback URL.
- * @property sipRegistration - The sip_registration
- */
-export interface DomainListInstanceCreateOptions {
-  authType?: string;
-  domainName: string;
-  friendlyName?: string;
-  sipRegistration?: boolean;
-  voiceFallbackMethod?: string;
-  voiceFallbackUrl?: string;
-  voiceMethod?: string;
-  voiceStatusCallbackMethod?: string;
-  voiceStatusCallbackUrl?: string;
-  voiceUrl?: string;
-}
-
-
-declare class DomainPage extends Page {
+declare class DomainPage extends Page<V2010, DomainPayload, DomainResource, DomainInstance> {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.SipContext.DomainPage
-   * @augments Page
-   * @description Initialize the DomainPage
+   * Initialize the DomainPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
+  constructor(version: V2010, response: Response<string>, solution: DomainSolution);
 
   /**
    * Build an instance of DomainInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: DomainPayload): DomainInstance;
 }
 
 
-declare class DomainInstance {
+declare class DomainInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.SipContext.DomainInstance
-   * @description Initialize the DomainContext
+   * Initialize the DomainContext
    *
    * @property accountSid - The unique id of the account that sent the message
    * @property apiVersion - The Twilio API version used to process the message
@@ -295,19 +208,26 @@ declare class DomainInstance {
    * @param accountSid - A 34 character string that uniquely identifies this resource.
    * @param sid - Fetch by unique Domain Sid
    */
-  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, sid: sid);
+  constructor(version: V2010, payload: DomainPayload, accountSid: string, sid: string);
 
-  _proxy?: DomainContext;
+  private _proxy: DomainContext;
+  accountSid: string;
+  apiVersion: string;
+  authType: string;
   /**
    * Access the credentialListMappings
    */
   credentialListMappings();
+  dateCreated: Date;
+  dateUpdated: Date;
+  domainName: string;
   /**
    * fetch a DomainInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: DomainInstance) => any);
+  fetch(callback?: (error: Error | null, items: DomainInstance) => any): void;
+  friendlyName: string;
   /**
    * Access the ipAccessControlListMappings
    */
@@ -317,26 +237,35 @@ declare class DomainInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: DomainInstance) => any);
+  remove(callback?: (error: Error | null, items: DomainInstance) => any): void;
+  sid: string;
+  sipRegistration: boolean;
+  subresourceUris: string;
   /**
    * Produce a plain JSON object version of the DomainInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
   /**
    * update a DomainInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: DomainInstanceUpdateOptions, callback?: (error: Error | null, items: DomainInstance) => any);
+  update(opts?: DomainInstanceUpdateOptions, callback?: (error: Error | null, items: DomainInstance) => any): void;
+  uri: string;
+  voiceFallbackMethod: string;
+  voiceFallbackUrl: string;
+  voiceMethod: string;
+  voiceStatusCallbackMethod: string;
+  voiceStatusCallbackUrl: string;
+  voiceUrl: string;
 }
 
 
 declare class DomainContext {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.SipContext.DomainContext
-   * @description Initialize the DomainContext
+   * Initialize the DomainContext
    *
    * @property ipAccessControlListMappings - ipAccessControlListMappings resource
    * @property credentialListMappings - credentialListMappings resource
@@ -345,7 +274,7 @@ declare class DomainContext {
    * @param accountSid - The account_sid
    * @param sid - Fetch by unique Domain Sid
    */
-  constructor(version: Twilio.Api.V2010, accountSid: sid, sid: sid);
+  constructor(version: V2010, accountSid: string, sid: string);
 
   credentialListMappings?: Twilio.Api.V2010.AccountContext.SipContext.DomainContext.CredentialListMappingList;
   /**
@@ -353,21 +282,21 @@ declare class DomainContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: DomainContext) => any);
+  fetch(callback?: (error: Error | null, items: DomainInstance) => any): void;
   ipAccessControlListMappings?: Twilio.Api.V2010.AccountContext.SipContext.DomainContext.IpAccessControlListMappingList;
   /**
    * remove a DomainInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: DomainContext) => any);
+  remove(callback?: (error: Error | null, items: DomainInstance) => any): void;
   /**
    * update a DomainInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: DomainContextUpdateOptions, callback?: (error: Error | null, items: DomainContext) => any);
+  update(opts?: DomainInstanceUpdateOptions, callback?: (error: Error | null, items: DomainInstance) => any): void;
 }
 
-export { DomainContext, DomainInstance, DomainList, DomainListInstance, DomainPage, DomainPayload, DomainResource, DomainSolution }
+export { DomainContext, DomainInstance, DomainList, DomainListInstance, DomainListInstanceCreateOptions, DomainListInstanceEachOptions, DomainListInstanceOptions, DomainListInstancePageOptions, DomainPage, DomainPayload, DomainResource, DomainSolution }

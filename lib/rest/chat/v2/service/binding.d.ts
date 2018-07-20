@@ -75,16 +75,16 @@ interface BindingListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<BindingPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: BindingPage) => any): Promise<BindingPage>;
   /**
-   * @description Lists BindingInstance records from the API as a list.
+   * Lists BindingInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: BindingListInstanceOptions, callback?: function): Promise<BindingInstance[]>;
+  list(opts?: BindingListInstanceOptions, callback?: (error: Error | null, items: BindingInstance[]) => any): Promise<BindingInstance[]>;
   /**
    * Retrieve a single page of BindingInstance records from the API.
    * Request is executed immediately
@@ -94,104 +94,32 @@ interface BindingListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: BindingListInstancePageOptions, callback?: function): Promise<BindingPage>;
-}
-
-/**
- * Options to pass to each
- *
- * @property bindingType - The push technology used for the bindings returned.
- * @property identity - The identity
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface BindingListInstanceEachOptions {
-  bindingType?: binding.binding_type|list;
-  callback?: (item: BindingInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  identity?: string|list;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property bindingType - The push technology used for the bindings returned.
- * @property identity - The identity
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface BindingListInstanceOptions {
-  bindingType?: binding.binding_type|list;
-  identity?: string|list;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property bindingType - The push technology used for the bindings returned.
- * @property identity - The identity
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface BindingListInstancePageOptions {
-  bindingType?: binding.binding_type|list;
-  identity?: string|list;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
+  page(opts?: BindingListInstancePageOptions, callback?: (error: Error | null, items: BindingPage) => any): Promise<BindingPage>;
 }
 
 
-declare class BindingPage extends Page {
+declare class BindingPage extends Page<V2, BindingPayload, BindingResource, BindingInstance> {
   /**
-   * @constructor Twilio.Chat.V2.ServiceContext.BindingPage
-   * @augments Page
-   * @description Initialize the BindingPage
+   * Initialize the BindingPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Chat.V2, response: Response<string>, solution: object);
+  constructor(version: V2, response: Response<string>, solution: BindingSolution);
 
   /**
    * Build an instance of BindingInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: BindingPayload): BindingInstance;
 }
 
 
-declare class BindingInstance {
+declare class BindingInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Chat.V2.ServiceContext.BindingInstance
-   * @description Initialize the BindingContext
+   * Initialize the BindingContext
    *
    * @property sid - A 34 character string that uniquely identifies this resource.
    * @property accountSid - The unique id of the Account responsible for this binding.
@@ -211,52 +139,63 @@ declare class BindingInstance {
    * @param serviceSid - The unique id of the Service this binding belongs to.
    * @param sid - The sid
    */
-  constructor(version: Twilio.Chat.V2, payload: object, serviceSid: sid, sid: sid);
+  constructor(version: V2, payload: BindingPayload, serviceSid: string, sid: string);
 
-  _proxy?: BindingContext;
+  private _proxy: BindingContext;
+  accountSid: string;
+  bindingType: binding.binding_type;
+  credentialSid: string;
+  dateCreated: Date;
+  dateUpdated: Date;
+  endpoint: string;
   /**
    * fetch a BindingInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: BindingInstance) => any);
+  fetch(callback?: (error: Error | null, items: BindingInstance) => any): void;
+  identity: string;
+  links: string;
+  messageTypes: string;
   /**
    * remove a BindingInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: BindingInstance) => any);
+  remove(callback?: (error: Error | null, items: BindingInstance) => any): void;
+  serviceSid: string;
+  sid: string;
   /**
    * Produce a plain JSON object version of the BindingInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  url: string;
 }
 
 
 declare class BindingContext {
   /**
-   * @constructor Twilio.Chat.V2.ServiceContext.BindingContext
-   * @description Initialize the BindingContext
+   * Initialize the BindingContext
    *
    * @param version - Version of the resource
    * @param serviceSid - The service_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.Chat.V2, serviceSid: sid, sid: sid);
+  constructor(version: V2, serviceSid: string, sid: string);
 
   /**
    * fetch a BindingInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: BindingContext) => any);
+  fetch(callback?: (error: Error | null, items: BindingInstance) => any): void;
   /**
    * remove a BindingInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: BindingContext) => any);
+  remove(callback?: (error: Error | null, items: BindingInstance) => any): void;
 }
 
-export { BindingContext, BindingInstance, BindingList, BindingListInstance, BindingPage, BindingPayload, BindingResource, BindingSolution }
+export { BindingContext, BindingInstance, BindingList, BindingListInstance, BindingListInstanceEachOptions, BindingListInstanceOptions, BindingListInstancePageOptions, BindingPage, BindingPayload, BindingResource, BindingSolution }

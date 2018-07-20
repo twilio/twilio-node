@@ -67,16 +67,16 @@ interface MonthlyListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<MonthlyPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: MonthlyPage) => any): Promise<MonthlyPage>;
   /**
-   * @description Lists MonthlyInstance records from the API as a list.
+   * Lists MonthlyInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: MonthlyListInstanceOptions, callback?: function): Promise<MonthlyInstance[]>;
+  list(opts?: MonthlyListInstanceOptions, callback?: (error: Error | null, items: MonthlyInstance[]) => any): Promise<MonthlyInstance[]>;
   /**
    * Retrieve a single page of MonthlyInstance records from the API.
    * Request is executed immediately
@@ -86,116 +86,32 @@ interface MonthlyListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: MonthlyListInstancePageOptions, callback?: function): Promise<MonthlyPage>;
-}
-
-/**
- * Options to pass to each
- *
- * @property category - Only include usage of this usage category.
- * @property startDate - Only include usage that has occurred on or after this date.
- * @property endDate - Only include usage that has occurred on or before this date.
- * @property includeSubaccounts - The include_subaccounts
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface MonthlyListInstanceEachOptions {
-  callback?: (item: MonthlyInstance, done: (err?: Error) => void) => void;
-  category?: monthly.category;
-  done?: Function;
-  endDate?: Date;
-  includeSubaccounts?: boolean;
-  limit?: number;
-  pageSize?: number;
-  startDate?: Date;
-}
-
-/**
- * Options to pass to list
- *
- * @property category - Only include usage of this usage category.
- * @property startDate - Only include usage that has occurred on or after this date.
- * @property endDate - Only include usage that has occurred on or before this date.
- * @property includeSubaccounts - The include_subaccounts
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface MonthlyListInstanceOptions {
-  category?: monthly.category;
-  endDate?: Date;
-  includeSubaccounts?: boolean;
-  limit?: number;
-  pageSize?: number;
-  startDate?: Date;
-}
-
-/**
- * Options to pass to page
- *
- * @property category - Only include usage of this usage category.
- * @property startDate - Only include usage that has occurred on or after this date.
- * @property endDate - Only include usage that has occurred on or before this date.
- * @property includeSubaccounts - The include_subaccounts
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface MonthlyListInstancePageOptions {
-  category?: monthly.category;
-  endDate?: Date;
-  includeSubaccounts?: boolean;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-  startDate?: Date;
+  page(opts?: MonthlyListInstancePageOptions, callback?: (error: Error | null, items: MonthlyPage) => any): Promise<MonthlyPage>;
 }
 
 
-declare class MonthlyPage extends Page {
+declare class MonthlyPage extends Page<V2010, MonthlyPayload, MonthlyResource, MonthlyInstance> {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.UsageContext.RecordContext.MonthlyPage
-   * @augments Page
-   * @description Initialize the MonthlyPage
+   * Initialize the MonthlyPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
+  constructor(version: V2010, response: Response<string>, solution: MonthlySolution);
 
   /**
    * Build an instance of MonthlyInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: MonthlyPayload): MonthlyInstance;
 }
 
 
-declare class MonthlyInstance {
+declare class MonthlyInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.UsageContext.RecordContext.MonthlyInstance
-   * @description Initialize the MonthlyContext
+   * Initialize the MonthlyContext
    *
    * @property accountSid - The Account that accrued the usage.
    * @property apiVersion - The api_version
@@ -216,13 +132,27 @@ declare class MonthlyInstance {
    * @param payload - The instance payload
    * @param accountSid - A 34 character string that uniquely identifies this resource.
    */
-  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid);
+  constructor(version: V2010, payload: MonthlyPayload, accountSid: string);
 
+  accountSid: string;
+  apiVersion: string;
+  category: monthly.category;
+  count: string;
+  countUnit: string;
+  description: string;
+  endDate: Date;
+  price: number;
+  priceUnit: string;
+  startDate: Date;
+  subresourceUris: string;
   /**
    * Produce a plain JSON object version of the MonthlyInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  uri: string;
+  usage: string;
+  usageUnit: string;
 }
 
-export { MonthlyInstance, MonthlyList, MonthlyListInstance, MonthlyPage, MonthlyPayload, MonthlyResource, MonthlySolution }
+export { MonthlyInstance, MonthlyList, MonthlyListInstance, MonthlyListInstanceEachOptions, MonthlyListInstanceOptions, MonthlyListInstancePageOptions, MonthlyPage, MonthlyPayload, MonthlyResource, MonthlySolution }

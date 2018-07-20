@@ -76,16 +76,16 @@ interface AssignedAddOnExtensionListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<AssignedAddOnExtensionPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: AssignedAddOnExtensionPage) => any): Promise<AssignedAddOnExtensionPage>;
   /**
-   * @description Lists AssignedAddOnExtensionInstance records from the API as a list.
+   * Lists AssignedAddOnExtensionInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: AssignedAddOnExtensionListInstanceOptions, callback?: function): Promise<AssignedAddOnExtensionInstance[]>;
+  list(opts?: AssignedAddOnExtensionListInstanceOptions, callback?: (error: Error | null, items: AssignedAddOnExtensionInstance[]) => any): Promise<AssignedAddOnExtensionInstance[]>;
   /**
    * Retrieve a single page of AssignedAddOnExtensionInstance records from the API.
    * Request is executed immediately
@@ -95,94 +95,32 @@ interface AssignedAddOnExtensionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: AssignedAddOnExtensionListInstancePageOptions, callback?: function): Promise<AssignedAddOnExtensionPage>;
-}
-
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface AssignedAddOnExtensionListInstanceEachOptions {
-  callback?: (item: AssignedAddOnExtensionInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface AssignedAddOnExtensionListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface AssignedAddOnExtensionListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
+  page(opts?: AssignedAddOnExtensionListInstancePageOptions, callback?: (error: Error | null, items: AssignedAddOnExtensionPage) => any): Promise<AssignedAddOnExtensionPage>;
 }
 
 
-declare class AssignedAddOnExtensionPage extends Page {
+declare class AssignedAddOnExtensionPage extends Page<V2010, AssignedAddOnExtensionPayload, AssignedAddOnExtensionResource, AssignedAddOnExtensionInstance> {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.IncomingPhoneNumberContext.AssignedAddOnContext.AssignedAddOnExtensionPage
-   * @augments Page
-   * @description Initialize the AssignedAddOnExtensionPage
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the AssignedAddOnExtensionPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
+  constructor(version: V2010, response: Response<string>, solution: AssignedAddOnExtensionSolution);
 
   /**
    * Build an instance of AssignedAddOnExtensionInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: AssignedAddOnExtensionPayload): AssignedAddOnExtensionInstance;
 }
 
 
-declare class AssignedAddOnExtensionInstance {
+declare class AssignedAddOnExtensionInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.IncomingPhoneNumberContext.AssignedAddOnContext.AssignedAddOnExtensionInstance
-   * @description Initialize the AssignedAddOnExtensionContext
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the AssignedAddOnExtensionContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @property sid - A string that uniquely identifies this Extension
    * @property accountSid - The Account id that has installed this Add-on
@@ -201,28 +139,35 @@ declare class AssignedAddOnExtensionInstance {
    * @param assignedAddOnSid - A string that uniquely identifies the assigned Add-on installation
    * @param sid - The unique Extension Sid
    */
-  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, resourceSid: sid, assignedAddOnSid: sid, sid: sid);
+  constructor(version: V2010, payload: AssignedAddOnExtensionPayload, accountSid: string, resourceSid: string, assignedAddOnSid: string, sid: string);
 
-  _proxy?: AssignedAddOnExtensionContext;
+  private _proxy: AssignedAddOnExtensionContext;
+  accountSid: string;
+  assignedAddOnSid: string;
+  enabled: boolean;
   /**
    * fetch a AssignedAddOnExtensionInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AssignedAddOnExtensionInstance) => any);
+  fetch(callback?: (error: Error | null, items: AssignedAddOnExtensionInstance) => any): void;
+  friendlyName: string;
+  productName: string;
+  resourceSid: string;
+  sid: string;
   /**
    * Produce a plain JSON object version of the AssignedAddOnExtensionInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  uniqueName: string;
+  uri: string;
 }
 
 
 declare class AssignedAddOnExtensionContext {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.IncomingPhoneNumberContext.AssignedAddOnContext.AssignedAddOnExtensionContext
-   * @description Initialize the AssignedAddOnExtensionContext
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the AssignedAddOnExtensionContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
    * @param accountSid - The account_sid
@@ -230,14 +175,14 @@ declare class AssignedAddOnExtensionContext {
    * @param assignedAddOnSid - The assigned_add_on_sid
    * @param sid - The unique Extension Sid
    */
-  constructor(version: Twilio.Api.V2010, accountSid: sid, resourceSid: sid, assignedAddOnSid: sid, sid: sid);
+  constructor(version: V2010, accountSid: string, resourceSid: string, assignedAddOnSid: string, sid: string);
 
   /**
    * fetch a AssignedAddOnExtensionInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AssignedAddOnExtensionContext) => any);
+  fetch(callback?: (error: Error | null, items: AssignedAddOnExtensionInstance) => any): void;
 }
 
-export { AssignedAddOnExtensionContext, AssignedAddOnExtensionInstance, AssignedAddOnExtensionList, AssignedAddOnExtensionListInstance, AssignedAddOnExtensionPage, AssignedAddOnExtensionPayload, AssignedAddOnExtensionResource, AssignedAddOnExtensionSolution }
+export { AssignedAddOnExtensionContext, AssignedAddOnExtensionInstance, AssignedAddOnExtensionList, AssignedAddOnExtensionListInstance, AssignedAddOnExtensionListInstanceEachOptions, AssignedAddOnExtensionListInstanceOptions, AssignedAddOnExtensionListInstancePageOptions, AssignedAddOnExtensionPage, AssignedAddOnExtensionPayload, AssignedAddOnExtensionResource, AssignedAddOnExtensionSolution }

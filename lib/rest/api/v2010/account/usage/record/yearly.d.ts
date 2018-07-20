@@ -67,16 +67,16 @@ interface YearlyListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<YearlyPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: YearlyPage) => any): Promise<YearlyPage>;
   /**
-   * @description Lists YearlyInstance records from the API as a list.
+   * Lists YearlyInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: YearlyListInstanceOptions, callback?: function): Promise<YearlyInstance[]>;
+  list(opts?: YearlyListInstanceOptions, callback?: (error: Error | null, items: YearlyInstance[]) => any): Promise<YearlyInstance[]>;
   /**
    * Retrieve a single page of YearlyInstance records from the API.
    * Request is executed immediately
@@ -86,116 +86,32 @@ interface YearlyListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: YearlyListInstancePageOptions, callback?: function): Promise<YearlyPage>;
-}
-
-/**
- * Options to pass to each
- *
- * @property category - Only include usage of this usage category.
- * @property startDate - Only include usage that has occurred on or after this date.
- * @property endDate - Only include usage that has occurred on or before this date.
- * @property includeSubaccounts - The include_subaccounts
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface YearlyListInstanceEachOptions {
-  callback?: (item: YearlyInstance, done: (err?: Error) => void) => void;
-  category?: yearly.category;
-  done?: Function;
-  endDate?: Date;
-  includeSubaccounts?: boolean;
-  limit?: number;
-  pageSize?: number;
-  startDate?: Date;
-}
-
-/**
- * Options to pass to list
- *
- * @property category - Only include usage of this usage category.
- * @property startDate - Only include usage that has occurred on or after this date.
- * @property endDate - Only include usage that has occurred on or before this date.
- * @property includeSubaccounts - The include_subaccounts
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface YearlyListInstanceOptions {
-  category?: yearly.category;
-  endDate?: Date;
-  includeSubaccounts?: boolean;
-  limit?: number;
-  pageSize?: number;
-  startDate?: Date;
-}
-
-/**
- * Options to pass to page
- *
- * @property category - Only include usage of this usage category.
- * @property startDate - Only include usage that has occurred on or after this date.
- * @property endDate - Only include usage that has occurred on or before this date.
- * @property includeSubaccounts - The include_subaccounts
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface YearlyListInstancePageOptions {
-  category?: yearly.category;
-  endDate?: Date;
-  includeSubaccounts?: boolean;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-  startDate?: Date;
+  page(opts?: YearlyListInstancePageOptions, callback?: (error: Error | null, items: YearlyPage) => any): Promise<YearlyPage>;
 }
 
 
-declare class YearlyPage extends Page {
+declare class YearlyPage extends Page<V2010, YearlyPayload, YearlyResource, YearlyInstance> {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.UsageContext.RecordContext.YearlyPage
-   * @augments Page
-   * @description Initialize the YearlyPage
+   * Initialize the YearlyPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
+  constructor(version: V2010, response: Response<string>, solution: YearlySolution);
 
   /**
    * Build an instance of YearlyInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: YearlyPayload): YearlyInstance;
 }
 
 
-declare class YearlyInstance {
+declare class YearlyInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.UsageContext.RecordContext.YearlyInstance
-   * @description Initialize the YearlyContext
+   * Initialize the YearlyContext
    *
    * @property accountSid - The Account that accrued the usage.
    * @property apiVersion - The api_version
@@ -216,13 +132,27 @@ declare class YearlyInstance {
    * @param payload - The instance payload
    * @param accountSid - A 34 character string that uniquely identifies this resource.
    */
-  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid);
+  constructor(version: V2010, payload: YearlyPayload, accountSid: string);
 
+  accountSid: string;
+  apiVersion: string;
+  category: yearly.category;
+  count: string;
+  countUnit: string;
+  description: string;
+  endDate: Date;
+  price: number;
+  priceUnit: string;
+  startDate: Date;
+  subresourceUris: string;
   /**
    * Produce a plain JSON object version of the YearlyInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  uri: string;
+  usage: string;
+  usageUnit: string;
 }
 
-export { YearlyInstance, YearlyList, YearlyListInstance, YearlyPage, YearlyPayload, YearlyResource, YearlySolution }
+export { YearlyInstance, YearlyList, YearlyListInstance, YearlyListInstanceEachOptions, YearlyListInstanceOptions, YearlyListInstancePageOptions, YearlyPage, YearlyPayload, YearlyResource, YearlySolution }

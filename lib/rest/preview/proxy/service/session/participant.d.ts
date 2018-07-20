@@ -85,16 +85,16 @@ interface ParticipantListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<ParticipantPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
   /**
-   * @description Lists ParticipantInstance records from the API as a list.
+   * Lists ParticipantInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: ParticipantListInstanceOptions, callback?: function): Promise<ParticipantInstance[]>;
+  list(opts?: ParticipantListInstanceOptions, callback?: (error: Error | null, items: ParticipantInstance[]) => any): Promise<ParticipantInstance[]>;
   /**
    * Retrieve a single page of ParticipantInstance records from the API.
    * Request is executed immediately
@@ -104,7 +104,7 @@ interface ParticipantListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: ParticipantListInstancePageOptions, callback?: function): Promise<ParticipantPage>;
+  page(opts?: ParticipantListInstancePageOptions, callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
 }
 
 /**
@@ -114,7 +114,7 @@ interface ParticipantListInstance {
  * @property identifier - The Participant's contact identifier, normally a phone number.
  * @property friendlyName - A human readable description of this resource
  */
-export interface ParticipantInstanceUpdateOptions {
+interface ParticipantInstanceUpdateOptions {
   friendlyName?: string;
   identifier?: string;
   participantType?: participant.participant_type;
@@ -127,122 +127,35 @@ export interface ParticipantInstanceUpdateOptions {
  * @property identifier - The Participant's contact identifier, normally a phone number.
  * @property friendlyName - A human readable description of this resource
  */
-export interface ParticipantContextUpdateOptions {
+interface ParticipantInstanceUpdateOptions {
   friendlyName?: string;
   identifier?: string;
   participantType?: participant.participant_type;
 }
 
-/**
- * Options to pass to each
- *
- * @property identifier - The Participant's contact identifier, normally a phone number.
- * @property participantType - The Type of this Participant
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface ParticipantListInstanceEachOptions {
-  callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  identifier?: string;
-  limit?: number;
-  pageSize?: number;
-  participantType?: participant.participant_type;
-}
 
-/**
- * Options to pass to list
- *
- * @property identifier - The Participant's contact identifier, normally a phone number.
- * @property participantType - The Type of this Participant
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface ParticipantListInstanceOptions {
-  identifier?: string;
-  limit?: number;
-  pageSize?: number;
-  participantType?: participant.participant_type;
-}
-
-/**
- * Options to pass to page
- *
- * @property identifier - The Participant's contact identifier, normally a phone number.
- * @property participantType - The Type of this Participant
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface ParticipantListInstancePageOptions {
-  identifier?: string;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-  participantType?: participant.participant_type;
-}
-
-/**
- * Options to pass to create
- *
- * @property identifier - The Participant's contact identifier, normally a phone number.
- * @property friendlyName - A human readable description of this resource
- * @property participantType - The Type of this Participant
- */
-export interface ParticipantListInstanceCreateOptions {
-  friendlyName?: string;
-  identifier: string;
-  participantType?: participant.participant_type;
-}
-
-
-declare class ParticipantPage extends Page {
+declare class ParticipantPage extends Page<Proxy, ParticipantPayload, ParticipantResource, ParticipantInstance> {
   /**
-   * @constructor Twilio.Preview.Proxy.ServiceContext.SessionContext.ParticipantPage
-   * @augments Page
-   * @description Initialize the ParticipantPage
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the ParticipantPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Preview.Proxy, response: Response<string>, solution: object);
+  constructor(version: Proxy, response: Response<string>, solution: ParticipantSolution);
 
   /**
    * Build an instance of ParticipantInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: ParticipantPayload): ParticipantInstance;
 }
 
 
-declare class ParticipantInstance {
+declare class ParticipantInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Preview.Proxy.ServiceContext.SessionContext.ParticipantInstance
-   * @description Initialize the ParticipantContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the ParticipantContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @property sid - A string that uniquely identifies this Participant.
    * @property sessionSid - Session Sid.
@@ -263,45 +176,55 @@ declare class ParticipantInstance {
    * @param sessionSid - Session Sid.
    * @param sid - A string that uniquely identifies this Participant.
    */
-  constructor(version: Twilio.Preview.Proxy, payload: object, serviceSid: sid, sessionSid: sid, sid: sid);
+  constructor(version: Proxy, payload: ParticipantPayload, serviceSid: string, sessionSid: string, sid: string);
 
-  _proxy?: ParticipantContext;
+  private _proxy: ParticipantContext;
+  accountSid: string;
+  dateCreated: Date;
+  dateUpdated: Date;
   /**
    * fetch a ParticipantInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ParticipantInstance) => any);
+  fetch(callback?: (error: Error | null, items: ParticipantInstance) => any): void;
+  friendlyName: string;
+  identifier: string;
+  links: string;
   /**
    * Access the messageInteractions
    */
   messageInteractions();
+  participantType: participant.participant_type;
+  proxyIdentifier: string;
   /**
    * remove a ParticipantInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ParticipantInstance) => any);
+  remove(callback?: (error: Error | null, items: ParticipantInstance) => any): void;
+  serviceSid: string;
+  sessionSid: string;
+  sid: string;
   /**
    * Produce a plain JSON object version of the ParticipantInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
   /**
    * update a ParticipantInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ParticipantInstanceUpdateOptions, callback?: (error: Error | null, items: ParticipantInstance) => any);
+  update(opts?: ParticipantInstanceUpdateOptions, callback?: (error: Error | null, items: ParticipantInstance) => any): void;
+  url: string;
 }
 
 
 declare class ParticipantContext {
   /**
-   * @constructor Twilio.Preview.Proxy.ServiceContext.SessionContext.ParticipantContext
-   * @description Initialize the ParticipantContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the ParticipantContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @property messageInteractions - messageInteractions resource
    *
@@ -310,28 +233,28 @@ declare class ParticipantContext {
    * @param sessionSid - Session Sid.
    * @param sid - A string that uniquely identifies this Participant.
    */
-  constructor(version: Twilio.Preview.Proxy, serviceSid: sid, sessionSid: sid, sid: sid);
+  constructor(version: Proxy, serviceSid: string, sessionSid: string, sid: string);
 
   /**
    * fetch a ParticipantInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ParticipantContext) => any);
+  fetch(callback?: (error: Error | null, items: ParticipantInstance) => any): void;
   messageInteractions?: Twilio.Preview.Proxy.ServiceContext.SessionContext.ParticipantContext.MessageInteractionList;
   /**
    * remove a ParticipantInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ParticipantContext) => any);
+  remove(callback?: (error: Error | null, items: ParticipantInstance) => any): void;
   /**
    * update a ParticipantInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ParticipantContextUpdateOptions, callback?: (error: Error | null, items: ParticipantContext) => any);
+  update(opts?: ParticipantInstanceUpdateOptions, callback?: (error: Error | null, items: ParticipantInstance) => any): void;
 }
 
-export { ParticipantContext, ParticipantInstance, ParticipantList, ParticipantListInstance, ParticipantPage, ParticipantPayload, ParticipantResource, ParticipantSolution }
+export { ParticipantContext, ParticipantInstance, ParticipantList, ParticipantListInstance, ParticipantListInstanceCreateOptions, ParticipantListInstanceEachOptions, ParticipantListInstanceOptions, ParticipantListInstancePageOptions, ParticipantPage, ParticipantPayload, ParticipantResource, ParticipantSolution }

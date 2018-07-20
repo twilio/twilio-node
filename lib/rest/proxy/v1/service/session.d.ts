@@ -89,16 +89,16 @@ interface SessionListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<SessionPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: SessionPage) => any): Promise<SessionPage>;
   /**
-   * @description Lists SessionInstance records from the API as a list.
+   * Lists SessionInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: SessionListInstanceOptions, callback?: function): Promise<SessionInstance[]>;
+  list(opts?: SessionListInstanceOptions, callback?: (error: Error | null, items: SessionInstance[]) => any): Promise<SessionInstance[]>;
   /**
    * Retrieve a single page of SessionInstance records from the API.
    * Request is executed immediately
@@ -108,7 +108,7 @@ interface SessionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: SessionListInstancePageOptions, callback?: function): Promise<SessionPage>;
+  page(opts?: SessionListInstancePageOptions, callback?: (error: Error | null, items: SessionPage) => any): Promise<SessionPage>;
 }
 
 /**
@@ -120,7 +120,7 @@ interface SessionListInstance {
  * @property status - The Status of this Session
  * @property participants - The participants
  */
-export interface SessionInstanceUpdateOptions {
+interface SessionInstanceUpdateOptions {
   dateExpiry?: Date;
   mode?: session.mode;
   participants?: string|list;
@@ -137,7 +137,7 @@ export interface SessionInstanceUpdateOptions {
  * @property status - The Status of this Session
  * @property participants - The participants
  */
-export interface SessionContextUpdateOptions {
+interface SessionInstanceUpdateOptions {
   dateExpiry?: Date;
   mode?: session.mode;
   participants?: string|list;
@@ -145,122 +145,29 @@ export interface SessionContextUpdateOptions {
   ttl?: number;
 }
 
-/**
- * Options to pass to each
- *
- * @property uniqueName - The unique_name
- * @property status - The Status of this Session
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface SessionListInstanceEachOptions {
-  callback?: (item: SessionInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-  status?: session.status;
-  uniqueName?: string;
-}
 
-/**
- * Options to pass to list
- *
- * @property uniqueName - The unique_name
- * @property status - The Status of this Session
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface SessionListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-  status?: session.status;
-  uniqueName?: string;
-}
-
-/**
- * Options to pass to page
- *
- * @property uniqueName - The unique_name
- * @property status - The Status of this Session
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface SessionListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-  status?: session.status;
-  uniqueName?: string;
-}
-
-/**
- * Options to pass to create
- *
- * @property uniqueName - A unique, developer assigned name of this Session.
- * @property dateExpiry - The date this Session should expire
- * @property ttl - TTL for a Session, in seconds.
- * @property mode - The Mode of this Session
- * @property status - Session status
- * @property participants - The participants
- */
-export interface SessionListInstanceCreateOptions {
-  dateExpiry?: Date;
-  mode?: session.mode;
-  participants?: string|list;
-  status?: session.status;
-  ttl?: number;
-  uniqueName?: string;
-}
-
-
-declare class SessionPage extends Page {
+declare class SessionPage extends Page<V1, SessionPayload, SessionResource, SessionInstance> {
   /**
-   * @constructor Twilio.Proxy.V1.ServiceContext.SessionPage
-   * @augments Page
-   * @description Initialize the SessionPage
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the SessionPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Proxy.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: SessionSolution);
 
   /**
    * Build an instance of SessionInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: SessionPayload): SessionInstance;
 }
 
 
-declare class SessionInstance {
+declare class SessionInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Proxy.V1.ServiceContext.SessionInstance
-   * @description Initialize the SessionContext
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the SessionContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @property sid - A string that uniquely identifies this Session.
    * @property serviceSid - Service Sid.
@@ -284,19 +191,29 @@ declare class SessionInstance {
    * @param serviceSid - Service Sid.
    * @param sid - A string that uniquely identifies this Session.
    */
-  constructor(version: Twilio.Proxy.V1, payload: object, serviceSid: sid, sid: sid_like);
+  constructor(version: V1, payload: SessionPayload, serviceSid: string, sid: string);
 
-  _proxy?: SessionContext;
+  private _proxy: SessionContext;
+  accountSid: string;
+  closedReason: string;
+  dateCreated: Date;
+  dateEnded: Date;
+  dateExpiry: Date;
+  dateLastInteraction: Date;
+  dateStarted: Date;
+  dateUpdated: Date;
   /**
    * fetch a SessionInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: SessionInstance) => any);
+  fetch(callback?: (error: Error | null, items: SessionInstance) => any): void;
   /**
    * Access the interactions
    */
   interactions();
+  links: string;
+  mode: session.mode;
   /**
    * Access the participants
    */
@@ -306,27 +223,31 @@ declare class SessionInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: SessionInstance) => any);
+  remove(callback?: (error: Error | null, items: SessionInstance) => any): void;
+  serviceSid: string;
+  sid: string;
+  status: session.status;
   /**
    * Produce a plain JSON object version of the SessionInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  ttl: number;
+  uniqueName: string;
   /**
    * update a SessionInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: SessionInstanceUpdateOptions, callback?: (error: Error | null, items: SessionInstance) => any);
+  update(opts?: SessionInstanceUpdateOptions, callback?: (error: Error | null, items: SessionInstance) => any): void;
+  url: string;
 }
 
 
 declare class SessionContext {
   /**
-   * @constructor Twilio.Proxy.V1.ServiceContext.SessionContext
-   * @description Initialize the SessionContext
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the SessionContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @property interactions - interactions resource
    * @property participants - participants resource
@@ -335,14 +256,14 @@ declare class SessionContext {
    * @param serviceSid - Service Sid.
    * @param sid - A string that uniquely identifies this Session.
    */
-  constructor(version: Twilio.Proxy.V1, serviceSid: sid, sid: sid_like);
+  constructor(version: V1, serviceSid: string, sid: string);
 
   /**
    * fetch a SessionInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: SessionContext) => any);
+  fetch(callback?: (error: Error | null, items: SessionInstance) => any): void;
   interactions?: Twilio.Proxy.V1.ServiceContext.SessionContext.InteractionList;
   participants?: Twilio.Proxy.V1.ServiceContext.SessionContext.ParticipantList;
   /**
@@ -350,14 +271,14 @@ declare class SessionContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: SessionContext) => any);
+  remove(callback?: (error: Error | null, items: SessionInstance) => any): void;
   /**
    * update a SessionInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: SessionContextUpdateOptions, callback?: (error: Error | null, items: SessionContext) => any);
+  update(opts?: SessionInstanceUpdateOptions, callback?: (error: Error | null, items: SessionInstance) => any): void;
 }
 
-export { SessionContext, SessionInstance, SessionList, SessionListInstance, SessionPage, SessionPayload, SessionResource, SessionSolution }
+export { SessionContext, SessionInstance, SessionList, SessionListInstance, SessionListInstanceCreateOptions, SessionListInstanceEachOptions, SessionListInstanceOptions, SessionListInstancePageOptions, SessionPage, SessionPayload, SessionResource, SessionSolution }

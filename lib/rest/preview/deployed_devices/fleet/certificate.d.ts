@@ -79,16 +79,16 @@ interface CertificateListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<CertificatePage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: CertificatePage) => any): Promise<CertificatePage>;
   /**
-   * @description Lists CertificateInstance records from the API as a list.
+   * Lists CertificateInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: CertificateListInstanceOptions, callback?: function): Promise<CertificateInstance[]>;
+  list(opts?: CertificateListInstanceOptions, callback?: (error: Error | null, items: CertificateInstance[]) => any): Promise<CertificateInstance[]>;
   /**
    * Retrieve a single page of CertificateInstance records from the API.
    * Request is executed immediately
@@ -98,7 +98,7 @@ interface CertificateListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: CertificateListInstancePageOptions, callback?: function): Promise<CertificatePage>;
+  page(opts?: CertificateListInstancePageOptions, callback?: (error: Error | null, items: CertificatePage) => any): Promise<CertificatePage>;
 }
 
 /**
@@ -107,7 +107,7 @@ interface CertificateListInstance {
  * @property friendlyName - The human readable description for this Certificate.
  * @property deviceSid - The unique identifier of a Device to be authenticated.
  */
-export interface CertificateInstanceUpdateOptions {
+interface CertificateInstanceUpdateOptions {
   deviceSid?: string;
   friendlyName?: string;
 }
@@ -118,115 +118,34 @@ export interface CertificateInstanceUpdateOptions {
  * @property friendlyName - The human readable description for this Certificate.
  * @property deviceSid - The unique identifier of a Device to be authenticated.
  */
-export interface CertificateContextUpdateOptions {
+interface CertificateInstanceUpdateOptions {
   deviceSid?: string;
   friendlyName?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property certificateData - The public certificate data.
- * @property friendlyName - The human readable description for this Certificate.
- * @property deviceSid - The unique identifier of a Device to be authenticated.
- */
-export interface CertificateListInstanceCreateOptions {
-  certificateData: string;
-  deviceSid?: string;
-  friendlyName?: string;
-}
 
-/**
- * Options to pass to each
- *
- * @property deviceSid - Find all Certificates authenticating specified Device.
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface CertificateListInstanceEachOptions {
-  callback?: (item: CertificateInstance, done: (err?: Error) => void) => void;
-  deviceSid?: string;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property deviceSid - Find all Certificates authenticating specified Device.
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface CertificateListInstanceOptions {
-  deviceSid?: string;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property deviceSid - Find all Certificates authenticating specified Device.
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface CertificateListInstancePageOptions {
-  deviceSid?: string;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-}
-
-
-declare class CertificatePage extends Page {
+declare class CertificatePage extends Page<DeployedDevices, CertificatePayload, CertificateResource, CertificateInstance> {
   /**
-   * @constructor Twilio.Preview.DeployedDevices.FleetContext.CertificatePage
-   * @augments Page
-   * @description Initialize the CertificatePage
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the CertificatePagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Preview.DeployedDevices, response: Response<string>, solution: object);
+  constructor(version: DeployedDevices, response: Response<string>, solution: CertificateSolution);
 
   /**
    * Build an instance of CertificateInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: CertificatePayload): CertificateInstance;
 }
 
 
-declare class CertificateInstance {
+declare class CertificateInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Preview.DeployedDevices.FleetContext.CertificateInstance
-   * @description Initialize the CertificateContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the CertificateContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @property sid - A string that uniquely identifies this Certificate.
    * @property url - URL of this Certificate.
@@ -243,67 +162,74 @@ declare class CertificateInstance {
    * @param fleetSid - The unique identifier of the Fleet.
    * @param sid - A string that uniquely identifies the Certificate.
    */
-  constructor(version: Twilio.Preview.DeployedDevices, payload: object, fleetSid: sid_like, sid: sid);
+  constructor(version: DeployedDevices, payload: CertificatePayload, fleetSid: string, sid: string);
 
-  _proxy?: CertificateContext;
+  private _proxy: CertificateContext;
+  accountSid: string;
+  dateCreated: Date;
+  dateUpdated: Date;
+  deviceSid: string;
   /**
    * fetch a CertificateInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CertificateInstance) => any);
+  fetch(callback?: (error: Error | null, items: CertificateInstance) => any): void;
+  fleetSid: string;
+  friendlyName: string;
   /**
    * remove a CertificateInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: CertificateInstance) => any);
+  remove(callback?: (error: Error | null, items: CertificateInstance) => any): void;
+  sid: string;
+  thumbprint: string;
   /**
    * Produce a plain JSON object version of the CertificateInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
   /**
    * update a CertificateInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: CertificateInstanceUpdateOptions, callback?: (error: Error | null, items: CertificateInstance) => any);
+  update(opts?: CertificateInstanceUpdateOptions, callback?: (error: Error | null, items: CertificateInstance) => any): void;
+  url: string;
 }
 
 
 declare class CertificateContext {
   /**
-   * @constructor Twilio.Preview.DeployedDevices.FleetContext.CertificateContext
-   * @description Initialize the CertificateContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the CertificateContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param fleetSid - The fleet_sid
    * @param sid - A string that uniquely identifies the Certificate.
    */
-  constructor(version: Twilio.Preview.DeployedDevices, fleetSid: sid_like, sid: sid);
+  constructor(version: DeployedDevices, fleetSid: string, sid: string);
 
   /**
    * fetch a CertificateInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CertificateContext) => any);
+  fetch(callback?: (error: Error | null, items: CertificateInstance) => any): void;
   /**
    * remove a CertificateInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: CertificateContext) => any);
+  remove(callback?: (error: Error | null, items: CertificateInstance) => any): void;
   /**
    * update a CertificateInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: CertificateContextUpdateOptions, callback?: (error: Error | null, items: CertificateContext) => any);
+  update(opts?: CertificateInstanceUpdateOptions, callback?: (error: Error | null, items: CertificateInstance) => any): void;
 }
 
-export { CertificateContext, CertificateInstance, CertificateList, CertificateListInstance, CertificatePage, CertificatePayload, CertificateResource, CertificateSolution }
+export { CertificateContext, CertificateInstance, CertificateList, CertificateListInstance, CertificateListInstanceCreateOptions, CertificateListInstanceEachOptions, CertificateListInstanceOptions, CertificateListInstancePageOptions, CertificatePage, CertificatePayload, CertificateResource, CertificateSolution }

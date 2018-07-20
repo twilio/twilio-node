@@ -83,16 +83,16 @@ interface ParticipantListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<ParticipantPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
   /**
-   * @description Lists ParticipantInstance records from the API as a list.
+   * Lists ParticipantInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: ParticipantListInstanceOptions, callback?: function): Promise<ParticipantInstance[]>;
+  list(opts?: ParticipantListInstanceOptions, callback?: (error: Error | null, items: ParticipantInstance[]) => any): Promise<ParticipantInstance[]>;
   /**
    * Retrieve a single page of ParticipantInstance records from the API.
    * Request is executed immediately
@@ -102,7 +102,7 @@ interface ParticipantListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: ParticipantListInstancePageOptions, callback?: function): Promise<ParticipantPage>;
+  page(opts?: ParticipantListInstancePageOptions, callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
 }
 
 /**
@@ -115,7 +115,7 @@ interface ParticipantListInstance {
  * @property announceUrl - The 'AnnounceUrl' attribute lets you specify a URL for announcing something to the participant.
  * @property announceMethod - Specify GET or POST, defaults to POST
  */
-export interface ParticipantInstanceUpdateOptions {
+interface ParticipantInstanceUpdateOptions {
   announceMethod?: string;
   announceUrl?: string;
   hold?: boolean;
@@ -134,7 +134,7 @@ export interface ParticipantInstanceUpdateOptions {
  * @property announceUrl - The 'AnnounceUrl' attribute lets you specify a URL for announcing something to the participant.
  * @property announceMethod - Specify GET or POST, defaults to POST
  */
-export interface ParticipantContextUpdateOptions {
+interface ParticipantInstanceUpdateOptions {
   announceMethod?: string;
   announceUrl?: string;
   hold?: boolean;
@@ -143,168 +143,29 @@ export interface ParticipantContextUpdateOptions {
   muted?: boolean;
 }
 
-/**
- * Options to pass to create
- *
- * @property from - The `from` phone number used to invite a participant.
- * @property to - The number, client id, or sip address of the new participant.
- * @property statusCallback - URL for conference event callback.
- * @property statusCallbackMethod - Method Twilio should use to reach the status callback URL.
- * @property statusCallbackEvent - Set state change events that will trigger a callback.
- * @property timeout - Number of seconds Twilio will wait for an answer.
- * @property record - Record the agent and their conferences.
- * @property muted - Mute the agent.
- * @property beep - Play a beep when the participant joins the conference.
- * @property startConferenceOnEnter - Begin the conference when the participant joins.
- * @property endConferenceOnExit - End the conference when the participant leaves.
- * @property waitUrl - URL that hosts pre-conference hold music
- * @property waitMethod - The method Twilio should use to request `WaitUrl`.
- * @property earlyMedia - Agents can hear the state of the outbound call.
- * @property maxParticipants - Maximum number of agent conference participants.
- * @property conferenceRecord - Record the conference.
- * @property conferenceTrim - Trim silence from audio files.
- * @property conferenceStatusCallback - Callback URL for conference events.
- * @property conferenceStatusCallbackMethod - HTTP method for requesting `ConferenceStatusCallback` URL.
- * @property conferenceStatusCallbackEvent - Set which conference state changes should webhook to the `ConferenceStatusCallback`
- * @property recordingChannels - Specify `mono` or `dual` recording channels.
- * @property recordingStatusCallback - The absolute URL for Twilio's webhook with recording status information.
- * @property recordingStatusCallbackMethod - HTTP method for `RecordingStatusCallback`
- * @property sipAuthUsername - SIP username used for authenticating.
- * @property sipAuthPassword - SIP password for authentication.
- * @property region - The region where Twilio should mix the conference audio.
- * @property conferenceRecordingStatusCallback - Conference recording callback URL.
- * @property conferenceRecordingStatusCallbackMethod - Method Twilio should use to request the `ConferenceRecordingStatusCallback` URL.
- * @property recordingStatusCallbackEvent - The recording_status_callback_event
- * @property conferenceRecordingStatusCallbackEvent - The conference_recording_status_callback_event
- */
-export interface ParticipantListInstanceCreateOptions {
-  beep?: string;
-  conferenceRecord?: string;
-  conferenceRecordingStatusCallback?: string;
-  conferenceRecordingStatusCallbackEvent?: string|list;
-  conferenceRecordingStatusCallbackMethod?: string;
-  conferenceStatusCallback?: string;
-  conferenceStatusCallbackEvent?: string|list;
-  conferenceStatusCallbackMethod?: string;
-  conferenceTrim?: string;
-  earlyMedia?: boolean;
-  endConferenceOnExit?: boolean;
-  from: string;
-  maxParticipants?: number;
-  muted?: boolean;
-  record?: boolean;
-  recordingChannels?: string;
-  recordingStatusCallback?: string;
-  recordingStatusCallbackEvent?: string|list;
-  recordingStatusCallbackMethod?: string;
-  region?: string;
-  sipAuthPassword?: string;
-  sipAuthUsername?: string;
-  startConferenceOnEnter?: boolean;
-  statusCallback?: string;
-  statusCallbackEvent?: string|list;
-  statusCallbackMethod?: string;
-  timeout?: number;
-  to: string;
-  waitMethod?: string;
-  waitUrl?: string;
-}
 
-/**
- * Options to pass to each
- *
- * @property muted - Filter by muted participants
- * @property hold - Only show participants that are held or unheld.
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface ParticipantListInstanceEachOptions {
-  callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  hold?: boolean;
-  limit?: number;
-  muted?: boolean;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property muted - Filter by muted participants
- * @property hold - Only show participants that are held or unheld.
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface ParticipantListInstanceOptions {
-  hold?: boolean;
-  limit?: number;
-  muted?: boolean;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property muted - Filter by muted participants
- * @property hold - Only show participants that are held or unheld.
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface ParticipantListInstancePageOptions {
-  hold?: boolean;
-  muted?: boolean;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-}
-
-
-declare class ParticipantPage extends Page {
+declare class ParticipantPage extends Page<V2010, ParticipantPayload, ParticipantResource, ParticipantInstance> {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.ConferenceContext.ParticipantPage
-   * @augments Page
-   * @description Initialize the ParticipantPage
+   * Initialize the ParticipantPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
+  constructor(version: V2010, response: Response<string>, solution: ParticipantSolution);
 
   /**
    * Build an instance of ParticipantInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: ParticipantPayload): ParticipantInstance;
 }
 
 
-declare class ParticipantInstance {
+declare class ParticipantInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.ConferenceContext.ParticipantInstance
-   * @description Initialize the ParticipantContext
+   * Initialize the ParticipantContext
    *
    * @property accountSid - The unique sid that identifies this account
    * @property callSid - A string that uniquely identifies this call
@@ -324,67 +185,77 @@ declare class ParticipantInstance {
    * @param conferenceSid - A string that uniquely identifies this conference
    * @param callSid - Fetch by unique participant Call SID
    */
-  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, conferenceSid: sid, callSid: sid);
+  constructor(version: V2010, payload: ParticipantPayload, accountSid: string, conferenceSid: string, callSid: string);
 
-  _proxy?: ParticipantContext;
+  private _proxy: ParticipantContext;
+  accountSid: string;
+  callSid: string;
+  conferenceSid: string;
+  dateCreated: Date;
+  dateUpdated: Date;
+  endConferenceOnExit: boolean;
   /**
    * fetch a ParticipantInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ParticipantInstance) => any);
+  fetch(callback?: (error: Error | null, items: ParticipantInstance) => any): void;
+  hold: boolean;
+  muted: boolean;
   /**
    * remove a ParticipantInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ParticipantInstance) => any);
+  remove(callback?: (error: Error | null, items: ParticipantInstance) => any): void;
+  startConferenceOnEnter: boolean;
+  status: participant.status;
   /**
    * Produce a plain JSON object version of the ParticipantInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
   /**
    * update a ParticipantInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ParticipantInstanceUpdateOptions, callback?: (error: Error | null, items: ParticipantInstance) => any);
+  update(opts?: ParticipantInstanceUpdateOptions, callback?: (error: Error | null, items: ParticipantInstance) => any): void;
+  uri: string;
 }
 
 
 declare class ParticipantContext {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.ConferenceContext.ParticipantContext
-   * @description Initialize the ParticipantContext
+   * Initialize the ParticipantContext
    *
    * @param version - Version of the resource
    * @param accountSid - The account_sid
    * @param conferenceSid - The string that uniquely identifies this conference
    * @param callSid - Fetch by unique participant Call SID
    */
-  constructor(version: Twilio.Api.V2010, accountSid: sid, conferenceSid: sid, callSid: sid);
+  constructor(version: V2010, accountSid: string, conferenceSid: string, callSid: string);
 
   /**
    * fetch a ParticipantInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ParticipantContext) => any);
+  fetch(callback?: (error: Error | null, items: ParticipantInstance) => any): void;
   /**
    * remove a ParticipantInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ParticipantContext) => any);
+  remove(callback?: (error: Error | null, items: ParticipantInstance) => any): void;
   /**
    * update a ParticipantInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ParticipantContextUpdateOptions, callback?: (error: Error | null, items: ParticipantContext) => any);
+  update(opts?: ParticipantInstanceUpdateOptions, callback?: (error: Error | null, items: ParticipantInstance) => any): void;
 }
 
-export { ParticipantContext, ParticipantInstance, ParticipantList, ParticipantListInstance, ParticipantPage, ParticipantPayload, ParticipantResource, ParticipantSolution }
+export { ParticipantContext, ParticipantInstance, ParticipantList, ParticipantListInstance, ParticipantListInstanceCreateOptions, ParticipantListInstanceEachOptions, ParticipantListInstanceOptions, ParticipantListInstancePageOptions, ParticipantPage, ParticipantPayload, ParticipantResource, ParticipantSolution }

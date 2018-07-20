@@ -64,16 +64,16 @@ interface SubscribedTrackListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<SubscribedTrackPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: SubscribedTrackPage) => any): Promise<SubscribedTrackPage>;
   /**
-   * @description Lists SubscribedTrackInstance records from the API as a list.
+   * Lists SubscribedTrackInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: SubscribedTrackListInstanceOptions, callback?: function): Promise<SubscribedTrackInstance[]>;
+  list(opts?: SubscribedTrackListInstanceOptions, callback?: (error: Error | null, items: SubscribedTrackInstance[]) => any): Promise<SubscribedTrackInstance[]>;
   /**
    * Retrieve a single page of SubscribedTrackInstance records from the API.
    * Request is executed immediately
@@ -83,144 +83,39 @@ interface SubscribedTrackListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: SubscribedTrackListInstancePageOptions, callback?: function): Promise<SubscribedTrackPage>;
+  page(opts?: SubscribedTrackListInstancePageOptions, callback?: (error: Error | null, items: SubscribedTrackPage) => any): Promise<SubscribedTrackPage>;
   /**
    * update a SubscribedTrackInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: SubscribedTrackListInstanceUpdateOptions, callback?: (error: Error | null, items: SubscribedTrackListInstance) => any);
-}
-
-/**
- * Options to pass to each
- *
- * @property dateCreatedAfter - The date_created_after
- * @property dateCreatedBefore - The date_created_before
- * @property track - The track
- * @property publisher - The publisher
- * @property kind - The kind
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface SubscribedTrackListInstanceEachOptions {
-  callback?: (item: SubscribedTrackInstance, done: (err?: Error) => void) => void;
-  dateCreatedAfter?: Date;
-  dateCreatedBefore?: Date;
-  done?: Function;
-  kind?: subscribed_track.kind;
-  limit?: number;
-  pageSize?: number;
-  publisher?: string;
-  track?: string;
-}
-
-/**
- * Options to pass to list
- *
- * @property dateCreatedAfter - The date_created_after
- * @property dateCreatedBefore - The date_created_before
- * @property track - The track
- * @property publisher - The publisher
- * @property kind - The kind
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface SubscribedTrackListInstanceOptions {
-  dateCreatedAfter?: Date;
-  dateCreatedBefore?: Date;
-  kind?: subscribed_track.kind;
-  limit?: number;
-  pageSize?: number;
-  publisher?: string;
-  track?: string;
-}
-
-/**
- * Options to pass to page
- *
- * @property dateCreatedAfter - The date_created_after
- * @property dateCreatedBefore - The date_created_before
- * @property track - The track
- * @property publisher - The publisher
- * @property kind - The kind
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface SubscribedTrackListInstancePageOptions {
-  dateCreatedAfter?: Date;
-  dateCreatedBefore?: Date;
-  kind?: subscribed_track.kind;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-  publisher?: string;
-  track?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property track - The track
- * @property publisher - The publisher
- * @property kind - The kind
- * @property status - The status
- */
-export interface SubscribedTrackListInstanceUpdateOptions {
-  kind?: subscribed_track.kind;
-  publisher?: string;
-  status?: subscribed_track.status;
-  track?: string;
+  update(opts?: SubscribedTrackListInstanceUpdateOptions, callback?: (error: Error | null, items: SubscribedTrackListInstance) => any): void;
 }
 
 
-declare class SubscribedTrackPage extends Page {
+declare class SubscribedTrackPage extends Page<V1, SubscribedTrackPayload, SubscribedTrackResource, SubscribedTrackInstance> {
   /**
-   * @constructor Twilio.Video.V1.RoomContext.ParticipantContext.SubscribedTrackPage
-   * @augments Page
-   * @description Initialize the SubscribedTrackPage
+   * Initialize the SubscribedTrackPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Video.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: SubscribedTrackSolution);
 
   /**
    * Build an instance of SubscribedTrackInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: SubscribedTrackPayload): SubscribedTrackInstance;
 }
 
 
-declare class SubscribedTrackInstance {
+declare class SubscribedTrackInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Video.V1.RoomContext.ParticipantContext.SubscribedTrackInstance
-   * @description Initialize the SubscribedTrackContext
+   * Initialize the SubscribedTrackContext
    *
    * @property sid - The sid
    * @property roomSid - The room_sid
@@ -237,13 +132,22 @@ declare class SubscribedTrackInstance {
    * @param roomSid - The room_sid
    * @param subscriberSid - The subscriber_sid
    */
-  constructor(version: Twilio.Video.V1, payload: object, roomSid: sid, subscriberSid: sid);
+  constructor(version: V1, payload: SubscribedTrackPayload, roomSid: string, subscriberSid: string);
 
+  dateCreated: Date;
+  dateUpdated: Date;
+  enabled: boolean;
+  kind: subscribed_track.kind;
+  name: string;
+  publisherSid: string;
+  roomSid: string;
+  sid: string;
+  subscriberSid: string;
   /**
    * Produce a plain JSON object version of the SubscribedTrackInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
 }
 
-export { SubscribedTrackInstance, SubscribedTrackList, SubscribedTrackListInstance, SubscribedTrackPage, SubscribedTrackPayload, SubscribedTrackResource, SubscribedTrackSolution }
+export { SubscribedTrackInstance, SubscribedTrackList, SubscribedTrackListInstance, SubscribedTrackListInstanceEachOptions, SubscribedTrackListInstanceOptions, SubscribedTrackListInstancePageOptions, SubscribedTrackListInstanceUpdateOptions, SubscribedTrackPage, SubscribedTrackPayload, SubscribedTrackResource, SubscribedTrackSolution }

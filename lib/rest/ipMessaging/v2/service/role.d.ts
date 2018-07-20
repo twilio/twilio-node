@@ -79,16 +79,16 @@ interface RoleListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<RolePage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: RolePage) => any): Promise<RolePage>;
   /**
-   * @description Lists RoleInstance records from the API as a list.
+   * Lists RoleInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: RoleListInstanceOptions, callback?: function): Promise<RoleInstance[]>;
+  list(opts?: RoleListInstanceOptions, callback?: (error: Error | null, items: RoleInstance[]) => any): Promise<RoleInstance[]>;
   /**
    * Retrieve a single page of RoleInstance records from the API.
    * Request is executed immediately
@@ -98,7 +98,7 @@ interface RoleListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: RoleListInstancePageOptions, callback?: function): Promise<RolePage>;
+  page(opts?: RoleListInstancePageOptions, callback?: (error: Error | null, items: RolePage) => any): Promise<RolePage>;
 }
 
 /**
@@ -106,7 +106,7 @@ interface RoleListInstance {
  *
  * @property permission - A permission this role should have.
  */
-export interface RoleInstanceUpdateOptions {
+interface RoleInstanceUpdateOptions {
   permission: string|list;
 }
 
@@ -115,106 +115,33 @@ export interface RoleInstanceUpdateOptions {
  *
  * @property permission - A permission this role should have.
  */
-export interface RoleContextUpdateOptions {
+interface RoleInstanceUpdateOptions {
   permission: string|list;
 }
 
-/**
- * Options to pass to create
- *
- * @property friendlyName - The human-readable name of this role.
- * @property type - What kind of role this is.
- * @property permission - A permission this role should have.
- */
-export interface RoleListInstanceCreateOptions {
-  friendlyName: string;
-  permission: string|list;
-  type: role.role_type;
-}
 
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface RoleListInstanceEachOptions {
-  callback?: (item: RoleInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface RoleListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface RoleListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-}
-
-
-declare class RolePage extends Page {
+declare class RolePage extends Page<V2, RolePayload, RoleResource, RoleInstance> {
   /**
-   * @constructor Twilio.IpMessaging.V2.ServiceContext.RolePage
-   * @augments Page
-   * @description Initialize the RolePage
+   * Initialize the RolePage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.IpMessaging.V2, response: Response<string>, solution: object);
+  constructor(version: V2, response: Response<string>, solution: RoleSolution);
 
   /**
    * Build an instance of RoleInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: RolePayload): RoleInstance;
 }
 
 
-declare class RoleInstance {
+declare class RoleInstance extends SerializableClass {
   /**
-   * @constructor Twilio.IpMessaging.V2.ServiceContext.RoleInstance
-   * @description Initialize the RoleContext
+   * Initialize the RoleContext
    *
    * @property sid - A 34 character string that uniquely identifies this resource.
    * @property accountSid - The unique id of the Account responsible for this role.
@@ -231,66 +158,74 @@ declare class RoleInstance {
    * @param serviceSid - The unique id of the Service this role belongs to.
    * @param sid - The sid
    */
-  constructor(version: Twilio.IpMessaging.V2, payload: object, serviceSid: sid, sid: sid);
+  constructor(version: V2, payload: RolePayload, serviceSid: string, sid: string);
 
-  _proxy?: RoleContext;
+  private _proxy: RoleContext;
+  accountSid: string;
+  dateCreated: Date;
+  dateUpdated: Date;
   /**
    * fetch a RoleInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: RoleInstance) => any);
+  fetch(callback?: (error: Error | null, items: RoleInstance) => any): void;
+  friendlyName: string;
+  permissions: string;
   /**
    * remove a RoleInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: RoleInstance) => any);
+  remove(callback?: (error: Error | null, items: RoleInstance) => any): void;
+  serviceSid: string;
+  sid: string;
   /**
    * Produce a plain JSON object version of the RoleInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  type: role.role_type;
   /**
    * update a RoleInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: RoleInstanceUpdateOptions, callback?: (error: Error | null, items: RoleInstance) => any);
+  update(opts: RoleInstanceUpdateOptions, callback?: (error: Error | null, items: RoleInstance) => any): void;
+  url: string;
 }
 
 
 declare class RoleContext {
   /**
-   * @constructor Twilio.IpMessaging.V2.ServiceContext.RoleContext
-   * @description Initialize the RoleContext
+   * Initialize the RoleContext
    *
    * @param version - Version of the resource
    * @param serviceSid - The service_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.IpMessaging.V2, serviceSid: sid, sid: sid);
+  constructor(version: V2, serviceSid: string, sid: string);
 
   /**
    * fetch a RoleInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: RoleContext) => any);
+  fetch(callback?: (error: Error | null, items: RoleInstance) => any): void;
   /**
    * remove a RoleInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: RoleContext) => any);
+  remove(callback?: (error: Error | null, items: RoleInstance) => any): void;
   /**
    * update a RoleInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: RoleContextUpdateOptions, callback?: (error: Error | null, items: RoleContext) => any);
+  update(opts: RoleInstanceUpdateOptions, callback?: (error: Error | null, items: RoleInstance) => any): void;
 }
 
-export { RoleContext, RoleInstance, RoleList, RoleListInstance, RolePage, RolePayload, RoleResource, RoleSolution }
+export { RoleContext, RoleInstance, RoleList, RoleListInstance, RoleListInstanceCreateOptions, RoleListInstanceEachOptions, RoleListInstanceOptions, RoleListInstancePageOptions, RolePage, RolePayload, RoleResource, RoleSolution }

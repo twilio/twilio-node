@@ -82,16 +82,16 @@ interface ServiceListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<ServicePage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
   /**
-   * @description Lists ServiceInstance records from the API as a list.
+   * Lists ServiceInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: ServiceListInstanceOptions, callback?: function): Promise<ServiceInstance[]>;
+  list(opts?: ServiceListInstanceOptions, callback?: (error: Error | null, items: ServiceInstance[]) => any): Promise<ServiceInstance[]>;
   /**
    * Retrieve a single page of ServiceInstance records from the API.
    * Request is executed immediately
@@ -101,7 +101,7 @@ interface ServiceListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: ServiceListInstancePageOptions, callback?: function): Promise<ServicePage>;
+  page(opts?: ServiceListInstancePageOptions, callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
 }
 
 /**
@@ -112,7 +112,7 @@ interface ServiceListInstance {
  * @property reachabilityWebhooksEnabled - The reachability_webhooks_enabled
  * @property aclEnabled - The acl_enabled
  */
-export interface ServiceInstanceUpdateOptions {
+interface ServiceInstanceUpdateOptions {
   aclEnabled?: boolean;
   friendlyName?: string;
   reachabilityWebhooksEnabled?: boolean;
@@ -127,113 +127,36 @@ export interface ServiceInstanceUpdateOptions {
  * @property reachabilityWebhooksEnabled - The reachability_webhooks_enabled
  * @property aclEnabled - The acl_enabled
  */
-export interface ServiceContextUpdateOptions {
+interface ServiceInstanceUpdateOptions {
   aclEnabled?: boolean;
   friendlyName?: string;
   reachabilityWebhooksEnabled?: boolean;
   webhookUrl?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property friendlyName - The friendly_name
- * @property webhookUrl - The webhook_url
- * @property reachabilityWebhooksEnabled - The reachability_webhooks_enabled
- * @property aclEnabled - The acl_enabled
- */
-export interface ServiceListInstanceCreateOptions {
-  aclEnabled?: boolean;
-  friendlyName?: string;
-  reachabilityWebhooksEnabled?: boolean;
-  webhookUrl?: string;
-}
 
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface ServiceListInstanceEachOptions {
-  callback?: (item: ServiceInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface ServiceListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface ServiceListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-}
-
-
-declare class ServicePage extends Page {
+declare class ServicePage extends Page<Sync, ServicePayload, ServiceResource, ServiceInstance> {
   /**
-   * @constructor Twilio.Preview.Sync.ServicePage
-   * @augments Page
-   * @description Initialize the ServicePage
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the ServicePagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Preview.Sync, response: Response<string>, solution: object);
+  constructor(version: Sync, response: Response<string>, solution: ServiceSolution);
 
   /**
    * Build an instance of ServiceInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: ServicePayload): ServiceInstance;
 }
 
 
-declare class ServiceInstance {
+declare class ServiceInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Preview.Sync.ServiceInstance
-   * @description Initialize the ServiceContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the ServiceContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @property sid - The sid
    * @property accountSid - The account_sid
@@ -250,9 +173,13 @@ declare class ServiceInstance {
    * @param payload - The instance payload
    * @param sid - The sid
    */
-  constructor(version: Twilio.Preview.Sync, payload: object, sid: sid);
+  constructor(version: Sync, payload: ServicePayload, sid: string);
 
-  _proxy?: ServiceContext;
+  private _proxy: ServiceContext;
+  accountSid: string;
+  aclEnabled: boolean;
+  dateCreated: Date;
+  dateUpdated: Date;
   /**
    * Access the documents
    */
@@ -262,13 +189,17 @@ declare class ServiceInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ServiceInstance) => any);
+  fetch(callback?: (error: Error | null, items: ServiceInstance) => any): void;
+  friendlyName: string;
+  links: string;
+  reachabilityWebhooksEnabled: boolean;
   /**
    * remove a ServiceInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ServiceInstance) => any);
+  remove(callback?: (error: Error | null, items: ServiceInstance) => any): void;
+  sid: string;
   /**
    * Access the syncLists
    */
@@ -281,22 +212,22 @@ declare class ServiceInstance {
    * Produce a plain JSON object version of the ServiceInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
   /**
    * update a ServiceInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ServiceInstanceUpdateOptions, callback?: (error: Error | null, items: ServiceInstance) => any);
+  update(opts?: ServiceInstanceUpdateOptions, callback?: (error: Error | null, items: ServiceInstance) => any): void;
+  url: string;
+  webhookUrl: string;
 }
 
 
 declare class ServiceContext {
   /**
-   * @constructor Twilio.Preview.Sync.ServiceContext
-   * @description Initialize the ServiceContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the ServiceContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @property documents - documents resource
    * @property syncLists - syncLists resource
@@ -305,7 +236,7 @@ declare class ServiceContext {
    * @param version - Version of the resource
    * @param sid - The sid
    */
-  constructor(version: Twilio.Preview.Sync, sid: sid);
+  constructor(version: Sync, sid: string);
 
   documents?: Twilio.Preview.Sync.ServiceContext.DocumentList;
   /**
@@ -313,13 +244,13 @@ declare class ServiceContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ServiceContext) => any);
+  fetch(callback?: (error: Error | null, items: ServiceInstance) => any): void;
   /**
    * remove a ServiceInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ServiceContext) => any);
+  remove(callback?: (error: Error | null, items: ServiceInstance) => any): void;
   syncLists?: Twilio.Preview.Sync.ServiceContext.SyncListList;
   syncMaps?: Twilio.Preview.Sync.ServiceContext.SyncMapList;
   /**
@@ -328,7 +259,7 @@ declare class ServiceContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ServiceContextUpdateOptions, callback?: (error: Error | null, items: ServiceContext) => any);
+  update(opts?: ServiceInstanceUpdateOptions, callback?: (error: Error | null, items: ServiceInstance) => any): void;
 }
 
-export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServicePage, ServicePayload, ServiceResource, ServiceSolution }
+export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServiceListInstanceCreateOptions, ServiceListInstanceEachOptions, ServiceListInstanceOptions, ServiceListInstancePageOptions, ServicePage, ServicePayload, ServiceResource, ServiceSolution }

@@ -74,16 +74,16 @@ interface DocumentPermissionListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<DocumentPermissionPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: DocumentPermissionPage) => any): Promise<DocumentPermissionPage>;
   /**
-   * @description Lists DocumentPermissionInstance records from the API as a list.
+   * Lists DocumentPermissionInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: DocumentPermissionListInstanceOptions, callback?: function): Promise<DocumentPermissionInstance[]>;
+  list(opts?: DocumentPermissionListInstanceOptions, callback?: (error: Error | null, items: DocumentPermissionInstance[]) => any): Promise<DocumentPermissionInstance[]>;
   /**
    * Retrieve a single page of DocumentPermissionInstance records from the API.
    * Request is executed immediately
@@ -93,7 +93,7 @@ interface DocumentPermissionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: DocumentPermissionListInstancePageOptions, callback?: function): Promise<DocumentPermissionPage>;
+  page(opts?: DocumentPermissionListInstancePageOptions, callback?: (error: Error | null, items: DocumentPermissionPage) => any): Promise<DocumentPermissionPage>;
 }
 
 /**
@@ -103,7 +103,7 @@ interface DocumentPermissionListInstance {
  * @property write - Write access.
  * @property manage - Manage access.
  */
-export interface DocumentPermissionInstanceUpdateOptions {
+interface DocumentPermissionInstanceUpdateOptions {
   manage: boolean;
   read: boolean;
   write: boolean;
@@ -116,97 +116,35 @@ export interface DocumentPermissionInstanceUpdateOptions {
  * @property write - Write access.
  * @property manage - Manage access.
  */
-export interface DocumentPermissionContextUpdateOptions {
+interface DocumentPermissionInstanceUpdateOptions {
   manage: boolean;
   read: boolean;
   write: boolean;
 }
 
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface DocumentPermissionListInstanceEachOptions {
-  callback?: (item: DocumentPermissionInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
 
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface DocumentPermissionListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface DocumentPermissionListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-}
-
-
-declare class DocumentPermissionPage extends Page {
+declare class DocumentPermissionPage extends Page<V1, DocumentPermissionPayload, DocumentPermissionResource, DocumentPermissionInstance> {
   /**
-   * @constructor Twilio.Sync.V1.ServiceContext.DocumentContext.DocumentPermissionPage
-   * @augments Page
-   * @description Initialize the DocumentPermissionPage
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the DocumentPermissionPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Sync.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: DocumentPermissionSolution);
 
   /**
    * Build an instance of DocumentPermissionInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: DocumentPermissionPayload): DocumentPermissionInstance;
 }
 
 
-declare class DocumentPermissionInstance {
+declare class DocumentPermissionInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Sync.V1.ServiceContext.DocumentContext.DocumentPermissionInstance
-   * @description Initialize the DocumentPermissionContext
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the DocumentPermissionContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @property accountSid - Twilio Account SID.
    * @property serviceSid - Sync Service Instance SID.
@@ -223,68 +161,74 @@ declare class DocumentPermissionInstance {
    * @param documentSid - Sync Document SID.
    * @param identity - Identity of the user to whom the Sync Document Permission applies.
    */
-  constructor(version: Twilio.Sync.V1, payload: object, serviceSid: sid, documentSid: sid, identity: string);
+  constructor(version: V1, payload: DocumentPermissionPayload, serviceSid: string, documentSid: string, identity: string);
 
-  _proxy?: DocumentPermissionContext;
+  private _proxy: DocumentPermissionContext;
+  accountSid: string;
+  documentSid: string;
   /**
    * fetch a DocumentPermissionInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: DocumentPermissionInstance) => any);
+  fetch(callback?: (error: Error | null, items: DocumentPermissionInstance) => any): void;
+  identity: string;
+  manage: boolean;
+  read: boolean;
   /**
    * remove a DocumentPermissionInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: DocumentPermissionInstance) => any);
+  remove(callback?: (error: Error | null, items: DocumentPermissionInstance) => any): void;
+  serviceSid: string;
   /**
    * Produce a plain JSON object version of the DocumentPermissionInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
   /**
    * update a DocumentPermissionInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: DocumentPermissionInstanceUpdateOptions, callback?: (error: Error | null, items: DocumentPermissionInstance) => any);
+  update(opts: DocumentPermissionInstanceUpdateOptions, callback?: (error: Error | null, items: DocumentPermissionInstance) => any): void;
+  url: string;
+  write: boolean;
 }
 
 
 declare class DocumentPermissionContext {
   /**
-   * @constructor Twilio.Sync.V1.ServiceContext.DocumentContext.DocumentPermissionContext
-   * @description Initialize the DocumentPermissionContext
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the DocumentPermissionContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
    * @param serviceSid - Sync Service Instance SID or unique name.
    * @param documentSid - Sync Document SID or unique name.
    * @param identity - Identity of the user to whom the Sync Document Permission applies.
    */
-  constructor(version: Twilio.Sync.V1, serviceSid: sid_like, documentSid: sid_like, identity: string);
+  constructor(version: V1, serviceSid: string, documentSid: string, identity: string);
 
   /**
    * fetch a DocumentPermissionInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: DocumentPermissionContext) => any);
+  fetch(callback?: (error: Error | null, items: DocumentPermissionInstance) => any): void;
   /**
    * remove a DocumentPermissionInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: DocumentPermissionContext) => any);
+  remove(callback?: (error: Error | null, items: DocumentPermissionInstance) => any): void;
   /**
    * update a DocumentPermissionInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: DocumentPermissionContextUpdateOptions, callback?: (error: Error | null, items: DocumentPermissionContext) => any);
+  update(opts: DocumentPermissionInstanceUpdateOptions, callback?: (error: Error | null, items: DocumentPermissionInstance) => any): void;
 }
 
-export { DocumentPermissionContext, DocumentPermissionInstance, DocumentPermissionList, DocumentPermissionListInstance, DocumentPermissionPage, DocumentPermissionPayload, DocumentPermissionResource, DocumentPermissionSolution }
+export { DocumentPermissionContext, DocumentPermissionInstance, DocumentPermissionList, DocumentPermissionListInstance, DocumentPermissionListInstanceEachOptions, DocumentPermissionListInstanceOptions, DocumentPermissionListInstancePageOptions, DocumentPermissionPage, DocumentPermissionPayload, DocumentPermissionResource, DocumentPermissionSolution }

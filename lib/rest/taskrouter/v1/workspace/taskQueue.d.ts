@@ -87,16 +87,16 @@ interface TaskQueueListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<TaskQueuePage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: TaskQueuePage) => any): Promise<TaskQueuePage>;
   /**
-   * @description Lists TaskQueueInstance records from the API as a list.
+   * Lists TaskQueueInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: TaskQueueListInstanceOptions, callback?: function): Promise<TaskQueueInstance[]>;
+  list(opts?: TaskQueueListInstanceOptions, callback?: (error: Error | null, items: TaskQueueInstance[]) => any): Promise<TaskQueueInstance[]>;
   /**
    * Retrieve a single page of TaskQueueInstance records from the API.
    * Request is executed immediately
@@ -106,7 +106,7 @@ interface TaskQueueListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: TaskQueueListInstancePageOptions, callback?: function): Promise<TaskQueuePage>;
+  page(opts?: TaskQueueListInstancePageOptions, callback?: (error: Error | null, items: TaskQueuePage) => any): Promise<TaskQueuePage>;
   statistics?: object;
 }
 
@@ -120,7 +120,7 @@ interface TaskQueueListInstance {
  * @property maxReservedWorkers - The maximum amount of workers to create reservations for the assignment of a task while in this queue.
  * @property taskOrder - TaskOrder will determine which order the Tasks will be assigned to Workers.
  */
-export interface TaskQueueInstanceUpdateOptions {
+interface TaskQueueInstanceUpdateOptions {
   assignmentActivitySid?: string;
   friendlyName?: string;
   maxReservedWorkers?: number;
@@ -139,7 +139,7 @@ export interface TaskQueueInstanceUpdateOptions {
  * @property maxReservedWorkers - The maximum amount of workers to create reservations for the assignment of a task while in this queue.
  * @property taskOrder - TaskOrder will determine which order the Tasks will be assigned to Workers.
  */
-export interface TaskQueueContextUpdateOptions {
+interface TaskQueueInstanceUpdateOptions {
   assignmentActivitySid?: string;
   friendlyName?: string;
   maxReservedWorkers?: number;
@@ -148,126 +148,29 @@ export interface TaskQueueContextUpdateOptions {
   taskOrder?: task_queue.task_order;
 }
 
-/**
- * Options to pass to each
- *
- * @property friendlyName - Filter by a human readable description of a TaskQueue
- * @property evaluateWorkerAttributes - Provide a Worker attributes expression, and this will return the list of TaskQueues that would distribute tasks to a worker with these attributes.
- * @property workerSid - The worker_sid
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface TaskQueueListInstanceEachOptions {
-  callback?: (item: TaskQueueInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  evaluateWorkerAttributes?: string;
-  friendlyName?: string;
-  limit?: number;
-  pageSize?: number;
-  workerSid?: string;
-}
 
-/**
- * Options to pass to list
- *
- * @property friendlyName - Filter by a human readable description of a TaskQueue
- * @property evaluateWorkerAttributes - Provide a Worker attributes expression, and this will return the list of TaskQueues that would distribute tasks to a worker with these attributes.
- * @property workerSid - The worker_sid
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface TaskQueueListInstanceOptions {
-  evaluateWorkerAttributes?: string;
-  friendlyName?: string;
-  limit?: number;
-  pageSize?: number;
-  workerSid?: string;
-}
-
-/**
- * Options to pass to page
- *
- * @property friendlyName - Filter by a human readable description of a TaskQueue
- * @property evaluateWorkerAttributes - Provide a Worker attributes expression, and this will return the list of TaskQueues that would distribute tasks to a worker with these attributes.
- * @property workerSid - The worker_sid
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface TaskQueueListInstancePageOptions {
-  evaluateWorkerAttributes?: string;
-  friendlyName?: string;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-  workerSid?: string;
-}
-
-/**
- * Options to pass to create
- *
- * @property friendlyName - Human readable description of this TaskQueue
- * @property reservationActivitySid - ActivitySID to assign workers once a task is reserved for them
- * @property assignmentActivitySid - ActivitySID to assign workers once a task is assigned for them
- * @property targetWorkers - A string describing the Worker selection criteria for any Tasks that enter this TaskQueue.
- * @property maxReservedWorkers - The maximum amount of workers to create reservations for the assignment of a task while in this queue.
- * @property taskOrder - TaskOrder will determine which order the Tasks will be assigned to Workers.
- */
-export interface TaskQueueListInstanceCreateOptions {
-  assignmentActivitySid: string;
-  friendlyName: string;
-  maxReservedWorkers?: number;
-  reservationActivitySid: string;
-  targetWorkers?: string;
-  taskOrder?: task_queue.task_order;
-}
-
-
-declare class TaskQueuePage extends Page {
+declare class TaskQueuePage extends Page<V1, TaskQueuePayload, TaskQueueResource, TaskQueueInstance> {
   /**
-   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.TaskQueuePage
-   * @augments Page
-   * @description Initialize the TaskQueuePage
+   * Initialize the TaskQueuePage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Taskrouter.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: TaskQueueSolution);
 
   /**
    * Build an instance of TaskQueueInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: TaskQueuePayload): TaskQueueInstance;
 }
 
 
-declare class TaskQueueInstance {
+declare class TaskQueueInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueInstance
-   * @description Initialize the TaskQueueContext
+   * Initialize the TaskQueueContext
    *
    * @property accountSid - The ID of the Account that owns this TaskQueue
    * @property assignmentActivitySid - ActivitySID to assign workers once a task is assigned for them
@@ -290,19 +193,27 @@ declare class TaskQueueInstance {
    * @param workspaceSid - The ID of the Workspace that owns this TaskQueue
    * @param sid - The sid
    */
-  constructor(version: Twilio.Taskrouter.V1, payload: object, workspaceSid: sid, sid: sid);
+  constructor(version: V1, payload: TaskQueuePayload, workspaceSid: string, sid: string);
 
-  _proxy?: TaskQueueContext;
+  private _proxy: TaskQueueContext;
+  accountSid: string;
+  assignmentActivityName: string;
+  assignmentActivitySid: string;
   /**
    * Access the cumulativeStatistics
    */
   cumulativeStatistics();
+  dateCreated: Date;
+  dateUpdated: Date;
   /**
    * fetch a TaskQueueInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: TaskQueueInstance) => any);
+  fetch(callback?: (error: Error | null, items: TaskQueueInstance) => any): void;
+  friendlyName: string;
+  links: string;
+  maxReservedWorkers: number;
   /**
    * Access the realTimeStatistics
    */
@@ -312,30 +223,36 @@ declare class TaskQueueInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: TaskQueueInstance) => any);
+  remove(callback?: (error: Error | null, items: TaskQueueInstance) => any): void;
+  reservationActivityName: string;
+  reservationActivitySid: string;
+  sid: string;
   /**
    * Access the statistics
    */
   statistics();
+  targetWorkers: string;
+  taskOrder: task_queue.task_order;
   /**
    * Produce a plain JSON object version of the TaskQueueInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
   /**
    * update a TaskQueueInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: TaskQueueInstanceUpdateOptions, callback?: (error: Error | null, items: TaskQueueInstance) => any);
+  update(opts?: TaskQueueInstanceUpdateOptions, callback?: (error: Error | null, items: TaskQueueInstance) => any): void;
+  url: string;
+  workspaceSid: string;
 }
 
 
 declare class TaskQueueContext {
   /**
-   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext
-   * @description Initialize the TaskQueueContext
+   * Initialize the TaskQueueContext
    *
    * @property statistics - statistics resource
    * @property realTimeStatistics - realTimeStatistics resource
@@ -345,7 +262,7 @@ declare class TaskQueueContext {
    * @param workspaceSid - The workspace_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.Taskrouter.V1, workspaceSid: sid, sid: sid);
+  constructor(version: V1, workspaceSid: string, sid: string);
 
   cumulativeStatistics?: Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueueCumulativeStatisticsList;
   /**
@@ -353,14 +270,14 @@ declare class TaskQueueContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: TaskQueueContext) => any);
+  fetch(callback?: (error: Error | null, items: TaskQueueInstance) => any): void;
   realTimeStatistics?: Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueueRealTimeStatisticsList;
   /**
    * remove a TaskQueueInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: TaskQueueContext) => any);
+  remove(callback?: (error: Error | null, items: TaskQueueInstance) => any): void;
   statistics?: Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueueStatisticsList;
   /**
    * update a TaskQueueInstance
@@ -368,7 +285,7 @@ declare class TaskQueueContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: TaskQueueContextUpdateOptions, callback?: (error: Error | null, items: TaskQueueContext) => any);
+  update(opts?: TaskQueueInstanceUpdateOptions, callback?: (error: Error | null, items: TaskQueueInstance) => any): void;
 }
 
-export { TaskQueueContext, TaskQueueInstance, TaskQueueList, TaskQueueListInstance, TaskQueuePage, TaskQueuePayload, TaskQueueResource, TaskQueueSolution }
+export { TaskQueueContext, TaskQueueInstance, TaskQueueList, TaskQueueListInstance, TaskQueueListInstanceCreateOptions, TaskQueueListInstanceEachOptions, TaskQueueListInstanceOptions, TaskQueueListInstancePageOptions, TaskQueuePage, TaskQueuePayload, TaskQueueResource, TaskQueueSolution }

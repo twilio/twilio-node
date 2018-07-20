@@ -48,45 +48,29 @@ interface VerificationCheckListInstance {
   create(opts: VerificationCheckListInstanceCreateOptions, callback?: (error: Error | null, items: VerificationCheckListInstance) => any): Promise<VerificationCheckInstance>;
 }
 
-/**
- * Options to pass to create
- *
- * @property code - The verification string
- * @property to - To phonenumber
- */
-export interface VerificationCheckListInstanceCreateOptions {
-  code: string;
-  to?: string;
-}
 
-
-declare class VerificationCheckPage extends Page {
+declare class VerificationCheckPage extends Page<AccSecurity, VerificationCheckPayload, VerificationCheckResource, VerificationCheckInstance> {
   /**
-   * @constructor Twilio.Preview.AccSecurity.ServiceContext.VerificationCheckPage
-   * @augments Page
-   * @description Initialize the VerificationCheckPage
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the VerificationCheckPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Preview.AccSecurity, response: Response<string>, solution: object);
+  constructor(version: AccSecurity, response: Response<string>, solution: VerificationCheckSolution);
 
   /**
    * Build an instance of VerificationCheckInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: VerificationCheckPayload): VerificationCheckInstance;
 }
 
 
-declare class VerificationCheckInstance {
+declare class VerificationCheckInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Preview.AccSecurity.ServiceContext.VerificationCheckInstance
-   * @description Initialize the VerificationCheckContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the VerificationCheckContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @property sid - A string that uniquely identifies this Verification Check.
    * @property serviceSid - Service Sid.
@@ -102,13 +86,22 @@ declare class VerificationCheckInstance {
    * @param payload - The instance payload
    * @param serviceSid - Service Sid.
    */
-  constructor(version: Twilio.Preview.AccSecurity, payload: object, serviceSid: sid);
+  constructor(version: AccSecurity, payload: VerificationCheckPayload, serviceSid: string);
 
+  accountSid: string;
+  channel: verification_check.channel;
+  dateCreated: Date;
+  dateUpdated: Date;
+  serviceSid: string;
+  sid: string;
+  status: string;
+  to: string;
   /**
    * Produce a plain JSON object version of the VerificationCheckInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  valid: boolean;
 }
 
-export { VerificationCheckInstance, VerificationCheckList, VerificationCheckListInstance, VerificationCheckPage, VerificationCheckPayload, VerificationCheckResource, VerificationCheckSolution }
+export { VerificationCheckInstance, VerificationCheckList, VerificationCheckListInstance, VerificationCheckListInstanceCreateOptions, VerificationCheckPage, VerificationCheckPayload, VerificationCheckResource, VerificationCheckSolution }

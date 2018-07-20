@@ -73,16 +73,16 @@ interface PublicKeyListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<PublicKeyPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: PublicKeyPage) => any): Promise<PublicKeyPage>;
   /**
-   * @description Lists PublicKeyInstance records from the API as a list.
+   * Lists PublicKeyInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: PublicKeyListInstanceOptions, callback?: function): Promise<PublicKeyInstance[]>;
+  list(opts?: PublicKeyListInstanceOptions, callback?: (error: Error | null, items: PublicKeyInstance[]) => any): Promise<PublicKeyInstance[]>;
   /**
    * Retrieve a single page of PublicKeyInstance records from the API.
    * Request is executed immediately
@@ -92,7 +92,7 @@ interface PublicKeyListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: PublicKeyListInstancePageOptions, callback?: function): Promise<PublicKeyPage>;
+  page(opts?: PublicKeyListInstancePageOptions, callback?: (error: Error | null, items: PublicKeyPage) => any): Promise<PublicKeyPage>;
 }
 
 /**
@@ -100,7 +100,7 @@ interface PublicKeyListInstance {
  *
  * @property friendlyName - A human readable description of this resource
  */
-export interface PublicKeyInstanceUpdateOptions {
+interface PublicKeyInstanceUpdateOptions {
   friendlyName?: string;
 }
 
@@ -109,106 +109,33 @@ export interface PublicKeyInstanceUpdateOptions {
  *
  * @property friendlyName - A human readable description of this resource
  */
-export interface PublicKeyContextUpdateOptions {
+interface PublicKeyInstanceUpdateOptions {
   friendlyName?: string;
 }
 
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface PublicKeyListInstanceEachOptions {
-  callback?: (item: PublicKeyInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
 
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface PublicKeyListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface PublicKeyListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-}
-
-/**
- * Options to pass to create
- *
- * @property publicKey - URL encoded representation of the public key
- * @property friendlyName - A human readable description of this resource
- * @property accountSid - The Subaccount this Credential should be associated with.
- */
-export interface PublicKeyListInstanceCreateOptions {
-  accountSid?: string;
-  friendlyName?: string;
-  publicKey: string;
-}
-
-
-declare class PublicKeyPage extends Page {
+declare class PublicKeyPage extends Page<V1, PublicKeyPayload, PublicKeyResource, PublicKeyInstance> {
   /**
-   * @constructor Twilio.Accounts.V1.CredentialContext.PublicKeyPage
-   * @augments Page
-   * @description Initialize the PublicKeyPage
+   * Initialize the PublicKeyPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Accounts.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: PublicKeySolution);
 
   /**
    * Build an instance of PublicKeyInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: PublicKeyPayload): PublicKeyInstance;
 }
 
 
-declare class PublicKeyInstance {
+declare class PublicKeyInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Accounts.V1.CredentialContext.PublicKeyInstance
-   * @description Initialize the PublicKeyContext
+   * Initialize the PublicKeyContext
    *
    * @property sid - A 34 character string that uniquely identifies this resource.
    * @property accountSid - AccountSid the Credential resource belongs to
@@ -221,65 +148,70 @@ declare class PublicKeyInstance {
    * @param payload - The instance payload
    * @param sid - Fetch by unique Credential Sid
    */
-  constructor(version: Twilio.Accounts.V1, payload: object, sid: sid);
+  constructor(version: V1, payload: PublicKeyPayload, sid: string);
 
-  _proxy?: PublicKeyContext;
+  private _proxy: PublicKeyContext;
+  accountSid: string;
+  dateCreated: Date;
+  dateUpdated: Date;
   /**
    * fetch a PublicKeyInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: PublicKeyInstance) => any);
+  fetch(callback?: (error: Error | null, items: PublicKeyInstance) => any): void;
+  friendlyName: string;
   /**
    * remove a PublicKeyInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: PublicKeyInstance) => any);
+  remove(callback?: (error: Error | null, items: PublicKeyInstance) => any): void;
+  sid: string;
   /**
    * Produce a plain JSON object version of the PublicKeyInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
   /**
    * update a PublicKeyInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: PublicKeyInstanceUpdateOptions, callback?: (error: Error | null, items: PublicKeyInstance) => any);
+  update(opts?: PublicKeyInstanceUpdateOptions, callback?: (error: Error | null, items: PublicKeyInstance) => any): void;
+  url: string;
 }
 
 
 declare class PublicKeyContext {
   /**
-   * @constructor Twilio.Accounts.V1.CredentialContext.PublicKeyContext
-   * @description Initialize the PublicKeyContext
+   * Initialize the PublicKeyContext
    *
    * @param version - Version of the resource
    * @param sid - Fetch by unique Credential Sid
    */
-  constructor(version: Twilio.Accounts.V1, sid: sid);
+  constructor(version: V1, sid: string);
 
   /**
    * fetch a PublicKeyInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: PublicKeyContext) => any);
+  fetch(callback?: (error: Error | null, items: PublicKeyInstance) => any): void;
   /**
    * remove a PublicKeyInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: PublicKeyContext) => any);
+  remove(callback?: (error: Error | null, items: PublicKeyInstance) => any): void;
   /**
    * update a PublicKeyInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: PublicKeyContextUpdateOptions, callback?: (error: Error | null, items: PublicKeyContext) => any);
+  update(opts?: PublicKeyInstanceUpdateOptions, callback?: (error: Error | null, items: PublicKeyInstance) => any): void;
 }
 
-export { PublicKeyContext, PublicKeyInstance, PublicKeyList, PublicKeyListInstance, PublicKeyPage, PublicKeyPayload, PublicKeyResource, PublicKeySolution }
+export { PublicKeyContext, PublicKeyInstance, PublicKeyList, PublicKeyListInstance, PublicKeyListInstanceCreateOptions, PublicKeyListInstanceEachOptions, PublicKeyListInstanceOptions, PublicKeyListInstancePageOptions, PublicKeyPage, PublicKeyPayload, PublicKeyResource, PublicKeySolution }

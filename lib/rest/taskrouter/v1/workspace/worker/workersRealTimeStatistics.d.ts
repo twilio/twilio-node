@@ -49,7 +49,7 @@ interface WorkersRealTimeStatisticsListInstance {
  *
  * @property taskChannel - Filter cumulative statistics by TaskChannel.
  */
-export interface WorkersRealTimeStatisticsInstanceFetchOptions {
+interface WorkersRealTimeStatisticsInstanceFetchOptions {
   taskChannel?: string;
 }
 
@@ -58,36 +58,33 @@ export interface WorkersRealTimeStatisticsInstanceFetchOptions {
  *
  * @property taskChannel - Filter cumulative statistics by TaskChannel.
  */
-export interface WorkersRealTimeStatisticsContextFetchOptions {
+interface WorkersRealTimeStatisticsInstanceFetchOptions {
   taskChannel?: string;
 }
 
 
-declare class WorkersRealTimeStatisticsPage extends Page {
+declare class WorkersRealTimeStatisticsPage extends Page<V1, WorkersRealTimeStatisticsPayload, WorkersRealTimeStatisticsResource, WorkersRealTimeStatisticsInstance> {
   /**
-   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkersRealTimeStatisticsPage
-   * @augments Page
-   * @description Initialize the WorkersRealTimeStatisticsPage
+   * Initialize the WorkersRealTimeStatisticsPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Taskrouter.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: WorkersRealTimeStatisticsSolution);
 
   /**
    * Build an instance of WorkersRealTimeStatisticsInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: WorkersRealTimeStatisticsPayload): WorkersRealTimeStatisticsInstance;
 }
 
 
-declare class WorkersRealTimeStatisticsInstance {
+declare class WorkersRealTimeStatisticsInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkersRealTimeStatisticsInstance
-   * @description Initialize the WorkersRealTimeStatisticsContext
+   * Initialize the WorkersRealTimeStatisticsContext
    *
    * @property accountSid - The account_sid
    * @property activityStatistics - The current Worker status count breakdown by Activity
@@ -99,33 +96,37 @@ declare class WorkersRealTimeStatisticsInstance {
    * @param payload - The instance payload
    * @param workspaceSid - The workspace_sid
    */
-  constructor(version: Twilio.Taskrouter.V1, payload: object, workspaceSid: sid);
+  constructor(version: V1, payload: WorkersRealTimeStatisticsPayload, workspaceSid: string);
 
-  _proxy?: WorkersRealTimeStatisticsContext;
+  private _proxy: WorkersRealTimeStatisticsContext;
+  accountSid: string;
+  activityStatistics: string;
   /**
    * fetch a WorkersRealTimeStatisticsInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: WorkersRealTimeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkersRealTimeStatisticsInstance) => any);
+  fetch(opts?: WorkersRealTimeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkersRealTimeStatisticsInstance) => any): void;
   /**
    * Produce a plain JSON object version of the WorkersRealTimeStatisticsInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  totalWorkers: number;
+  url: string;
+  workspaceSid: string;
 }
 
 
 declare class WorkersRealTimeStatisticsContext {
   /**
-   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkersRealTimeStatisticsContext
-   * @description Initialize the WorkersRealTimeStatisticsContext
+   * Initialize the WorkersRealTimeStatisticsContext
    *
    * @param version - Version of the resource
    * @param workspaceSid - The workspace_sid
    */
-  constructor(version: Twilio.Taskrouter.V1, workspaceSid: sid);
+  constructor(version: V1, workspaceSid: string);
 
   /**
    * fetch a WorkersRealTimeStatisticsInstance
@@ -133,7 +134,7 @@ declare class WorkersRealTimeStatisticsContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: WorkersRealTimeStatisticsContextFetchOptions, callback?: (error: Error | null, items: WorkersRealTimeStatisticsContext) => any);
+  fetch(opts?: WorkersRealTimeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkersRealTimeStatisticsInstance) => any): void;
 }
 
 export { WorkersRealTimeStatisticsContext, WorkersRealTimeStatisticsInstance, WorkersRealTimeStatisticsList, WorkersRealTimeStatisticsListInstance, WorkersRealTimeStatisticsPage, WorkersRealTimeStatisticsPayload, WorkersRealTimeStatisticsResource, WorkersRealTimeStatisticsSolution }

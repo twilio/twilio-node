@@ -68,16 +68,16 @@ interface DataSessionListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<DataSessionPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: DataSessionPage) => any): Promise<DataSessionPage>;
   /**
-   * @description Lists DataSessionInstance records from the API as a list.
+   * Lists DataSessionInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: DataSessionListInstanceOptions, callback?: function): Promise<DataSessionInstance[]>;
+  list(opts?: DataSessionListInstanceOptions, callback?: (error: Error | null, items: DataSessionInstance[]) => any): Promise<DataSessionInstance[]>;
   /**
    * Retrieve a single page of DataSessionInstance records from the API.
    * Request is executed immediately
@@ -87,104 +87,32 @@ interface DataSessionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: DataSessionListInstancePageOptions, callback?: function): Promise<DataSessionPage>;
-}
-
-/**
- * Options to pass to each
- *
- * @property end - The end
- * @property start - The start
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface DataSessionListInstanceEachOptions {
-  callback?: (item: DataSessionInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  end?: Date;
-  limit?: number;
-  pageSize?: number;
-  start?: Date;
-}
-
-/**
- * Options to pass to list
- *
- * @property end - The end
- * @property start - The start
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface DataSessionListInstanceOptions {
-  end?: Date;
-  limit?: number;
-  pageSize?: number;
-  start?: Date;
-}
-
-/**
- * Options to pass to page
- *
- * @property end - The end
- * @property start - The start
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface DataSessionListInstancePageOptions {
-  end?: Date;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-  start?: Date;
+  page(opts?: DataSessionListInstancePageOptions, callback?: (error: Error | null, items: DataSessionPage) => any): Promise<DataSessionPage>;
 }
 
 
-declare class DataSessionPage extends Page {
+declare class DataSessionPage extends Page<V1, DataSessionPayload, DataSessionResource, DataSessionInstance> {
   /**
-   * @constructor Twilio.Wireless.V1.SimContext.DataSessionPage
-   * @augments Page
-   * @description Initialize the DataSessionPage
+   * Initialize the DataSessionPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Wireless.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: DataSessionSolution);
 
   /**
    * Build an instance of DataSessionInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: DataSessionPayload): DataSessionInstance;
 }
 
 
-declare class DataSessionInstance {
+declare class DataSessionInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Wireless.V1.SimContext.DataSessionInstance
-   * @description Initialize the DataSessionContext
+   * Initialize the DataSessionContext
    *
    * @property sid - The unique id of the Data Session resource that this Data Record is for.
    * @property simSid - The unique id of the SIM resource that this Data Session is for.
@@ -206,13 +134,28 @@ declare class DataSessionInstance {
    * @param payload - The instance payload
    * @param simSid - The unique id of the SIM resource that this Data Session is for.
    */
-  constructor(version: Twilio.Wireless.V1, payload: object, simSid: sid_like);
+  constructor(version: V1, payload: DataSessionPayload, simSid: string);
 
+  accountSid: string;
+  cellId: string;
+  cellLocationEstimate: string;
+  end: Date;
+  lastUpdated: Date;
+  operatorCountry: string;
+  operatorMcc: string;
+  operatorMnc: string;
+  operatorName: string;
+  packetsDownloaded: number;
+  packetsUploaded: number;
+  radioLink: string;
+  sid: string;
+  simSid: string;
+  start: Date;
   /**
    * Produce a plain JSON object version of the DataSessionInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
 }
 
-export { DataSessionInstance, DataSessionList, DataSessionListInstance, DataSessionPage, DataSessionPayload, DataSessionResource, DataSessionSolution }
+export { DataSessionInstance, DataSessionList, DataSessionListInstance, DataSessionListInstanceEachOptions, DataSessionListInstanceOptions, DataSessionListInstancePageOptions, DataSessionPage, DataSessionPayload, DataSessionResource, DataSessionSolution }

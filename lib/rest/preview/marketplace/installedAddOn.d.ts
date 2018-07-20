@@ -80,16 +80,16 @@ interface InstalledAddOnListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<InstalledAddOnPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: InstalledAddOnPage) => any): Promise<InstalledAddOnPage>;
   /**
-   * @description Lists InstalledAddOnInstance records from the API as a list.
+   * Lists InstalledAddOnInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: InstalledAddOnListInstanceOptions, callback?: function): Promise<InstalledAddOnInstance[]>;
+  list(opts?: InstalledAddOnListInstanceOptions, callback?: (error: Error | null, items: InstalledAddOnInstance[]) => any): Promise<InstalledAddOnInstance[]>;
   /**
    * Retrieve a single page of InstalledAddOnInstance records from the API.
    * Request is executed immediately
@@ -99,7 +99,7 @@ interface InstalledAddOnListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: InstalledAddOnListInstancePageOptions, callback?: function): Promise<InstalledAddOnPage>;
+  page(opts?: InstalledAddOnListInstancePageOptions, callback?: (error: Error | null, items: InstalledAddOnPage) => any): Promise<InstalledAddOnPage>;
 }
 
 /**
@@ -108,7 +108,7 @@ interface InstalledAddOnListInstance {
  * @property configuration - The JSON object representing the configuration
  * @property uniqueName - The string that uniquely identifies this Add-on installation
  */
-export interface InstalledAddOnInstanceUpdateOptions {
+interface InstalledAddOnInstanceUpdateOptions {
   configuration?: string;
   uniqueName?: string;
 }
@@ -119,111 +119,34 @@ export interface InstalledAddOnInstanceUpdateOptions {
  * @property configuration - The JSON object representing the configuration
  * @property uniqueName - The string that uniquely identifies this Add-on installation
  */
-export interface InstalledAddOnContextUpdateOptions {
+interface InstalledAddOnInstanceUpdateOptions {
   configuration?: string;
   uniqueName?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property availableAddOnSid - A string that uniquely identifies the Add-on to install
- * @property acceptTermsOfService - A boolean reflecting your acceptance of the Terms of Service
- * @property configuration - The JSON object representing the configuration
- * @property uniqueName - The string that uniquely identifies this Add-on installation
- */
-export interface InstalledAddOnListInstanceCreateOptions {
-  acceptTermsOfService: boolean;
-  availableAddOnSid: string;
-  configuration?: string;
-  uniqueName?: string;
-}
 
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface InstalledAddOnListInstanceEachOptions {
-  callback?: (item: InstalledAddOnInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface InstalledAddOnListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface InstalledAddOnListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-}
-
-
-declare class InstalledAddOnPage extends Page {
+declare class InstalledAddOnPage extends Page<Marketplace, InstalledAddOnPayload, InstalledAddOnResource, InstalledAddOnInstance> {
   /**
-   * @constructor Twilio.Preview.Marketplace.InstalledAddOnPage
-   * @augments Page
-   * @description Initialize the InstalledAddOnPage
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the InstalledAddOnPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Preview.Marketplace, response: Response<string>, solution: object);
+  constructor(version: Marketplace, response: Response<string>, solution: InstalledAddOnSolution);
 
   /**
    * Build an instance of InstalledAddOnInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: InstalledAddOnPayload): InstalledAddOnInstance;
 }
 
 
-declare class InstalledAddOnInstance {
+declare class InstalledAddOnInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Preview.Marketplace.InstalledAddOnInstance
-   * @description Initialize the InstalledAddOnContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the InstalledAddOnContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @property sid - A string that uniquely identifies this Add-on installation
    * @property accountSid - The Account id that has installed this Add-on
@@ -240,9 +163,14 @@ declare class InstalledAddOnInstance {
    * @param payload - The instance payload
    * @param sid - The unique Installed Add-on Sid
    */
-  constructor(version: Twilio.Preview.Marketplace, payload: object, sid: sid);
+  constructor(version: Marketplace, payload: InstalledAddOnPayload, sid: string);
 
-  _proxy?: InstalledAddOnContext;
+  private _proxy: InstalledAddOnContext;
+  accountSid: string;
+  configuration: string;
+  dateCreated: Date;
+  dateUpdated: Date;
+  description: string;
   /**
    * Access the extensions
    */
@@ -252,40 +180,43 @@ declare class InstalledAddOnInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: InstalledAddOnInstance) => any);
+  fetch(callback?: (error: Error | null, items: InstalledAddOnInstance) => any): void;
+  friendlyName: string;
+  links: string;
   /**
    * remove a InstalledAddOnInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: InstalledAddOnInstance) => any);
+  remove(callback?: (error: Error | null, items: InstalledAddOnInstance) => any): void;
+  sid: string;
   /**
    * Produce a plain JSON object version of the InstalledAddOnInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  uniqueName: string;
   /**
    * update a InstalledAddOnInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: InstalledAddOnInstanceUpdateOptions, callback?: (error: Error | null, items: InstalledAddOnInstance) => any);
+  update(opts?: InstalledAddOnInstanceUpdateOptions, callback?: (error: Error | null, items: InstalledAddOnInstance) => any): void;
+  url: string;
 }
 
 
 declare class InstalledAddOnContext {
   /**
-   * @constructor Twilio.Preview.Marketplace.InstalledAddOnContext
-   * @description Initialize the InstalledAddOnContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the InstalledAddOnContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @property extensions - extensions resource
    *
    * @param version - Version of the resource
    * @param sid - The unique Installed Add-on Sid
    */
-  constructor(version: Twilio.Preview.Marketplace, sid: sid);
+  constructor(version: Marketplace, sid: string);
 
   extensions?: Twilio.Preview.Marketplace.InstalledAddOnContext.InstalledAddOnExtensionList;
   /**
@@ -293,20 +224,20 @@ declare class InstalledAddOnContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: InstalledAddOnContext) => any);
+  fetch(callback?: (error: Error | null, items: InstalledAddOnInstance) => any): void;
   /**
    * remove a InstalledAddOnInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: InstalledAddOnContext) => any);
+  remove(callback?: (error: Error | null, items: InstalledAddOnInstance) => any): void;
   /**
    * update a InstalledAddOnInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: InstalledAddOnContextUpdateOptions, callback?: (error: Error | null, items: InstalledAddOnContext) => any);
+  update(opts?: InstalledAddOnInstanceUpdateOptions, callback?: (error: Error | null, items: InstalledAddOnInstance) => any): void;
 }
 
-export { InstalledAddOnContext, InstalledAddOnInstance, InstalledAddOnList, InstalledAddOnListInstance, InstalledAddOnPage, InstalledAddOnPayload, InstalledAddOnResource, InstalledAddOnSolution }
+export { InstalledAddOnContext, InstalledAddOnInstance, InstalledAddOnList, InstalledAddOnListInstance, InstalledAddOnListInstanceCreateOptions, InstalledAddOnListInstanceEachOptions, InstalledAddOnListInstanceOptions, InstalledAddOnListInstancePageOptions, InstalledAddOnPage, InstalledAddOnPayload, InstalledAddOnResource, InstalledAddOnSolution }

@@ -85,16 +85,16 @@ interface BindingListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<BindingPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: BindingPage) => any): Promise<BindingPage>;
   /**
-   * @description Lists BindingInstance records from the API as a list.
+   * Lists BindingInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: BindingListInstanceOptions, callback?: function): Promise<BindingInstance[]>;
+  list(opts?: BindingListInstanceOptions, callback?: (error: Error | null, items: BindingInstance[]) => any): Promise<BindingInstance[]>;
   /**
    * Retrieve a single page of BindingInstance records from the API.
    * Request is executed immediately
@@ -104,139 +104,32 @@ interface BindingListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: BindingListInstancePageOptions, callback?: function): Promise<BindingPage>;
-}
-
-/**
- * Options to pass to create
- *
- * @property identity - The Identity to which this Binding belongs to.
- * @property bindingType - The type of the Binding.
- * @property address - The address specific to the channel.
- * @property tag - The list of tags associated with this Binding.
- * @property notificationProtocolVersion - The version of the protocol used to send the notification.
- * @property credentialSid - The unique identifier of the Credential resource to be used to send notifications to this Binding.
- * @property endpoint - DEPRECATED*
- */
-export interface BindingListInstanceCreateOptions {
-  address: string;
-  bindingType: binding.binding_type;
-  credentialSid?: string;
-  endpoint?: string;
-  identity: string;
-  notificationProtocolVersion?: string;
-  tag?: string|list;
-}
-
-/**
- * Options to pass to each
- *
- * @property startDate - Only list Bindings created on or after the given date.
- * @property endDate - Only list Bindings created on or before the given date.
- * @property identity - Only list Bindings that have any of the specified Identities.
- * @property tag - Only list Bindings that have all of the specified Tags.
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface BindingListInstanceEachOptions {
-  callback?: (item: BindingInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  endDate?: Date;
-  identity?: string|list;
-  limit?: number;
-  pageSize?: number;
-  startDate?: Date;
-  tag?: string|list;
-}
-
-/**
- * Options to pass to list
- *
- * @property startDate - Only list Bindings created on or after the given date.
- * @property endDate - Only list Bindings created on or before the given date.
- * @property identity - Only list Bindings that have any of the specified Identities.
- * @property tag - Only list Bindings that have all of the specified Tags.
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface BindingListInstanceOptions {
-  endDate?: Date;
-  identity?: string|list;
-  limit?: number;
-  pageSize?: number;
-  startDate?: Date;
-  tag?: string|list;
-}
-
-/**
- * Options to pass to page
- *
- * @property startDate - Only list Bindings created on or after the given date.
- * @property endDate - Only list Bindings created on or before the given date.
- * @property identity - Only list Bindings that have any of the specified Identities.
- * @property tag - Only list Bindings that have all of the specified Tags.
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface BindingListInstancePageOptions {
-  endDate?: Date;
-  identity?: string|list;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-  startDate?: Date;
-  tag?: string|list;
+  page(opts?: BindingListInstancePageOptions, callback?: (error: Error | null, items: BindingPage) => any): Promise<BindingPage>;
 }
 
 
-declare class BindingPage extends Page {
+declare class BindingPage extends Page<V1, BindingPayload, BindingResource, BindingInstance> {
   /**
-   * @constructor Twilio.Notify.V1.ServiceContext.BindingPage
-   * @augments Page
-   * @description Initialize the BindingPage
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the BindingPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Notify.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: BindingSolution);
 
   /**
    * Build an instance of BindingInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: BindingPayload): BindingInstance;
 }
 
 
-declare class BindingInstance {
+declare class BindingInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Notify.V1.ServiceContext.BindingInstance
-   * @description Initialize the BindingContext
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the BindingContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @property sid - The sid
    * @property accountSid - The account_sid
@@ -258,53 +151,65 @@ declare class BindingInstance {
    * @param serviceSid - The service_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.Notify.V1, payload: object, serviceSid: sid, sid: sid);
+  constructor(version: V1, payload: BindingPayload, serviceSid: string, sid: string);
 
-  _proxy?: BindingContext;
+  private _proxy: BindingContext;
+  accountSid: string;
+  address: string;
+  bindingType: string;
+  credentialSid: string;
+  dateCreated: Date;
+  dateUpdated: Date;
+  endpoint: string;
   /**
    * fetch a BindingInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: BindingInstance) => any);
+  fetch(callback?: (error: Error | null, items: BindingInstance) => any): void;
+  identity: string;
+  links: string;
+  notificationProtocolVersion: string;
   /**
    * remove a BindingInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: BindingInstance) => any);
+  remove(callback?: (error: Error | null, items: BindingInstance) => any): void;
+  serviceSid: string;
+  sid: string;
+  tags: string;
   /**
    * Produce a plain JSON object version of the BindingInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  url: string;
 }
 
 
 declare class BindingContext {
   /**
-   * @constructor Twilio.Notify.V1.ServiceContext.BindingContext
-   * @description Initialize the BindingContext
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the BindingContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
    * @param serviceSid - The service_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.Notify.V1, serviceSid: sid, sid: sid);
+  constructor(version: V1, serviceSid: string, sid: string);
 
   /**
    * fetch a BindingInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: BindingContext) => any);
+  fetch(callback?: (error: Error | null, items: BindingInstance) => any): void;
   /**
    * remove a BindingInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: BindingContext) => any);
+  remove(callback?: (error: Error | null, items: BindingInstance) => any): void;
 }
 
-export { BindingContext, BindingInstance, BindingList, BindingListInstance, BindingPage, BindingPayload, BindingResource, BindingSolution }
+export { BindingContext, BindingInstance, BindingList, BindingListInstance, BindingListInstanceCreateOptions, BindingListInstanceEachOptions, BindingListInstanceOptions, BindingListInstancePageOptions, BindingPage, BindingPayload, BindingResource, BindingSolution }

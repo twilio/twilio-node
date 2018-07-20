@@ -78,16 +78,16 @@ interface AlphaSenderListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<AlphaSenderPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: AlphaSenderPage) => any): Promise<AlphaSenderPage>;
   /**
-   * @description Lists AlphaSenderInstance records from the API as a list.
+   * Lists AlphaSenderInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: AlphaSenderListInstanceOptions, callback?: function): Promise<AlphaSenderInstance[]>;
+  list(opts?: AlphaSenderListInstanceOptions, callback?: (error: Error | null, items: AlphaSenderInstance[]) => any): Promise<AlphaSenderInstance[]>;
   /**
    * Retrieve a single page of AlphaSenderInstance records from the API.
    * Request is executed immediately
@@ -97,103 +97,32 @@ interface AlphaSenderListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: AlphaSenderListInstancePageOptions, callback?: function): Promise<AlphaSenderPage>;
-}
-
-/**
- * Options to pass to create
- *
- * @property alphaSender - An Alphanumeric Sender ID string, up to 11 characters.
- */
-export interface AlphaSenderListInstanceCreateOptions {
-  alphaSender: string;
-}
-
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface AlphaSenderListInstanceEachOptions {
-  callback?: (item: AlphaSenderInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface AlphaSenderListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface AlphaSenderListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
+  page(opts?: AlphaSenderListInstancePageOptions, callback?: (error: Error | null, items: AlphaSenderPage) => any): Promise<AlphaSenderPage>;
 }
 
 
-declare class AlphaSenderPage extends Page {
+declare class AlphaSenderPage extends Page<V1, AlphaSenderPayload, AlphaSenderResource, AlphaSenderInstance> {
   /**
-   * @constructor Twilio.Messaging.V1.ServiceContext.AlphaSenderPage
-   * @augments Page
-   * @description Initialize the AlphaSenderPage
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the AlphaSenderPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Messaging.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: AlphaSenderSolution);
 
   /**
    * Build an instance of AlphaSenderInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: AlphaSenderPayload): AlphaSenderInstance;
 }
 
 
-declare class AlphaSenderInstance {
+declare class AlphaSenderInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Messaging.V1.ServiceContext.AlphaSenderInstance
-   * @description Initialize the AlphaSenderContext
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the AlphaSenderContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @property sid - The 34 character unique sid of the Alpha Sender ID.
    * @property accountSid - The 34 character unique sid of the Account.
@@ -209,53 +138,59 @@ declare class AlphaSenderInstance {
    * @param serviceSid - The 34 character unique sid of the Messaging Service.
    * @param sid - The sid
    */
-  constructor(version: Twilio.Messaging.V1, payload: object, serviceSid: sid, sid: sid_like);
+  constructor(version: V1, payload: AlphaSenderPayload, serviceSid: string, sid: string);
 
-  _proxy?: AlphaSenderContext;
+  private _proxy: AlphaSenderContext;
+  accountSid: string;
+  alphaSender: string;
+  capabilities: string;
+  dateCreated: Date;
+  dateUpdated: Date;
   /**
    * fetch a AlphaSenderInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AlphaSenderInstance) => any);
+  fetch(callback?: (error: Error | null, items: AlphaSenderInstance) => any): void;
   /**
    * remove a AlphaSenderInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: AlphaSenderInstance) => any);
+  remove(callback?: (error: Error | null, items: AlphaSenderInstance) => any): void;
+  serviceSid: string;
+  sid: string;
   /**
    * Produce a plain JSON object version of the AlphaSenderInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  url: string;
 }
 
 
 declare class AlphaSenderContext {
   /**
-   * @constructor Twilio.Messaging.V1.ServiceContext.AlphaSenderContext
-   * @description Initialize the AlphaSenderContext
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the AlphaSenderContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
    * @param serviceSid - The service_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.Messaging.V1, serviceSid: sid, sid: sid_like);
+  constructor(version: V1, serviceSid: string, sid: string);
 
   /**
    * fetch a AlphaSenderInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AlphaSenderContext) => any);
+  fetch(callback?: (error: Error | null, items: AlphaSenderInstance) => any): void;
   /**
    * remove a AlphaSenderInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: AlphaSenderContext) => any);
+  remove(callback?: (error: Error | null, items: AlphaSenderInstance) => any): void;
 }
 
-export { AlphaSenderContext, AlphaSenderInstance, AlphaSenderList, AlphaSenderListInstance, AlphaSenderPage, AlphaSenderPayload, AlphaSenderResource, AlphaSenderSolution }
+export { AlphaSenderContext, AlphaSenderInstance, AlphaSenderList, AlphaSenderListInstance, AlphaSenderListInstanceCreateOptions, AlphaSenderListInstanceEachOptions, AlphaSenderListInstanceOptions, AlphaSenderListInstancePageOptions, AlphaSenderPage, AlphaSenderPayload, AlphaSenderResource, AlphaSenderSolution }

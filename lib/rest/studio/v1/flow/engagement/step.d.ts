@@ -78,16 +78,16 @@ interface StepListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<StepPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: StepPage) => any): Promise<StepPage>;
   /**
-   * @description Lists StepInstance records from the API as a list.
+   * Lists StepInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: StepListInstanceOptions, callback?: function): Promise<StepInstance[]>;
+  list(opts?: StepListInstanceOptions, callback?: (error: Error | null, items: StepInstance[]) => any): Promise<StepInstance[]>;
   /**
    * Retrieve a single page of StepInstance records from the API.
    * Request is executed immediately
@@ -97,94 +97,32 @@ interface StepListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: StepListInstancePageOptions, callback?: function): Promise<StepPage>;
-}
-
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface StepListInstanceEachOptions {
-  callback?: (item: StepInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface StepListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface StepListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
+  page(opts?: StepListInstancePageOptions, callback?: (error: Error | null, items: StepPage) => any): Promise<StepPage>;
 }
 
 
-declare class StepPage extends Page {
+declare class StepPage extends Page<V1, StepPayload, StepResource, StepInstance> {
   /**
-   * @constructor Twilio.Studio.V1.FlowContext.EngagementContext.StepPage
-   * @augments Page
-   * @description Initialize the StepPage
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the StepPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Studio.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: StepSolution);
 
   /**
    * Build an instance of StepInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: StepPayload): StepInstance;
 }
 
 
-declare class StepInstance {
+declare class StepInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Studio.V1.FlowContext.EngagementContext.StepInstance
-   * @description Initialize the StepContext
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the StepContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @property sid - The sid
    * @property accountSid - The account_sid
@@ -205,15 +143,24 @@ declare class StepInstance {
    * @param engagementSid - The engagement_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.Studio.V1, payload: object, flowSid: sid, engagementSid: sid, sid: sid);
+  constructor(version: V1, payload: StepPayload, flowSid: string, engagementSid: string, sid: string);
 
-  _proxy?: StepContext;
+  private _proxy: StepContext;
+  accountSid: string;
+  context: string;
+  dateCreated: Date;
+  dateUpdated: Date;
+  engagementSid: string;
   /**
    * fetch a StepInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: StepInstance) => any);
+  fetch(callback?: (error: Error | null, items: StepInstance) => any): void;
+  flowSid: string;
+  links: string;
+  name: string;
+  sid: string;
   /**
    * Access the stepContext
    */
@@ -222,15 +169,16 @@ declare class StepInstance {
    * Produce a plain JSON object version of the StepInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  transitionedFrom: string;
+  transitionedTo: string;
+  url: string;
 }
 
 
 declare class StepContext {
   /**
-   * @constructor Twilio.Studio.V1.FlowContext.EngagementContext.StepContext
-   * @description Initialize the StepContext
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the StepContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @property stepContext - stepContext resource
    *
@@ -239,15 +187,15 @@ declare class StepContext {
    * @param engagementSid - The engagement_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.Studio.V1, flowSid: sid, engagementSid: sid, sid: sid);
+  constructor(version: V1, flowSid: string, engagementSid: string, sid: string);
 
   /**
    * fetch a StepInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: StepContext) => any);
+  fetch(callback?: (error: Error | null, items: StepInstance) => any): void;
   stepContext?: Twilio.Studio.V1.FlowContext.EngagementContext.StepContext.StepContextList;
 }
 
-export { StepContext, StepInstance, StepList, StepListInstance, StepPage, StepPayload, StepResource, StepSolution }
+export { StepContext, StepInstance, StepList, StepListInstance, StepListInstanceEachOptions, StepListInstanceOptions, StepListInstancePageOptions, StepPage, StepPayload, StepResource, StepSolution }

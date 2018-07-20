@@ -87,16 +87,16 @@ interface CompositionListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<CompositionPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: CompositionPage) => any): Promise<CompositionPage>;
   /**
-   * @description Lists CompositionInstance records from the API as a list.
+   * Lists CompositionInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: CompositionListInstanceOptions, callback?: function): Promise<CompositionInstance[]>;
+  list(opts?: CompositionListInstanceOptions, callback?: (error: Error | null, items: CompositionInstance[]) => any): Promise<CompositionInstance[]>;
   /**
    * Retrieve a single page of CompositionInstance records from the API.
    * Request is executed immediately
@@ -106,143 +106,32 @@ interface CompositionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: CompositionListInstancePageOptions, callback?: function): Promise<CompositionPage>;
-}
-
-/**
- * Options to pass to each
- *
- * @property status - Only show Compositions with the given status.
- * @property dateCreatedAfter - Only show Compositions that started on or after this ISO8601 date-time.
- * @property dateCreatedBefore - Only show Compositions that started before this this ISO8601 date-time.
- * @property roomSid - Only show Compositions with the given Room SID.
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface CompositionListInstanceEachOptions {
-  callback?: (item: CompositionInstance, done: (err?: Error) => void) => void;
-  dateCreatedAfter?: Date;
-  dateCreatedBefore?: Date;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-  roomSid?: string;
-  status?: composition.status;
-}
-
-/**
- * Options to pass to list
- *
- * @property status - Only show Compositions with the given status.
- * @property dateCreatedAfter - Only show Compositions that started on or after this ISO8601 date-time.
- * @property dateCreatedBefore - Only show Compositions that started before this this ISO8601 date-time.
- * @property roomSid - Only show Compositions with the given Room SID.
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface CompositionListInstanceOptions {
-  dateCreatedAfter?: Date;
-  dateCreatedBefore?: Date;
-  limit?: number;
-  pageSize?: number;
-  roomSid?: string;
-  status?: composition.status;
-}
-
-/**
- * Options to pass to page
- *
- * @property status - Only show Compositions with the given status.
- * @property dateCreatedAfter - Only show Compositions that started on or after this ISO8601 date-time.
- * @property dateCreatedBefore - Only show Compositions that started before this this ISO8601 date-time.
- * @property roomSid - Only show Compositions with the given Room SID.
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface CompositionListInstancePageOptions {
-  dateCreatedAfter?: Date;
-  dateCreatedBefore?: Date;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-  roomSid?: string;
-  status?: composition.status;
-}
-
-/**
- * Options to pass to create
- *
- * @property roomSid - Twilio Room SID.
- * @property videoLayout - The JSON video layout description.
- * @property audioSources - A list of audio sources related to this Composition.
- * @property audioSourcesExcluded - A list of audio sources excluded related to this Composition.
- * @property resolution - Pixel resolution of the composed video.
- * @property format - Container format of the Composition media file. Any of the following: `mp4`, `webm`.
- * @property statusCallback - A URL that Twilio sends asynchronous webhook requests to on every composition event.
- * @property statusCallbackMethod - HTTP method Twilio should use when requesting the above URL.
- * @property trim - Boolean flag for clipping intervals that have no media.
- */
-export interface CompositionListInstanceCreateOptions {
-  audioSources?: string|list;
-  audioSourcesExcluded?: string|list;
-  format?: composition.format;
-  resolution?: string;
-  roomSid?: string;
-  statusCallback?: string;
-  statusCallbackMethod?: string;
-  trim?: boolean;
-  videoLayout?: string;
+  page(opts?: CompositionListInstancePageOptions, callback?: (error: Error | null, items: CompositionPage) => any): Promise<CompositionPage>;
 }
 
 
-declare class CompositionPage extends Page {
+declare class CompositionPage extends Page<V1, CompositionPayload, CompositionResource, CompositionInstance> {
   /**
-   * @constructor Twilio.Video.V1.CompositionPage
-   * @augments Page
-   * @description Initialize the CompositionPage
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the CompositionPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Video.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: CompositionSolution);
 
   /**
    * Build an instance of CompositionInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: CompositionPayload): CompositionInstance;
 }
 
 
-declare class CompositionInstance {
+declare class CompositionInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Video.V1.CompositionInstance
-   * @description Initialize the CompositionContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the CompositionContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @property accountSid - Twilio Account SID.
    * @property status - The status of the Composition.
@@ -267,52 +156,68 @@ declare class CompositionInstance {
    * @param payload - The instance payload
    * @param sid - The Composition Sid that uniquely identifies the Composition to fetch.
    */
-  constructor(version: Twilio.Video.V1, payload: object, sid: sid);
+  constructor(version: V1, payload: CompositionPayload, sid: string);
 
-  _proxy?: CompositionContext;
+  private _proxy: CompositionContext;
+  accountSid: string;
+  audioSources: string;
+  audioSourcesExcluded: string;
+  bitrate: number;
+  dateCompleted: string;
+  dateCreated: Date;
+  dateDeleted: string;
+  duration: number;
   /**
    * fetch a CompositionInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CompositionInstance) => any);
+  fetch(callback?: (error: Error | null, items: CompositionInstance) => any): void;
+  format: composition.format;
+  links: string;
   /**
    * remove a CompositionInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: CompositionInstance) => any);
+  remove(callback?: (error: Error | null, items: CompositionInstance) => any): void;
+  resolution: string;
+  roomSid: string;
+  sid: string;
+  size: number;
+  status: composition.status;
   /**
    * Produce a plain JSON object version of the CompositionInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  trim: boolean;
+  url: string;
+  videoLayout: string;
 }
 
 
 declare class CompositionContext {
   /**
-   * @constructor Twilio.Video.V1.CompositionContext
-   * @description Initialize the CompositionContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the CompositionContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param sid - The Composition Sid that uniquely identifies the Composition to fetch.
    */
-  constructor(version: Twilio.Video.V1, sid: sid);
+  constructor(version: V1, sid: string);
 
   /**
    * fetch a CompositionInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CompositionContext) => any);
+  fetch(callback?: (error: Error | null, items: CompositionInstance) => any): void;
   /**
    * remove a CompositionInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: CompositionContext) => any);
+  remove(callback?: (error: Error | null, items: CompositionInstance) => any): void;
 }
 
-export { CompositionContext, CompositionInstance, CompositionList, CompositionListInstance, CompositionPage, CompositionPayload, CompositionResource, CompositionSolution }
+export { CompositionContext, CompositionInstance, CompositionList, CompositionListInstance, CompositionListInstanceCreateOptions, CompositionListInstanceEachOptions, CompositionListInstanceOptions, CompositionListInstancePageOptions, CompositionPage, CompositionPayload, CompositionResource, CompositionSolution }

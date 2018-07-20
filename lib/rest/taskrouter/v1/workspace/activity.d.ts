@@ -78,16 +78,16 @@ interface ActivityListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<ActivityPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: ActivityPage) => any): Promise<ActivityPage>;
   /**
-   * @description Lists ActivityInstance records from the API as a list.
+   * Lists ActivityInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: ActivityListInstanceOptions, callback?: function): Promise<ActivityInstance[]>;
+  list(opts?: ActivityListInstanceOptions, callback?: (error: Error | null, items: ActivityInstance[]) => any): Promise<ActivityInstance[]>;
   /**
    * Retrieve a single page of ActivityInstance records from the API.
    * Request is executed immediately
@@ -97,7 +97,7 @@ interface ActivityListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: ActivityListInstancePageOptions, callback?: function): Promise<ActivityPage>;
+  page(opts?: ActivityListInstancePageOptions, callback?: (error: Error | null, items: ActivityPage) => any): Promise<ActivityPage>;
 }
 
 /**
@@ -105,7 +105,7 @@ interface ActivityListInstance {
  *
  * @property friendlyName - A human-readable name for the Activity, such as 'on-call', 'break', 'email', etc.
  */
-export interface ActivityInstanceUpdateOptions {
+interface ActivityInstanceUpdateOptions {
   friendlyName?: string;
 }
 
@@ -114,116 +114,33 @@ export interface ActivityInstanceUpdateOptions {
  *
  * @property friendlyName - A human-readable name for the Activity, such as 'on-call', 'break', 'email', etc.
  */
-export interface ActivityContextUpdateOptions {
+interface ActivityInstanceUpdateOptions {
   friendlyName?: string;
 }
 
-/**
- * Options to pass to each
- *
- * @property friendlyName - Filter by an Activity's friendly name
- * @property available - Filter by activities that are available or unavailable.
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface ActivityListInstanceEachOptions {
-  available?: string;
-  callback?: (item: ActivityInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  friendlyName?: string;
-  limit?: number;
-  pageSize?: number;
-}
 
-/**
- * Options to pass to list
- *
- * @property friendlyName - Filter by an Activity's friendly name
- * @property available - Filter by activities that are available or unavailable.
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface ActivityListInstanceOptions {
-  available?: string;
-  friendlyName?: string;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property friendlyName - Filter by an Activity's friendly name
- * @property available - Filter by activities that are available or unavailable.
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface ActivityListInstancePageOptions {
-  available?: string;
-  friendlyName?: string;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-}
-
-/**
- * Options to pass to create
- *
- * @property friendlyName - A human-readable name for the Activity, such as 'On Call', 'Break', 'Email', etc.
- * @property available - Boolean value indicating whether the worker should be eligible to receive a Task when they occupy this Activity.
- */
-export interface ActivityListInstanceCreateOptions {
-  available?: boolean;
-  friendlyName: string;
-}
-
-
-declare class ActivityPage extends Page {
+declare class ActivityPage extends Page<V1, ActivityPayload, ActivityResource, ActivityInstance> {
   /**
-   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.ActivityPage
-   * @augments Page
-   * @description Initialize the ActivityPage
+   * Initialize the ActivityPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Taskrouter.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: ActivitySolution);
 
   /**
    * Build an instance of ActivityInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: ActivityPayload): ActivityInstance;
 }
 
 
-declare class ActivityInstance {
+declare class ActivityInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.ActivityInstance
-   * @description Initialize the ActivityContext
+   * Initialize the ActivityContext
    *
    * @property accountSid - The unique ID of the Account that owns this Activity.
    * @property available - Filter by activities that are available or unavailable.
@@ -239,66 +156,73 @@ declare class ActivityInstance {
    * @param workspaceSid - The unique ID of the Workspace that this Activity belongs to.
    * @param sid - The sid
    */
-  constructor(version: Twilio.Taskrouter.V1, payload: object, workspaceSid: sid, sid: sid);
+  constructor(version: V1, payload: ActivityPayload, workspaceSid: string, sid: string);
 
-  _proxy?: ActivityContext;
+  private _proxy: ActivityContext;
+  accountSid: string;
+  available: boolean;
+  dateCreated: Date;
+  dateUpdated: Date;
   /**
    * fetch a ActivityInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ActivityInstance) => any);
+  fetch(callback?: (error: Error | null, items: ActivityInstance) => any): void;
+  friendlyName: string;
   /**
    * remove a ActivityInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ActivityInstance) => any);
+  remove(callback?: (error: Error | null, items: ActivityInstance) => any): void;
+  sid: string;
   /**
    * Produce a plain JSON object version of the ActivityInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
   /**
    * update a ActivityInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ActivityInstanceUpdateOptions, callback?: (error: Error | null, items: ActivityInstance) => any);
+  update(opts?: ActivityInstanceUpdateOptions, callback?: (error: Error | null, items: ActivityInstance) => any): void;
+  url: string;
+  workspaceSid: string;
 }
 
 
 declare class ActivityContext {
   /**
-   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.ActivityContext
-   * @description Initialize the ActivityContext
+   * Initialize the ActivityContext
    *
    * @param version - Version of the resource
    * @param workspaceSid - The workspace_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.Taskrouter.V1, workspaceSid: sid, sid: sid);
+  constructor(version: V1, workspaceSid: string, sid: string);
 
   /**
    * fetch a ActivityInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ActivityContext) => any);
+  fetch(callback?: (error: Error | null, items: ActivityInstance) => any): void;
   /**
    * remove a ActivityInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ActivityContext) => any);
+  remove(callback?: (error: Error | null, items: ActivityInstance) => any): void;
   /**
    * update a ActivityInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ActivityContextUpdateOptions, callback?: (error: Error | null, items: ActivityContext) => any);
+  update(opts?: ActivityInstanceUpdateOptions, callback?: (error: Error | null, items: ActivityInstance) => any): void;
 }
 
-export { ActivityContext, ActivityInstance, ActivityList, ActivityListInstance, ActivityPage, ActivityPayload, ActivityResource, ActivitySolution }
+export { ActivityContext, ActivityInstance, ActivityList, ActivityListInstance, ActivityListInstanceCreateOptions, ActivityListInstanceEachOptions, ActivityListInstanceOptions, ActivityListInstancePageOptions, ActivityPage, ActivityPayload, ActivityResource, ActivitySolution }

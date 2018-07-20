@@ -84,16 +84,16 @@ interface EngagementListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<EngagementPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: EngagementPage) => any): Promise<EngagementPage>;
   /**
-   * @description Lists EngagementInstance records from the API as a list.
+   * Lists EngagementInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: EngagementListInstanceOptions, callback?: function): Promise<EngagementInstance[]>;
+  list(opts?: EngagementListInstanceOptions, callback?: (error: Error | null, items: EngagementInstance[]) => any): Promise<EngagementInstance[]>;
   /**
    * Retrieve a single page of EngagementInstance records from the API.
    * Request is executed immediately
@@ -103,107 +103,32 @@ interface EngagementListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: EngagementListInstancePageOptions, callback?: function): Promise<EngagementPage>;
-}
-
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface EngagementListInstanceEachOptions {
-  callback?: (item: EngagementInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface EngagementListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface EngagementListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-}
-
-/**
- * Options to pass to create
- *
- * @property to - The to
- * @property from - The from
- * @property parameters - The parameters
- */
-export interface EngagementListInstanceCreateOptions {
-  from: string;
-  parameters?: string;
-  to: string;
+  page(opts?: EngagementListInstancePageOptions, callback?: (error: Error | null, items: EngagementPage) => any): Promise<EngagementPage>;
 }
 
 
-declare class EngagementPage extends Page {
+declare class EngagementPage extends Page<V1, EngagementPayload, EngagementResource, EngagementInstance> {
   /**
-   * @constructor Twilio.Studio.V1.FlowContext.EngagementPage
-   * @augments Page
-   * @description Initialize the EngagementPage
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the EngagementPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Studio.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: EngagementSolution);
 
   /**
    * Build an instance of EngagementInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: EngagementPayload): EngagementInstance;
 }
 
 
-declare class EngagementInstance {
+declare class EngagementInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Studio.V1.FlowContext.EngagementInstance
-   * @description Initialize the EngagementContext
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the EngagementContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @property sid - The sid
    * @property accountSid - The account_sid
@@ -222,9 +147,15 @@ declare class EngagementInstance {
    * @param flowSid - The flow_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.Studio.V1, payload: object, flowSid: sid, sid: sid);
+  constructor(version: V1, payload: EngagementPayload, flowSid: string, sid: string);
 
-  _proxy?: EngagementContext;
+  private _proxy: EngagementContext;
+  accountSid: string;
+  contactChannelAddress: string;
+  contactSid: string;
+  context: string;
+  dateCreated: Date;
+  dateUpdated: Date;
   /**
    * Access the engagementContext
    */
@@ -234,13 +165,17 @@ declare class EngagementInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: EngagementInstance) => any);
+  fetch(callback?: (error: Error | null, items: EngagementInstance) => any): void;
+  flowSid: string;
+  links: string;
   /**
    * remove a EngagementInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: EngagementInstance) => any);
+  remove(callback?: (error: Error | null, items: EngagementInstance) => any): void;
+  sid: string;
+  status: engagement.status;
   /**
    * Access the steps
    */
@@ -249,15 +184,14 @@ declare class EngagementInstance {
    * Produce a plain JSON object version of the EngagementInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  url: string;
 }
 
 
 declare class EngagementContext {
   /**
-   * @constructor Twilio.Studio.V1.FlowContext.EngagementContext
-   * @description Initialize the EngagementContext
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the EngagementContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @property steps - steps resource
    * @property engagementContext - engagementContext resource
@@ -266,7 +200,7 @@ declare class EngagementContext {
    * @param flowSid - The flow_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.Studio.V1, flowSid: sid, sid: sid);
+  constructor(version: V1, flowSid: string, sid: string);
 
   engagementContext?: Twilio.Studio.V1.FlowContext.EngagementContext.EngagementContextList;
   /**
@@ -274,14 +208,14 @@ declare class EngagementContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: EngagementContext) => any);
+  fetch(callback?: (error: Error | null, items: EngagementInstance) => any): void;
   /**
    * remove a EngagementInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: EngagementContext) => any);
+  remove(callback?: (error: Error | null, items: EngagementInstance) => any): void;
   steps?: Twilio.Studio.V1.FlowContext.EngagementContext.StepList;
 }
 
-export { EngagementContext, EngagementInstance, EngagementList, EngagementListInstance, EngagementPage, EngagementPayload, EngagementResource, EngagementSolution }
+export { EngagementContext, EngagementInstance, EngagementList, EngagementListInstance, EngagementListInstanceCreateOptions, EngagementListInstanceEachOptions, EngagementListInstanceOptions, EngagementListInstancePageOptions, EngagementPage, EngagementPayload, EngagementResource, EngagementSolution }

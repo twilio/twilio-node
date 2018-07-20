@@ -69,16 +69,16 @@ interface AvailableAddOnListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<AvailableAddOnPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: AvailableAddOnPage) => any): Promise<AvailableAddOnPage>;
   /**
-   * @description Lists AvailableAddOnInstance records from the API as a list.
+   * Lists AvailableAddOnInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: AvailableAddOnListInstanceOptions, callback?: function): Promise<AvailableAddOnInstance[]>;
+  list(opts?: AvailableAddOnListInstanceOptions, callback?: (error: Error | null, items: AvailableAddOnInstance[]) => any): Promise<AvailableAddOnInstance[]>;
   /**
    * Retrieve a single page of AvailableAddOnInstance records from the API.
    * Request is executed immediately
@@ -88,94 +88,32 @@ interface AvailableAddOnListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: AvailableAddOnListInstancePageOptions, callback?: function): Promise<AvailableAddOnPage>;
-}
-
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface AvailableAddOnListInstanceEachOptions {
-  callback?: (item: AvailableAddOnInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface AvailableAddOnListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface AvailableAddOnListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
+  page(opts?: AvailableAddOnListInstancePageOptions, callback?: (error: Error | null, items: AvailableAddOnPage) => any): Promise<AvailableAddOnPage>;
 }
 
 
-declare class AvailableAddOnPage extends Page {
+declare class AvailableAddOnPage extends Page<Marketplace, AvailableAddOnPayload, AvailableAddOnResource, AvailableAddOnInstance> {
   /**
-   * @constructor Twilio.Preview.Marketplace.AvailableAddOnPage
-   * @augments Page
-   * @description Initialize the AvailableAddOnPage
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the AvailableAddOnPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Preview.Marketplace, response: Response<string>, solution: object);
+  constructor(version: Marketplace, response: Response<string>, solution: AvailableAddOnSolution);
 
   /**
    * Build an instance of AvailableAddOnInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: AvailableAddOnPayload): AvailableAddOnInstance;
 }
 
 
-declare class AvailableAddOnInstance {
+declare class AvailableAddOnInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Preview.Marketplace.AvailableAddOnInstance
-   * @description Initialize the AvailableAddOnContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the AvailableAddOnContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @property sid - A string that uniquely identifies this Add-on
    * @property friendlyName - A description of this Add-on
@@ -189,9 +127,11 @@ declare class AvailableAddOnInstance {
    * @param payload - The instance payload
    * @param sid - The unique Available Add-on Sid
    */
-  constructor(version: Twilio.Preview.Marketplace, payload: object, sid: sid);
+  constructor(version: Marketplace, payload: AvailableAddOnPayload, sid: string);
 
-  _proxy?: AvailableAddOnContext;
+  private _proxy: AvailableAddOnContext;
+  configurationSchema: string;
+  description: string;
   /**
    * Access the extensions
    */
@@ -201,27 +141,30 @@ declare class AvailableAddOnInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AvailableAddOnInstance) => any);
+  fetch(callback?: (error: Error | null, items: AvailableAddOnInstance) => any): void;
+  friendlyName: string;
+  links: string;
+  pricingType: string;
+  sid: string;
   /**
    * Produce a plain JSON object version of the AvailableAddOnInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  url: string;
 }
 
 
 declare class AvailableAddOnContext {
   /**
-   * @constructor Twilio.Preview.Marketplace.AvailableAddOnContext
-   * @description Initialize the AvailableAddOnContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the AvailableAddOnContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @property extensions - extensions resource
    *
    * @param version - Version of the resource
    * @param sid - The unique Available Add-on Sid
    */
-  constructor(version: Twilio.Preview.Marketplace, sid: sid);
+  constructor(version: Marketplace, sid: string);
 
   extensions?: Twilio.Preview.Marketplace.AvailableAddOnContext.AvailableAddOnExtensionList;
   /**
@@ -229,7 +172,7 @@ declare class AvailableAddOnContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AvailableAddOnContext) => any);
+  fetch(callback?: (error: Error | null, items: AvailableAddOnInstance) => any): void;
 }
 
-export { AvailableAddOnContext, AvailableAddOnInstance, AvailableAddOnList, AvailableAddOnListInstance, AvailableAddOnPage, AvailableAddOnPayload, AvailableAddOnResource, AvailableAddOnSolution }
+export { AvailableAddOnContext, AvailableAddOnInstance, AvailableAddOnList, AvailableAddOnListInstance, AvailableAddOnListInstanceEachOptions, AvailableAddOnListInstanceOptions, AvailableAddOnListInstancePageOptions, AvailableAddOnPage, AvailableAddOnPayload, AvailableAddOnResource, AvailableAddOnSolution }

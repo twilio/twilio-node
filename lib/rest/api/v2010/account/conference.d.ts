@@ -75,16 +75,16 @@ interface ConferenceListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<ConferencePage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: ConferencePage) => any): Promise<ConferencePage>;
   /**
-   * @description Lists ConferenceInstance records from the API as a list.
+   * Lists ConferenceInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: ConferenceListInstanceOptions, callback?: function): Promise<ConferenceInstance[]>;
+  list(opts?: ConferenceListInstanceOptions, callback?: (error: Error | null, items: ConferenceInstance[]) => any): Promise<ConferenceInstance[]>;
   /**
    * Retrieve a single page of ConferenceInstance records from the API.
    * Request is executed immediately
@@ -94,7 +94,7 @@ interface ConferenceListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: ConferenceListInstancePageOptions, callback?: function): Promise<ConferencePage>;
+  page(opts?: ConferenceListInstancePageOptions, callback?: (error: Error | null, items: ConferencePage) => any): Promise<ConferencePage>;
 }
 
 /**
@@ -104,7 +104,7 @@ interface ConferenceListInstance {
  * @property announceUrl - The 'AnnounceUrl' attribute lets you specify a URL for announcing something into a conference.
  * @property announceMethod - Specify GET or POST, defaults to POST
  */
-export interface ConferenceInstanceUpdateOptions {
+interface ConferenceInstanceUpdateOptions {
   announceMethod?: string;
   announceUrl?: string;
   status?: conference.update_status;
@@ -117,143 +117,35 @@ export interface ConferenceInstanceUpdateOptions {
  * @property announceUrl - The 'AnnounceUrl' attribute lets you specify a URL for announcing something into a conference.
  * @property announceMethod - Specify GET or POST, defaults to POST
  */
-export interface ConferenceContextUpdateOptions {
+interface ConferenceInstanceUpdateOptions {
   announceMethod?: string;
   announceUrl?: string;
   status?: conference.update_status;
 }
 
-/**
- * Options to pass to each
- *
- * @property dateCreatedBefore - Filter by date created
- * @property dateCreated - Filter by date created
- * @property dateCreatedAfter - Filter by date created
- * @property dateUpdatedBefore - Filter by date updated
- * @property dateUpdated - Filter by date updated
- * @property dateUpdatedAfter - Filter by date updated
- * @property friendlyName - Filter by friendly name
- * @property status - The status of the conference
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface ConferenceListInstanceEachOptions {
-  callback?: (item: ConferenceInstance, done: (err?: Error) => void) => void;
-  dateCreated?: Date;
-  dateCreatedAfter?: Date;
-  dateCreatedBefore?: Date;
-  dateUpdated?: Date;
-  dateUpdatedAfter?: Date;
-  dateUpdatedBefore?: Date;
-  done?: Function;
-  friendlyName?: string;
-  limit?: number;
-  pageSize?: number;
-  status?: conference.status;
-}
 
-/**
- * Options to pass to list
- *
- * @property dateCreatedBefore - Filter by date created
- * @property dateCreated - Filter by date created
- * @property dateCreatedAfter - Filter by date created
- * @property dateUpdatedBefore - Filter by date updated
- * @property dateUpdated - Filter by date updated
- * @property dateUpdatedAfter - Filter by date updated
- * @property friendlyName - Filter by friendly name
- * @property status - The status of the conference
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface ConferenceListInstanceOptions {
-  dateCreated?: Date;
-  dateCreatedAfter?: Date;
-  dateCreatedBefore?: Date;
-  dateUpdated?: Date;
-  dateUpdatedAfter?: Date;
-  dateUpdatedBefore?: Date;
-  friendlyName?: string;
-  limit?: number;
-  pageSize?: number;
-  status?: conference.status;
-}
-
-/**
- * Options to pass to page
- *
- * @property dateCreatedBefore - Filter by date created
- * @property dateCreated - Filter by date created
- * @property dateCreatedAfter - Filter by date created
- * @property dateUpdatedBefore - Filter by date updated
- * @property dateUpdated - Filter by date updated
- * @property dateUpdatedAfter - Filter by date updated
- * @property friendlyName - Filter by friendly name
- * @property status - The status of the conference
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface ConferenceListInstancePageOptions {
-  dateCreated?: Date;
-  dateCreatedAfter?: Date;
-  dateCreatedBefore?: Date;
-  dateUpdated?: Date;
-  dateUpdatedAfter?: Date;
-  dateUpdatedBefore?: Date;
-  friendlyName?: string;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-  status?: conference.status;
-}
-
-
-declare class ConferencePage extends Page {
+declare class ConferencePage extends Page<V2010, ConferencePayload, ConferenceResource, ConferenceInstance> {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.ConferencePage
-   * @augments Page
-   * @description Initialize the ConferencePage
+   * Initialize the ConferencePage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
+  constructor(version: V2010, response: Response<string>, solution: ConferenceSolution);
 
   /**
    * Build an instance of ConferenceInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: ConferencePayload): ConferenceInstance;
 }
 
 
-declare class ConferenceInstance {
+declare class ConferenceInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.ConferenceInstance
-   * @description Initialize the ConferenceContext
+   * Initialize the ConferenceContext
    *
    * @property accountSid - The unique sid that identifies this account
    * @property dateCreated - The date this resource was created
@@ -271,15 +163,20 @@ declare class ConferenceInstance {
    * @param accountSid - The unique sid that identifies this account
    * @param sid - Fetch by unique conference Sid
    */
-  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, sid: sid);
+  constructor(version: V2010, payload: ConferencePayload, accountSid: string, sid: string);
 
-  _proxy?: ConferenceContext;
+  private _proxy: ConferenceContext;
+  accountSid: string;
+  apiVersion: string;
+  dateCreated: Date;
+  dateUpdated: Date;
   /**
    * fetch a ConferenceInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ConferenceInstance) => any);
+  fetch(callback?: (error: Error | null, items: ConferenceInstance) => any): void;
+  friendlyName: string;
   /**
    * Access the participants
    */
@@ -288,25 +185,29 @@ declare class ConferenceInstance {
    * Access the recordings
    */
   recordings();
+  region: string;
+  sid: string;
+  status: conference.status;
+  subresourceUris: string;
   /**
    * Produce a plain JSON object version of the ConferenceInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
   /**
    * update a ConferenceInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ConferenceInstanceUpdateOptions, callback?: (error: Error | null, items: ConferenceInstance) => any);
+  update(opts?: ConferenceInstanceUpdateOptions, callback?: (error: Error | null, items: ConferenceInstance) => any): void;
+  uri: string;
 }
 
 
 declare class ConferenceContext {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.ConferenceContext
-   * @description Initialize the ConferenceContext
+   * Initialize the ConferenceContext
    *
    * @property participants - participants resource
    * @property recordings - recordings resource
@@ -315,14 +216,14 @@ declare class ConferenceContext {
    * @param accountSid - The account_sid
    * @param sid - Fetch by unique conference Sid
    */
-  constructor(version: Twilio.Api.V2010, accountSid: sid, sid: sid);
+  constructor(version: V2010, accountSid: string, sid: string);
 
   /**
    * fetch a ConferenceInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ConferenceContext) => any);
+  fetch(callback?: (error: Error | null, items: ConferenceInstance) => any): void;
   participants?: Twilio.Api.V2010.AccountContext.ConferenceContext.ParticipantList;
   recordings?: Twilio.Api.V2010.AccountContext.ConferenceContext.RecordingList;
   /**
@@ -331,7 +232,7 @@ declare class ConferenceContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ConferenceContextUpdateOptions, callback?: (error: Error | null, items: ConferenceContext) => any);
+  update(opts?: ConferenceInstanceUpdateOptions, callback?: (error: Error | null, items: ConferenceInstance) => any): void;
 }
 
-export { ConferenceContext, ConferenceInstance, ConferenceList, ConferenceListInstance, ConferencePage, ConferencePayload, ConferenceResource, ConferenceSolution }
+export { ConferenceContext, ConferenceInstance, ConferenceList, ConferenceListInstance, ConferenceListInstanceEachOptions, ConferenceListInstanceOptions, ConferenceListInstancePageOptions, ConferencePage, ConferencePayload, ConferenceResource, ConferenceSolution }

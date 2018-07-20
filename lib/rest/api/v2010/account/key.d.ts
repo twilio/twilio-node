@@ -66,16 +66,16 @@ interface KeyListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<KeyPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: KeyPage) => any): Promise<KeyPage>;
   /**
-   * @description Lists KeyInstance records from the API as a list.
+   * Lists KeyInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: KeyListInstanceOptions, callback?: function): Promise<KeyInstance[]>;
+  list(opts?: KeyListInstanceOptions, callback?: (error: Error | null, items: KeyInstance[]) => any): Promise<KeyInstance[]>;
   /**
    * Retrieve a single page of KeyInstance records from the API.
    * Request is executed immediately
@@ -85,7 +85,7 @@ interface KeyListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: KeyListInstancePageOptions, callback?: function): Promise<KeyPage>;
+  page(opts?: KeyListInstancePageOptions, callback?: (error: Error | null, items: KeyPage) => any): Promise<KeyPage>;
 }
 
 /**
@@ -93,7 +93,7 @@ interface KeyListInstance {
  *
  * @property friendlyName - A descriptive string for this resource, chosen by your application, up to 64 characters long.
  */
-export interface KeyInstanceUpdateOptions {
+interface KeyInstanceUpdateOptions {
   friendlyName?: string;
 }
 
@@ -102,93 +102,33 @@ export interface KeyInstanceUpdateOptions {
  *
  * @property friendlyName - A descriptive string for this resource, chosen by your application, up to 64 characters long.
  */
-export interface KeyContextUpdateOptions {
+interface KeyInstanceUpdateOptions {
   friendlyName?: string;
 }
 
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface KeyListInstanceEachOptions {
-  callback?: (item: KeyInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
 
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface KeyListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface KeyListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-}
-
-
-declare class KeyPage extends Page {
+declare class KeyPage extends Page<V2010, KeyPayload, KeyResource, KeyInstance> {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.KeyPage
-   * @augments Page
-   * @description Initialize the KeyPage
+   * Initialize the KeyPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
+  constructor(version: V2010, response: Response<string>, solution: KeySolution);
 
   /**
    * Build an instance of KeyInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: KeyPayload): KeyInstance;
 }
 
 
-declare class KeyInstance {
+declare class KeyInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.KeyInstance
-   * @description Initialize the KeyContext
+   * Initialize the KeyContext
    *
    * @property sid - A 34 character string that uniquely identifies this API Key.
    * @property friendlyName - A descriptive string for this resource, chosen by your application, up to 64 characters long.
@@ -200,66 +140,69 @@ declare class KeyInstance {
    * @param accountSid - A 34 character string that uniquely identifies this resource.
    * @param sid - The sid
    */
-  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, sid: sid);
+  constructor(version: V2010, payload: KeyPayload, accountSid: string, sid: string);
 
-  _proxy?: KeyContext;
+  private _proxy: KeyContext;
+  dateCreated: Date;
+  dateUpdated: Date;
   /**
    * fetch a KeyInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: KeyInstance) => any);
+  fetch(callback?: (error: Error | null, items: KeyInstance) => any): void;
+  friendlyName: string;
   /**
    * remove a KeyInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: KeyInstance) => any);
+  remove(callback?: (error: Error | null, items: KeyInstance) => any): void;
+  sid: string;
   /**
    * Produce a plain JSON object version of the KeyInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
   /**
    * update a KeyInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: KeyInstanceUpdateOptions, callback?: (error: Error | null, items: KeyInstance) => any);
+  update(opts?: KeyInstanceUpdateOptions, callback?: (error: Error | null, items: KeyInstance) => any): void;
 }
 
 
 declare class KeyContext {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.KeyContext
-   * @description Initialize the KeyContext
+   * Initialize the KeyContext
    *
    * @param version - Version of the resource
    * @param accountSid - The account_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.Api.V2010, accountSid: sid, sid: sid);
+  constructor(version: V2010, accountSid: string, sid: string);
 
   /**
    * fetch a KeyInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: KeyContext) => any);
+  fetch(callback?: (error: Error | null, items: KeyInstance) => any): void;
   /**
    * remove a KeyInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: KeyContext) => any);
+  remove(callback?: (error: Error | null, items: KeyInstance) => any): void;
   /**
    * update a KeyInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: KeyContextUpdateOptions, callback?: (error: Error | null, items: KeyContext) => any);
+  update(opts?: KeyInstanceUpdateOptions, callback?: (error: Error | null, items: KeyInstance) => any): void;
 }
 
-export { KeyContext, KeyInstance, KeyList, KeyListInstance, KeyPage, KeyPayload, KeyResource, KeySolution }
+export { KeyContext, KeyInstance, KeyList, KeyListInstance, KeyListInstanceEachOptions, KeyListInstanceOptions, KeyListInstancePageOptions, KeyPage, KeyPayload, KeyResource, KeySolution }

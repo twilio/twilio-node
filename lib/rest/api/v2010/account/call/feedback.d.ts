@@ -54,7 +54,7 @@ interface FeedbackListInstance {
  * @property qualityScore - An integer from 1 to 5
  * @property issue - Issues experienced during the call
  */
-export interface FeedbackInstanceCreateOptions {
+interface FeedbackInstanceCreateOptions {
   issue?: feedback.issues|list;
   qualityScore: number;
 }
@@ -65,7 +65,7 @@ export interface FeedbackInstanceCreateOptions {
  * @property qualityScore - An integer from 1 to 5
  * @property issue - Issues experienced during the call
  */
-export interface FeedbackInstanceUpdateOptions {
+interface FeedbackInstanceUpdateOptions {
   issue?: feedback.issues|list;
   qualityScore: number;
 }
@@ -76,7 +76,7 @@ export interface FeedbackInstanceUpdateOptions {
  * @property qualityScore - An integer from 1 to 5
  * @property issue - Issues experienced during the call
  */
-export interface FeedbackContextCreateOptions {
+interface FeedbackInstanceCreateOptions {
   issue?: feedback.issues|list;
   qualityScore: number;
 }
@@ -87,37 +87,34 @@ export interface FeedbackContextCreateOptions {
  * @property qualityScore - An integer from 1 to 5
  * @property issue - Issues experienced during the call
  */
-export interface FeedbackContextUpdateOptions {
+interface FeedbackInstanceUpdateOptions {
   issue?: feedback.issues|list;
   qualityScore: number;
 }
 
 
-declare class FeedbackPage extends Page {
+declare class FeedbackPage extends Page<V2010, FeedbackPayload, FeedbackResource, FeedbackInstance> {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.CallContext.FeedbackPage
-   * @augments Page
-   * @description Initialize the FeedbackPage
+   * Initialize the FeedbackPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
+  constructor(version: V2010, response: Response<string>, solution: FeedbackSolution);
 
   /**
    * Build an instance of FeedbackInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: FeedbackPayload): FeedbackInstance;
 }
 
 
-declare class FeedbackInstance {
+declare class FeedbackInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.CallContext.FeedbackInstance
-   * @description Initialize the FeedbackContext
+   * Initialize the FeedbackContext
    *
    * @property accountSid - The account_sid
    * @property dateCreated - The date_created
@@ -131,47 +128,52 @@ declare class FeedbackInstance {
    * @param accountSid - The account_sid
    * @param callSid - A 34-character string that uniquely identifies the Call resource.
    */
-  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, callSid: sid);
+  constructor(version: V2010, payload: FeedbackPayload, accountSid: string, callSid: string);
 
-  _proxy?: FeedbackContext;
+  private _proxy: FeedbackContext;
+  accountSid: string;
   /**
    * create a FeedbackInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: FeedbackInstanceCreateOptions, callback?: (error: Error | null, items: FeedbackInstance) => any);
+  create(opts: FeedbackInstanceCreateOptions, callback?: (error: Error | null, items: FeedbackInstance) => any): void;
+  dateCreated: Date;
+  dateUpdated: Date;
   /**
    * fetch a FeedbackInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: FeedbackInstance) => any);
+  fetch(callback?: (error: Error | null, items: FeedbackInstance) => any): void;
+  issues: feedback.issues;
+  qualityScore: number;
+  sid: string;
   /**
    * Produce a plain JSON object version of the FeedbackInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
   /**
    * update a FeedbackInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: FeedbackInstanceUpdateOptions, callback?: (error: Error | null, items: FeedbackInstance) => any);
+  update(opts: FeedbackInstanceUpdateOptions, callback?: (error: Error | null, items: FeedbackInstance) => any): void;
 }
 
 
 declare class FeedbackContext {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.CallContext.FeedbackContext
-   * @description Initialize the FeedbackContext
+   * Initialize the FeedbackContext
    *
    * @param version - Version of the resource
    * @param accountSid - The account_sid
    * @param callSid - The call sid that uniquely identifies the call
    */
-  constructor(version: Twilio.Api.V2010, accountSid: sid, callSid: sid);
+  constructor(version: V2010, accountSid: string, callSid: string);
 
   /**
    * create a FeedbackInstance
@@ -179,20 +181,20 @@ declare class FeedbackContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: FeedbackContextCreateOptions, callback?: (error: Error | null, items: FeedbackContext) => any): Promise<FeedbackInstance>;
+  create(opts: FeedbackInstanceCreateOptions, callback?: (error: Error | null, items: FeedbackInstance) => any): Promise<FeedbackInstance>;
   /**
    * fetch a FeedbackInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: FeedbackContext) => any);
+  fetch(callback?: (error: Error | null, items: FeedbackInstance) => any): void;
   /**
    * update a FeedbackInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: FeedbackContextUpdateOptions, callback?: (error: Error | null, items: FeedbackContext) => any);
+  update(opts: FeedbackInstanceUpdateOptions, callback?: (error: Error | null, items: FeedbackInstance) => any): void;
 }
 
 export { FeedbackContext, FeedbackInstance, FeedbackList, FeedbackListInstance, FeedbackPage, FeedbackPayload, FeedbackResource, FeedbackSolution }

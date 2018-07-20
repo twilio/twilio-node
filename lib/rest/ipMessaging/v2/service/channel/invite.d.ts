@@ -82,16 +82,16 @@ interface InviteListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<InvitePage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: InvitePage) => any): Promise<InvitePage>;
   /**
-   * @description Lists InviteInstance records from the API as a list.
+   * Lists InviteInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: InviteListInstanceOptions, callback?: function): Promise<InviteInstance[]>;
+  list(opts?: InviteListInstanceOptions, callback?: (error: Error | null, items: InviteInstance[]) => any): Promise<InviteInstance[]>;
   /**
    * Retrieve a single page of InviteInstance records from the API.
    * Request is executed immediately
@@ -101,109 +101,32 @@ interface InviteListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: InviteListInstancePageOptions, callback?: function): Promise<InvitePage>;
-}
-
-/**
- * Options to pass to create
- *
- * @property identity - A unique string identifier for this User in this Service.
- * @property roleSid - The Role assigned to this member.
- */
-export interface InviteListInstanceCreateOptions {
-  identity: string;
-  roleSid?: string;
-}
-
-/**
- * Options to pass to each
- *
- * @property identity - A unique string identifier for this User in this Service.
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface InviteListInstanceEachOptions {
-  callback?: (item: InviteInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  identity?: string|list;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property identity - A unique string identifier for this User in this Service.
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface InviteListInstanceOptions {
-  identity?: string|list;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property identity - A unique string identifier for this User in this Service.
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface InviteListInstancePageOptions {
-  identity?: string|list;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
+  page(opts?: InviteListInstancePageOptions, callback?: (error: Error | null, items: InvitePage) => any): Promise<InvitePage>;
 }
 
 
-declare class InvitePage extends Page {
+declare class InvitePage extends Page<V2, InvitePayload, InviteResource, InviteInstance> {
   /**
-   * @constructor Twilio.IpMessaging.V2.ServiceContext.ChannelContext.InvitePage
-   * @augments Page
-   * @description Initialize the InvitePage
+   * Initialize the InvitePage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.IpMessaging.V2, response: Response<string>, solution: object);
+  constructor(version: V2, response: Response<string>, solution: InviteSolution);
 
   /**
    * Build an instance of InviteInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: InvitePayload): InviteInstance;
 }
 
 
-declare class InviteInstance {
+declare class InviteInstance extends SerializableClass {
   /**
-   * @constructor Twilio.IpMessaging.V2.ServiceContext.ChannelContext.InviteInstance
-   * @description Initialize the InviteContext
+   * Initialize the InviteContext
    *
    * @property sid - A 34 character string that uniquely identifies this resource.
    * @property accountSid - The unique id of the Account responsible for this member.
@@ -222,53 +145,62 @@ declare class InviteInstance {
    * @param channelSid - The unique id of the Channel for this member.
    * @param sid - The sid
    */
-  constructor(version: Twilio.IpMessaging.V2, payload: object, serviceSid: sid, channelSid: sid, sid: sid);
+  constructor(version: V2, payload: InvitePayload, serviceSid: string, channelSid: string, sid: string);
 
-  _proxy?: InviteContext;
+  private _proxy: InviteContext;
+  accountSid: string;
+  channelSid: string;
+  createdBy: string;
+  dateCreated: Date;
+  dateUpdated: Date;
   /**
    * fetch a InviteInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: InviteInstance) => any);
+  fetch(callback?: (error: Error | null, items: InviteInstance) => any): void;
+  identity: string;
   /**
    * remove a InviteInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: InviteInstance) => any);
+  remove(callback?: (error: Error | null, items: InviteInstance) => any): void;
+  roleSid: string;
+  serviceSid: string;
+  sid: string;
   /**
    * Produce a plain JSON object version of the InviteInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  url: string;
 }
 
 
 declare class InviteContext {
   /**
-   * @constructor Twilio.IpMessaging.V2.ServiceContext.ChannelContext.InviteContext
-   * @description Initialize the InviteContext
+   * Initialize the InviteContext
    *
    * @param version - Version of the resource
    * @param serviceSid - The service_sid
    * @param channelSid - The channel_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.IpMessaging.V2, serviceSid: sid, channelSid: sid_like, sid: sid);
+  constructor(version: V2, serviceSid: string, channelSid: string, sid: string);
 
   /**
    * fetch a InviteInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: InviteContext) => any);
+  fetch(callback?: (error: Error | null, items: InviteInstance) => any): void;
   /**
    * remove a InviteInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: InviteContext) => any);
+  remove(callback?: (error: Error | null, items: InviteInstance) => any): void;
 }
 
-export { InviteContext, InviteInstance, InviteList, InviteListInstance, InvitePage, InvitePayload, InviteResource, InviteSolution }
+export { InviteContext, InviteInstance, InviteList, InviteListInstance, InviteListInstanceCreateOptions, InviteListInstanceEachOptions, InviteListInstanceOptions, InviteListInstancePageOptions, InvitePage, InvitePayload, InviteResource, InviteSolution }

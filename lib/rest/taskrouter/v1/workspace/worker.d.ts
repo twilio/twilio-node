@@ -87,16 +87,16 @@ interface WorkerListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<WorkerPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: WorkerPage) => any): Promise<WorkerPage>;
   /**
-   * @description Lists WorkerInstance records from the API as a list.
+   * Lists WorkerInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: WorkerListInstanceOptions, callback?: function): Promise<WorkerInstance[]>;
+  list(opts?: WorkerListInstanceOptions, callback?: (error: Error | null, items: WorkerInstance[]) => any): Promise<WorkerInstance[]>;
   /**
    * Retrieve a single page of WorkerInstance records from the API.
    * Request is executed immediately
@@ -106,7 +106,7 @@ interface WorkerListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: WorkerListInstancePageOptions, callback?: function): Promise<WorkerPage>;
+  page(opts?: WorkerListInstancePageOptions, callback?: (error: Error | null, items: WorkerPage) => any): Promise<WorkerPage>;
   statistics?: object;
 }
 
@@ -117,7 +117,7 @@ interface WorkerListInstance {
  * @property attributes - The attributes
  * @property friendlyName - The friendly_name
  */
-export interface WorkerInstanceUpdateOptions {
+interface WorkerInstanceUpdateOptions {
   activitySid?: string;
   attributes?: string;
   friendlyName?: string;
@@ -130,150 +130,35 @@ export interface WorkerInstanceUpdateOptions {
  * @property attributes - The attributes
  * @property friendlyName - The friendly_name
  */
-export interface WorkerContextUpdateOptions {
+interface WorkerInstanceUpdateOptions {
   activitySid?: string;
   attributes?: string;
   friendlyName?: string;
 }
 
-/**
- * Options to pass to each
- *
- * @property activityName - Filter by workers that are in a particular Activity by Friendly Name
- * @property activitySid - Filter by workers that are in a particular Activity by SID
- * @property available - Filter by workers that are available or unavailable.
- * @property friendlyName - Filter by a worker's friendly name
- * @property targetWorkersExpression - Filter by workers that would match an expression on a TaskQueue.
- * @property taskQueueName - Filter by workers that are eligible for a TaskQueue by Friendly Name
- * @property taskQueueSid - Filter by workers that are eligible for a TaskQueue by SID
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface WorkerListInstanceEachOptions {
-  activityName?: string;
-  activitySid?: string;
-  available?: string;
-  callback?: (item: WorkerInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  friendlyName?: string;
-  limit?: number;
-  pageSize?: number;
-  targetWorkersExpression?: string;
-  taskQueueName?: string;
-  taskQueueSid?: string;
-}
 
-/**
- * Options to pass to list
- *
- * @property activityName - Filter by workers that are in a particular Activity by Friendly Name
- * @property activitySid - Filter by workers that are in a particular Activity by SID
- * @property available - Filter by workers that are available or unavailable.
- * @property friendlyName - Filter by a worker's friendly name
- * @property targetWorkersExpression - Filter by workers that would match an expression on a TaskQueue.
- * @property taskQueueName - Filter by workers that are eligible for a TaskQueue by Friendly Name
- * @property taskQueueSid - Filter by workers that are eligible for a TaskQueue by SID
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface WorkerListInstanceOptions {
-  activityName?: string;
-  activitySid?: string;
-  available?: string;
-  friendlyName?: string;
-  limit?: number;
-  pageSize?: number;
-  targetWorkersExpression?: string;
-  taskQueueName?: string;
-  taskQueueSid?: string;
-}
-
-/**
- * Options to pass to page
- *
- * @property activityName - Filter by workers that are in a particular Activity by Friendly Name
- * @property activitySid - Filter by workers that are in a particular Activity by SID
- * @property available - Filter by workers that are available or unavailable.
- * @property friendlyName - Filter by a worker's friendly name
- * @property targetWorkersExpression - Filter by workers that would match an expression on a TaskQueue.
- * @property taskQueueName - Filter by workers that are eligible for a TaskQueue by Friendly Name
- * @property taskQueueSid - Filter by workers that are eligible for a TaskQueue by SID
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface WorkerListInstancePageOptions {
-  activityName?: string;
-  activitySid?: string;
-  available?: string;
-  friendlyName?: string;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-  targetWorkersExpression?: string;
-  taskQueueName?: string;
-  taskQueueSid?: string;
-}
-
-/**
- * Options to pass to create
- *
- * @property friendlyName - String representing user-friendly name for the Worker.
- * @property activitySid - A valid Activity describing the worker's initial state.
- * @property attributes - JSON object describing this worker.
- */
-export interface WorkerListInstanceCreateOptions {
-  activitySid?: string;
-  attributes?: string;
-  friendlyName: string;
-}
-
-
-declare class WorkerPage extends Page {
+declare class WorkerPage extends Page<V1, WorkerPayload, WorkerResource, WorkerInstance> {
   /**
-   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkerPage
-   * @augments Page
-   * @description Initialize the WorkerPage
+   * Initialize the WorkerPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Taskrouter.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: WorkerSolution);
 
   /**
    * Build an instance of WorkerInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: WorkerPayload): WorkerInstance;
 }
 
 
-declare class WorkerInstance {
+declare class WorkerInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkerInstance
-   * @description Initialize the WorkerContext
+   * Initialize the WorkerContext
    *
    * @property accountSid - The ID of the account that owns this worker
    * @property activityName - Filter by workers that are in a particular Activity by Friendly Name
@@ -294,19 +179,29 @@ declare class WorkerInstance {
    * @param workspaceSid - The ID of the Workflow this worker is associated with
    * @param sid - The sid
    */
-  constructor(version: Twilio.Taskrouter.V1, payload: object, workspaceSid: sid, sid: sid);
+  constructor(version: V1, payload: WorkerPayload, workspaceSid: string, sid: string);
 
-  _proxy?: WorkerContext;
+  private _proxy: WorkerContext;
+  accountSid: string;
+  activityName: string;
+  activitySid: string;
+  attributes: string;
+  available: boolean;
   /**
    * Access the cumulativeStatistics
    */
   cumulativeStatistics();
+  dateCreated: Date;
+  dateStatusChanged: Date;
+  dateUpdated: Date;
   /**
    * fetch a WorkerInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: WorkerInstance) => any);
+  fetch(callback?: (error: Error | null, items: WorkerInstance) => any): void;
+  friendlyName: string;
+  links: string;
   /**
    * Access the realTimeStatistics
    */
@@ -316,11 +211,12 @@ declare class WorkerInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: WorkerInstance) => any);
+  remove(callback?: (error: Error | null, items: WorkerInstance) => any): void;
   /**
    * Access the reservations
    */
   reservations();
+  sid: string;
   /**
    * Access the statistics
    */
@@ -329,25 +225,26 @@ declare class WorkerInstance {
    * Produce a plain JSON object version of the WorkerInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
   /**
    * update a WorkerInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: WorkerInstanceUpdateOptions, callback?: (error: Error | null, items: WorkerInstance) => any);
+  update(opts?: WorkerInstanceUpdateOptions, callback?: (error: Error | null, items: WorkerInstance) => any): void;
+  url: string;
   /**
    * Access the workerChannels
    */
   workerChannels();
+  workspaceSid: string;
 }
 
 
 declare class WorkerContext {
   /**
-   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext
-   * @description Initialize the WorkerContext
+   * Initialize the WorkerContext
    *
    * @property realTimeStatistics - realTimeStatistics resource
    * @property cumulativeStatistics - cumulativeStatistics resource
@@ -359,7 +256,7 @@ declare class WorkerContext {
    * @param workspaceSid - The workspace_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.Taskrouter.V1, workspaceSid: sid, sid: sid);
+  constructor(version: V1, workspaceSid: string, sid: string);
 
   cumulativeStatistics?: Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkersCumulativeStatisticsList;
   /**
@@ -367,14 +264,14 @@ declare class WorkerContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: WorkerContext) => any);
+  fetch(callback?: (error: Error | null, items: WorkerInstance) => any): void;
   realTimeStatistics?: Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkersRealTimeStatisticsList;
   /**
    * remove a WorkerInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: WorkerContext) => any);
+  remove(callback?: (error: Error | null, items: WorkerInstance) => any): void;
   reservations?: Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.ReservationList;
   statistics?: Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkerStatisticsList;
   /**
@@ -383,8 +280,8 @@ declare class WorkerContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: WorkerContextUpdateOptions, callback?: (error: Error | null, items: WorkerContext) => any);
+  update(opts?: WorkerInstanceUpdateOptions, callback?: (error: Error | null, items: WorkerInstance) => any): void;
   workerChannels?: Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkerChannelList;
 }
 
-export { WorkerContext, WorkerInstance, WorkerList, WorkerListInstance, WorkerPage, WorkerPayload, WorkerResource, WorkerSolution }
+export { WorkerContext, WorkerInstance, WorkerList, WorkerListInstance, WorkerListInstanceCreateOptions, WorkerListInstanceEachOptions, WorkerListInstanceOptions, WorkerListInstancePageOptions, WorkerPage, WorkerPayload, WorkerResource, WorkerSolution }

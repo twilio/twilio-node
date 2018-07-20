@@ -75,16 +75,16 @@ interface TranscriptionListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<TranscriptionPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: TranscriptionPage) => any): Promise<TranscriptionPage>;
   /**
-   * @description Lists TranscriptionInstance records from the API as a list.
+   * Lists TranscriptionInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: TranscriptionListInstanceOptions, callback?: function): Promise<TranscriptionInstance[]>;
+  list(opts?: TranscriptionListInstanceOptions, callback?: (error: Error | null, items: TranscriptionInstance[]) => any): Promise<TranscriptionInstance[]>;
   /**
    * Retrieve a single page of TranscriptionInstance records from the API.
    * Request is executed immediately
@@ -94,92 +94,32 @@ interface TranscriptionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: TranscriptionListInstancePageOptions, callback?: function): Promise<TranscriptionPage>;
-}
-
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface TranscriptionListInstanceEachOptions {
-  callback?: (item: TranscriptionInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface TranscriptionListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface TranscriptionListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
+  page(opts?: TranscriptionListInstancePageOptions, callback?: (error: Error | null, items: TranscriptionPage) => any): Promise<TranscriptionPage>;
 }
 
 
-declare class TranscriptionPage extends Page {
+declare class TranscriptionPage extends Page<V2010, TranscriptionPayload, TranscriptionResource, TranscriptionInstance> {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.TranscriptionPage
-   * @augments Page
-   * @description Initialize the TranscriptionPage
+   * Initialize the TranscriptionPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
+  constructor(version: V2010, response: Response<string>, solution: TranscriptionSolution);
 
   /**
    * Build an instance of TranscriptionInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: TranscriptionPayload): TranscriptionInstance;
 }
 
 
-declare class TranscriptionInstance {
+declare class TranscriptionInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.TranscriptionInstance
-   * @description Initialize the TranscriptionContext
+   * Initialize the TranscriptionContext
    *
    * @property accountSid - The unique sid that identifies this account
    * @property apiVersion - The api_version
@@ -200,52 +140,64 @@ declare class TranscriptionInstance {
    * @param accountSid - The unique sid that identifies this account
    * @param sid - Fetch by unique transcription SID
    */
-  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, sid: sid);
+  constructor(version: V2010, payload: TranscriptionPayload, accountSid: string, sid: string);
 
-  _proxy?: TranscriptionContext;
+  private _proxy: TranscriptionContext;
+  accountSid: string;
+  apiVersion: string;
+  dateCreated: Date;
+  dateUpdated: Date;
+  duration: string;
   /**
    * fetch a TranscriptionInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: TranscriptionInstance) => any);
+  fetch(callback?: (error: Error | null, items: TranscriptionInstance) => any): void;
+  price: number;
+  priceUnit: string;
+  recordingSid: string;
   /**
    * remove a TranscriptionInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: TranscriptionInstance) => any);
+  remove(callback?: (error: Error | null, items: TranscriptionInstance) => any): void;
+  sid: string;
+  status: transcription.status;
   /**
    * Produce a plain JSON object version of the TranscriptionInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  transcriptionText: string;
+  type: string;
+  uri: string;
 }
 
 
 declare class TranscriptionContext {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.TranscriptionContext
-   * @description Initialize the TranscriptionContext
+   * Initialize the TranscriptionContext
    *
    * @param version - Version of the resource
    * @param accountSid - The account_sid
    * @param sid - Fetch by unique transcription SID
    */
-  constructor(version: Twilio.Api.V2010, accountSid: sid, sid: sid);
+  constructor(version: V2010, accountSid: string, sid: string);
 
   /**
    * fetch a TranscriptionInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: TranscriptionContext) => any);
+  fetch(callback?: (error: Error | null, items: TranscriptionInstance) => any): void;
   /**
    * remove a TranscriptionInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: TranscriptionContext) => any);
+  remove(callback?: (error: Error | null, items: TranscriptionInstance) => any): void;
 }
 
-export { TranscriptionContext, TranscriptionInstance, TranscriptionList, TranscriptionListInstance, TranscriptionPage, TranscriptionPayload, TranscriptionResource, TranscriptionSolution }
+export { TranscriptionContext, TranscriptionInstance, TranscriptionList, TranscriptionListInstance, TranscriptionListInstanceEachOptions, TranscriptionListInstanceOptions, TranscriptionListInstancePageOptions, TranscriptionPage, TranscriptionPayload, TranscriptionResource, TranscriptionSolution }

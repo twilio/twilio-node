@@ -75,16 +75,16 @@ interface EventListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<EventPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: EventPage) => any): Promise<EventPage>;
   /**
-   * @description Lists EventInstance records from the API as a list.
+   * Lists EventInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: EventListInstanceOptions, callback?: function): Promise<EventInstance[]>;
+  list(opts?: EventListInstanceOptions, callback?: (error: Error | null, items: EventInstance[]) => any): Promise<EventInstance[]>;
   /**
    * Retrieve a single page of EventInstance records from the API.
    * Request is executed immediately
@@ -94,128 +94,32 @@ interface EventListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: EventListInstancePageOptions, callback?: function): Promise<EventPage>;
-}
-
-/**
- * Options to pass to each
- *
- * @property actorSid - The actor_sid
- * @property eventType - The event_type
- * @property resourceSid - The resource_sid
- * @property sourceIpAddress - The source_ip_address
- * @property startDate - The start_date
- * @property endDate - The end_date
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface EventListInstanceEachOptions {
-  actorSid?: string;
-  callback?: (item: EventInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  endDate?: Date;
-  eventType?: string;
-  limit?: number;
-  pageSize?: number;
-  resourceSid?: string;
-  sourceIpAddress?: string;
-  startDate?: Date;
-}
-
-/**
- * Options to pass to list
- *
- * @property actorSid - The actor_sid
- * @property eventType - The event_type
- * @property resourceSid - The resource_sid
- * @property sourceIpAddress - The source_ip_address
- * @property startDate - The start_date
- * @property endDate - The end_date
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface EventListInstanceOptions {
-  actorSid?: string;
-  endDate?: Date;
-  eventType?: string;
-  limit?: number;
-  pageSize?: number;
-  resourceSid?: string;
-  sourceIpAddress?: string;
-  startDate?: Date;
-}
-
-/**
- * Options to pass to page
- *
- * @property actorSid - The actor_sid
- * @property eventType - The event_type
- * @property resourceSid - The resource_sid
- * @property sourceIpAddress - The source_ip_address
- * @property startDate - The start_date
- * @property endDate - The end_date
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface EventListInstancePageOptions {
-  actorSid?: string;
-  endDate?: Date;
-  eventType?: string;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-  resourceSid?: string;
-  sourceIpAddress?: string;
-  startDate?: Date;
+  page(opts?: EventListInstancePageOptions, callback?: (error: Error | null, items: EventPage) => any): Promise<EventPage>;
 }
 
 
-declare class EventPage extends Page {
+declare class EventPage extends Page<V1, EventPayload, EventResource, EventInstance> {
   /**
-   * @constructor Twilio.Monitor.V1.EventPage
-   * @augments Page
-   * @description Initialize the EventPage
+   * Initialize the EventPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Monitor.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: EventSolution);
 
   /**
    * Build an instance of EventInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: EventPayload): EventInstance;
 }
 
 
-declare class EventInstance {
+declare class EventInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Monitor.V1.EventInstance
-   * @description Initialize the EventContext
+   * Initialize the EventContext
    *
    * @property accountSid - The account_sid
    * @property actorSid - The actor_sid
@@ -236,39 +140,52 @@ declare class EventInstance {
    * @param payload - The instance payload
    * @param sid - The sid
    */
-  constructor(version: Twilio.Monitor.V1, payload: object, sid: sid);
+  constructor(version: V1, payload: EventPayload, sid: string);
 
-  _proxy?: EventContext;
+  private _proxy: EventContext;
+  accountSid: string;
+  actorSid: string;
+  actorType: string;
+  description: string;
+  eventData: string;
+  eventDate: Date;
+  eventType: string;
   /**
    * fetch a EventInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: EventInstance) => any);
+  fetch(callback?: (error: Error | null, items: EventInstance) => any): void;
+  links: string;
+  resourceSid: string;
+  resourceType: string;
+  sid: string;
+  source: string;
+  sourceIpAddress: string;
   /**
    * Produce a plain JSON object version of the EventInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  url: string;
 }
 
 
 declare class EventContext {
   /**
-   * @constructor Twilio.Monitor.V1.EventContext
-   * @description Initialize the EventContext
+   * Initialize the EventContext
    *
    * @param version - Version of the resource
    * @param sid - The sid
    */
-  constructor(version: Twilio.Monitor.V1, sid: sid);
+  constructor(version: V1, sid: string);
 
   /**
    * fetch a EventInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: EventContext) => any);
+  fetch(callback?: (error: Error | null, items: EventInstance) => any): void;
 }
 
-export { EventContext, EventInstance, EventList, EventListInstance, EventPage, EventPayload, EventResource, EventSolution }
+export { EventContext, EventInstance, EventList, EventListInstance, EventListInstanceEachOptions, EventListInstanceOptions, EventListInstancePageOptions, EventPage, EventPayload, EventResource, EventSolution }

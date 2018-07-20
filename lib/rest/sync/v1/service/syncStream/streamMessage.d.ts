@@ -44,43 +44,29 @@ interface StreamMessageListInstance {
   create(opts: StreamMessageListInstanceCreateOptions, callback?: (error: Error | null, items: StreamMessageListInstance) => any): Promise<StreamMessageInstance>;
 }
 
-/**
- * Options to pass to create
- *
- * @property data - Stream Message body.
- */
-export interface StreamMessageListInstanceCreateOptions {
-  data: string;
-}
 
-
-declare class StreamMessagePage extends Page {
+declare class StreamMessagePage extends Page<V1, StreamMessagePayload, StreamMessageResource, StreamMessageInstance> {
   /**
-   * @constructor Twilio.Sync.V1.ServiceContext.SyncStreamContext.StreamMessagePage
-   * @augments Page
-   * @description Initialize the StreamMessagePage
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the StreamMessagePagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Sync.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: StreamMessageSolution);
 
   /**
    * Build an instance of StreamMessageInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: StreamMessagePayload): StreamMessageInstance;
 }
 
 
-declare class StreamMessageInstance {
+declare class StreamMessageInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Sync.V1.ServiceContext.SyncStreamContext.StreamMessageInstance
-   * @description Initialize the StreamMessageContext
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the StreamMessageContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @property sid - Stream Message SID.
    * @property data - Stream Message body.
@@ -90,13 +76,15 @@ declare class StreamMessageInstance {
    * @param serviceSid - Service Instance SID.
    * @param streamSid - Stream SID.
    */
-  constructor(version: Twilio.Sync.V1, payload: object, serviceSid: sid, streamSid: sid);
+  constructor(version: V1, payload: StreamMessagePayload, serviceSid: string, streamSid: string);
 
+  data: string;
+  sid: string;
   /**
    * Produce a plain JSON object version of the StreamMessageInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
 }
 
-export { StreamMessageInstance, StreamMessageList, StreamMessageListInstance, StreamMessagePage, StreamMessagePayload, StreamMessageResource, StreamMessageSolution }
+export { StreamMessageInstance, StreamMessageList, StreamMessageListInstance, StreamMessageListInstanceCreateOptions, StreamMessagePage, StreamMessagePayload, StreamMessageResource, StreamMessageSolution }

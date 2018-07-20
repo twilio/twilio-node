@@ -84,16 +84,16 @@ interface MessageListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<MessagePage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: MessagePage) => any): Promise<MessagePage>;
   /**
-   * @description Lists MessageInstance records from the API as a list.
+   * Lists MessageInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: MessageListInstanceOptions, callback?: function): Promise<MessageInstance[]>;
+  list(opts?: MessageListInstanceOptions, callback?: (error: Error | null, items: MessageInstance[]) => any): Promise<MessageInstance[]>;
   /**
    * Retrieve a single page of MessageInstance records from the API.
    * Request is executed immediately
@@ -103,7 +103,7 @@ interface MessageListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: MessageListInstancePageOptions, callback?: function): Promise<MessagePage>;
+  page(opts?: MessageListInstancePageOptions, callback?: (error: Error | null, items: MessagePage) => any): Promise<MessagePage>;
 }
 
 /**
@@ -112,7 +112,7 @@ interface MessageListInstance {
  * @property body - The new message body string.
  * @property attributes - The new attributes metadata field you can use to store any data you wish.
  */
-export interface MessageInstanceUpdateOptions {
+interface MessageInstanceUpdateOptions {
   attributes?: string;
   body?: string;
 }
@@ -123,113 +123,34 @@ export interface MessageInstanceUpdateOptions {
  * @property body - The new message body string.
  * @property attributes - The new attributes metadata field you can use to store any data you wish.
  */
-export interface MessageContextUpdateOptions {
+interface MessageInstanceUpdateOptions {
   attributes?: string;
   body?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property body - The body
- * @property from - The from
- * @property attributes - The attributes
- */
-export interface MessageListInstanceCreateOptions {
-  attributes?: string;
-  body: string;
-  from?: string;
-}
 
-/**
- * Options to pass to each
- *
- * @property order - The order
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface MessageListInstanceEachOptions {
-  callback?: (item: MessageInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  order?: message.order_type;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property order - The order
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface MessageListInstanceOptions {
-  limit?: number;
-  order?: message.order_type;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property order - The order
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface MessageListInstancePageOptions {
-  order?: message.order_type;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-}
-
-
-declare class MessagePage extends Page {
+declare class MessagePage extends Page<V1, MessagePayload, MessageResource, MessageInstance> {
   /**
-   * @constructor Twilio.Chat.V1.ServiceContext.ChannelContext.MessagePage
-   * @augments Page
-   * @description Initialize the MessagePage
+   * Initialize the MessagePage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Chat.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: MessageSolution);
 
   /**
    * Build an instance of MessageInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: MessagePayload): MessageInstance;
 }
 
 
-declare class MessageInstance {
+declare class MessageInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Chat.V1.ServiceContext.ChannelContext.MessageInstance
-   * @description Initialize the MessageContext
+   * Initialize the MessageContext
    *
    * @property sid - A 34 character string that uniquely identifies this resource.
    * @property accountSid - The unique id of the Account responsible for this message.
@@ -251,67 +172,79 @@ declare class MessageInstance {
    * @param channelSid - The channel_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.Chat.V1, payload: object, serviceSid: sid, channelSid: sid, sid: sid);
+  constructor(version: V1, payload: MessagePayload, serviceSid: string, channelSid: string, sid: string);
 
-  _proxy?: MessageContext;
+  private _proxy: MessageContext;
+  accountSid: string;
+  attributes: string;
+  body: string;
+  channelSid: string;
+  dateCreated: Date;
+  dateUpdated: Date;
   /**
    * fetch a MessageInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: MessageInstance) => any);
+  fetch(callback?: (error: Error | null, items: MessageInstance) => any): void;
+  from: string;
+  index: number;
   /**
    * remove a MessageInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: MessageInstance) => any);
+  remove(callback?: (error: Error | null, items: MessageInstance) => any): void;
+  serviceSid: string;
+  sid: string;
+  to: string;
   /**
    * Produce a plain JSON object version of the MessageInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
   /**
    * update a MessageInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: MessageInstanceUpdateOptions, callback?: (error: Error | null, items: MessageInstance) => any);
+  update(opts?: MessageInstanceUpdateOptions, callback?: (error: Error | null, items: MessageInstance) => any): void;
+  url: string;
+  wasEdited: boolean;
 }
 
 
 declare class MessageContext {
   /**
-   * @constructor Twilio.Chat.V1.ServiceContext.ChannelContext.MessageContext
-   * @description Initialize the MessageContext
+   * Initialize the MessageContext
    *
    * @param version - Version of the resource
    * @param serviceSid - The service_sid
    * @param channelSid - The channel_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.Chat.V1, serviceSid: sid, channelSid: sid, sid: sid);
+  constructor(version: V1, serviceSid: string, channelSid: string, sid: string);
 
   /**
    * fetch a MessageInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: MessageContext) => any);
+  fetch(callback?: (error: Error | null, items: MessageInstance) => any): void;
   /**
    * remove a MessageInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: MessageContext) => any);
+  remove(callback?: (error: Error | null, items: MessageInstance) => any): void;
   /**
    * update a MessageInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: MessageContextUpdateOptions, callback?: (error: Error | null, items: MessageContext) => any);
+  update(opts?: MessageInstanceUpdateOptions, callback?: (error: Error | null, items: MessageInstance) => any): void;
 }
 
-export { MessageContext, MessageInstance, MessageList, MessageListInstance, MessagePage, MessagePayload, MessageResource, MessageSolution }
+export { MessageContext, MessageInstance, MessageList, MessageListInstance, MessageListInstanceCreateOptions, MessageListInstanceEachOptions, MessageListInstanceOptions, MessageListInstancePageOptions, MessagePage, MessagePayload, MessageResource, MessageSolution }

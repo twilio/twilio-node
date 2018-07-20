@@ -80,16 +80,16 @@ interface NotificationListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<NotificationPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: NotificationPage) => any): Promise<NotificationPage>;
   /**
-   * @description Lists NotificationInstance records from the API as a list.
+   * Lists NotificationInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: NotificationListInstanceOptions, callback?: function): Promise<NotificationInstance[]>;
+  list(opts?: NotificationListInstanceOptions, callback?: (error: Error | null, items: NotificationInstance[]) => any): Promise<NotificationInstance[]>;
   /**
    * Retrieve a single page of NotificationInstance records from the API.
    * Request is executed immediately
@@ -99,116 +99,32 @@ interface NotificationListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: NotificationListInstancePageOptions, callback?: function): Promise<NotificationPage>;
-}
-
-/**
- * Options to pass to each
- *
- * @property log - Filter by log level
- * @property messageDateBefore - Filter by date
- * @property messageDate - Filter by date
- * @property messageDateAfter - Filter by date
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface NotificationListInstanceEachOptions {
-  callback?: (item: NotificationInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  log?: number;
-  messageDate?: Date;
-  messageDateAfter?: Date;
-  messageDateBefore?: Date;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property log - Filter by log level
- * @property messageDateBefore - Filter by date
- * @property messageDate - Filter by date
- * @property messageDateAfter - Filter by date
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface NotificationListInstanceOptions {
-  limit?: number;
-  log?: number;
-  messageDate?: Date;
-  messageDateAfter?: Date;
-  messageDateBefore?: Date;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property log - Filter by log level
- * @property messageDateBefore - Filter by date
- * @property messageDate - Filter by date
- * @property messageDateAfter - Filter by date
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface NotificationListInstancePageOptions {
-  log?: number;
-  messageDate?: Date;
-  messageDateAfter?: Date;
-  messageDateBefore?: Date;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
+  page(opts?: NotificationListInstancePageOptions, callback?: (error: Error | null, items: NotificationPage) => any): Promise<NotificationPage>;
 }
 
 
-declare class NotificationPage extends Page {
+declare class NotificationPage extends Page<V2010, NotificationPayload, NotificationResource, NotificationInstance> {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.NotificationPage
-   * @augments Page
-   * @description Initialize the NotificationPage
+   * Initialize the NotificationPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
+  constructor(version: V2010, response: Response<string>, solution: NotificationSolution);
 
   /**
    * Build an instance of NotificationInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: NotificationPayload): NotificationInstance;
 }
 
 
-declare class NotificationInstance {
+declare class NotificationInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.NotificationInstance
-   * @description Initialize the NotificationContext
+   * Initialize the NotificationContext
    *
    * @property accountSid - The unique sid that identifies this account
    * @property apiVersion - The version of the Twilio API in use
@@ -233,52 +149,68 @@ declare class NotificationInstance {
    * @param accountSid - The unique sid that identifies this account
    * @param sid - Fetch by unique notification Sid
    */
-  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, sid: sid);
+  constructor(version: V2010, payload: NotificationPayload, accountSid: string, sid: string);
 
-  _proxy?: NotificationContext;
+  private _proxy: NotificationContext;
+  accountSid: string;
+  apiVersion: string;
+  callSid: string;
+  dateCreated: Date;
+  dateUpdated: Date;
+  errorCode: string;
   /**
    * fetch a NotificationInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: NotificationInstance) => any);
+  fetch(callback?: (error: Error | null, items: NotificationInstance) => any): void;
+  log: string;
+  messageDate: Date;
+  messageText: string;
+  moreInfo: string;
   /**
    * remove a NotificationInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: NotificationInstance) => any);
+  remove(callback?: (error: Error | null, items: NotificationInstance) => any): void;
+  requestMethod: string;
+  requestUrl: string;
+  requestVariables: string;
+  responseBody: string;
+  responseHeaders: string;
+  sid: string;
   /**
    * Produce a plain JSON object version of the NotificationInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  uri: string;
 }
 
 
 declare class NotificationContext {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.NotificationContext
-   * @description Initialize the NotificationContext
+   * Initialize the NotificationContext
    *
    * @param version - Version of the resource
    * @param accountSid - The account_sid
    * @param sid - Fetch by unique notification Sid
    */
-  constructor(version: Twilio.Api.V2010, accountSid: sid, sid: sid);
+  constructor(version: V2010, accountSid: string, sid: string);
 
   /**
    * fetch a NotificationInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: NotificationContext) => any);
+  fetch(callback?: (error: Error | null, items: NotificationInstance) => any): void;
   /**
    * remove a NotificationInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: NotificationContext) => any);
+  remove(callback?: (error: Error | null, items: NotificationInstance) => any): void;
 }
 
-export { NotificationContext, NotificationInstance, NotificationList, NotificationListInstance, NotificationPage, NotificationPayload, NotificationResource, NotificationSolution }
+export { NotificationContext, NotificationInstance, NotificationList, NotificationListInstance, NotificationListInstanceEachOptions, NotificationListInstanceOptions, NotificationListInstancePageOptions, NotificationPage, NotificationPayload, NotificationResource, NotificationSolution }

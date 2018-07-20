@@ -46,41 +46,29 @@ interface FeedbackListInstance {
   create(opts?: FeedbackListInstanceCreateOptions, callback?: (error: Error | null, items: FeedbackListInstance) => any): Promise<FeedbackInstance>;
 }
 
-/**
- * Options to pass to create
- *
- * @property outcome - The outcome
- */
-export interface FeedbackListInstanceCreateOptions {
-  outcome?: feedback.outcome;
-}
 
-
-declare class FeedbackPage extends Page {
+declare class FeedbackPage extends Page<V2010, FeedbackPayload, FeedbackResource, FeedbackInstance> {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.MessageContext.FeedbackPage
-   * @augments Page
-   * @description Initialize the FeedbackPage
+   * Initialize the FeedbackPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
+  constructor(version: V2010, response: Response<string>, solution: FeedbackSolution);
 
   /**
    * Build an instance of FeedbackInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: FeedbackPayload): FeedbackInstance;
 }
 
 
-declare class FeedbackInstance {
+declare class FeedbackInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.MessageContext.FeedbackInstance
-   * @description Initialize the FeedbackContext
+   * Initialize the FeedbackContext
    *
    * @property accountSid - The account_sid
    * @property messageSid - The message_sid
@@ -94,13 +82,19 @@ declare class FeedbackInstance {
    * @param accountSid - The account_sid
    * @param messageSid - The message_sid
    */
-  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, messageSid: sid);
+  constructor(version: V2010, payload: FeedbackPayload, accountSid: string, messageSid: string);
 
+  accountSid: string;
+  dateCreated: Date;
+  dateUpdated: Date;
+  messageSid: string;
+  outcome: feedback.outcome;
   /**
    * Produce a plain JSON object version of the FeedbackInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  uri: string;
 }
 
-export { FeedbackInstance, FeedbackList, FeedbackListInstance, FeedbackPage, FeedbackPayload, FeedbackResource, FeedbackSolution }
+export { FeedbackInstance, FeedbackList, FeedbackListInstance, FeedbackListInstanceCreateOptions, FeedbackPage, FeedbackPayload, FeedbackResource, FeedbackSolution }

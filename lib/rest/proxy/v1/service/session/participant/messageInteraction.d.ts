@@ -95,16 +95,16 @@ interface MessageInteractionListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<MessageInteractionPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: MessageInteractionPage) => any): Promise<MessageInteractionPage>;
   /**
-   * @description Lists MessageInteractionInstance records from the API as a list.
+   * Lists MessageInteractionInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: MessageInteractionListInstanceOptions, callback?: function): Promise<MessageInteractionInstance[]>;
+  list(opts?: MessageInteractionListInstanceOptions, callback?: (error: Error | null, items: MessageInteractionInstance[]) => any): Promise<MessageInteractionInstance[]>;
   /**
    * Retrieve a single page of MessageInteractionInstance records from the API.
    * Request is executed immediately
@@ -114,105 +114,32 @@ interface MessageInteractionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: MessageInteractionListInstancePageOptions, callback?: function): Promise<MessageInteractionPage>;
-}
-
-/**
- * Options to pass to create
- *
- * @property body - Message body
- * @property mediaUrl - Not supported in beta
- */
-export interface MessageInteractionListInstanceCreateOptions {
-  body?: string;
-  mediaUrl?: string|list;
-}
-
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface MessageInteractionListInstanceEachOptions {
-  callback?: (item: MessageInteractionInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface MessageInteractionListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface MessageInteractionListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
+  page(opts?: MessageInteractionListInstancePageOptions, callback?: (error: Error | null, items: MessageInteractionPage) => any): Promise<MessageInteractionPage>;
 }
 
 
-declare class MessageInteractionPage extends Page {
+declare class MessageInteractionPage extends Page<V1, MessageInteractionPayload, MessageInteractionResource, MessageInteractionInstance> {
   /**
-   * @constructor Twilio.Proxy.V1.ServiceContext.SessionContext.ParticipantContext.MessageInteractionPage
-   * @augments Page
-   * @description Initialize the MessageInteractionPage
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the MessageInteractionPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Proxy.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: MessageInteractionSolution);
 
   /**
    * Build an instance of MessageInteractionInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: MessageInteractionPayload): MessageInteractionInstance;
 }
 
 
-declare class MessageInteractionInstance {
+declare class MessageInteractionInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Proxy.V1.ServiceContext.SessionContext.ParticipantContext.MessageInteractionInstance
-   * @description Initialize the MessageInteractionContext
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the MessageInteractionContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @property sid - A string that uniquely identifies this Message Interaction.
    * @property sessionSid - Session Sid.
@@ -242,28 +169,46 @@ declare class MessageInteractionInstance {
    * @param participantSid - Participant Sid.
    * @param sid - The sid
    */
-  constructor(version: Twilio.Proxy.V1, payload: object, serviceSid: sid, sessionSid: sid, participantSid: sid, sid: sid);
+  constructor(version: V1, payload: MessageInteractionPayload, serviceSid: string, sessionSid: string, participantSid: string, sid: string);
 
-  _proxy?: MessageInteractionContext;
+  private _proxy: MessageInteractionContext;
+  accountSid: string;
+  data: string;
+  dateCreated: Date;
+  dateUpdated: Date;
   /**
    * fetch a MessageInteractionInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: MessageInteractionInstance) => any);
+  fetch(callback?: (error: Error | null, items: MessageInteractionInstance) => any): void;
+  inboundParticipantSid: string;
+  inboundResourceSid: string;
+  inboundResourceStatus: message_interaction.resource_status;
+  inboundResourceType: string;
+  inboundResourceUrl: string;
+  outboundParticipantSid: string;
+  outboundResourceSid: string;
+  outboundResourceStatus: message_interaction.resource_status;
+  outboundResourceType: string;
+  outboundResourceUrl: string;
+  participantSid: string;
+  serviceSid: string;
+  sessionSid: string;
+  sid: string;
   /**
    * Produce a plain JSON object version of the MessageInteractionInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  type: message_interaction.type;
+  url: string;
 }
 
 
 declare class MessageInteractionContext {
   /**
-   * @constructor Twilio.Proxy.V1.ServiceContext.SessionContext.ParticipantContext.MessageInteractionContext
-   * @description Initialize the MessageInteractionContext
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the MessageInteractionContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
    * @param serviceSid - The service_sid
@@ -271,14 +216,14 @@ declare class MessageInteractionContext {
    * @param participantSid - The participant_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.Proxy.V1, serviceSid: sid, sessionSid: sid, participantSid: sid, sid: sid);
+  constructor(version: V1, serviceSid: string, sessionSid: string, participantSid: string, sid: string);
 
   /**
    * fetch a MessageInteractionInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: MessageInteractionContext) => any);
+  fetch(callback?: (error: Error | null, items: MessageInteractionInstance) => any): void;
 }
 
-export { MessageInteractionContext, MessageInteractionInstance, MessageInteractionList, MessageInteractionListInstance, MessageInteractionPage, MessageInteractionPayload, MessageInteractionResource, MessageInteractionSolution }
+export { MessageInteractionContext, MessageInteractionInstance, MessageInteractionList, MessageInteractionListInstance, MessageInteractionListInstanceCreateOptions, MessageInteractionListInstanceEachOptions, MessageInteractionListInstanceOptions, MessageInteractionListInstancePageOptions, MessageInteractionPage, MessageInteractionPayload, MessageInteractionResource, MessageInteractionSolution }

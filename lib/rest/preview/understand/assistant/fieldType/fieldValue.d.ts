@@ -82,16 +82,16 @@ interface FieldValueListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<FieldValuePage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: FieldValuePage) => any): Promise<FieldValuePage>;
   /**
-   * @description Lists FieldValueInstance records from the API as a list.
+   * Lists FieldValueInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: FieldValueListInstanceOptions, callback?: function): Promise<FieldValueInstance[]>;
+  list(opts?: FieldValueListInstanceOptions, callback?: (error: Error | null, items: FieldValueInstance[]) => any): Promise<FieldValueInstance[]>;
   /**
    * Retrieve a single page of FieldValueInstance records from the API.
    * Request is executed immediately
@@ -101,113 +101,32 @@ interface FieldValueListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: FieldValueListInstancePageOptions, callback?: function): Promise<FieldValuePage>;
-}
-
-/**
- * Options to pass to each
- *
- * @property language - An ISO language-country string of the value. For example: en-US
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface FieldValueListInstanceEachOptions {
-  callback?: (item: FieldValueInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  language?: string;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property language - An ISO language-country string of the value. For example: en-US
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface FieldValueListInstanceOptions {
-  language?: string;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property language - An ISO language-country string of the value. For example: en-US
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface FieldValueListInstancePageOptions {
-  language?: string;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-}
-
-/**
- * Options to pass to create
- *
- * @property language - An ISO language-country string of the value.
- * @property value - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
- * @property synonymOf - A value that indicates this field value is a synonym of. Empty if the value is not a synonym.
- */
-export interface FieldValueListInstanceCreateOptions {
-  language: string;
-  synonymOf?: string;
-  value: string;
+  page(opts?: FieldValueListInstancePageOptions, callback?: (error: Error | null, items: FieldValuePage) => any): Promise<FieldValuePage>;
 }
 
 
-declare class FieldValuePage extends Page {
+declare class FieldValuePage extends Page<Understand, FieldValuePayload, FieldValueResource, FieldValueInstance> {
   /**
-   * @constructor Twilio.Preview.Understand.AssistantContext.FieldTypeContext.FieldValuePage
-   * @augments Page
-   * @description Initialize the FieldValuePage
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the FieldValuePagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Preview.Understand, response: Response<string>, solution: object);
+  constructor(version: Understand, response: Response<string>, solution: FieldValueSolution);
 
   /**
    * Build an instance of FieldValueInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: FieldValuePayload): FieldValueInstance;
 }
 
 
-declare class FieldValueInstance {
+declare class FieldValueInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Preview.Understand.AssistantContext.FieldTypeContext.FieldValueInstance
-   * @description Initialize the FieldValueContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the FieldValueContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @property accountSid - The unique ID of the Account that created this Field Value.
    * @property dateCreated - The date that this resource was created
@@ -226,54 +145,62 @@ declare class FieldValueInstance {
    * @param fieldTypeSid - The unique ID of the Field Type associated with this Field Value.
    * @param sid - The sid
    */
-  constructor(version: Twilio.Preview.Understand, payload: object, assistantSid: sid, fieldTypeSid: sid, sid: sid_like);
+  constructor(version: Understand, payload: FieldValuePayload, assistantSid: string, fieldTypeSid: string, sid: string);
 
-  _proxy?: FieldValueContext;
+  private _proxy: FieldValueContext;
+  accountSid: string;
+  assistantSid: string;
+  dateCreated: Date;
+  dateUpdated: Date;
   /**
    * fetch a FieldValueInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: FieldValueInstance) => any);
+  fetch(callback?: (error: Error | null, items: FieldValueInstance) => any): void;
+  fieldTypeSid: string;
+  language: string;
   /**
    * remove a FieldValueInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: FieldValueInstance) => any);
+  remove(callback?: (error: Error | null, items: FieldValueInstance) => any): void;
+  sid: string;
+  synonymOf: string;
   /**
    * Produce a plain JSON object version of the FieldValueInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  url: string;
+  value: string;
 }
 
 
 declare class FieldValueContext {
   /**
-   * @constructor Twilio.Preview.Understand.AssistantContext.FieldTypeContext.FieldValueContext
-   * @description Initialize the FieldValueContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the FieldValueContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param assistantSid - The assistant_sid
    * @param fieldTypeSid - The field_type_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.Preview.Understand, assistantSid: sid_like, fieldTypeSid: sid_like, sid: sid_like);
+  constructor(version: Understand, assistantSid: string, fieldTypeSid: string, sid: string);
 
   /**
    * fetch a FieldValueInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: FieldValueContext) => any);
+  fetch(callback?: (error: Error | null, items: FieldValueInstance) => any): void;
   /**
    * remove a FieldValueInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: FieldValueContext) => any);
+  remove(callback?: (error: Error | null, items: FieldValueInstance) => any): void;
 }
 
-export { FieldValueContext, FieldValueInstance, FieldValueList, FieldValueListInstance, FieldValuePage, FieldValuePayload, FieldValueResource, FieldValueSolution }
+export { FieldValueContext, FieldValueInstance, FieldValueList, FieldValueListInstance, FieldValueListInstanceCreateOptions, FieldValueListInstanceEachOptions, FieldValueListInstanceOptions, FieldValueListInstancePageOptions, FieldValuePage, FieldValuePayload, FieldValueResource, FieldValueSolution }

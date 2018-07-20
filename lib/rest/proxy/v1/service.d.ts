@@ -84,16 +84,16 @@ interface ServiceListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<ServicePage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
   /**
-   * @description Lists ServiceInstance records from the API as a list.
+   * Lists ServiceInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: ServiceListInstanceOptions, callback?: function): Promise<ServiceInstance[]>;
+  list(opts?: ServiceListInstanceOptions, callback?: (error: Error | null, items: ServiceInstance[]) => any): Promise<ServiceInstance[]>;
   /**
    * Retrieve a single page of ServiceInstance records from the API.
    * Request is executed immediately
@@ -103,7 +103,7 @@ interface ServiceListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: ServiceListInstancePageOptions, callback?: function): Promise<ServicePage>;
+  page(opts?: ServiceListInstancePageOptions, callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
 }
 
 /**
@@ -117,7 +117,7 @@ interface ServiceListInstance {
  * @property interceptCallbackUrl - A URL for Twilio call before each Interaction.
  * @property outOfSessionCallbackUrl - A URL for Twilio call when a new Interaction has no Session.
  */
-export interface ServiceInstanceUpdateOptions {
+interface ServiceInstanceUpdateOptions {
   callbackUrl?: string;
   defaultTtl?: number;
   geoMatchLevel?: service.geo_match_level;
@@ -138,7 +138,7 @@ export interface ServiceInstanceUpdateOptions {
  * @property interceptCallbackUrl - A URL for Twilio call before each Interaction.
  * @property outOfSessionCallbackUrl - A URL for Twilio call when a new Interaction has no Session.
  */
-export interface ServiceContextUpdateOptions {
+interface ServiceInstanceUpdateOptions {
   callbackUrl?: string;
   defaultTtl?: number;
   geoMatchLevel?: service.geo_match_level;
@@ -148,112 +148,29 @@ export interface ServiceContextUpdateOptions {
   uniqueName?: string;
 }
 
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface ServiceListInstanceEachOptions {
-  callback?: (item: ServiceInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
 
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface ServiceListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface ServiceListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-}
-
-/**
- * Options to pass to create
- *
- * @property uniqueName - The human-readable string that uniquely identifies this Service.
- * @property defaultTtl - Default TTL for Sessions in Service, in seconds.
- * @property callbackUrl - URL Twilio will send callbacks to
- * @property geoMatchLevel - Whether proxy number selected must be in the same area code as the participant identifier.
- * @property numberSelectionBehavior - What behavior to use when choosing a proxy number.
- * @property interceptCallbackUrl - A URL for Twilio call before each Interaction.
- * @property outOfSessionCallbackUrl - A URL for Twilio call when a new Interaction has no Session.
- */
-export interface ServiceListInstanceCreateOptions {
-  callbackUrl?: string;
-  defaultTtl?: number;
-  geoMatchLevel?: service.geo_match_level;
-  interceptCallbackUrl?: string;
-  numberSelectionBehavior?: service.number_selection_behavior;
-  outOfSessionCallbackUrl?: string;
-  uniqueName: string;
-}
-
-
-declare class ServicePage extends Page {
+declare class ServicePage extends Page<V1, ServicePayload, ServiceResource, ServiceInstance> {
   /**
-   * @constructor Twilio.Proxy.V1.ServicePage
-   * @augments Page
-   * @description Initialize the ServicePage
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the ServicePagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Proxy.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: ServiceSolution);
 
   /**
    * Build an instance of ServiceInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: ServicePayload): ServiceInstance;
 }
 
 
-declare class ServiceInstance {
+declare class ServiceInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Proxy.V1.ServiceInstance
-   * @description Initialize the ServiceContext
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the ServiceContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @property sid - A string that uniquely identifies this Service.
    * @property uniqueName - A human-readable description of this resource.
@@ -273,15 +190,25 @@ declare class ServiceInstance {
    * @param payload - The instance payload
    * @param sid - A string that uniquely identifies this Service.
    */
-  constructor(version: Twilio.Proxy.V1, payload: object, sid: sid_like);
+  constructor(version: V1, payload: ServicePayload, sid: string);
 
-  _proxy?: ServiceContext;
+  private _proxy: ServiceContext;
+  accountSid: string;
+  callbackUrl: string;
+  dateCreated: Date;
+  dateUpdated: Date;
+  defaultTtl: number;
   /**
    * fetch a ServiceInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ServiceInstance) => any);
+  fetch(callback?: (error: Error | null, items: ServiceInstance) => any): void;
+  geoMatchLevel: service.geo_match_level;
+  interceptCallbackUrl: string;
+  links: string;
+  numberSelectionBehavior: service.number_selection_behavior;
+  outOfSessionCallbackUrl: string;
   /**
    * Access the phoneNumbers
    */
@@ -291,7 +218,7 @@ declare class ServiceInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ServiceInstance) => any);
+  remove(callback?: (error: Error | null, items: ServiceInstance) => any): void;
   /**
    * Access the sessions
    */
@@ -300,26 +227,27 @@ declare class ServiceInstance {
    * Access the shortCodes
    */
   shortCodes();
+  sid: string;
   /**
    * Produce a plain JSON object version of the ServiceInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  uniqueName: string;
   /**
    * update a ServiceInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ServiceInstanceUpdateOptions, callback?: (error: Error | null, items: ServiceInstance) => any);
+  update(opts?: ServiceInstanceUpdateOptions, callback?: (error: Error | null, items: ServiceInstance) => any): void;
+  url: string;
 }
 
 
 declare class ServiceContext {
   /**
-   * @constructor Twilio.Proxy.V1.ServiceContext
-   * @description Initialize the ServiceContext
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the ServiceContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @property sessions - sessions resource
    * @property phoneNumbers - phoneNumbers resource
@@ -328,21 +256,21 @@ declare class ServiceContext {
    * @param version - Version of the resource
    * @param sid - A string that uniquely identifies this Service.
    */
-  constructor(version: Twilio.Proxy.V1, sid: sid_like);
+  constructor(version: V1, sid: string);
 
   /**
    * fetch a ServiceInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ServiceContext) => any);
+  fetch(callback?: (error: Error | null, items: ServiceInstance) => any): void;
   phoneNumbers?: Twilio.Proxy.V1.ServiceContext.PhoneNumberList;
   /**
    * remove a ServiceInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ServiceContext) => any);
+  remove(callback?: (error: Error | null, items: ServiceInstance) => any): void;
   sessions?: Twilio.Proxy.V1.ServiceContext.SessionList;
   shortCodes?: Twilio.Proxy.V1.ServiceContext.ShortCodeList;
   /**
@@ -351,7 +279,7 @@ declare class ServiceContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ServiceContextUpdateOptions, callback?: (error: Error | null, items: ServiceContext) => any);
+  update(opts?: ServiceInstanceUpdateOptions, callback?: (error: Error | null, items: ServiceInstance) => any): void;
 }
 
-export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServicePage, ServicePayload, ServiceResource, ServiceSolution }
+export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServiceListInstanceCreateOptions, ServiceListInstanceEachOptions, ServiceListInstanceOptions, ServiceListInstancePageOptions, ServicePage, ServicePayload, ServiceResource, ServiceSolution }

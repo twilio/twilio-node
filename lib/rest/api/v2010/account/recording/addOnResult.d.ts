@@ -75,16 +75,16 @@ interface AddOnResultListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<AddOnResultPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: AddOnResultPage) => any): Promise<AddOnResultPage>;
   /**
-   * @description Lists AddOnResultInstance records from the API as a list.
+   * Lists AddOnResultInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: AddOnResultListInstanceOptions, callback?: function): Promise<AddOnResultInstance[]>;
+  list(opts?: AddOnResultListInstanceOptions, callback?: (error: Error | null, items: AddOnResultInstance[]) => any): Promise<AddOnResultInstance[]>;
   /**
    * Retrieve a single page of AddOnResultInstance records from the API.
    * Request is executed immediately
@@ -94,92 +94,32 @@ interface AddOnResultListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: AddOnResultListInstancePageOptions, callback?: function): Promise<AddOnResultPage>;
-}
-
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface AddOnResultListInstanceEachOptions {
-  callback?: (item: AddOnResultInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface AddOnResultListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface AddOnResultListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
+  page(opts?: AddOnResultListInstancePageOptions, callback?: (error: Error | null, items: AddOnResultPage) => any): Promise<AddOnResultPage>;
 }
 
 
-declare class AddOnResultPage extends Page {
+declare class AddOnResultPage extends Page<V2010, AddOnResultPayload, AddOnResultResource, AddOnResultInstance> {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.RecordingContext.AddOnResultPage
-   * @augments Page
-   * @description Initialize the AddOnResultPage
+   * Initialize the AddOnResultPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
+  constructor(version: V2010, response: Response<string>, solution: AddOnResultSolution);
 
   /**
    * Build an instance of AddOnResultInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: AddOnResultPayload): AddOnResultInstance;
 }
 
 
-declare class AddOnResultInstance {
+declare class AddOnResultInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.RecordingContext.AddOnResultInstance
-   * @description Initialize the AddOnResultContext
+   * Initialize the AddOnResultContext
    *
    * @property sid - A string that uniquely identifies this result
    * @property accountSid - The unique sid that identifies this account
@@ -198,37 +138,46 @@ declare class AddOnResultInstance {
    * @param referenceSid - A string that uniquely identifies the recording.
    * @param sid - Fetch by unique result Sid
    */
-  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, referenceSid: sid, sid: sid);
+  constructor(version: V2010, payload: AddOnResultPayload, accountSid: string, referenceSid: string, sid: string);
 
-  _proxy?: AddOnResultContext;
+  private _proxy: AddOnResultContext;
+  accountSid: string;
+  addOnConfigurationSid: string;
+  addOnSid: string;
+  dateCompleted: Date;
+  dateCreated: Date;
+  dateUpdated: Date;
   /**
    * fetch a AddOnResultInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AddOnResultInstance) => any);
+  fetch(callback?: (error: Error | null, items: AddOnResultInstance) => any): void;
   /**
    * Access the payloads
    */
   payloads();
+  referenceSid: string;
   /**
    * remove a AddOnResultInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: AddOnResultInstance) => any);
+  remove(callback?: (error: Error | null, items: AddOnResultInstance) => any): void;
+  sid: string;
+  status: add_on_result.status;
+  subresourceUris: string;
   /**
    * Produce a plain JSON object version of the AddOnResultInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
 }
 
 
 declare class AddOnResultContext {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.RecordingContext.AddOnResultContext
-   * @description Initialize the AddOnResultContext
+   * Initialize the AddOnResultContext
    *
    * @property payloads - payloads resource
    *
@@ -237,21 +186,21 @@ declare class AddOnResultContext {
    * @param referenceSid - The reference_sid
    * @param sid - Fetch by unique result Sid
    */
-  constructor(version: Twilio.Api.V2010, accountSid: sid, referenceSid: sid, sid: sid);
+  constructor(version: V2010, accountSid: string, referenceSid: string, sid: string);
 
   /**
    * fetch a AddOnResultInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AddOnResultContext) => any);
+  fetch(callback?: (error: Error | null, items: AddOnResultInstance) => any): void;
   payloads?: Twilio.Api.V2010.AccountContext.RecordingContext.AddOnResultContext.PayloadList;
   /**
    * remove a AddOnResultInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: AddOnResultContext) => any);
+  remove(callback?: (error: Error | null, items: AddOnResultInstance) => any): void;
 }
 
-export { AddOnResultContext, AddOnResultInstance, AddOnResultList, AddOnResultListInstance, AddOnResultPage, AddOnResultPayload, AddOnResultResource, AddOnResultSolution }
+export { AddOnResultContext, AddOnResultInstance, AddOnResultList, AddOnResultListInstance, AddOnResultListInstanceEachOptions, AddOnResultListInstanceOptions, AddOnResultListInstancePageOptions, AddOnResultPage, AddOnResultPayload, AddOnResultResource, AddOnResultSolution }

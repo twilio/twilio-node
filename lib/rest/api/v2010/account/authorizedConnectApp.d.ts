@@ -72,16 +72,16 @@ interface AuthorizedConnectAppListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<AuthorizedConnectAppPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: AuthorizedConnectAppPage) => any): Promise<AuthorizedConnectAppPage>;
   /**
-   * @description Lists AuthorizedConnectAppInstance records from the API as a list.
+   * Lists AuthorizedConnectAppInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: AuthorizedConnectAppListInstanceOptions, callback?: function): Promise<AuthorizedConnectAppInstance[]>;
+  list(opts?: AuthorizedConnectAppListInstanceOptions, callback?: (error: Error | null, items: AuthorizedConnectAppInstance[]) => any): Promise<AuthorizedConnectAppInstance[]>;
   /**
    * Retrieve a single page of AuthorizedConnectAppInstance records from the API.
    * Request is executed immediately
@@ -91,92 +91,32 @@ interface AuthorizedConnectAppListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: AuthorizedConnectAppListInstancePageOptions, callback?: function): Promise<AuthorizedConnectAppPage>;
-}
-
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface AuthorizedConnectAppListInstanceEachOptions {
-  callback?: (item: AuthorizedConnectAppInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface AuthorizedConnectAppListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface AuthorizedConnectAppListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
+  page(opts?: AuthorizedConnectAppListInstancePageOptions, callback?: (error: Error | null, items: AuthorizedConnectAppPage) => any): Promise<AuthorizedConnectAppPage>;
 }
 
 
-declare class AuthorizedConnectAppPage extends Page {
+declare class AuthorizedConnectAppPage extends Page<V2010, AuthorizedConnectAppPayload, AuthorizedConnectAppResource, AuthorizedConnectAppInstance> {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.AuthorizedConnectAppPage
-   * @augments Page
-   * @description Initialize the AuthorizedConnectAppPage
+   * Initialize the AuthorizedConnectAppPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
+  constructor(version: V2010, response: Response<string>, solution: AuthorizedConnectAppSolution);
 
   /**
    * Build an instance of AuthorizedConnectAppInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: AuthorizedConnectAppPayload): AuthorizedConnectAppInstance;
 }
 
 
-declare class AuthorizedConnectAppInstance {
+declare class AuthorizedConnectAppInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.AuthorizedConnectAppInstance
-   * @description Initialize the AuthorizedConnectAppContext
+   * Initialize the AuthorizedConnectAppContext
    *
    * @property accountSid - The unique sid that identifies this account
    * @property connectAppCompanyName - The company name set for this Connect App.
@@ -194,40 +134,49 @@ declare class AuthorizedConnectAppInstance {
    * @param accountSid - The unique sid that identifies this account
    * @param connectAppSid - The connect_app_sid
    */
-  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, connectAppSid: sid);
+  constructor(version: V2010, payload: AuthorizedConnectAppPayload, accountSid: string, connectAppSid: string);
 
-  _proxy?: AuthorizedConnectAppContext;
+  private _proxy: AuthorizedConnectAppContext;
+  accountSid: string;
+  connectAppCompanyName: string;
+  connectAppDescription: string;
+  connectAppFriendlyName: string;
+  connectAppHomepageUrl: string;
+  connectAppSid: string;
+  dateCreated: Date;
+  dateUpdated: Date;
   /**
    * fetch a AuthorizedConnectAppInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AuthorizedConnectAppInstance) => any);
+  fetch(callback?: (error: Error | null, items: AuthorizedConnectAppInstance) => any): void;
+  permissions: authorized_connect_app.permission;
   /**
    * Produce a plain JSON object version of the AuthorizedConnectAppInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  uri: string;
 }
 
 
 declare class AuthorizedConnectAppContext {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.AuthorizedConnectAppContext
-   * @description Initialize the AuthorizedConnectAppContext
+   * Initialize the AuthorizedConnectAppContext
    *
    * @param version - Version of the resource
    * @param accountSid - The account_sid
    * @param connectAppSid - The connect_app_sid
    */
-  constructor(version: Twilio.Api.V2010, accountSid: sid, connectAppSid: sid);
+  constructor(version: V2010, accountSid: string, connectAppSid: string);
 
   /**
    * fetch a AuthorizedConnectAppInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AuthorizedConnectAppContext) => any);
+  fetch(callback?: (error: Error | null, items: AuthorizedConnectAppInstance) => any): void;
 }
 
-export { AuthorizedConnectAppContext, AuthorizedConnectAppInstance, AuthorizedConnectAppList, AuthorizedConnectAppListInstance, AuthorizedConnectAppPage, AuthorizedConnectAppPayload, AuthorizedConnectAppResource, AuthorizedConnectAppSolution }
+export { AuthorizedConnectAppContext, AuthorizedConnectAppInstance, AuthorizedConnectAppList, AuthorizedConnectAppListInstance, AuthorizedConnectAppListInstanceEachOptions, AuthorizedConnectAppListInstanceOptions, AuthorizedConnectAppListInstancePageOptions, AuthorizedConnectAppPage, AuthorizedConnectAppPayload, AuthorizedConnectAppResource, AuthorizedConnectAppSolution }

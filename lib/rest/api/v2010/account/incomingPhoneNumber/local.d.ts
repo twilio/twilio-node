@@ -88,16 +88,16 @@ interface LocalListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<LocalPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: LocalPage) => any): Promise<LocalPage>;
   /**
-   * @description Lists LocalInstance records from the API as a list.
+   * Lists LocalInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: LocalListInstanceOptions, callback?: function): Promise<LocalInstance[]>;
+  list(opts?: LocalListInstanceOptions, callback?: (error: Error | null, items: LocalInstance[]) => any): Promise<LocalInstance[]>;
   /**
    * Retrieve a single page of LocalInstance records from the API.
    * Request is executed immediately
@@ -107,159 +107,32 @@ interface LocalListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: LocalListInstancePageOptions, callback?: function): Promise<LocalPage>;
-}
-
-/**
- * Options to pass to each
- *
- * @property beta - Include phone numbers new to the Twilio platform.
- * @property friendlyName - Only show the incoming phone number resources with friendly names that exactly match this name.
- * @property phoneNumber - Only show the incoming phone number resources that match this pattern.
- * @property origin - Include phone numbers based on the origin, by default, phone numbers of all origin are included.
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface LocalListInstanceEachOptions {
-  beta?: boolean;
-  callback?: (item: LocalInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  friendlyName?: string;
-  limit?: number;
-  origin?: string;
-  pageSize?: number;
-  phoneNumber?: string;
-}
-
-/**
- * Options to pass to list
- *
- * @property beta - Include phone numbers new to the Twilio platform.
- * @property friendlyName - Only show the incoming phone number resources with friendly names that exactly match this name.
- * @property phoneNumber - Only show the incoming phone number resources that match this pattern.
- * @property origin - Include phone numbers based on the origin, by default, phone numbers of all origin are included.
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface LocalListInstanceOptions {
-  beta?: boolean;
-  friendlyName?: string;
-  limit?: number;
-  origin?: string;
-  pageSize?: number;
-  phoneNumber?: string;
-}
-
-/**
- * Options to pass to page
- *
- * @property beta - Include phone numbers new to the Twilio platform.
- * @property friendlyName - Only show the incoming phone number resources with friendly names that exactly match this name.
- * @property phoneNumber - Only show the incoming phone number resources that match this pattern.
- * @property origin - Include phone numbers based on the origin, by default, phone numbers of all origin are included.
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface LocalListInstancePageOptions {
-  beta?: boolean;
-  friendlyName?: string;
-  origin?: string;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-  phoneNumber?: string;
-}
-
-/**
- * Options to pass to create
- *
- * @property phoneNumber - The phone number you want to purchase.
- * @property apiVersion - The Twilio REST API version to use for incoming calls made to this number.
- * @property friendlyName - A human readable description of the new incoming phone number.
- * @property smsApplicationSid - The 34 character sid of the application Twilio should use to handle SMSs sent to the new number.
- * @property smsFallbackMethod - The HTTP method that should be used to request the SmsFallbackUrl.
- * @property smsFallbackUrl - A URL that Twilio will request if an error occurs requesting or executing the TwiML defined by SmsUrl.
- * @property smsMethod - The HTTP method that should be used to request the SmsUrl.
- * @property smsUrl - The URL that Twilio should request when somebody sends an SMS to the phone number.
- * @property statusCallback - The URL that Twilio will request to pass status parameters to your application.
- * @property statusCallbackMethod - The HTTP method Twilio will use to make requests to the StatusCallback URL.
- * @property voiceApplicationSid - The 34 character sid of the application Twilio should use to handle phone calls to the new number.
- * @property voiceCallerIdLookup - Do a lookup of a caller's name from the CNAM database and post it to your app.
- * @property voiceFallbackMethod - The HTTP method that should be used to request the VoiceFallbackUrl.
- * @property voiceFallbackUrl - A URL that Twilio will request if an error occurs requesting or executing the TwiML at Url.
- * @property voiceMethod - The HTTP method that should be used to request the VoiceUrl.
- * @property voiceUrl - The URL that Twilio should request when somebody dials the new phone number.
- * @property identitySid - The identity_sid
- * @property addressSid - The 34 character sid of the address Twilio should associate with the number.
- */
-export interface LocalListInstanceCreateOptions {
-  addressSid?: string;
-  apiVersion?: string;
-  friendlyName?: string;
-  identitySid?: string;
-  phoneNumber: string;
-  smsApplicationSid?: string;
-  smsFallbackMethod?: string;
-  smsFallbackUrl?: string;
-  smsMethod?: string;
-  smsUrl?: string;
-  statusCallback?: string;
-  statusCallbackMethod?: string;
-  voiceApplicationSid?: string;
-  voiceCallerIdLookup?: boolean;
-  voiceFallbackMethod?: string;
-  voiceFallbackUrl?: string;
-  voiceMethod?: string;
-  voiceUrl?: string;
+  page(opts?: LocalListInstancePageOptions, callback?: (error: Error | null, items: LocalPage) => any): Promise<LocalPage>;
 }
 
 
-declare class LocalPage extends Page {
+declare class LocalPage extends Page<V2010, LocalPayload, LocalResource, LocalInstance> {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.IncomingPhoneNumberContext.LocalPage
-   * @augments Page
-   * @description Initialize the LocalPage
+   * Initialize the LocalPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
+  constructor(version: V2010, response: Response<string>, solution: LocalSolution);
 
   /**
    * Build an instance of LocalInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: LocalPayload): LocalInstance;
 }
 
 
-declare class LocalInstance {
+declare class LocalInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.IncomingPhoneNumberContext.LocalInstance
-   * @description Initialize the LocalContext
+   * Initialize the LocalContext
    *
    * @property accountSid - The unique id of the Account responsible for this phone number.
    * @property addressSid - The 34 character sid of the address associated with this number.
@@ -294,13 +167,41 @@ declare class LocalInstance {
    * @param payload - The instance payload
    * @param accountSid - The unique sid that identifies this account
    */
-  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid);
+  constructor(version: V2010, payload: LocalPayload, accountSid: string);
 
+  accountSid: string;
+  addressRequirements: local.address_requirement;
+  addressSid: string;
+  apiVersion: string;
+  beta: boolean;
+  capabilities: string;
+  dateCreated: Date;
+  dateUpdated: Date;
+  friendlyName: string;
+  identitySid: string;
+  origin: string;
+  phoneNumber: string;
+  sid: string;
+  smsApplicationSid: string;
+  smsFallbackMethod: string;
+  smsFallbackUrl: string;
+  smsMethod: string;
+  smsUrl: string;
+  statusCallback: string;
+  statusCallbackMethod: string;
   /**
    * Produce a plain JSON object version of the LocalInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  trunkSid: string;
+  uri: string;
+  voiceApplicationSid: string;
+  voiceCallerIdLookup: boolean;
+  voiceFallbackMethod: string;
+  voiceFallbackUrl: string;
+  voiceMethod: string;
+  voiceUrl: string;
 }
 
-export { LocalInstance, LocalList, LocalListInstance, LocalPage, LocalPayload, LocalResource, LocalSolution }
+export { LocalInstance, LocalList, LocalListInstance, LocalListInstanceCreateOptions, LocalListInstanceEachOptions, LocalListInstanceOptions, LocalListInstancePageOptions, LocalPage, LocalPayload, LocalResource, LocalSolution }

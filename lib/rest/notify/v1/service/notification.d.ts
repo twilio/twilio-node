@@ -60,75 +60,29 @@ interface NotificationListInstance {
   create(opts?: NotificationListInstanceCreateOptions, callback?: (error: Error | null, items: NotificationListInstance) => any): Promise<NotificationInstance>;
 }
 
-/**
- * Options to pass to create
- *
- * @property body - Indicates the notification body text.
- * @property priority - Two priorities defined: low and high.
- * @property ttl - This parameter specifies how long the notification is valid.
- * @property title - Indicates the notification title.
- * @property sound - Indicates a sound to be played.
- * @property action - Specifies the actions to be displayed for the notification.
- * @property data - This parameter specifies the custom key-value pairs of the notification's payload.
- * @property apn - APNS specific payload that overrides corresponding attributes in a generic payload for Bindings with the apn BindingType.
- * @property gcm - GCM specific payload that overrides corresponding attributes in generic payload for Bindings with gcm BindingType.
- * @property sms - SMS specific payload that overrides corresponding attributes in generic payload for Bindings with sms BindingType.
- * @property facebookMessenger - Messenger specific payload that overrides corresponding attributes in generic payload for Bindings with facebook-messenger BindingType.
- * @property fcm - FCM specific payload that overrides corresponding attributes in generic payload for Bindings with fcm BindingType.
- * @property segment - The segment
- * @property alexa - The alexa
- * @property toBinding - The destination address in a JSON object.
- * @property identity - Delivery will be attempted only to Bindings with an Identity in this list.
- * @property tag - Delivery will be attempted only to Bindings that have all of the Tags in this list.
- */
-export interface NotificationListInstanceCreateOptions {
-  action?: string;
-  alexa?: string;
-  apn?: string;
-  body?: string;
-  data?: string;
-  facebookMessenger?: string;
-  fcm?: string;
-  gcm?: string;
-  identity?: string|list;
-  priority?: notification.priority;
-  segment?: string|list;
-  sms?: string;
-  sound?: string;
-  tag?: string|list;
-  title?: string;
-  toBinding?: string|list;
-  ttl?: number;
-}
 
-
-declare class NotificationPage extends Page {
+declare class NotificationPage extends Page<V1, NotificationPayload, NotificationResource, NotificationInstance> {
   /**
-   * @constructor Twilio.Notify.V1.ServiceContext.NotificationPage
-   * @augments Page
-   * @description Initialize the NotificationPage
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the NotificationPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Notify.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: NotificationSolution);
 
   /**
    * Build an instance of NotificationInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: NotificationPayload): NotificationInstance;
 }
 
 
-declare class NotificationInstance {
+declare class NotificationInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Notify.V1.ServiceContext.NotificationInstance
-   * @description Initialize the NotificationContext
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the NotificationContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @property sid - The sid
    * @property accountSid - The account_sid
@@ -155,13 +109,33 @@ declare class NotificationInstance {
    * @param payload - The instance payload
    * @param serviceSid - The service_sid
    */
-  constructor(version: Twilio.Notify.V1, payload: object, serviceSid: sid);
+  constructor(version: V1, payload: NotificationPayload, serviceSid: string);
 
+  accountSid: string;
+  action: string;
+  alexa: string;
+  apn: string;
+  body: string;
+  data: string;
+  dateCreated: Date;
+  facebookMessenger: string;
+  fcm: string;
+  gcm: string;
+  identities: string;
+  priority: notification.priority;
+  segments: string;
+  serviceSid: string;
+  sid: string;
+  sms: string;
+  sound: string;
+  tags: string;
+  title: string;
   /**
    * Produce a plain JSON object version of the NotificationInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  ttl: number;
 }
 
-export { NotificationInstance, NotificationList, NotificationListInstance, NotificationPage, NotificationPayload, NotificationResource, NotificationSolution }
+export { NotificationInstance, NotificationList, NotificationListInstance, NotificationListInstanceCreateOptions, NotificationPage, NotificationPayload, NotificationResource, NotificationSolution }

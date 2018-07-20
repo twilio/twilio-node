@@ -85,16 +85,16 @@ interface UserListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<UserPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: UserPage) => any): Promise<UserPage>;
   /**
-   * @description Lists UserInstance records from the API as a list.
+   * Lists UserInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: UserListInstanceOptions, callback?: function): Promise<UserInstance[]>;
+  list(opts?: UserListInstanceOptions, callback?: (error: Error | null, items: UserInstance[]) => any): Promise<UserInstance[]>;
   /**
    * Retrieve a single page of UserInstance records from the API.
    * Request is executed immediately
@@ -104,7 +104,7 @@ interface UserListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: UserListInstancePageOptions, callback?: function): Promise<UserPage>;
+  page(opts?: UserListInstancePageOptions, callback?: (error: Error | null, items: UserPage) => any): Promise<UserPage>;
 }
 
 /**
@@ -114,7 +114,7 @@ interface UserListInstance {
  * @property attributes - An optional string used to contain any metadata or other information for the User.
  * @property friendlyName - An optional human readable string representing the user.
  */
-export interface UserInstanceUpdateOptions {
+interface UserInstanceUpdateOptions {
   attributes?: string;
   friendlyName?: string;
   roleSid?: string;
@@ -127,110 +127,35 @@ export interface UserInstanceUpdateOptions {
  * @property attributes - An optional string used to contain any metadata or other information for the User.
  * @property friendlyName - An optional human readable string representing the user.
  */
-export interface UserContextUpdateOptions {
+interface UserInstanceUpdateOptions {
   attributes?: string;
   friendlyName?: string;
   roleSid?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property identity - A unique string that identifies the user within this service - often a username or email address.
- * @property roleSid - The unique id of the Role assigned to this user.
- * @property attributes - An optional string used to contain any metadata or other information for the User.
- * @property friendlyName - An optional human readable string representing the user.
- */
-export interface UserListInstanceCreateOptions {
-  attributes?: string;
-  friendlyName?: string;
-  identity: string;
-  roleSid?: string;
-}
 
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface UserListInstanceEachOptions {
-  callback?: (item: UserInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface UserListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface UserListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-}
-
-
-declare class UserPage extends Page {
+declare class UserPage extends Page<V2, UserPayload, UserResource, UserInstance> {
   /**
-   * @constructor Twilio.Chat.V2.ServiceContext.UserPage
-   * @augments Page
-   * @description Initialize the UserPage
+   * Initialize the UserPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Chat.V2, response: Response<string>, solution: object);
+  constructor(version: V2, response: Response<string>, solution: UserSolution);
 
   /**
    * Build an instance of UserInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: UserPayload): UserInstance;
 }
 
 
-declare class UserInstance {
+declare class UserInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Chat.V2.ServiceContext.UserInstance
-   * @description Initialize the UserContext
+   * Initialize the UserContext
    *
    * @property sid - A 34 character string that uniquely identifies this resource.
    * @property accountSid - The unique id of the Account responsible for this user.
@@ -252,33 +177,47 @@ declare class UserInstance {
    * @param serviceSid - The unique id of the Service this user belongs to.
    * @param sid - The sid
    */
-  constructor(version: Twilio.Chat.V2, payload: object, serviceSid: sid, sid: sid_like);
+  constructor(version: V2, payload: UserPayload, serviceSid: string, sid: string);
 
-  _proxy?: UserContext;
+  private _proxy: UserContext;
+  accountSid: string;
+  attributes: string;
+  dateCreated: Date;
+  dateUpdated: Date;
   /**
    * fetch a UserInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: UserInstance) => any);
+  fetch(callback?: (error: Error | null, items: UserInstance) => any): void;
+  friendlyName: string;
+  identity: string;
+  isNotifiable: boolean;
+  isOnline: boolean;
+  joinedChannelsCount: number;
+  links: string;
   /**
    * remove a UserInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: UserInstance) => any);
+  remove(callback?: (error: Error | null, items: UserInstance) => any): void;
+  roleSid: string;
+  serviceSid: string;
+  sid: string;
   /**
    * Produce a plain JSON object version of the UserInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
   /**
    * update a UserInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: UserInstanceUpdateOptions, callback?: (error: Error | null, items: UserInstance) => any);
+  update(opts?: UserInstanceUpdateOptions, callback?: (error: Error | null, items: UserInstance) => any): void;
+  url: string;
   /**
    * Access the userBindings
    */
@@ -292,8 +231,7 @@ declare class UserInstance {
 
 declare class UserContext {
   /**
-   * @constructor Twilio.Chat.V2.ServiceContext.UserContext
-   * @description Initialize the UserContext
+   * Initialize the UserContext
    *
    * @property userChannels - userChannels resource
    * @property userBindings - userBindings resource
@@ -302,29 +240,29 @@ declare class UserContext {
    * @param serviceSid - The service_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.Chat.V2, serviceSid: sid, sid: sid_like);
+  constructor(version: V2, serviceSid: string, sid: string);
 
   /**
    * fetch a UserInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: UserContext) => any);
+  fetch(callback?: (error: Error | null, items: UserInstance) => any): void;
   /**
    * remove a UserInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: UserContext) => any);
+  remove(callback?: (error: Error | null, items: UserInstance) => any): void;
   /**
    * update a UserInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: UserContextUpdateOptions, callback?: (error: Error | null, items: UserContext) => any);
+  update(opts?: UserInstanceUpdateOptions, callback?: (error: Error | null, items: UserInstance) => any): void;
   userBindings?: Twilio.Chat.V2.ServiceContext.UserContext.UserBindingList;
   userChannels?: Twilio.Chat.V2.ServiceContext.UserContext.UserChannelList;
 }
 
-export { UserContext, UserInstance, UserList, UserListInstance, UserPage, UserPayload, UserResource, UserSolution }
+export { UserContext, UserInstance, UserList, UserListInstance, UserListInstanceCreateOptions, UserListInstanceEachOptions, UserListInstanceOptions, UserListInstancePageOptions, UserPage, UserPayload, UserResource, UserSolution }

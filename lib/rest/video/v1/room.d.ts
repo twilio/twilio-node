@@ -88,16 +88,16 @@ interface RoomListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<RoomPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: RoomPage) => any): Promise<RoomPage>;
   /**
-   * @description Lists RoomInstance records from the API as a list.
+   * Lists RoomInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: RoomListInstanceOptions, callback?: function): Promise<RoomInstance[]>;
+  list(opts?: RoomListInstanceOptions, callback?: (error: Error | null, items: RoomInstance[]) => any): Promise<RoomInstance[]>;
   /**
    * Retrieve a single page of RoomInstance records from the API.
    * Request is executed immediately
@@ -107,7 +107,7 @@ interface RoomListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: RoomListInstancePageOptions, callback?: function): Promise<RoomPage>;
+  page(opts?: RoomListInstancePageOptions, callback?: (error: Error | null, items: RoomPage) => any): Promise<RoomPage>;
 }
 
 /**
@@ -115,7 +115,7 @@ interface RoomListInstance {
  *
  * @property status - Set to completed to end the Room.
  */
-export interface RoomInstanceUpdateOptions {
+interface RoomInstanceUpdateOptions {
   status: room.room_status;
 }
 
@@ -124,142 +124,33 @@ export interface RoomInstanceUpdateOptions {
  *
  * @property status - Set to completed to end the Room.
  */
-export interface RoomContextUpdateOptions {
+interface RoomInstanceUpdateOptions {
   status: room.room_status;
 }
 
-/**
- * Options to pass to create
- *
- * @property enableTurn - Use Twilio Network Traversal for TURN service.
- * @property type - Type of room, either peer-to-peer or group.
- * @property uniqueName - Name of the Room.
- * @property statusCallback - A URL that Twilio sends asynchronous webhook requests to on every room event.
- * @property statusCallbackMethod - HTTP method Twilio should use when requesting the above URL.
- * @property maxParticipants - Maximum number of Participants in the Room.
- * @property recordParticipantsOnConnect - Start Participant recording when connected.
- * @property videoCodecs - An array of video codecs supported when publishing a Track in the Room.
- * @property mediaRegion - Region for the media server in Group Rooms.
- */
-export interface RoomListInstanceCreateOptions {
-  enableTurn?: boolean;
-  maxParticipants?: number;
-  mediaRegion?: string;
-  recordParticipantsOnConnect?: boolean;
-  statusCallback?: string;
-  statusCallbackMethod?: string;
-  type?: room.room_type;
-  uniqueName?: string;
-  videoCodecs?: room.video_codec|list;
-}
 
-/**
- * Options to pass to each
- *
- * @property status - Only show Rooms with the given status.
- * @property uniqueName - Only show Rooms with the provided Name.
- * @property dateCreatedAfter - Only show Rooms that started on or after this date, given as YYYY-MM-DD.
- * @property dateCreatedBefore - Only show Rooms that started before this date, given as YYYY-MM-DD.
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface RoomListInstanceEachOptions {
-  callback?: (item: RoomInstance, done: (err?: Error) => void) => void;
-  dateCreatedAfter?: Date;
-  dateCreatedBefore?: Date;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-  status?: room.room_status;
-  uniqueName?: string;
-}
-
-/**
- * Options to pass to list
- *
- * @property status - Only show Rooms with the given status.
- * @property uniqueName - Only show Rooms with the provided Name.
- * @property dateCreatedAfter - Only show Rooms that started on or after this date, given as YYYY-MM-DD.
- * @property dateCreatedBefore - Only show Rooms that started before this date, given as YYYY-MM-DD.
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface RoomListInstanceOptions {
-  dateCreatedAfter?: Date;
-  dateCreatedBefore?: Date;
-  limit?: number;
-  pageSize?: number;
-  status?: room.room_status;
-  uniqueName?: string;
-}
-
-/**
- * Options to pass to page
- *
- * @property status - Only show Rooms with the given status.
- * @property uniqueName - Only show Rooms with the provided Name.
- * @property dateCreatedAfter - Only show Rooms that started on or after this date, given as YYYY-MM-DD.
- * @property dateCreatedBefore - Only show Rooms that started before this date, given as YYYY-MM-DD.
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface RoomListInstancePageOptions {
-  dateCreatedAfter?: Date;
-  dateCreatedBefore?: Date;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-  status?: room.room_status;
-  uniqueName?: string;
-}
-
-
-declare class RoomPage extends Page {
+declare class RoomPage extends Page<V1, RoomPayload, RoomResource, RoomInstance> {
   /**
-   * @constructor Twilio.Video.V1.RoomPage
-   * @augments Page
-   * @description Initialize the RoomPage
+   * Initialize the RoomPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Video.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: RoomSolution);
 
   /**
    * Build an instance of RoomInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: RoomPayload): RoomInstance;
 }
 
 
-declare class RoomInstance {
+declare class RoomInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Video.V1.RoomInstance
-   * @description Initialize the RoomContext
+   * Initialize the RoomContext
    *
    * @property sid - A system-generated 34-character string that uniquely identifies this resource.
    * @property status - A string representing the status of the Room.
@@ -284,42 +175,59 @@ declare class RoomInstance {
    * @param payload - The instance payload
    * @param sid - The sid
    */
-  constructor(version: Twilio.Video.V1, payload: object, sid: sid_like);
+  constructor(version: V1, payload: RoomPayload, sid: string);
 
-  _proxy?: RoomContext;
+  private _proxy: RoomContext;
+  accountSid: string;
+  dateCreated: Date;
+  dateUpdated: Date;
+  duration: number;
+  enableTurn: boolean;
+  endTime: Date;
   /**
    * fetch a RoomInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: RoomInstance) => any);
+  fetch(callback?: (error: Error | null, items: RoomInstance) => any): void;
+  links: string;
+  maxParticipants: number;
+  mediaRegion: string;
   /**
    * Access the participants
    */
   participants();
+  recordParticipantsOnConnect: boolean;
   /**
    * Access the recordings
    */
   recordings();
+  sid: string;
+  status: room.room_status;
+  statusCallback: string;
+  statusCallbackMethod: string;
   /**
    * Produce a plain JSON object version of the RoomInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  type: room.room_type;
+  uniqueName: string;
   /**
    * update a RoomInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: RoomInstanceUpdateOptions, callback?: (error: Error | null, items: RoomInstance) => any);
+  update(opts: RoomInstanceUpdateOptions, callback?: (error: Error | null, items: RoomInstance) => any): void;
+  url: string;
+  videoCodecs: room.video_codec;
 }
 
 
 declare class RoomContext {
   /**
-   * @constructor Twilio.Video.V1.RoomContext
-   * @description Initialize the RoomContext
+   * Initialize the RoomContext
    *
    * @property recordings - recordings resource
    * @property participants - participants resource
@@ -327,14 +235,14 @@ declare class RoomContext {
    * @param version - Version of the resource
    * @param sid - The sid
    */
-  constructor(version: Twilio.Video.V1, sid: sid_like);
+  constructor(version: V1, sid: string);
 
   /**
    * fetch a RoomInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: RoomContext) => any);
+  fetch(callback?: (error: Error | null, items: RoomInstance) => any): void;
   participants?: Twilio.Video.V1.RoomContext.ParticipantList;
   recordings?: Twilio.Video.V1.RoomContext.RoomRecordingList;
   /**
@@ -343,7 +251,7 @@ declare class RoomContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: RoomContextUpdateOptions, callback?: (error: Error | null, items: RoomContext) => any);
+  update(opts: RoomInstanceUpdateOptions, callback?: (error: Error | null, items: RoomInstance) => any): void;
 }
 
-export { RoomContext, RoomInstance, RoomList, RoomListInstance, RoomPage, RoomPayload, RoomResource, RoomSolution }
+export { RoomContext, RoomInstance, RoomList, RoomListInstance, RoomListInstanceCreateOptions, RoomListInstanceEachOptions, RoomListInstanceOptions, RoomListInstancePageOptions, RoomPage, RoomPayload, RoomResource, RoomSolution }

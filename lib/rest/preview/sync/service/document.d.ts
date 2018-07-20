@@ -83,16 +83,16 @@ interface DocumentListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<DocumentPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: DocumentPage) => any): Promise<DocumentPage>;
   /**
-   * @description Lists DocumentInstance records from the API as a list.
+   * Lists DocumentInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: DocumentListInstanceOptions, callback?: function): Promise<DocumentInstance[]>;
+  list(opts?: DocumentListInstanceOptions, callback?: (error: Error | null, items: DocumentInstance[]) => any): Promise<DocumentInstance[]>;
   /**
    * Retrieve a single page of DocumentInstance records from the API.
    * Request is executed immediately
@@ -102,7 +102,7 @@ interface DocumentListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: DocumentListInstancePageOptions, callback?: function): Promise<DocumentPage>;
+  page(opts?: DocumentListInstancePageOptions, callback?: (error: Error | null, items: DocumentPage) => any): Promise<DocumentPage>;
 }
 
 /**
@@ -110,7 +110,7 @@ interface DocumentListInstance {
  *
  * @property data - The data
  */
-export interface DocumentInstanceUpdateOptions {
+interface DocumentInstanceUpdateOptions {
   data: string;
 }
 
@@ -119,106 +119,33 @@ export interface DocumentInstanceUpdateOptions {
  *
  * @property data - The data
  */
-export interface DocumentContextUpdateOptions {
+interface DocumentInstanceUpdateOptions {
   data: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property uniqueName - The unique_name
- * @property data - The data
- */
-export interface DocumentListInstanceCreateOptions {
-  data?: string;
-  uniqueName?: string;
-}
 
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface DocumentListInstanceEachOptions {
-  callback?: (item: DocumentInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface DocumentListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface DocumentListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-}
-
-
-declare class DocumentPage extends Page {
+declare class DocumentPage extends Page<Sync, DocumentPayload, DocumentResource, DocumentInstance> {
   /**
-   * @constructor Twilio.Preview.Sync.ServiceContext.DocumentPage
-   * @augments Page
-   * @description Initialize the DocumentPage
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the DocumentPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Preview.Sync, response: Response<string>, solution: object);
+  constructor(version: Sync, response: Response<string>, solution: DocumentSolution);
 
   /**
    * Build an instance of DocumentInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: DocumentPayload): DocumentInstance;
 }
 
 
-declare class DocumentInstance {
+declare class DocumentInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Preview.Sync.ServiceContext.DocumentInstance
-   * @description Initialize the DocumentContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the DocumentContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @property sid - The sid
    * @property uniqueName - The unique_name
@@ -237,9 +164,14 @@ declare class DocumentInstance {
    * @param serviceSid - The service_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.Preview.Sync, payload: object, serviceSid: sid, sid: sid_like);
+  constructor(version: Sync, payload: DocumentPayload, serviceSid: string, sid: string);
 
-  _proxy?: DocumentContext;
+  private _proxy: DocumentContext;
+  accountSid: string;
+  createdBy: string;
+  data: string;
+  dateCreated: Date;
+  dateUpdated: Date;
   /**
    * Access the documentPermissions
    */
@@ -249,33 +181,37 @@ declare class DocumentInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: DocumentInstance) => any);
+  fetch(callback?: (error: Error | null, items: DocumentInstance) => any): void;
+  links: string;
   /**
    * remove a DocumentInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: DocumentInstance) => any);
+  remove(callback?: (error: Error | null, items: DocumentInstance) => any): void;
+  revision: string;
+  serviceSid: string;
+  sid: string;
   /**
    * Produce a plain JSON object version of the DocumentInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  uniqueName: string;
   /**
    * update a DocumentInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: DocumentInstanceUpdateOptions, callback?: (error: Error | null, items: DocumentInstance) => any);
+  update(opts: DocumentInstanceUpdateOptions, callback?: (error: Error | null, items: DocumentInstance) => any): void;
+  url: string;
 }
 
 
 declare class DocumentContext {
   /**
-   * @constructor Twilio.Preview.Sync.ServiceContext.DocumentContext
-   * @description Initialize the DocumentContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the DocumentContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @property documentPermissions - documentPermissions resource
    *
@@ -283,7 +219,7 @@ declare class DocumentContext {
    * @param serviceSid - The service_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.Preview.Sync, serviceSid: sid, sid: sid_like);
+  constructor(version: Sync, serviceSid: string, sid: string);
 
   documentPermissions?: Twilio.Preview.Sync.ServiceContext.DocumentContext.DocumentPermissionList;
   /**
@@ -291,20 +227,20 @@ declare class DocumentContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: DocumentContext) => any);
+  fetch(callback?: (error: Error | null, items: DocumentInstance) => any): void;
   /**
    * remove a DocumentInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: DocumentContext) => any);
+  remove(callback?: (error: Error | null, items: DocumentInstance) => any): void;
   /**
    * update a DocumentInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: DocumentContextUpdateOptions, callback?: (error: Error | null, items: DocumentContext) => any);
+  update(opts: DocumentInstanceUpdateOptions, callback?: (error: Error | null, items: DocumentInstance) => any): void;
 }
 
-export { DocumentContext, DocumentInstance, DocumentList, DocumentListInstance, DocumentPage, DocumentPayload, DocumentResource, DocumentSolution }
+export { DocumentContext, DocumentInstance, DocumentList, DocumentListInstance, DocumentListInstanceCreateOptions, DocumentListInstanceEachOptions, DocumentListInstanceOptions, DocumentListInstancePageOptions, DocumentPage, DocumentPayload, DocumentResource, DocumentSolution }

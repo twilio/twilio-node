@@ -79,16 +79,16 @@ interface PhoneNumberListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<PhoneNumberPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: PhoneNumberPage) => any): Promise<PhoneNumberPage>;
   /**
-   * @description Lists PhoneNumberInstance records from the API as a list.
+   * Lists PhoneNumberInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: PhoneNumberListInstanceOptions, callback?: function): Promise<PhoneNumberInstance[]>;
+  list(opts?: PhoneNumberListInstanceOptions, callback?: (error: Error | null, items: PhoneNumberInstance[]) => any): Promise<PhoneNumberInstance[]>;
   /**
    * Retrieve a single page of PhoneNumberInstance records from the API.
    * Request is executed immediately
@@ -98,103 +98,32 @@ interface PhoneNumberListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: PhoneNumberListInstancePageOptions, callback?: function): Promise<PhoneNumberPage>;
-}
-
-/**
- * Options to pass to create
- *
- * @property sid - Delete by unique phone-number Sid
- */
-export interface PhoneNumberListInstanceCreateOptions {
-  sid: string;
-}
-
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface PhoneNumberListInstanceEachOptions {
-  callback?: (item: PhoneNumberInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface PhoneNumberListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface PhoneNumberListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
+  page(opts?: PhoneNumberListInstancePageOptions, callback?: (error: Error | null, items: PhoneNumberPage) => any): Promise<PhoneNumberPage>;
 }
 
 
-declare class PhoneNumberPage extends Page {
+declare class PhoneNumberPage extends Page<Proxy, PhoneNumberPayload, PhoneNumberResource, PhoneNumberInstance> {
   /**
-   * @constructor Twilio.Preview.Proxy.ServiceContext.PhoneNumberPage
-   * @augments Page
-   * @description Initialize the PhoneNumberPage
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the PhoneNumberPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Preview.Proxy, response: Response<string>, solution: object);
+  constructor(version: Proxy, response: Response<string>, solution: PhoneNumberSolution);
 
   /**
    * Build an instance of PhoneNumberInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: PhoneNumberPayload): PhoneNumberInstance;
 }
 
 
-declare class PhoneNumberInstance {
+declare class PhoneNumberInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Preview.Proxy.ServiceContext.PhoneNumberInstance
-   * @description Initialize the PhoneNumberContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the PhoneNumberContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @property sid - A string that uniquely identifies this resource
    * @property accountSid - Account Sid.
@@ -211,53 +140,60 @@ declare class PhoneNumberInstance {
    * @param serviceSid - Service Sid.
    * @param sid - Fetch by unique phone-number Sid
    */
-  constructor(version: Twilio.Preview.Proxy, payload: object, serviceSid: sid, sid: sid);
+  constructor(version: Proxy, payload: PhoneNumberPayload, serviceSid: string, sid: string);
 
-  _proxy?: PhoneNumberContext;
+  private _proxy: PhoneNumberContext;
+  accountSid: string;
+  capabilities: string;
+  countryCode: string;
+  dateCreated: Date;
+  dateUpdated: Date;
   /**
    * fetch a PhoneNumberInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: PhoneNumberInstance) => any);
+  fetch(callback?: (error: Error | null, items: PhoneNumberInstance) => any): void;
+  phoneNumber: string;
   /**
    * remove a PhoneNumberInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: PhoneNumberInstance) => any);
+  remove(callback?: (error: Error | null, items: PhoneNumberInstance) => any): void;
+  serviceSid: string;
+  sid: string;
   /**
    * Produce a plain JSON object version of the PhoneNumberInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  url: string;
 }
 
 
 declare class PhoneNumberContext {
   /**
-   * @constructor Twilio.Preview.Proxy.ServiceContext.PhoneNumberContext
-   * @description Initialize the PhoneNumberContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the PhoneNumberContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param serviceSid - The service_sid
    * @param sid - Fetch by unique phone-number Sid
    */
-  constructor(version: Twilio.Preview.Proxy, serviceSid: sid, sid: sid);
+  constructor(version: Proxy, serviceSid: string, sid: string);
 
   /**
    * fetch a PhoneNumberInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: PhoneNumberContext) => any);
+  fetch(callback?: (error: Error | null, items: PhoneNumberInstance) => any): void;
   /**
    * remove a PhoneNumberInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: PhoneNumberContext) => any);
+  remove(callback?: (error: Error | null, items: PhoneNumberInstance) => any): void;
 }
 
-export { PhoneNumberContext, PhoneNumberInstance, PhoneNumberList, PhoneNumberListInstance, PhoneNumberPage, PhoneNumberPayload, PhoneNumberResource, PhoneNumberSolution }
+export { PhoneNumberContext, PhoneNumberInstance, PhoneNumberList, PhoneNumberListInstance, PhoneNumberListInstanceCreateOptions, PhoneNumberListInstanceEachOptions, PhoneNumberListInstanceOptions, PhoneNumberListInstancePageOptions, PhoneNumberPage, PhoneNumberPayload, PhoneNumberResource, PhoneNumberSolution }

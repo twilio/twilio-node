@@ -78,16 +78,16 @@ interface AlertListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<AlertPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: AlertPage) => any): Promise<AlertPage>;
   /**
-   * @description Lists AlertInstance records from the API as a list.
+   * Lists AlertInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: AlertListInstanceOptions, callback?: function): Promise<AlertInstance[]>;
+  list(opts?: AlertListInstanceOptions, callback?: (error: Error | null, items: AlertInstance[]) => any): Promise<AlertInstance[]>;
   /**
    * Retrieve a single page of AlertInstance records from the API.
    * Request is executed immediately
@@ -97,110 +97,32 @@ interface AlertListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: AlertListInstancePageOptions, callback?: function): Promise<AlertPage>;
-}
-
-/**
- * Options to pass to each
- *
- * @property logLevel - Only show alerts for this log-level.
- * @property startDate - Only show Alerts on or after this date.
- * @property endDate - Only show Alerts on or before this date.
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface AlertListInstanceEachOptions {
-  callback?: (item: AlertInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  endDate?: Date;
-  limit?: number;
-  logLevel?: string;
-  pageSize?: number;
-  startDate?: Date;
-}
-
-/**
- * Options to pass to list
- *
- * @property logLevel - Only show alerts for this log-level.
- * @property startDate - Only show Alerts on or after this date.
- * @property endDate - Only show Alerts on or before this date.
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface AlertListInstanceOptions {
-  endDate?: Date;
-  limit?: number;
-  logLevel?: string;
-  pageSize?: number;
-  startDate?: Date;
-}
-
-/**
- * Options to pass to page
- *
- * @property logLevel - Only show alerts for this log-level.
- * @property startDate - Only show Alerts on or after this date.
- * @property endDate - Only show Alerts on or before this date.
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface AlertListInstancePageOptions {
-  endDate?: Date;
-  logLevel?: string;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-  startDate?: Date;
+  page(opts?: AlertListInstancePageOptions, callback?: (error: Error | null, items: AlertPage) => any): Promise<AlertPage>;
 }
 
 
-declare class AlertPage extends Page {
+declare class AlertPage extends Page<V1, AlertPayload, AlertResource, AlertInstance> {
   /**
-   * @constructor Twilio.Monitor.V1.AlertPage
-   * @augments Page
-   * @description Initialize the AlertPage
+   * Initialize the AlertPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Monitor.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: AlertSolution);
 
   /**
    * Build an instance of AlertInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: AlertPayload): AlertInstance;
 }
 
 
-declare class AlertInstance {
+declare class AlertInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Monitor.V1.AlertInstance
-   * @description Initialize the AlertContext
+   * Initialize the AlertContext
    *
    * @property accountSid - The unique id of the Account responsible for this alert.
    * @property alertText - The text of the alert.
@@ -224,51 +146,67 @@ declare class AlertInstance {
    * @param payload - The instance payload
    * @param sid - The sid
    */
-  constructor(version: Twilio.Monitor.V1, payload: object, sid: sid);
+  constructor(version: V1, payload: AlertPayload, sid: string);
 
-  _proxy?: AlertContext;
+  private _proxy: AlertContext;
+  accountSid: string;
+  alertText: string;
+  apiVersion: string;
+  dateCreated: Date;
+  dateGenerated: Date;
+  dateUpdated: Date;
+  errorCode: string;
   /**
    * fetch a AlertInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AlertInstance) => any);
+  fetch(callback?: (error: Error | null, items: AlertInstance) => any): void;
+  logLevel: string;
+  moreInfo: string;
   /**
    * remove a AlertInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: AlertInstance) => any);
+  remove(callback?: (error: Error | null, items: AlertInstance) => any): void;
+  requestMethod: string;
+  requestUrl: string;
+  requestVariables: string;
+  resourceSid: string;
+  responseBody: string;
+  responseHeaders: string;
+  sid: string;
   /**
    * Produce a plain JSON object version of the AlertInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  url: string;
 }
 
 
 declare class AlertContext {
   /**
-   * @constructor Twilio.Monitor.V1.AlertContext
-   * @description Initialize the AlertContext
+   * Initialize the AlertContext
    *
    * @param version - Version of the resource
    * @param sid - The sid
    */
-  constructor(version: Twilio.Monitor.V1, sid: sid);
+  constructor(version: V1, sid: string);
 
   /**
    * fetch a AlertInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AlertContext) => any);
+  fetch(callback?: (error: Error | null, items: AlertInstance) => any): void;
   /**
    * remove a AlertInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: AlertContext) => any);
+  remove(callback?: (error: Error | null, items: AlertInstance) => any): void;
 }
 
-export { AlertContext, AlertInstance, AlertList, AlertListInstance, AlertPage, AlertPayload, AlertResource, AlertSolution }
+export { AlertContext, AlertInstance, AlertList, AlertListInstance, AlertListInstanceEachOptions, AlertListInstanceOptions, AlertListInstancePageOptions, AlertPage, AlertPayload, AlertResource, AlertSolution }

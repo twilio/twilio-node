@@ -77,16 +77,16 @@ interface PayloadListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<PayloadPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: PayloadPage) => any): Promise<PayloadPage>;
   /**
-   * @description Lists PayloadInstance records from the API as a list.
+   * Lists PayloadInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: PayloadListInstanceOptions, callback?: function): Promise<PayloadInstance[]>;
+  list(opts?: PayloadListInstanceOptions, callback?: (error: Error | null, items: PayloadInstance[]) => any): Promise<PayloadInstance[]>;
   /**
    * Retrieve a single page of PayloadInstance records from the API.
    * Request is executed immediately
@@ -96,92 +96,32 @@ interface PayloadListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: PayloadListInstancePageOptions, callback?: function): Promise<PayloadPage>;
-}
-
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface PayloadListInstanceEachOptions {
-  callback?: (item: PayloadInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface PayloadListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface PayloadListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
+  page(opts?: PayloadListInstancePageOptions, callback?: (error: Error | null, items: PayloadPage) => any): Promise<PayloadPage>;
 }
 
 
-declare class PayloadPage extends Page {
+declare class PayloadPage extends Page<V2010, PayloadPayload, PayloadResource, PayloadInstance> {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.RecordingContext.AddOnResultContext.PayloadPage
-   * @augments Page
-   * @description Initialize the PayloadPage
+   * Initialize the PayloadPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
+  constructor(version: V2010, response: Response<string>, solution: PayloadSolution);
 
   /**
    * Build an instance of PayloadInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: PayloadPayload): PayloadInstance;
 }
 
 
-declare class PayloadInstance {
+declare class PayloadInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.RecordingContext.AddOnResultContext.PayloadInstance
-   * @description Initialize the PayloadContext
+   * Initialize the PayloadContext
    *
    * @property sid - A string that uniquely identifies this payload
    * @property addOnResultSid - A string that uniquely identifies the result
@@ -202,33 +142,43 @@ declare class PayloadInstance {
    * @param addOnResultSid - A string that uniquely identifies the result
    * @param sid - Fetch by unique payload Sid
    */
-  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, referenceSid: sid, addOnResultSid: sid, sid: sid);
+  constructor(version: V2010, payload: PayloadPayload, accountSid: string, referenceSid: string, addOnResultSid: string, sid: string);
 
-  _proxy?: PayloadContext;
+  private _proxy: PayloadContext;
+  accountSid: string;
+  addOnConfigurationSid: string;
+  addOnResultSid: string;
+  addOnSid: string;
+  contentType: string;
+  dateCreated: Date;
+  dateUpdated: Date;
   /**
    * fetch a PayloadInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: PayloadInstance) => any);
+  fetch(callback?: (error: Error | null, items: PayloadInstance) => any): void;
+  label: string;
+  referenceSid: string;
   /**
    * remove a PayloadInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: PayloadInstance) => any);
+  remove(callback?: (error: Error | null, items: PayloadInstance) => any): void;
+  sid: string;
+  subresourceUris: string;
   /**
    * Produce a plain JSON object version of the PayloadInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
 }
 
 
 declare class PayloadContext {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.RecordingContext.AddOnResultContext.PayloadContext
-   * @description Initialize the PayloadContext
+   * Initialize the PayloadContext
    *
    * @param version - Version of the resource
    * @param accountSid - The account_sid
@@ -236,20 +186,20 @@ declare class PayloadContext {
    * @param addOnResultSid - The add_on_result_sid
    * @param sid - Fetch by unique payload Sid
    */
-  constructor(version: Twilio.Api.V2010, accountSid: sid, referenceSid: sid, addOnResultSid: sid, sid: sid);
+  constructor(version: V2010, accountSid: string, referenceSid: string, addOnResultSid: string, sid: string);
 
   /**
    * fetch a PayloadInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: PayloadContext) => any);
+  fetch(callback?: (error: Error | null, items: PayloadInstance) => any): void;
   /**
    * remove a PayloadInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: PayloadContext) => any);
+  remove(callback?: (error: Error | null, items: PayloadInstance) => any): void;
 }
 
-export { PayloadContext, PayloadInstance, PayloadList, PayloadListInstance, PayloadPage, PayloadPayload, PayloadResource, PayloadSolution }
+export { PayloadContext, PayloadInstance, PayloadList, PayloadListInstance, PayloadListInstanceEachOptions, PayloadListInstanceOptions, PayloadListInstancePageOptions, PayloadPage, PayloadPayload, PayloadResource, PayloadSolution }

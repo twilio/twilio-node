@@ -83,16 +83,16 @@ interface DeviceListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<DevicePage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: DevicePage) => any): Promise<DevicePage>;
   /**
-   * @description Lists DeviceInstance records from the API as a list.
+   * Lists DeviceInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: DeviceListInstanceOptions, callback?: function): Promise<DeviceInstance[]>;
+  list(opts?: DeviceListInstanceOptions, callback?: (error: Error | null, items: DeviceInstance[]) => any): Promise<DeviceInstance[]>;
   /**
    * Retrieve a single page of DeviceInstance records from the API.
    * Request is executed immediately
@@ -102,7 +102,7 @@ interface DeviceListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: DeviceListInstancePageOptions, callback?: function): Promise<DevicePage>;
+  page(opts?: DeviceListInstancePageOptions, callback?: (error: Error | null, items: DevicePage) => any): Promise<DevicePage>;
 }
 
 /**
@@ -113,7 +113,7 @@ interface DeviceListInstance {
  * @property deploymentSid - The unique SID of the Deployment group.
  * @property enabled - The enabled
  */
-export interface DeviceInstanceUpdateOptions {
+interface DeviceInstanceUpdateOptions {
   deploymentSid?: string;
   enabled?: boolean;
   friendlyName?: string;
@@ -128,121 +128,36 @@ export interface DeviceInstanceUpdateOptions {
  * @property deploymentSid - The unique SID of the Deployment group.
  * @property enabled - The enabled
  */
-export interface DeviceContextUpdateOptions {
+interface DeviceInstanceUpdateOptions {
   deploymentSid?: string;
   enabled?: boolean;
   friendlyName?: string;
   identity?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property uniqueName - A unique, addressable name of this Device.
- * @property friendlyName - A human readable description for this Device.
- * @property identity - An identifier of the Device user.
- * @property deploymentSid - The unique SID of the Deployment group.
- * @property enabled - The enabled
- */
-export interface DeviceListInstanceCreateOptions {
-  deploymentSid?: string;
-  enabled?: boolean;
-  friendlyName?: string;
-  identity?: string;
-  uniqueName?: string;
-}
 
-/**
- * Options to pass to each
- *
- * @property deploymentSid - Find all Devices grouped under the specified Deployment.
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface DeviceListInstanceEachOptions {
-  callback?: (item: DeviceInstance, done: (err?: Error) => void) => void;
-  deploymentSid?: string;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property deploymentSid - Find all Devices grouped under the specified Deployment.
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface DeviceListInstanceOptions {
-  deploymentSid?: string;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property deploymentSid - Find all Devices grouped under the specified Deployment.
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface DeviceListInstancePageOptions {
-  deploymentSid?: string;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-}
-
-
-declare class DevicePage extends Page {
+declare class DevicePage extends Page<DeployedDevices, DevicePayload, DeviceResource, DeviceInstance> {
   /**
-   * @constructor Twilio.Preview.DeployedDevices.FleetContext.DevicePage
-   * @augments Page
-   * @description Initialize the DevicePage
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the DevicePagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Preview.DeployedDevices, response: Response<string>, solution: object);
+  constructor(version: DeployedDevices, response: Response<string>, solution: DeviceSolution);
 
   /**
    * Build an instance of DeviceInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: DevicePayload): DeviceInstance;
 }
 
 
-declare class DeviceInstance {
+declare class DeviceInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Preview.DeployedDevices.FleetContext.DeviceInstance
-   * @description Initialize the DeviceContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the DeviceContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @property sid - A string that uniquely identifies this Device.
    * @property url - URL of this Device.
@@ -262,67 +177,77 @@ declare class DeviceInstance {
    * @param fleetSid - The unique identifier of the Fleet.
    * @param sid - A string that uniquely identifies the Device.
    */
-  constructor(version: Twilio.Preview.DeployedDevices, payload: object, fleetSid: sid_like, sid: sid_like);
+  constructor(version: DeployedDevices, payload: DevicePayload, fleetSid: string, sid: string);
 
-  _proxy?: DeviceContext;
+  private _proxy: DeviceContext;
+  accountSid: string;
+  dateAuthenticated: Date;
+  dateCreated: Date;
+  dateUpdated: Date;
+  deploymentSid: string;
+  enabled: boolean;
   /**
    * fetch a DeviceInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: DeviceInstance) => any);
+  fetch(callback?: (error: Error | null, items: DeviceInstance) => any): void;
+  fleetSid: string;
+  friendlyName: string;
+  identity: string;
   /**
    * remove a DeviceInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: DeviceInstance) => any);
+  remove(callback?: (error: Error | null, items: DeviceInstance) => any): void;
+  sid: string;
   /**
    * Produce a plain JSON object version of the DeviceInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  uniqueName: string;
   /**
    * update a DeviceInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: DeviceInstanceUpdateOptions, callback?: (error: Error | null, items: DeviceInstance) => any);
+  update(opts?: DeviceInstanceUpdateOptions, callback?: (error: Error | null, items: DeviceInstance) => any): void;
+  url: string;
 }
 
 
 declare class DeviceContext {
   /**
-   * @constructor Twilio.Preview.DeployedDevices.FleetContext.DeviceContext
-   * @description Initialize the DeviceContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the DeviceContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param fleetSid - The fleet_sid
    * @param sid - A string that uniquely identifies the Device.
    */
-  constructor(version: Twilio.Preview.DeployedDevices, fleetSid: sid_like, sid: sid_like);
+  constructor(version: DeployedDevices, fleetSid: string, sid: string);
 
   /**
    * fetch a DeviceInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: DeviceContext) => any);
+  fetch(callback?: (error: Error | null, items: DeviceInstance) => any): void;
   /**
    * remove a DeviceInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: DeviceContext) => any);
+  remove(callback?: (error: Error | null, items: DeviceInstance) => any): void;
   /**
    * update a DeviceInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: DeviceContextUpdateOptions, callback?: (error: Error | null, items: DeviceContext) => any);
+  update(opts?: DeviceInstanceUpdateOptions, callback?: (error: Error | null, items: DeviceInstance) => any): void;
 }
 
-export { DeviceContext, DeviceInstance, DeviceList, DeviceListInstance, DevicePage, DevicePayload, DeviceResource, DeviceSolution }
+export { DeviceContext, DeviceInstance, DeviceList, DeviceListInstance, DeviceListInstanceCreateOptions, DeviceListInstanceEachOptions, DeviceListInstanceOptions, DeviceListInstancePageOptions, DevicePage, DevicePayload, DeviceResource, DeviceSolution }

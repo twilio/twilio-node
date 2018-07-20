@@ -84,16 +84,16 @@ interface InteractionListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<InteractionPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: InteractionPage) => any): Promise<InteractionPage>;
   /**
-   * @description Lists InteractionInstance records from the API as a list.
+   * Lists InteractionInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: InteractionListInstanceOptions, callback?: function): Promise<InteractionInstance[]>;
+  list(opts?: InteractionListInstanceOptions, callback?: (error: Error | null, items: InteractionInstance[]) => any): Promise<InteractionInstance[]>;
   /**
    * Retrieve a single page of InteractionInstance records from the API.
    * Request is executed immediately
@@ -103,106 +103,32 @@ interface InteractionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: InteractionListInstancePageOptions, callback?: function): Promise<InteractionPage>;
-}
-
-/**
- * Options to pass to each
- *
- * @property inboundParticipantStatus - The Inbound Participant Status of this Interaction
- * @property outboundParticipantStatus - The Outbound Participant Status of this Interaction
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface InteractionListInstanceEachOptions {
-  callback?: (item: InteractionInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  inboundParticipantStatus?: interaction.resource_status;
-  limit?: number;
-  outboundParticipantStatus?: interaction.resource_status;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property inboundParticipantStatus - The Inbound Participant Status of this Interaction
- * @property outboundParticipantStatus - The Outbound Participant Status of this Interaction
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface InteractionListInstanceOptions {
-  inboundParticipantStatus?: interaction.resource_status;
-  limit?: number;
-  outboundParticipantStatus?: interaction.resource_status;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property inboundParticipantStatus - The Inbound Participant Status of this Interaction
- * @property outboundParticipantStatus - The Outbound Participant Status of this Interaction
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface InteractionListInstancePageOptions {
-  inboundParticipantStatus?: interaction.resource_status;
-  outboundParticipantStatus?: interaction.resource_status;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
+  page(opts?: InteractionListInstancePageOptions, callback?: (error: Error | null, items: InteractionPage) => any): Promise<InteractionPage>;
 }
 
 
-declare class InteractionPage extends Page {
+declare class InteractionPage extends Page<Proxy, InteractionPayload, InteractionResource, InteractionInstance> {
   /**
-   * @constructor Twilio.Preview.Proxy.ServiceContext.SessionContext.InteractionPage
-   * @augments Page
-   * @description Initialize the InteractionPage
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the InteractionPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Preview.Proxy, response: Response<string>, solution: object);
+  constructor(version: Proxy, response: Response<string>, solution: InteractionSolution);
 
   /**
    * Build an instance of InteractionInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: InteractionPayload): InteractionInstance;
 }
 
 
-declare class InteractionInstance {
+declare class InteractionInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Preview.Proxy.ServiceContext.SessionContext.InteractionInstance
-   * @description Initialize the InteractionContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the InteractionContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @property sid - A string that uniquely identifies this Interaction.
    * @property sessionSid - Session Sid.
@@ -230,42 +156,59 @@ declare class InteractionInstance {
    * @param sessionSid - Session Sid.
    * @param sid - A string that uniquely identifies this Interaction.
    */
-  constructor(version: Twilio.Preview.Proxy, payload: object, serviceSid: sid, sessionSid: sid, sid: sid);
+  constructor(version: Proxy, payload: InteractionPayload, serviceSid: string, sessionSid: string, sid: string);
 
-  _proxy?: InteractionContext;
+  private _proxy: InteractionContext;
+  accountSid: string;
+  data: string;
+  dateCreated: Date;
+  dateUpdated: Date;
   /**
    * fetch a InteractionInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: InteractionInstance) => any);
+  fetch(callback?: (error: Error | null, items: InteractionInstance) => any): void;
+  inboundParticipantSid: string;
+  inboundResourceSid: string;
+  inboundResourceStatus: interaction.resource_status;
+  inboundResourceType: string;
+  inboundResourceUrl: string;
+  outboundParticipantSid: string;
+  outboundResourceSid: string;
+  outboundResourceStatus: interaction.resource_status;
+  outboundResourceType: string;
+  outboundResourceUrl: string;
+  serviceSid: string;
+  sessionSid: string;
+  sid: string;
+  status: interaction.status;
   /**
    * Produce a plain JSON object version of the InteractionInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  url: string;
 }
 
 
 declare class InteractionContext {
   /**
-   * @constructor Twilio.Preview.Proxy.ServiceContext.SessionContext.InteractionContext
-   * @description Initialize the InteractionContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the InteractionContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param serviceSid - Service Sid.
    * @param sessionSid - Session Sid.
    * @param sid - A string that uniquely identifies this Interaction.
    */
-  constructor(version: Twilio.Preview.Proxy, serviceSid: sid, sessionSid: sid, sid: sid);
+  constructor(version: Proxy, serviceSid: string, sessionSid: string, sid: string);
 
   /**
    * fetch a InteractionInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: InteractionContext) => any);
+  fetch(callback?: (error: Error | null, items: InteractionInstance) => any): void;
 }
 
-export { InteractionContext, InteractionInstance, InteractionList, InteractionListInstance, InteractionPage, InteractionPayload, InteractionResource, InteractionSolution }
+export { InteractionContext, InteractionInstance, InteractionList, InteractionListInstance, InteractionListInstanceEachOptions, InteractionListInstanceOptions, InteractionListInstancePageOptions, InteractionPage, InteractionPayload, InteractionResource, InteractionSolution }

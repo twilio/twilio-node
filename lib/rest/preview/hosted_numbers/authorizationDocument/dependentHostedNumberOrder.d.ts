@@ -75,16 +75,16 @@ interface DependentHostedNumberOrderListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<DependentHostedNumberOrderPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: DependentHostedNumberOrderPage) => any): Promise<DependentHostedNumberOrderPage>;
   /**
-   * @description Lists DependentHostedNumberOrderInstance records from the API as a list.
+   * Lists DependentHostedNumberOrderInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: DependentHostedNumberOrderListInstanceOptions, callback?: function): Promise<DependentHostedNumberOrderInstance[]>;
+  list(opts?: DependentHostedNumberOrderListInstanceOptions, callback?: (error: Error | null, items: DependentHostedNumberOrderInstance[]) => any): Promise<DependentHostedNumberOrderInstance[]>;
   /**
    * Retrieve a single page of DependentHostedNumberOrderInstance records from the API.
    * Request is executed immediately
@@ -94,124 +94,32 @@ interface DependentHostedNumberOrderListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: DependentHostedNumberOrderListInstancePageOptions, callback?: function): Promise<DependentHostedNumberOrderPage>;
-}
-
-/**
- * Options to pass to each
- *
- * @property status - The Status of this HostedNumberOrder.
- * @property phoneNumber - An E164 formatted phone number.
- * @property incomingPhoneNumberSid - IncomingPhoneNumber sid.
- * @property friendlyName - A human readable description of this resource.
- * @property uniqueName - A unique, developer assigned name of this HostedNumberOrder.
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface DependentHostedNumberOrderListInstanceEachOptions {
-  callback?: (item: DependentHostedNumberOrderInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  friendlyName?: string;
-  incomingPhoneNumberSid?: string;
-  limit?: number;
-  pageSize?: number;
-  phoneNumber?: string;
-  status?: dependent_hosted_number_order.status;
-  uniqueName?: string;
-}
-
-/**
- * Options to pass to list
- *
- * @property status - The Status of this HostedNumberOrder.
- * @property phoneNumber - An E164 formatted phone number.
- * @property incomingPhoneNumberSid - IncomingPhoneNumber sid.
- * @property friendlyName - A human readable description of this resource.
- * @property uniqueName - A unique, developer assigned name of this HostedNumberOrder.
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface DependentHostedNumberOrderListInstanceOptions {
-  friendlyName?: string;
-  incomingPhoneNumberSid?: string;
-  limit?: number;
-  pageSize?: number;
-  phoneNumber?: string;
-  status?: dependent_hosted_number_order.status;
-  uniqueName?: string;
-}
-
-/**
- * Options to pass to page
- *
- * @property status - The Status of this HostedNumberOrder.
- * @property phoneNumber - An E164 formatted phone number.
- * @property incomingPhoneNumberSid - IncomingPhoneNumber sid.
- * @property friendlyName - A human readable description of this resource.
- * @property uniqueName - A unique, developer assigned name of this HostedNumberOrder.
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface DependentHostedNumberOrderListInstancePageOptions {
-  friendlyName?: string;
-  incomingPhoneNumberSid?: string;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-  phoneNumber?: string;
-  status?: dependent_hosted_number_order.status;
-  uniqueName?: string;
+  page(opts?: DependentHostedNumberOrderListInstancePageOptions, callback?: (error: Error | null, items: DependentHostedNumberOrderPage) => any): Promise<DependentHostedNumberOrderPage>;
 }
 
 
-declare class DependentHostedNumberOrderPage extends Page {
+declare class DependentHostedNumberOrderPage extends Page<HostedNumbers, DependentHostedNumberOrderPayload, DependentHostedNumberOrderResource, DependentHostedNumberOrderInstance> {
   /**
-   * @constructor Twilio.Preview.HostedNumbers.AuthorizationDocumentContext.DependentHostedNumberOrderPage
-   * @augments Page
-   * @description Initialize the DependentHostedNumberOrderPage
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the DependentHostedNumberOrderPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Preview.HostedNumbers, response: Response<string>, solution: object);
+  constructor(version: HostedNumbers, response: Response<string>, solution: DependentHostedNumberOrderSolution);
 
   /**
    * Build an instance of DependentHostedNumberOrderInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: DependentHostedNumberOrderPayload): DependentHostedNumberOrderInstance;
 }
 
 
-declare class DependentHostedNumberOrderInstance {
+declare class DependentHostedNumberOrderInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Preview.HostedNumbers.AuthorizationDocumentContext.DependentHostedNumberOrderInstance
-   * @description Initialize the DependentHostedNumberOrderContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the DependentHostedNumberOrderContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @property sid - HostedNumberOrder sid.
    * @property accountSid - Account sid.
@@ -240,13 +148,35 @@ declare class DependentHostedNumberOrderInstance {
    * @param payload - The instance payload
    * @param signingDocumentSid - LOA document sid.
    */
-  constructor(version: Twilio.Preview.HostedNumbers, payload: object, signingDocumentSid: sid);
+  constructor(version: HostedNumbers, payload: DependentHostedNumberOrderPayload, signingDocumentSid: string);
 
+  accountSid: string;
+  addressSid: string;
+  callDelay: number;
+  capabilities: string;
+  ccEmails: string;
+  dateCreated: Date;
+  dateUpdated: Date;
+  email: string;
+  extension: string;
+  failureReason: string;
+  friendlyName: string;
+  incomingPhoneNumberSid: string;
+  phoneNumber: string;
+  sid: string;
+  signingDocumentSid: string;
+  status: dependent_hosted_number_order.status;
   /**
    * Produce a plain JSON object version of the DependentHostedNumberOrderInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  uniqueName: string;
+  verificationAttempts: number;
+  verificationCallSids: string;
+  verificationCode: string;
+  verificationDocumentSid: string;
+  verificationType: dependent_hosted_number_order.verification_type;
 }
 
-export { DependentHostedNumberOrderInstance, DependentHostedNumberOrderList, DependentHostedNumberOrderListInstance, DependentHostedNumberOrderPage, DependentHostedNumberOrderPayload, DependentHostedNumberOrderResource, DependentHostedNumberOrderSolution }
+export { DependentHostedNumberOrderInstance, DependentHostedNumberOrderList, DependentHostedNumberOrderListInstance, DependentHostedNumberOrderListInstanceEachOptions, DependentHostedNumberOrderListInstanceOptions, DependentHostedNumberOrderListInstancePageOptions, DependentHostedNumberOrderPage, DependentHostedNumberOrderPayload, DependentHostedNumberOrderResource, DependentHostedNumberOrderSolution }

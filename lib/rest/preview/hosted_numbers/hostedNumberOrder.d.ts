@@ -92,16 +92,16 @@ interface HostedNumberOrderListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<HostedNumberOrderPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: HostedNumberOrderPage) => any): Promise<HostedNumberOrderPage>;
   /**
-   * @description Lists HostedNumberOrderInstance records from the API as a list.
+   * Lists HostedNumberOrderInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: HostedNumberOrderListInstanceOptions, callback?: function): Promise<HostedNumberOrderInstance[]>;
+  list(opts?: HostedNumberOrderListInstanceOptions, callback?: (error: Error | null, items: HostedNumberOrderInstance[]) => any): Promise<HostedNumberOrderInstance[]>;
   /**
    * Retrieve a single page of HostedNumberOrderInstance records from the API.
    * Request is executed immediately
@@ -111,7 +111,7 @@ interface HostedNumberOrderListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: HostedNumberOrderListInstancePageOptions, callback?: function): Promise<HostedNumberOrderPage>;
+  page(opts?: HostedNumberOrderListInstancePageOptions, callback?: (error: Error | null, items: HostedNumberOrderPage) => any): Promise<HostedNumberOrderPage>;
 }
 
 /**
@@ -128,7 +128,7 @@ interface HostedNumberOrderListInstance {
  * @property extension - Digits to dial after connecting the verification call.
  * @property callDelay - The number of seconds, between 0 and 60, to delay before initiating the verification call.
  */
-export interface HostedNumberOrderInstanceUpdateOptions {
+interface HostedNumberOrderInstanceUpdateOptions {
   callDelay?: number;
   ccEmails?: string|list;
   email?: string;
@@ -155,7 +155,7 @@ export interface HostedNumberOrderInstanceUpdateOptions {
  * @property extension - Digits to dial after connecting the verification call.
  * @property callDelay - The number of seconds, between 0 and 60, to delay before initiating the verification call.
  */
-export interface HostedNumberOrderContextUpdateOptions {
+interface HostedNumberOrderInstanceUpdateOptions {
   callDelay?: number;
   ccEmails?: string|list;
   email?: string;
@@ -168,162 +168,29 @@ export interface HostedNumberOrderContextUpdateOptions {
   verificationType?: hosted_number_order.verification_type;
 }
 
-/**
- * Options to pass to each
- *
- * @property status - The Status of this HostedNumberOrder.
- * @property phoneNumber - An E164 formatted phone number.
- * @property incomingPhoneNumberSid - IncomingPhoneNumber sid.
- * @property friendlyName - A human readable description of this resource.
- * @property uniqueName - A unique, developer assigned name of this HostedNumberOrder.
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface HostedNumberOrderListInstanceEachOptions {
-  callback?: (item: HostedNumberOrderInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  friendlyName?: string;
-  incomingPhoneNumberSid?: string;
-  limit?: number;
-  pageSize?: number;
-  phoneNumber?: string;
-  status?: hosted_number_order.status;
-  uniqueName?: string;
-}
 
-/**
- * Options to pass to list
- *
- * @property status - The Status of this HostedNumberOrder.
- * @property phoneNumber - An E164 formatted phone number.
- * @property incomingPhoneNumberSid - IncomingPhoneNumber sid.
- * @property friendlyName - A human readable description of this resource.
- * @property uniqueName - A unique, developer assigned name of this HostedNumberOrder.
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface HostedNumberOrderListInstanceOptions {
-  friendlyName?: string;
-  incomingPhoneNumberSid?: string;
-  limit?: number;
-  pageSize?: number;
-  phoneNumber?: string;
-  status?: hosted_number_order.status;
-  uniqueName?: string;
-}
-
-/**
- * Options to pass to page
- *
- * @property status - The Status of this HostedNumberOrder.
- * @property phoneNumber - An E164 formatted phone number.
- * @property incomingPhoneNumberSid - IncomingPhoneNumber sid.
- * @property friendlyName - A human readable description of this resource.
- * @property uniqueName - A unique, developer assigned name of this HostedNumberOrder.
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface HostedNumberOrderListInstancePageOptions {
-  friendlyName?: string;
-  incomingPhoneNumberSid?: string;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-  phoneNumber?: string;
-  status?: hosted_number_order.status;
-  uniqueName?: string;
-}
-
-/**
- * Options to pass to create
- *
- * @property phoneNumber - An E164 formatted phone number.
- * @property smsCapability - Specify SMS capability to host.
- * @property accountSid - Account Sid.
- * @property friendlyName - A human readable description of this resource.
- * @property uniqueName - A unique, developer assigned name of this HostedNumberOrder.
- * @property ccEmails - A list of emails.
- * @property smsUrl - SMS URL.
- * @property smsMethod - SMS Method.
- * @property smsFallbackUrl - SMS Fallback URL.
- * @property smsFallbackMethod - SMS Fallback Method.
- * @property statusCallbackUrl - Status Callback URL.
- * @property statusCallbackMethod - Status Callback Method.
- * @property smsApplicationSid - SMS Application Sid.
- * @property addressSid - Address sid.
- * @property email - Email.
- * @property verificationType - Verification Type.
- * @property verificationDocumentSid - Verification Document Sid
- */
-export interface HostedNumberOrderListInstanceCreateOptions {
-  accountSid?: string;
-  addressSid?: string;
-  ccEmails?: string|list;
-  email?: string;
-  friendlyName?: string;
-  phoneNumber: string;
-  smsApplicationSid?: string;
-  smsCapability: boolean;
-  smsFallbackMethod?: string;
-  smsFallbackUrl?: string;
-  smsMethod?: string;
-  smsUrl?: string;
-  statusCallbackMethod?: string;
-  statusCallbackUrl?: string;
-  uniqueName?: string;
-  verificationDocumentSid?: string;
-  verificationType?: hosted_number_order.verification_type;
-}
-
-
-declare class HostedNumberOrderPage extends Page {
+declare class HostedNumberOrderPage extends Page<HostedNumbers, HostedNumberOrderPayload, HostedNumberOrderResource, HostedNumberOrderInstance> {
   /**
-   * @constructor Twilio.Preview.HostedNumbers.HostedNumberOrderPage
-   * @augments Page
-   * @description Initialize the HostedNumberOrderPage
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the HostedNumberOrderPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Preview.HostedNumbers, response: Response<string>, solution: object);
+  constructor(version: HostedNumbers, response: Response<string>, solution: HostedNumberOrderSolution);
 
   /**
    * Build an instance of HostedNumberOrderInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: HostedNumberOrderPayload): HostedNumberOrderInstance;
 }
 
 
-declare class HostedNumberOrderInstance {
+declare class HostedNumberOrderInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Preview.HostedNumbers.HostedNumberOrderInstance
-   * @description Initialize the HostedNumberOrderContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the HostedNumberOrderContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @property sid - HostedNumberOrder sid.
    * @property accountSid - Account Sid.
@@ -353,66 +220,87 @@ declare class HostedNumberOrderInstance {
    * @param payload - The instance payload
    * @param sid - HostedNumberOrder sid.
    */
-  constructor(version: Twilio.Preview.HostedNumbers, payload: object, sid: sid);
+  constructor(version: HostedNumbers, payload: HostedNumberOrderPayload, sid: string);
 
-  _proxy?: HostedNumberOrderContext;
+  private _proxy: HostedNumberOrderContext;
+  accountSid: string;
+  addressSid: string;
+  callDelay: number;
+  capabilities: string;
+  ccEmails: string;
+  dateCreated: Date;
+  dateUpdated: Date;
+  email: string;
+  extension: string;
+  failureReason: string;
   /**
    * fetch a HostedNumberOrderInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: HostedNumberOrderInstance) => any);
+  fetch(callback?: (error: Error | null, items: HostedNumberOrderInstance) => any): void;
+  friendlyName: string;
+  incomingPhoneNumberSid: string;
+  phoneNumber: string;
   /**
    * remove a HostedNumberOrderInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: HostedNumberOrderInstance) => any);
+  remove(callback?: (error: Error | null, items: HostedNumberOrderInstance) => any): void;
+  sid: string;
+  signingDocumentSid: string;
+  status: hosted_number_order.status;
   /**
    * Produce a plain JSON object version of the HostedNumberOrderInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  uniqueName: string;
   /**
    * update a HostedNumberOrderInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: HostedNumberOrderInstanceUpdateOptions, callback?: (error: Error | null, items: HostedNumberOrderInstance) => any);
+  update(opts?: HostedNumberOrderInstanceUpdateOptions, callback?: (error: Error | null, items: HostedNumberOrderInstance) => any): void;
+  url: string;
+  verificationAttempts: number;
+  verificationCallSids: string;
+  verificationCode: string;
+  verificationDocumentSid: string;
+  verificationType: hosted_number_order.verification_type;
 }
 
 
 declare class HostedNumberOrderContext {
   /**
-   * @constructor Twilio.Preview.HostedNumbers.HostedNumberOrderContext
-   * @description Initialize the HostedNumberOrderContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the HostedNumberOrderContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param sid - HostedNumberOrder sid.
    */
-  constructor(version: Twilio.Preview.HostedNumbers, sid: sid);
+  constructor(version: HostedNumbers, sid: string);
 
   /**
    * fetch a HostedNumberOrderInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: HostedNumberOrderContext) => any);
+  fetch(callback?: (error: Error | null, items: HostedNumberOrderInstance) => any): void;
   /**
    * remove a HostedNumberOrderInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: HostedNumberOrderContext) => any);
+  remove(callback?: (error: Error | null, items: HostedNumberOrderInstance) => any): void;
   /**
    * update a HostedNumberOrderInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: HostedNumberOrderContextUpdateOptions, callback?: (error: Error | null, items: HostedNumberOrderContext) => any);
+  update(opts?: HostedNumberOrderInstanceUpdateOptions, callback?: (error: Error | null, items: HostedNumberOrderInstance) => any): void;
 }
 
-export { HostedNumberOrderContext, HostedNumberOrderInstance, HostedNumberOrderList, HostedNumberOrderListInstance, HostedNumberOrderPage, HostedNumberOrderPayload, HostedNumberOrderResource, HostedNumberOrderSolution }
+export { HostedNumberOrderContext, HostedNumberOrderInstance, HostedNumberOrderList, HostedNumberOrderListInstance, HostedNumberOrderListInstanceCreateOptions, HostedNumberOrderListInstanceEachOptions, HostedNumberOrderListInstanceOptions, HostedNumberOrderListInstancePageOptions, HostedNumberOrderPage, HostedNumberOrderPayload, HostedNumberOrderResource, HostedNumberOrderSolution }

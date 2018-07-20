@@ -67,16 +67,16 @@ interface TodayListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<TodayPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: TodayPage) => any): Promise<TodayPage>;
   /**
-   * @description Lists TodayInstance records from the API as a list.
+   * Lists TodayInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: TodayListInstanceOptions, callback?: function): Promise<TodayInstance[]>;
+  list(opts?: TodayListInstanceOptions, callback?: (error: Error | null, items: TodayInstance[]) => any): Promise<TodayInstance[]>;
   /**
    * Retrieve a single page of TodayInstance records from the API.
    * Request is executed immediately
@@ -86,116 +86,32 @@ interface TodayListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: TodayListInstancePageOptions, callback?: function): Promise<TodayPage>;
-}
-
-/**
- * Options to pass to each
- *
- * @property category - Only include usage of this usage category.
- * @property startDate - Only include usage that has occurred on or after this date.
- * @property endDate - Only include usage that has occurred on or before this date.
- * @property includeSubaccounts - The include_subaccounts
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface TodayListInstanceEachOptions {
-  callback?: (item: TodayInstance, done: (err?: Error) => void) => void;
-  category?: today.category;
-  done?: Function;
-  endDate?: Date;
-  includeSubaccounts?: boolean;
-  limit?: number;
-  pageSize?: number;
-  startDate?: Date;
-}
-
-/**
- * Options to pass to list
- *
- * @property category - Only include usage of this usage category.
- * @property startDate - Only include usage that has occurred on or after this date.
- * @property endDate - Only include usage that has occurred on or before this date.
- * @property includeSubaccounts - The include_subaccounts
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface TodayListInstanceOptions {
-  category?: today.category;
-  endDate?: Date;
-  includeSubaccounts?: boolean;
-  limit?: number;
-  pageSize?: number;
-  startDate?: Date;
-}
-
-/**
- * Options to pass to page
- *
- * @property category - Only include usage of this usage category.
- * @property startDate - Only include usage that has occurred on or after this date.
- * @property endDate - Only include usage that has occurred on or before this date.
- * @property includeSubaccounts - The include_subaccounts
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface TodayListInstancePageOptions {
-  category?: today.category;
-  endDate?: Date;
-  includeSubaccounts?: boolean;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-  startDate?: Date;
+  page(opts?: TodayListInstancePageOptions, callback?: (error: Error | null, items: TodayPage) => any): Promise<TodayPage>;
 }
 
 
-declare class TodayPage extends Page {
+declare class TodayPage extends Page<V2010, TodayPayload, TodayResource, TodayInstance> {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.UsageContext.RecordContext.TodayPage
-   * @augments Page
-   * @description Initialize the TodayPage
+   * Initialize the TodayPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
+  constructor(version: V2010, response: Response<string>, solution: TodaySolution);
 
   /**
    * Build an instance of TodayInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: TodayPayload): TodayInstance;
 }
 
 
-declare class TodayInstance {
+declare class TodayInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.UsageContext.RecordContext.TodayInstance
-   * @description Initialize the TodayContext
+   * Initialize the TodayContext
    *
    * @property accountSid - The Account that accrued the usage.
    * @property apiVersion - The api_version
@@ -216,13 +132,27 @@ declare class TodayInstance {
    * @param payload - The instance payload
    * @param accountSid - A 34 character string that uniquely identifies this resource.
    */
-  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid);
+  constructor(version: V2010, payload: TodayPayload, accountSid: string);
 
+  accountSid: string;
+  apiVersion: string;
+  category: today.category;
+  count: string;
+  countUnit: string;
+  description: string;
+  endDate: Date;
+  price: number;
+  priceUnit: string;
+  startDate: Date;
+  subresourceUris: string;
   /**
    * Produce a plain JSON object version of the TodayInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  uri: string;
+  usage: string;
+  usageUnit: string;
 }
 
-export { TodayInstance, TodayList, TodayListInstance, TodayPage, TodayPayload, TodayResource, TodaySolution }
+export { TodayInstance, TodayList, TodayListInstance, TodayListInstanceEachOptions, TodayListInstanceOptions, TodayListInstancePageOptions, TodayPage, TodayPayload, TodayResource, TodaySolution }

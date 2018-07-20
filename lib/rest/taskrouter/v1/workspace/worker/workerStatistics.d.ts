@@ -55,7 +55,7 @@ interface WorkerStatisticsListInstance {
  * @property endDate - Filter cumulative statistics by a end date.
  * @property taskChannel - Filter cumulative statistics by TaskChannel.
  */
-export interface WorkerStatisticsInstanceFetchOptions {
+interface WorkerStatisticsInstanceFetchOptions {
   endDate?: Date;
   minutes?: number;
   startDate?: Date;
@@ -70,7 +70,7 @@ export interface WorkerStatisticsInstanceFetchOptions {
  * @property endDate - Filter cumulative statistics by a end date.
  * @property taskChannel - Filter cumulative statistics by TaskChannel.
  */
-export interface WorkerStatisticsContextFetchOptions {
+interface WorkerStatisticsInstanceFetchOptions {
   endDate?: Date;
   minutes?: number;
   startDate?: Date;
@@ -78,31 +78,28 @@ export interface WorkerStatisticsContextFetchOptions {
 }
 
 
-declare class WorkerStatisticsPage extends Page {
+declare class WorkerStatisticsPage extends Page<V1, WorkerStatisticsPayload, WorkerStatisticsResource, WorkerStatisticsInstance> {
   /**
-   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkerStatisticsPage
-   * @augments Page
-   * @description Initialize the WorkerStatisticsPage
+   * Initialize the WorkerStatisticsPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Taskrouter.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: WorkerStatisticsSolution);
 
   /**
    * Build an instance of WorkerStatisticsInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: WorkerStatisticsPayload): WorkerStatisticsInstance;
 }
 
 
-declare class WorkerStatisticsInstance {
+declare class WorkerStatisticsInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkerStatisticsInstance
-   * @description Initialize the WorkerStatisticsContext
+   * Initialize the WorkerStatisticsContext
    *
    * @property accountSid - The account_sid
    * @property cumulative - The cumulative
@@ -115,34 +112,38 @@ declare class WorkerStatisticsInstance {
    * @param workspaceSid - The workspace_sid
    * @param workerSid - The worker_sid
    */
-  constructor(version: Twilio.Taskrouter.V1, payload: object, workspaceSid: sid, workerSid: sid);
+  constructor(version: V1, payload: WorkerStatisticsPayload, workspaceSid: string, workerSid: string);
 
-  _proxy?: WorkerStatisticsContext;
+  private _proxy: WorkerStatisticsContext;
+  accountSid: string;
+  cumulative: string;
   /**
    * fetch a WorkerStatisticsInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: WorkerStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkerStatisticsInstance) => any);
+  fetch(opts?: WorkerStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkerStatisticsInstance) => any): void;
   /**
    * Produce a plain JSON object version of the WorkerStatisticsInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  url: string;
+  workerSid: string;
+  workspaceSid: string;
 }
 
 
 declare class WorkerStatisticsContext {
   /**
-   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkerStatisticsContext
-   * @description Initialize the WorkerStatisticsContext
+   * Initialize the WorkerStatisticsContext
    *
    * @param version - Version of the resource
    * @param workspaceSid - The workspace_sid
    * @param workerSid - The worker_sid
    */
-  constructor(version: Twilio.Taskrouter.V1, workspaceSid: sid, workerSid: sid);
+  constructor(version: V1, workspaceSid: string, workerSid: string);
 
   /**
    * fetch a WorkerStatisticsInstance
@@ -150,7 +151,7 @@ declare class WorkerStatisticsContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: WorkerStatisticsContextFetchOptions, callback?: (error: Error | null, items: WorkerStatisticsContext) => any);
+  fetch(opts?: WorkerStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkerStatisticsInstance) => any): void;
 }
 
 export { WorkerStatisticsContext, WorkerStatisticsInstance, WorkerStatisticsList, WorkerStatisticsListInstance, WorkerStatisticsPage, WorkerStatisticsPayload, WorkerStatisticsResource, WorkerStatisticsSolution }

@@ -73,16 +73,16 @@ interface PublishedTrackListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<PublishedTrackPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: PublishedTrackPage) => any): Promise<PublishedTrackPage>;
   /**
-   * @description Lists PublishedTrackInstance records from the API as a list.
+   * Lists PublishedTrackInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: PublishedTrackListInstanceOptions, callback?: function): Promise<PublishedTrackInstance[]>;
+  list(opts?: PublishedTrackListInstanceOptions, callback?: (error: Error | null, items: PublishedTrackInstance[]) => any): Promise<PublishedTrackInstance[]>;
   /**
    * Retrieve a single page of PublishedTrackInstance records from the API.
    * Request is executed immediately
@@ -92,92 +92,32 @@ interface PublishedTrackListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: PublishedTrackListInstancePageOptions, callback?: function): Promise<PublishedTrackPage>;
-}
-
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface PublishedTrackListInstanceEachOptions {
-  callback?: (item: PublishedTrackInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface PublishedTrackListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface PublishedTrackListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
+  page(opts?: PublishedTrackListInstancePageOptions, callback?: (error: Error | null, items: PublishedTrackPage) => any): Promise<PublishedTrackPage>;
 }
 
 
-declare class PublishedTrackPage extends Page {
+declare class PublishedTrackPage extends Page<V1, PublishedTrackPayload, PublishedTrackResource, PublishedTrackInstance> {
   /**
-   * @constructor Twilio.Video.V1.RoomContext.ParticipantContext.PublishedTrackPage
-   * @augments Page
-   * @description Initialize the PublishedTrackPage
+   * Initialize the PublishedTrackPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Video.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: PublishedTrackSolution);
 
   /**
    * Build an instance of PublishedTrackInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: PublishedTrackPayload): PublishedTrackInstance;
 }
 
 
-declare class PublishedTrackInstance {
+declare class PublishedTrackInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Video.V1.RoomContext.ParticipantContext.PublishedTrackInstance
-   * @description Initialize the PublishedTrackContext
+   * Initialize the PublishedTrackContext
    *
    * @property sid - A 34 character string that uniquely identifies this resource.
    * @property participantSid - Unique Participant identifier that publishes this Track.
@@ -195,41 +135,49 @@ declare class PublishedTrackInstance {
    * @param participantSid - Unique Participant identifier that publishes this Track.
    * @param sid - A 34 character string that uniquely identifies this resource.
    */
-  constructor(version: Twilio.Video.V1, payload: object, roomSid: sid, participantSid: sid, sid: sid_like);
+  constructor(version: V1, payload: PublishedTrackPayload, roomSid: string, participantSid: string, sid: string);
 
-  _proxy?: PublishedTrackContext;
+  private _proxy: PublishedTrackContext;
+  dateCreated: Date;
+  dateUpdated: Date;
+  enabled: boolean;
   /**
    * fetch a PublishedTrackInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: PublishedTrackInstance) => any);
+  fetch(callback?: (error: Error | null, items: PublishedTrackInstance) => any): void;
+  kind: published_track.kind;
+  name: string;
+  participantSid: string;
+  roomSid: string;
+  sid: string;
   /**
    * Produce a plain JSON object version of the PublishedTrackInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  url: string;
 }
 
 
 declare class PublishedTrackContext {
   /**
-   * @constructor Twilio.Video.V1.RoomContext.ParticipantContext.PublishedTrackContext
-   * @description Initialize the PublishedTrackContext
+   * Initialize the PublishedTrackContext
    *
    * @param version - Version of the resource
    * @param roomSid - Unique Room identifier where this Track is published.
    * @param participantSid - Unique Participant identifier that publishes this Track.
    * @param sid - A 34 character string that uniquely identifies this resource.
    */
-  constructor(version: Twilio.Video.V1, roomSid: sid_like, participantSid: sid_like, sid: sid_like);
+  constructor(version: V1, roomSid: string, participantSid: string, sid: string);
 
   /**
    * fetch a PublishedTrackInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: PublishedTrackContext) => any);
+  fetch(callback?: (error: Error | null, items: PublishedTrackInstance) => any): void;
 }
 
-export { PublishedTrackContext, PublishedTrackInstance, PublishedTrackList, PublishedTrackListInstance, PublishedTrackPage, PublishedTrackPayload, PublishedTrackResource, PublishedTrackSolution }
+export { PublishedTrackContext, PublishedTrackInstance, PublishedTrackList, PublishedTrackListInstance, PublishedTrackListInstanceEachOptions, PublishedTrackListInstanceOptions, PublishedTrackListInstancePageOptions, PublishedTrackPage, PublishedTrackPayload, PublishedTrackResource, PublishedTrackSolution }

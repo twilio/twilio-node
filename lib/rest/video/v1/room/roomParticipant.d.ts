@@ -77,16 +77,16 @@ interface ParticipantListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<ParticipantPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
   /**
-   * @description Lists ParticipantInstance records from the API as a list.
+   * Lists ParticipantInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: ParticipantListInstanceOptions, callback?: function): Promise<ParticipantInstance[]>;
+  list(opts?: ParticipantListInstanceOptions, callback?: (error: Error | null, items: ParticipantInstance[]) => any): Promise<ParticipantInstance[]>;
   /**
    * Retrieve a single page of ParticipantInstance records from the API.
    * Request is executed immediately
@@ -96,7 +96,7 @@ interface ParticipantListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: ParticipantListInstancePageOptions, callback?: function): Promise<ParticipantPage>;
+  page(opts?: ParticipantListInstancePageOptions, callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
 }
 
 /**
@@ -104,7 +104,7 @@ interface ParticipantListInstance {
  *
  * @property status - Set to disconnected to remove participant.
  */
-export interface ParticipantInstanceUpdateOptions {
+interface ParticipantInstanceUpdateOptions {
   status?: participant.status;
 }
 
@@ -113,117 +113,33 @@ export interface ParticipantInstanceUpdateOptions {
  *
  * @property status - Set to disconnected to remove participant.
  */
-export interface ParticipantContextUpdateOptions {
-  status?: participant.status;
-}
-
-/**
- * Options to pass to each
- *
- * @property status - Only show Participants with the given Status.
- * @property identity - Only show Participants that connected to the Room using the provided Identity.
- * @property dateCreatedAfter - Only show Participants that started after this date, given as an UTC ISO 8601 Timestamp.
- * @property dateCreatedBefore - Only show Participants that started before this date, given as an UTC ISO 8601 Timestamp.
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface ParticipantListInstanceEachOptions {
-  callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void;
-  dateCreatedAfter?: Date;
-  dateCreatedBefore?: Date;
-  done?: Function;
-  identity?: string;
-  limit?: number;
-  pageSize?: number;
-  status?: participant.status;
-}
-
-/**
- * Options to pass to list
- *
- * @property status - Only show Participants with the given Status.
- * @property identity - Only show Participants that connected to the Room using the provided Identity.
- * @property dateCreatedAfter - Only show Participants that started after this date, given as an UTC ISO 8601 Timestamp.
- * @property dateCreatedBefore - Only show Participants that started before this date, given as an UTC ISO 8601 Timestamp.
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface ParticipantListInstanceOptions {
-  dateCreatedAfter?: Date;
-  dateCreatedBefore?: Date;
-  identity?: string;
-  limit?: number;
-  pageSize?: number;
-  status?: participant.status;
-}
-
-/**
- * Options to pass to page
- *
- * @property status - Only show Participants with the given Status.
- * @property identity - Only show Participants that connected to the Room using the provided Identity.
- * @property dateCreatedAfter - Only show Participants that started after this date, given as an UTC ISO 8601 Timestamp.
- * @property dateCreatedBefore - Only show Participants that started before this date, given as an UTC ISO 8601 Timestamp.
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface ParticipantListInstancePageOptions {
-  dateCreatedAfter?: Date;
-  dateCreatedBefore?: Date;
-  identity?: string;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
+interface ParticipantInstanceUpdateOptions {
   status?: participant.status;
 }
 
 
-declare class ParticipantPage extends Page {
+declare class ParticipantPage extends Page<V1, ParticipantPayload, ParticipantResource, ParticipantInstance> {
   /**
-   * @constructor Twilio.Video.V1.RoomContext.ParticipantPage
-   * @augments Page
-   * @description Initialize the ParticipantPage
+   * Initialize the ParticipantPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Video.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: ParticipantSolution);
 
   /**
    * Build an instance of ParticipantInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: ParticipantPayload): ParticipantInstance;
 }
 
 
-declare class ParticipantInstance {
+declare class ParticipantInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Video.V1.RoomContext.ParticipantInstance
-   * @description Initialize the ParticipantContext
+   * Initialize the ParticipantContext
    *
    * @property sid - A 34 character string that uniquely identifies this resource.
    * @property roomSid - A system-generated 34-character string that uniquely identifies.
@@ -243,19 +159,30 @@ declare class ParticipantInstance {
    * @param roomSid - A system-generated 34-character string that uniquely identifies.
    * @param sid - The sid
    */
-  constructor(version: Twilio.Video.V1, payload: object, roomSid: sid, sid: sid_like);
+  constructor(version: V1, payload: ParticipantPayload, roomSid: string, sid: string);
 
-  _proxy?: ParticipantContext;
+  private _proxy: ParticipantContext;
+  accountSid: string;
+  dateCreated: Date;
+  dateUpdated: Date;
+  duration: number;
+  endTime: Date;
   /**
    * fetch a ParticipantInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ParticipantInstance) => any);
+  fetch(callback?: (error: Error | null, items: ParticipantInstance) => any): void;
+  identity: string;
+  links: string;
   /**
    * Access the publishedTracks
    */
   publishedTracks();
+  roomSid: string;
+  sid: string;
+  startTime: Date;
+  status: participant.status;
   /**
    * Access the subscribedTracks
    */
@@ -264,21 +191,21 @@ declare class ParticipantInstance {
    * Produce a plain JSON object version of the ParticipantInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
   /**
    * update a ParticipantInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ParticipantInstanceUpdateOptions, callback?: (error: Error | null, items: ParticipantInstance) => any);
+  update(opts?: ParticipantInstanceUpdateOptions, callback?: (error: Error | null, items: ParticipantInstance) => any): void;
+  url: string;
 }
 
 
 declare class ParticipantContext {
   /**
-   * @constructor Twilio.Video.V1.RoomContext.ParticipantContext
-   * @description Initialize the ParticipantContext
+   * Initialize the ParticipantContext
    *
    * @property publishedTracks - publishedTracks resource
    * @property subscribedTracks - subscribedTracks resource
@@ -287,14 +214,14 @@ declare class ParticipantContext {
    * @param roomSid - The room_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.Video.V1, roomSid: sid_like, sid: sid_like);
+  constructor(version: V1, roomSid: string, sid: string);
 
   /**
    * fetch a ParticipantInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ParticipantContext) => any);
+  fetch(callback?: (error: Error | null, items: ParticipantInstance) => any): void;
   publishedTracks?: Twilio.Video.V1.RoomContext.ParticipantContext.PublishedTrackList;
   subscribedTracks?: Twilio.Video.V1.RoomContext.ParticipantContext.SubscribedTrackList;
   /**
@@ -303,7 +230,7 @@ declare class ParticipantContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ParticipantContextUpdateOptions, callback?: (error: Error | null, items: ParticipantContext) => any);
+  update(opts?: ParticipantInstanceUpdateOptions, callback?: (error: Error | null, items: ParticipantInstance) => any): void;
 }
 
-export { ParticipantContext, ParticipantInstance, ParticipantList, ParticipantListInstance, ParticipantPage, ParticipantPayload, ParticipantResource, ParticipantSolution }
+export { ParticipantContext, ParticipantInstance, ParticipantList, ParticipantListInstance, ParticipantListInstanceEachOptions, ParticipantListInstanceOptions, ParticipantListInstancePageOptions, ParticipantPage, ParticipantPayload, ParticipantResource, ParticipantSolution }

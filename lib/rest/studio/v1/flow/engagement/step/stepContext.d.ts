@@ -51,33 +51,28 @@ interface StepContextListInstance {
 }
 
 
-declare class StepContextPage extends Page {
+declare class StepContextPage extends Page<V1, StepContextPayload, StepContextResource, StepContextInstance> {
   /**
-   * @constructor Twilio.Studio.V1.FlowContext.EngagementContext.StepContext.StepContextPage
-   * @augments Page
-   * @description Initialize the StepContextPage
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the StepContextPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Studio.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: StepContextSolution);
 
   /**
    * Build an instance of StepContextInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: StepContextPayload): StepContextInstance;
 }
 
 
-declare class StepContextInstance {
+declare class StepContextInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Studio.V1.FlowContext.EngagementContext.StepContext.StepContextInstance
-   * @description Initialize the StepContextContext
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the StepContextContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @property accountSid - The account_sid
    * @property context - The context
@@ -92,42 +87,46 @@ declare class StepContextInstance {
    * @param engagementSid - The engagement_sid
    * @param stepSid - The step_sid
    */
-  constructor(version: Twilio.Studio.V1, payload: object, flowSid: sid, engagementSid: sid, stepSid: sid);
+  constructor(version: V1, payload: StepContextPayload, flowSid: string, engagementSid: string, stepSid: string);
 
-  _proxy?: StepContextContext;
+  private _proxy: StepContextContext;
+  accountSid: string;
+  context: string;
+  engagementSid: string;
   /**
    * fetch a StepContextInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: StepContextInstance) => any);
+  fetch(callback?: (error: Error | null, items: StepContextInstance) => any): void;
+  flowSid: string;
+  stepSid: string;
   /**
    * Produce a plain JSON object version of the StepContextInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  url: string;
 }
 
 
 declare class StepContextContext {
   /**
-   * @constructor Twilio.Studio.V1.FlowContext.EngagementContext.StepContext.StepContextContext
-   * @description Initialize the StepContextContext
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the StepContextContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
    * @param flowSid - The flow_sid
    * @param engagementSid - The engagement_sid
    * @param stepSid - The step_sid
    */
-  constructor(version: Twilio.Studio.V1, flowSid: sid, engagementSid: sid, stepSid: sid);
+  constructor(version: V1, flowSid: string, engagementSid: string, stepSid: string);
 
   /**
    * fetch a StepContextInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: StepContextContext) => any);
+  fetch(callback?: (error: Error | null, items: StepContextInstance) => any): void;
 }
 
 export { StepContextContext, StepContextInstance, StepContextList, StepContextListInstance, StepContextPage, StepContextPayload, StepContextResource, StepContextSolution }

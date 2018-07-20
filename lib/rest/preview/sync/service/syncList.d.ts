@@ -82,16 +82,16 @@ interface SyncListListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<SyncListPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: SyncListPage) => any): Promise<SyncListPage>;
   /**
-   * @description Lists SyncListInstance records from the API as a list.
+   * Lists SyncListInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: SyncListListInstanceOptions, callback?: function): Promise<SyncListInstance[]>;
+  list(opts?: SyncListListInstanceOptions, callback?: (error: Error | null, items: SyncListInstance[]) => any): Promise<SyncListInstance[]>;
   /**
    * Retrieve a single page of SyncListInstance records from the API.
    * Request is executed immediately
@@ -101,103 +101,32 @@ interface SyncListListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: SyncListListInstancePageOptions, callback?: function): Promise<SyncListPage>;
-}
-
-/**
- * Options to pass to create
- *
- * @property uniqueName - The unique_name
- */
-export interface SyncListListInstanceCreateOptions {
-  uniqueName?: string;
-}
-
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface SyncListListInstanceEachOptions {
-  callback?: (item: SyncListInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface SyncListListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface SyncListListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
+  page(opts?: SyncListListInstancePageOptions, callback?: (error: Error | null, items: SyncListPage) => any): Promise<SyncListPage>;
 }
 
 
-declare class SyncListPage extends Page {
+declare class SyncListPage extends Page<Sync, SyncListPayload, SyncListResource, SyncListInstance> {
   /**
-   * @constructor Twilio.Preview.Sync.ServiceContext.SyncListPage
-   * @augments Page
-   * @description Initialize the SyncListPage
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the SyncListPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Preview.Sync, response: Response<string>, solution: object);
+  constructor(version: Sync, response: Response<string>, solution: SyncListSolution);
 
   /**
    * Build an instance of SyncListInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: SyncListPayload): SyncListInstance;
 }
 
 
-declare class SyncListInstance {
+declare class SyncListInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Preview.Sync.ServiceContext.SyncListInstance
-   * @description Initialize the SyncListContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the SyncListContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @property sid - The sid
    * @property uniqueName - The unique_name
@@ -215,21 +144,29 @@ declare class SyncListInstance {
    * @param serviceSid - The service_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.Preview.Sync, payload: object, serviceSid: sid, sid: sid_like);
+  constructor(version: Sync, payload: SyncListPayload, serviceSid: string, sid: string);
 
-  _proxy?: SyncListContext;
+  private _proxy: SyncListContext;
+  accountSid: string;
+  createdBy: string;
+  dateCreated: Date;
+  dateUpdated: Date;
   /**
    * fetch a SyncListInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: SyncListInstance) => any);
+  fetch(callback?: (error: Error | null, items: SyncListInstance) => any): void;
+  links: string;
   /**
    * remove a SyncListInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: SyncListInstance) => any);
+  remove(callback?: (error: Error | null, items: SyncListInstance) => any): void;
+  revision: string;
+  serviceSid: string;
+  sid: string;
   /**
    * Access the syncListItems
    */
@@ -242,15 +179,15 @@ declare class SyncListInstance {
    * Produce a plain JSON object version of the SyncListInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  uniqueName: string;
+  url: string;
 }
 
 
 declare class SyncListContext {
   /**
-   * @constructor Twilio.Preview.Sync.ServiceContext.SyncListContext
-   * @description Initialize the SyncListContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the SyncListContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @property syncListItems - syncListItems resource
    * @property syncListPermissions - syncListPermissions resource
@@ -259,22 +196,22 @@ declare class SyncListContext {
    * @param serviceSid - The service_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.Preview.Sync, serviceSid: sid, sid: sid_like);
+  constructor(version: Sync, serviceSid: string, sid: string);
 
   /**
    * fetch a SyncListInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: SyncListContext) => any);
+  fetch(callback?: (error: Error | null, items: SyncListInstance) => any): void;
   /**
    * remove a SyncListInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: SyncListContext) => any);
+  remove(callback?: (error: Error | null, items: SyncListInstance) => any): void;
   syncListItems?: Twilio.Preview.Sync.ServiceContext.SyncListContext.SyncListItemList;
   syncListPermissions?: Twilio.Preview.Sync.ServiceContext.SyncListContext.SyncListPermissionList;
 }
 
-export { SyncListContext, SyncListInstance, SyncListList, SyncListListInstance, SyncListPage, SyncListPayload, SyncListResource, SyncListSolution }
+export { SyncListContext, SyncListInstance, SyncListList, SyncListListInstance, SyncListListInstanceCreateOptions, SyncListListInstanceEachOptions, SyncListListInstanceOptions, SyncListListInstancePageOptions, SyncListPage, SyncListPayload, SyncListResource, SyncListSolution }

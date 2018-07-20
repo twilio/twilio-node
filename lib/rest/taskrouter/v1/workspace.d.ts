@@ -93,16 +93,16 @@ interface WorkspaceListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<WorkspacePage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: WorkspacePage) => any): Promise<WorkspacePage>;
   /**
-   * @description Lists WorkspaceInstance records from the API as a list.
+   * Lists WorkspaceInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: WorkspaceListInstanceOptions, callback?: function): Promise<WorkspaceInstance[]>;
+  list(opts?: WorkspaceListInstanceOptions, callback?: (error: Error | null, items: WorkspaceInstance[]) => any): Promise<WorkspaceInstance[]>;
   /**
    * Retrieve a single page of WorkspaceInstance records from the API.
    * Request is executed immediately
@@ -112,7 +112,7 @@ interface WorkspaceListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: WorkspaceListInstancePageOptions, callback?: function): Promise<WorkspacePage>;
+  page(opts?: WorkspaceListInstancePageOptions, callback?: (error: Error | null, items: WorkspacePage) => any): Promise<WorkspacePage>;
 }
 
 /**
@@ -126,7 +126,7 @@ interface WorkspaceListInstance {
  * @property timeoutActivitySid - The ID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
  * @property prioritizeQueueOrder - Use this parameter to configure whether to prioritize LIFO or FIFO when workers are receiving Tasks from combination of LIFO and FIFO TaskQueues.
  */
-export interface WorkspaceInstanceUpdateOptions {
+interface WorkspaceInstanceUpdateOptions {
   defaultActivitySid?: string;
   eventCallbackUrl?: string;
   eventsFilter?: string;
@@ -147,7 +147,7 @@ export interface WorkspaceInstanceUpdateOptions {
  * @property timeoutActivitySid - The ID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
  * @property prioritizeQueueOrder - Use this parameter to configure whether to prioritize LIFO or FIFO when workers are receiving Tasks from combination of LIFO and FIFO TaskQueues.
  */
-export interface WorkspaceContextUpdateOptions {
+interface WorkspaceInstanceUpdateOptions {
   defaultActivitySid?: string;
   eventCallbackUrl?: string;
   eventsFilter?: string;
@@ -157,114 +157,29 @@ export interface WorkspaceContextUpdateOptions {
   timeoutActivitySid?: string;
 }
 
-/**
- * Options to pass to each
- *
- * @property friendlyName - Filter by a workspace's friendly name.
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface WorkspaceListInstanceEachOptions {
-  callback?: (item: WorkspaceInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  friendlyName?: string;
-  limit?: number;
-  pageSize?: number;
-}
 
-/**
- * Options to pass to list
- *
- * @property friendlyName - Filter by a workspace's friendly name.
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface WorkspaceListInstanceOptions {
-  friendlyName?: string;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property friendlyName - Filter by a workspace's friendly name.
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface WorkspaceListInstancePageOptions {
-  friendlyName?: string;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-}
-
-/**
- * Options to pass to create
- *
- * @property friendlyName - Human readable description of this workspace
- * @property eventCallbackUrl - If provided, the Workspace will publish events to this URL.
- * @property eventsFilter - Use this parameter to receive webhooks on EventCallbackUrl for specific events on a workspace.
- * @property multiTaskEnabled - Multi tasking allows workers to handle multiple tasks simultaneously.
- * @property template - One of the available template names.
- * @property prioritizeQueueOrder - Use this parameter to configure whether to prioritize LIFO or FIFO when workers are receiving Tasks from combination of LIFO and FIFO TaskQueues.
- */
-export interface WorkspaceListInstanceCreateOptions {
-  eventCallbackUrl?: string;
-  eventsFilter?: string;
-  friendlyName: string;
-  multiTaskEnabled?: boolean;
-  prioritizeQueueOrder?: workspace.queue_order;
-  template?: string;
-}
-
-
-declare class WorkspacePage extends Page {
+declare class WorkspacePage extends Page<V1, WorkspacePayload, WorkspaceResource, WorkspaceInstance> {
   /**
-   * @constructor Twilio.Taskrouter.V1.WorkspacePage
-   * @augments Page
-   * @description Initialize the WorkspacePage
+   * Initialize the WorkspacePage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Taskrouter.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: WorkspaceSolution);
 
   /**
    * Build an instance of WorkspaceInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: WorkspacePayload): WorkspaceInstance;
 }
 
 
-declare class WorkspaceInstance {
+declare class WorkspaceInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Taskrouter.V1.WorkspaceInstance
-   * @description Initialize the WorkspaceContext
+   * Initialize the WorkspaceContext
    *
    * @property accountSid - The ID of the account that owns this Workflow
    * @property dateCreated - The time the Workspace was created, given as GMT in ISO 8601 format.
@@ -286,9 +201,10 @@ declare class WorkspaceInstance {
    * @param payload - The instance payload
    * @param sid - The sid
    */
-  constructor(version: Twilio.Taskrouter.V1, payload: object, sid: sid);
+  constructor(version: V1, payload: WorkspacePayload, sid: string);
 
-  _proxy?: WorkspaceContext;
+  private _proxy: WorkspaceContext;
+  accountSid: string;
   /**
    * Access the activities
    */
@@ -297,16 +213,26 @@ declare class WorkspaceInstance {
    * Access the cumulativeStatistics
    */
   cumulativeStatistics();
+  dateCreated: Date;
+  dateUpdated: Date;
+  defaultActivityName: string;
+  defaultActivitySid: string;
+  eventCallbackUrl: string;
   /**
    * Access the events
    */
   events();
+  eventsFilter: string;
   /**
    * fetch a WorkspaceInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: WorkspaceInstance) => any);
+  fetch(callback?: (error: Error | null, items: WorkspaceInstance) => any): void;
+  friendlyName: string;
+  links: string;
+  multiTaskEnabled: boolean;
+  prioritizeQueueOrder: workspace.queue_order;
   /**
    * Access the realTimeStatistics
    */
@@ -316,7 +242,8 @@ declare class WorkspaceInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: WorkspaceInstance) => any);
+  remove(callback?: (error: Error | null, items: WorkspaceInstance) => any): void;
+  sid: string;
   /**
    * Access the statistics
    */
@@ -333,18 +260,21 @@ declare class WorkspaceInstance {
    * Access the tasks
    */
   tasks();
+  timeoutActivityName: string;
+  timeoutActivitySid: string;
   /**
    * Produce a plain JSON object version of the WorkspaceInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
   /**
    * update a WorkspaceInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: WorkspaceInstanceUpdateOptions, callback?: (error: Error | null, items: WorkspaceInstance) => any);
+  update(opts?: WorkspaceInstanceUpdateOptions, callback?: (error: Error | null, items: WorkspaceInstance) => any): void;
+  url: string;
   /**
    * Access the workers
    */
@@ -358,8 +288,7 @@ declare class WorkspaceInstance {
 
 declare class WorkspaceContext {
   /**
-   * @constructor Twilio.Taskrouter.V1.WorkspaceContext
-   * @description Initialize the WorkspaceContext
+   * Initialize the WorkspaceContext
    *
    * @property activities - activities resource
    * @property events - events resource
@@ -375,7 +304,7 @@ declare class WorkspaceContext {
    * @param version - Version of the resource
    * @param sid - The sid
    */
-  constructor(version: Twilio.Taskrouter.V1, sid: sid);
+  constructor(version: V1, sid: string);
 
   activities?: Twilio.Taskrouter.V1.WorkspaceContext.ActivityList;
   cumulativeStatistics?: Twilio.Taskrouter.V1.WorkspaceContext.WorkspaceCumulativeStatisticsList;
@@ -385,14 +314,14 @@ declare class WorkspaceContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: WorkspaceContext) => any);
+  fetch(callback?: (error: Error | null, items: WorkspaceInstance) => any): void;
   realTimeStatistics?: Twilio.Taskrouter.V1.WorkspaceContext.WorkspaceRealTimeStatisticsList;
   /**
    * remove a WorkspaceInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: WorkspaceContext) => any);
+  remove(callback?: (error: Error | null, items: WorkspaceInstance) => any): void;
   statistics?: Twilio.Taskrouter.V1.WorkspaceContext.WorkspaceStatisticsList;
   taskChannels?: Twilio.Taskrouter.V1.WorkspaceContext.TaskChannelList;
   taskQueues?: Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueList;
@@ -403,9 +332,9 @@ declare class WorkspaceContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: WorkspaceContextUpdateOptions, callback?: (error: Error | null, items: WorkspaceContext) => any);
+  update(opts?: WorkspaceInstanceUpdateOptions, callback?: (error: Error | null, items: WorkspaceInstance) => any): void;
   workers?: Twilio.Taskrouter.V1.WorkspaceContext.WorkerList;
   workflows?: Twilio.Taskrouter.V1.WorkspaceContext.WorkflowList;
 }
 
-export { WorkspaceContext, WorkspaceInstance, WorkspaceList, WorkspaceListInstance, WorkspacePage, WorkspacePayload, WorkspaceResource, WorkspaceSolution }
+export { WorkspaceContext, WorkspaceInstance, WorkspaceList, WorkspaceListInstance, WorkspaceListInstanceCreateOptions, WorkspaceListInstanceEachOptions, WorkspaceListInstanceOptions, WorkspaceListInstancePageOptions, WorkspacePage, WorkspacePayload, WorkspaceResource, WorkspaceSolution }

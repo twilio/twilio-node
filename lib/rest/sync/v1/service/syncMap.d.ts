@@ -83,16 +83,16 @@ interface SyncMapListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<SyncMapPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: SyncMapPage) => any): Promise<SyncMapPage>;
   /**
-   * @description Lists SyncMapInstance records from the API as a list.
+   * Lists SyncMapInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: SyncMapListInstanceOptions, callback?: function): Promise<SyncMapInstance[]>;
+  list(opts?: SyncMapListInstanceOptions, callback?: (error: Error | null, items: SyncMapInstance[]) => any): Promise<SyncMapInstance[]>;
   /**
    * Retrieve a single page of SyncMapInstance records from the API.
    * Request is executed immediately
@@ -102,7 +102,7 @@ interface SyncMapListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: SyncMapListInstancePageOptions, callback?: function): Promise<SyncMapPage>;
+  page(opts?: SyncMapListInstancePageOptions, callback?: (error: Error | null, items: SyncMapPage) => any): Promise<SyncMapPage>;
 }
 
 /**
@@ -110,7 +110,7 @@ interface SyncMapListInstance {
  *
  * @property ttl - New time-to-live of this Map in seconds.
  */
-export interface SyncMapInstanceUpdateOptions {
+interface SyncMapInstanceUpdateOptions {
   ttl?: number;
 }
 
@@ -119,106 +119,33 @@ export interface SyncMapInstanceUpdateOptions {
  *
  * @property ttl - New time-to-live of this Map in seconds.
  */
-export interface SyncMapContextUpdateOptions {
+interface SyncMapInstanceUpdateOptions {
   ttl?: number;
 }
 
-/**
- * Options to pass to create
- *
- * @property uniqueName - Human-readable name for this map
- * @property ttl - Time-to-live of this Map in seconds, defaults to no expiration.
- */
-export interface SyncMapListInstanceCreateOptions {
-  ttl?: number;
-  uniqueName?: string;
-}
 
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface SyncMapListInstanceEachOptions {
-  callback?: (item: SyncMapInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface SyncMapListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface SyncMapListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-}
-
-
-declare class SyncMapPage extends Page {
+declare class SyncMapPage extends Page<V1, SyncMapPayload, SyncMapResource, SyncMapInstance> {
   /**
-   * @constructor Twilio.Sync.V1.ServiceContext.SyncMapPage
-   * @augments Page
-   * @description Initialize the SyncMapPage
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the SyncMapPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Sync.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: SyncMapSolution);
 
   /**
    * Build an instance of SyncMapInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: SyncMapPayload): SyncMapInstance;
 }
 
 
-declare class SyncMapInstance {
+declare class SyncMapInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Sync.V1.ServiceContext.SyncMapInstance
-   * @description Initialize the SyncMapContext
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the SyncMapContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @property sid - The unique 34-character SID identifier of the Map.
    * @property uniqueName - The unique and addressable name of this Map.
@@ -237,21 +164,30 @@ declare class SyncMapInstance {
    * @param serviceSid - The unique SID identifier of the Service Instance that hosts this Map object.
    * @param sid - The sid
    */
-  constructor(version: Twilio.Sync.V1, payload: object, serviceSid: sid, sid: sid_like);
+  constructor(version: V1, payload: SyncMapPayload, serviceSid: string, sid: string);
 
-  _proxy?: SyncMapContext;
+  private _proxy: SyncMapContext;
+  accountSid: string;
+  createdBy: string;
+  dateCreated: Date;
+  dateExpires: Date;
+  dateUpdated: Date;
   /**
    * fetch a SyncMapInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: SyncMapInstance) => any);
+  fetch(callback?: (error: Error | null, items: SyncMapInstance) => any): void;
+  links: string;
   /**
    * remove a SyncMapInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: SyncMapInstance) => any);
+  remove(callback?: (error: Error | null, items: SyncMapInstance) => any): void;
+  revision: string;
+  serviceSid: string;
+  sid: string;
   /**
    * Access the syncMapItems
    */
@@ -264,22 +200,22 @@ declare class SyncMapInstance {
    * Produce a plain JSON object version of the SyncMapInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  uniqueName: string;
   /**
    * update a SyncMapInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: SyncMapInstanceUpdateOptions, callback?: (error: Error | null, items: SyncMapInstance) => any);
+  update(opts?: SyncMapInstanceUpdateOptions, callback?: (error: Error | null, items: SyncMapInstance) => any): void;
+  url: string;
 }
 
 
 declare class SyncMapContext {
   /**
-   * @constructor Twilio.Sync.V1.ServiceContext.SyncMapContext
-   * @description Initialize the SyncMapContext
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the SyncMapContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @property syncMapItems - syncMapItems resource
    * @property syncMapPermissions - syncMapPermissions resource
@@ -288,20 +224,20 @@ declare class SyncMapContext {
    * @param serviceSid - The service_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.Sync.V1, serviceSid: sid_like, sid: sid_like);
+  constructor(version: V1, serviceSid: string, sid: string);
 
   /**
    * fetch a SyncMapInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: SyncMapContext) => any);
+  fetch(callback?: (error: Error | null, items: SyncMapInstance) => any): void;
   /**
    * remove a SyncMapInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: SyncMapContext) => any);
+  remove(callback?: (error: Error | null, items: SyncMapInstance) => any): void;
   syncMapItems?: Twilio.Sync.V1.ServiceContext.SyncMapContext.SyncMapItemList;
   syncMapPermissions?: Twilio.Sync.V1.ServiceContext.SyncMapContext.SyncMapPermissionList;
   /**
@@ -310,7 +246,7 @@ declare class SyncMapContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: SyncMapContextUpdateOptions, callback?: (error: Error | null, items: SyncMapContext) => any);
+  update(opts?: SyncMapInstanceUpdateOptions, callback?: (error: Error | null, items: SyncMapInstance) => any): void;
 }
 
-export { SyncMapContext, SyncMapInstance, SyncMapList, SyncMapListInstance, SyncMapPage, SyncMapPayload, SyncMapResource, SyncMapSolution }
+export { SyncMapContext, SyncMapInstance, SyncMapList, SyncMapListInstance, SyncMapListInstanceCreateOptions, SyncMapListInstanceEachOptions, SyncMapListInstanceOptions, SyncMapListInstancePageOptions, SyncMapPage, SyncMapPayload, SyncMapResource, SyncMapSolution }

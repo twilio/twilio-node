@@ -81,16 +81,16 @@ interface WebhookListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<WebhookPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: WebhookPage) => any): Promise<WebhookPage>;
   /**
-   * @description Lists WebhookInstance records from the API as a list.
+   * Lists WebhookInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: WebhookListInstanceOptions, callback?: function): Promise<WebhookInstance[]>;
+  list(opts?: WebhookListInstanceOptions, callback?: (error: Error | null, items: WebhookInstance[]) => any): Promise<WebhookInstance[]>;
   /**
    * Retrieve a single page of WebhookInstance records from the API.
    * Request is executed immediately
@@ -100,7 +100,7 @@ interface WebhookListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: WebhookListInstancePageOptions, callback?: function): Promise<WebhookPage>;
+  page(opts?: WebhookListInstancePageOptions, callback?: (error: Error | null, items: WebhookPage) => any): Promise<WebhookPage>;
 }
 
 /**
@@ -113,7 +113,7 @@ interface WebhookListInstance {
  * @property configuration.flowSid - The configuration.flow_sid
  * @property configuration.retryCount - The configuration.retry_count
  */
-export interface WebhookInstanceUpdateOptions {
+interface WebhookInstanceUpdateOptions {
   configuration.filters?: string|list;
   configuration.flowSid?: string;
   configuration.method?: webhook.method;
@@ -132,7 +132,7 @@ export interface WebhookInstanceUpdateOptions {
  * @property configuration.flowSid - The configuration.flow_sid
  * @property configuration.retryCount - The configuration.retry_count
  */
-export interface WebhookContextUpdateOptions {
+interface WebhookInstanceUpdateOptions {
   configuration.filters?: string|list;
   configuration.flowSid?: string;
   configuration.method?: webhook.method;
@@ -141,110 +141,29 @@ export interface WebhookContextUpdateOptions {
   configuration.url?: string;
 }
 
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface WebhookListInstanceEachOptions {
-  callback?: (item: WebhookInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
 
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface WebhookListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface WebhookListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-}
-
-/**
- * Options to pass to create
- *
- * @property type - The type
- * @property configuration.url - The configuration.url
- * @property configuration.method - The configuration.method
- * @property configuration.filters - The configuration.filters
- * @property configuration.triggers - The configuration.triggers
- * @property configuration.flowSid - The configuration.flow_sid
- * @property configuration.retryCount - The configuration.retry_count
- */
-export interface WebhookListInstanceCreateOptions {
-  configuration.filters?: string|list;
-  configuration.flowSid?: string;
-  configuration.method?: webhook.method;
-  configuration.retryCount?: number;
-  configuration.triggers?: string|list;
-  configuration.url?: string;
-  type: webhook.type;
-}
-
-
-declare class WebhookPage extends Page {
+declare class WebhookPage extends Page<V2, WebhookPayload, WebhookResource, WebhookInstance> {
   /**
-   * @constructor Twilio.IpMessaging.V2.ServiceContext.ChannelContext.WebhookPage
-   * @augments Page
-   * @description Initialize the WebhookPage
+   * Initialize the WebhookPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.IpMessaging.V2, response: Response<string>, solution: object);
+  constructor(version: V2, response: Response<string>, solution: WebhookSolution);
 
   /**
    * Build an instance of WebhookInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: WebhookPayload): WebhookInstance;
 }
 
 
-declare class WebhookInstance {
+declare class WebhookInstance extends SerializableClass {
   /**
-   * @constructor Twilio.IpMessaging.V2.ServiceContext.ChannelContext.WebhookInstance
-   * @description Initialize the WebhookContext
+   * Initialize the WebhookContext
    *
    * @property sid - The sid
    * @property accountSid - The account_sid
@@ -262,67 +181,75 @@ declare class WebhookInstance {
    * @param channelSid - The channel_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.IpMessaging.V2, payload: object, serviceSid: sid, channelSid: sid, sid: sid);
+  constructor(version: V2, payload: WebhookPayload, serviceSid: string, channelSid: string, sid: string);
 
-  _proxy?: WebhookContext;
+  private _proxy: WebhookContext;
+  accountSid: string;
+  channelSid: string;
+  configuration: string;
+  dateCreated: Date;
+  dateUpdated: Date;
   /**
    * fetch a WebhookInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: WebhookInstance) => any);
+  fetch(callback?: (error: Error | null, items: WebhookInstance) => any): void;
   /**
    * remove a WebhookInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: WebhookInstance) => any);
+  remove(callback?: (error: Error | null, items: WebhookInstance) => any): void;
+  serviceSid: string;
+  sid: string;
   /**
    * Produce a plain JSON object version of the WebhookInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  type: string;
   /**
    * update a WebhookInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: WebhookInstanceUpdateOptions, callback?: (error: Error | null, items: WebhookInstance) => any);
+  update(opts?: WebhookInstanceUpdateOptions, callback?: (error: Error | null, items: WebhookInstance) => any): void;
+  url: string;
 }
 
 
 declare class WebhookContext {
   /**
-   * @constructor Twilio.IpMessaging.V2.ServiceContext.ChannelContext.WebhookContext
-   * @description Initialize the WebhookContext
+   * Initialize the WebhookContext
    *
    * @param version - Version of the resource
    * @param serviceSid - The service_sid
    * @param channelSid - The channel_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.IpMessaging.V2, serviceSid: sid, channelSid: sid_like, sid: sid);
+  constructor(version: V2, serviceSid: string, channelSid: string, sid: string);
 
   /**
    * fetch a WebhookInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: WebhookContext) => any);
+  fetch(callback?: (error: Error | null, items: WebhookInstance) => any): void;
   /**
    * remove a WebhookInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: WebhookContext) => any);
+  remove(callback?: (error: Error | null, items: WebhookInstance) => any): void;
   /**
    * update a WebhookInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: WebhookContextUpdateOptions, callback?: (error: Error | null, items: WebhookContext) => any);
+  update(opts?: WebhookInstanceUpdateOptions, callback?: (error: Error | null, items: WebhookInstance) => any): void;
 }
 
-export { WebhookContext, WebhookInstance, WebhookList, WebhookListInstance, WebhookPage, WebhookPayload, WebhookResource, WebhookSolution }
+export { WebhookContext, WebhookInstance, WebhookList, WebhookListInstance, WebhookListInstanceCreateOptions, WebhookListInstanceEachOptions, WebhookListInstanceOptions, WebhookListInstancePageOptions, WebhookPage, WebhookPayload, WebhookResource, WebhookSolution }

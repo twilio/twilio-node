@@ -83,16 +83,16 @@ interface QueryListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<QueryPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: QueryPage) => any): Promise<QueryPage>;
   /**
-   * @description Lists QueryInstance records from the API as a list.
+   * Lists QueryInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: QueryListInstanceOptions, callback?: function): Promise<QueryInstance[]>;
+  list(opts?: QueryListInstanceOptions, callback?: (error: Error | null, items: QueryInstance[]) => any): Promise<QueryInstance[]>;
   /**
    * Retrieve a single page of QueryInstance records from the API.
    * Request is executed immediately
@@ -102,7 +102,7 @@ interface QueryListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: QueryListInstancePageOptions, callback?: function): Promise<QueryPage>;
+  page(opts?: QueryListInstancePageOptions, callback?: (error: Error | null, items: QueryPage) => any): Promise<QueryPage>;
 }
 
 /**
@@ -111,7 +111,7 @@ interface QueryListInstance {
  * @property sampleSid - The sample_sid
  * @property status - A string that described the query status. The values can be: pending_review, reviewed, discarded
  */
-export interface QueryInstanceUpdateOptions {
+interface QueryInstanceUpdateOptions {
   sampleSid?: string;
   status?: string;
 }
@@ -122,131 +122,34 @@ export interface QueryInstanceUpdateOptions {
  * @property sampleSid - The sample_sid
  * @property status - A string that described the query status. The values can be: pending_review, reviewed, discarded
  */
-export interface QueryContextUpdateOptions {
+interface QueryInstanceUpdateOptions {
   sampleSid?: string;
   status?: string;
 }
 
-/**
- * Options to pass to each
- *
- * @property language - An ISO language-country string of the sample.
- * @property modelBuild - The Model Build Sid or unique name of the Model Build to be queried.
- * @property status - A string that described the query status. The values can be: pending_review, reviewed, discarded
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface QueryListInstanceEachOptions {
-  callback?: (item: QueryInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  language?: string;
-  limit?: number;
-  modelBuild?: string;
-  pageSize?: number;
-  status?: string;
-}
 
-/**
- * Options to pass to list
- *
- * @property language - An ISO language-country string of the sample.
- * @property modelBuild - The Model Build Sid or unique name of the Model Build to be queried.
- * @property status - A string that described the query status. The values can be: pending_review, reviewed, discarded
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface QueryListInstanceOptions {
-  language?: string;
-  limit?: number;
-  modelBuild?: string;
-  pageSize?: number;
-  status?: string;
-}
-
-/**
- * Options to pass to page
- *
- * @property language - An ISO language-country string of the sample.
- * @property modelBuild - The Model Build Sid or unique name of the Model Build to be queried.
- * @property status - A string that described the query status. The values can be: pending_review, reviewed, discarded
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface QueryListInstancePageOptions {
-  language?: string;
-  modelBuild?: string;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-  status?: string;
-}
-
-/**
- * Options to pass to create
- *
- * @property language - An ISO language-country string of the sample.
- * @property query - A user-provided string that uniquely identifies this resource as an alternative to the sid. It can be up to 2048 characters long.
- * @property intents - Constraints the query to a set of intents. Useful when you need to constrain the paths the user can take. Intents should be comma separated intent-unique-name-1, intent-unique-name-2
- * @property modelBuild - The Model Build Sid or unique name of the Model Build to be queried.
- * @property field - Constraints the query to a given Field with an intent. Useful when you know the Field you are expecting. It accepts one field in the format intent-unique-name-1:field-unique-name
- */
-export interface QueryListInstanceCreateOptions {
-  field?: string;
-  intents?: string;
-  language: string;
-  modelBuild?: string;
-  query: string;
-}
-
-
-declare class QueryPage extends Page {
+declare class QueryPage extends Page<Understand, QueryPayload, QueryResource, QueryInstance> {
   /**
-   * @constructor Twilio.Preview.Understand.AssistantContext.QueryPage
-   * @augments Page
-   * @description Initialize the QueryPage
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the QueryPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Preview.Understand, response: Response<string>, solution: object);
+  constructor(version: Understand, response: Response<string>, solution: QuerySolution);
 
   /**
    * Build an instance of QueryInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: QueryPayload): QueryInstance;
 }
 
 
-declare class QueryInstance {
+declare class QueryInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Preview.Understand.AssistantContext.QueryInstance
-   * @description Initialize the QueryContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the QueryContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @property accountSid - The unique ID of the Account that created this Query.
    * @property dateCreated - The date that this resource was created
@@ -267,67 +170,78 @@ declare class QueryInstance {
    * @param assistantSid - The unique ID of the parent Assistant.
    * @param sid - The sid
    */
-  constructor(version: Twilio.Preview.Understand, payload: object, assistantSid: sid, sid: sid_like);
+  constructor(version: Understand, payload: QueryPayload, assistantSid: string, sid: string);
 
-  _proxy?: QueryContext;
+  private _proxy: QueryContext;
+  accountSid: string;
+  assistantSid: string;
+  dateCreated: Date;
+  dateUpdated: Date;
   /**
    * fetch a QueryInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: QueryInstance) => any);
+  fetch(callback?: (error: Error | null, items: QueryInstance) => any): void;
+  language: string;
+  modelBuildSid: string;
+  query: string;
   /**
    * remove a QueryInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: QueryInstance) => any);
+  remove(callback?: (error: Error | null, items: QueryInstance) => any): void;
+  results: string;
+  sampleSid: string;
+  sid: string;
+  sourceChannel: string;
+  status: string;
   /**
    * Produce a plain JSON object version of the QueryInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
   /**
    * update a QueryInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: QueryInstanceUpdateOptions, callback?: (error: Error | null, items: QueryInstance) => any);
+  update(opts?: QueryInstanceUpdateOptions, callback?: (error: Error | null, items: QueryInstance) => any): void;
+  url: string;
 }
 
 
 declare class QueryContext {
   /**
-   * @constructor Twilio.Preview.Understand.AssistantContext.QueryContext
-   * @description Initialize the QueryContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the QueryContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param assistantSid - The assistant_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.Preview.Understand, assistantSid: sid_like, sid: sid_like);
+  constructor(version: Understand, assistantSid: string, sid: string);
 
   /**
    * fetch a QueryInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: QueryContext) => any);
+  fetch(callback?: (error: Error | null, items: QueryInstance) => any): void;
   /**
    * remove a QueryInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: QueryContext) => any);
+  remove(callback?: (error: Error | null, items: QueryInstance) => any): void;
   /**
    * update a QueryInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: QueryContextUpdateOptions, callback?: (error: Error | null, items: QueryContext) => any);
+  update(opts?: QueryInstanceUpdateOptions, callback?: (error: Error | null, items: QueryInstance) => any): void;
 }
 
-export { QueryContext, QueryInstance, QueryList, QueryListInstance, QueryPage, QueryPayload, QueryResource, QuerySolution }
+export { QueryContext, QueryInstance, QueryList, QueryListInstance, QueryListInstanceCreateOptions, QueryListInstanceEachOptions, QueryListInstanceOptions, QueryListInstancePageOptions, QueryPage, QueryPayload, QueryResource, QuerySolution }

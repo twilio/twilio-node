@@ -63,49 +63,29 @@ interface FeedbackSummaryListInstance {
   get(sid: string): FeedbackSummaryContext;
 }
 
-/**
- * Options to pass to create
- *
- * @property startDate - Only include usage that has occurred on or after this date.
- * @property endDate - Only include usage that has occurred on or before this date.
- * @property includeSubaccounts - true to include feedback entries for the master account and all subaccounts.
- * @property statusCallback - The URL that Twilio will request when the Feedback Summary is completed.
- * @property statusCallbackMethod - The HTTP method Twilio will use to make requests to the StatusCallback URL.
- */
-export interface FeedbackSummaryListInstanceCreateOptions {
-  endDate: Date;
-  includeSubaccounts?: boolean;
-  startDate: Date;
-  statusCallback?: string;
-  statusCallbackMethod?: string;
-}
 
-
-declare class FeedbackSummaryPage extends Page {
+declare class FeedbackSummaryPage extends Page<V2010, FeedbackSummaryPayload, FeedbackSummaryResource, FeedbackSummaryInstance> {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.CallContext.FeedbackSummaryPage
-   * @augments Page
-   * @description Initialize the FeedbackSummaryPage
+   * Initialize the FeedbackSummaryPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
+  constructor(version: V2010, response: Response<string>, solution: FeedbackSummarySolution);
 
   /**
    * Build an instance of FeedbackSummaryInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: FeedbackSummaryPayload): FeedbackSummaryInstance;
 }
 
 
-declare class FeedbackSummaryInstance {
+declare class FeedbackSummaryInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.CallContext.FeedbackSummaryInstance
-   * @description Initialize the FeedbackSummaryContext
+   * Initialize the FeedbackSummaryContext
    *
    * @property accountSid - The account_sid
    * @property callCount - The call_count
@@ -127,52 +107,65 @@ declare class FeedbackSummaryInstance {
    * @param accountSid - The unique id of the Account responsible for creating this Call
    * @param sid - The sid
    */
-  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, sid: sid);
+  constructor(version: V2010, payload: FeedbackSummaryPayload, accountSid: string, sid: string);
 
-  _proxy?: FeedbackSummaryContext;
+  private _proxy: FeedbackSummaryContext;
+  accountSid: string;
+  callCount: number;
+  callFeedbackCount: number;
+  dateCreated: Date;
+  dateUpdated: Date;
+  endDate: Date;
   /**
    * fetch a FeedbackSummaryInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: FeedbackSummaryInstance) => any);
+  fetch(callback?: (error: Error | null, items: FeedbackSummaryInstance) => any): void;
+  includeSubaccounts: boolean;
+  issues: string;
+  qualityScoreAverage: number;
+  qualityScoreMedian: number;
+  qualityScoreStandardDeviation: number;
   /**
    * remove a FeedbackSummaryInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: FeedbackSummaryInstance) => any);
+  remove(callback?: (error: Error | null, items: FeedbackSummaryInstance) => any): void;
+  sid: string;
+  startDate: Date;
+  status: feedback_summary.status;
   /**
    * Produce a plain JSON object version of the FeedbackSummaryInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
 }
 
 
 declare class FeedbackSummaryContext {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.CallContext.FeedbackSummaryContext
-   * @description Initialize the FeedbackSummaryContext
+   * Initialize the FeedbackSummaryContext
    *
    * @param version - Version of the resource
    * @param accountSid - The account_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.Api.V2010, accountSid: sid, sid: sid);
+  constructor(version: V2010, accountSid: string, sid: string);
 
   /**
    * fetch a FeedbackSummaryInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: FeedbackSummaryContext) => any);
+  fetch(callback?: (error: Error | null, items: FeedbackSummaryInstance) => any): void;
   /**
    * remove a FeedbackSummaryInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: FeedbackSummaryContext) => any);
+  remove(callback?: (error: Error | null, items: FeedbackSummaryInstance) => any): void;
 }
 
-export { FeedbackSummaryContext, FeedbackSummaryInstance, FeedbackSummaryList, FeedbackSummaryListInstance, FeedbackSummaryPage, FeedbackSummaryPayload, FeedbackSummaryResource, FeedbackSummarySolution }
+export { FeedbackSummaryContext, FeedbackSummaryInstance, FeedbackSummaryList, FeedbackSummaryListInstance, FeedbackSummaryListInstanceCreateOptions, FeedbackSummaryPage, FeedbackSummaryPayload, FeedbackSummaryResource, FeedbackSummarySolution }

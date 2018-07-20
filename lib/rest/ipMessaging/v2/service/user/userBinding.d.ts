@@ -77,16 +77,16 @@ interface UserBindingListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<UserBindingPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: UserBindingPage) => any): Promise<UserBindingPage>;
   /**
-   * @description Lists UserBindingInstance records from the API as a list.
+   * Lists UserBindingInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: UserBindingListInstanceOptions, callback?: function): Promise<UserBindingInstance[]>;
+  list(opts?: UserBindingListInstanceOptions, callback?: (error: Error | null, items: UserBindingInstance[]) => any): Promise<UserBindingInstance[]>;
   /**
    * Retrieve a single page of UserBindingInstance records from the API.
    * Request is executed immediately
@@ -96,98 +96,32 @@ interface UserBindingListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: UserBindingListInstancePageOptions, callback?: function): Promise<UserBindingPage>;
-}
-
-/**
- * Options to pass to each
- *
- * @property bindingType - The push technology used for the bindings returned.
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface UserBindingListInstanceEachOptions {
-  bindingType?: user_binding.binding_type|list;
-  callback?: (item: UserBindingInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property bindingType - The push technology used for the bindings returned.
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface UserBindingListInstanceOptions {
-  bindingType?: user_binding.binding_type|list;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property bindingType - The push technology used for the bindings returned.
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface UserBindingListInstancePageOptions {
-  bindingType?: user_binding.binding_type|list;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
+  page(opts?: UserBindingListInstancePageOptions, callback?: (error: Error | null, items: UserBindingPage) => any): Promise<UserBindingPage>;
 }
 
 
-declare class UserBindingPage extends Page {
+declare class UserBindingPage extends Page<V2, UserBindingPayload, UserBindingResource, UserBindingInstance> {
   /**
-   * @constructor Twilio.IpMessaging.V2.ServiceContext.UserContext.UserBindingPage
-   * @augments Page
-   * @description Initialize the UserBindingPage
+   * Initialize the UserBindingPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.IpMessaging.V2, response: Response<string>, solution: object);
+  constructor(version: V2, response: Response<string>, solution: UserBindingSolution);
 
   /**
    * Build an instance of UserBindingInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: UserBindingPayload): UserBindingInstance;
 }
 
 
-declare class UserBindingInstance {
+declare class UserBindingInstance extends SerializableClass {
   /**
-   * @constructor Twilio.IpMessaging.V2.ServiceContext.UserContext.UserBindingInstance
-   * @description Initialize the UserBindingContext
+   * Initialize the UserBindingContext
    *
    * @property sid - A 34 character string that uniquely identifies this resource.
    * @property accountSid - The unique id of the Account responsible for this binding.
@@ -208,53 +142,64 @@ declare class UserBindingInstance {
    * @param userSid - The unique id of the User for this binding.
    * @param sid - The sid
    */
-  constructor(version: Twilio.IpMessaging.V2, payload: object, serviceSid: sid, userSid: sid, sid: sid);
+  constructor(version: V2, payload: UserBindingPayload, serviceSid: string, userSid: string, sid: string);
 
-  _proxy?: UserBindingContext;
+  private _proxy: UserBindingContext;
+  accountSid: string;
+  bindingType: user_binding.binding_type;
+  credentialSid: string;
+  dateCreated: Date;
+  dateUpdated: Date;
+  endpoint: string;
   /**
    * fetch a UserBindingInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: UserBindingInstance) => any);
+  fetch(callback?: (error: Error | null, items: UserBindingInstance) => any): void;
+  identity: string;
+  messageTypes: string;
   /**
    * remove a UserBindingInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: UserBindingInstance) => any);
+  remove(callback?: (error: Error | null, items: UserBindingInstance) => any): void;
+  serviceSid: string;
+  sid: string;
   /**
    * Produce a plain JSON object version of the UserBindingInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  url: string;
+  userSid: string;
 }
 
 
 declare class UserBindingContext {
   /**
-   * @constructor Twilio.IpMessaging.V2.ServiceContext.UserContext.UserBindingContext
-   * @description Initialize the UserBindingContext
+   * Initialize the UserBindingContext
    *
    * @param version - Version of the resource
    * @param serviceSid - The service_sid
    * @param userSid - The user_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.IpMessaging.V2, serviceSid: sid, userSid: sid_like, sid: sid);
+  constructor(version: V2, serviceSid: string, userSid: string, sid: string);
 
   /**
    * fetch a UserBindingInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: UserBindingContext) => any);
+  fetch(callback?: (error: Error | null, items: UserBindingInstance) => any): void;
   /**
    * remove a UserBindingInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: UserBindingContext) => any);
+  remove(callback?: (error: Error | null, items: UserBindingInstance) => any): void;
 }
 
-export { UserBindingContext, UserBindingInstance, UserBindingList, UserBindingListInstance, UserBindingPage, UserBindingPayload, UserBindingResource, UserBindingSolution }
+export { UserBindingContext, UserBindingInstance, UserBindingList, UserBindingListInstance, UserBindingListInstanceEachOptions, UserBindingListInstanceOptions, UserBindingListInstancePageOptions, UserBindingPage, UserBindingPayload, UserBindingResource, UserBindingSolution }

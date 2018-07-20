@@ -92,16 +92,16 @@ interface MessageListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<MessagePage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: MessagePage) => any): Promise<MessagePage>;
   /**
-   * @description Lists MessageInstance records from the API as a list.
+   * Lists MessageInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: MessageListInstanceOptions, callback?: function): Promise<MessageInstance[]>;
+  list(opts?: MessageListInstanceOptions, callback?: (error: Error | null, items: MessageInstance[]) => any): Promise<MessageInstance[]>;
   /**
    * Retrieve a single page of MessageInstance records from the API.
    * Request is executed immediately
@@ -111,7 +111,7 @@ interface MessageListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: MessageListInstancePageOptions, callback?: function): Promise<MessagePage>;
+  page(opts?: MessageListInstancePageOptions, callback?: (error: Error | null, items: MessagePage) => any): Promise<MessagePage>;
 }
 
 /**
@@ -119,7 +119,7 @@ interface MessageListInstance {
  *
  * @property body - The text of the message you want to send, limited to 1600 characters.
  */
-export interface MessageInstanceUpdateOptions {
+interface MessageInstanceUpdateOptions {
   body: string;
 }
 
@@ -128,162 +128,33 @@ export interface MessageInstanceUpdateOptions {
  *
  * @property body - The text of the message you want to send, limited to 1600 characters.
  */
-export interface MessageContextUpdateOptions {
+interface MessageInstanceUpdateOptions {
   body: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property to - The phone number to receive the message
- * @property statusCallback - URL Twilio will request when the status changes
- * @property applicationSid - The application to use for callbacks
- * @property maxPrice - The total maximum price up to the fourth decimal in US dollars acceptable for the message to be delivered.
- * @property provideFeedback - Set this value to true if you are sending messages that have a trackable user action and you intend to confirm delivery of the message using the Message Feedback API.
- * @property validityPeriod - The number of seconds that the message can remain in a Twilio queue.
- * @property maxRate - The max_rate
- * @property forceDelivery - The force_delivery
- * @property providerSid - The provider_sid
- * @property contentRetention - The content_retention
- * @property addressRetention - The address_retention
- * @property smartEncoded - The smart_encoded
- * @property from - The phone number that initiated the message
- * @property messagingServiceSid - The 34 character unique id of the Messaging Service you want to associate with this Message.
- * @property body - The text of the message you want to send, limited to 1600 characters.
- * @property mediaUrl - The URL of the media you wish to send out with the message.
- */
-export interface MessageListInstanceCreateOptions {
-  addressRetention?: message.address_retention;
-  applicationSid?: string;
-  body?: string;
-  contentRetention?: message.content_retention;
-  forceDelivery?: boolean;
-  from?: string;
-  maxPrice?: number;
-  maxRate?: string;
-  mediaUrl?: string|list;
-  messagingServiceSid?: string;
-  provideFeedback?: boolean;
-  providerSid?: string;
-  smartEncoded?: boolean;
-  statusCallback?: string;
-  to: string;
-  validityPeriod?: number;
-}
 
-/**
- * Options to pass to each
- *
- * @property to - Filter by messages to this number
- * @property from - Filter by from number
- * @property dateSentBefore - Filter by date sent
- * @property dateSent - Filter by date sent
- * @property dateSentAfter - Filter by date sent
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface MessageListInstanceEachOptions {
-  callback?: (item: MessageInstance, done: (err?: Error) => void) => void;
-  dateSent?: Date;
-  dateSentAfter?: Date;
-  dateSentBefore?: Date;
-  done?: Function;
-  from?: string;
-  limit?: number;
-  pageSize?: number;
-  to?: string;
-}
-
-/**
- * Options to pass to list
- *
- * @property to - Filter by messages to this number
- * @property from - Filter by from number
- * @property dateSentBefore - Filter by date sent
- * @property dateSent - Filter by date sent
- * @property dateSentAfter - Filter by date sent
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface MessageListInstanceOptions {
-  dateSent?: Date;
-  dateSentAfter?: Date;
-  dateSentBefore?: Date;
-  from?: string;
-  limit?: number;
-  pageSize?: number;
-  to?: string;
-}
-
-/**
- * Options to pass to page
- *
- * @property to - Filter by messages to this number
- * @property from - Filter by from number
- * @property dateSentBefore - Filter by date sent
- * @property dateSent - Filter by date sent
- * @property dateSentAfter - Filter by date sent
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface MessageListInstancePageOptions {
-  dateSent?: Date;
-  dateSentAfter?: Date;
-  dateSentBefore?: Date;
-  from?: string;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-  to?: string;
-}
-
-
-declare class MessagePage extends Page {
+declare class MessagePage extends Page<V2010, MessagePayload, MessageResource, MessageInstance> {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.MessagePage
-   * @augments Page
-   * @description Initialize the MessagePage
+   * Initialize the MessagePage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
+  constructor(version: V2010, response: Response<string>, solution: MessageSolution);
 
   /**
    * Build an instance of MessageInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: MessagePayload): MessageInstance;
 }
 
 
-declare class MessageInstance {
+declare class MessageInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.MessageInstance
-   * @description Initialize the MessageContext
+   * Initialize the MessageContext
    *
    * @property accountSid - The unique sid that identifies this account
    * @property apiVersion - The version of the Twilio API used to process the message.
@@ -311,9 +182,18 @@ declare class MessageInstance {
    * @param accountSid - The unique sid that identifies this account
    * @param sid - Fetch by unique message Sid
    */
-  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, sid: sid);
+  constructor(version: V2010, payload: MessagePayload, accountSid: string, sid: string);
 
-  _proxy?: MessageContext;
+  private _proxy: MessageContext;
+  accountSid: string;
+  apiVersion: string;
+  body: string;
+  dateCreated: Date;
+  dateSent: Date;
+  dateUpdated: Date;
+  direction: message.direction;
+  errorCode: number;
+  errorMessage: string;
   /**
    * Access the feedback
    */
@@ -323,36 +203,46 @@ declare class MessageInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: MessageInstance) => any);
+  fetch(callback?: (error: Error | null, items: MessageInstance) => any): void;
+  from: string;
   /**
    * Access the media
    */
   media();
+  messagingServiceSid: string;
+  numMedia: string;
+  numSegments: string;
+  price: number;
+  priceUnit: string;
   /**
    * remove a MessageInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: MessageInstance) => any);
+  remove(callback?: (error: Error | null, items: MessageInstance) => any): void;
+  sid: string;
+  status: message.status;
+  subresourceUris: string;
+  to: string;
   /**
    * Produce a plain JSON object version of the MessageInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
   /**
    * update a MessageInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: MessageInstanceUpdateOptions, callback?: (error: Error | null, items: MessageInstance) => any);
+  update(opts: MessageInstanceUpdateOptions, callback?: (error: Error | null, items: MessageInstance) => any): void;
+  uri: string;
 }
 
 
 declare class MessageContext {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.MessageContext
-   * @description Initialize the MessageContext
+   * Initialize the MessageContext
    *
    * @property media - media resource
    * @property feedback - feedback resource
@@ -361,7 +251,7 @@ declare class MessageContext {
    * @param accountSid - The account_sid
    * @param sid - Fetch by unique message Sid
    */
-  constructor(version: Twilio.Api.V2010, accountSid: sid, sid: sid);
+  constructor(version: V2010, accountSid: string, sid: string);
 
   feedback?: Twilio.Api.V2010.AccountContext.MessageContext.FeedbackList;
   /**
@@ -369,21 +259,21 @@ declare class MessageContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: MessageContext) => any);
+  fetch(callback?: (error: Error | null, items: MessageInstance) => any): void;
   media?: Twilio.Api.V2010.AccountContext.MessageContext.MediaList;
   /**
    * remove a MessageInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: MessageContext) => any);
+  remove(callback?: (error: Error | null, items: MessageInstance) => any): void;
   /**
    * update a MessageInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: MessageContextUpdateOptions, callback?: (error: Error | null, items: MessageContext) => any);
+  update(opts: MessageInstanceUpdateOptions, callback?: (error: Error | null, items: MessageInstance) => any): void;
 }
 
-export { MessageContext, MessageInstance, MessageList, MessageListInstance, MessagePage, MessagePayload, MessageResource, MessageSolution }
+export { MessageContext, MessageInstance, MessageList, MessageListInstance, MessageListInstanceCreateOptions, MessageListInstanceEachOptions, MessageListInstanceOptions, MessageListInstancePageOptions, MessagePage, MessagePayload, MessageResource, MessageSolution }

@@ -87,16 +87,16 @@ interface ChannelListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<ChannelPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: ChannelPage) => any): Promise<ChannelPage>;
   /**
-   * @description Lists ChannelInstance records from the API as a list.
+   * Lists ChannelInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: ChannelListInstanceOptions, callback?: function): Promise<ChannelInstance[]>;
+  list(opts?: ChannelListInstanceOptions, callback?: (error: Error | null, items: ChannelInstance[]) => any): Promise<ChannelInstance[]>;
   /**
    * Retrieve a single page of ChannelInstance records from the API.
    * Request is executed immediately
@@ -106,7 +106,7 @@ interface ChannelListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: ChannelListInstancePageOptions, callback?: function): Promise<ChannelPage>;
+  page(opts?: ChannelListInstancePageOptions, callback?: (error: Error | null, items: ChannelPage) => any): Promise<ChannelPage>;
 }
 
 /**
@@ -116,7 +116,7 @@ interface ChannelListInstance {
  * @property uniqueName - A unique, addressable name for the Channel.
  * @property attributes - An optional metadata field you can use to store any data you wish.
  */
-export interface ChannelInstanceUpdateOptions {
+interface ChannelInstanceUpdateOptions {
   attributes?: string;
   friendlyName?: string;
   uniqueName?: string;
@@ -129,116 +129,35 @@ export interface ChannelInstanceUpdateOptions {
  * @property uniqueName - A unique, addressable name for the Channel.
  * @property attributes - An optional metadata field you can use to store any data you wish.
  */
-export interface ChannelContextUpdateOptions {
+interface ChannelInstanceUpdateOptions {
   attributes?: string;
   friendlyName?: string;
   uniqueName?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property friendlyName - A human-readable name for the Channel.
- * @property uniqueName - A unique, addressable name for the Channel.
- * @property attributes - An optional metadata field you can use to store any data you wish.
- * @property type - The visibility of the channel - public or private.
- */
-export interface ChannelListInstanceCreateOptions {
-  attributes?: string;
-  friendlyName?: string;
-  type?: channel.channel_type;
-  uniqueName?: string;
-}
 
-/**
- * Options to pass to each
- *
- * @property type - The type
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface ChannelListInstanceEachOptions {
-  callback?: (item: ChannelInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-  type?: channel.channel_type|list;
-}
-
-/**
- * Options to pass to list
- *
- * @property type - The type
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface ChannelListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-  type?: channel.channel_type|list;
-}
-
-/**
- * Options to pass to page
- *
- * @property type - The type
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface ChannelListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-  type?: channel.channel_type|list;
-}
-
-
-declare class ChannelPage extends Page {
+declare class ChannelPage extends Page<V1, ChannelPayload, ChannelResource, ChannelInstance> {
   /**
-   * @constructor Twilio.IpMessaging.V1.ServiceContext.ChannelPage
-   * @augments Page
-   * @description Initialize the ChannelPage
+   * Initialize the ChannelPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.IpMessaging.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: ChannelSolution);
 
   /**
    * Build an instance of ChannelInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: ChannelPayload): ChannelInstance;
 }
 
 
-declare class ChannelInstance {
+declare class ChannelInstance extends SerializableClass {
   /**
-   * @constructor Twilio.IpMessaging.V1.ServiceContext.ChannelInstance
-   * @description Initialize the ChannelContext
+   * Initialize the ChannelContext
    *
    * @property sid - A 34 character string that uniquely identifies this resource.
    * @property accountSid - The unique id of the [Account][/console] responsible for this channel.
@@ -260,52 +179,65 @@ declare class ChannelInstance {
    * @param serviceSid - The unique id of the [Service][service] this channel belongs to.
    * @param sid - The sid
    */
-  constructor(version: Twilio.IpMessaging.V1, payload: object, serviceSid: sid, sid: sid_like);
+  constructor(version: V1, payload: ChannelPayload, serviceSid: string, sid: string);
 
-  _proxy?: ChannelContext;
+  private _proxy: ChannelContext;
+  accountSid: string;
+  attributes: string;
+  createdBy: string;
+  dateCreated: Date;
+  dateUpdated: Date;
   /**
    * fetch a ChannelInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ChannelInstance) => any);
+  fetch(callback?: (error: Error | null, items: ChannelInstance) => any): void;
+  friendlyName: string;
   /**
    * Access the invites
    */
   invites();
+  links: string;
   /**
    * Access the members
    */
   members();
+  membersCount: number;
   /**
    * Access the messages
    */
   messages();
+  messagesCount: number;
   /**
    * remove a ChannelInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ChannelInstance) => any);
+  remove(callback?: (error: Error | null, items: ChannelInstance) => any): void;
+  serviceSid: string;
+  sid: string;
   /**
    * Produce a plain JSON object version of the ChannelInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  type: channel.channel_type;
+  uniqueName: string;
   /**
    * update a ChannelInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ChannelInstanceUpdateOptions, callback?: (error: Error | null, items: ChannelInstance) => any);
+  update(opts?: ChannelInstanceUpdateOptions, callback?: (error: Error | null, items: ChannelInstance) => any): void;
+  url: string;
 }
 
 
 declare class ChannelContext {
   /**
-   * @constructor Twilio.IpMessaging.V1.ServiceContext.ChannelContext
-   * @description Initialize the ChannelContext
+   * Initialize the ChannelContext
    *
    * @property members - members resource
    * @property messages - messages resource
@@ -315,14 +247,14 @@ declare class ChannelContext {
    * @param serviceSid - The service_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.IpMessaging.V1, serviceSid: sid, sid: sid_like);
+  constructor(version: V1, serviceSid: string, sid: string);
 
   /**
    * fetch a ChannelInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ChannelContext) => any);
+  fetch(callback?: (error: Error | null, items: ChannelInstance) => any): void;
   invites?: Twilio.IpMessaging.V1.ServiceContext.ChannelContext.InviteList;
   members?: Twilio.IpMessaging.V1.ServiceContext.ChannelContext.MemberList;
   messages?: Twilio.IpMessaging.V1.ServiceContext.ChannelContext.MessageList;
@@ -331,14 +263,14 @@ declare class ChannelContext {
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ChannelContext) => any);
+  remove(callback?: (error: Error | null, items: ChannelInstance) => any): void;
   /**
    * update a ChannelInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ChannelContextUpdateOptions, callback?: (error: Error | null, items: ChannelContext) => any);
+  update(opts?: ChannelInstanceUpdateOptions, callback?: (error: Error | null, items: ChannelInstance) => any): void;
 }
 
-export { ChannelContext, ChannelInstance, ChannelList, ChannelListInstance, ChannelPage, ChannelPayload, ChannelResource, ChannelSolution }
+export { ChannelContext, ChannelInstance, ChannelList, ChannelListInstance, ChannelListInstanceCreateOptions, ChannelListInstanceEachOptions, ChannelListInstanceOptions, ChannelListInstancePageOptions, ChannelPage, ChannelPayload, ChannelResource, ChannelSolution }

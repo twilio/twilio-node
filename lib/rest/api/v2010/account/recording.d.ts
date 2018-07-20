@@ -83,16 +83,16 @@ interface RecordingListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<RecordingPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: RecordingPage) => any): Promise<RecordingPage>;
   /**
-   * @description Lists RecordingInstance records from the API as a list.
+   * Lists RecordingInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: RecordingListInstanceOptions, callback?: function): Promise<RecordingInstance[]>;
+  list(opts?: RecordingListInstanceOptions, callback?: (error: Error | null, items: RecordingInstance[]) => any): Promise<RecordingInstance[]>;
   /**
    * Retrieve a single page of RecordingInstance records from the API.
    * Request is executed immediately
@@ -102,122 +102,32 @@ interface RecordingListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: RecordingListInstancePageOptions, callback?: function): Promise<RecordingPage>;
-}
-
-/**
- * Options to pass to each
- *
- * @property dateCreatedBefore - Filter by date created
- * @property dateCreated - Filter by date created
- * @property dateCreatedAfter - Filter by date created
- * @property callSid - Filter by call_sid
- * @property conferenceSid - The conference_sid
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface RecordingListInstanceEachOptions {
-  callSid?: string;
-  callback?: (item: RecordingInstance, done: (err?: Error) => void) => void;
-  conferenceSid?: string;
-  dateCreated?: Date;
-  dateCreatedAfter?: Date;
-  dateCreatedBefore?: Date;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property dateCreatedBefore - Filter by date created
- * @property dateCreated - Filter by date created
- * @property dateCreatedAfter - Filter by date created
- * @property callSid - Filter by call_sid
- * @property conferenceSid - The conference_sid
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface RecordingListInstanceOptions {
-  callSid?: string;
-  conferenceSid?: string;
-  dateCreated?: Date;
-  dateCreatedAfter?: Date;
-  dateCreatedBefore?: Date;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property dateCreatedBefore - Filter by date created
- * @property dateCreated - Filter by date created
- * @property dateCreatedAfter - Filter by date created
- * @property callSid - Filter by call_sid
- * @property conferenceSid - The conference_sid
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface RecordingListInstancePageOptions {
-  callSid?: string;
-  conferenceSid?: string;
-  dateCreated?: Date;
-  dateCreatedAfter?: Date;
-  dateCreatedBefore?: Date;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
+  page(opts?: RecordingListInstancePageOptions, callback?: (error: Error | null, items: RecordingPage) => any): Promise<RecordingPage>;
 }
 
 
-declare class RecordingPage extends Page {
+declare class RecordingPage extends Page<V2010, RecordingPayload, RecordingResource, RecordingInstance> {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.RecordingPage
-   * @augments Page
-   * @description Initialize the RecordingPage
+   * Initialize the RecordingPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
+  constructor(version: V2010, response: Response<string>, solution: RecordingSolution);
 
   /**
    * Build an instance of RecordingInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: RecordingPayload): RecordingInstance;
 }
 
 
-declare class RecordingInstance {
+declare class RecordingInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.RecordingInstance
-   * @description Initialize the RecordingContext
+   * Initialize the RecordingContext
    *
    * @property accountSid - The unique sid that identifies this account
    * @property apiVersion - The version of the API in use during the recording.
@@ -243,41 +153,58 @@ declare class RecordingInstance {
    * @param accountSid - The unique sid that identifies this account
    * @param sid - Fetch by unique recording Sid
    */
-  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, sid: sid);
+  constructor(version: V2010, payload: RecordingPayload, accountSid: string, sid: string);
 
-  _proxy?: RecordingContext;
+  private _proxy: RecordingContext;
+  accountSid: string;
   /**
    * Access the addOnResults
    */
   addOnResults();
+  apiVersion: string;
+  callSid: string;
+  channels: number;
+  conferenceSid: string;
+  dateCreated: Date;
+  dateUpdated: Date;
+  duration: string;
+  encryptionDetails: string;
+  errorCode: number;
   /**
    * fetch a RecordingInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: RecordingInstance) => any);
+  fetch(callback?: (error: Error | null, items: RecordingInstance) => any): void;
+  price: string;
+  priceUnit: string;
   /**
    * remove a RecordingInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: RecordingInstance) => any);
+  remove(callback?: (error: Error | null, items: RecordingInstance) => any): void;
+  sid: string;
+  source: recording.source;
+  startTime: Date;
+  status: recording.status;
+  subresourceUris: string;
   /**
    * Produce a plain JSON object version of the RecordingInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
   /**
    * Access the transcriptions
    */
   transcriptions();
+  uri: string;
 }
 
 
 declare class RecordingContext {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.RecordingContext
-   * @description Initialize the RecordingContext
+   * Initialize the RecordingContext
    *
    * @property transcriptions - transcriptions resource
    * @property addOnResults - addOnResults resource
@@ -286,7 +213,7 @@ declare class RecordingContext {
    * @param accountSid - The account_sid
    * @param sid - Fetch by unique recording Sid
    */
-  constructor(version: Twilio.Api.V2010, accountSid: sid, sid: sid);
+  constructor(version: V2010, accountSid: string, sid: string);
 
   addOnResults?: Twilio.Api.V2010.AccountContext.RecordingContext.AddOnResultList;
   /**
@@ -294,14 +221,14 @@ declare class RecordingContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: RecordingContext) => any);
+  fetch(callback?: (error: Error | null, items: RecordingInstance) => any): void;
   /**
    * remove a RecordingInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: RecordingContext) => any);
+  remove(callback?: (error: Error | null, items: RecordingInstance) => any): void;
   transcriptions?: Twilio.Api.V2010.AccountContext.RecordingContext.TranscriptionList;
 }
 
-export { RecordingContext, RecordingInstance, RecordingList, RecordingListInstance, RecordingPage, RecordingPayload, RecordingResource, RecordingSolution }
+export { RecordingContext, RecordingInstance, RecordingList, RecordingListInstance, RecordingListInstanceEachOptions, RecordingListInstanceOptions, RecordingListInstancePageOptions, RecordingPage, RecordingPayload, RecordingResource, RecordingSolution }

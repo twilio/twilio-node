@@ -88,16 +88,16 @@ interface MobileListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<MobilePage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: MobilePage) => any): Promise<MobilePage>;
   /**
-   * @description Lists MobileInstance records from the API as a list.
+   * Lists MobileInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: MobileListInstanceOptions, callback?: function): Promise<MobileInstance[]>;
+  list(opts?: MobileListInstanceOptions, callback?: (error: Error | null, items: MobileInstance[]) => any): Promise<MobileInstance[]>;
   /**
    * Retrieve a single page of MobileInstance records from the API.
    * Request is executed immediately
@@ -107,159 +107,32 @@ interface MobileListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: MobileListInstancePageOptions, callback?: function): Promise<MobilePage>;
-}
-
-/**
- * Options to pass to each
- *
- * @property beta - Include phone numbers new to the Twilio platform.
- * @property friendlyName - Only show the incoming phone number resources with friendly names that exactly match this name.
- * @property phoneNumber - Only show the incoming phone number resources that match this pattern.
- * @property origin - Include phone numbers based on the origin, by default, phone numbers of all origin are included.
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface MobileListInstanceEachOptions {
-  beta?: boolean;
-  callback?: (item: MobileInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  friendlyName?: string;
-  limit?: number;
-  origin?: string;
-  pageSize?: number;
-  phoneNumber?: string;
-}
-
-/**
- * Options to pass to list
- *
- * @property beta - Include phone numbers new to the Twilio platform.
- * @property friendlyName - Only show the incoming phone number resources with friendly names that exactly match this name.
- * @property phoneNumber - Only show the incoming phone number resources that match this pattern.
- * @property origin - Include phone numbers based on the origin, by default, phone numbers of all origin are included.
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface MobileListInstanceOptions {
-  beta?: boolean;
-  friendlyName?: string;
-  limit?: number;
-  origin?: string;
-  pageSize?: number;
-  phoneNumber?: string;
-}
-
-/**
- * Options to pass to page
- *
- * @property beta - Include phone numbers new to the Twilio platform.
- * @property friendlyName - Only show the incoming phone number resources with friendly names that exactly match this name.
- * @property phoneNumber - Only show the incoming phone number resources that match this pattern.
- * @property origin - Include phone numbers based on the origin, by default, phone numbers of all origin are included.
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface MobileListInstancePageOptions {
-  beta?: boolean;
-  friendlyName?: string;
-  origin?: string;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-  phoneNumber?: string;
-}
-
-/**
- * Options to pass to create
- *
- * @property phoneNumber - The phone number you want to purchase.
- * @property apiVersion - The Twilio REST API version to use for incoming calls made to this number.
- * @property friendlyName - A human readable description of the new incoming phone number.
- * @property smsApplicationSid - The 34 character sid of the application Twilio should use to handle SMSs sent to the new number.
- * @property smsFallbackMethod - The HTTP method that should be used to request the SmsFallbackUrl.
- * @property smsFallbackUrl - A URL that Twilio will request if an error occurs requesting or executing the TwiML defined by SmsUrl.
- * @property smsMethod - The HTTP method that should be used to request the SmsUrl.
- * @property smsUrl - The URL that Twilio should request when somebody sends an SMS to the phone number.
- * @property statusCallback - The URL that Twilio will request to pass status parameters to your application.
- * @property statusCallbackMethod - The HTTP method Twilio will use to make requests to the StatusCallback URL.
- * @property voiceApplicationSid - The 34 character sid of the application Twilio should use to handle phone calls to the new number.
- * @property voiceCallerIdLookup - Do a lookup of a caller's name from the CNAM database and post it to your app.
- * @property voiceFallbackMethod - The HTTP method that should be used to request the VoiceFallbackUrl.
- * @property voiceFallbackUrl - A URL that Twilio will request if an error occurs requesting or executing the TwiML at Url.
- * @property voiceMethod - The HTTP method that should be used to request the VoiceUrl.
- * @property voiceUrl - The URL that Twilio should request when somebody dials the new phone number.
- * @property identitySid - The identity_sid
- * @property addressSid - The 34 character sid of the address Twilio should associate with the number.
- */
-export interface MobileListInstanceCreateOptions {
-  addressSid?: string;
-  apiVersion?: string;
-  friendlyName?: string;
-  identitySid?: string;
-  phoneNumber: string;
-  smsApplicationSid?: string;
-  smsFallbackMethod?: string;
-  smsFallbackUrl?: string;
-  smsMethod?: string;
-  smsUrl?: string;
-  statusCallback?: string;
-  statusCallbackMethod?: string;
-  voiceApplicationSid?: string;
-  voiceCallerIdLookup?: boolean;
-  voiceFallbackMethod?: string;
-  voiceFallbackUrl?: string;
-  voiceMethod?: string;
-  voiceUrl?: string;
+  page(opts?: MobileListInstancePageOptions, callback?: (error: Error | null, items: MobilePage) => any): Promise<MobilePage>;
 }
 
 
-declare class MobilePage extends Page {
+declare class MobilePage extends Page<V2010, MobilePayload, MobileResource, MobileInstance> {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.IncomingPhoneNumberContext.MobilePage
-   * @augments Page
-   * @description Initialize the MobilePage
+   * Initialize the MobilePage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
+  constructor(version: V2010, response: Response<string>, solution: MobileSolution);
 
   /**
    * Build an instance of MobileInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: MobilePayload): MobileInstance;
 }
 
 
-declare class MobileInstance {
+declare class MobileInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.IncomingPhoneNumberContext.MobileInstance
-   * @description Initialize the MobileContext
+   * Initialize the MobileContext
    *
    * @property accountSid - The unique id of the Account responsible for this phone number.
    * @property addressSid - The 34 character sid of the address associated with this number.
@@ -294,13 +167,41 @@ declare class MobileInstance {
    * @param payload - The instance payload
    * @param accountSid - The unique sid that identifies this account
    */
-  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid);
+  constructor(version: V2010, payload: MobilePayload, accountSid: string);
 
+  accountSid: string;
+  addressRequirements: mobile.address_requirement;
+  addressSid: string;
+  apiVersion: string;
+  beta: boolean;
+  capabilities: string;
+  dateCreated: Date;
+  dateUpdated: Date;
+  friendlyName: string;
+  identitySid: string;
+  origin: string;
+  phoneNumber: string;
+  sid: string;
+  smsApplicationSid: string;
+  smsFallbackMethod: string;
+  smsFallbackUrl: string;
+  smsMethod: string;
+  smsUrl: string;
+  statusCallback: string;
+  statusCallbackMethod: string;
   /**
    * Produce a plain JSON object version of the MobileInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  trunkSid: string;
+  uri: string;
+  voiceApplicationSid: string;
+  voiceCallerIdLookup: boolean;
+  voiceFallbackMethod: string;
+  voiceFallbackUrl: string;
+  voiceMethod: string;
+  voiceUrl: string;
 }
 
-export { MobileInstance, MobileList, MobileListInstance, MobilePage, MobilePayload, MobileResource, MobileSolution }
+export { MobileInstance, MobileList, MobileListInstance, MobileListInstanceCreateOptions, MobileListInstanceEachOptions, MobileListInstanceOptions, MobileListInstancePageOptions, MobilePage, MobilePayload, MobileResource, MobileSolution }

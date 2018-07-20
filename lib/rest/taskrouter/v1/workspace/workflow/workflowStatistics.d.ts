@@ -57,7 +57,7 @@ interface WorkflowStatisticsListInstance {
  * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
  * @property splitByWaitTime - A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
  */
-export interface WorkflowStatisticsInstanceFetchOptions {
+interface WorkflowStatisticsInstanceFetchOptions {
   endDate?: Date;
   minutes?: number;
   splitByWaitTime?: string;
@@ -74,7 +74,7 @@ export interface WorkflowStatisticsInstanceFetchOptions {
  * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
  * @property splitByWaitTime - A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
  */
-export interface WorkflowStatisticsContextFetchOptions {
+interface WorkflowStatisticsInstanceFetchOptions {
   endDate?: Date;
   minutes?: number;
   splitByWaitTime?: string;
@@ -83,31 +83,28 @@ export interface WorkflowStatisticsContextFetchOptions {
 }
 
 
-declare class WorkflowStatisticsPage extends Page {
+declare class WorkflowStatisticsPage extends Page<V1, WorkflowStatisticsPayload, WorkflowStatisticsResource, WorkflowStatisticsInstance> {
   /**
-   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkflowContext.WorkflowStatisticsPage
-   * @augments Page
-   * @description Initialize the WorkflowStatisticsPage
+   * Initialize the WorkflowStatisticsPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Taskrouter.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: WorkflowStatisticsSolution);
 
   /**
    * Build an instance of WorkflowStatisticsInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: WorkflowStatisticsPayload): WorkflowStatisticsInstance;
 }
 
 
-declare class WorkflowStatisticsInstance {
+declare class WorkflowStatisticsInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkflowContext.WorkflowStatisticsInstance
-   * @description Initialize the WorkflowStatisticsContext
+   * Initialize the WorkflowStatisticsContext
    *
    * @property accountSid - The account_sid
    * @property cumulative - The cumulative
@@ -121,34 +118,39 @@ declare class WorkflowStatisticsInstance {
    * @param workspaceSid - The workspace_sid
    * @param workflowSid - The workflow_sid
    */
-  constructor(version: Twilio.Taskrouter.V1, payload: object, workspaceSid: sid, workflowSid: sid);
+  constructor(version: V1, payload: WorkflowStatisticsPayload, workspaceSid: string, workflowSid: string);
 
-  _proxy?: WorkflowStatisticsContext;
+  private _proxy: WorkflowStatisticsContext;
+  accountSid: string;
+  cumulative: string;
   /**
    * fetch a WorkflowStatisticsInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: WorkflowStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkflowStatisticsInstance) => any);
+  fetch(opts?: WorkflowStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkflowStatisticsInstance) => any): void;
+  realtime: string;
   /**
    * Produce a plain JSON object version of the WorkflowStatisticsInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  url: string;
+  workflowSid: string;
+  workspaceSid: string;
 }
 
 
 declare class WorkflowStatisticsContext {
   /**
-   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.WorkflowContext.WorkflowStatisticsContext
-   * @description Initialize the WorkflowStatisticsContext
+   * Initialize the WorkflowStatisticsContext
    *
    * @param version - Version of the resource
    * @param workspaceSid - The workspace_sid
    * @param workflowSid - The workflow_sid
    */
-  constructor(version: Twilio.Taskrouter.V1, workspaceSid: sid, workflowSid: sid);
+  constructor(version: V1, workspaceSid: string, workflowSid: string);
 
   /**
    * fetch a WorkflowStatisticsInstance
@@ -156,7 +158,7 @@ declare class WorkflowStatisticsContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: WorkflowStatisticsContextFetchOptions, callback?: (error: Error | null, items: WorkflowStatisticsContext) => any);
+  fetch(opts?: WorkflowStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkflowStatisticsInstance) => any): void;
 }
 
 export { WorkflowStatisticsContext, WorkflowStatisticsInstance, WorkflowStatisticsList, WorkflowStatisticsListInstance, WorkflowStatisticsPage, WorkflowStatisticsPayload, WorkflowStatisticsResource, WorkflowStatisticsSolution }

@@ -80,16 +80,16 @@ interface DependentPhoneNumberListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<DependentPhoneNumberPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: DependentPhoneNumberPage) => any): Promise<DependentPhoneNumberPage>;
   /**
-   * @description Lists DependentPhoneNumberInstance records from the API as a list.
+   * Lists DependentPhoneNumberInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: DependentPhoneNumberListInstanceOptions, callback?: function): Promise<DependentPhoneNumberInstance[]>;
+  list(opts?: DependentPhoneNumberListInstanceOptions, callback?: (error: Error | null, items: DependentPhoneNumberInstance[]) => any): Promise<DependentPhoneNumberInstance[]>;
   /**
    * Retrieve a single page of DependentPhoneNumberInstance records from the API.
    * Request is executed immediately
@@ -99,92 +99,32 @@ interface DependentPhoneNumberListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: DependentPhoneNumberListInstancePageOptions, callback?: function): Promise<DependentPhoneNumberPage>;
-}
-
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface DependentPhoneNumberListInstanceEachOptions {
-  callback?: (item: DependentPhoneNumberInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface DependentPhoneNumberListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface DependentPhoneNumberListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
+  page(opts?: DependentPhoneNumberListInstancePageOptions, callback?: (error: Error | null, items: DependentPhoneNumberPage) => any): Promise<DependentPhoneNumberPage>;
 }
 
 
-declare class DependentPhoneNumberPage extends Page {
+declare class DependentPhoneNumberPage extends Page<V2010, DependentPhoneNumberPayload, DependentPhoneNumberResource, DependentPhoneNumberInstance> {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.AddressContext.DependentPhoneNumberPage
-   * @augments Page
-   * @description Initialize the DependentPhoneNumberPage
+   * Initialize the DependentPhoneNumberPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
+  constructor(version: V2010, response: Response<string>, solution: DependentPhoneNumberSolution);
 
   /**
    * Build an instance of DependentPhoneNumberInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: DependentPhoneNumberPayload): DependentPhoneNumberInstance;
 }
 
 
-declare class DependentPhoneNumberInstance {
+declare class DependentPhoneNumberInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.AddressContext.DependentPhoneNumberInstance
-   * @description Initialize the DependentPhoneNumberContext
+   * Initialize the DependentPhoneNumberContext
    *
    * @property sid - The sid
    * @property accountSid - The account_sid
@@ -218,13 +158,39 @@ declare class DependentPhoneNumberInstance {
    * @param accountSid - The account_sid
    * @param addressSid - A 34 character string that uniquely identifies this address.
    */
-  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, addressSid: sid);
+  constructor(version: V2010, payload: DependentPhoneNumberPayload, accountSid: string, addressSid: string);
 
+  accountSid: string;
+  addressRequirements: dependent_phone_number.address_requirement;
+  apiVersion: string;
+  capabilities: string;
+  dateCreated: Date;
+  dateUpdated: Date;
+  emergencyAddressSid: string;
+  emergencyStatus: dependent_phone_number.emergency_status;
+  friendlyName: string;
+  phoneNumber: string;
+  sid: string;
+  smsApplicationSid: string;
+  smsFallbackMethod: string;
+  smsFallbackUrl: string;
+  smsMethod: string;
+  smsUrl: string;
+  statusCallback: string;
+  statusCallbackMethod: string;
   /**
    * Produce a plain JSON object version of the DependentPhoneNumberInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  trunkSid: string;
+  uri: string;
+  voiceApplicationSid: string;
+  voiceCallerIdLookup: boolean;
+  voiceFallbackMethod: string;
+  voiceFallbackUrl: string;
+  voiceMethod: string;
+  voiceUrl: string;
 }
 
-export { DependentPhoneNumberInstance, DependentPhoneNumberList, DependentPhoneNumberListInstance, DependentPhoneNumberPage, DependentPhoneNumberPayload, DependentPhoneNumberResource, DependentPhoneNumberSolution }
+export { DependentPhoneNumberInstance, DependentPhoneNumberList, DependentPhoneNumberListInstance, DependentPhoneNumberListInstanceEachOptions, DependentPhoneNumberListInstanceOptions, DependentPhoneNumberListInstancePageOptions, DependentPhoneNumberPage, DependentPhoneNumberPayload, DependentPhoneNumberResource, DependentPhoneNumberSolution }

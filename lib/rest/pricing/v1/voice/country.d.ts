@@ -66,16 +66,16 @@ interface CountryListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<CountryPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: CountryPage) => any): Promise<CountryPage>;
   /**
-   * @description Lists CountryInstance records from the API as a list.
+   * Lists CountryInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: CountryListInstanceOptions, callback?: function): Promise<CountryInstance[]>;
+  list(opts?: CountryListInstanceOptions, callback?: (error: Error | null, items: CountryInstance[]) => any): Promise<CountryInstance[]>;
   /**
    * Retrieve a single page of CountryInstance records from the API.
    * Request is executed immediately
@@ -85,92 +85,32 @@ interface CountryListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: CountryListInstancePageOptions, callback?: function): Promise<CountryPage>;
-}
-
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface CountryListInstanceEachOptions {
-  callback?: (item: CountryInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface CountryListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface CountryListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
+  page(opts?: CountryListInstancePageOptions, callback?: (error: Error | null, items: CountryPage) => any): Promise<CountryPage>;
 }
 
 
-declare class CountryPage extends Page {
+declare class CountryPage extends Page<V1, CountryPayload, CountryResource, CountryInstance> {
   /**
-   * @constructor Twilio.Pricing.V1.VoiceContext.CountryPage
-   * @augments Page
-   * @description Initialize the CountryPage
+   * Initialize the CountryPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Pricing.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: CountrySolution);
 
   /**
    * Build an instance of CountryInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: CountryPayload): CountryInstance;
 }
 
 
-declare class CountryInstance {
+declare class CountryInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Pricing.V1.VoiceContext.CountryInstance
-   * @description Initialize the CountryContext
+   * Initialize the CountryContext
    *
    * @property country - Name of the country
    * @property isoCountry - The ISO country code
@@ -183,39 +123,44 @@ declare class CountryInstance {
    * @param payload - The instance payload
    * @param isoCountry - The iso_country
    */
-  constructor(version: Twilio.Pricing.V1, payload: object, isoCountry: iso_country_code);
+  constructor(version: V1, payload: CountryPayload, isoCountry: string);
 
-  _proxy?: CountryContext;
+  private _proxy: CountryContext;
+  country: string;
   /**
    * fetch a CountryInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CountryInstance) => any);
+  fetch(callback?: (error: Error | null, items: CountryInstance) => any): void;
+  inboundCallPrices: string;
+  isoCountry: string;
+  outboundPrefixPrices: string;
+  priceUnit: string;
   /**
    * Produce a plain JSON object version of the CountryInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  url: string;
 }
 
 
 declare class CountryContext {
   /**
-   * @constructor Twilio.Pricing.V1.VoiceContext.CountryContext
-   * @description Initialize the CountryContext
+   * Initialize the CountryContext
    *
    * @param version - Version of the resource
    * @param isoCountry - The iso_country
    */
-  constructor(version: Twilio.Pricing.V1, isoCountry: iso_country_code);
+  constructor(version: V1, isoCountry: string);
 
   /**
    * fetch a CountryInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CountryContext) => any);
+  fetch(callback?: (error: Error | null, items: CountryInstance) => any): void;
 }
 
-export { CountryContext, CountryInstance, CountryList, CountryListInstance, CountryPage, CountryPayload, CountryResource, CountrySolution }
+export { CountryContext, CountryInstance, CountryList, CountryListInstance, CountryListInstanceEachOptions, CountryListInstanceOptions, CountryListInstancePageOptions, CountryPage, CountryPayload, CountryResource, CountrySolution }

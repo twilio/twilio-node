@@ -80,16 +80,16 @@ interface ModelBuildListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<ModelBuildPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: ModelBuildPage) => any): Promise<ModelBuildPage>;
   /**
-   * @description Lists ModelBuildInstance records from the API as a list.
+   * Lists ModelBuildInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: ModelBuildListInstanceOptions, callback?: function): Promise<ModelBuildInstance[]>;
+  list(opts?: ModelBuildListInstanceOptions, callback?: (error: Error | null, items: ModelBuildInstance[]) => any): Promise<ModelBuildInstance[]>;
   /**
    * Retrieve a single page of ModelBuildInstance records from the API.
    * Request is executed immediately
@@ -99,7 +99,7 @@ interface ModelBuildListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: ModelBuildListInstancePageOptions, callback?: function): Promise<ModelBuildPage>;
+  page(opts?: ModelBuildListInstancePageOptions, callback?: (error: Error | null, items: ModelBuildPage) => any): Promise<ModelBuildPage>;
 }
 
 /**
@@ -107,7 +107,7 @@ interface ModelBuildListInstance {
  *
  * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. For example: v0.1
  */
-export interface ModelBuildInstanceUpdateOptions {
+interface ModelBuildInstanceUpdateOptions {
   uniqueName?: string;
 }
 
@@ -116,106 +116,33 @@ export interface ModelBuildInstanceUpdateOptions {
  *
  * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. For example: v0.1
  */
-export interface ModelBuildContextUpdateOptions {
-  uniqueName?: string;
-}
-
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface ModelBuildListInstanceEachOptions {
-  callback?: (item: ModelBuildInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface ModelBuildListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface ModelBuildListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-}
-
-/**
- * Options to pass to create
- *
- * @property statusCallback - The status_callback
- * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. For example: v0.1
- */
-export interface ModelBuildListInstanceCreateOptions {
-  statusCallback?: string;
+interface ModelBuildInstanceUpdateOptions {
   uniqueName?: string;
 }
 
 
-declare class ModelBuildPage extends Page {
+declare class ModelBuildPage extends Page<Understand, ModelBuildPayload, ModelBuildResource, ModelBuildInstance> {
   /**
-   * @constructor Twilio.Preview.Understand.AssistantContext.ModelBuildPage
-   * @augments Page
-   * @description Initialize the ModelBuildPage
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the ModelBuildPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Preview.Understand, response: Response<string>, solution: object);
+  constructor(version: Understand, response: Response<string>, solution: ModelBuildSolution);
 
   /**
    * Build an instance of ModelBuildInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: ModelBuildPayload): ModelBuildInstance;
 }
 
 
-declare class ModelBuildInstance {
+declare class ModelBuildInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Preview.Understand.AssistantContext.ModelBuildInstance
-   * @description Initialize the ModelBuildContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the ModelBuildContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @property accountSid - The unique ID of the Account that created this Model Build.
    * @property dateCreated - The date that this resource was created
@@ -233,67 +160,75 @@ declare class ModelBuildInstance {
    * @param assistantSid - The unique ID of the parent Assistant.
    * @param sid - The sid
    */
-  constructor(version: Twilio.Preview.Understand, payload: object, assistantSid: sid, sid: sid_like);
+  constructor(version: Understand, payload: ModelBuildPayload, assistantSid: string, sid: string);
 
-  _proxy?: ModelBuildContext;
+  private _proxy: ModelBuildContext;
+  accountSid: string;
+  assistantSid: string;
+  buildDuration: number;
+  dateCreated: Date;
+  dateUpdated: Date;
+  errorCode: number;
   /**
    * fetch a ModelBuildInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ModelBuildInstance) => any);
+  fetch(callback?: (error: Error | null, items: ModelBuildInstance) => any): void;
   /**
    * remove a ModelBuildInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ModelBuildInstance) => any);
+  remove(callback?: (error: Error | null, items: ModelBuildInstance) => any): void;
+  sid: string;
+  status: model_build.status;
   /**
    * Produce a plain JSON object version of the ModelBuildInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  uniqueName: string;
   /**
    * update a ModelBuildInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ModelBuildInstanceUpdateOptions, callback?: (error: Error | null, items: ModelBuildInstance) => any);
+  update(opts?: ModelBuildInstanceUpdateOptions, callback?: (error: Error | null, items: ModelBuildInstance) => any): void;
+  url: string;
 }
 
 
 declare class ModelBuildContext {
   /**
-   * @constructor Twilio.Preview.Understand.AssistantContext.ModelBuildContext
-   * @description Initialize the ModelBuildContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the ModelBuildContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param assistantSid - The assistant_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.Preview.Understand, assistantSid: sid_like, sid: sid_like);
+  constructor(version: Understand, assistantSid: string, sid: string);
 
   /**
    * fetch a ModelBuildInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ModelBuildContext) => any);
+  fetch(callback?: (error: Error | null, items: ModelBuildInstance) => any): void;
   /**
    * remove a ModelBuildInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ModelBuildContext) => any);
+  remove(callback?: (error: Error | null, items: ModelBuildInstance) => any): void;
   /**
    * update a ModelBuildInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ModelBuildContextUpdateOptions, callback?: (error: Error | null, items: ModelBuildContext) => any);
+  update(opts?: ModelBuildInstanceUpdateOptions, callback?: (error: Error | null, items: ModelBuildInstance) => any): void;
 }
 
-export { ModelBuildContext, ModelBuildInstance, ModelBuildList, ModelBuildListInstance, ModelBuildPage, ModelBuildPayload, ModelBuildResource, ModelBuildSolution }
+export { ModelBuildContext, ModelBuildInstance, ModelBuildList, ModelBuildListInstance, ModelBuildListInstanceCreateOptions, ModelBuildListInstanceEachOptions, ModelBuildListInstanceOptions, ModelBuildListInstancePageOptions, ModelBuildPage, ModelBuildPayload, ModelBuildResource, ModelBuildSolution }

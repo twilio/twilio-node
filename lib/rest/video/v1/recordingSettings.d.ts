@@ -57,7 +57,7 @@ interface RecordingSettingsListInstance {
  * @property awsStorageEnabled - true|false When set to true, all Recordings will be written to the AwsS3Url specified above. When set to false, all Recordings will be stored in Twilio's cloud.
  * @property encryptionEnabled - true|false When set to true, all Recordings will be stored encrypted.
  */
-export interface RecordingSettingsInstanceCreateOptions {
+interface RecordingSettingsInstanceCreateOptions {
   awsCredentialsSid?: string;
   awsS3Url?: string;
   awsStorageEnabled?: boolean;
@@ -76,7 +76,7 @@ export interface RecordingSettingsInstanceCreateOptions {
  * @property awsStorageEnabled - true|false When set to true, all Recordings will be written to the AwsS3Url specified above. When set to false, all Recordings will be stored in Twilio's cloud.
  * @property encryptionEnabled - true|false When set to true, all Recordings will be stored encrypted.
  */
-export interface RecordingSettingsContextCreateOptions {
+interface RecordingSettingsInstanceCreateOptions {
   awsCredentialsSid?: string;
   awsS3Url?: string;
   awsStorageEnabled?: boolean;
@@ -86,33 +86,28 @@ export interface RecordingSettingsContextCreateOptions {
 }
 
 
-declare class RecordingSettingsPage extends Page {
+declare class RecordingSettingsPage extends Page<V1, RecordingSettingsPayload, RecordingSettingsResource, RecordingSettingsInstance> {
   /**
-   * @constructor Twilio.Video.V1.RecordingSettingsPage
-   * @augments Page
-   * @description Initialize the RecordingSettingsPage
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the RecordingSettingsPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Video.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: RecordingSettingsSolution);
 
   /**
    * Build an instance of RecordingSettingsInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: RecordingSettingsPayload): RecordingSettingsInstance;
 }
 
 
-declare class RecordingSettingsInstance {
+declare class RecordingSettingsInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Video.V1.RecordingSettingsInstance
-   * @description Initialize the RecordingSettingsContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the RecordingSettingsContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @property accountSid - The Twilio Account SID associated with this item
    * @property friendlyName - Friendly name of the configuration to be shown in the console
@@ -126,39 +121,45 @@ declare class RecordingSettingsInstance {
    * @param version - Version of the resource
    * @param payload - The instance payload
    */
-  constructor(version: Twilio.Video.V1, payload: object);
+  constructor(version: V1, payload: RecordingSettingsPayload);
 
-  _proxy?: RecordingSettingsContext;
+  private _proxy: RecordingSettingsContext;
+  accountSid: string;
+  awsCredentialsSid: string;
+  awsS3Url: string;
+  awsStorageEnabled: boolean;
   /**
    * create a RecordingSettingsInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: RecordingSettingsInstanceCreateOptions, callback?: (error: Error | null, items: RecordingSettingsInstance) => any);
+  create(opts: RecordingSettingsInstanceCreateOptions, callback?: (error: Error | null, items: RecordingSettingsInstance) => any): void;
+  encryptionEnabled: boolean;
+  encryptionKeySid: string;
   /**
    * fetch a RecordingSettingsInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: RecordingSettingsInstance) => any);
+  fetch(callback?: (error: Error | null, items: RecordingSettingsInstance) => any): void;
+  friendlyName: string;
   /**
    * Produce a plain JSON object version of the RecordingSettingsInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  url: string;
 }
 
 
 declare class RecordingSettingsContext {
   /**
-   * @constructor Twilio.Video.V1.RecordingSettingsContext
-   * @description Initialize the RecordingSettingsContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the RecordingSettingsContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    */
-  constructor(version: Twilio.Video.V1);
+  constructor(version: V1);
 
   /**
    * create a RecordingSettingsInstance
@@ -166,13 +167,13 @@ declare class RecordingSettingsContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: RecordingSettingsContextCreateOptions, callback?: (error: Error | null, items: RecordingSettingsContext) => any): Promise<RecordingSettingsInstance>;
+  create(opts: RecordingSettingsInstanceCreateOptions, callback?: (error: Error | null, items: RecordingSettingsInstance) => any): Promise<RecordingSettingsInstance>;
   /**
    * fetch a RecordingSettingsInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: RecordingSettingsContext) => any);
+  fetch(callback?: (error: Error | null, items: RecordingSettingsInstance) => any): void;
 }
 
 export { RecordingSettingsContext, RecordingSettingsInstance, RecordingSettingsList, RecordingSettingsListInstance, RecordingSettingsPage, RecordingSettingsPayload, RecordingSettingsResource, RecordingSettingsSolution }

@@ -34,31 +34,28 @@ interface PhoneNumberListInstance {
 }
 
 
-declare class PhoneNumberPage extends Page {
+declare class PhoneNumberPage extends Page<V1, PhoneNumberPayload, PhoneNumberResource, PhoneNumberInstance> {
   /**
-   * @constructor Twilio.Pricing.V1.PhoneNumberPage
-   * @augments Page
-   * @description Initialize the PhoneNumberPage
+   * Initialize the PhoneNumberPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Pricing.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: PhoneNumberSolution);
 
   /**
    * Build an instance of PhoneNumberInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: PhoneNumberPayload): PhoneNumberInstance;
 }
 
 
-declare class PhoneNumberInstance {
+declare class PhoneNumberInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Pricing.V1.PhoneNumberInstance
-   * @description Initialize the PhoneNumberContext
+   * Initialize the PhoneNumberContext
    *
    * @property name - The name
    * @property url - The url
@@ -67,13 +64,16 @@ declare class PhoneNumberInstance {
    * @param version - Version of the resource
    * @param payload - The instance payload
    */
-  constructor(version: Twilio.Pricing.V1, payload: object);
+  constructor(version: V1, payload: PhoneNumberPayload);
 
+  links: string;
+  name: string;
   /**
    * Produce a plain JSON object version of the PhoneNumberInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  url: string;
 }
 
 export { PhoneNumberInstance, PhoneNumberList, PhoneNumberListInstance, PhoneNumberPage, PhoneNumberPayload, PhoneNumberResource, PhoneNumberSolution }

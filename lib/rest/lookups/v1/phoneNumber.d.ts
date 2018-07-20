@@ -55,7 +55,7 @@ interface PhoneNumberListInstance {
  * @property addOns - Indicates the particular Add-on you would like to use to get more information.
  * @property addOnsData - The add_ons_data
  */
-export interface PhoneNumberInstanceFetchOptions {
+interface PhoneNumberInstanceFetchOptions {
   addOns?: string|list;
   addOnsData?: object;
   countryCode?: string;
@@ -70,7 +70,7 @@ export interface PhoneNumberInstanceFetchOptions {
  * @property addOns - Indicates the particular Add-on you would like to use to get more information.
  * @property addOnsData - The add_ons_data
  */
-export interface PhoneNumberContextFetchOptions {
+interface PhoneNumberInstanceFetchOptions {
   addOns?: string|list;
   addOnsData?: object;
   countryCode?: string;
@@ -78,31 +78,28 @@ export interface PhoneNumberContextFetchOptions {
 }
 
 
-declare class PhoneNumberPage extends Page {
+declare class PhoneNumberPage extends Page<V1, PhoneNumberPayload, PhoneNumberResource, PhoneNumberInstance> {
   /**
-   * @constructor Twilio.Lookups.V1.PhoneNumberPage
-   * @augments Page
-   * @description Initialize the PhoneNumberPage
+   * Initialize the PhoneNumberPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Lookups.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: PhoneNumberSolution);
 
   /**
    * Build an instance of PhoneNumberInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: PhoneNumberPayload): PhoneNumberInstance;
 }
 
 
-declare class PhoneNumberInstance {
+declare class PhoneNumberInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Lookups.V1.PhoneNumberInstance
-   * @description Initialize the PhoneNumberContext
+   * Initialize the PhoneNumberContext
    *
    * @property callerName - String indicating the name of the owner of the phone number.
    * @property countryCode - The ISO country code for the phone number.
@@ -116,33 +113,39 @@ declare class PhoneNumberInstance {
    * @param payload - The instance payload
    * @param phoneNumber - The phone_number
    */
-  constructor(version: Twilio.Lookups.V1, payload: object, phoneNumber: phone_number);
+  constructor(version: V1, payload: PhoneNumberPayload, phoneNumber: string);
 
-  _proxy?: PhoneNumberContext;
+  private _proxy: PhoneNumberContext;
+  addOns: string;
+  callerName: string;
+  carrier: string;
+  countryCode: string;
   /**
    * fetch a PhoneNumberInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: PhoneNumberInstanceFetchOptions, callback?: (error: Error | null, items: PhoneNumberInstance) => any);
+  fetch(opts?: PhoneNumberInstanceFetchOptions, callback?: (error: Error | null, items: PhoneNumberInstance) => any): void;
+  nationalFormat: string;
+  phoneNumber: string;
   /**
    * Produce a plain JSON object version of the PhoneNumberInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  url: string;
 }
 
 
 declare class PhoneNumberContext {
   /**
-   * @constructor Twilio.Lookups.V1.PhoneNumberContext
-   * @description Initialize the PhoneNumberContext
+   * Initialize the PhoneNumberContext
    *
    * @param version - Version of the resource
    * @param phoneNumber - The phone_number
    */
-  constructor(version: Twilio.Lookups.V1, phoneNumber: phone_number);
+  constructor(version: V1, phoneNumber: string);
 
   /**
    * fetch a PhoneNumberInstance
@@ -150,7 +153,7 @@ declare class PhoneNumberContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: PhoneNumberContextFetchOptions, callback?: (error: Error | null, items: PhoneNumberContext) => any);
+  fetch(opts?: PhoneNumberInstanceFetchOptions, callback?: (error: Error | null, items: PhoneNumberInstance) => any): void;
 }
 
 export { PhoneNumberContext, PhoneNumberInstance, PhoneNumberList, PhoneNumberListInstance, PhoneNumberPage, PhoneNumberPayload, PhoneNumberResource, PhoneNumberSolution }

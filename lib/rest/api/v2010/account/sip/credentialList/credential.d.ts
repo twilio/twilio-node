@@ -78,16 +78,16 @@ interface CredentialListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<CredentialPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: CredentialPage) => any): Promise<CredentialPage>;
   /**
-   * @description Lists CredentialInstance records from the API as a list.
+   * Lists CredentialInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: CredentialListInstanceOptions, callback?: function): Promise<CredentialInstance[]>;
+  list(opts?: CredentialListInstanceOptions, callback?: (error: Error | null, items: CredentialInstance[]) => any): Promise<CredentialInstance[]>;
   /**
    * Retrieve a single page of CredentialInstance records from the API.
    * Request is executed immediately
@@ -97,7 +97,7 @@ interface CredentialListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: CredentialListInstancePageOptions, callback?: function): Promise<CredentialPage>;
+  page(opts?: CredentialListInstancePageOptions, callback?: (error: Error | null, items: CredentialPage) => any): Promise<CredentialPage>;
 }
 
 /**
@@ -105,7 +105,7 @@ interface CredentialListInstance {
  *
  * @property password - The password will not be returned in the response.
  */
-export interface CredentialInstanceUpdateOptions {
+interface CredentialInstanceUpdateOptions {
   password?: string;
 }
 
@@ -114,104 +114,33 @@ export interface CredentialInstanceUpdateOptions {
  *
  * @property password - The password will not be returned in the response.
  */
-export interface CredentialContextUpdateOptions {
+interface CredentialInstanceUpdateOptions {
   password?: string;
 }
 
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface CredentialListInstanceEachOptions {
-  callback?: (item: CredentialInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
 
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface CredentialListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface CredentialListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-}
-
-/**
- * Options to pass to create
- *
- * @property username - The username for this credential.
- * @property password - The password will not be returned in the response.
- */
-export interface CredentialListInstanceCreateOptions {
-  password: string;
-  username: string;
-}
-
-
-declare class CredentialPage extends Page {
+declare class CredentialPage extends Page<V2010, CredentialPayload, CredentialResource, CredentialInstance> {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.SipContext.CredentialListContext.CredentialPage
-   * @augments Page
-   * @description Initialize the CredentialPage
+   * Initialize the CredentialPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
+  constructor(version: V2010, response: Response<string>, solution: CredentialSolution);
 
   /**
    * Build an instance of CredentialInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: CredentialPayload): CredentialInstance;
 }
 
 
-declare class CredentialInstance {
+declare class CredentialInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.SipContext.CredentialListContext.CredentialInstance
-   * @description Initialize the CredentialContext
+   * Initialize the CredentialContext
    *
    * @property sid - A 34 character string that uniquely identifies this resource.
    * @property accountSid - The unique id of the Account that responsible for this resource.
@@ -227,67 +156,73 @@ declare class CredentialInstance {
    * @param credentialListSid - The credential_list_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, credentialListSid: sid, sid: sid);
+  constructor(version: V2010, payload: CredentialPayload, accountSid: string, credentialListSid: string, sid: string);
 
-  _proxy?: CredentialContext;
+  private _proxy: CredentialContext;
+  accountSid: string;
+  credentialListSid: string;
+  dateCreated: Date;
+  dateUpdated: Date;
   /**
    * fetch a CredentialInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CredentialInstance) => any);
+  fetch(callback?: (error: Error | null, items: CredentialInstance) => any): void;
   /**
    * remove a CredentialInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: CredentialInstance) => any);
+  remove(callback?: (error: Error | null, items: CredentialInstance) => any): void;
+  sid: string;
   /**
    * Produce a plain JSON object version of the CredentialInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
   /**
    * update a CredentialInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: CredentialInstanceUpdateOptions, callback?: (error: Error | null, items: CredentialInstance) => any);
+  update(opts?: CredentialInstanceUpdateOptions, callback?: (error: Error | null, items: CredentialInstance) => any): void;
+  uri: string;
+  username: string;
 }
 
 
 declare class CredentialContext {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.SipContext.CredentialListContext.CredentialContext
-   * @description Initialize the CredentialContext
+   * Initialize the CredentialContext
    *
    * @param version - Version of the resource
    * @param accountSid - The account_sid
    * @param credentialListSid - The credential_list_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.Api.V2010, accountSid: sid, credentialListSid: sid, sid: sid);
+  constructor(version: V2010, accountSid: string, credentialListSid: string, sid: string);
 
   /**
    * fetch a CredentialInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CredentialContext) => any);
+  fetch(callback?: (error: Error | null, items: CredentialInstance) => any): void;
   /**
    * remove a CredentialInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: CredentialContext) => any);
+  remove(callback?: (error: Error | null, items: CredentialInstance) => any): void;
   /**
    * update a CredentialInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: CredentialContextUpdateOptions, callback?: (error: Error | null, items: CredentialContext) => any);
+  update(opts?: CredentialInstanceUpdateOptions, callback?: (error: Error | null, items: CredentialInstance) => any): void;
 }
 
-export { CredentialContext, CredentialInstance, CredentialList, CredentialListInstance, CredentialPage, CredentialPayload, CredentialResource, CredentialSolution }
+export { CredentialContext, CredentialInstance, CredentialList, CredentialListInstance, CredentialListInstanceCreateOptions, CredentialListInstanceEachOptions, CredentialListInstanceOptions, CredentialListInstancePageOptions, CredentialPage, CredentialPayload, CredentialResource, CredentialSolution }

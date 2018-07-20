@@ -81,16 +81,16 @@ interface FleetListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<FleetPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: FleetPage) => any): Promise<FleetPage>;
   /**
-   * @description Lists FleetInstance records from the API as a list.
+   * Lists FleetInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: FleetListInstanceOptions, callback?: function): Promise<FleetInstance[]>;
+  list(opts?: FleetListInstanceOptions, callback?: (error: Error | null, items: FleetInstance[]) => any): Promise<FleetInstance[]>;
   /**
    * Retrieve a single page of FleetInstance records from the API.
    * Request is executed immediately
@@ -100,7 +100,7 @@ interface FleetListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: FleetListInstancePageOptions, callback?: function): Promise<FleetPage>;
+  page(opts?: FleetListInstancePageOptions, callback?: (error: Error | null, items: FleetPage) => any): Promise<FleetPage>;
 }
 
 /**
@@ -109,7 +109,7 @@ interface FleetListInstance {
  * @property friendlyName - A human readable description for this Fleet.
  * @property defaultDeploymentSid - A default Deployment SID.
  */
-export interface FleetInstanceUpdateOptions {
+interface FleetInstanceUpdateOptions {
   defaultDeploymentSid?: string;
   friendlyName?: string;
 }
@@ -120,105 +120,34 @@ export interface FleetInstanceUpdateOptions {
  * @property friendlyName - A human readable description for this Fleet.
  * @property defaultDeploymentSid - A default Deployment SID.
  */
-export interface FleetContextUpdateOptions {
+interface FleetInstanceUpdateOptions {
   defaultDeploymentSid?: string;
   friendlyName?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property friendlyName - A human readable description for this Fleet.
- */
-export interface FleetListInstanceCreateOptions {
-  friendlyName?: string;
-}
 
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface FleetListInstanceEachOptions {
-  callback?: (item: FleetInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface FleetListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface FleetListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-}
-
-
-declare class FleetPage extends Page {
+declare class FleetPage extends Page<DeployedDevices, FleetPayload, FleetResource, FleetInstance> {
   /**
-   * @constructor Twilio.Preview.DeployedDevices.FleetPage
-   * @augments Page
-   * @description Initialize the FleetPage
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the FleetPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Preview.DeployedDevices, response: Response<string>, solution: object);
+  constructor(version: DeployedDevices, response: Response<string>, solution: FleetSolution);
 
   /**
    * Build an instance of FleetInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: FleetPayload): FleetInstance;
 }
 
 
-declare class FleetInstance {
+declare class FleetInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Preview.DeployedDevices.FleetInstance
-   * @description Initialize the FleetContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the FleetContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @property sid - A string that uniquely identifies this Fleet.
    * @property url - URL of this Fleet.
@@ -234,13 +163,17 @@ declare class FleetInstance {
    * @param payload - The instance payload
    * @param sid - A string that uniquely identifies the Fleet.
    */
-  constructor(version: Twilio.Preview.DeployedDevices, payload: object, sid: sid_like);
+  constructor(version: DeployedDevices, payload: FleetPayload, sid: string);
 
-  _proxy?: FleetContext;
+  private _proxy: FleetContext;
+  accountSid: string;
   /**
    * Access the certificates
    */
   certificates();
+  dateCreated: Date;
+  dateUpdated: Date;
+  defaultDeploymentSid: string;
   /**
    * Access the deployments
    */
@@ -254,37 +187,40 @@ declare class FleetInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: FleetInstance) => any);
+  fetch(callback?: (error: Error | null, items: FleetInstance) => any): void;
+  friendlyName: string;
   /**
    * Access the keys
    */
   keys();
+  links: string;
   /**
    * remove a FleetInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: FleetInstance) => any);
+  remove(callback?: (error: Error | null, items: FleetInstance) => any): void;
+  sid: string;
   /**
    * Produce a plain JSON object version of the FleetInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  uniqueName: string;
   /**
    * update a FleetInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: FleetInstanceUpdateOptions, callback?: (error: Error | null, items: FleetInstance) => any);
+  update(opts?: FleetInstanceUpdateOptions, callback?: (error: Error | null, items: FleetInstance) => any): void;
+  url: string;
 }
 
 
 declare class FleetContext {
   /**
-   * @constructor Twilio.Preview.DeployedDevices.FleetContext
-   * @description Initialize the FleetContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the FleetContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @property devices - devices resource
    * @property deployments - deployments resource
@@ -294,7 +230,7 @@ declare class FleetContext {
    * @param version - Version of the resource
    * @param sid - A string that uniquely identifies the Fleet.
    */
-  constructor(version: Twilio.Preview.DeployedDevices, sid: sid_like);
+  constructor(version: DeployedDevices, sid: string);
 
   certificates?: Twilio.Preview.DeployedDevices.FleetContext.CertificateList;
   deployments?: Twilio.Preview.DeployedDevices.FleetContext.DeploymentList;
@@ -304,21 +240,21 @@ declare class FleetContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: FleetContext) => any);
+  fetch(callback?: (error: Error | null, items: FleetInstance) => any): void;
   keys?: Twilio.Preview.DeployedDevices.FleetContext.KeyList;
   /**
    * remove a FleetInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: FleetContext) => any);
+  remove(callback?: (error: Error | null, items: FleetInstance) => any): void;
   /**
    * update a FleetInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: FleetContextUpdateOptions, callback?: (error: Error | null, items: FleetContext) => any);
+  update(opts?: FleetInstanceUpdateOptions, callback?: (error: Error | null, items: FleetInstance) => any): void;
 }
 
-export { FleetContext, FleetInstance, FleetList, FleetListInstance, FleetPage, FleetPayload, FleetResource, FleetSolution }
+export { FleetContext, FleetInstance, FleetList, FleetListInstance, FleetListInstanceCreateOptions, FleetListInstanceEachOptions, FleetListInstanceOptions, FleetListInstancePageOptions, FleetPage, FleetPayload, FleetResource, FleetSolution }

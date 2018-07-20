@@ -78,16 +78,16 @@ interface IpAccessControlListMappingListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<IpAccessControlListMappingPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: IpAccessControlListMappingPage) => any): Promise<IpAccessControlListMappingPage>;
   /**
-   * @description Lists IpAccessControlListMappingInstance records from the API as a list.
+   * Lists IpAccessControlListMappingInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: IpAccessControlListMappingListInstanceOptions, callback?: function): Promise<IpAccessControlListMappingInstance[]>;
+  list(opts?: IpAccessControlListMappingListInstanceOptions, callback?: (error: Error | null, items: IpAccessControlListMappingInstance[]) => any): Promise<IpAccessControlListMappingInstance[]>;
   /**
    * Retrieve a single page of IpAccessControlListMappingInstance records from the API.
    * Request is executed immediately
@@ -97,101 +97,32 @@ interface IpAccessControlListMappingListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: IpAccessControlListMappingListInstancePageOptions, callback?: function): Promise<IpAccessControlListMappingPage>;
-}
-
-/**
- * Options to pass to create
- *
- * @property ipAccessControlListSid - The ip_access_control_list_sid
- */
-export interface IpAccessControlListMappingListInstanceCreateOptions {
-  ipAccessControlListSid: string;
-}
-
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface IpAccessControlListMappingListInstanceEachOptions {
-  callback?: (item: IpAccessControlListMappingInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface IpAccessControlListMappingListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface IpAccessControlListMappingListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
+  page(opts?: IpAccessControlListMappingListInstancePageOptions, callback?: (error: Error | null, items: IpAccessControlListMappingPage) => any): Promise<IpAccessControlListMappingPage>;
 }
 
 
-declare class IpAccessControlListMappingPage extends Page {
+declare class IpAccessControlListMappingPage extends Page<V2010, IpAccessControlListMappingPayload, IpAccessControlListMappingResource, IpAccessControlListMappingInstance> {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.SipContext.DomainContext.IpAccessControlListMappingPage
-   * @augments Page
-   * @description Initialize the IpAccessControlListMappingPage
+   * Initialize the IpAccessControlListMappingPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
+  constructor(version: V2010, response: Response<string>, solution: IpAccessControlListMappingSolution);
 
   /**
    * Build an instance of IpAccessControlListMappingInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: IpAccessControlListMappingPayload): IpAccessControlListMappingInstance;
 }
 
 
-declare class IpAccessControlListMappingInstance {
+declare class IpAccessControlListMappingInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.SipContext.DomainContext.IpAccessControlListMappingInstance
-   * @description Initialize the IpAccessControlListMappingContext
+   * Initialize the IpAccessControlListMappingContext
    *
    * @property accountSid - The unique id of the Account that responsible for this resource.
    * @property dateCreated - The date that this resource was created, given as GMT in RFC 2822 format.
@@ -207,53 +138,59 @@ declare class IpAccessControlListMappingInstance {
    * @param domainSid - A string that uniquely identifies the SIP Domain
    * @param sid - The sid
    */
-  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, domainSid: sid, sid: sid);
+  constructor(version: V2010, payload: IpAccessControlListMappingPayload, accountSid: string, domainSid: string, sid: string);
 
-  _proxy?: IpAccessControlListMappingContext;
+  private _proxy: IpAccessControlListMappingContext;
+  accountSid: string;
+  dateCreated: Date;
+  dateUpdated: Date;
   /**
    * fetch a IpAccessControlListMappingInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: IpAccessControlListMappingInstance) => any);
+  fetch(callback?: (error: Error | null, items: IpAccessControlListMappingInstance) => any): void;
+  friendlyName: string;
   /**
    * remove a IpAccessControlListMappingInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: IpAccessControlListMappingInstance) => any);
+  remove(callback?: (error: Error | null, items: IpAccessControlListMappingInstance) => any): void;
+  sid: string;
+  subresourceUris: string;
   /**
    * Produce a plain JSON object version of the IpAccessControlListMappingInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  uri: string;
 }
 
 
 declare class IpAccessControlListMappingContext {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.SipContext.DomainContext.IpAccessControlListMappingContext
-   * @description Initialize the IpAccessControlListMappingContext
+   * Initialize the IpAccessControlListMappingContext
    *
    * @param version - Version of the resource
    * @param accountSid - The account_sid
    * @param domainSid - The domain_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.Api.V2010, accountSid: sid, domainSid: sid, sid: sid);
+  constructor(version: V2010, accountSid: string, domainSid: string, sid: string);
 
   /**
    * fetch a IpAccessControlListMappingInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: IpAccessControlListMappingContext) => any);
+  fetch(callback?: (error: Error | null, items: IpAccessControlListMappingInstance) => any): void;
   /**
    * remove a IpAccessControlListMappingInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: IpAccessControlListMappingContext) => any);
+  remove(callback?: (error: Error | null, items: IpAccessControlListMappingInstance) => any): void;
 }
 
-export { IpAccessControlListMappingContext, IpAccessControlListMappingInstance, IpAccessControlListMappingList, IpAccessControlListMappingListInstance, IpAccessControlListMappingPage, IpAccessControlListMappingPayload, IpAccessControlListMappingResource, IpAccessControlListMappingSolution }
+export { IpAccessControlListMappingContext, IpAccessControlListMappingInstance, IpAccessControlListMappingList, IpAccessControlListMappingListInstance, IpAccessControlListMappingListInstanceCreateOptions, IpAccessControlListMappingListInstanceEachOptions, IpAccessControlListMappingListInstanceOptions, IpAccessControlListMappingListInstancePageOptions, IpAccessControlListMappingPage, IpAccessControlListMappingPayload, IpAccessControlListMappingResource, IpAccessControlListMappingSolution }

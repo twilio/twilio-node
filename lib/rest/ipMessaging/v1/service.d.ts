@@ -92,16 +92,16 @@ interface ServiceListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<ServicePage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
   /**
-   * @description Lists ServiceInstance records from the API as a list.
+   * Lists ServiceInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: ServiceListInstanceOptions, callback?: function): Promise<ServiceInstance[]>;
+  list(opts?: ServiceListInstanceOptions, callback?: (error: Error | null, items: ServiceInstance[]) => any): Promise<ServiceInstance[]>;
   /**
    * Retrieve a single page of ServiceInstance records from the API.
    * Request is executed immediately
@@ -111,7 +111,7 @@ interface ServiceListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: ServiceListInstancePageOptions, callback?: function): Promise<ServicePage>;
+  page(opts?: ServiceListInstancePageOptions, callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
 }
 
 /**
@@ -188,7 +188,7 @@ interface ServiceListInstance {
  * @property limits.channelMembers - The limits.channel_members
  * @property limits.userChannels - The limits.user_channels
  */
-export interface ServiceInstanceUpdateOptions {
+interface ServiceInstanceUpdateOptions {
   consumptionReportInterval?: number;
   defaultChannelCreatorRoleSid?: string;
   defaultChannelRoleSid?: string;
@@ -335,7 +335,7 @@ export interface ServiceInstanceUpdateOptions {
  * @property limits.channelMembers - The limits.channel_members
  * @property limits.userChannels - The limits.user_channels
  */
-export interface ServiceContextUpdateOptions {
+interface ServiceInstanceUpdateOptions {
   consumptionReportInterval?: number;
   defaultChannelCreatorRoleSid?: string;
   defaultChannelRoleSid?: string;
@@ -408,98 +408,29 @@ export interface ServiceContextUpdateOptions {
   webhooks.onMessageUpdated.url?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property friendlyName - Human-readable name for this service instance
- */
-export interface ServiceListInstanceCreateOptions {
-  friendlyName: string;
-}
 
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface ServiceListInstanceEachOptions {
-  callback?: (item: ServiceInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface ServiceListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface ServiceListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-}
-
-
-declare class ServicePage extends Page {
+declare class ServicePage extends Page<V1, ServicePayload, ServiceResource, ServiceInstance> {
   /**
-   * @constructor Twilio.IpMessaging.V1.ServicePage
-   * @augments Page
-   * @description Initialize the ServicePage
+   * Initialize the ServicePage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.IpMessaging.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: ServiceSolution);
 
   /**
    * Build an instance of ServiceInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: ServicePayload): ServiceInstance;
 }
 
 
-declare class ServiceInstance {
+declare class ServiceInstance extends SerializableClass {
   /**
-   * @constructor Twilio.IpMessaging.V1.ServiceInstance
-   * @description Initialize the ServiceContext
+   * Initialize the ServiceContext
    *
    * @property sid - A 34 character string that uniquely identifies this resource.
    * @property accountSid - The unique id of the Account responsible for this service.
@@ -527,52 +458,72 @@ declare class ServiceInstance {
    * @param payload - The instance payload
    * @param sid - The sid
    */
-  constructor(version: Twilio.IpMessaging.V1, payload: object, sid: sid);
+  constructor(version: V1, payload: ServicePayload, sid: string);
 
-  _proxy?: ServiceContext;
+  private _proxy: ServiceContext;
+  accountSid: string;
   /**
    * Access the channels
    */
   channels();
+  consumptionReportInterval: number;
+  dateCreated: Date;
+  dateUpdated: Date;
+  defaultChannelCreatorRoleSid: string;
+  defaultChannelRoleSid: string;
+  defaultServiceRoleSid: string;
   /**
    * fetch a ServiceInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ServiceInstance) => any);
+  fetch(callback?: (error: Error | null, items: ServiceInstance) => any): void;
+  friendlyName: string;
+  limits: string;
+  links: string;
+  notifications: string;
+  postWebhookUrl: string;
+  preWebhookUrl: string;
+  reachabilityEnabled: boolean;
+  readStatusEnabled: boolean;
   /**
    * remove a ServiceInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ServiceInstance) => any);
+  remove(callback?: (error: Error | null, items: ServiceInstance) => any): void;
   /**
    * Access the roles
    */
   roles();
+  sid: string;
   /**
    * Produce a plain JSON object version of the ServiceInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  typingIndicatorTimeout: number;
   /**
    * update a ServiceInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ServiceInstanceUpdateOptions, callback?: (error: Error | null, items: ServiceInstance) => any);
+  update(opts?: ServiceInstanceUpdateOptions, callback?: (error: Error | null, items: ServiceInstance) => any): void;
+  url: string;
   /**
    * Access the users
    */
   users();
+  webhookFilters: string;
+  webhookMethod: string;
+  webhooks: string;
 }
 
 
 declare class ServiceContext {
   /**
-   * @constructor Twilio.IpMessaging.V1.ServiceContext
-   * @description Initialize the ServiceContext
+   * Initialize the ServiceContext
    *
    * @property channels - channels resource
    * @property roles - roles resource
@@ -581,7 +532,7 @@ declare class ServiceContext {
    * @param version - Version of the resource
    * @param sid - The sid
    */
-  constructor(version: Twilio.IpMessaging.V1, sid: sid);
+  constructor(version: V1, sid: string);
 
   channels?: Twilio.IpMessaging.V1.ServiceContext.ChannelList;
   /**
@@ -589,13 +540,13 @@ declare class ServiceContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ServiceContext) => any);
+  fetch(callback?: (error: Error | null, items: ServiceInstance) => any): void;
   /**
    * remove a ServiceInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: ServiceContext) => any);
+  remove(callback?: (error: Error | null, items: ServiceInstance) => any): void;
   roles?: Twilio.IpMessaging.V1.ServiceContext.RoleList;
   /**
    * update a ServiceInstance
@@ -603,8 +554,8 @@ declare class ServiceContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ServiceContextUpdateOptions, callback?: (error: Error | null, items: ServiceContext) => any);
+  update(opts?: ServiceInstanceUpdateOptions, callback?: (error: Error | null, items: ServiceInstance) => any): void;
   users?: Twilio.IpMessaging.V1.ServiceContext.UserList;
 }
 
-export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServicePage, ServicePayload, ServiceResource, ServiceSolution }
+export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServiceListInstanceCreateOptions, ServiceListInstanceEachOptions, ServiceListInstanceOptions, ServiceListInstancePageOptions, ServicePage, ServicePayload, ServiceResource, ServiceSolution }

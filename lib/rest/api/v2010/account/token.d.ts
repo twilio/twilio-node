@@ -45,41 +45,29 @@ interface TokenListInstance {
   create(opts?: TokenListInstanceCreateOptions, callback?: (error: Error | null, items: TokenListInstance) => any): Promise<TokenInstance>;
 }
 
-/**
- * Options to pass to create
- *
- * @property ttl - The duration in seconds the credentials are valid
- */
-export interface TokenListInstanceCreateOptions {
-  ttl?: number;
-}
 
-
-declare class TokenPage extends Page {
+declare class TokenPage extends Page<V2010, TokenPayload, TokenResource, TokenInstance> {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.TokenPage
-   * @augments Page
-   * @description Initialize the TokenPage
+   * Initialize the TokenPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
+  constructor(version: V2010, response: Response<string>, solution: TokenSolution);
 
   /**
    * Build an instance of TokenInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: TokenPayload): TokenInstance;
 }
 
 
-declare class TokenInstance {
+declare class TokenInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.TokenInstance
-   * @description Initialize the TokenContext
+   * Initialize the TokenContext
    *
    * @property accountSid - The unique sid that identifies this account
    * @property dateCreated - The date this resource was created
@@ -93,13 +81,20 @@ declare class TokenInstance {
    * @param payload - The instance payload
    * @param accountSid - The unique sid that identifies this account
    */
-  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid);
+  constructor(version: V2010, payload: TokenPayload, accountSid: string);
 
+  accountSid: string;
+  dateCreated: Date;
+  dateUpdated: Date;
+  iceServers: string;
+  password: string;
   /**
    * Produce a plain JSON object version of the TokenInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  ttl: string;
+  username: string;
 }
 
-export { TokenInstance, TokenList, TokenListInstance, TokenPage, TokenPayload, TokenResource, TokenSolution }
+export { TokenInstance, TokenList, TokenListInstance, TokenListInstanceCreateOptions, TokenPage, TokenPayload, TokenResource, TokenSolution }

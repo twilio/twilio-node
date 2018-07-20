@@ -79,16 +79,16 @@ interface KeyListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<KeyPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: KeyPage) => any): Promise<KeyPage>;
   /**
-   * @description Lists KeyInstance records from the API as a list.
+   * Lists KeyInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: KeyListInstanceOptions, callback?: function): Promise<KeyInstance[]>;
+  list(opts?: KeyListInstanceOptions, callback?: (error: Error | null, items: KeyInstance[]) => any): Promise<KeyInstance[]>;
   /**
    * Retrieve a single page of KeyInstance records from the API.
    * Request is executed immediately
@@ -98,7 +98,7 @@ interface KeyListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: KeyListInstancePageOptions, callback?: function): Promise<KeyPage>;
+  page(opts?: KeyListInstancePageOptions, callback?: (error: Error | null, items: KeyPage) => any): Promise<KeyPage>;
 }
 
 /**
@@ -107,7 +107,7 @@ interface KeyListInstance {
  * @property friendlyName - The human readable description for this Key.
  * @property deviceSid - The unique identifier of a Key to be authenticated.
  */
-export interface KeyInstanceUpdateOptions {
+interface KeyInstanceUpdateOptions {
   deviceSid?: string;
   friendlyName?: string;
 }
@@ -118,113 +118,34 @@ export interface KeyInstanceUpdateOptions {
  * @property friendlyName - The human readable description for this Key.
  * @property deviceSid - The unique identifier of a Key to be authenticated.
  */
-export interface KeyContextUpdateOptions {
+interface KeyInstanceUpdateOptions {
   deviceSid?: string;
   friendlyName?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property friendlyName - The human readable description for this Key.
- * @property deviceSid - The unique identifier of a Key to be authenticated.
- */
-export interface KeyListInstanceCreateOptions {
-  deviceSid?: string;
-  friendlyName?: string;
-}
 
-/**
- * Options to pass to each
- *
- * @property deviceSid - Find all Keys authenticating specified Device.
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface KeyListInstanceEachOptions {
-  callback?: (item: KeyInstance, done: (err?: Error) => void) => void;
-  deviceSid?: string;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property deviceSid - Find all Keys authenticating specified Device.
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface KeyListInstanceOptions {
-  deviceSid?: string;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property deviceSid - Find all Keys authenticating specified Device.
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface KeyListInstancePageOptions {
-  deviceSid?: string;
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-}
-
-
-declare class KeyPage extends Page {
+declare class KeyPage extends Page<DeployedDevices, KeyPayload, KeyResource, KeyInstance> {
   /**
-   * @constructor Twilio.Preview.DeployedDevices.FleetContext.KeyPage
-   * @augments Page
-   * @description Initialize the KeyPage
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the KeyPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Preview.DeployedDevices, response: Response<string>, solution: object);
+  constructor(version: DeployedDevices, response: Response<string>, solution: KeySolution);
 
   /**
    * Build an instance of KeyInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: KeyPayload): KeyInstance;
 }
 
 
-declare class KeyInstance {
+declare class KeyInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Preview.DeployedDevices.FleetContext.KeyInstance
-   * @description Initialize the KeyContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the KeyContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @property sid - A string that uniquely identifies this Key.
    * @property url - URL of this Key.
@@ -241,67 +162,74 @@ declare class KeyInstance {
    * @param fleetSid - The unique identifier of the Fleet.
    * @param sid - A string that uniquely identifies the Key.
    */
-  constructor(version: Twilio.Preview.DeployedDevices, payload: object, fleetSid: sid_like, sid: sid);
+  constructor(version: DeployedDevices, payload: KeyPayload, fleetSid: string, sid: string);
 
-  _proxy?: KeyContext;
+  private _proxy: KeyContext;
+  accountSid: string;
+  dateCreated: Date;
+  dateUpdated: Date;
+  deviceSid: string;
   /**
    * fetch a KeyInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: KeyInstance) => any);
+  fetch(callback?: (error: Error | null, items: KeyInstance) => any): void;
+  fleetSid: string;
+  friendlyName: string;
   /**
    * remove a KeyInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: KeyInstance) => any);
+  remove(callback?: (error: Error | null, items: KeyInstance) => any): void;
+  secret: string;
+  sid: string;
   /**
    * Produce a plain JSON object version of the KeyInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
   /**
    * update a KeyInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: KeyInstanceUpdateOptions, callback?: (error: Error | null, items: KeyInstance) => any);
+  update(opts?: KeyInstanceUpdateOptions, callback?: (error: Error | null, items: KeyInstance) => any): void;
+  url: string;
 }
 
 
 declare class KeyContext {
   /**
-   * @constructor Twilio.Preview.DeployedDevices.FleetContext.KeyContext
-   * @description Initialize the KeyContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the KeyContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param fleetSid - The fleet_sid
    * @param sid - A string that uniquely identifies the Key.
    */
-  constructor(version: Twilio.Preview.DeployedDevices, fleetSid: sid_like, sid: sid);
+  constructor(version: DeployedDevices, fleetSid: string, sid: string);
 
   /**
    * fetch a KeyInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: KeyContext) => any);
+  fetch(callback?: (error: Error | null, items: KeyInstance) => any): void;
   /**
    * remove a KeyInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: KeyContext) => any);
+  remove(callback?: (error: Error | null, items: KeyInstance) => any): void;
   /**
    * update a KeyInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: KeyContextUpdateOptions, callback?: (error: Error | null, items: KeyContext) => any);
+  update(opts?: KeyInstanceUpdateOptions, callback?: (error: Error | null, items: KeyInstance) => any): void;
 }
 
-export { KeyContext, KeyInstance, KeyList, KeyListInstance, KeyPage, KeyPayload, KeyResource, KeySolution }
+export { KeyContext, KeyInstance, KeyList, KeyListInstance, KeyListInstanceCreateOptions, KeyListInstanceEachOptions, KeyListInstanceOptions, KeyListInstancePageOptions, KeyPage, KeyPayload, KeyResource, KeySolution }

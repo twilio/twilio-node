@@ -72,7 +72,7 @@ interface TaskQueueCumulativeStatisticsListInstance {
  * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
  * @property splitByWaitTime - A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
  */
-export interface TaskQueueCumulativeStatisticsInstanceFetchOptions {
+interface TaskQueueCumulativeStatisticsInstanceFetchOptions {
   endDate?: Date;
   minutes?: number;
   splitByWaitTime?: string;
@@ -89,7 +89,7 @@ export interface TaskQueueCumulativeStatisticsInstanceFetchOptions {
  * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
  * @property splitByWaitTime - A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
  */
-export interface TaskQueueCumulativeStatisticsContextFetchOptions {
+interface TaskQueueCumulativeStatisticsInstanceFetchOptions {
   endDate?: Date;
   minutes?: number;
   splitByWaitTime?: string;
@@ -98,31 +98,28 @@ export interface TaskQueueCumulativeStatisticsContextFetchOptions {
 }
 
 
-declare class TaskQueueCumulativeStatisticsPage extends Page {
+declare class TaskQueueCumulativeStatisticsPage extends Page<V1, TaskQueueCumulativeStatisticsPayload, TaskQueueCumulativeStatisticsResource, TaskQueueCumulativeStatisticsInstance> {
   /**
-   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueueCumulativeStatisticsPage
-   * @augments Page
-   * @description Initialize the TaskQueueCumulativeStatisticsPage
+   * Initialize the TaskQueueCumulativeStatisticsPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Taskrouter.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: TaskQueueCumulativeStatisticsSolution);
 
   /**
    * Build an instance of TaskQueueCumulativeStatisticsInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: TaskQueueCumulativeStatisticsPayload): TaskQueueCumulativeStatisticsInstance;
 }
 
 
-declare class TaskQueueCumulativeStatisticsInstance {
+declare class TaskQueueCumulativeStatisticsInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueueCumulativeStatisticsInstance
-   * @description Initialize the TaskQueueCumulativeStatisticsContext
+   * Initialize the TaskQueueCumulativeStatisticsContext
    *
    * @property accountSid - The account_sid
    * @property avgTaskAcceptanceTime - The average time from Task creation to reservation acceptance while in this TaskQueue
@@ -151,34 +148,54 @@ declare class TaskQueueCumulativeStatisticsInstance {
    * @param workspaceSid - The workspace_sid
    * @param taskQueueSid - The task_queue_sid
    */
-  constructor(version: Twilio.Taskrouter.V1, payload: object, workspaceSid: sid, taskQueueSid: sid);
+  constructor(version: V1, payload: TaskQueueCumulativeStatisticsPayload, workspaceSid: string, taskQueueSid: string);
 
-  _proxy?: TaskQueueCumulativeStatisticsContext;
+  private _proxy: TaskQueueCumulativeStatisticsContext;
+  accountSid: string;
+  avgTaskAcceptanceTime: number;
+  endTime: Date;
   /**
    * fetch a TaskQueueCumulativeStatisticsInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: TaskQueueCumulativeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: TaskQueueCumulativeStatisticsInstance) => any);
+  fetch(opts?: TaskQueueCumulativeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: TaskQueueCumulativeStatisticsInstance) => any): void;
+  reservationsAccepted: number;
+  reservationsCanceled: number;
+  reservationsCreated: number;
+  reservationsRejected: number;
+  reservationsRescinded: number;
+  reservationsTimedOut: number;
+  splitByWaitTime: string;
+  startTime: Date;
+  taskQueueSid: string;
+  tasksCanceled: number;
+  tasksCompleted: number;
+  tasksDeleted: number;
+  tasksEntered: number;
+  tasksMoved: number;
   /**
    * Produce a plain JSON object version of the TaskQueueCumulativeStatisticsInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  url: string;
+  waitDurationUntilAccepted: string;
+  waitDurationUntilCanceled: string;
+  workspaceSid: string;
 }
 
 
 declare class TaskQueueCumulativeStatisticsContext {
   /**
-   * @constructor Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueueCumulativeStatisticsContext
-   * @description Initialize the TaskQueueCumulativeStatisticsContext
+   * Initialize the TaskQueueCumulativeStatisticsContext
    *
    * @param version - Version of the resource
    * @param workspaceSid - The workspace_sid
    * @param taskQueueSid - The task_queue_sid
    */
-  constructor(version: Twilio.Taskrouter.V1, workspaceSid: sid, taskQueueSid: sid);
+  constructor(version: V1, workspaceSid: string, taskQueueSid: string);
 
   /**
    * fetch a TaskQueueCumulativeStatisticsInstance
@@ -186,7 +203,7 @@ declare class TaskQueueCumulativeStatisticsContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: TaskQueueCumulativeStatisticsContextFetchOptions, callback?: (error: Error | null, items: TaskQueueCumulativeStatisticsContext) => any);
+  fetch(opts?: TaskQueueCumulativeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: TaskQueueCumulativeStatisticsInstance) => any): void;
 }
 
 export { TaskQueueCumulativeStatisticsContext, TaskQueueCumulativeStatisticsInstance, TaskQueueCumulativeStatisticsList, TaskQueueCumulativeStatisticsListInstance, TaskQueueCumulativeStatisticsPage, TaskQueueCumulativeStatisticsPayload, TaskQueueCumulativeStatisticsResource, TaskQueueCumulativeStatisticsSolution }

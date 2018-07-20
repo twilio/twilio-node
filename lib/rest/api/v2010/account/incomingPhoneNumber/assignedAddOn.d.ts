@@ -84,16 +84,16 @@ interface AssignedAddOnListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<AssignedAddOnPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: AssignedAddOnPage) => any): Promise<AssignedAddOnPage>;
   /**
-   * @description Lists AssignedAddOnInstance records from the API as a list.
+   * Lists AssignedAddOnInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: AssignedAddOnListInstanceOptions, callback?: function): Promise<AssignedAddOnInstance[]>;
+  list(opts?: AssignedAddOnListInstanceOptions, callback?: (error: Error | null, items: AssignedAddOnInstance[]) => any): Promise<AssignedAddOnInstance[]>;
   /**
    * Retrieve a single page of AssignedAddOnInstance records from the API.
    * Request is executed immediately
@@ -103,103 +103,32 @@ interface AssignedAddOnListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: AssignedAddOnListInstancePageOptions, callback?: function): Promise<AssignedAddOnPage>;
-}
-
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface AssignedAddOnListInstanceEachOptions {
-  callback?: (item: AssignedAddOnInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface AssignedAddOnListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface AssignedAddOnListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-}
-
-/**
- * Options to pass to create
- *
- * @property installedAddOnSid - A string that uniquely identifies the Add-on installation
- */
-export interface AssignedAddOnListInstanceCreateOptions {
-  installedAddOnSid: string;
+  page(opts?: AssignedAddOnListInstancePageOptions, callback?: (error: Error | null, items: AssignedAddOnPage) => any): Promise<AssignedAddOnPage>;
 }
 
 
-declare class AssignedAddOnPage extends Page {
+declare class AssignedAddOnPage extends Page<V2010, AssignedAddOnPayload, AssignedAddOnResource, AssignedAddOnInstance> {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.IncomingPhoneNumberContext.AssignedAddOnPage
-   * @augments Page
-   * @description Initialize the AssignedAddOnPage
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the AssignedAddOnPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
+  constructor(version: V2010, response: Response<string>, solution: AssignedAddOnSolution);
 
   /**
    * Build an instance of AssignedAddOnInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: AssignedAddOnPayload): AssignedAddOnInstance;
 }
 
 
-declare class AssignedAddOnInstance {
+declare class AssignedAddOnInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.IncomingPhoneNumberContext.AssignedAddOnInstance
-   * @description Initialize the AssignedAddOnContext
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the AssignedAddOnContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @property sid - A string that uniquely identifies this assigned Add-on installation
    * @property accountSid - The Account id that has installed this Add-on
@@ -219,9 +148,14 @@ declare class AssignedAddOnInstance {
    * @param resourceSid - The Phone Number id that has installed this Add-on
    * @param sid - The unique Installed Add-on Sid
    */
-  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, resourceSid: sid, sid: sid);
+  constructor(version: V2010, payload: AssignedAddOnPayload, accountSid: string, resourceSid: string, sid: string);
 
-  _proxy?: AssignedAddOnContext;
+  private _proxy: AssignedAddOnContext;
+  accountSid: string;
+  configuration: string;
+  dateCreated: Date;
+  dateUpdated: Date;
+  description: string;
   /**
    * Access the extensions
    */
@@ -231,26 +165,30 @@ declare class AssignedAddOnInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AssignedAddOnInstance) => any);
+  fetch(callback?: (error: Error | null, items: AssignedAddOnInstance) => any): void;
+  friendlyName: string;
   /**
    * remove a AssignedAddOnInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: AssignedAddOnInstance) => any);
+  remove(callback?: (error: Error | null, items: AssignedAddOnInstance) => any): void;
+  resourceSid: string;
+  sid: string;
+  subresourceUris: string;
   /**
    * Produce a plain JSON object version of the AssignedAddOnInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  uniqueName: string;
+  uri: string;
 }
 
 
 declare class AssignedAddOnContext {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.IncomingPhoneNumberContext.AssignedAddOnContext
-   * @description Initialize the AssignedAddOnContext
-   * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the AssignedAddOnContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @property extensions - extensions resource
    *
@@ -259,7 +197,7 @@ declare class AssignedAddOnContext {
    * @param resourceSid - The resource_sid
    * @param sid - The unique Installed Add-on Sid
    */
-  constructor(version: Twilio.Api.V2010, accountSid: sid, resourceSid: sid, sid: sid);
+  constructor(version: V2010, accountSid: string, resourceSid: string, sid: string);
 
   extensions?: Twilio.Api.V2010.AccountContext.IncomingPhoneNumberContext.AssignedAddOnContext.AssignedAddOnExtensionList;
   /**
@@ -267,13 +205,13 @@ declare class AssignedAddOnContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AssignedAddOnContext) => any);
+  fetch(callback?: (error: Error | null, items: AssignedAddOnInstance) => any): void;
   /**
    * remove a AssignedAddOnInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: AssignedAddOnContext) => any);
+  remove(callback?: (error: Error | null, items: AssignedAddOnInstance) => any): void;
 }
 
-export { AssignedAddOnContext, AssignedAddOnInstance, AssignedAddOnList, AssignedAddOnListInstance, AssignedAddOnPage, AssignedAddOnPayload, AssignedAddOnResource, AssignedAddOnSolution }
+export { AssignedAddOnContext, AssignedAddOnInstance, AssignedAddOnList, AssignedAddOnListInstance, AssignedAddOnListInstanceCreateOptions, AssignedAddOnListInstanceEachOptions, AssignedAddOnListInstanceOptions, AssignedAddOnListInstancePageOptions, AssignedAddOnPage, AssignedAddOnPayload, AssignedAddOnResource, AssignedAddOnSolution }

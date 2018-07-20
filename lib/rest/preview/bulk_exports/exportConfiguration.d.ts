@@ -53,7 +53,7 @@ interface ExportConfigurationListInstance {
  * @property webhookUrl - The webhook_url
  * @property webhookMethod - The webhook_method
  */
-export interface ExportConfigurationInstanceUpdateOptions {
+interface ExportConfigurationInstanceUpdateOptions {
   enabled?: boolean;
   webhookMethod?: string;
   webhookUrl?: string;
@@ -66,40 +66,35 @@ export interface ExportConfigurationInstanceUpdateOptions {
  * @property webhookUrl - The webhook_url
  * @property webhookMethod - The webhook_method
  */
-export interface ExportConfigurationContextUpdateOptions {
+interface ExportConfigurationInstanceUpdateOptions {
   enabled?: boolean;
   webhookMethod?: string;
   webhookUrl?: string;
 }
 
 
-declare class ExportConfigurationPage extends Page {
+declare class ExportConfigurationPage extends Page<BulkExports, ExportConfigurationPayload, ExportConfigurationResource, ExportConfigurationInstance> {
   /**
-   * @constructor Twilio.Preview.BulkExports.ExportConfigurationPage
-   * @augments Page
-   * @description Initialize the ExportConfigurationPage
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the ExportConfigurationPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Preview.BulkExports, response: Response<string>, solution: object);
+  constructor(version: BulkExports, response: Response<string>, solution: ExportConfigurationSolution);
 
   /**
    * Build an instance of ExportConfigurationInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: ExportConfigurationPayload): ExportConfigurationInstance;
 }
 
 
-declare class ExportConfigurationInstance {
+declare class ExportConfigurationInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Preview.BulkExports.ExportConfigurationInstance
-   * @description Initialize the ExportConfigurationContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the ExportConfigurationContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @property enabled - The enabled
    * @property webhookUrl - The webhook_url
@@ -111,54 +106,57 @@ declare class ExportConfigurationInstance {
    * @param payload - The instance payload
    * @param resourceType - The resource_type
    */
-  constructor(version: Twilio.Preview.BulkExports, payload: object, resourceType: string);
+  constructor(version: BulkExports, payload: ExportConfigurationPayload, resourceType: string);
 
-  _proxy?: ExportConfigurationContext;
+  private _proxy: ExportConfigurationContext;
+  enabled: boolean;
   /**
    * fetch a ExportConfigurationInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ExportConfigurationInstance) => any);
+  fetch(callback?: (error: Error | null, items: ExportConfigurationInstance) => any): void;
+  resourceType: string;
   /**
    * Produce a plain JSON object version of the ExportConfigurationInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
   /**
    * update a ExportConfigurationInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ExportConfigurationInstanceUpdateOptions, callback?: (error: Error | null, items: ExportConfigurationInstance) => any);
+  update(opts?: ExportConfigurationInstanceUpdateOptions, callback?: (error: Error | null, items: ExportConfigurationInstance) => any): void;
+  url: string;
+  webhookMethod: string;
+  webhookUrl: string;
 }
 
 
 declare class ExportConfigurationContext {
   /**
-   * @constructor Twilio.Preview.BulkExports.ExportConfigurationContext
-   * @description Initialize the ExportConfigurationContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the ExportConfigurationContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param resourceType - The resource_type
    */
-  constructor(version: Twilio.Preview.BulkExports, resourceType: string);
+  constructor(version: BulkExports, resourceType: string);
 
   /**
    * fetch a ExportConfigurationInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ExportConfigurationContext) => any);
+  fetch(callback?: (error: Error | null, items: ExportConfigurationInstance) => any): void;
   /**
    * update a ExportConfigurationInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ExportConfigurationContextUpdateOptions, callback?: (error: Error | null, items: ExportConfigurationContext) => any);
+  update(opts?: ExportConfigurationInstanceUpdateOptions, callback?: (error: Error | null, items: ExportConfigurationInstance) => any): void;
 }
 
 export { ExportConfigurationContext, ExportConfigurationInstance, ExportConfigurationList, ExportConfigurationListInstance, ExportConfigurationPage, ExportConfigurationPayload, ExportConfigurationResource, ExportConfigurationSolution }

@@ -81,16 +81,16 @@ interface FieldListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<FieldPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: FieldPage) => any): Promise<FieldPage>;
   /**
-   * @description Lists FieldInstance records from the API as a list.
+   * Lists FieldInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: FieldListInstanceOptions, callback?: function): Promise<FieldInstance[]>;
+  list(opts?: FieldListInstanceOptions, callback?: (error: Error | null, items: FieldInstance[]) => any): Promise<FieldInstance[]>;
   /**
    * Retrieve a single page of FieldInstance records from the API.
    * Request is executed immediately
@@ -100,105 +100,32 @@ interface FieldListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: FieldListInstancePageOptions, callback?: function): Promise<FieldPage>;
-}
-
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface FieldListInstanceEachOptions {
-  callback?: (item: FieldInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface FieldListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface FieldListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-}
-
-/**
- * Options to pass to create
- *
- * @property fieldType - The unique name or sid of the FieldType. It can be any Built-in Field Type or the unique_name or sid of a custom Field Type.
- * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
- */
-export interface FieldListInstanceCreateOptions {
-  fieldType: string;
-  uniqueName: string;
+  page(opts?: FieldListInstancePageOptions, callback?: (error: Error | null, items: FieldPage) => any): Promise<FieldPage>;
 }
 
 
-declare class FieldPage extends Page {
+declare class FieldPage extends Page<Understand, FieldPayload, FieldResource, FieldInstance> {
   /**
-   * @constructor Twilio.Preview.Understand.AssistantContext.IntentContext.FieldPage
-   * @augments Page
-   * @description Initialize the FieldPage
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the FieldPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Preview.Understand, response: Response<string>, solution: object);
+  constructor(version: Understand, response: Response<string>, solution: FieldSolution);
 
   /**
    * Build an instance of FieldInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: FieldPayload): FieldInstance;
 }
 
 
-declare class FieldInstance {
+declare class FieldInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Preview.Understand.AssistantContext.IntentContext.FieldInstance
-   * @description Initialize the FieldContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the FieldContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @property accountSid - The unique ID of the Account that created this Field.
    * @property dateCreated - The date that this resource was created
@@ -216,54 +143,61 @@ declare class FieldInstance {
    * @param intentSid - The unique ID of the Intent associated with this Field.
    * @param sid - The sid
    */
-  constructor(version: Twilio.Preview.Understand, payload: object, assistantSid: sid, intentSid: sid, sid: sid_like);
+  constructor(version: Understand, payload: FieldPayload, assistantSid: string, intentSid: string, sid: string);
 
-  _proxy?: FieldContext;
+  private _proxy: FieldContext;
+  accountSid: string;
+  assistantSid: string;
+  dateCreated: Date;
+  dateUpdated: Date;
   /**
    * fetch a FieldInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: FieldInstance) => any);
+  fetch(callback?: (error: Error | null, items: FieldInstance) => any): void;
+  fieldType: string;
+  intentSid: string;
   /**
    * remove a FieldInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: FieldInstance) => any);
+  remove(callback?: (error: Error | null, items: FieldInstance) => any): void;
+  sid: string;
   /**
    * Produce a plain JSON object version of the FieldInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  uniqueName: string;
+  url: string;
 }
 
 
 declare class FieldContext {
   /**
-   * @constructor Twilio.Preview.Understand.AssistantContext.IntentContext.FieldContext
-   * @description Initialize the FieldContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the FieldContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param assistantSid - The assistant_sid
    * @param intentSid - The intent_sid
    * @param sid - The sid
    */
-  constructor(version: Twilio.Preview.Understand, assistantSid: sid_like, intentSid: sid_like, sid: sid_like);
+  constructor(version: Understand, assistantSid: string, intentSid: string, sid: string);
 
   /**
    * fetch a FieldInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: FieldContext) => any);
+  fetch(callback?: (error: Error | null, items: FieldInstance) => any): void;
   /**
    * remove a FieldInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: FieldContext) => any);
+  remove(callback?: (error: Error | null, items: FieldInstance) => any): void;
 }
 
-export { FieldContext, FieldInstance, FieldList, FieldListInstance, FieldPage, FieldPayload, FieldResource, FieldSolution }
+export { FieldContext, FieldInstance, FieldList, FieldListInstance, FieldListInstanceCreateOptions, FieldListInstanceEachOptions, FieldListInstanceOptions, FieldListInstancePageOptions, FieldPage, FieldPayload, FieldResource, FieldSolution }

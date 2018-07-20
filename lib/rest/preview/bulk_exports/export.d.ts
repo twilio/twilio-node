@@ -45,33 +45,28 @@ interface ExportListInstance {
 }
 
 
-declare class ExportPage extends Page {
+declare class ExportPage extends Page<BulkExports, ExportPayload, ExportResource, ExportInstance> {
   /**
-   * @constructor Twilio.Preview.BulkExports.ExportPage
-   * @augments Page
-   * @description Initialize the ExportPage
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the ExportPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Preview.BulkExports, response: Response<string>, solution: object);
+  constructor(version: BulkExports, response: Response<string>, solution: ExportSolution);
 
   /**
    * Build an instance of ExportInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: ExportPayload): ExportInstance;
 }
 
 
-declare class ExportInstance {
+declare class ExportInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Preview.BulkExports.ExportInstance
-   * @description Initialize the ExportContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the ExportContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @property resourceType - The resource_type
    * @property url - The url
@@ -81,9 +76,9 @@ declare class ExportInstance {
    * @param payload - The instance payload
    * @param resourceType - The resource_type
    */
-  constructor(version: Twilio.Preview.BulkExports, payload: object, resourceType: string);
+  constructor(version: BulkExports, payload: ExportPayload, resourceType: string);
 
-  _proxy?: ExportContext;
+  private _proxy: ExportContext;
   /**
    * Access the days
    */
@@ -93,27 +88,28 @@ declare class ExportInstance {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ExportInstance) => any);
+  fetch(callback?: (error: Error | null, items: ExportInstance) => any): void;
+  links: string;
+  resourceType: string;
   /**
    * Produce a plain JSON object version of the ExportInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  url: string;
 }
 
 
 declare class ExportContext {
   /**
-   * @constructor Twilio.Preview.BulkExports.ExportContext
-   * @description Initialize the ExportContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the ExportContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @property days - days resource
    *
    * @param version - Version of the resource
    * @param resourceType - The resource_type
    */
-  constructor(version: Twilio.Preview.BulkExports, resourceType: string);
+  constructor(version: BulkExports, resourceType: string);
 
   days?: Twilio.Preview.BulkExports.ExportContext.DayList;
   /**
@@ -121,7 +117,7 @@ declare class ExportContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ExportContext) => any);
+  fetch(callback?: (error: Error | null, items: ExportInstance) => any): void;
 }
 
 export { ExportContext, ExportInstance, ExportList, ExportListInstance, ExportPage, ExportPayload, ExportResource, ExportSolution }

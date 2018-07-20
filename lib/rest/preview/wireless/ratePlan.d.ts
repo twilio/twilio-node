@@ -83,16 +83,16 @@ interface RatePlanListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<RatePlanPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: RatePlanPage) => any): Promise<RatePlanPage>;
   /**
-   * @description Lists RatePlanInstance records from the API as a list.
+   * Lists RatePlanInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: RatePlanListInstanceOptions, callback?: function): Promise<RatePlanInstance[]>;
+  list(opts?: RatePlanListInstanceOptions, callback?: (error: Error | null, items: RatePlanInstance[]) => any): Promise<RatePlanInstance[]>;
   /**
    * Retrieve a single page of RatePlanInstance records from the API.
    * Request is executed immediately
@@ -102,7 +102,7 @@ interface RatePlanListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: RatePlanListInstancePageOptions, callback?: function): Promise<RatePlanPage>;
+  page(opts?: RatePlanListInstancePageOptions, callback?: (error: Error | null, items: RatePlanPage) => any): Promise<RatePlanPage>;
 }
 
 /**
@@ -111,7 +111,7 @@ interface RatePlanListInstance {
  * @property uniqueName - The unique_name
  * @property friendlyName - The friendly_name
  */
-export interface RatePlanInstanceUpdateOptions {
+interface RatePlanInstanceUpdateOptions {
   friendlyName?: string;
   uniqueName?: string;
 }
@@ -122,123 +122,34 @@ export interface RatePlanInstanceUpdateOptions {
  * @property uniqueName - The unique_name
  * @property friendlyName - The friendly_name
  */
-export interface RatePlanContextUpdateOptions {
+interface RatePlanInstanceUpdateOptions {
   friendlyName?: string;
   uniqueName?: string;
 }
 
-/**
- * Options to pass to each
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface RatePlanListInstanceEachOptions {
-  callback?: (item: RatePlanInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-}
 
-/**
- * Options to pass to list
- *
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface RatePlanListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-}
-
-/**
- * Options to pass to page
- *
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface RatePlanListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-}
-
-/**
- * Options to pass to create
- *
- * @property uniqueName - The unique_name
- * @property friendlyName - The friendly_name
- * @property dataEnabled - The data_enabled
- * @property dataLimit - The data_limit
- * @property dataMetering - The data_metering
- * @property messagingEnabled - The messaging_enabled
- * @property voiceEnabled - The voice_enabled
- * @property commandsEnabled - The commands_enabled
- * @property nationalRoamingEnabled - The national_roaming_enabled
- * @property internationalRoaming - The international_roaming
- */
-export interface RatePlanListInstanceCreateOptions {
-  commandsEnabled?: boolean;
-  dataEnabled?: boolean;
-  dataLimit?: number;
-  dataMetering?: string;
-  friendlyName?: string;
-  internationalRoaming?: string|list;
-  messagingEnabled?: boolean;
-  nationalRoamingEnabled?: boolean;
-  uniqueName?: string;
-  voiceEnabled?: boolean;
-}
-
-
-declare class RatePlanPage extends Page {
+declare class RatePlanPage extends Page<Wireless, RatePlanPayload, RatePlanResource, RatePlanInstance> {
   /**
-   * @constructor Twilio.Preview.Wireless.RatePlanPage
-   * @augments Page
-   * @description Initialize the RatePlanPage
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the RatePlanPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Preview.Wireless, response: Response<string>, solution: object);
+  constructor(version: Wireless, response: Response<string>, solution: RatePlanSolution);
 
   /**
    * Build an instance of RatePlanInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: RatePlanPayload): RatePlanInstance;
 }
 
 
-declare class RatePlanInstance {
+declare class RatePlanInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Preview.Wireless.RatePlanInstance
-   * @description Initialize the RatePlanContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the RatePlanContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @property sid - The sid
    * @property uniqueName - The unique_name
@@ -259,66 +170,78 @@ declare class RatePlanInstance {
    * @param payload - The instance payload
    * @param sid - The sid
    */
-  constructor(version: Twilio.Preview.Wireless, payload: object, sid: sid_like);
+  constructor(version: Wireless, payload: RatePlanPayload, sid: string);
 
-  _proxy?: RatePlanContext;
+  private _proxy: RatePlanContext;
+  accountSid: string;
+  dataEnabled: boolean;
+  dataLimit: number;
+  dataMetering: string;
+  dateCreated: Date;
+  dateUpdated: Date;
   /**
    * fetch a RatePlanInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: RatePlanInstance) => any);
+  fetch(callback?: (error: Error | null, items: RatePlanInstance) => any): void;
+  friendlyName: string;
+  internationalRoaming: string;
+  messagingEnabled: boolean;
+  nationalRoamingEnabled: boolean;
   /**
    * remove a RatePlanInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: RatePlanInstance) => any);
+  remove(callback?: (error: Error | null, items: RatePlanInstance) => any): void;
+  sid: string;
   /**
    * Produce a plain JSON object version of the RatePlanInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  uniqueName: string;
   /**
    * update a RatePlanInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: RatePlanInstanceUpdateOptions, callback?: (error: Error | null, items: RatePlanInstance) => any);
+  update(opts?: RatePlanInstanceUpdateOptions, callback?: (error: Error | null, items: RatePlanInstance) => any): void;
+  url: string;
+  voiceEnabled: boolean;
 }
 
 
 declare class RatePlanContext {
   /**
-   * @constructor Twilio.Preview.Wireless.RatePlanContext
-   * @description Initialize the RatePlanContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the RatePlanContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param sid - The sid
    */
-  constructor(version: Twilio.Preview.Wireless, sid: sid_like);
+  constructor(version: Wireless, sid: string);
 
   /**
    * fetch a RatePlanInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: RatePlanContext) => any);
+  fetch(callback?: (error: Error | null, items: RatePlanInstance) => any): void;
   /**
    * remove a RatePlanInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: RatePlanContext) => any);
+  remove(callback?: (error: Error | null, items: RatePlanInstance) => any): void;
   /**
    * update a RatePlanInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: RatePlanContextUpdateOptions, callback?: (error: Error | null, items: RatePlanContext) => any);
+  update(opts?: RatePlanInstanceUpdateOptions, callback?: (error: Error | null, items: RatePlanInstance) => any): void;
 }
 
-export { RatePlanContext, RatePlanInstance, RatePlanList, RatePlanListInstance, RatePlanPage, RatePlanPayload, RatePlanResource, RatePlanSolution }
+export { RatePlanContext, RatePlanInstance, RatePlanList, RatePlanListInstance, RatePlanListInstanceCreateOptions, RatePlanListInstanceEachOptions, RatePlanListInstanceOptions, RatePlanListInstancePageOptions, RatePlanPage, RatePlanPayload, RatePlanResource, RatePlanSolution }

@@ -57,7 +57,7 @@ interface CompositionSettingsListInstance {
  * @property awsStorageEnabled - true|false When set to true, all Compositions will be written to the AwsS3Url specified above. When set to false, all Compositions will be stored in Twilio's cloud.
  * @property encryptionEnabled - true|false When set to true, all Compositions will be stored encrypted.
  */
-export interface CompositionSettingsInstanceCreateOptions {
+interface CompositionSettingsInstanceCreateOptions {
   awsCredentialsSid?: string;
   awsS3Url?: string;
   awsStorageEnabled?: boolean;
@@ -76,7 +76,7 @@ export interface CompositionSettingsInstanceCreateOptions {
  * @property awsStorageEnabled - true|false When set to true, all Compositions will be written to the AwsS3Url specified above. When set to false, all Compositions will be stored in Twilio's cloud.
  * @property encryptionEnabled - true|false When set to true, all Compositions will be stored encrypted.
  */
-export interface CompositionSettingsContextCreateOptions {
+interface CompositionSettingsInstanceCreateOptions {
   awsCredentialsSid?: string;
   awsS3Url?: string;
   awsStorageEnabled?: boolean;
@@ -86,33 +86,28 @@ export interface CompositionSettingsContextCreateOptions {
 }
 
 
-declare class CompositionSettingsPage extends Page {
+declare class CompositionSettingsPage extends Page<V1, CompositionSettingsPayload, CompositionSettingsResource, CompositionSettingsInstance> {
   /**
-   * @constructor Twilio.Video.V1.CompositionSettingsPage
-   * @augments Page
-   * @description Initialize the CompositionSettingsPage
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the CompositionSettingsPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Video.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: CompositionSettingsSolution);
 
   /**
    * Build an instance of CompositionSettingsInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: CompositionSettingsPayload): CompositionSettingsInstance;
 }
 
 
-declare class CompositionSettingsInstance {
+declare class CompositionSettingsInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Video.V1.CompositionSettingsInstance
-   * @description Initialize the CompositionSettingsContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the CompositionSettingsContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @property accountSid - The Twilio Account SID associated with this item
    * @property friendlyName - Friendly name of the configuration to be shown in the console
@@ -126,39 +121,45 @@ declare class CompositionSettingsInstance {
    * @param version - Version of the resource
    * @param payload - The instance payload
    */
-  constructor(version: Twilio.Video.V1, payload: object);
+  constructor(version: V1, payload: CompositionSettingsPayload);
 
-  _proxy?: CompositionSettingsContext;
+  private _proxy: CompositionSettingsContext;
+  accountSid: string;
+  awsCredentialsSid: string;
+  awsS3Url: string;
+  awsStorageEnabled: boolean;
   /**
    * create a CompositionSettingsInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: CompositionSettingsInstanceCreateOptions, callback?: (error: Error | null, items: CompositionSettingsInstance) => any);
+  create(opts: CompositionSettingsInstanceCreateOptions, callback?: (error: Error | null, items: CompositionSettingsInstance) => any): void;
+  encryptionEnabled: boolean;
+  encryptionKeySid: string;
   /**
    * fetch a CompositionSettingsInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CompositionSettingsInstance) => any);
+  fetch(callback?: (error: Error | null, items: CompositionSettingsInstance) => any): void;
+  friendlyName: string;
   /**
    * Produce a plain JSON object version of the CompositionSettingsInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  url: string;
 }
 
 
 declare class CompositionSettingsContext {
   /**
-   * @constructor Twilio.Video.V1.CompositionSettingsContext
-   * @description Initialize the CompositionSettingsContext
-   * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the CompositionSettingsContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
    */
-  constructor(version: Twilio.Video.V1);
+  constructor(version: V1);
 
   /**
    * create a CompositionSettingsInstance
@@ -166,13 +167,13 @@ declare class CompositionSettingsContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: CompositionSettingsContextCreateOptions, callback?: (error: Error | null, items: CompositionSettingsContext) => any): Promise<CompositionSettingsInstance>;
+  create(opts: CompositionSettingsInstanceCreateOptions, callback?: (error: Error | null, items: CompositionSettingsInstance) => any): Promise<CompositionSettingsInstance>;
   /**
    * fetch a CompositionSettingsInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CompositionSettingsContext) => any);
+  fetch(callback?: (error: Error | null, items: CompositionSettingsInstance) => any): void;
 }
 
 export { CompositionSettingsContext, CompositionSettingsInstance, CompositionSettingsList, CompositionSettingsListInstance, CompositionSettingsPage, CompositionSettingsPayload, CompositionSettingsResource, CompositionSettingsSolution }

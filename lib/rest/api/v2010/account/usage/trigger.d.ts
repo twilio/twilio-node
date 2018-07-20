@@ -85,16 +85,16 @@ interface TriggerListInstance {
    * @param targetUrl - API-generated URL for the requested results page
    * @param callback - Callback to handle list of records
    */
-  getPage(targetUrl?: string, callback?: function): Promise<TriggerPage>;
+  getPage(targetUrl?: string, callback?: (error: Error | null, items: TriggerPage) => any): Promise<TriggerPage>;
   /**
-   * @description Lists TriggerInstance records from the API as a list.
+   * Lists TriggerInstance records from the API as a list.
    *
    * If a function is passed as the first argument, it will be used as the callback function.
    *
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  list(opts?: TriggerListInstanceOptions, callback?: function): Promise<TriggerInstance[]>;
+  list(opts?: TriggerListInstanceOptions, callback?: (error: Error | null, items: TriggerInstance[]) => any): Promise<TriggerInstance[]>;
   /**
    * Retrieve a single page of TriggerInstance records from the API.
    * Request is executed immediately
@@ -104,7 +104,7 @@ interface TriggerListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle list of records
    */
-  page(opts?: TriggerListInstancePageOptions, callback?: function): Promise<TriggerPage>;
+  page(opts?: TriggerListInstancePageOptions, callback?: (error: Error | null, items: TriggerPage) => any): Promise<TriggerPage>;
 }
 
 /**
@@ -114,7 +114,7 @@ interface TriggerListInstance {
  * @property callbackUrl - URL Twilio will request when the trigger fires
  * @property friendlyName - A user-specified, human-readable name for the trigger.
  */
-export interface TriggerInstanceUpdateOptions {
+interface TriggerInstanceUpdateOptions {
   callbackMethod?: string;
   callbackUrl?: string;
   friendlyName?: string;
@@ -127,134 +127,35 @@ export interface TriggerInstanceUpdateOptions {
  * @property callbackUrl - URL Twilio will request when the trigger fires
  * @property friendlyName - A user-specified, human-readable name for the trigger.
  */
-export interface TriggerContextUpdateOptions {
+interface TriggerInstanceUpdateOptions {
   callbackMethod?: string;
   callbackUrl?: string;
   friendlyName?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property callbackUrl - URL Twilio will request when the trigger fires
- * @property triggerValue - the value at which the trigger will fire
- * @property usageCategory - The usage category the trigger watches
- * @property callbackMethod - HTTP method to use with callback_url
- * @property friendlyName - A user-specified, human-readable name for the trigger.
- * @property recurring - How this trigger recurs
- * @property triggerBy - The field in the UsageRecord that fires the trigger
- */
-export interface TriggerListInstanceCreateOptions {
-  callbackMethod?: string;
-  callbackUrl: string;
-  friendlyName?: string;
-  recurring?: trigger.recurring;
-  triggerBy?: trigger.trigger_field;
-  triggerValue: string;
-  usageCategory: trigger.usage_category;
-}
 
-/**
- * Options to pass to each
- *
- * @property recurring - Filter by recurring
- * @property triggerBy - Filter by trigger by
- * @property usageCategory - Filter by Usage Category
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         each() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no pageSize is defined but a limit is defined,
- *                         each() will attempt to read the limit with the most efficient
- *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
- */
-export interface TriggerListInstanceEachOptions {
-  callback?: (item: TriggerInstance, done: (err?: Error) => void) => void;
-  done?: Function;
-  limit?: number;
-  pageSize?: number;
-  recurring?: trigger.recurring;
-  triggerBy?: trigger.trigger_field;
-  usageCategory?: trigger.usage_category;
-}
-
-/**
- * Options to pass to list
- *
- * @property recurring - Filter by recurring
- * @property triggerBy - Filter by trigger by
- * @property usageCategory - Filter by Usage Category
- * @property limit -
- *                         Upper limit for the number of records to return.
- *                         list() guarantees never to return more than limit.
- *                         Default is no limit
- * @property pageSize -
- *                         Number of records to fetch per request,
- *                         when not set will use the default value of 50 records.
- *                         If no page_size is defined but a limit is defined,
- *                         list() will attempt to read the limit with the most
- *                         efficient page size, i.e. min(limit, 1000)
- */
-export interface TriggerListInstanceOptions {
-  limit?: number;
-  pageSize?: number;
-  recurring?: trigger.recurring;
-  triggerBy?: trigger.trigger_field;
-  usageCategory?: trigger.usage_category;
-}
-
-/**
- * Options to pass to page
- *
- * @property recurring - Filter by recurring
- * @property triggerBy - Filter by trigger by
- * @property usageCategory - Filter by Usage Category
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
- */
-export interface TriggerListInstancePageOptions {
-  pageNumber?: number;
-  pageSize?: number;
-  pageToken?: string;
-  recurring?: trigger.recurring;
-  triggerBy?: trigger.trigger_field;
-  usageCategory?: trigger.usage_category;
-}
-
-
-declare class TriggerPage extends Page {
+declare class TriggerPage extends Page<V2010, TriggerPayload, TriggerResource, TriggerInstance> {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.UsageContext.TriggerPage
-   * @augments Page
-   * @description Initialize the TriggerPage
+   * Initialize the TriggerPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Api.V2010, response: Response<string>, solution: object);
+  constructor(version: V2010, response: Response<string>, solution: TriggerSolution);
 
   /**
    * Build an instance of TriggerInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: TriggerPayload): TriggerInstance;
 }
 
 
-declare class TriggerInstance {
+declare class TriggerInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.UsageContext.TriggerInstance
-   * @description Initialize the TriggerContext
+   * Initialize the TriggerContext
    *
    * @property accountSid - The account this trigger monitors.
    * @property apiVersion - The api_version
@@ -278,66 +179,81 @@ declare class TriggerInstance {
    * @param accountSid - A 34 character string that uniquely identifies this resource.
    * @param sid - Fetch by unique usage-trigger Sid
    */
-  constructor(version: Twilio.Api.V2010, payload: object, accountSid: sid, sid: sid);
+  constructor(version: V2010, payload: TriggerPayload, accountSid: string, sid: string);
 
-  _proxy?: TriggerContext;
+  private _proxy: TriggerContext;
+  accountSid: string;
+  apiVersion: string;
+  callbackMethod: string;
+  callbackUrl: string;
+  currentValue: string;
+  dateCreated: Date;
+  dateFired: Date;
+  dateUpdated: Date;
   /**
    * fetch a TriggerInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: TriggerInstance) => any);
+  fetch(callback?: (error: Error | null, items: TriggerInstance) => any): void;
+  friendlyName: string;
+  recurring: trigger.recurring;
   /**
    * remove a TriggerInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: TriggerInstance) => any);
+  remove(callback?: (error: Error | null, items: TriggerInstance) => any): void;
+  sid: string;
   /**
    * Produce a plain JSON object version of the TriggerInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  triggerBy: trigger.trigger_field;
+  triggerValue: string;
   /**
    * update a TriggerInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: TriggerInstanceUpdateOptions, callback?: (error: Error | null, items: TriggerInstance) => any);
+  update(opts?: TriggerInstanceUpdateOptions, callback?: (error: Error | null, items: TriggerInstance) => any): void;
+  uri: string;
+  usageCategory: trigger.usage_category;
+  usageRecordUri: string;
 }
 
 
 declare class TriggerContext {
   /**
-   * @constructor Twilio.Api.V2010.AccountContext.UsageContext.TriggerContext
-   * @description Initialize the TriggerContext
+   * Initialize the TriggerContext
    *
    * @param version - Version of the resource
    * @param accountSid - The account_sid
    * @param sid - Fetch by unique usage-trigger Sid
    */
-  constructor(version: Twilio.Api.V2010, accountSid: sid, sid: sid);
+  constructor(version: V2010, accountSid: string, sid: string);
 
   /**
    * fetch a TriggerInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: TriggerContext) => any);
+  fetch(callback?: (error: Error | null, items: TriggerInstance) => any): void;
   /**
    * remove a TriggerInstance
    *
    * @param callback - Callback to handle processed record
    */
-  remove(callback?: (error: Error | null, items: TriggerContext) => any);
+  remove(callback?: (error: Error | null, items: TriggerInstance) => any): void;
   /**
    * update a TriggerInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: TriggerContextUpdateOptions, callback?: (error: Error | null, items: TriggerContext) => any);
+  update(opts?: TriggerInstanceUpdateOptions, callback?: (error: Error | null, items: TriggerInstance) => any): void;
 }
 
-export { TriggerContext, TriggerInstance, TriggerList, TriggerListInstance, TriggerPage, TriggerPayload, TriggerResource, TriggerSolution }
+export { TriggerContext, TriggerInstance, TriggerList, TriggerListInstance, TriggerListInstanceCreateOptions, TriggerListInstanceEachOptions, TriggerListInstanceOptions, TriggerListInstancePageOptions, TriggerPage, TriggerPayload, TriggerResource, TriggerSolution }

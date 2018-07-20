@@ -35,31 +35,28 @@ interface VoiceListInstance {
 }
 
 
-declare class VoicePage extends Page {
+declare class VoicePage extends Page<V1, VoicePayload, VoiceResource, VoiceInstance> {
   /**
-   * @constructor Twilio.Pricing.V1.VoicePage
-   * @augments Page
-   * @description Initialize the VoicePage
+   * Initialize the VoicePage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Twilio.Pricing.V1, response: Response<string>, solution: object);
+  constructor(version: V1, response: Response<string>, solution: VoiceSolution);
 
   /**
    * Build an instance of VoiceInstance
    *
    * @param payload - Payload response from the API
    */
-  getInstance(payload: object);
+  getInstance(payload: VoicePayload): VoiceInstance;
 }
 
 
-declare class VoiceInstance {
+declare class VoiceInstance extends SerializableClass {
   /**
-   * @constructor Twilio.Pricing.V1.VoiceInstance
-   * @description Initialize the VoiceContext
+   * Initialize the VoiceContext
    *
    * @property name - The name
    * @property url - The url
@@ -68,13 +65,16 @@ declare class VoiceInstance {
    * @param version - Version of the resource
    * @param payload - The instance payload
    */
-  constructor(version: Twilio.Pricing.V1, payload: object);
+  constructor(version: V1, payload: VoicePayload);
 
+  links: string;
+  name: string;
   /**
    * Produce a plain JSON object version of the VoiceInstance for serialization.
    * Removes any circular references in the object.
    */
-  toJSON();
+  toJSON(): any;
+  url: string;
 }
 
 export { VoiceInstance, VoiceList, VoiceListInstance, VoicePage, VoicePayload, VoiceResource, VoiceSolution }
