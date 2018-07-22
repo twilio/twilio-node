@@ -174,11 +174,6 @@ declare class UserInstance extends SerializableClass {
   segments: string;
   serviceSid: string;
   sid: string;
-  /**
-   * Produce a plain JSON object version of the UserInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   url: string;
 }
 

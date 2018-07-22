@@ -80,11 +80,6 @@ declare class StreamMessageInstance extends SerializableClass {
 
   data: string;
   sid: string;
-  /**
-   * Produce a plain JSON object version of the StreamMessageInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
 }
 
 export { StreamMessageInstance, StreamMessageList, StreamMessageListInstance, StreamMessageListInstanceCreateOptions, StreamMessagePage, StreamMessagePayload, StreamMessageResource, StreamMessageSolution }

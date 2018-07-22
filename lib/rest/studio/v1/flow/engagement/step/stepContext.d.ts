@@ -101,11 +101,6 @@ declare class StepContextInstance extends SerializableClass {
   fetch(callback?: (error: Error | null, items: StepContextInstance) => any): void;
   flowSid: string;
   stepSid: string;
-  /**
-   * Produce a plain JSON object version of the StepContextInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   url: string;
 }
 

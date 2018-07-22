@@ -111,11 +111,6 @@ declare class SegmentMembershipInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: SegmentMembershipInstance) => any): void;
   segment: string;
   serviceSid: string;
-  /**
-   * Produce a plain JSON object version of the SegmentMembershipInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   url: string;
 }
 

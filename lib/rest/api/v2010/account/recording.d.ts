@@ -190,11 +190,6 @@ declare class RecordingInstance extends SerializableClass {
   status: recording.status;
   subresourceUris: string;
   /**
-   * Produce a plain JSON object version of the RecordingInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
-  /**
    * Access the transcriptions
    */
   transcriptions();

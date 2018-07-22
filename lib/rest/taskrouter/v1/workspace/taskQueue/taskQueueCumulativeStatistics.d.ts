@@ -175,11 +175,6 @@ declare class TaskQueueCumulativeStatisticsInstance extends SerializableClass {
   tasksDeleted: number;
   tasksEntered: number;
   tasksMoved: number;
-  /**
-   * Produce a plain JSON object version of the TaskQueueCumulativeStatisticsInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   url: string;
   waitDurationUntilAccepted: string;
   waitDurationUntilCanceled: string;

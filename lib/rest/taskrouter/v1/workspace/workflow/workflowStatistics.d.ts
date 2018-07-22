@@ -131,11 +131,6 @@ declare class WorkflowStatisticsInstance extends SerializableClass {
    */
   fetch(opts?: WorkflowStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkflowStatisticsInstance) => any): void;
   realtime: string;
-  /**
-   * Produce a plain JSON object version of the WorkflowStatisticsInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   url: string;
   workflowSid: string;
   workspaceSid: string;

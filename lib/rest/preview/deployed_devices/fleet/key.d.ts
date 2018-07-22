@@ -186,11 +186,6 @@ declare class KeyInstance extends SerializableClass {
   secret: string;
   sid: string;
   /**
-   * Produce a plain JSON object version of the KeyInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
-  /**
    * update a KeyInstance
    *
    * @param opts - Options for request

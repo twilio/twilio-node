@@ -84,11 +84,6 @@ declare class NewKeyInstance extends SerializableClass {
   friendlyName: string;
   secret: string;
   sid: string;
-  /**
-   * Produce a plain JSON object version of the NewKeyInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
 }
 
 export { NewKeyInstance, NewKeyList, NewKeyListInstance, NewKeyListInstanceCreateOptions, NewKeyPage, NewKeyPayload, NewKeyResource, NewKeySolution }

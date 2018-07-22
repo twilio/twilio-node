@@ -222,11 +222,6 @@ declare class WorkerInstance extends SerializableClass {
    */
   statistics();
   /**
-   * Produce a plain JSON object version of the WorkerInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
-  /**
    * update a WorkerInstance
    *
    * @param opts - Options for request

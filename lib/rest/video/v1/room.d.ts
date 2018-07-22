@@ -206,11 +206,6 @@ declare class RoomInstance extends SerializableClass {
   status: room.room_status;
   statusCallback: string;
   statusCallbackMethod: string;
-  /**
-   * Produce a plain JSON object version of the RoomInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   type: room.room_type;
   uniqueName: string;
   /**

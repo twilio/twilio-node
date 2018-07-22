@@ -176,11 +176,6 @@ declare class ServiceInstance extends SerializableClass {
   name: string;
   sid: string;
   /**
-   * Produce a plain JSON object version of the ServiceInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
-  /**
    * update a ServiceInstance
    *
    * @param opts - Options for request

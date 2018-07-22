@@ -202,11 +202,6 @@ declare class DeviceInstance extends SerializableClass {
    */
   remove(callback?: (error: Error | null, items: DeviceInstance) => any): void;
   sid: string;
-  /**
-   * Produce a plain JSON object version of the DeviceInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   uniqueName: string;
   /**
    * update a DeviceInstance

@@ -207,11 +207,6 @@ declare class MemberInstance extends SerializableClass {
   serviceSid: string;
   sid: string;
   /**
-   * Produce a plain JSON object version of the MemberInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
-  /**
    * update a MemberInstance
    *
    * @param opts - Options for request

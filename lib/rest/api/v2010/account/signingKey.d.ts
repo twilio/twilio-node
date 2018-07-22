@@ -160,11 +160,6 @@ declare class SigningKeyInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: SigningKeyInstance) => any): void;
   sid: string;
   /**
-   * Produce a plain JSON object version of the SigningKeyInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
-  /**
    * update a SigningKeyInstance
    *
    * @param opts - Options for request

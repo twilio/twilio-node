@@ -194,11 +194,6 @@ declare class CredentialInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: CredentialInstance) => any): void;
   sandbox: string;
   sid: string;
-  /**
-   * Produce a plain JSON object version of the CredentialInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   type: credential.push_service;
   /**
    * update a CredentialInstance

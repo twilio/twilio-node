@@ -140,11 +140,6 @@ declare class AvailableAddOnExtensionInstance extends SerializableClass {
   friendlyName: string;
   productName: string;
   sid: string;
-  /**
-   * Produce a plain JSON object version of the AvailableAddOnExtensionInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   uniqueName: string;
   url: string;
 }

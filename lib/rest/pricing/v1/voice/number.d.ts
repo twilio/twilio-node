@@ -97,11 +97,6 @@ declare class NumberInstance extends SerializableClass {
   number: string;
   outboundCallPrice: string;
   priceUnit: string;
-  /**
-   * Produce a plain JSON object version of the NumberInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   url: string;
 }
 

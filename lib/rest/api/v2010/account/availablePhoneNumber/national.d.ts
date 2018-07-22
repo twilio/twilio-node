@@ -148,11 +148,6 @@ declare class NationalInstance extends SerializableClass {
   postalCode: string;
   rateCenter: string;
   region: string;
-  /**
-   * Produce a plain JSON object version of the NationalInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
 }
 
 export { NationalInstance, NationalList, NationalListInstance, NationalListInstanceEachOptions, NationalListInstanceOptions, NationalListInstancePageOptions, NationalPage, NationalPayload, NationalResource, NationalSolution }

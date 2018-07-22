@@ -209,11 +209,6 @@ declare class ServiceInstance extends SerializableClass {
    */
   syncMaps();
   /**
-   * Produce a plain JSON object version of the ServiceInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
-  /**
    * update a ServiceInstance
    *
    * @param opts - Options for request

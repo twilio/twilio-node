@@ -166,11 +166,6 @@ declare class DependentHostedNumberOrderInstance extends SerializableClass {
   sid: string;
   signingDocumentSid: string;
   status: dependent_hosted_number_order.status;
-  /**
-   * Produce a plain JSON object version of the DependentHostedNumberOrderInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   uniqueName: string;
   verificationAttempts: number;
   verificationCallSids: string;

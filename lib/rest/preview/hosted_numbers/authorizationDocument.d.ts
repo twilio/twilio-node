@@ -195,11 +195,6 @@ declare class AuthorizationDocumentInstance extends SerializableClass {
   sid: string;
   status: authorization_document.status;
   /**
-   * Produce a plain JSON object version of the AuthorizationDocumentInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
-  /**
    * update a AuthorizationDocumentInstance
    *
    * @param opts - Options for request

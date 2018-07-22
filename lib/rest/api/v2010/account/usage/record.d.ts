@@ -153,11 +153,6 @@ declare class RecordInstance extends SerializableClass {
   priceUnit: string;
   startDate: Date;
   subresourceUris: string;
-  /**
-   * Produce a plain JSON object version of the RecordInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   uri: string;
   usage: string;
   usageUnit: string;

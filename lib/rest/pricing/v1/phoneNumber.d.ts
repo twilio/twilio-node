@@ -68,11 +68,6 @@ declare class PhoneNumberInstance extends SerializableClass {
 
   links: string;
   name: string;
-  /**
-   * Produce a plain JSON object version of the PhoneNumberInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   url: string;
 }
 

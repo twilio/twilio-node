@@ -129,11 +129,6 @@ declare class PhoneNumberInstance extends SerializableClass {
   fetch(opts?: PhoneNumberInstanceFetchOptions, callback?: (error: Error | null, items: PhoneNumberInstance) => any): void;
   nationalFormat: string;
   phoneNumber: string;
-  /**
-   * Produce a plain JSON object version of the PhoneNumberInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   url: string;
 }
 

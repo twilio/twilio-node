@@ -167,11 +167,6 @@ declare class AddOnResultInstance extends SerializableClass {
   sid: string;
   status: add_on_result.status;
   subresourceUris: string;
-  /**
-   * Produce a plain JSON object version of the AddOnResultInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
 }
 
 

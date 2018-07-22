@@ -167,11 +167,6 @@ declare class UserBindingInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: UserBindingInstance) => any): void;
   serviceSid: string;
   sid: string;
-  /**
-   * Produce a plain JSON object version of the UserBindingInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   url: string;
   userSid: string;
 }

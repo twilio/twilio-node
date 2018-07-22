@@ -143,11 +143,6 @@ declare class WorkersCumulativeStatisticsInstance extends SerializableClass {
   reservationsRescinded: number;
   reservationsTimedOut: number;
   startTime: Date;
-  /**
-   * Produce a plain JSON object version of the WorkersCumulativeStatisticsInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   url: string;
   workspaceSid: string;
 }

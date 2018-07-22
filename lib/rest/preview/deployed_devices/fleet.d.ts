@@ -201,11 +201,6 @@ declare class FleetInstance extends SerializableClass {
    */
   remove(callback?: (error: Error | null, items: FleetInstance) => any): void;
   sid: string;
-  /**
-   * Produce a plain JSON object version of the FleetInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   uniqueName: string;
   /**
    * update a FleetInstance

@@ -83,11 +83,6 @@ declare class ValidationRequestInstance extends SerializableClass {
   callSid: string;
   friendlyName: string;
   phoneNumber: string;
-  /**
-   * Produce a plain JSON object version of the ValidationRequestInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   validationCode: number;
 }
 

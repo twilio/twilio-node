@@ -183,11 +183,6 @@ declare class SyncMapPermissionInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: SyncMapPermissionInstance) => any): void;
   serviceSid: string;
   /**
-   * Produce a plain JSON object version of the SyncMapPermissionInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
-  /**
    * update a SyncMapPermissionInstance
    *
    * @param opts - Options for request

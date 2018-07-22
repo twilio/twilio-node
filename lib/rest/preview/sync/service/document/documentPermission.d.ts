@@ -183,11 +183,6 @@ declare class DocumentPermissionInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: DocumentPermissionInstance) => any): void;
   serviceSid: string;
   /**
-   * Produce a plain JSON object version of the DocumentPermissionInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
-  /**
    * update a DocumentPermissionInstance
    *
    * @param opts - Options for request

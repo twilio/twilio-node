@@ -329,11 +329,6 @@ declare class IncomingPhoneNumberInstance extends SerializableClass {
   smsUrl: string;
   statusCallback: string;
   statusCallbackMethod: string;
-  /**
-   * Produce a plain JSON object version of the IncomingPhoneNumberInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   trunkSid: string;
   /**
    * update a IncomingPhoneNumberInstance

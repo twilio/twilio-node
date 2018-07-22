@@ -236,11 +236,6 @@ declare class AssistantInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: AssistantInstance) => any): void;
   responseUrl: string;
   sid: string;
-  /**
-   * Produce a plain JSON object version of the AssistantInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   ttl: number;
   uniqueName: string;
   /**

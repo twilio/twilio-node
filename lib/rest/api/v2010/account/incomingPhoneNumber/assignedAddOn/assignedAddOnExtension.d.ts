@@ -155,11 +155,6 @@ declare class AssignedAddOnExtensionInstance extends SerializableClass {
   productName: string;
   resourceSid: string;
   sid: string;
-  /**
-   * Produce a plain JSON object version of the AssignedAddOnExtensionInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   uniqueName: string;
   uri: string;
 }

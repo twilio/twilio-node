@@ -203,11 +203,6 @@ declare class ConnectAppInstance extends SerializableClass {
   permissions: connect_app.permission;
   sid: string;
   /**
-   * Produce a plain JSON object version of the ConnectAppInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
-  /**
    * update a ConnectAppInstance
    *
    * @param opts - Options for request

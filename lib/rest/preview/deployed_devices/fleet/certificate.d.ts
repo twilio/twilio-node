@@ -186,11 +186,6 @@ declare class CertificateInstance extends SerializableClass {
   sid: string;
   thumbprint: string;
   /**
-   * Produce a plain JSON object version of the CertificateInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
-  /**
    * update a CertificateInstance
    *
    * @param opts - Options for request

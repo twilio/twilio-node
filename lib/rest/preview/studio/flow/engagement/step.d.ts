@@ -157,11 +157,6 @@ declare class StepInstance extends SerializableClass {
   flowSid: string;
   name: string;
   sid: string;
-  /**
-   * Produce a plain JSON object version of the StepInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   transitionedFrom: string;
   transitionedTo: string;
   url: string;

@@ -152,11 +152,6 @@ declare class AuthorizedConnectAppInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: AuthorizedConnectAppInstance) => any): void;
   permissions: authorized_connect_app.permission;
-  /**
-   * Produce a plain JSON object version of the AuthorizedConnectAppInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   uri: string;
 }
 

@@ -155,11 +155,6 @@ declare class CredentialListInstance extends SerializableClass {
    */
   remove(callback?: (error: Error | null, items: CredentialListInstance) => any): void;
   sid: string;
-  /**
-   * Produce a plain JSON object version of the CredentialListInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   trunkSid: string;
   url: string;
 }

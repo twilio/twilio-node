@@ -183,11 +183,6 @@ declare class NotificationInstance extends SerializableClass {
   responseBody: string;
   responseHeaders: string;
   sid: string;
-  /**
-   * Produce a plain JSON object version of the NotificationInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   uri: string;
 }
 

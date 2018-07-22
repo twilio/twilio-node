@@ -196,11 +196,6 @@ declare class SampleInstance extends SerializableClass {
   sourceChannel: string;
   taggedText: string;
   /**
-   * Produce a plain JSON object version of the SampleInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
-  /**
    * update a SampleInstance
    *
    * @param opts - Options for request

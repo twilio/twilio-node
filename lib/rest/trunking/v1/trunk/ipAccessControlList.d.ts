@@ -155,11 +155,6 @@ declare class IpAccessControlListInstance extends SerializableClass {
    */
   remove(callback?: (error: Error | null, items: IpAccessControlListInstance) => any): void;
   sid: string;
-  /**
-   * Produce a plain JSON object version of the IpAccessControlListInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   trunkSid: string;
   url: string;
 }

@@ -367,11 +367,6 @@ declare class ReservationInstance extends SerializableClass {
   sid: string;
   taskSid: string;
   /**
-   * Produce a plain JSON object version of the ReservationInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
-  /**
    * update a ReservationInstance
    *
    * @param opts - Options for request

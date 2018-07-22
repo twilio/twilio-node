@@ -177,11 +177,6 @@ declare class AlertInstance extends SerializableClass {
   responseBody: string;
   responseHeaders: string;
   sid: string;
-  /**
-   * Produce a plain JSON object version of the AlertInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   url: string;
 }
 

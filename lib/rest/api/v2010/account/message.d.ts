@@ -225,11 +225,6 @@ declare class MessageInstance extends SerializableClass {
   subresourceUris: string;
   to: string;
   /**
-   * Produce a plain JSON object version of the MessageInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
-  /**
    * update a MessageInstance
    *
    * @param opts - Options for request

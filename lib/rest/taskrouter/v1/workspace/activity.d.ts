@@ -178,11 +178,6 @@ declare class ActivityInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: ActivityInstance) => any): void;
   sid: string;
   /**
-   * Produce a plain JSON object version of the ActivityInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
-  /**
    * update a ActivityInstance
    *
    * @param opts - Options for request

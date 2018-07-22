@@ -148,11 +148,6 @@ declare class LocalInstance extends SerializableClass {
   postalCode: string;
   rateCenter: string;
   region: string;
-  /**
-   * Produce a plain JSON object version of the LocalInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
 }
 
 export { LocalInstance, LocalList, LocalListInstance, LocalListInstanceEachOptions, LocalListInstanceOptions, LocalListInstancePageOptions, LocalPage, LocalPayload, LocalResource, LocalSolution }

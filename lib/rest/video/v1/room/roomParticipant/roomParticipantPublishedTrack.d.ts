@@ -152,11 +152,6 @@ declare class PublishedTrackInstance extends SerializableClass {
   participantSid: string;
   roomSid: string;
   sid: string;
-  /**
-   * Produce a plain JSON object version of the PublishedTrackInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   url: string;
 }
 

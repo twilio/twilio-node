@@ -130,11 +130,6 @@ declare class NotificationInstance extends SerializableClass {
   sound: string;
   tags: string;
   title: string;
-  /**
-   * Produce a plain JSON object version of the NotificationInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   ttl: number;
 }
 

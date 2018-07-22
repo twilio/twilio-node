@@ -150,11 +150,6 @@ declare class FaxMediaInstance extends SerializableClass {
    */
   remove(callback?: (error: Error | null, items: FaxMediaInstance) => any): void;
   sid: string;
-  /**
-   * Produce a plain JSON object version of the FaxMediaInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   url: string;
 }
 

@@ -143,11 +143,6 @@ declare class SubscribedTrackInstance extends SerializableClass {
   roomSid: string;
   sid: string;
   subscriberSid: string;
-  /**
-   * Produce a plain JSON object version of the SubscribedTrackInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
 }
 
 export { SubscribedTrackInstance, SubscribedTrackList, SubscribedTrackListInstance, SubscribedTrackListInstanceEachOptions, SubscribedTrackListInstanceOptions, SubscribedTrackListInstancePageOptions, SubscribedTrackListInstanceUpdateOptions, SubscribedTrackPage, SubscribedTrackPayload, SubscribedTrackResource, SubscribedTrackSolution }

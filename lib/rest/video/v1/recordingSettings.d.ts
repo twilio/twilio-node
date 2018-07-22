@@ -144,11 +144,6 @@ declare class RecordingSettingsInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: RecordingSettingsInstance) => any): void;
   friendlyName: string;
-  /**
-   * Produce a plain JSON object version of the RecordingSettingsInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   url: string;
 }
 

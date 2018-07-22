@@ -206,11 +206,6 @@ declare class PhoneNumberInstance extends SerializableClass {
   smsUrl: string;
   statusCallback: string;
   statusCallbackMethod: string;
-  /**
-   * Produce a plain JSON object version of the PhoneNumberInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   trunkSid: string;
   url: string;
   voiceApplicationSid: string;

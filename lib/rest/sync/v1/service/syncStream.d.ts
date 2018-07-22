@@ -188,11 +188,6 @@ declare class SyncStreamInstance extends SerializableClass {
    * Access the streamMessages
    */
   streamMessages();
-  /**
-   * Produce a plain JSON object version of the SyncStreamInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   uniqueName: string;
   /**
    * update a SyncStreamInstance

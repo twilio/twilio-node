@@ -168,11 +168,6 @@ declare class FieldValueInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: FieldValueInstance) => any): void;
   sid: string;
   synonymOf: string;
-  /**
-   * Produce a plain JSON object version of the FieldValueInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   url: string;
   value: string;
 }

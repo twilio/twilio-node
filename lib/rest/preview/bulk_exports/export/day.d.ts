@@ -118,11 +118,6 @@ declare class DayInstance extends SerializableClass {
   redirectTo: string;
   resourceType: string;
   size: number;
-  /**
-   * Produce a plain JSON object version of the DayInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
 }
 
 export { DayInstance, DayList, DayListInstance, DayListInstanceEachOptions, DayListInstanceOptions, DayListInstancePageOptions, DayPage, DayPayload, DayResource, DaySolution }

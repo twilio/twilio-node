@@ -159,11 +159,6 @@ declare class IpAccessControlListMappingInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: IpAccessControlListMappingInstance) => any): void;
   sid: string;
   subresourceUris: string;
-  /**
-   * Produce a plain JSON object version of the IpAccessControlListMappingInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   uri: string;
 }
 

@@ -119,11 +119,6 @@ declare class WorkspaceRealTimeStatisticsInstance extends SerializableClass {
   longestTaskWaitingAge: number;
   tasksByPriority: string;
   tasksByStatus: string;
-  /**
-   * Produce a plain JSON object version of the WorkspaceRealTimeStatisticsInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   totalTasks: number;
   totalWorkers: number;
   url: string;

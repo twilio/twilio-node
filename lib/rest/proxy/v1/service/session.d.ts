@@ -227,11 +227,6 @@ declare class SessionInstance extends SerializableClass {
   serviceSid: string;
   sid: string;
   status: session.status;
-  /**
-   * Produce a plain JSON object version of the SessionInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   ttl: number;
   uniqueName: string;
   /**

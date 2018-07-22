@@ -168,11 +168,6 @@ declare class PayloadInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: PayloadInstance) => any): void;
   sid: string;
   subresourceUris: string;
-  /**
-   * Produce a plain JSON object version of the PayloadInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
 }
 
 

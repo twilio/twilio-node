@@ -183,11 +183,6 @@ declare class SyncListPermissionInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: SyncListPermissionInstance) => any): void;
   serviceSid: string;
   /**
-   * Produce a plain JSON object version of the SyncListPermissionInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
-  /**
    * update a SyncListPermissionInstance
    *
    * @param opts - Options for request

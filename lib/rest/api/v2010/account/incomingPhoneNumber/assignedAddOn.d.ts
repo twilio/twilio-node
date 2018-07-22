@@ -176,11 +176,6 @@ declare class AssignedAddOnInstance extends SerializableClass {
   resourceSid: string;
   sid: string;
   subresourceUris: string;
-  /**
-   * Produce a plain JSON object version of the AssignedAddOnInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   uniqueName: string;
   uri: string;
 }

@@ -172,11 +172,6 @@ declare class WorkspaceCumulativeStatisticsInstance extends SerializableClass {
   tasksDeleted: number;
   tasksMoved: number;
   tasksTimedOutInWorkflow: number;
-  /**
-   * Produce a plain JSON object version of the WorkspaceCumulativeStatisticsInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   url: string;
   waitDurationUntilAccepted: string;
   waitDurationUntilCanceled: string;

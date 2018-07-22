@@ -196,11 +196,6 @@ declare class RatePlanInstance extends SerializableClass {
    */
   remove(callback?: (error: Error | null, items: RatePlanInstance) => any): void;
   sid: string;
-  /**
-   * Produce a plain JSON object version of the RatePlanInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   uniqueName: string;
   /**
    * update a RatePlanInstance

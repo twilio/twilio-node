@@ -153,11 +153,6 @@ declare class MediaInstance extends SerializableClass {
    */
   remove(callback?: (error: Error | null, items: MediaInstance) => any): void;
   sid: string;
-  /**
-   * Produce a plain JSON object version of the MediaInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   uri: string;
 }
 

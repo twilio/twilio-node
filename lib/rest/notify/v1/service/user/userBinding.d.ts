@@ -182,11 +182,6 @@ declare class UserBindingInstance extends SerializableClass {
   serviceSid: string;
   sid: string;
   tags: string;
-  /**
-   * Produce a plain JSON object version of the UserBindingInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   url: string;
 }
 

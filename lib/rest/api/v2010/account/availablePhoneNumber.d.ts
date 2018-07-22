@@ -165,11 +165,6 @@ declare class AvailablePhoneNumberCountryInstance extends SerializableClass {
   sharedCost();
   subresourceUris: string;
   /**
-   * Produce a plain JSON object version of the AvailablePhoneNumberCountryInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
-  /**
    * Access the tollFree
    */
   tollFree();

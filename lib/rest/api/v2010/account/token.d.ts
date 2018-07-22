@@ -88,11 +88,6 @@ declare class TokenInstance extends SerializableClass {
   dateUpdated: Date;
   iceServers: string;
   password: string;
-  /**
-   * Produce a plain JSON object version of the TokenInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   ttl: string;
   username: string;
 }

@@ -89,11 +89,6 @@ declare class FeedbackInstance extends SerializableClass {
   dateUpdated: Date;
   messageSid: string;
   outcome: feedback.outcome;
-  /**
-   * Produce a plain JSON object version of the FeedbackInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   uri: string;
 }
 

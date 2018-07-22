@@ -160,11 +160,6 @@ declare class CommandInstance extends SerializableClass {
   sid: string;
   simSid: string;
   status: string;
-  /**
-   * Produce a plain JSON object version of the CommandInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   url: string;
 }
 

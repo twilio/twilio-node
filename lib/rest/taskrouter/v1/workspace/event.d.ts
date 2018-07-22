@@ -168,11 +168,6 @@ declare class EventInstance extends SerializableClass {
   sid: string;
   source: string;
   sourceIpAddress: string;
-  /**
-   * Produce a plain JSON object version of the EventInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   url: string;
 }
 

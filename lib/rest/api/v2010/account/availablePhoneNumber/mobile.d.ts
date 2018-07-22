@@ -148,11 +148,6 @@ declare class MobileInstance extends SerializableClass {
   postalCode: string;
   rateCenter: string;
   region: string;
-  /**
-   * Produce a plain JSON object version of the MobileInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
 }
 
 export { MobileInstance, MobileList, MobileListInstance, MobileListInstanceEachOptions, MobileListInstanceOptions, MobileListInstancePageOptions, MobilePage, MobilePayload, MobileResource, MobileSolution }

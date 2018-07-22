@@ -266,11 +266,6 @@ declare class ApplicationInstance extends SerializableClass {
   statusCallback: string;
   statusCallbackMethod: string;
   /**
-   * Produce a plain JSON object version of the ApplicationInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
-  /**
    * update a ApplicationInstance
    *
    * @param opts - Options for request

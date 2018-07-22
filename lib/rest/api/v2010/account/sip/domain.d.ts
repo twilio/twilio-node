@@ -242,11 +242,6 @@ declare class DomainInstance extends SerializableClass {
   sipRegistration: boolean;
   subresourceUris: string;
   /**
-   * Produce a plain JSON object version of the DomainInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
-  /**
    * update a DomainInstance
    *
    * @param opts - Options for request

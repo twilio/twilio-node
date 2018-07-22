@@ -151,11 +151,6 @@ declare class FeedbackInstance extends SerializableClass {
   qualityScore: number;
   sid: string;
   /**
-   * Produce a plain JSON object version of the FeedbackInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
-  /**
    * update a FeedbackInstance
    *
    * @param opts - Options for request

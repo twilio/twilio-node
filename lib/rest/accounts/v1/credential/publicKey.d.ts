@@ -169,11 +169,6 @@ declare class PublicKeyInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: PublicKeyInstance) => any): void;
   sid: string;
   /**
-   * Produce a plain JSON object version of the PublicKeyInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
-  /**
    * update a PublicKeyInstance
    *
    * @param opts - Options for request

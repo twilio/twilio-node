@@ -163,11 +163,6 @@ declare class ShortCodeInstance extends SerializableClass {
   serviceSid: string;
   shortCode: string;
   sid: string;
-  /**
-   * Produce a plain JSON object version of the ShortCodeInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   url: string;
 }
 

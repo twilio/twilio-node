@@ -121,11 +121,6 @@ declare class UsageRecordInstance extends SerializableClass {
   data: string;
   period: string;
   simSid: string;
-  /**
-   * Produce a plain JSON object version of the UsageRecordInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
 }
 
 export { UsageRecordInstance, UsageRecordList, UsageRecordListInstance, UsageRecordListInstanceEachOptions, UsageRecordListInstanceOptions, UsageRecordListInstancePageOptions, UsageRecordPage, UsageRecordPayload, UsageRecordResource, UsageRecordSolution }

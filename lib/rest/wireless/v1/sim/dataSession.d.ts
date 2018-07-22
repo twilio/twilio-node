@@ -151,11 +151,6 @@ declare class DataSessionInstance extends SerializableClass {
   sid: string;
   simSid: string;
   start: Date;
-  /**
-   * Produce a plain JSON object version of the DataSessionInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
 }
 
 export { DataSessionInstance, DataSessionList, DataSessionListInstance, DataSessionListInstanceEachOptions, DataSessionListInstanceOptions, DataSessionListInstancePageOptions, DataSessionPage, DataSessionPayload, DataSessionResource, DataSessionSolution }

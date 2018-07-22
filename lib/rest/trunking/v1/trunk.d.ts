@@ -241,11 +241,6 @@ declare class TrunkInstance extends SerializableClass {
   secure: boolean;
   sid: string;
   /**
-   * Produce a plain JSON object version of the TrunkInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
-  /**
    * update a TrunkInstance
    *
    * @param opts - Options for request

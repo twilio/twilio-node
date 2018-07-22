@@ -270,11 +270,6 @@ declare class CallInstance extends SerializableClass {
   to: string;
   toFormatted: string;
   /**
-   * Produce a plain JSON object version of the CallInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
-  /**
    * update a CallInstance
    *
    * @param opts - Options for request

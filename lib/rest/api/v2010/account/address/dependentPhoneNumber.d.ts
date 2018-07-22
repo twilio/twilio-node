@@ -178,11 +178,6 @@ declare class DependentPhoneNumberInstance extends SerializableClass {
   smsUrl: string;
   statusCallback: string;
   statusCallbackMethod: string;
-  /**
-   * Produce a plain JSON object version of the DependentPhoneNumberInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   trunkSid: string;
   uri: string;
   voiceApplicationSid: string;

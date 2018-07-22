@@ -148,11 +148,6 @@ declare class VoipInstance extends SerializableClass {
   postalCode: string;
   rateCenter: string;
   region: string;
-  /**
-   * Produce a plain JSON object version of the VoipInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
 }
 
 export { VoipInstance, VoipList, VoipListInstance, VoipListInstanceEachOptions, VoipListInstanceOptions, VoipListInstancePageOptions, VoipPage, VoipPayload, VoipResource, VoipSolution }

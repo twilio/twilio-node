@@ -120,11 +120,6 @@ declare class TaskQueuesStatisticsInstance extends SerializableClass {
   cumulative: string;
   realtime: string;
   taskQueueSid: string;
-  /**
-   * Produce a plain JSON object version of the TaskQueuesStatisticsInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   workspaceSid: string;
 }
 

@@ -166,11 +166,6 @@ declare class RecordingInstance extends SerializableClass {
   size: number;
   sourceSid: string;
   status: recording.status;
-  /**
-   * Produce a plain JSON object version of the RecordingInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   trackName: string;
   type: recording.type;
   url: string;

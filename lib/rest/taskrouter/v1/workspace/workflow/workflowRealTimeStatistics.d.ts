@@ -119,11 +119,6 @@ declare class WorkflowRealTimeStatisticsInstance extends SerializableClass {
   longestTaskWaitingAge: number;
   tasksByPriority: string;
   tasksByStatus: string;
-  /**
-   * Produce a plain JSON object version of the WorkflowRealTimeStatisticsInstance for serialization.
-   * Removes any circular references in the object.
-   */
-  toJSON(): any;
   totalTasks: number;
   url: string;
   workflowSid: string;
