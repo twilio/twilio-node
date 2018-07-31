@@ -234,6 +234,11 @@ declare class TaskQueueInstance extends SerializableClass {
   targetWorkers: string;
   taskOrder: task_queue.task_order;
   /**
+   * Produce a plain JSON object version of the TaskQueueInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
+  /**
    * update a TaskQueueInstance
    *
    * @param opts - Options for request

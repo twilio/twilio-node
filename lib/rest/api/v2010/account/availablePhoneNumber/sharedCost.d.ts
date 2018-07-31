@@ -148,6 +148,11 @@ declare class SharedCostInstance extends SerializableClass {
   postalCode: string;
   rateCenter: string;
   region: string;
+  /**
+   * Produce a plain JSON object version of the SharedCostInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
 }
 
 export { SharedCostInstance, SharedCostList, SharedCostListInstance, SharedCostListInstanceEachOptions, SharedCostListInstanceOptions, SharedCostListInstancePageOptions, SharedCostPage, SharedCostPayload, SharedCostResource, SharedCostSolution }

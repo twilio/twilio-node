@@ -183,6 +183,11 @@ declare class ParticipantInstance extends SerializableClass {
   serviceSid: string;
   sessionSid: string;
   sid: string;
+  /**
+   * Produce a plain JSON object version of the ParticipantInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
   url: string;
 }
 

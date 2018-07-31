@@ -157,6 +157,11 @@ declare class FlowInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: FlowInstance) => any): void;
   sid: string;
   status: flow.status;
+  /**
+   * Produce a plain JSON object version of the FlowInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
   url: string;
   version: number;
 }

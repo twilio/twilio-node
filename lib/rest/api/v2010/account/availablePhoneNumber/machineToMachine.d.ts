@@ -148,6 +148,11 @@ declare class MachineToMachineInstance extends SerializableClass {
   postalCode: string;
   rateCenter: string;
   region: string;
+  /**
+   * Produce a plain JSON object version of the MachineToMachineInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
 }
 
 export { MachineToMachineInstance, MachineToMachineList, MachineToMachineListInstance, MachineToMachineListInstanceEachOptions, MachineToMachineListInstanceOptions, MachineToMachineListInstancePageOptions, MachineToMachinePage, MachineToMachinePayload, MachineToMachineResource, MachineToMachineSolution }

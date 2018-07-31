@@ -185,6 +185,11 @@ declare class IpAddressInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: IpAddressInstance) => any): void;
   sid: string;
   /**
+   * Produce a plain JSON object version of the IpAddressInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
+  /**
    * update a IpAddressInstance
    *
    * @param opts - Options for request

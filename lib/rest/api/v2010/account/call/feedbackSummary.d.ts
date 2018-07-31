@@ -136,6 +136,11 @@ declare class FeedbackSummaryInstance extends SerializableClass {
   sid: string;
   startDate: Date;
   status: feedback_summary.status;
+  /**
+   * Produce a plain JSON object version of the FeedbackSummaryInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
 }
 
 

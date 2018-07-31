@@ -148,6 +148,11 @@ declare class TollFreeInstance extends SerializableClass {
   postalCode: string;
   rateCenter: string;
   region: string;
+  /**
+   * Produce a plain JSON object version of the TollFreeInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
 }
 
 export { TollFreeInstance, TollFreeList, TollFreeListInstance, TollFreeListInstanceEachOptions, TollFreeListInstanceOptions, TollFreeListInstancePageOptions, TollFreePage, TollFreePayload, TollFreeResource, TollFreeSolution }

@@ -166,6 +166,11 @@ declare class RoomRecordingInstance extends SerializableClass {
   size: number;
   sourceSid: string;
   status: room_recording.status;
+  /**
+   * Produce a plain JSON object version of the RoomRecordingInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
   trackName: string;
   type: room_recording.type;
   url: string;

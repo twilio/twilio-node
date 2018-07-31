@@ -203,6 +203,11 @@ declare class WebhookInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: WebhookInstance) => any): void;
   serviceSid: string;
   sid: string;
+  /**
+   * Produce a plain JSON object version of the WebhookInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
   type: string;
   /**
    * update a WebhookInstance

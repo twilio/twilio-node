@@ -189,6 +189,11 @@ declare class SyncListItemInstance extends SerializableClass {
   revision: string;
   serviceSid: string;
   /**
+   * Produce a plain JSON object version of the SyncListItemInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
+  /**
    * update a SyncListItemInstance
    *
    * @param opts - Options for request

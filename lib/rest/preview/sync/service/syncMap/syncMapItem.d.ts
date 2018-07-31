@@ -189,6 +189,11 @@ declare class SyncMapItemInstance extends SerializableClass {
   revision: string;
   serviceSid: string;
   /**
+   * Produce a plain JSON object version of the SyncMapItemInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
+  /**
    * update a SyncMapItemInstance
    *
    * @param opts - Options for request

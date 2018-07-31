@@ -251,6 +251,11 @@ declare class HostedNumberOrderInstance extends SerializableClass {
   sid: string;
   signingDocumentSid: string;
   status: hosted_number_order.status;
+  /**
+   * Produce a plain JSON object version of the HostedNumberOrderInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
   uniqueName: string;
   /**
    * update a HostedNumberOrderInstance

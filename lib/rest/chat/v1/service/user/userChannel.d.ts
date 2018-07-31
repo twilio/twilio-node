@@ -131,6 +131,11 @@ declare class UserChannelInstance extends SerializableClass {
   memberSid: string;
   serviceSid: string;
   status: user_channel.channel_status;
+  /**
+   * Produce a plain JSON object version of the UserChannelInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
   unreadMessagesCount: number;
 }
 

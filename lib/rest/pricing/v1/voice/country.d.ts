@@ -137,6 +137,11 @@ declare class CountryInstance extends SerializableClass {
   isoCountry: string;
   outboundPrefixPrices: string;
   priceUnit: string;
+  /**
+   * Produce a plain JSON object version of the CountryInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
   url: string;
 }
 

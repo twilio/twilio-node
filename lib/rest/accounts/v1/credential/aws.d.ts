@@ -169,6 +169,11 @@ declare class AwsInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: AwsInstance) => any): void;
   sid: string;
   /**
+   * Produce a plain JSON object version of the AwsInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
+  /**
    * update a AwsInstance
    *
    * @param opts - Options for request

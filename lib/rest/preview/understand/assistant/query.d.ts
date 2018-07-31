@@ -198,6 +198,11 @@ declare class QueryInstance extends SerializableClass {
   sourceChannel: string;
   status: string;
   /**
+   * Produce a plain JSON object version of the QueryInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
+  /**
    * update a QueryInstance
    *
    * @param opts - Options for request

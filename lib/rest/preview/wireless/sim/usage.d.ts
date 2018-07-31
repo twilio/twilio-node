@@ -127,6 +127,11 @@ declare class UsageInstance extends SerializableClass {
   period: string;
   simSid: string;
   simUniqueName: string;
+  /**
+   * Produce a plain JSON object version of the UsageInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
   url: string;
 }
 

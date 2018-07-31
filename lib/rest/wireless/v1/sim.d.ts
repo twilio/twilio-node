@@ -267,6 +267,11 @@ declare class SimInstance extends SerializableClass {
   smsMethod: string;
   smsUrl: string;
   status: sim.status;
+  /**
+   * Produce a plain JSON object version of the SimInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
   uniqueName: string;
   /**
    * update a SimInstance

@@ -277,6 +277,11 @@ declare class AccountInstance extends SerializableClass {
   status: account.status;
   subresourceUris: string;
   /**
+   * Produce a plain JSON object version of the AccountInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
+  /**
    * Access the tokens
    */
   tokens();

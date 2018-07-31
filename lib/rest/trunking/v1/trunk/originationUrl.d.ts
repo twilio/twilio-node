@@ -201,6 +201,11 @@ declare class OriginationUrlInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: OriginationUrlInstance) => any): void;
   sid: string;
   sipUrl: string;
+  /**
+   * Produce a plain JSON object version of the OriginationUrlInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
   trunkSid: string;
   /**
    * update a OriginationUrlInstance

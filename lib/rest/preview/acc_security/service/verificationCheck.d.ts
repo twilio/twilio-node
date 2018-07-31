@@ -96,6 +96,11 @@ declare class VerificationCheckInstance extends SerializableClass {
   sid: string;
   status: string;
   to: string;
+  /**
+   * Produce a plain JSON object version of the VerificationCheckInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
   valid: boolean;
 }
 

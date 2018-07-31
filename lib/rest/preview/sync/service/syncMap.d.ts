@@ -175,6 +175,11 @@ declare class SyncMapInstance extends SerializableClass {
    * Access the syncMapPermissions
    */
   syncMapPermissions();
+  /**
+   * Produce a plain JSON object version of the SyncMapInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
   uniqueName: string;
   url: string;
 }

@@ -190,6 +190,11 @@ declare class InstalledAddOnInstance extends SerializableClass {
    */
   remove(callback?: (error: Error | null, items: InstalledAddOnInstance) => any): void;
   sid: string;
+  /**
+   * Produce a plain JSON object version of the InstalledAddOnInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
   uniqueName: string;
   /**
    * update a InstalledAddOnInstance

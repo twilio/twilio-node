@@ -183,6 +183,11 @@ declare class DeploymentInstance extends SerializableClass {
   sid: string;
   syncServiceSid: string;
   /**
+   * Produce a plain JSON object version of the DeploymentInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
+  /**
    * update a DeploymentInstance
    *
    * @param opts - Options for request

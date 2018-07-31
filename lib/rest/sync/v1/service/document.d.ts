@@ -199,6 +199,11 @@ declare class DocumentInstance extends SerializableClass {
   revision: string;
   serviceSid: string;
   sid: string;
+  /**
+   * Produce a plain JSON object version of the DocumentInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
   uniqueName: string;
   /**
    * update a DocumentInstance

@@ -175,6 +175,11 @@ declare class SyncListInstance extends SerializableClass {
    * Access the syncListPermissions
    */
   syncListPermissions();
+  /**
+   * Produce a plain JSON object version of the SyncListInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
   uniqueName: string;
   url: string;
 }

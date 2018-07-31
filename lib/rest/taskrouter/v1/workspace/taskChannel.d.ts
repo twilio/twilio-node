@@ -144,6 +144,11 @@ declare class TaskChannelInstance extends SerializableClass {
   fetch(callback?: (error: Error | null, items: TaskChannelInstance) => any): void;
   friendlyName: string;
   sid: string;
+  /**
+   * Produce a plain JSON object version of the TaskChannelInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
   uniqueName: string;
   url: string;
   workspaceSid: string;

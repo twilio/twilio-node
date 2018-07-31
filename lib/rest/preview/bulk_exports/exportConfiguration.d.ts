@@ -118,6 +118,11 @@ declare class ExportConfigurationInstance extends SerializableClass {
   fetch(callback?: (error: Error | null, items: ExportConfigurationInstance) => any): void;
   resourceType: string;
   /**
+   * Produce a plain JSON object version of the ExportConfigurationInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
+  /**
    * update a ExportConfigurationInstance
    *
    * @param opts - Options for request

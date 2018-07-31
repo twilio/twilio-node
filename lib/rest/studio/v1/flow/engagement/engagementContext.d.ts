@@ -95,6 +95,11 @@ declare class EngagementContextInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: EngagementContextInstance) => any): void;
   flowSid: string;
+  /**
+   * Produce a plain JSON object version of the EngagementContextInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
   url: string;
 }
 

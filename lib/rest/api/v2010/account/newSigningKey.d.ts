@@ -84,6 +84,11 @@ declare class NewSigningKeyInstance extends SerializableClass {
   friendlyName: string;
   secret: string;
   sid: string;
+  /**
+   * Produce a plain JSON object version of the NewSigningKeyInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
 }
 
 export { NewSigningKeyInstance, NewSigningKeyList, NewSigningKeyListInstance, NewSigningKeyListInstanceCreateOptions, NewSigningKeyPage, NewSigningKeyPayload, NewSigningKeyResource, NewSigningKeySolution }

@@ -197,6 +197,11 @@ declare class MessageInteractionInstance extends SerializableClass {
   sessionSid: string;
   sid: string;
   status: message_interaction.status;
+  /**
+   * Produce a plain JSON object version of the MessageInteractionInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
   url: string;
 }
 

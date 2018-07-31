@@ -162,6 +162,11 @@ declare class InstalledAddOnExtensionInstance extends SerializableClass {
   installedAddOnSid: string;
   productName: string;
   sid: string;
+  /**
+   * Produce a plain JSON object version of the InstalledAddOnExtensionInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
   uniqueName: string;
   /**
    * update a InstalledAddOnExtensionInstance

@@ -123,6 +123,11 @@ declare class SegmentInstance extends SerializableClass {
   dateUpdated: Date;
   serviceSid: string;
   sid: string;
+  /**
+   * Produce a plain JSON object version of the SegmentInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
   uniqueName: string;
 }
 

@@ -180,6 +180,11 @@ declare class RoleInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: RoleInstance) => any): void;
   serviceSid: string;
   sid: string;
+  /**
+   * Produce a plain JSON object version of the RoleInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
   type: role.role_type;
   /**
    * update a RoleInstance

@@ -217,6 +217,11 @@ declare class ChannelInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: ChannelInstance) => any): void;
   serviceSid: string;
   sid: string;
+  /**
+   * Produce a plain JSON object version of the ChannelInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
   type: channel.channel_type;
   uniqueName: string;
   /**

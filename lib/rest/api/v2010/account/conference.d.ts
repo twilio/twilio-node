@@ -190,6 +190,11 @@ declare class ConferenceInstance extends SerializableClass {
   status: conference.status;
   subresourceUris: string;
   /**
+   * Produce a plain JSON object version of the ConferenceInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
+  /**
    * update a ConferenceInstance
    *
    * @param opts - Options for request

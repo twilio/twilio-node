@@ -223,6 +223,11 @@ declare class WorkflowInstance extends SerializableClass {
   statistics();
   taskReservationTimeout: number;
   /**
+   * Produce a plain JSON object version of the WorkflowInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
+  /**
    * update a WorkflowInstance
    *
    * @param opts - Options for request

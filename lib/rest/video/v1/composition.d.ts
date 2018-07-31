@@ -186,6 +186,11 @@ declare class CompositionInstance extends SerializableClass {
   sid: string;
   size: number;
   status: composition.status;
+  /**
+   * Produce a plain JSON object version of the CompositionInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
   trim: boolean;
   url: string;
   videoLayout: string;

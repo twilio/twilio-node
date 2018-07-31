@@ -188,6 +188,11 @@ declare class InteractionInstance extends SerializableClass {
   serviceSid: string;
   sessionSid: string;
   sid: string;
+  /**
+   * Produce a plain JSON object version of the InteractionInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
   type: interaction.type;
   url: string;
 }

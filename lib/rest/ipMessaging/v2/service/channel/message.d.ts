@@ -219,6 +219,11 @@ declare class MessageInstance extends SerializableClass {
   serviceSid: string;
   sid: string;
   to: string;
+  /**
+   * Produce a plain JSON object version of the MessageInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
   type: string;
   /**
    * update a MessageInstance

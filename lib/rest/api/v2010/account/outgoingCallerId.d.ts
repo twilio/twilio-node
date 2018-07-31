@@ -168,6 +168,11 @@ declare class OutgoingCallerIdInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: OutgoingCallerIdInstance) => any): void;
   sid: string;
   /**
+   * Produce a plain JSON object version of the OutgoingCallerIdInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
+  /**
    * update a OutgoingCallerIdInstance
    *
    * @param opts - Options for request

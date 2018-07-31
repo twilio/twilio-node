@@ -205,6 +205,11 @@ declare class TriggerInstance extends SerializableClass {
    */
   remove(callback?: (error: Error | null, items: TriggerInstance) => any): void;
   sid: string;
+  /**
+   * Produce a plain JSON object version of the TriggerInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
   triggerBy: trigger.trigger_field;
   triggerValue: string;
   /**

@@ -165,6 +165,11 @@ declare class StepInstance extends SerializableClass {
    * Access the stepContext
    */
   stepContext();
+  /**
+   * Produce a plain JSON object version of the StepInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
   transitionedFrom: string;
   transitionedTo: string;
   url: string;

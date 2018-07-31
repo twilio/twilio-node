@@ -180,6 +180,11 @@ declare class EngagementInstance extends SerializableClass {
    * Access the steps
    */
   steps();
+  /**
+   * Produce a plain JSON object version of the EngagementInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
   url: string;
 }
 

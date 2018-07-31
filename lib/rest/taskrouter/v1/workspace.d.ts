@@ -263,6 +263,11 @@ declare class WorkspaceInstance extends SerializableClass {
   timeoutActivityName: string;
   timeoutActivitySid: string;
   /**
+   * Produce a plain JSON object version of the WorkspaceInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
+  /**
    * update a WorkspaceInstance
    *
    * @param opts - Options for request

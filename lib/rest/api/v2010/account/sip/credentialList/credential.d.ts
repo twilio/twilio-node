@@ -177,6 +177,11 @@ declare class CredentialInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: CredentialInstance) => any): void;
   sid: string;
   /**
+   * Produce a plain JSON object version of the CredentialInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
+  /**
    * update a CredentialInstance
    *
    * @param opts - Options for request

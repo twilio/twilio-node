@@ -160,6 +160,11 @@ declare class AlphaSenderInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: AlphaSenderInstance) => any): void;
   serviceSid: string;
   sid: string;
+  /**
+   * Produce a plain JSON object version of the AlphaSenderInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
   url: string;
 }
 

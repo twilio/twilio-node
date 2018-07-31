@@ -180,6 +180,11 @@ declare class CredentialListInstance extends SerializableClass {
   sid: string;
   subresourceUris: string;
   /**
+   * Produce a plain JSON object version of the CredentialListInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
+  /**
    * update a CredentialListInstance
    *
    * @param opts - Options for request

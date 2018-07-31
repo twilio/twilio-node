@@ -212,6 +212,11 @@ declare class FaxInstance extends SerializableClass {
   status: fax.status;
   to: string;
   /**
+   * Produce a plain JSON object version of the FaxInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
+  /**
    * update a FaxInstance
    *
    * @param opts - Options for request

@@ -233,6 +233,11 @@ declare class TaskInstance extends SerializableClass {
   taskQueueSid: string;
   timeout: number;
   /**
+   * Produce a plain JSON object version of the TaskInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
+  /**
    * update a TaskInstance
    *
    * @param opts - Options for request

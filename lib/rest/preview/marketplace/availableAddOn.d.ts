@@ -146,6 +146,11 @@ declare class AvailableAddOnInstance extends SerializableClass {
   links: string;
   pricingType: string;
   sid: string;
+  /**
+   * Produce a plain JSON object version of the AvailableAddOnInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
   url: string;
 }
 

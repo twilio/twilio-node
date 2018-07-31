@@ -159,6 +159,11 @@ declare class CredentialListMappingInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: CredentialListMappingInstance) => any): void;
   sid: string;
   subresourceUris: string;
+  /**
+   * Produce a plain JSON object version of the CredentialListMappingInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
   uri: string;
 }
 

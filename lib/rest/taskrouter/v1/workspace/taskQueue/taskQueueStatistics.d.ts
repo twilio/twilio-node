@@ -132,6 +132,11 @@ declare class TaskQueueStatisticsInstance extends SerializableClass {
   fetch(opts?: TaskQueueStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: TaskQueueStatisticsInstance) => any): void;
   realtime: string;
   taskQueueSid: string;
+  /**
+   * Produce a plain JSON object version of the TaskQueueStatisticsInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
   url: string;
   workspaceSid: string;
 }

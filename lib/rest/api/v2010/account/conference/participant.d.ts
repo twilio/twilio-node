@@ -211,6 +211,11 @@ declare class ParticipantInstance extends SerializableClass {
   startConferenceOnEnter: boolean;
   status: participant.status;
   /**
+   * Produce a plain JSON object version of the ParticipantInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
+  /**
    * update a ParticipantInstance
    *
    * @param opts - Options for request

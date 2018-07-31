@@ -134,6 +134,11 @@ declare class WorkersStatisticsInstance extends SerializableClass {
    */
   fetch(opts?: WorkersStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkersStatisticsInstance) => any): void;
   realtime: string;
+  /**
+   * Produce a plain JSON object version of the WorkersStatisticsInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
   url: string;
   workspaceSid: string;
 }

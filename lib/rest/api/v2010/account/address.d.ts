@@ -229,6 +229,11 @@ declare class AddressInstance extends SerializableClass {
   sid: string;
   street: string;
   /**
+   * Produce a plain JSON object version of the AddressInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
+  /**
    * update a AddressInstance
    *
    * @param opts - Options for request

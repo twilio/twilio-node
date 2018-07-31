@@ -194,6 +194,11 @@ declare class IntentInstance extends SerializableClass {
    */
   samples();
   sid: string;
+  /**
+   * Produce a plain JSON object version of the IntentInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
   uniqueName: string;
   /**
    * update a IntentInstance

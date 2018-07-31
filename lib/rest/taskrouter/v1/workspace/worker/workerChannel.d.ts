@@ -186,6 +186,11 @@ declare class WorkerChannelInstance extends SerializableClass {
   taskChannelSid: string;
   taskChannelUniqueName: string;
   /**
+   * Produce a plain JSON object version of the WorkerChannelInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
+  /**
    * update a WorkerChannelInstance
    *
    * @param opts - Options for request

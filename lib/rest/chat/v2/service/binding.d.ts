@@ -165,6 +165,11 @@ declare class BindingInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: BindingInstance) => any): void;
   serviceSid: string;
   sid: string;
+  /**
+   * Produce a plain JSON object version of the BindingInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
   url: string;
 }
 

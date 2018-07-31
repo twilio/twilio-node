@@ -209,6 +209,11 @@ declare class RecordingInstance extends SerializableClass {
   startTime: Date;
   status: recording.status;
   /**
+   * Produce a plain JSON object version of the RecordingInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
+  /**
    * update a RecordingInstance
    *
    * @param opts - Options for request

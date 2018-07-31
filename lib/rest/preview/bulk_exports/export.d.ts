@@ -91,6 +91,11 @@ declare class ExportInstance extends SerializableClass {
   fetch(callback?: (error: Error | null, items: ExportInstance) => any): void;
   links: string;
   resourceType: string;
+  /**
+   * Produce a plain JSON object version of the ExportInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
   url: string;
 }
 

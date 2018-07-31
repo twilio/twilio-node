@@ -127,6 +127,11 @@ declare class TaskQueueRealTimeStatisticsInstance extends SerializableClass {
   taskQueueSid: string;
   tasksByPriority: string;
   tasksByStatus: string;
+  /**
+   * Produce a plain JSON object version of the TaskQueueRealTimeStatisticsInstance for serialization.
+   * Removes any circular references in the object.
+   */
+  toJSON(): any;
   totalAvailableWorkers: number;
   totalEligibleWorkers: number;
   totalTasks: number;
