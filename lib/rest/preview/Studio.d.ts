@@ -6,21 +6,22 @@
  */
 
 import Version = require('../../base/Version');
-import { FlowListInstance } from './studio/flow';
+import { FlowList } from './studio/flow';
 
 
-/**
- * Initialize the Studio version of Preview
- */
 declare class Studio extends Version {
   /**
    * Initialize the Studio version of Preview
    *
+   * @constructor Twilio.Preview.Studio
+   *
+   * @property flows - flows resource
+   *
    * @param domain - The twilio domain
    */
-  constructor(domain: any);
+  constructor(domain: Twilio.Preview);
 
-  readonly flows: FlowListInstance;
+  flows?: Twilio.Preview.Studio.FlowList;
 }
 
 export = Studio;

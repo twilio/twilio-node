@@ -6,25 +6,28 @@
  */
 
 import Version = require('../../base/Version');
-import { MessagingListInstance } from './v1/messaging';
-import { PhoneNumberListInstance } from './v1/phoneNumber';
-import { VoiceListInstance } from './v1/voice';
+import { MessagingList } from './v1/messaging';
+import { PhoneNumberList } from './v1/phoneNumber';
+import { VoiceList } from './v1/voice';
 
 
-/**
- * Initialize the V1 version of Pricing
- */
 declare class V1 extends Version {
   /**
    * Initialize the V1 version of Pricing
    *
+   * @constructor Twilio.Pricing.V1
+   *
+   * @property messaging - messaging resource
+   * @property phoneNumbers - phoneNumbers resource
+   * @property voice - voice resource
+   *
    * @param domain - The twilio domain
    */
-  constructor(domain: any);
+  constructor(domain: Twilio.Pricing);
 
-  readonly messaging: MessagingListInstance;
-  readonly phoneNumbers: PhoneNumberListInstance;
-  readonly voice: VoiceListInstance;
+  messaging?: Twilio.Pricing.V1.MessagingList;
+  phoneNumbers?: Twilio.Pricing.V1.PhoneNumberList;
+  voice?: Twilio.Pricing.V1.VoiceList;
 }
 
 export = V1;

@@ -6,21 +6,22 @@
  */
 
 import Version = require('../../base/Version');
-import { TrunkListInstance } from './v1/trunk';
+import { TrunkList } from './v1/trunk';
 
 
-/**
- * Initialize the V1 version of Trunking
- */
 declare class V1 extends Version {
   /**
    * Initialize the V1 version of Trunking
    *
+   * @constructor Twilio.Trunking.V1
+   *
+   * @property trunks - trunks resource
+   *
    * @param domain - The twilio domain
    */
-  constructor(domain: any);
+  constructor(domain: Twilio.Trunking);
 
-  readonly trunks: TrunkListInstance;
+  trunks?: Twilio.Trunking.V1.TrunkList;
 }
 
 export = V1;

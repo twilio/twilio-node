@@ -6,25 +6,34 @@
  */
 
 import Version = require('../../base/Version');
-import { CompositionListInstance } from './v1/composition';
-import { RecordingListInstance } from './v1/recording';
-import { RoomListInstance } from './v1/room';
+import { CompositionList } from './v1/composition';
+import { CompositionSettingsList } from './v1/compositionSettings';
+import { RecordingList } from './v1/recording';
+import { RecordingSettingsList } from './v1/recordingSettings';
+import { RoomList } from './v1/room';
 
 
-/**
- * Initialize the V1 version of Video
- */
 declare class V1 extends Version {
   /**
    * Initialize the V1 version of Video
    *
+   * @constructor Twilio.Video.V1
+   *
+   * @property compositionSettings - compositionSettings resource
+   * @property recordings - recordings resource
+   * @property recordingSettings - recordingSettings resource
+   * @property compositions - compositions resource
+   * @property rooms - rooms resource
+   *
    * @param domain - The twilio domain
    */
-  constructor(domain: any);
+  constructor(domain: Twilio.Video);
 
-  readonly compositions: CompositionListInstance;
-  readonly recordings: RecordingListInstance;
-  readonly rooms: RoomListInstance;
+  compositionSettings?: Twilio.Video.V1.CompositionSettingsList;
+  compositions?: Twilio.Video.V1.CompositionList;
+  recordingSettings?: Twilio.Video.V1.RecordingSettingsList;
+  recordings?: Twilio.Video.V1.RecordingList;
+  rooms?: Twilio.Video.V1.RoomList;
 }
 
 export = V1;

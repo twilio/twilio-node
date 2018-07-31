@@ -6,21 +6,22 @@
  */
 
 import Version = require('../../base/Version');
-import { PhoneNumberListInstance } from './v1/phoneNumber';
+import { PhoneNumberList } from './v1/phoneNumber';
 
 
-/**
- * Initialize the V1 version of Lookups
- */
 declare class V1 extends Version {
   /**
    * Initialize the V1 version of Lookups
    *
+   * @constructor Twilio.Lookups.V1
+   *
+   * @property phoneNumbers - phoneNumbers resource
+   *
    * @param domain - The twilio domain
    */
-  constructor(domain: any);
+  constructor(domain: Twilio.Lookups);
 
-  readonly phoneNumbers: PhoneNumberListInstance;
+  phoneNumbers?: Twilio.Lookups.V1.PhoneNumberList;
 }
 
 export = V1;

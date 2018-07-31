@@ -6,21 +6,22 @@
  */
 
 import Version = require('../../base/Version');
-import { CredentialListInstance } from './v1/credential';
+import { CredentialList } from './v1/credential';
 
 
-/**
- * Initialize the V1 version of Accounts
- */
 declare class V1 extends Version {
   /**
    * Initialize the V1 version of Accounts
    *
+   * @constructor Twilio.Accounts.V1
+   *
+   * @property credentials - credentials resource
+   *
    * @param domain - The twilio domain
    */
-  constructor(domain: any);
+  constructor(domain: Twilio.Accounts);
 
-  readonly credentials: CredentialListInstance;
+  credentials?: Twilio.Accounts.V1.CredentialList;
 }
 
 export = V1;

@@ -6,25 +6,28 @@
  */
 
 import Version = require('../../base/Version');
-import { CommandListInstance } from './v1/command';
-import { RatePlanListInstance } from './v1/ratePlan';
-import { SimListInstance } from './v1/sim';
+import { CommandList } from './v1/command';
+import { RatePlanList } from './v1/ratePlan';
+import { SimList } from './v1/sim';
 
 
-/**
- * Initialize the V1 version of Wireless
- */
 declare class V1 extends Version {
   /**
    * Initialize the V1 version of Wireless
    *
+   * @constructor Twilio.Wireless.V1
+   *
+   * @property commands - commands resource
+   * @property ratePlans - ratePlans resource
+   * @property sims - sims resource
+   *
    * @param domain - The twilio domain
    */
-  constructor(domain: any);
+  constructor(domain: Twilio.Wireless);
 
-  readonly commands: CommandListInstance;
-  readonly ratePlans: RatePlanListInstance;
-  readonly sims: SimListInstance;
+  commands?: Twilio.Wireless.V1.CommandList;
+  ratePlans?: Twilio.Wireless.V1.RatePlanList;
+  sims?: Twilio.Wireless.V1.SimList;
 }
 
 export = V1;

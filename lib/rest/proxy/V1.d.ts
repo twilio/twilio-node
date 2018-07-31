@@ -6,21 +6,22 @@
  */
 
 import Version = require('../../base/Version');
-import { ServiceListInstance } from './v1/service';
+import { ServiceList } from './v1/service';
 
 
-/**
- * Initialize the V1 version of Proxy
- */
 declare class V1 extends Version {
   /**
    * Initialize the V1 version of Proxy
    *
+   * @constructor Twilio.Proxy.V1
+   *
+   * @property services - services resource
+   *
    * @param domain - The twilio domain
    */
-  constructor(domain: any);
+  constructor(domain: Twilio.Proxy);
 
-  readonly services: ServiceListInstance;
+  services?: Twilio.Proxy.V1.ServiceList;
 }
 
 export = V1;

@@ -6,21 +6,22 @@
  */
 
 import Version = require('../../base/Version');
-import { FaxListInstance } from './v1/fax';
+import { FaxList } from './v1/fax';
 
 
-/**
- * Initialize the V1 version of Fax
- */
 declare class V1 extends Version {
   /**
    * Initialize the V1 version of Fax
    *
+   * @constructor Twilio.Fax.V1
+   *
+   * @property faxes - faxes resource
+   *
    * @param domain - The twilio domain
    */
-  constructor(domain: any);
+  constructor(domain: Twilio.Fax);
 
-  readonly faxes: FaxListInstance;
+  faxes?: Twilio.Fax.V1.FaxList;
 }
 
 export = V1;

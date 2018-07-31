@@ -6,23 +6,25 @@
  */
 
 import Version = require('../../base/Version');
-import { CredentialListInstance } from './v1/credential';
-import { ServiceListInstance } from './v1/service';
+import { CredentialList } from './v1/credential';
+import { ServiceList } from './v1/service';
 
 
-/**
- * Initialize the V1 version of Notify
- */
 declare class V1 extends Version {
   /**
    * Initialize the V1 version of Notify
    *
+   * @constructor Twilio.Notify.V1
+   *
+   * @property credentials - credentials resource
+   * @property services - services resource
+   *
    * @param domain - The twilio domain
    */
-  constructor(domain: any);
+  constructor(domain: Twilio.Notify);
 
-  readonly credentials: CredentialListInstance;
-  readonly services: ServiceListInstance;
+  credentials?: Twilio.Notify.V1.CredentialList;
+  services?: Twilio.Notify.V1.ServiceList;
 }
 
 export = V1;

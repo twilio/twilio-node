@@ -6,23 +6,25 @@
  */
 
 import Version = require('../../base/Version');
-import { AuthorizationDocumentListInstance } from './hosted_numbers/authorizationDocument';
-import { HostedNumberOrderListInstance } from './hosted_numbers/hostedNumberOrder';
+import { AuthorizationDocumentList } from './hosted_numbers/authorizationDocument';
+import { HostedNumberOrderList } from './hosted_numbers/hostedNumberOrder';
 
 
-/**
- * Initialize the HostedNumbers version of Preview
- */
 declare class HostedNumbers extends Version {
   /**
    * Initialize the HostedNumbers version of Preview
    *
+   * @constructor Twilio.Preview.HostedNumbers
+   *
+   * @property authorizationDocuments - authorizationDocuments resource
+   * @property hostedNumberOrders - hostedNumberOrders resource
+   *
    * @param domain - The twilio domain
    */
-  constructor(domain: any);
+  constructor(domain: Twilio.Preview);
 
-  readonly authorizationDocuments: AuthorizationDocumentListInstance;
-  readonly hostedNumberOrders: HostedNumberOrderListInstance;
+  authorizationDocuments?: Twilio.Preview.HostedNumbers.AuthorizationDocumentList;
+  hostedNumberOrders?: Twilio.Preview.HostedNumbers.HostedNumberOrderList;
 }
 
 export = HostedNumbers;

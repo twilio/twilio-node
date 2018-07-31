@@ -6,21 +6,22 @@
  */
 
 import Version = require('../../base/Version');
-import { ServiceListInstance } from './acc_security/service';
+import { ServiceList } from './acc_security/service';
 
 
-/**
- * Initialize the AccSecurity version of Preview
- */
 declare class AccSecurity extends Version {
   /**
    * Initialize the AccSecurity version of Preview
    *
+   * @constructor Twilio.Preview.AccSecurity
+   *
+   * @property services - services resource
+   *
    * @param domain - The twilio domain
    */
-  constructor(domain: any);
+  constructor(domain: Twilio.Preview);
 
-  readonly services: ServiceListInstance;
+  services?: Twilio.Preview.AccSecurity.ServiceList;
 }
 
 export = AccSecurity;

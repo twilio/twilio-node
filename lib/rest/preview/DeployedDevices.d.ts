@@ -6,21 +6,22 @@
  */
 
 import Version = require('../../base/Version');
-import { FleetListInstance } from './deployed_devices/fleet';
+import { FleetList } from './deployed_devices/fleet';
 
 
-/**
- * Initialize the DeployedDevices version of Preview
- */
 declare class DeployedDevices extends Version {
   /**
    * Initialize the DeployedDevices version of Preview
    *
+   * @constructor Twilio.Preview.DeployedDevices
+   *
+   * @property fleets - fleets resource
+   *
    * @param domain - The twilio domain
    */
-  constructor(domain: any);
+  constructor(domain: Twilio.Preview);
 
-  readonly fleets: FleetListInstance;
+  fleets?: Twilio.Preview.DeployedDevices.FleetList;
 }
 
 export = DeployedDevices;

@@ -6,23 +6,25 @@
  */
 
 import Version = require('../../base/Version');
-import { CredentialListInstance } from './v2/credential';
-import { ServiceListInstance } from './v2/service';
+import { CredentialList } from './v2/credential';
+import { ServiceList } from './v2/service';
 
 
-/**
- * Initialize the V2 version of IpMessaging
- */
 declare class V2 extends Version {
   /**
    * Initialize the V2 version of IpMessaging
    *
+   * @constructor Twilio.IpMessaging.V2
+   *
+   * @property credentials - credentials resource
+   * @property services - services resource
+   *
    * @param domain - The twilio domain
    */
-  constructor(domain: any);
+  constructor(domain: Twilio.IpMessaging);
 
-  readonly credentials: CredentialListInstance;
-  readonly services: ServiceListInstance;
+  credentials?: Twilio.IpMessaging.V2.CredentialList;
+  services?: Twilio.IpMessaging.V2.ServiceList;
 }
 
 export = V2;

@@ -6,21 +6,22 @@
  */
 
 import Version = require('../../base/Version');
-import { ServiceListInstance } from './sync/service';
+import { ServiceList } from './sync/service';
 
 
-/**
- * Initialize the Sync version of Preview
- */
 declare class Sync extends Version {
   /**
    * Initialize the Sync version of Preview
    *
+   * @constructor Twilio.Preview.Sync
+   *
+   * @property services - services resource
+   *
    * @param domain - The twilio domain
    */
-  constructor(domain: any);
+  constructor(domain: Twilio.Preview);
 
-  readonly services: ServiceListInstance;
+  services?: Twilio.Preview.Sync.ServiceList;
 }
 
 export = Sync;

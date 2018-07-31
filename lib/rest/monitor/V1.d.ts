@@ -6,23 +6,25 @@
  */
 
 import Version = require('../../base/Version');
-import { AlertListInstance } from './v1/alert';
-import { EventListInstance } from './v1/event';
+import { AlertList } from './v1/alert';
+import { EventList } from './v1/event';
 
 
-/**
- * Initialize the V1 version of Monitor
- */
 declare class V1 extends Version {
   /**
    * Initialize the V1 version of Monitor
    *
+   * @constructor Twilio.Monitor.V1
+   *
+   * @property alerts - alerts resource
+   * @property events - events resource
+   *
    * @param domain - The twilio domain
    */
-  constructor(domain: any);
+  constructor(domain: Twilio.Monitor);
 
-  readonly alerts: AlertListInstance;
-  readonly events: EventListInstance;
+  alerts?: Twilio.Monitor.V1.AlertList;
+  events?: Twilio.Monitor.V1.EventList;
 }
 
 export = V1;

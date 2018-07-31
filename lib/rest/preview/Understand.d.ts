@@ -6,21 +6,22 @@
  */
 
 import Version = require('../../base/Version');
-import { AssistantListInstance } from './understand/assistant';
+import { AssistantList } from './understand/assistant';
 
 
-/**
- * Initialize the Understand version of Preview
- */
 declare class Understand extends Version {
   /**
    * Initialize the Understand version of Preview
    *
+   * @constructor Twilio.Preview.Understand
+   *
+   * @property assistants - assistants resource
+   *
    * @param domain - The twilio domain
    */
-  constructor(domain: any);
+  constructor(domain: Twilio.Preview);
 
-  readonly assistants: AssistantListInstance;
+  assistants?: Twilio.Preview.Understand.AssistantList;
 }
 
 export = Understand;

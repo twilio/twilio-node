@@ -6,23 +6,25 @@
  */
 
 import Version = require('../../base/Version');
-import { ExportConfigurationListInstance } from './bulk_exports/exportConfiguration';
-import { ExportListInstance } from './bulk_exports/export';
+import { ExportConfigurationList } from './bulk_exports/exportConfiguration';
+import { ExportList } from './bulk_exports/export';
 
 
-/**
- * Initialize the BulkExports version of Preview
- */
 declare class BulkExports extends Version {
   /**
    * Initialize the BulkExports version of Preview
    *
+   * @constructor Twilio.Preview.BulkExports
+   *
+   * @property exports - exports resource
+   * @property exportConfiguration - exportConfiguration resource
+   *
    * @param domain - The twilio domain
    */
-  constructor(domain: any);
+  constructor(domain: Twilio.Preview);
 
-  readonly exportConfiguration: ExportConfigurationListInstance;
-  readonly exports: ExportListInstance;
+  exportConfiguration?: Twilio.Preview.BulkExports.ExportConfigurationList;
+  exports?: Twilio.Preview.BulkExports.ExportList;
 }
 
 export = BulkExports;

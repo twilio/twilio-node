@@ -6,23 +6,25 @@
  */
 
 import Version = require('../../base/Version');
-import { AvailableAddOnListInstance } from './marketplace/availableAddOn';
-import { InstalledAddOnListInstance } from './marketplace/installedAddOn';
+import { AvailableAddOnList } from './marketplace/availableAddOn';
+import { InstalledAddOnList } from './marketplace/installedAddOn';
 
 
-/**
- * Initialize the Marketplace version of Preview
- */
 declare class Marketplace extends Version {
   /**
    * Initialize the Marketplace version of Preview
    *
+   * @constructor Twilio.Preview.Marketplace
+   *
+   * @property installedAddOns - installedAddOns resource
+   * @property availableAddOns - availableAddOns resource
+   *
    * @param domain - The twilio domain
    */
-  constructor(domain: any);
+  constructor(domain: Twilio.Preview);
 
-  readonly availableAddOns: AvailableAddOnListInstance;
-  readonly installedAddOns: InstalledAddOnListInstance;
+  availableAddOns?: Twilio.Preview.Marketplace.AvailableAddOnList;
+  installedAddOns?: Twilio.Preview.Marketplace.InstalledAddOnList;
 }
 
 export = Marketplace;
