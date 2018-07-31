@@ -151,6 +151,84 @@ interface TrunkInstanceUpdateOptions {
   secure?: boolean;
 }
 
+/**
+ * Options to pass to create
+ *
+ * @property friendlyName - A human-readable name for the Trunk.
+ * @property domainName - The unique address you reserve on Twilio to which you route your SIP traffic.
+ * @property disasterRecoveryUrl - The HTTP URL that Twilio will request if an error occurs while sending SIP traffic towards your configured Origination URL.
+ * @property disasterRecoveryMethod - The HTTP method Twilio will use when requesting the DisasterRecoveryUrl.
+ * @property recording - The recording settings for this trunk.
+ * @property secure - The Secure Trunking  settings for this trunk.
+ * @property cnamLookupEnabled - The Caller ID Name (CNAM) lookup setting for this trunk.
+ */
+interface TrunkListInstanceCreateOptions {
+  cnamLookupEnabled?: boolean;
+  disasterRecoveryMethod?: string;
+  disasterRecoveryUrl?: string;
+  domainName?: string;
+  friendlyName?: string;
+  recording?: trunk.recording_setting;
+  secure?: boolean;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface TrunkListInstanceEachOptions {
+  callback?: (item: TrunkInstance, done: (err?: Error) => void) => void;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface TrunkListInstanceOptions {
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface TrunkListInstancePageOptions {
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+}
+
 
 declare class TrunkPage extends Page<V1, TrunkPayload, TrunkResource, TrunkInstance> {
   /**

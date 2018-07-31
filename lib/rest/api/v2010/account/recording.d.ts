@@ -105,6 +105,93 @@ interface RecordingListInstance {
   page(opts?: RecordingListInstancePageOptions, callback?: (error: Error | null, items: RecordingPage) => any): Promise<RecordingPage>;
 }
 
+/**
+ * Options to pass to each
+ *
+ * @property dateCreatedBefore - Filter by date created
+ * @property dateCreated - Filter by date created
+ * @property dateCreatedAfter - Filter by date created
+ * @property callSid - Filter by call_sid
+ * @property conferenceSid - The conference_sid
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface RecordingListInstanceEachOptions {
+  callSid?: string;
+  callback?: (item: RecordingInstance, done: (err?: Error) => void) => void;
+  conferenceSid?: string;
+  dateCreated?: Date;
+  dateCreatedAfter?: Date;
+  dateCreatedBefore?: Date;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property dateCreatedBefore - Filter by date created
+ * @property dateCreated - Filter by date created
+ * @property dateCreatedAfter - Filter by date created
+ * @property callSid - Filter by call_sid
+ * @property conferenceSid - The conference_sid
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface RecordingListInstanceOptions {
+  callSid?: string;
+  conferenceSid?: string;
+  dateCreated?: Date;
+  dateCreatedAfter?: Date;
+  dateCreatedBefore?: Date;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property dateCreatedBefore - Filter by date created
+ * @property dateCreated - Filter by date created
+ * @property dateCreatedAfter - Filter by date created
+ * @property callSid - Filter by call_sid
+ * @property conferenceSid - The conference_sid
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface RecordingListInstancePageOptions {
+  callSid?: string;
+  conferenceSid?: string;
+  dateCreated?: Date;
+  dateCreatedAfter?: Date;
+  dateCreatedBefore?: Date;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+}
+
 
 declare class RecordingPage extends Page<V2010, RecordingPayload, RecordingResource, RecordingInstance> {
   /**

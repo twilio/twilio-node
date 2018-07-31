@@ -48,6 +48,19 @@ interface VerificationListInstance {
   create(opts: VerificationListInstanceCreateOptions, callback?: (error: Error | null, items: VerificationListInstance) => any): Promise<VerificationInstance>;
 }
 
+/**
+ * Options to pass to create
+ *
+ * @property to - To phonenumber
+ * @property channel - sms or call
+ * @property customMessage - A custom message for this verification
+ */
+interface VerificationListInstanceCreateOptions {
+  channel: string;
+  customMessage?: string;
+  to: string;
+}
+
 
 declare class VerificationPage extends Page<AccSecurity, VerificationPayload, VerificationResource, VerificationInstance> {
   /**

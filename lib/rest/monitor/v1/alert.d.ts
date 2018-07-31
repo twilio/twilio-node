@@ -100,6 +100,81 @@ interface AlertListInstance {
   page(opts?: AlertListInstancePageOptions, callback?: (error: Error | null, items: AlertPage) => any): Promise<AlertPage>;
 }
 
+/**
+ * Options to pass to each
+ *
+ * @property logLevel - Only show alerts for this log-level.
+ * @property startDate - Only show Alerts on or after this date.
+ * @property endDate - Only show Alerts on or before this date.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface AlertListInstanceEachOptions {
+  callback?: (item: AlertInstance, done: (err?: Error) => void) => void;
+  done?: Function;
+  endDate?: Date;
+  limit?: number;
+  logLevel?: string;
+  pageSize?: number;
+  startDate?: Date;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property logLevel - Only show alerts for this log-level.
+ * @property startDate - Only show Alerts on or after this date.
+ * @property endDate - Only show Alerts on or before this date.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface AlertListInstanceOptions {
+  endDate?: Date;
+  limit?: number;
+  logLevel?: string;
+  pageSize?: number;
+  startDate?: Date;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property logLevel - Only show alerts for this log-level.
+ * @property startDate - Only show Alerts on or after this date.
+ * @property endDate - Only show Alerts on or before this date.
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface AlertListInstancePageOptions {
+  endDate?: Date;
+  logLevel?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  startDate?: Date;
+}
+
 
 declare class AlertPage extends Page<V1, AlertPayload, AlertResource, AlertInstance> {
   /**

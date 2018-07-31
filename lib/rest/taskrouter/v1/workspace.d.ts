@@ -157,6 +157,88 @@ interface WorkspaceInstanceUpdateOptions {
   timeoutActivitySid?: string;
 }
 
+/**
+ * Options to pass to each
+ *
+ * @property friendlyName - Filter by a workspace's friendly name.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface WorkspaceListInstanceEachOptions {
+  callback?: (item: WorkspaceInstance, done: (err?: Error) => void) => void;
+  done?: Function;
+  friendlyName?: string;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property friendlyName - Filter by a workspace's friendly name.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface WorkspaceListInstanceOptions {
+  friendlyName?: string;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property friendlyName - Filter by a workspace's friendly name.
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface WorkspaceListInstancePageOptions {
+  friendlyName?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property friendlyName - Human readable description of this workspace
+ * @property eventCallbackUrl - If provided, the Workspace will publish events to this URL.
+ * @property eventsFilter - Use this parameter to receive webhooks on EventCallbackUrl for specific events on a workspace.
+ * @property multiTaskEnabled - Multi tasking allows workers to handle multiple tasks simultaneously.
+ * @property template - One of the available template names.
+ * @property prioritizeQueueOrder - Use this parameter to configure whether to prioritize LIFO or FIFO when workers are receiving Tasks from combination of LIFO and FIFO TaskQueues.
+ */
+interface WorkspaceListInstanceCreateOptions {
+  eventCallbackUrl?: string;
+  eventsFilter?: string;
+  friendlyName: string;
+  multiTaskEnabled?: boolean;
+  prioritizeQueueOrder?: workspace.queue_order;
+  template?: string;
+}
+
 
 declare class WorkspacePage extends Page<V1, WorkspacePayload, WorkspaceResource, WorkspaceInstance> {
   /**

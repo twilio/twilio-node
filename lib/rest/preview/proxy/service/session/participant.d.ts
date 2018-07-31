@@ -133,6 +133,88 @@ interface ParticipantInstanceUpdateOptions {
   participantType?: participant.participant_type;
 }
 
+/**
+ * Options to pass to each
+ *
+ * @property identifier - The Participant's contact identifier, normally a phone number.
+ * @property participantType - The Type of this Participant
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface ParticipantListInstanceEachOptions {
+  callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void;
+  done?: Function;
+  identifier?: string;
+  limit?: number;
+  pageSize?: number;
+  participantType?: participant.participant_type;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property identifier - The Participant's contact identifier, normally a phone number.
+ * @property participantType - The Type of this Participant
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface ParticipantListInstanceOptions {
+  identifier?: string;
+  limit?: number;
+  pageSize?: number;
+  participantType?: participant.participant_type;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property identifier - The Participant's contact identifier, normally a phone number.
+ * @property participantType - The Type of this Participant
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface ParticipantListInstancePageOptions {
+  identifier?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  participantType?: participant.participant_type;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property identifier - The Participant's contact identifier, normally a phone number.
+ * @property friendlyName - A human readable description of this resource
+ * @property participantType - The Type of this Participant
+ */
+interface ParticipantListInstanceCreateOptions {
+  friendlyName?: string;
+  identifier: string;
+  participantType?: participant.participant_type;
+}
+
 
 declare class ParticipantPage extends Page<Proxy, ParticipantPayload, ParticipantResource, ParticipantInstance> {
   /**

@@ -102,6 +102,74 @@ interface PhoneNumberListInstance {
   page(opts?: PhoneNumberListInstancePageOptions, callback?: (error: Error | null, items: PhoneNumberPage) => any): Promise<PhoneNumberPage>;
 }
 
+/**
+ * Options to pass to create
+ *
+ * @property sid - Phone Number Sid of Twilio Number to assign to your Proxy Service
+ * @property phoneNumber - Twilio Number to assign to your Proxy Service
+ */
+interface PhoneNumberListInstanceCreateOptions {
+  phoneNumber?: string;
+  sid?: string;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface PhoneNumberListInstanceEachOptions {
+  callback?: (item: PhoneNumberInstance, done: (err?: Error) => void) => void;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface PhoneNumberListInstanceOptions {
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface PhoneNumberListInstancePageOptions {
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+}
+
 
 declare class PhoneNumberPage extends Page<V1, PhoneNumberPayload, PhoneNumberResource, PhoneNumberInstance> {
   /**

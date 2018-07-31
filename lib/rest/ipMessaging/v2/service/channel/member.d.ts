@@ -139,6 +139,88 @@ interface MemberInstanceUpdateOptions {
   roleSid?: string;
 }
 
+/**
+ * Options to pass to create
+ *
+ * @property identity - A unique string identifier for this User in this Service. See the access tokens docs for more details.
+ * @property roleSid - The role to be assigned to this member. Defaults to the roles specified on the Service.
+ * @property lastConsumedMessageIndex - Field used to specify the last consumed Message index for the Channel for this Member.  Should only be used when recreating a Member from a backup/separate source.
+ * @property lastConsumptionTimestamp - ISO8601 time indicating the last datetime the Member consumed a Message in the Channel.  Should only be used when recreating a Member from a backup/separate source
+ * @property dateCreated - The ISO8601 time specifying the datetime the Members should be set as being created.  Will be set to the current time by the Chat service if not specified.  Note that this should only be used in cases where a Member is being recreated from a backup/separate source
+ * @property dateUpdated - The ISO8601 time specifying the datetime the Member should be set as having been last updated.  Will be set to the null by the Chat service if not specified.  Note that this should only be used in cases where a Member is being recreated from a backup/separate source  and where a Member was previously updated.
+ */
+interface MemberListInstanceCreateOptions {
+  dateCreated?: Date;
+  dateUpdated?: Date;
+  identity: string;
+  lastConsumedMessageIndex?: number;
+  lastConsumptionTimestamp?: Date;
+  roleSid?: string;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property identity - A unique string identifier for this User in this Service. See the access tokens docs for more details.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface MemberListInstanceEachOptions {
+  callback?: (item: MemberInstance, done: (err?: Error) => void) => void;
+  done?: Function;
+  identity?: string|list;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property identity - A unique string identifier for this User in this Service. See the access tokens docs for more details.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface MemberListInstanceOptions {
+  identity?: string|list;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property identity - A unique string identifier for this User in this Service. See the access tokens docs for more details.
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface MemberListInstancePageOptions {
+  identity?: string|list;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+}
+
 
 declare class MemberPage extends Page<V2, MemberPayload, MemberResource, MemberInstance> {
   /**

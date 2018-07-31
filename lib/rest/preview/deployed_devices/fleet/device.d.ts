@@ -135,6 +135,86 @@ interface DeviceInstanceUpdateOptions {
   identity?: string;
 }
 
+/**
+ * Options to pass to create
+ *
+ * @property uniqueName - A unique, addressable name of this Device.
+ * @property friendlyName - A human readable description for this Device.
+ * @property identity - An identifier of the Device user.
+ * @property deploymentSid - The unique SID of the Deployment group.
+ * @property enabled - The enabled
+ */
+interface DeviceListInstanceCreateOptions {
+  deploymentSid?: string;
+  enabled?: boolean;
+  friendlyName?: string;
+  identity?: string;
+  uniqueName?: string;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property deploymentSid - Find all Devices grouped under the specified Deployment.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface DeviceListInstanceEachOptions {
+  callback?: (item: DeviceInstance, done: (err?: Error) => void) => void;
+  deploymentSid?: string;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property deploymentSid - Find all Devices grouped under the specified Deployment.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface DeviceListInstanceOptions {
+  deploymentSid?: string;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property deploymentSid - Find all Devices grouped under the specified Deployment.
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface DeviceListInstancePageOptions {
+  deploymentSid?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+}
+
 
 declare class DevicePage extends Page<DeployedDevices, DevicePayload, DeviceResource, DeviceInstance> {
   /**

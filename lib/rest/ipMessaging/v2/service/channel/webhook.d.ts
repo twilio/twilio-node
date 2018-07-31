@@ -141,6 +141,84 @@ interface WebhookInstanceUpdateOptions {
   configuration.url?: string;
 }
 
+/**
+ * Options to pass to each
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface WebhookListInstanceEachOptions {
+  callback?: (item: WebhookInstance, done: (err?: Error) => void) => void;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface WebhookListInstanceOptions {
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface WebhookListInstancePageOptions {
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property type - The type
+ * @property configuration.url - The configuration.url
+ * @property configuration.method - The configuration.method
+ * @property configuration.filters - The configuration.filters
+ * @property configuration.triggers - The configuration.triggers
+ * @property configuration.flowSid - The configuration.flow_sid
+ * @property configuration.retryCount - The configuration.retry_count
+ */
+interface WebhookListInstanceCreateOptions {
+  configuration.filters?: string|list;
+  configuration.flowSid?: string;
+  configuration.method?: webhook.method;
+  configuration.retryCount?: number;
+  configuration.triggers?: string|list;
+  configuration.url?: string;
+  type: webhook.type;
+}
+
 
 declare class WebhookPage extends Page<V2, WebhookPayload, WebhookResource, WebhookInstance> {
   /**

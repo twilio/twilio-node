@@ -99,6 +99,100 @@ interface CommandListInstance {
   page(opts?: CommandListInstancePageOptions, callback?: (error: Error | null, items: CommandPage) => any): Promise<CommandPage>;
 }
 
+/**
+ * Options to pass to each
+ *
+ * @property sim - Only return Commands to or from this SIM.
+ * @property status - Only return Commands with this status value.
+ * @property direction - Only return Commands with this direction value.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface CommandListInstanceEachOptions {
+  callback?: (item: CommandInstance, done: (err?: Error) => void) => void;
+  direction?: command.direction;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+  sim?: string;
+  status?: command.status;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property sim - Only return Commands to or from this SIM.
+ * @property status - Only return Commands with this status value.
+ * @property direction - Only return Commands with this direction value.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface CommandListInstanceOptions {
+  direction?: command.direction;
+  limit?: number;
+  pageSize?: number;
+  sim?: string;
+  status?: command.status;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property sim - Only return Commands to or from this SIM.
+ * @property status - Only return Commands with this status value.
+ * @property direction - Only return Commands with this direction value.
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface CommandListInstancePageOptions {
+  direction?: command.direction;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  sim?: string;
+  status?: command.status;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property command - The message body of the Command or a Base64 encoded byte string in binary mode.
+ * @property sim - The Sid or UniqueName of the SIM to send the Command to.
+ * @property callbackMethod - The HTTP method Twilio will use when making a request to the callback URL.
+ * @property callbackUrl - Twilio will make a request to this URL when the Command has finished sending.
+ * @property commandMode - A string representing which mode to send the SMS message using.
+ * @property includeSid - When sending a Command to a SIM in text mode, Twilio can automatically include the Sid of the Command in the message body, which could be used to ensure that the device does not process the same Command more than once.
+ */
+interface CommandListInstanceCreateOptions {
+  callbackMethod?: string;
+  callbackUrl?: string;
+  command: string;
+  commandMode?: command.command_mode;
+  includeSid?: string;
+  sim?: string;
+}
+
 
 declare class CommandPage extends Page<V1, CommandPayload, CommandResource, CommandInstance> {
   /**

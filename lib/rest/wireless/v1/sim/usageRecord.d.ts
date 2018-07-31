@@ -80,6 +80,81 @@ interface UsageRecordListInstance {
   page(opts?: UsageRecordListInstancePageOptions, callback?: (error: Error | null, items: UsageRecordPage) => any): Promise<UsageRecordPage>;
 }
 
+/**
+ * Options to pass to each
+ *
+ * @property end - Only include usage that has occurred on or before this date.
+ * @property start - Only include usage that has occurred on or after this date.
+ * @property granularity - The time-based grouping that results are aggregated by.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface UsageRecordListInstanceEachOptions {
+  callback?: (item: UsageRecordInstance, done: (err?: Error) => void) => void;
+  done?: Function;
+  end?: Date;
+  granularity?: usage_record.granularity;
+  limit?: number;
+  pageSize?: number;
+  start?: Date;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property end - Only include usage that has occurred on or before this date.
+ * @property start - Only include usage that has occurred on or after this date.
+ * @property granularity - The time-based grouping that results are aggregated by.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface UsageRecordListInstanceOptions {
+  end?: Date;
+  granularity?: usage_record.granularity;
+  limit?: number;
+  pageSize?: number;
+  start?: Date;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property end - Only include usage that has occurred on or before this date.
+ * @property start - Only include usage that has occurred on or after this date.
+ * @property granularity - The time-based grouping that results are aggregated by.
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface UsageRecordListInstancePageOptions {
+  end?: Date;
+  granularity?: usage_record.granularity;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  start?: Date;
+}
+
 
 declare class UsageRecordPage extends Page<V1, UsageRecordPayload, UsageRecordResource, UsageRecordInstance> {
   /**

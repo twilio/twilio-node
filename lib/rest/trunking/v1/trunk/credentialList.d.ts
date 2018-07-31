@@ -98,6 +98,72 @@ interface CredentialListListInstance {
   page(opts?: CredentialListListInstancePageOptions, callback?: (error: Error | null, items: CredentialListPage) => any): Promise<CredentialListPage>;
 }
 
+/**
+ * Options to pass to create
+ *
+ * @property credentialListSid - The SID of the Credential List that you want to associate with this trunk. Once associated, Twilio will start authenticating access to the trunk against this list.
+ */
+interface CredentialListListInstanceCreateOptions {
+  credentialListSid: string;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface CredentialListListInstanceEachOptions {
+  callback?: (item: CredentialListInstance, done: (err?: Error) => void) => void;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface CredentialListListInstanceOptions {
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface CredentialListListInstancePageOptions {
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+}
+
 
 declare class CredentialListPage extends Page<V1, CredentialListPayload, CredentialListResource, CredentialListInstance> {
   /**

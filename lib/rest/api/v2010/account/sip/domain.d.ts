@@ -161,6 +161,90 @@ interface DomainInstanceUpdateOptions {
   voiceUrl?: string;
 }
 
+/**
+ * Options to pass to each
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface DomainListInstanceEachOptions {
+  callback?: (item: DomainInstance, done: (err?: Error) => void) => void;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface DomainListInstanceOptions {
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface DomainListInstancePageOptions {
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property domainName - The unique address on Twilio to route SIP traffic
+ * @property friendlyName - A user-specified, human-readable name for the trigger.
+ * @property authType - The types of authentication mapped to the domain
+ * @property voiceUrl - URL Twilio will request when receiving a call
+ * @property voiceMethod - HTTP method to use with voice_url
+ * @property voiceFallbackUrl - URL Twilio will request if an error occurs in executing TwiML
+ * @property voiceFallbackMethod - HTTP method used with voice_fallback_url
+ * @property voiceStatusCallbackUrl - URL that Twilio will request with status updates
+ * @property voiceStatusCallbackMethod - The HTTP method Twilio will use to make requests to the StatusCallback URL.
+ * @property sipRegistration - The sip_registration
+ */
+interface DomainListInstanceCreateOptions {
+  authType?: string;
+  domainName: string;
+  friendlyName?: string;
+  sipRegistration?: boolean;
+  voiceFallbackMethod?: string;
+  voiceFallbackUrl?: string;
+  voiceMethod?: string;
+  voiceStatusCallbackMethod?: string;
+  voiceStatusCallbackUrl?: string;
+  voiceUrl?: string;
+}
+
 
 declare class DomainPage extends Page<V2010, DomainPayload, DomainResource, DomainInstance> {
   /**

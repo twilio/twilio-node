@@ -101,6 +101,108 @@ interface CommandListInstance {
   page(opts?: CommandListInstancePageOptions, callback?: (error: Error | null, items: CommandPage) => any): Promise<CommandPage>;
 }
 
+/**
+ * Options to pass to each
+ *
+ * @property device - The device
+ * @property sim - The sim
+ * @property status - The status
+ * @property direction - The direction
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface CommandListInstanceEachOptions {
+  callback?: (item: CommandInstance, done: (err?: Error) => void) => void;
+  device?: string;
+  direction?: string;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+  sim?: string;
+  status?: string;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property device - The device
+ * @property sim - The sim
+ * @property status - The status
+ * @property direction - The direction
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface CommandListInstanceOptions {
+  device?: string;
+  direction?: string;
+  limit?: number;
+  pageSize?: number;
+  sim?: string;
+  status?: string;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property device - The device
+ * @property sim - The sim
+ * @property status - The status
+ * @property direction - The direction
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface CommandListInstancePageOptions {
+  device?: string;
+  direction?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  sim?: string;
+  status?: string;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property command - The command
+ * @property device - The device
+ * @property sim - The sim
+ * @property callbackMethod - The callback_method
+ * @property callbackUrl - The callback_url
+ * @property commandMode - The command_mode
+ * @property includeSid - The include_sid
+ */
+interface CommandListInstanceCreateOptions {
+  callbackMethod?: string;
+  callbackUrl?: string;
+  command: string;
+  commandMode?: string;
+  device?: string;
+  includeSid?: string;
+  sim?: string;
+}
+
 
 declare class CommandPage extends Page<Wireless, CommandPayload, CommandResource, CommandInstance> {
   /**

@@ -128,6 +128,92 @@ interface RatePlanInstanceUpdateOptions {
   uniqueName?: string;
 }
 
+/**
+ * Options to pass to each
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface RatePlanListInstanceEachOptions {
+  callback?: (item: RatePlanInstance, done: (err?: Error) => void) => void;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface RatePlanListInstanceOptions {
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface RatePlanListInstancePageOptions {
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the Sid.
+ * @property friendlyName - A user-provided string that identifies this resource.
+ * @property dataEnabled - Defines whether SIMs are capable of using GPRS/3G/LTE data connectivity.
+ * @property dataLimit - Network-enforced limit specifying the total Megabytes of data usage allowed during one month on the home network.
+ * @property dataMetering - The model by which to meter data usage, in accordance with the two available data metering models.
+ * @property messagingEnabled - Defines whether SIMs are capable of making and sending and receiving SMS messages via either Commands or Programmable SMS APIs.
+ * @property voiceEnabled - Defines whether SIMs are capable of making and receiving voice calls.
+ * @property nationalRoamingEnabled - Defines whether SIMs can roam onto other networks in the SIM's home country.
+ * @property internationalRoaming - The international_roaming
+ * @property nationalRoamingDataLimit - Network-enforced limit specifying the total Megabytes of national roaming data usage allowed during one month.
+ * @property internationalRoamingDataLimit - The international_roaming_data_limit
+ */
+interface RatePlanListInstanceCreateOptions {
+  dataEnabled?: boolean;
+  dataLimit?: number;
+  dataMetering?: string;
+  friendlyName?: string;
+  internationalRoaming?: string|list;
+  internationalRoamingDataLimit?: number;
+  messagingEnabled?: boolean;
+  nationalRoamingDataLimit?: number;
+  nationalRoamingEnabled?: boolean;
+  uniqueName?: string;
+  voiceEnabled?: boolean;
+}
+
 
 declare class RatePlanPage extends Page<V1, RatePlanPayload, RatePlanResource, RatePlanInstance> {
   /**

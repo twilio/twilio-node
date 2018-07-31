@@ -109,6 +109,100 @@ interface UserBindingListInstance {
   page(opts?: UserBindingListInstancePageOptions, callback?: (error: Error | null, items: UserBindingPage) => any): Promise<UserBindingPage>;
 }
 
+/**
+ * Options to pass to create
+ *
+ * @property bindingType - The binding_type
+ * @property address - The address
+ * @property tag - The tag
+ * @property notificationProtocolVersion - The notification_protocol_version
+ * @property credentialSid - The credential_sid
+ * @property endpoint - The endpoint
+ */
+interface UserBindingListInstanceCreateOptions {
+  address: string;
+  bindingType: user_binding.binding_type;
+  credentialSid?: string;
+  endpoint?: string;
+  notificationProtocolVersion?: string;
+  tag?: string|list;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property startDate - The start_date
+ * @property endDate - The end_date
+ * @property tag - The tag
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface UserBindingListInstanceEachOptions {
+  callback?: (item: UserBindingInstance, done: (err?: Error) => void) => void;
+  done?: Function;
+  endDate?: Date;
+  limit?: number;
+  pageSize?: number;
+  startDate?: Date;
+  tag?: string|list;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property startDate - The start_date
+ * @property endDate - The end_date
+ * @property tag - The tag
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface UserBindingListInstanceOptions {
+  endDate?: Date;
+  limit?: number;
+  pageSize?: number;
+  startDate?: Date;
+  tag?: string|list;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property startDate - The start_date
+ * @property endDate - The end_date
+ * @property tag - The tag
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface UserBindingListInstancePageOptions {
+  endDate?: Date;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  startDate?: Date;
+  tag?: string|list;
+}
+
 
 declare class UserBindingPage extends Page<V1, UserBindingPayload, UserBindingResource, UserBindingInstance> {
   /**

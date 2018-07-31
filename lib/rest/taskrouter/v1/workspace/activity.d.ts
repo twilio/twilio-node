@@ -118,6 +118,86 @@ interface ActivityInstanceUpdateOptions {
   friendlyName?: string;
 }
 
+/**
+ * Options to pass to each
+ *
+ * @property friendlyName - Filter by an Activity's friendly name
+ * @property available - Filter by activities that are available or unavailable.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface ActivityListInstanceEachOptions {
+  available?: string;
+  callback?: (item: ActivityInstance, done: (err?: Error) => void) => void;
+  done?: Function;
+  friendlyName?: string;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property friendlyName - Filter by an Activity's friendly name
+ * @property available - Filter by activities that are available or unavailable.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface ActivityListInstanceOptions {
+  available?: string;
+  friendlyName?: string;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property friendlyName - Filter by an Activity's friendly name
+ * @property available - Filter by activities that are available or unavailable.
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface ActivityListInstancePageOptions {
+  available?: string;
+  friendlyName?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property friendlyName - A human-readable name for the Activity, such as 'On Call', 'Break', 'Email', etc.
+ * @property available - Boolean value indicating whether the worker should be eligible to receive a Task when they occupy this Activity.
+ */
+interface ActivityListInstanceCreateOptions {
+  available?: boolean;
+  friendlyName: string;
+}
+
 
 declare class ActivityPage extends Page<V1, ActivityPayload, ActivityResource, ActivityInstance> {
   /**

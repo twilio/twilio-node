@@ -97,6 +97,99 @@ interface EventListInstance {
   page(opts?: EventListInstancePageOptions, callback?: (error: Error | null, items: EventPage) => any): Promise<EventPage>;
 }
 
+/**
+ * Options to pass to each
+ *
+ * @property actorSid - The actor_sid
+ * @property eventType - The event_type
+ * @property resourceSid - The resource_sid
+ * @property sourceIpAddress - The source_ip_address
+ * @property startDate - The start_date
+ * @property endDate - The end_date
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface EventListInstanceEachOptions {
+  actorSid?: string;
+  callback?: (item: EventInstance, done: (err?: Error) => void) => void;
+  done?: Function;
+  endDate?: Date;
+  eventType?: string;
+  limit?: number;
+  pageSize?: number;
+  resourceSid?: string;
+  sourceIpAddress?: string;
+  startDate?: Date;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property actorSid - The actor_sid
+ * @property eventType - The event_type
+ * @property resourceSid - The resource_sid
+ * @property sourceIpAddress - The source_ip_address
+ * @property startDate - The start_date
+ * @property endDate - The end_date
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface EventListInstanceOptions {
+  actorSid?: string;
+  endDate?: Date;
+  eventType?: string;
+  limit?: number;
+  pageSize?: number;
+  resourceSid?: string;
+  sourceIpAddress?: string;
+  startDate?: Date;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property actorSid - The actor_sid
+ * @property eventType - The event_type
+ * @property resourceSid - The resource_sid
+ * @property sourceIpAddress - The source_ip_address
+ * @property startDate - The start_date
+ * @property endDate - The end_date
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface EventListInstancePageOptions {
+  actorSid?: string;
+  endDate?: Date;
+  eventType?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  resourceSid?: string;
+  sourceIpAddress?: string;
+  startDate?: Date;
+}
+
 
 declare class EventPage extends Page<V1, EventPayload, EventResource, EventInstance> {
   /**

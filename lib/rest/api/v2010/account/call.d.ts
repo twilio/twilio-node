@@ -163,6 +163,178 @@ interface CallInstanceUpdateOptions {
   url?: string;
 }
 
+/**
+ * Options to pass to create
+ *
+ * @property to - Phone number, SIP address, or client identifier to call
+ * @property from - Twilio number from which to originate the call
+ * @property method - HTTP method to use to fetch TwiML
+ * @property fallbackUrl - Fallback URL in case of error
+ * @property fallbackMethod - HTTP Method to use with FallbackUrl
+ * @property statusCallback - Status Callback URL
+ * @property statusCallbackEvent - The call progress events that Twilio will send webhooks on.
+ * @property statusCallbackMethod - HTTP Method to use with StatusCallback
+ * @property sendDigits - Digits to send
+ * @property ifMachine - The if_machine
+ * @property timeout - Number of seconds to wait for an answer
+ * @property record - Whether or not to record the Call
+ * @property recordingChannels - mono or dualSet this parameter to specify the number of channels in the final recording.
+ * @property recordingStatusCallback - A URL that Twilio will send a webhook request to when the recording is available for access.
+ * @property recordingStatusCallbackMethod - The HTTP method Twilio should use when requesting the `RecordingStatusCallback` URL.
+ * @property sipAuthUsername - The sip_auth_username
+ * @property sipAuthPassword - The sip_auth_password
+ * @property machineDetection - Enable machine detection or end of greeting detection
+ * @property machineDetectionTimeout - Number of miliseconds to wait for machine detection
+ * @property recordingStatusCallbackEvent - The recording status changes that Twilio will send webhooks on to the URL specified in RecordingStatusCallback.
+ * @property trim - Set this parameter to control trimming of silence on the recording.
+ * @property callerId - The phone number, SIP address, or Client identifier that made this Call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`.
+ * @property url - Url from which to fetch TwiML
+ * @property applicationSid - ApplicationSid that configures from where to fetch TwiML
+ */
+interface CallListInstanceCreateOptions {
+  applicationSid?: string;
+  callerId?: string;
+  fallbackMethod?: string;
+  fallbackUrl?: string;
+  from: string;
+  ifMachine?: string;
+  machineDetection?: string;
+  machineDetectionTimeout?: number;
+  method?: string;
+  record?: boolean;
+  recordingChannels?: string;
+  recordingStatusCallback?: string;
+  recordingStatusCallbackEvent?: string|list;
+  recordingStatusCallbackMethod?: string;
+  sendDigits?: string;
+  sipAuthPassword?: string;
+  sipAuthUsername?: string;
+  statusCallback?: string;
+  statusCallbackEvent?: string|list;
+  statusCallbackMethod?: string;
+  timeout?: number;
+  to: string;
+  trim?: string;
+  url?: string;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property to - Phone number or Client identifier to filter `to` on
+ * @property from - Phone number or Client identifier to filter `from` on
+ * @property parentCallSid - Parent Call Sid to filter on
+ * @property status - Status to filter on
+ * @property startTimeBefore - StartTime to filter on
+ * @property startTime - StartTime to filter on
+ * @property startTimeAfter - StartTime to filter on
+ * @property endTimeBefore - EndTime to filter on
+ * @property endTime - EndTime to filter on
+ * @property endTimeAfter - EndTime to filter on
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface CallListInstanceEachOptions {
+  callback?: (item: CallInstance, done: (err?: Error) => void) => void;
+  done?: Function;
+  endTime?: Date;
+  endTimeAfter?: Date;
+  endTimeBefore?: Date;
+  from?: string;
+  limit?: number;
+  pageSize?: number;
+  parentCallSid?: string;
+  startTime?: Date;
+  startTimeAfter?: Date;
+  startTimeBefore?: Date;
+  status?: call.status;
+  to?: string;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property to - Phone number or Client identifier to filter `to` on
+ * @property from - Phone number or Client identifier to filter `from` on
+ * @property parentCallSid - Parent Call Sid to filter on
+ * @property status - Status to filter on
+ * @property startTimeBefore - StartTime to filter on
+ * @property startTime - StartTime to filter on
+ * @property startTimeAfter - StartTime to filter on
+ * @property endTimeBefore - EndTime to filter on
+ * @property endTime - EndTime to filter on
+ * @property endTimeAfter - EndTime to filter on
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface CallListInstanceOptions {
+  endTime?: Date;
+  endTimeAfter?: Date;
+  endTimeBefore?: Date;
+  from?: string;
+  limit?: number;
+  pageSize?: number;
+  parentCallSid?: string;
+  startTime?: Date;
+  startTimeAfter?: Date;
+  startTimeBefore?: Date;
+  status?: call.status;
+  to?: string;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property to - Phone number or Client identifier to filter `to` on
+ * @property from - Phone number or Client identifier to filter `from` on
+ * @property parentCallSid - Parent Call Sid to filter on
+ * @property status - Status to filter on
+ * @property startTimeBefore - StartTime to filter on
+ * @property startTime - StartTime to filter on
+ * @property startTimeAfter - StartTime to filter on
+ * @property endTimeBefore - EndTime to filter on
+ * @property endTime - EndTime to filter on
+ * @property endTimeAfter - EndTime to filter on
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface CallListInstancePageOptions {
+  endTime?: Date;
+  endTimeAfter?: Date;
+  endTimeBefore?: Date;
+  from?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  parentCallSid?: string;
+  startTime?: Date;
+  startTimeAfter?: Date;
+  startTimeBefore?: Date;
+  status?: call.status;
+  to?: string;
+}
+
 
 declare class CallPage extends Page<V2010, CallPayload, CallResource, CallInstance> {
   /**

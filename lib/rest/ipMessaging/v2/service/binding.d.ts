@@ -97,6 +97,75 @@ interface BindingListInstance {
   page(opts?: BindingListInstancePageOptions, callback?: (error: Error | null, items: BindingPage) => any): Promise<BindingPage>;
 }
 
+/**
+ * Options to pass to each
+ *
+ * @property bindingType - The push technology used for the bindings returned.
+ * @property identity - The identity
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface BindingListInstanceEachOptions {
+  bindingType?: binding.binding_type|list;
+  callback?: (item: BindingInstance, done: (err?: Error) => void) => void;
+  done?: Function;
+  identity?: string|list;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property bindingType - The push technology used for the bindings returned.
+ * @property identity - The identity
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface BindingListInstanceOptions {
+  bindingType?: binding.binding_type|list;
+  identity?: string|list;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property bindingType - The push technology used for the bindings returned.
+ * @property identity - The identity
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface BindingListInstancePageOptions {
+  bindingType?: binding.binding_type|list;
+  identity?: string|list;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+}
+
 
 declare class BindingPage extends Page<V2, BindingPayload, BindingResource, BindingInstance> {
   /**

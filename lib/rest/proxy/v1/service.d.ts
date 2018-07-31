@@ -148,6 +148,84 @@ interface ServiceInstanceUpdateOptions {
   uniqueName?: string;
 }
 
+/**
+ * Options to pass to each
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface ServiceListInstanceEachOptions {
+  callback?: (item: ServiceInstance, done: (err?: Error) => void) => void;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface ServiceListInstanceOptions {
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface ServiceListInstancePageOptions {
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property uniqueName - The human-readable string that uniquely identifies this Service.
+ * @property defaultTtl - Default TTL for Sessions in Service, in seconds.
+ * @property callbackUrl - URL Twilio will send callbacks to
+ * @property geoMatchLevel - Whether proxy number selected must be in the same area code as the participant identifier.
+ * @property numberSelectionBehavior - What behavior to use when choosing a proxy number.
+ * @property interceptCallbackUrl - A URL for Twilio call before each Interaction.
+ * @property outOfSessionCallbackUrl - A URL for Twilio call when a new Interaction has no Session.
+ */
+interface ServiceListInstanceCreateOptions {
+  callbackUrl?: string;
+  defaultTtl?: number;
+  geoMatchLevel?: service.geo_match_level;
+  interceptCallbackUrl?: string;
+  numberSelectionBehavior?: service.number_selection_behavior;
+  outOfSessionCallbackUrl?: string;
+  uniqueName: string;
+}
+
 
 declare class ServicePage extends Page<V1, ServicePayload, ServiceResource, ServiceInstance> {
   /**

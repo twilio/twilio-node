@@ -123,6 +123,82 @@ interface CertificateInstanceUpdateOptions {
   friendlyName?: string;
 }
 
+/**
+ * Options to pass to create
+ *
+ * @property certificateData - The public certificate data.
+ * @property friendlyName - The human readable description for this Certificate.
+ * @property deviceSid - The unique identifier of a Device to be authenticated.
+ */
+interface CertificateListInstanceCreateOptions {
+  certificateData: string;
+  deviceSid?: string;
+  friendlyName?: string;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property deviceSid - Find all Certificates authenticating specified Device.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface CertificateListInstanceEachOptions {
+  callback?: (item: CertificateInstance, done: (err?: Error) => void) => void;
+  deviceSid?: string;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property deviceSid - Find all Certificates authenticating specified Device.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface CertificateListInstanceOptions {
+  deviceSid?: string;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property deviceSid - Find all Certificates authenticating specified Device.
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface CertificateListInstancePageOptions {
+  deviceSid?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+}
+
 
 declare class CertificatePage extends Page<DeployedDevices, CertificatePayload, CertificateResource, CertificateInstance> {
   /**

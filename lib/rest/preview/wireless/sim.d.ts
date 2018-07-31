@@ -184,6 +184,93 @@ interface SimInstanceUpdateOptions {
   voiceUrl?: string;
 }
 
+/**
+ * Options to pass to each
+ *
+ * @property status - The status
+ * @property iccid - The iccid
+ * @property ratePlan - The rate_plan
+ * @property eId - The e_id
+ * @property simRegistrationCode - The sim_registration_code
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface SimListInstanceEachOptions {
+  callback?: (item: SimInstance, done: (err?: Error) => void) => void;
+  done?: Function;
+  eId?: string;
+  iccid?: string;
+  limit?: number;
+  pageSize?: number;
+  ratePlan?: string;
+  simRegistrationCode?: string;
+  status?: string;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property status - The status
+ * @property iccid - The iccid
+ * @property ratePlan - The rate_plan
+ * @property eId - The e_id
+ * @property simRegistrationCode - The sim_registration_code
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface SimListInstanceOptions {
+  eId?: string;
+  iccid?: string;
+  limit?: number;
+  pageSize?: number;
+  ratePlan?: string;
+  simRegistrationCode?: string;
+  status?: string;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property status - The status
+ * @property iccid - The iccid
+ * @property ratePlan - The rate_plan
+ * @property eId - The e_id
+ * @property simRegistrationCode - The sim_registration_code
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface SimListInstancePageOptions {
+  eId?: string;
+  iccid?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  ratePlan?: string;
+  simRegistrationCode?: string;
+  status?: string;
+}
+
 
 declare class SimPage extends Page<Wireless, SimPayload, SimResource, SimInstance> {
   /**

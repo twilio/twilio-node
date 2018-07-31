@@ -153,6 +153,106 @@ interface AddressInstanceUpdateOptions {
   street?: string;
 }
 
+/**
+ * Options to pass to create
+ *
+ * @property customerName - Your name or business name, or that of your customer.
+ * @property street - The number and street address where you or your customer is located.
+ * @property city - The city in which you or your customer is located.
+ * @property region - The state or region in which you or your customer is located.
+ * @property postalCode - The postal code in which you or your customer is located.
+ * @property isoCountry - The ISO country code of your or your customer's address.
+ * @property friendlyName - A human-readable description of the new address.
+ * @property emergencyEnabled - The emergency_enabled
+ * @property autoCorrectAddress - If you don't set a value for this parameter, or if you set it to true, then the system will, if necessary, auto-correct the address you provide.
+ */
+interface AddressListInstanceCreateOptions {
+  autoCorrectAddress?: boolean;
+  city: string;
+  customerName: string;
+  emergencyEnabled?: boolean;
+  friendlyName?: string;
+  isoCountry: string;
+  postalCode: string;
+  region: string;
+  street: string;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property customerName - Only return the Address resources with customer names that exactly match this name.
+ * @property friendlyName - Only return the Address resources with friendly names that exactly match this name.
+ * @property isoCountry - Only return the Address resources in this country.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface AddressListInstanceEachOptions {
+  callback?: (item: AddressInstance, done: (err?: Error) => void) => void;
+  customerName?: string;
+  done?: Function;
+  friendlyName?: string;
+  isoCountry?: string;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property customerName - Only return the Address resources with customer names that exactly match this name.
+ * @property friendlyName - Only return the Address resources with friendly names that exactly match this name.
+ * @property isoCountry - Only return the Address resources in this country.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface AddressListInstanceOptions {
+  customerName?: string;
+  friendlyName?: string;
+  isoCountry?: string;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property customerName - Only return the Address resources with customer names that exactly match this name.
+ * @property friendlyName - Only return the Address resources with friendly names that exactly match this name.
+ * @property isoCountry - Only return the Address resources in this country.
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface AddressListInstancePageOptions {
+  customerName?: string;
+  friendlyName?: string;
+  isoCountry?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+}
+
 
 declare class AddressPage extends Page<V2010, AddressPayload, AddressResource, AddressInstance> {
   /**

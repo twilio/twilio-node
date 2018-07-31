@@ -186,6 +186,106 @@ interface ApplicationInstanceUpdateOptions {
   voiceUrl?: string;
 }
 
+/**
+ * Options to pass to create
+ *
+ * @property friendlyName - A human readable description of the application
+ * @property apiVersion - The API version to use
+ * @property voiceUrl - URL Twilio will make requests to when relieving a call
+ * @property voiceMethod - HTTP method to use with the URL
+ * @property voiceFallbackUrl - Fallback URL
+ * @property voiceFallbackMethod - HTTP method to use with the fallback url
+ * @property statusCallback - URL to hit with status updates
+ * @property statusCallbackMethod - HTTP method to use with the status callback
+ * @property voiceCallerIdLookup - True or False
+ * @property smsUrl - URL Twilio will request when receiving an SMS
+ * @property smsMethod - HTTP method to use with sms_url
+ * @property smsFallbackUrl - Fallback URL if there's an error parsing TwiML
+ * @property smsFallbackMethod - HTTP method to use with sms_fallback_method
+ * @property smsStatusCallback - URL Twilio with request with status updates
+ * @property messageStatusCallback - URL to make requests to with status updates
+ */
+interface ApplicationListInstanceCreateOptions {
+  apiVersion?: string;
+  friendlyName: string;
+  messageStatusCallback?: string;
+  smsFallbackMethod?: string;
+  smsFallbackUrl?: string;
+  smsMethod?: string;
+  smsStatusCallback?: string;
+  smsUrl?: string;
+  statusCallback?: string;
+  statusCallbackMethod?: string;
+  voiceCallerIdLookup?: boolean;
+  voiceFallbackMethod?: string;
+  voiceFallbackUrl?: string;
+  voiceMethod?: string;
+  voiceUrl?: string;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property friendlyName - Filter by friendly name
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface ApplicationListInstanceEachOptions {
+  callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void;
+  done?: Function;
+  friendlyName?: string;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property friendlyName - Filter by friendly name
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface ApplicationListInstanceOptions {
+  friendlyName?: string;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property friendlyName - Filter by friendly name
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface ApplicationListInstancePageOptions {
+  friendlyName?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+}
+
 
 declare class ApplicationPage extends Page<V2010, ApplicationPayload, ApplicationResource, ApplicationInstance> {
   /**

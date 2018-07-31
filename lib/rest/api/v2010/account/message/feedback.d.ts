@@ -46,6 +46,15 @@ interface FeedbackListInstance {
   create(opts?: FeedbackListInstanceCreateOptions, callback?: (error: Error | null, items: FeedbackListInstance) => any): Promise<FeedbackInstance>;
 }
 
+/**
+ * Options to pass to create
+ *
+ * @property outcome - The outcome
+ */
+interface FeedbackListInstanceCreateOptions {
+  outcome?: feedback.outcome;
+}
+
 
 declare class FeedbackPage extends Page<V2010, FeedbackPayload, FeedbackResource, FeedbackInstance> {
   /**

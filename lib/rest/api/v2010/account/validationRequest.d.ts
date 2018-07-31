@@ -43,6 +43,25 @@ interface ValidationRequestListInstance {
   create(opts: ValidationRequestListInstanceCreateOptions, callback?: (error: Error | null, items: ValidationRequestListInstance) => any): Promise<ValidationRequestInstance>;
 }
 
+/**
+ * Options to pass to create
+ *
+ * @property phoneNumber - The phone number to verify.
+ * @property friendlyName - A human readable description for the new caller ID with maximum length 64 characters.
+ * @property callDelay - The number of seconds, between 0 and 60, to delay before initiating the verification call.
+ * @property extension - Digits to dial after connecting the verification call.
+ * @property statusCallback - A URL that Twilio will request when the verification call ends to notify your app if the verification process was successful or not.
+ * @property statusCallbackMethod - The HTTP method Twilio should use when requesting the above URL.
+ */
+interface ValidationRequestListInstanceCreateOptions {
+  callDelay?: number;
+  extension?: string;
+  friendlyName?: string;
+  phoneNumber: string;
+  statusCallback?: string;
+  statusCallbackMethod?: string;
+}
+
 
 declare class ValidationRequestPage extends Page<V2010, ValidationRequestPayload, ValidationRequestResource, ValidationRequestInstance> {
   /**

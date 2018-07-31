@@ -104,6 +104,86 @@ interface UserListInstance {
   page(opts?: UserListInstancePageOptions, callback?: (error: Error | null, items: UserPage) => any): Promise<UserPage>;
 }
 
+/**
+ * Options to pass to create
+ *
+ * @property identity - The identifier of the User, defined by your application.
+ * @property segment - The list of segments this User belongs to. Segments can be used to select recipients of a notification. Maximum 20 Segments per User allowed.
+ */
+interface UserListInstanceCreateOptions {
+  identity: string;
+  segment?: string|list;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property identity - The identifier of the User, defined by your application.
+ * @property segment - The list of segments this User belongs to. Segments can be used to select recipients of a notification. Maximum 20 Segments per User allowed.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface UserListInstanceEachOptions {
+  callback?: (item: UserInstance, done: (err?: Error) => void) => void;
+  done?: Function;
+  identity?: string|list;
+  limit?: number;
+  pageSize?: number;
+  segment?: string;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property identity - The identifier of the User, defined by your application.
+ * @property segment - The list of segments this User belongs to. Segments can be used to select recipients of a notification. Maximum 20 Segments per User allowed.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface UserListInstanceOptions {
+  identity?: string|list;
+  limit?: number;
+  pageSize?: number;
+  segment?: string;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property identity - The identifier of the User, defined by your application.
+ * @property segment - The list of segments this User belongs to. Segments can be used to select recipients of a notification. Maximum 20 Segments per User allowed.
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface UserListInstancePageOptions {
+  identity?: string|list;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  segment?: string;
+}
+
 
 declare class UserPage extends Page<V1, UserPayload, UserResource, UserInstance> {
   /**

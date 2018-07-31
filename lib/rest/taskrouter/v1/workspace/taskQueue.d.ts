@@ -148,6 +148,100 @@ interface TaskQueueInstanceUpdateOptions {
   taskOrder?: task_queue.task_order;
 }
 
+/**
+ * Options to pass to each
+ *
+ * @property friendlyName - Filter by a human readable description of a TaskQueue
+ * @property evaluateWorkerAttributes - Provide a Worker attributes expression, and this will return the list of TaskQueues that would distribute tasks to a worker with these attributes.
+ * @property workerSid - The worker_sid
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface TaskQueueListInstanceEachOptions {
+  callback?: (item: TaskQueueInstance, done: (err?: Error) => void) => void;
+  done?: Function;
+  evaluateWorkerAttributes?: string;
+  friendlyName?: string;
+  limit?: number;
+  pageSize?: number;
+  workerSid?: string;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property friendlyName - Filter by a human readable description of a TaskQueue
+ * @property evaluateWorkerAttributes - Provide a Worker attributes expression, and this will return the list of TaskQueues that would distribute tasks to a worker with these attributes.
+ * @property workerSid - The worker_sid
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface TaskQueueListInstanceOptions {
+  evaluateWorkerAttributes?: string;
+  friendlyName?: string;
+  limit?: number;
+  pageSize?: number;
+  workerSid?: string;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property friendlyName - Filter by a human readable description of a TaskQueue
+ * @property evaluateWorkerAttributes - Provide a Worker attributes expression, and this will return the list of TaskQueues that would distribute tasks to a worker with these attributes.
+ * @property workerSid - The worker_sid
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface TaskQueueListInstancePageOptions {
+  evaluateWorkerAttributes?: string;
+  friendlyName?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  workerSid?: string;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property friendlyName - Human readable description of this TaskQueue
+ * @property reservationActivitySid - ActivitySID to assign workers once a task is reserved for them
+ * @property assignmentActivitySid - ActivitySID to assign workers once a task is assigned for them
+ * @property targetWorkers - A string describing the Worker selection criteria for any Tasks that enter this TaskQueue.
+ * @property maxReservedWorkers - The maximum amount of workers to create reservations for the assignment of a task while in this queue.
+ * @property taskOrder - TaskOrder will determine which order the Tasks will be assigned to Workers.
+ */
+interface TaskQueueListInstanceCreateOptions {
+  assignmentActivitySid: string;
+  friendlyName: string;
+  maxReservedWorkers?: number;
+  reservationActivitySid: string;
+  targetWorkers?: string;
+  taskOrder?: task_queue.task_order;
+}
+
 
 declare class TaskQueuePage extends Page<V1, TaskQueuePayload, TaskQueueResource, TaskQueueInstance> {
   /**

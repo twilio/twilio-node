@@ -130,6 +130,82 @@ interface SampleInstanceUpdateOptions {
   taggedText?: string;
 }
 
+/**
+ * Options to pass to each
+ *
+ * @property language - An ISO language-country string of the sample.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface SampleListInstanceEachOptions {
+  callback?: (item: SampleInstance, done: (err?: Error) => void) => void;
+  done?: Function;
+  language?: string;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property language - An ISO language-country string of the sample.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface SampleListInstanceOptions {
+  language?: string;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property language - An ISO language-country string of the sample.
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface SampleListInstancePageOptions {
+  language?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property language - An ISO language-country string of the sample.
+ * @property taggedText - The text example of how end-users may express this intent. The sample may contain Field tag blocks.
+ * @property sourceChannel - The communication channel the sample was captured. It can be: voice, sms, chat, alexa, google-assistant, or slack. If not included the value will be null
+ */
+interface SampleListInstanceCreateOptions {
+  language: string;
+  sourceChannel?: string;
+  taggedText: string;
+}
+
 
 declare class SamplePage extends Page<Understand, SamplePayload, SampleResource, SampleInstance> {
   /**

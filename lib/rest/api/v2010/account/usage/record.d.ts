@@ -97,6 +97,87 @@ interface RecordListInstance {
   yesterday?: object;
 }
 
+/**
+ * Options to pass to each
+ *
+ * @property category - Only include usage of a given category
+ * @property startDate - Filter by start date
+ * @property endDate - Filter by end date
+ * @property includeSubaccounts - The include_subaccounts
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface RecordListInstanceEachOptions {
+  callback?: (item: RecordInstance, done: (err?: Error) => void) => void;
+  category?: record.category;
+  done?: Function;
+  endDate?: Date;
+  includeSubaccounts?: boolean;
+  limit?: number;
+  pageSize?: number;
+  startDate?: Date;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property category - Only include usage of a given category
+ * @property startDate - Filter by start date
+ * @property endDate - Filter by end date
+ * @property includeSubaccounts - The include_subaccounts
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface RecordListInstanceOptions {
+  category?: record.category;
+  endDate?: Date;
+  includeSubaccounts?: boolean;
+  limit?: number;
+  pageSize?: number;
+  startDate?: Date;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property category - Only include usage of a given category
+ * @property startDate - Filter by start date
+ * @property endDate - Filter by end date
+ * @property includeSubaccounts - The include_subaccounts
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface RecordListInstancePageOptions {
+  category?: record.category;
+  endDate?: Date;
+  includeSubaccounts?: boolean;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  startDate?: Date;
+}
+
 
 declare class RecordPage extends Page<V2010, RecordPayload, RecordResource, RecordInstance> {
   /**

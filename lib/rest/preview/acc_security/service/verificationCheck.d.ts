@@ -48,6 +48,17 @@ interface VerificationCheckListInstance {
   create(opts: VerificationCheckListInstanceCreateOptions, callback?: (error: Error | null, items: VerificationCheckListInstance) => any): Promise<VerificationCheckInstance>;
 }
 
+/**
+ * Options to pass to create
+ *
+ * @property code - The verification string
+ * @property to - To phonenumber
+ */
+interface VerificationCheckListInstanceCreateOptions {
+  code: string;
+  to?: string;
+}
+
 
 declare class VerificationCheckPage extends Page<AccSecurity, VerificationCheckPayload, VerificationCheckResource, VerificationCheckInstance> {
   /**

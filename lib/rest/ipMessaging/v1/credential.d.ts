@@ -136,6 +136,84 @@ interface CredentialInstanceUpdateOptions {
   secret?: string;
 }
 
+/**
+ * Options to pass to each
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface CredentialListInstanceEachOptions {
+  callback?: (item: CredentialInstance, done: (err?: Error) => void) => void;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface CredentialListInstanceOptions {
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface CredentialListInstancePageOptions {
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property type - Credential type, one of "gcm" or "apn"
+ * @property friendlyName - Friendly name for stored credential
+ * @property certificate - [APN only] URL encoded representation of the certificate, e.
+ * @property privateKey - [APN only] URL encoded representation of the private key, e.
+ * @property sandbox - [APN only] use this credential for sending to production or sandbox APNs
+ * @property apiKey - [GCM only] This is the "API key" for project from Google Developer console for your GCM Service application credential
+ * @property secret - The secret
+ */
+interface CredentialListInstanceCreateOptions {
+  apiKey?: string;
+  certificate?: string;
+  friendlyName?: string;
+  privateKey?: string;
+  sandbox?: boolean;
+  secret?: string;
+  type: credential.push_service;
+}
+
 
 declare class CredentialPage extends Page<V1, CredentialPayload, CredentialResource, CredentialInstance> {
   /**

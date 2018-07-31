@@ -56,6 +56,15 @@ interface SegmentMembershipListInstance {
   get(segment: string): SegmentMembershipContext;
 }
 
+/**
+ * Options to pass to create
+ *
+ * @property segment - The segment
+ */
+interface SegmentMembershipListInstanceCreateOptions {
+  segment: string;
+}
+
 
 declare class SegmentMembershipPage extends Page<V1, SegmentMembershipPayload, SegmentMembershipResource, SegmentMembershipInstance> {
   /**

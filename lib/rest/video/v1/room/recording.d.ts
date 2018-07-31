@@ -100,6 +100,87 @@ interface RoomRecordingListInstance {
   page(opts?: RoomRecordingListInstancePageOptions, callback?: (error: Error | null, items: RoomRecordingPage) => any): Promise<RoomRecordingPage>;
 }
 
+/**
+ * Options to pass to each
+ *
+ * @property status - The status
+ * @property sourceSid - The source_sid
+ * @property dateCreatedAfter - The date_created_after
+ * @property dateCreatedBefore - The date_created_before
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface RoomRecordingListInstanceEachOptions {
+  callback?: (item: RoomRecordingInstance, done: (err?: Error) => void) => void;
+  dateCreatedAfter?: Date;
+  dateCreatedBefore?: Date;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+  sourceSid?: string;
+  status?: room_recording.status;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property status - The status
+ * @property sourceSid - The source_sid
+ * @property dateCreatedAfter - The date_created_after
+ * @property dateCreatedBefore - The date_created_before
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface RoomRecordingListInstanceOptions {
+  dateCreatedAfter?: Date;
+  dateCreatedBefore?: Date;
+  limit?: number;
+  pageSize?: number;
+  sourceSid?: string;
+  status?: room_recording.status;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property status - The status
+ * @property sourceSid - The source_sid
+ * @property dateCreatedAfter - The date_created_after
+ * @property dateCreatedBefore - The date_created_before
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface RoomRecordingListInstancePageOptions {
+  dateCreatedAfter?: Date;
+  dateCreatedBefore?: Date;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  sourceSid?: string;
+  status?: room_recording.status;
+}
+
 
 declare class RoomRecordingPage extends Page<V1, RoomRecordingPayload, RoomRecordingResource, RoomRecordingInstance> {
   /**

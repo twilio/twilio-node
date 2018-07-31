@@ -175,6 +175,100 @@ interface ServiceInstanceUpdateOptions {
   messagingServiceSid?: string;
 }
 
+/**
+ * Options to pass to create
+ *
+ * @property friendlyName - Human-readable name for this service instance
+ * @property apnCredentialSid - The SID of the Credential to be used for APN Bindings.
+ * @property gcmCredentialSid - The SID of the Credential to be used for GCM Bindings.
+ * @property messagingServiceSid - The SID of the Messaging Service to be used for SMS Bindings.
+ * @property facebookMessengerPageId - The Page ID to be used to send for Facebook Messenger Bindings.
+ * @property defaultApnNotificationProtocolVersion - The version of the protocol to be used for sending APNS notifications.
+ * @property defaultGcmNotificationProtocolVersion - The version of the protocol to be used for sending GCM notifications.
+ * @property fcmCredentialSid - The SID of the Credential to be used for FCM Bindings.
+ * @property defaultFcmNotificationProtocolVersion - The version of the protocol to be used for sending FCM notifications.
+ * @property logEnabled - The log_enabled
+ * @property alexaSkillId - The alexa_skill_id
+ * @property defaultAlexaNotificationProtocolVersion - The default_alexa_notification_protocol_version
+ */
+interface ServiceListInstanceCreateOptions {
+  alexaSkillId?: string;
+  apnCredentialSid?: string;
+  defaultAlexaNotificationProtocolVersion?: string;
+  defaultApnNotificationProtocolVersion?: string;
+  defaultFcmNotificationProtocolVersion?: string;
+  defaultGcmNotificationProtocolVersion?: string;
+  facebookMessengerPageId?: string;
+  fcmCredentialSid?: string;
+  friendlyName?: string;
+  gcmCredentialSid?: string;
+  logEnabled?: boolean;
+  messagingServiceSid?: string;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property friendlyName - Filter services by FriendlyName
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface ServiceListInstanceEachOptions {
+  callback?: (item: ServiceInstance, done: (err?: Error) => void) => void;
+  done?: Function;
+  friendlyName?: string;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property friendlyName - Filter services by FriendlyName
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface ServiceListInstanceOptions {
+  friendlyName?: string;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property friendlyName - Filter services by FriendlyName
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface ServiceListInstancePageOptions {
+  friendlyName?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+}
+
 
 declare class ServicePage extends Page<V1, ServicePayload, ServiceResource, ServiceInstance> {
   /**

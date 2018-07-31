@@ -90,6 +90,75 @@ interface DataSessionListInstance {
   page(opts?: DataSessionListInstancePageOptions, callback?: (error: Error | null, items: DataSessionPage) => any): Promise<DataSessionPage>;
 }
 
+/**
+ * Options to pass to each
+ *
+ * @property end - The end
+ * @property start - The start
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface DataSessionListInstanceEachOptions {
+  callback?: (item: DataSessionInstance, done: (err?: Error) => void) => void;
+  done?: Function;
+  end?: Date;
+  limit?: number;
+  pageSize?: number;
+  start?: Date;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property end - The end
+ * @property start - The start
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface DataSessionListInstanceOptions {
+  end?: Date;
+  limit?: number;
+  pageSize?: number;
+  start?: Date;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property end - The end
+ * @property start - The start
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface DataSessionListInstancePageOptions {
+  end?: Date;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  start?: Date;
+}
+
 
 declare class DataSessionPage extends Page<V1, DataSessionPayload, DataSessionResource, DataSessionInstance> {
   /**

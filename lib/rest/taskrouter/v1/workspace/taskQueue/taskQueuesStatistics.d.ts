@@ -80,6 +80,99 @@ interface TaskQueuesStatisticsListInstance {
   page(opts?: TaskQueuesStatisticsListInstancePageOptions, callback?: (error: Error | null, items: TaskQueuesStatisticsPage) => any): Promise<TaskQueuesStatisticsPage>;
 }
 
+/**
+ * Options to pass to each
+ *
+ * @property endDate - Filter cumulative statistics by an end date.
+ * @property friendlyName - Filter the TaskQueue stats based on a TaskQueue's name
+ * @property minutes - Filter cumulative statistics by up to 'x' minutes in the past.
+ * @property startDate - Filter cumulative statistics by a start date.
+ * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
+ * @property splitByWaitTime - A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface TaskQueuesStatisticsListInstanceEachOptions {
+  callback?: (item: TaskQueuesStatisticsInstance, done: (err?: Error) => void) => void;
+  done?: Function;
+  endDate?: Date;
+  friendlyName?: string;
+  limit?: number;
+  minutes?: number;
+  pageSize?: number;
+  splitByWaitTime?: string;
+  startDate?: Date;
+  taskChannel?: string;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property endDate - Filter cumulative statistics by an end date.
+ * @property friendlyName - Filter the TaskQueue stats based on a TaskQueue's name
+ * @property minutes - Filter cumulative statistics by up to 'x' minutes in the past.
+ * @property startDate - Filter cumulative statistics by a start date.
+ * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
+ * @property splitByWaitTime - A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface TaskQueuesStatisticsListInstanceOptions {
+  endDate?: Date;
+  friendlyName?: string;
+  limit?: number;
+  minutes?: number;
+  pageSize?: number;
+  splitByWaitTime?: string;
+  startDate?: Date;
+  taskChannel?: string;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property endDate - Filter cumulative statistics by an end date.
+ * @property friendlyName - Filter the TaskQueue stats based on a TaskQueue's name
+ * @property minutes - Filter cumulative statistics by up to 'x' minutes in the past.
+ * @property startDate - Filter cumulative statistics by a start date.
+ * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
+ * @property splitByWaitTime - A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface TaskQueuesStatisticsListInstancePageOptions {
+  endDate?: Date;
+  friendlyName?: string;
+  minutes?: number;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  splitByWaitTime?: string;
+  startDate?: Date;
+  taskChannel?: string;
+}
+
 
 declare class TaskQueuesStatisticsPage extends Page<V1, TaskQueuesStatisticsPayload, TaskQueuesStatisticsResource, TaskQueuesStatisticsInstance> {
   /**

@@ -144,6 +144,90 @@ interface MessageInstanceUpdateOptions {
   lastUpdatedBy?: string;
 }
 
+/**
+ * Options to pass to create
+ *
+ * @property from - The identity of the message's author. Defaults to system if not specified.
+ * @property attributes - The attributes metadata field you can use to store any data you wish.
+ * @property dateCreated - The ISO8601 time specifying the datetime the Message should be set as being created.
+ * @property dateUpdated - The ISO8601 time specifying the datetime the Message should be set as having been last updated.
+ * @property lastUpdatedBy - Specify the Identity of the User that last updated the Message
+ * @property body - The message body string.
+ * @property mediaSid -  The Media Sid to be attached to this Message.
+ */
+interface MessageListInstanceCreateOptions {
+  attributes?: string;
+  body?: string;
+  dateCreated?: Date;
+  dateUpdated?: Date;
+  from?: string;
+  lastUpdatedBy?: string;
+  mediaSid?: string;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property order - Specifies sorting order for messages list, possible values are: `asc` or `desc`.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface MessageListInstanceEachOptions {
+  callback?: (item: MessageInstance, done: (err?: Error) => void) => void;
+  done?: Function;
+  limit?: number;
+  order?: message.order_type;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property order - Specifies sorting order for messages list, possible values are: `asc` or `desc`.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface MessageListInstanceOptions {
+  limit?: number;
+  order?: message.order_type;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property order - Specifies sorting order for messages list, possible values are: `asc` or `desc`.
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface MessageListInstancePageOptions {
+  order?: message.order_type;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+}
+
 
 declare class MessagePage extends Page<V2, MessagePayload, MessageResource, MessageInstance> {
   /**

@@ -45,6 +45,15 @@ interface TokenListInstance {
   create(opts?: TokenListInstanceCreateOptions, callback?: (error: Error | null, items: TokenListInstance) => any): Promise<TokenInstance>;
 }
 
+/**
+ * Options to pass to create
+ *
+ * @property ttl - The duration in seconds the credentials are valid
+ */
+interface TokenListInstanceCreateOptions {
+  ttl?: number;
+}
+
 
 declare class TokenPage extends Page<V2010, TokenPayload, TokenResource, TokenInstance> {
   /**

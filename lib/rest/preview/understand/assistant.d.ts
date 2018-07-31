@@ -151,6 +151,84 @@ interface AssistantInstanceUpdateOptions {
   uniqueName?: string;
 }
 
+/**
+ * Options to pass to each
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface AssistantListInstanceEachOptions {
+  callback?: (item: AssistantInstance, done: (err?: Error) => void) => void;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface AssistantListInstanceOptions {
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface AssistantListInstancePageOptions {
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property friendlyName - A text description for the Assistant. It is non-unique and can up to 255 characters long.
+ * @property logQueries - A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
+ * @property ttl - The ttl
+ * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+ * @property responseUrl - The webhook URL called to fetch the response to an incoming communication expressed in Assistant TwiML.
+ * @property callbackUrl - The callback_url
+ * @property callbackEvents - The callback_events
+ */
+interface AssistantListInstanceCreateOptions {
+  callbackEvents?: string;
+  callbackUrl?: string;
+  friendlyName?: string;
+  logQueries?: boolean;
+  responseUrl?: string;
+  ttl?: number;
+  uniqueName?: string;
+}
+
 
 declare class AssistantPage extends Page<Understand, AssistantPayload, AssistantResource, AssistantInstance> {
   /**

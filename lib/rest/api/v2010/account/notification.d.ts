@@ -102,6 +102,87 @@ interface NotificationListInstance {
   page(opts?: NotificationListInstancePageOptions, callback?: (error: Error | null, items: NotificationPage) => any): Promise<NotificationPage>;
 }
 
+/**
+ * Options to pass to each
+ *
+ * @property log - Filter by log level
+ * @property messageDateBefore - Filter by date
+ * @property messageDate - Filter by date
+ * @property messageDateAfter - Filter by date
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface NotificationListInstanceEachOptions {
+  callback?: (item: NotificationInstance, done: (err?: Error) => void) => void;
+  done?: Function;
+  limit?: number;
+  log?: number;
+  messageDate?: Date;
+  messageDateAfter?: Date;
+  messageDateBefore?: Date;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property log - Filter by log level
+ * @property messageDateBefore - Filter by date
+ * @property messageDate - Filter by date
+ * @property messageDateAfter - Filter by date
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface NotificationListInstanceOptions {
+  limit?: number;
+  log?: number;
+  messageDate?: Date;
+  messageDateAfter?: Date;
+  messageDateBefore?: Date;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property log - Filter by log level
+ * @property messageDateBefore - Filter by date
+ * @property messageDate - Filter by date
+ * @property messageDateAfter - Filter by date
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface NotificationListInstancePageOptions {
+  log?: number;
+  messageDate?: Date;
+  messageDateAfter?: Date;
+  messageDateBefore?: Date;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+}
+
 
 declare class NotificationPage extends Page<V2010, NotificationPayload, NotificationResource, NotificationInstance> {
   /**

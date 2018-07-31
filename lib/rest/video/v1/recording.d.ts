@@ -97,6 +97,93 @@ interface RecordingListInstance {
   page(opts?: RecordingListInstancePageOptions, callback?: (error: Error | null, items: RecordingPage) => any): Promise<RecordingPage>;
 }
 
+/**
+ * Options to pass to each
+ *
+ * @property status - Only show Recordings with the given status.
+ * @property sourceSid - Only show the Recordings with the given source Sid.
+ * @property groupingSid - Only show Recordings that have this GroupingSid.
+ * @property dateCreatedAfter - Only show Recordings that started on or after this ISO8601 date-time.
+ * @property dateCreatedBefore - Only show Recordings that started before this this ISO8601 date-time.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface RecordingListInstanceEachOptions {
+  callback?: (item: RecordingInstance, done: (err?: Error) => void) => void;
+  dateCreatedAfter?: Date;
+  dateCreatedBefore?: Date;
+  done?: Function;
+  groupingSid?: string|list;
+  limit?: number;
+  pageSize?: number;
+  sourceSid?: string;
+  status?: recording.status;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property status - Only show Recordings with the given status.
+ * @property sourceSid - Only show the Recordings with the given source Sid.
+ * @property groupingSid - Only show Recordings that have this GroupingSid.
+ * @property dateCreatedAfter - Only show Recordings that started on or after this ISO8601 date-time.
+ * @property dateCreatedBefore - Only show Recordings that started before this this ISO8601 date-time.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface RecordingListInstanceOptions {
+  dateCreatedAfter?: Date;
+  dateCreatedBefore?: Date;
+  groupingSid?: string|list;
+  limit?: number;
+  pageSize?: number;
+  sourceSid?: string;
+  status?: recording.status;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property status - Only show Recordings with the given status.
+ * @property sourceSid - Only show the Recordings with the given source Sid.
+ * @property groupingSid - Only show Recordings that have this GroupingSid.
+ * @property dateCreatedAfter - Only show Recordings that started on or after this ISO8601 date-time.
+ * @property dateCreatedBefore - Only show Recordings that started before this this ISO8601 date-time.
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface RecordingListInstancePageOptions {
+  dateCreatedAfter?: Date;
+  dateCreatedBefore?: Date;
+  groupingSid?: string|list;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  sourceSid?: string;
+  status?: recording.status;
+}
+
 
 declare class RecordingPage extends Page<V1, RecordingPayload, RecordingResource, RecordingInstance> {
   /**

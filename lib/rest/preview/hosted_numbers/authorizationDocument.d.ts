@@ -135,6 +135,90 @@ interface AuthorizationDocumentInstanceUpdateOptions {
   status?: authorization_document.status;
 }
 
+/**
+ * Options to pass to each
+ *
+ * @property email - Email.
+ * @property status - The Status of this AuthorizationDocument.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface AuthorizationDocumentListInstanceEachOptions {
+  callback?: (item: AuthorizationDocumentInstance, done: (err?: Error) => void) => void;
+  done?: Function;
+  email?: string;
+  limit?: number;
+  pageSize?: number;
+  status?: authorization_document.status;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property email - Email.
+ * @property status - The Status of this AuthorizationDocument.
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface AuthorizationDocumentListInstanceOptions {
+  email?: string;
+  limit?: number;
+  pageSize?: number;
+  status?: authorization_document.status;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property email - Email.
+ * @property status - The Status of this AuthorizationDocument.
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface AuthorizationDocumentListInstancePageOptions {
+  email?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  status?: authorization_document.status;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property hostedNumberOrderSids - A list of HostedNumberOrder sids.
+ * @property addressSid - Address sid.
+ * @property email - Email.
+ * @property ccEmails - A list of emails.
+ */
+interface AuthorizationDocumentListInstanceCreateOptions {
+  addressSid: string;
+  ccEmails?: string|list;
+  email: string;
+  hostedNumberOrderSids: string|list;
+}
+
 
 declare class AuthorizationDocumentPage extends Page<HostedNumbers, AuthorizationDocumentPayload, AuthorizationDocumentResource, AuthorizationDocumentInstance> {
   /**

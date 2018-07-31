@@ -141,6 +141,86 @@ interface WorkflowInstanceUpdateOptions {
   taskReservationTimeout?: number;
 }
 
+/**
+ * Options to pass to each
+ *
+ * @property friendlyName - Human readable description of this Workflow
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface WorkflowListInstanceEachOptions {
+  callback?: (item: WorkflowInstance, done: (err?: Error) => void) => void;
+  done?: Function;
+  friendlyName?: string;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property friendlyName - Human readable description of this Workflow
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface WorkflowListInstanceOptions {
+  friendlyName?: string;
+  limit?: number;
+  pageSize?: number;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property friendlyName - Human readable description of this Workflow
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface WorkflowListInstancePageOptions {
+  friendlyName?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property friendlyName - A string representing a human readable name for this Workflow.
+ * @property configuration - JSON document configuring the rules for this Workflow.
+ * @property assignmentCallbackUrl - A valid URL for the application that will process task assignment events.
+ * @property fallbackAssignmentCallbackUrl - If the request to the AssignmentCallbackUrl fails, the assignment callback will be made to this URL.
+ * @property taskReservationTimeout - An integer value controlling how long in seconds TaskRouter will wait for a confirmation response from your application after assigning a Task to a worker.
+ */
+interface WorkflowListInstanceCreateOptions {
+  assignmentCallbackUrl?: string;
+  configuration: string;
+  fallbackAssignmentCallbackUrl?: string;
+  friendlyName: string;
+  taskReservationTimeout?: number;
+}
+
 
 declare class WorkflowPage extends Page<V1, WorkflowPayload, WorkflowResource, WorkflowInstance> {
   /**

@@ -133,6 +133,102 @@ interface TriggerInstanceUpdateOptions {
   friendlyName?: string;
 }
 
+/**
+ * Options to pass to create
+ *
+ * @property callbackUrl - URL Twilio will request when the trigger fires
+ * @property triggerValue - the value at which the trigger will fire
+ * @property usageCategory - The usage category the trigger watches
+ * @property callbackMethod - HTTP method to use with callback_url
+ * @property friendlyName - A user-specified, human-readable name for the trigger.
+ * @property recurring - How this trigger recurs
+ * @property triggerBy - The field in the UsageRecord that fires the trigger
+ */
+interface TriggerListInstanceCreateOptions {
+  callbackMethod?: string;
+  callbackUrl: string;
+  friendlyName?: string;
+  recurring?: trigger.recurring;
+  triggerBy?: trigger.trigger_field;
+  triggerValue: string;
+  usageCategory: trigger.usage_category;
+}
+
+/**
+ * Options to pass to each
+ *
+ * @property recurring - Filter by recurring
+ * @property triggerBy - Filter by trigger by
+ * @property usageCategory - Filter by Usage Category
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface TriggerListInstanceEachOptions {
+  callback?: (item: TriggerInstance, done: (err?: Error) => void) => void;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+  recurring?: trigger.recurring;
+  triggerBy?: trigger.trigger_field;
+  usageCategory?: trigger.usage_category;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property recurring - Filter by recurring
+ * @property triggerBy - Filter by trigger by
+ * @property usageCategory - Filter by Usage Category
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface TriggerListInstanceOptions {
+  limit?: number;
+  pageSize?: number;
+  recurring?: trigger.recurring;
+  triggerBy?: trigger.trigger_field;
+  usageCategory?: trigger.usage_category;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property recurring - Filter by recurring
+ * @property triggerBy - Filter by trigger by
+ * @property usageCategory - Filter by Usage Category
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface TriggerListInstancePageOptions {
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  recurring?: trigger.recurring;
+  triggerBy?: trigger.trigger_field;
+  usageCategory?: trigger.usage_category;
+}
+
 
 declare class TriggerPage extends Page<V2010, TriggerPayload, TriggerResource, TriggerInstance> {
   /**

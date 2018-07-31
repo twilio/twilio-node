@@ -43,6 +43,15 @@ interface NewSigningKeyListInstance {
   create(opts?: NewSigningKeyListInstanceCreateOptions, callback?: (error: Error | null, items: NewSigningKeyListInstance) => any): Promise<NewSigningKeyInstance>;
 }
 
+/**
+ * Options to pass to create
+ *
+ * @property friendlyName - The friendly_name
+ */
+interface NewSigningKeyListInstanceCreateOptions {
+  friendlyName?: string;
+}
+
 
 declare class NewSigningKeyPage extends Page<V2010, NewSigningKeyPayload, NewSigningKeyResource, NewSigningKeyInstance> {
   /**

@@ -147,6 +147,134 @@ interface TaskInstanceUpdateOptions {
   taskChannel?: string;
 }
 
+/**
+ * Options to pass to each
+ *
+ * @property priority - Retrieve the list of all Tasks in the workspace with the specified priority.
+ * @property assignmentStatus - Returns the list of all Tasks in the workspace with the specified AssignmentStatus.
+ * @property workflowSid - Returns the list of Tasks that are being controlled by the Workflow with the specified Sid value.
+ * @property workflowName - Returns the list of Tasks that are being controlled by the Workflow with the specified FriendlyName value.
+ * @property taskQueueSid - Returns the list of Tasks that are currently waiting in the TaskQueue identified by the Sid specified.
+ * @property taskQueueName - Returns the list of Tasks that are currently waiting in the TaskQueue identified by the FriendlyName specified.
+ * @property evaluateTaskAttributes - Provide a task attributes expression, and this will return tasks which match the attributes.
+ * @property ordering - Use this parameter to control the order of the Tasks returned.
+ * @property hasAddons - The has_addons
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface TaskListInstanceEachOptions {
+  assignmentStatus?: string|list;
+  callback?: (item: TaskInstance, done: (err?: Error) => void) => void;
+  done?: Function;
+  evaluateTaskAttributes?: string;
+  hasAddons?: boolean;
+  limit?: number;
+  ordering?: string;
+  pageSize?: number;
+  priority?: number;
+  taskQueueName?: string;
+  taskQueueSid?: string;
+  workflowName?: string;
+  workflowSid?: string;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property priority - Retrieve the list of all Tasks in the workspace with the specified priority.
+ * @property assignmentStatus - Returns the list of all Tasks in the workspace with the specified AssignmentStatus.
+ * @property workflowSid - Returns the list of Tasks that are being controlled by the Workflow with the specified Sid value.
+ * @property workflowName - Returns the list of Tasks that are being controlled by the Workflow with the specified FriendlyName value.
+ * @property taskQueueSid - Returns the list of Tasks that are currently waiting in the TaskQueue identified by the Sid specified.
+ * @property taskQueueName - Returns the list of Tasks that are currently waiting in the TaskQueue identified by the FriendlyName specified.
+ * @property evaluateTaskAttributes - Provide a task attributes expression, and this will return tasks which match the attributes.
+ * @property ordering - Use this parameter to control the order of the Tasks returned.
+ * @property hasAddons - The has_addons
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface TaskListInstanceOptions {
+  assignmentStatus?: string|list;
+  evaluateTaskAttributes?: string;
+  hasAddons?: boolean;
+  limit?: number;
+  ordering?: string;
+  pageSize?: number;
+  priority?: number;
+  taskQueueName?: string;
+  taskQueueSid?: string;
+  workflowName?: string;
+  workflowSid?: string;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property priority - Retrieve the list of all Tasks in the workspace with the specified priority.
+ * @property assignmentStatus - Returns the list of all Tasks in the workspace with the specified AssignmentStatus.
+ * @property workflowSid - Returns the list of Tasks that are being controlled by the Workflow with the specified Sid value.
+ * @property workflowName - Returns the list of Tasks that are being controlled by the Workflow with the specified FriendlyName value.
+ * @property taskQueueSid - Returns the list of Tasks that are currently waiting in the TaskQueue identified by the Sid specified.
+ * @property taskQueueName - Returns the list of Tasks that are currently waiting in the TaskQueue identified by the FriendlyName specified.
+ * @property evaluateTaskAttributes - Provide a task attributes expression, and this will return tasks which match the attributes.
+ * @property ordering - Use this parameter to control the order of the Tasks returned.
+ * @property hasAddons - The has_addons
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface TaskListInstancePageOptions {
+  assignmentStatus?: string|list;
+  evaluateTaskAttributes?: string;
+  hasAddons?: boolean;
+  ordering?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  priority?: number;
+  taskQueueName?: string;
+  taskQueueSid?: string;
+  workflowName?: string;
+  workflowSid?: string;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property timeout - The amount of time in seconds the task is allowed to live up to a maximum of 2 weeks.
+ * @property priority - Override priority for the Task.
+ * @property taskChannel - When MultiTasking is enabled specify the type of the task by passing either TaskChannel Unique Name or Task Channel Sid.
+ * @property workflowSid - The WorkflowSid for the Workflow that you would like to handle routing for this Task.
+ * @property attributes - Url-encoded JSON string describing the attributes of this task.
+ */
+interface TaskListInstanceCreateOptions {
+  attributes?: string;
+  priority?: number;
+  taskChannel?: string;
+  timeout?: number;
+  workflowSid?: string;
+}
+
 
 declare class TaskPage extends Page<V1, TaskPayload, TaskResource, TaskInstance> {
   /**

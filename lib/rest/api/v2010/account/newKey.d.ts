@@ -43,6 +43,15 @@ interface NewKeyListInstance {
   create(opts?: NewKeyListInstanceCreateOptions, callback?: (error: Error | null, items: NewKeyListInstance) => any): Promise<NewKeyInstance>;
 }
 
+/**
+ * Options to pass to create
+ *
+ * @property friendlyName - The friendly_name
+ */
+interface NewKeyListInstanceCreateOptions {
+  friendlyName?: string;
+}
+
 
 declare class NewKeyPage extends Page<V2010, NewKeyPayload, NewKeyResource, NewKeyInstance> {
   /**

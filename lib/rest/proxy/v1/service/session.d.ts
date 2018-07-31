@@ -145,6 +145,94 @@ interface SessionInstanceUpdateOptions {
   ttl?: number;
 }
 
+/**
+ * Options to pass to each
+ *
+ * @property uniqueName - The unique_name
+ * @property status - The Status of this Session
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface SessionListInstanceEachOptions {
+  callback?: (item: SessionInstance, done: (err?: Error) => void) => void;
+  done?: Function;
+  limit?: number;
+  pageSize?: number;
+  status?: session.status;
+  uniqueName?: string;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property uniqueName - The unique_name
+ * @property status - The Status of this Session
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface SessionListInstanceOptions {
+  limit?: number;
+  pageSize?: number;
+  status?: session.status;
+  uniqueName?: string;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property uniqueName - The unique_name
+ * @property status - The Status of this Session
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface SessionListInstancePageOptions {
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  status?: session.status;
+  uniqueName?: string;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property uniqueName - A unique, developer assigned name of this Session.
+ * @property dateExpiry - The date this Session should expire
+ * @property ttl - TTL for a Session, in seconds.
+ * @property mode - The Mode of this Session
+ * @property status - Session status
+ * @property participants - The participants
+ */
+interface SessionListInstanceCreateOptions {
+  dateExpiry?: Date;
+  mode?: session.mode;
+  participants?: string|list;
+  status?: session.status;
+  ttl?: number;
+  uniqueName?: string;
+}
+
 
 declare class SessionPage extends Page<V1, SessionPayload, SessionResource, SessionInstance> {
   /**

@@ -136,6 +136,118 @@ interface WorkerInstanceUpdateOptions {
   friendlyName?: string;
 }
 
+/**
+ * Options to pass to each
+ *
+ * @property activityName - Filter by workers that are in a particular Activity by Friendly Name
+ * @property activitySid - Filter by workers that are in a particular Activity by SID
+ * @property available - Filter by workers that are available or unavailable.
+ * @property friendlyName - Filter by a worker's friendly name
+ * @property targetWorkersExpression - Filter by workers that would match an expression on a TaskQueue.
+ * @property taskQueueName - Filter by workers that are eligible for a TaskQueue by Friendly Name
+ * @property taskQueueSid - Filter by workers that are eligible for a TaskQueue by SID
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         each() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no pageSize is defined but a limit is defined,
+ *                         each() will attempt to read the limit with the most efficient
+ *                         page size, i.e. min(limit, 1000)
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ */
+interface WorkerListInstanceEachOptions {
+  activityName?: string;
+  activitySid?: string;
+  available?: string;
+  callback?: (item: WorkerInstance, done: (err?: Error) => void) => void;
+  done?: Function;
+  friendlyName?: string;
+  limit?: number;
+  pageSize?: number;
+  targetWorkersExpression?: string;
+  taskQueueName?: string;
+  taskQueueSid?: string;
+}
+
+/**
+ * Options to pass to list
+ *
+ * @property activityName - Filter by workers that are in a particular Activity by Friendly Name
+ * @property activitySid - Filter by workers that are in a particular Activity by SID
+ * @property available - Filter by workers that are available or unavailable.
+ * @property friendlyName - Filter by a worker's friendly name
+ * @property targetWorkersExpression - Filter by workers that would match an expression on a TaskQueue.
+ * @property taskQueueName - Filter by workers that are eligible for a TaskQueue by Friendly Name
+ * @property taskQueueSid - Filter by workers that are eligible for a TaskQueue by SID
+ * @property limit -
+ *                         Upper limit for the number of records to return.
+ *                         list() guarantees never to return more than limit.
+ *                         Default is no limit
+ * @property pageSize -
+ *                         Number of records to fetch per request,
+ *                         when not set will use the default value of 50 records.
+ *                         If no page_size is defined but a limit is defined,
+ *                         list() will attempt to read the limit with the most
+ *                         efficient page size, i.e. min(limit, 1000)
+ */
+interface WorkerListInstanceOptions {
+  activityName?: string;
+  activitySid?: string;
+  available?: string;
+  friendlyName?: string;
+  limit?: number;
+  pageSize?: number;
+  targetWorkersExpression?: string;
+  taskQueueName?: string;
+  taskQueueSid?: string;
+}
+
+/**
+ * Options to pass to page
+ *
+ * @property activityName - Filter by workers that are in a particular Activity by Friendly Name
+ * @property activitySid - Filter by workers that are in a particular Activity by SID
+ * @property available - Filter by workers that are available or unavailable.
+ * @property friendlyName - Filter by a worker's friendly name
+ * @property targetWorkersExpression - Filter by workers that would match an expression on a TaskQueue.
+ * @property taskQueueName - Filter by workers that are eligible for a TaskQueue by Friendly Name
+ * @property taskQueueSid - Filter by workers that are eligible for a TaskQueue by SID
+ * @property pageToken - PageToken provided by the API
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ */
+interface WorkerListInstancePageOptions {
+  activityName?: string;
+  activitySid?: string;
+  available?: string;
+  friendlyName?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  pageToken?: string;
+  targetWorkersExpression?: string;
+  taskQueueName?: string;
+  taskQueueSid?: string;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property friendlyName - String representing user-friendly name for the Worker.
+ * @property activitySid - A valid Activity describing the worker's initial state.
+ * @property attributes - JSON object describing this worker.
+ */
+interface WorkerListInstanceCreateOptions {
+  activitySid?: string;
+  attributes?: string;
+  friendlyName: string;
+}
+
 
 declare class WorkerPage extends Page<V1, WorkerPayload, WorkerResource, WorkerInstance> {
   /**

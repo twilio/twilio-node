@@ -44,6 +44,15 @@ interface StreamMessageListInstance {
   create(opts: StreamMessageListInstanceCreateOptions, callback?: (error: Error | null, items: StreamMessageListInstance) => any): Promise<StreamMessageInstance>;
 }
 
+/**
+ * Options to pass to create
+ *
+ * @property data - Stream Message body.
+ */
+interface StreamMessageListInstanceCreateOptions {
+  data: string;
+}
+
 
 declare class StreamMessagePage extends Page<V1, StreamMessagePayload, StreamMessageResource, StreamMessageInstance> {
   /**
