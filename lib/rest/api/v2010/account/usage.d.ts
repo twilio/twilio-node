@@ -16,19 +16,19 @@ import V2010 = require('../../V2010');
  */
 declare function UsageList(version: V2010, accountSid: string): UsageListInstance;
 
-interface UsageResource {
+interface UsageListInstance {
+  records?: object;
+  triggers?: object;
 }
 
 interface UsagePayload extends UsageResource, Page.TwilioResponsePayload {
 }
 
-interface UsageSolution {
-  accountSid?: string;
+interface UsageResource {
 }
 
-interface UsageListInstance {
-  records?: object;
-  triggers?: object;
+interface UsageSolution {
+  accountSid?: string;
 }
 
 export { UsageList, UsageListInstance, UsagePayload, UsageResource, UsageSolution }

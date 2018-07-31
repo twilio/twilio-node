@@ -19,28 +19,15 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function MessageList(version: V1, serviceSid: string, channelSid: string): MessageListInstance;
 
-interface MessageResource {
-  account_sid: string;
-  attributes: string;
-  body: string;
-  channel_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  from: string;
-  index: number;
-  service_sid: string;
-  sid: string;
-  to: string;
-  url: string;
-  was_edited: boolean;
-}
-
-interface MessagePayload extends MessageResource, Page.TwilioResponsePayload {
-}
-
-interface MessageSolution {
-  channelSid?: string;
-  serviceSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property body - The new message body string.
+ * @property attributes - The new attributes metadata field you can use to store any data you wish.
+ */
+interface MessageInstanceUpdateOptions {
+  attributes?: string;
+  body?: string;
 }
 
 interface MessageListInstance {
@@ -104,28 +91,6 @@ interface MessageListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: MessageListInstancePageOptions, callback?: (error: Error | null, items: MessagePage) => any): Promise<MessagePage>;
-}
-
-/**
- * Options to pass to update
- *
- * @property body - The new message body string.
- * @property attributes - The new attributes metadata field you can use to store any data you wish.
- */
-interface MessageInstanceUpdateOptions {
-  attributes?: string;
-  body?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property body - The new message body string.
- * @property attributes - The new attributes metadata field you can use to store any data you wish.
- */
-interface MessageInstanceUpdateOptions {
-  attributes?: string;
-  body?: string;
 }
 
 /**
@@ -202,6 +167,30 @@ interface MessageListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface MessagePayload extends MessageResource, Page.TwilioResponsePayload {
+}
+
+interface MessageResource {
+  account_sid: string;
+  attributes: string;
+  body: string;
+  channel_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  from: string;
+  index: number;
+  service_sid: string;
+  sid: string;
+  to: string;
+  url: string;
+  was_edited: boolean;
+}
+
+interface MessageSolution {
+  channelSid?: string;
+  serviceSid?: string;
 }
 
 

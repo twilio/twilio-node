@@ -20,26 +20,6 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function FieldList(version: Understand, assistantSid: string, intentSid: string): FieldListInstance;
 
-interface FieldResource {
-  account_sid: string;
-  assistant_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  field_type: string;
-  intent_sid: string;
-  sid: string;
-  unique_name: string;
-  url: string;
-}
-
-interface FieldPayload extends FieldResource, Page.TwilioResponsePayload {
-}
-
-interface FieldSolution {
-  assistantSid?: string;
-  intentSid?: string;
-}
-
 interface FieldListInstance {
   /**
    * @param sid - sid of instance
@@ -104,6 +84,17 @@ interface FieldListInstance {
 }
 
 /**
+ * Options to pass to create
+ *
+ * @property fieldType - The unique name or sid of the FieldType. It can be any Built-in Field Type or the unique_name or sid of a custom Field Type.
+ * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+ */
+interface FieldListInstanceCreateOptions {
+  fieldType: string;
+  uniqueName: string;
+}
+
+/**
  * Options to pass to each
  *
  * @property limit -
@@ -160,15 +151,24 @@ interface FieldListInstancePageOptions {
   pageToken?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property fieldType - The unique name or sid of the FieldType. It can be any Built-in Field Type or the unique_name or sid of a custom Field Type.
- * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
- */
-interface FieldListInstanceCreateOptions {
-  fieldType: string;
-  uniqueName: string;
+interface FieldPayload extends FieldResource, Page.TwilioResponsePayload {
+}
+
+interface FieldResource {
+  account_sid: string;
+  assistant_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  field_type: string;
+  intent_sid: string;
+  sid: string;
+  unique_name: string;
+  url: string;
+}
+
+interface FieldSolution {
+  assistantSid?: string;
+  intentSid?: string;
 }
 
 

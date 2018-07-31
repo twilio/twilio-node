@@ -19,21 +19,23 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function RecordingSettingsList(version: V1): RecordingSettingsListInstance;
 
-interface RecordingSettingsResource {
-  account_sid: string;
-  aws_credentials_sid: string;
-  aws_s3_url: string;
-  aws_storage_enabled: boolean;
-  encryption_enabled: boolean;
-  encryption_key_sid: string;
-  friendly_name: string;
-  url: string;
-}
-
-interface RecordingSettingsPayload extends RecordingSettingsResource, Page.TwilioResponsePayload {
-}
-
-interface RecordingSettingsSolution {
+/**
+ * Options to pass to create
+ *
+ * @property friendlyName - Friendly name of the configuration to be shown in the console
+ * @property awsCredentialsSid - SID of the Stored Credential resource CRxx
+ * @property encryptionKeySid - SID of the Public Key resource CRxx
+ * @property awsS3Url - Identity of the external location where the recordings should be stored. We only support DNS-compliant URLs like http://<my-bucket>.s3-<aws-region>.amazonaws.com/recordings, where recordings is the path where you want recordings to be stored.
+ * @property awsStorageEnabled - true|false When set to true, all Recordings will be written to the AwsS3Url specified above. When set to false, all Recordings will be stored in Twilio's cloud.
+ * @property encryptionEnabled - true|false When set to true, all Recordings will be stored encrypted.
+ */
+interface RecordingSettingsInstanceCreateOptions {
+  awsCredentialsSid?: string;
+  awsS3Url?: string;
+  awsStorageEnabled?: boolean;
+  encryptionEnabled?: boolean;
+  encryptionKeySid?: string;
+  friendlyName: string;
 }
 
 interface RecordingSettingsListInstance {
@@ -47,42 +49,21 @@ interface RecordingSettingsListInstance {
   get(): RecordingSettingsContext;
 }
 
-/**
- * Options to pass to create
- *
- * @property friendlyName - Friendly name of the configuration to be shown in the console
- * @property awsCredentialsSid - SID of the Stored Credential resource CRxx
- * @property encryptionKeySid - SID of the Public Key resource CRxx
- * @property awsS3Url - Identity of the external location where the recordings should be stored. We only support DNS-compliant URLs like http://<my-bucket>.s3-<aws-region>.amazonaws.com/recordings, where recordings is the path where you want recordings to be stored.
- * @property awsStorageEnabled - true|false When set to true, all Recordings will be written to the AwsS3Url specified above. When set to false, all Recordings will be stored in Twilio's cloud.
- * @property encryptionEnabled - true|false When set to true, all Recordings will be stored encrypted.
- */
-interface RecordingSettingsInstanceCreateOptions {
-  awsCredentialsSid?: string;
-  awsS3Url?: string;
-  awsStorageEnabled?: boolean;
-  encryptionEnabled?: boolean;
-  encryptionKeySid?: string;
-  friendlyName: string;
+interface RecordingSettingsPayload extends RecordingSettingsResource, Page.TwilioResponsePayload {
 }
 
-/**
- * Options to pass to create
- *
- * @property friendlyName - Friendly name of the configuration to be shown in the console
- * @property awsCredentialsSid - SID of the Stored Credential resource CRxx
- * @property encryptionKeySid - SID of the Public Key resource CRxx
- * @property awsS3Url - Identity of the external location where the recordings should be stored. We only support DNS-compliant URLs like http://<my-bucket>.s3-<aws-region>.amazonaws.com/recordings, where recordings is the path where you want recordings to be stored.
- * @property awsStorageEnabled - true|false When set to true, all Recordings will be written to the AwsS3Url specified above. When set to false, all Recordings will be stored in Twilio's cloud.
- * @property encryptionEnabled - true|false When set to true, all Recordings will be stored encrypted.
- */
-interface RecordingSettingsInstanceCreateOptions {
-  awsCredentialsSid?: string;
-  awsS3Url?: string;
-  awsStorageEnabled?: boolean;
-  encryptionEnabled?: boolean;
-  encryptionKeySid?: string;
-  friendlyName: string;
+interface RecordingSettingsResource {
+  account_sid: string;
+  aws_credentials_sid: string;
+  aws_s3_url: string;
+  aws_storage_enabled: boolean;
+  encryption_enabled: boolean;
+  encryption_key_sid: string;
+  friendly_name: string;
+  url: string;
+}
+
+interface RecordingSettingsSolution {
 }
 
 

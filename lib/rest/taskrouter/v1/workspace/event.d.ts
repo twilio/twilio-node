@@ -19,31 +19,6 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function EventList(version: V1, workspaceSid: string): EventListInstance;
 
-interface EventResource {
-  account_sid: string;
-  actor_sid: string;
-  actor_type: string;
-  actor_url: string;
-  description: string;
-  event_data: string;
-  event_date: Date;
-  event_type: string;
-  resource_sid: string;
-  resource_type: string;
-  resource_url: string;
-  sid: string;
-  source: string;
-  source_ip_address: string;
-  url: string;
-}
-
-interface EventPayload extends EventResource, Page.TwilioResponsePayload {
-}
-
-interface EventSolution {
-  workspaceSid?: string;
-}
-
 interface EventListInstance {
   /**
    * @param sid - sid of instance
@@ -209,6 +184,31 @@ interface EventListInstancePageOptions {
   taskSid?: string;
   workerSid?: string;
   workflowSid?: string;
+}
+
+interface EventPayload extends EventResource, Page.TwilioResponsePayload {
+}
+
+interface EventResource {
+  account_sid: string;
+  actor_sid: string;
+  actor_type: string;
+  actor_url: string;
+  description: string;
+  event_data: string;
+  event_date: Date;
+  event_type: string;
+  resource_sid: string;
+  resource_type: string;
+  resource_url: string;
+  sid: string;
+  source: string;
+  source_ip_address: string;
+  url: string;
+}
+
+interface EventSolution {
+  workspaceSid?: string;
 }
 
 

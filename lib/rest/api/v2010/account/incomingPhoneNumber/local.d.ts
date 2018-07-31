@@ -19,44 +19,6 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function LocalList(version: V2010, accountSid: string): LocalListInstance;
 
-interface LocalResource {
-  account_sid: string;
-  address_requirements: LocalAddressRequirement;
-  address_sid: string;
-  api_version: string;
-  beta: boolean;
-  capabilities: string;
-  date_created: Date;
-  date_updated: Date;
-  friendly_name: string;
-  identity_sid: string;
-  origin: string;
-  phone_number: string;
-  sid: string;
-  sms_application_sid: string;
-  sms_fallback_method: string;
-  sms_fallback_url: string;
-  sms_method: string;
-  sms_url: string;
-  status_callback: string;
-  status_callback_method: string;
-  trunk_sid: string;
-  uri: string;
-  voice_application_sid: string;
-  voice_caller_id_lookup: boolean;
-  voice_fallback_method: string;
-  voice_fallback_url: string;
-  voice_method: string;
-  voice_url: string;
-}
-
-interface LocalPayload extends LocalResource, Page.TwilioResponsePayload {
-}
-
-interface LocalSolution {
-  accountSid?: string;
-}
-
 interface LocalListInstance {
   /**
    * create a LocalInstance
@@ -108,6 +70,49 @@ interface LocalListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: LocalListInstancePageOptions, callback?: (error: Error | null, items: LocalPage) => any): Promise<LocalPage>;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property phoneNumber - The phone number you want to purchase.
+ * @property apiVersion - The Twilio REST API version to use for incoming calls made to this number.
+ * @property friendlyName - A human readable description of the new incoming phone number.
+ * @property smsApplicationSid - The 34 character sid of the application Twilio should use to handle SMSs sent to the new number.
+ * @property smsFallbackMethod - The HTTP method that should be used to request the SmsFallbackUrl.
+ * @property smsFallbackUrl - A URL that Twilio will request if an error occurs requesting or executing the TwiML defined by SmsUrl.
+ * @property smsMethod - The HTTP method that should be used to request the SmsUrl.
+ * @property smsUrl - The URL that Twilio should request when somebody sends an SMS to the phone number.
+ * @property statusCallback - The URL that Twilio will request to pass status parameters to your application.
+ * @property statusCallbackMethod - The HTTP method Twilio will use to make requests to the StatusCallback URL.
+ * @property voiceApplicationSid - The 34 character sid of the application Twilio should use to handle phone calls to the new number.
+ * @property voiceCallerIdLookup - Do a lookup of a caller's name from the CNAM database and post it to your app.
+ * @property voiceFallbackMethod - The HTTP method that should be used to request the VoiceFallbackUrl.
+ * @property voiceFallbackUrl - A URL that Twilio will request if an error occurs requesting or executing the TwiML at Url.
+ * @property voiceMethod - The HTTP method that should be used to request the VoiceUrl.
+ * @property voiceUrl - The URL that Twilio should request when somebody dials the new phone number.
+ * @property identitySid - The identity_sid
+ * @property addressSid - The 34 character sid of the address Twilio should associate with the number.
+ */
+interface LocalListInstanceCreateOptions {
+  addressSid?: string;
+  apiVersion?: string;
+  friendlyName?: string;
+  identitySid?: string;
+  phoneNumber: string;
+  smsApplicationSid?: string;
+  smsFallbackMethod?: string;
+  smsFallbackUrl?: string;
+  smsMethod?: string;
+  smsUrl?: string;
+  statusCallback?: string;
+  statusCallbackMethod?: string;
+  voiceApplicationSid?: string;
+  voiceCallerIdLookup?: boolean;
+  voiceFallbackMethod?: string;
+  voiceFallbackUrl?: string;
+  voiceMethod?: string;
+  voiceUrl?: string;
 }
 
 /**
@@ -191,47 +196,42 @@ interface LocalListInstancePageOptions {
   phoneNumber?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property phoneNumber - The phone number you want to purchase.
- * @property apiVersion - The Twilio REST API version to use for incoming calls made to this number.
- * @property friendlyName - A human readable description of the new incoming phone number.
- * @property smsApplicationSid - The 34 character sid of the application Twilio should use to handle SMSs sent to the new number.
- * @property smsFallbackMethod - The HTTP method that should be used to request the SmsFallbackUrl.
- * @property smsFallbackUrl - A URL that Twilio will request if an error occurs requesting or executing the TwiML defined by SmsUrl.
- * @property smsMethod - The HTTP method that should be used to request the SmsUrl.
- * @property smsUrl - The URL that Twilio should request when somebody sends an SMS to the phone number.
- * @property statusCallback - The URL that Twilio will request to pass status parameters to your application.
- * @property statusCallbackMethod - The HTTP method Twilio will use to make requests to the StatusCallback URL.
- * @property voiceApplicationSid - The 34 character sid of the application Twilio should use to handle phone calls to the new number.
- * @property voiceCallerIdLookup - Do a lookup of a caller's name from the CNAM database and post it to your app.
- * @property voiceFallbackMethod - The HTTP method that should be used to request the VoiceFallbackUrl.
- * @property voiceFallbackUrl - A URL that Twilio will request if an error occurs requesting or executing the TwiML at Url.
- * @property voiceMethod - The HTTP method that should be used to request the VoiceUrl.
- * @property voiceUrl - The URL that Twilio should request when somebody dials the new phone number.
- * @property identitySid - The identity_sid
- * @property addressSid - The 34 character sid of the address Twilio should associate with the number.
- */
-interface LocalListInstanceCreateOptions {
-  addressSid?: string;
-  apiVersion?: string;
-  friendlyName?: string;
-  identitySid?: string;
-  phoneNumber: string;
-  smsApplicationSid?: string;
-  smsFallbackMethod?: string;
-  smsFallbackUrl?: string;
-  smsMethod?: string;
-  smsUrl?: string;
-  statusCallback?: string;
-  statusCallbackMethod?: string;
-  voiceApplicationSid?: string;
-  voiceCallerIdLookup?: boolean;
-  voiceFallbackMethod?: string;
-  voiceFallbackUrl?: string;
-  voiceMethod?: string;
-  voiceUrl?: string;
+interface LocalPayload extends LocalResource, Page.TwilioResponsePayload {
+}
+
+interface LocalResource {
+  account_sid: string;
+  address_requirements: LocalAddressRequirement;
+  address_sid: string;
+  api_version: string;
+  beta: boolean;
+  capabilities: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  identity_sid: string;
+  origin: string;
+  phone_number: string;
+  sid: string;
+  sms_application_sid: string;
+  sms_fallback_method: string;
+  sms_fallback_url: string;
+  sms_method: string;
+  sms_url: string;
+  status_callback: string;
+  status_callback_method: string;
+  trunk_sid: string;
+  uri: string;
+  voice_application_sid: string;
+  voice_caller_id_lookup: boolean;
+  voice_fallback_method: string;
+  voice_fallback_url: string;
+  voice_method: string;
+  voice_url: string;
+}
+
+interface LocalSolution {
+  accountSid?: string;
 }
 
 

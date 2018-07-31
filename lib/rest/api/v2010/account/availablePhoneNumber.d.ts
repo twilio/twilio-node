@@ -25,21 +25,6 @@ import { VoipList } from './availablePhoneNumber/voip';
  */
 declare function AvailablePhoneNumberCountryList(version: V2010, accountSid: string): AvailablePhoneNumberCountryListInstance;
 
-interface AvailablePhoneNumberCountryResource {
-  beta: boolean;
-  country: string;
-  country_code: string;
-  subresource_uris: string;
-  uri: string;
-}
-
-interface AvailablePhoneNumberCountryPayload extends AvailablePhoneNumberCountryResource, Page.TwilioResponsePayload {
-}
-
-interface AvailablePhoneNumberCountrySolution {
-  accountSid?: string;
-}
-
 interface AvailablePhoneNumberCountryListInstance {
   /**
    * @param sid - sid of instance
@@ -151,6 +136,21 @@ interface AvailablePhoneNumberCountryListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface AvailablePhoneNumberCountryPayload extends AvailablePhoneNumberCountryResource, Page.TwilioResponsePayload {
+}
+
+interface AvailablePhoneNumberCountryResource {
+  beta: boolean;
+  country: string;
+  country_code: string;
+  subresource_uris: string;
+  uri: string;
+}
+
+interface AvailablePhoneNumberCountrySolution {
+  accountSid?: string;
 }
 
 

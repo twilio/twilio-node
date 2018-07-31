@@ -20,28 +20,17 @@ import { UserChannelList } from './user/userChannel';
  */
 declare function UserList(version: V2, serviceSid: string): UserListInstance;
 
-interface UserResource {
-  account_sid: string;
-  attributes: string;
-  date_created: Date;
-  date_updated: Date;
-  friendly_name: string;
-  identity: string;
-  is_notifiable: boolean;
-  is_online: boolean;
-  joined_channels_count: number;
-  links: string;
-  role_sid: string;
-  service_sid: string;
-  sid: string;
-  url: string;
-}
-
-interface UserPayload extends UserResource, Page.TwilioResponsePayload {
-}
-
-interface UserSolution {
-  serviceSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property roleSid - The unique id of the [Role][role] assigned to this user.
+ * @property attributes - An optional string used to contain any metadata or other information for the User.
+ * @property friendlyName - An optional human readable string representing the user.
+ */
+interface UserInstanceUpdateOptions {
+  attributes?: string;
+  friendlyName?: string;
+  roleSid?: string;
 }
 
 interface UserListInstance {
@@ -105,32 +94,6 @@ interface UserListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: UserListInstancePageOptions, callback?: (error: Error | null, items: UserPage) => any): Promise<UserPage>;
-}
-
-/**
- * Options to pass to update
- *
- * @property roleSid - The unique id of the [Role][role] assigned to this user.
- * @property attributes - An optional string used to contain any metadata or other information for the User.
- * @property friendlyName - An optional human readable string representing the user.
- */
-interface UserInstanceUpdateOptions {
-  attributes?: string;
-  friendlyName?: string;
-  roleSid?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property roleSid - The unique id of the [Role][role] assigned to this user.
- * @property attributes - An optional string used to contain any metadata or other information for the User.
- * @property friendlyName - An optional human readable string representing the user.
- */
-interface UserInstanceUpdateOptions {
-  attributes?: string;
-  friendlyName?: string;
-  roleSid?: string;
 }
 
 /**
@@ -203,6 +166,30 @@ interface UserListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface UserPayload extends UserResource, Page.TwilioResponsePayload {
+}
+
+interface UserResource {
+  account_sid: string;
+  attributes: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  identity: string;
+  is_notifiable: boolean;
+  is_online: boolean;
+  joined_channels_count: number;
+  links: string;
+  role_sid: string;
+  service_sid: string;
+  sid: string;
+  url: string;
+}
+
+interface UserSolution {
+  serviceSid?: string;
 }
 
 

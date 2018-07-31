@@ -20,28 +20,27 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function AddressList(version: V2010, accountSid: string): AddressListInstance;
 
-interface AddressResource {
-  account_sid: string;
-  city: string;
-  customer_name: string;
-  date_created: Date;
-  date_updated: Date;
-  emergency_enabled: boolean;
-  friendly_name: string;
-  iso_country: string;
-  postal_code: string;
-  region: string;
-  sid: string;
-  street: string;
-  uri: string;
-  validated: boolean;
-}
-
-interface AddressPayload extends AddressResource, Page.TwilioResponsePayload {
-}
-
-interface AddressSolution {
-  accountSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A human-readable description of the address.
+ * @property customerName - Your name or business name, or that of your customer.
+ * @property street - The number and street address where you or your customer is located.
+ * @property city - The city in which you or your customer is located.
+ * @property region - The state or region in which you or your customer is located.
+ * @property postalCode - The postal code in which you or your customer is located.
+ * @property emergencyEnabled - The emergency_enabled
+ * @property autoCorrectAddress - If you don't set a value for this parameter, or if you set it to true, then the system will, if necessary, auto-correct the address you provide.
+ */
+interface AddressInstanceUpdateOptions {
+  autoCorrectAddress?: boolean;
+  city?: string;
+  customerName?: string;
+  emergencyEnabled?: boolean;
+  friendlyName?: string;
+  postalCode?: string;
+  region?: string;
+  street?: string;
 }
 
 interface AddressListInstance {
@@ -105,52 +104,6 @@ interface AddressListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: AddressListInstancePageOptions, callback?: (error: Error | null, items: AddressPage) => any): Promise<AddressPage>;
-}
-
-/**
- * Options to pass to update
- *
- * @property friendlyName - A human-readable description of the address.
- * @property customerName - Your name or business name, or that of your customer.
- * @property street - The number and street address where you or your customer is located.
- * @property city - The city in which you or your customer is located.
- * @property region - The state or region in which you or your customer is located.
- * @property postalCode - The postal code in which you or your customer is located.
- * @property emergencyEnabled - The emergency_enabled
- * @property autoCorrectAddress - If you don't set a value for this parameter, or if you set it to true, then the system will, if necessary, auto-correct the address you provide.
- */
-interface AddressInstanceUpdateOptions {
-  autoCorrectAddress?: boolean;
-  city?: string;
-  customerName?: string;
-  emergencyEnabled?: boolean;
-  friendlyName?: string;
-  postalCode?: string;
-  region?: string;
-  street?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property friendlyName - A human-readable description of the address.
- * @property customerName - Your name or business name, or that of your customer.
- * @property street - The number and street address where you or your customer is located.
- * @property city - The city in which you or your customer is located.
- * @property region - The state or region in which you or your customer is located.
- * @property postalCode - The postal code in which you or your customer is located.
- * @property emergencyEnabled - The emergency_enabled
- * @property autoCorrectAddress - If you don't set a value for this parameter, or if you set it to true, then the system will, if necessary, auto-correct the address you provide.
- */
-interface AddressInstanceUpdateOptions {
-  autoCorrectAddress?: boolean;
-  city?: string;
-  customerName?: string;
-  emergencyEnabled?: boolean;
-  friendlyName?: string;
-  postalCode?: string;
-  region?: string;
-  street?: string;
 }
 
 /**
@@ -251,6 +204,30 @@ interface AddressListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface AddressPayload extends AddressResource, Page.TwilioResponsePayload {
+}
+
+interface AddressResource {
+  account_sid: string;
+  city: string;
+  customer_name: string;
+  date_created: Date;
+  date_updated: Date;
+  emergency_enabled: boolean;
+  friendly_name: string;
+  iso_country: string;
+  postal_code: string;
+  region: string;
+  sid: string;
+  street: string;
+  uri: string;
+  validated: boolean;
+}
+
+interface AddressSolution {
+  accountSid?: string;
 }
 
 

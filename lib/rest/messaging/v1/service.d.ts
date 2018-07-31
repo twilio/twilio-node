@@ -22,33 +22,39 @@ import { ShortCodeList } from './service/shortCode';
  */
 declare function ServiceList(version: V1): ServiceListInstance;
 
-interface ServiceResource {
-  account_sid: string;
-  area_code_geomatch: boolean;
-  date_created: Date;
-  date_updated: Date;
-  fallback_method: string;
-  fallback_to_long_code: boolean;
-  fallback_url: string;
-  friendly_name: string;
-  inbound_method: string;
-  inbound_request_url: string;
-  links: string;
-  mms_converter: boolean;
-  scan_message_content: ServiceScanMessageContent;
-  sid: string;
-  smart_encoding: boolean;
-  status_callback: string;
-  sticky_sender: boolean;
-  synchronous_validation: boolean;
-  url: string;
-  validity_period: number;
-}
-
-interface ServicePayload extends ServiceResource, Page.TwilioResponsePayload {
-}
-
-interface ServiceSolution {
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - The friendly_name
+ * @property inboundRequestUrl - The inbound_request_url
+ * @property inboundMethod - The inbound_method
+ * @property fallbackUrl - The fallback_url
+ * @property fallbackMethod - The fallback_method
+ * @property statusCallback - The status_callback
+ * @property stickySender - The sticky_sender
+ * @property mmsConverter - The mms_converter
+ * @property smartEncoding - The smart_encoding
+ * @property scanMessageContent - The scan_message_content
+ * @property fallbackToLongCode - The fallback_to_long_code
+ * @property areaCodeGeomatch - The area_code_geomatch
+ * @property validityPeriod - The validity_period
+ * @property synchronousValidation - The synchronous_validation
+ */
+interface ServiceInstanceUpdateOptions {
+  areaCodeGeomatch?: boolean;
+  fallbackMethod?: string;
+  fallbackToLongCode?: boolean;
+  fallbackUrl?: string;
+  friendlyName?: string;
+  inboundMethod?: string;
+  inboundRequestUrl?: string;
+  mmsConverter?: boolean;
+  scanMessageContent?: service.scan_message_content;
+  smartEncoding?: boolean;
+  statusCallback?: string;
+  stickySender?: boolean;
+  synchronousValidation?: boolean;
+  validityPeriod?: number;
 }
 
 interface ServiceListInstance {
@@ -112,76 +118,6 @@ interface ServiceListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: ServiceListInstancePageOptions, callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
-}
-
-/**
- * Options to pass to update
- *
- * @property friendlyName - The friendly_name
- * @property inboundRequestUrl - The inbound_request_url
- * @property inboundMethod - The inbound_method
- * @property fallbackUrl - The fallback_url
- * @property fallbackMethod - The fallback_method
- * @property statusCallback - The status_callback
- * @property stickySender - The sticky_sender
- * @property mmsConverter - The mms_converter
- * @property smartEncoding - The smart_encoding
- * @property scanMessageContent - The scan_message_content
- * @property fallbackToLongCode - The fallback_to_long_code
- * @property areaCodeGeomatch - The area_code_geomatch
- * @property validityPeriod - The validity_period
- * @property synchronousValidation - The synchronous_validation
- */
-interface ServiceInstanceUpdateOptions {
-  areaCodeGeomatch?: boolean;
-  fallbackMethod?: string;
-  fallbackToLongCode?: boolean;
-  fallbackUrl?: string;
-  friendlyName?: string;
-  inboundMethod?: string;
-  inboundRequestUrl?: string;
-  mmsConverter?: boolean;
-  scanMessageContent?: service.scan_message_content;
-  smartEncoding?: boolean;
-  statusCallback?: string;
-  stickySender?: boolean;
-  synchronousValidation?: boolean;
-  validityPeriod?: number;
-}
-
-/**
- * Options to pass to update
- *
- * @property friendlyName - The friendly_name
- * @property inboundRequestUrl - The inbound_request_url
- * @property inboundMethod - The inbound_method
- * @property fallbackUrl - The fallback_url
- * @property fallbackMethod - The fallback_method
- * @property statusCallback - The status_callback
- * @property stickySender - The sticky_sender
- * @property mmsConverter - The mms_converter
- * @property smartEncoding - The smart_encoding
- * @property scanMessageContent - The scan_message_content
- * @property fallbackToLongCode - The fallback_to_long_code
- * @property areaCodeGeomatch - The area_code_geomatch
- * @property validityPeriod - The validity_period
- * @property synchronousValidation - The synchronous_validation
- */
-interface ServiceInstanceUpdateOptions {
-  areaCodeGeomatch?: boolean;
-  fallbackMethod?: string;
-  fallbackToLongCode?: boolean;
-  fallbackUrl?: string;
-  friendlyName?: string;
-  inboundMethod?: string;
-  inboundRequestUrl?: string;
-  mmsConverter?: boolean;
-  scanMessageContent?: service.scan_message_content;
-  smartEncoding?: boolean;
-  statusCallback?: string;
-  stickySender?: boolean;
-  synchronousValidation?: boolean;
-  validityPeriod?: number;
 }
 
 /**
@@ -274,6 +210,35 @@ interface ServiceListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface ServicePayload extends ServiceResource, Page.TwilioResponsePayload {
+}
+
+interface ServiceResource {
+  account_sid: string;
+  area_code_geomatch: boolean;
+  date_created: Date;
+  date_updated: Date;
+  fallback_method: string;
+  fallback_to_long_code: boolean;
+  fallback_url: string;
+  friendly_name: string;
+  inbound_method: string;
+  inbound_request_url: string;
+  links: string;
+  mms_converter: boolean;
+  scan_message_content: ServiceScanMessageContent;
+  sid: string;
+  smart_encoding: boolean;
+  status_callback: string;
+  sticky_sender: boolean;
+  synchronous_validation: boolean;
+  url: string;
+  validity_period: number;
+}
+
+interface ServiceSolution {
 }
 
 

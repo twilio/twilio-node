@@ -20,24 +20,13 @@ import { StreamMessageList } from './syncStream/streamMessage';
  */
 declare function SyncStreamList(version: V1, serviceSid: string): SyncStreamListInstance;
 
-interface SyncStreamResource {
-  account_sid: string;
-  created_by: string;
-  date_created: Date;
-  date_expires: Date;
-  date_updated: Date;
-  links: string;
-  service_sid: string;
-  sid: string;
-  unique_name: string;
-  url: string;
-}
-
-interface SyncStreamPayload extends SyncStreamResource, Page.TwilioResponsePayload {
-}
-
-interface SyncStreamSolution {
-  serviceSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property ttl - Stream TTL.
+ */
+interface SyncStreamInstanceUpdateOptions {
+  ttl?: number;
 }
 
 interface SyncStreamListInstance {
@@ -101,24 +90,6 @@ interface SyncStreamListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: SyncStreamListInstancePageOptions, callback?: (error: Error | null, items: SyncStreamPage) => any): Promise<SyncStreamPage>;
-}
-
-/**
- * Options to pass to update
- *
- * @property ttl - Stream TTL.
- */
-interface SyncStreamInstanceUpdateOptions {
-  ttl?: number;
-}
-
-/**
- * Options to pass to update
- *
- * @property ttl - Stream TTL.
- */
-interface SyncStreamInstanceUpdateOptions {
-  ttl?: number;
 }
 
 /**
@@ -187,6 +158,26 @@ interface SyncStreamListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface SyncStreamPayload extends SyncStreamResource, Page.TwilioResponsePayload {
+}
+
+interface SyncStreamResource {
+  account_sid: string;
+  created_by: string;
+  date_created: Date;
+  date_expires: Date;
+  date_updated: Date;
+  links: string;
+  service_sid: string;
+  sid: string;
+  unique_name: string;
+  url: string;
+}
+
+interface SyncStreamSolution {
+  serviceSid?: string;
 }
 
 

@@ -19,24 +19,6 @@ import { SerializableClass } from '../../../../../../interfaces';
  */
 declare function CredentialListMappingList(version: V2010, accountSid: string, domainSid: string): CredentialListMappingListInstance;
 
-interface CredentialListMappingResource {
-  account_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  friendly_name: string;
-  sid: string;
-  subresource_uris: string;
-  uri: string;
-}
-
-interface CredentialListMappingPayload extends CredentialListMappingResource, Page.TwilioResponsePayload {
-}
-
-interface CredentialListMappingSolution {
-  accountSid?: string;
-  domainSid?: string;
-}
-
 interface CredentialListMappingListInstance {
   /**
    * @param sid - sid of instance
@@ -164,6 +146,24 @@ interface CredentialListMappingListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface CredentialListMappingPayload extends CredentialListMappingResource, Page.TwilioResponsePayload {
+}
+
+interface CredentialListMappingResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  sid: string;
+  subresource_uris: string;
+  uri: string;
+}
+
+interface CredentialListMappingSolution {
+  accountSid?: string;
+  domainSid?: string;
 }
 
 

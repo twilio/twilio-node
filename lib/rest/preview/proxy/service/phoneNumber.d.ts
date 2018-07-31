@@ -19,25 +19,6 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function PhoneNumberList(version: Proxy, serviceSid: string): PhoneNumberListInstance;
 
-interface PhoneNumberResource {
-  account_sid: string;
-  capabilities: string;
-  country_code: string;
-  date_created: Date;
-  date_updated: Date;
-  phone_number: string;
-  service_sid: string;
-  sid: string;
-  url: string;
-}
-
-interface PhoneNumberPayload extends PhoneNumberResource, Page.TwilioResponsePayload {
-}
-
-interface PhoneNumberSolution {
-  serviceSid?: string;
-}
-
 interface PhoneNumberListInstance {
   /**
    * @param sid - sid of instance
@@ -165,6 +146,25 @@ interface PhoneNumberListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface PhoneNumberPayload extends PhoneNumberResource, Page.TwilioResponsePayload {
+}
+
+interface PhoneNumberResource {
+  account_sid: string;
+  capabilities: string;
+  country_code: string;
+  date_created: Date;
+  date_updated: Date;
+  phone_number: string;
+  service_sid: string;
+  sid: string;
+  url: string;
+}
+
+interface PhoneNumberSolution {
+  serviceSid?: string;
 }
 
 

@@ -19,30 +19,6 @@ import { SerializableClass } from '../../../../../../interfaces';
  */
 declare function YearlyList(version: V2010, accountSid: string): YearlyListInstance;
 
-interface YearlyResource {
-  account_sid: string;
-  api_version: string;
-  category: YearlyCategory;
-  count: string;
-  count_unit: string;
-  description: string;
-  end_date: Date;
-  price: number;
-  price_unit: string;
-  start_date: Date;
-  subresource_uris: string;
-  uri: string;
-  usage: string;
-  usage_unit: string;
-}
-
-interface YearlyPayload extends YearlyResource, Page.TwilioResponsePayload {
-}
-
-interface YearlySolution {
-  accountSid?: string;
-}
-
 interface YearlyListInstance {
   /**
    * Streams YearlyInstance records from the API.
@@ -168,6 +144,30 @@ interface YearlyListInstancePageOptions {
   pageSize?: number;
   pageToken?: string;
   startDate?: Date;
+}
+
+interface YearlyPayload extends YearlyResource, Page.TwilioResponsePayload {
+}
+
+interface YearlyResource {
+  account_sid: string;
+  api_version: string;
+  category: YearlyCategory;
+  count: string;
+  count_unit: string;
+  description: string;
+  end_date: Date;
+  price: number;
+  price_unit: string;
+  start_date: Date;
+  subresource_uris: string;
+  uri: string;
+  usage: string;
+  usage_unit: string;
+}
+
+interface YearlySolution {
+  accountSid?: string;
 }
 
 

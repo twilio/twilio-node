@@ -22,28 +22,17 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function ChannelList(version: V1, serviceSid: string): ChannelListInstance;
 
-interface ChannelResource {
-  account_sid: string;
-  attributes: string;
-  created_by: string;
-  date_created: Date;
-  date_updated: Date;
-  friendly_name: string;
-  links: string;
-  members_count: number;
-  messages_count: number;
-  service_sid: string;
-  sid: string;
-  type: ChannelChannelType;
-  unique_name: string;
-  url: string;
-}
-
-interface ChannelPayload extends ChannelResource, Page.TwilioResponsePayload {
-}
-
-interface ChannelSolution {
-  serviceSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A human-readable name for the Channel.
+ * @property uniqueName - A unique, addressable name for the Channel.
+ * @property attributes - An optional metadata field you can use to store any data you wish.
+ */
+interface ChannelInstanceUpdateOptions {
+  attributes?: string;
+  friendlyName?: string;
+  uniqueName?: string;
 }
 
 interface ChannelListInstance {
@@ -107,32 +96,6 @@ interface ChannelListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: ChannelListInstancePageOptions, callback?: (error: Error | null, items: ChannelPage) => any): Promise<ChannelPage>;
-}
-
-/**
- * Options to pass to update
- *
- * @property friendlyName - A human-readable name for the Channel.
- * @property uniqueName - A unique, addressable name for the Channel.
- * @property attributes - An optional metadata field you can use to store any data you wish.
- */
-interface ChannelInstanceUpdateOptions {
-  attributes?: string;
-  friendlyName?: string;
-  uniqueName?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property friendlyName - A human-readable name for the Channel.
- * @property uniqueName - A unique, addressable name for the Channel.
- * @property attributes - An optional metadata field you can use to store any data you wish.
- */
-interface ChannelInstanceUpdateOptions {
-  attributes?: string;
-  friendlyName?: string;
-  uniqueName?: string;
 }
 
 /**
@@ -211,6 +174,30 @@ interface ChannelListInstancePageOptions {
   pageSize?: number;
   pageToken?: string;
   type?: channel.channel_type|list;
+}
+
+interface ChannelPayload extends ChannelResource, Page.TwilioResponsePayload {
+}
+
+interface ChannelResource {
+  account_sid: string;
+  attributes: string;
+  created_by: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  links: string;
+  members_count: number;
+  messages_count: number;
+  service_sid: string;
+  sid: string;
+  type: ChannelChannelType;
+  unique_name: string;
+  url: string;
+}
+
+interface ChannelSolution {
+  serviceSid?: string;
 }
 
 

@@ -21,28 +21,6 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function AssignedAddOnList(version: V2010, accountSid: string, resourceSid: string): AssignedAddOnListInstance;
 
-interface AssignedAddOnResource {
-  account_sid: string;
-  configuration: string;
-  date_created: Date;
-  date_updated: Date;
-  description: string;
-  friendly_name: string;
-  resource_sid: string;
-  sid: string;
-  subresource_uris: string;
-  unique_name: string;
-  uri: string;
-}
-
-interface AssignedAddOnPayload extends AssignedAddOnResource, Page.TwilioResponsePayload {
-}
-
-interface AssignedAddOnSolution {
-  accountSid?: string;
-  resourceSid?: string;
-}
-
 interface AssignedAddOnListInstance {
   /**
    * @param sid - sid of instance
@@ -107,6 +85,15 @@ interface AssignedAddOnListInstance {
 }
 
 /**
+ * Options to pass to create
+ *
+ * @property installedAddOnSid - A string that uniquely identifies the Add-on installation
+ */
+interface AssignedAddOnListInstanceCreateOptions {
+  installedAddOnSid: string;
+}
+
+/**
  * Options to pass to each
  *
  * @property limit -
@@ -163,13 +150,26 @@ interface AssignedAddOnListInstancePageOptions {
   pageToken?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property installedAddOnSid - A string that uniquely identifies the Add-on installation
- */
-interface AssignedAddOnListInstanceCreateOptions {
-  installedAddOnSid: string;
+interface AssignedAddOnPayload extends AssignedAddOnResource, Page.TwilioResponsePayload {
+}
+
+interface AssignedAddOnResource {
+  account_sid: string;
+  configuration: string;
+  date_created: Date;
+  date_updated: Date;
+  description: string;
+  friendly_name: string;
+  resource_sid: string;
+  sid: string;
+  subresource_uris: string;
+  unique_name: string;
+  uri: string;
+}
+
+interface AssignedAddOnSolution {
+  accountSid?: string;
+  resourceSid?: string;
 }
 
 

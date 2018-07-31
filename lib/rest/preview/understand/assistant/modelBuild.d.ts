@@ -19,24 +19,13 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function ModelBuildList(version: Understand, assistantSid: string): ModelBuildListInstance;
 
-interface ModelBuildResource {
-  account_sid: string;
-  assistant_sid: string;
-  build_duration: number;
-  date_created: Date;
-  date_updated: Date;
-  error_code: number;
-  sid: string;
-  status: ModelBuildStatus;
-  unique_name: string;
-  url: string;
-}
-
-interface ModelBuildPayload extends ModelBuildResource, Page.TwilioResponsePayload {
-}
-
-interface ModelBuildSolution {
-  assistantSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. For example: v0.1
+ */
+interface ModelBuildInstanceUpdateOptions {
+  uniqueName?: string;
 }
 
 interface ModelBuildListInstance {
@@ -103,20 +92,13 @@ interface ModelBuildListInstance {
 }
 
 /**
- * Options to pass to update
+ * Options to pass to create
  *
+ * @property statusCallback - The status_callback
  * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. For example: v0.1
  */
-interface ModelBuildInstanceUpdateOptions {
-  uniqueName?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. For example: v0.1
- */
-interface ModelBuildInstanceUpdateOptions {
+interface ModelBuildListInstanceCreateOptions {
+  statusCallback?: string;
   uniqueName?: string;
 }
 
@@ -177,15 +159,24 @@ interface ModelBuildListInstancePageOptions {
   pageToken?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property statusCallback - The status_callback
- * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. For example: v0.1
- */
-interface ModelBuildListInstanceCreateOptions {
-  statusCallback?: string;
-  uniqueName?: string;
+interface ModelBuildPayload extends ModelBuildResource, Page.TwilioResponsePayload {
+}
+
+interface ModelBuildResource {
+  account_sid: string;
+  assistant_sid: string;
+  build_duration: number;
+  date_created: Date;
+  date_updated: Date;
+  error_code: number;
+  sid: string;
+  status: ModelBuildStatus;
+  unique_name: string;
+  url: string;
+}
+
+interface ModelBuildSolution {
+  assistantSid?: string;
 }
 
 

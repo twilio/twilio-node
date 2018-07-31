@@ -22,39 +22,25 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function CallList(version: V2010, accountSid: string): CallListInstance;
 
-interface CallResource {
-  account_sid: string;
-  annotation: string;
-  answered_by: string;
-  api_version: string;
-  caller_name: string;
-  date_created: Date;
-  date_updated: Date;
-  direction: string;
-  duration: string;
-  end_time: Date;
-  forwarded_from: string;
-  from: string;
-  from_formatted: string;
-  group_sid: string;
-  parent_call_sid: string;
-  phone_number_sid: string;
-  price: number;
-  price_unit: string;
-  sid: string;
-  start_time: Date;
-  status: CallStatus;
-  subresource_uris: string;
-  to: string;
-  to_formatted: string;
-  uri: string;
-}
-
-interface CallPayload extends CallResource, Page.TwilioResponsePayload {
-}
-
-interface CallSolution {
-  accountSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property url - URL that returns TwiML
+ * @property method - HTTP method to use to fetch TwiML
+ * @property status - Status to update the Call with
+ * @property fallbackUrl - Fallback URL in case of error
+ * @property fallbackMethod - HTTP Method to use with FallbackUrl
+ * @property statusCallback - Status Callback URL
+ * @property statusCallbackMethod - HTTP Method to use with StatusCallback
+ */
+interface CallInstanceUpdateOptions {
+  fallbackMethod?: string;
+  fallbackUrl?: string;
+  method?: string;
+  status?: call.update_status;
+  statusCallback?: string;
+  statusCallbackMethod?: string;
+  url?: string;
 }
 
 interface CallListInstance {
@@ -119,48 +105,6 @@ interface CallListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: CallListInstancePageOptions, callback?: (error: Error | null, items: CallPage) => any): Promise<CallPage>;
-}
-
-/**
- * Options to pass to update
- *
- * @property url - URL that returns TwiML
- * @property method - HTTP method to use to fetch TwiML
- * @property status - Status to update the Call with
- * @property fallbackUrl - Fallback URL in case of error
- * @property fallbackMethod - HTTP Method to use with FallbackUrl
- * @property statusCallback - Status Callback URL
- * @property statusCallbackMethod - HTTP Method to use with StatusCallback
- */
-interface CallInstanceUpdateOptions {
-  fallbackMethod?: string;
-  fallbackUrl?: string;
-  method?: string;
-  status?: call.update_status;
-  statusCallback?: string;
-  statusCallbackMethod?: string;
-  url?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property url - URL that returns TwiML
- * @property method - HTTP method to use to fetch TwiML
- * @property status - Status to update the Call with
- * @property fallbackUrl - Fallback URL in case of error
- * @property fallbackMethod - HTTP Method to use with FallbackUrl
- * @property statusCallback - Status Callback URL
- * @property statusCallbackMethod - HTTP Method to use with StatusCallback
- */
-interface CallInstanceUpdateOptions {
-  fallbackMethod?: string;
-  fallbackUrl?: string;
-  method?: string;
-  status?: call.update_status;
-  statusCallback?: string;
-  statusCallbackMethod?: string;
-  url?: string;
 }
 
 /**
@@ -333,6 +277,41 @@ interface CallListInstancePageOptions {
   startTimeBefore?: Date;
   status?: call.status;
   to?: string;
+}
+
+interface CallPayload extends CallResource, Page.TwilioResponsePayload {
+}
+
+interface CallResource {
+  account_sid: string;
+  annotation: string;
+  answered_by: string;
+  api_version: string;
+  caller_name: string;
+  date_created: Date;
+  date_updated: Date;
+  direction: string;
+  duration: string;
+  end_time: Date;
+  forwarded_from: string;
+  from: string;
+  from_formatted: string;
+  group_sid: string;
+  parent_call_sid: string;
+  phone_number_sid: string;
+  price: number;
+  price_unit: string;
+  sid: string;
+  start_time: Date;
+  status: CallStatus;
+  subresource_uris: string;
+  to: string;
+  to_formatted: string;
+  uri: string;
+}
+
+interface CallSolution {
+  accountSid?: string;
 }
 
 

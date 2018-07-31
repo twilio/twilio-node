@@ -19,36 +19,31 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function HostedNumberOrderList(version: HostedNumbers): HostedNumberOrderListInstance;
 
-interface HostedNumberOrderResource {
-  account_sid: string;
-  address_sid: string;
-  call_delay: number;
-  capabilities: string;
-  cc_emails: string;
-  date_created: Date;
-  date_updated: Date;
-  email: string;
-  extension: string;
-  failure_reason: string;
-  friendly_name: string;
-  incoming_phone_number_sid: string;
-  phone_number: string;
-  sid: string;
-  signing_document_sid: string;
-  status: HostedNumberOrderStatus;
-  unique_name: string;
-  url: string;
-  verification_attempts: number;
-  verification_call_sids: string;
-  verification_code: string;
-  verification_document_sid: string;
-  verification_type: HostedNumberOrderVerificationType;
-}
-
-interface HostedNumberOrderPayload extends HostedNumberOrderResource, Page.TwilioResponsePayload {
-}
-
-interface HostedNumberOrderSolution {
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A human readable description of this resource.
+ * @property uniqueName - A unique, developer assigned name of this HostedNumberOrder.
+ * @property email - Email.
+ * @property ccEmails - A list of emails.
+ * @property status - The Status of this HostedNumberOrder.
+ * @property verificationCode - A verification code.
+ * @property verificationType - Verification Type.
+ * @property verificationDocumentSid - Verification Document Sid
+ * @property extension - Digits to dial after connecting the verification call.
+ * @property callDelay - The number of seconds, between 0 and 60, to delay before initiating the verification call.
+ */
+interface HostedNumberOrderInstanceUpdateOptions {
+  callDelay?: number;
+  ccEmails?: string|list;
+  email?: string;
+  extension?: string;
+  friendlyName?: string;
+  status?: hosted_number_order.status;
+  uniqueName?: string;
+  verificationCode?: string;
+  verificationDocumentSid?: string;
+  verificationType?: hosted_number_order.verification_type;
 }
 
 interface HostedNumberOrderListInstance {
@@ -115,55 +110,42 @@ interface HostedNumberOrderListInstance {
 }
 
 /**
- * Options to pass to update
+ * Options to pass to create
  *
+ * @property phoneNumber - An E164 formatted phone number.
+ * @property smsCapability - Specify SMS capability to host.
+ * @property accountSid - Account Sid.
  * @property friendlyName - A human readable description of this resource.
  * @property uniqueName - A unique, developer assigned name of this HostedNumberOrder.
- * @property email - Email.
  * @property ccEmails - A list of emails.
- * @property status - The Status of this HostedNumberOrder.
- * @property verificationCode - A verification code.
+ * @property smsUrl - SMS URL.
+ * @property smsMethod - SMS Method.
+ * @property smsFallbackUrl - SMS Fallback URL.
+ * @property smsFallbackMethod - SMS Fallback Method.
+ * @property statusCallbackUrl - Status Callback URL.
+ * @property statusCallbackMethod - Status Callback Method.
+ * @property smsApplicationSid - SMS Application Sid.
+ * @property addressSid - Address sid.
+ * @property email - Email.
  * @property verificationType - Verification Type.
  * @property verificationDocumentSid - Verification Document Sid
- * @property extension - Digits to dial after connecting the verification call.
- * @property callDelay - The number of seconds, between 0 and 60, to delay before initiating the verification call.
  */
-interface HostedNumberOrderInstanceUpdateOptions {
-  callDelay?: number;
+interface HostedNumberOrderListInstanceCreateOptions {
+  accountSid?: string;
+  addressSid?: string;
   ccEmails?: string|list;
   email?: string;
-  extension?: string;
   friendlyName?: string;
-  status?: hosted_number_order.status;
+  phoneNumber: string;
+  smsApplicationSid?: string;
+  smsCapability: boolean;
+  smsFallbackMethod?: string;
+  smsFallbackUrl?: string;
+  smsMethod?: string;
+  smsUrl?: string;
+  statusCallbackMethod?: string;
+  statusCallbackUrl?: string;
   uniqueName?: string;
-  verificationCode?: string;
-  verificationDocumentSid?: string;
-  verificationType?: hosted_number_order.verification_type;
-}
-
-/**
- * Options to pass to update
- *
- * @property friendlyName - A human readable description of this resource.
- * @property uniqueName - A unique, developer assigned name of this HostedNumberOrder.
- * @property email - Email.
- * @property ccEmails - A list of emails.
- * @property status - The Status of this HostedNumberOrder.
- * @property verificationCode - A verification code.
- * @property verificationType - Verification Type.
- * @property verificationDocumentSid - Verification Document Sid
- * @property extension - Digits to dial after connecting the verification call.
- * @property callDelay - The number of seconds, between 0 and 60, to delay before initiating the verification call.
- */
-interface HostedNumberOrderInstanceUpdateOptions {
-  callDelay?: number;
-  ccEmails?: string|list;
-  email?: string;
-  extension?: string;
-  friendlyName?: string;
-  status?: hosted_number_order.status;
-  uniqueName?: string;
-  verificationCode?: string;
   verificationDocumentSid?: string;
   verificationType?: hosted_number_order.verification_type;
 }
@@ -255,45 +237,36 @@ interface HostedNumberOrderListInstancePageOptions {
   uniqueName?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property phoneNumber - An E164 formatted phone number.
- * @property smsCapability - Specify SMS capability to host.
- * @property accountSid - Account Sid.
- * @property friendlyName - A human readable description of this resource.
- * @property uniqueName - A unique, developer assigned name of this HostedNumberOrder.
- * @property ccEmails - A list of emails.
- * @property smsUrl - SMS URL.
- * @property smsMethod - SMS Method.
- * @property smsFallbackUrl - SMS Fallback URL.
- * @property smsFallbackMethod - SMS Fallback Method.
- * @property statusCallbackUrl - Status Callback URL.
- * @property statusCallbackMethod - Status Callback Method.
- * @property smsApplicationSid - SMS Application Sid.
- * @property addressSid - Address sid.
- * @property email - Email.
- * @property verificationType - Verification Type.
- * @property verificationDocumentSid - Verification Document Sid
- */
-interface HostedNumberOrderListInstanceCreateOptions {
-  accountSid?: string;
-  addressSid?: string;
-  ccEmails?: string|list;
-  email?: string;
-  friendlyName?: string;
-  phoneNumber: string;
-  smsApplicationSid?: string;
-  smsCapability: boolean;
-  smsFallbackMethod?: string;
-  smsFallbackUrl?: string;
-  smsMethod?: string;
-  smsUrl?: string;
-  statusCallbackMethod?: string;
-  statusCallbackUrl?: string;
-  uniqueName?: string;
-  verificationDocumentSid?: string;
-  verificationType?: hosted_number_order.verification_type;
+interface HostedNumberOrderPayload extends HostedNumberOrderResource, Page.TwilioResponsePayload {
+}
+
+interface HostedNumberOrderResource {
+  account_sid: string;
+  address_sid: string;
+  call_delay: number;
+  capabilities: string;
+  cc_emails: string;
+  date_created: Date;
+  date_updated: Date;
+  email: string;
+  extension: string;
+  failure_reason: string;
+  friendly_name: string;
+  incoming_phone_number_sid: string;
+  phone_number: string;
+  sid: string;
+  signing_document_sid: string;
+  status: HostedNumberOrderStatus;
+  unique_name: string;
+  url: string;
+  verification_attempts: number;
+  verification_call_sids: string;
+  verification_code: string;
+  verification_document_sid: string;
+  verification_type: HostedNumberOrderVerificationType;
+}
+
+interface HostedNumberOrderSolution {
 }
 
 

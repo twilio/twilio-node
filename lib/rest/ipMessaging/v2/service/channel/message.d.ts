@@ -20,31 +20,21 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function MessageList(version: V2, serviceSid: string, channelSid: string): MessageListInstance;
 
-interface MessageResource {
-  account_sid: string;
-  attributes: string;
-  body: string;
-  channel_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  from: string;
-  index: number;
-  last_updated_by: string;
-  media: string;
-  service_sid: string;
-  sid: string;
-  to: string;
-  type: string;
-  url: string;
-  was_edited: boolean;
-}
-
-interface MessagePayload extends MessageResource, Page.TwilioResponsePayload {
-}
-
-interface MessageSolution {
-  channelSid?: string;
-  serviceSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property body - The message body string.
+ * @property attributes - The attributes metadata field you can use to store any data you wish.
+ * @property dateCreated - The ISO8601 time specifying the datetime the Message should be set as being created.
+ * @property dateUpdated - The ISO8601 time specifying the datetime the Message should be set as having been last updated.
+ * @property lastUpdatedBy - Specify the Identity of the User that last updated the Message
+ */
+interface MessageInstanceUpdateOptions {
+  attributes?: string;
+  body?: string;
+  dateCreated?: Date;
+  dateUpdated?: Date;
+  lastUpdatedBy?: string;
 }
 
 interface MessageListInstance {
@@ -108,40 +98,6 @@ interface MessageListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: MessageListInstancePageOptions, callback?: (error: Error | null, items: MessagePage) => any): Promise<MessagePage>;
-}
-
-/**
- * Options to pass to update
- *
- * @property body - The message body string.
- * @property attributes - The attributes metadata field you can use to store any data you wish.
- * @property dateCreated - The ISO8601 time specifying the datetime the Message should be set as being created.
- * @property dateUpdated - The ISO8601 time specifying the datetime the Message should be set as having been last updated.
- * @property lastUpdatedBy - Specify the Identity of the User that last updated the Message
- */
-interface MessageInstanceUpdateOptions {
-  attributes?: string;
-  body?: string;
-  dateCreated?: Date;
-  dateUpdated?: Date;
-  lastUpdatedBy?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property body - The message body string.
- * @property attributes - The attributes metadata field you can use to store any data you wish.
- * @property dateCreated - The ISO8601 time specifying the datetime the Message should be set as being created.
- * @property dateUpdated - The ISO8601 time specifying the datetime the Message should be set as having been last updated.
- * @property lastUpdatedBy - Specify the Identity of the User that last updated the Message
- */
-interface MessageInstanceUpdateOptions {
-  attributes?: string;
-  body?: string;
-  dateCreated?: Date;
-  dateUpdated?: Date;
-  lastUpdatedBy?: string;
 }
 
 /**
@@ -226,6 +182,33 @@ interface MessageListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface MessagePayload extends MessageResource, Page.TwilioResponsePayload {
+}
+
+interface MessageResource {
+  account_sid: string;
+  attributes: string;
+  body: string;
+  channel_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  from: string;
+  index: number;
+  last_updated_by: string;
+  media: string;
+  service_sid: string;
+  sid: string;
+  to: string;
+  type: string;
+  url: string;
+  was_edited: boolean;
+}
+
+interface MessageSolution {
+  channelSid?: string;
+  serviceSid?: string;
 }
 
 

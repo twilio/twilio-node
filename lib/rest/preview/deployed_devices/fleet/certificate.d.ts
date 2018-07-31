@@ -19,23 +19,15 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function CertificateList(version: DeployedDevices, fleetSid: string): CertificateListInstance;
 
-interface CertificateResource {
-  account_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  device_sid: string;
-  fleet_sid: string;
-  friendly_name: string;
-  sid: string;
-  thumbprint: string;
-  url: string;
-}
-
-interface CertificatePayload extends CertificateResource, Page.TwilioResponsePayload {
-}
-
-interface CertificateSolution {
-  fleetSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - The human readable description for this Certificate.
+ * @property deviceSid - The unique identifier of a Device to be authenticated.
+ */
+interface CertificateInstanceUpdateOptions {
+  deviceSid?: string;
+  friendlyName?: string;
 }
 
 interface CertificateListInstance {
@@ -99,28 +91,6 @@ interface CertificateListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: CertificateListInstancePageOptions, callback?: (error: Error | null, items: CertificatePage) => any): Promise<CertificatePage>;
-}
-
-/**
- * Options to pass to update
- *
- * @property friendlyName - The human readable description for this Certificate.
- * @property deviceSid - The unique identifier of a Device to be authenticated.
- */
-interface CertificateInstanceUpdateOptions {
-  deviceSid?: string;
-  friendlyName?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property friendlyName - The human readable description for this Certificate.
- * @property deviceSid - The unique identifier of a Device to be authenticated.
- */
-interface CertificateInstanceUpdateOptions {
-  deviceSid?: string;
-  friendlyName?: string;
 }
 
 /**
@@ -197,6 +167,25 @@ interface CertificateListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface CertificatePayload extends CertificateResource, Page.TwilioResponsePayload {
+}
+
+interface CertificateResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  device_sid: string;
+  fleet_sid: string;
+  friendly_name: string;
+  sid: string;
+  thumbprint: string;
+  url: string;
+}
+
+interface CertificateSolution {
+  fleetSid?: string;
 }
 
 

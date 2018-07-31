@@ -19,38 +19,6 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function DependentHostedNumberOrderList(version: HostedNumbers, signingDocumentSid: string): DependentHostedNumberOrderListInstance;
 
-interface DependentHostedNumberOrderResource {
-  account_sid: string;
-  address_sid: string;
-  call_delay: number;
-  capabilities: string;
-  cc_emails: string;
-  date_created: Date;
-  date_updated: Date;
-  email: string;
-  extension: string;
-  failure_reason: string;
-  friendly_name: string;
-  incoming_phone_number_sid: string;
-  phone_number: string;
-  sid: string;
-  signing_document_sid: string;
-  status: DependentHostedNumberOrderStatus;
-  unique_name: string;
-  verification_attempts: number;
-  verification_call_sids: string;
-  verification_code: string;
-  verification_document_sid: string;
-  verification_type: DependentHostedNumberOrderVerificationType;
-}
-
-interface DependentHostedNumberOrderPayload extends DependentHostedNumberOrderResource, Page.TwilioResponsePayload {
-}
-
-interface DependentHostedNumberOrderSolution {
-  signingDocumentSid?: string;
-}
-
 interface DependentHostedNumberOrderListInstance {
   /**
    * Streams DependentHostedNumberOrderInstance records from the API.
@@ -182,6 +150,38 @@ interface DependentHostedNumberOrderListInstancePageOptions {
   phoneNumber?: string;
   status?: dependent_hosted_number_order.status;
   uniqueName?: string;
+}
+
+interface DependentHostedNumberOrderPayload extends DependentHostedNumberOrderResource, Page.TwilioResponsePayload {
+}
+
+interface DependentHostedNumberOrderResource {
+  account_sid: string;
+  address_sid: string;
+  call_delay: number;
+  capabilities: string;
+  cc_emails: string;
+  date_created: Date;
+  date_updated: Date;
+  email: string;
+  extension: string;
+  failure_reason: string;
+  friendly_name: string;
+  incoming_phone_number_sid: string;
+  phone_number: string;
+  sid: string;
+  signing_document_sid: string;
+  status: DependentHostedNumberOrderStatus;
+  unique_name: string;
+  verification_attempts: number;
+  verification_call_sids: string;
+  verification_code: string;
+  verification_document_sid: string;
+  verification_type: DependentHostedNumberOrderVerificationType;
+}
+
+interface DependentHostedNumberOrderSolution {
+  signingDocumentSid?: string;
 }
 
 

@@ -19,20 +19,6 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function DayList(version: BulkExports, resourceType: string): DayListInstance;
 
-interface DayResource {
-  day?: string;
-  redirect_to?: string;
-  resource_type?: string;
-  size?: number;
-}
-
-interface DayPayload extends DayResource, Page.TwilioResponsePayload {
-}
-
-interface DaySolution {
-  resourceType?: string;
-}
-
 interface DayListInstance {
   /**
    * Streams DayInstance records from the API.
@@ -134,6 +120,20 @@ interface DayListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface DayPayload extends DayResource, Page.TwilioResponsePayload {
+}
+
+interface DayResource {
+  day?: string;
+  redirect_to?: string;
+  resource_type?: string;
+  size?: number;
+}
+
+interface DaySolution {
+  resourceType?: string;
 }
 
 

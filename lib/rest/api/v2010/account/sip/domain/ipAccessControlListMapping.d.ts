@@ -19,24 +19,6 @@ import { SerializableClass } from '../../../../../../interfaces';
  */
 declare function IpAccessControlListMappingList(version: V2010, accountSid: string, domainSid: string): IpAccessControlListMappingListInstance;
 
-interface IpAccessControlListMappingResource {
-  account_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  friendly_name: string;
-  sid: string;
-  subresource_uris: string;
-  uri: string;
-}
-
-interface IpAccessControlListMappingPayload extends IpAccessControlListMappingResource, Page.TwilioResponsePayload {
-}
-
-interface IpAccessControlListMappingSolution {
-  accountSid?: string;
-  domainSid?: string;
-}
-
 interface IpAccessControlListMappingListInstance {
   /**
    * @param sid - sid of instance
@@ -164,6 +146,24 @@ interface IpAccessControlListMappingListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface IpAccessControlListMappingPayload extends IpAccessControlListMappingResource, Page.TwilioResponsePayload {
+}
+
+interface IpAccessControlListMappingResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  sid: string;
+  subresource_uris: string;
+  uri: string;
+}
+
+interface IpAccessControlListMappingSolution {
+  accountSid?: string;
+  domainSid?: string;
 }
 
 

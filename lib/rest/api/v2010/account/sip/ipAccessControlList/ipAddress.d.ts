@@ -19,23 +19,15 @@ import { SerializableClass } from '../../../../../../interfaces';
  */
 declare function IpAddressList(version: V2010, accountSid: string, ipAccessControlListSid: string): IpAddressListInstance;
 
-interface IpAddressResource {
-  account_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  friendly_name: string;
-  ip_access_control_list_sid: string;
-  ip_address: string;
-  sid: string;
-  uri: string;
-}
-
-interface IpAddressPayload extends IpAddressResource, Page.TwilioResponsePayload {
-}
-
-interface IpAddressSolution {
-  accountSid?: string;
-  ipAccessControlListSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property ipAddress - The ip_address
+ * @property friendlyName - The friendly_name
+ */
+interface IpAddressInstanceUpdateOptions {
+  friendlyName?: string;
+  ipAddress?: string;
 }
 
 interface IpAddressListInstance {
@@ -102,25 +94,14 @@ interface IpAddressListInstance {
 }
 
 /**
- * Options to pass to update
+ * Options to pass to create
  *
- * @property ipAddress - The ip_address
  * @property friendlyName - The friendly_name
- */
-interface IpAddressInstanceUpdateOptions {
-  friendlyName?: string;
-  ipAddress?: string;
-}
-
-/**
- * Options to pass to update
- *
  * @property ipAddress - The ip_address
- * @property friendlyName - The friendly_name
  */
-interface IpAddressInstanceUpdateOptions {
-  friendlyName?: string;
-  ipAddress?: string;
+interface IpAddressListInstanceCreateOptions {
+  friendlyName: string;
+  ipAddress: string;
 }
 
 /**
@@ -180,15 +161,23 @@ interface IpAddressListInstancePageOptions {
   pageToken?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property friendlyName - The friendly_name
- * @property ipAddress - The ip_address
- */
-interface IpAddressListInstanceCreateOptions {
-  friendlyName: string;
-  ipAddress: string;
+interface IpAddressPayload extends IpAddressResource, Page.TwilioResponsePayload {
+}
+
+interface IpAddressResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  ip_access_control_list_sid: string;
+  ip_address: string;
+  sid: string;
+  uri: string;
+}
+
+interface IpAddressSolution {
+  accountSid?: string;
+  ipAccessControlListSid?: string;
 }
 
 

@@ -19,21 +19,6 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function UsageRecordList(version: V1, simSid: string): UsageRecordListInstance;
 
-interface UsageRecordResource {
-  account_sid: string;
-  commands: string;
-  data: string;
-  period: string;
-  sim_sid: string;
-}
-
-interface UsageRecordPayload extends UsageRecordResource, Page.TwilioResponsePayload {
-}
-
-interface UsageRecordSolution {
-  simSid?: string;
-}
-
 interface UsageRecordListInstance {
   /**
    * Streams UsageRecordInstance records from the API.
@@ -153,6 +138,21 @@ interface UsageRecordListInstancePageOptions {
   pageSize?: number;
   pageToken?: string;
   start?: Date;
+}
+
+interface UsageRecordPayload extends UsageRecordResource, Page.TwilioResponsePayload {
+}
+
+interface UsageRecordResource {
+  account_sid: string;
+  commands: string;
+  data: string;
+  period: string;
+  sim_sid: string;
+}
+
+interface UsageRecordSolution {
+  simSid?: string;
 }
 
 

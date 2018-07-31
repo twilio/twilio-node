@@ -22,26 +22,19 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function SessionList(version: Proxy, serviceSid: string): SessionListInstance;
 
-interface SessionResource {
-  account_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  end_time: Date;
-  links: string;
-  service_sid: string;
-  sid: string;
-  start_time: Date;
-  status: SessionStatus;
-  ttl: number;
-  unique_name: string;
-  url: string;
-}
-
-interface SessionPayload extends SessionResource, Page.TwilioResponsePayload {
-}
-
-interface SessionSolution {
-  serviceSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property uniqueName - A unique, developer assigned name of this Session.
+ * @property ttl - How long will this session stay open, in seconds.
+ * @property status - The Status of this Session
+ * @property participants - The participants
+ */
+interface SessionInstanceUpdateOptions {
+  participants?: string|list;
+  status?: session.status;
+  ttl?: number;
+  uniqueName?: string;
 }
 
 interface SessionListInstance {
@@ -108,29 +101,14 @@ interface SessionListInstance {
 }
 
 /**
- * Options to pass to update
+ * Options to pass to create
  *
  * @property uniqueName - A unique, developer assigned name of this Session.
  * @property ttl - How long will this session stay open, in seconds.
  * @property status - The Status of this Session
  * @property participants - The participants
  */
-interface SessionInstanceUpdateOptions {
-  participants?: string|list;
-  status?: session.status;
-  ttl?: number;
-  uniqueName?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property uniqueName - A unique, developer assigned name of this Session.
- * @property ttl - How long will this session stay open, in seconds.
- * @property status - The Status of this Session
- * @property participants - The participants
- */
-interface SessionInstanceUpdateOptions {
+interface SessionListInstanceCreateOptions {
   participants?: string|list;
   status?: session.status;
   ttl?: number;
@@ -206,19 +184,26 @@ interface SessionListInstancePageOptions {
   uniqueName?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property uniqueName - A unique, developer assigned name of this Session.
- * @property ttl - How long will this session stay open, in seconds.
- * @property status - The Status of this Session
- * @property participants - The participants
- */
-interface SessionListInstanceCreateOptions {
-  participants?: string|list;
-  status?: session.status;
-  ttl?: number;
-  uniqueName?: string;
+interface SessionPayload extends SessionResource, Page.TwilioResponsePayload {
+}
+
+interface SessionResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  end_time: Date;
+  links: string;
+  service_sid: string;
+  sid: string;
+  start_time: Date;
+  status: SessionStatus;
+  ttl: number;
+  unique_name: string;
+  url: string;
+}
+
+interface SessionSolution {
+  serviceSid?: string;
 }
 
 

@@ -18,26 +18,23 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function ShortCodeList(version: V2010, accountSid: string): ShortCodeListInstance;
 
-interface ShortCodeResource {
-  account_sid: string;
-  api_version: string;
-  date_created: Date;
-  date_updated: Date;
-  friendly_name: string;
-  short_code: string;
-  sid: string;
-  sms_fallback_method: string;
-  sms_fallback_url: string;
-  sms_method: string;
-  sms_url: string;
-  uri: string;
-}
-
-interface ShortCodePayload extends ShortCodeResource, Page.TwilioResponsePayload {
-}
-
-interface ShortCodeSolution {
-  accountSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A human readable description of this resource
+ * @property apiVersion - The API version to use
+ * @property smsUrl - URL Twilio will request when receiving an SMS
+ * @property smsMethod - HTTP method to use when requesting the sms url
+ * @property smsFallbackUrl - URL Twilio will request if an error occurs in executing TwiML
+ * @property smsFallbackMethod - HTTP method Twilio will use with sms fallback url
+ */
+interface ShortCodeInstanceUpdateOptions {
+  apiVersion?: string;
+  friendlyName?: string;
+  smsFallbackMethod?: string;
+  smsFallbackUrl?: string;
+  smsMethod?: string;
+  smsUrl?: string;
 }
 
 interface ShortCodeListInstance {
@@ -94,44 +91,6 @@ interface ShortCodeListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: ShortCodeListInstancePageOptions, callback?: (error: Error | null, items: ShortCodePage) => any): Promise<ShortCodePage>;
-}
-
-/**
- * Options to pass to update
- *
- * @property friendlyName - A human readable description of this resource
- * @property apiVersion - The API version to use
- * @property smsUrl - URL Twilio will request when receiving an SMS
- * @property smsMethod - HTTP method to use when requesting the sms url
- * @property smsFallbackUrl - URL Twilio will request if an error occurs in executing TwiML
- * @property smsFallbackMethod - HTTP method Twilio will use with sms fallback url
- */
-interface ShortCodeInstanceUpdateOptions {
-  apiVersion?: string;
-  friendlyName?: string;
-  smsFallbackMethod?: string;
-  smsFallbackUrl?: string;
-  smsMethod?: string;
-  smsUrl?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property friendlyName - A human readable description of this resource
- * @property apiVersion - The API version to use
- * @property smsUrl - URL Twilio will request when receiving an SMS
- * @property smsMethod - HTTP method to use when requesting the sms url
- * @property smsFallbackUrl - URL Twilio will request if an error occurs in executing TwiML
- * @property smsFallbackMethod - HTTP method Twilio will use with sms fallback url
- */
-interface ShortCodeInstanceUpdateOptions {
-  apiVersion?: string;
-  friendlyName?: string;
-  smsFallbackMethod?: string;
-  smsFallbackUrl?: string;
-  smsMethod?: string;
-  smsUrl?: string;
 }
 
 /**
@@ -201,6 +160,28 @@ interface ShortCodeListInstancePageOptions {
   pageSize?: number;
   pageToken?: string;
   shortCode?: string;
+}
+
+interface ShortCodePayload extends ShortCodeResource, Page.TwilioResponsePayload {
+}
+
+interface ShortCodeResource {
+  account_sid: string;
+  api_version: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  short_code: string;
+  sid: string;
+  sms_fallback_method: string;
+  sms_fallback_url: string;
+  sms_method: string;
+  sms_url: string;
+  uri: string;
+}
+
+interface ShortCodeSolution {
+  accountSid?: string;
 }
 
 

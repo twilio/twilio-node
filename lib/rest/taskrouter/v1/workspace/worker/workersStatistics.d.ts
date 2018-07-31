@@ -19,19 +19,25 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function WorkersStatisticsList(version: V1, workspaceSid: string): WorkersStatisticsListInstance;
 
-interface WorkersStatisticsResource {
-  account_sid: string;
-  cumulative: string;
-  realtime: string;
-  url: string;
-  workspace_sid: string;
-}
-
-interface WorkersStatisticsPayload extends WorkersStatisticsResource, Page.TwilioResponsePayload {
-}
-
-interface WorkersStatisticsSolution {
-  workspaceSid?: string;
+/**
+ * Options to pass to fetch
+ *
+ * @property minutes - Filter cumulative statistics by up to 'x' minutes in the past.
+ * @property startDate - Filter cumulative statistics by a start date.
+ * @property endDate - Filter cumulative statistics by a end date.
+ * @property taskQueueSid - Filter the real-time and cumulative statistics based on Workers tied to a particular queue
+ * @property taskQueueName - Filter the real-time and cumulative statistics based on Workers tied to a particular queue
+ * @property friendlyName - The friendly_name
+ * @property taskChannel - Filter cumulative statistics by TaskChannel.
+ */
+interface WorkersStatisticsInstanceFetchOptions {
+  endDate?: Date;
+  friendlyName?: string;
+  minutes?: number;
+  startDate?: Date;
+  taskChannel?: string;
+  taskQueueName?: string;
+  taskQueueSid?: string;
 }
 
 interface WorkersStatisticsListInstance {
@@ -45,46 +51,19 @@ interface WorkersStatisticsListInstance {
   get(): WorkersStatisticsContext;
 }
 
-/**
- * Options to pass to fetch
- *
- * @property minutes - Filter cumulative statistics by up to 'x' minutes in the past.
- * @property startDate - Filter cumulative statistics by a start date.
- * @property endDate - Filter cumulative statistics by a end date.
- * @property taskQueueSid - Filter the real-time and cumulative statistics based on Workers tied to a particular queue
- * @property taskQueueName - Filter the real-time and cumulative statistics based on Workers tied to a particular queue
- * @property friendlyName - The friendly_name
- * @property taskChannel - Filter cumulative statistics by TaskChannel.
- */
-interface WorkersStatisticsInstanceFetchOptions {
-  endDate?: Date;
-  friendlyName?: string;
-  minutes?: number;
-  startDate?: Date;
-  taskChannel?: string;
-  taskQueueName?: string;
-  taskQueueSid?: string;
+interface WorkersStatisticsPayload extends WorkersStatisticsResource, Page.TwilioResponsePayload {
 }
 
-/**
- * Options to pass to fetch
- *
- * @property minutes - Filter cumulative statistics by up to 'x' minutes in the past.
- * @property startDate - Filter cumulative statistics by a start date.
- * @property endDate - Filter cumulative statistics by a end date.
- * @property taskQueueSid - Filter the real-time and cumulative statistics based on Workers tied to a particular queue
- * @property taskQueueName - Filter the real-time and cumulative statistics based on Workers tied to a particular queue
- * @property friendlyName - The friendly_name
- * @property taskChannel - Filter cumulative statistics by TaskChannel.
- */
-interface WorkersStatisticsInstanceFetchOptions {
-  endDate?: Date;
-  friendlyName?: string;
-  minutes?: number;
-  startDate?: Date;
-  taskChannel?: string;
-  taskQueueName?: string;
-  taskQueueSid?: string;
+interface WorkersStatisticsResource {
+  account_sid: string;
+  cumulative: string;
+  realtime: string;
+  url: string;
+  workspace_sid: string;
+}
+
+interface WorkersStatisticsSolution {
+  workspaceSid?: string;
 }
 
 

@@ -21,26 +21,6 @@ import { SyncListPermissionList } from './syncList/syncListPermission';
  */
 declare function SyncListList(version: Sync, serviceSid: string): SyncListListInstance;
 
-interface SyncListResource {
-  account_sid: string;
-  created_by: string;
-  date_created: Date;
-  date_updated: Date;
-  links: string;
-  revision: string;
-  service_sid: string;
-  sid: string;
-  unique_name: string;
-  url: string;
-}
-
-interface SyncListPayload extends SyncListResource, Page.TwilioResponsePayload {
-}
-
-interface SyncListSolution {
-  serviceSid?: string;
-}
-
 interface SyncListListInstance {
   /**
    * @param sid - sid of instance
@@ -168,6 +148,26 @@ interface SyncListListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface SyncListPayload extends SyncListResource, Page.TwilioResponsePayload {
+}
+
+interface SyncListResource {
+  account_sid: string;
+  created_by: string;
+  date_created: Date;
+  date_updated: Date;
+  links: string;
+  revision: string;
+  service_sid: string;
+  sid: string;
+  unique_name: string;
+  url: string;
+}
+
+interface SyncListSolution {
+  serviceSid?: string;
 }
 
 

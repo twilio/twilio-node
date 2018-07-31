@@ -20,27 +20,6 @@ import { StepList } from './engagement/step';
  */
 declare function EngagementList(version: Studio, flowSid: string): EngagementListInstance;
 
-interface EngagementResource {
-  account_sid: string;
-  contact_channel_address: string;
-  contact_sid: string;
-  context: string;
-  date_created: Date;
-  date_updated: Date;
-  flow_sid: string;
-  links: string;
-  sid: string;
-  status: EngagementStatus;
-  url: string;
-}
-
-interface EngagementPayload extends EngagementResource, Page.TwilioResponsePayload {
-}
-
-interface EngagementSolution {
-  flowSid?: string;
-}
-
 interface EngagementListInstance {
   /**
    * @param sid - sid of instance
@@ -105,6 +84,19 @@ interface EngagementListInstance {
 }
 
 /**
+ * Options to pass to create
+ *
+ * @property to - The to
+ * @property from - The from
+ * @property parameters - The parameters
+ */
+interface EngagementListInstanceCreateOptions {
+  from: string;
+  parameters?: string;
+  to: string;
+}
+
+/**
  * Options to pass to each
  *
  * @property limit -
@@ -161,17 +153,25 @@ interface EngagementListInstancePageOptions {
   pageToken?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property to - The to
- * @property from - The from
- * @property parameters - The parameters
- */
-interface EngagementListInstanceCreateOptions {
-  from: string;
-  parameters?: string;
-  to: string;
+interface EngagementPayload extends EngagementResource, Page.TwilioResponsePayload {
+}
+
+interface EngagementResource {
+  account_sid: string;
+  contact_channel_address: string;
+  contact_sid: string;
+  context: string;
+  date_created: Date;
+  date_updated: Date;
+  flow_sid: string;
+  links: string;
+  sid: string;
+  status: EngagementStatus;
+  url: string;
+}
+
+interface EngagementSolution {
+  flowSid?: string;
 }
 
 

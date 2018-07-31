@@ -23,27 +23,17 @@ import { WorkersRealTimeStatisticsList } from './worker/workersRealTimeStatistic
  */
 declare function WorkerList(version: V1, workspaceSid: string): WorkerListInstance;
 
-interface WorkerResource {
-  account_sid: string;
-  activity_name: string;
-  activity_sid: string;
-  attributes: string;
-  available: boolean;
-  date_created: Date;
-  date_status_changed: Date;
-  date_updated: Date;
-  friendly_name: string;
-  links: string;
-  sid: string;
-  url: string;
-  workspace_sid: string;
-}
-
-interface WorkerPayload extends WorkerResource, Page.TwilioResponsePayload {
-}
-
-interface WorkerSolution {
-  workspaceSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property activitySid - The activity_sid
+ * @property attributes - The attributes
+ * @property friendlyName - The friendly_name
+ */
+interface WorkerInstanceUpdateOptions {
+  activitySid?: string;
+  attributes?: string;
+  friendlyName?: string;
 }
 
 interface WorkerListInstance {
@@ -111,29 +101,16 @@ interface WorkerListInstance {
 }
 
 /**
- * Options to pass to update
+ * Options to pass to create
  *
- * @property activitySid - The activity_sid
- * @property attributes - The attributes
- * @property friendlyName - The friendly_name
+ * @property friendlyName - String representing user-friendly name for the Worker.
+ * @property activitySid - A valid Activity describing the worker's initial state.
+ * @property attributes - JSON object describing this worker.
  */
-interface WorkerInstanceUpdateOptions {
+interface WorkerListInstanceCreateOptions {
   activitySid?: string;
   attributes?: string;
-  friendlyName?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property activitySid - The activity_sid
- * @property attributes - The attributes
- * @property friendlyName - The friendly_name
- */
-interface WorkerInstanceUpdateOptions {
-  activitySid?: string;
-  attributes?: string;
-  friendlyName?: string;
+  friendlyName: string;
 }
 
 /**
@@ -235,17 +212,27 @@ interface WorkerListInstancePageOptions {
   taskQueueSid?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property friendlyName - String representing user-friendly name for the Worker.
- * @property activitySid - A valid Activity describing the worker's initial state.
- * @property attributes - JSON object describing this worker.
- */
-interface WorkerListInstanceCreateOptions {
-  activitySid?: string;
-  attributes?: string;
-  friendlyName: string;
+interface WorkerPayload extends WorkerResource, Page.TwilioResponsePayload {
+}
+
+interface WorkerResource {
+  account_sid: string;
+  activity_name: string;
+  activity_sid: string;
+  attributes: string;
+  available: boolean;
+  date_created: Date;
+  date_status_changed: Date;
+  date_updated: Date;
+  friendly_name: string;
+  links: string;
+  sid: string;
+  url: string;
+  workspace_sid: string;
+}
+
+interface WorkerSolution {
+  workspaceSid?: string;
 }
 
 

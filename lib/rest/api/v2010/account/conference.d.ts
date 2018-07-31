@@ -21,24 +21,17 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function ConferenceList(version: V2010, accountSid: string): ConferenceListInstance;
 
-interface ConferenceResource {
-  account_sid: string;
-  api_version: string;
-  date_created: Date;
-  date_updated: Date;
-  friendly_name: string;
-  region: string;
-  sid: string;
-  status: ConferenceStatus;
-  subresource_uris: string;
-  uri: string;
-}
-
-interface ConferencePayload extends ConferenceResource, Page.TwilioResponsePayload {
-}
-
-interface ConferenceSolution {
-  accountSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property status - Specifying completed will end the conference and kick all participants
+ * @property announceUrl - The 'AnnounceUrl' attribute lets you specify a URL for announcing something into a conference.
+ * @property announceMethod - Specify GET or POST, defaults to POST
+ */
+interface ConferenceInstanceUpdateOptions {
+  announceMethod?: string;
+  announceUrl?: string;
+  status?: conference.update_status;
 }
 
 interface ConferenceListInstance {
@@ -95,32 +88,6 @@ interface ConferenceListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: ConferenceListInstancePageOptions, callback?: (error: Error | null, items: ConferencePage) => any): Promise<ConferencePage>;
-}
-
-/**
- * Options to pass to update
- *
- * @property status - Specifying completed will end the conference and kick all participants
- * @property announceUrl - The 'AnnounceUrl' attribute lets you specify a URL for announcing something into a conference.
- * @property announceMethod - Specify GET or POST, defaults to POST
- */
-interface ConferenceInstanceUpdateOptions {
-  announceMethod?: string;
-  announceUrl?: string;
-  status?: conference.update_status;
-}
-
-/**
- * Options to pass to update
- *
- * @property status - Specifying completed will end the conference and kick all participants
- * @property announceUrl - The 'AnnounceUrl' attribute lets you specify a URL for announcing something into a conference.
- * @property announceMethod - Specify GET or POST, defaults to POST
- */
-interface ConferenceInstanceUpdateOptions {
-  announceMethod?: string;
-  announceUrl?: string;
-  status?: conference.update_status;
 }
 
 /**
@@ -226,6 +193,26 @@ interface ConferenceListInstancePageOptions {
   pageSize?: number;
   pageToken?: string;
   status?: conference.status;
+}
+
+interface ConferencePayload extends ConferenceResource, Page.TwilioResponsePayload {
+}
+
+interface ConferenceResource {
+  account_sid: string;
+  api_version: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  region: string;
+  sid: string;
+  status: ConferenceStatus;
+  subresource_uris: string;
+  uri: string;
+}
+
+interface ConferenceSolution {
+  accountSid?: string;
 }
 
 

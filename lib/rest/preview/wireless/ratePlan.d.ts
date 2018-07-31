@@ -19,27 +19,15 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function RatePlanList(version: Wireless): RatePlanListInstance;
 
-interface RatePlanResource {
-  account_sid: string;
-  data_enabled: boolean;
-  data_limit: number;
-  data_metering: string;
-  date_created: Date;
-  date_updated: Date;
-  friendly_name: string;
-  international_roaming: string;
-  messaging_enabled: boolean;
-  national_roaming_enabled: boolean;
-  sid: string;
-  unique_name: string;
-  url: string;
-  voice_enabled: boolean;
-}
-
-interface RatePlanPayload extends RatePlanResource, Page.TwilioResponsePayload {
-}
-
-interface RatePlanSolution {
+/**
+ * Options to pass to update
+ *
+ * @property uniqueName - The unique_name
+ * @property friendlyName - The friendly_name
+ */
+interface RatePlanInstanceUpdateOptions {
+  friendlyName?: string;
+  uniqueName?: string;
 }
 
 interface RatePlanListInstance {
@@ -106,25 +94,30 @@ interface RatePlanListInstance {
 }
 
 /**
- * Options to pass to update
+ * Options to pass to create
  *
  * @property uniqueName - The unique_name
  * @property friendlyName - The friendly_name
+ * @property dataEnabled - The data_enabled
+ * @property dataLimit - The data_limit
+ * @property dataMetering - The data_metering
+ * @property messagingEnabled - The messaging_enabled
+ * @property voiceEnabled - The voice_enabled
+ * @property commandsEnabled - The commands_enabled
+ * @property nationalRoamingEnabled - The national_roaming_enabled
+ * @property internationalRoaming - The international_roaming
  */
-interface RatePlanInstanceUpdateOptions {
+interface RatePlanListInstanceCreateOptions {
+  commandsEnabled?: boolean;
+  dataEnabled?: boolean;
+  dataLimit?: number;
+  dataMetering?: string;
   friendlyName?: string;
+  internationalRoaming?: string|list;
+  messagingEnabled?: boolean;
+  nationalRoamingEnabled?: boolean;
   uniqueName?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property uniqueName - The unique_name
- * @property friendlyName - The friendly_name
- */
-interface RatePlanInstanceUpdateOptions {
-  friendlyName?: string;
-  uniqueName?: string;
+  voiceEnabled?: boolean;
 }
 
 /**
@@ -184,31 +177,27 @@ interface RatePlanListInstancePageOptions {
   pageToken?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property uniqueName - The unique_name
- * @property friendlyName - The friendly_name
- * @property dataEnabled - The data_enabled
- * @property dataLimit - The data_limit
- * @property dataMetering - The data_metering
- * @property messagingEnabled - The messaging_enabled
- * @property voiceEnabled - The voice_enabled
- * @property commandsEnabled - The commands_enabled
- * @property nationalRoamingEnabled - The national_roaming_enabled
- * @property internationalRoaming - The international_roaming
- */
-interface RatePlanListInstanceCreateOptions {
-  commandsEnabled?: boolean;
-  dataEnabled?: boolean;
-  dataLimit?: number;
-  dataMetering?: string;
-  friendlyName?: string;
-  internationalRoaming?: string|list;
-  messagingEnabled?: boolean;
-  nationalRoamingEnabled?: boolean;
-  uniqueName?: string;
-  voiceEnabled?: boolean;
+interface RatePlanPayload extends RatePlanResource, Page.TwilioResponsePayload {
+}
+
+interface RatePlanResource {
+  account_sid: string;
+  data_enabled: boolean;
+  data_limit: number;
+  data_metering: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  international_roaming: string;
+  messaging_enabled: boolean;
+  national_roaming_enabled: boolean;
+  sid: string;
+  unique_name: string;
+  url: string;
+  voice_enabled: boolean;
+}
+
+interface RatePlanSolution {
 }
 
 

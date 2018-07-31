@@ -20,26 +20,6 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function SubscribedTrackList(version: V1, roomSid: string, subscriberSid: string): SubscribedTrackListInstance;
 
-interface SubscribedTrackResource {
-  date_created: Date;
-  date_updated: Date;
-  enabled: boolean;
-  kind: SubscribedTrackKind;
-  name: string;
-  publisher_sid: string;
-  room_sid: string;
-  sid: string;
-  subscriber_sid: string;
-}
-
-interface SubscribedTrackPayload extends SubscribedTrackResource, Page.TwilioResponsePayload {
-}
-
-interface SubscribedTrackSolution {
-  roomSid?: string;
-  subscriberSid?: string;
-}
-
 interface SubscribedTrackListInstance {
   /**
    * Streams SubscribedTrackInstance records from the API.
@@ -193,6 +173,26 @@ interface SubscribedTrackListInstanceUpdateOptions {
   publisher?: string;
   status?: subscribed_track.status;
   track?: string;
+}
+
+interface SubscribedTrackPayload extends SubscribedTrackResource, Page.TwilioResponsePayload {
+}
+
+interface SubscribedTrackResource {
+  date_created: Date;
+  date_updated: Date;
+  enabled: boolean;
+  kind: SubscribedTrackKind;
+  name: string;
+  publisher_sid: string;
+  room_sid: string;
+  sid: string;
+  subscriber_sid: string;
+}
+
+interface SubscribedTrackSolution {
+  roomSid?: string;
+  subscriberSid?: string;
 }
 
 

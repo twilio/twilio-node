@@ -20,30 +20,6 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function VoipList(version: V2010, accountSid: string, countryCode: string): VoipListInstance;
 
-interface VoipResource {
-  address_requirements: string;
-  beta: boolean;
-  capabilities: string;
-  friendly_name: string;
-  iso_country: string;
-  lata: string;
-  latitude: number;
-  locality: string;
-  longitude: number;
-  phone_number: string;
-  postal_code: string;
-  rate_center: string;
-  region: string;
-}
-
-interface VoipPayload extends VoipResource, Page.TwilioResponsePayload {
-}
-
-interface VoipSolution {
-  accountSid?: string;
-  countryCode?: string;
-}
-
 interface VoipListInstance {
   /**
    * Streams VoipInstance records from the API.
@@ -253,6 +229,30 @@ interface VoipListInstancePageOptions {
   pageToken?: string;
   smsEnabled?: boolean;
   voiceEnabled?: boolean;
+}
+
+interface VoipPayload extends VoipResource, Page.TwilioResponsePayload {
+}
+
+interface VoipResource {
+  address_requirements: string;
+  beta: boolean;
+  capabilities: string;
+  friendly_name: string;
+  iso_country: string;
+  lata: string;
+  latitude: number;
+  locality: string;
+  longitude: number;
+  phone_number: string;
+  postal_code: string;
+  rate_center: string;
+  region: string;
+}
+
+interface VoipSolution {
+  accountSid?: string;
+  countryCode?: string;
 }
 
 

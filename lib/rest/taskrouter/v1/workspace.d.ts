@@ -28,28 +28,25 @@ import { WorkspaceStatisticsList } from './workspace/workspaceStatistics';
  */
 declare function WorkspaceList(version: V1): WorkspaceListInstance;
 
-interface WorkspaceResource {
-  account_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  default_activity_name: string;
-  default_activity_sid: string;
-  event_callback_url: string;
-  events_filter: string;
-  friendly_name: string;
-  links: string;
-  multi_task_enabled: boolean;
-  prioritize_queue_order: WorkspaceQueueOrder;
-  sid: string;
-  timeout_activity_name: string;
-  timeout_activity_sid: string;
-  url: string;
-}
-
-interface WorkspacePayload extends WorkspaceResource, Page.TwilioResponsePayload {
-}
-
-interface WorkspaceSolution {
+/**
+ * Options to pass to update
+ *
+ * @property defaultActivitySid - The ID of the Activity that will be used when new Workers are created in this Workspace.
+ * @property eventCallbackUrl - The Workspace will publish events to this URL.
+ * @property eventsFilter - Use this parameter to receive webhooks on EventCallbackUrl for specific events on a workspace.
+ * @property friendlyName - Human readable description of this workspace
+ * @property multiTaskEnabled - Enable or Disable Multitasking by passing either true or False with the POST request.
+ * @property timeoutActivitySid - The ID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
+ * @property prioritizeQueueOrder - Use this parameter to configure whether to prioritize LIFO or FIFO when workers are receiving Tasks from combination of LIFO and FIFO TaskQueues.
+ */
+interface WorkspaceInstanceUpdateOptions {
+  defaultActivitySid?: string;
+  eventCallbackUrl?: string;
+  eventsFilter?: string;
+  friendlyName?: string;
+  multiTaskEnabled?: boolean;
+  prioritizeQueueOrder?: workspace.queue_order;
+  timeoutActivitySid?: string;
 }
 
 interface WorkspaceListInstance {
@@ -116,45 +113,22 @@ interface WorkspaceListInstance {
 }
 
 /**
- * Options to pass to update
+ * Options to pass to create
  *
- * @property defaultActivitySid - The ID of the Activity that will be used when new Workers are created in this Workspace.
- * @property eventCallbackUrl - The Workspace will publish events to this URL.
- * @property eventsFilter - Use this parameter to receive webhooks on EventCallbackUrl for specific events on a workspace.
  * @property friendlyName - Human readable description of this workspace
- * @property multiTaskEnabled - Enable or Disable Multitasking by passing either true or False with the POST request.
- * @property timeoutActivitySid - The ID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
+ * @property eventCallbackUrl - If provided, the Workspace will publish events to this URL.
+ * @property eventsFilter - Use this parameter to receive webhooks on EventCallbackUrl for specific events on a workspace.
+ * @property multiTaskEnabled - Multi tasking allows workers to handle multiple tasks simultaneously.
+ * @property template - One of the available template names.
  * @property prioritizeQueueOrder - Use this parameter to configure whether to prioritize LIFO or FIFO when workers are receiving Tasks from combination of LIFO and FIFO TaskQueues.
  */
-interface WorkspaceInstanceUpdateOptions {
-  defaultActivitySid?: string;
+interface WorkspaceListInstanceCreateOptions {
   eventCallbackUrl?: string;
   eventsFilter?: string;
-  friendlyName?: string;
+  friendlyName: string;
   multiTaskEnabled?: boolean;
   prioritizeQueueOrder?: workspace.queue_order;
-  timeoutActivitySid?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property defaultActivitySid - The ID of the Activity that will be used when new Workers are created in this Workspace.
- * @property eventCallbackUrl - The Workspace will publish events to this URL.
- * @property eventsFilter - Use this parameter to receive webhooks on EventCallbackUrl for specific events on a workspace.
- * @property friendlyName - Human readable description of this workspace
- * @property multiTaskEnabled - Enable or Disable Multitasking by passing either true or False with the POST request.
- * @property timeoutActivitySid - The ID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
- * @property prioritizeQueueOrder - Use this parameter to configure whether to prioritize LIFO or FIFO when workers are receiving Tasks from combination of LIFO and FIFO TaskQueues.
- */
-interface WorkspaceInstanceUpdateOptions {
-  defaultActivitySid?: string;
-  eventCallbackUrl?: string;
-  eventsFilter?: string;
-  friendlyName?: string;
-  multiTaskEnabled?: boolean;
-  prioritizeQueueOrder?: workspace.queue_order;
-  timeoutActivitySid?: string;
+  template?: string;
 }
 
 /**
@@ -220,23 +194,28 @@ interface WorkspaceListInstancePageOptions {
   pageToken?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property friendlyName - Human readable description of this workspace
- * @property eventCallbackUrl - If provided, the Workspace will publish events to this URL.
- * @property eventsFilter - Use this parameter to receive webhooks on EventCallbackUrl for specific events on a workspace.
- * @property multiTaskEnabled - Multi tasking allows workers to handle multiple tasks simultaneously.
- * @property template - One of the available template names.
- * @property prioritizeQueueOrder - Use this parameter to configure whether to prioritize LIFO or FIFO when workers are receiving Tasks from combination of LIFO and FIFO TaskQueues.
- */
-interface WorkspaceListInstanceCreateOptions {
-  eventCallbackUrl?: string;
-  eventsFilter?: string;
-  friendlyName: string;
-  multiTaskEnabled?: boolean;
-  prioritizeQueueOrder?: workspace.queue_order;
-  template?: string;
+interface WorkspacePayload extends WorkspaceResource, Page.TwilioResponsePayload {
+}
+
+interface WorkspaceResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  default_activity_name: string;
+  default_activity_sid: string;
+  event_callback_url: string;
+  events_filter: string;
+  friendly_name: string;
+  links: string;
+  multi_task_enabled: boolean;
+  prioritize_queue_order: WorkspaceQueueOrder;
+  sid: string;
+  timeout_activity_name: string;
+  timeout_activity_sid: string;
+  url: string;
+}
+
+interface WorkspaceSolution {
 }
 
 

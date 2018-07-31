@@ -19,33 +19,6 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function NotificationList(version: V2010, accountSid: string): NotificationListInstance;
 
-interface NotificationResource {
-  account_sid: string;
-  api_version: string;
-  call_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  error_code: string;
-  log: string;
-  message_date: Date;
-  message_text: string;
-  more_info: string;
-  request_method: string;
-  request_url: string;
-  request_variables?: string;
-  response_body?: string;
-  response_headers?: string;
-  sid: string;
-  uri: string;
-}
-
-interface NotificationPayload extends NotificationResource, Page.TwilioResponsePayload {
-}
-
-interface NotificationSolution {
-  accountSid?: string;
-}
-
 interface NotificationListInstance {
   /**
    * @param sid - sid of instance
@@ -181,6 +154,33 @@ interface NotificationListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface NotificationPayload extends NotificationResource, Page.TwilioResponsePayload {
+}
+
+interface NotificationResource {
+  account_sid: string;
+  api_version: string;
+  call_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  error_code: string;
+  log: string;
+  message_date: Date;
+  message_text: string;
+  more_info: string;
+  request_method: string;
+  request_url: string;
+  request_variables?: string;
+  response_body?: string;
+  response_headers?: string;
+  sid: string;
+  uri: string;
+}
+
+interface NotificationSolution {
+  accountSid?: string;
 }
 
 

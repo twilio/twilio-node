@@ -15,18 +15,18 @@ import V1 = require('../V1');
  */
 declare function CredentialList(version: V1): CredentialListInstance;
 
-interface CredentialResource {
+interface CredentialListInstance {
+  aws?: object;
+  publicKey?: object;
 }
 
 interface CredentialPayload extends CredentialResource, Page.TwilioResponsePayload {
 }
 
-interface CredentialSolution {
+interface CredentialResource {
 }
 
-interface CredentialListInstance {
-  aws?: object;
-  publicKey?: object;
+interface CredentialSolution {
 }
 
 export { CredentialList, CredentialListInstance, CredentialPayload, CredentialResource, CredentialSolution }

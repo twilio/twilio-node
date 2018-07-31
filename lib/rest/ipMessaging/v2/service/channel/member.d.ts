@@ -20,26 +20,21 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function MemberList(version: V2, serviceSid: string, channelSid: string): MemberListInstance;
 
-interface MemberResource {
-  account_sid: string;
-  channel_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  identity: string;
-  last_consumed_message_index: number;
-  last_consumption_timestamp: Date;
-  role_sid: string;
-  service_sid: string;
-  sid: string;
-  url: string;
-}
-
-interface MemberPayload extends MemberResource, Page.TwilioResponsePayload {
-}
-
-interface MemberSolution {
-  channelSid?: string;
-  serviceSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property roleSid - The role to be assigned to this member.
+ * @property lastConsumedMessageIndex - Field used to specify the last consumed Message index for the Channel for this Member.
+ * @property lastConsumptionTimestamp - ISO8601 time indicating the last datetime the Member consumed a Message in the Channel.
+ * @property dateCreated - The ISO8601 time specifying the datetime the Members should be set as being created.
+ * @property dateUpdated - The ISO8601 time specifying the datetime the Member should be set as having been last updated.
+ */
+interface MemberInstanceUpdateOptions {
+  dateCreated?: Date;
+  dateUpdated?: Date;
+  lastConsumedMessageIndex?: number;
+  lastConsumptionTimestamp?: Date;
+  roleSid?: string;
 }
 
 interface MemberListInstance {
@@ -103,40 +98,6 @@ interface MemberListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: MemberListInstancePageOptions, callback?: (error: Error | null, items: MemberPage) => any): Promise<MemberPage>;
-}
-
-/**
- * Options to pass to update
- *
- * @property roleSid - The role to be assigned to this member.
- * @property lastConsumedMessageIndex - Field used to specify the last consumed Message index for the Channel for this Member.
- * @property lastConsumptionTimestamp - ISO8601 time indicating the last datetime the Member consumed a Message in the Channel.
- * @property dateCreated - The ISO8601 time specifying the datetime the Members should be set as being created.
- * @property dateUpdated - The ISO8601 time specifying the datetime the Member should be set as having been last updated.
- */
-interface MemberInstanceUpdateOptions {
-  dateCreated?: Date;
-  dateUpdated?: Date;
-  lastConsumedMessageIndex?: number;
-  lastConsumptionTimestamp?: Date;
-  roleSid?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property roleSid - The role to be assigned to this member.
- * @property lastConsumedMessageIndex - Field used to specify the last consumed Message index for the Channel for this Member.
- * @property lastConsumptionTimestamp - ISO8601 time indicating the last datetime the Member consumed a Message in the Channel.
- * @property dateCreated - The ISO8601 time specifying the datetime the Members should be set as being created.
- * @property dateUpdated - The ISO8601 time specifying the datetime the Member should be set as having been last updated.
- */
-interface MemberInstanceUpdateOptions {
-  dateCreated?: Date;
-  dateUpdated?: Date;
-  lastConsumedMessageIndex?: number;
-  lastConsumptionTimestamp?: Date;
-  roleSid?: string;
 }
 
 /**
@@ -219,6 +180,28 @@ interface MemberListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface MemberPayload extends MemberResource, Page.TwilioResponsePayload {
+}
+
+interface MemberResource {
+  account_sid: string;
+  channel_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  identity: string;
+  last_consumed_message_index: number;
+  last_consumption_timestamp: Date;
+  role_sid: string;
+  service_sid: string;
+  sid: string;
+  url: string;
+}
+
+interface MemberSolution {
+  channelSid?: string;
+  serviceSid?: string;
 }
 
 

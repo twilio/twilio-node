@@ -18,21 +18,6 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function ValidationRequestList(version: V2010, accountSid: string): ValidationRequestListInstance;
 
-interface ValidationRequestResource {
-  account_sid: string;
-  call_sid: string;
-  friendly_name: string;
-  phone_number: string;
-  validation_code: number;
-}
-
-interface ValidationRequestPayload extends ValidationRequestResource, Page.TwilioResponsePayload {
-}
-
-interface ValidationRequestSolution {
-  accountSid?: string;
-}
-
 interface ValidationRequestListInstance {
   /**
    * create a ValidationRequestInstance
@@ -60,6 +45,21 @@ interface ValidationRequestListInstanceCreateOptions {
   phoneNumber: string;
   statusCallback?: string;
   statusCallbackMethod?: string;
+}
+
+interface ValidationRequestPayload extends ValidationRequestResource, Page.TwilioResponsePayload {
+}
+
+interface ValidationRequestResource {
+  account_sid: string;
+  call_sid: string;
+  friendly_name: string;
+  phone_number: string;
+  validation_code: number;
+}
+
+interface ValidationRequestSolution {
+  accountSid?: string;
 }
 
 

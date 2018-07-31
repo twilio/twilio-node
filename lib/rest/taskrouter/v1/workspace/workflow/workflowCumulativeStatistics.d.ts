@@ -20,6 +20,37 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function WorkflowCumulativeStatisticsList(version: V1, workspaceSid: string, workflowSid: string): WorkflowCumulativeStatisticsListInstance;
 
+/**
+ * Options to pass to fetch
+ *
+ * @property endDate - Filter cumulative statistics by an end date.
+ * @property minutes - Filter cumulative statistics by up to 'x' minutes in the past.
+ * @property startDate - Filter cumulative statistics by a start date.
+ * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
+ * @property splitByWaitTime - A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
+ */
+interface WorkflowCumulativeStatisticsInstanceFetchOptions {
+  endDate?: Date;
+  minutes?: number;
+  splitByWaitTime?: string;
+  startDate?: Date;
+  taskChannel?: string;
+}
+
+interface WorkflowCumulativeStatisticsListInstance {
+  /**
+   * @param sid - sid of instance
+   */
+  (sid: string): WorkflowCumulativeStatisticsContext;
+  /**
+   * Constructs a workflow_cumulative_statistics
+   */
+  get(): WorkflowCumulativeStatisticsContext;
+}
+
+interface WorkflowCumulativeStatisticsPayload extends WorkflowCumulativeStatisticsResource, Page.TwilioResponsePayload {
+}
+
 interface WorkflowCumulativeStatisticsResource {
   account_sid: string;
   avg_task_acceptance_time: number;
@@ -45,57 +76,9 @@ interface WorkflowCumulativeStatisticsResource {
   workspace_sid: string;
 }
 
-interface WorkflowCumulativeStatisticsPayload extends WorkflowCumulativeStatisticsResource, Page.TwilioResponsePayload {
-}
-
 interface WorkflowCumulativeStatisticsSolution {
   workflowSid?: string;
   workspaceSid?: string;
-}
-
-interface WorkflowCumulativeStatisticsListInstance {
-  /**
-   * @param sid - sid of instance
-   */
-  (sid: string): WorkflowCumulativeStatisticsContext;
-  /**
-   * Constructs a workflow_cumulative_statistics
-   */
-  get(): WorkflowCumulativeStatisticsContext;
-}
-
-/**
- * Options to pass to fetch
- *
- * @property endDate - Filter cumulative statistics by an end date.
- * @property minutes - Filter cumulative statistics by up to 'x' minutes in the past.
- * @property startDate - Filter cumulative statistics by a start date.
- * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
- * @property splitByWaitTime - A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
- */
-interface WorkflowCumulativeStatisticsInstanceFetchOptions {
-  endDate?: Date;
-  minutes?: number;
-  splitByWaitTime?: string;
-  startDate?: Date;
-  taskChannel?: string;
-}
-
-/**
- * Options to pass to fetch
- *
- * @property endDate - Filter cumulative statistics by an end date.
- * @property minutes - Filter cumulative statistics by up to 'x' minutes in the past.
- * @property startDate - Filter cumulative statistics by a start date.
- * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
- * @property splitByWaitTime - A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
- */
-interface WorkflowCumulativeStatisticsInstanceFetchOptions {
-  endDate?: Date;
-  minutes?: number;
-  splitByWaitTime?: string;
-  startDate?: Date;
-  taskChannel?: string;
 }
 
 

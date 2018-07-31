@@ -20,30 +20,6 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function MobileList(version: V2010, accountSid: string, countryCode: string): MobileListInstance;
 
-interface MobileResource {
-  address_requirements: string;
-  beta: boolean;
-  capabilities: string;
-  friendly_name: string;
-  iso_country: string;
-  lata: string;
-  latitude: number;
-  locality: string;
-  longitude: number;
-  phone_number: string;
-  postal_code: string;
-  rate_center: string;
-  region: string;
-}
-
-interface MobilePayload extends MobileResource, Page.TwilioResponsePayload {
-}
-
-interface MobileSolution {
-  accountSid?: string;
-  countryCode?: string;
-}
-
 interface MobileListInstance {
   /**
    * Streams MobileInstance records from the API.
@@ -253,6 +229,30 @@ interface MobileListInstancePageOptions {
   pageToken?: string;
   smsEnabled?: boolean;
   voiceEnabled?: boolean;
+}
+
+interface MobilePayload extends MobileResource, Page.TwilioResponsePayload {
+}
+
+interface MobileResource {
+  address_requirements: string;
+  beta: boolean;
+  capabilities: string;
+  friendly_name: string;
+  iso_country: string;
+  lata: string;
+  latitude: number;
+  locality: string;
+  longitude: number;
+  phone_number: string;
+  postal_code: string;
+  rate_center: string;
+  region: string;
+}
+
+interface MobileSolution {
+  accountSid?: string;
+  countryCode?: string;
 }
 
 

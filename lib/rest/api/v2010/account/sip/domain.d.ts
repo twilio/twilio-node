@@ -21,31 +21,29 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function DomainList(version: V2010, accountSid: string): DomainListInstance;
 
-interface DomainResource {
-  account_sid: string;
-  api_version: string;
-  auth_type: string;
-  date_created: Date;
-  date_updated: Date;
-  domain_name: string;
-  friendly_name: string;
-  sid: string;
-  sip_registration: boolean;
-  subresource_uris: string;
-  uri: string;
-  voice_fallback_method: string;
-  voice_fallback_url: string;
-  voice_method: string;
-  voice_status_callback_method: string;
-  voice_status_callback_url: string;
-  voice_url: string;
-}
-
-interface DomainPayload extends DomainResource, Page.TwilioResponsePayload {
-}
-
-interface DomainSolution {
-  accountSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property authType - The auth_type
+ * @property friendlyName - A user-specified, human-readable name for the trigger.
+ * @property voiceFallbackMethod - The voice_fallback_method
+ * @property voiceFallbackUrl - The voice_fallback_url
+ * @property voiceMethod - HTTP method to use with voice_url
+ * @property voiceStatusCallbackMethod - The voice_status_callback_method
+ * @property voiceStatusCallbackUrl - The voice_status_callback_url
+ * @property voiceUrl - The voice_url
+ * @property sipRegistration - The sip_registration
+ */
+interface DomainInstanceUpdateOptions {
+  authType?: string;
+  friendlyName?: string;
+  sipRegistration?: boolean;
+  voiceFallbackMethod?: string;
+  voiceFallbackUrl?: string;
+  voiceMethod?: string;
+  voiceStatusCallbackMethod?: string;
+  voiceStatusCallbackUrl?: string;
+  voiceUrl?: string;
 }
 
 interface DomainListInstance {
@@ -112,45 +110,22 @@ interface DomainListInstance {
 }
 
 /**
- * Options to pass to update
+ * Options to pass to create
  *
- * @property authType - The auth_type
+ * @property domainName - The unique address on Twilio to route SIP traffic
  * @property friendlyName - A user-specified, human-readable name for the trigger.
- * @property voiceFallbackMethod - The voice_fallback_method
- * @property voiceFallbackUrl - The voice_fallback_url
+ * @property authType - The types of authentication mapped to the domain
+ * @property voiceUrl - URL Twilio will request when receiving a call
  * @property voiceMethod - HTTP method to use with voice_url
- * @property voiceStatusCallbackMethod - The voice_status_callback_method
- * @property voiceStatusCallbackUrl - The voice_status_callback_url
- * @property voiceUrl - The voice_url
+ * @property voiceFallbackUrl - URL Twilio will request if an error occurs in executing TwiML
+ * @property voiceFallbackMethod - HTTP method used with voice_fallback_url
+ * @property voiceStatusCallbackUrl - URL that Twilio will request with status updates
+ * @property voiceStatusCallbackMethod - The HTTP method Twilio will use to make requests to the StatusCallback URL.
  * @property sipRegistration - The sip_registration
  */
-interface DomainInstanceUpdateOptions {
+interface DomainListInstanceCreateOptions {
   authType?: string;
-  friendlyName?: string;
-  sipRegistration?: boolean;
-  voiceFallbackMethod?: string;
-  voiceFallbackUrl?: string;
-  voiceMethod?: string;
-  voiceStatusCallbackMethod?: string;
-  voiceStatusCallbackUrl?: string;
-  voiceUrl?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property authType - The auth_type
- * @property friendlyName - A user-specified, human-readable name for the trigger.
- * @property voiceFallbackMethod - The voice_fallback_method
- * @property voiceFallbackUrl - The voice_fallback_url
- * @property voiceMethod - HTTP method to use with voice_url
- * @property voiceStatusCallbackMethod - The voice_status_callback_method
- * @property voiceStatusCallbackUrl - The voice_status_callback_url
- * @property voiceUrl - The voice_url
- * @property sipRegistration - The sip_registration
- */
-interface DomainInstanceUpdateOptions {
-  authType?: string;
+  domainName: string;
   friendlyName?: string;
   sipRegistration?: boolean;
   voiceFallbackMethod?: string;
@@ -218,31 +193,31 @@ interface DomainListInstancePageOptions {
   pageToken?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property domainName - The unique address on Twilio to route SIP traffic
- * @property friendlyName - A user-specified, human-readable name for the trigger.
- * @property authType - The types of authentication mapped to the domain
- * @property voiceUrl - URL Twilio will request when receiving a call
- * @property voiceMethod - HTTP method to use with voice_url
- * @property voiceFallbackUrl - URL Twilio will request if an error occurs in executing TwiML
- * @property voiceFallbackMethod - HTTP method used with voice_fallback_url
- * @property voiceStatusCallbackUrl - URL that Twilio will request with status updates
- * @property voiceStatusCallbackMethod - The HTTP method Twilio will use to make requests to the StatusCallback URL.
- * @property sipRegistration - The sip_registration
- */
-interface DomainListInstanceCreateOptions {
-  authType?: string;
-  domainName: string;
-  friendlyName?: string;
-  sipRegistration?: boolean;
-  voiceFallbackMethod?: string;
-  voiceFallbackUrl?: string;
-  voiceMethod?: string;
-  voiceStatusCallbackMethod?: string;
-  voiceStatusCallbackUrl?: string;
-  voiceUrl?: string;
+interface DomainPayload extends DomainResource, Page.TwilioResponsePayload {
+}
+
+interface DomainResource {
+  account_sid: string;
+  api_version: string;
+  auth_type: string;
+  date_created: Date;
+  date_updated: Date;
+  domain_name: string;
+  friendly_name: string;
+  sid: string;
+  sip_registration: boolean;
+  subresource_uris: string;
+  uri: string;
+  voice_fallback_method: string;
+  voice_fallback_url: string;
+  voice_method: string;
+  voice_status_callback_method: string;
+  voice_status_callback_url: string;
+  voice_url: string;
+}
+
+interface DomainSolution {
+  accountSid?: string;
 }
 
 

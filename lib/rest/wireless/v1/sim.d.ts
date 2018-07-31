@@ -19,36 +19,43 @@ import { UsageRecordList } from './sim/usageRecord';
  */
 declare function SimList(version: V1): SimListInstance;
 
-interface SimResource {
-  account_sid: string;
-  commands_callback_method: string;
-  commands_callback_url: string;
-  date_created: Date;
-  date_updated: Date;
-  e_id: string;
-  friendly_name: string;
-  iccid: string;
-  ip_address: string;
-  links: string;
-  rate_plan_sid: string;
-  sid: string;
-  sms_fallback_method: string;
-  sms_fallback_url: string;
-  sms_method: string;
-  sms_url: string;
-  status: SimStatus;
-  unique_name: string;
-  url: string;
-  voice_fallback_method: string;
-  voice_fallback_url: string;
-  voice_method: string;
-  voice_url: string;
-}
-
-interface SimPayload extends SimResource, Page.TwilioResponsePayload {
-}
-
-interface SimSolution {
+/**
+ * Options to pass to update
+ *
+ * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the Sid.
+ * @property callbackMethod - The HTTP method Twilio will use when making a request to the callback URL.
+ * @property callbackUrl - Twilio will make a request to this URL when the Sim has finished updating.
+ * @property friendlyName - A user-provided string that identifies this resource.
+ * @property ratePlan - The Sid or UniqueName of the RatePlan that this Sim should use.
+ * @property status - A string representing the status of the Sim.
+ * @property commandsCallbackMethod - A string representing the HTTP method to use when making a request to CommandsCallbackUrl.
+ * @property commandsCallbackUrl - The URL that will receive a webhook when this Sim originates a Command.
+ * @property smsFallbackMethod - The HTTP method Twilio will use when requesting the sms_fallback_url.
+ * @property smsFallbackUrl - The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by sms_url.
+ * @property smsMethod - The HTTP method Twilio will use when requesting the above Url.
+ * @property smsUrl - The URL Twilio will request when the SIM-connected device sends an SMS message that is not a Command.
+ * @property voiceFallbackMethod - The HTTP method Twilio will use when requesting the voice_fallback_url.
+ * @property voiceFallbackUrl - The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by voice_url.
+ * @property voiceMethod - The HTTP method Twilio will use when requesting the above Url.
+ * @property voiceUrl - The URL Twilio will request when the SIM-connected device makes a call.
+ */
+interface SimInstanceUpdateOptions {
+  callbackMethod?: string;
+  callbackUrl?: string;
+  commandsCallbackMethod?: string;
+  commandsCallbackUrl?: string;
+  friendlyName?: string;
+  ratePlan?: string;
+  smsFallbackMethod?: string;
+  smsFallbackUrl?: string;
+  smsMethod?: string;
+  smsUrl?: string;
+  status?: sim.status;
+  uniqueName?: string;
+  voiceFallbackMethod?: string;
+  voiceFallbackUrl?: string;
+  voiceMethod?: string;
+  voiceUrl?: string;
 }
 
 interface SimListInstance {
@@ -105,84 +112,6 @@ interface SimListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: SimListInstancePageOptions, callback?: (error: Error | null, items: SimPage) => any): Promise<SimPage>;
-}
-
-/**
- * Options to pass to update
- *
- * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the Sid.
- * @property callbackMethod - The HTTP method Twilio will use when making a request to the callback URL.
- * @property callbackUrl - Twilio will make a request to this URL when the Sim has finished updating.
- * @property friendlyName - A user-provided string that identifies this resource.
- * @property ratePlan - The Sid or UniqueName of the RatePlan that this Sim should use.
- * @property status - A string representing the status of the Sim.
- * @property commandsCallbackMethod - A string representing the HTTP method to use when making a request to CommandsCallbackUrl.
- * @property commandsCallbackUrl - The URL that will receive a webhook when this Sim originates a Command.
- * @property smsFallbackMethod - The HTTP method Twilio will use when requesting the sms_fallback_url.
- * @property smsFallbackUrl - The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by sms_url.
- * @property smsMethod - The HTTP method Twilio will use when requesting the above Url.
- * @property smsUrl - The URL Twilio will request when the SIM-connected device sends an SMS message that is not a Command.
- * @property voiceFallbackMethod - The HTTP method Twilio will use when requesting the voice_fallback_url.
- * @property voiceFallbackUrl - The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by voice_url.
- * @property voiceMethod - The HTTP method Twilio will use when requesting the above Url.
- * @property voiceUrl - The URL Twilio will request when the SIM-connected device makes a call.
- */
-interface SimInstanceUpdateOptions {
-  callbackMethod?: string;
-  callbackUrl?: string;
-  commandsCallbackMethod?: string;
-  commandsCallbackUrl?: string;
-  friendlyName?: string;
-  ratePlan?: string;
-  smsFallbackMethod?: string;
-  smsFallbackUrl?: string;
-  smsMethod?: string;
-  smsUrl?: string;
-  status?: sim.status;
-  uniqueName?: string;
-  voiceFallbackMethod?: string;
-  voiceFallbackUrl?: string;
-  voiceMethod?: string;
-  voiceUrl?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the Sid.
- * @property callbackMethod - The HTTP method Twilio will use when making a request to the callback URL.
- * @property callbackUrl - Twilio will make a request to this URL when the Sim has finished updating.
- * @property friendlyName - A user-provided string that identifies this resource.
- * @property ratePlan - The Sid or UniqueName of the RatePlan that this Sim should use.
- * @property status - A string representing the status of the Sim.
- * @property commandsCallbackMethod - A string representing the HTTP method to use when making a request to CommandsCallbackUrl.
- * @property commandsCallbackUrl - The URL that will receive a webhook when this Sim originates a Command.
- * @property smsFallbackMethod - The HTTP method Twilio will use when requesting the sms_fallback_url.
- * @property smsFallbackUrl - The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by sms_url.
- * @property smsMethod - The HTTP method Twilio will use when requesting the above Url.
- * @property smsUrl - The URL Twilio will request when the SIM-connected device sends an SMS message that is not a Command.
- * @property voiceFallbackMethod - The HTTP method Twilio will use when requesting the voice_fallback_url.
- * @property voiceFallbackUrl - The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by voice_url.
- * @property voiceMethod - The HTTP method Twilio will use when requesting the above Url.
- * @property voiceUrl - The URL Twilio will request when the SIM-connected device makes a call.
- */
-interface SimInstanceUpdateOptions {
-  callbackMethod?: string;
-  callbackUrl?: string;
-  commandsCallbackMethod?: string;
-  commandsCallbackUrl?: string;
-  friendlyName?: string;
-  ratePlan?: string;
-  smsFallbackMethod?: string;
-  smsFallbackUrl?: string;
-  smsMethod?: string;
-  smsUrl?: string;
-  status?: sim.status;
-  uniqueName?: string;
-  voiceFallbackMethod?: string;
-  voiceFallbackUrl?: string;
-  voiceMethod?: string;
-  voiceUrl?: string;
 }
 
 /**
@@ -270,6 +199,38 @@ interface SimListInstancePageOptions {
   ratePlan?: string;
   simRegistrationCode?: string;
   status?: sim.status;
+}
+
+interface SimPayload extends SimResource, Page.TwilioResponsePayload {
+}
+
+interface SimResource {
+  account_sid: string;
+  commands_callback_method: string;
+  commands_callback_url: string;
+  date_created: Date;
+  date_updated: Date;
+  e_id: string;
+  friendly_name: string;
+  iccid: string;
+  ip_address: string;
+  links: string;
+  rate_plan_sid: string;
+  sid: string;
+  sms_fallback_method: string;
+  sms_fallback_url: string;
+  sms_method: string;
+  sms_url: string;
+  status: SimStatus;
+  unique_name: string;
+  url: string;
+  voice_fallback_method: string;
+  voice_fallback_url: string;
+  voice_method: string;
+  voice_url: string;
+}
+
+interface SimSolution {
 }
 
 

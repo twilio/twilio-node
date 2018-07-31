@@ -18,29 +18,6 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function EventList(version: V1): EventListInstance;
 
-interface EventResource {
-  account_sid: string;
-  actor_sid: string;
-  actor_type: string;
-  description: string;
-  event_data: string;
-  event_date: Date;
-  event_type: string;
-  links: string;
-  resource_sid: string;
-  resource_type: string;
-  sid: string;
-  source: string;
-  source_ip_address: string;
-  url: string;
-}
-
-interface EventPayload extends EventResource, Page.TwilioResponsePayload {
-}
-
-interface EventSolution {
-}
-
 interface EventListInstance {
   /**
    * @param sid - sid of instance
@@ -188,6 +165,29 @@ interface EventListInstancePageOptions {
   resourceSid?: string;
   sourceIpAddress?: string;
   startDate?: Date;
+}
+
+interface EventPayload extends EventResource, Page.TwilioResponsePayload {
+}
+
+interface EventResource {
+  account_sid: string;
+  actor_sid: string;
+  actor_type: string;
+  description: string;
+  event_data: string;
+  event_date: Date;
+  event_type: string;
+  links: string;
+  resource_sid: string;
+  resource_type: string;
+  sid: string;
+  source: string;
+  source_ip_address: string;
+  url: string;
+}
+
+interface EventSolution {
 }
 
 

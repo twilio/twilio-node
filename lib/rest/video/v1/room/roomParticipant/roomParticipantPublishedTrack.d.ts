@@ -19,26 +19,6 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function PublishedTrackList(version: V1, roomSid: string, participantSid: string): PublishedTrackListInstance;
 
-interface PublishedTrackResource {
-  date_created: Date;
-  date_updated: Date;
-  enabled: boolean;
-  kind: PublishedTrackKind;
-  name: string;
-  participant_sid: string;
-  room_sid: string;
-  sid: string;
-  url: string;
-}
-
-interface PublishedTrackPayload extends PublishedTrackResource, Page.TwilioResponsePayload {
-}
-
-interface PublishedTrackSolution {
-  participantSid?: string;
-  roomSid?: string;
-}
-
 interface PublishedTrackListInstance {
   /**
    * @param sid - sid of instance
@@ -150,6 +130,26 @@ interface PublishedTrackListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface PublishedTrackPayload extends PublishedTrackResource, Page.TwilioResponsePayload {
+}
+
+interface PublishedTrackResource {
+  date_created: Date;
+  date_updated: Date;
+  enabled: boolean;
+  kind: PublishedTrackKind;
+  name: string;
+  participant_sid: string;
+  room_sid: string;
+  sid: string;
+  url: string;
+}
+
+interface PublishedTrackSolution {
+  participantSid?: string;
+  roomSid?: string;
 }
 
 

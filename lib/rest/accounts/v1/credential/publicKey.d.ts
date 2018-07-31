@@ -17,19 +17,13 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function PublicKeyList(version: V1): PublicKeyListInstance;
 
-interface PublicKeyResource {
-  account_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  friendly_name: string;
-  sid: string;
-  url: string;
-}
-
-interface PublicKeyPayload extends PublicKeyResource, Page.TwilioResponsePayload {
-}
-
-interface PublicKeySolution {
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A human readable description of this resource
+ */
+interface PublicKeyInstanceUpdateOptions {
+  friendlyName?: string;
 }
 
 interface PublicKeyListInstance {
@@ -96,21 +90,16 @@ interface PublicKeyListInstance {
 }
 
 /**
- * Options to pass to update
+ * Options to pass to create
  *
+ * @property publicKey - URL encoded representation of the public key
  * @property friendlyName - A human readable description of this resource
+ * @property accountSid - The Subaccount this Credential should be associated with.
  */
-interface PublicKeyInstanceUpdateOptions {
+interface PublicKeyListInstanceCreateOptions {
+  accountSid?: string;
   friendlyName?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property friendlyName - A human readable description of this resource
- */
-interface PublicKeyInstanceUpdateOptions {
-  friendlyName?: string;
+  publicKey: string;
 }
 
 /**
@@ -170,17 +159,19 @@ interface PublicKeyListInstancePageOptions {
   pageToken?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property publicKey - URL encoded representation of the public key
- * @property friendlyName - A human readable description of this resource
- * @property accountSid - The Subaccount this Credential should be associated with.
- */
-interface PublicKeyListInstanceCreateOptions {
-  accountSid?: string;
-  friendlyName?: string;
-  publicKey: string;
+interface PublicKeyPayload extends PublicKeyResource, Page.TwilioResponsePayload {
+}
+
+interface PublicKeyResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  sid: string;
+  url: string;
+}
+
+interface PublicKeySolution {
 }
 
 

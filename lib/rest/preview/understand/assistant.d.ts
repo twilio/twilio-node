@@ -23,27 +23,25 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function AssistantList(version: Understand): AssistantListInstance;
 
-interface AssistantResource {
-  account_sid: string;
-  callback_events: string;
-  callback_url: string;
-  date_created: Date;
-  date_updated: Date;
-  friendly_name: string;
-  latest_model_build_sid: string;
-  links: string;
-  log_queries: boolean;
-  response_url: string;
-  sid: string;
-  ttl: number;
-  unique_name: string;
-  url: string;
-}
-
-interface AssistantPayload extends AssistantResource, Page.TwilioResponsePayload {
-}
-
-interface AssistantSolution {
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A text description for the Assistant. It is non-unique and can up to 255 characters long.
+ * @property logQueries - A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
+ * @property ttl - The ttl
+ * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+ * @property responseUrl - The webhook URL called to fetch the response to an incoming communication expressed in Assistant TwiML.
+ * @property callbackUrl - The callback_url
+ * @property callbackEvents - The callback_events
+ */
+interface AssistantInstanceUpdateOptions {
+  callbackEvents?: string;
+  callbackUrl?: string;
+  friendlyName?: string;
+  logQueries?: boolean;
+  responseUrl?: string;
+  ttl?: number;
+  uniqueName?: string;
 }
 
 interface AssistantListInstance {
@@ -110,7 +108,7 @@ interface AssistantListInstance {
 }
 
 /**
- * Options to pass to update
+ * Options to pass to create
  *
  * @property friendlyName - A text description for the Assistant. It is non-unique and can up to 255 characters long.
  * @property logQueries - A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
@@ -120,28 +118,7 @@ interface AssistantListInstance {
  * @property callbackUrl - The callback_url
  * @property callbackEvents - The callback_events
  */
-interface AssistantInstanceUpdateOptions {
-  callbackEvents?: string;
-  callbackUrl?: string;
-  friendlyName?: string;
-  logQueries?: boolean;
-  responseUrl?: string;
-  ttl?: number;
-  uniqueName?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property friendlyName - A text description for the Assistant. It is non-unique and can up to 255 characters long.
- * @property logQueries - A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
- * @property ttl - The ttl
- * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
- * @property responseUrl - The webhook URL called to fetch the response to an incoming communication expressed in Assistant TwiML.
- * @property callbackUrl - The callback_url
- * @property callbackEvents - The callback_events
- */
-interface AssistantInstanceUpdateOptions {
+interface AssistantListInstanceCreateOptions {
   callbackEvents?: string;
   callbackUrl?: string;
   friendlyName?: string;
@@ -208,25 +185,27 @@ interface AssistantListInstancePageOptions {
   pageToken?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property friendlyName - A text description for the Assistant. It is non-unique and can up to 255 characters long.
- * @property logQueries - A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
- * @property ttl - The ttl
- * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
- * @property responseUrl - The webhook URL called to fetch the response to an incoming communication expressed in Assistant TwiML.
- * @property callbackUrl - The callback_url
- * @property callbackEvents - The callback_events
- */
-interface AssistantListInstanceCreateOptions {
-  callbackEvents?: string;
-  callbackUrl?: string;
-  friendlyName?: string;
-  logQueries?: boolean;
-  responseUrl?: string;
-  ttl?: number;
-  uniqueName?: string;
+interface AssistantPayload extends AssistantResource, Page.TwilioResponsePayload {
+}
+
+interface AssistantResource {
+  account_sid: string;
+  callback_events: string;
+  callback_url: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  latest_model_build_sid: string;
+  links: string;
+  log_queries: boolean;
+  response_url: string;
+  sid: string;
+  ttl: number;
+  unique_name: string;
+  url: string;
+}
+
+interface AssistantSolution {
 }
 
 

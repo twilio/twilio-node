@@ -19,30 +19,6 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function RecordList(version: V2010, accountSid: string): RecordListInstance;
 
-interface RecordResource {
-  account_sid: string;
-  api_version: string;
-  category: RecordCategory;
-  count: string;
-  count_unit: string;
-  description: string;
-  end_date: Date;
-  price: number;
-  price_unit: string;
-  start_date: Date;
-  subresource_uris: string;
-  uri: string;
-  usage: string;
-  usage_unit: string;
-}
-
-interface RecordPayload extends RecordResource, Page.TwilioResponsePayload {
-}
-
-interface RecordSolution {
-  accountSid?: string;
-}
-
 interface RecordListInstance {
   allTime?: object;
   daily?: object;
@@ -176,6 +152,30 @@ interface RecordListInstancePageOptions {
   pageSize?: number;
   pageToken?: string;
   startDate?: Date;
+}
+
+interface RecordPayload extends RecordResource, Page.TwilioResponsePayload {
+}
+
+interface RecordResource {
+  account_sid: string;
+  api_version: string;
+  category: RecordCategory;
+  count: string;
+  count_unit: string;
+  description: string;
+  end_date: Date;
+  price: number;
+  price_unit: string;
+  start_date: Date;
+  subresource_uris: string;
+  uri: string;
+  usage: string;
+  usage_unit: string;
+}
+
+interface RecordSolution {
+  accountSid?: string;
 }
 
 

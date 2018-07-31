@@ -20,26 +20,23 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function ParticipantList(version: V2010, accountSid: string, conferenceSid: string): ParticipantListInstance;
 
-interface ParticipantResource {
-  account_sid: string;
-  call_sid: string;
-  conference_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  end_conference_on_exit: boolean;
-  hold: boolean;
-  muted: boolean;
-  start_conference_on_enter: boolean;
-  status: ParticipantStatus;
-  uri: string;
-}
-
-interface ParticipantPayload extends ParticipantResource, Page.TwilioResponsePayload {
-}
-
-interface ParticipantSolution {
-  accountSid?: string;
-  conferenceSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property muted - Indicates if the participant should be muted
+ * @property hold - Specifying true will hold the participant, while false will un-hold.
+ * @property holdUrl - The 'HoldUrl' attribute lets you specify a URL for music that plays when a participant is held.
+ * @property holdMethod - Specify GET or POST, defaults to GET
+ * @property announceUrl - The 'AnnounceUrl' attribute lets you specify a URL for announcing something to the participant.
+ * @property announceMethod - Specify GET or POST, defaults to POST
+ */
+interface ParticipantInstanceUpdateOptions {
+  announceMethod?: string;
+  announceUrl?: string;
+  hold?: boolean;
+  holdMethod?: string;
+  holdUrl?: string;
+  muted?: boolean;
 }
 
 interface ParticipantListInstance {
@@ -103,44 +100,6 @@ interface ParticipantListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: ParticipantListInstancePageOptions, callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
-}
-
-/**
- * Options to pass to update
- *
- * @property muted - Indicates if the participant should be muted
- * @property hold - Specifying true will hold the participant, while false will un-hold.
- * @property holdUrl - The 'HoldUrl' attribute lets you specify a URL for music that plays when a participant is held.
- * @property holdMethod - Specify GET or POST, defaults to GET
- * @property announceUrl - The 'AnnounceUrl' attribute lets you specify a URL for announcing something to the participant.
- * @property announceMethod - Specify GET or POST, defaults to POST
- */
-interface ParticipantInstanceUpdateOptions {
-  announceMethod?: string;
-  announceUrl?: string;
-  hold?: boolean;
-  holdMethod?: string;
-  holdUrl?: string;
-  muted?: boolean;
-}
-
-/**
- * Options to pass to update
- *
- * @property muted - Indicates if the participant should be muted
- * @property hold - Specifying true will hold the participant, while false will un-hold.
- * @property holdUrl - The 'HoldUrl' attribute lets you specify a URL for music that plays when a participant is held.
- * @property holdMethod - Specify GET or POST, defaults to GET
- * @property announceUrl - The 'AnnounceUrl' attribute lets you specify a URL for announcing something to the participant.
- * @property announceMethod - Specify GET or POST, defaults to POST
- */
-interface ParticipantInstanceUpdateOptions {
-  announceMethod?: string;
-  announceUrl?: string;
-  hold?: boolean;
-  holdMethod?: string;
-  holdUrl?: string;
-  muted?: boolean;
 }
 
 /**
@@ -277,6 +236,28 @@ interface ParticipantListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface ParticipantPayload extends ParticipantResource, Page.TwilioResponsePayload {
+}
+
+interface ParticipantResource {
+  account_sid: string;
+  call_sid: string;
+  conference_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  end_conference_on_exit: boolean;
+  hold: boolean;
+  muted: boolean;
+  start_conference_on_enter: boolean;
+  status: ParticipantStatus;
+  uri: string;
+}
+
+interface ParticipantSolution {
+  accountSid?: string;
+  conferenceSid?: string;
 }
 
 

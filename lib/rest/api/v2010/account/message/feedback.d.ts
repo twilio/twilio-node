@@ -19,23 +19,6 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function FeedbackList(version: V2010, accountSid: string, messageSid: string): FeedbackListInstance;
 
-interface FeedbackResource {
-  account_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  message_sid: string;
-  outcome: FeedbackOutcome;
-  uri: string;
-}
-
-interface FeedbackPayload extends FeedbackResource, Page.TwilioResponsePayload {
-}
-
-interface FeedbackSolution {
-  accountSid?: string;
-  messageSid?: string;
-}
-
 interface FeedbackListInstance {
   /**
    * create a FeedbackInstance
@@ -53,6 +36,23 @@ interface FeedbackListInstance {
  */
 interface FeedbackListInstanceCreateOptions {
   outcome?: feedback.outcome;
+}
+
+interface FeedbackPayload extends FeedbackResource, Page.TwilioResponsePayload {
+}
+
+interface FeedbackResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  message_sid: string;
+  outcome: FeedbackOutcome;
+  uri: string;
+}
+
+interface FeedbackSolution {
+  accountSid?: string;
+  messageSid?: string;
 }
 
 

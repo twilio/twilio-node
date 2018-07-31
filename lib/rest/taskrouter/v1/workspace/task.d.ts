@@ -20,34 +20,21 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function TaskList(version: V1, workspaceSid: string): TaskListInstance;
 
-interface TaskResource {
-  account_sid: string;
-  addons: string;
-  age: number;
-  assignment_status: TaskStatus;
-  attributes: string;
-  date_created: Date;
-  date_updated: Date;
-  links: string;
-  priority: number;
-  reason: string;
-  sid: string;
-  task_channel_sid: string;
-  task_channel_unique_name: string;
-  task_queue_friendly_name: string;
-  task_queue_sid: string;
-  timeout: number;
-  url: string;
-  workflow_friendly_name: string;
-  workflow_sid: string;
-  workspace_sid: string;
-}
-
-interface TaskPayload extends TaskResource, Page.TwilioResponsePayload {
-}
-
-interface TaskSolution {
-  workspaceSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property attributes - The user-defined JSON data describing the custom attributes of this task.
+ * @property assignmentStatus - A 'pending' or 'reserved' Task may be canceled by posting AssignmentStatus='canceled'.
+ * @property reason - This is only required if the Task is canceled or completed.
+ * @property priority - Override priority for the Task.
+ * @property taskChannel - The task_channel
+ */
+interface TaskInstanceUpdateOptions {
+  assignmentStatus?: task.status;
+  attributes?: string;
+  priority?: number;
+  reason?: string;
+  taskChannel?: string;
 }
 
 interface TaskListInstance {
@@ -114,37 +101,20 @@ interface TaskListInstance {
 }
 
 /**
- * Options to pass to update
+ * Options to pass to create
  *
- * @property attributes - The user-defined JSON data describing the custom attributes of this task.
- * @property assignmentStatus - A 'pending' or 'reserved' Task may be canceled by posting AssignmentStatus='canceled'.
- * @property reason - This is only required if the Task is canceled or completed.
+ * @property timeout - The amount of time in seconds the task is allowed to live up to a maximum of 2 weeks.
  * @property priority - Override priority for the Task.
- * @property taskChannel - The task_channel
+ * @property taskChannel - When MultiTasking is enabled specify the type of the task by passing either TaskChannel Unique Name or Task Channel Sid.
+ * @property workflowSid - The WorkflowSid for the Workflow that you would like to handle routing for this Task.
+ * @property attributes - Url-encoded JSON string describing the attributes of this task.
  */
-interface TaskInstanceUpdateOptions {
-  assignmentStatus?: task.status;
+interface TaskListInstanceCreateOptions {
   attributes?: string;
   priority?: number;
-  reason?: string;
   taskChannel?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property attributes - The user-defined JSON data describing the custom attributes of this task.
- * @property assignmentStatus - A 'pending' or 'reserved' Task may be canceled by posting AssignmentStatus='canceled'.
- * @property reason - This is only required if the Task is canceled or completed.
- * @property priority - Override priority for the Task.
- * @property taskChannel - The task_channel
- */
-interface TaskInstanceUpdateOptions {
-  assignmentStatus?: task.status;
-  attributes?: string;
-  priority?: number;
-  reason?: string;
-  taskChannel?: string;
+  timeout?: number;
+  workflowSid?: string;
 }
 
 /**
@@ -258,21 +228,34 @@ interface TaskListInstancePageOptions {
   workflowSid?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property timeout - The amount of time in seconds the task is allowed to live up to a maximum of 2 weeks.
- * @property priority - Override priority for the Task.
- * @property taskChannel - When MultiTasking is enabled specify the type of the task by passing either TaskChannel Unique Name or Task Channel Sid.
- * @property workflowSid - The WorkflowSid for the Workflow that you would like to handle routing for this Task.
- * @property attributes - Url-encoded JSON string describing the attributes of this task.
- */
-interface TaskListInstanceCreateOptions {
-  attributes?: string;
-  priority?: number;
-  taskChannel?: string;
-  timeout?: number;
-  workflowSid?: string;
+interface TaskPayload extends TaskResource, Page.TwilioResponsePayload {
+}
+
+interface TaskResource {
+  account_sid: string;
+  addons: string;
+  age: number;
+  assignment_status: TaskStatus;
+  attributes: string;
+  date_created: Date;
+  date_updated: Date;
+  links: string;
+  priority: number;
+  reason: string;
+  sid: string;
+  task_channel_sid: string;
+  task_channel_unique_name: string;
+  task_queue_friendly_name: string;
+  task_queue_sid: string;
+  timeout: number;
+  url: string;
+  workflow_friendly_name: string;
+  workflow_sid: string;
+  workspace_sid: string;
+}
+
+interface TaskSolution {
+  workspaceSid?: string;
 }
 
 

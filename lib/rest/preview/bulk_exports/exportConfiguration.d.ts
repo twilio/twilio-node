@@ -19,18 +19,17 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function ExportConfigurationList(version: BulkExports): ExportConfigurationListInstance;
 
-interface ExportConfigurationResource {
-  enabled: boolean;
-  resource_type: string;
-  url: string;
-  webhook_method: string;
-  webhook_url: string;
-}
-
-interface ExportConfigurationPayload extends ExportConfigurationResource, Page.TwilioResponsePayload {
-}
-
-interface ExportConfigurationSolution {
+/**
+ * Options to pass to update
+ *
+ * @property enabled - The enabled
+ * @property webhookUrl - The webhook_url
+ * @property webhookMethod - The webhook_method
+ */
+interface ExportConfigurationInstanceUpdateOptions {
+  enabled?: boolean;
+  webhookMethod?: string;
+  webhookUrl?: string;
 }
 
 interface ExportConfigurationListInstance {
@@ -46,30 +45,18 @@ interface ExportConfigurationListInstance {
   get(resourceType: string): ExportConfigurationContext;
 }
 
-/**
- * Options to pass to update
- *
- * @property enabled - The enabled
- * @property webhookUrl - The webhook_url
- * @property webhookMethod - The webhook_method
- */
-interface ExportConfigurationInstanceUpdateOptions {
-  enabled?: boolean;
-  webhookMethod?: string;
-  webhookUrl?: string;
+interface ExportConfigurationPayload extends ExportConfigurationResource, Page.TwilioResponsePayload {
 }
 
-/**
- * Options to pass to update
- *
- * @property enabled - The enabled
- * @property webhookUrl - The webhook_url
- * @property webhookMethod - The webhook_method
- */
-interface ExportConfigurationInstanceUpdateOptions {
-  enabled?: boolean;
-  webhookMethod?: string;
-  webhookUrl?: string;
+interface ExportConfigurationResource {
+  enabled: boolean;
+  resource_type: string;
+  url: string;
+  webhook_method: string;
+  webhook_url: string;
+}
+
+interface ExportConfigurationSolution {
 }
 
 

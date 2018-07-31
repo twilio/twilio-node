@@ -19,30 +19,6 @@ import { SerializableClass } from '../../../../../../interfaces';
  */
 declare function LastMonthList(version: V2010, accountSid: string): LastMonthListInstance;
 
-interface LastMonthResource {
-  account_sid: string;
-  api_version: string;
-  category: LastMonthCategory;
-  count: string;
-  count_unit: string;
-  description: string;
-  end_date: Date;
-  price: number;
-  price_unit: string;
-  start_date: Date;
-  subresource_uris: string;
-  uri: string;
-  usage: string;
-  usage_unit: string;
-}
-
-interface LastMonthPayload extends LastMonthResource, Page.TwilioResponsePayload {
-}
-
-interface LastMonthSolution {
-  accountSid?: string;
-}
-
 interface LastMonthListInstance {
   /**
    * Streams LastMonthInstance records from the API.
@@ -168,6 +144,30 @@ interface LastMonthListInstancePageOptions {
   pageSize?: number;
   pageToken?: string;
   startDate?: Date;
+}
+
+interface LastMonthPayload extends LastMonthResource, Page.TwilioResponsePayload {
+}
+
+interface LastMonthResource {
+  account_sid: string;
+  api_version: string;
+  category: LastMonthCategory;
+  count: string;
+  count_unit: string;
+  description: string;
+  end_date: Date;
+  price: number;
+  price_unit: string;
+  start_date: Date;
+  subresource_uris: string;
+  uri: string;
+  usage: string;
+  usage_unit: string;
+}
+
+interface LastMonthSolution {
+  accountSid?: string;
 }
 
 

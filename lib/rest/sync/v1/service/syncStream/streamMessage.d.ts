@@ -21,19 +21,6 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function StreamMessageList(version: V1, serviceSid: string, streamSid: string): StreamMessageListInstance;
 
-interface StreamMessageResource {
-  data: string;
-  sid: string;
-}
-
-interface StreamMessagePayload extends StreamMessageResource, Page.TwilioResponsePayload {
-}
-
-interface StreamMessageSolution {
-  serviceSid?: string;
-  streamSid?: string;
-}
-
 interface StreamMessageListInstance {
   /**
    * create a StreamMessageInstance
@@ -51,6 +38,19 @@ interface StreamMessageListInstance {
  */
 interface StreamMessageListInstanceCreateOptions {
   data: string;
+}
+
+interface StreamMessagePayload extends StreamMessageResource, Page.TwilioResponsePayload {
+}
+
+interface StreamMessageResource {
+  data: string;
+  sid: string;
+}
+
+interface StreamMessageSolution {
+  serviceSid?: string;
+  streamSid?: string;
 }
 
 

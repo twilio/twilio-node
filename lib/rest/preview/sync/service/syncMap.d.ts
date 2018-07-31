@@ -21,26 +21,6 @@ import { SyncMapPermissionList } from './syncMap/syncMapPermission';
  */
 declare function SyncMapList(version: Sync, serviceSid: string): SyncMapListInstance;
 
-interface SyncMapResource {
-  account_sid: string;
-  created_by: string;
-  date_created: Date;
-  date_updated: Date;
-  links: string;
-  revision: string;
-  service_sid: string;
-  sid: string;
-  unique_name: string;
-  url: string;
-}
-
-interface SyncMapPayload extends SyncMapResource, Page.TwilioResponsePayload {
-}
-
-interface SyncMapSolution {
-  serviceSid?: string;
-}
-
 interface SyncMapListInstance {
   /**
    * @param sid - sid of instance
@@ -168,6 +148,26 @@ interface SyncMapListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface SyncMapPayload extends SyncMapResource, Page.TwilioResponsePayload {
+}
+
+interface SyncMapResource {
+  account_sid: string;
+  created_by: string;
+  date_created: Date;
+  date_updated: Date;
+  links: string;
+  revision: string;
+  service_sid: string;
+  sid: string;
+  unique_name: string;
+  url: string;
+}
+
+interface SyncMapSolution {
+  serviceSid?: string;
 }
 
 

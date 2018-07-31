@@ -20,22 +20,6 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function EngagementContextList(version: V1, flowSid: string, engagementSid: string): EngagementContextListInstance;
 
-interface EngagementContextResource {
-  account_sid: string;
-  context: string;
-  engagement_sid: string;
-  flow_sid: string;
-  url: string;
-}
-
-interface EngagementContextPayload extends EngagementContextResource, Page.TwilioResponsePayload {
-}
-
-interface EngagementContextSolution {
-  engagementSid?: string;
-  flowSid?: string;
-}
-
 interface EngagementContextListInstance {
   /**
    * @param sid - sid of instance
@@ -45,6 +29,22 @@ interface EngagementContextListInstance {
    * Constructs a engagement_context
    */
   get(): EngagementContextContext;
+}
+
+interface EngagementContextPayload extends EngagementContextResource, Page.TwilioResponsePayload {
+}
+
+interface EngagementContextResource {
+  account_sid: string;
+  context: string;
+  engagement_sid: string;
+  flow_sid: string;
+  url: string;
+}
+
+interface EngagementContextSolution {
+  engagementSid?: string;
+  flowSid?: string;
 }
 
 

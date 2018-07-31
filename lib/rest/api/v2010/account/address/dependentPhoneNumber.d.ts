@@ -19,43 +19,6 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function DependentPhoneNumberList(version: V2010, accountSid: string, addressSid: string): DependentPhoneNumberListInstance;
 
-interface DependentPhoneNumberResource {
-  account_sid: string;
-  address_requirements: DependentPhoneNumberAddressRequirement;
-  api_version: string;
-  capabilities: string;
-  date_created: Date;
-  date_updated: Date;
-  emergency_address_sid: string;
-  emergency_status: DependentPhoneNumberEmergencyStatus;
-  friendly_name: string;
-  phone_number: string;
-  sid: string;
-  sms_application_sid: string;
-  sms_fallback_method: string;
-  sms_fallback_url: string;
-  sms_method: string;
-  sms_url: string;
-  status_callback: string;
-  status_callback_method: string;
-  trunk_sid: string;
-  uri: string;
-  voice_application_sid: string;
-  voice_caller_id_lookup: boolean;
-  voice_fallback_method: string;
-  voice_fallback_url: string;
-  voice_method: string;
-  voice_url: string;
-}
-
-interface DependentPhoneNumberPayload extends DependentPhoneNumberResource, Page.TwilioResponsePayload {
-}
-
-interface DependentPhoneNumberSolution {
-  accountSid?: string;
-  addressSid?: string;
-}
-
 interface DependentPhoneNumberListInstance {
   /**
    * Streams DependentPhoneNumberInstance records from the API.
@@ -157,6 +120,43 @@ interface DependentPhoneNumberListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface DependentPhoneNumberPayload extends DependentPhoneNumberResource, Page.TwilioResponsePayload {
+}
+
+interface DependentPhoneNumberResource {
+  account_sid: string;
+  address_requirements: DependentPhoneNumberAddressRequirement;
+  api_version: string;
+  capabilities: string;
+  date_created: Date;
+  date_updated: Date;
+  emergency_address_sid: string;
+  emergency_status: DependentPhoneNumberEmergencyStatus;
+  friendly_name: string;
+  phone_number: string;
+  sid: string;
+  sms_application_sid: string;
+  sms_fallback_method: string;
+  sms_fallback_url: string;
+  sms_method: string;
+  sms_url: string;
+  status_callback: string;
+  status_callback_method: string;
+  trunk_sid: string;
+  uri: string;
+  voice_application_sid: string;
+  voice_caller_id_lookup: boolean;
+  voice_fallback_method: string;
+  voice_fallback_url: string;
+  voice_method: string;
+  voice_url: string;
+}
+
+interface DependentPhoneNumberSolution {
+  accountSid?: string;
+  addressSid?: string;
 }
 
 

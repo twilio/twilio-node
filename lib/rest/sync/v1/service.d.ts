@@ -23,24 +23,19 @@ import { SyncStreamList } from './service/syncStream';
  */
 declare function ServiceList(version: V1): ServiceListInstance;
 
-interface ServiceResource {
-  account_sid: string;
-  acl_enabled: boolean;
-  date_created: Date;
-  date_updated: Date;
-  friendly_name: string;
-  links: string;
-  reachability_webhooks_enabled: boolean;
-  sid: string;
-  unique_name: string;
-  url: string;
-  webhook_url: string;
-}
-
-interface ServicePayload extends ServiceResource, Page.TwilioResponsePayload {
-}
-
-interface ServiceSolution {
+/**
+ * Options to pass to update
+ *
+ * @property webhookUrl - A URL that will receive event updates when objects are manipulated.
+ * @property friendlyName - Human-readable name for this service instance
+ * @property reachabilityWebhooksEnabled - True or false - controls whether this instance fires webhooks when client endpoints connect to Sync
+ * @property aclEnabled - true or false - determines whether token identities must be granted access to Sync objects via the Permissions API in this Service.
+ */
+interface ServiceInstanceUpdateOptions {
+  aclEnabled?: boolean;
+  friendlyName?: string;
+  reachabilityWebhooksEnabled?: boolean;
+  webhookUrl?: string;
 }
 
 interface ServiceListInstance {
@@ -104,36 +99,6 @@ interface ServiceListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: ServiceListInstancePageOptions, callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
-}
-
-/**
- * Options to pass to update
- *
- * @property webhookUrl - A URL that will receive event updates when objects are manipulated.
- * @property friendlyName - Human-readable name for this service instance
- * @property reachabilityWebhooksEnabled - True or false - controls whether this instance fires webhooks when client endpoints connect to Sync
- * @property aclEnabled - true or false - determines whether token identities must be granted access to Sync objects via the Permissions API in this Service.
- */
-interface ServiceInstanceUpdateOptions {
-  aclEnabled?: boolean;
-  friendlyName?: string;
-  reachabilityWebhooksEnabled?: boolean;
-  webhookUrl?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property webhookUrl - A URL that will receive event updates when objects are manipulated.
- * @property friendlyName - Human-readable name for this service instance
- * @property reachabilityWebhooksEnabled - True or false - controls whether this instance fires webhooks when client endpoints connect to Sync
- * @property aclEnabled - true or false - determines whether token identities must be granted access to Sync objects via the Permissions API in this Service.
- */
-interface ServiceInstanceUpdateOptions {
-  aclEnabled?: boolean;
-  friendlyName?: string;
-  reachabilityWebhooksEnabled?: boolean;
-  webhookUrl?: string;
 }
 
 /**
@@ -206,6 +171,26 @@ interface ServiceListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface ServicePayload extends ServiceResource, Page.TwilioResponsePayload {
+}
+
+interface ServiceResource {
+  account_sid: string;
+  acl_enabled: boolean;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  links: string;
+  reachability_webhooks_enabled: boolean;
+  sid: string;
+  unique_name: string;
+  url: string;
+  webhook_url: string;
+}
+
+interface ServiceSolution {
 }
 
 

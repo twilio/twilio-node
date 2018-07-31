@@ -19,30 +19,6 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function FeedbackSummaryList(version: V2010, accountSid: string): FeedbackSummaryListInstance;
 
-interface FeedbackSummaryResource {
-  account_sid: string;
-  call_count: number;
-  call_feedback_count: number;
-  date_created: Date;
-  date_updated: Date;
-  end_date: Date;
-  include_subaccounts: boolean;
-  issues: string;
-  quality_score_average: number;
-  quality_score_median: number;
-  quality_score_standard_deviation: number;
-  sid: string;
-  start_date: Date;
-  status: FeedbackSummaryStatus;
-}
-
-interface FeedbackSummaryPayload extends FeedbackSummaryResource, Page.TwilioResponsePayload {
-}
-
-interface FeedbackSummarySolution {
-  accountSid?: string;
-}
-
 interface FeedbackSummaryListInstance {
   /**
    * @param sid - sid of instance
@@ -78,6 +54,30 @@ interface FeedbackSummaryListInstanceCreateOptions {
   startDate: Date;
   statusCallback?: string;
   statusCallbackMethod?: string;
+}
+
+interface FeedbackSummaryPayload extends FeedbackSummaryResource, Page.TwilioResponsePayload {
+}
+
+interface FeedbackSummaryResource {
+  account_sid: string;
+  call_count: number;
+  call_feedback_count: number;
+  date_created: Date;
+  date_updated: Date;
+  end_date: Date;
+  include_subaccounts: boolean;
+  issues: string;
+  quality_score_average: number;
+  quality_score_median: number;
+  quality_score_standard_deviation: number;
+  sid: string;
+  start_date: Date;
+  status: FeedbackSummaryStatus;
+}
+
+interface FeedbackSummarySolution {
+  accountSid?: string;
 }
 
 

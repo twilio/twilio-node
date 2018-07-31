@@ -20,22 +20,21 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function AuthorizationDocumentList(version: HostedNumbers): AuthorizationDocumentListInstance;
 
-interface AuthorizationDocumentResource {
-  address_sid: string;
-  cc_emails: string;
-  date_created: Date;
-  date_updated: Date;
-  email: string;
-  links: string;
-  sid: string;
-  status: AuthorizationDocumentStatus;
-  url: string;
-}
-
-interface AuthorizationDocumentPayload extends AuthorizationDocumentResource, Page.TwilioResponsePayload {
-}
-
-interface AuthorizationDocumentSolution {
+/**
+ * Options to pass to update
+ *
+ * @property hostedNumberOrderSids - A list of HostedNumberOrder sids.
+ * @property addressSid - Address sid.
+ * @property email - Email.
+ * @property ccEmails - A list of emails.
+ * @property status - The Status of this AuthorizationDocument.
+ */
+interface AuthorizationDocumentInstanceUpdateOptions {
+  addressSid?: string;
+  ccEmails?: string|list;
+  email?: string;
+  hostedNumberOrderSids?: string|list;
+  status?: authorization_document.status;
 }
 
 interface AuthorizationDocumentListInstance {
@@ -102,37 +101,18 @@ interface AuthorizationDocumentListInstance {
 }
 
 /**
- * Options to pass to update
+ * Options to pass to create
  *
  * @property hostedNumberOrderSids - A list of HostedNumberOrder sids.
  * @property addressSid - Address sid.
  * @property email - Email.
  * @property ccEmails - A list of emails.
- * @property status - The Status of this AuthorizationDocument.
  */
-interface AuthorizationDocumentInstanceUpdateOptions {
-  addressSid?: string;
+interface AuthorizationDocumentListInstanceCreateOptions {
+  addressSid: string;
   ccEmails?: string|list;
-  email?: string;
-  hostedNumberOrderSids?: string|list;
-  status?: authorization_document.status;
-}
-
-/**
- * Options to pass to update
- *
- * @property hostedNumberOrderSids - A list of HostedNumberOrder sids.
- * @property addressSid - Address sid.
- * @property email - Email.
- * @property ccEmails - A list of emails.
- * @property status - The Status of this AuthorizationDocument.
- */
-interface AuthorizationDocumentInstanceUpdateOptions {
-  addressSid?: string;
-  ccEmails?: string|list;
-  email?: string;
-  hostedNumberOrderSids?: string|list;
-  status?: authorization_document.status;
+  email: string;
+  hostedNumberOrderSids: string|list;
 }
 
 /**
@@ -204,19 +184,22 @@ interface AuthorizationDocumentListInstancePageOptions {
   status?: authorization_document.status;
 }
 
-/**
- * Options to pass to create
- *
- * @property hostedNumberOrderSids - A list of HostedNumberOrder sids.
- * @property addressSid - Address sid.
- * @property email - Email.
- * @property ccEmails - A list of emails.
- */
-interface AuthorizationDocumentListInstanceCreateOptions {
-  addressSid: string;
-  ccEmails?: string|list;
+interface AuthorizationDocumentPayload extends AuthorizationDocumentResource, Page.TwilioResponsePayload {
+}
+
+interface AuthorizationDocumentResource {
+  address_sid: string;
+  cc_emails: string;
+  date_created: Date;
+  date_updated: Date;
   email: string;
-  hostedNumberOrderSids: string|list;
+  links: string;
+  sid: string;
+  status: AuthorizationDocumentStatus;
+  url: string;
+}
+
+interface AuthorizationDocumentSolution {
 }
 
 

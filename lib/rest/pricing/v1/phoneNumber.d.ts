@@ -17,20 +17,20 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function PhoneNumberList(version: V1): PhoneNumberListInstance;
 
+interface PhoneNumberListInstance {
+  countries?: object;
+}
+
+interface PhoneNumberPayload extends PhoneNumberResource, Page.TwilioResponsePayload {
+}
+
 interface PhoneNumberResource {
   links: string;
   name: string;
   url: string;
 }
 
-interface PhoneNumberPayload extends PhoneNumberResource, Page.TwilioResponsePayload {
-}
-
 interface PhoneNumberSolution {
-}
-
-interface PhoneNumberListInstance {
-  countries?: object;
 }
 
 

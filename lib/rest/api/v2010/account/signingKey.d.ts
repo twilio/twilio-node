@@ -18,18 +18,13 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function SigningKeyList(version: V2010, accountSid: string): SigningKeyListInstance;
 
-interface SigningKeyResource {
-  date_created: Date;
-  date_updated: Date;
-  friendly_name: string;
-  sid: string;
-}
-
-interface SigningKeyPayload extends SigningKeyResource, Page.TwilioResponsePayload {
-}
-
-interface SigningKeySolution {
-  accountSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - The friendly_name
+ */
+interface SigningKeyInstanceUpdateOptions {
+  friendlyName?: string;
 }
 
 interface SigningKeyListInstance {
@@ -89,24 +84,6 @@ interface SigningKeyListInstance {
 }
 
 /**
- * Options to pass to update
- *
- * @property friendlyName - The friendly_name
- */
-interface SigningKeyInstanceUpdateOptions {
-  friendlyName?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property friendlyName - The friendly_name
- */
-interface SigningKeyInstanceUpdateOptions {
-  friendlyName?: string;
-}
-
-/**
  * Options to pass to each
  *
  * @property limit -
@@ -161,6 +138,20 @@ interface SigningKeyListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface SigningKeyPayload extends SigningKeyResource, Page.TwilioResponsePayload {
+}
+
+interface SigningKeyResource {
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  sid: string;
+}
+
+interface SigningKeySolution {
+  accountSid?: string;
 }
 
 

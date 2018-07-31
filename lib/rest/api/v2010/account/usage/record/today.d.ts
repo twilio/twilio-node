@@ -19,30 +19,6 @@ import { SerializableClass } from '../../../../../../interfaces';
  */
 declare function TodayList(version: V2010, accountSid: string): TodayListInstance;
 
-interface TodayResource {
-  account_sid: string;
-  api_version: string;
-  category: TodayCategory;
-  count: string;
-  count_unit: string;
-  description: string;
-  end_date: Date;
-  price: number;
-  price_unit: string;
-  start_date: Date;
-  subresource_uris: string;
-  uri: string;
-  usage: string;
-  usage_unit: string;
-}
-
-interface TodayPayload extends TodayResource, Page.TwilioResponsePayload {
-}
-
-interface TodaySolution {
-  accountSid?: string;
-}
-
 interface TodayListInstance {
   /**
    * Streams TodayInstance records from the API.
@@ -168,6 +144,30 @@ interface TodayListInstancePageOptions {
   pageSize?: number;
   pageToken?: string;
   startDate?: Date;
+}
+
+interface TodayPayload extends TodayResource, Page.TwilioResponsePayload {
+}
+
+interface TodayResource {
+  account_sid: string;
+  api_version: string;
+  category: TodayCategory;
+  count: string;
+  count_unit: string;
+  description: string;
+  end_date: Date;
+  price: number;
+  price_unit: string;
+  start_date: Date;
+  subresource_uris: string;
+  uri: string;
+  usage: string;
+  usage_unit: string;
+}
+
+interface TodaySolution {
+  accountSid?: string;
 }
 
 

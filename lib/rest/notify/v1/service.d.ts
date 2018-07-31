@@ -23,31 +23,35 @@ import { UserList } from './service/user';
  */
 declare function ServiceList(version: V1): ServiceListInstance;
 
-interface ServiceResource {
-  account_sid: string;
-  alexa_skill_id: string;
-  apn_credential_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  default_alexa_notification_protocol_version: string;
-  default_apn_notification_protocol_version: string;
-  default_fcm_notification_protocol_version: string;
-  default_gcm_notification_protocol_version: string;
-  facebook_messenger_page_id: string;
-  fcm_credential_sid: string;
-  friendly_name: string;
-  gcm_credential_sid: string;
-  links: string;
-  log_enabled: boolean;
-  messaging_service_sid: string;
-  sid: string;
-  url: string;
-}
-
-interface ServicePayload extends ServiceResource, Page.TwilioResponsePayload {
-}
-
-interface ServiceSolution {
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - Human-readable name for this service instance
+ * @property apnCredentialSid - The SID of the default Credential to be used for APN Bindings
+ * @property gcmCredentialSid - The SID of the default Credential to be used for GCM Bindings
+ * @property messagingServiceSid - The SID of the Messaging Service to be used for SMS Bindings.
+ * @property facebookMessengerPageId - The Page ID to be used to send for Facebook Messenger Bindings.
+ * @property defaultApnNotificationProtocolVersion - The version of the protocol to be used for sending APNS notifications.
+ * @property defaultGcmNotificationProtocolVersion - The version of the protocol to be used for sending GCM notifications.
+ * @property fcmCredentialSid - The SID of the default Credential to be used for FCM Bindings
+ * @property defaultFcmNotificationProtocolVersion - The version of the protocol to be used for sending FCM notifications.
+ * @property logEnabled - The log_enabled
+ * @property alexaSkillId - The alexa_skill_id
+ * @property defaultAlexaNotificationProtocolVersion - The default_alexa_notification_protocol_version
+ */
+interface ServiceInstanceUpdateOptions {
+  alexaSkillId?: string;
+  apnCredentialSid?: string;
+  defaultAlexaNotificationProtocolVersion?: string;
+  defaultApnNotificationProtocolVersion?: string;
+  defaultFcmNotificationProtocolVersion?: string;
+  defaultGcmNotificationProtocolVersion?: string;
+  facebookMessengerPageId?: string;
+  fcmCredentialSid?: string;
+  friendlyName?: string;
+  gcmCredentialSid?: string;
+  logEnabled?: boolean;
+  messagingServiceSid?: string;
 }
 
 interface ServiceListInstance {
@@ -111,68 +115,6 @@ interface ServiceListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: ServiceListInstancePageOptions, callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
-}
-
-/**
- * Options to pass to update
- *
- * @property friendlyName - Human-readable name for this service instance
- * @property apnCredentialSid - The SID of the default Credential to be used for APN Bindings
- * @property gcmCredentialSid - The SID of the default Credential to be used for GCM Bindings
- * @property messagingServiceSid - The SID of the Messaging Service to be used for SMS Bindings.
- * @property facebookMessengerPageId - The Page ID to be used to send for Facebook Messenger Bindings.
- * @property defaultApnNotificationProtocolVersion - The version of the protocol to be used for sending APNS notifications.
- * @property defaultGcmNotificationProtocolVersion - The version of the protocol to be used for sending GCM notifications.
- * @property fcmCredentialSid - The SID of the default Credential to be used for FCM Bindings
- * @property defaultFcmNotificationProtocolVersion - The version of the protocol to be used for sending FCM notifications.
- * @property logEnabled - The log_enabled
- * @property alexaSkillId - The alexa_skill_id
- * @property defaultAlexaNotificationProtocolVersion - The default_alexa_notification_protocol_version
- */
-interface ServiceInstanceUpdateOptions {
-  alexaSkillId?: string;
-  apnCredentialSid?: string;
-  defaultAlexaNotificationProtocolVersion?: string;
-  defaultApnNotificationProtocolVersion?: string;
-  defaultFcmNotificationProtocolVersion?: string;
-  defaultGcmNotificationProtocolVersion?: string;
-  facebookMessengerPageId?: string;
-  fcmCredentialSid?: string;
-  friendlyName?: string;
-  gcmCredentialSid?: string;
-  logEnabled?: boolean;
-  messagingServiceSid?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property friendlyName - Human-readable name for this service instance
- * @property apnCredentialSid - The SID of the default Credential to be used for APN Bindings
- * @property gcmCredentialSid - The SID of the default Credential to be used for GCM Bindings
- * @property messagingServiceSid - The SID of the Messaging Service to be used for SMS Bindings.
- * @property facebookMessengerPageId - The Page ID to be used to send for Facebook Messenger Bindings.
- * @property defaultApnNotificationProtocolVersion - The version of the protocol to be used for sending APNS notifications.
- * @property defaultGcmNotificationProtocolVersion - The version of the protocol to be used for sending GCM notifications.
- * @property fcmCredentialSid - The SID of the default Credential to be used for FCM Bindings
- * @property defaultFcmNotificationProtocolVersion - The version of the protocol to be used for sending FCM notifications.
- * @property logEnabled - The log_enabled
- * @property alexaSkillId - The alexa_skill_id
- * @property defaultAlexaNotificationProtocolVersion - The default_alexa_notification_protocol_version
- */
-interface ServiceInstanceUpdateOptions {
-  alexaSkillId?: string;
-  apnCredentialSid?: string;
-  defaultAlexaNotificationProtocolVersion?: string;
-  defaultApnNotificationProtocolVersion?: string;
-  defaultFcmNotificationProtocolVersion?: string;
-  defaultGcmNotificationProtocolVersion?: string;
-  facebookMessengerPageId?: string;
-  fcmCredentialSid?: string;
-  friendlyName?: string;
-  gcmCredentialSid?: string;
-  logEnabled?: boolean;
-  messagingServiceSid?: string;
 }
 
 /**
@@ -267,6 +209,33 @@ interface ServiceListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface ServicePayload extends ServiceResource, Page.TwilioResponsePayload {
+}
+
+interface ServiceResource {
+  account_sid: string;
+  alexa_skill_id: string;
+  apn_credential_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  default_alexa_notification_protocol_version: string;
+  default_apn_notification_protocol_version: string;
+  default_fcm_notification_protocol_version: string;
+  default_gcm_notification_protocol_version: string;
+  facebook_messenger_page_id: string;
+  fcm_credential_sid: string;
+  friendly_name: string;
+  gcm_credential_sid: string;
+  links: string;
+  log_enabled: boolean;
+  messaging_service_sid: string;
+  sid: string;
+  url: string;
+}
+
+interface ServiceSolution {
 }
 
 

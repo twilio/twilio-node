@@ -20,20 +20,19 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function WorkerStatisticsList(version: V1, workspaceSid: string, workerSid: string): WorkerStatisticsListInstance;
 
-interface WorkerStatisticsResource {
-  account_sid: string;
-  cumulative: string;
-  url: string;
-  worker_sid: string;
-  workspace_sid: string;
-}
-
-interface WorkerStatisticsPayload extends WorkerStatisticsResource, Page.TwilioResponsePayload {
-}
-
-interface WorkerStatisticsSolution {
-  workerSid?: string;
-  workspaceSid?: string;
+/**
+ * Options to pass to fetch
+ *
+ * @property minutes - Filter cumulative statistics by up to 'x' minutes in the past.
+ * @property startDate - Filter cumulative statistics by a start date.
+ * @property endDate - Filter cumulative statistics by a end date.
+ * @property taskChannel - Filter cumulative statistics by TaskChannel.
+ */
+interface WorkerStatisticsInstanceFetchOptions {
+  endDate?: Date;
+  minutes?: number;
+  startDate?: Date;
+  taskChannel?: string;
 }
 
 interface WorkerStatisticsListInstance {
@@ -47,34 +46,20 @@ interface WorkerStatisticsListInstance {
   get(): WorkerStatisticsContext;
 }
 
-/**
- * Options to pass to fetch
- *
- * @property minutes - Filter cumulative statistics by up to 'x' minutes in the past.
- * @property startDate - Filter cumulative statistics by a start date.
- * @property endDate - Filter cumulative statistics by a end date.
- * @property taskChannel - Filter cumulative statistics by TaskChannel.
- */
-interface WorkerStatisticsInstanceFetchOptions {
-  endDate?: Date;
-  minutes?: number;
-  startDate?: Date;
-  taskChannel?: string;
+interface WorkerStatisticsPayload extends WorkerStatisticsResource, Page.TwilioResponsePayload {
 }
 
-/**
- * Options to pass to fetch
- *
- * @property minutes - Filter cumulative statistics by up to 'x' minutes in the past.
- * @property startDate - Filter cumulative statistics by a start date.
- * @property endDate - Filter cumulative statistics by a end date.
- * @property taskChannel - Filter cumulative statistics by TaskChannel.
- */
-interface WorkerStatisticsInstanceFetchOptions {
-  endDate?: Date;
-  minutes?: number;
-  startDate?: Date;
-  taskChannel?: string;
+interface WorkerStatisticsResource {
+  account_sid: string;
+  cumulative: string;
+  url: string;
+  worker_sid: string;
+  workspace_sid: string;
+}
+
+interface WorkerStatisticsSolution {
+  workerSid?: string;
+  workspaceSid?: string;
 }
 
 

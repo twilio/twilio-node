@@ -21,30 +21,6 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function ParticipantList(version: V1, serviceSid: string, sessionSid: string): ParticipantListInstance;
 
-interface ParticipantResource {
-  account_sid: string;
-  date_created: Date;
-  date_deleted: Date;
-  date_updated: Date;
-  friendly_name: string;
-  identifier: string;
-  links: string;
-  proxy_identifier: string;
-  proxy_identifier_sid: string;
-  service_sid: string;
-  session_sid: string;
-  sid: string;
-  url: string;
-}
-
-interface ParticipantPayload extends ParticipantResource, Page.TwilioResponsePayload {
-}
-
-interface ParticipantSolution {
-  serviceSid?: string;
-  sessionSid?: string;
-}
-
 interface ParticipantListInstance {
   /**
    * @param sid - sid of instance
@@ -106,6 +82,21 @@ interface ParticipantListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: ParticipantListInstancePageOptions, callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property identifier - The phone number of this Participant.
+ * @property friendlyName - A human-readable description of this resource.
+ * @property proxyIdentifier - The proxy phone number to use for this Participant.
+ * @property proxyIdentifierSid - The proxy_identifier_sid
+ */
+interface ParticipantListInstanceCreateOptions {
+  friendlyName?: string;
+  identifier: string;
+  proxyIdentifier?: string;
+  proxyIdentifierSid?: string;
 }
 
 /**
@@ -171,19 +162,28 @@ interface ParticipantListInstancePageOptions {
   pageToken?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property identifier - The phone number of this Participant.
- * @property friendlyName - A human-readable description of this resource.
- * @property proxyIdentifier - The proxy phone number to use for this Participant.
- * @property proxyIdentifierSid - The proxy_identifier_sid
- */
-interface ParticipantListInstanceCreateOptions {
-  friendlyName?: string;
+interface ParticipantPayload extends ParticipantResource, Page.TwilioResponsePayload {
+}
+
+interface ParticipantResource {
+  account_sid: string;
+  date_created: Date;
+  date_deleted: Date;
+  date_updated: Date;
+  friendly_name: string;
   identifier: string;
-  proxyIdentifier?: string;
-  proxyIdentifierSid?: string;
+  links: string;
+  proxy_identifier: string;
+  proxy_identifier_sid: string;
+  service_sid: string;
+  session_sid: string;
+  sid: string;
+  url: string;
+}
+
+interface ParticipantSolution {
+  serviceSid?: string;
+  sessionSid?: string;
 }
 
 

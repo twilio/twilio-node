@@ -17,19 +17,13 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function AwsList(version: V1): AwsListInstance;
 
-interface AwsResource {
-  account_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  friendly_name: string;
-  sid: string;
-  url: string;
-}
-
-interface AwsPayload extends AwsResource, Page.TwilioResponsePayload {
-}
-
-interface AwsSolution {
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - The friendly_name
+ */
+interface AwsInstanceUpdateOptions {
+  friendlyName?: string;
 }
 
 interface AwsListInstance {
@@ -96,20 +90,15 @@ interface AwsListInstance {
 }
 
 /**
- * Options to pass to update
+ * Options to pass to create
  *
+ * @property credentials - The credentials
  * @property friendlyName - The friendly_name
+ * @property accountSid - The account_sid
  */
-interface AwsInstanceUpdateOptions {
-  friendlyName?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property friendlyName - The friendly_name
- */
-interface AwsInstanceUpdateOptions {
+interface AwsListInstanceCreateOptions {
+  accountSid?: string;
+  credentials: string;
   friendlyName?: string;
 }
 
@@ -170,17 +159,19 @@ interface AwsListInstancePageOptions {
   pageToken?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property credentials - The credentials
- * @property friendlyName - The friendly_name
- * @property accountSid - The account_sid
- */
-interface AwsListInstanceCreateOptions {
-  accountSid?: string;
-  credentials: string;
-  friendlyName?: string;
+interface AwsPayload extends AwsResource, Page.TwilioResponsePayload {
+}
+
+interface AwsResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  sid: string;
+  url: string;
+}
+
+interface AwsSolution {
 }
 
 

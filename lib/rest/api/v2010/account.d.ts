@@ -40,23 +40,15 @@ import { ValidationRequestList } from './account/validationRequest';
  */
 declare function AccountList(version: V2010): AccountListInstance;
 
-interface AccountResource {
-  auth_token: string;
-  date_created: Date;
-  date_updated: Date;
-  friendly_name: string;
-  owner_account_sid: string;
-  sid: string;
-  status: AccountStatus;
-  subresource_uris: string;
-  type: AccountType;
-  uri: string;
-}
-
-interface AccountPayload extends AccountResource, Page.TwilioResponsePayload {
-}
-
-interface AccountSolution {
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - FriendlyName to update
+ * @property status - Status to update the Account with
+ */
+interface AccountInstanceUpdateOptions {
+  friendlyName?: string;
+  status?: account.status;
 }
 
 interface AccountListInstance {
@@ -120,28 +112,6 @@ interface AccountListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: AccountListInstancePageOptions, callback?: (error: Error | null, items: AccountPage) => any): Promise<AccountPage>;
-}
-
-/**
- * Options to pass to update
- *
- * @property friendlyName - FriendlyName to update
- * @property status - Status to update the Account with
- */
-interface AccountInstanceUpdateOptions {
-  friendlyName?: string;
-  status?: account.status;
-}
-
-/**
- * Options to pass to update
- *
- * @property friendlyName - FriendlyName to update
- * @property status - Status to update the Account with
- */
-interface AccountInstanceUpdateOptions {
-  friendlyName?: string;
-  status?: account.status;
 }
 
 /**
@@ -220,6 +190,25 @@ interface AccountListInstancePageOptions {
   pageSize?: number;
   pageToken?: string;
   status?: account.status;
+}
+
+interface AccountPayload extends AccountResource, Page.TwilioResponsePayload {
+}
+
+interface AccountResource {
+  auth_token: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  owner_account_sid: string;
+  sid: string;
+  status: AccountStatus;
+  subresource_uris: string;
+  type: AccountType;
+  uri: string;
+}
+
+interface AccountSolution {
 }
 
 

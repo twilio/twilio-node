@@ -21,27 +21,21 @@ import { WorkflowStatisticsList } from './workflow/workflowStatistics';
  */
 declare function WorkflowList(version: V1, workspaceSid: string): WorkflowListInstance;
 
-interface WorkflowResource {
-  account_sid: string;
-  assignment_callback_url: string;
-  configuration: string;
-  date_created: Date;
-  date_updated: Date;
-  document_content_type: string;
-  fallback_assignment_callback_url: string;
-  friendly_name: string;
-  links: string;
-  sid: string;
-  task_reservation_timeout: number;
-  url: string;
-  workspace_sid: string;
-}
-
-interface WorkflowPayload extends WorkflowResource, Page.TwilioResponsePayload {
-}
-
-interface WorkflowSolution {
-  workspaceSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A string representing a human readable name for this Workflow.
+ * @property assignmentCallbackUrl - A valid URL for the application that will process task assignment events.
+ * @property fallbackAssignmentCallbackUrl - If the request to the AssignmentCallbackUrl fails, the assignment callback will be made to this URL.
+ * @property configuration - JSON document configuring the rules for this Workflow.
+ * @property taskReservationTimeout - An integer value controlling how long in seconds TaskRouter will wait for a confirmation response from your application after assigning a Task to a worker.
+ */
+interface WorkflowInstanceUpdateOptions {
+  assignmentCallbackUrl?: string;
+  configuration?: string;
+  fallbackAssignmentCallbackUrl?: string;
+  friendlyName?: string;
+  taskReservationTimeout?: number;
 }
 
 interface WorkflowListInstance {
@@ -108,36 +102,19 @@ interface WorkflowListInstance {
 }
 
 /**
- * Options to pass to update
+ * Options to pass to create
  *
  * @property friendlyName - A string representing a human readable name for this Workflow.
+ * @property configuration - JSON document configuring the rules for this Workflow.
  * @property assignmentCallbackUrl - A valid URL for the application that will process task assignment events.
  * @property fallbackAssignmentCallbackUrl - If the request to the AssignmentCallbackUrl fails, the assignment callback will be made to this URL.
- * @property configuration - JSON document configuring the rules for this Workflow.
  * @property taskReservationTimeout - An integer value controlling how long in seconds TaskRouter will wait for a confirmation response from your application after assigning a Task to a worker.
  */
-interface WorkflowInstanceUpdateOptions {
+interface WorkflowListInstanceCreateOptions {
   assignmentCallbackUrl?: string;
-  configuration?: string;
+  configuration: string;
   fallbackAssignmentCallbackUrl?: string;
-  friendlyName?: string;
-  taskReservationTimeout?: number;
-}
-
-/**
- * Options to pass to update
- *
- * @property friendlyName - A string representing a human readable name for this Workflow.
- * @property assignmentCallbackUrl - A valid URL for the application that will process task assignment events.
- * @property fallbackAssignmentCallbackUrl - If the request to the AssignmentCallbackUrl fails, the assignment callback will be made to this URL.
- * @property configuration - JSON document configuring the rules for this Workflow.
- * @property taskReservationTimeout - An integer value controlling how long in seconds TaskRouter will wait for a confirmation response from your application after assigning a Task to a worker.
- */
-interface WorkflowInstanceUpdateOptions {
-  assignmentCallbackUrl?: string;
-  configuration?: string;
-  fallbackAssignmentCallbackUrl?: string;
-  friendlyName?: string;
+  friendlyName: string;
   taskReservationTimeout?: number;
 }
 
@@ -204,21 +181,27 @@ interface WorkflowListInstancePageOptions {
   pageToken?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property friendlyName - A string representing a human readable name for this Workflow.
- * @property configuration - JSON document configuring the rules for this Workflow.
- * @property assignmentCallbackUrl - A valid URL for the application that will process task assignment events.
- * @property fallbackAssignmentCallbackUrl - If the request to the AssignmentCallbackUrl fails, the assignment callback will be made to this URL.
- * @property taskReservationTimeout - An integer value controlling how long in seconds TaskRouter will wait for a confirmation response from your application after assigning a Task to a worker.
- */
-interface WorkflowListInstanceCreateOptions {
-  assignmentCallbackUrl?: string;
+interface WorkflowPayload extends WorkflowResource, Page.TwilioResponsePayload {
+}
+
+interface WorkflowResource {
+  account_sid: string;
+  assignment_callback_url: string;
   configuration: string;
-  fallbackAssignmentCallbackUrl?: string;
-  friendlyName: string;
-  taskReservationTimeout?: number;
+  date_created: Date;
+  date_updated: Date;
+  document_content_type: string;
+  fallback_assignment_callback_url: string;
+  friendly_name: string;
+  links: string;
+  sid: string;
+  task_reservation_timeout: number;
+  url: string;
+  workspace_sid: string;
+}
+
+interface WorkflowSolution {
+  workspaceSid?: string;
 }
 
 

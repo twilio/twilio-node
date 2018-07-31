@@ -18,21 +18,23 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function CredentialList(version: V1): CredentialListInstance;
 
-interface CredentialResource {
-  account_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  friendly_name: string;
-  sandbox: string;
-  sid: string;
-  type: CredentialPushService;
-  url: string;
-}
-
-interface CredentialPayload extends CredentialResource, Page.TwilioResponsePayload {
-}
-
-interface CredentialSolution {
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - Friendly name for stored credential
+ * @property certificate - [APN only] URL encoded representation of the certificate, e.
+ * @property privateKey - [APN only] URL encoded representation of the private key, e.
+ * @property sandbox - [APN only] use this credential for sending to production or sandbox APNs
+ * @property apiKey - [GCM only] This is the "API key" for project from Google Developer console for your GCM Service application credential
+ * @property secret - The secret
+ */
+interface CredentialInstanceUpdateOptions {
+  apiKey?: string;
+  certificate?: string;
+  friendlyName?: string;
+  privateKey?: string;
+  sandbox?: boolean;
+  secret?: string;
 }
 
 interface CredentialListInstance {
@@ -99,8 +101,9 @@ interface CredentialListInstance {
 }
 
 /**
- * Options to pass to update
+ * Options to pass to create
  *
+ * @property type - Credential type, one of "gcm" or "apn"
  * @property friendlyName - Friendly name for stored credential
  * @property certificate - [APN only] URL encoded representation of the certificate, e.
  * @property privateKey - [APN only] URL encoded representation of the private key, e.
@@ -108,32 +111,14 @@ interface CredentialListInstance {
  * @property apiKey - [GCM only] This is the "API key" for project from Google Developer console for your GCM Service application credential
  * @property secret - The secret
  */
-interface CredentialInstanceUpdateOptions {
+interface CredentialListInstanceCreateOptions {
   apiKey?: string;
   certificate?: string;
   friendlyName?: string;
   privateKey?: string;
   sandbox?: boolean;
   secret?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property friendlyName - Friendly name for stored credential
- * @property certificate - [APN only] URL encoded representation of the certificate, e.
- * @property privateKey - [APN only] URL encoded representation of the private key, e.
- * @property sandbox - [APN only] use this credential for sending to production or sandbox APNs
- * @property apiKey - [GCM only] This is the "API key" for project from Google Developer console for your GCM Service application credential
- * @property secret - The secret
- */
-interface CredentialInstanceUpdateOptions {
-  apiKey?: string;
-  certificate?: string;
-  friendlyName?: string;
-  privateKey?: string;
-  sandbox?: boolean;
-  secret?: string;
+  type: credential.push_service;
 }
 
 /**
@@ -193,25 +178,21 @@ interface CredentialListInstancePageOptions {
   pageToken?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property type - Credential type, one of "gcm" or "apn"
- * @property friendlyName - Friendly name for stored credential
- * @property certificate - [APN only] URL encoded representation of the certificate, e.
- * @property privateKey - [APN only] URL encoded representation of the private key, e.
- * @property sandbox - [APN only] use this credential for sending to production or sandbox APNs
- * @property apiKey - [GCM only] This is the "API key" for project from Google Developer console for your GCM Service application credential
- * @property secret - The secret
- */
-interface CredentialListInstanceCreateOptions {
-  apiKey?: string;
-  certificate?: string;
-  friendlyName?: string;
-  privateKey?: string;
-  sandbox?: boolean;
-  secret?: string;
-  type: credential.push_service;
+interface CredentialPayload extends CredentialResource, Page.TwilioResponsePayload {
+}
+
+interface CredentialResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  sandbox: string;
+  sid: string;
+  type: CredentialPushService;
+  url: string;
+}
+
+interface CredentialSolution {
 }
 
 

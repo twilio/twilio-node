@@ -20,30 +20,6 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function SharedCostList(version: V2010, accountSid: string, countryCode: string): SharedCostListInstance;
 
-interface SharedCostResource {
-  address_requirements: string;
-  beta: boolean;
-  capabilities: string;
-  friendly_name: string;
-  iso_country: string;
-  lata: string;
-  latitude: number;
-  locality: string;
-  longitude: number;
-  phone_number: string;
-  postal_code: string;
-  rate_center: string;
-  region: string;
-}
-
-interface SharedCostPayload extends SharedCostResource, Page.TwilioResponsePayload {
-}
-
-interface SharedCostSolution {
-  accountSid?: string;
-  countryCode?: string;
-}
-
 interface SharedCostListInstance {
   /**
    * Streams SharedCostInstance records from the API.
@@ -253,6 +229,30 @@ interface SharedCostListInstancePageOptions {
   pageToken?: string;
   smsEnabled?: boolean;
   voiceEnabled?: boolean;
+}
+
+interface SharedCostPayload extends SharedCostResource, Page.TwilioResponsePayload {
+}
+
+interface SharedCostResource {
+  address_requirements: string;
+  beta: boolean;
+  capabilities: string;
+  friendly_name: string;
+  iso_country: string;
+  lata: string;
+  latitude: number;
+  locality: string;
+  longitude: number;
+  phone_number: string;
+  postal_code: string;
+  rate_center: string;
+  region: string;
+}
+
+interface SharedCostSolution {
+  accountSid?: string;
+  countryCode?: string;
 }
 
 

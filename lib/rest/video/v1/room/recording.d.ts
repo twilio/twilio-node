@@ -19,31 +19,6 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function RoomRecordingList(version: V1, roomSid: string): RoomRecordingListInstance;
 
-interface RoomRecordingResource {
-  account_sid: string;
-  codec: RoomRecordingCodec;
-  container_format: RoomRecordingFormat;
-  date_created: Date;
-  duration: number;
-  grouping_sids: string;
-  links: string;
-  room_sid: string;
-  sid: string;
-  size: number;
-  source_sid: string;
-  status: RoomRecordingStatus;
-  track_name: string;
-  type: RoomRecordingType;
-  url: string;
-}
-
-interface RoomRecordingPayload extends RoomRecordingResource, Page.TwilioResponsePayload {
-}
-
-interface RoomRecordingSolution {
-  roomSid?: string;
-}
-
 interface RoomRecordingListInstance {
   /**
    * @param sid - sid of instance
@@ -179,6 +154,31 @@ interface RoomRecordingListInstancePageOptions {
   pageToken?: string;
   sourceSid?: string;
   status?: room_recording.status;
+}
+
+interface RoomRecordingPayload extends RoomRecordingResource, Page.TwilioResponsePayload {
+}
+
+interface RoomRecordingResource {
+  account_sid: string;
+  codec: RoomRecordingCodec;
+  container_format: RoomRecordingFormat;
+  date_created: Date;
+  duration: number;
+  grouping_sids: string;
+  links: string;
+  room_sid: string;
+  sid: string;
+  size: number;
+  source_sid: string;
+  status: RoomRecordingStatus;
+  track_name: string;
+  type: RoomRecordingType;
+  url: string;
+}
+
+interface RoomRecordingSolution {
+  roomSid?: string;
 }
 
 

@@ -19,22 +19,13 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function ActivityList(version: V1, workspaceSid: string): ActivityListInstance;
 
-interface ActivityResource {
-  account_sid: string;
-  available: boolean;
-  date_created: Date;
-  date_updated: Date;
-  friendly_name: string;
-  sid: string;
-  url: string;
-  workspace_sid: string;
-}
-
-interface ActivityPayload extends ActivityResource, Page.TwilioResponsePayload {
-}
-
-interface ActivitySolution {
-  workspaceSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A human-readable name for the Activity, such as 'on-call', 'break', 'email', etc.
+ */
+interface ActivityInstanceUpdateOptions {
+  friendlyName?: string;
 }
 
 interface ActivityListInstance {
@@ -101,21 +92,14 @@ interface ActivityListInstance {
 }
 
 /**
- * Options to pass to update
+ * Options to pass to create
  *
- * @property friendlyName - A human-readable name for the Activity, such as 'on-call', 'break', 'email', etc.
+ * @property friendlyName - A human-readable name for the Activity, such as 'On Call', 'Break', 'Email', etc.
+ * @property available - Boolean value indicating whether the worker should be eligible to receive a Task when they occupy this Activity.
  */
-interface ActivityInstanceUpdateOptions {
-  friendlyName?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property friendlyName - A human-readable name for the Activity, such as 'on-call', 'break', 'email', etc.
- */
-interface ActivityInstanceUpdateOptions {
-  friendlyName?: string;
+interface ActivityListInstanceCreateOptions {
+  available?: boolean;
+  friendlyName: string;
 }
 
 /**
@@ -187,15 +171,22 @@ interface ActivityListInstancePageOptions {
   pageToken?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property friendlyName - A human-readable name for the Activity, such as 'On Call', 'Break', 'Email', etc.
- * @property available - Boolean value indicating whether the worker should be eligible to receive a Task when they occupy this Activity.
- */
-interface ActivityListInstanceCreateOptions {
-  available?: boolean;
-  friendlyName: string;
+interface ActivityPayload extends ActivityResource, Page.TwilioResponsePayload {
+}
+
+interface ActivityResource {
+  account_sid: string;
+  available: boolean;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  sid: string;
+  url: string;
+  workspace_sid: string;
+}
+
+interface ActivitySolution {
+  workspaceSid?: string;
 }
 
 

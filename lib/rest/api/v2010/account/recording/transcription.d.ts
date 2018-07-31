@@ -19,30 +19,6 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function TranscriptionList(version: V2010, accountSid: string, recordingSid: string): TranscriptionListInstance;
 
-interface TranscriptionResource {
-  account_sid: string;
-  api_version: string;
-  date_created: Date;
-  date_updated: Date;
-  duration: string;
-  price: number;
-  price_unit: string;
-  recording_sid: string;
-  sid: string;
-  status: TranscriptionStatus;
-  transcription_text: string;
-  type: string;
-  uri: string;
-}
-
-interface TranscriptionPayload extends TranscriptionResource, Page.TwilioResponsePayload {
-}
-
-interface TranscriptionSolution {
-  accountSid?: string;
-  recordingSid?: string;
-}
-
 interface TranscriptionListInstance {
   /**
    * @param sid - sid of instance
@@ -154,6 +130,30 @@ interface TranscriptionListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface TranscriptionPayload extends TranscriptionResource, Page.TwilioResponsePayload {
+}
+
+interface TranscriptionResource {
+  account_sid: string;
+  api_version: string;
+  date_created: Date;
+  date_updated: Date;
+  duration: string;
+  price: number;
+  price_unit: string;
+  recording_sid: string;
+  sid: string;
+  status: TranscriptionStatus;
+  transcription_text: string;
+  type: string;
+  uri: string;
+}
+
+interface TranscriptionSolution {
+  accountSid?: string;
+  recordingSid?: string;
 }
 
 

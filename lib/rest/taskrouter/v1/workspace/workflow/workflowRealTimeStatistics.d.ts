@@ -19,23 +19,13 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function WorkflowRealTimeStatisticsList(version: V1, workspaceSid: string, workflowSid: string): WorkflowRealTimeStatisticsListInstance;
 
-interface WorkflowRealTimeStatisticsResource {
-  account_sid: string;
-  longest_task_waiting_age: number;
-  tasks_by_priority: string;
-  tasks_by_status: string;
-  total_tasks: number;
-  url: string;
-  workflow_sid: string;
-  workspace_sid: string;
-}
-
-interface WorkflowRealTimeStatisticsPayload extends WorkflowRealTimeStatisticsResource, Page.TwilioResponsePayload {
-}
-
-interface WorkflowRealTimeStatisticsSolution {
-  workflowSid?: string;
-  workspaceSid?: string;
+/**
+ * Options to pass to fetch
+ *
+ * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
+ */
+interface WorkflowRealTimeStatisticsInstanceFetchOptions {
+  taskChannel?: string;
 }
 
 interface WorkflowRealTimeStatisticsListInstance {
@@ -49,22 +39,23 @@ interface WorkflowRealTimeStatisticsListInstance {
   get(): WorkflowRealTimeStatisticsContext;
 }
 
-/**
- * Options to pass to fetch
- *
- * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
- */
-interface WorkflowRealTimeStatisticsInstanceFetchOptions {
-  taskChannel?: string;
+interface WorkflowRealTimeStatisticsPayload extends WorkflowRealTimeStatisticsResource, Page.TwilioResponsePayload {
 }
 
-/**
- * Options to pass to fetch
- *
- * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
- */
-interface WorkflowRealTimeStatisticsInstanceFetchOptions {
-  taskChannel?: string;
+interface WorkflowRealTimeStatisticsResource {
+  account_sid: string;
+  longest_task_waiting_age: number;
+  tasks_by_priority: string;
+  tasks_by_status: string;
+  total_tasks: number;
+  url: string;
+  workflow_sid: string;
+  workspace_sid: string;
+}
+
+interface WorkflowRealTimeStatisticsSolution {
+  workflowSid?: string;
+  workspaceSid?: string;
 }
 
 

@@ -19,21 +19,13 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function IpAccessControlListList(version: V2010, accountSid: string): IpAccessControlListListInstance;
 
-interface IpAccessControlListResource {
-  account_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  friendly_name: string;
-  sid: string;
-  subresource_uris: string;
-  uri: string;
-}
-
-interface IpAccessControlListPayload extends IpAccessControlListResource, Page.TwilioResponsePayload {
-}
-
-interface IpAccessControlListSolution {
-  accountSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A human readable description of this resource
+ */
+interface IpAccessControlListInstanceUpdateOptions {
+  friendlyName: string;
 }
 
 interface IpAccessControlListListInstance {
@@ -100,20 +92,11 @@ interface IpAccessControlListListInstance {
 }
 
 /**
- * Options to pass to update
+ * Options to pass to create
  *
  * @property friendlyName - A human readable description of this resource
  */
-interface IpAccessControlListInstanceUpdateOptions {
-  friendlyName: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property friendlyName - A human readable description of this resource
- */
-interface IpAccessControlListInstanceUpdateOptions {
+interface IpAccessControlListListInstanceCreateOptions {
   friendlyName: string;
 }
 
@@ -174,13 +157,21 @@ interface IpAccessControlListListInstancePageOptions {
   pageToken?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property friendlyName - A human readable description of this resource
- */
-interface IpAccessControlListListInstanceCreateOptions {
-  friendlyName: string;
+interface IpAccessControlListPayload extends IpAccessControlListResource, Page.TwilioResponsePayload {
+}
+
+interface IpAccessControlListResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  sid: string;
+  subresource_uris: string;
+  uri: string;
+}
+
+interface IpAccessControlListSolution {
+  accountSid?: string;
 }
 
 

@@ -21,23 +21,17 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function DocumentPermissionList(version: V1, serviceSid: string, documentSid: string): DocumentPermissionListInstance;
 
-interface DocumentPermissionResource {
-  account_sid: string;
-  document_sid: string;
-  identity: string;
+/**
+ * Options to pass to update
+ *
+ * @property read - Read access.
+ * @property write - Write access.
+ * @property manage - Manage access.
+ */
+interface DocumentPermissionInstanceUpdateOptions {
   manage: boolean;
   read: boolean;
-  service_sid: string;
-  url: string;
   write: boolean;
-}
-
-interface DocumentPermissionPayload extends DocumentPermissionResource, Page.TwilioResponsePayload {
-}
-
-interface DocumentPermissionSolution {
-  documentSid?: string;
-  serviceSid?: string;
 }
 
 interface DocumentPermissionListInstance {
@@ -97,32 +91,6 @@ interface DocumentPermissionListInstance {
 }
 
 /**
- * Options to pass to update
- *
- * @property read - Read access.
- * @property write - Write access.
- * @property manage - Manage access.
- */
-interface DocumentPermissionInstanceUpdateOptions {
-  manage: boolean;
-  read: boolean;
-  write: boolean;
-}
-
-/**
- * Options to pass to update
- *
- * @property read - Read access.
- * @property write - Write access.
- * @property manage - Manage access.
- */
-interface DocumentPermissionInstanceUpdateOptions {
-  manage: boolean;
-  read: boolean;
-  write: boolean;
-}
-
-/**
  * Options to pass to each
  *
  * @property limit -
@@ -177,6 +145,25 @@ interface DocumentPermissionListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface DocumentPermissionPayload extends DocumentPermissionResource, Page.TwilioResponsePayload {
+}
+
+interface DocumentPermissionResource {
+  account_sid: string;
+  document_sid: string;
+  identity: string;
+  manage: boolean;
+  read: boolean;
+  service_sid: string;
+  url: string;
+  write: boolean;
+}
+
+interface DocumentPermissionSolution {
+  documentSid?: string;
+  serviceSid?: string;
 }
 
 

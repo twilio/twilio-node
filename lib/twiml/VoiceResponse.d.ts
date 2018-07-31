@@ -150,6 +150,66 @@ declare namespace VoiceResponse {
   type SipEvent = 'initiated'|'ringing'|'answered'|'completed';
 
   /**
+   * Options to pass to client
+   *
+   * @property url - Client URL
+   * @property method - Client URL Method
+   * @property statusCallbackEvent - Events to trigger status callback
+   * @property statusCallback - Status Callback URL
+   * @property statusCallbackMethod - Status Callback URL Method
+   */
+  export interface ClientAttributes {
+    method?: string;
+    statusCallback?: string;
+    statusCallbackEvent?: ClientEvent;
+    statusCallbackMethod?: string;
+    url?: string;
+  }
+
+  /**
+   * Options to pass to conference
+   *
+   * @property muted - Join the conference muted
+   * @property beep - Play beep when joining
+   * @property startConferenceOnEnter - Start the conference on enter
+   * @property endConferenceOnExit - End the conferenceon exit
+   * @property waitUrl - Wait URL
+   * @property waitMethod - Wait URL method
+   * @property maxParticipants - Maximum number of participants
+   * @property record - Record the conference
+   * @property region - Conference region
+   * @property whisper - Call whisper
+   * @property trim - Trim the conference recording
+   * @property statusCallbackEvent - Events to call status callback URL
+   * @property statusCallback - Status callback URL
+   * @property statusCallbackMethod - Status callback URL method
+   * @property recordingStatusCallback - Recording status callback URL
+   * @property recordingStatusCallbackMethod - Recording status callback URL method
+   * @property recordingStatusCallbackEvent - Recording status callback events
+   * @property eventCallbackUrl - Event callback URL
+   */
+  export interface ConferenceAttributes {
+    beep?: ConferenceBeep;
+    endConferenceOnExit?: boolean;
+    eventCallbackUrl?: string;
+    maxParticipants?: number;
+    muted?: boolean;
+    record?: ConferenceRecord;
+    recordingStatusCallback?: string;
+    recordingStatusCallbackEvent?: ConferenceRecordingEvent;
+    recordingStatusCallbackMethod?: string;
+    region?: ConferenceRegion;
+    startConferenceOnEnter?: boolean;
+    statusCallback?: string;
+    statusCallbackEvent?: ConferenceEvent;
+    statusCallbackMethod?: string;
+    trim?: ConferenceTrim;
+    waitMethod?: string;
+    waitUrl?: string;
+    whisper?: string;
+  }
+
+  /**
    * Options to pass to dial
    *
    * @property action - Action URL
@@ -232,6 +292,25 @@ declare namespace VoiceResponse {
     profanityFilter?: boolean;
     speechTimeout?: string;
     timeout?: number;
+  }
+
+  /**
+   * Options to pass to number
+   *
+   * @property sendDigits - DTMF tones to play when the call is answered
+   * @property url - TwiML URL
+   * @property method - TwiML URL method
+   * @property statusCallbackEvent - Events to call status callback
+   * @property statusCallback - Status callback URL
+   * @property statusCallbackMethod - Status callback URL method
+   */
+  export interface NumberAttributes {
+    method?: string;
+    sendDigits?: string;
+    statusCallback?: string;
+    statusCallbackEvent?: NumberEvent;
+    statusCallbackMethod?: string;
+    url?: string;
   }
 
   /**
@@ -330,161 +409,6 @@ declare namespace VoiceResponse {
   }
 
   /**
-   * Options to pass to sms
-   *
-   * @property to - Number to send message to
-   * @property from - Number to send message from
-   * @property action - Action URL
-   * @property method - Action URL method
-   * @property statusCallback - Status callback URL
-   */
-  export interface SmsAttributes {
-    action?: string;
-    from?: string;
-    method?: string;
-    statusCallback?: string;
-    to?: string;
-  }
-
-  /**
-   * Options to pass to say
-   *
-   * @property voice - Voice to use
-   * @property loop - Times to loop message
-   * @property language - Message langauge
-   */
-  export interface SayAttributes {
-    language?: SayLanguage;
-    loop?: number;
-    voice?: SayVoice;
-  }
-
-  /**
-   * Options to pass to pause
-   *
-   * @property length - Length in seconds to pause
-   */
-  export interface PauseAttributes {
-    length?: number;
-  }
-
-  /**
-   * Options to pass to play
-   *
-   * @property loop - Times to loop media
-   * @property digits - Play DTMF tones for digits
-   */
-  export interface PlayAttributes {
-    digits?: string;
-    loop?: number;
-  }
-
-  /**
-   * Options to pass to task
-   *
-   * @property priority - Task priority
-   * @property timeout - Timeout associated with task
-   */
-  export interface TaskAttributes {
-    priority?: number;
-    timeout?: number;
-  }
-
-  /**
-   * Options to pass to client
-   *
-   * @property url - Client URL
-   * @property method - Client URL Method
-   * @property statusCallbackEvent - Events to trigger status callback
-   * @property statusCallback - Status Callback URL
-   * @property statusCallbackMethod - Status Callback URL Method
-   */
-  export interface ClientAttributes {
-    method?: string;
-    statusCallback?: string;
-    statusCallbackEvent?: ClientEvent;
-    statusCallbackMethod?: string;
-    url?: string;
-  }
-
-  /**
-   * Options to pass to conference
-   *
-   * @property muted - Join the conference muted
-   * @property beep - Play beep when joining
-   * @property startConferenceOnEnter - Start the conference on enter
-   * @property endConferenceOnExit - End the conferenceon exit
-   * @property waitUrl - Wait URL
-   * @property waitMethod - Wait URL method
-   * @property maxParticipants - Maximum number of participants
-   * @property record - Record the conference
-   * @property region - Conference region
-   * @property whisper - Call whisper
-   * @property trim - Trim the conference recording
-   * @property statusCallbackEvent - Events to call status callback URL
-   * @property statusCallback - Status callback URL
-   * @property statusCallbackMethod - Status callback URL method
-   * @property recordingStatusCallback - Recording status callback URL
-   * @property recordingStatusCallbackMethod - Recording status callback URL method
-   * @property recordingStatusCallbackEvent - Recording status callback events
-   * @property eventCallbackUrl - Event callback URL
-   */
-  export interface ConferenceAttributes {
-    beep?: ConferenceBeep;
-    endConferenceOnExit?: boolean;
-    eventCallbackUrl?: string;
-    maxParticipants?: number;
-    muted?: boolean;
-    record?: ConferenceRecord;
-    recordingStatusCallback?: string;
-    recordingStatusCallbackEvent?: ConferenceRecordingEvent;
-    recordingStatusCallbackMethod?: string;
-    region?: ConferenceRegion;
-    startConferenceOnEnter?: boolean;
-    statusCallback?: string;
-    statusCallbackEvent?: ConferenceEvent;
-    statusCallbackMethod?: string;
-    trim?: ConferenceTrim;
-    waitMethod?: string;
-    waitUrl?: string;
-    whisper?: string;
-  }
-
-  /**
-   * Options to pass to number
-   *
-   * @property sendDigits - DTMF tones to play when the call is answered
-   * @property url - TwiML URL
-   * @property method - TwiML URL method
-   * @property statusCallbackEvent - Events to call status callback
-   * @property statusCallback - Status callback URL
-   * @property statusCallbackMethod - Status callback URL method
-   */
-  export interface NumberAttributes {
-    method?: string;
-    sendDigits?: string;
-    statusCallback?: string;
-    statusCallbackEvent?: NumberEvent;
-    statusCallbackMethod?: string;
-    url?: string;
-  }
-
-  /**
-   * Options to pass to queue
-   *
-   * @property url - Action URL
-   * @property method - Action URL method
-   * @property reservationSid - TaskRouter Reservation SID
-   * @property postWorkActivitySid - TaskRouter Activity SID
-   */
-  export interface QueueAttributes {
-    method?: string;
-    postWorkActivitySid?: string;
-    reservationSid?: string;
-    url?: string;
-  }
-
-  /**
    * Options to pass to sip
    *
    * @property username - SIP Username
@@ -503,6 +427,34 @@ declare namespace VoiceResponse {
     statusCallbackMethod?: string;
     url?: string;
     username?: string;
+  }
+
+  /**
+   * Options to pass to sms
+   *
+   * @property to - Number to send message to
+   * @property from - Number to send message from
+   * @property action - Action URL
+   * @property method - Action URL method
+   * @property statusCallback - Status callback URL
+   */
+  export interface SmsAttributes {
+    action?: string;
+    from?: string;
+    method?: string;
+    statusCallback?: string;
+    to?: string;
+  }
+
+  /**
+   * Options to pass to task
+   *
+   * @property priority - Task priority
+   * @property timeout - Timeout associated with task
+   */
+  export interface TaskAttributes {
+    priority?: number;
+    timeout?: number;
   }
 
 

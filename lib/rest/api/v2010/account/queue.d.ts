@@ -19,23 +19,15 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function QueueList(version: V2010, accountSid: string): QueueListInstance;
 
-interface QueueResource {
-  account_sid: string;
-  average_wait_time: number;
-  current_size: number;
-  date_created: Date;
-  date_updated: Date;
-  friendly_name: string;
-  max_size: number;
-  sid: string;
-  uri: string;
-}
-
-interface QueuePayload extends QueueResource, Page.TwilioResponsePayload {
-}
-
-interface QueueSolution {
-  accountSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A human readable description of the queue
+ * @property maxSize - The max number of members allowed in the queue
+ */
+interface QueueInstanceUpdateOptions {
+  friendlyName?: string;
+  maxSize?: number;
 }
 
 interface QueueListInstance {
@@ -102,24 +94,13 @@ interface QueueListInstance {
 }
 
 /**
- * Options to pass to update
+ * Options to pass to create
  *
- * @property friendlyName - A human readable description of the queue
- * @property maxSize - The max number of members allowed in the queue
+ * @property friendlyName - A user-provided string that identifies this queue.
+ * @property maxSize - The max number of calls allowed in the queue
  */
-interface QueueInstanceUpdateOptions {
-  friendlyName?: string;
-  maxSize?: number;
-}
-
-/**
- * Options to pass to update
- *
- * @property friendlyName - A human readable description of the queue
- * @property maxSize - The max number of members allowed in the queue
- */
-interface QueueInstanceUpdateOptions {
-  friendlyName?: string;
+interface QueueListInstanceCreateOptions {
+  friendlyName: string;
   maxSize?: number;
 }
 
@@ -180,15 +161,23 @@ interface QueueListInstancePageOptions {
   pageToken?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property friendlyName - A user-provided string that identifies this queue.
- * @property maxSize - The max number of calls allowed in the queue
- */
-interface QueueListInstanceCreateOptions {
-  friendlyName: string;
-  maxSize?: number;
+interface QueuePayload extends QueueResource, Page.TwilioResponsePayload {
+}
+
+interface QueueResource {
+  account_sid: string;
+  average_wait_time: number;
+  current_size: number;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  max_size: number;
+  sid: string;
+  uri: string;
+}
+
+interface QueueSolution {
+  accountSid?: string;
 }
 
 

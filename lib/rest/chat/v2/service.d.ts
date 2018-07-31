@@ -22,36 +22,73 @@ import { UserList } from './service/user';
  */
 declare function ServiceList(version: V2): ServiceListInstance;
 
-interface ServiceResource {
-  account_sid: string;
-  consumption_report_interval: number;
-  date_created: Date;
-  date_updated: Date;
-  default_channel_creator_role_sid: string;
-  default_channel_role_sid: string;
-  default_service_role_sid: string;
-  friendly_name: string;
-  limits: string;
-  links: string;
-  media: string;
-  notifications: string;
-  post_webhook_retry_count: number;
-  post_webhook_url: string;
-  pre_webhook_retry_count: number;
-  pre_webhook_url: string;
-  reachability_enabled: boolean;
-  read_status_enabled: boolean;
-  sid: string;
-  typing_indicator_timeout: number;
-  url: string;
-  webhook_filters: string;
-  webhook_method: string;
-}
-
-interface ServicePayload extends ServiceResource, Page.TwilioResponsePayload {
-}
-
-interface ServiceSolution {
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - Human-readable name for this service instance
+ * @property defaultServiceRoleSid - The default_service_role_sid
+ * @property defaultChannelRoleSid - Channel role assigned on channel join
+ * @property defaultChannelCreatorRoleSid - Channel role assigned to creator of channel when joining for first time
+ * @property readStatusEnabled - true if the member read status feature is enabled, false if not.
+ * @property reachabilityEnabled - true if the reachability feature should be enabled.
+ * @property typingIndicatorTimeout - The duration in seconds indicating the timeout after "started typing" event when client should assume that user is not typing anymore even if no "ended typing" message received
+ * @property consumptionReportInterval - The consumption_report_interval
+ * @property notifications.newMessage.enabled - The notifications.new_message.enabled
+ * @property notifications.newMessage.template - The notifications.new_message.template
+ * @property notifications.newMessage.sound - The notifications.new_message.sound
+ * @property notifications.newMessage.badgeCountEnabled - The notifications.new_message.badge_count_enabled
+ * @property notifications.addedToChannel.enabled - The notifications.added_to_channel.enabled
+ * @property notifications.addedToChannel.template - The notifications.added_to_channel.template
+ * @property notifications.addedToChannel.sound - The notifications.added_to_channel.sound
+ * @property notifications.removedFromChannel.enabled - The notifications.removed_from_channel.enabled
+ * @property notifications.removedFromChannel.template - The notifications.removed_from_channel.template
+ * @property notifications.removedFromChannel.sound - The notifications.removed_from_channel.sound
+ * @property notifications.invitedToChannel.enabled - The notifications.invited_to_channel.enabled
+ * @property notifications.invitedToChannel.template - The notifications.invited_to_channel.template
+ * @property notifications.invitedToChannel.sound - The notifications.invited_to_channel.sound
+ * @property preWebhookUrl - The webhook URL for PRE-Event webhooks.
+ * @property postWebhookUrl - The webhook URL for POST-Event webhooks.
+ * @property webhookMethod - The webhook request format to use.
+ * @property webhookFilters - The list of WebHook events that are enabled for this Service instance.
+ * @property limits.channelMembers - The maximum number of Members that can be added to Channels within this Service.
+ * @property limits.userChannels - The maximum number of Channels Users can be a Member of within this Service.
+ * @property media.compatibilityMessage - The media.compatibility_message
+ * @property preWebhookRetryCount - Count of times webhook will be retried in case of timeout or 429/503/504 HTTP responses.
+ * @property postWebhookRetryCount - Count of times webhook will be retried in case of timeout or 429/503/504 HTTP responses.
+ * @property notifications.logEnabled - The notifications.log_enabled
+ */
+interface ServiceInstanceUpdateOptions {
+  consumptionReportInterval?: number;
+  defaultChannelCreatorRoleSid?: string;
+  defaultChannelRoleSid?: string;
+  defaultServiceRoleSid?: string;
+  friendlyName?: string;
+  limits.channelMembers?: number;
+  limits.userChannels?: number;
+  media.compatibilityMessage?: string;
+  notifications.addedToChannel.enabled?: boolean;
+  notifications.addedToChannel.sound?: string;
+  notifications.addedToChannel.template?: string;
+  notifications.invitedToChannel.enabled?: boolean;
+  notifications.invitedToChannel.sound?: string;
+  notifications.invitedToChannel.template?: string;
+  notifications.logEnabled?: boolean;
+  notifications.newMessage.badgeCountEnabled?: boolean;
+  notifications.newMessage.enabled?: boolean;
+  notifications.newMessage.sound?: string;
+  notifications.newMessage.template?: string;
+  notifications.removedFromChannel.enabled?: boolean;
+  notifications.removedFromChannel.sound?: string;
+  notifications.removedFromChannel.template?: string;
+  postWebhookRetryCount?: number;
+  postWebhookUrl?: string;
+  preWebhookRetryCount?: number;
+  preWebhookUrl?: string;
+  reachabilityEnabled?: boolean;
+  readStatusEnabled?: boolean;
+  typingIndicatorTimeout?: number;
+  webhookFilters?: string|list;
+  webhookMethod?: string;
 }
 
 interface ServiceListInstance {
@@ -118,144 +155,6 @@ interface ServiceListInstance {
 }
 
 /**
- * Options to pass to update
- *
- * @property friendlyName - Human-readable name for this service instance
- * @property defaultServiceRoleSid - The default_service_role_sid
- * @property defaultChannelRoleSid - Channel role assigned on channel join
- * @property defaultChannelCreatorRoleSid - Channel role assigned to creator of channel when joining for first time
- * @property readStatusEnabled - true if the member read status feature is enabled, false if not.
- * @property reachabilityEnabled - true if the reachability feature should be enabled.
- * @property typingIndicatorTimeout - The duration in seconds indicating the timeout after "started typing" event when client should assume that user is not typing anymore even if no "ended typing" message received
- * @property consumptionReportInterval - The consumption_report_interval
- * @property notifications.newMessage.enabled - The notifications.new_message.enabled
- * @property notifications.newMessage.template - The notifications.new_message.template
- * @property notifications.newMessage.sound - The notifications.new_message.sound
- * @property notifications.newMessage.badgeCountEnabled - The notifications.new_message.badge_count_enabled
- * @property notifications.addedToChannel.enabled - The notifications.added_to_channel.enabled
- * @property notifications.addedToChannel.template - The notifications.added_to_channel.template
- * @property notifications.addedToChannel.sound - The notifications.added_to_channel.sound
- * @property notifications.removedFromChannel.enabled - The notifications.removed_from_channel.enabled
- * @property notifications.removedFromChannel.template - The notifications.removed_from_channel.template
- * @property notifications.removedFromChannel.sound - The notifications.removed_from_channel.sound
- * @property notifications.invitedToChannel.enabled - The notifications.invited_to_channel.enabled
- * @property notifications.invitedToChannel.template - The notifications.invited_to_channel.template
- * @property notifications.invitedToChannel.sound - The notifications.invited_to_channel.sound
- * @property preWebhookUrl - The webhook URL for PRE-Event webhooks.
- * @property postWebhookUrl - The webhook URL for POST-Event webhooks.
- * @property webhookMethod - The webhook request format to use.
- * @property webhookFilters - The list of WebHook events that are enabled for this Service instance.
- * @property limits.channelMembers - The maximum number of Members that can be added to Channels within this Service.
- * @property limits.userChannels - The maximum number of Channels Users can be a Member of within this Service.
- * @property media.compatibilityMessage - The media.compatibility_message
- * @property preWebhookRetryCount - Count of times webhook will be retried in case of timeout or 429/503/504 HTTP responses.
- * @property postWebhookRetryCount - Count of times webhook will be retried in case of timeout or 429/503/504 HTTP responses.
- * @property notifications.logEnabled - The notifications.log_enabled
- */
-interface ServiceInstanceUpdateOptions {
-  consumptionReportInterval?: number;
-  defaultChannelCreatorRoleSid?: string;
-  defaultChannelRoleSid?: string;
-  defaultServiceRoleSid?: string;
-  friendlyName?: string;
-  limits.channelMembers?: number;
-  limits.userChannels?: number;
-  media.compatibilityMessage?: string;
-  notifications.addedToChannel.enabled?: boolean;
-  notifications.addedToChannel.sound?: string;
-  notifications.addedToChannel.template?: string;
-  notifications.invitedToChannel.enabled?: boolean;
-  notifications.invitedToChannel.sound?: string;
-  notifications.invitedToChannel.template?: string;
-  notifications.logEnabled?: boolean;
-  notifications.newMessage.badgeCountEnabled?: boolean;
-  notifications.newMessage.enabled?: boolean;
-  notifications.newMessage.sound?: string;
-  notifications.newMessage.template?: string;
-  notifications.removedFromChannel.enabled?: boolean;
-  notifications.removedFromChannel.sound?: string;
-  notifications.removedFromChannel.template?: string;
-  postWebhookRetryCount?: number;
-  postWebhookUrl?: string;
-  preWebhookRetryCount?: number;
-  preWebhookUrl?: string;
-  reachabilityEnabled?: boolean;
-  readStatusEnabled?: boolean;
-  typingIndicatorTimeout?: number;
-  webhookFilters?: string|list;
-  webhookMethod?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property friendlyName - Human-readable name for this service instance
- * @property defaultServiceRoleSid - The default_service_role_sid
- * @property defaultChannelRoleSid - Channel role assigned on channel join
- * @property defaultChannelCreatorRoleSid - Channel role assigned to creator of channel when joining for first time
- * @property readStatusEnabled - true if the member read status feature is enabled, false if not.
- * @property reachabilityEnabled - true if the reachability feature should be enabled.
- * @property typingIndicatorTimeout - The duration in seconds indicating the timeout after "started typing" event when client should assume that user is not typing anymore even if no "ended typing" message received
- * @property consumptionReportInterval - The consumption_report_interval
- * @property notifications.newMessage.enabled - The notifications.new_message.enabled
- * @property notifications.newMessage.template - The notifications.new_message.template
- * @property notifications.newMessage.sound - The notifications.new_message.sound
- * @property notifications.newMessage.badgeCountEnabled - The notifications.new_message.badge_count_enabled
- * @property notifications.addedToChannel.enabled - The notifications.added_to_channel.enabled
- * @property notifications.addedToChannel.template - The notifications.added_to_channel.template
- * @property notifications.addedToChannel.sound - The notifications.added_to_channel.sound
- * @property notifications.removedFromChannel.enabled - The notifications.removed_from_channel.enabled
- * @property notifications.removedFromChannel.template - The notifications.removed_from_channel.template
- * @property notifications.removedFromChannel.sound - The notifications.removed_from_channel.sound
- * @property notifications.invitedToChannel.enabled - The notifications.invited_to_channel.enabled
- * @property notifications.invitedToChannel.template - The notifications.invited_to_channel.template
- * @property notifications.invitedToChannel.sound - The notifications.invited_to_channel.sound
- * @property preWebhookUrl - The webhook URL for PRE-Event webhooks.
- * @property postWebhookUrl - The webhook URL for POST-Event webhooks.
- * @property webhookMethod - The webhook request format to use.
- * @property webhookFilters - The list of WebHook events that are enabled for this Service instance.
- * @property limits.channelMembers - The maximum number of Members that can be added to Channels within this Service.
- * @property limits.userChannels - The maximum number of Channels Users can be a Member of within this Service.
- * @property media.compatibilityMessage - The media.compatibility_message
- * @property preWebhookRetryCount - Count of times webhook will be retried in case of timeout or 429/503/504 HTTP responses.
- * @property postWebhookRetryCount - Count of times webhook will be retried in case of timeout or 429/503/504 HTTP responses.
- * @property notifications.logEnabled - The notifications.log_enabled
- */
-interface ServiceInstanceUpdateOptions {
-  consumptionReportInterval?: number;
-  defaultChannelCreatorRoleSid?: string;
-  defaultChannelRoleSid?: string;
-  defaultServiceRoleSid?: string;
-  friendlyName?: string;
-  limits.channelMembers?: number;
-  limits.userChannels?: number;
-  media.compatibilityMessage?: string;
-  notifications.addedToChannel.enabled?: boolean;
-  notifications.addedToChannel.sound?: string;
-  notifications.addedToChannel.template?: string;
-  notifications.invitedToChannel.enabled?: boolean;
-  notifications.invitedToChannel.sound?: string;
-  notifications.invitedToChannel.template?: string;
-  notifications.logEnabled?: boolean;
-  notifications.newMessage.badgeCountEnabled?: boolean;
-  notifications.newMessage.enabled?: boolean;
-  notifications.newMessage.sound?: string;
-  notifications.newMessage.template?: string;
-  notifications.removedFromChannel.enabled?: boolean;
-  notifications.removedFromChannel.sound?: string;
-  notifications.removedFromChannel.template?: string;
-  postWebhookRetryCount?: number;
-  postWebhookUrl?: string;
-  preWebhookRetryCount?: number;
-  preWebhookUrl?: string;
-  reachabilityEnabled?: boolean;
-  readStatusEnabled?: boolean;
-  typingIndicatorTimeout?: number;
-  webhookFilters?: string|list;
-  webhookMethod?: string;
-}
-
-/**
  * Options to pass to create
  *
  * @property friendlyName - Human-readable name for this service instance
@@ -319,6 +218,38 @@ interface ServiceListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface ServicePayload extends ServiceResource, Page.TwilioResponsePayload {
+}
+
+interface ServiceResource {
+  account_sid: string;
+  consumption_report_interval: number;
+  date_created: Date;
+  date_updated: Date;
+  default_channel_creator_role_sid: string;
+  default_channel_role_sid: string;
+  default_service_role_sid: string;
+  friendly_name: string;
+  limits: string;
+  links: string;
+  media: string;
+  notifications: string;
+  post_webhook_retry_count: number;
+  post_webhook_url: string;
+  pre_webhook_retry_count: number;
+  pre_webhook_url: string;
+  reachability_enabled: boolean;
+  read_status_enabled: boolean;
+  sid: string;
+  typing_indicator_timeout: number;
+  url: string;
+  webhook_filters: string;
+  webhook_method: string;
+}
+
+interface ServiceSolution {
 }
 
 

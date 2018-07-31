@@ -20,36 +20,6 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function NotificationList(version: V1, serviceSid: string): NotificationListInstance;
 
-interface NotificationResource {
-  account_sid: string;
-  action: string;
-  alexa: string;
-  apn: string;
-  body: string;
-  data: string;
-  date_created: Date;
-  facebook_messenger: string;
-  fcm: string;
-  gcm: string;
-  identities: string;
-  priority: NotificationPriority;
-  segments: string;
-  service_sid: string;
-  sid: string;
-  sms: string;
-  sound: string;
-  tags: string;
-  title: string;
-  ttl: number;
-}
-
-interface NotificationPayload extends NotificationResource, Page.TwilioResponsePayload {
-}
-
-interface NotificationSolution {
-  serviceSid?: string;
-}
-
 interface NotificationListInstance {
   /**
    * create a NotificationInstance
@@ -99,6 +69,36 @@ interface NotificationListInstanceCreateOptions {
   title?: string;
   toBinding?: string|list;
   ttl?: number;
+}
+
+interface NotificationPayload extends NotificationResource, Page.TwilioResponsePayload {
+}
+
+interface NotificationResource {
+  account_sid: string;
+  action: string;
+  alexa: string;
+  apn: string;
+  body: string;
+  data: string;
+  date_created: Date;
+  facebook_messenger: string;
+  fcm: string;
+  gcm: string;
+  identities: string;
+  priority: NotificationPriority;
+  segments: string;
+  service_sid: string;
+  sid: string;
+  sms: string;
+  sound: string;
+  tags: string;
+  title: string;
+  ttl: number;
+}
+
+interface NotificationSolution {
+  serviceSid?: string;
 }
 
 

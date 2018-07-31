@@ -20,27 +20,6 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function AddOnResultList(version: V2010, accountSid: string, referenceSid: string): AddOnResultListInstance;
 
-interface AddOnResultResource {
-  account_sid: string;
-  add_on_configuration_sid: string;
-  add_on_sid: string;
-  date_completed: Date;
-  date_created: Date;
-  date_updated: Date;
-  reference_sid: string;
-  sid: string;
-  status: AddOnResultStatus;
-  subresource_uris: string;
-}
-
-interface AddOnResultPayload extends AddOnResultResource, Page.TwilioResponsePayload {
-}
-
-interface AddOnResultSolution {
-  accountSid?: string;
-  referenceSid?: string;
-}
-
 interface AddOnResultListInstance {
   /**
    * @param sid - sid of instance
@@ -152,6 +131,27 @@ interface AddOnResultListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface AddOnResultPayload extends AddOnResultResource, Page.TwilioResponsePayload {
+}
+
+interface AddOnResultResource {
+  account_sid: string;
+  add_on_configuration_sid: string;
+  add_on_sid: string;
+  date_completed: Date;
+  date_created: Date;
+  date_updated: Date;
+  reference_sid: string;
+  sid: string;
+  status: AddOnResultStatus;
+  subresource_uris: string;
+}
+
+interface AddOnResultSolution {
+  accountSid?: string;
+  referenceSid?: string;
 }
 
 

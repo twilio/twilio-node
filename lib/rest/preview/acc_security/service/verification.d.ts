@@ -19,25 +19,6 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function VerificationList(version: AccSecurity, serviceSid: string): VerificationListInstance;
 
-interface VerificationResource {
-  account_sid: string;
-  channel: VerificationChannel;
-  date_created: Date;
-  date_updated: Date;
-  service_sid: string;
-  sid: string;
-  status: string;
-  to: string;
-  valid: boolean;
-}
-
-interface VerificationPayload extends VerificationResource, Page.TwilioResponsePayload {
-}
-
-interface VerificationSolution {
-  serviceSid?: string;
-}
-
 interface VerificationListInstance {
   /**
    * create a VerificationInstance
@@ -59,6 +40,25 @@ interface VerificationListInstanceCreateOptions {
   channel: string;
   customMessage?: string;
   to: string;
+}
+
+interface VerificationPayload extends VerificationResource, Page.TwilioResponsePayload {
+}
+
+interface VerificationResource {
+  account_sid: string;
+  channel: VerificationChannel;
+  date_created: Date;
+  date_updated: Date;
+  service_sid: string;
+  sid: string;
+  status: string;
+  to: string;
+  valid: boolean;
+}
+
+interface VerificationSolution {
+  serviceSid?: string;
 }
 
 

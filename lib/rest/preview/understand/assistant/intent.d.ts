@@ -21,23 +21,15 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function IntentList(version: Understand, assistantSid: string): IntentListInstance;
 
-interface IntentResource {
-  account_sid: string;
-  assistant_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  friendly_name: string;
-  links: string;
-  sid: string;
-  unique_name: string;
-  url: string;
-}
-
-interface IntentPayload extends IntentResource, Page.TwilioResponsePayload {
-}
-
-interface IntentSolution {
-  assistantSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
+ * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+ */
+interface IntentInstanceUpdateOptions {
+  friendlyName?: string;
+  uniqueName?: string;
 }
 
 interface IntentListInstance {
@@ -104,25 +96,14 @@ interface IntentListInstance {
 }
 
 /**
- * Options to pass to update
+ * Options to pass to create
  *
- * @property friendlyName - A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
  * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
- */
-interface IntentInstanceUpdateOptions {
-  friendlyName?: string;
-  uniqueName?: string;
-}
-
-/**
- * Options to pass to update
- *
  * @property friendlyName - A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
- * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
  */
-interface IntentInstanceUpdateOptions {
+interface IntentListInstanceCreateOptions {
   friendlyName?: string;
-  uniqueName?: string;
+  uniqueName: string;
 }
 
 /**
@@ -182,15 +163,23 @@ interface IntentListInstancePageOptions {
   pageToken?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
- * @property friendlyName - A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
- */
-interface IntentListInstanceCreateOptions {
-  friendlyName?: string;
-  uniqueName: string;
+interface IntentPayload extends IntentResource, Page.TwilioResponsePayload {
+}
+
+interface IntentResource {
+  account_sid: string;
+  assistant_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  links: string;
+  sid: string;
+  unique_name: string;
+  url: string;
+}
+
+interface IntentSolution {
+  assistantSid?: string;
 }
 
 

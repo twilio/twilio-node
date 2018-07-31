@@ -21,26 +21,25 @@ import { ShortCodeList } from './service/shortCode';
  */
 declare function ServiceList(version: V1): ServiceListInstance;
 
-interface ServiceResource {
-  account_sid: string;
-  callback_url: string;
-  date_created: Date;
-  date_updated: Date;
-  default_ttl: number;
-  geo_match_level: ServiceGeoMatchLevel;
-  intercept_callback_url: string;
-  links: string;
-  number_selection_behavior: ServiceNumberSelectionBehavior;
-  out_of_session_callback_url: string;
-  sid: string;
-  unique_name: string;
-  url: string;
-}
-
-interface ServicePayload extends ServiceResource, Page.TwilioResponsePayload {
-}
-
-interface ServiceSolution {
+/**
+ * Options to pass to update
+ *
+ * @property uniqueName - A human-readable description of this resource.
+ * @property defaultTtl - Default TTL for Sessions in Service, in seconds.
+ * @property callbackUrl - URL Twilio will send callbacks to
+ * @property geoMatchLevel - Whether proxy number selected must be in the same area code as the participant identifier.
+ * @property numberSelectionBehavior - What behavior to use when choosing a proxy number.
+ * @property interceptCallbackUrl - A URL for Twilio call before each Interaction.
+ * @property outOfSessionCallbackUrl - A URL for Twilio call when a new Interaction has no Session.
+ */
+interface ServiceInstanceUpdateOptions {
+  callbackUrl?: string;
+  defaultTtl?: number;
+  geoMatchLevel?: service.geo_match_level;
+  interceptCallbackUrl?: string;
+  numberSelectionBehavior?: service.number_selection_behavior;
+  outOfSessionCallbackUrl?: string;
+  uniqueName?: string;
 }
 
 interface ServiceListInstance {
@@ -107,9 +106,9 @@ interface ServiceListInstance {
 }
 
 /**
- * Options to pass to update
+ * Options to pass to create
  *
- * @property uniqueName - A human-readable description of this resource.
+ * @property uniqueName - The human-readable string that uniquely identifies this Service.
  * @property defaultTtl - Default TTL for Sessions in Service, in seconds.
  * @property callbackUrl - URL Twilio will send callbacks to
  * @property geoMatchLevel - Whether proxy number selected must be in the same area code as the participant identifier.
@@ -117,35 +116,14 @@ interface ServiceListInstance {
  * @property interceptCallbackUrl - A URL for Twilio call before each Interaction.
  * @property outOfSessionCallbackUrl - A URL for Twilio call when a new Interaction has no Session.
  */
-interface ServiceInstanceUpdateOptions {
+interface ServiceListInstanceCreateOptions {
   callbackUrl?: string;
   defaultTtl?: number;
   geoMatchLevel?: service.geo_match_level;
   interceptCallbackUrl?: string;
   numberSelectionBehavior?: service.number_selection_behavior;
   outOfSessionCallbackUrl?: string;
-  uniqueName?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property uniqueName - A human-readable description of this resource.
- * @property defaultTtl - Default TTL for Sessions in Service, in seconds.
- * @property callbackUrl - URL Twilio will send callbacks to
- * @property geoMatchLevel - Whether proxy number selected must be in the same area code as the participant identifier.
- * @property numberSelectionBehavior - What behavior to use when choosing a proxy number.
- * @property interceptCallbackUrl - A URL for Twilio call before each Interaction.
- * @property outOfSessionCallbackUrl - A URL for Twilio call when a new Interaction has no Session.
- */
-interface ServiceInstanceUpdateOptions {
-  callbackUrl?: string;
-  defaultTtl?: number;
-  geoMatchLevel?: service.geo_match_level;
-  interceptCallbackUrl?: string;
-  numberSelectionBehavior?: service.number_selection_behavior;
-  outOfSessionCallbackUrl?: string;
-  uniqueName?: string;
+  uniqueName: string;
 }
 
 /**
@@ -205,25 +183,26 @@ interface ServiceListInstancePageOptions {
   pageToken?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property uniqueName - The human-readable string that uniquely identifies this Service.
- * @property defaultTtl - Default TTL for Sessions in Service, in seconds.
- * @property callbackUrl - URL Twilio will send callbacks to
- * @property geoMatchLevel - Whether proxy number selected must be in the same area code as the participant identifier.
- * @property numberSelectionBehavior - What behavior to use when choosing a proxy number.
- * @property interceptCallbackUrl - A URL for Twilio call before each Interaction.
- * @property outOfSessionCallbackUrl - A URL for Twilio call when a new Interaction has no Session.
- */
-interface ServiceListInstanceCreateOptions {
-  callbackUrl?: string;
-  defaultTtl?: number;
-  geoMatchLevel?: service.geo_match_level;
-  interceptCallbackUrl?: string;
-  numberSelectionBehavior?: service.number_selection_behavior;
-  outOfSessionCallbackUrl?: string;
-  uniqueName: string;
+interface ServicePayload extends ServiceResource, Page.TwilioResponsePayload {
+}
+
+interface ServiceResource {
+  account_sid: string;
+  callback_url: string;
+  date_created: Date;
+  date_updated: Date;
+  default_ttl: number;
+  geo_match_level: ServiceGeoMatchLevel;
+  intercept_callback_url: string;
+  links: string;
+  number_selection_behavior: ServiceNumberSelectionBehavior;
+  out_of_session_callback_url: string;
+  sid: string;
+  unique_name: string;
+  url: string;
+}
+
+interface ServiceSolution {
 }
 
 

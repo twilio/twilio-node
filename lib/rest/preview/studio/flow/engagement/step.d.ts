@@ -20,28 +20,6 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function StepList(version: Studio, flowSid: string, engagementSid: string): StepListInstance;
 
-interface StepResource {
-  account_sid: string;
-  context: string;
-  date_created: Date;
-  date_updated: Date;
-  engagement_sid: string;
-  flow_sid: string;
-  name: string;
-  sid: string;
-  transitioned_from: string;
-  transitioned_to: string;
-  url: string;
-}
-
-interface StepPayload extends StepResource, Page.TwilioResponsePayload {
-}
-
-interface StepSolution {
-  engagementSid?: string;
-  flowSid?: string;
-}
-
 interface StepListInstance {
   /**
    * @param sid - sid of instance
@@ -153,6 +131,28 @@ interface StepListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface StepPayload extends StepResource, Page.TwilioResponsePayload {
+}
+
+interface StepResource {
+  account_sid: string;
+  context: string;
+  date_created: Date;
+  date_updated: Date;
+  engagement_sid: string;
+  flow_sid: string;
+  name: string;
+  sid: string;
+  transitioned_from: string;
+  transitioned_to: string;
+  url: string;
+}
+
+interface StepSolution {
+  engagementSid?: string;
+  flowSid?: string;
 }
 
 

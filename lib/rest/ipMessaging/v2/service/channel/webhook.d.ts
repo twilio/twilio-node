@@ -20,24 +20,23 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function WebhookList(version: V2, serviceSid: string, channelSid: string): WebhookListInstance;
 
-interface WebhookResource {
-  account_sid: string;
-  channel_sid: string;
-  configuration: string;
-  date_created: Date;
-  date_updated: Date;
-  service_sid: string;
-  sid: string;
-  type: string;
-  url: string;
-}
-
-interface WebhookPayload extends WebhookResource, Page.TwilioResponsePayload {
-}
-
-interface WebhookSolution {
-  channelSid?: string;
-  serviceSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property configuration.url - The configuration.url
+ * @property configuration.method - The configuration.method
+ * @property configuration.filters - The configuration.filters
+ * @property configuration.triggers - The configuration.triggers
+ * @property configuration.flowSid - The configuration.flow_sid
+ * @property configuration.retryCount - The configuration.retry_count
+ */
+interface WebhookInstanceUpdateOptions {
+  configuration.filters?: string|list;
+  configuration.flowSid?: string;
+  configuration.method?: webhook.method;
+  configuration.retryCount?: number;
+  configuration.triggers?: string|list;
+  configuration.url?: string;
 }
 
 interface WebhookListInstance {
@@ -104,8 +103,9 @@ interface WebhookListInstance {
 }
 
 /**
- * Options to pass to update
+ * Options to pass to create
  *
+ * @property type - The type
  * @property configuration.url - The configuration.url
  * @property configuration.method - The configuration.method
  * @property configuration.filters - The configuration.filters
@@ -113,32 +113,14 @@ interface WebhookListInstance {
  * @property configuration.flowSid - The configuration.flow_sid
  * @property configuration.retryCount - The configuration.retry_count
  */
-interface WebhookInstanceUpdateOptions {
+interface WebhookListInstanceCreateOptions {
   configuration.filters?: string|list;
   configuration.flowSid?: string;
   configuration.method?: webhook.method;
   configuration.retryCount?: number;
   configuration.triggers?: string|list;
   configuration.url?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property configuration.url - The configuration.url
- * @property configuration.method - The configuration.method
- * @property configuration.filters - The configuration.filters
- * @property configuration.triggers - The configuration.triggers
- * @property configuration.flowSid - The configuration.flow_sid
- * @property configuration.retryCount - The configuration.retry_count
- */
-interface WebhookInstanceUpdateOptions {
-  configuration.filters?: string|list;
-  configuration.flowSid?: string;
-  configuration.method?: webhook.method;
-  configuration.retryCount?: number;
-  configuration.triggers?: string|list;
-  configuration.url?: string;
+  type: webhook.type;
 }
 
 /**
@@ -198,25 +180,24 @@ interface WebhookListInstancePageOptions {
   pageToken?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property type - The type
- * @property configuration.url - The configuration.url
- * @property configuration.method - The configuration.method
- * @property configuration.filters - The configuration.filters
- * @property configuration.triggers - The configuration.triggers
- * @property configuration.flowSid - The configuration.flow_sid
- * @property configuration.retryCount - The configuration.retry_count
- */
-interface WebhookListInstanceCreateOptions {
-  configuration.filters?: string|list;
-  configuration.flowSid?: string;
-  configuration.method?: webhook.method;
-  configuration.retryCount?: number;
-  configuration.triggers?: string|list;
-  configuration.url?: string;
-  type: webhook.type;
+interface WebhookPayload extends WebhookResource, Page.TwilioResponsePayload {
+}
+
+interface WebhookResource {
+  account_sid: string;
+  channel_sid: string;
+  configuration: string;
+  date_created: Date;
+  date_updated: Date;
+  service_sid: string;
+  sid: string;
+  type: string;
+  url: string;
+}
+
+interface WebhookSolution {
+  channelSid?: string;
+  serviceSid?: string;
 }
 
 

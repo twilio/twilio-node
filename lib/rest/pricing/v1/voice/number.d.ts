@@ -17,22 +17,6 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function NumberList(version: V1): NumberListInstance;
 
-interface NumberResource {
-  country: string;
-  inbound_call_price: string;
-  iso_country: string;
-  number: string;
-  outbound_call_price: string;
-  price_unit: string;
-  url: string;
-}
-
-interface NumberPayload extends NumberResource, Page.TwilioResponsePayload {
-}
-
-interface NumberSolution {
-}
-
 interface NumberListInstance {
   /**
    * @param sid - sid of instance
@@ -44,6 +28,22 @@ interface NumberListInstance {
    * @param number - The number
    */
   get(number: string): NumberContext;
+}
+
+interface NumberPayload extends NumberResource, Page.TwilioResponsePayload {
+}
+
+interface NumberResource {
+  country: string;
+  inbound_call_price: string;
+  iso_country: string;
+  number: string;
+  outbound_call_price: string;
+  price_unit: string;
+  url: string;
+}
+
+interface NumberSolution {
 }
 
 

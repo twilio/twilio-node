@@ -21,25 +21,13 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function SyncListItemList(version: Sync, serviceSid: string, listSid: string): SyncListItemListInstance;
 
-interface SyncListItemResource {
-  account_sid: string;
-  created_by: string;
+/**
+ * Options to pass to update
+ *
+ * @property data - The data
+ */
+interface SyncListItemInstanceUpdateOptions {
   data: string;
-  date_created: Date;
-  date_updated: Date;
-  index: number;
-  list_sid: string;
-  revision: string;
-  service_sid: string;
-  url: string;
-}
-
-interface SyncListItemPayload extends SyncListItemResource, Page.TwilioResponsePayload {
-}
-
-interface SyncListItemSolution {
-  listSid?: string;
-  serviceSid?: string;
 }
 
 interface SyncListItemListInstance {
@@ -103,24 +91,6 @@ interface SyncListItemListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: SyncListItemListInstancePageOptions, callback?: (error: Error | null, items: SyncListItemPage) => any): Promise<SyncListItemPage>;
-}
-
-/**
- * Options to pass to update
- *
- * @property data - The data
- */
-interface SyncListItemInstanceUpdateOptions {
-  data: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property data - The data
- */
-interface SyncListItemInstanceUpdateOptions {
-  data: string;
 }
 
 /**
@@ -205,6 +175,27 @@ interface SyncListItemListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface SyncListItemPayload extends SyncListItemResource, Page.TwilioResponsePayload {
+}
+
+interface SyncListItemResource {
+  account_sid: string;
+  created_by: string;
+  data: string;
+  date_created: Date;
+  date_updated: Date;
+  index: number;
+  list_sid: string;
+  revision: string;
+  service_sid: string;
+  url: string;
+}
+
+interface SyncListItemSolution {
+  listSid?: string;
+  serviceSid?: string;
 }
 
 

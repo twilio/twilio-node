@@ -20,26 +20,19 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function DeviceList(version: DeployedDevices, fleetSid: string): DeviceListInstance;
 
-interface DeviceResource {
-  account_sid: string;
-  date_authenticated: Date;
-  date_created: Date;
-  date_updated: Date;
-  deployment_sid: string;
-  enabled: boolean;
-  fleet_sid: string;
-  friendly_name: string;
-  identity: string;
-  sid: string;
-  unique_name: string;
-  url: string;
-}
-
-interface DevicePayload extends DeviceResource, Page.TwilioResponsePayload {
-}
-
-interface DeviceSolution {
-  fleetSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A human readable description for this Device.
+ * @property identity - An identifier of the Device user.
+ * @property deploymentSid - The unique SID of the Deployment group.
+ * @property enabled - The enabled
+ */
+interface DeviceInstanceUpdateOptions {
+  deploymentSid?: string;
+  enabled?: boolean;
+  friendlyName?: string;
+  identity?: string;
 }
 
 interface DeviceListInstance {
@@ -103,36 +96,6 @@ interface DeviceListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: DeviceListInstancePageOptions, callback?: (error: Error | null, items: DevicePage) => any): Promise<DevicePage>;
-}
-
-/**
- * Options to pass to update
- *
- * @property friendlyName - A human readable description for this Device.
- * @property identity - An identifier of the Device user.
- * @property deploymentSid - The unique SID of the Deployment group.
- * @property enabled - The enabled
- */
-interface DeviceInstanceUpdateOptions {
-  deploymentSid?: string;
-  enabled?: boolean;
-  friendlyName?: string;
-  identity?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property friendlyName - A human readable description for this Device.
- * @property identity - An identifier of the Device user.
- * @property deploymentSid - The unique SID of the Deployment group.
- * @property enabled - The enabled
- */
-interface DeviceInstanceUpdateOptions {
-  deploymentSid?: string;
-  enabled?: boolean;
-  friendlyName?: string;
-  identity?: string;
 }
 
 /**
@@ -213,6 +176,28 @@ interface DeviceListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface DevicePayload extends DeviceResource, Page.TwilioResponsePayload {
+}
+
+interface DeviceResource {
+  account_sid: string;
+  date_authenticated: Date;
+  date_created: Date;
+  date_updated: Date;
+  deployment_sid: string;
+  enabled: boolean;
+  fleet_sid: string;
+  friendly_name: string;
+  identity: string;
+  sid: string;
+  unique_name: string;
+  url: string;
+}
+
+interface DeviceSolution {
+  fleetSid?: string;
 }
 
 

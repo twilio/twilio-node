@@ -19,35 +19,43 @@ import { UsageList } from './sim/usage';
  */
 declare function SimList(version: Wireless): SimListInstance;
 
-interface SimResource {
-  account_sid: string;
-  commands_callback_method: string;
-  commands_callback_url: string;
-  date_created: Date;
-  date_updated: Date;
-  e_id: string;
-  friendly_name: string;
-  iccid: string;
-  links: string;
-  rate_plan_sid: string;
-  sid: string;
-  sms_fallback_method: string;
-  sms_fallback_url: string;
-  sms_method: string;
-  sms_url: string;
-  status: string;
-  unique_name: string;
-  url: string;
-  voice_fallback_method: string;
-  voice_fallback_url: string;
-  voice_method: string;
-  voice_url: string;
-}
-
-interface SimPayload extends SimResource, Page.TwilioResponsePayload {
-}
-
-interface SimSolution {
+/**
+ * Options to pass to update
+ *
+ * @property uniqueName - The unique_name
+ * @property callbackMethod - The callback_method
+ * @property callbackUrl - The callback_url
+ * @property friendlyName - The friendly_name
+ * @property ratePlan - The rate_plan
+ * @property status - The status
+ * @property commandsCallbackMethod - The commands_callback_method
+ * @property commandsCallbackUrl - The commands_callback_url
+ * @property smsFallbackMethod - The sms_fallback_method
+ * @property smsFallbackUrl - The sms_fallback_url
+ * @property smsMethod - The sms_method
+ * @property smsUrl - The sms_url
+ * @property voiceFallbackMethod - The voice_fallback_method
+ * @property voiceFallbackUrl - The voice_fallback_url
+ * @property voiceMethod - The voice_method
+ * @property voiceUrl - The voice_url
+ */
+interface SimInstanceUpdateOptions {
+  callbackMethod?: string;
+  callbackUrl?: string;
+  commandsCallbackMethod?: string;
+  commandsCallbackUrl?: string;
+  friendlyName?: string;
+  ratePlan?: string;
+  smsFallbackMethod?: string;
+  smsFallbackUrl?: string;
+  smsMethod?: string;
+  smsUrl?: string;
+  status?: string;
+  uniqueName?: string;
+  voiceFallbackMethod?: string;
+  voiceFallbackUrl?: string;
+  voiceMethod?: string;
+  voiceUrl?: string;
 }
 
 interface SimListInstance {
@@ -104,84 +112,6 @@ interface SimListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: SimListInstancePageOptions, callback?: (error: Error | null, items: SimPage) => any): Promise<SimPage>;
-}
-
-/**
- * Options to pass to update
- *
- * @property uniqueName - The unique_name
- * @property callbackMethod - The callback_method
- * @property callbackUrl - The callback_url
- * @property friendlyName - The friendly_name
- * @property ratePlan - The rate_plan
- * @property status - The status
- * @property commandsCallbackMethod - The commands_callback_method
- * @property commandsCallbackUrl - The commands_callback_url
- * @property smsFallbackMethod - The sms_fallback_method
- * @property smsFallbackUrl - The sms_fallback_url
- * @property smsMethod - The sms_method
- * @property smsUrl - The sms_url
- * @property voiceFallbackMethod - The voice_fallback_method
- * @property voiceFallbackUrl - The voice_fallback_url
- * @property voiceMethod - The voice_method
- * @property voiceUrl - The voice_url
- */
-interface SimInstanceUpdateOptions {
-  callbackMethod?: string;
-  callbackUrl?: string;
-  commandsCallbackMethod?: string;
-  commandsCallbackUrl?: string;
-  friendlyName?: string;
-  ratePlan?: string;
-  smsFallbackMethod?: string;
-  smsFallbackUrl?: string;
-  smsMethod?: string;
-  smsUrl?: string;
-  status?: string;
-  uniqueName?: string;
-  voiceFallbackMethod?: string;
-  voiceFallbackUrl?: string;
-  voiceMethod?: string;
-  voiceUrl?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property uniqueName - The unique_name
- * @property callbackMethod - The callback_method
- * @property callbackUrl - The callback_url
- * @property friendlyName - The friendly_name
- * @property ratePlan - The rate_plan
- * @property status - The status
- * @property commandsCallbackMethod - The commands_callback_method
- * @property commandsCallbackUrl - The commands_callback_url
- * @property smsFallbackMethod - The sms_fallback_method
- * @property smsFallbackUrl - The sms_fallback_url
- * @property smsMethod - The sms_method
- * @property smsUrl - The sms_url
- * @property voiceFallbackMethod - The voice_fallback_method
- * @property voiceFallbackUrl - The voice_fallback_url
- * @property voiceMethod - The voice_method
- * @property voiceUrl - The voice_url
- */
-interface SimInstanceUpdateOptions {
-  callbackMethod?: string;
-  callbackUrl?: string;
-  commandsCallbackMethod?: string;
-  commandsCallbackUrl?: string;
-  friendlyName?: string;
-  ratePlan?: string;
-  smsFallbackMethod?: string;
-  smsFallbackUrl?: string;
-  smsMethod?: string;
-  smsUrl?: string;
-  status?: string;
-  uniqueName?: string;
-  voiceFallbackMethod?: string;
-  voiceFallbackUrl?: string;
-  voiceMethod?: string;
-  voiceUrl?: string;
 }
 
 /**
@@ -269,6 +199,37 @@ interface SimListInstancePageOptions {
   ratePlan?: string;
   simRegistrationCode?: string;
   status?: string;
+}
+
+interface SimPayload extends SimResource, Page.TwilioResponsePayload {
+}
+
+interface SimResource {
+  account_sid: string;
+  commands_callback_method: string;
+  commands_callback_url: string;
+  date_created: Date;
+  date_updated: Date;
+  e_id: string;
+  friendly_name: string;
+  iccid: string;
+  links: string;
+  rate_plan_sid: string;
+  sid: string;
+  sms_fallback_method: string;
+  sms_fallback_url: string;
+  sms_method: string;
+  sms_url: string;
+  status: string;
+  unique_name: string;
+  url: string;
+  voice_fallback_method: string;
+  voice_fallback_url: string;
+  voice_method: string;
+  voice_url: string;
+}
+
+interface SimSolution {
 }
 
 

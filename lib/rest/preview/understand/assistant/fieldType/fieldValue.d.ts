@@ -20,27 +20,6 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function FieldValueList(version: Understand, assistantSid: string, fieldTypeSid: string): FieldValueListInstance;
 
-interface FieldValueResource {
-  account_sid: string;
-  assistant_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  field_type_sid: string;
-  language: string;
-  sid: string;
-  synonym_of: string;
-  url: string;
-  value: string;
-}
-
-interface FieldValuePayload extends FieldValueResource, Page.TwilioResponsePayload {
-}
-
-interface FieldValueSolution {
-  assistantSid?: string;
-  fieldTypeSid?: string;
-}
-
 interface FieldValueListInstance {
   /**
    * @param sid - sid of instance
@@ -102,6 +81,19 @@ interface FieldValueListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: FieldValueListInstancePageOptions, callback?: (error: Error | null, items: FieldValuePage) => any): Promise<FieldValuePage>;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property language - An ISO language-country string of the value.
+ * @property value - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+ * @property synonymOf - A value that indicates this field value is a synonym of. Empty if the value is not a synonym.
+ */
+interface FieldValueListInstanceCreateOptions {
+  language: string;
+  synonymOf?: string;
+  value: string;
 }
 
 /**
@@ -167,17 +159,25 @@ interface FieldValueListInstancePageOptions {
   pageToken?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property language - An ISO language-country string of the value.
- * @property value - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
- * @property synonymOf - A value that indicates this field value is a synonym of. Empty if the value is not a synonym.
- */
-interface FieldValueListInstanceCreateOptions {
+interface FieldValuePayload extends FieldValueResource, Page.TwilioResponsePayload {
+}
+
+interface FieldValueResource {
+  account_sid: string;
+  assistant_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  field_type_sid: string;
   language: string;
-  synonymOf?: string;
+  sid: string;
+  synonym_of: string;
+  url: string;
   value: string;
+}
+
+interface FieldValueSolution {
+  assistantSid?: string;
+  fieldTypeSid?: string;
 }
 
 

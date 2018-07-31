@@ -19,27 +19,15 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function QueryList(version: Understand, assistantSid: string): QueryListInstance;
 
-interface QueryResource {
-  account_sid: string;
-  assistant_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  language: string;
-  model_build_sid: string;
-  query: string;
-  results: string;
-  sample_sid: string;
-  sid: string;
-  source_channel: string;
-  status: string;
-  url: string;
-}
-
-interface QueryPayload extends QueryResource, Page.TwilioResponsePayload {
-}
-
-interface QuerySolution {
-  assistantSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property sampleSid - The sample_sid
+ * @property status - A string that described the query status. The values can be: pending_review, reviewed, discarded
+ */
+interface QueryInstanceUpdateOptions {
+  sampleSid?: string;
+  status?: string;
 }
 
 interface QueryListInstance {
@@ -106,25 +94,20 @@ interface QueryListInstance {
 }
 
 /**
- * Options to pass to update
+ * Options to pass to create
  *
- * @property sampleSid - The sample_sid
- * @property status - A string that described the query status. The values can be: pending_review, reviewed, discarded
+ * @property language - An ISO language-country string of the sample.
+ * @property query - A user-provided string that uniquely identifies this resource as an alternative to the sid. It can be up to 2048 characters long.
+ * @property intents - Constraints the query to a set of intents. Useful when you need to constrain the paths the user can take. Intents should be comma separated intent-unique-name-1, intent-unique-name-2
+ * @property modelBuild - The Model Build Sid or unique name of the Model Build to be queried.
+ * @property field - Constraints the query to a given Field with an intent. Useful when you know the Field you are expecting. It accepts one field in the format intent-unique-name-1:field-unique-name
  */
-interface QueryInstanceUpdateOptions {
-  sampleSid?: string;
-  status?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property sampleSid - The sample_sid
- * @property status - A string that described the query status. The values can be: pending_review, reviewed, discarded
- */
-interface QueryInstanceUpdateOptions {
-  sampleSid?: string;
-  status?: string;
+interface QueryListInstanceCreateOptions {
+  field?: string;
+  intents?: string;
+  language: string;
+  modelBuild?: string;
+  query: string;
 }
 
 /**
@@ -202,21 +185,27 @@ interface QueryListInstancePageOptions {
   status?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property language - An ISO language-country string of the sample.
- * @property query - A user-provided string that uniquely identifies this resource as an alternative to the sid. It can be up to 2048 characters long.
- * @property intents - Constraints the query to a set of intents. Useful when you need to constrain the paths the user can take. Intents should be comma separated intent-unique-name-1, intent-unique-name-2
- * @property modelBuild - The Model Build Sid or unique name of the Model Build to be queried.
- * @property field - Constraints the query to a given Field with an intent. Useful when you know the Field you are expecting. It accepts one field in the format intent-unique-name-1:field-unique-name
- */
-interface QueryListInstanceCreateOptions {
-  field?: string;
-  intents?: string;
+interface QueryPayload extends QueryResource, Page.TwilioResponsePayload {
+}
+
+interface QueryResource {
+  account_sid: string;
+  assistant_sid: string;
+  date_created: Date;
+  date_updated: Date;
   language: string;
-  modelBuild?: string;
+  model_build_sid: string;
   query: string;
+  results: string;
+  sample_sid: string;
+  sid: string;
+  source_channel: string;
+  status: string;
+  url: string;
+}
+
+interface QuerySolution {
+  assistantSid?: string;
 }
 
 

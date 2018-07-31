@@ -18,20 +18,19 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function PhoneNumberList(version: V1): PhoneNumberListInstance;
 
-interface PhoneNumberResource {
-  add_ons: string;
-  caller_name: string;
-  carrier: string;
-  country_code: string;
-  national_format: string;
-  phone_number: string;
-  url: string;
-}
-
-interface PhoneNumberPayload extends PhoneNumberResource, Page.TwilioResponsePayload {
-}
-
-interface PhoneNumberSolution {
+/**
+ * Options to pass to fetch
+ *
+ * @property countryCode - Optional ISO country code of the phone number.
+ * @property type - Indicates the type of information you would like returned with your request.
+ * @property addOns - Indicates the particular Add-on you would like to use to get more information.
+ * @property addOnsData - The add_ons_data
+ */
+interface PhoneNumberInstanceFetchOptions {
+  addOns?: string|list;
+  addOnsData?: object;
+  countryCode?: string;
+  type?: string|list;
 }
 
 interface PhoneNumberListInstance {
@@ -47,34 +46,20 @@ interface PhoneNumberListInstance {
   get(phoneNumber: string): PhoneNumberContext;
 }
 
-/**
- * Options to pass to fetch
- *
- * @property countryCode - Optional ISO country code of the phone number.
- * @property type - Indicates the type of information you would like returned with your request.
- * @property addOns - Indicates the particular Add-on you would like to use to get more information.
- * @property addOnsData - The add_ons_data
- */
-interface PhoneNumberInstanceFetchOptions {
-  addOns?: string|list;
-  addOnsData?: object;
-  countryCode?: string;
-  type?: string|list;
+interface PhoneNumberPayload extends PhoneNumberResource, Page.TwilioResponsePayload {
 }
 
-/**
- * Options to pass to fetch
- *
- * @property countryCode - Optional ISO country code of the phone number.
- * @property type - Indicates the type of information you would like returned with your request.
- * @property addOns - Indicates the particular Add-on you would like to use to get more information.
- * @property addOnsData - The add_ons_data
- */
-interface PhoneNumberInstanceFetchOptions {
-  addOns?: string|list;
-  addOnsData?: object;
-  countryCode?: string;
-  type?: string|list;
+interface PhoneNumberResource {
+  add_ons: string;
+  caller_name: string;
+  carrier: string;
+  country_code: string;
+  national_format: string;
+  phone_number: string;
+  url: string;
+}
+
+interface PhoneNumberSolution {
 }
 
 

@@ -93,21 +93,6 @@ declare class Twilio {
 declare namespace Twilio {
 
   /**
-   * Options to pass to the Twilio Client constructor
-   *
-   * @property httpClient - The client used for http requests. Defaults to RequestClient
-   * @property accountSid - The default accountSid. This is set to username if not provided
-   * @property env - The environment object. Defaults to process.env
-   * @property region - Twilio region to use. Defaults to none
-   */
-  export interface TwilioClientOptions {
-    accountSid?: string;
-    env?: object;
-    httpClient?: RequestClient;
-    region?: string;
-  }
-
-  /**
    * Options for the request
    *
    * @property method - The http method
@@ -130,6 +115,21 @@ declare namespace Twilio {
     timeout?: number;
     uri: string;
     username?: string;
+  }
+
+  /**
+   * Options to pass to the Twilio Client constructor
+   *
+   * @property httpClient - The client used for http requests. Defaults to RequestClient
+   * @property accountSid - The default accountSid. This is set to username if not provided
+   * @property env - The environment object. Defaults to process.env
+   * @property region - Twilio region to use. Defaults to none
+   */
+  export interface TwilioClientOptions {
+    accountSid?: string;
+    env?: object;
+    httpClient?: RequestClient;
+    region?: string;
   }
 }
 

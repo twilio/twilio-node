@@ -18,21 +18,13 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function OutgoingCallerIdList(version: V2010, accountSid: string): OutgoingCallerIdListInstance;
 
-interface OutgoingCallerIdResource {
-  account_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  friendly_name: string;
-  phone_number: string;
-  sid: string;
-  uri: string;
-}
-
-interface OutgoingCallerIdPayload extends OutgoingCallerIdResource, Page.TwilioResponsePayload {
-}
-
-interface OutgoingCallerIdSolution {
-  accountSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A human readable description of the caller ID
+ */
+interface OutgoingCallerIdInstanceUpdateOptions {
+  friendlyName?: string;
 }
 
 interface OutgoingCallerIdListInstance {
@@ -89,24 +81,6 @@ interface OutgoingCallerIdListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: OutgoingCallerIdListInstancePageOptions, callback?: (error: Error | null, items: OutgoingCallerIdPage) => any): Promise<OutgoingCallerIdPage>;
-}
-
-/**
- * Options to pass to update
- *
- * @property friendlyName - A human readable description of the caller ID
- */
-interface OutgoingCallerIdInstanceUpdateOptions {
-  friendlyName?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property friendlyName - A human readable description of the caller ID
- */
-interface OutgoingCallerIdInstanceUpdateOptions {
-  friendlyName?: string;
 }
 
 /**
@@ -176,6 +150,23 @@ interface OutgoingCallerIdListInstancePageOptions {
   pageSize?: number;
   pageToken?: string;
   phoneNumber?: string;
+}
+
+interface OutgoingCallerIdPayload extends OutgoingCallerIdResource, Page.TwilioResponsePayload {
+}
+
+interface OutgoingCallerIdResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  phone_number: string;
+  sid: string;
+  uri: string;
+}
+
+interface OutgoingCallerIdSolution {
+  accountSid?: string;
 }
 
 

@@ -19,33 +19,6 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function CompositionList(version: V1): CompositionListInstance;
 
-interface CompositionResource {
-  account_sid: string;
-  audio_sources: string;
-  audio_sources_excluded: string;
-  bitrate: number;
-  date_completed: string;
-  date_created: Date;
-  date_deleted: string;
-  duration: number;
-  format: CompositionFormat;
-  links: string;
-  resolution: string;
-  room_sid: string;
-  sid: string;
-  size: number;
-  status: CompositionStatus;
-  trim: boolean;
-  url: string;
-  video_layout: string;
-}
-
-interface CompositionPayload extends CompositionResource, Page.TwilioResponsePayload {
-}
-
-interface CompositionSolution {
-}
-
 interface CompositionListInstance {
   /**
    * @param sid - sid of instance
@@ -107,6 +80,31 @@ interface CompositionListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: CompositionListInstancePageOptions, callback?: (error: Error | null, items: CompositionPage) => any): Promise<CompositionPage>;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property roomSid - Twilio Room SID.
+ * @property videoLayout - The JSON video layout description.
+ * @property audioSources - A list of audio sources related to this Composition.
+ * @property audioSourcesExcluded - A list of audio sources excluded related to this Composition.
+ * @property resolution - Pixel resolution of the composed video.
+ * @property format - Container format of the Composition media file. Any of the following: `mp4`, `webm`.
+ * @property statusCallback - A URL that Twilio sends asynchronous webhook requests to on every composition event.
+ * @property statusCallbackMethod - HTTP method Twilio should use when requesting the above URL.
+ * @property trim - Boolean flag for clipping intervals that have no media.
+ */
+interface CompositionListInstanceCreateOptions {
+  audioSources?: string|list;
+  audioSourcesExcluded?: string|list;
+  format?: composition.format;
+  resolution?: string;
+  roomSid?: string;
+  statusCallback?: string;
+  statusCallbackMethod?: string;
+  trim?: boolean;
+  videoLayout?: string;
 }
 
 /**
@@ -190,29 +188,31 @@ interface CompositionListInstancePageOptions {
   status?: composition.status;
 }
 
-/**
- * Options to pass to create
- *
- * @property roomSid - Twilio Room SID.
- * @property videoLayout - The JSON video layout description.
- * @property audioSources - A list of audio sources related to this Composition.
- * @property audioSourcesExcluded - A list of audio sources excluded related to this Composition.
- * @property resolution - Pixel resolution of the composed video.
- * @property format - Container format of the Composition media file. Any of the following: `mp4`, `webm`.
- * @property statusCallback - A URL that Twilio sends asynchronous webhook requests to on every composition event.
- * @property statusCallbackMethod - HTTP method Twilio should use when requesting the above URL.
- * @property trim - Boolean flag for clipping intervals that have no media.
- */
-interface CompositionListInstanceCreateOptions {
-  audioSources?: string|list;
-  audioSourcesExcluded?: string|list;
-  format?: composition.format;
-  resolution?: string;
-  roomSid?: string;
-  statusCallback?: string;
-  statusCallbackMethod?: string;
-  trim?: boolean;
-  videoLayout?: string;
+interface CompositionPayload extends CompositionResource, Page.TwilioResponsePayload {
+}
+
+interface CompositionResource {
+  account_sid: string;
+  audio_sources: string;
+  audio_sources_excluded: string;
+  bitrate: number;
+  date_completed: string;
+  date_created: Date;
+  date_deleted: string;
+  duration: number;
+  format: CompositionFormat;
+  links: string;
+  resolution: string;
+  room_sid: string;
+  sid: string;
+  size: number;
+  status: CompositionStatus;
+  trim: boolean;
+  url: string;
+  video_layout: string;
+}
+
+interface CompositionSolution {
 }
 
 

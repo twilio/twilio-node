@@ -20,26 +20,109 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function ReservationList(version: V1, workspaceSid: string, taskSid: string): ReservationListInstance;
 
-interface ReservationResource {
-  account_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  links: string;
-  reservation_status: ReservationStatus;
-  sid: string;
-  task_sid: string;
-  url: string;
-  worker_name: string;
-  worker_sid: string;
-  workspace_sid: string;
-}
-
-interface ReservationPayload extends ReservationResource, Page.TwilioResponsePayload {
-}
-
-interface ReservationSolution {
-  taskSid?: string;
-  workspaceSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property reservationStatus - Yes
+ * @property workerActivitySid - No
+ * @property instruction - Yes
+ * @property dequeuePostWorkActivitySid - No
+ * @property dequeueFrom - Yes
+ * @property dequeueRecord - No
+ * @property dequeueTimeout - No
+ * @property dequeueTo - No
+ * @property dequeueStatusCallbackUrl - No
+ * @property callFrom - Yes
+ * @property callRecord - No
+ * @property callTimeout - No
+ * @property callTo - No
+ * @property callUrl - Yes
+ * @property callStatusCallbackUrl - No
+ * @property callAccept - No
+ * @property redirectCallSid - Yes
+ * @property redirectAccept - No
+ * @property redirectUrl - Yes
+ * @property to - No
+ * @property from - No
+ * @property statusCallback - The status_callback
+ * @property statusCallbackMethod - The status_callback_method
+ * @property statusCallbackEvent - The status_callback_event
+ * @property timeout - No
+ * @property record - The record
+ * @property muted - The muted
+ * @property beep - The beep
+ * @property startConferenceOnEnter - The start_conference_on_enter
+ * @property endConferenceOnExit - The end_conference_on_exit
+ * @property waitUrl - The wait_url
+ * @property waitMethod - The wait_method
+ * @property earlyMedia - The early_media
+ * @property maxParticipants - The max_participants
+ * @property conferenceStatusCallback - The conference_status_callback
+ * @property conferenceStatusCallbackMethod - The conference_status_callback_method
+ * @property conferenceStatusCallbackEvent - The conference_status_callback_event
+ * @property conferenceRecord - The conference_record
+ * @property conferenceTrim - The conference_trim
+ * @property recordingChannels - The recording_channels
+ * @property recordingStatusCallback - The recording_status_callback
+ * @property recordingStatusCallbackMethod - The recording_status_callback_method
+ * @property conferenceRecordingStatusCallback - The conference_recording_status_callback
+ * @property conferenceRecordingStatusCallbackMethod - The conference_recording_status_callback_method
+ * @property region - The region
+ * @property sipAuthUsername - The sip_auth_username
+ * @property sipAuthPassword - The sip_auth_password
+ * @property dequeueStatusCallbackEvent - No
+ * @property postWorkActivitySid - No
+ */
+interface ReservationInstanceUpdateOptions {
+  beep?: string;
+  callAccept?: boolean;
+  callFrom?: string;
+  callRecord?: string;
+  callStatusCallbackUrl?: string;
+  callTimeout?: number;
+  callTo?: string;
+  callUrl?: string;
+  conferenceRecord?: string;
+  conferenceRecordingStatusCallback?: string;
+  conferenceRecordingStatusCallbackMethod?: string;
+  conferenceStatusCallback?: string;
+  conferenceStatusCallbackEvent?: reservation.conference_event|list;
+  conferenceStatusCallbackMethod?: string;
+  conferenceTrim?: string;
+  dequeueFrom?: string;
+  dequeuePostWorkActivitySid?: string;
+  dequeueRecord?: string;
+  dequeueStatusCallbackEvent?: string|list;
+  dequeueStatusCallbackUrl?: string;
+  dequeueTimeout?: number;
+  dequeueTo?: string;
+  earlyMedia?: boolean;
+  endConferenceOnExit?: boolean;
+  from?: string;
+  instruction?: string;
+  maxParticipants?: number;
+  muted?: boolean;
+  postWorkActivitySid?: string;
+  record?: boolean;
+  recordingChannels?: string;
+  recordingStatusCallback?: string;
+  recordingStatusCallbackMethod?: string;
+  redirectAccept?: boolean;
+  redirectCallSid?: string;
+  redirectUrl?: string;
+  region?: string;
+  reservationStatus?: reservation.status;
+  sipAuthPassword?: string;
+  sipAuthUsername?: string;
+  startConferenceOnEnter?: boolean;
+  statusCallback?: string;
+  statusCallbackEvent?: reservation.call_status|list;
+  statusCallbackMethod?: string;
+  timeout?: number;
+  to?: string;
+  waitMethod?: string;
+  waitUrl?: string;
+  workerActivitySid?: string;
 }
 
 interface ReservationListInstance {
@@ -96,216 +179,6 @@ interface ReservationListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: ReservationListInstancePageOptions, callback?: (error: Error | null, items: ReservationPage) => any): Promise<ReservationPage>;
-}
-
-/**
- * Options to pass to update
- *
- * @property reservationStatus - Yes
- * @property workerActivitySid - No
- * @property instruction - Yes
- * @property dequeuePostWorkActivitySid - No
- * @property dequeueFrom - Yes
- * @property dequeueRecord - No
- * @property dequeueTimeout - No
- * @property dequeueTo - No
- * @property dequeueStatusCallbackUrl - No
- * @property callFrom - Yes
- * @property callRecord - No
- * @property callTimeout - No
- * @property callTo - No
- * @property callUrl - Yes
- * @property callStatusCallbackUrl - No
- * @property callAccept - No
- * @property redirectCallSid - Yes
- * @property redirectAccept - No
- * @property redirectUrl - Yes
- * @property to - No
- * @property from - No
- * @property statusCallback - The status_callback
- * @property statusCallbackMethod - The status_callback_method
- * @property statusCallbackEvent - The status_callback_event
- * @property timeout - No
- * @property record - The record
- * @property muted - The muted
- * @property beep - The beep
- * @property startConferenceOnEnter - The start_conference_on_enter
- * @property endConferenceOnExit - The end_conference_on_exit
- * @property waitUrl - The wait_url
- * @property waitMethod - The wait_method
- * @property earlyMedia - The early_media
- * @property maxParticipants - The max_participants
- * @property conferenceStatusCallback - The conference_status_callback
- * @property conferenceStatusCallbackMethod - The conference_status_callback_method
- * @property conferenceStatusCallbackEvent - The conference_status_callback_event
- * @property conferenceRecord - The conference_record
- * @property conferenceTrim - The conference_trim
- * @property recordingChannels - The recording_channels
- * @property recordingStatusCallback - The recording_status_callback
- * @property recordingStatusCallbackMethod - The recording_status_callback_method
- * @property conferenceRecordingStatusCallback - The conference_recording_status_callback
- * @property conferenceRecordingStatusCallbackMethod - The conference_recording_status_callback_method
- * @property region - The region
- * @property sipAuthUsername - The sip_auth_username
- * @property sipAuthPassword - The sip_auth_password
- * @property dequeueStatusCallbackEvent - No
- * @property postWorkActivitySid - No
- */
-interface ReservationInstanceUpdateOptions {
-  beep?: string;
-  callAccept?: boolean;
-  callFrom?: string;
-  callRecord?: string;
-  callStatusCallbackUrl?: string;
-  callTimeout?: number;
-  callTo?: string;
-  callUrl?: string;
-  conferenceRecord?: string;
-  conferenceRecordingStatusCallback?: string;
-  conferenceRecordingStatusCallbackMethod?: string;
-  conferenceStatusCallback?: string;
-  conferenceStatusCallbackEvent?: reservation.conference_event|list;
-  conferenceStatusCallbackMethod?: string;
-  conferenceTrim?: string;
-  dequeueFrom?: string;
-  dequeuePostWorkActivitySid?: string;
-  dequeueRecord?: string;
-  dequeueStatusCallbackEvent?: string|list;
-  dequeueStatusCallbackUrl?: string;
-  dequeueTimeout?: number;
-  dequeueTo?: string;
-  earlyMedia?: boolean;
-  endConferenceOnExit?: boolean;
-  from?: string;
-  instruction?: string;
-  maxParticipants?: number;
-  muted?: boolean;
-  postWorkActivitySid?: string;
-  record?: boolean;
-  recordingChannels?: string;
-  recordingStatusCallback?: string;
-  recordingStatusCallbackMethod?: string;
-  redirectAccept?: boolean;
-  redirectCallSid?: string;
-  redirectUrl?: string;
-  region?: string;
-  reservationStatus?: reservation.status;
-  sipAuthPassword?: string;
-  sipAuthUsername?: string;
-  startConferenceOnEnter?: boolean;
-  statusCallback?: string;
-  statusCallbackEvent?: reservation.call_status|list;
-  statusCallbackMethod?: string;
-  timeout?: number;
-  to?: string;
-  waitMethod?: string;
-  waitUrl?: string;
-  workerActivitySid?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property reservationStatus - Yes
- * @property workerActivitySid - No
- * @property instruction - Yes
- * @property dequeuePostWorkActivitySid - No
- * @property dequeueFrom - Yes
- * @property dequeueRecord - No
- * @property dequeueTimeout - No
- * @property dequeueTo - No
- * @property dequeueStatusCallbackUrl - No
- * @property callFrom - Yes
- * @property callRecord - No
- * @property callTimeout - No
- * @property callTo - No
- * @property callUrl - Yes
- * @property callStatusCallbackUrl - No
- * @property callAccept - No
- * @property redirectCallSid - Yes
- * @property redirectAccept - No
- * @property redirectUrl - Yes
- * @property to - No
- * @property from - No
- * @property statusCallback - The status_callback
- * @property statusCallbackMethod - The status_callback_method
- * @property statusCallbackEvent - The status_callback_event
- * @property timeout - No
- * @property record - The record
- * @property muted - The muted
- * @property beep - The beep
- * @property startConferenceOnEnter - The start_conference_on_enter
- * @property endConferenceOnExit - The end_conference_on_exit
- * @property waitUrl - The wait_url
- * @property waitMethod - The wait_method
- * @property earlyMedia - The early_media
- * @property maxParticipants - The max_participants
- * @property conferenceStatusCallback - The conference_status_callback
- * @property conferenceStatusCallbackMethod - The conference_status_callback_method
- * @property conferenceStatusCallbackEvent - The conference_status_callback_event
- * @property conferenceRecord - The conference_record
- * @property conferenceTrim - The conference_trim
- * @property recordingChannels - The recording_channels
- * @property recordingStatusCallback - The recording_status_callback
- * @property recordingStatusCallbackMethod - The recording_status_callback_method
- * @property conferenceRecordingStatusCallback - The conference_recording_status_callback
- * @property conferenceRecordingStatusCallbackMethod - The conference_recording_status_callback_method
- * @property region - The region
- * @property sipAuthUsername - The sip_auth_username
- * @property sipAuthPassword - The sip_auth_password
- * @property dequeueStatusCallbackEvent - No
- * @property postWorkActivitySid - No
- */
-interface ReservationInstanceUpdateOptions {
-  beep?: string;
-  callAccept?: boolean;
-  callFrom?: string;
-  callRecord?: string;
-  callStatusCallbackUrl?: string;
-  callTimeout?: number;
-  callTo?: string;
-  callUrl?: string;
-  conferenceRecord?: string;
-  conferenceRecordingStatusCallback?: string;
-  conferenceRecordingStatusCallbackMethod?: string;
-  conferenceStatusCallback?: string;
-  conferenceStatusCallbackEvent?: reservation.conference_event|list;
-  conferenceStatusCallbackMethod?: string;
-  conferenceTrim?: string;
-  dequeueFrom?: string;
-  dequeuePostWorkActivitySid?: string;
-  dequeueRecord?: string;
-  dequeueStatusCallbackEvent?: string|list;
-  dequeueStatusCallbackUrl?: string;
-  dequeueTimeout?: number;
-  dequeueTo?: string;
-  earlyMedia?: boolean;
-  endConferenceOnExit?: boolean;
-  from?: string;
-  instruction?: string;
-  maxParticipants?: number;
-  muted?: boolean;
-  postWorkActivitySid?: string;
-  record?: boolean;
-  recordingChannels?: string;
-  recordingStatusCallback?: string;
-  recordingStatusCallbackMethod?: string;
-  redirectAccept?: boolean;
-  redirectCallSid?: string;
-  redirectUrl?: string;
-  region?: string;
-  reservationStatus?: reservation.status;
-  sipAuthPassword?: string;
-  sipAuthUsername?: string;
-  startConferenceOnEnter?: boolean;
-  statusCallback?: string;
-  statusCallbackEvent?: reservation.call_status|list;
-  statusCallbackMethod?: string;
-  timeout?: number;
-  to?: string;
-  waitMethod?: string;
-  waitUrl?: string;
-  workerActivitySid?: string;
 }
 
 /**
@@ -369,6 +242,28 @@ interface ReservationListInstancePageOptions {
   pageSize?: number;
   pageToken?: string;
   reservationStatus?: reservation.status;
+}
+
+interface ReservationPayload extends ReservationResource, Page.TwilioResponsePayload {
+}
+
+interface ReservationResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  links: string;
+  reservation_status: ReservationStatus;
+  sid: string;
+  task_sid: string;
+  url: string;
+  worker_name: string;
+  worker_sid: string;
+  workspace_sid: string;
+}
+
+interface ReservationSolution {
+  taskSid?: string;
+  workspaceSid?: string;
 }
 
 

@@ -18,29 +18,6 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function RecordingList(version: V1): RecordingListInstance;
 
-interface RecordingResource {
-  account_sid: string;
-  codec: RecordingCodec;
-  container_format: RecordingFormat;
-  date_created: Date;
-  duration: number;
-  grouping_sids: string;
-  links: string;
-  sid: string;
-  size: number;
-  source_sid: string;
-  status: RecordingStatus;
-  track_name: string;
-  type: RecordingType;
-  url: string;
-}
-
-interface RecordingPayload extends RecordingResource, Page.TwilioResponsePayload {
-}
-
-interface RecordingSolution {
-}
-
 interface RecordingListInstance {
   /**
    * @param sid - sid of instance
@@ -182,6 +159,29 @@ interface RecordingListInstancePageOptions {
   pageToken?: string;
   sourceSid?: string;
   status?: recording.status;
+}
+
+interface RecordingPayload extends RecordingResource, Page.TwilioResponsePayload {
+}
+
+interface RecordingResource {
+  account_sid: string;
+  codec: RecordingCodec;
+  container_format: RecordingFormat;
+  date_created: Date;
+  duration: number;
+  grouping_sids: string;
+  links: string;
+  sid: string;
+  size: number;
+  source_sid: string;
+  status: RecordingStatus;
+  track_name: string;
+  type: RecordingType;
+  url: string;
+}
+
+interface RecordingSolution {
 }
 
 

@@ -20,26 +20,15 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function MemberList(version: V1, serviceSid: string, channelSid: string): MemberListInstance;
 
-interface MemberResource {
-  account_sid: string;
-  channel_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  identity: string;
-  last_consumed_message_index: number;
-  last_consumption_timestamp: Date;
-  role_sid: string;
-  service_sid: string;
-  sid: string;
-  url: string;
-}
-
-interface MemberPayload extends MemberResource, Page.TwilioResponsePayload {
-}
-
-interface MemberSolution {
-  channelSid?: string;
-  serviceSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property roleSid - The Role assigned to this member.
+ * @property lastConsumedMessageIndex - An Integer representing index of the last Message this Member has read within this Channel
+ */
+interface MemberInstanceUpdateOptions {
+  lastConsumedMessageIndex?: number;
+  roleSid?: string;
 }
 
 interface MemberListInstance {
@@ -103,28 +92,6 @@ interface MemberListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: MemberListInstancePageOptions, callback?: (error: Error | null, items: MemberPage) => any): Promise<MemberPage>;
-}
-
-/**
- * Options to pass to update
- *
- * @property roleSid - The Role assigned to this member.
- * @property lastConsumedMessageIndex - An Integer representing index of the last Message this Member has read within this Channel
- */
-interface MemberInstanceUpdateOptions {
-  lastConsumedMessageIndex?: number;
-  roleSid?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property roleSid - The Role assigned to this member.
- * @property lastConsumedMessageIndex - An Integer representing index of the last Message this Member has read within this Channel
- */
-interface MemberInstanceUpdateOptions {
-  lastConsumedMessageIndex?: number;
-  roleSid?: string;
 }
 
 /**
@@ -199,6 +166,28 @@ interface MemberListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface MemberPayload extends MemberResource, Page.TwilioResponsePayload {
+}
+
+interface MemberResource {
+  account_sid: string;
+  channel_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  identity: string;
+  last_consumed_message_index: number;
+  last_consumption_timestamp: Date;
+  role_sid: string;
+  service_sid: string;
+  sid: string;
+  url: string;
+}
+
+interface MemberSolution {
+  channelSid?: string;
+  serviceSid?: string;
 }
 
 

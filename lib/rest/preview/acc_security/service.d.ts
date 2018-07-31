@@ -20,21 +20,15 @@ import { VerificationList } from './service/verification';
  */
 declare function ServiceList(version: AccSecurity): ServiceListInstance;
 
-interface ServiceResource {
-  account_sid: string;
-  code_length: number;
-  date_created: Date;
-  date_updated: Date;
-  links: string;
-  name: string;
-  sid: string;
-  url: string;
-}
-
-interface ServicePayload extends ServiceResource, Page.TwilioResponsePayload {
-}
-
-interface ServiceSolution {
+/**
+ * Options to pass to update
+ *
+ * @property name - Friendly name of the service
+ * @property codeLength - Length of verification code. Valid values are 4-10
+ */
+interface ServiceInstanceUpdateOptions {
+  codeLength?: number;
+  name?: string;
 }
 
 interface ServiceListInstance {
@@ -98,28 +92,6 @@ interface ServiceListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: ServiceListInstancePageOptions, callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
-}
-
-/**
- * Options to pass to update
- *
- * @property name - Friendly name of the service
- * @property codeLength - Length of verification code. Valid values are 4-10
- */
-interface ServiceInstanceUpdateOptions {
-  codeLength?: number;
-  name?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property name - Friendly name of the service
- * @property codeLength - Length of verification code. Valid values are 4-10
- */
-interface ServiceInstanceUpdateOptions {
-  codeLength?: number;
-  name?: string;
 }
 
 /**
@@ -188,6 +160,23 @@ interface ServiceListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface ServicePayload extends ServiceResource, Page.TwilioResponsePayload {
+}
+
+interface ServiceResource {
+  account_sid: string;
+  code_length: number;
+  date_created: Date;
+  date_updated: Date;
+  links: string;
+  name: string;
+  sid: string;
+  url: string;
+}
+
+interface ServiceSolution {
 }
 
 

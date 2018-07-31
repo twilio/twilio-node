@@ -22,22 +22,15 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function FleetList(version: DeployedDevices): FleetListInstance;
 
-interface FleetResource {
-  account_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  default_deployment_sid: string;
-  friendly_name: string;
-  links: string;
-  sid: string;
-  unique_name: string;
-  url: string;
-}
-
-interface FleetPayload extends FleetResource, Page.TwilioResponsePayload {
-}
-
-interface FleetSolution {
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A human readable description for this Fleet.
+ * @property defaultDeploymentSid - A default Deployment SID.
+ */
+interface FleetInstanceUpdateOptions {
+  defaultDeploymentSid?: string;
+  friendlyName?: string;
 }
 
 interface FleetListInstance {
@@ -104,28 +97,6 @@ interface FleetListInstance {
 }
 
 /**
- * Options to pass to update
- *
- * @property friendlyName - A human readable description for this Fleet.
- * @property defaultDeploymentSid - A default Deployment SID.
- */
-interface FleetInstanceUpdateOptions {
-  defaultDeploymentSid?: string;
-  friendlyName?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property friendlyName - A human readable description for this Fleet.
- * @property defaultDeploymentSid - A default Deployment SID.
- */
-interface FleetInstanceUpdateOptions {
-  defaultDeploymentSid?: string;
-  friendlyName?: string;
-}
-
-/**
  * Options to pass to create
  *
  * @property friendlyName - A human readable description for this Fleet.
@@ -189,6 +160,24 @@ interface FleetListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface FleetPayload extends FleetResource, Page.TwilioResponsePayload {
+}
+
+interface FleetResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  default_deployment_sid: string;
+  friendly_name: string;
+  links: string;
+  sid: string;
+  unique_name: string;
+  url: string;
+}
+
+interface FleetSolution {
 }
 
 

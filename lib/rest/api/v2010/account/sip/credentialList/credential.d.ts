@@ -19,22 +19,13 @@ import { SerializableClass } from '../../../../../../interfaces';
  */
 declare function CredentialList(version: V2010, accountSid: string, credentialListSid: string): CredentialListInstance;
 
-interface CredentialResource {
-  account_sid: string;
-  credential_list_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  sid: string;
-  uri: string;
-  username: string;
-}
-
-interface CredentialPayload extends CredentialResource, Page.TwilioResponsePayload {
-}
-
-interface CredentialSolution {
-  accountSid?: string;
-  credentialListSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property password - The password will not be returned in the response.
+ */
+interface CredentialInstanceUpdateOptions {
+  password?: string;
 }
 
 interface CredentialListInstance {
@@ -101,21 +92,14 @@ interface CredentialListInstance {
 }
 
 /**
- * Options to pass to update
+ * Options to pass to create
  *
+ * @property username - The username for this credential.
  * @property password - The password will not be returned in the response.
  */
-interface CredentialInstanceUpdateOptions {
-  password?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property password - The password will not be returned in the response.
- */
-interface CredentialInstanceUpdateOptions {
-  password?: string;
+interface CredentialListInstanceCreateOptions {
+  password: string;
+  username: string;
 }
 
 /**
@@ -175,15 +159,22 @@ interface CredentialListInstancePageOptions {
   pageToken?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property username - The username for this credential.
- * @property password - The password will not be returned in the response.
- */
-interface CredentialListInstanceCreateOptions {
-  password: string;
+interface CredentialPayload extends CredentialResource, Page.TwilioResponsePayload {
+}
+
+interface CredentialResource {
+  account_sid: string;
+  credential_list_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  sid: string;
+  uri: string;
   username: string;
+}
+
+interface CredentialSolution {
+  accountSid?: string;
+  credentialListSid?: string;
 }
 
 

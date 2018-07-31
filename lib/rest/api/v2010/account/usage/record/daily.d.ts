@@ -19,30 +19,6 @@ import { SerializableClass } from '../../../../../../interfaces';
  */
 declare function DailyList(version: V2010, accountSid: string): DailyListInstance;
 
-interface DailyResource {
-  account_sid: string;
-  api_version: string;
-  category: DailyCategory;
-  count: string;
-  count_unit: string;
-  description: string;
-  end_date: Date;
-  price: number;
-  price_unit: string;
-  start_date: Date;
-  subresource_uris: string;
-  uri: string;
-  usage: string;
-  usage_unit: string;
-}
-
-interface DailyPayload extends DailyResource, Page.TwilioResponsePayload {
-}
-
-interface DailySolution {
-  accountSid?: string;
-}
-
 interface DailyListInstance {
   /**
    * Streams DailyInstance records from the API.
@@ -168,6 +144,30 @@ interface DailyListInstancePageOptions {
   pageSize?: number;
   pageToken?: string;
   startDate?: Date;
+}
+
+interface DailyPayload extends DailyResource, Page.TwilioResponsePayload {
+}
+
+interface DailyResource {
+  account_sid: string;
+  api_version: string;
+  category: DailyCategory;
+  count: string;
+  count_unit: string;
+  description: string;
+  end_date: Date;
+  price: number;
+  price_unit: string;
+  start_date: Date;
+  subresource_uris: string;
+  uri: string;
+  usage: string;
+  usage_unit: string;
+}
+
+interface DailySolution {
+  accountSid?: string;
 }
 
 

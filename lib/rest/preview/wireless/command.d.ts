@@ -18,26 +18,6 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function CommandList(version: Wireless): CommandListInstance;
 
-interface CommandResource {
-  account_sid: string;
-  command: string;
-  command_mode: string;
-  date_created: Date;
-  date_updated: Date;
-  device_sid: string;
-  direction: string;
-  sid: string;
-  sim_sid: string;
-  status: string;
-  url: string;
-}
-
-interface CommandPayload extends CommandResource, Page.TwilioResponsePayload {
-}
-
-interface CommandSolution {
-}
-
 interface CommandListInstance {
   /**
    * @param sid - sid of instance
@@ -99,6 +79,27 @@ interface CommandListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: CommandListInstancePageOptions, callback?: (error: Error | null, items: CommandPage) => any): Promise<CommandPage>;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property command - The command
+ * @property device - The device
+ * @property sim - The sim
+ * @property callbackMethod - The callback_method
+ * @property callbackUrl - The callback_url
+ * @property commandMode - The command_mode
+ * @property includeSid - The include_sid
+ */
+interface CommandListInstanceCreateOptions {
+  callbackMethod?: string;
+  callbackUrl?: string;
+  command: string;
+  commandMode?: string;
+  device?: string;
+  includeSid?: string;
+  sim?: string;
 }
 
 /**
@@ -182,25 +183,24 @@ interface CommandListInstancePageOptions {
   status?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property command - The command
- * @property device - The device
- * @property sim - The sim
- * @property callbackMethod - The callback_method
- * @property callbackUrl - The callback_url
- * @property commandMode - The command_mode
- * @property includeSid - The include_sid
- */
-interface CommandListInstanceCreateOptions {
-  callbackMethod?: string;
-  callbackUrl?: string;
+interface CommandPayload extends CommandResource, Page.TwilioResponsePayload {
+}
+
+interface CommandResource {
+  account_sid: string;
   command: string;
-  commandMode?: string;
-  device?: string;
-  includeSid?: string;
-  sim?: string;
+  command_mode: string;
+  date_created: Date;
+  date_updated: Date;
+  device_sid: string;
+  direction: string;
+  sid: string;
+  sim_sid: string;
+  status: string;
+  url: string;
+}
+
+interface CommandSolution {
 }
 
 

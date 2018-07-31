@@ -18,23 +18,6 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function IpAccessControlListList(version: V1, trunkSid: string): IpAccessControlListListInstance;
 
-interface IpAccessControlListResource {
-  account_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  friendly_name: string;
-  sid: string;
-  trunk_sid: string;
-  url: string;
-}
-
-interface IpAccessControlListPayload extends IpAccessControlListResource, Page.TwilioResponsePayload {
-}
-
-interface IpAccessControlListSolution {
-  trunkSid?: string;
-}
-
 interface IpAccessControlListListInstance {
   /**
    * @param sid - sid of instance
@@ -162,6 +145,23 @@ interface IpAccessControlListListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface IpAccessControlListPayload extends IpAccessControlListResource, Page.TwilioResponsePayload {
+}
+
+interface IpAccessControlListResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  sid: string;
+  trunk_sid: string;
+  url: string;
+}
+
+interface IpAccessControlListSolution {
+  trunkSid?: string;
 }
 
 

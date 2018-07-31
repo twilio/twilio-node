@@ -21,26 +21,15 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function SyncListItemList(version: V1, serviceSid: string, listSid: string): SyncListItemListInstance;
 
-interface SyncListItemResource {
-  account_sid: string;
-  created_by: string;
-  data: string;
-  date_created: Date;
-  date_expires: Date;
-  date_updated: Date;
-  index: number;
-  list_sid: string;
-  revision: string;
-  service_sid: string;
-  url: string;
-}
-
-interface SyncListItemPayload extends SyncListItemResource, Page.TwilioResponsePayload {
-}
-
-interface SyncListItemSolution {
-  listSid?: string;
-  serviceSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property data - Contains arbitrary user-defined, schema-less data that this List Item stores, represented by a JSON object, up to 16KB.
+ * @property ttl - Time-to-live of this item in seconds, defaults to no expiration.
+ */
+interface SyncListItemInstanceUpdateOptions {
+  data?: string;
+  ttl?: number;
 }
 
 interface SyncListItemListInstance {
@@ -104,28 +93,6 @@ interface SyncListItemListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: SyncListItemListInstancePageOptions, callback?: (error: Error | null, items: SyncListItemPage) => any): Promise<SyncListItemPage>;
-}
-
-/**
- * Options to pass to update
- *
- * @property data - Contains arbitrary user-defined, schema-less data that this List Item stores, represented by a JSON object, up to 16KB.
- * @property ttl - Time-to-live of this item in seconds, defaults to no expiration.
- */
-interface SyncListItemInstanceUpdateOptions {
-  data?: string;
-  ttl?: number;
-}
-
-/**
- * Options to pass to update
- *
- * @property data - Contains arbitrary user-defined, schema-less data that this List Item stores, represented by a JSON object, up to 16KB.
- * @property ttl - Time-to-live of this item in seconds, defaults to no expiration.
- */
-interface SyncListItemInstanceUpdateOptions {
-  data?: string;
-  ttl?: number;
 }
 
 /**
@@ -212,6 +179,28 @@ interface SyncListItemListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface SyncListItemPayload extends SyncListItemResource, Page.TwilioResponsePayload {
+}
+
+interface SyncListItemResource {
+  account_sid: string;
+  created_by: string;
+  data: string;
+  date_created: Date;
+  date_expires: Date;
+  date_updated: Date;
+  index: number;
+  list_sid: string;
+  revision: string;
+  service_sid: string;
+  url: string;
+}
+
+interface SyncListItemSolution {
+  listSid?: string;
+  serviceSid?: string;
 }
 
 

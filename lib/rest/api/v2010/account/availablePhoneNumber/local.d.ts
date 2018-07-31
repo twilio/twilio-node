@@ -20,30 +20,6 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function LocalList(version: V2010, accountSid: string, countryCode: string): LocalListInstance;
 
-interface LocalResource {
-  address_requirements: string;
-  beta: boolean;
-  capabilities: string;
-  friendly_name: string;
-  iso_country: string;
-  lata: string;
-  latitude: number;
-  locality: string;
-  longitude: number;
-  phone_number: string;
-  postal_code: string;
-  rate_center: string;
-  region: string;
-}
-
-interface LocalPayload extends LocalResource, Page.TwilioResponsePayload {
-}
-
-interface LocalSolution {
-  accountSid?: string;
-  countryCode?: string;
-}
-
 interface LocalListInstance {
   /**
    * Streams LocalInstance records from the API.
@@ -253,6 +229,30 @@ interface LocalListInstancePageOptions {
   pageToken?: string;
   smsEnabled?: boolean;
   voiceEnabled?: boolean;
+}
+
+interface LocalPayload extends LocalResource, Page.TwilioResponsePayload {
+}
+
+interface LocalResource {
+  address_requirements: string;
+  beta: boolean;
+  capabilities: string;
+  friendly_name: string;
+  iso_country: string;
+  lata: string;
+  latitude: number;
+  locality: string;
+  longitude: number;
+  phone_number: string;
+  postal_code: string;
+  rate_center: string;
+  region: string;
+}
+
+interface LocalSolution {
+  accountSid?: string;
+  countryCode?: string;
 }
 
 

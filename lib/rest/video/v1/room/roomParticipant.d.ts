@@ -21,26 +21,13 @@ import { SubscribedTrackList } from './roomParticipant/roomParticipantSubscribed
  */
 declare function ParticipantList(version: V1, roomSid: string): ParticipantListInstance;
 
-interface ParticipantResource {
-  account_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  duration: number;
-  end_time: Date;
-  identity: string;
-  links: string;
-  room_sid: string;
-  sid: string;
-  start_time: Date;
-  status: ParticipantStatus;
-  url: string;
-}
-
-interface ParticipantPayload extends ParticipantResource, Page.TwilioResponsePayload {
-}
-
-interface ParticipantSolution {
-  roomSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property status - Set to disconnected to remove participant.
+ */
+interface ParticipantInstanceUpdateOptions {
+  status?: participant.status;
 }
 
 interface ParticipantListInstance {
@@ -97,24 +84,6 @@ interface ParticipantListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: ParticipantListInstancePageOptions, callback?: (error: Error | null, items: ParticipantPage) => any): Promise<ParticipantPage>;
-}
-
-/**
- * Options to pass to update
- *
- * @property status - Set to disconnected to remove participant.
- */
-interface ParticipantInstanceUpdateOptions {
-  status?: participant.status;
-}
-
-/**
- * Options to pass to update
- *
- * @property status - Set to disconnected to remove participant.
- */
-interface ParticipantInstanceUpdateOptions {
-  status?: participant.status;
 }
 
 /**
@@ -196,6 +165,28 @@ interface ParticipantListInstancePageOptions {
   pageSize?: number;
   pageToken?: string;
   status?: participant.status;
+}
+
+interface ParticipantPayload extends ParticipantResource, Page.TwilioResponsePayload {
+}
+
+interface ParticipantResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  duration: number;
+  end_time: Date;
+  identity: string;
+  links: string;
+  room_sid: string;
+  sid: string;
+  start_time: Date;
+  status: ParticipantStatus;
+  url: string;
+}
+
+interface ParticipantSolution {
+  roomSid?: string;
 }
 
 

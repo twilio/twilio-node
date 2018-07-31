@@ -22,28 +22,25 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function TrunkList(version: V1): TrunkListInstance;
 
-interface TrunkResource {
-  account_sid: string;
-  auth_type: string;
-  auth_type_set: string;
-  cnam_lookup_enabled: boolean;
-  date_created: Date;
-  date_updated: Date;
-  disaster_recovery_method: string;
-  disaster_recovery_url: string;
-  domain_name: string;
-  friendly_name: string;
-  links: string;
-  recording: string;
-  secure: boolean;
-  sid: string;
-  url: string;
-}
-
-interface TrunkPayload extends TrunkResource, Page.TwilioResponsePayload {
-}
-
-interface TrunkSolution {
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A human-readable name for the Trunk.
+ * @property domainName - The unique address you reserve on Twilio to which you route your SIP traffic.
+ * @property disasterRecoveryUrl - The HTTP URL that Twilio will request if an error occurs while sending SIP traffic towards your configured Origination URL.
+ * @property disasterRecoveryMethod - The HTTP method Twilio will use when requesting the DisasterRecoveryUrl.
+ * @property recording - The recording settings for this trunk.
+ * @property secure - The Secure Trunking  settings for this trunk.
+ * @property cnamLookupEnabled - The Caller ID Name (CNAM) lookup setting for this trunk.
+ */
+interface TrunkInstanceUpdateOptions {
+  cnamLookupEnabled?: boolean;
+  disasterRecoveryMethod?: string;
+  disasterRecoveryUrl?: string;
+  domainName?: string;
+  friendlyName?: string;
+  recording?: trunk.recording_setting;
+  secure?: boolean;
 }
 
 interface TrunkListInstance {
@@ -107,48 +104,6 @@ interface TrunkListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: TrunkListInstancePageOptions, callback?: (error: Error | null, items: TrunkPage) => any): Promise<TrunkPage>;
-}
-
-/**
- * Options to pass to update
- *
- * @property friendlyName - A human-readable name for the Trunk.
- * @property domainName - The unique address you reserve on Twilio to which you route your SIP traffic.
- * @property disasterRecoveryUrl - The HTTP URL that Twilio will request if an error occurs while sending SIP traffic towards your configured Origination URL.
- * @property disasterRecoveryMethod - The HTTP method Twilio will use when requesting the DisasterRecoveryUrl.
- * @property recording - The recording settings for this trunk.
- * @property secure - The Secure Trunking  settings for this trunk.
- * @property cnamLookupEnabled - The Caller ID Name (CNAM) lookup setting for this trunk.
- */
-interface TrunkInstanceUpdateOptions {
-  cnamLookupEnabled?: boolean;
-  disasterRecoveryMethod?: string;
-  disasterRecoveryUrl?: string;
-  domainName?: string;
-  friendlyName?: string;
-  recording?: trunk.recording_setting;
-  secure?: boolean;
-}
-
-/**
- * Options to pass to update
- *
- * @property friendlyName - A human-readable name for the Trunk.
- * @property domainName - The unique address you reserve on Twilio to which you route your SIP traffic.
- * @property disasterRecoveryUrl - The HTTP URL that Twilio will request if an error occurs while sending SIP traffic towards your configured Origination URL.
- * @property disasterRecoveryMethod - The HTTP method Twilio will use when requesting the DisasterRecoveryUrl.
- * @property recording - The recording settings for this trunk.
- * @property secure - The Secure Trunking  settings for this trunk.
- * @property cnamLookupEnabled - The Caller ID Name (CNAM) lookup setting for this trunk.
- */
-interface TrunkInstanceUpdateOptions {
-  cnamLookupEnabled?: boolean;
-  disasterRecoveryMethod?: string;
-  disasterRecoveryUrl?: string;
-  domainName?: string;
-  friendlyName?: string;
-  recording?: trunk.recording_setting;
-  secure?: boolean;
 }
 
 /**
@@ -227,6 +182,30 @@ interface TrunkListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface TrunkPayload extends TrunkResource, Page.TwilioResponsePayload {
+}
+
+interface TrunkResource {
+  account_sid: string;
+  auth_type: string;
+  auth_type_set: string;
+  cnam_lookup_enabled: boolean;
+  date_created: Date;
+  date_updated: Date;
+  disaster_recovery_method: string;
+  disaster_recovery_url: string;
+  domain_name: string;
+  friendly_name: string;
+  links: string;
+  recording: string;
+  secure: boolean;
+  sid: string;
+  url: string;
+}
+
+interface TrunkSolution {
 }
 
 

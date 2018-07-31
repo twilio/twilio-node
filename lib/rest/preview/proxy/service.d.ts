@@ -22,22 +22,17 @@ import { ShortCodeList } from './service/shortCode';
  */
 declare function ServiceList(version: Proxy): ServiceListInstance;
 
-interface ServiceResource {
-  account_sid: string;
-  auto_create: boolean;
-  callback_url: string;
-  date_created: Date;
-  date_updated: Date;
-  friendly_name: string;
-  links: string;
-  sid: string;
-  url: string;
-}
-
-interface ServicePayload extends ServiceResource, Page.TwilioResponsePayload {
-}
-
-interface ServiceSolution {
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A human readable description of this resource
+ * @property autoCreate - Boolean flag specifying whether to auto-create threads.
+ * @property callbackUrl - URL Twilio will request for callbacks.
+ */
+interface ServiceInstanceUpdateOptions {
+  autoCreate?: boolean;
+  callbackUrl?: string;
+  friendlyName?: string;
 }
 
 interface ServiceListInstance {
@@ -104,26 +99,13 @@ interface ServiceListInstance {
 }
 
 /**
- * Options to pass to update
+ * Options to pass to create
  *
  * @property friendlyName - A human readable description of this resource
  * @property autoCreate - Boolean flag specifying whether to auto-create threads.
  * @property callbackUrl - URL Twilio will request for callbacks.
  */
-interface ServiceInstanceUpdateOptions {
-  autoCreate?: boolean;
-  callbackUrl?: string;
-  friendlyName?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property friendlyName - A human readable description of this resource
- * @property autoCreate - Boolean flag specifying whether to auto-create threads.
- * @property callbackUrl - URL Twilio will request for callbacks.
- */
-interface ServiceInstanceUpdateOptions {
+interface ServiceListInstanceCreateOptions {
   autoCreate?: boolean;
   callbackUrl?: string;
   friendlyName?: string;
@@ -186,17 +168,22 @@ interface ServiceListInstancePageOptions {
   pageToken?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property friendlyName - A human readable description of this resource
- * @property autoCreate - Boolean flag specifying whether to auto-create threads.
- * @property callbackUrl - URL Twilio will request for callbacks.
- */
-interface ServiceListInstanceCreateOptions {
-  autoCreate?: boolean;
-  callbackUrl?: string;
-  friendlyName?: string;
+interface ServicePayload extends ServiceResource, Page.TwilioResponsePayload {
+}
+
+interface ServiceResource {
+  account_sid: string;
+  auto_create: boolean;
+  callback_url: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  links: string;
+  sid: string;
+  url: string;
+}
+
+interface ServiceSolution {
 }
 
 

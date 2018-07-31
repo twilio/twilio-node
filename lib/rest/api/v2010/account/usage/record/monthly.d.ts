@@ -19,30 +19,6 @@ import { SerializableClass } from '../../../../../../interfaces';
  */
 declare function MonthlyList(version: V2010, accountSid: string): MonthlyListInstance;
 
-interface MonthlyResource {
-  account_sid: string;
-  api_version: string;
-  category: MonthlyCategory;
-  count: string;
-  count_unit: string;
-  description: string;
-  end_date: Date;
-  price: number;
-  price_unit: string;
-  start_date: Date;
-  subresource_uris: string;
-  uri: string;
-  usage: string;
-  usage_unit: string;
-}
-
-interface MonthlyPayload extends MonthlyResource, Page.TwilioResponsePayload {
-}
-
-interface MonthlySolution {
-  accountSid?: string;
-}
-
 interface MonthlyListInstance {
   /**
    * Streams MonthlyInstance records from the API.
@@ -168,6 +144,30 @@ interface MonthlyListInstancePageOptions {
   pageSize?: number;
   pageToken?: string;
   startDate?: Date;
+}
+
+interface MonthlyPayload extends MonthlyResource, Page.TwilioResponsePayload {
+}
+
+interface MonthlyResource {
+  account_sid: string;
+  api_version: string;
+  category: MonthlyCategory;
+  count: string;
+  count_unit: string;
+  description: string;
+  end_date: Date;
+  price: number;
+  price_unit: string;
+  start_date: Date;
+  subresource_uris: string;
+  uri: string;
+  usage: string;
+  usage_unit: string;
+}
+
+interface MonthlySolution {
+  accountSid?: string;
 }
 
 

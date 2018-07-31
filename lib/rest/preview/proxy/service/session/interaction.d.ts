@@ -20,36 +20,6 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function InteractionList(version: Proxy, serviceSid: string, sessionSid: string): InteractionListInstance;
 
-interface InteractionResource {
-  account_sid: string;
-  data: string;
-  date_created: Date;
-  date_updated: Date;
-  inbound_participant_sid: string;
-  inbound_resource_sid: string;
-  inbound_resource_status: InteractionResourceStatus;
-  inbound_resource_type: string;
-  inbound_resource_url: string;
-  outbound_participant_sid: string;
-  outbound_resource_sid: string;
-  outbound_resource_status: InteractionResourceStatus;
-  outbound_resource_type: string;
-  outbound_resource_url: string;
-  service_sid: string;
-  session_sid: string;
-  sid: string;
-  status: InteractionStatus;
-  url: string;
-}
-
-interface InteractionPayload extends InteractionResource, Page.TwilioResponsePayload {
-}
-
-interface InteractionSolution {
-  serviceSid?: string;
-  sessionSid?: string;
-}
-
 interface InteractionListInstance {
   /**
    * @param sid - sid of instance
@@ -173,6 +143,36 @@ interface InteractionListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface InteractionPayload extends InteractionResource, Page.TwilioResponsePayload {
+}
+
+interface InteractionResource {
+  account_sid: string;
+  data: string;
+  date_created: Date;
+  date_updated: Date;
+  inbound_participant_sid: string;
+  inbound_resource_sid: string;
+  inbound_resource_status: InteractionResourceStatus;
+  inbound_resource_type: string;
+  inbound_resource_url: string;
+  outbound_participant_sid: string;
+  outbound_resource_sid: string;
+  outbound_resource_status: InteractionResourceStatus;
+  outbound_resource_type: string;
+  outbound_resource_url: string;
+  service_sid: string;
+  session_sid: string;
+  sid: string;
+  status: InteractionStatus;
+  url: string;
+}
+
+interface InteractionSolution {
+  serviceSid?: string;
+  sessionSid?: string;
 }
 
 

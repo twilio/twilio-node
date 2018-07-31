@@ -22,23 +22,19 @@ import { SyncMapList } from './service/syncMap';
  */
 declare function ServiceList(version: Sync): ServiceListInstance;
 
-interface ServiceResource {
-  account_sid: string;
-  acl_enabled: boolean;
-  date_created: Date;
-  date_updated: Date;
-  friendly_name: string;
-  links: string;
-  reachability_webhooks_enabled: boolean;
-  sid: string;
-  url: string;
-  webhook_url: string;
-}
-
-interface ServicePayload extends ServiceResource, Page.TwilioResponsePayload {
-}
-
-interface ServiceSolution {
+/**
+ * Options to pass to update
+ *
+ * @property webhookUrl - The webhook_url
+ * @property friendlyName - The friendly_name
+ * @property reachabilityWebhooksEnabled - The reachability_webhooks_enabled
+ * @property aclEnabled - The acl_enabled
+ */
+interface ServiceInstanceUpdateOptions {
+  aclEnabled?: boolean;
+  friendlyName?: string;
+  reachabilityWebhooksEnabled?: boolean;
+  webhookUrl?: string;
 }
 
 interface ServiceListInstance {
@@ -102,36 +98,6 @@ interface ServiceListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: ServiceListInstancePageOptions, callback?: (error: Error | null, items: ServicePage) => any): Promise<ServicePage>;
-}
-
-/**
- * Options to pass to update
- *
- * @property webhookUrl - The webhook_url
- * @property friendlyName - The friendly_name
- * @property reachabilityWebhooksEnabled - The reachability_webhooks_enabled
- * @property aclEnabled - The acl_enabled
- */
-interface ServiceInstanceUpdateOptions {
-  aclEnabled?: boolean;
-  friendlyName?: string;
-  reachabilityWebhooksEnabled?: boolean;
-  webhookUrl?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property webhookUrl - The webhook_url
- * @property friendlyName - The friendly_name
- * @property reachabilityWebhooksEnabled - The reachability_webhooks_enabled
- * @property aclEnabled - The acl_enabled
- */
-interface ServiceInstanceUpdateOptions {
-  aclEnabled?: boolean;
-  friendlyName?: string;
-  reachabilityWebhooksEnabled?: boolean;
-  webhookUrl?: string;
 }
 
 /**
@@ -204,6 +170,25 @@ interface ServiceListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface ServicePayload extends ServiceResource, Page.TwilioResponsePayload {
+}
+
+interface ServiceResource {
+  account_sid: string;
+  acl_enabled: boolean;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  links: string;
+  reachability_webhooks_enabled: boolean;
+  sid: string;
+  url: string;
+  webhook_url: string;
+}
+
+interface ServiceSolution {
 }
 
 

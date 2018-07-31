@@ -20,21 +20,13 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function InstalledAddOnExtensionList(version: Marketplace, installedAddOnSid: string): InstalledAddOnExtensionListInstance;
 
-interface InstalledAddOnExtensionResource {
+/**
+ * Options to pass to update
+ *
+ * @property enabled - A Boolean indicating if the Extension will be invoked
+ */
+interface InstalledAddOnExtensionInstanceUpdateOptions {
   enabled: boolean;
-  friendly_name: string;
-  installed_add_on_sid: string;
-  product_name: string;
-  sid: string;
-  unique_name: string;
-  url: string;
-}
-
-interface InstalledAddOnExtensionPayload extends InstalledAddOnExtensionResource, Page.TwilioResponsePayload {
-}
-
-interface InstalledAddOnExtensionSolution {
-  installedAddOnSid?: string;
 }
 
 interface InstalledAddOnExtensionListInstance {
@@ -94,24 +86,6 @@ interface InstalledAddOnExtensionListInstance {
 }
 
 /**
- * Options to pass to update
- *
- * @property enabled - A Boolean indicating if the Extension will be invoked
- */
-interface InstalledAddOnExtensionInstanceUpdateOptions {
-  enabled: boolean;
-}
-
-/**
- * Options to pass to update
- *
- * @property enabled - A Boolean indicating if the Extension will be invoked
- */
-interface InstalledAddOnExtensionInstanceUpdateOptions {
-  enabled: boolean;
-}
-
-/**
  * Options to pass to each
  *
  * @property limit -
@@ -166,6 +140,23 @@ interface InstalledAddOnExtensionListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface InstalledAddOnExtensionPayload extends InstalledAddOnExtensionResource, Page.TwilioResponsePayload {
+}
+
+interface InstalledAddOnExtensionResource {
+  enabled: boolean;
+  friendly_name: string;
+  installed_add_on_sid: string;
+  product_name: string;
+  sid: string;
+  unique_name: string;
+  url: string;
+}
+
+interface InstalledAddOnExtensionSolution {
+  installedAddOnSid?: string;
 }
 
 

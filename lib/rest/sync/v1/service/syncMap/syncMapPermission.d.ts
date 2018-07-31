@@ -21,23 +21,17 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function SyncMapPermissionList(version: V1, serviceSid: string, mapSid: string): SyncMapPermissionListInstance;
 
-interface SyncMapPermissionResource {
-  account_sid: string;
-  identity: string;
+/**
+ * Options to pass to update
+ *
+ * @property read - Read access.
+ * @property write - Write access.
+ * @property manage - Manage access.
+ */
+interface SyncMapPermissionInstanceUpdateOptions {
   manage: boolean;
-  map_sid: string;
   read: boolean;
-  service_sid: string;
-  url: string;
   write: boolean;
-}
-
-interface SyncMapPermissionPayload extends SyncMapPermissionResource, Page.TwilioResponsePayload {
-}
-
-interface SyncMapPermissionSolution {
-  mapSid?: string;
-  serviceSid?: string;
 }
 
 interface SyncMapPermissionListInstance {
@@ -97,32 +91,6 @@ interface SyncMapPermissionListInstance {
 }
 
 /**
- * Options to pass to update
- *
- * @property read - Read access.
- * @property write - Write access.
- * @property manage - Manage access.
- */
-interface SyncMapPermissionInstanceUpdateOptions {
-  manage: boolean;
-  read: boolean;
-  write: boolean;
-}
-
-/**
- * Options to pass to update
- *
- * @property read - Read access.
- * @property write - Write access.
- * @property manage - Manage access.
- */
-interface SyncMapPermissionInstanceUpdateOptions {
-  manage: boolean;
-  read: boolean;
-  write: boolean;
-}
-
-/**
  * Options to pass to each
  *
  * @property limit -
@@ -177,6 +145,25 @@ interface SyncMapPermissionListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface SyncMapPermissionPayload extends SyncMapPermissionResource, Page.TwilioResponsePayload {
+}
+
+interface SyncMapPermissionResource {
+  account_sid: string;
+  identity: string;
+  manage: boolean;
+  map_sid: string;
+  read: boolean;
+  service_sid: string;
+  url: string;
+  write: boolean;
+}
+
+interface SyncMapPermissionSolution {
+  mapSid?: string;
+  serviceSid?: string;
 }
 
 

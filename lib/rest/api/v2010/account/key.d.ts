@@ -18,18 +18,13 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function KeyList(version: V2010, accountSid: string): KeyListInstance;
 
-interface KeyResource {
-  date_created: Date;
-  date_updated: Date;
-  friendly_name: string;
-  sid: string;
-}
-
-interface KeyPayload extends KeyResource, Page.TwilioResponsePayload {
-}
-
-interface KeySolution {
-  accountSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A descriptive string for this resource, chosen by your application, up to 64 characters long.
+ */
+interface KeyInstanceUpdateOptions {
+  friendlyName?: string;
 }
 
 interface KeyListInstance {
@@ -89,24 +84,6 @@ interface KeyListInstance {
 }
 
 /**
- * Options to pass to update
- *
- * @property friendlyName - A descriptive string for this resource, chosen by your application, up to 64 characters long.
- */
-interface KeyInstanceUpdateOptions {
-  friendlyName?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property friendlyName - A descriptive string for this resource, chosen by your application, up to 64 characters long.
- */
-interface KeyInstanceUpdateOptions {
-  friendlyName?: string;
-}
-
-/**
  * Options to pass to each
  *
  * @property limit -
@@ -161,6 +138,20 @@ interface KeyListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface KeyPayload extends KeyResource, Page.TwilioResponsePayload {
+}
+
+interface KeyResource {
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  sid: string;
+}
+
+interface KeySolution {
+  accountSid?: string;
 }
 
 

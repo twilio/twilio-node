@@ -19,24 +19,6 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function AlphaSenderList(version: V1, serviceSid: string): AlphaSenderListInstance;
 
-interface AlphaSenderResource {
-  account_sid: string;
-  alpha_sender: string;
-  capabilities: string;
-  date_created: Date;
-  date_updated: Date;
-  service_sid: string;
-  sid: string;
-  url: string;
-}
-
-interface AlphaSenderPayload extends AlphaSenderResource, Page.TwilioResponsePayload {
-}
-
-interface AlphaSenderSolution {
-  serviceSid?: string;
-}
-
 interface AlphaSenderListInstance {
   /**
    * @param sid - sid of instance
@@ -164,6 +146,24 @@ interface AlphaSenderListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface AlphaSenderPayload extends AlphaSenderResource, Page.TwilioResponsePayload {
+}
+
+interface AlphaSenderResource {
+  account_sid: string;
+  alpha_sender: string;
+  capabilities: string;
+  date_created: Date;
+  date_updated: Date;
+  service_sid: string;
+  sid: string;
+  url: string;
+}
+
+interface AlphaSenderSolution {
+  serviceSid?: string;
 }
 
 

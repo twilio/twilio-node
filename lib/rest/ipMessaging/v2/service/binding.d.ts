@@ -19,28 +19,6 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function BindingList(version: V2, serviceSid: string): BindingListInstance;
 
-interface BindingResource {
-  account_sid: string;
-  binding_type: BindingBindingType;
-  credential_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  endpoint: string;
-  identity: string;
-  links: string;
-  message_types: string;
-  service_sid: string;
-  sid: string;
-  url: string;
-}
-
-interface BindingPayload extends BindingResource, Page.TwilioResponsePayload {
-}
-
-interface BindingSolution {
-  serviceSid?: string;
-}
-
 interface BindingListInstance {
   /**
    * @param sid - sid of instance
@@ -164,6 +142,28 @@ interface BindingListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface BindingPayload extends BindingResource, Page.TwilioResponsePayload {
+}
+
+interface BindingResource {
+  account_sid: string;
+  binding_type: BindingBindingType;
+  credential_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  endpoint: string;
+  identity: string;
+  links: string;
+  message_types: string;
+  service_sid: string;
+  sid: string;
+  url: string;
+}
+
+interface BindingSolution {
+  serviceSid?: string;
 }
 
 

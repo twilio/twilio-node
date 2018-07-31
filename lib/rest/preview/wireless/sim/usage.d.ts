@@ -19,23 +19,15 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function UsageList(version: Wireless, simSid: string): UsageListInstance;
 
-interface UsageResource {
-  account_sid: string;
-  commands_costs: string;
-  commands_usage: string;
-  data_costs: string;
-  data_usage: string;
-  period: string;
-  sim_sid: string;
-  sim_unique_name: string;
-  url: string;
-}
-
-interface UsagePayload extends UsageResource, Page.TwilioResponsePayload {
-}
-
-interface UsageSolution {
-  simSid?: string;
+/**
+ * Options to pass to fetch
+ *
+ * @property end - The end
+ * @property start - The start
+ */
+interface UsageInstanceFetchOptions {
+  end?: string;
+  start?: string;
 }
 
 interface UsageListInstance {
@@ -49,26 +41,23 @@ interface UsageListInstance {
   get(): UsageContext;
 }
 
-/**
- * Options to pass to fetch
- *
- * @property end - The end
- * @property start - The start
- */
-interface UsageInstanceFetchOptions {
-  end?: string;
-  start?: string;
+interface UsagePayload extends UsageResource, Page.TwilioResponsePayload {
 }
 
-/**
- * Options to pass to fetch
- *
- * @property end - The end
- * @property start - The start
- */
-interface UsageInstanceFetchOptions {
-  end?: string;
-  start?: string;
+interface UsageResource {
+  account_sid: string;
+  commands_costs: string;
+  commands_usage: string;
+  data_costs: string;
+  data_usage: string;
+  period: string;
+  sim_sid: string;
+  sim_unique_name: string;
+  url: string;
+}
+
+interface UsageSolution {
+  simSid?: string;
 }
 
 

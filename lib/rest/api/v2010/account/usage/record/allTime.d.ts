@@ -19,30 +19,6 @@ import { SerializableClass } from '../../../../../../interfaces';
  */
 declare function AllTimeList(version: V2010, accountSid: string): AllTimeListInstance;
 
-interface AllTimeResource {
-  account_sid: string;
-  api_version: string;
-  category: AllTimeCategory;
-  count: string;
-  count_unit: string;
-  description: string;
-  end_date: Date;
-  price: number;
-  price_unit: string;
-  start_date: Date;
-  subresource_uris: string;
-  uri: string;
-  usage: string;
-  usage_unit: string;
-}
-
-interface AllTimePayload extends AllTimeResource, Page.TwilioResponsePayload {
-}
-
-interface AllTimeSolution {
-  accountSid?: string;
-}
-
 interface AllTimeListInstance {
   /**
    * Streams AllTimeInstance records from the API.
@@ -168,6 +144,30 @@ interface AllTimeListInstancePageOptions {
   pageSize?: number;
   pageToken?: string;
   startDate?: Date;
+}
+
+interface AllTimePayload extends AllTimeResource, Page.TwilioResponsePayload {
+}
+
+interface AllTimeResource {
+  account_sid: string;
+  api_version: string;
+  category: AllTimeCategory;
+  count: string;
+  count_unit: string;
+  description: string;
+  end_date: Date;
+  price: number;
+  price_unit: string;
+  start_date: Date;
+  subresource_uris: string;
+  uri: string;
+  usage: string;
+  usage_unit: string;
+}
+
+interface AllTimeSolution {
+  accountSid?: string;
 }
 
 

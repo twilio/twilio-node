@@ -20,23 +20,15 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function FieldTypeList(version: Understand, assistantSid: string): FieldTypeListInstance;
 
-interface FieldTypeResource {
-  account_sid: string;
-  assistant_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  friendly_name: string;
-  links: string;
-  sid: string;
-  unique_name: string;
-  url: string;
-}
-
-interface FieldTypePayload extends FieldTypeResource, Page.TwilioResponsePayload {
-}
-
-interface FieldTypeSolution {
-  assistantSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
+ * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+ */
+interface FieldTypeInstanceUpdateOptions {
+  friendlyName?: string;
+  uniqueName?: string;
 }
 
 interface FieldTypeListInstance {
@@ -103,25 +95,14 @@ interface FieldTypeListInstance {
 }
 
 /**
- * Options to pass to update
+ * Options to pass to create
  *
- * @property friendlyName - A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
  * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
- */
-interface FieldTypeInstanceUpdateOptions {
-  friendlyName?: string;
-  uniqueName?: string;
-}
-
-/**
- * Options to pass to update
- *
  * @property friendlyName - A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
- * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
  */
-interface FieldTypeInstanceUpdateOptions {
+interface FieldTypeListInstanceCreateOptions {
   friendlyName?: string;
-  uniqueName?: string;
+  uniqueName: string;
 }
 
 /**
@@ -181,15 +162,23 @@ interface FieldTypeListInstancePageOptions {
   pageToken?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
- * @property friendlyName - A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
- */
-interface FieldTypeListInstanceCreateOptions {
-  friendlyName?: string;
-  uniqueName: string;
+interface FieldTypePayload extends FieldTypeResource, Page.TwilioResponsePayload {
+}
+
+interface FieldTypeResource {
+  account_sid: string;
+  assistant_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  links: string;
+  sid: string;
+  unique_name: string;
+  url: string;
+}
+
+interface FieldTypeSolution {
+  assistantSid?: string;
 }
 
 

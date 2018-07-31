@@ -21,25 +21,13 @@ import { SyncMapPermissionList } from './syncMap/syncMapPermission';
  */
 declare function SyncMapList(version: V1, serviceSid: string): SyncMapListInstance;
 
-interface SyncMapResource {
-  account_sid: string;
-  created_by: string;
-  date_created: Date;
-  date_expires: Date;
-  date_updated: Date;
-  links: string;
-  revision: string;
-  service_sid: string;
-  sid: string;
-  unique_name: string;
-  url: string;
-}
-
-interface SyncMapPayload extends SyncMapResource, Page.TwilioResponsePayload {
-}
-
-interface SyncMapSolution {
-  serviceSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property ttl - New time-to-live of this Map in seconds.
+ */
+interface SyncMapInstanceUpdateOptions {
+  ttl?: number;
 }
 
 interface SyncMapListInstance {
@@ -103,24 +91,6 @@ interface SyncMapListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: SyncMapListInstancePageOptions, callback?: (error: Error | null, items: SyncMapPage) => any): Promise<SyncMapPage>;
-}
-
-/**
- * Options to pass to update
- *
- * @property ttl - New time-to-live of this Map in seconds.
- */
-interface SyncMapInstanceUpdateOptions {
-  ttl?: number;
-}
-
-/**
- * Options to pass to update
- *
- * @property ttl - New time-to-live of this Map in seconds.
- */
-interface SyncMapInstanceUpdateOptions {
-  ttl?: number;
 }
 
 /**
@@ -189,6 +159,27 @@ interface SyncMapListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface SyncMapPayload extends SyncMapResource, Page.TwilioResponsePayload {
+}
+
+interface SyncMapResource {
+  account_sid: string;
+  created_by: string;
+  date_created: Date;
+  date_expires: Date;
+  date_updated: Date;
+  links: string;
+  revision: string;
+  service_sid: string;
+  sid: string;
+  unique_name: string;
+  url: string;
+}
+
+interface SyncMapSolution {
+  serviceSid?: string;
 }
 
 

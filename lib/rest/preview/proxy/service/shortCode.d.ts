@@ -19,25 +19,6 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function ShortCodeList(version: Proxy, serviceSid: string): ShortCodeListInstance;
 
-interface ShortCodeResource {
-  account_sid: string;
-  capabilities: string;
-  country_code: string;
-  date_created: Date;
-  date_updated: Date;
-  service_sid: string;
-  short_code: string;
-  sid: string;
-  url: string;
-}
-
-interface ShortCodePayload extends ShortCodeResource, Page.TwilioResponsePayload {
-}
-
-interface ShortCodeSolution {
-  serviceSid?: string;
-}
-
 interface ShortCodeListInstance {
   /**
    * @param sid - sid of instance
@@ -165,6 +146,25 @@ interface ShortCodeListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface ShortCodePayload extends ShortCodeResource, Page.TwilioResponsePayload {
+}
+
+interface ShortCodeResource {
+  account_sid: string;
+  capabilities: string;
+  country_code: string;
+  date_created: Date;
+  date_updated: Date;
+  service_sid: string;
+  short_code: string;
+  sid: string;
+  url: string;
+}
+
+interface ShortCodeSolution {
+  serviceSid?: string;
 }
 
 

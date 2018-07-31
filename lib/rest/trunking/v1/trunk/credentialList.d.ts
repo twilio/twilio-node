@@ -18,23 +18,6 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function CredentialListList(version: V1, trunkSid: string): CredentialListListInstance;
 
-interface CredentialListResource {
-  account_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  friendly_name: string;
-  sid: string;
-  trunk_sid: string;
-  url: string;
-}
-
-interface CredentialListPayload extends CredentialListResource, Page.TwilioResponsePayload {
-}
-
-interface CredentialListSolution {
-  trunkSid?: string;
-}
-
 interface CredentialListListInstance {
   /**
    * @param sid - sid of instance
@@ -162,6 +145,23 @@ interface CredentialListListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface CredentialListPayload extends CredentialListResource, Page.TwilioResponsePayload {
+}
+
+interface CredentialListResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  sid: string;
+  trunk_sid: string;
+  url: string;
+}
+
+interface CredentialListSolution {
+  trunkSid?: string;
 }
 
 

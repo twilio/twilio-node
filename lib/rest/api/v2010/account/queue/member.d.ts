@@ -19,20 +19,15 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function MemberList(version: V2010, accountSid: string, queueSid: string): MemberListInstance;
 
-interface MemberResource {
-  call_sid: string;
-  date_enqueued: Date;
-  position: number;
-  uri: string;
-  wait_time: number;
-}
-
-interface MemberPayload extends MemberResource, Page.TwilioResponsePayload {
-}
-
-interface MemberSolution {
-  accountSid?: string;
-  queueSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property url - The url
+ * @property method - The method
+ */
+interface MemberInstanceUpdateOptions {
+  method: string;
+  url: string;
 }
 
 interface MemberListInstance {
@@ -92,28 +87,6 @@ interface MemberListInstance {
 }
 
 /**
- * Options to pass to update
- *
- * @property url - The url
- * @property method - The method
- */
-interface MemberInstanceUpdateOptions {
-  method: string;
-  url: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property url - The url
- * @property method - The method
- */
-interface MemberInstanceUpdateOptions {
-  method: string;
-  url: string;
-}
-
-/**
  * Options to pass to each
  *
  * @property limit -
@@ -168,6 +141,22 @@ interface MemberListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface MemberPayload extends MemberResource, Page.TwilioResponsePayload {
+}
+
+interface MemberResource {
+  call_sid: string;
+  date_enqueued: Date;
+  position: number;
+  uri: string;
+  wait_time: number;
+}
+
+interface MemberSolution {
+  accountSid?: string;
+  queueSid?: string;
 }
 
 

@@ -19,21 +19,23 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function CompositionSettingsList(version: V1): CompositionSettingsListInstance;
 
-interface CompositionSettingsResource {
-  account_sid: string;
-  aws_credentials_sid: string;
-  aws_s3_url: string;
-  aws_storage_enabled: boolean;
-  encryption_enabled: boolean;
-  encryption_key_sid: string;
-  friendly_name: string;
-  url: string;
-}
-
-interface CompositionSettingsPayload extends CompositionSettingsResource, Page.TwilioResponsePayload {
-}
-
-interface CompositionSettingsSolution {
+/**
+ * Options to pass to create
+ *
+ * @property friendlyName - Friendly name of the configuration to be shown in the console
+ * @property awsCredentialsSid - SID of the Stored Credential resource CRxx
+ * @property encryptionKeySid - SID of the Public Key resource CRxx
+ * @property awsS3Url - Identity of the external location where the compositions should be stored. We only support DNS-compliant URLs like http://<my-bucket>.s3-<aws-region>.amazonaws.com/compositions, where compositions is the path where you want compositions to be stored.
+ * @property awsStorageEnabled - true|false When set to true, all Compositions will be written to the AwsS3Url specified above. When set to false, all Compositions will be stored in Twilio's cloud.
+ * @property encryptionEnabled - true|false When set to true, all Compositions will be stored encrypted.
+ */
+interface CompositionSettingsInstanceCreateOptions {
+  awsCredentialsSid?: string;
+  awsS3Url?: string;
+  awsStorageEnabled?: boolean;
+  encryptionEnabled?: boolean;
+  encryptionKeySid?: string;
+  friendlyName: string;
 }
 
 interface CompositionSettingsListInstance {
@@ -47,42 +49,21 @@ interface CompositionSettingsListInstance {
   get(): CompositionSettingsContext;
 }
 
-/**
- * Options to pass to create
- *
- * @property friendlyName - Friendly name of the configuration to be shown in the console
- * @property awsCredentialsSid - SID of the Stored Credential resource CRxx
- * @property encryptionKeySid - SID of the Public Key resource CRxx
- * @property awsS3Url - Identity of the external location where the compositions should be stored. We only support DNS-compliant URLs like http://<my-bucket>.s3-<aws-region>.amazonaws.com/compositions, where compositions is the path where you want compositions to be stored.
- * @property awsStorageEnabled - true|false When set to true, all Compositions will be written to the AwsS3Url specified above. When set to false, all Compositions will be stored in Twilio's cloud.
- * @property encryptionEnabled - true|false When set to true, all Compositions will be stored encrypted.
- */
-interface CompositionSettingsInstanceCreateOptions {
-  awsCredentialsSid?: string;
-  awsS3Url?: string;
-  awsStorageEnabled?: boolean;
-  encryptionEnabled?: boolean;
-  encryptionKeySid?: string;
-  friendlyName: string;
+interface CompositionSettingsPayload extends CompositionSettingsResource, Page.TwilioResponsePayload {
 }
 
-/**
- * Options to pass to create
- *
- * @property friendlyName - Friendly name of the configuration to be shown in the console
- * @property awsCredentialsSid - SID of the Stored Credential resource CRxx
- * @property encryptionKeySid - SID of the Public Key resource CRxx
- * @property awsS3Url - Identity of the external location where the compositions should be stored. We only support DNS-compliant URLs like http://<my-bucket>.s3-<aws-region>.amazonaws.com/compositions, where compositions is the path where you want compositions to be stored.
- * @property awsStorageEnabled - true|false When set to true, all Compositions will be written to the AwsS3Url specified above. When set to false, all Compositions will be stored in Twilio's cloud.
- * @property encryptionEnabled - true|false When set to true, all Compositions will be stored encrypted.
- */
-interface CompositionSettingsInstanceCreateOptions {
-  awsCredentialsSid?: string;
-  awsS3Url?: string;
-  awsStorageEnabled?: boolean;
-  encryptionEnabled?: boolean;
-  encryptionKeySid?: string;
-  friendlyName: string;
+interface CompositionSettingsResource {
+  account_sid: string;
+  aws_credentials_sid: string;
+  aws_s3_url: string;
+  aws_storage_enabled: boolean;
+  encryption_enabled: boolean;
+  encryption_key_sid: string;
+  friendly_name: string;
+  url: string;
+}
+
+interface CompositionSettingsSolution {
 }
 
 

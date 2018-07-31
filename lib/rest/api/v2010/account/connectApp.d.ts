@@ -19,25 +19,27 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function ConnectAppList(version: V2010, accountSid: string): ConnectAppListInstance;
 
-interface ConnectAppResource {
-  account_sid: string;
-  authorize_redirect_url: string;
-  company_name: string;
-  deauthorize_callback_method: string;
-  deauthorize_callback_url: string;
-  description: string;
-  friendly_name: string;
-  homepage_url: string;
-  permissions: ConnectAppPermission;
-  sid: string;
-  uri: string;
-}
-
-interface ConnectAppPayload extends ConnectAppResource, Page.TwilioResponsePayload {
-}
-
-interface ConnectAppSolution {
-  accountSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property authorizeRedirectUrl - URIL Twilio sends requests when users authorize
+ * @property companyName - The company name set for this Connect App.
+ * @property deauthorizeCallbackMethod - HTTP method Twilio WIll use making requests to the url
+ * @property deauthorizeCallbackUrl - URL Twilio will send a request when a user de-authorizes this app
+ * @property description - A more detailed human readable description
+ * @property friendlyName - A human readable name for the Connect App.
+ * @property homepageUrl - The URL users can obtain more information
+ * @property permissions - The set of permissions that your ConnectApp requests.
+ */
+interface ConnectAppInstanceUpdateOptions {
+  authorizeRedirectUrl?: string;
+  companyName?: string;
+  deauthorizeCallbackMethod?: string;
+  deauthorizeCallbackUrl?: string;
+  description?: string;
+  friendlyName?: string;
+  homepageUrl?: string;
+  permissions?: connect_app.permission|list;
 }
 
 interface ConnectAppListInstance {
@@ -97,52 +99,6 @@ interface ConnectAppListInstance {
 }
 
 /**
- * Options to pass to update
- *
- * @property authorizeRedirectUrl - URIL Twilio sends requests when users authorize
- * @property companyName - The company name set for this Connect App.
- * @property deauthorizeCallbackMethod - HTTP method Twilio WIll use making requests to the url
- * @property deauthorizeCallbackUrl - URL Twilio will send a request when a user de-authorizes this app
- * @property description - A more detailed human readable description
- * @property friendlyName - A human readable name for the Connect App.
- * @property homepageUrl - The URL users can obtain more information
- * @property permissions - The set of permissions that your ConnectApp requests.
- */
-interface ConnectAppInstanceUpdateOptions {
-  authorizeRedirectUrl?: string;
-  companyName?: string;
-  deauthorizeCallbackMethod?: string;
-  deauthorizeCallbackUrl?: string;
-  description?: string;
-  friendlyName?: string;
-  homepageUrl?: string;
-  permissions?: connect_app.permission|list;
-}
-
-/**
- * Options to pass to update
- *
- * @property authorizeRedirectUrl - URIL Twilio sends requests when users authorize
- * @property companyName - The company name set for this Connect App.
- * @property deauthorizeCallbackMethod - HTTP method Twilio WIll use making requests to the url
- * @property deauthorizeCallbackUrl - URL Twilio will send a request when a user de-authorizes this app
- * @property description - A more detailed human readable description
- * @property friendlyName - A human readable name for the Connect App.
- * @property homepageUrl - The URL users can obtain more information
- * @property permissions - The set of permissions that your ConnectApp requests.
- */
-interface ConnectAppInstanceUpdateOptions {
-  authorizeRedirectUrl?: string;
-  companyName?: string;
-  deauthorizeCallbackMethod?: string;
-  deauthorizeCallbackUrl?: string;
-  description?: string;
-  friendlyName?: string;
-  homepageUrl?: string;
-  permissions?: connect_app.permission|list;
-}
-
-/**
  * Options to pass to each
  *
  * @property limit -
@@ -197,6 +153,27 @@ interface ConnectAppListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface ConnectAppPayload extends ConnectAppResource, Page.TwilioResponsePayload {
+}
+
+interface ConnectAppResource {
+  account_sid: string;
+  authorize_redirect_url: string;
+  company_name: string;
+  deauthorize_callback_method: string;
+  deauthorize_callback_url: string;
+  description: string;
+  friendly_name: string;
+  homepage_url: string;
+  permissions: ConnectAppPermission;
+  sid: string;
+  uri: string;
+}
+
+interface ConnectAppSolution {
+  accountSid?: string;
 }
 
 

@@ -19,18 +19,6 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function ExportList(version: BulkExports): ExportListInstance;
 
-interface ExportResource {
-  links: string;
-  resource_type: string;
-  url: string;
-}
-
-interface ExportPayload extends ExportResource, Page.TwilioResponsePayload {
-}
-
-interface ExportSolution {
-}
-
 interface ExportListInstance {
   /**
    * @param sid - sid of instance
@@ -42,6 +30,18 @@ interface ExportListInstance {
    * @param resourceType - The resource_type
    */
   get(resourceType: string): ExportContext;
+}
+
+interface ExportPayload extends ExportResource, Page.TwilioResponsePayload {
+}
+
+interface ExportResource {
+  links: string;
+  resource_type: string;
+  url: string;
+}
+
+interface ExportSolution {
 }
 
 

@@ -20,21 +20,26 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function FeedbackList(version: V2010, accountSid: string, callSid: string): FeedbackListInstance;
 
-interface FeedbackResource {
-  account_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  issues: FeedbackIssues;
-  quality_score: number;
-  sid: string;
+/**
+ * Options to pass to create
+ *
+ * @property qualityScore - An integer from 1 to 5
+ * @property issue - Issues experienced during the call
+ */
+interface FeedbackInstanceCreateOptions {
+  issue?: feedback.issues|list;
+  qualityScore: number;
 }
 
-interface FeedbackPayload extends FeedbackResource, Page.TwilioResponsePayload {
-}
-
-interface FeedbackSolution {
-  accountSid?: string;
-  callSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property qualityScore - An integer from 1 to 5
+ * @property issue - Issues experienced during the call
+ */
+interface FeedbackInstanceUpdateOptions {
+  issue?: feedback.issues|list;
+  qualityScore: number;
 }
 
 interface FeedbackListInstance {
@@ -48,48 +53,21 @@ interface FeedbackListInstance {
   get(): FeedbackContext;
 }
 
-/**
- * Options to pass to create
- *
- * @property qualityScore - An integer from 1 to 5
- * @property issue - Issues experienced during the call
- */
-interface FeedbackInstanceCreateOptions {
-  issue?: feedback.issues|list;
-  qualityScore: number;
+interface FeedbackPayload extends FeedbackResource, Page.TwilioResponsePayload {
 }
 
-/**
- * Options to pass to update
- *
- * @property qualityScore - An integer from 1 to 5
- * @property issue - Issues experienced during the call
- */
-interface FeedbackInstanceUpdateOptions {
-  issue?: feedback.issues|list;
-  qualityScore: number;
+interface FeedbackResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  issues: FeedbackIssues;
+  quality_score: number;
+  sid: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property qualityScore - An integer from 1 to 5
- * @property issue - Issues experienced during the call
- */
-interface FeedbackInstanceCreateOptions {
-  issue?: feedback.issues|list;
-  qualityScore: number;
-}
-
-/**
- * Options to pass to update
- *
- * @property qualityScore - An integer from 1 to 5
- * @property issue - Issues experienced during the call
- */
-interface FeedbackInstanceUpdateOptions {
-  issue?: feedback.issues|list;
-  qualityScore: number;
+interface FeedbackSolution {
+  accountSid?: string;
+  callSid?: string;
 }
 
 

@@ -21,25 +21,13 @@ import { SyncListPermissionList } from './syncList/syncListPermission';
  */
 declare function SyncListList(version: V1, serviceSid: string): SyncListListInstance;
 
-interface SyncListResource {
-  account_sid: string;
-  created_by: string;
-  date_created: Date;
-  date_expires: Date;
-  date_updated: Date;
-  links: string;
-  revision: string;
-  service_sid: string;
-  sid: string;
-  unique_name: string;
-  url: string;
-}
-
-interface SyncListPayload extends SyncListResource, Page.TwilioResponsePayload {
-}
-
-interface SyncListSolution {
-  serviceSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property ttl - Time-to-live of this List in seconds, defaults to no expiration.
+ */
+interface SyncListInstanceUpdateOptions {
+  ttl?: number;
 }
 
 interface SyncListListInstance {
@@ -103,24 +91,6 @@ interface SyncListListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: SyncListListInstancePageOptions, callback?: (error: Error | null, items: SyncListPage) => any): Promise<SyncListPage>;
-}
-
-/**
- * Options to pass to update
- *
- * @property ttl - Time-to-live of this List in seconds, defaults to no expiration.
- */
-interface SyncListInstanceUpdateOptions {
-  ttl?: number;
-}
-
-/**
- * Options to pass to update
- *
- * @property ttl - Time-to-live of this List in seconds, defaults to no expiration.
- */
-interface SyncListInstanceUpdateOptions {
-  ttl?: number;
 }
 
 /**
@@ -189,6 +159,27 @@ interface SyncListListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface SyncListPayload extends SyncListResource, Page.TwilioResponsePayload {
+}
+
+interface SyncListResource {
+  account_sid: string;
+  created_by: string;
+  date_created: Date;
+  date_expires: Date;
+  date_updated: Date;
+  links: string;
+  revision: string;
+  service_sid: string;
+  sid: string;
+  unique_name: string;
+  url: string;
+}
+
+interface SyncListSolution {
+  serviceSid?: string;
 }
 
 

@@ -21,27 +21,17 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function ParticipantList(version: Proxy, serviceSid: string, sessionSid: string): ParticipantListInstance;
 
-interface ParticipantResource {
-  account_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  friendly_name: string;
-  identifier: string;
-  links: string;
-  participant_type: ParticipantParticipantType;
-  proxy_identifier: string;
-  service_sid: string;
-  session_sid: string;
-  sid: string;
-  url: string;
-}
-
-interface ParticipantPayload extends ParticipantResource, Page.TwilioResponsePayload {
-}
-
-interface ParticipantSolution {
-  serviceSid?: string;
-  sessionSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property participantType - The Type of this Participant
+ * @property identifier - The Participant's contact identifier, normally a phone number.
+ * @property friendlyName - A human readable description of this resource
+ */
+interface ParticipantInstanceUpdateOptions {
+  friendlyName?: string;
+  identifier?: string;
+  participantType?: participant.participant_type;
 }
 
 interface ParticipantListInstance {
@@ -108,28 +98,15 @@ interface ParticipantListInstance {
 }
 
 /**
- * Options to pass to update
+ * Options to pass to create
  *
- * @property participantType - The Type of this Participant
  * @property identifier - The Participant's contact identifier, normally a phone number.
  * @property friendlyName - A human readable description of this resource
- */
-interface ParticipantInstanceUpdateOptions {
-  friendlyName?: string;
-  identifier?: string;
-  participantType?: participant.participant_type;
-}
-
-/**
- * Options to pass to update
- *
  * @property participantType - The Type of this Participant
- * @property identifier - The Participant's contact identifier, normally a phone number.
- * @property friendlyName - A human readable description of this resource
  */
-interface ParticipantInstanceUpdateOptions {
+interface ParticipantListInstanceCreateOptions {
   friendlyName?: string;
-  identifier?: string;
+  identifier: string;
   participantType?: participant.participant_type;
 }
 
@@ -202,17 +179,27 @@ interface ParticipantListInstancePageOptions {
   participantType?: participant.participant_type;
 }
 
-/**
- * Options to pass to create
- *
- * @property identifier - The Participant's contact identifier, normally a phone number.
- * @property friendlyName - A human readable description of this resource
- * @property participantType - The Type of this Participant
- */
-interface ParticipantListInstanceCreateOptions {
-  friendlyName?: string;
+interface ParticipantPayload extends ParticipantResource, Page.TwilioResponsePayload {
+}
+
+interface ParticipantResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
   identifier: string;
-  participantType?: participant.participant_type;
+  links: string;
+  participant_type: ParticipantParticipantType;
+  proxy_identifier: string;
+  service_sid: string;
+  session_sid: string;
+  sid: string;
+  url: string;
+}
+
+interface ParticipantSolution {
+  serviceSid?: string;
+  sessionSid?: string;
 }
 
 

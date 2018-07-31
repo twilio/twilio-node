@@ -19,21 +19,23 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function CredentialList(version: V1): CredentialListInstance;
 
-interface CredentialResource {
-  account_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  friendly_name: string;
-  sandbox: string;
-  sid: string;
-  type: CredentialPushService;
-  url: string;
-}
-
-interface CredentialPayload extends CredentialResource, Page.TwilioResponsePayload {
-}
-
-interface CredentialSolution {
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - Friendly name for stored credential
+ * @property certificate - [APN only] URL encoded representation of the certificate.
+ * @property privateKey - [APN only] URL encoded representation of the private key.
+ * @property sandbox - [APN only] use this credential for sending to production or sandbox APNs
+ * @property apiKey - [GCM only] This is the "Server key" of your project from Firebase console under Settings / Cloud messaging.
+ * @property secret - [FCM only] This is the "Server key" of your project from Firebase console under Settings / Cloud messaging.
+ */
+interface CredentialInstanceUpdateOptions {
+  apiKey?: string;
+  certificate?: string;
+  friendlyName?: string;
+  privateKey?: string;
+  sandbox?: boolean;
+  secret?: string;
 }
 
 interface CredentialListInstance {
@@ -100,8 +102,9 @@ interface CredentialListInstance {
 }
 
 /**
- * Options to pass to update
+ * Options to pass to create
  *
+ * @property type - Credential type, one of "gcm", "fcm", or "apn"
  * @property friendlyName - Friendly name for stored credential
  * @property certificate - [APN only] URL encoded representation of the certificate.
  * @property privateKey - [APN only] URL encoded representation of the private key.
@@ -109,32 +112,14 @@ interface CredentialListInstance {
  * @property apiKey - [GCM only] This is the "Server key" of your project from Firebase console under Settings / Cloud messaging.
  * @property secret - [FCM only] This is the "Server key" of your project from Firebase console under Settings / Cloud messaging.
  */
-interface CredentialInstanceUpdateOptions {
+interface CredentialListInstanceCreateOptions {
   apiKey?: string;
   certificate?: string;
   friendlyName?: string;
   privateKey?: string;
   sandbox?: boolean;
   secret?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property friendlyName - Friendly name for stored credential
- * @property certificate - [APN only] URL encoded representation of the certificate.
- * @property privateKey - [APN only] URL encoded representation of the private key.
- * @property sandbox - [APN only] use this credential for sending to production or sandbox APNs
- * @property apiKey - [GCM only] This is the "Server key" of your project from Firebase console under Settings / Cloud messaging.
- * @property secret - [FCM only] This is the "Server key" of your project from Firebase console under Settings / Cloud messaging.
- */
-interface CredentialInstanceUpdateOptions {
-  apiKey?: string;
-  certificate?: string;
-  friendlyName?: string;
-  privateKey?: string;
-  sandbox?: boolean;
-  secret?: string;
+  type: credential.push_service;
 }
 
 /**
@@ -194,25 +179,21 @@ interface CredentialListInstancePageOptions {
   pageToken?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property type - Credential type, one of "gcm", "fcm", or "apn"
- * @property friendlyName - Friendly name for stored credential
- * @property certificate - [APN only] URL encoded representation of the certificate.
- * @property privateKey - [APN only] URL encoded representation of the private key.
- * @property sandbox - [APN only] use this credential for sending to production or sandbox APNs
- * @property apiKey - [GCM only] This is the "Server key" of your project from Firebase console under Settings / Cloud messaging.
- * @property secret - [FCM only] This is the "Server key" of your project from Firebase console under Settings / Cloud messaging.
- */
-interface CredentialListInstanceCreateOptions {
-  apiKey?: string;
-  certificate?: string;
-  friendlyName?: string;
-  privateKey?: string;
-  sandbox?: boolean;
-  secret?: string;
-  type: credential.push_service;
+interface CredentialPayload extends CredentialResource, Page.TwilioResponsePayload {
+}
+
+interface CredentialResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  sandbox: string;
+  sid: string;
+  type: CredentialPushService;
+  url: string;
+}
+
+interface CredentialSolution {
 }
 
 

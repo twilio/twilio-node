@@ -19,34 +19,41 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function ApplicationList(version: V2010, accountSid: string): ApplicationListInstance;
 
-interface ApplicationResource {
-  account_sid: string;
-  api_version: string;
-  date_created: Date;
-  date_updated: Date;
-  friendly_name: string;
-  message_status_callback: string;
-  sid: string;
-  sms_fallback_method: string;
-  sms_fallback_url: string;
-  sms_method: string;
-  sms_status_callback: string;
-  sms_url: string;
-  status_callback: string;
-  status_callback_method: string;
-  uri: string;
-  voice_caller_id_lookup: boolean;
-  voice_fallback_method: string;
-  voice_fallback_url: string;
-  voice_method: string;
-  voice_url: string;
-}
-
-interface ApplicationPayload extends ApplicationResource, Page.TwilioResponsePayload {
-}
-
-interface ApplicationSolution {
-  accountSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - Human readable description of this resource
+ * @property apiVersion - The API version to use
+ * @property voiceUrl - URL Twilio will make requests to when relieving a call
+ * @property voiceMethod - HTTP method to use with the URL
+ * @property voiceFallbackUrl - Fallback URL
+ * @property voiceFallbackMethod - HTTP method to use with the fallback url
+ * @property statusCallback - URL to hit with status updates
+ * @property statusCallbackMethod - HTTP method to use with the status callback
+ * @property voiceCallerIdLookup - True or False
+ * @property smsUrl - URL Twilio will request when receiving an SMS
+ * @property smsMethod - HTTP method to use with sms_url
+ * @property smsFallbackUrl - Fallback URL if there's an error parsing TwiML
+ * @property smsFallbackMethod - HTTP method to use with sms_fallback_method
+ * @property smsStatusCallback - URL Twilio with request with status updates
+ * @property messageStatusCallback - URL to make requests to with status updates
+ */
+interface ApplicationInstanceUpdateOptions {
+  apiVersion?: string;
+  friendlyName?: string;
+  messageStatusCallback?: string;
+  smsFallbackMethod?: string;
+  smsFallbackUrl?: string;
+  smsMethod?: string;
+  smsStatusCallback?: string;
+  smsUrl?: string;
+  statusCallback?: string;
+  statusCallbackMethod?: string;
+  voiceCallerIdLookup?: boolean;
+  voiceFallbackMethod?: string;
+  voiceFallbackUrl?: string;
+  voiceMethod?: string;
+  voiceUrl?: string;
 }
 
 interface ApplicationListInstance {
@@ -110,80 +117,6 @@ interface ApplicationListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: ApplicationListInstancePageOptions, callback?: (error: Error | null, items: ApplicationPage) => any): Promise<ApplicationPage>;
-}
-
-/**
- * Options to pass to update
- *
- * @property friendlyName - Human readable description of this resource
- * @property apiVersion - The API version to use
- * @property voiceUrl - URL Twilio will make requests to when relieving a call
- * @property voiceMethod - HTTP method to use with the URL
- * @property voiceFallbackUrl - Fallback URL
- * @property voiceFallbackMethod - HTTP method to use with the fallback url
- * @property statusCallback - URL to hit with status updates
- * @property statusCallbackMethod - HTTP method to use with the status callback
- * @property voiceCallerIdLookup - True or False
- * @property smsUrl - URL Twilio will request when receiving an SMS
- * @property smsMethod - HTTP method to use with sms_url
- * @property smsFallbackUrl - Fallback URL if there's an error parsing TwiML
- * @property smsFallbackMethod - HTTP method to use with sms_fallback_method
- * @property smsStatusCallback - URL Twilio with request with status updates
- * @property messageStatusCallback - URL to make requests to with status updates
- */
-interface ApplicationInstanceUpdateOptions {
-  apiVersion?: string;
-  friendlyName?: string;
-  messageStatusCallback?: string;
-  smsFallbackMethod?: string;
-  smsFallbackUrl?: string;
-  smsMethod?: string;
-  smsStatusCallback?: string;
-  smsUrl?: string;
-  statusCallback?: string;
-  statusCallbackMethod?: string;
-  voiceCallerIdLookup?: boolean;
-  voiceFallbackMethod?: string;
-  voiceFallbackUrl?: string;
-  voiceMethod?: string;
-  voiceUrl?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property friendlyName - Human readable description of this resource
- * @property apiVersion - The API version to use
- * @property voiceUrl - URL Twilio will make requests to when relieving a call
- * @property voiceMethod - HTTP method to use with the URL
- * @property voiceFallbackUrl - Fallback URL
- * @property voiceFallbackMethod - HTTP method to use with the fallback url
- * @property statusCallback - URL to hit with status updates
- * @property statusCallbackMethod - HTTP method to use with the status callback
- * @property voiceCallerIdLookup - True or False
- * @property smsUrl - URL Twilio will request when receiving an SMS
- * @property smsMethod - HTTP method to use with sms_url
- * @property smsFallbackUrl - Fallback URL if there's an error parsing TwiML
- * @property smsFallbackMethod - HTTP method to use with sms_fallback_method
- * @property smsStatusCallback - URL Twilio with request with status updates
- * @property messageStatusCallback - URL to make requests to with status updates
- */
-interface ApplicationInstanceUpdateOptions {
-  apiVersion?: string;
-  friendlyName?: string;
-  messageStatusCallback?: string;
-  smsFallbackMethod?: string;
-  smsFallbackUrl?: string;
-  smsMethod?: string;
-  smsStatusCallback?: string;
-  smsUrl?: string;
-  statusCallback?: string;
-  statusCallbackMethod?: string;
-  voiceCallerIdLookup?: boolean;
-  voiceFallbackMethod?: string;
-  voiceFallbackUrl?: string;
-  voiceMethod?: string;
-  voiceUrl?: string;
 }
 
 /**
@@ -284,6 +217,36 @@ interface ApplicationListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface ApplicationPayload extends ApplicationResource, Page.TwilioResponsePayload {
+}
+
+interface ApplicationResource {
+  account_sid: string;
+  api_version: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  message_status_callback: string;
+  sid: string;
+  sms_fallback_method: string;
+  sms_fallback_url: string;
+  sms_method: string;
+  sms_status_callback: string;
+  sms_url: string;
+  status_callback: string;
+  status_callback_method: string;
+  uri: string;
+  voice_caller_id_lookup: boolean;
+  voice_fallback_method: string;
+  voice_fallback_url: string;
+  voice_method: string;
+  voice_url: string;
+}
+
+interface ApplicationSolution {
+  accountSid?: string;
 }
 
 

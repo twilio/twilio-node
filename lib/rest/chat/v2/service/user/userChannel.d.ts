@@ -19,25 +19,6 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function UserChannelList(version: V2, serviceSid: string, userSid: string): UserChannelListInstance;
 
-interface UserChannelResource {
-  account_sid: string;
-  channel_sid: string;
-  last_consumed_message_index: number;
-  links: string;
-  member_sid: string;
-  service_sid: string;
-  status: UserChannelChannelStatus;
-  unread_messages_count: number;
-}
-
-interface UserChannelPayload extends UserChannelResource, Page.TwilioResponsePayload {
-}
-
-interface UserChannelSolution {
-  serviceSid?: string;
-  userSid?: string;
-}
-
 interface UserChannelListInstance {
   /**
    * Streams UserChannelInstance records from the API.
@@ -139,6 +120,25 @@ interface UserChannelListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface UserChannelPayload extends UserChannelResource, Page.TwilioResponsePayload {
+}
+
+interface UserChannelResource {
+  account_sid: string;
+  channel_sid: string;
+  last_consumed_message_index: number;
+  links: string;
+  member_sid: string;
+  service_sid: string;
+  status: UserChannelChannelStatus;
+  unread_messages_count: number;
+}
+
+interface UserChannelSolution {
+  serviceSid?: string;
+  userSid?: string;
 }
 
 

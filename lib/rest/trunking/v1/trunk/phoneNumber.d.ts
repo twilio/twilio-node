@@ -18,42 +18,6 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function PhoneNumberList(version: V1, trunkSid: string): PhoneNumberListInstance;
 
-interface PhoneNumberResource {
-  account_sid: string;
-  address_requirements: PhoneNumberAddressRequirement;
-  api_version: string;
-  beta: boolean;
-  capabilities: string;
-  date_created: Date;
-  date_updated: Date;
-  friendly_name: string;
-  links: string;
-  phone_number: string;
-  sid: string;
-  sms_application_sid: string;
-  sms_fallback_method: string;
-  sms_fallback_url: string;
-  sms_method: string;
-  sms_url: string;
-  status_callback: string;
-  status_callback_method: string;
-  trunk_sid: string;
-  url: string;
-  voice_application_sid: string;
-  voice_caller_id_lookup: boolean;
-  voice_fallback_method: string;
-  voice_fallback_url: string;
-  voice_method: string;
-  voice_url: string;
-}
-
-interface PhoneNumberPayload extends PhoneNumberResource, Page.TwilioResponsePayload {
-}
-
-interface PhoneNumberSolution {
-  trunkSid?: string;
-}
-
 interface PhoneNumberListInstance {
   /**
    * @param sid - sid of instance
@@ -181,6 +145,42 @@ interface PhoneNumberListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface PhoneNumberPayload extends PhoneNumberResource, Page.TwilioResponsePayload {
+}
+
+interface PhoneNumberResource {
+  account_sid: string;
+  address_requirements: PhoneNumberAddressRequirement;
+  api_version: string;
+  beta: boolean;
+  capabilities: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  links: string;
+  phone_number: string;
+  sid: string;
+  sms_application_sid: string;
+  sms_fallback_method: string;
+  sms_fallback_url: string;
+  sms_method: string;
+  sms_url: string;
+  status_callback: string;
+  status_callback_method: string;
+  trunk_sid: string;
+  url: string;
+  voice_application_sid: string;
+  voice_caller_id_lookup: boolean;
+  voice_fallback_method: string;
+  voice_fallback_url: string;
+  voice_method: string;
+  voice_url: string;
+}
+
+interface PhoneNumberSolution {
+  trunkSid?: string;
 }
 
 

@@ -19,22 +19,6 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function AvailableAddOnExtensionList(version: Marketplace, availableAddOnSid: string): AvailableAddOnExtensionListInstance;
 
-interface AvailableAddOnExtensionResource {
-  available_add_on_sid: string;
-  friendly_name: string;
-  product_name: string;
-  sid: string;
-  unique_name: string;
-  url: string;
-}
-
-interface AvailableAddOnExtensionPayload extends AvailableAddOnExtensionResource, Page.TwilioResponsePayload {
-}
-
-interface AvailableAddOnExtensionSolution {
-  availableAddOnSid?: string;
-}
-
 interface AvailableAddOnExtensionListInstance {
   /**
    * @param sid - sid of instance
@@ -146,6 +130,22 @@ interface AvailableAddOnExtensionListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface AvailableAddOnExtensionPayload extends AvailableAddOnExtensionResource, Page.TwilioResponsePayload {
+}
+
+interface AvailableAddOnExtensionResource {
+  available_add_on_sid: string;
+  friendly_name: string;
+  product_name: string;
+  sid: string;
+  unique_name: string;
+  url: string;
+}
+
+interface AvailableAddOnExtensionSolution {
+  availableAddOnSid?: string;
 }
 
 

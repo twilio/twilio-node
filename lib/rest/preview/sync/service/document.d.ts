@@ -21,25 +21,13 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function DocumentList(version: Sync, serviceSid: string): DocumentListInstance;
 
-interface DocumentResource {
-  account_sid: string;
-  created_by: string;
+/**
+ * Options to pass to update
+ *
+ * @property data - The data
+ */
+interface DocumentInstanceUpdateOptions {
   data: string;
-  date_created: Date;
-  date_updated: Date;
-  links: string;
-  revision: string;
-  service_sid: string;
-  sid: string;
-  unique_name: string;
-  url: string;
-}
-
-interface DocumentPayload extends DocumentResource, Page.TwilioResponsePayload {
-}
-
-interface DocumentSolution {
-  serviceSid?: string;
 }
 
 interface DocumentListInstance {
@@ -103,24 +91,6 @@ interface DocumentListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: DocumentListInstancePageOptions, callback?: (error: Error | null, items: DocumentPage) => any): Promise<DocumentPage>;
-}
-
-/**
- * Options to pass to update
- *
- * @property data - The data
- */
-interface DocumentInstanceUpdateOptions {
-  data: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property data - The data
- */
-interface DocumentInstanceUpdateOptions {
-  data: string;
 }
 
 /**
@@ -189,6 +159,27 @@ interface DocumentListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface DocumentPayload extends DocumentResource, Page.TwilioResponsePayload {
+}
+
+interface DocumentResource {
+  account_sid: string;
+  created_by: string;
+  data: string;
+  date_created: Date;
+  date_updated: Date;
+  links: string;
+  revision: string;
+  service_sid: string;
+  sid: string;
+  unique_name: string;
+  url: string;
+}
+
+interface DocumentSolution {
+  serviceSid?: string;
 }
 
 

@@ -19,6 +19,29 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function TaskQueueRealTimeStatisticsList(version: V1, workspaceSid: string, taskQueueSid: string): TaskQueueRealTimeStatisticsListInstance;
 
+/**
+ * Options to pass to fetch
+ *
+ * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
+ */
+interface TaskQueueRealTimeStatisticsInstanceFetchOptions {
+  taskChannel?: string;
+}
+
+interface TaskQueueRealTimeStatisticsListInstance {
+  /**
+   * @param sid - sid of instance
+   */
+  (sid: string): TaskQueueRealTimeStatisticsContext;
+  /**
+   * Constructs a task_queue_real_time_statistics
+   */
+  get(): TaskQueueRealTimeStatisticsContext;
+}
+
+interface TaskQueueRealTimeStatisticsPayload extends TaskQueueRealTimeStatisticsResource, Page.TwilioResponsePayload {
+}
+
 interface TaskQueueRealTimeStatisticsResource {
   account_sid: string;
   activity_statistics: string;
@@ -33,41 +56,9 @@ interface TaskQueueRealTimeStatisticsResource {
   workspace_sid: string;
 }
 
-interface TaskQueueRealTimeStatisticsPayload extends TaskQueueRealTimeStatisticsResource, Page.TwilioResponsePayload {
-}
-
 interface TaskQueueRealTimeStatisticsSolution {
   taskQueueSid?: string;
   workspaceSid?: string;
-}
-
-interface TaskQueueRealTimeStatisticsListInstance {
-  /**
-   * @param sid - sid of instance
-   */
-  (sid: string): TaskQueueRealTimeStatisticsContext;
-  /**
-   * Constructs a task_queue_real_time_statistics
-   */
-  get(): TaskQueueRealTimeStatisticsContext;
-}
-
-/**
- * Options to pass to fetch
- *
- * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
- */
-interface TaskQueueRealTimeStatisticsInstanceFetchOptions {
-  taskChannel?: string;
-}
-
-/**
- * Options to pass to fetch
- *
- * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
- */
-interface TaskQueueRealTimeStatisticsInstanceFetchOptions {
-  taskChannel?: string;
 }
 
 

@@ -18,21 +18,6 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function NewSigningKeyList(version: V2010, accountSid: string): NewSigningKeyListInstance;
 
-interface NewSigningKeyResource {
-  date_created: Date;
-  date_updated: Date;
-  friendly_name: string;
-  secret: string;
-  sid: string;
-}
-
-interface NewSigningKeyPayload extends NewSigningKeyResource, Page.TwilioResponsePayload {
-}
-
-interface NewSigningKeySolution {
-  accountSid?: string;
-}
-
 interface NewSigningKeyListInstance {
   /**
    * create a NewSigningKeyInstance
@@ -50,6 +35,21 @@ interface NewSigningKeyListInstance {
  */
 interface NewSigningKeyListInstanceCreateOptions {
   friendlyName?: string;
+}
+
+interface NewSigningKeyPayload extends NewSigningKeyResource, Page.TwilioResponsePayload {
+}
+
+interface NewSigningKeyResource {
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  secret: string;
+  sid: string;
+}
+
+interface NewSigningKeySolution {
+  accountSid?: string;
 }
 
 

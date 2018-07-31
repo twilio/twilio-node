@@ -19,22 +19,15 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function DeploymentList(version: DeployedDevices, fleetSid: string): DeploymentListInstance;
 
-interface DeploymentResource {
-  account_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  fleet_sid: string;
-  friendly_name: string;
-  sid: string;
-  sync_service_sid: string;
-  url: string;
-}
-
-interface DeploymentPayload extends DeploymentResource, Page.TwilioResponsePayload {
-}
-
-interface DeploymentSolution {
-  fleetSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - A human readable description for this Deployment.
+ * @property syncServiceSid - The unique identifier of the Sync service instance.
+ */
+interface DeploymentInstanceUpdateOptions {
+  friendlyName?: string;
+  syncServiceSid?: string;
 }
 
 interface DeploymentListInstance {
@@ -98,28 +91,6 @@ interface DeploymentListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: DeploymentListInstancePageOptions, callback?: (error: Error | null, items: DeploymentPage) => any): Promise<DeploymentPage>;
-}
-
-/**
- * Options to pass to update
- *
- * @property friendlyName - A human readable description for this Deployment.
- * @property syncServiceSid - The unique identifier of the Sync service instance.
- */
-interface DeploymentInstanceUpdateOptions {
-  friendlyName?: string;
-  syncServiceSid?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property friendlyName - A human readable description for this Deployment.
- * @property syncServiceSid - The unique identifier of the Sync service instance.
- */
-interface DeploymentInstanceUpdateOptions {
-  friendlyName?: string;
-  syncServiceSid?: string;
 }
 
 /**
@@ -188,6 +159,24 @@ interface DeploymentListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface DeploymentPayload extends DeploymentResource, Page.TwilioResponsePayload {
+}
+
+interface DeploymentResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  fleet_sid: string;
+  friendly_name: string;
+  sid: string;
+  sync_service_sid: string;
+  url: string;
+}
+
+interface DeploymentSolution {
+  fleetSid?: string;
 }
 
 

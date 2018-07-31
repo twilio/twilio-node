@@ -19,21 +19,13 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function CredentialListList(version: V2010, accountSid: string): CredentialListListInstance;
 
-interface CredentialListResource {
-  account_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  friendly_name: string;
-  sid: string;
-  subresource_uris: string;
-  uri: string;
-}
-
-interface CredentialListPayload extends CredentialListResource, Page.TwilioResponsePayload {
-}
-
-interface CredentialListSolution {
-  accountSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - Human readable descriptive text
+ */
+interface CredentialListInstanceUpdateOptions {
+  friendlyName: string;
 }
 
 interface CredentialListListInstance {
@@ -100,20 +92,11 @@ interface CredentialListListInstance {
 }
 
 /**
- * Options to pass to update
+ * Options to pass to create
  *
  * @property friendlyName - Human readable descriptive text
  */
-interface CredentialListInstanceUpdateOptions {
-  friendlyName: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property friendlyName - Human readable descriptive text
- */
-interface CredentialListInstanceUpdateOptions {
+interface CredentialListListInstanceCreateOptions {
   friendlyName: string;
 }
 
@@ -174,13 +157,21 @@ interface CredentialListListInstancePageOptions {
   pageToken?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property friendlyName - Human readable descriptive text
- */
-interface CredentialListListInstanceCreateOptions {
-  friendlyName: string;
+interface CredentialListPayload extends CredentialListResource, Page.TwilioResponsePayload {
+}
+
+interface CredentialListResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  sid: string;
+  subresource_uris: string;
+  uri: string;
+}
+
+interface CredentialListSolution {
+  accountSid?: string;
 }
 
 

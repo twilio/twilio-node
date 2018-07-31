@@ -19,21 +19,6 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function TaskQueuesStatisticsList(version: V1, workspaceSid: string): TaskQueuesStatisticsListInstance;
 
-interface TaskQueuesStatisticsResource {
-  account_sid: string;
-  cumulative: string;
-  realtime: string;
-  task_queue_sid: string;
-  workspace_sid: string;
-}
-
-interface TaskQueuesStatisticsPayload extends TaskQueuesStatisticsResource, Page.TwilioResponsePayload {
-}
-
-interface TaskQueuesStatisticsSolution {
-  workspaceSid?: string;
-}
-
 interface TaskQueuesStatisticsListInstance {
   /**
    * Streams TaskQueuesStatisticsInstance records from the API.
@@ -171,6 +156,21 @@ interface TaskQueuesStatisticsListInstancePageOptions {
   splitByWaitTime?: string;
   startDate?: Date;
   taskChannel?: string;
+}
+
+interface TaskQueuesStatisticsPayload extends TaskQueuesStatisticsResource, Page.TwilioResponsePayload {
+}
+
+interface TaskQueuesStatisticsResource {
+  account_sid: string;
+  cumulative: string;
+  realtime: string;
+  task_queue_sid: string;
+  workspace_sid: string;
+}
+
+interface TaskQueuesStatisticsSolution {
+  workspaceSid?: string;
 }
 
 

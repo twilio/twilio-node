@@ -19,23 +19,13 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function RoleList(version: V2, serviceSid: string): RoleListInstance;
 
-interface RoleResource {
-  account_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  friendly_name: string;
-  permissions: string;
-  service_sid: string;
-  sid: string;
-  type: RoleRoleType;
-  url: string;
-}
-
-interface RolePayload extends RoleResource, Page.TwilioResponsePayload {
-}
-
-interface RoleSolution {
-  serviceSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property permission - A permission this role should have.
+ */
+interface RoleInstanceUpdateOptions {
+  permission: string|list;
 }
 
 interface RoleListInstance {
@@ -99,24 +89,6 @@ interface RoleListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: RoleListInstancePageOptions, callback?: (error: Error | null, items: RolePage) => any): Promise<RolePage>;
-}
-
-/**
- * Options to pass to update
- *
- * @property permission - A permission this role should have.
- */
-interface RoleInstanceUpdateOptions {
-  permission: string|list;
-}
-
-/**
- * Options to pass to update
- *
- * @property permission - A permission this role should have.
- */
-interface RoleInstanceUpdateOptions {
-  permission: string|list;
 }
 
 /**
@@ -187,6 +159,25 @@ interface RoleListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface RolePayload extends RoleResource, Page.TwilioResponsePayload {
+}
+
+interface RoleResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  permissions: string;
+  service_sid: string;
+  sid: string;
+  type: RoleRoleType;
+  url: string;
+}
+
+interface RoleSolution {
+  serviceSid?: string;
 }
 
 

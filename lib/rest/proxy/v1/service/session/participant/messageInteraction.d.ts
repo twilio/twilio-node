@@ -22,38 +22,6 @@ import { SerializableClass } from '../../../../../../interfaces';
  */
 declare function MessageInteractionList(version: V1, serviceSid: string, sessionSid: string, participantSid: string): MessageInteractionListInstance;
 
-interface MessageInteractionResource {
-  account_sid: string;
-  data: string;
-  date_created: Date;
-  date_updated: Date;
-  inbound_participant_sid: string;
-  inbound_resource_sid: string;
-  inbound_resource_status: MessageInteractionResourceStatus;
-  inbound_resource_type: string;
-  inbound_resource_url: string;
-  outbound_participant_sid: string;
-  outbound_resource_sid: string;
-  outbound_resource_status: MessageInteractionResourceStatus;
-  outbound_resource_type: string;
-  outbound_resource_url: string;
-  participant_sid: string;
-  service_sid: string;
-  session_sid: string;
-  sid: string;
-  type: MessageInteractionType;
-  url: string;
-}
-
-interface MessageInteractionPayload extends MessageInteractionResource, Page.TwilioResponsePayload {
-}
-
-interface MessageInteractionSolution {
-  participantSid?: string;
-  serviceSid?: string;
-  sessionSid?: string;
-}
-
 interface MessageInteractionListInstance {
   /**
    * @param sid - sid of instance
@@ -183,6 +151,38 @@ interface MessageInteractionListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface MessageInteractionPayload extends MessageInteractionResource, Page.TwilioResponsePayload {
+}
+
+interface MessageInteractionResource {
+  account_sid: string;
+  data: string;
+  date_created: Date;
+  date_updated: Date;
+  inbound_participant_sid: string;
+  inbound_resource_sid: string;
+  inbound_resource_status: MessageInteractionResourceStatus;
+  inbound_resource_type: string;
+  inbound_resource_url: string;
+  outbound_participant_sid: string;
+  outbound_resource_sid: string;
+  outbound_resource_status: MessageInteractionResourceStatus;
+  outbound_resource_type: string;
+  outbound_resource_url: string;
+  participant_sid: string;
+  service_sid: string;
+  session_sid: string;
+  sid: string;
+  type: MessageInteractionType;
+  url: string;
+}
+
+interface MessageInteractionSolution {
+  participantSid?: string;
+  serviceSid?: string;
+  sessionSid?: string;
 }
 
 

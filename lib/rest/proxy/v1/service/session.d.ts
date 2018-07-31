@@ -22,30 +22,21 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function SessionList(version: V1, serviceSid: string): SessionListInstance;
 
-interface SessionResource {
-  account_sid: string;
-  closed_reason: string;
-  date_created: Date;
-  date_ended: Date;
-  date_expiry: Date;
-  date_last_interaction: Date;
-  date_started: Date;
-  date_updated: Date;
-  links: string;
-  mode: SessionMode;
-  service_sid: string;
-  sid: string;
-  status: SessionStatus;
-  ttl: number;
-  unique_name: string;
-  url: string;
-}
-
-interface SessionPayload extends SessionResource, Page.TwilioResponsePayload {
-}
-
-interface SessionSolution {
-  serviceSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property dateExpiry - The date this Session should expire
+ * @property ttl - TTL for a Session, in seconds.
+ * @property mode - The mode
+ * @property status - The Status of this Session
+ * @property participants - The participants
+ */
+interface SessionInstanceUpdateOptions {
+  dateExpiry?: Date;
+  mode?: session.mode;
+  participants?: string|list;
+  status?: session.status;
+  ttl?: number;
 }
 
 interface SessionListInstance {
@@ -112,37 +103,22 @@ interface SessionListInstance {
 }
 
 /**
- * Options to pass to update
+ * Options to pass to create
  *
+ * @property uniqueName - A unique, developer assigned name of this Session.
  * @property dateExpiry - The date this Session should expire
  * @property ttl - TTL for a Session, in seconds.
- * @property mode - The mode
- * @property status - The Status of this Session
+ * @property mode - The Mode of this Session
+ * @property status - Session status
  * @property participants - The participants
  */
-interface SessionInstanceUpdateOptions {
+interface SessionListInstanceCreateOptions {
   dateExpiry?: Date;
   mode?: session.mode;
   participants?: string|list;
   status?: session.status;
   ttl?: number;
-}
-
-/**
- * Options to pass to update
- *
- * @property dateExpiry - The date this Session should expire
- * @property ttl - TTL for a Session, in seconds.
- * @property mode - The mode
- * @property status - The Status of this Session
- * @property participants - The participants
- */
-interface SessionInstanceUpdateOptions {
-  dateExpiry?: Date;
-  mode?: session.mode;
-  participants?: string|list;
-  status?: session.status;
-  ttl?: number;
+  uniqueName?: string;
 }
 
 /**
@@ -214,23 +190,30 @@ interface SessionListInstancePageOptions {
   uniqueName?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property uniqueName - A unique, developer assigned name of this Session.
- * @property dateExpiry - The date this Session should expire
- * @property ttl - TTL for a Session, in seconds.
- * @property mode - The Mode of this Session
- * @property status - Session status
- * @property participants - The participants
- */
-interface SessionListInstanceCreateOptions {
-  dateExpiry?: Date;
-  mode?: session.mode;
-  participants?: string|list;
-  status?: session.status;
-  ttl?: number;
-  uniqueName?: string;
+interface SessionPayload extends SessionResource, Page.TwilioResponsePayload {
+}
+
+interface SessionResource {
+  account_sid: string;
+  closed_reason: string;
+  date_created: Date;
+  date_ended: Date;
+  date_expiry: Date;
+  date_last_interaction: Date;
+  date_started: Date;
+  date_updated: Date;
+  links: string;
+  mode: SessionMode;
+  service_sid: string;
+  sid: string;
+  status: SessionStatus;
+  ttl: number;
+  unique_name: string;
+  url: string;
+}
+
+interface SessionSolution {
+  serviceSid?: string;
 }
 
 

@@ -18,19 +18,13 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function WorkersRealTimeStatisticsList(version: V1, workspaceSid: string): WorkersRealTimeStatisticsListInstance;
 
-interface WorkersRealTimeStatisticsResource {
-  account_sid: string;
-  activity_statistics: string;
-  total_workers: number;
-  url: string;
-  workspace_sid: string;
-}
-
-interface WorkersRealTimeStatisticsPayload extends WorkersRealTimeStatisticsResource, Page.TwilioResponsePayload {
-}
-
-interface WorkersRealTimeStatisticsSolution {
-  workspaceSid?: string;
+/**
+ * Options to pass to fetch
+ *
+ * @property taskChannel - Filter cumulative statistics by TaskChannel.
+ */
+interface WorkersRealTimeStatisticsInstanceFetchOptions {
+  taskChannel?: string;
 }
 
 interface WorkersRealTimeStatisticsListInstance {
@@ -44,22 +38,19 @@ interface WorkersRealTimeStatisticsListInstance {
   get(): WorkersRealTimeStatisticsContext;
 }
 
-/**
- * Options to pass to fetch
- *
- * @property taskChannel - Filter cumulative statistics by TaskChannel.
- */
-interface WorkersRealTimeStatisticsInstanceFetchOptions {
-  taskChannel?: string;
+interface WorkersRealTimeStatisticsPayload extends WorkersRealTimeStatisticsResource, Page.TwilioResponsePayload {
 }
 
-/**
- * Options to pass to fetch
- *
- * @property taskChannel - Filter cumulative statistics by TaskChannel.
- */
-interface WorkersRealTimeStatisticsInstanceFetchOptions {
-  taskChannel?: string;
+interface WorkersRealTimeStatisticsResource {
+  account_sid: string;
+  activity_statistics: string;
+  total_workers: number;
+  url: string;
+  workspace_sid: string;
+}
+
+interface WorkersRealTimeStatisticsSolution {
+  workspaceSid?: string;
 }
 
 

@@ -16,20 +16,20 @@ import V2010 = require('../../V2010');
  */
 declare function SipList(version: V2010, accountSid: string): SipListInstance;
 
-interface SipResource {
+interface SipListInstance {
+  credentialLists?: object;
+  domains?: object;
+  ipAccessControlLists?: object;
 }
 
 interface SipPayload extends SipResource, Page.TwilioResponsePayload {
 }
 
-interface SipSolution {
-  accountSid?: string;
+interface SipResource {
 }
 
-interface SipListInstance {
-  credentialLists?: object;
-  domains?: object;
-  ipAccessControlLists?: object;
+interface SipSolution {
+  accountSid?: string;
 }
 
 export { SipList, SipListInstance, SipPayload, SipResource, SipSolution }

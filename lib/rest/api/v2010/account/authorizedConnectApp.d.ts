@@ -18,26 +18,6 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function AuthorizedConnectAppList(version: V2010, accountSid: string): AuthorizedConnectAppListInstance;
 
-interface AuthorizedConnectAppResource {
-  account_sid: string;
-  connect_app_company_name: string;
-  connect_app_description: string;
-  connect_app_friendly_name: string;
-  connect_app_homepage_url: string;
-  connect_app_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  permissions: AuthorizedConnectAppPermission;
-  uri: string;
-}
-
-interface AuthorizedConnectAppPayload extends AuthorizedConnectAppResource, Page.TwilioResponsePayload {
-}
-
-interface AuthorizedConnectAppSolution {
-  accountSid?: string;
-}
-
 interface AuthorizedConnectAppListInstance {
   /**
    * @param sid - sid of instance
@@ -149,6 +129,26 @@ interface AuthorizedConnectAppListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface AuthorizedConnectAppPayload extends AuthorizedConnectAppResource, Page.TwilioResponsePayload {
+}
+
+interface AuthorizedConnectAppResource {
+  account_sid: string;
+  connect_app_company_name: string;
+  connect_app_description: string;
+  connect_app_friendly_name: string;
+  connect_app_homepage_url: string;
+  connect_app_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  permissions: AuthorizedConnectAppPermission;
+  uri: string;
+}
+
+interface AuthorizedConnectAppSolution {
+  accountSid?: string;
 }
 
 

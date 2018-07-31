@@ -19,25 +19,21 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function OriginationUrlList(version: V1, trunkSid: string): OriginationUrlListInstance;
 
-interface OriginationUrlResource {
-  account_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  enabled: boolean;
-  friendly_name: string;
-  priority: number;
-  sid: string;
-  sip_url: string;
-  trunk_sid: string;
-  url: string;
-  weight: number;
-}
-
-interface OriginationUrlPayload extends OriginationUrlResource, Page.TwilioResponsePayload {
-}
-
-interface OriginationUrlSolution {
-  trunkSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property weight - Weight is used to determine the share of load when more than one URI has the same priority.
+ * @property priority - Priority ranks the importance of the URI.
+ * @property enabled - A boolean value indicating whether the URL is enabled or disabled.
+ * @property friendlyName - A human readable descriptive text, up to 64 characters long.
+ * @property sipUrl - The SIP address you want Twilio to route your Origination calls to.
+ */
+interface OriginationUrlInstanceUpdateOptions {
+  enabled?: boolean;
+  friendlyName?: string;
+  priority?: number;
+  sipUrl?: string;
+  weight?: number;
 }
 
 interface OriginationUrlListInstance {
@@ -101,40 +97,6 @@ interface OriginationUrlListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: OriginationUrlListInstancePageOptions, callback?: (error: Error | null, items: OriginationUrlPage) => any): Promise<OriginationUrlPage>;
-}
-
-/**
- * Options to pass to update
- *
- * @property weight - Weight is used to determine the share of load when more than one URI has the same priority.
- * @property priority - Priority ranks the importance of the URI.
- * @property enabled - A boolean value indicating whether the URL is enabled or disabled.
- * @property friendlyName - A human readable descriptive text, up to 64 characters long.
- * @property sipUrl - The SIP address you want Twilio to route your Origination calls to.
- */
-interface OriginationUrlInstanceUpdateOptions {
-  enabled?: boolean;
-  friendlyName?: string;
-  priority?: number;
-  sipUrl?: string;
-  weight?: number;
-}
-
-/**
- * Options to pass to update
- *
- * @property weight - Weight is used to determine the share of load when more than one URI has the same priority.
- * @property priority - Priority ranks the importance of the URI.
- * @property enabled - A boolean value indicating whether the URL is enabled or disabled.
- * @property friendlyName - A human readable descriptive text, up to 64 characters long.
- * @property sipUrl - The SIP address you want Twilio to route your Origination calls to.
- */
-interface OriginationUrlInstanceUpdateOptions {
-  enabled?: boolean;
-  friendlyName?: string;
-  priority?: number;
-  sipUrl?: string;
-  weight?: number;
 }
 
 /**
@@ -209,6 +171,27 @@ interface OriginationUrlListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface OriginationUrlPayload extends OriginationUrlResource, Page.TwilioResponsePayload {
+}
+
+interface OriginationUrlResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  enabled: boolean;
+  friendly_name: string;
+  priority: number;
+  sid: string;
+  sip_url: string;
+  trunk_sid: string;
+  url: string;
+  weight: number;
+}
+
+interface OriginationUrlSolution {
+  trunkSid?: string;
 }
 
 

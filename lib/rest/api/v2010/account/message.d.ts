@@ -21,34 +21,13 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function MessageList(version: V2010, accountSid: string): MessageListInstance;
 
-interface MessageResource {
-  account_sid: string;
-  api_version: string;
+/**
+ * Options to pass to update
+ *
+ * @property body - The text of the message you want to send, limited to 1600 characters.
+ */
+interface MessageInstanceUpdateOptions {
   body: string;
-  date_created: Date;
-  date_sent: Date;
-  date_updated: Date;
-  direction: MessageDirection;
-  error_code: number;
-  error_message: string;
-  from: string;
-  messaging_service_sid: string;
-  num_media: string;
-  num_segments: string;
-  price: number;
-  price_unit: string;
-  sid: string;
-  status: MessageStatus;
-  subresource_uris: string;
-  to: string;
-  uri: string;
-}
-
-interface MessagePayload extends MessageResource, Page.TwilioResponsePayload {
-}
-
-interface MessageSolution {
-  accountSid?: string;
 }
 
 interface MessageListInstance {
@@ -112,24 +91,6 @@ interface MessageListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: MessageListInstancePageOptions, callback?: (error: Error | null, items: MessagePage) => any): Promise<MessagePage>;
-}
-
-/**
- * Options to pass to update
- *
- * @property body - The text of the message you want to send, limited to 1600 characters.
- */
-interface MessageInstanceUpdateOptions {
-  body: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property body - The text of the message you want to send, limited to 1600 characters.
- */
-interface MessageInstanceUpdateOptions {
-  body: string;
 }
 
 /**
@@ -256,6 +217,36 @@ interface MessageListInstancePageOptions {
   pageSize?: number;
   pageToken?: string;
   to?: string;
+}
+
+interface MessagePayload extends MessageResource, Page.TwilioResponsePayload {
+}
+
+interface MessageResource {
+  account_sid: string;
+  api_version: string;
+  body: string;
+  date_created: Date;
+  date_sent: Date;
+  date_updated: Date;
+  direction: MessageDirection;
+  error_code: number;
+  error_message: string;
+  from: string;
+  messaging_service_sid: string;
+  num_media: string;
+  num_segments: string;
+  price: number;
+  price_unit: string;
+  sid: string;
+  status: MessageStatus;
+  subresource_uris: string;
+  to: string;
+  uri: string;
+}
+
+interface MessageSolution {
+  accountSid?: string;
 }
 
 

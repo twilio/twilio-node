@@ -19,22 +19,6 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function SegmentList(version: V1, serviceSid: string): SegmentListInstance;
 
-interface SegmentResource {
-  account_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  service_sid: string;
-  sid: string;
-  unique_name: string;
-}
-
-interface SegmentPayload extends SegmentResource, Page.TwilioResponsePayload {
-}
-
-interface SegmentSolution {
-  serviceSid?: string;
-}
-
 interface SegmentListInstance {
   /**
    * Streams SegmentInstance records from the API.
@@ -136,6 +120,22 @@ interface SegmentListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface SegmentPayload extends SegmentResource, Page.TwilioResponsePayload {
+}
+
+interface SegmentResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  service_sid: string;
+  sid: string;
+  unique_name: string;
+}
+
+interface SegmentSolution {
+  serviceSid?: string;
 }
 
 

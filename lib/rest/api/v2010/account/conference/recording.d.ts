@@ -20,32 +20,13 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function RecordingList(version: V2010, accountSid: string, conferenceSid: string): RecordingListInstance;
 
-interface RecordingResource {
-  account_sid: string;
-  api_version: string;
-  call_sid: string;
-  channels: number;
-  conference_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  duration: string;
-  encryption_details: string;
-  error_code: number;
-  price: number;
-  price_unit: string;
-  sid: string;
-  source: RecordingSource;
-  start_time: Date;
-  status: RecordingStatus;
-  uri: string;
-}
-
-interface RecordingPayload extends RecordingResource, Page.TwilioResponsePayload {
-}
-
-interface RecordingSolution {
-  accountSid?: string;
-  conferenceSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property status - The status to change the recording to.
+ */
+interface RecordingInstanceUpdateOptions {
+  status: recording.status;
 }
 
 interface RecordingListInstance {
@@ -102,24 +83,6 @@ interface RecordingListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: RecordingListInstancePageOptions, callback?: (error: Error | null, items: RecordingPage) => any): Promise<RecordingPage>;
-}
-
-/**
- * Options to pass to update
- *
- * @property status - The status to change the recording to.
- */
-interface RecordingInstanceUpdateOptions {
-  status: recording.status;
-}
-
-/**
- * Options to pass to update
- *
- * @property status - The status to change the recording to.
- */
-interface RecordingInstanceUpdateOptions {
-  status: recording.status;
 }
 
 /**
@@ -195,6 +158,34 @@ interface RecordingListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface RecordingPayload extends RecordingResource, Page.TwilioResponsePayload {
+}
+
+interface RecordingResource {
+  account_sid: string;
+  api_version: string;
+  call_sid: string;
+  channels: number;
+  conference_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  duration: string;
+  encryption_details: string;
+  error_code: number;
+  price: number;
+  price_unit: string;
+  sid: string;
+  source: RecordingSource;
+  start_time: Date;
+  status: RecordingStatus;
+  uri: string;
+}
+
+interface RecordingSolution {
+  accountSid?: string;
+  conferenceSid?: string;
 }
 
 

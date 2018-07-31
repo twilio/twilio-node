@@ -18,29 +18,15 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function RatePlanList(version: V1): RatePlanListInstance;
 
-interface RatePlanResource {
-  account_sid: string;
-  data_enabled: boolean;
-  data_limit: number;
-  data_metering: string;
-  date_created: Date;
-  date_updated: Date;
-  friendly_name: string;
-  international_roaming: string;
-  international_roaming_data_limit: number;
-  messaging_enabled: boolean;
-  national_roaming_data_limit: number;
-  national_roaming_enabled: boolean;
-  sid: string;
-  unique_name: string;
-  url: string;
-  voice_enabled: boolean;
-}
-
-interface RatePlanPayload extends RatePlanResource, Page.TwilioResponsePayload {
-}
-
-interface RatePlanSolution {
+/**
+ * Options to pass to update
+ *
+ * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the Sid.
+ * @property friendlyName - A user-provided string that identifies this resource.
+ */
+interface RatePlanInstanceUpdateOptions {
+  friendlyName?: string;
+  uniqueName?: string;
 }
 
 interface RatePlanListInstance {
@@ -107,25 +93,32 @@ interface RatePlanListInstance {
 }
 
 /**
- * Options to pass to update
+ * Options to pass to create
  *
  * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the Sid.
  * @property friendlyName - A user-provided string that identifies this resource.
+ * @property dataEnabled - Defines whether SIMs are capable of using GPRS/3G/LTE data connectivity.
+ * @property dataLimit - Network-enforced limit specifying the total Megabytes of data usage allowed during one month on the home network.
+ * @property dataMetering - The model by which to meter data usage, in accordance with the two available data metering models.
+ * @property messagingEnabled - Defines whether SIMs are capable of making and sending and receiving SMS messages via either Commands or Programmable SMS APIs.
+ * @property voiceEnabled - Defines whether SIMs are capable of making and receiving voice calls.
+ * @property nationalRoamingEnabled - Defines whether SIMs can roam onto other networks in the SIM's home country.
+ * @property internationalRoaming - The international_roaming
+ * @property nationalRoamingDataLimit - Network-enforced limit specifying the total Megabytes of national roaming data usage allowed during one month.
+ * @property internationalRoamingDataLimit - The international_roaming_data_limit
  */
-interface RatePlanInstanceUpdateOptions {
+interface RatePlanListInstanceCreateOptions {
+  dataEnabled?: boolean;
+  dataLimit?: number;
+  dataMetering?: string;
   friendlyName?: string;
+  internationalRoaming?: string|list;
+  internationalRoamingDataLimit?: number;
+  messagingEnabled?: boolean;
+  nationalRoamingDataLimit?: number;
+  nationalRoamingEnabled?: boolean;
   uniqueName?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the Sid.
- * @property friendlyName - A user-provided string that identifies this resource.
- */
-interface RatePlanInstanceUpdateOptions {
-  friendlyName?: string;
-  uniqueName?: string;
+  voiceEnabled?: boolean;
 }
 
 /**
@@ -185,33 +178,29 @@ interface RatePlanListInstancePageOptions {
   pageToken?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the Sid.
- * @property friendlyName - A user-provided string that identifies this resource.
- * @property dataEnabled - Defines whether SIMs are capable of using GPRS/3G/LTE data connectivity.
- * @property dataLimit - Network-enforced limit specifying the total Megabytes of data usage allowed during one month on the home network.
- * @property dataMetering - The model by which to meter data usage, in accordance with the two available data metering models.
- * @property messagingEnabled - Defines whether SIMs are capable of making and sending and receiving SMS messages via either Commands or Programmable SMS APIs.
- * @property voiceEnabled - Defines whether SIMs are capable of making and receiving voice calls.
- * @property nationalRoamingEnabled - Defines whether SIMs can roam onto other networks in the SIM's home country.
- * @property internationalRoaming - The international_roaming
- * @property nationalRoamingDataLimit - Network-enforced limit specifying the total Megabytes of national roaming data usage allowed during one month.
- * @property internationalRoamingDataLimit - The international_roaming_data_limit
- */
-interface RatePlanListInstanceCreateOptions {
-  dataEnabled?: boolean;
-  dataLimit?: number;
-  dataMetering?: string;
-  friendlyName?: string;
-  internationalRoaming?: string|list;
-  internationalRoamingDataLimit?: number;
-  messagingEnabled?: boolean;
-  nationalRoamingDataLimit?: number;
-  nationalRoamingEnabled?: boolean;
-  uniqueName?: string;
-  voiceEnabled?: boolean;
+interface RatePlanPayload extends RatePlanResource, Page.TwilioResponsePayload {
+}
+
+interface RatePlanResource {
+  account_sid: string;
+  data_enabled: boolean;
+  data_limit: number;
+  data_metering: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  international_roaming: string;
+  international_roaming_data_limit: number;
+  messaging_enabled: boolean;
+  national_roaming_data_limit: number;
+  national_roaming_enabled: boolean;
+  sid: string;
+  unique_name: string;
+  url: string;
+  voice_enabled: boolean;
+}
+
+interface RatePlanSolution {
 }
 
 

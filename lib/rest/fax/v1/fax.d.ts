@@ -20,31 +20,13 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function FaxList(version: V1): FaxListInstance;
 
-interface FaxResource {
-  account_sid: string;
-  api_version: string;
-  date_created: Date;
-  date_updated: Date;
-  direction: FaxDirection;
-  duration: number;
-  from: string;
-  links: string;
-  media_sid: string;
-  media_url: string;
-  num_pages: number;
-  price: number;
-  price_unit: string;
-  quality: FaxQuality;
-  sid: string;
-  status: FaxStatus;
-  to: string;
-  url: string;
-}
-
-interface FaxPayload extends FaxResource, Page.TwilioResponsePayload {
-}
-
-interface FaxSolution {
+/**
+ * Options to pass to update
+ *
+ * @property status - The updated status of this fax
+ */
+interface FaxInstanceUpdateOptions {
+  status?: fax.update_status;
 }
 
 interface FaxListInstance {
@@ -111,21 +93,28 @@ interface FaxListInstance {
 }
 
 /**
- * Options to pass to update
+ * Options to pass to create
  *
- * @property status - The updated status of this fax
+ * @property to - The phone number or SIP address to send the fax to
+ * @property mediaUrl - URL that points to the fax media
+ * @property quality - The quality of this fax
+ * @property statusCallback - URL for fax status callbacks
+ * @property from - Twilio number from which to originate the fax
+ * @property sipAuthUsername - Username for SIP authentication
+ * @property sipAuthPassword - Password for SIP authentication
+ * @property storeMedia - Whether or not to store media
+ * @property ttl - How many minutes to attempt a fax
  */
-interface FaxInstanceUpdateOptions {
-  status?: fax.update_status;
-}
-
-/**
- * Options to pass to update
- *
- * @property status - The updated status of this fax
- */
-interface FaxInstanceUpdateOptions {
-  status?: fax.update_status;
+interface FaxListInstanceCreateOptions {
+  from?: string;
+  mediaUrl: string;
+  quality?: fax.quality;
+  sipAuthPassword?: string;
+  sipAuthUsername?: string;
+  statusCallback?: string;
+  storeMedia?: boolean;
+  to: string;
+  ttl?: number;
 }
 
 /**
@@ -209,29 +198,31 @@ interface FaxListInstancePageOptions {
   to?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property to - The phone number or SIP address to send the fax to
- * @property mediaUrl - URL that points to the fax media
- * @property quality - The quality of this fax
- * @property statusCallback - URL for fax status callbacks
- * @property from - Twilio number from which to originate the fax
- * @property sipAuthUsername - Username for SIP authentication
- * @property sipAuthPassword - Password for SIP authentication
- * @property storeMedia - Whether or not to store media
- * @property ttl - How many minutes to attempt a fax
- */
-interface FaxListInstanceCreateOptions {
-  from?: string;
-  mediaUrl: string;
-  quality?: fax.quality;
-  sipAuthPassword?: string;
-  sipAuthUsername?: string;
-  statusCallback?: string;
-  storeMedia?: boolean;
+interface FaxPayload extends FaxResource, Page.TwilioResponsePayload {
+}
+
+interface FaxResource {
+  account_sid: string;
+  api_version: string;
+  date_created: Date;
+  date_updated: Date;
+  direction: FaxDirection;
+  duration: number;
+  from: string;
+  links: string;
+  media_sid: string;
+  media_url: string;
+  num_pages: number;
+  price: number;
+  price_unit: string;
+  quality: FaxQuality;
+  sid: string;
+  status: FaxStatus;
   to: string;
-  ttl?: number;
+  url: string;
+}
+
+interface FaxSolution {
 }
 
 

@@ -21,23 +21,17 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function SyncListPermissionList(version: Sync, serviceSid: string, listSid: string): SyncListPermissionListInstance;
 
-interface SyncListPermissionResource {
-  account_sid: string;
-  identity: string;
-  list_sid: string;
+/**
+ * Options to pass to update
+ *
+ * @property read - Read access.
+ * @property write - Write access.
+ * @property manage - Manage access.
+ */
+interface SyncListPermissionInstanceUpdateOptions {
   manage: boolean;
   read: boolean;
-  service_sid: string;
-  url: string;
   write: boolean;
-}
-
-interface SyncListPermissionPayload extends SyncListPermissionResource, Page.TwilioResponsePayload {
-}
-
-interface SyncListPermissionSolution {
-  listSid?: string;
-  serviceSid?: string;
 }
 
 interface SyncListPermissionListInstance {
@@ -97,32 +91,6 @@ interface SyncListPermissionListInstance {
 }
 
 /**
- * Options to pass to update
- *
- * @property read - Read access.
- * @property write - Write access.
- * @property manage - Manage access.
- */
-interface SyncListPermissionInstanceUpdateOptions {
-  manage: boolean;
-  read: boolean;
-  write: boolean;
-}
-
-/**
- * Options to pass to update
- *
- * @property read - Read access.
- * @property write - Write access.
- * @property manage - Manage access.
- */
-interface SyncListPermissionInstanceUpdateOptions {
-  manage: boolean;
-  read: boolean;
-  write: boolean;
-}
-
-/**
  * Options to pass to each
  *
  * @property limit -
@@ -177,6 +145,25 @@ interface SyncListPermissionListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface SyncListPermissionPayload extends SyncListPermissionResource, Page.TwilioResponsePayload {
+}
+
+interface SyncListPermissionResource {
+  account_sid: string;
+  identity: string;
+  list_sid: string;
+  manage: boolean;
+  read: boolean;
+  service_sid: string;
+  url: string;
+  write: boolean;
+}
+
+interface SyncListPermissionSolution {
+  listSid?: string;
+  serviceSid?: string;
 }
 
 

@@ -17,20 +17,6 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function CountryList(version: V1): CountryListInstance;
 
-interface CountryResource {
-  country: string;
-  iso_country: string;
-  phone_number_prices?: string;
-  price_unit?: string;
-  url: string;
-}
-
-interface CountryPayload extends CountryResource, Page.TwilioResponsePayload {
-}
-
-interface CountrySolution {
-}
-
 interface CountryListInstance {
   /**
    * @param sid - sid of instance
@@ -142,6 +128,20 @@ interface CountryListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface CountryPayload extends CountryResource, Page.TwilioResponsePayload {
+}
+
+interface CountryResource {
+  country: string;
+  iso_country: string;
+  phone_number_prices?: string;
+  price_unit?: string;
+  url: string;
+}
+
+interface CountrySolution {
 }
 
 

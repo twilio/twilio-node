@@ -21,29 +21,23 @@ import { TaskQueueStatisticsList } from './taskQueue/taskQueueStatistics';
  */
 declare function TaskQueueList(version: V1, workspaceSid: string): TaskQueueListInstance;
 
-interface TaskQueueResource {
-  account_sid: string;
-  assignment_activity_name: string;
-  assignment_activity_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  friendly_name: string;
-  links: string;
-  max_reserved_workers: number;
-  reservation_activity_name: string;
-  reservation_activity_sid: string;
-  sid: string;
-  target_workers: string;
-  task_order: TaskQueueTaskOrder;
-  url: string;
-  workspace_sid: string;
-}
-
-interface TaskQueuePayload extends TaskQueueResource, Page.TwilioResponsePayload {
-}
-
-interface TaskQueueSolution {
-  workspaceSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - Human readable description of this TaskQueue
+ * @property targetWorkers - A string describing the Worker selection criteria for any Tasks that enter this TaskQueue.
+ * @property reservationActivitySid - ActivitySID that will be assigned to Workers when they are reserved for a task from this TaskQueue.
+ * @property assignmentActivitySid - ActivitySID that will be assigned to Workers when they are assigned a task from this TaskQueue.
+ * @property maxReservedWorkers - The maximum amount of workers to create reservations for the assignment of a task while in this queue.
+ * @property taskOrder - TaskOrder will determine which order the Tasks will be assigned to Workers.
+ */
+interface TaskQueueInstanceUpdateOptions {
+  assignmentActivitySid?: string;
+  friendlyName?: string;
+  maxReservedWorkers?: number;
+  reservationActivitySid?: string;
+  targetWorkers?: string;
+  taskOrder?: task_queue.task_order;
 }
 
 interface TaskQueueListInstance {
@@ -111,39 +105,20 @@ interface TaskQueueListInstance {
 }
 
 /**
- * Options to pass to update
+ * Options to pass to create
  *
  * @property friendlyName - Human readable description of this TaskQueue
+ * @property reservationActivitySid - ActivitySID to assign workers once a task is reserved for them
+ * @property assignmentActivitySid - ActivitySID to assign workers once a task is assigned for them
  * @property targetWorkers - A string describing the Worker selection criteria for any Tasks that enter this TaskQueue.
- * @property reservationActivitySid - ActivitySID that will be assigned to Workers when they are reserved for a task from this TaskQueue.
- * @property assignmentActivitySid - ActivitySID that will be assigned to Workers when they are assigned a task from this TaskQueue.
  * @property maxReservedWorkers - The maximum amount of workers to create reservations for the assignment of a task while in this queue.
  * @property taskOrder - TaskOrder will determine which order the Tasks will be assigned to Workers.
  */
-interface TaskQueueInstanceUpdateOptions {
-  assignmentActivitySid?: string;
-  friendlyName?: string;
+interface TaskQueueListInstanceCreateOptions {
+  assignmentActivitySid: string;
+  friendlyName: string;
   maxReservedWorkers?: number;
-  reservationActivitySid?: string;
-  targetWorkers?: string;
-  taskOrder?: task_queue.task_order;
-}
-
-/**
- * Options to pass to update
- *
- * @property friendlyName - Human readable description of this TaskQueue
- * @property targetWorkers - A string describing the Worker selection criteria for any Tasks that enter this TaskQueue.
- * @property reservationActivitySid - ActivitySID that will be assigned to Workers when they are reserved for a task from this TaskQueue.
- * @property assignmentActivitySid - ActivitySID that will be assigned to Workers when they are assigned a task from this TaskQueue.
- * @property maxReservedWorkers - The maximum amount of workers to create reservations for the assignment of a task while in this queue.
- * @property taskOrder - TaskOrder will determine which order the Tasks will be assigned to Workers.
- */
-interface TaskQueueInstanceUpdateOptions {
-  assignmentActivitySid?: string;
-  friendlyName?: string;
-  maxReservedWorkers?: number;
-  reservationActivitySid?: string;
+  reservationActivitySid: string;
   targetWorkers?: string;
   taskOrder?: task_queue.task_order;
 }
@@ -223,23 +198,29 @@ interface TaskQueueListInstancePageOptions {
   workerSid?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property friendlyName - Human readable description of this TaskQueue
- * @property reservationActivitySid - ActivitySID to assign workers once a task is reserved for them
- * @property assignmentActivitySid - ActivitySID to assign workers once a task is assigned for them
- * @property targetWorkers - A string describing the Worker selection criteria for any Tasks that enter this TaskQueue.
- * @property maxReservedWorkers - The maximum amount of workers to create reservations for the assignment of a task while in this queue.
- * @property taskOrder - TaskOrder will determine which order the Tasks will be assigned to Workers.
- */
-interface TaskQueueListInstanceCreateOptions {
-  assignmentActivitySid: string;
-  friendlyName: string;
-  maxReservedWorkers?: number;
-  reservationActivitySid: string;
-  targetWorkers?: string;
-  taskOrder?: task_queue.task_order;
+interface TaskQueuePayload extends TaskQueueResource, Page.TwilioResponsePayload {
+}
+
+interface TaskQueueResource {
+  account_sid: string;
+  assignment_activity_name: string;
+  assignment_activity_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  links: string;
+  max_reserved_workers: number;
+  reservation_activity_name: string;
+  reservation_activity_sid: string;
+  sid: string;
+  target_workers: string;
+  task_order: TaskQueueTaskOrder;
+  url: string;
+  workspace_sid: string;
+}
+
+interface TaskQueueSolution {
+  workspaceSid?: string;
 }
 
 

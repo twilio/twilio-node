@@ -20,29 +20,6 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function UserBindingList(version: V2, serviceSid: string, userSid: string): UserBindingListInstance;
 
-interface UserBindingResource {
-  account_sid: string;
-  binding_type: UserBindingBindingType;
-  credential_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  endpoint: string;
-  identity: string;
-  message_types: string;
-  service_sid: string;
-  sid: string;
-  url: string;
-  user_sid: string;
-}
-
-interface UserBindingPayload extends UserBindingResource, Page.TwilioResponsePayload {
-}
-
-interface UserBindingSolution {
-  serviceSid?: string;
-  userSid?: string;
-}
-
 interface UserBindingListInstance {
   /**
    * @param sid - sid of instance
@@ -160,6 +137,29 @@ interface UserBindingListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface UserBindingPayload extends UserBindingResource, Page.TwilioResponsePayload {
+}
+
+interface UserBindingResource {
+  account_sid: string;
+  binding_type: UserBindingBindingType;
+  credential_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  endpoint: string;
+  identity: string;
+  message_types: string;
+  service_sid: string;
+  sid: string;
+  url: string;
+  user_sid: string;
+}
+
+interface UserBindingSolution {
+  serviceSid?: string;
+  userSid?: string;
 }
 
 

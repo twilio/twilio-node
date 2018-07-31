@@ -20,23 +20,15 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function InstalledAddOnList(version: Marketplace): InstalledAddOnListInstance;
 
-interface InstalledAddOnResource {
-  account_sid: string;
-  configuration: string;
-  date_created: Date;
-  date_updated: Date;
-  description: string;
-  friendly_name: string;
-  links: string;
-  sid: string;
-  unique_name: string;
-  url: string;
-}
-
-interface InstalledAddOnPayload extends InstalledAddOnResource, Page.TwilioResponsePayload {
-}
-
-interface InstalledAddOnSolution {
+/**
+ * Options to pass to update
+ *
+ * @property configuration - The JSON object representing the configuration
+ * @property uniqueName - The string that uniquely identifies this Add-on installation
+ */
+interface InstalledAddOnInstanceUpdateOptions {
+  configuration?: string;
+  uniqueName?: string;
 }
 
 interface InstalledAddOnListInstance {
@@ -100,28 +92,6 @@ interface InstalledAddOnListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: InstalledAddOnListInstancePageOptions, callback?: (error: Error | null, items: InstalledAddOnPage) => any): Promise<InstalledAddOnPage>;
-}
-
-/**
- * Options to pass to update
- *
- * @property configuration - The JSON object representing the configuration
- * @property uniqueName - The string that uniquely identifies this Add-on installation
- */
-interface InstalledAddOnInstanceUpdateOptions {
-  configuration?: string;
-  uniqueName?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property configuration - The JSON object representing the configuration
- * @property uniqueName - The string that uniquely identifies this Add-on installation
- */
-interface InstalledAddOnInstanceUpdateOptions {
-  configuration?: string;
-  uniqueName?: string;
 }
 
 /**
@@ -194,6 +164,25 @@ interface InstalledAddOnListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface InstalledAddOnPayload extends InstalledAddOnResource, Page.TwilioResponsePayload {
+}
+
+interface InstalledAddOnResource {
+  account_sid: string;
+  configuration: string;
+  date_created: Date;
+  date_updated: Date;
+  description: string;
+  friendly_name: string;
+  links: string;
+  sid: string;
+  unique_name: string;
+  url: string;
+}
+
+interface InstalledAddOnSolution {
 }
 
 

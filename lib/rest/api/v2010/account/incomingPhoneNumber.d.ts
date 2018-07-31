@@ -20,44 +20,55 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function IncomingPhoneNumberList(version: V2010, accountSid: string): IncomingPhoneNumberListInstance;
 
-interface IncomingPhoneNumberResource {
-  account_sid: string;
-  address_requirements: IncomingPhoneNumberAddressRequirement;
-  address_sid: string;
-  api_version: string;
-  beta: boolean;
-  capabilities: string;
-  date_created: Date;
-  date_updated: Date;
-  emergency_address_sid: string;
-  emergency_status: IncomingPhoneNumberEmergencyStatus;
-  friendly_name: string;
-  identity_sid: string;
-  origin: string;
-  phone_number: string;
-  sid: string;
-  sms_application_sid: string;
-  sms_fallback_method: string;
-  sms_fallback_url: string;
-  sms_method: string;
-  sms_url: string;
-  status_callback: string;
-  status_callback_method: string;
-  trunk_sid: string;
-  uri: string;
-  voice_application_sid: string;
-  voice_caller_id_lookup: boolean;
-  voice_fallback_method: string;
-  voice_fallback_url: string;
-  voice_method: string;
-  voice_url: string;
-}
-
-interface IncomingPhoneNumberPayload extends IncomingPhoneNumberResource, Page.TwilioResponsePayload {
-}
-
-interface IncomingPhoneNumberSolution {
+/**
+ * Options to pass to update
+ *
+ * @property accountSid - The new owner of the phone number
+ * @property apiVersion - The Twilio REST API version to use
+ * @property friendlyName - A human readable description of this resource
+ * @property smsApplicationSid - Unique string that identifies the application
+ * @property smsFallbackMethod - HTTP method used with sms fallback url
+ * @property smsFallbackUrl - URL Twilio will request if an error occurs in executing TwiML
+ * @property smsMethod - HTTP method to use with sms url
+ * @property smsUrl - URL Twilio will request when receiving an SMS
+ * @property statusCallback - URL Twilio will use to pass status parameters
+ * @property statusCallbackMethod - HTTP method twilio will use with status callback
+ * @property voiceApplicationSid - The unique sid of the application to handle this number
+ * @property voiceCallerIdLookup - Look up the caller's caller-ID
+ * @property voiceFallbackMethod - HTTP method used with fallback_url
+ * @property voiceFallbackUrl - URL Twilio will request when an error occurs in TwiML
+ * @property voiceMethod - HTTP method used with the voice url
+ * @property voiceUrl - URL Twilio will request when receiving a call
+ * @property emergencyStatus - The emergency_status
+ * @property emergencyAddressSid - The emergency_address_sid
+ * @property trunkSid - Unique string to identify the trunk
+ * @property voiceReceiveMode - The voice_receive_mode
+ * @property identitySid - Unique string that identifies the identity associated with number
+ * @property addressSid - Unique string that identifies the address associated with number
+ */
+interface IncomingPhoneNumberInstanceUpdateOptions {
   accountSid?: string;
+  addressSid?: string;
+  apiVersion?: string;
+  emergencyAddressSid?: string;
+  emergencyStatus?: incoming_phone_number.emergency_status;
+  friendlyName?: string;
+  identitySid?: string;
+  smsApplicationSid?: string;
+  smsFallbackMethod?: string;
+  smsFallbackUrl?: string;
+  smsMethod?: string;
+  smsUrl?: string;
+  statusCallback?: string;
+  statusCallbackMethod?: string;
+  trunkSid?: string;
+  voiceApplicationSid?: string;
+  voiceCallerIdLookup?: boolean;
+  voiceFallbackMethod?: string;
+  voiceFallbackUrl?: string;
+  voiceMethod?: string;
+  voiceReceiveMode?: incoming_phone_number.voice_receive_mode;
+  voiceUrl?: string;
 }
 
 interface IncomingPhoneNumberListInstance {
@@ -127,10 +138,9 @@ interface IncomingPhoneNumberListInstance {
 }
 
 /**
- * Options to pass to update
+ * Options to pass to create
  *
- * @property accountSid - The new owner of the phone number
- * @property apiVersion - The Twilio REST API version to use
+ * @property apiVersion - The Twilio Rest API version to use
  * @property friendlyName - A human readable description of this resource
  * @property smsApplicationSid - Unique string that identifies the application
  * @property smsFallbackMethod - HTTP method used with sms fallback url
@@ -148,18 +158,20 @@ interface IncomingPhoneNumberListInstance {
  * @property emergencyStatus - The emergency_status
  * @property emergencyAddressSid - The emergency_address_sid
  * @property trunkSid - Unique string to identify the trunk
- * @property voiceReceiveMode - The voice_receive_mode
  * @property identitySid - Unique string that identifies the identity associated with number
  * @property addressSid - Unique string that identifies the address associated with number
+ * @property phoneNumber - The phone number
+ * @property areaCode - The desired area code for the new number
  */
-interface IncomingPhoneNumberInstanceUpdateOptions {
-  accountSid?: string;
+interface IncomingPhoneNumberListInstanceCreateOptions {
   addressSid?: string;
   apiVersion?: string;
+  areaCode?: string;
   emergencyAddressSid?: string;
   emergencyStatus?: incoming_phone_number.emergency_status;
   friendlyName?: string;
   identitySid?: string;
+  phoneNumber?: string;
   smsApplicationSid?: string;
   smsFallbackMethod?: string;
   smsFallbackUrl?: string;
@@ -173,58 +185,6 @@ interface IncomingPhoneNumberInstanceUpdateOptions {
   voiceFallbackMethod?: string;
   voiceFallbackUrl?: string;
   voiceMethod?: string;
-  voiceReceiveMode?: incoming_phone_number.voice_receive_mode;
-  voiceUrl?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property accountSid - The new owner of the phone number
- * @property apiVersion - The Twilio REST API version to use
- * @property friendlyName - A human readable description of this resource
- * @property smsApplicationSid - Unique string that identifies the application
- * @property smsFallbackMethod - HTTP method used with sms fallback url
- * @property smsFallbackUrl - URL Twilio will request if an error occurs in executing TwiML
- * @property smsMethod - HTTP method to use with sms url
- * @property smsUrl - URL Twilio will request when receiving an SMS
- * @property statusCallback - URL Twilio will use to pass status parameters
- * @property statusCallbackMethod - HTTP method twilio will use with status callback
- * @property voiceApplicationSid - The unique sid of the application to handle this number
- * @property voiceCallerIdLookup - Look up the caller's caller-ID
- * @property voiceFallbackMethod - HTTP method used with fallback_url
- * @property voiceFallbackUrl - URL Twilio will request when an error occurs in TwiML
- * @property voiceMethod - HTTP method used with the voice url
- * @property voiceUrl - URL Twilio will request when receiving a call
- * @property emergencyStatus - The emergency_status
- * @property emergencyAddressSid - The emergency_address_sid
- * @property trunkSid - Unique string to identify the trunk
- * @property voiceReceiveMode - The voice_receive_mode
- * @property identitySid - Unique string that identifies the identity associated with number
- * @property addressSid - Unique string that identifies the address associated with number
- */
-interface IncomingPhoneNumberInstanceUpdateOptions {
-  accountSid?: string;
-  addressSid?: string;
-  apiVersion?: string;
-  emergencyAddressSid?: string;
-  emergencyStatus?: incoming_phone_number.emergency_status;
-  friendlyName?: string;
-  identitySid?: string;
-  smsApplicationSid?: string;
-  smsFallbackMethod?: string;
-  smsFallbackUrl?: string;
-  smsMethod?: string;
-  smsUrl?: string;
-  statusCallback?: string;
-  statusCallbackMethod?: string;
-  trunkSid?: string;
-  voiceApplicationSid?: string;
-  voiceCallerIdLookup?: boolean;
-  voiceFallbackMethod?: string;
-  voiceFallbackUrl?: string;
-  voiceMethod?: string;
-  voiceReceiveMode?: incoming_phone_number.voice_receive_mode;
   voiceUrl?: string;
 }
 
@@ -309,55 +269,44 @@ interface IncomingPhoneNumberListInstancePageOptions {
   phoneNumber?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property apiVersion - The Twilio Rest API version to use
- * @property friendlyName - A human readable description of this resource
- * @property smsApplicationSid - Unique string that identifies the application
- * @property smsFallbackMethod - HTTP method used with sms fallback url
- * @property smsFallbackUrl - URL Twilio will request if an error occurs in executing TwiML
- * @property smsMethod - HTTP method to use with sms url
- * @property smsUrl - URL Twilio will request when receiving an SMS
- * @property statusCallback - URL Twilio will use to pass status parameters
- * @property statusCallbackMethod - HTTP method twilio will use with status callback
- * @property voiceApplicationSid - The unique sid of the application to handle this number
- * @property voiceCallerIdLookup - Look up the caller's caller-ID
- * @property voiceFallbackMethod - HTTP method used with fallback_url
- * @property voiceFallbackUrl - URL Twilio will request when an error occurs in TwiML
- * @property voiceMethod - HTTP method used with the voice url
- * @property voiceUrl - URL Twilio will request when receiving a call
- * @property emergencyStatus - The emergency_status
- * @property emergencyAddressSid - The emergency_address_sid
- * @property trunkSid - Unique string to identify the trunk
- * @property identitySid - Unique string that identifies the identity associated with number
- * @property addressSid - Unique string that identifies the address associated with number
- * @property phoneNumber - The phone number
- * @property areaCode - The desired area code for the new number
- */
-interface IncomingPhoneNumberListInstanceCreateOptions {
-  addressSid?: string;
-  apiVersion?: string;
-  areaCode?: string;
-  emergencyAddressSid?: string;
-  emergencyStatus?: incoming_phone_number.emergency_status;
-  friendlyName?: string;
-  identitySid?: string;
-  phoneNumber?: string;
-  smsApplicationSid?: string;
-  smsFallbackMethod?: string;
-  smsFallbackUrl?: string;
-  smsMethod?: string;
-  smsUrl?: string;
-  statusCallback?: string;
-  statusCallbackMethod?: string;
-  trunkSid?: string;
-  voiceApplicationSid?: string;
-  voiceCallerIdLookup?: boolean;
-  voiceFallbackMethod?: string;
-  voiceFallbackUrl?: string;
-  voiceMethod?: string;
-  voiceUrl?: string;
+interface IncomingPhoneNumberPayload extends IncomingPhoneNumberResource, Page.TwilioResponsePayload {
+}
+
+interface IncomingPhoneNumberResource {
+  account_sid: string;
+  address_requirements: IncomingPhoneNumberAddressRequirement;
+  address_sid: string;
+  api_version: string;
+  beta: boolean;
+  capabilities: string;
+  date_created: Date;
+  date_updated: Date;
+  emergency_address_sid: string;
+  emergency_status: IncomingPhoneNumberEmergencyStatus;
+  friendly_name: string;
+  identity_sid: string;
+  origin: string;
+  phone_number: string;
+  sid: string;
+  sms_application_sid: string;
+  sms_fallback_method: string;
+  sms_fallback_url: string;
+  sms_method: string;
+  sms_url: string;
+  status_callback: string;
+  status_callback_method: string;
+  trunk_sid: string;
+  uri: string;
+  voice_application_sid: string;
+  voice_caller_id_lookup: boolean;
+  voice_fallback_method: string;
+  voice_fallback_url: string;
+  voice_method: string;
+  voice_url: string;
+}
+
+interface IncomingPhoneNumberSolution {
+  accountSid?: string;
 }
 
 

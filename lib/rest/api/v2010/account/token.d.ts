@@ -18,23 +18,6 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function TokenList(version: V2010, accountSid: string): TokenListInstance;
 
-interface TokenResource {
-  account_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  ice_servers: string;
-  password: string;
-  ttl: string;
-  username: string;
-}
-
-interface TokenPayload extends TokenResource, Page.TwilioResponsePayload {
-}
-
-interface TokenSolution {
-  accountSid?: string;
-}
-
 interface TokenListInstance {
   /**
    * create a TokenInstance
@@ -52,6 +35,23 @@ interface TokenListInstance {
  */
 interface TokenListInstanceCreateOptions {
   ttl?: number;
+}
+
+interface TokenPayload extends TokenResource, Page.TwilioResponsePayload {
+}
+
+interface TokenResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  ice_servers: string;
+  password: string;
+  ttl: string;
+  username: string;
+}
+
+interface TokenSolution {
+  accountSid?: string;
 }
 
 

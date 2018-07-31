@@ -21,24 +21,6 @@ import { SerializableClass } from '../../../../../../interfaces';
  */
 declare function StepContextList(version: V1, flowSid: string, engagementSid: string, stepSid: string): StepContextListInstance;
 
-interface StepContextResource {
-  account_sid: string;
-  context: string;
-  engagement_sid: string;
-  flow_sid: string;
-  step_sid: string;
-  url: string;
-}
-
-interface StepContextPayload extends StepContextResource, Page.TwilioResponsePayload {
-}
-
-interface StepContextSolution {
-  engagementSid?: string;
-  flowSid?: string;
-  stepSid?: string;
-}
-
 interface StepContextListInstance {
   /**
    * @param sid - sid of instance
@@ -48,6 +30,24 @@ interface StepContextListInstance {
    * Constructs a step_context
    */
   get(): StepContextContext;
+}
+
+interface StepContextPayload extends StepContextResource, Page.TwilioResponsePayload {
+}
+
+interface StepContextResource {
+  account_sid: string;
+  context: string;
+  engagement_sid: string;
+  flow_sid: string;
+  step_sid: string;
+  url: string;
+}
+
+interface StepContextSolution {
+  engagementSid?: string;
+  flowSid?: string;
+  stepSid?: string;
 }
 
 

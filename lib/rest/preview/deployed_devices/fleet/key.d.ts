@@ -19,23 +19,15 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function KeyList(version: DeployedDevices, fleetSid: string): KeyListInstance;
 
-interface KeyResource {
-  account_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  device_sid: string;
-  fleet_sid: string;
-  friendly_name: string;
-  secret: string;
-  sid: string;
-  url: string;
-}
-
-interface KeyPayload extends KeyResource, Page.TwilioResponsePayload {
-}
-
-interface KeySolution {
-  fleetSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - The human readable description for this Key.
+ * @property deviceSid - The unique identifier of a Key to be authenticated.
+ */
+interface KeyInstanceUpdateOptions {
+  deviceSid?: string;
+  friendlyName?: string;
 }
 
 interface KeyListInstance {
@@ -99,28 +91,6 @@ interface KeyListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: KeyListInstancePageOptions, callback?: (error: Error | null, items: KeyPage) => any): Promise<KeyPage>;
-}
-
-/**
- * Options to pass to update
- *
- * @property friendlyName - The human readable description for this Key.
- * @property deviceSid - The unique identifier of a Key to be authenticated.
- */
-interface KeyInstanceUpdateOptions {
-  deviceSid?: string;
-  friendlyName?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property friendlyName - The human readable description for this Key.
- * @property deviceSid - The unique identifier of a Key to be authenticated.
- */
-interface KeyInstanceUpdateOptions {
-  deviceSid?: string;
-  friendlyName?: string;
 }
 
 /**
@@ -195,6 +165,25 @@ interface KeyListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface KeyPayload extends KeyResource, Page.TwilioResponsePayload {
+}
+
+interface KeyResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  device_sid: string;
+  fleet_sid: string;
+  friendly_name: string;
+  secret: string;
+  sid: string;
+  url: string;
+}
+
+interface KeySolution {
+  fleetSid?: string;
 }
 
 

@@ -20,25 +20,17 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function SampleList(version: Understand, assistantSid: string, intentSid: string): SampleListInstance;
 
-interface SampleResource {
-  account_sid: string;
-  assistant_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  intent_sid: string;
-  language: string;
-  sid: string;
-  source_channel: string;
-  tagged_text: string;
-  url: string;
-}
-
-interface SamplePayload extends SampleResource, Page.TwilioResponsePayload {
-}
-
-interface SampleSolution {
-  assistantSid?: string;
-  intentSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property language - An ISO language-country string of the sample.
+ * @property taggedText - The text example of how end-users may express this intent. The sample may contain Field tag blocks.
+ * @property sourceChannel - The communication channel the sample was captured. It can be: voice, sms, chat, alexa, google-assistant, or slack. If not included the value will be null
+ */
+interface SampleInstanceUpdateOptions {
+  language?: string;
+  sourceChannel?: string;
+  taggedText?: string;
 }
 
 interface SampleListInstance {
@@ -105,29 +97,16 @@ interface SampleListInstance {
 }
 
 /**
- * Options to pass to update
+ * Options to pass to create
  *
  * @property language - An ISO language-country string of the sample.
  * @property taggedText - The text example of how end-users may express this intent. The sample may contain Field tag blocks.
  * @property sourceChannel - The communication channel the sample was captured. It can be: voice, sms, chat, alexa, google-assistant, or slack. If not included the value will be null
  */
-interface SampleInstanceUpdateOptions {
-  language?: string;
+interface SampleListInstanceCreateOptions {
+  language: string;
   sourceChannel?: string;
-  taggedText?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property language - An ISO language-country string of the sample.
- * @property taggedText - The text example of how end-users may express this intent. The sample may contain Field tag blocks.
- * @property sourceChannel - The communication channel the sample was captured. It can be: voice, sms, chat, alexa, google-assistant, or slack. If not included the value will be null
- */
-interface SampleInstanceUpdateOptions {
-  language?: string;
-  sourceChannel?: string;
-  taggedText?: string;
+  taggedText: string;
 }
 
 /**
@@ -193,17 +172,25 @@ interface SampleListInstancePageOptions {
   pageToken?: string;
 }
 
-/**
- * Options to pass to create
- *
- * @property language - An ISO language-country string of the sample.
- * @property taggedText - The text example of how end-users may express this intent. The sample may contain Field tag blocks.
- * @property sourceChannel - The communication channel the sample was captured. It can be: voice, sms, chat, alexa, google-assistant, or slack. If not included the value will be null
- */
-interface SampleListInstanceCreateOptions {
+interface SamplePayload extends SampleResource, Page.TwilioResponsePayload {
+}
+
+interface SampleResource {
+  account_sid: string;
+  assistant_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  intent_sid: string;
   language: string;
-  sourceChannel?: string;
-  taggedText: string;
+  sid: string;
+  source_channel: string;
+  tagged_text: string;
+  url: string;
+}
+
+interface SampleSolution {
+  assistantSid?: string;
+  intentSid?: string;
 }
 
 

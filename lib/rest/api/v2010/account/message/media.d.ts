@@ -20,24 +20,6 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function MediaList(version: V2010, accountSid: string, messageSid: string): MediaListInstance;
 
-interface MediaResource {
-  account_sid: string;
-  content_type: string;
-  date_created: Date;
-  date_updated: Date;
-  parent_sid: string;
-  sid: string;
-  uri: string;
-}
-
-interface MediaPayload extends MediaResource, Page.TwilioResponsePayload {
-}
-
-interface MediaSolution {
-  accountSid?: string;
-  messageSid?: string;
-}
-
 interface MediaListInstance {
   /**
    * @param sid - sid of instance
@@ -167,6 +149,24 @@ interface MediaListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface MediaPayload extends MediaResource, Page.TwilioResponsePayload {
+}
+
+interface MediaResource {
+  account_sid: string;
+  content_type: string;
+  date_created: Date;
+  date_updated: Date;
+  parent_sid: string;
+  sid: string;
+  uri: string;
+}
+
+interface MediaSolution {
+  accountSid?: string;
+  messageSid?: string;
 }
 
 

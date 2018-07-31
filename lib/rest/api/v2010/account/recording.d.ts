@@ -21,34 +21,6 @@ import { TranscriptionList } from './recording/transcription';
  */
 declare function RecordingList(version: V2010, accountSid: string): RecordingListInstance;
 
-interface RecordingResource {
-  account_sid: string;
-  api_version: string;
-  call_sid: string;
-  channels: number;
-  conference_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  duration: string;
-  encryption_details: string;
-  error_code: number;
-  price: string;
-  price_unit: string;
-  sid: string;
-  source: RecordingSource;
-  start_time: Date;
-  status: RecordingStatus;
-  subresource_uris: string;
-  uri: string;
-}
-
-interface RecordingPayload extends RecordingResource, Page.TwilioResponsePayload {
-}
-
-interface RecordingSolution {
-  accountSid?: string;
-}
-
 interface RecordingListInstance {
   /**
    * @param sid - sid of instance
@@ -190,6 +162,34 @@ interface RecordingListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface RecordingPayload extends RecordingResource, Page.TwilioResponsePayload {
+}
+
+interface RecordingResource {
+  account_sid: string;
+  api_version: string;
+  call_sid: string;
+  channels: number;
+  conference_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  duration: string;
+  encryption_details: string;
+  error_code: number;
+  price: string;
+  price_unit: string;
+  sid: string;
+  source: RecordingSource;
+  start_time: Date;
+  status: RecordingStatus;
+  subresource_uris: string;
+  uri: string;
+}
+
+interface RecordingSolution {
+  accountSid?: string;
 }
 
 

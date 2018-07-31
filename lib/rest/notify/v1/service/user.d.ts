@@ -22,25 +22,6 @@ import { UserBindingList } from './user/userBinding';
  */
 declare function UserList(version: V1, serviceSid: string): UserListInstance;
 
-interface UserResource {
-  account_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  identity: string;
-  links: string;
-  segments: string;
-  service_sid: string;
-  sid: string;
-  url: string;
-}
-
-interface UserPayload extends UserResource, Page.TwilioResponsePayload {
-}
-
-interface UserSolution {
-  serviceSid?: string;
-}
-
 interface UserListInstance {
   /**
    * @param sid - sid of instance
@@ -182,6 +163,25 @@ interface UserListInstancePageOptions {
   pageSize?: number;
   pageToken?: string;
   segment?: string;
+}
+
+interface UserPayload extends UserResource, Page.TwilioResponsePayload {
+}
+
+interface UserResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  identity: string;
+  links: string;
+  segments: string;
+  service_sid: string;
+  sid: string;
+  url: string;
+}
+
+interface UserSolution {
+  serviceSid?: string;
 }
 
 

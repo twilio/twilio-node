@@ -18,30 +18,17 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function TriggerList(version: V2010, accountSid: string): TriggerListInstance;
 
-interface TriggerResource {
-  account_sid: string;
-  api_version: string;
-  callback_method: string;
-  callback_url: string;
-  current_value: string;
-  date_created: Date;
-  date_fired: Date;
-  date_updated: Date;
-  friendly_name: string;
-  recurring: TriggerRecurring;
-  sid: string;
-  trigger_by: TriggerTriggerField;
-  trigger_value: string;
-  uri: string;
-  usage_category: TriggerUsageCategory;
-  usage_record_uri: string;
-}
-
-interface TriggerPayload extends TriggerResource, Page.TwilioResponsePayload {
-}
-
-interface TriggerSolution {
-  accountSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property callbackMethod - HTTP method to use with callback_url
+ * @property callbackUrl - URL Twilio will request when the trigger fires
+ * @property friendlyName - A user-specified, human-readable name for the trigger.
+ */
+interface TriggerInstanceUpdateOptions {
+  callbackMethod?: string;
+  callbackUrl?: string;
+  friendlyName?: string;
 }
 
 interface TriggerListInstance {
@@ -105,32 +92,6 @@ interface TriggerListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: TriggerListInstancePageOptions, callback?: (error: Error | null, items: TriggerPage) => any): Promise<TriggerPage>;
-}
-
-/**
- * Options to pass to update
- *
- * @property callbackMethod - HTTP method to use with callback_url
- * @property callbackUrl - URL Twilio will request when the trigger fires
- * @property friendlyName - A user-specified, human-readable name for the trigger.
- */
-interface TriggerInstanceUpdateOptions {
-  callbackMethod?: string;
-  callbackUrl?: string;
-  friendlyName?: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property callbackMethod - HTTP method to use with callback_url
- * @property callbackUrl - URL Twilio will request when the trigger fires
- * @property friendlyName - A user-specified, human-readable name for the trigger.
- */
-interface TriggerInstanceUpdateOptions {
-  callbackMethod?: string;
-  callbackUrl?: string;
-  friendlyName?: string;
 }
 
 /**
@@ -227,6 +188,32 @@ interface TriggerListInstancePageOptions {
   recurring?: trigger.recurring;
   triggerBy?: trigger.trigger_field;
   usageCategory?: trigger.usage_category;
+}
+
+interface TriggerPayload extends TriggerResource, Page.TwilioResponsePayload {
+}
+
+interface TriggerResource {
+  account_sid: string;
+  api_version: string;
+  callback_method: string;
+  callback_url: string;
+  current_value: string;
+  date_created: Date;
+  date_fired: Date;
+  date_updated: Date;
+  friendly_name: string;
+  recurring: TriggerRecurring;
+  sid: string;
+  trigger_by: TriggerTriggerField;
+  trigger_value: string;
+  uri: string;
+  usage_category: TriggerUsageCategory;
+  usage_record_uri: string;
+}
+
+interface TriggerSolution {
+  accountSid?: string;
 }
 
 

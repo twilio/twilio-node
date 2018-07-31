@@ -17,20 +17,20 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function MessagingList(version: V1): MessagingListInstance;
 
+interface MessagingListInstance {
+  countries?: object;
+}
+
+interface MessagingPayload extends MessagingResource, Page.TwilioResponsePayload {
+}
+
 interface MessagingResource {
   links: string;
   name: string;
   url: string;
 }
 
-interface MessagingPayload extends MessagingResource, Page.TwilioResponsePayload {
-}
-
 interface MessagingSolution {
-}
-
-interface MessagingListInstance {
-  countries?: object;
 }
 
 

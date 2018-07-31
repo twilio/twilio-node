@@ -20,30 +20,6 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function NationalList(version: V2010, accountSid: string, countryCode: string): NationalListInstance;
 
-interface NationalResource {
-  address_requirements: string;
-  beta: boolean;
-  capabilities: string;
-  friendly_name: string;
-  iso_country: string;
-  lata: string;
-  latitude: number;
-  locality: string;
-  longitude: number;
-  phone_number: string;
-  postal_code: string;
-  rate_center: string;
-  region: string;
-}
-
-interface NationalPayload extends NationalResource, Page.TwilioResponsePayload {
-}
-
-interface NationalSolution {
-  accountSid?: string;
-  countryCode?: string;
-}
-
 interface NationalListInstance {
   /**
    * Streams NationalInstance records from the API.
@@ -253,6 +229,30 @@ interface NationalListInstancePageOptions {
   pageToken?: string;
   smsEnabled?: boolean;
   voiceEnabled?: boolean;
+}
+
+interface NationalPayload extends NationalResource, Page.TwilioResponsePayload {
+}
+
+interface NationalResource {
+  address_requirements: string;
+  beta: boolean;
+  capabilities: string;
+  friendly_name: string;
+  iso_country: string;
+  lata: string;
+  latitude: number;
+  locality: string;
+  longitude: number;
+  phone_number: string;
+  postal_code: string;
+  rate_center: string;
+  region: string;
+}
+
+interface NationalSolution {
+  accountSid?: string;
+  countryCode?: string;
 }
 
 

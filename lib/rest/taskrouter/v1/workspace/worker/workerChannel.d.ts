@@ -20,28 +20,15 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function WorkerChannelList(version: V1, workspaceSid: string, workerSid: string): WorkerChannelListInstance;
 
-interface WorkerChannelResource {
-  account_sid: string;
-  assigned_tasks: number;
-  available: boolean;
-  available_capacity_percentage: number;
-  configured_capacity: number;
-  date_created: Date;
-  date_updated: Date;
-  sid: string;
-  task_channel_sid: string;
-  task_channel_unique_name: string;
-  url: string;
-  worker_sid: string;
-  workspace_sid: string;
-}
-
-interface WorkerChannelPayload extends WorkerChannelResource, Page.TwilioResponsePayload {
-}
-
-interface WorkerChannelSolution {
-  workerSid?: string;
-  workspaceSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property capacity - The total number of Tasks worker should handle for this TaskChannel type.
+ * @property available - Toggle the availability of the WorkerChannel.
+ */
+interface WorkerChannelInstanceUpdateOptions {
+  available?: boolean;
+  capacity?: number;
 }
 
 interface WorkerChannelListInstance {
@@ -101,28 +88,6 @@ interface WorkerChannelListInstance {
 }
 
 /**
- * Options to pass to update
- *
- * @property capacity - The total number of Tasks worker should handle for this TaskChannel type.
- * @property available - Toggle the availability of the WorkerChannel.
- */
-interface WorkerChannelInstanceUpdateOptions {
-  available?: boolean;
-  capacity?: number;
-}
-
-/**
- * Options to pass to update
- *
- * @property capacity - The total number of Tasks worker should handle for this TaskChannel type.
- * @property available - Toggle the availability of the WorkerChannel.
- */
-interface WorkerChannelInstanceUpdateOptions {
-  available?: boolean;
-  capacity?: number;
-}
-
-/**
  * Options to pass to each
  *
  * @property limit -
@@ -177,6 +142,30 @@ interface WorkerChannelListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface WorkerChannelPayload extends WorkerChannelResource, Page.TwilioResponsePayload {
+}
+
+interface WorkerChannelResource {
+  account_sid: string;
+  assigned_tasks: number;
+  available: boolean;
+  available_capacity_percentage: number;
+  configured_capacity: number;
+  date_created: Date;
+  date_updated: Date;
+  sid: string;
+  task_channel_sid: string;
+  task_channel_unique_name: string;
+  url: string;
+  worker_sid: string;
+  workspace_sid: string;
+}
+
+interface WorkerChannelSolution {
+  workerSid?: string;
+  workspaceSid?: string;
 }
 
 

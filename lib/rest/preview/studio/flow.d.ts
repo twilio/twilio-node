@@ -19,25 +19,6 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function FlowList(version: Studio): FlowListInstance;
 
-interface FlowResource {
-  account_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  debug: boolean;
-  friendly_name: string;
-  links: string;
-  sid: string;
-  status: FlowStatus;
-  url: string;
-  version: number;
-}
-
-interface FlowPayload extends FlowResource, Page.TwilioResponsePayload {
-}
-
-interface FlowSolution {
-}
-
 interface FlowListInstance {
   /**
    * @param sid - sid of instance
@@ -149,6 +130,25 @@ interface FlowListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface FlowPayload extends FlowResource, Page.TwilioResponsePayload {
+}
+
+interface FlowResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  debug: boolean;
+  friendly_name: string;
+  links: string;
+  sid: string;
+  status: FlowStatus;
+  url: string;
+  version: number;
+}
+
+interface FlowSolution {
 }
 
 

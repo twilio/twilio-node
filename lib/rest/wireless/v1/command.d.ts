@@ -17,25 +17,6 @@ import { SerializableClass } from '../../../interfaces';
  */
 declare function CommandList(version: V1): CommandListInstance;
 
-interface CommandResource {
-  account_sid: string;
-  command: string;
-  command_mode: CommandCommandMode;
-  date_created: Date;
-  date_updated: Date;
-  direction: CommandDirection;
-  sid: string;
-  sim_sid: string;
-  status: CommandStatus;
-  url: string;
-}
-
-interface CommandPayload extends CommandResource, Page.TwilioResponsePayload {
-}
-
-interface CommandSolution {
-}
-
 interface CommandListInstance {
   /**
    * @param sid - sid of instance
@@ -97,6 +78,25 @@ interface CommandListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: CommandListInstancePageOptions, callback?: (error: Error | null, items: CommandPage) => any): Promise<CommandPage>;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property command - The message body of the Command or a Base64 encoded byte string in binary mode.
+ * @property sim - The Sid or UniqueName of the SIM to send the Command to.
+ * @property callbackMethod - The HTTP method Twilio will use when making a request to the callback URL.
+ * @property callbackUrl - Twilio will make a request to this URL when the Command has finished sending.
+ * @property commandMode - A string representing which mode to send the SMS message using.
+ * @property includeSid - When sending a Command to a SIM in text mode, Twilio can automatically include the Sid of the Command in the message body, which could be used to ensure that the device does not process the same Command more than once.
+ */
+interface CommandListInstanceCreateOptions {
+  callbackMethod?: string;
+  callbackUrl?: string;
+  command: string;
+  commandMode?: command.command_mode;
+  includeSid?: string;
+  sim?: string;
 }
 
 /**
@@ -174,23 +174,23 @@ interface CommandListInstancePageOptions {
   status?: command.status;
 }
 
-/**
- * Options to pass to create
- *
- * @property command - The message body of the Command or a Base64 encoded byte string in binary mode.
- * @property sim - The Sid or UniqueName of the SIM to send the Command to.
- * @property callbackMethod - The HTTP method Twilio will use when making a request to the callback URL.
- * @property callbackUrl - Twilio will make a request to this URL when the Command has finished sending.
- * @property commandMode - A string representing which mode to send the SMS message using.
- * @property includeSid - When sending a Command to a SIM in text mode, Twilio can automatically include the Sid of the Command in the message body, which could be used to ensure that the device does not process the same Command more than once.
- */
-interface CommandListInstanceCreateOptions {
-  callbackMethod?: string;
-  callbackUrl?: string;
+interface CommandPayload extends CommandResource, Page.TwilioResponsePayload {
+}
+
+interface CommandResource {
+  account_sid: string;
   command: string;
-  commandMode?: command.command_mode;
-  includeSid?: string;
-  sim?: string;
+  command_mode: CommandCommandMode;
+  date_created: Date;
+  date_updated: Date;
+  direction: CommandDirection;
+  sid: string;
+  sim_sid: string;
+  status: CommandStatus;
+  url: string;
+}
+
+interface CommandSolution {
 }
 
 

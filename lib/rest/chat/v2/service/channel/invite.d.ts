@@ -20,27 +20,6 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function InviteList(version: V2, serviceSid: string, channelSid: string): InviteListInstance;
 
-interface InviteResource {
-  account_sid: string;
-  channel_sid: string;
-  created_by: string;
-  date_created: Date;
-  date_updated: Date;
-  identity: string;
-  role_sid: string;
-  service_sid: string;
-  sid: string;
-  url: string;
-}
-
-interface InvitePayload extends InviteResource, Page.TwilioResponsePayload {
-}
-
-interface InviteSolution {
-  channelSid?: string;
-  serviceSid?: string;
-}
-
 interface InviteListInstance {
   /**
    * @param sid - sid of instance
@@ -176,6 +155,27 @@ interface InviteListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface InvitePayload extends InviteResource, Page.TwilioResponsePayload {
+}
+
+interface InviteResource {
+  account_sid: string;
+  channel_sid: string;
+  created_by: string;
+  date_created: Date;
+  date_updated: Date;
+  identity: string;
+  role_sid: string;
+  service_sid: string;
+  sid: string;
+  url: string;
+}
+
+interface InviteSolution {
+  channelSid?: string;
+  serviceSid?: string;
 }
 
 

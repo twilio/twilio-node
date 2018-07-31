@@ -21,26 +21,15 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function DocumentList(version: V1, serviceSid: string): DocumentListInstance;
 
-interface DocumentResource {
-  account_sid: string;
-  created_by: string;
-  data: string;
-  date_created: Date;
-  date_expires: Date;
-  date_updated: Date;
-  links: string;
-  revision: string;
-  service_sid: string;
-  sid: string;
-  unique_name: string;
-  url: string;
-}
-
-interface DocumentPayload extends DocumentResource, Page.TwilioResponsePayload {
-}
-
-interface DocumentSolution {
-  serviceSid?: string;
+/**
+ * Options to pass to update
+ *
+ * @property data - Contains an arbitrary JSON object to be stored in this Document.
+ * @property ttl - New time-to-live of this Document in seconds.
+ */
+interface DocumentInstanceUpdateOptions {
+  data?: string;
+  ttl?: number;
 }
 
 interface DocumentListInstance {
@@ -104,28 +93,6 @@ interface DocumentListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: DocumentListInstancePageOptions, callback?: (error: Error | null, items: DocumentPage) => any): Promise<DocumentPage>;
-}
-
-/**
- * Options to pass to update
- *
- * @property data - Contains an arbitrary JSON object to be stored in this Document.
- * @property ttl - New time-to-live of this Document in seconds.
- */
-interface DocumentInstanceUpdateOptions {
-  data?: string;
-  ttl?: number;
-}
-
-/**
- * Options to pass to update
- *
- * @property data - Contains an arbitrary JSON object to be stored in this Document.
- * @property ttl - New time-to-live of this Document in seconds.
- */
-interface DocumentInstanceUpdateOptions {
-  data?: string;
-  ttl?: number;
 }
 
 /**
@@ -196,6 +163,28 @@ interface DocumentListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface DocumentPayload extends DocumentResource, Page.TwilioResponsePayload {
+}
+
+interface DocumentResource {
+  account_sid: string;
+  created_by: string;
+  data: string;
+  date_created: Date;
+  date_expires: Date;
+  date_updated: Date;
+  links: string;
+  revision: string;
+  service_sid: string;
+  sid: string;
+  unique_name: string;
+  url: string;
+}
+
+interface DocumentSolution {
+  serviceSid?: string;
 }
 
 

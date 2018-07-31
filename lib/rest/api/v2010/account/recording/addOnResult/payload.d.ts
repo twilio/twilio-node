@@ -20,29 +20,6 @@ import { SerializableClass } from '../../../../../../interfaces';
  */
 declare function PayloadList(version: V2010, accountSid: string, referenceSid: string, addOnResultSid: string): PayloadListInstance;
 
-interface PayloadResource {
-  account_sid: string;
-  add_on_configuration_sid: string;
-  add_on_result_sid: string;
-  add_on_sid: string;
-  content_type: string;
-  date_created: Date;
-  date_updated: Date;
-  label: string;
-  reference_sid: string;
-  sid: string;
-  subresource_uris: string;
-}
-
-interface PayloadPayload extends PayloadResource, Page.TwilioResponsePayload {
-}
-
-interface PayloadSolution {
-  accountSid?: string;
-  addOnResultSid?: string;
-  referenceSid?: string;
-}
-
 interface PayloadListInstance {
   /**
    * @param sid - sid of instance
@@ -154,6 +131,29 @@ interface PayloadListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface PayloadPayload extends PayloadResource, Page.TwilioResponsePayload {
+}
+
+interface PayloadResource {
+  account_sid: string;
+  add_on_configuration_sid: string;
+  add_on_result_sid: string;
+  add_on_sid: string;
+  content_type: string;
+  date_created: Date;
+  date_updated: Date;
+  label: string;
+  reference_sid: string;
+  sid: string;
+  subresource_uris: string;
+}
+
+interface PayloadSolution {
+  accountSid?: string;
+  addOnResultSid?: string;
+  referenceSid?: string;
 }
 
 

@@ -20,22 +20,6 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function SegmentMembershipList(version: V1, serviceSid: string, identity: string): SegmentMembershipListInstance;
 
-interface SegmentMembershipResource {
-  account_sid: string;
-  identity: string;
-  segment: string;
-  service_sid: string;
-  url: string;
-}
-
-interface SegmentMembershipPayload extends SegmentMembershipResource, Page.TwilioResponsePayload {
-}
-
-interface SegmentMembershipSolution {
-  identity?: string;
-  serviceSid?: string;
-}
-
 interface SegmentMembershipListInstance {
   /**
    * @param sid - sid of instance
@@ -63,6 +47,22 @@ interface SegmentMembershipListInstance {
  */
 interface SegmentMembershipListInstanceCreateOptions {
   segment: string;
+}
+
+interface SegmentMembershipPayload extends SegmentMembershipResource, Page.TwilioResponsePayload {
+}
+
+interface SegmentMembershipResource {
+  account_sid: string;
+  identity: string;
+  segment: string;
+  service_sid: string;
+  url: string;
+}
+
+interface SegmentMembershipSolution {
+  identity?: string;
+  serviceSid?: string;
 }
 
 

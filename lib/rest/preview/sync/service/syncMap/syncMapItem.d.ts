@@ -21,25 +21,13 @@ import { SerializableClass } from '../../../../../interfaces';
  */
 declare function SyncMapItemList(version: Sync, serviceSid: string, mapSid: string): SyncMapItemListInstance;
 
-interface SyncMapItemResource {
-  account_sid: string;
-  created_by: string;
+/**
+ * Options to pass to update
+ *
+ * @property data - The data
+ */
+interface SyncMapItemInstanceUpdateOptions {
   data: string;
-  date_created: Date;
-  date_updated: Date;
-  key: string;
-  map_sid: string;
-  revision: string;
-  service_sid: string;
-  url: string;
-}
-
-interface SyncMapItemPayload extends SyncMapItemResource, Page.TwilioResponsePayload {
-}
-
-interface SyncMapItemSolution {
-  mapSid?: string;
-  serviceSid?: string;
 }
 
 interface SyncMapItemListInstance {
@@ -103,24 +91,6 @@ interface SyncMapItemListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: SyncMapItemListInstancePageOptions, callback?: (error: Error | null, items: SyncMapItemPage) => any): Promise<SyncMapItemPage>;
-}
-
-/**
- * Options to pass to update
- *
- * @property data - The data
- */
-interface SyncMapItemInstanceUpdateOptions {
-  data: string;
-}
-
-/**
- * Options to pass to update
- *
- * @property data - The data
- */
-interface SyncMapItemInstanceUpdateOptions {
-  data: string;
 }
 
 /**
@@ -207,6 +177,27 @@ interface SyncMapItemListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface SyncMapItemPayload extends SyncMapItemResource, Page.TwilioResponsePayload {
+}
+
+interface SyncMapItemResource {
+  account_sid: string;
+  created_by: string;
+  data: string;
+  date_created: Date;
+  date_updated: Date;
+  key: string;
+  map_sid: string;
+  revision: string;
+  service_sid: string;
+  url: string;
+}
+
+interface SyncMapItemSolution {
+  mapSid?: string;
+  serviceSid?: string;
 }
 
 

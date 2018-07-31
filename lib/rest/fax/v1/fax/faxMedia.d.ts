@@ -19,23 +19,6 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function FaxMediaList(version: V1, faxSid: string): FaxMediaListInstance;
 
-interface FaxMediaResource {
-  account_sid: string;
-  content_type: string;
-  date_created: Date;
-  date_updated: Date;
-  fax_sid: string;
-  sid: string;
-  url: string;
-}
-
-interface FaxMediaPayload extends FaxMediaResource, Page.TwilioResponsePayload {
-}
-
-interface FaxMediaSolution {
-  faxSid?: string;
-}
-
 interface FaxMediaListInstance {
   /**
    * @param sid - sid of instance
@@ -147,6 +130,23 @@ interface FaxMediaListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface FaxMediaPayload extends FaxMediaResource, Page.TwilioResponsePayload {
+}
+
+interface FaxMediaResource {
+  account_sid: string;
+  content_type: string;
+  date_created: Date;
+  date_updated: Date;
+  fax_sid: string;
+  sid: string;
+  url: string;
+}
+
+interface FaxMediaSolution {
+  faxSid?: string;
 }
 
 

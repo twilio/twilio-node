@@ -21,27 +21,6 @@ import { SerializableClass } from '../../../../../../interfaces';
  */
 declare function AssignedAddOnExtensionList(version: V2010, accountSid: string, resourceSid: string, assignedAddOnSid: string): AssignedAddOnExtensionListInstance;
 
-interface AssignedAddOnExtensionResource {
-  account_sid: string;
-  assigned_add_on_sid: string;
-  enabled: boolean;
-  friendly_name: string;
-  product_name: string;
-  resource_sid: string;
-  sid: string;
-  unique_name: string;
-  uri: string;
-}
-
-interface AssignedAddOnExtensionPayload extends AssignedAddOnExtensionResource, Page.TwilioResponsePayload {
-}
-
-interface AssignedAddOnExtensionSolution {
-  accountSid?: string;
-  assignedAddOnSid?: string;
-  resourceSid?: string;
-}
-
 interface AssignedAddOnExtensionListInstance {
   /**
    * @param sid - sid of instance
@@ -153,6 +132,27 @@ interface AssignedAddOnExtensionListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface AssignedAddOnExtensionPayload extends AssignedAddOnExtensionResource, Page.TwilioResponsePayload {
+}
+
+interface AssignedAddOnExtensionResource {
+  account_sid: string;
+  assigned_add_on_sid: string;
+  enabled: boolean;
+  friendly_name: string;
+  product_name: string;
+  resource_sid: string;
+  sid: string;
+  unique_name: string;
+  uri: string;
+}
+
+interface AssignedAddOnExtensionSolution {
+  accountSid?: string;
+  assignedAddOnSid?: string;
+  resourceSid?: string;
 }
 
 

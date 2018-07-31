@@ -18,24 +18,6 @@ import { SerializableClass } from '../../../../interfaces';
  */
 declare function TaskChannelList(version: V1, workspaceSid: string): TaskChannelListInstance;
 
-interface TaskChannelResource {
-  account_sid: string;
-  date_created: Date;
-  date_updated: Date;
-  friendly_name: string;
-  sid: string;
-  unique_name: string;
-  url: string;
-  workspace_sid: string;
-}
-
-interface TaskChannelPayload extends TaskChannelResource, Page.TwilioResponsePayload {
-}
-
-interface TaskChannelSolution {
-  workspaceSid?: string;
-}
-
 interface TaskChannelListInstance {
   /**
    * @param sid - sid of instance
@@ -147,6 +129,24 @@ interface TaskChannelListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
+}
+
+interface TaskChannelPayload extends TaskChannelResource, Page.TwilioResponsePayload {
+}
+
+interface TaskChannelResource {
+  account_sid: string;
+  date_created: Date;
+  date_updated: Date;
+  friendly_name: string;
+  sid: string;
+  unique_name: string;
+  url: string;
+  workspace_sid: string;
+}
+
+interface TaskChannelSolution {
+  workspaceSid?: string;
 }
 
 
