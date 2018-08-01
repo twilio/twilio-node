@@ -26,7 +26,7 @@ var holodeck;
 describe('SegmentMembership', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -35,8 +35,8 @@ describe('SegmentMembership', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {segment: 'segment'};
-      var promise = client.notify.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .users('NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.notify.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .users('NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .segmentMemberships.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
@@ -46,8 +46,8 @@ describe('SegmentMembership', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        identity: 'NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        identity: 'NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://notify.twilio.com/v1/Services/<%= serviceSid %>/Users/<%= identity %>/SegmentMemberships')(solution);
 
@@ -72,8 +72,8 @@ describe('SegmentMembership', function() {
       holodeck.mock(new Response(201, body));
 
       var opts = {segment: 'segment'};
-      var promise = client.notify.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .users('NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.notify.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .users('NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .segmentMemberships.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -88,8 +88,8 @@ describe('SegmentMembership', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.notify.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .users('NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.notify.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .users('NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .segmentMemberships('segment').remove();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -99,8 +99,8 @@ describe('SegmentMembership', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        identity: 'NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        identity: 'NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         segment: 'segment'
       };
       var url = _.template('https://notify.twilio.com/v1/Services/<%= serviceSid %>/Users/<%= identity %>/SegmentMemberships/<%= segment %>')(solution);
@@ -117,8 +117,8 @@ describe('SegmentMembership', function() {
 
       holodeck.mock(new Response(204, body));
 
-      var promise = client.notify.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .users('NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.notify.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .users('NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .segmentMemberships('segment').remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
@@ -133,8 +133,8 @@ describe('SegmentMembership', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.notify.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .users('NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.notify.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .users('NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .segmentMemberships('segment').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -144,8 +144,8 @@ describe('SegmentMembership', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        identity: 'NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        identity: 'NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         segment: 'segment'
       };
       var url = _.template('https://notify.twilio.com/v1/Services/<%= serviceSid %>/Users/<%= identity %>/SegmentMemberships/<%= segment %>')(solution);
@@ -168,8 +168,8 @@ describe('SegmentMembership', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.notify.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .users('NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.notify.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .users('NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .segmentMemberships('segment').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -181,4 +181,3 @@ describe('SegmentMembership', function() {
     }
   );
 });
-

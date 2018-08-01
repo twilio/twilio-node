@@ -26,7 +26,7 @@ var holodeck;
 describe('AlphaSender', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -35,7 +35,7 @@ describe('AlphaSender', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {alphaSender: 'alphaSender'};
-      var promise = client.messaging.v1.services('MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.messaging.v1.services('MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .alphaSenders.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
@@ -44,7 +44,7 @@ describe('AlphaSender', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {serviceSid: 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://messaging.twilio.com/v1/Services/<%= serviceSid %>/AlphaSenders')(solution);
 
       var values = {AlphaSender: 'alphaSender', };
@@ -71,7 +71,7 @@ describe('AlphaSender', function() {
       holodeck.mock(new Response(201, body));
 
       var opts = {alphaSender: 'alphaSender'};
-      var promise = client.messaging.v1.services('MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.messaging.v1.services('MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .alphaSenders.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -82,11 +82,106 @@ describe('AlphaSender', function() {
       promise.done();
     }
   );
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AlphaSenders?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'next_page_url': null,
+              'key': 'alpha_senders',
+              'url': 'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AlphaSenders?PageSize=50&Page=0'
+          },
+          'alpha_senders': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'service_sid': 'MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sid': 'AIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2015-07-30T20:12:31Z',
+                  'date_updated': '2015-07-30T20:12:33Z',
+                  'alpha_sender': 'Twilio',
+                  'capabilities': [],
+                  'url': 'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AlphaSenders/AIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.messaging.v1.services('MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                         .alphaSenders.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AlphaSenders?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'next_page_url': null,
+              'key': 'alpha_senders',
+              'url': 'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AlphaSenders?PageSize=50&Page=0'
+          },
+          'alpha_senders': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'service_sid': 'MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sid': 'AIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2015-07-30T20:12:31Z',
+                  'date_updated': '2015-07-30T20:12:33Z',
+                  'alpha_sender': 'Twilio',
+                  'capabilities': [],
+                  'url': 'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AlphaSenders/AIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.messaging.v1.services('MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                         .alphaSenders.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://messaging.twilio.com/v1/Services/<%= serviceSid %>/AlphaSenders',
+          params: {PageSize: 20},
+      }));
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AlphaSenders?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'next_page_url': null,
+              'key': 'alpha_senders',
+              'url': 'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AlphaSenders?PageSize=50&Page=0'
+          },
+          'alpha_senders': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'service_sid': 'MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sid': 'AIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2015-07-30T20:12:31Z',
+                  'date_updated': '2015-07-30T20:12:33Z',
+                  'alpha_sender': 'Twilio',
+                  'capabilities': [],
+                  'url': 'https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AlphaSenders/AIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.messaging.v1.services('MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                         .alphaSenders.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.messaging.v1.services('MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.messaging.v1.services('MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .alphaSenders.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -95,7 +190,7 @@ describe('AlphaSender', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {serviceSid: 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://messaging.twilio.com/v1/Services/<%= serviceSid %>/AlphaSenders')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -132,7 +227,7 @@ describe('AlphaSender', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.messaging.v1.services('MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.messaging.v1.services('MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .alphaSenders.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -147,8 +242,8 @@ describe('AlphaSender', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.messaging.v1.services('MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                       .alphaSenders('AIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.messaging.v1.services('MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                       .alphaSenders('AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -157,8 +252,8 @@ describe('AlphaSender', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'AIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        serviceSid: 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://messaging.twilio.com/v1/Services/<%= serviceSid %>/AlphaSenders/<%= sid %>')(solution);
 
@@ -183,8 +278,8 @@ describe('AlphaSender', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.messaging.v1.services('MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                       .alphaSenders('AIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.messaging.v1.services('MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                       .alphaSenders('AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -198,8 +293,8 @@ describe('AlphaSender', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.messaging.v1.services('MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                       .alphaSenders('AIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.messaging.v1.services('MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                       .alphaSenders('AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -208,8 +303,8 @@ describe('AlphaSender', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'AIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        serviceSid: 'MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://messaging.twilio.com/v1/Services/<%= serviceSid %>/AlphaSenders/<%= sid %>')(solution);
 
@@ -225,8 +320,8 @@ describe('AlphaSender', function() {
 
       holodeck.mock(new Response(204, body));
 
-      var promise = client.messaging.v1.services('MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                       .alphaSenders('AIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.messaging.v1.services('MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                       .alphaSenders('AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
       }, function() {
@@ -237,4 +332,3 @@ describe('AlphaSender', function() {
     }
   );
 });
-

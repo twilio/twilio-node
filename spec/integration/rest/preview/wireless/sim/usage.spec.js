@@ -26,7 +26,7 @@ var holodeck;
 describe('Usage', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,7 +34,7 @@ describe('Usage', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.wireless.sims('DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.wireless.sims('DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                            .usage().fetch();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -43,7 +43,7 @@ describe('Usage', function() {
       });
       promise.done();
 
-      var solution = {simSid: 'DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {simSid: 'DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://preview.twilio.com/wireless/Sims/<%= simSid %>/Usage')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -68,7 +68,7 @@ describe('Usage', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.wireless.sims('DEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.wireless.sims('DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                            .usage().fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -80,4 +80,3 @@ describe('Usage', function() {
     }
   );
 });
-

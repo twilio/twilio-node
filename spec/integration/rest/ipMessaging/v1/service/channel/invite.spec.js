@@ -26,7 +26,7 @@ var holodeck;
 describe('Invite', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,9 +34,9 @@ describe('Invite', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.ipMessaging.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .channels('CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .invites('INaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.ipMessaging.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .invites('INXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -45,9 +45,9 @@ describe('Invite', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        channelSid: 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'INaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        channelSid: 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'INXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://chat.twilio.com/v1/Services/<%= serviceSid %>/Channels/<%= channelSid %>/Invites/<%= sid %>')(solution);
 
@@ -74,9 +74,9 @@ describe('Invite', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.ipMessaging.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .channels('CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .invites('INaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.ipMessaging.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .invites('INXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -91,8 +91,8 @@ describe('Invite', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {identity: 'identity'};
-      var promise = client.ipMessaging.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .channels('CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.ipMessaging.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .invites.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
@@ -102,8 +102,8 @@ describe('Invite', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        channelSid: 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        channelSid: 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://chat.twilio.com/v1/Services/<%= serviceSid %>/Channels/<%= channelSid %>/Invites')(solution);
 
@@ -133,8 +133,8 @@ describe('Invite', function() {
       holodeck.mock(new Response(201, body));
 
       var opts = {identity: 'identity'};
-      var promise = client.ipMessaging.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .channels('CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.ipMessaging.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .invites.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -145,12 +145,116 @@ describe('Invite', function() {
       promise.done();
     }
   );
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'invites': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'channel_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'created_by': 'created_by',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'identity': 'identity',
+                  'role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sid': 'INaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Invites/INaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ],
+          'meta': {
+              'first_page_url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Invites?PageSize=50&Page=0',
+              'key': 'invites',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Invites?PageSize=50&Page=0'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.ipMessaging.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                           .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                           .invites.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'invites': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'channel_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'created_by': 'created_by',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'identity': 'identity',
+                  'role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sid': 'INaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Invites/INaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ],
+          'meta': {
+              'first_page_url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Invites?PageSize=50&Page=0',
+              'key': 'invites',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Invites?PageSize=50&Page=0'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.ipMessaging.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                           .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                           .invites.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://chat.twilio.com/v1/Services/<%= serviceSid %>/Channels/<%= channelSid %>/Invites',
+          params: {PageSize: 20},
+      }));
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'invites': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'channel_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'created_by': 'created_by',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'identity': 'identity',
+                  'role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sid': 'INaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Invites/INaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ],
+          'meta': {
+              'first_page_url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Invites?PageSize=50&Page=0',
+              'key': 'invites',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Invites?PageSize=50&Page=0'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.ipMessaging.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                           .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                           .invites.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.ipMessaging.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .channels('CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.ipMessaging.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .invites.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -160,8 +264,8 @@ describe('Invite', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        channelSid: 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        channelSid: 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://chat.twilio.com/v1/Services/<%= serviceSid %>/Channels/<%= channelSid %>/Invites')(solution);
 
@@ -188,8 +292,8 @@ describe('Invite', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.ipMessaging.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .channels('CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.ipMessaging.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .invites.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -230,8 +334,8 @@ describe('Invite', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.ipMessaging.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .channels('CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.ipMessaging.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                          .invites.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -246,9 +350,9 @@ describe('Invite', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.ipMessaging.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .channels('CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .invites('INaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.ipMessaging.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .invites('INXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -257,9 +361,9 @@ describe('Invite', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        channelSid: 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'INaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        channelSid: 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'INXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://chat.twilio.com/v1/Services/<%= serviceSid %>/Channels/<%= channelSid %>/Invites/<%= sid %>')(solution);
 
@@ -275,9 +379,9 @@ describe('Invite', function() {
 
       holodeck.mock(new Response(204, body));
 
-      var promise = client.ipMessaging.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .channels('CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                         .invites('INaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.ipMessaging.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                         .invites('INXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
       }, function() {
@@ -288,4 +392,3 @@ describe('Invite', function() {
     }
   );
 });
-

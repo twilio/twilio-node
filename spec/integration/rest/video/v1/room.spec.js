@@ -26,7 +26,7 @@ var holodeck;
 describe('Room', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,7 +34,7 @@ describe('Room', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.video.v1.rooms('RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -42,7 +42,7 @@ describe('Room', function() {
       });
       promise.done();
 
-      var solution = {sid: 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {sid: 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://video.twilio.com/v1/Rooms/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -81,7 +81,7 @@ describe('Room', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.video.v1.rooms('RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -149,6 +149,143 @@ describe('Room', function() {
       });
 
       promise.done();
+    }
+  );
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'rooms': [
+              {
+                  'sid': 'RM4070b618362c1682b2385b1f9982833c',
+                  'status': 'completed',
+                  'date_created': '2017-04-03T22:21:49Z',
+                  'date_updated': '2017-04-03T22:21:51Z',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'type': 'peer-to-peer',
+                  'enable_turn': true,
+                  'unique_name': 'RM4070b618362c1682b2385b1f9982833c',
+                  'status_callback': null,
+                  'status_callback_method': 'POST',
+                  'end_time': '2017-04-03T22:21:51Z',
+                  'duration': 2,
+                  'max_participants': 10,
+                  'record_participants_on_connect': false,
+                  'video_codecs': [
+                      'VP8'
+                  ],
+                  'media_region': 'us1',
+                  'url': 'https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c',
+                  'links': {
+                      'participants': 'https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c/Participants',
+                      'recordings': 'https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c/Recordings'
+                  }
+              }
+          ],
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://video.twilio.com/v1/Rooms?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'url': 'https://video.twilio.com/v1/Rooms?PageSize=50&Page=0',
+              'next_page_url': null,
+              'key': 'rooms'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.video.v1.rooms.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'rooms': [
+              {
+                  'sid': 'RM4070b618362c1682b2385b1f9982833c',
+                  'status': 'completed',
+                  'date_created': '2017-04-03T22:21:49Z',
+                  'date_updated': '2017-04-03T22:21:51Z',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'type': 'peer-to-peer',
+                  'enable_turn': true,
+                  'unique_name': 'RM4070b618362c1682b2385b1f9982833c',
+                  'status_callback': null,
+                  'status_callback_method': 'POST',
+                  'end_time': '2017-04-03T22:21:51Z',
+                  'duration': 2,
+                  'max_participants': 10,
+                  'record_participants_on_connect': false,
+                  'video_codecs': [
+                      'VP8'
+                  ],
+                  'media_region': 'us1',
+                  'url': 'https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c',
+                  'links': {
+                      'participants': 'https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c/Participants',
+                      'recordings': 'https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c/Recordings'
+                  }
+              }
+          ],
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://video.twilio.com/v1/Rooms?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'url': 'https://video.twilio.com/v1/Rooms?PageSize=50&Page=0',
+              'next_page_url': null,
+              'key': 'rooms'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.video.v1.rooms.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://video.twilio.com/v1/Rooms',
+          params: {PageSize: 20},
+      }));
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'rooms': [
+              {
+                  'sid': 'RM4070b618362c1682b2385b1f9982833c',
+                  'status': 'completed',
+                  'date_created': '2017-04-03T22:21:49Z',
+                  'date_updated': '2017-04-03T22:21:51Z',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'type': 'peer-to-peer',
+                  'enable_turn': true,
+                  'unique_name': 'RM4070b618362c1682b2385b1f9982833c',
+                  'status_callback': null,
+                  'status_callback_method': 'POST',
+                  'end_time': '2017-04-03T22:21:51Z',
+                  'duration': 2,
+                  'max_participants': 10,
+                  'record_participants_on_connect': false,
+                  'video_codecs': [
+                      'VP8'
+                  ],
+                  'media_region': 'us1',
+                  'url': 'https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c',
+                  'links': {
+                      'participants': 'https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c/Participants',
+                      'recordings': 'https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c/Recordings'
+                  }
+              }
+          ],
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://video.twilio.com/v1/Rooms?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'url': 'https://video.twilio.com/v1/Rooms?PageSize=50&Page=0',
+              'next_page_url': null,
+              'key': 'rooms'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.video.v1.rooms.each({callback: () => done()}, () => fail('wrong callback!'));
     }
   );
   it('should generate valid list request',
@@ -256,7 +393,7 @@ describe('Room', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {status: 'in-progress'};
-      var promise = client.video.v1.rooms('RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update(opts);
+      var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -264,7 +401,7 @@ describe('Room', function() {
       });
       promise.done();
 
-      var solution = {sid: 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {sid: 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://video.twilio.com/v1/Rooms/<%= sid %>')(solution);
 
       var values = {Status: 'in-progress', };
@@ -306,7 +443,7 @@ describe('Room', function() {
       holodeck.mock(new Response(200, body));
 
       var opts = {status: 'in-progress'};
-      var promise = client.video.v1.rooms('RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update(opts);
+      var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -317,4 +454,3 @@ describe('Room', function() {
     }
   );
 });
-

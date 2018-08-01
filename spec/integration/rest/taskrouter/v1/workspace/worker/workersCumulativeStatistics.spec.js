@@ -26,7 +26,7 @@ var holodeck;
 describe('WorkersCumulativeStatistics', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,8 +34,8 @@ describe('WorkersCumulativeStatistics', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .workers('WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .workers('WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .cumulativeStatistics().fetch();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -44,7 +44,7 @@ describe('WorkersCumulativeStatistics', function() {
       });
       promise.done();
 
-      var solution = {workspaceSid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {workspaceSid: 'WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workers/CumulativeStatistics')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -105,8 +105,8 @@ describe('WorkersCumulativeStatistics', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .workers('WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .workers('WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .cumulativeStatistics().fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -118,4 +118,3 @@ describe('WorkersCumulativeStatistics', function() {
     }
   );
 });
-

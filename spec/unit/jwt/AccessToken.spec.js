@@ -417,6 +417,16 @@ describe('AccessToken', function() {
           endpoint_id: 'id'
         });
       });
+
+      it('should set incoming.allow if incomingAllow === true', function() {
+        var grant = new twilio.jwt.AccessToken.VoiceGrant({ incomingAllow: true });
+        expect(grant.toPayload()).toEqual({ incoming: { allow: true } });
+      });
+
+      it('should not set incoming.allow if incomingAllow !== true', function() {
+        var grant = new twilio.jwt.AccessToken.VoiceGrant({ incomingAllow: 'foo' });
+        expect(grant.toPayload()).toEqual({ });
+      });
     });
 
     describe('VideoGrant', function() {

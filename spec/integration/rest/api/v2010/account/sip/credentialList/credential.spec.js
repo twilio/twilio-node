@@ -26,17 +26,121 @@ var holodeck;
 describe('Credential', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'credentials': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'credential_list_sid': 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': 'Wed, 19 Aug 2015 19:48:45 +0000',
+                  'date_updated': 'Wed, 19 Aug 2015 19:48:45 +0000',
+                  'sid': 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/CredentialLists/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
+                  'username': '1440013725.28'
+              }
+          ],
+          'end': 0,
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/CredentialLists/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Credentials.json?PageSize=50&Page=0',
+          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/CredentialLists/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Credentials.json?PageSize=50&Page=0',
+          'next_page_uri': null,
+          'num_pages': 1,
+          'page': 0,
+          'page_size': 50,
+          'previous_page_uri': null,
+          'start': 0,
+          'total': 1,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/CredentialLists/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Credentials.json?PageSize=50&Page=0'
+      });
+      holodeck.mock(new Response(200, body));
+      client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .sip
+                      .credentialLists('CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .credentials.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'credentials': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'credential_list_sid': 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': 'Wed, 19 Aug 2015 19:48:45 +0000',
+                  'date_updated': 'Wed, 19 Aug 2015 19:48:45 +0000',
+                  'sid': 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/CredentialLists/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
+                  'username': '1440013725.28'
+              }
+          ],
+          'end': 0,
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/CredentialLists/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Credentials.json?PageSize=50&Page=0',
+          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/CredentialLists/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Credentials.json?PageSize=50&Page=0',
+          'next_page_uri': null,
+          'num_pages': 1,
+          'page': 0,
+          'page_size': 50,
+          'previous_page_uri': null,
+          'start': 0,
+          'total': 1,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/CredentialLists/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Credentials.json?PageSize=50&Page=0'
+      });
+      holodeck.mock(new Response(200, body));
+      client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .sip
+                      .credentialLists('CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .credentials.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/CredentialLists/<%= credentialListSid %>/Credentials.json',
+          params: {PageSize: 20},
+      }));
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'credentials': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'credential_list_sid': 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': 'Wed, 19 Aug 2015 19:48:45 +0000',
+                  'date_updated': 'Wed, 19 Aug 2015 19:48:45 +0000',
+                  'sid': 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/CredentialLists/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Credentials/CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
+                  'username': '1440013725.28'
+              }
+          ],
+          'end': 0,
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/CredentialLists/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Credentials.json?PageSize=50&Page=0',
+          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/CredentialLists/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Credentials.json?PageSize=50&Page=0',
+          'next_page_uri': null,
+          'num_pages': 1,
+          'page': 0,
+          'page_size': 50,
+          'previous_page_uri': null,
+          'start': 0,
+          'total': 1,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SIP/CredentialLists/CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Credentials.json?PageSize=50&Page=0'
+      });
+      holodeck.mock(new Response(200, body));
+      client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .sip
+                      .credentialLists('CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .credentials.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
-                                    .credentialLists('CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                    .credentialLists('CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .credentials.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -46,8 +150,8 @@ describe('Credential', function() {
       promise.done();
 
       var solution = {
-        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        credentialListSid: 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        credentialListSid: 'CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/CredentialLists/<%= credentialListSid %>/Credentials.json')(solution);
 
@@ -86,9 +190,9 @@ describe('Credential', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
-                                    .credentialLists('CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                    .credentialLists('CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .credentials.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -118,9 +222,9 @@ describe('Credential', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
-                                    .credentialLists('CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                    .credentialLists('CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .credentials.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -136,9 +240,9 @@ describe('Credential', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {username: 'username', password: 'password'};
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
-                                    .credentialLists('CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                    .credentialLists('CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .credentials.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
@@ -148,8 +252,8 @@ describe('Credential', function() {
       promise.done();
 
       var solution = {
-        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        credentialListSid: 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        credentialListSid: 'CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/CredentialLists/<%= credentialListSid %>/Credentials.json')(solution);
 
@@ -176,9 +280,9 @@ describe('Credential', function() {
       holodeck.mock(new Response(201, body));
 
       var opts = {username: 'username', password: 'password'};
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
-                                    .credentialLists('CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                                    .credentialLists('CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .credentials.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -193,10 +297,10 @@ describe('Credential', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
-                                    .credentialLists('CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .credentials('CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+                                    .credentialLists('CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .credentials('CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -205,9 +309,9 @@ describe('Credential', function() {
       promise.done();
 
       var solution = {
-        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        credentialListSid: 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        credentialListSid: 'CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/CredentialLists/<%= credentialListSid %>/Credentials/<%= sid %>.json')(solution);
 
@@ -231,10 +335,10 @@ describe('Credential', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
-                                    .credentialLists('CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .credentials('CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+                                    .credentialLists('CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .credentials('CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -248,10 +352,10 @@ describe('Credential', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
-                                    .credentialLists('CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .credentials('CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+                                    .credentialLists('CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .credentials('CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -260,9 +364,9 @@ describe('Credential', function() {
       promise.done();
 
       var solution = {
-        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        credentialListSid: 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        credentialListSid: 'CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/CredentialLists/<%= credentialListSid %>/Credentials/<%= sid %>.json')(solution);
 
@@ -286,10 +390,10 @@ describe('Credential', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
-                                    .credentialLists('CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .credentials('CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+                                    .credentialLists('CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .credentials('CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -303,10 +407,10 @@ describe('Credential', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
-                                    .credentialLists('CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .credentials('CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+                                    .credentialLists('CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .credentials('CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -315,9 +419,9 @@ describe('Credential', function() {
       promise.done();
 
       var solution = {
-        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        credentialListSid: 'CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        credentialListSid: 'CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/SIP/CredentialLists/<%= credentialListSid %>/Credentials/<%= sid %>.json')(solution);
 
@@ -333,10 +437,10 @@ describe('Credential', function() {
 
       holodeck.mock(new Response(204, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .sip
-                                    .credentialLists('CLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .credentials('CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+                                    .credentialLists('CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .credentials('CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
       }, function() {
@@ -347,4 +451,3 @@ describe('Credential', function() {
     }
   );
 });
-

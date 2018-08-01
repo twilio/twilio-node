@@ -26,16 +26,171 @@ var holodeck;
 describe('DependentPhoneNumber', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'dependent_phone_numbers': [
+              {
+                  'sid': 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'friendly_name': '3197004499318',
+                  'phone_number': '+3197004499318',
+                  'voice_url': null,
+                  'voice_method': 'POST',
+                  'voice_fallback_url': null,
+                  'voice_fallback_method': 'POST',
+                  'voice_caller_id_lookup': false,
+                  'date_created': 'Thu, 23 Feb 2017 10:26:31 -0800',
+                  'date_updated': 'Thu, 23 Feb 2017 10:26:31 -0800',
+                  'sms_url': '',
+                  'sms_method': 'POST',
+                  'sms_fallback_url': '',
+                  'sms_fallback_method': 'POST',
+                  'address_requirements': 'any',
+                  'capabilities': {
+                      'Voice': false,
+                      'SMS': true,
+                      'MMS': false
+                  },
+                  'status_callback': '',
+                  'status_callback_method': 'POST',
+                  'api_version': '2010-04-01',
+                  'voice_application_sid': null,
+                  'sms_application_sid': '',
+                  'trunk_sid': null,
+                  'emergency_status': 'Inactive',
+                  'emergency_address_sid': null,
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+              }
+          ],
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses/ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/DependentPhoneNumbers.json?Page=0&PageSize=50',
+          'next_page_uri': null,
+          'page': 0,
+          'page_size': 50,
+          'previous_page_uri': null,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses/ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/DependentPhoneNumbers.json'
+      });
+      holodeck.mock(new Response(200, body));
+      client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .addresses('ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .dependentPhoneNumbers.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'dependent_phone_numbers': [
+              {
+                  'sid': 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'friendly_name': '3197004499318',
+                  'phone_number': '+3197004499318',
+                  'voice_url': null,
+                  'voice_method': 'POST',
+                  'voice_fallback_url': null,
+                  'voice_fallback_method': 'POST',
+                  'voice_caller_id_lookup': false,
+                  'date_created': 'Thu, 23 Feb 2017 10:26:31 -0800',
+                  'date_updated': 'Thu, 23 Feb 2017 10:26:31 -0800',
+                  'sms_url': '',
+                  'sms_method': 'POST',
+                  'sms_fallback_url': '',
+                  'sms_fallback_method': 'POST',
+                  'address_requirements': 'any',
+                  'capabilities': {
+                      'Voice': false,
+                      'SMS': true,
+                      'MMS': false
+                  },
+                  'status_callback': '',
+                  'status_callback_method': 'POST',
+                  'api_version': '2010-04-01',
+                  'voice_application_sid': null,
+                  'sms_application_sid': '',
+                  'trunk_sid': null,
+                  'emergency_status': 'Inactive',
+                  'emergency_address_sid': null,
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+              }
+          ],
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses/ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/DependentPhoneNumbers.json?Page=0&PageSize=50',
+          'next_page_uri': null,
+          'page': 0,
+          'page_size': 50,
+          'previous_page_uri': null,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses/ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/DependentPhoneNumbers.json'
+      });
+      holodeck.mock(new Response(200, body));
+      client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .addresses('ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .dependentPhoneNumbers.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Addresses/<%= addressSid %>/DependentPhoneNumbers.json',
+          params: {PageSize: 20},
+      }));
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'dependent_phone_numbers': [
+              {
+                  'sid': 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'friendly_name': '3197004499318',
+                  'phone_number': '+3197004499318',
+                  'voice_url': null,
+                  'voice_method': 'POST',
+                  'voice_fallback_url': null,
+                  'voice_fallback_method': 'POST',
+                  'voice_caller_id_lookup': false,
+                  'date_created': 'Thu, 23 Feb 2017 10:26:31 -0800',
+                  'date_updated': 'Thu, 23 Feb 2017 10:26:31 -0800',
+                  'sms_url': '',
+                  'sms_method': 'POST',
+                  'sms_fallback_url': '',
+                  'sms_fallback_method': 'POST',
+                  'address_requirements': 'any',
+                  'capabilities': {
+                      'Voice': false,
+                      'SMS': true,
+                      'MMS': false
+                  },
+                  'status_callback': '',
+                  'status_callback_method': 'POST',
+                  'api_version': '2010-04-01',
+                  'voice_application_sid': null,
+                  'sms_application_sid': '',
+                  'trunk_sid': null,
+                  'emergency_status': 'Inactive',
+                  'emergency_address_sid': null,
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json'
+              }
+          ],
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses/ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/DependentPhoneNumbers.json?Page=0&PageSize=50',
+          'next_page_uri': null,
+          'page': 0,
+          'page_size': 50,
+          'previous_page_uri': null,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Addresses/ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/DependentPhoneNumbers.json'
+      });
+      holodeck.mock(new Response(200, body));
+      client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .addresses('ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .dependentPhoneNumbers.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .addresses('ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .addresses('ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .dependentPhoneNumbers.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -45,8 +200,8 @@ describe('DependentPhoneNumber', function() {
       promise.done();
 
       var solution = {
-        accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        addressSid: 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        addressSid: 'ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/Addresses/<%= addressSid %>/DependentPhoneNumbers.json')(solution);
 
@@ -103,8 +258,8 @@ describe('DependentPhoneNumber', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .addresses('ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .addresses('ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .dependentPhoneNumbers.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -129,8 +284,8 @@ describe('DependentPhoneNumber', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .addresses('ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .addresses('ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .dependentPhoneNumbers.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -142,4 +297,3 @@ describe('DependentPhoneNumber', function() {
     }
   );
 });
-

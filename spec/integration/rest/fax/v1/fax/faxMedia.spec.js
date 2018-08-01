@@ -26,7 +26,7 @@ var holodeck;
 describe('FaxMedia', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,8 +34,8 @@ describe('FaxMedia', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.fax.v1.faxes('FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                 .media('MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.fax.v1.faxes('FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                 .media('MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -44,8 +44,8 @@ describe('FaxMedia', function() {
       promise.done();
 
       var solution = {
-        faxSid: 'FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        faxSid: 'FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://fax.twilio.com/v1/Faxes/<%= faxSid %>/Media/<%= sid %>')(solution);
 
@@ -69,8 +69,8 @@ describe('FaxMedia', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.fax.v1.faxes('FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                 .media('MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.fax.v1.faxes('FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                 .media('MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -80,11 +80,103 @@ describe('FaxMedia', function() {
       promise.done();
     }
   );
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'media': [
+              {
+                  'sid': 'MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'fax_sid': 'FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'content_type': 'application/pdf',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'url': 'https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media/MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ],
+          'meta': {
+              'first_page_url': 'https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media?PageSize=50&Page=0',
+              'key': 'media',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media?PageSize=50&Page=0'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.fax.v1.faxes('FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                   .media.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'media': [
+              {
+                  'sid': 'MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'fax_sid': 'FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'content_type': 'application/pdf',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'url': 'https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media/MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ],
+          'meta': {
+              'first_page_url': 'https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media?PageSize=50&Page=0',
+              'key': 'media',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media?PageSize=50&Page=0'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.fax.v1.faxes('FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                   .media.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://fax.twilio.com/v1/Faxes/<%= faxSid %>/Media',
+          params: {PageSize: 20},
+      }));
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'media': [
+              {
+                  'sid': 'MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'fax_sid': 'FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'content_type': 'application/pdf',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'url': 'https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media/MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ],
+          'meta': {
+              'first_page_url': 'https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media?PageSize=50&Page=0',
+              'key': 'media',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media?PageSize=50&Page=0'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.fax.v1.faxes('FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                   .media.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.fax.v1.faxes('FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.fax.v1.faxes('FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                  .media.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -93,7 +185,7 @@ describe('FaxMedia', function() {
       });
       promise.done();
 
-      var solution = {faxSid: 'FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {faxSid: 'FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://fax.twilio.com/v1/Faxes/<%= faxSid %>/Media')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -129,7 +221,7 @@ describe('FaxMedia', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.fax.v1.faxes('FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.fax.v1.faxes('FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                  .media.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -144,8 +236,8 @@ describe('FaxMedia', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.fax.v1.faxes('FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                 .media('MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.fax.v1.faxes('FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                 .media('MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -154,8 +246,8 @@ describe('FaxMedia', function() {
       promise.done();
 
       var solution = {
-        faxSid: 'FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        faxSid: 'FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://fax.twilio.com/v1/Faxes/<%= faxSid %>/Media/<%= sid %>')(solution);
 
@@ -171,8 +263,8 @@ describe('FaxMedia', function() {
 
       holodeck.mock(new Response(204, body));
 
-      var promise = client.fax.v1.faxes('FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                 .media('MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.fax.v1.faxes('FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                 .media('MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
       }, function() {
@@ -183,4 +275,3 @@ describe('FaxMedia', function() {
     }
   );
 });
-

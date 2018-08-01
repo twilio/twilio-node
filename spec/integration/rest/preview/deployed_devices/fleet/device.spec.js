@@ -26,7 +26,7 @@ var holodeck;
 describe('Device', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,8 +34,8 @@ describe('Device', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.deployed_devices.fleets('FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                                   .devices('THaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.preview.deployed_devices.fleets('FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                                   .devices('THXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -44,8 +44,8 @@ describe('Device', function() {
       promise.done();
 
       var solution = {
-        fleetSid: 'FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'THaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        fleetSid: 'FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'THXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://preview.twilio.com/DeployedDevices/Fleets/<%= fleetSid %>/Devices/<%= sid %>')(solution);
 
@@ -74,8 +74,8 @@ describe('Device', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.deployed_devices.fleets('FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                                   .devices('THaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.preview.deployed_devices.fleets('FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                                   .devices('THXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -89,8 +89,8 @@ describe('Device', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.deployed_devices.fleets('FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                                   .devices('THaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.preview.deployed_devices.fleets('FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                                   .devices('THXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -99,8 +99,8 @@ describe('Device', function() {
       promise.done();
 
       var solution = {
-        fleetSid: 'FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'THaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        fleetSid: 'FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'THXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://preview.twilio.com/DeployedDevices/Fleets/<%= fleetSid %>/Devices/<%= sid %>')(solution);
 
@@ -116,8 +116,8 @@ describe('Device', function() {
 
       holodeck.mock(new Response(204, body));
 
-      var promise = client.preview.deployed_devices.fleets('FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                                   .devices('THaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.preview.deployed_devices.fleets('FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                                   .devices('THXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
       }, function() {
@@ -131,7 +131,7 @@ describe('Device', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.deployed_devices.fleets('FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.deployed_devices.fleets('FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                                    .devices.create();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -140,7 +140,7 @@ describe('Device', function() {
       });
       promise.done();
 
-      var solution = {fleetSid: 'FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {fleetSid: 'FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://preview.twilio.com/DeployedDevices/Fleets/<%= fleetSid %>/Devices')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -168,7 +168,7 @@ describe('Device', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var promise = client.preview.deployed_devices.fleets('FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.deployed_devices.fleets('FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                                    .devices.create();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -179,11 +179,118 @@ describe('Device', function() {
       promise.done();
     }
   );
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'devices': [
+              {
+                  'sid': 'THaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'unique_name': 'unique_name',
+                  'friendly_name': 'friendly_name',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'enabled': true,
+                  'fleet_sid': 'FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'deployment_sid': 'DLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'identity': 'bob@twilio.com',
+                  'date_created': '2016-07-30T20:00:00Z',
+                  'date_updated': '2016-07-30T20:00:00Z',
+                  'date_authenticated': null,
+                  'url': 'https://preview.twilio.com/DeployedDevices/Fleets/FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Devices/THaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ],
+          'meta': {
+              'first_page_url': 'https://preview.twilio.com/DeployedDevices/Fleets/FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Devices?PageSize=50&Page=0',
+              'key': 'devices',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://preview.twilio.com/DeployedDevices/Fleets/FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Devices?PageSize=50&Page=0'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.preview.deployed_devices.fleets('FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                     .devices.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'devices': [
+              {
+                  'sid': 'THaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'unique_name': 'unique_name',
+                  'friendly_name': 'friendly_name',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'enabled': true,
+                  'fleet_sid': 'FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'deployment_sid': 'DLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'identity': 'bob@twilio.com',
+                  'date_created': '2016-07-30T20:00:00Z',
+                  'date_updated': '2016-07-30T20:00:00Z',
+                  'date_authenticated': null,
+                  'url': 'https://preview.twilio.com/DeployedDevices/Fleets/FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Devices/THaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ],
+          'meta': {
+              'first_page_url': 'https://preview.twilio.com/DeployedDevices/Fleets/FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Devices?PageSize=50&Page=0',
+              'key': 'devices',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://preview.twilio.com/DeployedDevices/Fleets/FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Devices?PageSize=50&Page=0'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.preview.deployed_devices.fleets('FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                     .devices.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://preview.twilio.com/DeployedDevices/Fleets/<%= fleetSid %>/Devices',
+          params: {PageSize: 20},
+      }));
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'devices': [
+              {
+                  'sid': 'THaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'unique_name': 'unique_name',
+                  'friendly_name': 'friendly_name',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'enabled': true,
+                  'fleet_sid': 'FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'deployment_sid': 'DLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'identity': 'bob@twilio.com',
+                  'date_created': '2016-07-30T20:00:00Z',
+                  'date_updated': '2016-07-30T20:00:00Z',
+                  'date_authenticated': null,
+                  'url': 'https://preview.twilio.com/DeployedDevices/Fleets/FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Devices/THaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ],
+          'meta': {
+              'first_page_url': 'https://preview.twilio.com/DeployedDevices/Fleets/FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Devices?PageSize=50&Page=0',
+              'key': 'devices',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://preview.twilio.com/DeployedDevices/Fleets/FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Devices?PageSize=50&Page=0'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.preview.deployed_devices.fleets('FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                     .devices.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.deployed_devices.fleets('FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.deployed_devices.fleets('FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                                    .devices.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -192,7 +299,7 @@ describe('Device', function() {
       });
       promise.done();
 
-      var solution = {fleetSid: 'FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {fleetSid: 'FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://preview.twilio.com/DeployedDevices/Fleets/<%= fleetSid %>/Devices')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -218,7 +325,7 @@ describe('Device', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.deployed_devices.fleets('FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.deployed_devices.fleets('FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                                    .devices.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -261,7 +368,7 @@ describe('Device', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.deployed_devices.fleets('FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.deployed_devices.fleets('FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                                    .devices.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -276,8 +383,8 @@ describe('Device', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.deployed_devices.fleets('FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                                   .devices('THaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.preview.deployed_devices.fleets('FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                                   .devices('THXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -286,8 +393,8 @@ describe('Device', function() {
       promise.done();
 
       var solution = {
-        fleetSid: 'FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'THaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        fleetSid: 'FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'THXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://preview.twilio.com/DeployedDevices/Fleets/<%= fleetSid %>/Devices/<%= sid %>')(solution);
 
@@ -316,8 +423,8 @@ describe('Device', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.deployed_devices.fleets('FLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                                   .devices('THaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.preview.deployed_devices.fleets('FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                                   .devices('THXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -328,4 +435,3 @@ describe('Device', function() {
     }
   );
 });
-

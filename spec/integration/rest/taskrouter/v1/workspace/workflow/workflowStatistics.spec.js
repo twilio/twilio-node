@@ -26,7 +26,7 @@ var holodeck;
 describe('WorkflowStatistics', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,8 +34,8 @@ describe('WorkflowStatistics', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .workflows('WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .workflows('WWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .statistics().fetch();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -45,8 +45,8 @@ describe('WorkflowStatistics', function() {
       promise.done();
 
       var solution = {
-        workspaceSid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        workflowSid: 'WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        workspaceSid: 'WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        workflowSid: 'WWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workflows/<%= workflowSid %>/Statistics')(solution);
 
@@ -90,8 +90,8 @@ describe('WorkflowStatistics', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .workflows('WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .workflows('WWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .statistics().fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -103,4 +103,3 @@ describe('WorkflowStatistics', function() {
     }
   );
 });
-

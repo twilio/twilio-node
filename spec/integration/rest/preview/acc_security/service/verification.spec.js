@@ -26,7 +26,7 @@ var holodeck;
 describe('Verification', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -35,7 +35,7 @@ describe('Verification', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {to: 'to', channel: 'channel'};
-      var promise = client.preview.acc_security.services('VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.acc_security.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                                .verifications.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
@@ -44,7 +44,7 @@ describe('Verification', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {serviceSid: 'VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://preview.twilio.com/Verification/Services/<%= serviceSid %>/Verifications')(solution);
 
       var values = {To: 'to', Channel: 'channel', };
@@ -72,7 +72,7 @@ describe('Verification', function() {
       holodeck.mock(new Response(201, body));
 
       var opts = {to: 'to', channel: 'channel'};
-      var promise = client.preview.acc_security.services('VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.acc_security.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                                .verifications.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -84,4 +84,3 @@ describe('Verification', function() {
     }
   );
 });
-

@@ -26,16 +26,129 @@ var holodeck;
 describe('WorkerChannel', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'first_page_url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels?PageSize=50&Page=0',
+              'key': 'channels',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 1,
+              'previous_page_url': null,
+              'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels'
+          },
+          'channels': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'assigned_tasks': 0,
+                  'available': true,
+                  'available_capacity_percentage': 100,
+                  'configured_capacity': 1,
+                  'date_created': '2014-05-14T10:50:02Z',
+                  'date_updated': '2014-05-15T16:03:42Z',
+                  'sid': 'WCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'task_channel_sid': 'TCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'task_channel_unique_name': 'default',
+                  'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'worker_sid': 'WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                          .workers('WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                          .workerChannels.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'first_page_url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels?PageSize=50&Page=0',
+              'key': 'channels',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 1,
+              'previous_page_url': null,
+              'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels'
+          },
+          'channels': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'assigned_tasks': 0,
+                  'available': true,
+                  'available_capacity_percentage': 100,
+                  'configured_capacity': 1,
+                  'date_created': '2014-05-14T10:50:02Z',
+                  'date_updated': '2014-05-15T16:03:42Z',
+                  'sid': 'WCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'task_channel_sid': 'TCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'task_channel_unique_name': 'default',
+                  'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'worker_sid': 'WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                          .workers('WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                          .workerChannels.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workers/<%= workerSid %>/Channels',
+          params: {PageSize: 20},
+      }));
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'first_page_url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels?PageSize=50&Page=0',
+              'key': 'channels',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 1,
+              'previous_page_url': null,
+              'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels'
+          },
+          'channels': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'assigned_tasks': 0,
+                  'available': true,
+                  'available_capacity_percentage': 100,
+                  'configured_capacity': 1,
+                  'date_created': '2014-05-14T10:50:02Z',
+                  'date_updated': '2014-05-15T16:03:42Z',
+                  'sid': 'WCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'task_channel_sid': 'TCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'task_channel_unique_name': 'default',
+                  'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'worker_sid': 'WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                          .workers('WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                          .workerChannels.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .workers('WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .workers('WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .workerChannels.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -45,8 +158,8 @@ describe('WorkerChannel', function() {
       promise.done();
 
       var solution = {
-        workspaceSid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        workerSid: 'WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        workspaceSid: 'WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        workerSid: 'WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workers/<%= workerSid %>/Channels')(solution);
 
@@ -89,8 +202,8 @@ describe('WorkerChannel', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .workers('WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .workers('WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .workerChannels.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -118,8 +231,8 @@ describe('WorkerChannel', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .workers('WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .workers('WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                         .workerChannels.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -134,9 +247,9 @@ describe('WorkerChannel', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .workers('WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .workerChannels('WCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .workers('WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .workerChannels('WCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -145,9 +258,9 @@ describe('WorkerChannel', function() {
       promise.done();
 
       var solution = {
-        workspaceSid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        workerSid: 'WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'WCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        workspaceSid: 'WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        workerSid: 'WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'WCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workers/<%= workerSid %>/Channels/<%= sid %>')(solution);
 
@@ -177,9 +290,9 @@ describe('WorkerChannel', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .workers('WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .workerChannels('WCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .workers('WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .workerChannels('WCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -193,9 +306,9 @@ describe('WorkerChannel', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .workers('WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .workerChannels('WCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .workers('WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .workerChannels('WCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -204,9 +317,9 @@ describe('WorkerChannel', function() {
       promise.done();
 
       var solution = {
-        workspaceSid: 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        workerSid: 'WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'WCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        workspaceSid: 'WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        workerSid: 'WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'WCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://taskrouter.twilio.com/v1/Workspaces/<%= workspaceSid %>/Workers/<%= workerSid %>/Channels/<%= sid %>')(solution);
 
@@ -236,9 +349,9 @@ describe('WorkerChannel', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.taskrouter.v1.workspaces('WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .workers('WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                        .workerChannels('WCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .workers('WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .workerChannels('WCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -249,4 +362,3 @@ describe('WorkerChannel', function() {
     }
   );
 });
-

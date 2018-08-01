@@ -26,7 +26,7 @@ var holodeck;
 describe('UserBinding', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,9 +34,9 @@ describe('UserBinding', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.notify.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .users('NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .bindings('BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.notify.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .users('NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .bindings('BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -45,9 +45,9 @@ describe('UserBinding', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        identity: 'NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        identity: 'NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://notify.twilio.com/v1/Services/<%= serviceSid %>/Users/<%= identity %>/Bindings/<%= sid %>')(solution);
 
@@ -82,9 +82,9 @@ describe('UserBinding', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.notify.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .users('NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .bindings('BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.notify.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .users('NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .bindings('BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -98,9 +98,9 @@ describe('UserBinding', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.notify.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .users('NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .bindings('BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.notify.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .users('NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .bindings('BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -109,9 +109,9 @@ describe('UserBinding', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        identity: 'NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        identity: 'NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://notify.twilio.com/v1/Services/<%= serviceSid %>/Users/<%= identity %>/Bindings/<%= sid %>')(solution);
 
@@ -127,9 +127,9 @@ describe('UserBinding', function() {
 
       holodeck.mock(new Response(204, body));
 
-      var promise = client.notify.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .users('NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .bindings('BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.notify.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .users('NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .bindings('BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
       }, function() {
@@ -144,8 +144,8 @@ describe('UserBinding', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {bindingType: 'apn', address: 'address'};
-      var promise = client.notify.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .users('NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.notify.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .users('NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .bindings.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
@@ -155,8 +155,8 @@ describe('UserBinding', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        identity: 'NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        identity: 'NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://notify.twilio.com/v1/Services/<%= serviceSid %>/Users/<%= identity %>/Bindings')(solution);
 
@@ -194,8 +194,8 @@ describe('UserBinding', function() {
       holodeck.mock(new Response(201, body));
 
       var opts = {bindingType: 'apn', address: 'address'};
-      var promise = client.notify.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .users('NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.notify.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .users('NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .bindings.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -232,8 +232,8 @@ describe('UserBinding', function() {
       holodeck.mock(new Response(201, body));
 
       var opts = {bindingType: 'apn', address: 'address'};
-      var promise = client.notify.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .users('NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.notify.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .users('NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .bindings.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -244,12 +244,140 @@ describe('UserBinding', function() {
       promise.done();
     }
   );
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'bindings': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'address': 'address',
+                  'binding_type': 'binding_type',
+                  'credential_sid': 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'endpoint': 'endpoint',
+                  'identity': 'identity',
+                  'links': {
+                      'user': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/identity'
+                  },
+                  'notification_protocol_version': 'notification_protocol_version',
+                  'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sid': 'BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'tags': [
+                      'tag'
+                  ],
+                  'url': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/identity/Bindings/BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ],
+          'meta': {
+              'first_page_url': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/identity/Bindings?PageSize=50&Page=0',
+              'key': 'bindings',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/identity/Bindings?PageSize=50&Page=0'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.notify.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .users('NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .bindings.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'bindings': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'address': 'address',
+                  'binding_type': 'binding_type',
+                  'credential_sid': 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'endpoint': 'endpoint',
+                  'identity': 'identity',
+                  'links': {
+                      'user': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/identity'
+                  },
+                  'notification_protocol_version': 'notification_protocol_version',
+                  'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sid': 'BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'tags': [
+                      'tag'
+                  ],
+                  'url': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/identity/Bindings/BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ],
+          'meta': {
+              'first_page_url': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/identity/Bindings?PageSize=50&Page=0',
+              'key': 'bindings',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/identity/Bindings?PageSize=50&Page=0'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.notify.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .users('NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .bindings.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://notify.twilio.com/v1/Services/<%= serviceSid %>/Users/<%= identity %>/Bindings',
+          params: {PageSize: 20},
+      }));
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'bindings': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'address': 'address',
+                  'binding_type': 'binding_type',
+                  'credential_sid': 'CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'endpoint': 'endpoint',
+                  'identity': 'identity',
+                  'links': {
+                      'user': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/identity'
+                  },
+                  'notification_protocol_version': 'notification_protocol_version',
+                  'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sid': 'BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'tags': [
+                      'tag'
+                  ],
+                  'url': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/identity/Bindings/BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ],
+          'meta': {
+              'first_page_url': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/identity/Bindings?PageSize=50&Page=0',
+              'key': 'bindings',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://notify.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/identity/Bindings?PageSize=50&Page=0'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.notify.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .users('NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .bindings.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.notify.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .users('NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.notify.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .users('NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .bindings.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -259,8 +387,8 @@ describe('UserBinding', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        identity: 'NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        identity: 'NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://notify.twilio.com/v1/Services/<%= serviceSid %>/Users/<%= identity %>/Bindings')(solution);
 
@@ -287,8 +415,8 @@ describe('UserBinding', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.notify.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .users('NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.notify.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .users('NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .bindings.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -337,8 +465,8 @@ describe('UserBinding', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.notify.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                    .users('NUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.notify.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                    .users('NUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .bindings.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -350,4 +478,3 @@ describe('UserBinding', function() {
     }
   );
 });
-

@@ -165,4 +165,36 @@ describe('create voice response TwiML', function() {
     expect(actual.toString()).toEqual('<?xml version="1.0" encoding="UTF-8"?><Response><Dial timeout="5"><Number>+11234567890</Number></Dial><Reject/><Redirect>www.twilio.com</Redirect><Pause length="5"/></Response>');
   });
 
+  it('should allow adding arbitrary text to leaf nodes', function() {
+    var actual = new VoiceResponse();
+    actual.hangup().addText('extra text');
+    expect(actual.toString()).toEqual('<?xml version="1.0" encoding="UTF-8"?><Response><Hangup>extra text</Hangup></Response>');
+  });
+
+  it('should allow mixed text/element content', function() {
+    var actual = new VoiceResponse();
+    actual.addText('before');
+    actual.leave();
+    actual.addText('after');
+
+    expect(actual.toString()).toEqual('<?xml version="1.0" encoding="UTF-8"?><Response>before<Leave/>after</Response>');
+  });
+
+  it('should allow generic child nodes', function () {
+    var actual = new VoiceResponse();
+    actual
+      .addChild('Ninja', {sword: 'always'})
+      .addText('John');
+
+    expect(actual.toString()).toEqual('<?xml version="1.0" encoding="UTF-8"?><Response><Ninja sword="always">John</Ninja></Response>');
+  });
+
+  it('should allow children of child nodes', function () {
+    var actual = new VoiceResponse();
+    actual
+      .dial({}, '+10000000000')
+      .addChild('Ninja', {sword: 'always'});
+
+    expect(actual.toString()).toEqual('<?xml version="1.0" encoding="UTF-8"?><Response><Dial>+10000000000<Ninja sword="always"/></Dial></Response>');
+  });
 });

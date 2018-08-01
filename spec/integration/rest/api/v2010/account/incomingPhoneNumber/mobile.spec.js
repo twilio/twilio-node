@@ -26,15 +26,191 @@ var holodeck;
 describe('Mobile', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'end': 0,
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/Mobile.json?Page=0&PageSize=50',
+          'incoming_phone_numbers': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'address_requirements': 'none',
+                  'address_sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'api_version': '2010-04-01',
+                  'beta': null,
+                  'capabilities': {
+                      'mms': false,
+                      'sms': true,
+                      'voice': false
+                  },
+                  'date_created': 'Tue, 08 Sep 2015 16:21:16 +0000',
+                  'date_updated': 'Tue, 08 Sep 2015 16:21:16 +0000',
+                  'friendly_name': '61429099450',
+                  'identity_sid': 'RIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'phone_number': '+61429099450',
+                  'origin': 'origin',
+                  'sid': 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sms_application_sid': '',
+                  'sms_fallback_method': 'POST',
+                  'sms_fallback_url': '',
+                  'sms_method': 'POST',
+                  'sms_url': '',
+                  'status_callback': '',
+                  'status_callback_method': 'POST',
+                  'trunk_sid': null,
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
+                  'voice_application_sid': '',
+                  'voice_caller_id_lookup': false,
+                  'voice_fallback_method': 'POST',
+                  'voice_fallback_url': null,
+                  'voice_method': 'POST',
+                  'voice_url': null
+              }
+          ],
+          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/Mobile.json?Page=0&PageSize=50',
+          'next_page_uri': null,
+          'num_pages': 1,
+          'page': 0,
+          'page_size': 50,
+          'previous_page_uri': null,
+          'start': 0,
+          'total': 1,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/Mobile.json'
+      });
+      holodeck.mock(new Response(200, body));
+      client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .incomingPhoneNumbers
+                      .mobile.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'end': 0,
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/Mobile.json?Page=0&PageSize=50',
+          'incoming_phone_numbers': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'address_requirements': 'none',
+                  'address_sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'api_version': '2010-04-01',
+                  'beta': null,
+                  'capabilities': {
+                      'mms': false,
+                      'sms': true,
+                      'voice': false
+                  },
+                  'date_created': 'Tue, 08 Sep 2015 16:21:16 +0000',
+                  'date_updated': 'Tue, 08 Sep 2015 16:21:16 +0000',
+                  'friendly_name': '61429099450',
+                  'identity_sid': 'RIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'phone_number': '+61429099450',
+                  'origin': 'origin',
+                  'sid': 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sms_application_sid': '',
+                  'sms_fallback_method': 'POST',
+                  'sms_fallback_url': '',
+                  'sms_method': 'POST',
+                  'sms_url': '',
+                  'status_callback': '',
+                  'status_callback_method': 'POST',
+                  'trunk_sid': null,
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
+                  'voice_application_sid': '',
+                  'voice_caller_id_lookup': false,
+                  'voice_fallback_method': 'POST',
+                  'voice_fallback_url': null,
+                  'voice_method': 'POST',
+                  'voice_url': null
+              }
+          ],
+          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/Mobile.json?Page=0&PageSize=50',
+          'next_page_uri': null,
+          'num_pages': 1,
+          'page': 0,
+          'page_size': 50,
+          'previous_page_uri': null,
+          'start': 0,
+          'total': 1,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/Mobile.json'
+      });
+      holodeck.mock(new Response(200, body));
+      client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .incomingPhoneNumbers
+                      .mobile.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/IncomingPhoneNumbers/Mobile.json',
+          params: {PageSize: 20},
+      }));
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'end': 0,
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/Mobile.json?Page=0&PageSize=50',
+          'incoming_phone_numbers': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'address_requirements': 'none',
+                  'address_sid': 'ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'api_version': '2010-04-01',
+                  'beta': null,
+                  'capabilities': {
+                      'mms': false,
+                      'sms': true,
+                      'voice': false
+                  },
+                  'date_created': 'Tue, 08 Sep 2015 16:21:16 +0000',
+                  'date_updated': 'Tue, 08 Sep 2015 16:21:16 +0000',
+                  'friendly_name': '61429099450',
+                  'identity_sid': 'RIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'phone_number': '+61429099450',
+                  'origin': 'origin',
+                  'sid': 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sms_application_sid': '',
+                  'sms_fallback_method': 'POST',
+                  'sms_fallback_url': '',
+                  'sms_method': 'POST',
+                  'sms_url': '',
+                  'status_callback': '',
+                  'status_callback_method': 'POST',
+                  'trunk_sid': null,
+                  'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json',
+                  'voice_application_sid': '',
+                  'voice_caller_id_lookup': false,
+                  'voice_fallback_method': 'POST',
+                  'voice_fallback_url': null,
+                  'voice_method': 'POST',
+                  'voice_url': null
+              }
+          ],
+          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/Mobile.json?Page=0&PageSize=50',
+          'next_page_uri': null,
+          'num_pages': 1,
+          'page': 0,
+          'page_size': 50,
+          'previous_page_uri': null,
+          'start': 0,
+          'total': 1,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/Mobile.json'
+      });
+      holodeck.mock(new Response(200, body));
+      client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .incomingPhoneNumbers
+                      .mobile.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .incomingPhoneNumbers
                                     .mobile.list();
       promise = promise.then(function() {
@@ -44,7 +220,7 @@ describe('Mobile', function() {
       });
       promise.done();
 
-      var solution = {accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/IncomingPhoneNumbers/Mobile.json')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -107,7 +283,7 @@ describe('Mobile', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .incomingPhoneNumbers
                                     .mobile.list();
       promise = promise.then(function(response) {
@@ -138,7 +314,7 @@ describe('Mobile', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .incomingPhoneNumbers
                                     .mobile.list();
       promise = promise.then(function(response) {
@@ -155,7 +331,7 @@ describe('Mobile', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {phoneNumber: '+15017122661'};
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .incomingPhoneNumbers
                                     .mobile.create(opts);
       promise = promise.then(function() {
@@ -165,7 +341,7 @@ describe('Mobile', function() {
       });
       promise.done();
 
-      var solution = {accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/IncomingPhoneNumbers/Mobile.json')(solution);
 
       var values = {PhoneNumber: '+15017122661', };
@@ -216,7 +392,7 @@ describe('Mobile', function() {
       holodeck.mock(new Response(201, body));
 
       var opts = {phoneNumber: '+15017122661'};
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .incomingPhoneNumbers
                                     .mobile.create(opts);
       promise = promise.then(function(response) {
@@ -229,4 +405,3 @@ describe('Mobile', function() {
     }
   );
 });
-

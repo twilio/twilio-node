@@ -26,7 +26,7 @@ var holodeck;
 describe('Participant', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,8 +34,8 @@ describe('Participant', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.video.v1.rooms('RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                   .participants('PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                   .participants('PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -44,8 +44,8 @@ describe('Participant', function() {
       promise.done();
 
       var solution = {
-        roomSid: 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        roomSid: 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://video.twilio.com/v1/Rooms/<%= roomSid %>/Participants/<%= sid %>')(solution);
 
@@ -77,8 +77,8 @@ describe('Participant', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.video.v1.rooms('RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                   .participants('PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                   .participants('PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -88,11 +88,127 @@ describe('Participant', function() {
       promise.done();
     }
   );
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'participants': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'room_sid': 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2017-07-30T20:00:00Z',
+                  'date_updated': '2017-07-30T20:00:00Z',
+                  'start_time': '2017-07-30T20:00:00Z',
+                  'end_time': '2017-07-30T20:00:01Z',
+                  'sid': 'PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'identity': 'alice',
+                  'status': 'disconnected',
+                  'url': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'duration': 1,
+                  'links': {
+                      'published_tracks': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PublishedTracks',
+                      'subscribed_tracks': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SubscribedTracks'
+                  }
+              }
+          ],
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'url': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants?PageSize=50&Page=0',
+              'next_page_url': null,
+              'key': 'participants'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                     .participants.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'participants': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'room_sid': 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2017-07-30T20:00:00Z',
+                  'date_updated': '2017-07-30T20:00:00Z',
+                  'start_time': '2017-07-30T20:00:00Z',
+                  'end_time': '2017-07-30T20:00:01Z',
+                  'sid': 'PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'identity': 'alice',
+                  'status': 'disconnected',
+                  'url': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'duration': 1,
+                  'links': {
+                      'published_tracks': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PublishedTracks',
+                      'subscribed_tracks': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SubscribedTracks'
+                  }
+              }
+          ],
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'url': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants?PageSize=50&Page=0',
+              'next_page_url': null,
+              'key': 'participants'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                     .participants.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://video.twilio.com/v1/Rooms/<%= roomSid %>/Participants',
+          params: {PageSize: 20},
+      }));
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'participants': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'room_sid': 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2017-07-30T20:00:00Z',
+                  'date_updated': '2017-07-30T20:00:00Z',
+                  'start_time': '2017-07-30T20:00:00Z',
+                  'end_time': '2017-07-30T20:00:01Z',
+                  'sid': 'PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'identity': 'alice',
+                  'status': 'disconnected',
+                  'url': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'duration': 1,
+                  'links': {
+                      'published_tracks': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PublishedTracks',
+                      'subscribed_tracks': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SubscribedTracks'
+                  }
+              }
+          ],
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'url': 'https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants?PageSize=50&Page=0',
+              'next_page_url': null,
+              'key': 'participants'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                     .participants.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.video.v1.rooms('RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .participants.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -101,7 +217,7 @@ describe('Participant', function() {
       });
       promise.done();
 
-      var solution = {roomSid: 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {roomSid: 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://video.twilio.com/v1/Rooms/<%= roomSid %>/Participants')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -127,7 +243,7 @@ describe('Participant', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.video.v1.rooms('RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .participants.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -173,7 +289,7 @@ describe('Participant', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.video.v1.rooms('RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .participants.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -188,8 +304,8 @@ describe('Participant', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.video.v1.rooms('RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                   .participants('PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                   .participants('PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -198,8 +314,8 @@ describe('Participant', function() {
       promise.done();
 
       var solution = {
-        roomSid: 'RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        roomSid: 'RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://video.twilio.com/v1/Rooms/<%= roomSid %>/Participants/<%= sid %>')(solution);
 
@@ -231,8 +347,8 @@ describe('Participant', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.video.v1.rooms('RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                   .participants('PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.video.v1.rooms('RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                   .participants('PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -243,4 +359,3 @@ describe('Participant', function() {
     }
   );
 });
-

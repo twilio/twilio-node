@@ -26,7 +26,7 @@ var holodeck;
 describe('IpAccessControlList', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,8 +34,8 @@ describe('IpAccessControlList', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                      .ipAccessControlLists('ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                      .ipAccessControlLists('ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -44,8 +44,8 @@ describe('IpAccessControlList', function() {
       promise.done();
 
       var solution = {
-        trunkSid: 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        trunkSid: 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/IpAccessControlLists/<%= sid %>')(solution);
 
@@ -59,18 +59,18 @@ describe('IpAccessControlList', function() {
     function() {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'date_created': '2015-07-30T20:00:00Z',
-          'date_updated': '2015-07-30T20:00:00Z',
+          'date_created': '2018-05-02T17:29:34Z',
+          'date_updated': '2018-05-02T17:29:34Z',
           'friendly_name': 'friendly_name',
           'sid': 'ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'trunk_sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'url': 'http://www.example.com'
+          'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists/ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                      .ipAccessControlLists('ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                      .ipAccessControlLists('ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -84,8 +84,8 @@ describe('IpAccessControlList', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                      .ipAccessControlLists('ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                      .ipAccessControlLists('ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -94,8 +94,8 @@ describe('IpAccessControlList', function() {
       promise.done();
 
       var solution = {
-        trunkSid: 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        trunkSid: 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/IpAccessControlLists/<%= sid %>')(solution);
 
@@ -111,8 +111,8 @@ describe('IpAccessControlList', function() {
 
       holodeck.mock(new Response(204, body));
 
-      var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                      .ipAccessControlLists('ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                      .ipAccessControlLists('ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
       }, function() {
@@ -126,8 +126,8 @@ describe('IpAccessControlList', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {ipAccessControlListSid: 'ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
-      var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var opts = {ipAccessControlListSid: 'ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .ipAccessControlLists.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
@@ -136,10 +136,10 @@ describe('IpAccessControlList', function() {
       });
       promise.done();
 
-      var solution = {trunkSid: 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {trunkSid: 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/IpAccessControlLists')(solution);
 
-      var values = {IpAccessControlListSid: 'ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', };
+      var values = {IpAccessControlListSid: 'ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -151,18 +151,18 @@ describe('IpAccessControlList', function() {
     function() {
       var body = JSON.stringify({
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'date_created': '2015-07-30T20:00:00Z',
-          'date_updated': '2015-07-30T20:00:00Z',
+          'date_created': '2018-04-30T20:59:06Z',
+          'date_updated': '2018-04-30T20:59:06Z',
           'friendly_name': 'friendly_name',
           'sid': 'ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'trunk_sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-          'url': 'http://www.example.com'
+          'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists/ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       });
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {ipAccessControlListSid: 'ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
-      var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var opts = {ipAccessControlListSid: 'ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .ipAccessControlLists.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -173,11 +173,103 @@ describe('IpAccessControlList', function() {
       promise.done();
     }
   );
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'ip_access_control_lists': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2018-05-02T17:29:34Z',
+                  'date_updated': '2018-05-02T17:29:34Z',
+                  'friendly_name': 'friendly_name',
+                  'sid': 'ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'trunk_sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists/ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ],
+          'meta': {
+              'first_page_url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists?PageSize=50&Page=0',
+              'key': 'ip_access_control_lists',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists?PageSize=50&Page=0'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                        .ipAccessControlLists.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'ip_access_control_lists': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2018-05-02T17:29:34Z',
+                  'date_updated': '2018-05-02T17:29:34Z',
+                  'friendly_name': 'friendly_name',
+                  'sid': 'ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'trunk_sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists/ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ],
+          'meta': {
+              'first_page_url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists?PageSize=50&Page=0',
+              'key': 'ip_access_control_lists',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists?PageSize=50&Page=0'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                        .ipAccessControlLists.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/IpAccessControlLists',
+          params: {PageSize: 20},
+      }));
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'ip_access_control_lists': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2018-05-02T17:29:34Z',
+                  'date_updated': '2018-05-02T17:29:34Z',
+                  'friendly_name': 'friendly_name',
+                  'sid': 'ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'trunk_sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists/ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ],
+          'meta': {
+              'first_page_url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists?PageSize=50&Page=0',
+              'key': 'ip_access_control_lists',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists?PageSize=50&Page=0'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                        .ipAccessControlLists.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .ipAccessControlLists.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -186,7 +278,7 @@ describe('IpAccessControlList', function() {
       });
       promise.done();
 
-      var solution = {trunkSid: 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {trunkSid: 'TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://trunking.twilio.com/v1/Trunks/<%= trunkSid %>/IpAccessControlLists')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -200,19 +292,19 @@ describe('IpAccessControlList', function() {
       var body = JSON.stringify({
           'ip_access_control_lists': [],
           'meta': {
-              'first_page_url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists?Page=0&PageSize=50',
+              'first_page_url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists?PageSize=50&Page=0',
               'key': 'ip_access_control_lists',
               'next_page_url': null,
               'page': 0,
-              'page_size': 0,
+              'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists'
+              'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists?PageSize=50&Page=0'
           }
       });
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .ipAccessControlLists.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -229,28 +321,28 @@ describe('IpAccessControlList', function() {
           'ip_access_control_lists': [
               {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'date_created': '2015-07-30T20:00:00Z',
-                  'date_updated': '2015-07-30T20:00:00Z',
+                  'date_created': '2018-05-02T17:29:34Z',
+                  'date_updated': '2018-05-02T17:29:34Z',
                   'friendly_name': 'friendly_name',
                   'sid': 'ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'trunk_sid': 'TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  'url': 'http://www.example.com'
+                  'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists/ALaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
               }
           ],
           'meta': {
-              'first_page_url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists?Page=0&PageSize=50',
+              'first_page_url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists?PageSize=50&Page=0',
               'key': 'ip_access_control_lists',
               'next_page_url': null,
               'page': 0,
-              'page_size': 1,
+              'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists'
+              'url': 'https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists?PageSize=50&Page=0'
           }
       });
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.trunking.v1.trunks('TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.trunking.v1.trunks('TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                       .ipAccessControlLists.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -262,4 +354,3 @@ describe('IpAccessControlList', function() {
     }
   );
 });
-

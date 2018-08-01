@@ -26,7 +26,7 @@ var holodeck;
 describe('PhoneNumber', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,7 +34,7 @@ describe('PhoneNumber', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.proxy.v1.services('KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .phoneNumbers.create();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -43,7 +43,7 @@ describe('PhoneNumber', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {serviceSid: 'KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://proxy.twilio.com/v1/Services/<%= serviceSid %>/PhoneNumbers')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -72,7 +72,7 @@ describe('PhoneNumber', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var promise = client.proxy.v1.services('KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .phoneNumbers.create();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -87,8 +87,8 @@ describe('PhoneNumber', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.proxy.v1.services('KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                   .phoneNumbers('PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                   .phoneNumbers('PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -97,8 +97,8 @@ describe('PhoneNumber', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        serviceSid: 'KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://proxy.twilio.com/v1/Services/<%= serviceSid %>/PhoneNumbers/<%= sid %>')(solution);
 
@@ -114,8 +114,8 @@ describe('PhoneNumber', function() {
 
       holodeck.mock(new Response(204, body));
 
-      var promise = client.proxy.v1.services('KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                   .phoneNumbers('PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                   .phoneNumbers('PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
       }, function() {
@@ -125,11 +125,121 @@ describe('PhoneNumber', function() {
       promise.done();
     }
   );
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'next_page_url': null,
+              'key': 'phone_numbers',
+              'url': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers?PageSize=50&Page=0'
+          },
+          'phone_numbers': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'service_sid': 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sid': 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'phone_number': '+987654321',
+                  'friendly_name': 'Friendly Name',
+                  'iso_country': 'US',
+                  'capabilities': {
+                      'sms_outbound': true,
+                      'voice_inbound': false
+                  },
+                  'url': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                     .phoneNumbers.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'next_page_url': null,
+              'key': 'phone_numbers',
+              'url': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers?PageSize=50&Page=0'
+          },
+          'phone_numbers': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'service_sid': 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sid': 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'phone_number': '+987654321',
+                  'friendly_name': 'Friendly Name',
+                  'iso_country': 'US',
+                  'capabilities': {
+                      'sms_outbound': true,
+                      'voice_inbound': false
+                  },
+                  'url': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                     .phoneNumbers.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://proxy.twilio.com/v1/Services/<%= serviceSid %>/PhoneNumbers',
+          params: {PageSize: 20},
+      }));
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'next_page_url': null,
+              'key': 'phone_numbers',
+              'url': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers?PageSize=50&Page=0'
+          },
+          'phone_numbers': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'service_sid': 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sid': 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'phone_number': '+987654321',
+                  'friendly_name': 'Friendly Name',
+                  'iso_country': 'US',
+                  'capabilities': {
+                      'sms_outbound': true,
+                      'voice_inbound': false
+                  },
+                  'url': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                     .phoneNumbers.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.proxy.v1.services('KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .phoneNumbers.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -138,7 +248,7 @@ describe('PhoneNumber', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {serviceSid: 'KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://proxy.twilio.com/v1/Services/<%= serviceSid %>/PhoneNumbers')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -180,7 +290,7 @@ describe('PhoneNumber', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.proxy.v1.services('KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .phoneNumbers.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -195,8 +305,8 @@ describe('PhoneNumber', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.proxy.v1.services('KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                   .phoneNumbers('PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                   .phoneNumbers('PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -205,8 +315,8 @@ describe('PhoneNumber', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        serviceSid: 'KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://proxy.twilio.com/v1/Services/<%= serviceSid %>/PhoneNumbers/<%= sid %>')(solution);
 
@@ -236,8 +346,8 @@ describe('PhoneNumber', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.proxy.v1.services('KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                   .phoneNumbers('PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                   .phoneNumbers('PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -248,4 +358,3 @@ describe('PhoneNumber', function() {
     }
   );
 });
-

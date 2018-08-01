@@ -26,15 +26,143 @@ var holodeck;
 describe('Mobile', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'available_phone_numbers': [
+              {
+                  'address_requirements': 'none',
+                  'beta': false,
+                  'capabilities': {
+                      'mms': false,
+                      'sms': true,
+                      'voice': false
+                  },
+                  'friendly_name': '+4759440374',
+                  'iso_country': 'NO',
+                  'lata': null,
+                  'latitude': null,
+                  'locality': null,
+                  'longitude': null,
+                  'phone_number': '+4759440374',
+                  'postal_code': null,
+                  'rate_center': null,
+                  'region': null
+              }
+          ],
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/Mobile.json?PageSize=50&Page=0',
+          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/Mobile.json?PageSize=50&Page=0',
+          'next_page_uri': null,
+          'num_pages': 1,
+          'page': 0,
+          'page_size': 50,
+          'previous_page_uri': null,
+          'start': 0,
+          'total': 1,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/Mobile.json?PageSize=1'
+      });
+      holodeck.mock(new Response(200, body));
+      client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .availablePhoneNumbers('US')
+                      .mobile.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'available_phone_numbers': [
+              {
+                  'address_requirements': 'none',
+                  'beta': false,
+                  'capabilities': {
+                      'mms': false,
+                      'sms': true,
+                      'voice': false
+                  },
+                  'friendly_name': '+4759440374',
+                  'iso_country': 'NO',
+                  'lata': null,
+                  'latitude': null,
+                  'locality': null,
+                  'longitude': null,
+                  'phone_number': '+4759440374',
+                  'postal_code': null,
+                  'rate_center': null,
+                  'region': null
+              }
+          ],
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/Mobile.json?PageSize=50&Page=0',
+          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/Mobile.json?PageSize=50&Page=0',
+          'next_page_uri': null,
+          'num_pages': 1,
+          'page': 0,
+          'page_size': 50,
+          'previous_page_uri': null,
+          'start': 0,
+          'total': 1,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/Mobile.json?PageSize=1'
+      });
+      holodeck.mock(new Response(200, body));
+      client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .availablePhoneNumbers('US')
+                      .mobile.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/AvailablePhoneNumbers/<%= countryCode %>/Mobile.json',
+          params: {PageSize: 20},
+      }));
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'available_phone_numbers': [
+              {
+                  'address_requirements': 'none',
+                  'beta': false,
+                  'capabilities': {
+                      'mms': false,
+                      'sms': true,
+                      'voice': false
+                  },
+                  'friendly_name': '+4759440374',
+                  'iso_country': 'NO',
+                  'lata': null,
+                  'latitude': null,
+                  'locality': null,
+                  'longitude': null,
+                  'phone_number': '+4759440374',
+                  'postal_code': null,
+                  'rate_center': null,
+                  'region': null
+              }
+          ],
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/Mobile.json?PageSize=50&Page=0',
+          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/Mobile.json?PageSize=50&Page=0',
+          'next_page_uri': null,
+          'num_pages': 1,
+          'page': 0,
+          'page_size': 50,
+          'previous_page_uri': null,
+          'start': 0,
+          'total': 1,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/Mobile.json?PageSize=1'
+      });
+      holodeck.mock(new Response(200, body));
+      client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .availablePhoneNumbers('US')
+                      .mobile.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .availablePhoneNumbers('US')
                                     .mobile.list();
       promise = promise.then(function() {
@@ -44,7 +172,7 @@ describe('Mobile', function() {
       });
       promise.done();
 
-      var solution = {accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', countryCode: 'US'};
+      var solution = {accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', countryCode: 'US'};
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/AvailablePhoneNumbers/<%= countryCode %>/Mobile.json')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -91,7 +219,7 @@ describe('Mobile', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .availablePhoneNumbers('US')
                                     .mobile.list();
       promise = promise.then(function(response) {
@@ -121,7 +249,7 @@ describe('Mobile', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .availablePhoneNumbers('US')
                                     .mobile.list();
       promise = promise.then(function(response) {
@@ -134,4 +262,3 @@ describe('Mobile', function() {
     }
   );
 });
-

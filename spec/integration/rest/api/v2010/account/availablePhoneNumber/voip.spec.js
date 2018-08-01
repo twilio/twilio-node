@@ -26,15 +26,146 @@ var holodeck;
 describe('Voip', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'available_phone_numbers': [
+              {
+                  'address_requirements': 'none',
+                  'beta': false,
+                  'capabilities': {
+                      'mms': false,
+                      'sms': true,
+                      'voice': false
+                  },
+                  'friendly_name': '+4759440374',
+                  'iso_country': 'NO',
+                  'lata': null,
+                  'latitude': null,
+                  'locality': null,
+                  'longitude': null,
+                  'phone_number': '+4759440374',
+                  'postal_code': null,
+                  'rate_center': null,
+                  'region': null
+              }
+          ],
+          'end': 1,
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/Voip.json?PageSize=50&Page=0',
+          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/Voip.json?PageSize=50&Page=0',
+          'next_page_uri': null,
+          'num_pages': 1,
+          'page': 0,
+          'page_size': 50,
+          'previous_page_uri': null,
+          'start': 0,
+          'total': 1,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/Voip.json?PageSize=1'
+      });
+      holodeck.mock(new Response(200, body));
+      client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .availablePhoneNumbers('US')
+                      .voip.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'available_phone_numbers': [
+              {
+                  'address_requirements': 'none',
+                  'beta': false,
+                  'capabilities': {
+                      'mms': false,
+                      'sms': true,
+                      'voice': false
+                  },
+                  'friendly_name': '+4759440374',
+                  'iso_country': 'NO',
+                  'lata': null,
+                  'latitude': null,
+                  'locality': null,
+                  'longitude': null,
+                  'phone_number': '+4759440374',
+                  'postal_code': null,
+                  'rate_center': null,
+                  'region': null
+              }
+          ],
+          'end': 1,
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/Voip.json?PageSize=50&Page=0',
+          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/Voip.json?PageSize=50&Page=0',
+          'next_page_uri': null,
+          'num_pages': 1,
+          'page': 0,
+          'page_size': 50,
+          'previous_page_uri': null,
+          'start': 0,
+          'total': 1,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/Voip.json?PageSize=1'
+      });
+      holodeck.mock(new Response(200, body));
+      client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .availablePhoneNumbers('US')
+                      .voip.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/AvailablePhoneNumbers/<%= countryCode %>/Voip.json',
+          params: {PageSize: 20},
+      }));
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'available_phone_numbers': [
+              {
+                  'address_requirements': 'none',
+                  'beta': false,
+                  'capabilities': {
+                      'mms': false,
+                      'sms': true,
+                      'voice': false
+                  },
+                  'friendly_name': '+4759440374',
+                  'iso_country': 'NO',
+                  'lata': null,
+                  'latitude': null,
+                  'locality': null,
+                  'longitude': null,
+                  'phone_number': '+4759440374',
+                  'postal_code': null,
+                  'rate_center': null,
+                  'region': null
+              }
+          ],
+          'end': 1,
+          'first_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/Voip.json?PageSize=50&Page=0',
+          'last_page_uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/Voip.json?PageSize=50&Page=0',
+          'next_page_uri': null,
+          'num_pages': 1,
+          'page': 0,
+          'page_size': 50,
+          'previous_page_uri': null,
+          'start': 0,
+          'total': 1,
+          'uri': '/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/Voip.json?PageSize=1'
+      });
+      holodeck.mock(new Response(200, body));
+      client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                      .availablePhoneNumbers('US')
+                      .voip.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .availablePhoneNumbers('US')
                                     .voip.list();
       promise = promise.then(function() {
@@ -44,7 +175,7 @@ describe('Voip', function() {
       });
       promise.done();
 
-      var solution = {accountSid: 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', countryCode: 'US'};
+      var solution = {accountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', countryCode: 'US'};
       var url = _.template('https://api.twilio.com/2010-04-01/Accounts/<%= accountSid %>/AvailablePhoneNumbers/<%= countryCode %>/Voip.json')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -92,7 +223,7 @@ describe('Voip', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .availablePhoneNumbers('US')
                                     .voip.list();
       promise = promise.then(function(response) {
@@ -122,7 +253,7 @@ describe('Voip', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.api.v2010.accounts('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.api.v2010.accounts('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .availablePhoneNumbers('US')
                                     .voip.list();
       promise = promise.then(function(response) {
@@ -135,4 +266,3 @@ describe('Voip', function() {
     }
   );
 });
-

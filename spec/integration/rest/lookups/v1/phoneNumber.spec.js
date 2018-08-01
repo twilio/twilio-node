@@ -26,7 +26,7 @@ var holodeck;
 describe('PhoneNumber', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -68,13 +68,12 @@ describe('PhoneNumber', function() {
           },
           'fraud': {
               'error_code': null,
-              'advanced_line_type': 'voip',
-              'is_prepaid': false,
               'mobile_country_code': '310',
               'mobile_network_code': '456',
-              'carrier_name': 'verizon',
+              'advanced_line_type': 'voip',
               'caller_name': 'Delicious Cheese Cake',
-              'caller_type': 'CONSUMER'
+              'is_ported': false,
+              'last_ported_date': '2018-05-01 04:05:11'
           },
           'country_code': 'US',
           'national_format': '(510) 867-5309',
@@ -101,4 +100,3 @@ describe('PhoneNumber', function() {
     }
   );
 });
-

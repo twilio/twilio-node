@@ -26,7 +26,7 @@ var holodeck;
 describe('Member', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,9 +34,9 @@ describe('Member', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.chat.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .channels('CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .members('MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.chat.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                  .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                  .members('MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -45,9 +45,9 @@ describe('Member', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        channelSid: 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        channelSid: 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://chat.twilio.com/v1/Services/<%= serviceSid %>/Channels/<%= channelSid %>/Members/<%= sid %>')(solution);
 
@@ -75,9 +75,9 @@ describe('Member', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.chat.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .channels('CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .members('MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.chat.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                  .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                  .members('MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -92,8 +92,8 @@ describe('Member', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {identity: 'identity'};
-      var promise = client.chat.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .channels('CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.chat.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                  .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .members.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
@@ -103,8 +103,8 @@ describe('Member', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        channelSid: 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        channelSid: 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://chat.twilio.com/v1/Services/<%= serviceSid %>/Channels/<%= channelSid %>/Members')(solution);
 
@@ -135,8 +135,8 @@ describe('Member', function() {
       holodeck.mock(new Response(201, body));
 
       var opts = {identity: 'identity'};
-      var promise = client.chat.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .channels('CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.chat.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                  .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .members.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -147,12 +147,119 @@ describe('Member', function() {
       promise.done();
     }
   );
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members?PageSize=50&Page=0',
+              'next_page_url': null,
+              'key': 'members'
+          },
+          'members': [
+              {
+                  'sid': 'MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'channel_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'identity': 'jing',
+                  'role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'last_consumed_message_index': null,
+                  'last_consumption_timestamp': null,
+                  'date_created': '2016-03-24T21:05:50Z',
+                  'date_updated': '2016-03-24T21:05:50Z',
+                  'url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.chat.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                    .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                    .members.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members?PageSize=50&Page=0',
+              'next_page_url': null,
+              'key': 'members'
+          },
+          'members': [
+              {
+                  'sid': 'MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'channel_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'identity': 'jing',
+                  'role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'last_consumed_message_index': null,
+                  'last_consumption_timestamp': null,
+                  'date_created': '2016-03-24T21:05:50Z',
+                  'date_updated': '2016-03-24T21:05:50Z',
+                  'url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.chat.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                    .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                    .members.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://chat.twilio.com/v1/Services/<%= serviceSid %>/Channels/<%= channelSid %>/Members',
+          params: {PageSize: 20},
+      }));
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members?PageSize=50&Page=0',
+              'next_page_url': null,
+              'key': 'members'
+          },
+          'members': [
+              {
+                  'sid': 'MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'channel_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'identity': 'jing',
+                  'role_sid': 'RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'last_consumed_message_index': null,
+                  'last_consumption_timestamp': null,
+                  'date_created': '2016-03-24T21:05:50Z',
+                  'date_updated': '2016-03-24T21:05:50Z',
+                  'url': 'https://chat.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.chat.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                    .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                    .members.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.chat.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .channels('CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.chat.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                  .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .members.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -162,8 +269,8 @@ describe('Member', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        channelSid: 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        channelSid: 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://chat.twilio.com/v1/Services/<%= serviceSid %>/Channels/<%= channelSid %>/Members')(solution);
 
@@ -204,8 +311,8 @@ describe('Member', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.chat.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .channels('CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.chat.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                  .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .members.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -233,8 +340,8 @@ describe('Member', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.chat.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .channels('CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.chat.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                  .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .members.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -249,9 +356,9 @@ describe('Member', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.chat.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .channels('CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .members('MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.chat.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                  .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                  .members('MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -260,9 +367,9 @@ describe('Member', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        channelSid: 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        channelSid: 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://chat.twilio.com/v1/Services/<%= serviceSid %>/Channels/<%= channelSid %>/Members/<%= sid %>')(solution);
 
@@ -278,9 +385,9 @@ describe('Member', function() {
 
       holodeck.mock(new Response(204, body));
 
-      var promise = client.chat.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .channels('CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .members('MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.chat.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                  .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                  .members('MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
       }, function() {
@@ -294,9 +401,9 @@ describe('Member', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.chat.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .channels('CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .members('MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.chat.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                  .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                  .members('MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -305,9 +412,9 @@ describe('Member', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        channelSid: 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        channelSid: 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://chat.twilio.com/v1/Services/<%= serviceSid %>/Channels/<%= channelSid %>/Members/<%= sid %>')(solution);
 
@@ -335,9 +442,9 @@ describe('Member', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.chat.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .channels('CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .members('MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.chat.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                  .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                  .members('MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -365,9 +472,9 @@ describe('Member', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.chat.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .channels('CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .members('MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').update();
+      var promise = client.chat.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                  .channels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                  .members('MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -378,4 +485,3 @@ describe('Member', function() {
     }
   );
 });
-

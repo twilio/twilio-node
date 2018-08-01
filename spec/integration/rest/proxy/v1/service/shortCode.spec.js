@@ -26,7 +26,7 @@ var holodeck;
 describe('ShortCode', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,8 +34,8 @@ describe('ShortCode', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {sid: 'SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
-      var promise = client.proxy.v1.services('KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var opts = {sid: 'SCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .shortCodes.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
@@ -44,10 +44,10 @@ describe('ShortCode', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {serviceSid: 'KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://proxy.twilio.com/v1/Services/<%= serviceSid %>/ShortCodes')(solution);
 
-      var values = {Sid: 'SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', };
+      var values = {Sid: 'SCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -74,8 +74,8 @@ describe('ShortCode', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {sid: 'SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
-      var promise = client.proxy.v1.services('KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var opts = {sid: 'SCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .shortCodes.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -90,8 +90,8 @@ describe('ShortCode', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.proxy.v1.services('KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                   .shortCodes('SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                   .shortCodes('SCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -100,8 +100,8 @@ describe('ShortCode', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        serviceSid: 'KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'SCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://proxy.twilio.com/v1/Services/<%= serviceSid %>/ShortCodes/<%= sid %>')(solution);
 
@@ -117,8 +117,8 @@ describe('ShortCode', function() {
 
       holodeck.mock(new Response(204, body));
 
-      var promise = client.proxy.v1.services('KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                   .shortCodes('SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').remove();
+      var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                   .shortCodes('SCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
       }, function() {
@@ -128,11 +128,118 @@ describe('ShortCode', function() {
       promise.done();
     }
   );
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ShortCodes?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'next_page_url': null,
+              'key': 'short_codes',
+              'url': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ShortCodes?PageSize=50&Page=0'
+          },
+          'short_codes': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'service_sid': 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sid': 'SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'short_code': '12345',
+                  'iso_country': 'US',
+                  'capabilities': {
+                      'sms_outbound': true,
+                      'voice_inbound': false
+                  },
+                  'url': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ShortCodes/SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                     .shortCodes.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ShortCodes?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'next_page_url': null,
+              'key': 'short_codes',
+              'url': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ShortCodes?PageSize=50&Page=0'
+          },
+          'short_codes': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'service_sid': 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sid': 'SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'short_code': '12345',
+                  'iso_country': 'US',
+                  'capabilities': {
+                      'sms_outbound': true,
+                      'voice_inbound': false
+                  },
+                  'url': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ShortCodes/SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                     .shortCodes.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://proxy.twilio.com/v1/Services/<%= serviceSid %>/ShortCodes',
+          params: {PageSize: 20},
+      }));
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'meta': {
+              'page': 0,
+              'page_size': 50,
+              'first_page_url': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ShortCodes?PageSize=50&Page=0',
+              'previous_page_url': null,
+              'next_page_url': null,
+              'key': 'short_codes',
+              'url': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ShortCodes?PageSize=50&Page=0'
+          },
+          'short_codes': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'service_sid': 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'sid': 'SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'short_code': '12345',
+                  'iso_country': 'US',
+                  'capabilities': {
+                      'sms_outbound': true,
+                      'voice_inbound': false
+                  },
+                  'url': 'https://proxy.twilio.com/v1/Services/KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ShortCodes/SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ]
+      });
+      holodeck.mock(new Response(200, body));
+      client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                     .shortCodes.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.proxy.v1.services('KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .shortCodes.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -141,7 +248,7 @@ describe('ShortCode', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {serviceSid: 'KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://proxy.twilio.com/v1/Services/<%= serviceSid %>/ShortCodes')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -182,7 +289,7 @@ describe('ShortCode', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.proxy.v1.services('KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .shortCodes.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -197,8 +304,8 @@ describe('ShortCode', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.proxy.v1.services('KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                   .shortCodes('SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                   .shortCodes('SCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -207,8 +314,8 @@ describe('ShortCode', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        sid: 'SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        serviceSid: 'KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        sid: 'SCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://proxy.twilio.com/v1/Services/<%= serviceSid %>/ShortCodes/<%= sid %>')(solution);
 
@@ -237,8 +344,8 @@ describe('ShortCode', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.proxy.v1.services('KSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                   .shortCodes('SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.proxy.v1.services('KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                   .shortCodes('SCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -249,4 +356,3 @@ describe('ShortCode', function() {
     }
   );
 });
-

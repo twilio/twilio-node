@@ -28,7 +28,7 @@ var holodeck;
 describe('SyncListItem', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -36,8 +36,8 @@ describe('SyncListItem', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.sync.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                       .syncLists('ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                       .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .syncListItems(1).fetch();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -47,8 +47,8 @@ describe('SyncListItem', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        listSid: 'ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        listSid: 'ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         index: 1
       };
       var url = _.template('https://preview.twilio.com/Sync/Services/<%= serviceSid %>/Lists/<%= listSid %>/Items/<%= index %>')(solution);
@@ -76,8 +76,8 @@ describe('SyncListItem', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.sync.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                       .syncLists('ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                       .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .syncListItems(1).fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -92,8 +92,8 @@ describe('SyncListItem', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.sync.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                       .syncLists('ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                       .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .syncListItems(1).remove();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -103,8 +103,8 @@ describe('SyncListItem', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        listSid: 'ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        listSid: 'ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         index: 1
       };
       var url = _.template('https://preview.twilio.com/Sync/Services/<%= serviceSid %>/Lists/<%= listSid %>/Items/<%= index %>')(solution);
@@ -121,8 +121,8 @@ describe('SyncListItem', function() {
 
       holodeck.mock(new Response(204, body));
 
-      var promise = client.preview.sync.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                       .syncLists('ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                       .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .syncListItems(1).remove();
       promise = promise.then(function(response) {
         expect(response).toBe(true);
@@ -137,9 +137,9 @@ describe('SyncListItem', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {data: '{}'};
-      var promise = client.preview.sync.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                       .syncLists('ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var opts = {data: {}};
+      var promise = client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                       .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .syncListItems.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
@@ -149,12 +149,12 @@ describe('SyncListItem', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        listSid: 'ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        listSid: 'ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://preview.twilio.com/Sync/Services/<%= serviceSid %>/Lists/<%= listSid %>/Items')(solution);
 
-      var values = {Data: serialize.object('{}'), };
+      var values = {Data: serialize.object({}), };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -179,9 +179,9 @@ describe('SyncListItem', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {data: '{}'};
-      var promise = client.preview.sync.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                       .syncLists('ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var opts = {data: {}};
+      var promise = client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                       .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .syncListItems.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -192,12 +192,116 @@ describe('SyncListItem', function() {
       promise.done();
     }
   );
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'items': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'created_by': 'created_by',
+                  'data': {},
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'index': 100,
+                  'list_sid': 'ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'revision': 'revision',
+                  'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://preview.twilio.com/Sync/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Lists/ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Items/100'
+              }
+          ],
+          'meta': {
+              'first_page_url': 'https://preview.twilio.com/Sync/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Lists/ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Items?PageSize=50&Page=0',
+              'key': 'items',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://preview.twilio.com/Sync/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Lists/ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Items?PageSize=50&Page=0'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                         .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                         .syncListItems.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'items': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'created_by': 'created_by',
+                  'data': {},
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'index': 100,
+                  'list_sid': 'ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'revision': 'revision',
+                  'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://preview.twilio.com/Sync/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Lists/ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Items/100'
+              }
+          ],
+          'meta': {
+              'first_page_url': 'https://preview.twilio.com/Sync/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Lists/ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Items?PageSize=50&Page=0',
+              'key': 'items',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://preview.twilio.com/Sync/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Lists/ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Items?PageSize=50&Page=0'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                         .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                         .syncListItems.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://preview.twilio.com/Sync/Services/<%= serviceSid %>/Lists/<%= listSid %>/Items',
+          params: {PageSize: 20},
+      }));
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'items': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'created_by': 'created_by',
+                  'data': {},
+                  'date_created': '2015-07-30T20:00:00Z',
+                  'date_updated': '2015-07-30T20:00:00Z',
+                  'index': 100,
+                  'list_sid': 'ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'revision': 'revision',
+                  'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'url': 'https://preview.twilio.com/Sync/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Lists/ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Items/100'
+              }
+          ],
+          'meta': {
+              'first_page_url': 'https://preview.twilio.com/Sync/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Lists/ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Items?PageSize=50&Page=0',
+              'key': 'items',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://preview.twilio.com/Sync/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Lists/ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Items?PageSize=50&Page=0'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                         .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                         .syncListItems.each({callback: () => done()}, () => fail('wrong callback!'));
+    }
+  );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.sync.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                       .syncLists('ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                       .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .syncListItems.list();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -207,8 +311,8 @@ describe('SyncListItem', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        listSid: 'ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        listSid: 'ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://preview.twilio.com/Sync/Services/<%= serviceSid %>/Lists/<%= listSid %>/Items')(solution);
 
@@ -235,8 +339,8 @@ describe('SyncListItem', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.sync.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                       .syncLists('ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                       .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .syncListItems.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -277,8 +381,8 @@ describe('SyncListItem', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.sync.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                       .syncLists('ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                       .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .syncListItems.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -293,9 +397,9 @@ describe('SyncListItem', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {data: '{}'};
-      var promise = client.preview.sync.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                       .syncLists('ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var opts = {data: {}};
+      var promise = client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                       .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .syncListItems(1).update(opts);
       promise = promise.then(function() {
         throw new Error('failed');
@@ -305,13 +409,13 @@ describe('SyncListItem', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        listSid: 'ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        listSid: 'ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         index: 1
       };
       var url = _.template('https://preview.twilio.com/Sync/Services/<%= serviceSid %>/Lists/<%= listSid %>/Items/<%= index %>')(solution);
 
-      var values = {Data: serialize.object('{}'), };
+      var values = {Data: serialize.object({}), };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -336,9 +440,9 @@ describe('SyncListItem', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var opts = {data: '{}'};
-      var promise = client.preview.sync.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                       .syncLists('ESaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var opts = {data: {}};
+      var promise = client.preview.sync.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                       .syncLists('ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                        .syncListItems(1).update(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -350,4 +454,3 @@ describe('SyncListItem', function() {
     }
   );
 });
-

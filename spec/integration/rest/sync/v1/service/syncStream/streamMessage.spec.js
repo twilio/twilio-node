@@ -28,7 +28,7 @@ var holodeck;
 describe('StreamMessage', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -36,9 +36,9 @@ describe('StreamMessage', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {data: '{}'};
-      var promise = client.sync.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .syncStreams('TOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var opts = {data: {}};
+      var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                  .syncStreams('TOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .streamMessages.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
@@ -48,12 +48,12 @@ describe('StreamMessage', function() {
       promise.done();
 
       var solution = {
-        serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        streamSid: 'TOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        streamSid: 'TOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
       };
       var url = _.template('https://sync.twilio.com/v1/Services/<%= serviceSid %>/Streams/<%= streamSid %>/Messages')(solution);
 
-      var values = {Data: serialize.object('{}'), };
+      var values = {Data: serialize.object({}), };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -70,9 +70,9 @@ describe('StreamMessage', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {data: '{}'};
-      var promise = client.sync.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-                                  .syncStreams('TOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var opts = {data: {}};
+      var promise = client.sync.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                  .syncStreams('TOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .streamMessages.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -84,4 +84,3 @@ describe('StreamMessage', function() {
     }
   );
 });
-

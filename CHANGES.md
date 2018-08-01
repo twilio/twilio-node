@@ -1,6 +1,168 @@
 twilio-node changelog
 =====================
 
+[2018-07-16] Version 3.18.0
+----------------------------
+**Library**
+- PR #365: Add a request body validator. Thanks to @cjcodes!
+
+**Twiml**
+- Add support for SSML on Say verb, the message body is changed to be optional **(breaking change)**
+
+
+[2018-07-11] Version 3.17.6
+----------------------------
+**Library**
+- PR #362: Remove old Precise env and sudo flag on TravisCI. Thanks to @jonatasbaldin!
+
+**Api**
+- Add `cidr_prefix_length` param to SIP IpAddresses API
+
+**Studio**
+- Add new /Execution endpoints to begin Engagement -> Execution migration
+
+**Video**
+- [Rooms] Allow deletion of individual recordings from a room
+
+
+[2018-07-05] Version 3.17.5
+----------------------------
+**Library**
+- PR #358: Add Dockerfile and related changes to build the Docker image. Thanks to @jonatasbaldin!
+- PR #361: Regenerate with structured params/properties. Thanks to @ekarson!
+
+**Api**
+- Release `Call Recording Controls` feature support in helper libraries
+- Add Voice Insights sub-category keys to usage records
+
+
+[2018-06-21] Version 3.17.4
+----------------------------
+**Library**
+- PR #359: Add test for mixed content. Thanks to @ekarson!
+- PR #357: Allow creating generic twiml nodes. Thanks to @cjcodes!
+
+**Api**
+- Add Fraud Lookups category to usage records
+
+**Video**
+- Allow user to set `ContentDisposition` when obtaining media URLs for Room Recordings and Compositions
+- Add Composition Settings resource
+
+
+[2018-06-15] Version 3.17.3
+----------------------------
+**Library**
+- PR #354: Add validateSslCertificate to node client. Thanks to @mbichoffe!
+- PR #355: Add addText method to TwiML classes. Thanks to @ekarson!
+- PR #356: Update nsp to latest. Thanks to @ekarson!
+
+**Twiml**
+- Add methods to helper libraries to inject arbitrary text under a TwiML node
+
+
+[2018-06-05] Version 3.17.2
+----------------------------
+**Library**
+- PR #353: Update package-lock.json. Thanks to @cjcodes!
+
+**Chat**
+- Add Binding and UserBinding documentation
+
+**Lookups**
+- Add back support for `fraud` lookup type
+
+
+[2018-05-25] Version 3.17.1
+----------------------------
+**Library**
+- PR #349: Update Contributing section in README.md. Thanks to @dkundel!
+- PR #347: Update dependencies to fix vulnerabilities (#343). Thanks to @dkundel!
+- PR #351: Update request dependency. Thanks to @cjcodes!
+
+**Api**
+- Add more programmable video categories to usage records
+- Add 'include_subaccounts' parameter to all variation of usage_record fetch
+
+**Studio**
+- Add endpoint to delete engagements
+
+**Trunking**
+- Added cnam_lookup_enabled parameter to Trunk resource.
+- Added case-insensitivity for recording parameter to Trunk resource.
+
+
+[2018-05-11] Version 3.17.0
+----------------------------
+**Library**
+- PR #340: Update request version RE sec. advisory #606. Thanks to @cjcodes!
+
+**Chat**
+- Add Channel Webhooks resource
+
+**Monitor**
+- Update event filtering to support date/time **(breaking change)**
+
+**Wireless**
+- Updated `maturity` to `ga` for all wireless apis
+
+
+[2018-04-28] Version 3.16.0
+----------------------------
+**Library**
+- PR #337: Upgrade lodash. Thanks to @YasharF!
+
+**Video**
+- Redesign API by adding custom `VideoLayout` object. **(breaking change)**
+
+
+[2018-04-20] Version 3.15.1
+----------------------------
+**Twiml**
+- Gather input Enum: remove unnecessary "dtmf speech" value as you can now specify multiple enum values for this parameter and both "dtmf" and "speech" are already available.
+
+
+[2018-04-13] Version 3.15.0
+----------------------------
+**Library**
+- PR #334: Add incoming.allow to AccessToken VoiceGrant. Thanks to @ryan-rowland!
+- PR #335: use _.isDate to check if object is a Date object. Thanks to @joliveros!
+
+**Preview**
+- Support for Understand V2 APIs - renames various resources and adds new fields
+
+**Studio**
+- Change parameters type from string to object in engagement resource
+
+**Video**
+- [Recordings] Change `size` type to `long`. **(breaking change)**
+
+
+[2018-03-22] Version 3.14.0
+----------------------------
+**Lookups**
+- Disable support for `fraud` lookups *(breaking change)*
+
+**Preview**
+- Add `BuildDuration` and `ErrorCode` to Understand ModelBuild
+
+**Studio**
+- Add new /Context endpoint for step and engagement resources.
+
+
+[2018-03-12] Version 3.13.1
+----------------------------
+**Api**
+- Add `caller_id` param to Outbound Calls API
+- Release `trim` recording Outbound Calls API functionality in helper libraries
+
+**Video**
+- [composer] Add `room_sid` to Composition resource.
+
+**Twiml**
+- Adds support for passing in multiple input type enums when setting `input` on `Gather`
+
+
 [2018-03-02] Version 3.13.0
 ----------------------------
 **Library**

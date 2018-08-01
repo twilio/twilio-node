@@ -26,7 +26,7 @@ var holodeck;
 describe('Event', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,7 +34,7 @@ describe('Event', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.monitor.v1.events('AEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.monitor.v1.events('AEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -42,7 +42,7 @@ describe('Event', function() {
       });
       promise.done();
 
-      var solution = {sid: 'AEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {sid: 'AEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://monitor.twilio.com/v1/Events/<%= sid %>')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -80,7 +80,7 @@ describe('Event', function() {
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.monitor.v1.events('AEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa').fetch();
+      var promise = client.monitor.v1.events('AEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -88,6 +88,140 @@ describe('Event', function() {
       });
 
       promise.done();
+    }
+  );
+  it('should treat the first each arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'events': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'actor_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'actor_type': 'account',
+                  'description': null,
+                  'event_data': {
+                      'friendly_name': {
+                          'previous': 'SubAccount Created at 2014-10-03 09:48 am',
+                          'updated': 'Mr. Friendly'
+                      }
+                  },
+                  'event_date': '2014-10-03T16:48:25Z',
+                  'event_type': 'account.updated',
+                  'links': {
+                      'actor': 'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                      'resource': 'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  },
+                  'resource_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'resource_type': 'account',
+                  'sid': 'AEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'source': 'api',
+                  'source_ip_address': '10.86.6.250',
+                  'url': 'https://monitor.twilio.com/v1/Events/AEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ],
+          'meta': {
+              'first_page_url': 'https://monitor.twilio.com/v1/Events?PageSize=50&Page=0',
+              'key': 'events',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://monitor.twilio.com/v1/Events?PageSize=50&Page=0'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.monitor.v1.events.each(() => done());
+    }
+  );
+  it('should treat the second arg as a callback',
+    function(done) {
+      var body = JSON.stringify({
+          'events': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'actor_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'actor_type': 'account',
+                  'description': null,
+                  'event_data': {
+                      'friendly_name': {
+                          'previous': 'SubAccount Created at 2014-10-03 09:48 am',
+                          'updated': 'Mr. Friendly'
+                      }
+                  },
+                  'event_date': '2014-10-03T16:48:25Z',
+                  'event_type': 'account.updated',
+                  'links': {
+                      'actor': 'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                      'resource': 'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  },
+                  'resource_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'resource_type': 'account',
+                  'sid': 'AEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'source': 'api',
+                  'source_ip_address': '10.86.6.250',
+                  'url': 'https://monitor.twilio.com/v1/Events/AEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ],
+          'meta': {
+              'first_page_url': 'https://monitor.twilio.com/v1/Events?PageSize=50&Page=0',
+              'key': 'events',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://monitor.twilio.com/v1/Events?PageSize=50&Page=0'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.monitor.v1.events.each({pageSize: 20}, () => done());
+      holodeck.assertHasRequest(new Request({
+          method: 'GET',
+          url: 'https://monitor.twilio.com/v1/Events',
+          params: {PageSize: 20},
+      }));
+    }
+  );
+  it('should find the callback in the opts object',
+    function(done) {
+      var body = JSON.stringify({
+          'events': [
+              {
+                  'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'actor_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'actor_type': 'account',
+                  'description': null,
+                  'event_data': {
+                      'friendly_name': {
+                          'previous': 'SubAccount Created at 2014-10-03 09:48 am',
+                          'updated': 'Mr. Friendly'
+                      }
+                  },
+                  'event_date': '2014-10-03T16:48:25Z',
+                  'event_type': 'account.updated',
+                  'links': {
+                      'actor': 'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                      'resource': 'https://api.twilio.com/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+                  },
+                  'resource_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'resource_type': 'account',
+                  'sid': 'AEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'source': 'api',
+                  'source_ip_address': '10.86.6.250',
+                  'url': 'https://monitor.twilio.com/v1/Events/AEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+              }
+          ],
+          'meta': {
+              'first_page_url': 'https://monitor.twilio.com/v1/Events?PageSize=50&Page=0',
+              'key': 'events',
+              'next_page_url': null,
+              'page': 0,
+              'page_size': 50,
+              'previous_page_url': null,
+              'url': 'https://monitor.twilio.com/v1/Events?PageSize=50&Page=0'
+          }
+      });
+      holodeck.mock(new Response(200, body));
+      client.monitor.v1.events.each({callback: () => done()}, () => fail('wrong callback!'));
     }
   );
   it('should generate valid list request',
@@ -190,4 +324,3 @@ describe('Event', function() {
     }
   );
 });
-

@@ -26,7 +26,7 @@ var holodeck;
 describe('Notification', function() {
   beforeEach(function() {
     holodeck = new Holodeck();
-    client = new Twilio('ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'AUTHTOKEN', {
+    client = new Twilio('ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'AUTHTOKEN', {
       httpClient: holodeck
     });
   });
@@ -34,7 +34,7 @@ describe('Notification', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.notify.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.notify.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .notifications.create();
       promise = promise.then(function() {
         throw new Error('failed');
@@ -43,7 +43,7 @@ describe('Notification', function() {
       });
       promise.done();
 
-      var solution = {serviceSid: 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'};
+      var solution = {serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
       var url = _.template('https://notify.twilio.com/v1/Services/<%= serviceSid %>/Notifications')(solution);
 
       holodeck.assertHasRequest(new Request({
@@ -81,7 +81,7 @@ describe('Notification', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var promise = client.notify.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.notify.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .notifications.create();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -119,7 +119,7 @@ describe('Notification', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var promise = client.notify.v1.services('ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      var promise = client.notify.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                     .notifications.create();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
@@ -131,4 +131,3 @@ describe('Notification', function() {
     }
   );
 });
-
