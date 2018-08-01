@@ -5,6 +5,7 @@
  *       /       /
  */
 
+import Preview = require('../Preview');
 import Version = require('../../base/Version');
 import { CommandList } from './wireless/command';
 import { RatePlanList } from './wireless/ratePlan';
@@ -21,7 +22,7 @@ declare class Wireless extends Version {
    *
    * @param domain - The twilio domain
    */
-  constructor(domain: Twilio.Preview);
+  constructor(domain: Preview);
 
   commands?: Twilio.Preview.Wireless.CommandList;
   ratePlans?: Twilio.Preview.Wireless.RatePlanList;

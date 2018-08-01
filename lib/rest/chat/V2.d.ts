@@ -5,6 +5,7 @@
  *       /       /
  */
 
+import Chat = require('../Chat');
 import Version = require('../../base/Version');
 import { CredentialList } from './v2/credential';
 import { ServiceList } from './v2/service';
@@ -19,7 +20,7 @@ declare class V2 extends Version {
    *
    * @param domain - The twilio domain
    */
-  constructor(domain: Twilio.Chat);
+  constructor(domain: Chat);
 
   credentials?: Twilio.Chat.V2.CredentialList;
   services?: Twilio.Chat.V2.ServiceList;

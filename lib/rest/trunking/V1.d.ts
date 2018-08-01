@@ -5,6 +5,7 @@
  *       /       /
  */
 
+import Trunking = require('../Trunking');
 import Version = require('../../base/Version');
 import { TrunkList } from './v1/trunk';
 
@@ -17,7 +18,7 @@ declare class V1 extends Version {
    *
    * @param domain - The twilio domain
    */
-  constructor(domain: Twilio.Trunking);
+  constructor(domain: Trunking);
 
   trunks?: Twilio.Trunking.V1.TrunkList;
 }

@@ -5,6 +5,7 @@
  *       /       /
  */
 
+import Proxy = require('../Proxy');
 import Version = require('../../base/Version');
 import { ServiceList } from './v1/service';
 
@@ -17,7 +18,7 @@ declare class V1 extends Version {
    *
    * @param domain - The twilio domain
    */
-  constructor(domain: Twilio.Proxy);
+  constructor(domain: Proxy);
 
   services?: Twilio.Proxy.V1.ServiceList;
 }

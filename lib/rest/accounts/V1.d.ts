@@ -5,6 +5,7 @@
  *       /       /
  */
 
+import Accounts = require('../Accounts');
 import Version = require('../../base/Version');
 import { CredentialList } from './v1/credential';
 
@@ -17,7 +18,7 @@ declare class V1 extends Version {
    *
    * @param domain - The twilio domain
    */
-  constructor(domain: Twilio.Accounts);
+  constructor(domain: Accounts);
 
   credentials?: Twilio.Accounts.V1.CredentialList;
 }

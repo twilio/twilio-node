@@ -6,6 +6,7 @@
  */
 
 import Version = require('../../base/Version');
+import Video = require('../Video');
 import { CompositionList } from './v1/composition';
 import { CompositionSettingsList } from './v1/compositionSettings';
 import { RecordingList } from './v1/recording';
@@ -25,7 +26,7 @@ declare class V1 extends Version {
    *
    * @param domain - The twilio domain
    */
-  constructor(domain: Twilio.Video);
+  constructor(domain: Video);
 
   compositionSettings?: Twilio.Video.V1.CompositionSettingsList;
   compositions?: Twilio.Video.V1.CompositionList;

@@ -5,6 +5,7 @@
  *       /       /
  */
 
+import Sync = require('../Sync');
 import Version = require('../../base/Version');
 import { ServiceList } from './v1/service';
 
@@ -17,7 +18,7 @@ declare class V1 extends Version {
    *
    * @param domain - The twilio domain
    */
-  constructor(domain: Twilio.Sync);
+  constructor(domain: Sync);
 
   services?: Twilio.Sync.V1.ServiceList;
 }

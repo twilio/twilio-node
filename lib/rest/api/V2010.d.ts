@@ -5,6 +5,7 @@
  *       /       /
  */
 
+import Api = require('../Api');
 import Version = require('../../base/Version');
 import { AccountContext } from './v2010/account';
 import { AccountList } from './v2010/account';
@@ -42,7 +43,7 @@ declare class V2010 extends Version {
    *
    * @param domain - The twilio domain
    */
-  constructor(domain: Twilio.Api);
+  constructor(domain: Api);
 
   account?: Twilio.Api.V2010.AccountContext;
   accounts?: Twilio.Api.V2010.AccountList;

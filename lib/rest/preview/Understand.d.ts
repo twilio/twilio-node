@@ -5,6 +5,7 @@
  *       /       /
  */
 
+import Preview = require('../Preview');
 import Version = require('../../base/Version');
 import { AssistantList } from './understand/assistant';
 
@@ -17,7 +18,7 @@ declare class Understand extends Version {
    *
    * @param domain - The twilio domain
    */
-  constructor(domain: Twilio.Preview);
+  constructor(domain: Preview);
 
   assistants?: Twilio.Preview.Understand.AssistantList;
 }

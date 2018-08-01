@@ -5,6 +5,7 @@
  *       /       /
  */
 
+import Monitor = require('../Monitor');
 import Version = require('../../base/Version');
 import { AlertList } from './v1/alert';
 import { EventList } from './v1/event';
@@ -19,7 +20,7 @@ declare class V1 extends Version {
    *
    * @param domain - The twilio domain
    */
-  constructor(domain: Twilio.Monitor);
+  constructor(domain: Monitor);
 
   alerts?: Twilio.Monitor.V1.AlertList;
   events?: Twilio.Monitor.V1.EventList;

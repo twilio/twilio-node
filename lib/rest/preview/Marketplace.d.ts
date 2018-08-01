@@ -5,6 +5,7 @@
  *       /       /
  */
 
+import Preview = require('../Preview');
 import Version = require('../../base/Version');
 import { AvailableAddOnList } from './marketplace/availableAddOn';
 import { InstalledAddOnList } from './marketplace/installedAddOn';
@@ -19,7 +20,7 @@ declare class Marketplace extends Version {
    *
    * @param domain - The twilio domain
    */
-  constructor(domain: Twilio.Preview);
+  constructor(domain: Preview);
 
   availableAddOns?: Twilio.Preview.Marketplace.AvailableAddOnList;
   installedAddOns?: Twilio.Preview.Marketplace.InstalledAddOnList;

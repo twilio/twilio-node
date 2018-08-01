@@ -5,6 +5,7 @@
  *       /       /
  */
 
+import Taskrouter = require('../Taskrouter');
 import Version = require('../../base/Version');
 import { WorkspaceList } from './v1/workspace';
 
@@ -17,7 +18,7 @@ declare class V1 extends Version {
    *
    * @param domain - The twilio domain
    */
-  constructor(domain: Twilio.Taskrouter);
+  constructor(domain: Taskrouter);
 
   workspaces?: Twilio.Taskrouter.V1.WorkspaceList;
 }

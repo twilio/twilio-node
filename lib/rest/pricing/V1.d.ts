@@ -5,6 +5,7 @@
  *       /       /
  */
 
+import Pricing = require('../Pricing');
 import Version = require('../../base/Version');
 import { MessagingList } from './v1/messaging';
 import { PhoneNumberList } from './v1/phoneNumber';
@@ -21,7 +22,7 @@ declare class V1 extends Version {
    *
    * @param domain - The twilio domain
    */
-  constructor(domain: Twilio.Pricing);
+  constructor(domain: Pricing);
 
   messaging?: Twilio.Pricing.V1.MessagingList;
   phoneNumbers?: Twilio.Pricing.V1.PhoneNumberList;

@@ -5,6 +5,7 @@
  *       /       /
  */
 
+import IpMessaging = require('../IpMessaging');
 import Version = require('../../base/Version');
 import { CredentialList } from './v2/credential';
 import { ServiceList } from './v2/service';
@@ -19,7 +20,7 @@ declare class V2 extends Version {
    *
    * @param domain - The twilio domain
    */
-  constructor(domain: Twilio.IpMessaging);
+  constructor(domain: IpMessaging);
 
   credentials?: Twilio.IpMessaging.V2.CredentialList;
   services?: Twilio.IpMessaging.V2.ServiceList;

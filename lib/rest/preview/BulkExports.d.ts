@@ -5,6 +5,7 @@
  *       /       /
  */
 
+import Preview = require('../Preview');
 import Version = require('../../base/Version');
 import { ExportConfigurationList } from './bulk_exports/exportConfiguration';
 import { ExportList } from './bulk_exports/export';
@@ -19,7 +20,7 @@ declare class BulkExports extends Version {
    *
    * @param domain - The twilio domain
    */
-  constructor(domain: Twilio.Preview);
+  constructor(domain: Preview);
 
   exportConfiguration?: Twilio.Preview.BulkExports.ExportConfigurationList;
   exports?: Twilio.Preview.BulkExports.ExportList;

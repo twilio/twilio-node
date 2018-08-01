@@ -5,6 +5,7 @@
  *       /       /
  */
 
+import Fax = require('../Fax');
 import Version = require('../../base/Version');
 import { FaxList } from './v1/fax';
 
@@ -17,7 +18,7 @@ declare class V1 extends Version {
    *
    * @param domain - The twilio domain
    */
-  constructor(domain: Twilio.Fax);
+  constructor(domain: Fax);
 
   faxes?: Twilio.Fax.V1.FaxList;
 }

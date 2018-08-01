@@ -5,6 +5,7 @@
  *       /       /
  */
 
+import Preview = require('../Preview');
 import Version = require('../../base/Version');
 import { FleetList } from './deployed_devices/fleet';
 
@@ -17,7 +18,7 @@ declare class DeployedDevices extends Version {
    *
    * @param domain - The twilio domain
    */
-  constructor(domain: Twilio.Preview);
+  constructor(domain: Preview);
 
   fleets?: Twilio.Preview.DeployedDevices.FleetList;
 }

@@ -5,6 +5,7 @@
  *       /       /
  */
 
+import Preview = require('../Preview');
 import Version = require('../../base/Version');
 import { AuthorizationDocumentList } from './hosted_numbers/authorizationDocument';
 import { HostedNumberOrderList } from './hosted_numbers/hostedNumberOrder';
@@ -19,7 +20,7 @@ declare class HostedNumbers extends Version {
    *
    * @param domain - The twilio domain
    */
-  constructor(domain: Twilio.Preview);
+  constructor(domain: Preview);
 
   authorizationDocuments?: Twilio.Preview.HostedNumbers.AuthorizationDocumentList;
   hostedNumberOrders?: Twilio.Preview.HostedNumbers.HostedNumberOrderList;

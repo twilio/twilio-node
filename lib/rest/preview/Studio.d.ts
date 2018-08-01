@@ -5,6 +5,7 @@
  *       /       /
  */
 
+import Preview = require('../Preview');
 import Version = require('../../base/Version');
 import { FlowList } from './studio/flow';
 
@@ -17,7 +18,7 @@ declare class Studio extends Version {
    *
    * @param domain - The twilio domain
    */
-  constructor(domain: Twilio.Preview);
+  constructor(domain: Preview);
 
   flows?: Twilio.Preview.Studio.FlowList;
 }

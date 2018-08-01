@@ -5,6 +5,7 @@
  *       /       /
  */
 
+import Lookups = require('../Lookups');
 import Version = require('../../base/Version');
 import { PhoneNumberList } from './v1/phoneNumber';
 
@@ -17,7 +18,7 @@ declare class V1 extends Version {
    *
    * @param domain - The twilio domain
    */
-  constructor(domain: Twilio.Lookups);
+  constructor(domain: Lookups);
 
   phoneNumbers?: Twilio.Lookups.V1.PhoneNumberList;
 }

@@ -5,6 +5,7 @@
  *       /       /
  */
 
+import Preview = require('../Preview');
 import Version = require('../../base/Version');
 import { ServiceList } from './acc_security/service';
 
@@ -17,7 +18,7 @@ declare class AccSecurity extends Version {
    *
    * @param domain - The twilio domain
    */
-  constructor(domain: Twilio.Preview);
+  constructor(domain: Preview);
 
   services?: Twilio.Preview.AccSecurity.ServiceList;
 }
