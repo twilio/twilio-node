@@ -45,7 +45,7 @@ declare class V2010 extends Version {
    */
   constructor(domain: Api);
 
-  account?: Twilio.Api.V2010.AccountContext;
+  account: AccountContext;
   readonly accounts: AccountList;
   addresses?: Twilio.Api.V2010.AccountContext.AddressList;
   applications?: Twilio.Api.V2010.AccountContext.ApplicationList;
