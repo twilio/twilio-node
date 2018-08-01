@@ -13,8 +13,6 @@ declare class V1 extends Version {
   /**
    * Initialize the V1 version of Taskrouter
    *
-   * @constructor Twilio.Taskrouter.V1
-   *
    * @property workspaces - workspaces resource
    *
    * @param domain - The twilio domain

@@ -15,8 +15,6 @@ declare class Wireless extends Version {
   /**
    * Initialize the Wireless version of Preview
    *
-   * @constructor Twilio.Preview.Wireless
-   *
    * @property commands - commands resource
    * @property ratePlans - ratePlans resource
    * @property sims - sims resource

@@ -13,8 +13,6 @@ declare class Understand extends Version {
   /**
    * Initialize the Understand version of Preview
    *
-   * @constructor Twilio.Preview.Understand
-   *
    * @property assistants - assistants resource
    *
    * @param domain - The twilio domain

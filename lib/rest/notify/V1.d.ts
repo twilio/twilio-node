@@ -14,8 +14,6 @@ declare class V1 extends Version {
   /**
    * Initialize the V1 version of Notify
    *
-   * @constructor Twilio.Notify.V1
-   *
    * @property credentials - credentials resource
    * @property services - services resource
    *

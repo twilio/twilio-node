@@ -14,8 +14,6 @@ declare class Marketplace extends Version {
   /**
    * Initialize the Marketplace version of Preview
    *
-   * @constructor Twilio.Preview.Marketplace
-   *
    * @property installedAddOns - installedAddOns resource
    * @property availableAddOns - availableAddOns resource
    *

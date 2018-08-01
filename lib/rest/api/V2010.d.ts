@@ -14,8 +14,6 @@ declare class V2010 extends Version {
   /**
    * Initialize the V2010 version of Api
    *
-   * @constructor Twilio.Api.V2010
-   *
    * @property accounts - accounts resource
    * @property account - account resource
    * @property addresses - addresses resource

@@ -14,8 +14,6 @@ declare class V1 extends Version {
   /**
    * Initialize the V1 version of Chat
    *
-   * @constructor Twilio.Chat.V1
-   *
    * @property credentials - credentials resource
    * @property services - services resource
    *

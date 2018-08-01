@@ -14,8 +14,6 @@ declare class BulkExports extends Version {
   /**
    * Initialize the BulkExports version of Preview
    *
-   * @constructor Twilio.Preview.BulkExports
-   *
    * @property exports - exports resource
    * @property exportConfiguration - exportConfiguration resource
    *

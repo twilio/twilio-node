@@ -15,8 +15,6 @@ declare class V1 extends Version {
   /**
    * Initialize the V1 version of Pricing
    *
-   * @constructor Twilio.Pricing.V1
-   *
    * @property messaging - messaging resource
    * @property phoneNumbers - phoneNumbers resource
    * @property voice - voice resource

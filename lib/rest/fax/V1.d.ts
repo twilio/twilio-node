@@ -13,8 +13,6 @@ declare class V1 extends Version {
   /**
    * Initialize the V1 version of Fax
    *
-   * @constructor Twilio.Fax.V1
-   *
    * @property faxes - faxes resource
    *
    * @param domain - The twilio domain

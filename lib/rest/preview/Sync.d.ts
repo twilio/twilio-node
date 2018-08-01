@@ -13,8 +13,6 @@ declare class Sync extends Version {
   /**
    * Initialize the Sync version of Preview
    *
-   * @constructor Twilio.Preview.Sync
-   *
    * @property services - services resource
    *
    * @param domain - The twilio domain

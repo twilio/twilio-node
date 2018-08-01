@@ -13,8 +13,6 @@ declare class Proxy extends Version {
   /**
    * Initialize the Proxy version of Preview
    *
-   * @constructor Twilio.Preview.Proxy
-   *
    * @property services - services resource
    *
    * @param domain - The twilio domain

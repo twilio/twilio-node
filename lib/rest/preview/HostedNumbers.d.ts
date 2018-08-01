@@ -14,8 +14,6 @@ declare class HostedNumbers extends Version {
   /**
    * Initialize the HostedNumbers version of Preview
    *
-   * @constructor Twilio.Preview.HostedNumbers
-   *
    * @property authorizationDocuments - authorizationDocuments resource
    * @property hostedNumberOrders - hostedNumberOrders resource
    *

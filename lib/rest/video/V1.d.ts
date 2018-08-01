@@ -17,8 +17,6 @@ declare class V1 extends Version {
   /**
    * Initialize the V1 version of Video
    *
-   * @constructor Twilio.Video.V1
-   *
    * @property compositionSettings - compositionSettings resource
    * @property recordings - recordings resource
    * @property recordingSettings - recordingSettings resource

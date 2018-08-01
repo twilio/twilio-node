@@ -13,8 +13,6 @@ declare class V1 extends Version {
   /**
    * Initialize the V1 version of Trunking
    *
-   * @constructor Twilio.Trunking.V1
-   *
    * @property trunks - trunks resource
    *
    * @param domain - The twilio domain

@@ -13,8 +13,6 @@ declare class V1 extends Version {
   /**
    * Initialize the V1 version of Studio
    *
-   * @constructor Twilio.Studio.V1
-   *
    * @property flows - flows resource
    *
    * @param domain - The twilio domain

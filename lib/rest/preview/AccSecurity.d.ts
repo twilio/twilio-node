@@ -13,8 +13,6 @@ declare class AccSecurity extends Version {
   /**
    * Initialize the AccSecurity version of Preview
    *
-   * @constructor Twilio.Preview.AccSecurity
-   *
    * @property services - services resource
    *
    * @param domain - The twilio domain

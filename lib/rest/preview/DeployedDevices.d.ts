@@ -13,8 +13,6 @@ declare class DeployedDevices extends Version {
   /**
    * Initialize the DeployedDevices version of Preview
    *
-   * @constructor Twilio.Preview.DeployedDevices
-   *
    * @property fleets - fleets resource
    *
    * @param domain - The twilio domain

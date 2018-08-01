@@ -14,8 +14,6 @@ declare class V2 extends Version {
   /**
    * Initialize the V2 version of IpMessaging
    *
-   * @constructor Twilio.IpMessaging.V2
-   *
    * @property credentials - credentials resource
    * @property services - services resource
    *

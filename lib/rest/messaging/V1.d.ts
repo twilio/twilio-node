@@ -13,8 +13,6 @@ declare class V1 extends Version {
   /**
    * Initialize the V1 version of Messaging
    *
-   * @constructor Twilio.Messaging.V1
-   *
    * @property services - services resource
    *
    * @param domain - The twilio domain

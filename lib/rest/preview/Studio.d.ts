@@ -13,8 +13,6 @@ declare class Studio extends Version {
   /**
    * Initialize the Studio version of Preview
    *
-   * @constructor Twilio.Preview.Studio
-   *
    * @property flows - flows resource
    *
    * @param domain - The twilio domain

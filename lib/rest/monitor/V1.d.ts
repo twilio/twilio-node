@@ -14,8 +14,6 @@ declare class V1 extends Version {
   /**
    * Initialize the V1 version of Monitor
    *
-   * @constructor Twilio.Monitor.V1
-   *
    * @property alerts - alerts resource
    * @property events - events resource
    *
