@@ -45,7 +45,8 @@
     "typescript": "^2.8.3"
   },
   "scripts": {
-    "test": "jasmine-node --captureExceptions spec",
+    "test": "npm run test:javascript && npm run test:typescript",
+    "test:javascript": "jasmine-node --captureExceptions spec",
     "test:typescript": "tsc examples/typescript/example.ts --noEmit --strict",
     "jshint": "jshint lib/rest/** lib/base/** lib/http/**",
     "jscs": "jscs -c .jscsrc lib/base/** lib/http/** --fix",
