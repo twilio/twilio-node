@@ -20,7 +20,7 @@ declare class Understand extends Version {
    */
   constructor(domain: Preview);
 
-  assistants?: Twilio.Preview.Understand.AssistantList;
+  readonly assistants: AssistantList;
 }
 
 export = Understand;

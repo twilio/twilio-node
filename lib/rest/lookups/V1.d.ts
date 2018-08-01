@@ -20,7 +20,7 @@ declare class V1 extends Version {
    */
   constructor(domain: Lookups);
 
-  phoneNumbers?: Twilio.Lookups.V1.PhoneNumberList;
+  readonly phoneNumbers: PhoneNumberList;
 }
 
 export = V1;

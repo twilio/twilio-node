@@ -22,8 +22,8 @@ declare class V2 extends Version {
    */
   constructor(domain: IpMessaging);
 
-  credentials?: Twilio.IpMessaging.V2.CredentialList;
-  services?: Twilio.IpMessaging.V2.ServiceList;
+  readonly credentials: CredentialList;
+  readonly services: ServiceList;
 }
 
 export = V2;

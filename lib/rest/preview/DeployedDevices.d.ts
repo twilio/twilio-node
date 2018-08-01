@@ -20,7 +20,7 @@ declare class DeployedDevices extends Version {
    */
   constructor(domain: Preview);
 
-  fleets?: Twilio.Preview.DeployedDevices.FleetList;
+  readonly fleets: FleetList;
 }
 
 export = DeployedDevices;

@@ -22,8 +22,8 @@ declare class V1 extends Version {
    */
   constructor(domain: Chat);
 
-  credentials?: Twilio.Chat.V1.CredentialList;
-  services?: Twilio.Chat.V1.ServiceList;
+  readonly credentials: CredentialList;
+  readonly services: ServiceList;
 }
 
 export = V1;

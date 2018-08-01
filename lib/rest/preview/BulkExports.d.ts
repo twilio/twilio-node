@@ -22,8 +22,8 @@ declare class BulkExports extends Version {
    */
   constructor(domain: Preview);
 
-  exportConfiguration?: Twilio.Preview.BulkExports.ExportConfigurationList;
-  exports?: Twilio.Preview.BulkExports.ExportList;
+  readonly exportConfiguration: ExportConfigurationList;
+  readonly exports: ExportList;
 }
 
 export = BulkExports;

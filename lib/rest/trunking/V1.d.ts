@@ -20,7 +20,7 @@ declare class V1 extends Version {
    */
   constructor(domain: Trunking);
 
-  trunks?: Twilio.Trunking.V1.TrunkList;
+  readonly trunks: TrunkList;
 }
 
 export = V1;

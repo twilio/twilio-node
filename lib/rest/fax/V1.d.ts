@@ -20,7 +20,7 @@ declare class V1 extends Version {
    */
   constructor(domain: Fax);
 
-  faxes?: Twilio.Fax.V1.FaxList;
+  readonly faxes: FaxList;
 }
 
 export = V1;

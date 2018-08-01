@@ -22,8 +22,8 @@ declare class V1 extends Version {
    */
   constructor(domain: Monitor);
 
-  alerts?: Twilio.Monitor.V1.AlertList;
-  events?: Twilio.Monitor.V1.EventList;
+  readonly alerts: AlertList;
+  readonly events: EventList;
 }
 
 export = V1;

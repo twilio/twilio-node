@@ -20,7 +20,7 @@ declare class Sync extends Version {
    */
   constructor(domain: Preview);
 
-  services?: Twilio.Preview.Sync.ServiceList;
+  readonly services: ServiceList;
 }
 
 export = Sync;

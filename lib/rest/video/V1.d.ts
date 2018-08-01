@@ -28,11 +28,11 @@ declare class V1 extends Version {
    */
   constructor(domain: Video);
 
-  compositionSettings?: Twilio.Video.V1.CompositionSettingsList;
-  compositions?: Twilio.Video.V1.CompositionList;
-  recordingSettings?: Twilio.Video.V1.RecordingSettingsList;
-  recordings?: Twilio.Video.V1.RecordingList;
-  rooms?: Twilio.Video.V1.RoomList;
+  readonly compositionSettings: CompositionSettingsList;
+  readonly compositions: CompositionList;
+  readonly recordingSettings: RecordingSettingsList;
+  readonly recordings: RecordingList;
+  readonly rooms: RoomList;
 }
 
 export = V1;

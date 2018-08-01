@@ -20,7 +20,7 @@ declare class V1 extends Version {
    */
   constructor(domain: Sync);
 
-  services?: Twilio.Sync.V1.ServiceList;
+  readonly services: ServiceList;
 }
 
 export = V1;

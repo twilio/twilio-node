@@ -20,7 +20,7 @@ declare class V1 extends Version {
    */
   constructor(domain: Studio);
 
-  flows?: Twilio.Studio.V1.FlowList;
+  readonly flows: FlowList;
 }
 
 export = V1;

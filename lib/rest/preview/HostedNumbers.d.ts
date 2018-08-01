@@ -22,8 +22,8 @@ declare class HostedNumbers extends Version {
    */
   constructor(domain: Preview);
 
-  authorizationDocuments?: Twilio.Preview.HostedNumbers.AuthorizationDocumentList;
-  hostedNumberOrders?: Twilio.Preview.HostedNumbers.HostedNumberOrderList;
+  readonly authorizationDocuments: AuthorizationDocumentList;
+  readonly hostedNumberOrders: HostedNumberOrderList;
 }
 
 export = HostedNumbers;

@@ -22,8 +22,8 @@ declare class Marketplace extends Version {
    */
   constructor(domain: Preview);
 
-  availableAddOns?: Twilio.Preview.Marketplace.AvailableAddOnList;
-  installedAddOns?: Twilio.Preview.Marketplace.InstalledAddOnList;
+  readonly availableAddOns: AvailableAddOnList;
+  readonly installedAddOns: InstalledAddOnList;
 }
 
 export = Marketplace;

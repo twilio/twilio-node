@@ -20,7 +20,7 @@ declare class V1 extends Version {
    */
   constructor(domain: Accounts);
 
-  credentials?: Twilio.Accounts.V1.CredentialList;
+  readonly credentials: CredentialList;
 }
 
 export = V1;

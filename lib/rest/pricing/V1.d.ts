@@ -24,9 +24,9 @@ declare class V1 extends Version {
    */
   constructor(domain: Pricing);
 
-  messaging?: Twilio.Pricing.V1.MessagingList;
-  phoneNumbers?: Twilio.Pricing.V1.PhoneNumberList;
-  voice?: Twilio.Pricing.V1.VoiceList;
+  readonly messaging: MessagingList;
+  readonly phoneNumbers: PhoneNumberList;
+  readonly voice: VoiceList;
 }
 
 export = V1;

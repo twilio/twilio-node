@@ -24,9 +24,9 @@ declare class V1 extends Version {
    */
   constructor(domain: Wireless);
 
-  commands?: Twilio.Wireless.V1.CommandList;
-  ratePlans?: Twilio.Wireless.V1.RatePlanList;
-  sims?: Twilio.Wireless.V1.SimList;
+  readonly commands: CommandList;
+  readonly ratePlans: RatePlanList;
+  readonly sims: SimList;
 }
 
 export = V1;

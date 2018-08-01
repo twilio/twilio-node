@@ -20,7 +20,7 @@ declare class V1 extends Version {
    */
   constructor(domain: Taskrouter);
 
-  workspaces?: Twilio.Taskrouter.V1.WorkspaceList;
+  readonly workspaces: WorkspaceList;
 }
 
 export = V1;

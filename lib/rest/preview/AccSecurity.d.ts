@@ -20,7 +20,7 @@ declare class AccSecurity extends Version {
    */
   constructor(domain: Preview);
 
-  services?: Twilio.Preview.AccSecurity.ServiceList;
+  readonly services: ServiceList;
 }
 
 export = AccSecurity;

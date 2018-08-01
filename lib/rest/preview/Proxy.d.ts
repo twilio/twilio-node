@@ -20,7 +20,7 @@ declare class Proxy extends Version {
    */
   constructor(domain: Preview);
 
-  services?: Twilio.Preview.Proxy.ServiceList;
+  readonly services: ServiceList;
 }
 
 export = Proxy;
