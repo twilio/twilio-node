@@ -1,6 +1,7 @@
 import * as _ from 'lodash';
 import twilio = require('../../');
-import { MessageListInstanceCreateOptions } from '../../lib/rest/api/v2010/account/message';
+import {MessageListInstance, MessageListInstanceCreateOptions} from '../../lib/rest/api/v2010/account/message';
+import {CallInstance} from "../../lib/rest/api/v2010/account/call";
 
 const accountSid: string = process.env.TWILIO_ACCOUNT_SID || '';
 const token: string = process.env.TWILIO_AUTH_TOKEN || '';
@@ -10,20 +11,20 @@ const client = twilio(accountSid, token);
 let i: number = 0;
 client.calls.each({
   pageSize: 7,
-  callback: (call, done) => {
+  callback: (call: CallInstance, done: (err?: Error) => void) => {
     console.log(call.sid);
     i++;
     if (i === 10) {
       done();
     }
   },
-  done: err => {
+  done: (err: Error) => {
     console.log('je suis fini');
     console.log(err);
   }
 });
 
-client.calls.each(call => {
+client.calls.each((call: CallInstance) => {
   console.log(call.sid);
 });
 
@@ -38,7 +39,7 @@ const msgData: MessageListInstanceCreateOptions = {
 
 // Send message using callback
 client.messages.create(msgData,
-  (err, result) => {
+  (err: Error, result: MessageListInstance) => {
     console.log('Created message using callback');
     console.log(result.sid);
   }
