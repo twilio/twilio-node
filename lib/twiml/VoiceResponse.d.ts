@@ -514,11 +514,11 @@ declare namespace VoiceResponse {
   /**
    * Options to pass to ssmlSayAs
    *
-   * @property interpret-As - Specify the type of words are spoken
+   * @property interpret-as - Specify the type of words are spoken
    * @property role - Specify the format of the date when interpret-as is set to date
    */
   export interface SsmlSayAsAttributes {
-    interpret-As?: SsmlSayAsInterpretAs;
+    "interpret-as"?: SsmlSayAsInterpretAs;
     role?: SsmlSayAsRole;
   }
 
