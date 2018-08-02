@@ -481,10 +481,10 @@ declare namespace VoiceResponse {
   /**
    * Options to pass to ssmlLang
    *
-   * @property xml:Lang - Specify the language
+   * @property xml:lang - Specify the language
    */
   export interface SsmlLangAttributes {
-    xml:Lang?: SsmlLangXmlLang;
+    "xml:lang"?: SsmlLangXmlLang;
   }
 
   /**
