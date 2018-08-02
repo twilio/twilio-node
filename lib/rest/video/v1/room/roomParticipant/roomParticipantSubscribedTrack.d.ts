@@ -11,6 +11,10 @@ import V1 = require('../../../V1');
 import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
 
+type SubscribedTrackKind = 'audio'|'video'|'data';
+
+type SubscribedTrackStatus = 'subscribe'|'unsubscribe';
+
 /**
  * @description Initialize the SubscribedTrackList
  *

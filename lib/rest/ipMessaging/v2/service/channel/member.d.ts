@@ -11,6 +11,8 @@ import V2 = require('../../../V2');
 import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
 
+type MemberWebhookEnabledType = 'true'|'false';
+
 /**
  * @description Initialize the MemberList
  *

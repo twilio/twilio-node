@@ -11,6 +11,10 @@ import V2 = require('../../../V2');
 import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
 
+type MessageOrderType = 'asc'|'desc';
+
+type MessageWebhookEnabledType = 'true'|'false';
+
 /**
  * @description Initialize the MessageList
  *

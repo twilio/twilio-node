@@ -13,6 +13,8 @@ import { EngagementContextList } from './engagement/engagementContext';
 import { SerializableClass } from '../../../../interfaces';
 import { StepList } from './engagement/step';
 
+type EngagementStatus = 'active'|'ended';
+
 /**
  * @description Initialize the EngagementList
  * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.

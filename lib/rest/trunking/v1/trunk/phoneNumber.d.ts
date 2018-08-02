@@ -10,6 +10,8 @@ import Response = require('../../../../http/response');
 import V1 = require('../../V1');
 import { SerializableClass } from '../../../../interfaces';
 
+type PhoneNumberAddressRequirement = 'none'|'any'|'local'|'foreign';
+
 /**
  * @description Initialize the PhoneNumberList
  *

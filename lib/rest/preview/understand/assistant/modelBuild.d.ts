@@ -10,6 +10,8 @@ import Response = require('../../../../http/response');
 import Understand = require('../../Understand');
 import { SerializableClass } from '../../../../interfaces';
 
+type ModelBuildStatus = 'enqueued'|'building'|'completed'|'failed'|'canceled';
+
 /**
  * @description Initialize the ModelBuildList
  * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.

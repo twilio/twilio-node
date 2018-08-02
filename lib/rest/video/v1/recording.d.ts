@@ -11,6 +11,14 @@ import V1 = require('../V1');
 import serialize = require('../../../base/serialize');
 import { SerializableClass } from '../../../interfaces';
 
+type RecordingCodec = 'VP8'|'H264'|'OPUS'|'PCMU';
+
+type RecordingFormat = 'mka'|'mkv';
+
+type RecordingStatus = 'processing'|'completed'|'deleted'|'failed';
+
+type RecordingType = 'audio'|'video'|'data';
+
 /**
  * @description Initialize the RecordingList
  *

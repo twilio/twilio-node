@@ -11,6 +11,10 @@ import Sync = require('../../../Sync');
 import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
 
+type SyncMapItemQueryFromBoundType = 'inclusive'|'exclusive';
+
+type SyncMapItemQueryResultOrder = 'asc'|'desc';
+
 /**
  * @description Initialize the SyncMapItemList
  * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.

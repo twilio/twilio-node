@@ -11,6 +11,8 @@ import V1 = require('../../V1');
 import serialize = require('../../../../base/serialize');
 import { SerializableClass } from '../../../../interfaces';
 
+type UsageRecordGranularity = 'hourly'|'daily'|'all';
+
 /**
  * @description Initialize the UsageRecordList
  *

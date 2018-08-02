@@ -11,6 +11,10 @@ import V2010 = require('../../../V2010');
 import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
 
+type RecordingSource = 'DialVerb'|'Conference'|'OutboundAPI'|'Trunking'|'RecordVerb'|'StartCallRecordingAPI'|'StartConferenceRecordingAPI';
+
+type RecordingStatus = 'in-progress'|'paused'|'stopped'|'processing'|'completed'|'failed';
+
 /**
  * @description Initialize the RecordingList
  *

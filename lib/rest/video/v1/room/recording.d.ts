@@ -11,6 +11,14 @@ import V1 = require('../../V1');
 import serialize = require('../../../../base/serialize');
 import { SerializableClass } from '../../../../interfaces';
 
+type RoomRecordingCodec = 'VP8'|'H264'|'OPUS'|'PCMU';
+
+type RoomRecordingFormat = 'mka'|'mkv';
+
+type RoomRecordingStatus = 'processing'|'completed'|'deleted'|'failed';
+
+type RoomRecordingType = 'audio'|'video'|'data';
+
 /**
  * @description Initialize the RoomRecordingList
  *

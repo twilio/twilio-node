@@ -12,6 +12,12 @@ import serialize = require('../../../../base/serialize');
 import { AssignedAddOnList } from './incomingPhoneNumber/assignedAddOn';
 import { SerializableClass } from '../../../../interfaces';
 
+type IncomingPhoneNumberAddressRequirement = 'none'|'any'|'local'|'foreign';
+
+type IncomingPhoneNumberEmergencyStatus = 'Active'|'Inactive';
+
+type IncomingPhoneNumberVoiceReceiveMode = 'voice'|'fax';
+
 /**
  * @description Initialize the IncomingPhoneNumberList
  *

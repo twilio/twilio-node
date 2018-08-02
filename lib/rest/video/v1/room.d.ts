@@ -13,6 +13,12 @@ import { ParticipantList } from './room/roomParticipant';
 import { RoomRecordingList } from './room/recording';
 import { SerializableClass } from '../../../interfaces';
 
+type RoomRoomStatus = 'in-progress'|'completed'|'failed';
+
+type RoomRoomType = 'peer-to-peer'|'group'|'group-small';
+
+type RoomVideoCodec = 'VP8'|'H264';
+
 /**
  * @description Initialize the RoomList
  *

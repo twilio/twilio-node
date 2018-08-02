@@ -11,6 +11,8 @@ import V1 = require('../V1');
 import serialize = require('../../../base/serialize');
 import { SerializableClass } from '../../../interfaces';
 
+type CredentialPushService = 'gcm'|'apn'|'fcm';
+
 /**
  * @description Initialize the CredentialList
  * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.

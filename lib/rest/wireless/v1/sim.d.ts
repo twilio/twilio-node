@@ -12,6 +12,8 @@ import { DataSessionList } from './sim/dataSession';
 import { SerializableClass } from '../../../interfaces';
 import { UsageRecordList } from './sim/usageRecord';
 
+type SimStatus = 'new'|'ready'|'active'|'suspended'|'deactivated'|'canceled'|'scheduled'|'updating';
+
 /**
  * @description Initialize the SimList
  *

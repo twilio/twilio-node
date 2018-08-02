@@ -15,6 +15,8 @@ import { OriginationUrlList } from './trunk/originationUrl';
 import { PhoneNumberList } from './trunk/phoneNumber';
 import { SerializableClass } from '../../../interfaces';
 
+type TrunkRecordingSetting = 'do-not-record'|'record-from-ringing'|'record-from-answer';
+
 /**
  * @description Initialize the TrunkList
  *

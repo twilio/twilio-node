@@ -10,6 +10,8 @@ import Response = require('../../../../http/response');
 import V2010 = require('../../V2010');
 import { SerializableClass } from '../../../../interfaces';
 
+type TranscriptionStatus = 'in-progress'|'completed'|'failed';
+
 /**
  * @description Initialize the TranscriptionList
  *

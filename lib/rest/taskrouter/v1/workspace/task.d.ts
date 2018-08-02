@@ -12,6 +12,8 @@ import serialize = require('../../../../base/serialize');
 import { ReservationList } from './task/reservation';
 import { SerializableClass } from '../../../../interfaces';
 
+type TaskStatus = 'pending'|'reserved'|'assigned'|'canceled'|'completed'|'wrapping';
+
 /**
  * @description Initialize the TaskList
  *

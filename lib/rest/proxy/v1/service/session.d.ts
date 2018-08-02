@@ -13,6 +13,10 @@ import { InteractionList } from './session/interaction';
 import { ParticipantList } from './session/participant';
 import { SerializableClass } from '../../../../interfaces';
 
+type SessionMode = 'message-only'|'voice-only'|'voice-and-message';
+
+type SessionStatus = 'in-progress'|'closed'|'failed'|'unknown'|'completed';
+
 /**
  * @description Initialize the SessionList
  * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.

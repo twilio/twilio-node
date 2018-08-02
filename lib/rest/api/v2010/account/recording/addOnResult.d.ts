@@ -11,6 +11,8 @@ import V2010 = require('../../../V2010');
 import { PayloadList } from './addOnResult/payload';
 import { SerializableClass } from '../../../../../interfaces';
 
+type AddOnResultStatus = 'canceled'|'completed'|'deleted'|'failed'|'in-progress'|'init'|'processing'|'queued';
+
 /**
  * @description Initialize the AddOnResultList
  *

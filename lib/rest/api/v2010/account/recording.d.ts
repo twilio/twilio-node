@@ -13,6 +13,10 @@ import { AddOnResultList } from './recording/addOnResult';
 import { SerializableClass } from '../../../../interfaces';
 import { TranscriptionList } from './recording/transcription';
 
+type RecordingSource = 'DialVerb'|'Conference'|'OutboundAPI'|'Trunking'|'RecordVerb'|'StartCallRecordingAPI'|'StartConferenceRecordingAPI';
+
+type RecordingStatus = 'in-progress'|'paused'|'stopped'|'processing'|'completed'|'failed';
+
 /**
  * @description Initialize the RecordingList
  *

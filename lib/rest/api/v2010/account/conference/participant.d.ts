@@ -11,6 +11,8 @@ import V2010 = require('../../../V2010');
 import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
 
+type ParticipantStatus = 'queued'|'connecting'|'ringing'|'connected'|'complete'|'failed';
+
 /**
  * @description Initialize the ParticipantList
  *

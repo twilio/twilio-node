@@ -13,6 +13,10 @@ import { ParticipantList } from './conference/participant';
 import { RecordingList } from './conference/recording';
 import { SerializableClass } from '../../../../interfaces';
 
+type ConferenceStatus = 'init'|'in-progress'|'completed';
+
+type ConferenceUpdateStatus = 'completed';
+
 /**
  * @description Initialize the ConferenceList
  *

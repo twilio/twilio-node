@@ -14,6 +14,12 @@ import { NotificationList } from './call/notification';
 import { RecordingList } from './call/recording';
 import { SerializableClass } from '../../../../interfaces';
 
+type CallEvent = 'initiated'|'ringing'|'answered'|'completed';
+
+type CallStatus = 'queued'|'ringing'|'in-progress'|'completed'|'busy'|'failed'|'no-answer'|'canceled';
+
+type CallUpdateStatus = 'canceled'|'completed';
+
 /**
  * @description Initialize the CallList
  *

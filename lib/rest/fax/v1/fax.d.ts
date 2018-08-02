@@ -12,6 +12,14 @@ import serialize = require('../../../base/serialize');
 import { FaxMediaList } from './fax/faxMedia';
 import { SerializableClass } from '../../../interfaces';
 
+type FaxDirection = 'inbound'|'outbound';
+
+type FaxQuality = 'standard'|'fine'|'superfine';
+
+type FaxStatus = 'queued'|'processing'|'sending'|'delivered'|'receiving'|'received'|'no-answer'|'busy'|'failed'|'canceled';
+
+type FaxUpdateStatus = 'canceled';
+
 /**
  * @description Initialize the FaxList
  * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.

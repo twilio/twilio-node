@@ -13,6 +13,8 @@ import { ExecutionContextList } from './execution/executionContext';
 import { ExecutionStepList } from './execution/executionStep';
 import { SerializableClass } from '../../../../interfaces';
 
+type ExecutionStatus = 'active'|'ended';
+
 /**
  * @description Initialize the ExecutionList
  * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.

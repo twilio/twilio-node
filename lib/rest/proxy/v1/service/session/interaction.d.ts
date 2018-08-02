@@ -10,6 +10,10 @@ import Response = require('../../../../../http/response');
 import V1 = require('../../../V1');
 import { SerializableClass } from '../../../../../interfaces';
 
+type InteractionResourceStatus = 'accepted'|'answered'|'busy'|'canceled'|'completed'|'deleted'|'delivered'|'delivery-unknown'|'failed'|'in-progress'|'initiated'|'no-answer'|'queued'|'received'|'receiving'|'ringing'|'scheduled'|'sending'|'sent'|'undelivered'|'unknown';
+
+type InteractionType = 'message'|'voice'|'unknown';
+
 /**
  * @description Initialize the InteractionList
  * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.

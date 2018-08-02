@@ -11,6 +11,10 @@ import V2 = require('../../../V2');
 import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
 
+type WebhookMethod = 'GET'|'POST';
+
+type WebhookType = 'webhook'|'trigger'|'studio';
+
 /**
  * @description Initialize the WebhookList
  *

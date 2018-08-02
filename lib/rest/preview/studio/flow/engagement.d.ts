@@ -11,6 +11,8 @@ import Studio = require('../../Studio');
 import { SerializableClass } from '../../../../interfaces';
 import { StepList } from './engagement/step';
 
+type EngagementStatus = 'active'|'ended';
+
 /**
  * @description Initialize the EngagementList
  * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.

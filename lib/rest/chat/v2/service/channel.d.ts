@@ -15,6 +15,10 @@ import { MessageList } from './channel/message';
 import { SerializableClass } from '../../../../interfaces';
 import { WebhookList } from './channel/webhook';
 
+type ChannelChannelType = 'public'|'private';
+
+type ChannelWebhookEnabledType = 'true'|'false';
+
 /**
  * @description Initialize the ChannelList
  *

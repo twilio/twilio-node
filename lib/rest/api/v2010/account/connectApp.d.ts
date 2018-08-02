@@ -11,6 +11,8 @@ import V2010 = require('../../V2010');
 import serialize = require('../../../../base/serialize');
 import { SerializableClass } from '../../../../interfaces';
 
+type ConnectAppPermission = 'get-all'|'post-all';
+
 /**
  * @description Initialize the ConnectAppList
  *

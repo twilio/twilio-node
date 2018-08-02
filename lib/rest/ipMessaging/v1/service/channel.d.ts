@@ -14,6 +14,8 @@ import { MemberList } from './channel/member';
 import { MessageList } from './channel/message';
 import { SerializableClass } from '../../../../interfaces';
 
+type ChannelChannelType = 'public'|'private';
+
 /**
  * @description Initialize the ChannelList
  *

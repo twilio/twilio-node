@@ -33,6 +33,10 @@ import { TranscriptionList } from './account/transcription';
 import { UsageList } from './account/usage';
 import { ValidationRequestList } from './account/validationRequest';
 
+type AccountStatus = 'active'|'suspended'|'closed';
+
+type AccountType = 'Trial'|'Full';
+
 /**
  * @description Initialize the AccountList
  *

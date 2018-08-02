@@ -13,6 +13,8 @@ import { TaskQueueCumulativeStatisticsList } from './taskQueue/taskQueueCumulati
 import { TaskQueueRealTimeStatisticsList } from './taskQueue/taskQueueRealTimeStatistics';
 import { TaskQueueStatisticsList } from './taskQueue/taskQueueStatistics';
 
+type TaskQueueTaskOrder = 'FIFO'|'LIFO';
+
 /**
  * @description Initialize the TaskQueueList
  *

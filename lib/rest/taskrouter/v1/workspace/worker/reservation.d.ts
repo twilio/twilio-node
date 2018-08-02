@@ -11,6 +11,12 @@ import V1 = require('../../../V1');
 import serialize = require('../../../../../base/serialize');
 import { SerializableClass } from '../../../../../interfaces';
 
+type ReservationCallStatus = 'initiated'|'ringing'|'answered'|'completed';
+
+type ReservationConferenceEvent = 'start'|'end'|'join'|'leave'|'mute'|'hold'|'speaker';
+
+type ReservationStatus = 'pending'|'accepted'|'rejected'|'timeout'|'canceled'|'rescinded';
+
 /**
  * @description Initialize the ReservationList
  *

@@ -10,6 +10,12 @@ import Response = require('../../../http/response');
 import V1 = require('../V1');
 import { SerializableClass } from '../../../interfaces';
 
+type CommandCommandMode = 'text'|'binary';
+
+type CommandDirection = 'from_sim'|'to_sim';
+
+type CommandStatus = 'queued'|'sent'|'delivered'|'received'|'failed';
+
 /**
  * @description Initialize the CommandList
  *

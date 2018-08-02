@@ -14,6 +14,8 @@ import { PhoneNumberList } from './service/phoneNumber';
 import { SerializableClass } from '../../../interfaces';
 import { ShortCodeList } from './service/shortCode';
 
+type ServiceScanMessageContent = 'inherit'|'enable'|'disable';
+
 /**
  * @description Initialize the ServiceList
  * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.

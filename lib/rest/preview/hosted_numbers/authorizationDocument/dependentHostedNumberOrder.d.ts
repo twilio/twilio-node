@@ -10,6 +10,10 @@ import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import { SerializableClass } from '../../../../interfaces';
 
+type DependentHostedNumberOrderStatus = 'received'|'pending-verification'|'verified'|'pending-loa'|'carrier-processing'|'testing'|'completed'|'failed'|'action-required';
+
+type DependentHostedNumberOrderVerificationType = 'phone-call'|'phone-bill';
+
 /**
  * @description Initialize the DependentHostedNumberOrderList
  * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.

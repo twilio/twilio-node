@@ -13,6 +13,10 @@ import { SerializableClass } from '../../../interfaces';
 import { SessionList } from './service/session';
 import { ShortCodeList } from './service/shortCode';
 
+type ServiceGeoMatchLevel = 'area-code'|'overlay'|'radius'|'country';
+
+type ServiceNumberSelectionBehavior = 'avoid-sticky'|'prefer-sticky';
+
 /**
  * @description Initialize the ServiceList
  * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.

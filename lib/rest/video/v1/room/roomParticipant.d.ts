@@ -13,6 +13,8 @@ import { PublishedTrackList } from './roomParticipant/roomParticipantPublishedTr
 import { SerializableClass } from '../../../../interfaces';
 import { SubscribedTrackList } from './roomParticipant/roomParticipantSubscribedTrack';
 
+type ParticipantStatus = 'connected'|'disconnected';
+
 /**
  * @description Initialize the ParticipantList
  *

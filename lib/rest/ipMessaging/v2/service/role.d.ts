@@ -11,6 +11,8 @@ import V2 = require('../../V2');
 import serialize = require('../../../../base/serialize');
 import { SerializableClass } from '../../../../interfaces';
 
+type RoleRoleType = 'channel'|'deployment';
+
 /**
  * @description Initialize the RoleList
  *

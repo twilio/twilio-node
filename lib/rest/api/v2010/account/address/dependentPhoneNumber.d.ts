@@ -10,6 +10,10 @@ import Response = require('../../../../../http/response');
 import V2010 = require('../../../V2010');
 import { SerializableClass } from '../../../../../interfaces';
 
+type DependentPhoneNumberAddressRequirement = 'none'|'any'|'local'|'foreign';
+
+type DependentPhoneNumberEmergencyStatus = 'Active'|'Inactive';
+
 /**
  * @description Initialize the DependentPhoneNumberList
  *

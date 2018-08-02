@@ -10,6 +10,8 @@ import Response = require('../../../../../http/response');
 import V1 = require('../../../V1');
 import { SerializableClass } from '../../../../../interfaces';
 
+type UserChannelChannelStatus = 'joined'|'invited'|'not_participating';
+
 /**
  * @description Initialize the UserChannelList
  *

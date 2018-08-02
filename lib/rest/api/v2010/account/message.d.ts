@@ -13,6 +13,14 @@ import { FeedbackList } from './message/feedback';
 import { MediaList } from './message/media';
 import { SerializableClass } from '../../../../interfaces';
 
+type MessageAddressRetention = 'retain'|'discard';
+
+type MessageContentRetention = 'retain'|'discard';
+
+type MessageDirection = 'inbound'|'outbound-api'|'outbound-call'|'outbound-reply';
+
+type MessageStatus = 'queued'|'sending'|'sent'|'failed'|'delivered'|'undelivered'|'receiving'|'received'|'accepted';
+
 /**
  * @description Initialize the MessageList
  *

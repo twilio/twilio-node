@@ -12,6 +12,8 @@ import { SerializableClass } from '../../../../interfaces';
 import { UserBindingList } from './user/userBinding';
 import { UserChannelList } from './user/userChannel';
 
+type UserWebhookEnabledType = 'true'|'false';
+
 /**
  * @description Initialize the UserList
  *

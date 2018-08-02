@@ -12,6 +12,8 @@ import serialize = require('../../../base/serialize');
 import { DependentHostedNumberOrderList } from './authorizationDocument/dependentHostedNumberOrder';
 import { SerializableClass } from '../../../interfaces';
 
+type AuthorizationDocumentStatus = 'opened'|'signing'|'signed'|'canceled'|'failed';
+
 /**
  * @description Initialize the AuthorizationDocumentList
  * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.

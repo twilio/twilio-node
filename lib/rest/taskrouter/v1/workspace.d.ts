@@ -21,6 +21,8 @@ import { WorkspaceCumulativeStatisticsList } from './workspace/workspaceCumulati
 import { WorkspaceRealTimeStatisticsList } from './workspace/workspaceRealTimeStatistics';
 import { WorkspaceStatisticsList } from './workspace/workspaceStatistics';
 
+type WorkspaceQueueOrder = 'FIFO'|'LIFO';
+
 /**
  * @description Initialize the WorkspaceList
  *
