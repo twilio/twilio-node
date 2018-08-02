@@ -23,22 +23,22 @@ declare function FeedbackList(version: V2010, accountSid: string, callSid: strin
 /**
  * Options to pass to create
  *
- * @property qualityScore - An integer from 1 to 5
  * @property issue - Issues experienced during the call
+ * @property qualityScore - An integer from 1 to 5
  */
 interface FeedbackInstanceCreateOptions {
-  issue?: feedback.issues|list;
+  issue?: FeedbackIssues[];
   qualityScore: number;
 }
 
 /**
  * Options to pass to update
  *
- * @property qualityScore - An integer from 1 to 5
  * @property issue - Issues experienced during the call
+ * @property qualityScore - An integer from 1 to 5
  */
 interface FeedbackInstanceUpdateOptions {
-  issue?: feedback.issues|list;
+  issue?: FeedbackIssues[];
   qualityScore: number;
 }
 

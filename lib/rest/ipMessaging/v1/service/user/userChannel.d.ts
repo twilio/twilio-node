@@ -68,6 +68,10 @@ interface UserChannelListInstance {
 /**
  * Options to pass to each
  *
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -78,10 +82,6 @@ interface UserChannelListInstance {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
  */
 interface UserChannelListInstanceEachOptions {
   callback?: (item: UserChannelInstance, done: (err?: Error) => void) => void;
@@ -112,9 +112,9 @@ interface UserChannelListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
  */
 interface UserChannelListInstancePageOptions {
   pageNumber?: number;

@@ -32,9 +32,9 @@ interface VerificationListInstance {
 /**
  * Options to pass to create
  *
- * @property to - To phonenumber
  * @property channel - sms or call
  * @property customMessage - A custom message for this verification
+ * @property to - To phonenumber
  */
 interface VerificationListInstanceCreateOptions {
   channel: string;

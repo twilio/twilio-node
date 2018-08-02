@@ -25,13 +25,13 @@ declare function TrunkList(version: V1): TrunkListInstance;
 /**
  * Options to pass to update
  *
- * @property friendlyName - A human-readable name for the Trunk.
- * @property domainName - The unique address you reserve on Twilio to which you route your SIP traffic.
- * @property disasterRecoveryUrl - The HTTP URL that Twilio will request if an error occurs while sending SIP traffic towards your configured Origination URL.
+ * @property cnamLookupEnabled - The Caller ID Name (CNAM) lookup setting for this trunk.
  * @property disasterRecoveryMethod - The HTTP method Twilio will use when requesting the DisasterRecoveryUrl.
+ * @property disasterRecoveryUrl - The HTTP URL that Twilio will request if an error occurs while sending SIP traffic towards your configured Origination URL.
+ * @property domainName - The unique address you reserve on Twilio to which you route your SIP traffic.
+ * @property friendlyName - A human-readable name for the Trunk.
  * @property recording - The recording settings for this trunk.
  * @property secure - The Secure Trunking  settings for this trunk.
- * @property cnamLookupEnabled - The Caller ID Name (CNAM) lookup setting for this trunk.
  */
 interface TrunkInstanceUpdateOptions {
   cnamLookupEnabled?: boolean;
@@ -39,7 +39,7 @@ interface TrunkInstanceUpdateOptions {
   disasterRecoveryUrl?: string;
   domainName?: string;
   friendlyName?: string;
-  recording?: trunk.recording_setting;
+  recording?: TrunkRecordingSetting;
   secure?: boolean;
 }
 
@@ -109,13 +109,13 @@ interface TrunkListInstance {
 /**
  * Options to pass to create
  *
- * @property friendlyName - A human-readable name for the Trunk.
- * @property domainName - The unique address you reserve on Twilio to which you route your SIP traffic.
- * @property disasterRecoveryUrl - The HTTP URL that Twilio will request if an error occurs while sending SIP traffic towards your configured Origination URL.
+ * @property cnamLookupEnabled - The Caller ID Name (CNAM) lookup setting for this trunk.
  * @property disasterRecoveryMethod - The HTTP method Twilio will use when requesting the DisasterRecoveryUrl.
+ * @property disasterRecoveryUrl - The HTTP URL that Twilio will request if an error occurs while sending SIP traffic towards your configured Origination URL.
+ * @property domainName - The unique address you reserve on Twilio to which you route your SIP traffic.
+ * @property friendlyName - A human-readable name for the Trunk.
  * @property recording - The recording settings for this trunk.
  * @property secure - The Secure Trunking  settings for this trunk.
- * @property cnamLookupEnabled - The Caller ID Name (CNAM) lookup setting for this trunk.
  */
 interface TrunkListInstanceCreateOptions {
   cnamLookupEnabled?: boolean;
@@ -123,13 +123,17 @@ interface TrunkListInstanceCreateOptions {
   disasterRecoveryUrl?: string;
   domainName?: string;
   friendlyName?: string;
-  recording?: trunk.recording_setting;
+  recording?: TrunkRecordingSetting;
   secure?: boolean;
 }
 
 /**
  * Options to pass to each
  *
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -140,10 +144,6 @@ interface TrunkListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
  */
 interface TrunkListInstanceEachOptions {
   callback?: (item: TrunkInstance, done: (err?: Error) => void) => void;
@@ -174,9 +174,9 @@ interface TrunkListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
  */
 interface TrunkListInstancePageOptions {
   pageNumber?: number;

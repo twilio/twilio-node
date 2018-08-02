@@ -68,11 +68,12 @@ interface DependentHostedNumberOrderListInstance {
 /**
  * Options to pass to each
  *
- * @property status - The Status of this HostedNumberOrder.
- * @property phoneNumber - An E164 formatted phone number.
- * @property incomingPhoneNumberSid - IncomingPhoneNumber sid.
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property friendlyName - A human readable description of this resource.
- * @property uniqueName - A unique, developer assigned name of this HostedNumberOrder.
+ * @property incomingPhoneNumberSid - IncomingPhoneNumber sid.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -83,10 +84,9 @@ interface DependentHostedNumberOrderListInstance {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
+ * @property phoneNumber - An E164 formatted phone number.
+ * @property status - The Status of this HostedNumberOrder.
+ * @property uniqueName - A unique, developer assigned name of this HostedNumberOrder.
  */
 interface DependentHostedNumberOrderListInstanceEachOptions {
   callback?: (item: DependentHostedNumberOrderInstance, done: (err?: Error) => void) => void;
@@ -96,18 +96,15 @@ interface DependentHostedNumberOrderListInstanceEachOptions {
   limit?: number;
   pageSize?: number;
   phoneNumber?: string;
-  status?: dependent_hosted_number_order.status;
+  status?: DependentHostedNumberOrderStatus;
   uniqueName?: string;
 }
 
 /**
  * Options to pass to list
  *
- * @property status - The Status of this HostedNumberOrder.
- * @property phoneNumber - An E164 formatted phone number.
- * @property incomingPhoneNumberSid - IncomingPhoneNumber sid.
  * @property friendlyName - A human readable description of this resource.
- * @property uniqueName - A unique, developer assigned name of this HostedNumberOrder.
+ * @property incomingPhoneNumberSid - IncomingPhoneNumber sid.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -118,6 +115,9 @@ interface DependentHostedNumberOrderListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property phoneNumber - An E164 formatted phone number.
+ * @property status - The Status of this HostedNumberOrder.
+ * @property uniqueName - A unique, developer assigned name of this HostedNumberOrder.
  */
 interface DependentHostedNumberOrderListInstanceOptions {
   friendlyName?: string;
@@ -125,21 +125,21 @@ interface DependentHostedNumberOrderListInstanceOptions {
   limit?: number;
   pageSize?: number;
   phoneNumber?: string;
-  status?: dependent_hosted_number_order.status;
+  status?: DependentHostedNumberOrderStatus;
   uniqueName?: string;
 }
 
 /**
  * Options to pass to page
  *
- * @property status - The Status of this HostedNumberOrder.
- * @property phoneNumber - An E164 formatted phone number.
- * @property incomingPhoneNumberSid - IncomingPhoneNumber sid.
  * @property friendlyName - A human readable description of this resource.
- * @property uniqueName - A unique, developer assigned name of this HostedNumberOrder.
- * @property pageToken - PageToken provided by the API
+ * @property incomingPhoneNumberSid - IncomingPhoneNumber sid.
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
+ * @property phoneNumber - An E164 formatted phone number.
+ * @property status - The Status of this HostedNumberOrder.
+ * @property uniqueName - A unique, developer assigned name of this HostedNumberOrder.
  */
 interface DependentHostedNumberOrderListInstancePageOptions {
   friendlyName?: string;
@@ -148,7 +148,7 @@ interface DependentHostedNumberOrderListInstancePageOptions {
   pageSize?: number;
   pageToken?: string;
   phoneNumber?: string;
-  status?: dependent_hosted_number_order.status;
+  status?: DependentHostedNumberOrderStatus;
   uniqueName?: string;
 }
 

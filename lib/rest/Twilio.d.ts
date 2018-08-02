@@ -95,15 +95,15 @@ declare namespace Twilio {
   /**
    * Options for the request
    *
+   * @property allowRedirects - Should the client follow redirects
+   * @property data - The request data
+   * @property headers - The request headers
    * @property method - The http method
+   * @property params - The request params
+   * @property password - The password used for auth
+   * @property timeout - The request timeout in milliseconds
    * @property uri - The request uri
    * @property username - The username used for auth
-   * @property password - The password used for auth
-   * @property headers - The request headers
-   * @property params - The request params
-   * @property data - The request data
-   * @property timeout - The request timeout in milliseconds
-   * @property allowRedirects - Should the client follow redirects
    */
   export interface RequestOptions {
     allowRedirects?: boolean;
@@ -120,9 +120,9 @@ declare namespace Twilio {
   /**
    * Options to pass to the Twilio Client constructor
    *
-   * @property httpClient - The client used for http requests. Defaults to RequestClient
    * @property accountSid - The default accountSid. This is set to username if not provided
    * @property env - The environment object. Defaults to process.env
+   * @property httpClient - The client used for http requests. Defaults to RequestClient
    * @property region - Twilio region to use. Defaults to none
    */
   export interface TwilioClientOptions {

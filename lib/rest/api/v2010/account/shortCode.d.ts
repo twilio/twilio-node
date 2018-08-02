@@ -21,12 +21,12 @@ declare function ShortCodeList(version: V2010, accountSid: string): ShortCodeLis
 /**
  * Options to pass to update
  *
- * @property friendlyName - A human readable description of this resource
  * @property apiVersion - The API version to use
- * @property smsUrl - URL Twilio will request when receiving an SMS
- * @property smsMethod - HTTP method to use when requesting the sms url
- * @property smsFallbackUrl - URL Twilio will request if an error occurs in executing TwiML
+ * @property friendlyName - A human readable description of this resource
  * @property smsFallbackMethod - HTTP method Twilio will use with sms fallback url
+ * @property smsFallbackUrl - URL Twilio will request if an error occurs in executing TwiML
+ * @property smsMethod - HTTP method to use when requesting the sms url
+ * @property smsUrl - URL Twilio will request when receiving an SMS
  */
 interface ShortCodeInstanceUpdateOptions {
   apiVersion?: string;
@@ -96,8 +96,11 @@ interface ShortCodeListInstance {
 /**
  * Options to pass to each
  *
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property friendlyName - Filter by friendly name
- * @property shortCode - Filter by ShortCode
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -108,10 +111,7 @@ interface ShortCodeListInstance {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
+ * @property shortCode - Filter by ShortCode
  */
 interface ShortCodeListInstanceEachOptions {
   callback?: (item: ShortCodeInstance, done: (err?: Error) => void) => void;
@@ -126,7 +126,6 @@ interface ShortCodeListInstanceEachOptions {
  * Options to pass to list
  *
  * @property friendlyName - Filter by friendly name
- * @property shortCode - Filter by ShortCode
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -137,6 +136,7 @@ interface ShortCodeListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property shortCode - Filter by ShortCode
  */
 interface ShortCodeListInstanceOptions {
   friendlyName?: string;
@@ -149,10 +149,10 @@ interface ShortCodeListInstanceOptions {
  * Options to pass to page
  *
  * @property friendlyName - Filter by friendly name
- * @property shortCode - Filter by ShortCode
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
+ * @property shortCode - Filter by ShortCode
  */
 interface ShortCodeListInstancePageOptions {
   friendlyName?: string;

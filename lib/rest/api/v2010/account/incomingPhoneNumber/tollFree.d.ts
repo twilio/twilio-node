@@ -75,9 +75,11 @@ interface TollFreeListInstance {
 /**
  * Options to pass to create
  *
- * @property phoneNumber - The phone number you want to purchase.
+ * @property addressSid - The 34 character sid of the address Twilio should associate with the number.
  * @property apiVersion - The Twilio REST API version to use for incoming calls made to this number.
  * @property friendlyName - A human readable description of the new incoming phone number.
+ * @property identitySid - The identity_sid
+ * @property phoneNumber - The phone number you want to purchase.
  * @property smsApplicationSid - The 34 character sid of the application Twilio should use to handle SMSs sent to the new number.
  * @property smsFallbackMethod - The HTTP method that should be used to request the SmsFallbackUrl.
  * @property smsFallbackUrl - A URL that Twilio will request if an error occurs requesting or executing the TwiML defined by SmsUrl.
@@ -91,8 +93,6 @@ interface TollFreeListInstance {
  * @property voiceFallbackUrl - A URL that Twilio will request if an error occurs requesting or executing the TwiML at Url.
  * @property voiceMethod - The HTTP method that should be used to request the VoiceUrl.
  * @property voiceUrl - The URL that Twilio should request when somebody dials the new phone number.
- * @property identitySid - The identity_sid
- * @property addressSid - The 34 character sid of the address Twilio should associate with the number.
  */
 interface TollFreeListInstanceCreateOptions {
   addressSid?: string;
@@ -119,23 +119,23 @@ interface TollFreeListInstanceCreateOptions {
  * Options to pass to each
  *
  * @property beta - Include phone numbers new to the Twilio platform.
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property friendlyName - Only show the incoming phone number resources with friendly names that exactly match this name.
- * @property phoneNumber - Only show the incoming phone number resources that match this pattern.
- * @property origin - Include phone numbers based on the origin, by default, phone numbers of all origin are included.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
  *                         Default is no limit
+ * @property origin - Include phone numbers based on the origin, by default, phone numbers of all origin are included.
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
+ * @property phoneNumber - Only show the incoming phone number resources that match this pattern.
  */
 interface TollFreeListInstanceEachOptions {
   beta?: boolean;
@@ -153,18 +153,18 @@ interface TollFreeListInstanceEachOptions {
  *
  * @property beta - Include phone numbers new to the Twilio platform.
  * @property friendlyName - Only show the incoming phone number resources with friendly names that exactly match this name.
- * @property phoneNumber - Only show the incoming phone number resources that match this pattern.
- * @property origin - Include phone numbers based on the origin, by default, phone numbers of all origin are included.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
  *                         Default is no limit
+ * @property origin - Include phone numbers based on the origin, by default, phone numbers of all origin are included.
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property phoneNumber - Only show the incoming phone number resources that match this pattern.
  */
 interface TollFreeListInstanceOptions {
   beta?: boolean;
@@ -180,11 +180,11 @@ interface TollFreeListInstanceOptions {
  *
  * @property beta - Include phone numbers new to the Twilio platform.
  * @property friendlyName - Only show the incoming phone number resources with friendly names that exactly match this name.
- * @property phoneNumber - Only show the incoming phone number resources that match this pattern.
  * @property origin - Include phone numbers based on the origin, by default, phone numbers of all origin are included.
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
+ * @property phoneNumber - Only show the incoming phone number resources that match this pattern.
  */
 interface TollFreeListInstancePageOptions {
   beta?: boolean;

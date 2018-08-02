@@ -76,8 +76,11 @@ interface RecordListInstance {
 /**
  * Options to pass to each
  *
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
  * @property category - Only include usage of a given category
- * @property startDate - Filter by start date
+ * @property done - Function to be called upon completion of streaming
  * @property endDate - Filter by end date
  * @property includeSubaccounts - Include usage from the master account and all subaccounts
  * @property limit -
@@ -90,14 +93,11 @@ interface RecordListInstance {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
+ * @property startDate - Filter by start date
  */
 interface RecordListInstanceEachOptions {
   callback?: (item: RecordInstance, done: (err?: Error) => void) => void;
-  category?: record.category;
+  category?: RecordCategory;
   done?: Function;
   endDate?: Date;
   includeSubaccounts?: boolean;
@@ -110,7 +110,6 @@ interface RecordListInstanceEachOptions {
  * Options to pass to list
  *
  * @property category - Only include usage of a given category
- * @property startDate - Filter by start date
  * @property endDate - Filter by end date
  * @property includeSubaccounts - Include usage from the master account and all subaccounts
  * @property limit -
@@ -123,9 +122,10 @@ interface RecordListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property startDate - Filter by start date
  */
 interface RecordListInstanceOptions {
-  category?: record.category;
+  category?: RecordCategory;
   endDate?: Date;
   includeSubaccounts?: boolean;
   limit?: number;
@@ -137,15 +137,15 @@ interface RecordListInstanceOptions {
  * Options to pass to page
  *
  * @property category - Only include usage of a given category
- * @property startDate - Filter by start date
  * @property endDate - Filter by end date
  * @property includeSubaccounts - Include usage from the master account and all subaccounts
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
+ * @property startDate - Filter by start date
  */
 interface RecordListInstancePageOptions {
-  category?: record.category;
+  category?: RecordCategory;
   endDate?: Date;
   includeSubaccounts?: boolean;
   pageNumber?: number;

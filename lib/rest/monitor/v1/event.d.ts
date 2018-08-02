@@ -78,11 +78,12 @@ interface EventListInstance {
  * Options to pass to each
  *
  * @property actorSid - Only include Events initiated by this Actor
- * @property eventType - Only include Events of this EventType
- * @property resourceSid - Only include Events referring to this resource
- * @property sourceIpAddress - Only include Events that originated from this IP address
- * @property startDate - Only show events on or after this date
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property endDate - Only show events on or before this date
+ * @property eventType - Only include Events of this EventType
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -93,10 +94,9 @@ interface EventListInstance {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
+ * @property resourceSid - Only include Events referring to this resource
+ * @property sourceIpAddress - Only include Events that originated from this IP address
+ * @property startDate - Only show events on or after this date
  */
 interface EventListInstanceEachOptions {
   actorSid?: string;
@@ -115,11 +115,8 @@ interface EventListInstanceEachOptions {
  * Options to pass to list
  *
  * @property actorSid - Only include Events initiated by this Actor
- * @property eventType - Only include Events of this EventType
- * @property resourceSid - Only include Events referring to this resource
- * @property sourceIpAddress - Only include Events that originated from this IP address
- * @property startDate - Only show events on or after this date
  * @property endDate - Only show events on or before this date
+ * @property eventType - Only include Events of this EventType
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -130,6 +127,9 @@ interface EventListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property resourceSid - Only include Events referring to this resource
+ * @property sourceIpAddress - Only include Events that originated from this IP address
+ * @property startDate - Only show events on or after this date
  */
 interface EventListInstanceOptions {
   actorSid?: string;
@@ -146,14 +146,14 @@ interface EventListInstanceOptions {
  * Options to pass to page
  *
  * @property actorSid - Only include Events initiated by this Actor
+ * @property endDate - Only show events on or before this date
  * @property eventType - Only include Events of this EventType
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
  * @property resourceSid - Only include Events referring to this resource
  * @property sourceIpAddress - Only include Events that originated from this IP address
  * @property startDate - Only show events on or after this date
- * @property endDate - Only show events on or before this date
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
  */
 interface EventListInstancePageOptions {
   actorSid?: string;

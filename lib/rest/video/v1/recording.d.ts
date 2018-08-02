@@ -77,11 +77,13 @@ interface RecordingListInstance {
 /**
  * Options to pass to each
  *
- * @property status - Only show Recordings with the given status.
- * @property sourceSid - Only show the Recordings with the given source Sid.
- * @property groupingSid - Only show Recordings that have this GroupingSid.
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
  * @property dateCreatedAfter - Only show Recordings that started on or after this ISO8601 date-time.
  * @property dateCreatedBefore - Only show Recordings that started before this this ISO8601 date-time.
+ * @property done - Function to be called upon completion of streaming
+ * @property groupingSid - Only show Recordings that have this GroupingSid.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -92,31 +94,27 @@ interface RecordingListInstance {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
+ * @property sourceSid - Only show the Recordings with the given source Sid.
+ * @property status - Only show Recordings with the given status.
  */
 interface RecordingListInstanceEachOptions {
   callback?: (item: RecordingInstance, done: (err?: Error) => void) => void;
   dateCreatedAfter?: Date;
   dateCreatedBefore?: Date;
   done?: Function;
-  groupingSid?: string|list;
+  groupingSid?: string[];
   limit?: number;
   pageSize?: number;
   sourceSid?: string;
-  status?: recording.status;
+  status?: RecordingStatus;
 }
 
 /**
  * Options to pass to list
  *
- * @property status - Only show Recordings with the given status.
- * @property sourceSid - Only show the Recordings with the given source Sid.
- * @property groupingSid - Only show Recordings that have this GroupingSid.
  * @property dateCreatedAfter - Only show Recordings that started on or after this ISO8601 date-time.
  * @property dateCreatedBefore - Only show Recordings that started before this this ISO8601 date-time.
+ * @property groupingSid - Only show Recordings that have this GroupingSid.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -127,38 +125,40 @@ interface RecordingListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property sourceSid - Only show the Recordings with the given source Sid.
+ * @property status - Only show Recordings with the given status.
  */
 interface RecordingListInstanceOptions {
   dateCreatedAfter?: Date;
   dateCreatedBefore?: Date;
-  groupingSid?: string|list;
+  groupingSid?: string[];
   limit?: number;
   pageSize?: number;
   sourceSid?: string;
-  status?: recording.status;
+  status?: RecordingStatus;
 }
 
 /**
  * Options to pass to page
  *
- * @property status - Only show Recordings with the given status.
- * @property sourceSid - Only show the Recordings with the given source Sid.
- * @property groupingSid - Only show Recordings that have this GroupingSid.
  * @property dateCreatedAfter - Only show Recordings that started on or after this ISO8601 date-time.
  * @property dateCreatedBefore - Only show Recordings that started before this this ISO8601 date-time.
- * @property pageToken - PageToken provided by the API
+ * @property groupingSid - Only show Recordings that have this GroupingSid.
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
+ * @property sourceSid - Only show the Recordings with the given source Sid.
+ * @property status - Only show Recordings with the given status.
  */
 interface RecordingListInstancePageOptions {
   dateCreatedAfter?: Date;
   dateCreatedBefore?: Date;
-  groupingSid?: string|list;
+  groupingSid?: string[];
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
   sourceSid?: string;
-  status?: recording.status;
+  status?: RecordingStatus;
 }
 
 interface RecordingPayload extends RecordingResource, Page.TwilioResponsePayload {

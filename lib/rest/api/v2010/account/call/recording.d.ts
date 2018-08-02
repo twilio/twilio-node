@@ -26,7 +26,7 @@ declare function RecordingList(version: V2010, accountSid: string, callSid: stri
  * @property status - The status to change the recording to.
  */
 interface RecordingInstanceUpdateOptions {
-  status: recording.status;
+  status: RecordingStatus;
 }
 
 interface RecordingListInstance {
@@ -95,16 +95,16 @@ interface RecordingListInstance {
 /**
  * Options to pass to create
  *
- * @property recordingStatusCallbackEvent - The recording_status_callback_event
+ * @property recordingChannels - The recording_channels
  * @property recordingStatusCallback - The recording_status_callback
+ * @property recordingStatusCallbackEvent - The recording_status_callback_event
  * @property recordingStatusCallbackMethod - The recording_status_callback_method
  * @property trim - Whether to trim the silence in the recording
- * @property recordingChannels - The recording_channels
  */
 interface RecordingListInstanceCreateOptions {
   recordingChannels?: string;
   recordingStatusCallback?: string;
-  recordingStatusCallbackEvent?: string|list;
+  recordingStatusCallbackEvent?: string[];
   recordingStatusCallbackMethod?: string;
   trim?: string;
 }
@@ -112,9 +112,13 @@ interface RecordingListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
- * @property dateCreatedBefore - Filter by date created
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
  * @property dateCreated - Filter by date created
  * @property dateCreatedAfter - Filter by date created
+ * @property dateCreatedBefore - Filter by date created
+ * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -125,10 +129,6 @@ interface RecordingListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
  */
 interface RecordingListInstanceEachOptions {
   callback?: (item: RecordingInstance, done: (err?: Error) => void) => void;
@@ -143,9 +143,9 @@ interface RecordingListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property dateCreatedBefore - Filter by date created
  * @property dateCreated - Filter by date created
  * @property dateCreatedAfter - Filter by date created
+ * @property dateCreatedBefore - Filter by date created
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -168,12 +168,12 @@ interface RecordingListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property dateCreatedBefore - Filter by date created
  * @property dateCreated - Filter by date created
  * @property dateCreatedAfter - Filter by date created
- * @property pageToken - PageToken provided by the API
+ * @property dateCreatedBefore - Filter by date created
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
  */
 interface RecordingListInstancePageOptions {
   dateCreated?: Date;

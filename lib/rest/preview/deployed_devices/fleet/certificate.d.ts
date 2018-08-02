@@ -22,8 +22,8 @@ declare function CertificateList(version: DeployedDevices, fleetSid: string): Ce
 /**
  * Options to pass to update
  *
- * @property friendlyName - The human readable description for this Certificate.
  * @property deviceSid - The unique identifier of a Device to be authenticated.
+ * @property friendlyName - The human readable description for this Certificate.
  */
 interface CertificateInstanceUpdateOptions {
   deviceSid?: string;
@@ -97,8 +97,8 @@ interface CertificateListInstance {
  * Options to pass to create
  *
  * @property certificateData - The public certificate data.
- * @property friendlyName - The human readable description for this Certificate.
  * @property deviceSid - The unique identifier of a Device to be authenticated.
+ * @property friendlyName - The human readable description for this Certificate.
  */
 interface CertificateListInstanceCreateOptions {
   certificateData: string;
@@ -109,7 +109,11 @@ interface CertificateListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
  * @property deviceSid - Find all Certificates authenticating specified Device.
+ * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -120,10 +124,6 @@ interface CertificateListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
  */
 interface CertificateListInstanceEachOptions {
   callback?: (item: CertificateInstance, done: (err?: Error) => void) => void;
@@ -158,9 +158,9 @@ interface CertificateListInstanceOptions {
  * Options to pass to page
  *
  * @property deviceSid - Find all Certificates authenticating specified Device.
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
  */
 interface CertificateListInstancePageOptions {
   deviceSid?: string;

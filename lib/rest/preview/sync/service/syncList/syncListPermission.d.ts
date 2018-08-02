@@ -24,9 +24,9 @@ declare function SyncListPermissionList(version: Sync, serviceSid: string, listS
 /**
  * Options to pass to update
  *
+ * @property manage - Manage access.
  * @property read - Read access.
  * @property write - Write access.
- * @property manage - Manage access.
  */
 interface SyncListPermissionInstanceUpdateOptions {
   manage: boolean;
@@ -93,6 +93,10 @@ interface SyncListPermissionListInstance {
 /**
  * Options to pass to each
  *
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -103,10 +107,6 @@ interface SyncListPermissionListInstance {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
  */
 interface SyncListPermissionListInstanceEachOptions {
   callback?: (item: SyncListPermissionInstance, done: (err?: Error) => void) => void;
@@ -137,9 +137,9 @@ interface SyncListPermissionListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
  */
 interface SyncListPermissionListInstancePageOptions {
   pageNumber?: number;

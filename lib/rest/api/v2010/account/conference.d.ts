@@ -24,14 +24,14 @@ declare function ConferenceList(version: V2010, accountSid: string): ConferenceL
 /**
  * Options to pass to update
  *
- * @property status - Specifying completed will end the conference and kick all participants
- * @property announceUrl - The 'AnnounceUrl' attribute lets you specify a URL for announcing something into a conference.
  * @property announceMethod - Specify GET or POST, defaults to POST
+ * @property announceUrl - The 'AnnounceUrl' attribute lets you specify a URL for announcing something into a conference.
+ * @property status - Specifying completed will end the conference and kick all participants
  */
 interface ConferenceInstanceUpdateOptions {
   announceMethod?: string;
   announceUrl?: string;
-  status?: conference.update_status;
+  status?: ConferenceUpdateStatus;
 }
 
 interface ConferenceListInstance {
@@ -93,14 +93,17 @@ interface ConferenceListInstance {
 /**
  * Options to pass to each
  *
- * @property dateCreatedBefore - Filter by date created
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
  * @property dateCreated - Filter by date created
  * @property dateCreatedAfter - Filter by date created
- * @property dateUpdatedBefore - Filter by date updated
+ * @property dateCreatedBefore - Filter by date created
  * @property dateUpdated - Filter by date updated
  * @property dateUpdatedAfter - Filter by date updated
+ * @property dateUpdatedBefore - Filter by date updated
+ * @property done - Function to be called upon completion of streaming
  * @property friendlyName - Filter by friendly name
- * @property status - The status of the conference
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -111,10 +114,7 @@ interface ConferenceListInstance {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
+ * @property status - The status of the conference
  */
 interface ConferenceListInstanceEachOptions {
   callback?: (item: ConferenceInstance, done: (err?: Error) => void) => void;
@@ -128,20 +128,19 @@ interface ConferenceListInstanceEachOptions {
   friendlyName?: string;
   limit?: number;
   pageSize?: number;
-  status?: conference.status;
+  status?: ConferenceStatus;
 }
 
 /**
  * Options to pass to list
  *
- * @property dateCreatedBefore - Filter by date created
  * @property dateCreated - Filter by date created
  * @property dateCreatedAfter - Filter by date created
- * @property dateUpdatedBefore - Filter by date updated
+ * @property dateCreatedBefore - Filter by date created
  * @property dateUpdated - Filter by date updated
  * @property dateUpdatedAfter - Filter by date updated
+ * @property dateUpdatedBefore - Filter by date updated
  * @property friendlyName - Filter by friendly name
- * @property status - The status of the conference
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -152,6 +151,7 @@ interface ConferenceListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property status - The status of the conference
  */
 interface ConferenceListInstanceOptions {
   dateCreated?: Date;
@@ -163,23 +163,23 @@ interface ConferenceListInstanceOptions {
   friendlyName?: string;
   limit?: number;
   pageSize?: number;
-  status?: conference.status;
+  status?: ConferenceStatus;
 }
 
 /**
  * Options to pass to page
  *
- * @property dateCreatedBefore - Filter by date created
  * @property dateCreated - Filter by date created
  * @property dateCreatedAfter - Filter by date created
- * @property dateUpdatedBefore - Filter by date updated
+ * @property dateCreatedBefore - Filter by date created
  * @property dateUpdated - Filter by date updated
  * @property dateUpdatedAfter - Filter by date updated
+ * @property dateUpdatedBefore - Filter by date updated
  * @property friendlyName - Filter by friendly name
- * @property status - The status of the conference
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
+ * @property status - The status of the conference
  */
 interface ConferenceListInstancePageOptions {
   dateCreated?: Date;
@@ -192,7 +192,7 @@ interface ConferenceListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
-  status?: conference.status;
+  status?: ConferenceStatus;
 }
 
 interface ConferencePayload extends ConferenceResource, Page.TwilioResponsePayload {

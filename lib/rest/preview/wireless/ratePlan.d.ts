@@ -22,8 +22,8 @@ declare function RatePlanList(version: Wireless): RatePlanListInstance;
 /**
  * Options to pass to update
  *
- * @property uniqueName - The unique_name
  * @property friendlyName - The friendly_name
+ * @property uniqueName - The unique_name
  */
 interface RatePlanInstanceUpdateOptions {
   friendlyName?: string;
@@ -96,16 +96,16 @@ interface RatePlanListInstance {
 /**
  * Options to pass to create
  *
- * @property uniqueName - The unique_name
- * @property friendlyName - The friendly_name
+ * @property commandsEnabled - The commands_enabled
  * @property dataEnabled - The data_enabled
  * @property dataLimit - The data_limit
  * @property dataMetering - The data_metering
- * @property messagingEnabled - The messaging_enabled
- * @property voiceEnabled - The voice_enabled
- * @property commandsEnabled - The commands_enabled
- * @property nationalRoamingEnabled - The national_roaming_enabled
+ * @property friendlyName - The friendly_name
  * @property internationalRoaming - The international_roaming
+ * @property messagingEnabled - The messaging_enabled
+ * @property nationalRoamingEnabled - The national_roaming_enabled
+ * @property uniqueName - The unique_name
+ * @property voiceEnabled - The voice_enabled
  */
 interface RatePlanListInstanceCreateOptions {
   commandsEnabled?: boolean;
@@ -113,7 +113,7 @@ interface RatePlanListInstanceCreateOptions {
   dataLimit?: number;
   dataMetering?: string;
   friendlyName?: string;
-  internationalRoaming?: string|list;
+  internationalRoaming?: string[];
   messagingEnabled?: boolean;
   nationalRoamingEnabled?: boolean;
   uniqueName?: string;
@@ -123,6 +123,10 @@ interface RatePlanListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -133,10 +137,6 @@ interface RatePlanListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
  */
 interface RatePlanListInstanceEachOptions {
   callback?: (item: RatePlanInstance, done: (err?: Error) => void) => void;
@@ -167,9 +167,9 @@ interface RatePlanListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
  */
 interface RatePlanListInstancePageOptions {
   pageNumber?: number;

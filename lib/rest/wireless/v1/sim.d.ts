@@ -22,18 +22,18 @@ declare function SimList(version: V1): SimListInstance;
 /**
  * Options to pass to update
  *
- * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the Sid.
  * @property callbackMethod - The HTTP method Twilio will use when making a request to the callback URL.
  * @property callbackUrl - Twilio will make a request to this URL when the Sim has finished updating.
- * @property friendlyName - A user-provided string that identifies this resource.
- * @property ratePlan - The Sid or UniqueName of the RatePlan that this Sim should use.
- * @property status - A string representing the status of the Sim.
  * @property commandsCallbackMethod - A string representing the HTTP method to use when making a request to CommandsCallbackUrl.
  * @property commandsCallbackUrl - The URL that will receive a webhook when this Sim originates a Command.
+ * @property friendlyName - A user-provided string that identifies this resource.
+ * @property ratePlan - The Sid or UniqueName of the RatePlan that this Sim should use.
  * @property smsFallbackMethod - The HTTP method Twilio will use when requesting the sms_fallback_url.
  * @property smsFallbackUrl - The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by sms_url.
  * @property smsMethod - The HTTP method Twilio will use when requesting the above Url.
  * @property smsUrl - The URL Twilio will request when the SIM-connected device sends an SMS message that is not a Command.
+ * @property status - A string representing the status of the Sim.
+ * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the Sid.
  * @property voiceFallbackMethod - The HTTP method Twilio will use when requesting the voice_fallback_url.
  * @property voiceFallbackUrl - The URL that Twilio will request if an error occurs retrieving or executing the TwiML requested by voice_url.
  * @property voiceMethod - The HTTP method Twilio will use when requesting the above Url.
@@ -50,7 +50,7 @@ interface SimInstanceUpdateOptions {
   smsFallbackUrl?: string;
   smsMethod?: string;
   smsUrl?: string;
-  status?: sim.status;
+  status?: SimStatus;
   uniqueName?: string;
   voiceFallbackMethod?: string;
   voiceFallbackUrl?: string;
@@ -117,11 +117,12 @@ interface SimListInstance {
 /**
  * Options to pass to each
  *
- * @property status - Only return Sims with this status.
- * @property iccid - Return Sims with this Iccid.
- * @property ratePlan - Only return Sims with this Rate Plan.
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property eId - The e_id
- * @property simRegistrationCode - The sim_registration_code
+ * @property iccid - Return Sims with this Iccid.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -132,10 +133,9 @@ interface SimListInstance {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
+ * @property ratePlan - Only return Sims with this Rate Plan.
+ * @property simRegistrationCode - The sim_registration_code
+ * @property status - Only return Sims with this status.
  */
 interface SimListInstanceEachOptions {
   callback?: (item: SimInstance, done: (err?: Error) => void) => void;
@@ -146,17 +146,14 @@ interface SimListInstanceEachOptions {
   pageSize?: number;
   ratePlan?: string;
   simRegistrationCode?: string;
-  status?: sim.status;
+  status?: SimStatus;
 }
 
 /**
  * Options to pass to list
  *
- * @property status - Only return Sims with this status.
- * @property iccid - Return Sims with this Iccid.
- * @property ratePlan - Only return Sims with this Rate Plan.
  * @property eId - The e_id
- * @property simRegistrationCode - The sim_registration_code
+ * @property iccid - Return Sims with this Iccid.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -167,6 +164,9 @@ interface SimListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property ratePlan - Only return Sims with this Rate Plan.
+ * @property simRegistrationCode - The sim_registration_code
+ * @property status - Only return Sims with this status.
  */
 interface SimListInstanceOptions {
   eId?: string;
@@ -175,20 +175,20 @@ interface SimListInstanceOptions {
   pageSize?: number;
   ratePlan?: string;
   simRegistrationCode?: string;
-  status?: sim.status;
+  status?: SimStatus;
 }
 
 /**
  * Options to pass to page
  *
- * @property status - Only return Sims with this status.
- * @property iccid - Return Sims with this Iccid.
- * @property ratePlan - Only return Sims with this Rate Plan.
  * @property eId - The e_id
- * @property simRegistrationCode - The sim_registration_code
- * @property pageToken - PageToken provided by the API
+ * @property iccid - Return Sims with this Iccid.
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
+ * @property ratePlan - Only return Sims with this Rate Plan.
+ * @property simRegistrationCode - The sim_registration_code
+ * @property status - Only return Sims with this status.
  */
 interface SimListInstancePageOptions {
   eId?: string;
@@ -198,7 +198,7 @@ interface SimListInstancePageOptions {
   pageToken?: string;
   ratePlan?: string;
   simRegistrationCode?: string;
-  status?: sim.status;
+  status?: SimStatus;
 }
 
 interface SimPayload extends SimResource, Page.TwilioResponsePayload {

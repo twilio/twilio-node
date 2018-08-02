@@ -25,14 +25,14 @@ declare function SessionList(version: Proxy, serviceSid: string): SessionListIns
 /**
  * Options to pass to update
  *
- * @property uniqueName - A unique, developer assigned name of this Session.
- * @property ttl - How long will this session stay open, in seconds.
- * @property status - The Status of this Session
  * @property participants - The participants
+ * @property status - The Status of this Session
+ * @property ttl - How long will this session stay open, in seconds.
+ * @property uniqueName - A unique, developer assigned name of this Session.
  */
 interface SessionInstanceUpdateOptions {
-  participants?: string|list;
-  status?: session.status;
+  participants?: string[];
+  status?: SessionStatus;
   ttl?: number;
   uniqueName?: string;
 }
@@ -103,14 +103,14 @@ interface SessionListInstance {
 /**
  * Options to pass to create
  *
- * @property uniqueName - A unique, developer assigned name of this Session.
- * @property ttl - How long will this session stay open, in seconds.
- * @property status - The Status of this Session
  * @property participants - The participants
+ * @property status - The Status of this Session
+ * @property ttl - How long will this session stay open, in seconds.
+ * @property uniqueName - A unique, developer assigned name of this Session.
  */
 interface SessionListInstanceCreateOptions {
-  participants?: string|list;
-  status?: session.status;
+  participants?: string[];
+  status?: SessionStatus;
   ttl?: number;
   uniqueName?: string;
 }
@@ -118,8 +118,10 @@ interface SessionListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
- * @property uniqueName - A unique, developer assigned name of this Session.
- * @property status - The Status of this Session
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -130,25 +132,21 @@ interface SessionListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
+ * @property status - The Status of this Session
+ * @property uniqueName - A unique, developer assigned name of this Session.
  */
 interface SessionListInstanceEachOptions {
   callback?: (item: SessionInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;
-  status?: session.status;
+  status?: SessionStatus;
   uniqueName?: string;
 }
 
 /**
  * Options to pass to list
  *
- * @property uniqueName - A unique, developer assigned name of this Session.
- * @property status - The Status of this Session
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -159,28 +157,30 @@ interface SessionListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property status - The Status of this Session
+ * @property uniqueName - A unique, developer assigned name of this Session.
  */
 interface SessionListInstanceOptions {
   limit?: number;
   pageSize?: number;
-  status?: session.status;
+  status?: SessionStatus;
   uniqueName?: string;
 }
 
 /**
  * Options to pass to page
  *
- * @property uniqueName - A unique, developer assigned name of this Session.
- * @property status - The Status of this Session
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
+ * @property status - The Status of this Session
+ * @property uniqueName - A unique, developer assigned name of this Session.
  */
 interface SessionListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
-  status?: session.status;
+  status?: SessionStatus;
   uniqueName?: string;
 }
 

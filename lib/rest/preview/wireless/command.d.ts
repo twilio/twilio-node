@@ -84,13 +84,13 @@ interface CommandListInstance {
 /**
  * Options to pass to create
  *
- * @property command - The command
- * @property device - The device
- * @property sim - The sim
  * @property callbackMethod - The callback_method
  * @property callbackUrl - The callback_url
+ * @property command - The command
  * @property commandMode - The command_mode
+ * @property device - The device
  * @property includeSid - The include_sid
+ * @property sim - The sim
  */
 interface CommandListInstanceCreateOptions {
   callbackMethod?: string;
@@ -105,10 +105,12 @@ interface CommandListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
  * @property device - The device
- * @property sim - The sim
- * @property status - The status
  * @property direction - The direction
+ * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -119,10 +121,8 @@ interface CommandListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
+ * @property sim - The sim
+ * @property status - The status
  */
 interface CommandListInstanceEachOptions {
   callback?: (item: CommandInstance, done: (err?: Error) => void) => void;
@@ -139,8 +139,6 @@ interface CommandListInstanceEachOptions {
  * Options to pass to list
  *
  * @property device - The device
- * @property sim - The sim
- * @property status - The status
  * @property direction - The direction
  * @property limit -
  *                         Upper limit for the number of records to return.
@@ -152,6 +150,8 @@ interface CommandListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property sim - The sim
+ * @property status - The status
  */
 interface CommandListInstanceOptions {
   device?: string;
@@ -166,12 +166,12 @@ interface CommandListInstanceOptions {
  * Options to pass to page
  *
  * @property device - The device
- * @property sim - The sim
- * @property status - The status
  * @property direction - The direction
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
+ * @property sim - The sim
+ * @property status - The status
  */
 interface CommandListInstancePageOptions {
   device?: string;

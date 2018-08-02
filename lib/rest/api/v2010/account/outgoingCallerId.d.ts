@@ -86,7 +86,10 @@ interface OutgoingCallerIdListInstance {
 /**
  * Options to pass to each
  *
- * @property phoneNumber - Filter by phone number
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property friendlyName - Filter by friendly name
  * @property limit -
  *                         Upper limit for the number of records to return.
@@ -98,10 +101,7 @@ interface OutgoingCallerIdListInstance {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
+ * @property phoneNumber - Filter by phone number
  */
 interface OutgoingCallerIdListInstanceEachOptions {
   callback?: (item: OutgoingCallerIdInstance, done: (err?: Error) => void) => void;
@@ -115,7 +115,6 @@ interface OutgoingCallerIdListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property phoneNumber - Filter by phone number
  * @property friendlyName - Filter by friendly name
  * @property limit -
  *                         Upper limit for the number of records to return.
@@ -127,6 +126,7 @@ interface OutgoingCallerIdListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property phoneNumber - Filter by phone number
  */
 interface OutgoingCallerIdListInstanceOptions {
   friendlyName?: string;
@@ -138,11 +138,11 @@ interface OutgoingCallerIdListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property phoneNumber - Filter by phone number
  * @property friendlyName - Filter by friendly name
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
+ * @property phoneNumber - Filter by phone number
  */
 interface OutgoingCallerIdListInstancePageOptions {
   friendlyName?: string;

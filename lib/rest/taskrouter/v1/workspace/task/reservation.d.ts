@@ -23,57 +23,57 @@ declare function ReservationList(version: V1, workspaceSid: string, taskSid: str
 /**
  * Options to pass to update
  *
- * @property reservationStatus - New reservation status
- * @property workerActivitySid - New worker activity sid if rejecting a reservation
- * @property instruction - Assignment instruction for reservation
- * @property dequeuePostWorkActivitySid - New worker activity sid after executing a Dequeue instruction
- * @property dequeueFrom - Caller ID for the call to the worker when executing a Dequeue instruction
- * @property dequeueRecord - Attribute to record both legs of a call when executing a Dequeue instruction
- * @property dequeueTimeout - Timeout for call when executing a Dequeue instruction
- * @property dequeueTo - Contact URI of the worker when executing a Dequeue instruction
- * @property dequeueStatusCallbackUrl - Callback URL for completed call event when executing a Dequeue instruction
+ * @property beep - The beep
+ * @property callAccept - Flag to determine if reservation should be accepted when executing a Call instruction
  * @property callFrom - Caller ID for the outbound call when executing a Call instruction
  * @property callRecord - Attribute to record both legs of a call when executing a Call instruction
+ * @property callStatusCallbackUrl - Callback URL for completed call event when executing a Call instruction
  * @property callTimeout - Timeout for call when executing a Call instruction
  * @property callTo - Contact URI of the worker when executing a Call instruction
  * @property callUrl - TwiML URI executed on answering the worker's leg as a result of the Call instruction
- * @property callStatusCallbackUrl - Callback URL for completed call event when executing a Call instruction
- * @property callAccept - Flag to determine if reservation should be accepted when executing a Call instruction
- * @property redirectCallSid - Call sid of the call parked in the queue when executing a Redirect instruction
- * @property redirectAccept - Flag to determine if reservation should be accepted when executing a Redirect instruction
- * @property redirectUrl - TwiML URI to redirect the call to when executing the Redirect instruction
- * @property to - Contact URI of the worker when executing a Conference instruction
- * @property from - Caller ID for the call to the worker when executing a Conference instruction
- * @property statusCallback - The status_callback
- * @property statusCallbackMethod - The status_callback_method
- * @property statusCallbackEvent - The status_callback_event
- * @property timeout - Timeout for call when executing a Conference instruction
- * @property record - The record
- * @property muted - The muted
- * @property beep - The beep
- * @property startConferenceOnEnter - The start_conference_on_enter
- * @property endConferenceOnExit - The end_conference_on_exit
- * @property waitUrl - The wait_url
- * @property waitMethod - The wait_method
- * @property earlyMedia - The early_media
- * @property maxParticipants - The max_participants
- * @property conferenceStatusCallback - The conference_status_callback
- * @property conferenceStatusCallbackMethod - The conference_status_callback_method
- * @property conferenceStatusCallbackEvent - The conference_status_callback_event
  * @property conferenceRecord - The conference_record
+ * @property conferenceRecordingStatusCallback - The conference_recording_status_callback
+ * @property conferenceRecordingStatusCallbackMethod - The conference_recording_status_callback_method
+ * @property conferenceStatusCallback - The conference_status_callback
+ * @property conferenceStatusCallbackEvent - The conference_status_callback_event
+ * @property conferenceStatusCallbackMethod - The conference_status_callback_method
  * @property conferenceTrim - The conference_trim
+ * @property dequeueFrom - Caller ID for the call to the worker when executing a Dequeue instruction
+ * @property dequeuePostWorkActivitySid - New worker activity sid after executing a Dequeue instruction
+ * @property dequeueRecord - Attribute to record both legs of a call when executing a Dequeue instruction
+ * @property dequeueStatusCallbackEvent - Call progress events sent via webhooks as a result of a Dequeue instruction
+ * @property dequeueStatusCallbackUrl - Callback URL for completed call event when executing a Dequeue instruction
+ * @property dequeueTimeout - Timeout for call when executing a Dequeue instruction
+ * @property dequeueTo - Contact URI of the worker when executing a Dequeue instruction
+ * @property earlyMedia - The early_media
+ * @property endConferenceOnExit - The end_conference_on_exit
+ * @property from - Caller ID for the call to the worker when executing a Conference instruction
+ * @property instruction - Assignment instruction for reservation
+ * @property maxParticipants - The max_participants
+ * @property muted - The muted
+ * @property postWorkActivitySid - New worker activity sid after executing a Conference instruction
+ * @property record - The record
  * @property recordingChannels - The recording_channels
  * @property recordingStatusCallback - The recording_status_callback
  * @property recordingStatusCallbackMethod - The recording_status_callback_method
- * @property conferenceRecordingStatusCallback - The conference_recording_status_callback
- * @property conferenceRecordingStatusCallbackMethod - The conference_recording_status_callback_method
+ * @property redirectAccept - Flag to determine if reservation should be accepted when executing a Redirect instruction
+ * @property redirectCallSid - Call sid of the call parked in the queue when executing a Redirect instruction
+ * @property redirectUrl - TwiML URI to redirect the call to when executing the Redirect instruction
  * @property region - The region
- * @property sipAuthUsername - The sip_auth_username
+ * @property reservationStatus - New reservation status
  * @property sipAuthPassword - The sip_auth_password
- * @property dequeueStatusCallbackEvent - Call progress events sent via webhooks as a result of a Dequeue instruction
- * @property postWorkActivitySid - New worker activity sid after executing a Conference instruction
- * @property supervisorMode - Supervisor mode when executing the Supervise instruction
+ * @property sipAuthUsername - The sip_auth_username
+ * @property startConferenceOnEnter - The start_conference_on_enter
+ * @property statusCallback - The status_callback
+ * @property statusCallbackEvent - The status_callback_event
+ * @property statusCallbackMethod - The status_callback_method
  * @property supervisor - Supervisor sid/uri when executing the Supervise instruction
+ * @property supervisorMode - Supervisor mode when executing the Supervise instruction
+ * @property timeout - Timeout for call when executing a Conference instruction
+ * @property to - Contact URI of the worker when executing a Conference instruction
+ * @property waitMethod - The wait_method
+ * @property waitUrl - The wait_url
+ * @property workerActivitySid - New worker activity sid if rejecting a reservation
  */
 interface ReservationInstanceUpdateOptions {
   beep?: string;
@@ -88,13 +88,13 @@ interface ReservationInstanceUpdateOptions {
   conferenceRecordingStatusCallback?: string;
   conferenceRecordingStatusCallbackMethod?: string;
   conferenceStatusCallback?: string;
-  conferenceStatusCallbackEvent?: reservation.conference_event|list;
+  conferenceStatusCallbackEvent?: ReservationConferenceEvent[];
   conferenceStatusCallbackMethod?: string;
   conferenceTrim?: string;
   dequeueFrom?: string;
   dequeuePostWorkActivitySid?: string;
   dequeueRecord?: string;
-  dequeueStatusCallbackEvent?: string|list;
+  dequeueStatusCallbackEvent?: string[];
   dequeueStatusCallbackUrl?: string;
   dequeueTimeout?: number;
   dequeueTo?: string;
@@ -113,15 +113,15 @@ interface ReservationInstanceUpdateOptions {
   redirectCallSid?: string;
   redirectUrl?: string;
   region?: string;
-  reservationStatus?: reservation.status;
+  reservationStatus?: ReservationStatus;
   sipAuthPassword?: string;
   sipAuthUsername?: string;
   startConferenceOnEnter?: boolean;
   statusCallback?: string;
-  statusCallbackEvent?: reservation.call_status|list;
+  statusCallbackEvent?: ReservationCallStatus[];
   statusCallbackMethod?: string;
   supervisor?: string;
-  supervisorMode?: reservation.supervisor_mode;
+  supervisorMode?: ReservationSupervisorMode;
   timeout?: number;
   to?: string;
   waitMethod?: string;
@@ -188,7 +188,10 @@ interface ReservationListInstance {
 /**
  * Options to pass to each
  *
- * @property reservationStatus - Returns the list of reservations for a task with a specified ReservationStatus
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -199,23 +202,19 @@ interface ReservationListInstance {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
+ * @property reservationStatus - Returns the list of reservations for a task with a specified ReservationStatus
  */
 interface ReservationListInstanceEachOptions {
   callback?: (item: ReservationInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;
-  reservationStatus?: reservation.status;
+  reservationStatus?: ReservationStatus;
 }
 
 /**
  * Options to pass to list
  *
- * @property reservationStatus - Returns the list of reservations for a task with a specified ReservationStatus
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -226,26 +225,27 @@ interface ReservationListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property reservationStatus - Returns the list of reservations for a task with a specified ReservationStatus
  */
 interface ReservationListInstanceOptions {
   limit?: number;
   pageSize?: number;
-  reservationStatus?: reservation.status;
+  reservationStatus?: ReservationStatus;
 }
 
 /**
  * Options to pass to page
  *
- * @property reservationStatus - Returns the list of reservations for a task with a specified ReservationStatus
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
+ * @property reservationStatus - Returns the list of reservations for a task with a specified ReservationStatus
  */
 interface ReservationListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
-  reservationStatus?: reservation.status;
+  reservationStatus?: ReservationStatus;
 }
 
 interface ReservationPayload extends ReservationResource, Page.TwilioResponsePayload {

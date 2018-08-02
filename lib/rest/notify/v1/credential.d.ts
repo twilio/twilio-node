@@ -22,11 +22,11 @@ declare function CredentialList(version: V1): CredentialListInstance;
 /**
  * Options to pass to update
  *
- * @property friendlyName - Friendly name for stored credential
+ * @property apiKey - [GCM only] This is the "Server key" of your project from Firebase console under Settings / Cloud messaging.
  * @property certificate - [APN only] URL encoded representation of the certificate.
+ * @property friendlyName - Friendly name for stored credential
  * @property privateKey - [APN only] URL encoded representation of the private key.
  * @property sandbox - [APN only] use this credential for sending to production or sandbox APNs
- * @property apiKey - [GCM only] This is the "Server key" of your project from Firebase console under Settings / Cloud messaging.
  * @property secret - [FCM only] This is the "Server key" of your project from Firebase console under Settings / Cloud messaging.
  */
 interface CredentialInstanceUpdateOptions {
@@ -104,13 +104,13 @@ interface CredentialListInstance {
 /**
  * Options to pass to create
  *
- * @property type - Credential type, one of "gcm", "fcm", or "apn"
- * @property friendlyName - Friendly name for stored credential
+ * @property apiKey - [GCM only] This is the "Server key" of your project from Firebase console under Settings / Cloud messaging.
  * @property certificate - [APN only] URL encoded representation of the certificate.
+ * @property friendlyName - Friendly name for stored credential
  * @property privateKey - [APN only] URL encoded representation of the private key.
  * @property sandbox - [APN only] use this credential for sending to production or sandbox APNs
- * @property apiKey - [GCM only] This is the "Server key" of your project from Firebase console under Settings / Cloud messaging.
  * @property secret - [FCM only] This is the "Server key" of your project from Firebase console under Settings / Cloud messaging.
+ * @property type - Credential type, one of "gcm", "fcm", or "apn"
  */
 interface CredentialListInstanceCreateOptions {
   apiKey?: string;
@@ -119,12 +119,16 @@ interface CredentialListInstanceCreateOptions {
   privateKey?: string;
   sandbox?: boolean;
   secret?: string;
-  type: credential.push_service;
+  type: CredentialPushService;
 }
 
 /**
  * Options to pass to each
  *
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -135,10 +139,6 @@ interface CredentialListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
  */
 interface CredentialListInstanceEachOptions {
   callback?: (item: CredentialInstance, done: (err?: Error) => void) => void;
@@ -169,9 +169,9 @@ interface CredentialListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
  */
 interface CredentialListInstancePageOptions {
   pageNumber?: number;

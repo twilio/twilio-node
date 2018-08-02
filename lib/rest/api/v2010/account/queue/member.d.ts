@@ -22,8 +22,8 @@ declare function MemberList(version: V2010, accountSid: string, queueSid: string
 /**
  * Options to pass to update
  *
- * @property url - The url
  * @property method - The method
+ * @property url - The url
  */
 interface MemberInstanceUpdateOptions {
   method: string;
@@ -89,6 +89,10 @@ interface MemberListInstance {
 /**
  * Options to pass to each
  *
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -99,10 +103,6 @@ interface MemberListInstance {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
  */
 interface MemberListInstanceEachOptions {
   callback?: (item: MemberInstance, done: (err?: Error) => void) => void;
@@ -133,9 +133,9 @@ interface MemberListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
  */
 interface MemberListInstancePageOptions {
   pageNumber?: number;

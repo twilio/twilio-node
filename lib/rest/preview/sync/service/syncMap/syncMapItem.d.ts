@@ -96,8 +96,8 @@ interface SyncMapItemListInstance {
 /**
  * Options to pass to create
  *
- * @property key - The key
  * @property data - The data
+ * @property key - The key
  */
 interface SyncMapItemListInstanceCreateOptions {
   data: string;
@@ -107,44 +107,44 @@ interface SyncMapItemListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
- * @property order - The order
- * @property from - The from
  * @property bounds - The bounds
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ * @property from - The from
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
  *                         Default is no limit
+ * @property order - The order
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
  */
 interface SyncMapItemListInstanceEachOptions {
-  bounds?: sync_map_item.query_from_bound_type;
+  bounds?: SyncMapItemQueryFromBoundType;
   callback?: (item: SyncMapItemInstance, done: (err?: Error) => void) => void;
   done?: Function;
   from?: string;
   limit?: number;
-  order?: sync_map_item.query_result_order;
+  order?: SyncMapItemQueryResultOrder;
   pageSize?: number;
 }
 
 /**
  * Options to pass to list
  *
- * @property order - The order
- * @property from - The from
  * @property bounds - The bounds
+ * @property from - The from
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
  *                         Default is no limit
+ * @property order - The order
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
@@ -153,27 +153,27 @@ interface SyncMapItemListInstanceEachOptions {
  *                         efficient page size, i.e. min(limit, 1000)
  */
 interface SyncMapItemListInstanceOptions {
-  bounds?: sync_map_item.query_from_bound_type;
+  bounds?: SyncMapItemQueryFromBoundType;
   from?: string;
   limit?: number;
-  order?: sync_map_item.query_result_order;
+  order?: SyncMapItemQueryResultOrder;
   pageSize?: number;
 }
 
 /**
  * Options to pass to page
  *
- * @property order - The order
- * @property from - The from
  * @property bounds - The bounds
- * @property pageToken - PageToken provided by the API
+ * @property from - The from
+ * @property order - The order
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
  */
 interface SyncMapItemListInstancePageOptions {
-  bounds?: sync_map_item.query_from_bound_type;
+  bounds?: SyncMapItemQueryFromBoundType;
   from?: string;
-  order?: sync_map_item.query_result_order;
+  order?: SyncMapItemQueryResultOrder;
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;

@@ -23,9 +23,9 @@ declare function WorkerStatisticsList(version: V1, workspaceSid: string, workerS
 /**
  * Options to pass to fetch
  *
+ * @property endDate - Filter cumulative statistics by a end date.
  * @property minutes - Filter cumulative statistics by up to 'x' minutes in the past.
  * @property startDate - Filter cumulative statistics by a start date.
- * @property endDate - Filter cumulative statistics by a end date.
  * @property taskChannel - Filter cumulative statistics by TaskChannel.
  */
 interface WorkerStatisticsInstanceFetchOptions {

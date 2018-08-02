@@ -24,8 +24,8 @@ declare function SampleList(version: Understand, assistantSid: string, intentSid
  * Options to pass to update
  *
  * @property language - An ISO language-country string of the sample.
- * @property taggedText - The text example of how end-users may express this intent. The sample may contain Field tag blocks.
  * @property sourceChannel - The communication channel the sample was captured. It can be: voice, sms, chat, alexa, google-assistant, or slack. If not included the value will be null
+ * @property taggedText - The text example of how end-users may express this intent. The sample may contain Field tag blocks.
  */
 interface SampleInstanceUpdateOptions {
   language?: string;
@@ -100,8 +100,8 @@ interface SampleListInstance {
  * Options to pass to create
  *
  * @property language - An ISO language-country string of the sample.
- * @property taggedText - The text example of how end-users may express this intent. The sample may contain Field tag blocks.
  * @property sourceChannel - The communication channel the sample was captured. It can be: voice, sms, chat, alexa, google-assistant, or slack. If not included the value will be null
+ * @property taggedText - The text example of how end-users may express this intent. The sample may contain Field tag blocks.
  */
 interface SampleListInstanceCreateOptions {
   language: string;
@@ -112,6 +112,10 @@ interface SampleListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property language - An ISO language-country string of the sample.
  * @property limit -
  *                         Upper limit for the number of records to return.
@@ -123,10 +127,6 @@ interface SampleListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
  */
 interface SampleListInstanceEachOptions {
   callback?: (item: SampleInstance, done: (err?: Error) => void) => void;
@@ -161,9 +161,9 @@ interface SampleListInstanceOptions {
  * Options to pass to page
  *
  * @property language - An ISO language-country string of the sample.
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
  */
 interface SampleListInstancePageOptions {
   language?: string;

@@ -83,18 +83,18 @@ interface CommandListInstance {
 /**
  * Options to pass to create
  *
- * @property command - The message body of the Command or a Base64 encoded byte string in binary mode.
- * @property sim - The Sid or UniqueName of the SIM to send the Command to.
  * @property callbackMethod - The HTTP method Twilio will use when making a request to the callback URL.
  * @property callbackUrl - Twilio will make a request to this URL when the Command has finished sending.
+ * @property command - The message body of the Command or a Base64 encoded byte string in binary mode.
  * @property commandMode - A string representing which mode to send the SMS message using.
  * @property includeSid - When sending a Command to a SIM in text mode, Twilio can automatically include the Sid of the Command in the message body, which could be used to ensure that the device does not process the same Command more than once.
+ * @property sim - The Sid or UniqueName of the SIM to send the Command to.
  */
 interface CommandListInstanceCreateOptions {
   callbackMethod?: string;
   callbackUrl?: string;
   command: string;
-  commandMode?: command.command_mode;
+  commandMode?: CommandCommandMode;
   includeSid?: string;
   sim?: string;
 }
@@ -102,9 +102,11 @@ interface CommandListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
- * @property sim - Only return Commands to or from this SIM.
- * @property status - Only return Commands with this status value.
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
  * @property direction - Only return Commands with this direction value.
+ * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -115,26 +117,22 @@ interface CommandListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
+ * @property sim - Only return Commands to or from this SIM.
+ * @property status - Only return Commands with this status value.
  */
 interface CommandListInstanceEachOptions {
   callback?: (item: CommandInstance, done: (err?: Error) => void) => void;
-  direction?: command.direction;
+  direction?: CommandDirection;
   done?: Function;
   limit?: number;
   pageSize?: number;
   sim?: string;
-  status?: command.status;
+  status?: CommandStatus;
 }
 
 /**
  * Options to pass to list
  *
- * @property sim - Only return Commands to or from this SIM.
- * @property status - Only return Commands with this status value.
  * @property direction - Only return Commands with this direction value.
  * @property limit -
  *                         Upper limit for the number of records to return.
@@ -146,32 +144,34 @@ interface CommandListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property sim - Only return Commands to or from this SIM.
+ * @property status - Only return Commands with this status value.
  */
 interface CommandListInstanceOptions {
-  direction?: command.direction;
+  direction?: CommandDirection;
   limit?: number;
   pageSize?: number;
   sim?: string;
-  status?: command.status;
+  status?: CommandStatus;
 }
 
 /**
  * Options to pass to page
  *
- * @property sim - Only return Commands to or from this SIM.
- * @property status - Only return Commands with this status value.
  * @property direction - Only return Commands with this direction value.
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
+ * @property sim - Only return Commands to or from this SIM.
+ * @property status - Only return Commands with this status value.
  */
 interface CommandListInstancePageOptions {
-  direction?: command.direction;
+  direction?: CommandDirection;
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
   sim?: string;
-  status?: command.status;
+  status?: CommandStatus;
 }
 
 interface CommandPayload extends CommandResource, Page.TwilioResponsePayload {

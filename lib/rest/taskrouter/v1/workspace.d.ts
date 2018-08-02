@@ -36,8 +36,8 @@ declare function WorkspaceList(version: V1): WorkspaceListInstance;
  * @property eventsFilter - Use this parameter to receive webhooks on EventCallbackUrl for specific events on a workspace.
  * @property friendlyName - Human readable description of this workspace
  * @property multiTaskEnabled - Enable or Disable Multitasking by passing either true or False with the POST request.
- * @property timeoutActivitySid - The ID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
  * @property prioritizeQueueOrder - Use this parameter to configure whether to prioritize LIFO or FIFO when workers are receiving Tasks from combination of LIFO and FIFO TaskQueues.
+ * @property timeoutActivitySid - The ID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
  */
 interface WorkspaceInstanceUpdateOptions {
   defaultActivitySid?: string;
@@ -45,7 +45,7 @@ interface WorkspaceInstanceUpdateOptions {
   eventsFilter?: string;
   friendlyName?: string;
   multiTaskEnabled?: boolean;
-  prioritizeQueueOrder?: workspace.queue_order;
+  prioritizeQueueOrder?: WorkspaceQueueOrder;
   timeoutActivitySid?: string;
 }
 
@@ -115,25 +115,29 @@ interface WorkspaceListInstance {
 /**
  * Options to pass to create
  *
- * @property friendlyName - Human readable description of this workspace
  * @property eventCallbackUrl - If provided, the Workspace will publish events to this URL.
  * @property eventsFilter - Use this parameter to receive webhooks on EventCallbackUrl for specific events on a workspace.
+ * @property friendlyName - Human readable description of this workspace
  * @property multiTaskEnabled - Multi tasking allows workers to handle multiple tasks simultaneously.
- * @property template - One of the available template names.
  * @property prioritizeQueueOrder - Use this parameter to configure whether to prioritize LIFO or FIFO when workers are receiving Tasks from combination of LIFO and FIFO TaskQueues.
+ * @property template - One of the available template names.
  */
 interface WorkspaceListInstanceCreateOptions {
   eventCallbackUrl?: string;
   eventsFilter?: string;
   friendlyName: string;
   multiTaskEnabled?: boolean;
-  prioritizeQueueOrder?: workspace.queue_order;
+  prioritizeQueueOrder?: WorkspaceQueueOrder;
   template?: string;
 }
 
 /**
  * Options to pass to each
  *
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property friendlyName - Filter by a workspace's friendly name.
  * @property limit -
  *                         Upper limit for the number of records to return.
@@ -145,10 +149,6 @@ interface WorkspaceListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
  */
 interface WorkspaceListInstanceEachOptions {
   callback?: (item: WorkspaceInstance, done: (err?: Error) => void) => void;
@@ -183,9 +183,9 @@ interface WorkspaceListInstanceOptions {
  * Options to pass to page
  *
  * @property friendlyName - Filter by a workspace's friendly name.
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
  */
 interface WorkspaceListInstancePageOptions {
   friendlyName?: string;

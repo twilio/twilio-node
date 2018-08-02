@@ -23,55 +23,55 @@ declare function ReservationList(version: V1, workspaceSid: string, workerSid: s
 /**
  * Options to pass to update
  *
- * @property reservationStatus - Yes
- * @property workerActivitySid - No
- * @property instruction - Yes
- * @property dequeuePostWorkActivitySid - No
- * @property dequeueFrom - Yes
- * @property dequeueRecord - The dequeue_record
- * @property dequeueTimeout - The dequeue_timeout
- * @property dequeueTo - The dequeue_to
- * @property dequeueStatusCallbackUrl - The dequeue_status_callback_url
+ * @property beep - The beep
+ * @property callAccept - No
  * @property callFrom - Yes
  * @property callRecord - The call_record
+ * @property callStatusCallbackUrl - No
  * @property callTimeout - The call_timeout
  * @property callTo - The call_to
  * @property callUrl - Yes
- * @property callStatusCallbackUrl - No
- * @property callAccept - No
- * @property redirectCallSid - The redirect_call_sid
- * @property redirectAccept - The redirect_accept
- * @property redirectUrl - The redirect_url
- * @property to - The to
- * @property from - The from
- * @property statusCallback - The status_callback
- * @property statusCallbackMethod - The status_callback_method
- * @property statusCallbackEvent - The status_callback_event
- * @property timeout - The timeout
- * @property record - The record
- * @property muted - The muted
- * @property beep - The beep
- * @property startConferenceOnEnter - The start_conference_on_enter
- * @property endConferenceOnExit - The end_conference_on_exit
- * @property waitUrl - The wait_url
- * @property waitMethod - The wait_method
- * @property earlyMedia - The early_media
- * @property maxParticipants - The max_participants
- * @property conferenceStatusCallback - The conference_status_callback
- * @property conferenceStatusCallbackMethod - The conference_status_callback_method
- * @property conferenceStatusCallbackEvent - The conference_status_callback_event
  * @property conferenceRecord - The conference_record
+ * @property conferenceRecordingStatusCallback - The conference_recording_status_callback
+ * @property conferenceRecordingStatusCallbackMethod - The conference_recording_status_callback_method
+ * @property conferenceStatusCallback - The conference_status_callback
+ * @property conferenceStatusCallbackEvent - The conference_status_callback_event
+ * @property conferenceStatusCallbackMethod - The conference_status_callback_method
  * @property conferenceTrim - The conference_trim
+ * @property dequeueFrom - Yes
+ * @property dequeuePostWorkActivitySid - No
+ * @property dequeueRecord - The dequeue_record
+ * @property dequeueStatusCallbackEvent - The dequeue_status_callback_event
+ * @property dequeueStatusCallbackUrl - The dequeue_status_callback_url
+ * @property dequeueTimeout - The dequeue_timeout
+ * @property dequeueTo - The dequeue_to
+ * @property earlyMedia - The early_media
+ * @property endConferenceOnExit - The end_conference_on_exit
+ * @property from - The from
+ * @property instruction - Yes
+ * @property maxParticipants - The max_participants
+ * @property muted - The muted
+ * @property postWorkActivitySid - The post_work_activity_sid
+ * @property record - The record
  * @property recordingChannels - The recording_channels
  * @property recordingStatusCallback - The recording_status_callback
  * @property recordingStatusCallbackMethod - The recording_status_callback_method
- * @property conferenceRecordingStatusCallback - The conference_recording_status_callback
- * @property conferenceRecordingStatusCallbackMethod - The conference_recording_status_callback_method
+ * @property redirectAccept - The redirect_accept
+ * @property redirectCallSid - The redirect_call_sid
+ * @property redirectUrl - The redirect_url
  * @property region - The region
- * @property sipAuthUsername - The sip_auth_username
+ * @property reservationStatus - Yes
  * @property sipAuthPassword - The sip_auth_password
- * @property dequeueStatusCallbackEvent - The dequeue_status_callback_event
- * @property postWorkActivitySid - The post_work_activity_sid
+ * @property sipAuthUsername - The sip_auth_username
+ * @property startConferenceOnEnter - The start_conference_on_enter
+ * @property statusCallback - The status_callback
+ * @property statusCallbackEvent - The status_callback_event
+ * @property statusCallbackMethod - The status_callback_method
+ * @property timeout - The timeout
+ * @property to - The to
+ * @property waitMethod - The wait_method
+ * @property waitUrl - The wait_url
+ * @property workerActivitySid - No
  */
 interface ReservationInstanceUpdateOptions {
   beep?: string;
@@ -86,13 +86,13 @@ interface ReservationInstanceUpdateOptions {
   conferenceRecordingStatusCallback?: string;
   conferenceRecordingStatusCallbackMethod?: string;
   conferenceStatusCallback?: string;
-  conferenceStatusCallbackEvent?: reservation.conference_event|list;
+  conferenceStatusCallbackEvent?: ReservationConferenceEvent[];
   conferenceStatusCallbackMethod?: string;
   conferenceTrim?: string;
   dequeueFrom?: string;
   dequeuePostWorkActivitySid?: string;
   dequeueRecord?: string;
-  dequeueStatusCallbackEvent?: string|list;
+  dequeueStatusCallbackEvent?: string[];
   dequeueStatusCallbackUrl?: string;
   dequeueTimeout?: number;
   dequeueTo?: string;
@@ -111,12 +111,12 @@ interface ReservationInstanceUpdateOptions {
   redirectCallSid?: string;
   redirectUrl?: string;
   region?: string;
-  reservationStatus?: reservation.status;
+  reservationStatus?: ReservationStatus;
   sipAuthPassword?: string;
   sipAuthUsername?: string;
   startConferenceOnEnter?: boolean;
   statusCallback?: string;
-  statusCallbackEvent?: reservation.call_status|list;
+  statusCallbackEvent?: ReservationCallStatus[];
   statusCallbackMethod?: string;
   timeout?: number;
   to?: string;
@@ -184,7 +184,10 @@ interface ReservationListInstance {
 /**
  * Options to pass to each
  *
- * @property reservationStatus - Filter by a worker's reservation status
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -195,23 +198,19 @@ interface ReservationListInstance {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
+ * @property reservationStatus - Filter by a worker's reservation status
  */
 interface ReservationListInstanceEachOptions {
   callback?: (item: ReservationInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;
-  reservationStatus?: reservation.status;
+  reservationStatus?: ReservationStatus;
 }
 
 /**
  * Options to pass to list
  *
- * @property reservationStatus - Filter by a worker's reservation status
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -222,26 +221,27 @@ interface ReservationListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property reservationStatus - Filter by a worker's reservation status
  */
 interface ReservationListInstanceOptions {
   limit?: number;
   pageSize?: number;
-  reservationStatus?: reservation.status;
+  reservationStatus?: ReservationStatus;
 }
 
 /**
  * Options to pass to page
  *
- * @property reservationStatus - Filter by a worker's reservation status
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
+ * @property reservationStatus - Filter by a worker's reservation status
  */
 interface ReservationListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
-  reservationStatus?: reservation.status;
+  reservationStatus?: ReservationStatus;
 }
 
 interface ReservationPayload extends ReservationResource, Page.TwilioResponsePayload {

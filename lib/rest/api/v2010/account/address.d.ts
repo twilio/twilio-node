@@ -23,14 +23,14 @@ declare function AddressList(version: V2010, accountSid: string): AddressListIns
 /**
  * Options to pass to update
  *
- * @property friendlyName - A human-readable description of the address.
- * @property customerName - Your name or business name, or that of your customer.
- * @property street - The number and street address where you or your customer is located.
- * @property city - The city in which you or your customer is located.
- * @property region - The state or region in which you or your customer is located.
- * @property postalCode - The postal code in which you or your customer is located.
- * @property emergencyEnabled - The emergency_enabled
  * @property autoCorrectAddress - If you don't set a value for this parameter, or if you set it to true, then the system will, if necessary, auto-correct the address you provide.
+ * @property city - The city in which you or your customer is located.
+ * @property customerName - Your name or business name, or that of your customer.
+ * @property emergencyEnabled - The emergency_enabled
+ * @property friendlyName - A human-readable description of the address.
+ * @property postalCode - The postal code in which you or your customer is located.
+ * @property region - The state or region in which you or your customer is located.
+ * @property street - The number and street address where you or your customer is located.
  */
 interface AddressInstanceUpdateOptions {
   autoCorrectAddress?: boolean;
@@ -109,15 +109,15 @@ interface AddressListInstance {
 /**
  * Options to pass to create
  *
- * @property customerName - Your name or business name, or that of your customer.
- * @property street - The number and street address where you or your customer is located.
- * @property city - The city in which you or your customer is located.
- * @property region - The state or region in which you or your customer is located.
- * @property postalCode - The postal code in which you or your customer is located.
- * @property isoCountry - The ISO country code of your or your customer's address.
- * @property friendlyName - A human-readable description of the new address.
- * @property emergencyEnabled - The emergency_enabled
  * @property autoCorrectAddress - If you don't set a value for this parameter, or if you set it to true, then the system will, if necessary, auto-correct the address you provide.
+ * @property city - The city in which you or your customer is located.
+ * @property customerName - Your name or business name, or that of your customer.
+ * @property emergencyEnabled - The emergency_enabled
+ * @property friendlyName - A human-readable description of the new address.
+ * @property isoCountry - The ISO country code of your or your customer's address.
+ * @property postalCode - The postal code in which you or your customer is located.
+ * @property region - The state or region in which you or your customer is located.
+ * @property street - The number and street address where you or your customer is located.
  */
 interface AddressListInstanceCreateOptions {
   autoCorrectAddress?: boolean;
@@ -134,7 +134,11 @@ interface AddressListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
  * @property customerName - Only return the Address resources with customer names that exactly match this name.
+ * @property done - Function to be called upon completion of streaming
  * @property friendlyName - Only return the Address resources with friendly names that exactly match this name.
  * @property isoCountry - Only return the Address resources in this country.
  * @property limit -
@@ -147,10 +151,6 @@ interface AddressListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
  */
 interface AddressListInstanceEachOptions {
   callback?: (item: AddressInstance, done: (err?: Error) => void) => void;
@@ -193,9 +193,9 @@ interface AddressListInstanceOptions {
  * @property customerName - Only return the Address resources with customer names that exactly match this name.
  * @property friendlyName - Only return the Address resources with friendly names that exactly match this name.
  * @property isoCountry - Only return the Address resources in this country.
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
  */
 interface AddressListInstancePageOptions {
   customerName?: string;

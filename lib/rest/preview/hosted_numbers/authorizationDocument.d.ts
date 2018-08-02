@@ -23,22 +23,22 @@ declare function AuthorizationDocumentList(version: HostedNumbers): Authorizatio
 /**
  * Options to pass to update
  *
- * @property hostedNumberOrderSids - A list of HostedNumberOrder sids.
  * @property addressSid - Address sid.
- * @property email - Email.
  * @property ccEmails - A list of emails.
- * @property status - The Status of this AuthorizationDocument.
- * @property contactTitle - Title of signee of this Authorization Document.
  * @property contactPhoneNumber - Authorization Document's signee's phone number.
+ * @property contactTitle - Title of signee of this Authorization Document.
+ * @property email - Email.
+ * @property hostedNumberOrderSids - A list of HostedNumberOrder sids.
+ * @property status - The Status of this AuthorizationDocument.
  */
 interface AuthorizationDocumentInstanceUpdateOptions {
   addressSid?: string;
-  ccEmails?: string|list;
+  ccEmails?: string[];
   contactPhoneNumber?: string;
   contactTitle?: string;
   email?: string;
-  hostedNumberOrderSids?: string|list;
-  status?: authorization_document.status;
+  hostedNumberOrderSids?: string[];
+  status?: AuthorizationDocumentStatus;
 }
 
 interface AuthorizationDocumentListInstance {
@@ -107,27 +107,30 @@ interface AuthorizationDocumentListInstance {
 /**
  * Options to pass to create
  *
- * @property hostedNumberOrderSids - A list of HostedNumberOrder sids.
  * @property addressSid - Address sid.
- * @property email - Email.
- * @property contactTitle - Title of signee of this Authorization Document.
- * @property contactPhoneNumber - Authorization Document's signee's phone number.
  * @property ccEmails - A list of emails.
+ * @property contactPhoneNumber - Authorization Document's signee's phone number.
+ * @property contactTitle - Title of signee of this Authorization Document.
+ * @property email - Email.
+ * @property hostedNumberOrderSids - A list of HostedNumberOrder sids.
  */
 interface AuthorizationDocumentListInstanceCreateOptions {
   addressSid: string;
-  ccEmails?: string|list;
+  ccEmails?: string[];
   contactPhoneNumber: string;
   contactTitle: string;
   email: string;
-  hostedNumberOrderSids: string|list;
+  hostedNumberOrderSids: string[];
 }
 
 /**
  * Options to pass to each
  *
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property email - Email.
- * @property status - The Status of this AuthorizationDocument.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -138,10 +141,7 @@ interface AuthorizationDocumentListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
+ * @property status - The Status of this AuthorizationDocument.
  */
 interface AuthorizationDocumentListInstanceEachOptions {
   callback?: (item: AuthorizationDocumentInstance, done: (err?: Error) => void) => void;
@@ -149,14 +149,13 @@ interface AuthorizationDocumentListInstanceEachOptions {
   email?: string;
   limit?: number;
   pageSize?: number;
-  status?: authorization_document.status;
+  status?: AuthorizationDocumentStatus;
 }
 
 /**
  * Options to pass to list
  *
  * @property email - Email.
- * @property status - The Status of this AuthorizationDocument.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -167,29 +166,30 @@ interface AuthorizationDocumentListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property status - The Status of this AuthorizationDocument.
  */
 interface AuthorizationDocumentListInstanceOptions {
   email?: string;
   limit?: number;
   pageSize?: number;
-  status?: authorization_document.status;
+  status?: AuthorizationDocumentStatus;
 }
 
 /**
  * Options to pass to page
  *
  * @property email - Email.
- * @property status - The Status of this AuthorizationDocument.
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
+ * @property status - The Status of this AuthorizationDocument.
  */
 interface AuthorizationDocumentListInstancePageOptions {
   email?: string;
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
-  status?: authorization_document.status;
+  status?: AuthorizationDocumentStatus;
 }
 
 interface AuthorizationDocumentPayload extends AuthorizationDocumentResource, Page.TwilioResponsePayload {

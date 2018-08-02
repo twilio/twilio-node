@@ -35,7 +35,7 @@ interface FeedbackListInstance {
  * @property outcome - The outcome
  */
 interface FeedbackListInstanceCreateOptions {
-  outcome?: feedback.outcome;
+  outcome?: FeedbackOutcome;
 }
 
 interface FeedbackPayload extends FeedbackResource, Page.TwilioResponsePayload {

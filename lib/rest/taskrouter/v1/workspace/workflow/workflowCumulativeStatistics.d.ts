@@ -25,9 +25,9 @@ declare function WorkflowCumulativeStatisticsList(version: V1, workspaceSid: str
  *
  * @property endDate - Filter cumulative statistics by an end date.
  * @property minutes - Filter cumulative statistics by up to 'x' minutes in the past.
+ * @property splitByWaitTime - A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
  * @property startDate - Filter cumulative statistics by a start date.
  * @property taskChannel - Filter real-time and cumulative statistics by TaskChannel.
- * @property splitByWaitTime - A comma separated values for viewing splits of tasks canceled and accepted above the given threshold in seconds.
  */
 interface WorkflowCumulativeStatisticsInstanceFetchOptions {
   endDate?: Date;

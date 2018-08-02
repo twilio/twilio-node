@@ -26,12 +26,12 @@ declare function AssistantList(version: Understand): AssistantListInstance;
 /**
  * Options to pass to update
  *
+ * @property callbackEvents - The callback_events
+ * @property callbackUrl - The callback_url
  * @property friendlyName - A text description for the Assistant. It is non-unique and can up to 255 characters long.
  * @property logQueries - A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
- * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
  * @property responseUrl - The webhook URL called to fetch the response to an incoming communication expressed in Assistant TwiML.
- * @property callbackUrl - The callback_url
- * @property callbackEvents - The callback_events
+ * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
  */
 interface AssistantInstanceUpdateOptions {
   callbackEvents?: string;
@@ -108,12 +108,12 @@ interface AssistantListInstance {
 /**
  * Options to pass to create
  *
+ * @property callbackEvents - The callback_events
+ * @property callbackUrl - The callback_url
  * @property friendlyName - A text description for the Assistant. It is non-unique and can up to 255 characters long.
  * @property logQueries - A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
- * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
  * @property responseUrl - The webhook URL called to fetch the response to an incoming communication expressed in Assistant TwiML.
- * @property callbackUrl - The callback_url
- * @property callbackEvents - The callback_events
+ * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
  */
 interface AssistantListInstanceCreateOptions {
   callbackEvents?: string;
@@ -127,6 +127,10 @@ interface AssistantListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -137,10 +141,6 @@ interface AssistantListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
  */
 interface AssistantListInstanceEachOptions {
   callback?: (item: AssistantInstance, done: (err?: Error) => void) => void;
@@ -171,9 +171,9 @@ interface AssistantListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
  */
 interface AssistantListInstancePageOptions {
   pageNumber?: number;

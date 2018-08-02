@@ -78,10 +78,12 @@ interface RoomRecordingListInstance {
 /**
  * Options to pass to each
  *
- * @property status - The status
- * @property sourceSid - The source_sid
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
  * @property dateCreatedAfter - The date_created_after
  * @property dateCreatedBefore - The date_created_before
+ * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -92,10 +94,8 @@ interface RoomRecordingListInstance {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
+ * @property sourceSid - The source_sid
+ * @property status - The status
  */
 interface RoomRecordingListInstanceEachOptions {
   callback?: (item: RoomRecordingInstance, done: (err?: Error) => void) => void;
@@ -105,14 +105,12 @@ interface RoomRecordingListInstanceEachOptions {
   limit?: number;
   pageSize?: number;
   sourceSid?: string;
-  status?: room_recording.status;
+  status?: RoomRecordingStatus;
 }
 
 /**
  * Options to pass to list
  *
- * @property status - The status
- * @property sourceSid - The source_sid
  * @property dateCreatedAfter - The date_created_after
  * @property dateCreatedBefore - The date_created_before
  * @property limit -
@@ -125,6 +123,8 @@ interface RoomRecordingListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property sourceSid - The source_sid
+ * @property status - The status
  */
 interface RoomRecordingListInstanceOptions {
   dateCreatedAfter?: Date;
@@ -132,19 +132,19 @@ interface RoomRecordingListInstanceOptions {
   limit?: number;
   pageSize?: number;
   sourceSid?: string;
-  status?: room_recording.status;
+  status?: RoomRecordingStatus;
 }
 
 /**
  * Options to pass to page
  *
- * @property status - The status
- * @property sourceSid - The source_sid
  * @property dateCreatedAfter - The date_created_after
  * @property dateCreatedBefore - The date_created_before
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
+ * @property sourceSid - The source_sid
+ * @property status - The status
  */
 interface RoomRecordingListInstancePageOptions {
   dateCreatedAfter?: Date;
@@ -153,7 +153,7 @@ interface RoomRecordingListInstancePageOptions {
   pageSize?: number;
   pageToken?: string;
   sourceSid?: string;
-  status?: room_recording.status;
+  status?: RoomRecordingStatus;
 }
 
 interface RoomRecordingPayload extends RoomRecordingResource, Page.TwilioResponsePayload {

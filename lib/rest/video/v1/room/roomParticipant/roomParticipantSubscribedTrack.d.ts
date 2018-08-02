@@ -76,10 +76,12 @@ interface SubscribedTrackListInstance {
 /**
  * Options to pass to each
  *
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
  * @property dateCreatedAfter - The date_created_after
  * @property dateCreatedBefore - The date_created_before
- * @property track - The track
- * @property publisher - The publisher
+ * @property done - Function to be called upon completion of streaming
  * @property kind - The kind
  * @property limit -
  *                         Upper limit for the number of records to return.
@@ -91,17 +93,15 @@ interface SubscribedTrackListInstance {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
+ * @property publisher - The publisher
+ * @property track - The track
  */
 interface SubscribedTrackListInstanceEachOptions {
   callback?: (item: SubscribedTrackInstance, done: (err?: Error) => void) => void;
   dateCreatedAfter?: Date;
   dateCreatedBefore?: Date;
   done?: Function;
-  kind?: subscribed_track.kind;
+  kind?: SubscribedTrackKind;
   limit?: number;
   pageSize?: number;
   publisher?: string;
@@ -113,8 +113,6 @@ interface SubscribedTrackListInstanceEachOptions {
  *
  * @property dateCreatedAfter - The date_created_after
  * @property dateCreatedBefore - The date_created_before
- * @property track - The track
- * @property publisher - The publisher
  * @property kind - The kind
  * @property limit -
  *                         Upper limit for the number of records to return.
@@ -126,11 +124,13 @@ interface SubscribedTrackListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property publisher - The publisher
+ * @property track - The track
  */
 interface SubscribedTrackListInstanceOptions {
   dateCreatedAfter?: Date;
   dateCreatedBefore?: Date;
-  kind?: subscribed_track.kind;
+  kind?: SubscribedTrackKind;
   limit?: number;
   pageSize?: number;
   publisher?: string;
@@ -142,17 +142,17 @@ interface SubscribedTrackListInstanceOptions {
  *
  * @property dateCreatedAfter - The date_created_after
  * @property dateCreatedBefore - The date_created_before
- * @property track - The track
- * @property publisher - The publisher
  * @property kind - The kind
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
+ * @property publisher - The publisher
+ * @property track - The track
  */
 interface SubscribedTrackListInstancePageOptions {
   dateCreatedAfter?: Date;
   dateCreatedBefore?: Date;
-  kind?: subscribed_track.kind;
+  kind?: SubscribedTrackKind;
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
@@ -163,15 +163,15 @@ interface SubscribedTrackListInstancePageOptions {
 /**
  * Options to pass to update
  *
- * @property track - The track
- * @property publisher - The publisher
  * @property kind - The kind
+ * @property publisher - The publisher
  * @property status - The status
+ * @property track - The track
  */
 interface SubscribedTrackListInstanceUpdateOptions {
-  kind?: subscribed_track.kind;
+  kind?: SubscribedTrackKind;
   publisher?: string;
-  status?: subscribed_track.status;
+  status?: SubscribedTrackStatus;
   track?: string;
 }
 

@@ -23,8 +23,8 @@ declare function MemberList(version: V1, serviceSid: string, channelSid: string)
 /**
  * Options to pass to update
  *
- * @property roleSid - The Role assigned to this member.
  * @property lastConsumedMessageIndex - An Integer representing index of the last Message this Member has read within this Channel
+ * @property roleSid - The Role assigned to this member.
  */
 interface MemberInstanceUpdateOptions {
   lastConsumedMessageIndex?: number;
@@ -108,6 +108,10 @@ interface MemberListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property identity - A unique string identifier for this User in this Service.
  * @property limit -
  *                         Upper limit for the number of records to return.
@@ -119,15 +123,11 @@ interface MemberListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
  */
 interface MemberListInstanceEachOptions {
   callback?: (item: MemberInstance, done: (err?: Error) => void) => void;
   done?: Function;
-  identity?: string|list;
+  identity?: string[];
   limit?: number;
   pageSize?: number;
 }
@@ -148,7 +148,7 @@ interface MemberListInstanceEachOptions {
  *                         efficient page size, i.e. min(limit, 1000)
  */
 interface MemberListInstanceOptions {
-  identity?: string|list;
+  identity?: string[];
   limit?: number;
   pageSize?: number;
 }
@@ -157,12 +157,12 @@ interface MemberListInstanceOptions {
  * Options to pass to page
  *
  * @property identity - A unique string identifier for this User in this Service.
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
  */
 interface MemberListInstancePageOptions {
-  identity?: string|list;
+  identity?: string[];
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;

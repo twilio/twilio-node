@@ -26,10 +26,10 @@ declare function ServiceList(version: V1): ServiceListInstance;
 /**
  * Options to pass to update
  *
- * @property webhookUrl - A URL that will receive event updates when objects are manipulated.
+ * @property aclEnabled - true or false - determines whether token identities must be granted access to Sync objects via the Permissions API in this Service.
  * @property friendlyName - Human-readable name for this service instance
  * @property reachabilityWebhooksEnabled - True or false - controls whether this instance fires webhooks when client endpoints connect to Sync
- * @property aclEnabled - true or false - determines whether token identities must be granted access to Sync objects via the Permissions API in this Service.
+ * @property webhookUrl - A URL that will receive event updates when objects are manipulated.
  */
 interface ServiceInstanceUpdateOptions {
   aclEnabled?: boolean;
@@ -104,10 +104,10 @@ interface ServiceListInstance {
 /**
  * Options to pass to create
  *
- * @property friendlyName - Human-readable name for this service instance
- * @property webhookUrl - A URL that will receive event updates when objects are manipulated.
- * @property reachabilityWebhooksEnabled - true or false - controls whether this instance fires webhooks when client endpoints connect to Sync
  * @property aclEnabled - true or false - determines whether token identities must be granted access to Sync objects via the Permissions API in this Service.
+ * @property friendlyName - Human-readable name for this service instance
+ * @property reachabilityWebhooksEnabled - true or false - controls whether this instance fires webhooks when client endpoints connect to Sync
+ * @property webhookUrl - A URL that will receive event updates when objects are manipulated.
  */
 interface ServiceListInstanceCreateOptions {
   aclEnabled?: boolean;
@@ -119,6 +119,10 @@ interface ServiceListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -129,10 +133,6 @@ interface ServiceListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
  */
 interface ServiceListInstanceEachOptions {
   callback?: (item: ServiceInstance, done: (err?: Error) => void) => void;
@@ -163,9 +163,9 @@ interface ServiceListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
  */
 interface ServiceListInstancePageOptions {
   pageNumber?: number;

@@ -24,11 +24,11 @@ declare function TaskQueueList(version: V1, workspaceSid: string): TaskQueueList
 /**
  * Options to pass to update
  *
- * @property friendlyName - Human readable description of this TaskQueue
- * @property targetWorkers - A string describing the Worker selection criteria for any Tasks that enter this TaskQueue.
- * @property reservationActivitySid - ActivitySID that will be assigned to Workers when they are reserved for a task from this TaskQueue.
  * @property assignmentActivitySid - ActivitySID that will be assigned to Workers when they are assigned a task from this TaskQueue.
+ * @property friendlyName - Human readable description of this TaskQueue
  * @property maxReservedWorkers - The maximum amount of workers to create reservations for the assignment of a task while in this queue.
+ * @property reservationActivitySid - ActivitySID that will be assigned to Workers when they are reserved for a task from this TaskQueue.
+ * @property targetWorkers - A string describing the Worker selection criteria for any Tasks that enter this TaskQueue.
  * @property taskOrder - TaskOrder will determine which order the Tasks will be assigned to Workers.
  */
 interface TaskQueueInstanceUpdateOptions {
@@ -37,7 +37,7 @@ interface TaskQueueInstanceUpdateOptions {
   maxReservedWorkers?: number;
   reservationActivitySid?: string;
   targetWorkers?: string;
-  taskOrder?: task_queue.task_order;
+  taskOrder?: TaskQueueTaskOrder;
 }
 
 interface TaskQueueListInstance {
@@ -107,11 +107,11 @@ interface TaskQueueListInstance {
 /**
  * Options to pass to create
  *
- * @property friendlyName - Human readable description of this TaskQueue
- * @property reservationActivitySid - ActivitySID to assign workers once a task is reserved for them
  * @property assignmentActivitySid - ActivitySID to assign workers once a task is assigned for them
- * @property targetWorkers - A string describing the Worker selection criteria for any Tasks that enter this TaskQueue.
+ * @property friendlyName - Human readable description of this TaskQueue
  * @property maxReservedWorkers - The maximum amount of workers to create reservations for the assignment of a task while in this queue.
+ * @property reservationActivitySid - ActivitySID to assign workers once a task is reserved for them
+ * @property targetWorkers - A string describing the Worker selection criteria for any Tasks that enter this TaskQueue.
  * @property taskOrder - TaskOrder will determine which order the Tasks will be assigned to Workers.
  */
 interface TaskQueueListInstanceCreateOptions {
@@ -120,15 +120,18 @@ interface TaskQueueListInstanceCreateOptions {
   maxReservedWorkers?: number;
   reservationActivitySid: string;
   targetWorkers?: string;
-  taskOrder?: task_queue.task_order;
+  taskOrder?: TaskQueueTaskOrder;
 }
 
 /**
  * Options to pass to each
  *
- * @property friendlyName - Filter by a human readable description of a TaskQueue
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property evaluateWorkerAttributes - Provide a Worker attributes expression, and this will return the list of TaskQueues that would distribute tasks to a worker with these attributes.
- * @property workerSid - The worker_sid
+ * @property friendlyName - Filter by a human readable description of a TaskQueue
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -139,10 +142,7 @@ interface TaskQueueListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
+ * @property workerSid - The worker_sid
  */
 interface TaskQueueListInstanceEachOptions {
   callback?: (item: TaskQueueInstance, done: (err?: Error) => void) => void;
@@ -157,9 +157,8 @@ interface TaskQueueListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property friendlyName - Filter by a human readable description of a TaskQueue
  * @property evaluateWorkerAttributes - Provide a Worker attributes expression, and this will return the list of TaskQueues that would distribute tasks to a worker with these attributes.
- * @property workerSid - The worker_sid
+ * @property friendlyName - Filter by a human readable description of a TaskQueue
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -170,6 +169,7 @@ interface TaskQueueListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property workerSid - The worker_sid
  */
 interface TaskQueueListInstanceOptions {
   evaluateWorkerAttributes?: string;
@@ -182,12 +182,12 @@ interface TaskQueueListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property friendlyName - Filter by a human readable description of a TaskQueue
  * @property evaluateWorkerAttributes - Provide a Worker attributes expression, and this will return the list of TaskQueues that would distribute tasks to a worker with these attributes.
- * @property workerSid - The worker_sid
- * @property pageToken - PageToken provided by the API
+ * @property friendlyName - Filter by a human readable description of a TaskQueue
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
+ * @property workerSid - The worker_sid
  */
 interface TaskQueueListInstancePageOptions {
   evaluateWorkerAttributes?: string;

@@ -25,9 +25,9 @@ declare function ChannelList(version: V1, serviceSid: string): ChannelListInstan
 /**
  * Options to pass to update
  *
+ * @property attributes - An optional metadata field you can use to store any data you wish.
  * @property friendlyName - A human-readable name for the Channel.
  * @property uniqueName - A unique, addressable name for the Channel.
- * @property attributes - An optional metadata field you can use to store any data you wish.
  */
 interface ChannelInstanceUpdateOptions {
   attributes?: string;
@@ -101,22 +101,25 @@ interface ChannelListInstance {
 /**
  * Options to pass to create
  *
- * @property friendlyName - A human-readable name for the Channel.
- * @property uniqueName - A unique, addressable name for the Channel.
  * @property attributes - An optional metadata field you can use to store any data you wish.
+ * @property friendlyName - A human-readable name for the Channel.
  * @property type - The visibility of the channel - public or private.
+ * @property uniqueName - A unique, addressable name for the Channel.
  */
 interface ChannelListInstanceCreateOptions {
   attributes?: string;
   friendlyName?: string;
-  type?: channel.channel_type;
+  type?: ChannelChannelType;
   uniqueName?: string;
 }
 
 /**
  * Options to pass to each
  *
- * @property type - The type
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -127,23 +130,19 @@ interface ChannelListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
+ * @property type - The type
  */
 interface ChannelListInstanceEachOptions {
   callback?: (item: ChannelInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;
-  type?: channel.channel_type|list;
+  type?: ChannelChannelType[];
 }
 
 /**
  * Options to pass to list
  *
- * @property type - The type
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -154,26 +153,27 @@ interface ChannelListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property type - The type
  */
 interface ChannelListInstanceOptions {
   limit?: number;
   pageSize?: number;
-  type?: channel.channel_type|list;
+  type?: ChannelChannelType[];
 }
 
 /**
  * Options to pass to page
  *
- * @property type - The type
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
+ * @property type - The type
  */
 interface ChannelListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
-  type?: channel.channel_type|list;
+  type?: ChannelChannelType[];
 }
 
 interface ChannelPayload extends ChannelResource, Page.TwilioResponsePayload {

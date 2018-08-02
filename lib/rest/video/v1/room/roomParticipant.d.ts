@@ -27,7 +27,7 @@ declare function ParticipantList(version: V1, roomSid: string): ParticipantListI
  * @property status - Set to disconnected to remove participant.
  */
 interface ParticipantInstanceUpdateOptions {
-  status?: participant.status;
+  status?: ParticipantStatus;
 }
 
 interface ParticipantListInstance {
@@ -89,10 +89,13 @@ interface ParticipantListInstance {
 /**
  * Options to pass to each
  *
- * @property status - Only show Participants with the given Status.
- * @property identity - Only show Participants that connected to the Room using the provided Identity.
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
  * @property dateCreatedAfter - Only show Participants that started after this date, given as an UTC ISO 8601 Timestamp.
  * @property dateCreatedBefore - Only show Participants that started before this date, given as an UTC ISO 8601 Timestamp.
+ * @property done - Function to be called upon completion of streaming
+ * @property identity - Only show Participants that connected to the Room using the provided Identity.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -103,10 +106,7 @@ interface ParticipantListInstance {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
+ * @property status - Only show Participants with the given Status.
  */
 interface ParticipantListInstanceEachOptions {
   callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void;
@@ -116,16 +116,15 @@ interface ParticipantListInstanceEachOptions {
   identity?: string;
   limit?: number;
   pageSize?: number;
-  status?: participant.status;
+  status?: ParticipantStatus;
 }
 
 /**
  * Options to pass to list
  *
- * @property status - Only show Participants with the given Status.
- * @property identity - Only show Participants that connected to the Room using the provided Identity.
  * @property dateCreatedAfter - Only show Participants that started after this date, given as an UTC ISO 8601 Timestamp.
  * @property dateCreatedBefore - Only show Participants that started before this date, given as an UTC ISO 8601 Timestamp.
+ * @property identity - Only show Participants that connected to the Room using the provided Identity.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -136,6 +135,7 @@ interface ParticipantListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property status - Only show Participants with the given Status.
  */
 interface ParticipantListInstanceOptions {
   dateCreatedAfter?: Date;
@@ -143,19 +143,19 @@ interface ParticipantListInstanceOptions {
   identity?: string;
   limit?: number;
   pageSize?: number;
-  status?: participant.status;
+  status?: ParticipantStatus;
 }
 
 /**
  * Options to pass to page
  *
- * @property status - Only show Participants with the given Status.
- * @property identity - Only show Participants that connected to the Room using the provided Identity.
  * @property dateCreatedAfter - Only show Participants that started after this date, given as an UTC ISO 8601 Timestamp.
  * @property dateCreatedBefore - Only show Participants that started before this date, given as an UTC ISO 8601 Timestamp.
- * @property pageToken - PageToken provided by the API
+ * @property identity - Only show Participants that connected to the Room using the provided Identity.
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
+ * @property status - Only show Participants with the given Status.
  */
 interface ParticipantListInstancePageOptions {
   dateCreatedAfter?: Date;
@@ -164,7 +164,7 @@ interface ParticipantListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
-  status?: participant.status;
+  status?: ParticipantStatus;
 }
 
 interface ParticipantPayload extends ParticipantResource, Page.TwilioResponsePayload {

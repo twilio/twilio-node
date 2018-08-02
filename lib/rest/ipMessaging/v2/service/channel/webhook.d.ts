@@ -23,20 +23,22 @@ declare function WebhookList(version: V2, serviceSid: string, channelSid: string
 /**
  * Options to pass to update
  *
- * @property configuration.url - The configuration.url
- * @property configuration.method - The configuration.method
  * @property configuration.filters - The configuration.filters
- * @property configuration.triggers - The configuration.triggers
  * @property configuration.flowSid - The configuration.flow_sid
+ * @property configuration.method - The configuration.method
  * @property configuration.retryCount - The configuration.retry_count
+ * @property configuration.triggers - The configuration.triggers
+ * @property configuration.url - The configuration.url
  */
 interface WebhookInstanceUpdateOptions {
-  configuration.filters?: string|list;
-  configuration.flowSid?: string;
-  configuration.method?: webhook.method;
-  configuration.retryCount?: number;
-  configuration.triggers?: string|list;
-  configuration.url?: string;
+  configuration?: {
+    url?: string;
+    method?: WebhookMethod;
+    filters?: string[];
+    triggers?: string[];
+    flowSid?: string;
+    retryCount?: number;
+  };
 }
 
 interface WebhookListInstance {
@@ -105,27 +107,33 @@ interface WebhookListInstance {
 /**
  * Options to pass to create
  *
- * @property type - The type
- * @property configuration.url - The configuration.url
- * @property configuration.method - The configuration.method
  * @property configuration.filters - The configuration.filters
- * @property configuration.triggers - The configuration.triggers
  * @property configuration.flowSid - The configuration.flow_sid
+ * @property configuration.method - The configuration.method
  * @property configuration.retryCount - The configuration.retry_count
+ * @property configuration.triggers - The configuration.triggers
+ * @property configuration.url - The configuration.url
+ * @property type - The type
  */
 interface WebhookListInstanceCreateOptions {
-  configuration.filters?: string|list;
-  configuration.flowSid?: string;
-  configuration.method?: webhook.method;
-  configuration.retryCount?: number;
-  configuration.triggers?: string|list;
-  configuration.url?: string;
-  type: webhook.type;
+  configuration?: {
+    url?: string;
+    method?: WebhookMethod;
+    filters?: string[];
+    triggers?: string[];
+    flowSid?: string;
+    retryCount?: number;
+  };
+  type: WebhookType;
 }
 
 /**
  * Options to pass to each
  *
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -136,10 +144,6 @@ interface WebhookListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
  */
 interface WebhookListInstanceEachOptions {
   callback?: (item: WebhookInstance, done: (err?: Error) => void) => void;
@@ -170,9 +174,9 @@ interface WebhookListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
  */
 interface WebhookListInstancePageOptions {
   pageNumber?: number;

@@ -92,9 +92,9 @@ interface PublicKeyListInstance {
 /**
  * Options to pass to create
  *
- * @property publicKey - URL encoded representation of the public key
- * @property friendlyName - A human readable description of this resource
  * @property accountSid - The Subaccount this Credential should be associated with.
+ * @property friendlyName - A human readable description of this resource
+ * @property publicKey - URL encoded representation of the public key
  */
 interface PublicKeyListInstanceCreateOptions {
   accountSid?: string;
@@ -105,6 +105,10 @@ interface PublicKeyListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -115,10 +119,6 @@ interface PublicKeyListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
  */
 interface PublicKeyListInstanceEachOptions {
   callback?: (item: PublicKeyInstance, done: (err?: Error) => void) => void;
@@ -149,9 +149,9 @@ interface PublicKeyListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
  */
 interface PublicKeyListInstancePageOptions {
   pageNumber?: number;

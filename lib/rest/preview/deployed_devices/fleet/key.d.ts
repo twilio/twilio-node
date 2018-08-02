@@ -22,8 +22,8 @@ declare function KeyList(version: DeployedDevices, fleetSid: string): KeyListIns
 /**
  * Options to pass to update
  *
- * @property friendlyName - The human readable description for this Key.
  * @property deviceSid - The unique identifier of a Key to be authenticated.
+ * @property friendlyName - The human readable description for this Key.
  */
 interface KeyInstanceUpdateOptions {
   deviceSid?: string;
@@ -96,8 +96,8 @@ interface KeyListInstance {
 /**
  * Options to pass to create
  *
- * @property friendlyName - The human readable description for this Key.
  * @property deviceSid - The unique identifier of a Key to be authenticated.
+ * @property friendlyName - The human readable description for this Key.
  */
 interface KeyListInstanceCreateOptions {
   deviceSid?: string;
@@ -107,7 +107,11 @@ interface KeyListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
  * @property deviceSid - Find all Keys authenticating specified Device.
+ * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -118,10 +122,6 @@ interface KeyListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
  */
 interface KeyListInstanceEachOptions {
   callback?: (item: KeyInstance, done: (err?: Error) => void) => void;
@@ -156,9 +156,9 @@ interface KeyListInstanceOptions {
  * Options to pass to page
  *
  * @property deviceSid - Find all Keys authenticating specified Device.
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
  */
 interface KeyListInstancePageOptions {
   deviceSid?: string;

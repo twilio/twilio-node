@@ -42,9 +42,9 @@ interface FeedbackSummaryListInstance {
 /**
  * Options to pass to create
  *
- * @property startDate - Only include usage that has occurred on or after this date.
  * @property endDate - Only include usage that has occurred on or before this date.
  * @property includeSubaccounts - true to include feedback entries for the master account and all subaccounts.
+ * @property startDate - Only include usage that has occurred on or after this date.
  * @property statusCallback - The URL that Twilio will request when the Feedback Summary is completed.
  * @property statusCallbackMethod - The HTTP method Twilio will use to make requests to the StatusCallback URL.
  */

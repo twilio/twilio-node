@@ -70,37 +70,37 @@ interface SharedCostListInstance {
  * Options to pass to each
  *
  * @property areaCode - The area_code
- * @property contains - The contains
- * @property smsEnabled - The sms_enabled
- * @property mmsEnabled - The mms_enabled
- * @property voiceEnabled - The voice_enabled
- * @property excludeAllAddressRequired - The exclude_all_address_required
- * @property excludeLocalAddressRequired - The exclude_local_address_required
- * @property excludeForeignAddressRequired - The exclude_foreign_address_required
  * @property beta - The beta
- * @property nearNumber - The near_number
- * @property nearLatLong - The near_lat_long
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property contains - The contains
  * @property distance - The distance
- * @property inPostalCode - The in_postal_code
- * @property inRegion - The in_region
- * @property inRateCenter - The in_rate_center
+ * @property done - Function to be called upon completion of streaming
+ * @property excludeAllAddressRequired - The exclude_all_address_required
+ * @property excludeForeignAddressRequired - The exclude_foreign_address_required
+ * @property excludeLocalAddressRequired - The exclude_local_address_required
+ * @property faxEnabled - The fax_enabled
  * @property inLata - The in_lata
  * @property inLocality - The in_locality
- * @property faxEnabled - The fax_enabled
+ * @property inPostalCode - The in_postal_code
+ * @property inRateCenter - The in_rate_center
+ * @property inRegion - The in_region
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
  *                         Default is no limit
+ * @property mmsEnabled - The mms_enabled
+ * @property nearLatLong - The near_lat_long
+ * @property nearNumber - The near_number
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
+ * @property smsEnabled - The sms_enabled
+ * @property voiceEnabled - The voice_enabled
  */
 interface SharedCostListInstanceEachOptions {
   areaCode?: number;
@@ -131,33 +131,33 @@ interface SharedCostListInstanceEachOptions {
  * Options to pass to list
  *
  * @property areaCode - The area_code
- * @property contains - The contains
- * @property smsEnabled - The sms_enabled
- * @property mmsEnabled - The mms_enabled
- * @property voiceEnabled - The voice_enabled
- * @property excludeAllAddressRequired - The exclude_all_address_required
- * @property excludeLocalAddressRequired - The exclude_local_address_required
- * @property excludeForeignAddressRequired - The exclude_foreign_address_required
  * @property beta - The beta
- * @property nearNumber - The near_number
- * @property nearLatLong - The near_lat_long
+ * @property contains - The contains
  * @property distance - The distance
- * @property inPostalCode - The in_postal_code
- * @property inRegion - The in_region
- * @property inRateCenter - The in_rate_center
+ * @property excludeAllAddressRequired - The exclude_all_address_required
+ * @property excludeForeignAddressRequired - The exclude_foreign_address_required
+ * @property excludeLocalAddressRequired - The exclude_local_address_required
+ * @property faxEnabled - The fax_enabled
  * @property inLata - The in_lata
  * @property inLocality - The in_locality
- * @property faxEnabled - The fax_enabled
+ * @property inPostalCode - The in_postal_code
+ * @property inRateCenter - The in_rate_center
+ * @property inRegion - The in_region
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
  *                         Default is no limit
+ * @property mmsEnabled - The mms_enabled
+ * @property nearLatLong - The near_lat_long
+ * @property nearNumber - The near_number
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property smsEnabled - The sms_enabled
+ * @property voiceEnabled - The voice_enabled
  */
 interface SharedCostListInstanceOptions {
   areaCode?: number;
@@ -186,26 +186,26 @@ interface SharedCostListInstanceOptions {
  * Options to pass to page
  *
  * @property areaCode - The area_code
- * @property contains - The contains
- * @property smsEnabled - The sms_enabled
- * @property mmsEnabled - The mms_enabled
- * @property voiceEnabled - The voice_enabled
- * @property excludeAllAddressRequired - The exclude_all_address_required
- * @property excludeLocalAddressRequired - The exclude_local_address_required
- * @property excludeForeignAddressRequired - The exclude_foreign_address_required
  * @property beta - The beta
- * @property nearNumber - The near_number
- * @property nearLatLong - The near_lat_long
+ * @property contains - The contains
  * @property distance - The distance
- * @property inPostalCode - The in_postal_code
- * @property inRegion - The in_region
- * @property inRateCenter - The in_rate_center
+ * @property excludeAllAddressRequired - The exclude_all_address_required
+ * @property excludeForeignAddressRequired - The exclude_foreign_address_required
+ * @property excludeLocalAddressRequired - The exclude_local_address_required
+ * @property faxEnabled - The fax_enabled
  * @property inLata - The in_lata
  * @property inLocality - The in_locality
- * @property faxEnabled - The fax_enabled
- * @property pageToken - PageToken provided by the API
+ * @property inPostalCode - The in_postal_code
+ * @property inRateCenter - The in_rate_center
+ * @property inRegion - The in_region
+ * @property mmsEnabled - The mms_enabled
+ * @property nearLatLong - The near_lat_long
+ * @property nearNumber - The near_number
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
+ * @property smsEnabled - The sms_enabled
+ * @property voiceEnabled - The voice_enabled
  */
 interface SharedCostListInstancePageOptions {
   areaCode?: number;

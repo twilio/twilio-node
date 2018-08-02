@@ -22,28 +22,28 @@ declare function HostedNumberOrderList(version: HostedNumbers): HostedNumberOrde
 /**
  * Options to pass to update
  *
- * @property friendlyName - A human readable description of this resource.
- * @property uniqueName - A unique, developer assigned name of this HostedNumberOrder.
- * @property email - Email.
- * @property ccEmails - A list of emails.
- * @property status - The Status of this HostedNumberOrder.
- * @property verificationCode - A verification code.
- * @property verificationType - Verification Type.
- * @property verificationDocumentSid - Verification Document Sid
- * @property extension - Digits to dial after connecting the verification call.
  * @property callDelay - The number of seconds, between 0 and 60, to delay before initiating the verification call.
+ * @property ccEmails - A list of emails.
+ * @property email - Email.
+ * @property extension - Digits to dial after connecting the verification call.
+ * @property friendlyName - A human readable description of this resource.
+ * @property status - The Status of this HostedNumberOrder.
+ * @property uniqueName - A unique, developer assigned name of this HostedNumberOrder.
+ * @property verificationCode - A verification code.
+ * @property verificationDocumentSid - Verification Document Sid
+ * @property verificationType - Verification Type.
  */
 interface HostedNumberOrderInstanceUpdateOptions {
   callDelay?: number;
-  ccEmails?: string|list;
+  ccEmails?: string[];
   email?: string;
   extension?: string;
   friendlyName?: string;
-  status?: hosted_number_order.status;
+  status?: HostedNumberOrderStatus;
   uniqueName?: string;
   verificationCode?: string;
   verificationDocumentSid?: string;
-  verificationType?: hosted_number_order.verification_type;
+  verificationType?: HostedNumberOrderVerificationType;
 }
 
 interface HostedNumberOrderListInstance {
@@ -112,28 +112,28 @@ interface HostedNumberOrderListInstance {
 /**
  * Options to pass to create
  *
- * @property phoneNumber - An E164 formatted phone number.
- * @property smsCapability - Specify SMS capability to host.
  * @property accountSid - Account Sid.
- * @property friendlyName - A human readable description of this resource.
- * @property uniqueName - A unique, developer assigned name of this HostedNumberOrder.
- * @property ccEmails - A list of emails.
- * @property smsUrl - SMS URL.
- * @property smsMethod - SMS Method.
- * @property smsFallbackUrl - SMS Fallback URL.
- * @property smsFallbackMethod - SMS Fallback Method.
- * @property statusCallbackUrl - Status Callback URL.
- * @property statusCallbackMethod - Status Callback Method.
- * @property smsApplicationSid - SMS Application Sid.
  * @property addressSid - Address sid.
+ * @property ccEmails - A list of emails.
  * @property email - Email.
- * @property verificationType - Verification Type.
+ * @property friendlyName - A human readable description of this resource.
+ * @property phoneNumber - An E164 formatted phone number.
+ * @property smsApplicationSid - SMS Application Sid.
+ * @property smsCapability - Specify SMS capability to host.
+ * @property smsFallbackMethod - SMS Fallback Method.
+ * @property smsFallbackUrl - SMS Fallback URL.
+ * @property smsMethod - SMS Method.
+ * @property smsUrl - SMS URL.
+ * @property statusCallbackMethod - Status Callback Method.
+ * @property statusCallbackUrl - Status Callback URL.
+ * @property uniqueName - A unique, developer assigned name of this HostedNumberOrder.
  * @property verificationDocumentSid - Verification Document Sid
+ * @property verificationType - Verification Type.
  */
 interface HostedNumberOrderListInstanceCreateOptions {
   accountSid?: string;
   addressSid?: string;
-  ccEmails?: string|list;
+  ccEmails?: string[];
   email?: string;
   friendlyName?: string;
   phoneNumber: string;
@@ -147,17 +147,18 @@ interface HostedNumberOrderListInstanceCreateOptions {
   statusCallbackUrl?: string;
   uniqueName?: string;
   verificationDocumentSid?: string;
-  verificationType?: hosted_number_order.verification_type;
+  verificationType?: HostedNumberOrderVerificationType;
 }
 
 /**
  * Options to pass to each
  *
- * @property status - The Status of this HostedNumberOrder.
- * @property phoneNumber - An E164 formatted phone number.
- * @property incomingPhoneNumberSid - IncomingPhoneNumber sid.
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property friendlyName - A human readable description of this resource.
- * @property uniqueName - A unique, developer assigned name of this HostedNumberOrder.
+ * @property incomingPhoneNumberSid - IncomingPhoneNumber sid.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -168,10 +169,9 @@ interface HostedNumberOrderListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
+ * @property phoneNumber - An E164 formatted phone number.
+ * @property status - The Status of this HostedNumberOrder.
+ * @property uniqueName - A unique, developer assigned name of this HostedNumberOrder.
  */
 interface HostedNumberOrderListInstanceEachOptions {
   callback?: (item: HostedNumberOrderInstance, done: (err?: Error) => void) => void;
@@ -181,18 +181,15 @@ interface HostedNumberOrderListInstanceEachOptions {
   limit?: number;
   pageSize?: number;
   phoneNumber?: string;
-  status?: hosted_number_order.status;
+  status?: HostedNumberOrderStatus;
   uniqueName?: string;
 }
 
 /**
  * Options to pass to list
  *
- * @property status - The Status of this HostedNumberOrder.
- * @property phoneNumber - An E164 formatted phone number.
- * @property incomingPhoneNumberSid - IncomingPhoneNumber sid.
  * @property friendlyName - A human readable description of this resource.
- * @property uniqueName - A unique, developer assigned name of this HostedNumberOrder.
+ * @property incomingPhoneNumberSid - IncomingPhoneNumber sid.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -203,6 +200,9 @@ interface HostedNumberOrderListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property phoneNumber - An E164 formatted phone number.
+ * @property status - The Status of this HostedNumberOrder.
+ * @property uniqueName - A unique, developer assigned name of this HostedNumberOrder.
  */
 interface HostedNumberOrderListInstanceOptions {
   friendlyName?: string;
@@ -210,21 +210,21 @@ interface HostedNumberOrderListInstanceOptions {
   limit?: number;
   pageSize?: number;
   phoneNumber?: string;
-  status?: hosted_number_order.status;
+  status?: HostedNumberOrderStatus;
   uniqueName?: string;
 }
 
 /**
  * Options to pass to page
  *
- * @property status - The Status of this HostedNumberOrder.
- * @property phoneNumber - An E164 formatted phone number.
- * @property incomingPhoneNumberSid - IncomingPhoneNumber sid.
  * @property friendlyName - A human readable description of this resource.
- * @property uniqueName - A unique, developer assigned name of this HostedNumberOrder.
- * @property pageToken - PageToken provided by the API
+ * @property incomingPhoneNumberSid - IncomingPhoneNumber sid.
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
+ * @property phoneNumber - An E164 formatted phone number.
+ * @property status - The Status of this HostedNumberOrder.
+ * @property uniqueName - A unique, developer assigned name of this HostedNumberOrder.
  */
 interface HostedNumberOrderListInstancePageOptions {
   friendlyName?: string;
@@ -233,7 +233,7 @@ interface HostedNumberOrderListInstancePageOptions {
   pageSize?: number;
   pageToken?: string;
   phoneNumber?: string;
-  status?: hosted_number_order.status;
+  status?: HostedNumberOrderStatus;
   uniqueName?: string;
 }
 

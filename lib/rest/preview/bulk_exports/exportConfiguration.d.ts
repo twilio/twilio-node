@@ -23,8 +23,8 @@ declare function ExportConfigurationList(version: BulkExports): ExportConfigurat
  * Options to pass to update
  *
  * @property enabled - The enabled
- * @property webhookUrl - The webhook_url
  * @property webhookMethod - The webhook_method
+ * @property webhookUrl - The webhook_url
  */
 interface ExportConfigurationInstanceUpdateOptions {
   enabled?: boolean;

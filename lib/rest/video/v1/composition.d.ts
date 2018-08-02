@@ -85,20 +85,20 @@ interface CompositionListInstance {
 /**
  * Options to pass to create
  *
- * @property roomSid - Twilio Room SID.
- * @property videoLayout - The JSON video layout description.
  * @property audioSources - A list of audio sources related to this Composition.
  * @property audioSourcesExcluded - A list of audio sources excluded related to this Composition.
- * @property resolution - Pixel resolution of the composed video.
  * @property format - Container format of the Composition media file. Any of the following: `mp4`, `webm`.
+ * @property resolution - Pixel resolution of the composed video.
+ * @property roomSid - Twilio Room SID.
  * @property statusCallback - A URL that Twilio sends asynchronous webhook requests to on every composition event.
  * @property statusCallbackMethod - HTTP method Twilio should use when requesting the above URL.
  * @property trim - Boolean flag for clipping intervals that have no media.
+ * @property videoLayout - The JSON video layout description.
  */
 interface CompositionListInstanceCreateOptions {
-  audioSources?: string|list;
-  audioSourcesExcluded?: string|list;
-  format?: composition.format;
+  audioSources?: string[];
+  audioSourcesExcluded?: string[];
+  format?: CompositionFormat;
   resolution?: string;
   roomSid?: string;
   statusCallback?: string;
@@ -110,10 +110,12 @@ interface CompositionListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
- * @property status - Only show Compositions with the given status.
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
  * @property dateCreatedAfter - Only show Compositions that started on or after this ISO8601 date-time.
  * @property dateCreatedBefore - Only show Compositions that started before this this ISO8601 date-time.
- * @property roomSid - Only show Compositions with the given Room SID.
+ * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -124,10 +126,8 @@ interface CompositionListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
+ * @property roomSid - Only show Compositions with the given Room SID.
+ * @property status - Only show Compositions with the given status.
  */
 interface CompositionListInstanceEachOptions {
   callback?: (item: CompositionInstance, done: (err?: Error) => void) => void;
@@ -137,16 +137,14 @@ interface CompositionListInstanceEachOptions {
   limit?: number;
   pageSize?: number;
   roomSid?: string;
-  status?: composition.status;
+  status?: CompositionStatus;
 }
 
 /**
  * Options to pass to list
  *
- * @property status - Only show Compositions with the given status.
  * @property dateCreatedAfter - Only show Compositions that started on or after this ISO8601 date-time.
  * @property dateCreatedBefore - Only show Compositions that started before this this ISO8601 date-time.
- * @property roomSid - Only show Compositions with the given Room SID.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -157,6 +155,8 @@ interface CompositionListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property roomSid - Only show Compositions with the given Room SID.
+ * @property status - Only show Compositions with the given status.
  */
 interface CompositionListInstanceOptions {
   dateCreatedAfter?: Date;
@@ -164,19 +164,19 @@ interface CompositionListInstanceOptions {
   limit?: number;
   pageSize?: number;
   roomSid?: string;
-  status?: composition.status;
+  status?: CompositionStatus;
 }
 
 /**
  * Options to pass to page
  *
- * @property status - Only show Compositions with the given status.
  * @property dateCreatedAfter - Only show Compositions that started on or after this ISO8601 date-time.
  * @property dateCreatedBefore - Only show Compositions that started before this this ISO8601 date-time.
- * @property roomSid - Only show Compositions with the given Room SID.
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
+ * @property roomSid - Only show Compositions with the given Room SID.
+ * @property status - Only show Compositions with the given status.
  */
 interface CompositionListInstancePageOptions {
   dateCreatedAfter?: Date;
@@ -185,7 +185,7 @@ interface CompositionListInstancePageOptions {
   pageSize?: number;
   pageToken?: string;
   roomSid?: string;
-  status?: composition.status;
+  status?: CompositionStatus;
 }
 
 interface CompositionPayload extends CompositionResource, Page.TwilioResponsePayload {

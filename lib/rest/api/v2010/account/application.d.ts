@@ -22,21 +22,21 @@ declare function ApplicationList(version: V2010, accountSid: string): Applicatio
 /**
  * Options to pass to update
  *
- * @property friendlyName - Human readable description of this resource
  * @property apiVersion - The API version to use
- * @property voiceUrl - URL Twilio will make requests to when relieving a call
- * @property voiceMethod - HTTP method to use with the URL
- * @property voiceFallbackUrl - Fallback URL
- * @property voiceFallbackMethod - HTTP method to use with the fallback url
+ * @property friendlyName - Human readable description of this resource
+ * @property messageStatusCallback - URL to make requests to with status updates
+ * @property smsFallbackMethod - HTTP method to use with sms_fallback_method
+ * @property smsFallbackUrl - Fallback URL if there's an error parsing TwiML
+ * @property smsMethod - HTTP method to use with sms_url
+ * @property smsStatusCallback - URL Twilio with request with status updates
+ * @property smsUrl - URL Twilio will request when receiving an SMS
  * @property statusCallback - URL to hit with status updates
  * @property statusCallbackMethod - HTTP method to use with the status callback
  * @property voiceCallerIdLookup - True or False
- * @property smsUrl - URL Twilio will request when receiving an SMS
- * @property smsMethod - HTTP method to use with sms_url
- * @property smsFallbackUrl - Fallback URL if there's an error parsing TwiML
- * @property smsFallbackMethod - HTTP method to use with sms_fallback_method
- * @property smsStatusCallback - URL Twilio with request with status updates
- * @property messageStatusCallback - URL to make requests to with status updates
+ * @property voiceFallbackMethod - HTTP method to use with the fallback url
+ * @property voiceFallbackUrl - Fallback URL
+ * @property voiceMethod - HTTP method to use with the URL
+ * @property voiceUrl - URL Twilio will make requests to when relieving a call
  */
 interface ApplicationInstanceUpdateOptions {
   apiVersion?: string;
@@ -122,21 +122,21 @@ interface ApplicationListInstance {
 /**
  * Options to pass to create
  *
- * @property friendlyName - A human readable description of the application
  * @property apiVersion - The API version to use
- * @property voiceUrl - URL Twilio will make requests to when relieving a call
- * @property voiceMethod - HTTP method to use with the URL
- * @property voiceFallbackUrl - Fallback URL
- * @property voiceFallbackMethod - HTTP method to use with the fallback url
+ * @property friendlyName - A human readable description of the application
+ * @property messageStatusCallback - URL to make requests to with status updates
+ * @property smsFallbackMethod - HTTP method to use with sms_fallback_method
+ * @property smsFallbackUrl - Fallback URL if there's an error parsing TwiML
+ * @property smsMethod - HTTP method to use with sms_url
+ * @property smsStatusCallback - URL Twilio with request with status updates
+ * @property smsUrl - URL Twilio will request when receiving an SMS
  * @property statusCallback - URL to hit with status updates
  * @property statusCallbackMethod - HTTP method to use with the status callback
  * @property voiceCallerIdLookup - True or False
- * @property smsUrl - URL Twilio will request when receiving an SMS
- * @property smsMethod - HTTP method to use with sms_url
- * @property smsFallbackUrl - Fallback URL if there's an error parsing TwiML
- * @property smsFallbackMethod - HTTP method to use with sms_fallback_method
- * @property smsStatusCallback - URL Twilio with request with status updates
- * @property messageStatusCallback - URL to make requests to with status updates
+ * @property voiceFallbackMethod - HTTP method to use with the fallback url
+ * @property voiceFallbackUrl - Fallback URL
+ * @property voiceMethod - HTTP method to use with the URL
+ * @property voiceUrl - URL Twilio will make requests to when relieving a call
  */
 interface ApplicationListInstanceCreateOptions {
   apiVersion?: string;
@@ -159,6 +159,10 @@ interface ApplicationListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property friendlyName - Filter by friendly name
  * @property limit -
  *                         Upper limit for the number of records to return.
@@ -170,10 +174,6 @@ interface ApplicationListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
  */
 interface ApplicationListInstanceEachOptions {
   callback?: (item: ApplicationInstance, done: (err?: Error) => void) => void;
@@ -208,9 +208,9 @@ interface ApplicationListInstanceOptions {
  * Options to pass to page
  *
  * @property friendlyName - Filter by friendly name
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
  */
 interface ApplicationListInstancePageOptions {
   friendlyName?: string;

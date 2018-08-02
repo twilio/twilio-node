@@ -88,9 +88,9 @@ interface ExecutionListInstance {
 /**
  * Options to pass to create
  *
- * @property to - The Contact phone number to start a Studio Flow Execution.
  * @property from - The Twilio phone number to send messages or initiate calls from during the Flow Execution.
  * @property parameters - JSON data that will be added to your flow's context and can accessed as variables inside your flow.
+ * @property to - The Contact phone number to start a Studio Flow Execution.
  */
 interface ExecutionListInstanceCreateOptions {
   from: string;
@@ -101,6 +101,10 @@ interface ExecutionListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -111,10 +115,6 @@ interface ExecutionListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
  */
 interface ExecutionListInstanceEachOptions {
   callback?: (item: ExecutionInstance, done: (err?: Error) => void) => void;
@@ -145,9 +145,9 @@ interface ExecutionListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
  */
 interface ExecutionListInstancePageOptions {
   pageNumber?: number;

@@ -23,8 +23,8 @@ declare function ServiceList(version: AccSecurity): ServiceListInstance;
 /**
  * Options to pass to update
  *
- * @property name - Friendly name of the service
  * @property codeLength - Length of verification code. Valid values are 4-10
+ * @property name - Friendly name of the service
  */
 interface ServiceInstanceUpdateOptions {
   codeLength?: number;
@@ -97,8 +97,8 @@ interface ServiceListInstance {
 /**
  * Options to pass to create
  *
- * @property name - Friendly name of the service
  * @property codeLength - Length of verification code. Valid values are 4-10
+ * @property name - Friendly name of the service
  */
 interface ServiceListInstanceCreateOptions {
   codeLength?: number;
@@ -108,6 +108,10 @@ interface ServiceListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -118,10 +122,6 @@ interface ServiceListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
  */
 interface ServiceListInstanceEachOptions {
   callback?: (item: ServiceInstance, done: (err?: Error) => void) => void;
@@ -152,9 +152,9 @@ interface ServiceListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
  */
 interface ServiceListInstancePageOptions {
   pageNumber?: number;

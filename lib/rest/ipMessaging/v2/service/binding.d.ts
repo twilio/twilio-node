@@ -79,6 +79,10 @@ interface BindingListInstance {
  * Options to pass to each
  *
  * @property bindingType - The push technology used for the bindings returned.
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property identity - The identity
  * @property limit -
  *                         Upper limit for the number of records to return.
@@ -90,16 +94,12 @@ interface BindingListInstance {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
  */
 interface BindingListInstanceEachOptions {
-  bindingType?: binding.binding_type|list;
+  bindingType?: BindingBindingType[];
   callback?: (item: BindingInstance, done: (err?: Error) => void) => void;
   done?: Function;
-  identity?: string|list;
+  identity?: string[];
   limit?: number;
   pageSize?: number;
 }
@@ -121,8 +121,8 @@ interface BindingListInstanceEachOptions {
  *                         efficient page size, i.e. min(limit, 1000)
  */
 interface BindingListInstanceOptions {
-  bindingType?: binding.binding_type|list;
-  identity?: string|list;
+  bindingType?: BindingBindingType[];
+  identity?: string[];
   limit?: number;
   pageSize?: number;
 }
@@ -132,13 +132,13 @@ interface BindingListInstanceOptions {
  *
  * @property bindingType - The push technology used for the bindings returned.
  * @property identity - The identity
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
  */
 interface BindingListInstancePageOptions {
-  bindingType?: binding.binding_type|list;
-  identity?: string|list;
+  bindingType?: BindingBindingType[];
+  identity?: string[];
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;

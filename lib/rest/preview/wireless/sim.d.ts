@@ -22,18 +22,18 @@ declare function SimList(version: Wireless): SimListInstance;
 /**
  * Options to pass to update
  *
- * @property uniqueName - The unique_name
  * @property callbackMethod - The callback_method
  * @property callbackUrl - The callback_url
- * @property friendlyName - The friendly_name
- * @property ratePlan - The rate_plan
- * @property status - The status
  * @property commandsCallbackMethod - The commands_callback_method
  * @property commandsCallbackUrl - The commands_callback_url
+ * @property friendlyName - The friendly_name
+ * @property ratePlan - The rate_plan
  * @property smsFallbackMethod - The sms_fallback_method
  * @property smsFallbackUrl - The sms_fallback_url
  * @property smsMethod - The sms_method
  * @property smsUrl - The sms_url
+ * @property status - The status
+ * @property uniqueName - The unique_name
  * @property voiceFallbackMethod - The voice_fallback_method
  * @property voiceFallbackUrl - The voice_fallback_url
  * @property voiceMethod - The voice_method
@@ -117,11 +117,12 @@ interface SimListInstance {
 /**
  * Options to pass to each
  *
- * @property status - The status
- * @property iccid - The iccid
- * @property ratePlan - The rate_plan
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property eId - The e_id
- * @property simRegistrationCode - The sim_registration_code
+ * @property iccid - The iccid
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -132,10 +133,9 @@ interface SimListInstance {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
+ * @property ratePlan - The rate_plan
+ * @property simRegistrationCode - The sim_registration_code
+ * @property status - The status
  */
 interface SimListInstanceEachOptions {
   callback?: (item: SimInstance, done: (err?: Error) => void) => void;
@@ -152,11 +152,8 @@ interface SimListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property status - The status
- * @property iccid - The iccid
- * @property ratePlan - The rate_plan
  * @property eId - The e_id
- * @property simRegistrationCode - The sim_registration_code
+ * @property iccid - The iccid
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -167,6 +164,9 @@ interface SimListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property ratePlan - The rate_plan
+ * @property simRegistrationCode - The sim_registration_code
+ * @property status - The status
  */
 interface SimListInstanceOptions {
   eId?: string;
@@ -181,14 +181,14 @@ interface SimListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property status - The status
- * @property iccid - The iccid
- * @property ratePlan - The rate_plan
  * @property eId - The e_id
- * @property simRegistrationCode - The sim_registration_code
- * @property pageToken - PageToken provided by the API
+ * @property iccid - The iccid
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
+ * @property ratePlan - The rate_plan
+ * @property simRegistrationCode - The sim_registration_code
+ * @property status - The status
  */
 interface SimListInstancePageOptions {
   eId?: string;

@@ -97,8 +97,8 @@ interface InstalledAddOnListInstance {
 /**
  * Options to pass to create
  *
- * @property availableAddOnSid - A string that uniquely identifies the Add-on to install
  * @property acceptTermsOfService - A boolean reflecting your acceptance of the Terms of Service
+ * @property availableAddOnSid - A string that uniquely identifies the Add-on to install
  * @property configuration - The JSON object representing the configuration
  * @property uniqueName - The string that uniquely identifies this Add-on installation
  */
@@ -112,6 +112,10 @@ interface InstalledAddOnListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -122,10 +126,6 @@ interface InstalledAddOnListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
  */
 interface InstalledAddOnListInstanceEachOptions {
   callback?: (item: InstalledAddOnInstance, done: (err?: Error) => void) => void;
@@ -156,9 +156,9 @@ interface InstalledAddOnListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
  */
 interface InstalledAddOnListInstancePageOptions {
   pageNumber?: number;

@@ -24,8 +24,12 @@ declare function IncomingPhoneNumberList(version: V2010, accountSid: string): In
  * Options to pass to update
  *
  * @property accountSid - The new owner of the phone number
+ * @property addressSid - Unique string that identifies the address associated with number
  * @property apiVersion - The Twilio REST API version to use
+ * @property emergencyAddressSid - The emergency_address_sid
+ * @property emergencyStatus - The emergency_status
  * @property friendlyName - A human readable description of this resource
+ * @property identitySid - Unique string that identifies the identity associated with number
  * @property smsApplicationSid - Unique string that identifies the application
  * @property smsFallbackMethod - HTTP method used with sms fallback url
  * @property smsFallbackUrl - URL Twilio will request if an error occurs in executing TwiML
@@ -33,25 +37,21 @@ declare function IncomingPhoneNumberList(version: V2010, accountSid: string): In
  * @property smsUrl - URL Twilio will request when receiving an SMS
  * @property statusCallback - URL Twilio will use to pass status parameters
  * @property statusCallbackMethod - HTTP method twilio will use with status callback
+ * @property trunkSid - Unique string to identify the trunk
  * @property voiceApplicationSid - The unique sid of the application to handle this number
  * @property voiceCallerIdLookup - Look up the caller's caller-ID
  * @property voiceFallbackMethod - HTTP method used with fallback_url
  * @property voiceFallbackUrl - URL Twilio will request when an error occurs in TwiML
  * @property voiceMethod - HTTP method used with the voice url
- * @property voiceUrl - URL Twilio will request when receiving a call
- * @property emergencyStatus - The emergency_status
- * @property emergencyAddressSid - The emergency_address_sid
- * @property trunkSid - Unique string to identify the trunk
  * @property voiceReceiveMode - The voice_receive_mode
- * @property identitySid - Unique string that identifies the identity associated with number
- * @property addressSid - Unique string that identifies the address associated with number
+ * @property voiceUrl - URL Twilio will request when receiving a call
  */
 interface IncomingPhoneNumberInstanceUpdateOptions {
   accountSid?: string;
   addressSid?: string;
   apiVersion?: string;
   emergencyAddressSid?: string;
-  emergencyStatus?: incoming_phone_number.emergency_status;
+  emergencyStatus?: IncomingPhoneNumberEmergencyStatus;
   friendlyName?: string;
   identitySid?: string;
   smsApplicationSid?: string;
@@ -67,7 +67,7 @@ interface IncomingPhoneNumberInstanceUpdateOptions {
   voiceFallbackMethod?: string;
   voiceFallbackUrl?: string;
   voiceMethod?: string;
-  voiceReceiveMode?: incoming_phone_number.voice_receive_mode;
+  voiceReceiveMode?: IncomingPhoneNumberVoiceReceiveMode;
   voiceUrl?: string;
 }
 
@@ -140,8 +140,14 @@ interface IncomingPhoneNumberListInstance {
 /**
  * Options to pass to create
  *
+ * @property addressSid - Unique string that identifies the address associated with number
  * @property apiVersion - The Twilio Rest API version to use
+ * @property areaCode - The desired area code for the new number
+ * @property emergencyAddressSid - The emergency_address_sid
+ * @property emergencyStatus - The emergency_status
  * @property friendlyName - A human readable description of this resource
+ * @property identitySid - Unique string that identifies the identity associated with number
+ * @property phoneNumber - The phone number
  * @property smsApplicationSid - Unique string that identifies the application
  * @property smsFallbackMethod - HTTP method used with sms fallback url
  * @property smsFallbackUrl - URL Twilio will request if an error occurs in executing TwiML
@@ -149,26 +155,20 @@ interface IncomingPhoneNumberListInstance {
  * @property smsUrl - URL Twilio will request when receiving an SMS
  * @property statusCallback - URL Twilio will use to pass status parameters
  * @property statusCallbackMethod - HTTP method twilio will use with status callback
+ * @property trunkSid - Unique string to identify the trunk
  * @property voiceApplicationSid - The unique sid of the application to handle this number
  * @property voiceCallerIdLookup - Look up the caller's caller-ID
  * @property voiceFallbackMethod - HTTP method used with fallback_url
  * @property voiceFallbackUrl - URL Twilio will request when an error occurs in TwiML
  * @property voiceMethod - HTTP method used with the voice url
  * @property voiceUrl - URL Twilio will request when receiving a call
- * @property emergencyStatus - The emergency_status
- * @property emergencyAddressSid - The emergency_address_sid
- * @property trunkSid - Unique string to identify the trunk
- * @property identitySid - Unique string that identifies the identity associated with number
- * @property addressSid - Unique string that identifies the address associated with number
- * @property phoneNumber - The phone number
- * @property areaCode - The desired area code for the new number
  */
 interface IncomingPhoneNumberListInstanceCreateOptions {
   addressSid?: string;
   apiVersion?: string;
   areaCode?: string;
   emergencyAddressSid?: string;
-  emergencyStatus?: incoming_phone_number.emergency_status;
+  emergencyStatus?: IncomingPhoneNumberEmergencyStatus;
   friendlyName?: string;
   identitySid?: string;
   phoneNumber?: string;
@@ -192,23 +192,23 @@ interface IncomingPhoneNumberListInstanceCreateOptions {
  * Options to pass to each
  *
  * @property beta - Include new phone numbers
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property friendlyName - Filter by friendly name
- * @property phoneNumber - Filter by incoming phone number
- * @property origin - Include phone numbers based on the origin, by default, phone numbers of all origin are included.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
  *                         Default is no limit
+ * @property origin - Include phone numbers based on the origin, by default, phone numbers of all origin are included.
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
+ * @property phoneNumber - Filter by incoming phone number
  */
 interface IncomingPhoneNumberListInstanceEachOptions {
   beta?: boolean;
@@ -226,18 +226,18 @@ interface IncomingPhoneNumberListInstanceEachOptions {
  *
  * @property beta - Include new phone numbers
  * @property friendlyName - Filter by friendly name
- * @property phoneNumber - Filter by incoming phone number
- * @property origin - Include phone numbers based on the origin, by default, phone numbers of all origin are included.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
  *                         Default is no limit
+ * @property origin - Include phone numbers based on the origin, by default, phone numbers of all origin are included.
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property phoneNumber - Filter by incoming phone number
  */
 interface IncomingPhoneNumberListInstanceOptions {
   beta?: boolean;
@@ -253,11 +253,11 @@ interface IncomingPhoneNumberListInstanceOptions {
  *
  * @property beta - Include new phone numbers
  * @property friendlyName - Filter by friendly name
- * @property phoneNumber - Filter by incoming phone number
  * @property origin - Include phone numbers based on the origin, by default, phone numbers of all origin are included.
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
+ * @property phoneNumber - Filter by incoming phone number
  */
 interface IncomingPhoneNumberListInstancePageOptions {
   beta?: boolean;

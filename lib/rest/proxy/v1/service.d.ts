@@ -24,20 +24,20 @@ declare function ServiceList(version: V1): ServiceListInstance;
 /**
  * Options to pass to update
  *
- * @property uniqueName - A human-readable description of this resource.
- * @property defaultTtl - Default TTL for Sessions in Service, in seconds.
  * @property callbackUrl - URL Twilio will send callbacks to
+ * @property defaultTtl - Default TTL for Sessions in Service, in seconds.
  * @property geoMatchLevel - Whether proxy number selected must be in the same area code as the participant identifier.
- * @property numberSelectionBehavior - What behavior to use when choosing a proxy number.
  * @property interceptCallbackUrl - A URL for Twilio call before each Interaction.
+ * @property numberSelectionBehavior - What behavior to use when choosing a proxy number.
  * @property outOfSessionCallbackUrl - A URL for Twilio call when a new Interaction has no Session.
+ * @property uniqueName - A human-readable description of this resource.
  */
 interface ServiceInstanceUpdateOptions {
   callbackUrl?: string;
   defaultTtl?: number;
-  geoMatchLevel?: service.geo_match_level;
+  geoMatchLevel?: ServiceGeoMatchLevel;
   interceptCallbackUrl?: string;
-  numberSelectionBehavior?: service.number_selection_behavior;
+  numberSelectionBehavior?: ServiceNumberSelectionBehavior;
   outOfSessionCallbackUrl?: string;
   uniqueName?: string;
 }
@@ -108,20 +108,20 @@ interface ServiceListInstance {
 /**
  * Options to pass to create
  *
- * @property uniqueName - The human-readable string that uniquely identifies this Service.
- * @property defaultTtl - Default TTL for Sessions in Service, in seconds.
  * @property callbackUrl - URL Twilio will send callbacks to
+ * @property defaultTtl - Default TTL for Sessions in Service, in seconds.
  * @property geoMatchLevel - Whether proxy number selected must be in the same area code as the participant identifier.
- * @property numberSelectionBehavior - What behavior to use when choosing a proxy number.
  * @property interceptCallbackUrl - A URL for Twilio call before each Interaction.
+ * @property numberSelectionBehavior - What behavior to use when choosing a proxy number.
  * @property outOfSessionCallbackUrl - A URL for Twilio call when a new Interaction has no Session.
+ * @property uniqueName - The human-readable string that uniquely identifies this Service.
  */
 interface ServiceListInstanceCreateOptions {
   callbackUrl?: string;
   defaultTtl?: number;
-  geoMatchLevel?: service.geo_match_level;
+  geoMatchLevel?: ServiceGeoMatchLevel;
   interceptCallbackUrl?: string;
-  numberSelectionBehavior?: service.number_selection_behavior;
+  numberSelectionBehavior?: ServiceNumberSelectionBehavior;
   outOfSessionCallbackUrl?: string;
   uniqueName: string;
 }
@@ -129,6 +129,10 @@ interface ServiceListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -139,10 +143,6 @@ interface ServiceListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
  */
 interface ServiceListInstanceEachOptions {
   callback?: (item: ServiceInstance, done: (err?: Error) => void) => void;
@@ -173,9 +173,9 @@ interface ServiceListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
  */
 interface ServiceListInstancePageOptions {
   pageNumber?: number;

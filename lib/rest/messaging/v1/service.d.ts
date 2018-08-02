@@ -25,20 +25,20 @@ declare function ServiceList(version: V1): ServiceListInstance;
 /**
  * Options to pass to update
  *
- * @property friendlyName - The friendly_name
- * @property inboundRequestUrl - The inbound_request_url
- * @property inboundMethod - The inbound_method
- * @property fallbackUrl - The fallback_url
+ * @property areaCodeGeomatch - The area_code_geomatch
  * @property fallbackMethod - The fallback_method
+ * @property fallbackToLongCode - The fallback_to_long_code
+ * @property fallbackUrl - The fallback_url
+ * @property friendlyName - The friendly_name
+ * @property inboundMethod - The inbound_method
+ * @property inboundRequestUrl - The inbound_request_url
+ * @property mmsConverter - The mms_converter
+ * @property scanMessageContent - The scan_message_content
+ * @property smartEncoding - The smart_encoding
  * @property statusCallback - The status_callback
  * @property stickySender - The sticky_sender
- * @property mmsConverter - The mms_converter
- * @property smartEncoding - The smart_encoding
- * @property scanMessageContent - The scan_message_content
- * @property fallbackToLongCode - The fallback_to_long_code
- * @property areaCodeGeomatch - The area_code_geomatch
- * @property validityPeriod - The validity_period
  * @property synchronousValidation - The synchronous_validation
+ * @property validityPeriod - The validity_period
  */
 interface ServiceInstanceUpdateOptions {
   areaCodeGeomatch?: boolean;
@@ -49,7 +49,7 @@ interface ServiceInstanceUpdateOptions {
   inboundMethod?: string;
   inboundRequestUrl?: string;
   mmsConverter?: boolean;
-  scanMessageContent?: service.scan_message_content;
+  scanMessageContent?: ServiceScanMessageContent;
   smartEncoding?: boolean;
   statusCallback?: string;
   stickySender?: boolean;
@@ -123,20 +123,20 @@ interface ServiceListInstance {
 /**
  * Options to pass to create
  *
- * @property friendlyName - A human readable descriptive text for this resource, up to 64 characters.
- * @property inboundRequestUrl - A webhook request is made to the Inbound Request URL when a message is received by any phone number or shortcode associated to your Messaging Service.
- * @property inboundMethod - The HTTP method used when making requests to the Inbound Request URL.
- * @property fallbackUrl - A request is made to the Fallback URL if an error occurs with retrieving or executing the TwiML from you Inbound Request URL.
+ * @property areaCodeGeomatch - Configuration to enable or disable Area Code Geomatch.
  * @property fallbackMethod - The HTTP method used when requesting the Fallback URL.
+ * @property fallbackToLongCode - Configuration to enable or disable Fallback to Long Code.
+ * @property fallbackUrl - A request is made to the Fallback URL if an error occurs with retrieving or executing the TwiML from you Inbound Request URL.
+ * @property friendlyName - A human readable descriptive text for this resource, up to 64 characters.
+ * @property inboundMethod - The HTTP method used when making requests to the Inbound Request URL.
+ * @property inboundRequestUrl - A webhook request is made to the Inbound Request URL when a message is received by any phone number or shortcode associated to your Messaging Service.
+ * @property mmsConverter - Configuration to enable or disable MMS Converter on your Service Instance.
+ * @property scanMessageContent - The scan_message_content
+ * @property smartEncoding - Configuration to enable or disable Smart Encoding.
  * @property statusCallback - A webhook request is made to the Status Callback to pass status updates about your messages.
  * @property stickySender - Configuration to enable or disable Sticky Sender on your Service Instance.
- * @property mmsConverter - Configuration to enable or disable MMS Converter on your Service Instance.
- * @property smartEncoding - Configuration to enable or disable Smart Encoding.
- * @property scanMessageContent - The scan_message_content
- * @property fallbackToLongCode - Configuration to enable or disable Fallback to Long Code.
- * @property areaCodeGeomatch - Configuration to enable or disable Area Code Geomatch.
- * @property validityPeriod - Configuration to set the validity period of all messages sent from your Service, in seconds.
  * @property synchronousValidation - The synchronous_validation
+ * @property validityPeriod - Configuration to set the validity period of all messages sent from your Service, in seconds.
  */
 interface ServiceListInstanceCreateOptions {
   areaCodeGeomatch?: boolean;
@@ -147,7 +147,7 @@ interface ServiceListInstanceCreateOptions {
   inboundMethod?: string;
   inboundRequestUrl?: string;
   mmsConverter?: boolean;
-  scanMessageContent?: service.scan_message_content;
+  scanMessageContent?: ServiceScanMessageContent;
   smartEncoding?: boolean;
   statusCallback?: string;
   stickySender?: boolean;
@@ -158,6 +158,10 @@ interface ServiceListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -168,10 +172,6 @@ interface ServiceListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
  */
 interface ServiceListInstanceEachOptions {
   callback?: (item: ServiceInstance, done: (err?: Error) => void) => void;
@@ -202,9 +202,9 @@ interface ServiceListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
  */
 interface ServiceListInstancePageOptions {
   pageNumber?: number;

@@ -25,7 +25,7 @@ declare function RoleList(version: V2, serviceSid: string): RoleListInstance;
  * @property permission - A permission this role should have.
  */
 interface RoleInstanceUpdateOptions {
-  permission: string|list;
+  permission: string[];
 }
 
 interface RoleListInstance {
@@ -95,18 +95,22 @@ interface RoleListInstance {
  * Options to pass to create
  *
  * @property friendlyName - The human-readable name of this role.
- * @property type - What kind of role this is.
  * @property permission - A permission this role should have.
+ * @property type - What kind of role this is.
  */
 interface RoleListInstanceCreateOptions {
   friendlyName: string;
-  permission: string|list;
-  type: role.role_type;
+  permission: string[];
+  type: RoleRoleType;
 }
 
 /**
  * Options to pass to each
  *
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -117,10 +121,6 @@ interface RoleListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
  */
 interface RoleListInstanceEachOptions {
   callback?: (item: RoleInstance, done: (err?: Error) => void) => void;
@@ -151,9 +151,9 @@ interface RoleListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
  */
 interface RoleListInstancePageOptions {
   pageNumber?: number;

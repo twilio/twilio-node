@@ -68,8 +68,11 @@ interface YearlyListInstance {
 /**
  * Options to pass to each
  *
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
  * @property category - Only include usage of this usage category.
- * @property startDate - Only include usage that has occurred on or after this date.
+ * @property done - Function to be called upon completion of streaming
  * @property endDate - Only include usage that has occurred on or before this date.
  * @property includeSubaccounts - The include_subaccounts
  * @property limit -
@@ -82,14 +85,11 @@ interface YearlyListInstance {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
+ * @property startDate - Only include usage that has occurred on or after this date.
  */
 interface YearlyListInstanceEachOptions {
   callback?: (item: YearlyInstance, done: (err?: Error) => void) => void;
-  category?: yearly.category;
+  category?: YearlyCategory;
   done?: Function;
   endDate?: Date;
   includeSubaccounts?: boolean;
@@ -102,7 +102,6 @@ interface YearlyListInstanceEachOptions {
  * Options to pass to list
  *
  * @property category - Only include usage of this usage category.
- * @property startDate - Only include usage that has occurred on or after this date.
  * @property endDate - Only include usage that has occurred on or before this date.
  * @property includeSubaccounts - The include_subaccounts
  * @property limit -
@@ -115,9 +114,10 @@ interface YearlyListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property startDate - Only include usage that has occurred on or after this date.
  */
 interface YearlyListInstanceOptions {
-  category?: yearly.category;
+  category?: YearlyCategory;
   endDate?: Date;
   includeSubaccounts?: boolean;
   limit?: number;
@@ -129,15 +129,15 @@ interface YearlyListInstanceOptions {
  * Options to pass to page
  *
  * @property category - Only include usage of this usage category.
- * @property startDate - Only include usage that has occurred on or after this date.
  * @property endDate - Only include usage that has occurred on or before this date.
  * @property includeSubaccounts - The include_subaccounts
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
+ * @property startDate - Only include usage that has occurred on or after this date.
  */
 interface YearlyListInstancePageOptions {
-  category?: yearly.category;
+  category?: YearlyCategory;
   endDate?: Date;
   includeSubaccounts?: boolean;
   pageNumber?: number;

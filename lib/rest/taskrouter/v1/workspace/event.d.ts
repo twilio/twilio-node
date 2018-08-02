@@ -78,29 +78,29 @@ interface EventListInstance {
 /**
  * Options to pass to each
  *
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property endDate - Filter events by an end date.
  * @property eventType - Filter events by those of a certain event type
- * @property minutes - Filter events by up to 'x' minutes in the past.
- * @property reservationSid - Filter events by those pertaining to a particular reservation
- * @property startDate - Filter events by a start date.
- * @property taskQueueSid - Filter events by those pertaining to a particular queue
- * @property taskSid - Filter events by those pertaining to a particular task
- * @property workerSid - Filter events by those pertaining to a particular worker
- * @property workflowSid - The workflow_sid
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
  *                         Default is no limit
+ * @property minutes - Filter events by up to 'x' minutes in the past.
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
+ * @property reservationSid - Filter events by those pertaining to a particular reservation
+ * @property startDate - Filter events by a start date.
+ * @property taskQueueSid - Filter events by those pertaining to a particular queue
+ * @property taskSid - Filter events by those pertaining to a particular task
+ * @property workerSid - Filter events by those pertaining to a particular worker
+ * @property workflowSid - The workflow_sid
  */
 interface EventListInstanceEachOptions {
   callback?: (item: EventInstance, done: (err?: Error) => void) => void;
@@ -123,23 +123,23 @@ interface EventListInstanceEachOptions {
  *
  * @property endDate - Filter events by an end date.
  * @property eventType - Filter events by those of a certain event type
- * @property minutes - Filter events by up to 'x' minutes in the past.
- * @property reservationSid - Filter events by those pertaining to a particular reservation
- * @property startDate - Filter events by a start date.
- * @property taskQueueSid - Filter events by those pertaining to a particular queue
- * @property taskSid - Filter events by those pertaining to a particular task
- * @property workerSid - Filter events by those pertaining to a particular worker
- * @property workflowSid - The workflow_sid
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
  *                         Default is no limit
+ * @property minutes - Filter events by up to 'x' minutes in the past.
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property reservationSid - Filter events by those pertaining to a particular reservation
+ * @property startDate - Filter events by a start date.
+ * @property taskQueueSid - Filter events by those pertaining to a particular queue
+ * @property taskSid - Filter events by those pertaining to a particular task
+ * @property workerSid - Filter events by those pertaining to a particular worker
+ * @property workflowSid - The workflow_sid
  */
 interface EventListInstanceOptions {
   endDate?: Date;
@@ -161,15 +161,15 @@ interface EventListInstanceOptions {
  * @property endDate - Filter events by an end date.
  * @property eventType - Filter events by those of a certain event type
  * @property minutes - Filter events by up to 'x' minutes in the past.
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
  * @property reservationSid - Filter events by those pertaining to a particular reservation
  * @property startDate - Filter events by a start date.
  * @property taskQueueSid - Filter events by those pertaining to a particular queue
  * @property taskSid - Filter events by those pertaining to a particular task
  * @property workerSid - Filter events by those pertaining to a particular worker
  * @property workflowSid - The workflow_sid
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
  */
 interface EventListInstancePageOptions {
   endDate?: Date;

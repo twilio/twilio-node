@@ -26,7 +26,7 @@ declare function RoomList(version: V1): RoomListInstance;
  * @property status - Set to completed to end the Room.
  */
 interface RoomInstanceUpdateOptions {
-  status: room.room_status;
+  status: RoomRoomStatus;
 }
 
 interface RoomListInstance {
@@ -96,14 +96,14 @@ interface RoomListInstance {
  * Options to pass to create
  *
  * @property enableTurn - Use Twilio Network Traversal for TURN service.
- * @property type - Type of room, either peer-to-peer, group-small or group.
- * @property uniqueName - Name of the Room.
+ * @property maxParticipants - Maximum number of Participants in the Room.
+ * @property mediaRegion - Region for the media server in Group Rooms.
+ * @property recordParticipantsOnConnect - Start Participant recording when connected.
  * @property statusCallback - A URL that Twilio sends asynchronous webhook requests to on every room event.
  * @property statusCallbackMethod - HTTP method Twilio should use when requesting the above URL.
- * @property maxParticipants - Maximum number of Participants in the Room.
- * @property recordParticipantsOnConnect - Start Participant recording when connected.
+ * @property type - Type of room, either peer-to-peer, group-small or group.
+ * @property uniqueName - Name of the Room.
  * @property videoCodecs - An array of video codecs supported when publishing a Track in the Room.
- * @property mediaRegion - Region for the media server in Group Rooms.
  */
 interface RoomListInstanceCreateOptions {
   enableTurn?: boolean;
@@ -112,18 +112,20 @@ interface RoomListInstanceCreateOptions {
   recordParticipantsOnConnect?: boolean;
   statusCallback?: string;
   statusCallbackMethod?: string;
-  type?: room.room_type;
+  type?: RoomRoomType;
   uniqueName?: string;
-  videoCodecs?: room.video_codec|list;
+  videoCodecs?: RoomVideoCodec[];
 }
 
 /**
  * Options to pass to each
  *
- * @property status - Only show Rooms with the given status.
- * @property uniqueName - Only show Rooms with the provided Name.
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
  * @property dateCreatedAfter - Only show Rooms that started on or after this date, given as YYYY-MM-DD.
  * @property dateCreatedBefore - Only show Rooms that started before this date, given as YYYY-MM-DD.
+ * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -134,10 +136,8 @@ interface RoomListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
+ * @property status - Only show Rooms with the given status.
+ * @property uniqueName - Only show Rooms with the provided Name.
  */
 interface RoomListInstanceEachOptions {
   callback?: (item: RoomInstance, done: (err?: Error) => void) => void;
@@ -146,15 +146,13 @@ interface RoomListInstanceEachOptions {
   done?: Function;
   limit?: number;
   pageSize?: number;
-  status?: room.room_status;
+  status?: RoomRoomStatus;
   uniqueName?: string;
 }
 
 /**
  * Options to pass to list
  *
- * @property status - Only show Rooms with the given status.
- * @property uniqueName - Only show Rooms with the provided Name.
  * @property dateCreatedAfter - Only show Rooms that started on or after this date, given as YYYY-MM-DD.
  * @property dateCreatedBefore - Only show Rooms that started before this date, given as YYYY-MM-DD.
  * @property limit -
@@ -167,26 +165,28 @@ interface RoomListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property status - Only show Rooms with the given status.
+ * @property uniqueName - Only show Rooms with the provided Name.
  */
 interface RoomListInstanceOptions {
   dateCreatedAfter?: Date;
   dateCreatedBefore?: Date;
   limit?: number;
   pageSize?: number;
-  status?: room.room_status;
+  status?: RoomRoomStatus;
   uniqueName?: string;
 }
 
 /**
  * Options to pass to page
  *
- * @property status - Only show Rooms with the given status.
- * @property uniqueName - Only show Rooms with the provided Name.
  * @property dateCreatedAfter - Only show Rooms that started on or after this date, given as YYYY-MM-DD.
  * @property dateCreatedBefore - Only show Rooms that started before this date, given as YYYY-MM-DD.
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
+ * @property status - Only show Rooms with the given status.
+ * @property uniqueName - Only show Rooms with the provided Name.
  */
 interface RoomListInstancePageOptions {
   dateCreatedAfter?: Date;
@@ -194,7 +194,7 @@ interface RoomListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
-  status?: room.room_status;
+  status?: RoomRoomStatus;
   uniqueName?: string;
 }
 

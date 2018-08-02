@@ -21,16 +21,16 @@ declare function PhoneNumberList(version: V1): PhoneNumberListInstance;
 /**
  * Options to pass to fetch
  *
- * @property countryCode - Optional ISO country code of the phone number.
- * @property type - Indicates the type of information you would like returned with your request.
  * @property addOns - Indicates the particular Add-on you would like to use to get more information.
  * @property addOnsData - The add_ons_data
+ * @property countryCode - Optional ISO country code of the phone number.
+ * @property type - Indicates the type of information you would like returned with your request.
  */
 interface PhoneNumberInstanceFetchOptions {
-  addOns?: string|list;
+  addOns?: string[];
   addOnsData?: object;
   countryCode?: string;
-  type?: string|list;
+  type?: string[];
 }
 
 interface PhoneNumberListInstance {

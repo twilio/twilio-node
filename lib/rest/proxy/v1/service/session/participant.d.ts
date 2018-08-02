@@ -87,8 +87,8 @@ interface ParticipantListInstance {
 /**
  * Options to pass to create
  *
- * @property identifier - The phone number of this Participant.
  * @property friendlyName - A human-readable description of this resource.
+ * @property identifier - The phone number of this Participant.
  * @property proxyIdentifier - The proxy phone number to use for this Participant.
  * @property proxyIdentifierSid - The proxy_identifier_sid
  */
@@ -102,6 +102,10 @@ interface ParticipantListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property identifier - The identifier
  * @property limit -
  *                         Upper limit for the number of records to return.
@@ -113,10 +117,6 @@ interface ParticipantListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
  */
 interface ParticipantListInstanceEachOptions {
   callback?: (item: ParticipantInstance, done: (err?: Error) => void) => void;
@@ -151,9 +151,9 @@ interface ParticipantListInstanceOptions {
  * Options to pass to page
  *
  * @property identifier - The identifier
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
  */
 interface ParticipantListInstancePageOptions {
   identifier?: string;

@@ -22,13 +22,13 @@ declare function WorkersStatisticsList(version: V1, workspaceSid: string): Worke
 /**
  * Options to pass to fetch
  *
+ * @property endDate - Filter cumulative statistics by a end date.
+ * @property friendlyName - The friendly_name
  * @property minutes - Filter cumulative statistics by up to 'x' minutes in the past.
  * @property startDate - Filter cumulative statistics by a start date.
- * @property endDate - Filter cumulative statistics by a end date.
- * @property taskQueueSid - Filter the real-time and cumulative statistics based on Workers tied to a particular queue
- * @property taskQueueName - Filter the real-time and cumulative statistics based on Workers tied to a particular queue
- * @property friendlyName - The friendly_name
  * @property taskChannel - Filter cumulative statistics by TaskChannel.
+ * @property taskQueueName - Filter the real-time and cumulative statistics based on Workers tied to a particular queue
+ * @property taskQueueSid - Filter the real-time and cumulative statistics based on Workers tied to a particular queue
  */
 interface WorkersStatisticsInstanceFetchOptions {
   endDate?: Date;

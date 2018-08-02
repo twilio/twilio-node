@@ -48,7 +48,7 @@ declare function AccountList(version: V2010): AccountListInstance;
  */
 interface AccountInstanceUpdateOptions {
   friendlyName?: string;
-  status?: account.status;
+  status?: AccountStatus;
 }
 
 interface AccountListInstance {
@@ -126,8 +126,11 @@ interface AccountListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property friendlyName - FriendlyName to filter on
- * @property status - Status to filter on
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -138,10 +141,7 @@ interface AccountListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
+ * @property status - Status to filter on
  */
 interface AccountListInstanceEachOptions {
   callback?: (item: AccountInstance, done: (err?: Error) => void) => void;
@@ -149,14 +149,13 @@ interface AccountListInstanceEachOptions {
   friendlyName?: string;
   limit?: number;
   pageSize?: number;
-  status?: account.status;
+  status?: AccountStatus;
 }
 
 /**
  * Options to pass to list
  *
  * @property friendlyName - FriendlyName to filter on
- * @property status - Status to filter on
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -167,29 +166,30 @@ interface AccountListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property status - Status to filter on
  */
 interface AccountListInstanceOptions {
   friendlyName?: string;
   limit?: number;
   pageSize?: number;
-  status?: account.status;
+  status?: AccountStatus;
 }
 
 /**
  * Options to pass to page
  *
  * @property friendlyName - FriendlyName to filter on
- * @property status - Status to filter on
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
+ * @property status - Status to filter on
  */
 interface AccountListInstancePageOptions {
   friendlyName?: string;
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
-  status?: account.status;
+  status?: AccountStatus;
 }
 
 interface AccountPayload extends AccountResource, Page.TwilioResponsePayload {

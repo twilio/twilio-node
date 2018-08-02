@@ -25,10 +25,10 @@ declare function ServiceList(version: Sync): ServiceListInstance;
 /**
  * Options to pass to update
  *
- * @property webhookUrl - The webhook_url
+ * @property aclEnabled - The acl_enabled
  * @property friendlyName - The friendly_name
  * @property reachabilityWebhooksEnabled - The reachability_webhooks_enabled
- * @property aclEnabled - The acl_enabled
+ * @property webhookUrl - The webhook_url
  */
 interface ServiceInstanceUpdateOptions {
   aclEnabled?: boolean;
@@ -103,10 +103,10 @@ interface ServiceListInstance {
 /**
  * Options to pass to create
  *
- * @property friendlyName - The friendly_name
- * @property webhookUrl - The webhook_url
- * @property reachabilityWebhooksEnabled - The reachability_webhooks_enabled
  * @property aclEnabled - The acl_enabled
+ * @property friendlyName - The friendly_name
+ * @property reachabilityWebhooksEnabled - The reachability_webhooks_enabled
+ * @property webhookUrl - The webhook_url
  */
 interface ServiceListInstanceCreateOptions {
   aclEnabled?: boolean;
@@ -118,6 +118,10 @@ interface ServiceListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -128,10 +132,6 @@ interface ServiceListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
  */
 interface ServiceListInstanceEachOptions {
   callback?: (item: ServiceInstance, done: (err?: Error) => void) => void;
@@ -162,9 +162,9 @@ interface ServiceListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
  */
 interface ServiceListInstancePageOptions {
   pageNumber?: number;

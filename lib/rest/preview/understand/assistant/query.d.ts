@@ -96,11 +96,11 @@ interface QueryListInstance {
 /**
  * Options to pass to create
  *
- * @property language - An ISO language-country string of the sample.
- * @property query - A user-provided string that uniquely identifies this resource as an alternative to the sid. It can be up to 2048 characters long.
- * @property intents - Constraints the query to a set of intents. Useful when you need to constrain the paths the user can take. Intents should be comma separated intent-unique-name-1, intent-unique-name-2
- * @property modelBuild - The Model Build Sid or unique name of the Model Build to be queried.
  * @property field - Constraints the query to a given Field with an intent. Useful when you know the Field you are expecting. It accepts one field in the format intent-unique-name-1:field-unique-name
+ * @property intents - Constraints the query to a set of intents. Useful when you need to constrain the paths the user can take. Intents should be comma separated intent-unique-name-1, intent-unique-name-2
+ * @property language - An ISO language-country string of the sample.
+ * @property modelBuild - The Model Build Sid or unique name of the Model Build to be queried.
+ * @property query - A user-provided string that uniquely identifies this resource as an alternative to the sid. It can be up to 2048 characters long.
  */
 interface QueryListInstanceCreateOptions {
   field?: string;
@@ -113,23 +113,23 @@ interface QueryListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property language - An ISO language-country string of the sample.
- * @property modelBuild - The Model Build Sid or unique name of the Model Build to be queried.
- * @property status - A string that described the query status. The values can be: pending_review, reviewed, discarded
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
  *                         Default is no limit
+ * @property modelBuild - The Model Build Sid or unique name of the Model Build to be queried.
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
+ * @property status - A string that described the query status. The values can be: pending_review, reviewed, discarded
  */
 interface QueryListInstanceEachOptions {
   callback?: (item: QueryInstance, done: (err?: Error) => void) => void;
@@ -145,18 +145,18 @@ interface QueryListInstanceEachOptions {
  * Options to pass to list
  *
  * @property language - An ISO language-country string of the sample.
- * @property modelBuild - The Model Build Sid or unique name of the Model Build to be queried.
- * @property status - A string that described the query status. The values can be: pending_review, reviewed, discarded
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
  *                         Default is no limit
+ * @property modelBuild - The Model Build Sid or unique name of the Model Build to be queried.
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property status - A string that described the query status. The values can be: pending_review, reviewed, discarded
  */
 interface QueryListInstanceOptions {
   language?: string;
@@ -171,10 +171,10 @@ interface QueryListInstanceOptions {
  *
  * @property language - An ISO language-country string of the sample.
  * @property modelBuild - The Model Build Sid or unique name of the Model Build to be queried.
- * @property status - A string that described the query status. The values can be: pending_review, reviewed, discarded
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
+ * @property status - A string that described the query status. The values can be: pending_review, reviewed, discarded
  */
 interface QueryListInstancePageOptions {
   language?: string;

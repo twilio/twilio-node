@@ -21,8 +21,8 @@ declare function RatePlanList(version: V1): RatePlanListInstance;
 /**
  * Options to pass to update
  *
- * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the Sid.
  * @property friendlyName - A user-provided string that identifies this resource.
+ * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the Sid.
  */
 interface RatePlanInstanceUpdateOptions {
   friendlyName?: string;
@@ -95,24 +95,24 @@ interface RatePlanListInstance {
 /**
  * Options to pass to create
  *
- * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the Sid.
- * @property friendlyName - A user-provided string that identifies this resource.
  * @property dataEnabled - Defines whether SIMs are capable of using GPRS/3G/LTE data connectivity.
  * @property dataLimit - Network-enforced limit specifying the total Megabytes of data usage allowed during one month on the home network.
  * @property dataMetering - The model by which to meter data usage, in accordance with the two available data metering models.
- * @property messagingEnabled - Defines whether SIMs are capable of making and sending and receiving SMS messages via either Commands or Programmable SMS APIs.
- * @property voiceEnabled - Defines whether SIMs are capable of making and receiving voice calls.
- * @property nationalRoamingEnabled - Defines whether SIMs can roam onto other networks in the SIM's home country.
+ * @property friendlyName - A user-provided string that identifies this resource.
  * @property internationalRoaming - The international_roaming
- * @property nationalRoamingDataLimit - Network-enforced limit specifying the total Megabytes of national roaming data usage allowed during one month.
  * @property internationalRoamingDataLimit - The international_roaming_data_limit
+ * @property messagingEnabled - Defines whether SIMs are capable of making and sending and receiving SMS messages via either Commands or Programmable SMS APIs.
+ * @property nationalRoamingDataLimit - Network-enforced limit specifying the total Megabytes of national roaming data usage allowed during one month.
+ * @property nationalRoamingEnabled - Defines whether SIMs can roam onto other networks in the SIM's home country.
+ * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the Sid.
+ * @property voiceEnabled - Defines whether SIMs are capable of making and receiving voice calls.
  */
 interface RatePlanListInstanceCreateOptions {
   dataEnabled?: boolean;
   dataLimit?: number;
   dataMetering?: string;
   friendlyName?: string;
-  internationalRoaming?: string|list;
+  internationalRoaming?: string[];
   internationalRoamingDataLimit?: number;
   messagingEnabled?: boolean;
   nationalRoamingDataLimit?: number;
@@ -124,6 +124,10 @@ interface RatePlanListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -134,10 +138,6 @@ interface RatePlanListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
  */
 interface RatePlanListInstanceEachOptions {
   callback?: (item: RatePlanInstance, done: (err?: Error) => void) => void;
@@ -168,9 +168,9 @@ interface RatePlanListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
  */
 interface RatePlanListInstancePageOptions {
   pageNumber?: number;

@@ -94,8 +94,8 @@ interface ActivityListInstance {
 /**
  * Options to pass to create
  *
- * @property friendlyName - A human-readable name for the Activity, such as 'On Call', 'Break', 'Email', etc.
  * @property available - Boolean value indicating whether the worker should be eligible to receive a Task when they occupy this Activity.
+ * @property friendlyName - A human-readable name for the Activity, such as 'On Call', 'Break', 'Email', etc.
  */
 interface ActivityListInstanceCreateOptions {
   available?: boolean;
@@ -105,8 +105,12 @@ interface ActivityListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
- * @property friendlyName - Filter by an Activity's friendly name
  * @property available - Filter by activities that are available or unavailable.
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ * @property friendlyName - Filter by an Activity's friendly name
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -117,10 +121,6 @@ interface ActivityListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
  */
 interface ActivityListInstanceEachOptions {
   available?: string;
@@ -134,8 +134,8 @@ interface ActivityListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property friendlyName - Filter by an Activity's friendly name
  * @property available - Filter by activities that are available or unavailable.
+ * @property friendlyName - Filter by an Activity's friendly name
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -157,11 +157,11 @@ interface ActivityListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property friendlyName - Filter by an Activity's friendly name
  * @property available - Filter by activities that are available or unavailable.
- * @property pageToken - PageToken provided by the API
+ * @property friendlyName - Filter by an Activity's friendly name
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
  */
 interface ActivityListInstancePageOptions {
   available?: string;

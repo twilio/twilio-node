@@ -79,29 +79,29 @@ interface InteractionListInstance {
 /**
  * Options to pass to each
  *
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property inboundParticipantStatus - The inbound_participant_status
- * @property outboundParticipantStatus - The outbound_participant_status
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
  *                         Default is no limit
+ * @property outboundParticipantStatus - The outbound_participant_status
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
  */
 interface InteractionListInstanceEachOptions {
   callback?: (item: InteractionInstance, done: (err?: Error) => void) => void;
   done?: Function;
-  inboundParticipantStatus?: interaction.resource_status;
+  inboundParticipantStatus?: InteractionResourceStatus;
   limit?: number;
-  outboundParticipantStatus?: interaction.resource_status;
+  outboundParticipantStatus?: InteractionResourceStatus;
   pageSize?: number;
 }
 
@@ -109,11 +109,11 @@ interface InteractionListInstanceEachOptions {
  * Options to pass to list
  *
  * @property inboundParticipantStatus - The inbound_participant_status
- * @property outboundParticipantStatus - The outbound_participant_status
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
  *                         Default is no limit
+ * @property outboundParticipantStatus - The outbound_participant_status
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
@@ -122,9 +122,9 @@ interface InteractionListInstanceEachOptions {
  *                         efficient page size, i.e. min(limit, 1000)
  */
 interface InteractionListInstanceOptions {
-  inboundParticipantStatus?: interaction.resource_status;
+  inboundParticipantStatus?: InteractionResourceStatus;
   limit?: number;
-  outboundParticipantStatus?: interaction.resource_status;
+  outboundParticipantStatus?: InteractionResourceStatus;
   pageSize?: number;
 }
 
@@ -133,13 +133,13 @@ interface InteractionListInstanceOptions {
  *
  * @property inboundParticipantStatus - The inbound_participant_status
  * @property outboundParticipantStatus - The outbound_participant_status
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
  */
 interface InteractionListInstancePageOptions {
-  inboundParticipantStatus?: interaction.resource_status;
-  outboundParticipantStatus?: interaction.resource_status;
+  inboundParticipantStatus?: InteractionResourceStatus;
+  outboundParticipantStatus?: InteractionResourceStatus;
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;

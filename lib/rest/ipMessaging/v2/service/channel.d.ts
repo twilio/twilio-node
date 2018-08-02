@@ -26,12 +26,12 @@ declare function ChannelList(version: V2, serviceSid: string): ChannelListInstan
 /**
  * Options to pass to update
  *
- * @property friendlyName - A human-readable name for the Channel.
- * @property uniqueName - A unique, addressable name for the Channel.
  * @property attributes - An optional metadata field you can use to store any data you wish.
+ * @property createdBy - Optional field to specify the Identity of the User that created the Channel.
  * @property dateCreated - The optional ISO8601 time specifying the datetime the Channel should be set as being created.
  * @property dateUpdated - The optional ISO8601 time specifying the datetime the Channel should be set as having been last updated.
- * @property createdBy - Optional field to specify the Identity of the User that created the Channel.
+ * @property friendlyName - A human-readable name for the Channel.
+ * @property uniqueName - A unique, addressable name for the Channel.
  */
 interface ChannelInstanceUpdateOptions {
   attributes?: string;
@@ -108,13 +108,13 @@ interface ChannelListInstance {
 /**
  * Options to pass to create
  *
- * @property friendlyName - A human-readable name for the Channel.
- * @property uniqueName - A unique, addressable name for the Channel.
  * @property attributes - An optional metadata field you can use to store any data you wish.
- * @property type - The visibility of the channel - public or private.
+ * @property createdBy - Optional field to specify the Identity of the User that created the Channel.
  * @property dateCreated - The optional ISO8601 time specifying the datetime the Channel should be set as being created.
  * @property dateUpdated - The optional ISO8601 time specifying the datetime the Channel should be set as having been last updated.
- * @property createdBy - Optional field to specify the Identity of the User that created the Channel.
+ * @property friendlyName - A human-readable name for the Channel.
+ * @property type - The visibility of the channel - public or private.
+ * @property uniqueName - A unique, addressable name for the Channel.
  */
 interface ChannelListInstanceCreateOptions {
   attributes?: string;
@@ -122,14 +122,17 @@ interface ChannelListInstanceCreateOptions {
   dateCreated?: Date;
   dateUpdated?: Date;
   friendlyName?: string;
-  type?: channel.channel_type;
+  type?: ChannelChannelType;
   uniqueName?: string;
 }
 
 /**
  * Options to pass to each
  *
- * @property type - The visibility of the channel - public or private.
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -140,23 +143,19 @@ interface ChannelListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
+ * @property type - The visibility of the channel - public or private.
  */
 interface ChannelListInstanceEachOptions {
   callback?: (item: ChannelInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
   pageSize?: number;
-  type?: channel.channel_type|list;
+  type?: ChannelChannelType[];
 }
 
 /**
  * Options to pass to list
  *
- * @property type - The visibility of the channel - public or private.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -167,26 +166,27 @@ interface ChannelListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property type - The visibility of the channel - public or private.
  */
 interface ChannelListInstanceOptions {
   limit?: number;
   pageSize?: number;
-  type?: channel.channel_type|list;
+  type?: ChannelChannelType[];
 }
 
 /**
  * Options to pass to page
  *
- * @property type - The visibility of the channel - public or private.
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
+ * @property type - The visibility of the channel - public or private.
  */
 interface ChannelListInstancePageOptions {
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
-  type?: channel.channel_type|list;
+  type?: ChannelChannelType[];
 }
 
 interface ChannelPayload extends ChannelResource, Page.TwilioResponsePayload {

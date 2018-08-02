@@ -96,33 +96,33 @@ interface MessageListInstance {
 /**
  * Options to pass to create
  *
- * @property to - The phone number to receive the message
- * @property statusCallback - URL Twilio will request when the status changes
- * @property applicationSid - The application to use for callbacks
- * @property maxPrice - The total maximum price up to the fourth decimal in US dollars acceptable for the message to be delivered.
- * @property provideFeedback - Set this value to true if you are sending messages that have a trackable user action and you intend to confirm delivery of the message using the Message Feedback API.
- * @property validityPeriod - The number of seconds that the message can remain in a Twilio queue.
- * @property maxRate - The max_rate
- * @property forceDelivery - The force_delivery
- * @property providerSid - The provider_sid
- * @property contentRetention - The content_retention
  * @property addressRetention - The address_retention
- * @property smartEncoded - The smart_encoded
- * @property from - The phone number that initiated the message
- * @property messagingServiceSid - The 34 character unique id of the Messaging Service you want to associate with this Message.
+ * @property applicationSid - The application to use for callbacks
  * @property body - The text of the message you want to send, limited to 1600 characters.
+ * @property contentRetention - The content_retention
+ * @property forceDelivery - The force_delivery
+ * @property from - The phone number that initiated the message
+ * @property maxPrice - The total maximum price up to the fourth decimal in US dollars acceptable for the message to be delivered.
+ * @property maxRate - The max_rate
  * @property mediaUrl - The URL of the media you wish to send out with the message.
+ * @property messagingServiceSid - The 34 character unique id of the Messaging Service you want to associate with this Message.
+ * @property provideFeedback - Set this value to true if you are sending messages that have a trackable user action and you intend to confirm delivery of the message using the Message Feedback API.
+ * @property providerSid - The provider_sid
+ * @property smartEncoded - The smart_encoded
+ * @property statusCallback - URL Twilio will request when the status changes
+ * @property to - The phone number to receive the message
+ * @property validityPeriod - The number of seconds that the message can remain in a Twilio queue.
  */
 interface MessageListInstanceCreateOptions {
-  addressRetention?: message.address_retention;
+  addressRetention?: MessageAddressRetention;
   applicationSid?: string;
   body?: string;
-  contentRetention?: message.content_retention;
+  contentRetention?: MessageContentRetention;
   forceDelivery?: boolean;
   from?: string;
   maxPrice?: number;
   maxRate?: string;
-  mediaUrl?: string|list;
+  mediaUrl?: string[];
   messagingServiceSid?: string;
   provideFeedback?: boolean;
   providerSid?: string;
@@ -135,11 +135,14 @@ interface MessageListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
- * @property to - Filter by messages to this number
- * @property from - Filter by from number
- * @property dateSentBefore - Filter by date sent
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
  * @property dateSent - Filter by date sent
  * @property dateSentAfter - Filter by date sent
+ * @property dateSentBefore - Filter by date sent
+ * @property done - Function to be called upon completion of streaming
+ * @property from - Filter by from number
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -150,10 +153,7 @@ interface MessageListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
+ * @property to - Filter by messages to this number
  */
 interface MessageListInstanceEachOptions {
   callback?: (item: MessageInstance, done: (err?: Error) => void) => void;
@@ -170,11 +170,10 @@ interface MessageListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property to - Filter by messages to this number
- * @property from - Filter by from number
- * @property dateSentBefore - Filter by date sent
  * @property dateSent - Filter by date sent
  * @property dateSentAfter - Filter by date sent
+ * @property dateSentBefore - Filter by date sent
+ * @property from - Filter by from number
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -185,6 +184,7 @@ interface MessageListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property to - Filter by messages to this number
  */
 interface MessageListInstanceOptions {
   dateSent?: Date;
@@ -199,14 +199,14 @@ interface MessageListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property to - Filter by messages to this number
- * @property from - Filter by from number
- * @property dateSentBefore - Filter by date sent
  * @property dateSent - Filter by date sent
  * @property dateSentAfter - Filter by date sent
- * @property pageToken - PageToken provided by the API
+ * @property dateSentBefore - Filter by date sent
+ * @property from - Filter by from number
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
+ * @property to - Filter by messages to this number
  */
 interface MessageListInstancePageOptions {
   dateSent?: Date;

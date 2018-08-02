@@ -109,44 +109,44 @@ interface SyncListItemListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
- * @property order - A string; asc or desc
- * @property from - An integer representing Item index offset.
  * @property bounds - The bounds
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
+ * @property from - An integer representing Item index offset.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
  *                         Default is no limit
+ * @property order - A string; asc or desc
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
  */
 interface SyncListItemListInstanceEachOptions {
-  bounds?: sync_list_item.query_from_bound_type;
+  bounds?: SyncListItemQueryFromBoundType;
   callback?: (item: SyncListItemInstance, done: (err?: Error) => void) => void;
   done?: Function;
   from?: string;
   limit?: number;
-  order?: sync_list_item.query_result_order;
+  order?: SyncListItemQueryResultOrder;
   pageSize?: number;
 }
 
 /**
  * Options to pass to list
  *
- * @property order - A string; asc or desc
- * @property from - An integer representing Item index offset.
  * @property bounds - The bounds
+ * @property from - An integer representing Item index offset.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
  *                         Default is no limit
+ * @property order - A string; asc or desc
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
@@ -155,27 +155,27 @@ interface SyncListItemListInstanceEachOptions {
  *                         efficient page size, i.e. min(limit, 1000)
  */
 interface SyncListItemListInstanceOptions {
-  bounds?: sync_list_item.query_from_bound_type;
+  bounds?: SyncListItemQueryFromBoundType;
   from?: string;
   limit?: number;
-  order?: sync_list_item.query_result_order;
+  order?: SyncListItemQueryResultOrder;
   pageSize?: number;
 }
 
 /**
  * Options to pass to page
  *
- * @property order - A string; asc or desc
- * @property from - An integer representing Item index offset.
  * @property bounds - The bounds
- * @property pageToken - PageToken provided by the API
+ * @property from - An integer representing Item index offset.
+ * @property order - A string; asc or desc
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
  */
 interface SyncListItemListInstancePageOptions {
-  bounds?: sync_list_item.query_from_bound_type;
+  bounds?: SyncListItemQueryFromBoundType;
   from?: string;
-  order?: sync_list_item.query_result_order;
+  order?: SyncListItemQueryResultOrder;
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;

@@ -87,8 +87,8 @@ interface FieldValueListInstance {
  * Options to pass to create
  *
  * @property language - An ISO language-country string of the value.
- * @property value - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
  * @property synonymOf - A value that indicates this field value is a synonym of. Empty if the value is not a synonym.
+ * @property value - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
  */
 interface FieldValueListInstanceCreateOptions {
   language: string;
@@ -99,6 +99,10 @@ interface FieldValueListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property language - An ISO language-country string of the value. For example: en-US
  * @property limit -
  *                         Upper limit for the number of records to return.
@@ -110,10 +114,6 @@ interface FieldValueListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
  */
 interface FieldValueListInstanceEachOptions {
   callback?: (item: FieldValueInstance, done: (err?: Error) => void) => void;
@@ -148,9 +148,9 @@ interface FieldValueListInstanceOptions {
  * Options to pass to page
  *
  * @property language - An ISO language-country string of the value. For example: en-US
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
  */
 interface FieldValueListInstancePageOptions {
   language?: string;

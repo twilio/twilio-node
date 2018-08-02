@@ -37,11 +37,11 @@ declare namespace MessagingResponse {
   /**
    * Options to pass to message
    *
-   * @property to - Phone Number to send Message to
-   * @property from - Phone Number to send Message from
    * @property action - Action URL
+   * @property from - Phone Number to send Message from
    * @property method - Action URL Method
    * @property statusCallback - Status callback URL. Deprecated in favor of action.
+   * @property to - Phone Number to send Message to
    */
   export interface MessageAttributes {
     action?: string;

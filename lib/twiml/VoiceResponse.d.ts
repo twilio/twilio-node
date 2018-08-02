@@ -164,11 +164,11 @@ declare namespace VoiceResponse {
   /**
    * Options to pass to client
    *
-   * @property url - Client URL
    * @property method - Client URL Method
-   * @property statusCallbackEvent - Events to trigger status callback
    * @property statusCallback - Status Callback URL
+   * @property statusCallbackEvent - Events to trigger status callback
    * @property statusCallbackMethod - Status Callback URL Method
+   * @property url - Client URL
    */
   export interface ClientAttributes {
     method?: string;
@@ -181,24 +181,24 @@ declare namespace VoiceResponse {
   /**
    * Options to pass to conference
    *
-   * @property muted - Join the conference muted
    * @property beep - Play beep when joining
-   * @property startConferenceOnEnter - Start the conference on enter
    * @property endConferenceOnExit - End the conferenceon exit
-   * @property waitUrl - Wait URL
-   * @property waitMethod - Wait URL method
-   * @property maxParticipants - Maximum number of participants
-   * @property record - Record the conference
-   * @property region - Conference region
-   * @property whisper - Call whisper
-   * @property trim - Trim the conference recording
-   * @property statusCallbackEvent - Events to call status callback URL
-   * @property statusCallback - Status callback URL
-   * @property statusCallbackMethod - Status callback URL method
-   * @property recordingStatusCallback - Recording status callback URL
-   * @property recordingStatusCallbackMethod - Recording status callback URL method
-   * @property recordingStatusCallbackEvent - Recording status callback events
    * @property eventCallbackUrl - Event callback URL
+   * @property maxParticipants - Maximum number of participants
+   * @property muted - Join the conference muted
+   * @property record - Record the conference
+   * @property recordingStatusCallback - Recording status callback URL
+   * @property recordingStatusCallbackEvent - Recording status callback events
+   * @property recordingStatusCallbackMethod - Recording status callback URL method
+   * @property region - Conference region
+   * @property startConferenceOnEnter - Start the conference on enter
+   * @property statusCallback - Status callback URL
+   * @property statusCallbackEvent - Events to call status callback URL
+   * @property statusCallbackMethod - Status callback URL method
+   * @property trim - Trim the conference recording
+   * @property waitMethod - Wait URL method
+   * @property waitUrl - Wait URL
+   * @property whisper - Call whisper
    */
   export interface ConferenceAttributes {
     beep?: ConferenceBeep;
@@ -225,18 +225,18 @@ declare namespace VoiceResponse {
    * Options to pass to dial
    *
    * @property action - Action URL
-   * @property method - Action URL method
-   * @property timeout - Time to wait for answer
-   * @property hangupOnStar - Hangup call on star press
-   * @property timeLimit - Max time length
-   * @property callerId - Caller ID to display
-   * @property record - Record the call
-   * @property trim - Trim the recording
-   * @property recordingStatusCallback - Recording status callback URL
-   * @property recordingStatusCallbackMethod - Recording status callback URL method
-   * @property recordingStatusCallbackEvent - Recording status callback events
    * @property answerOnBridge - Preserve the ringing behavior of the inbound call until the Dialed call picks up
+   * @property callerId - Caller ID to display
+   * @property hangupOnStar - Hangup call on star press
+   * @property method - Action URL method
+   * @property record - Record the call
+   * @property recordingStatusCallback - Recording status callback URL
+   * @property recordingStatusCallbackEvent - Recording status callback events
+   * @property recordingStatusCallbackMethod - Recording status callback URL method
    * @property ringTone - Ringtone allows you to override the ringback tone that Twilio will play back to the caller while executing the Dial
+   * @property timeLimit - Max time length
+   * @property timeout - Time to wait for answer
+   * @property trim - Trim the recording
    */
   export interface DialAttributes {
     action?: string;
@@ -274,20 +274,20 @@ declare namespace VoiceResponse {
   /**
    * Options to pass to gather
    *
-   * @property input - Input type Twilio should accept
    * @property action - Action URL
-   * @property method - Action URL method
-   * @property timeout - Time to wait to gather input
-   * @property speechTimeout - Time to wait to gather speech input and it should be either auto or a positive integer.
-   * @property maxSpeechTime - Max allowed time for speech input
-   * @property profanityFilter - Profanity Filter on speech
+   * @property bargeIn - Stop playing media upon speech
    * @property finishOnKey - Finish gather on key
+   * @property hints - Speech recognition hints
+   * @property input - Input type Twilio should accept
+   * @property language - Language to use
+   * @property maxSpeechTime - Max allowed time for speech input
+   * @property method - Action URL method
    * @property numDigits - Number of digits to collect
    * @property partialResultCallback - Partial result callback URL
    * @property partialResultCallbackMethod - Partial result callback URL method
-   * @property language - Language to use
-   * @property hints - Speech recognition hints
-   * @property bargeIn - Stop playing media upon speech
+   * @property profanityFilter - Profanity Filter on speech
+   * @property speechTimeout - Time to wait to gather speech input and it should be either auto or a positive integer.
+   * @property timeout - Time to wait to gather input
    */
   export interface GatherAttributes {
     action?: string;
@@ -309,12 +309,12 @@ declare namespace VoiceResponse {
   /**
    * Options to pass to number
    *
-   * @property sendDigits - DTMF tones to play when the call is answered
-   * @property url - TwiML URL
    * @property method - TwiML URL method
-   * @property statusCallbackEvent - Events to call status callback
+   * @property sendDigits - DTMF tones to play when the call is answered
    * @property statusCallback - Status callback URL
+   * @property statusCallbackEvent - Events to call status callback
    * @property statusCallbackMethod - Status callback URL method
+   * @property url - TwiML URL
    */
   export interface NumberAttributes {
     method?: string;
@@ -337,8 +337,8 @@ declare namespace VoiceResponse {
   /**
    * Options to pass to play
    *
-   * @property loop - Times to loop media
    * @property digits - Play DTMF tones for digits
+   * @property loop - Times to loop media
    */
   export interface PlayAttributes {
     digits?: string;
@@ -348,10 +348,10 @@ declare namespace VoiceResponse {
   /**
    * Options to pass to queue
    *
-   * @property url - Action URL
    * @property method - Action URL method
-   * @property reservationSid - TaskRouter Reservation SID
    * @property postWorkActivitySid - TaskRouter Activity SID
+   * @property reservationSid - TaskRouter Reservation SID
+   * @property url - Action URL
    */
   export interface QueueAttributes {
     method?: string;
@@ -364,16 +364,16 @@ declare namespace VoiceResponse {
    * Options to pass to record
    *
    * @property action - Action URL
-   * @property method - Action URL method
-   * @property timeout - Timeout to begin recording
    * @property finishOnKey - Finish recording on key
    * @property maxLength - Max time to record in seconds
+   * @property method - Action URL method
    * @property playBeep - Play beep
-   * @property trim - Trim the recording
    * @property recordingStatusCallback - Status callback URL
    * @property recordingStatusCallbackMethod - Status callback URL method
+   * @property timeout - Timeout to begin recording
    * @property transcribe - Transcribe the recording
    * @property transcribeCallback - Transcribe callback URL
+   * @property trim - Trim the recording
    */
   export interface RecordAttributes {
     action?: string;
@@ -410,9 +410,9 @@ declare namespace VoiceResponse {
   /**
    * Options to pass to say
    *
-   * @property voice - Voice to use
-   * @property loop - Times to loop message
    * @property language - Message langauge
+   * @property loop - Times to loop message
+   * @property voice - Voice to use
    */
   export interface SayAttributes {
     language?: SayLanguage;
@@ -423,13 +423,13 @@ declare namespace VoiceResponse {
   /**
    * Options to pass to sip
    *
-   * @property username - SIP Username
-   * @property password - SIP Password
-   * @property url - Action URL
    * @property method - Action URL method
-   * @property statusCallbackEvent - Status callback events
+   * @property password - SIP Password
    * @property statusCallback - Status callback URL
+   * @property statusCallbackEvent - Status callback events
    * @property statusCallbackMethod - Status callback URL method
+   * @property url - Action URL
+   * @property username - SIP Username
    */
   export interface SipAttributes {
     method?: string;
@@ -444,11 +444,11 @@ declare namespace VoiceResponse {
   /**
    * Options to pass to sms
    *
-   * @property to - Number to send message to
-   * @property from - Number to send message from
    * @property action - Action URL
+   * @property from - Number to send message from
    * @property method - Action URL method
    * @property statusCallback - Status callback URL
+   * @property to - Number to send message to
    */
   export interface SmsAttributes {
     action?: string;
@@ -501,9 +501,9 @@ declare namespace VoiceResponse {
   /**
    * Options to pass to ssmlProsody
    *
-   * @property volume - Specify the volume, available values: default, silent, x-soft, soft, medium, loud, x-loud, +ndB, -ndB
-   * @property rate - Specify the rate, available values: x-slow, slow, medium, fast, x-fast, n%
    * @property pitch - Specify the pitch, available values: default, x-low, low, medium, high, x-high, +n%, -n%
+   * @property rate - Specify the rate, available values: x-slow, slow, medium, fast, x-fast, n%
+   * @property volume - Specify the volume, available values: default, silent, x-soft, soft, medium, loud, x-loud, +ndB, -ndB
    */
   export interface SsmlProsodyAttributes {
     pitch?: string;

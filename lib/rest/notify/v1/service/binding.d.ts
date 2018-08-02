@@ -86,31 +86,33 @@ interface BindingListInstance {
 /**
  * Options to pass to create
  *
- * @property identity - The Identity to which this Binding belongs to.
- * @property bindingType - The type of the Binding.
  * @property address - The address specific to the channel.
- * @property tag - The list of tags associated with this Binding.
- * @property notificationProtocolVersion - The version of the protocol used to send the notification.
+ * @property bindingType - The type of the Binding.
  * @property credentialSid - The unique identifier of the Credential resource to be used to send notifications to this Binding.
  * @property endpoint - DEPRECATED*
+ * @property identity - The Identity to which this Binding belongs to.
+ * @property notificationProtocolVersion - The version of the protocol used to send the notification.
+ * @property tag - The list of tags associated with this Binding.
  */
 interface BindingListInstanceCreateOptions {
   address: string;
-  bindingType: binding.binding_type;
+  bindingType: BindingBindingType;
   credentialSid?: string;
   endpoint?: string;
   identity: string;
   notificationProtocolVersion?: string;
-  tag?: string|list;
+  tag?: string[];
 }
 
 /**
  * Options to pass to each
  *
- * @property startDate - Only list Bindings created on or after the given date.
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property endDate - Only list Bindings created on or before the given date.
  * @property identity - Only list Bindings that have any of the specified Identities.
- * @property tag - Only list Bindings that have all of the specified Tags.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -121,29 +123,25 @@ interface BindingListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
+ * @property startDate - Only list Bindings created on or after the given date.
+ * @property tag - Only list Bindings that have all of the specified Tags.
  */
 interface BindingListInstanceEachOptions {
   callback?: (item: BindingInstance, done: (err?: Error) => void) => void;
   done?: Function;
   endDate?: Date;
-  identity?: string|list;
+  identity?: string[];
   limit?: number;
   pageSize?: number;
   startDate?: Date;
-  tag?: string|list;
+  tag?: string[];
 }
 
 /**
  * Options to pass to list
  *
- * @property startDate - Only list Bindings created on or after the given date.
  * @property endDate - Only list Bindings created on or before the given date.
  * @property identity - Only list Bindings that have any of the specified Identities.
- * @property tag - Only list Bindings that have all of the specified Tags.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -154,35 +152,37 @@ interface BindingListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property startDate - Only list Bindings created on or after the given date.
+ * @property tag - Only list Bindings that have all of the specified Tags.
  */
 interface BindingListInstanceOptions {
   endDate?: Date;
-  identity?: string|list;
+  identity?: string[];
   limit?: number;
   pageSize?: number;
   startDate?: Date;
-  tag?: string|list;
+  tag?: string[];
 }
 
 /**
  * Options to pass to page
  *
- * @property startDate - Only list Bindings created on or after the given date.
  * @property endDate - Only list Bindings created on or before the given date.
  * @property identity - Only list Bindings that have any of the specified Identities.
- * @property tag - Only list Bindings that have all of the specified Tags.
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
+ * @property startDate - Only list Bindings created on or after the given date.
+ * @property tag - Only list Bindings that have all of the specified Tags.
  */
 interface BindingListInstancePageOptions {
   endDate?: Date;
-  identity?: string|list;
+  identity?: string[];
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;
   startDate?: Date;
-  tag?: string|list;
+  tag?: string[];
 }
 
 interface BindingPayload extends BindingResource, Page.TwilioResponsePayload {

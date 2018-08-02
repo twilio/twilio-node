@@ -23,11 +23,11 @@ declare function MemberList(version: V2, serviceSid: string, channelSid: string)
 /**
  * Options to pass to update
  *
- * @property roleSid - The role to be assigned to this member.
- * @property lastConsumedMessageIndex - Field used to specify the last consumed Message index for the Channel for this Member.
- * @property lastConsumptionTimestamp - ISO8601 time indicating the last datetime the Member consumed a Message in the Channel.
  * @property dateCreated - The ISO8601 time specifying the datetime the Members should be set as being created.
  * @property dateUpdated - The ISO8601 time specifying the datetime the Member should be set as having been last updated.
+ * @property lastConsumedMessageIndex - Field used to specify the last consumed Message index for the Channel for this Member.
+ * @property lastConsumptionTimestamp - ISO8601 time indicating the last datetime the Member consumed a Message in the Channel.
+ * @property roleSid - The role to be assigned to this member.
  */
 interface MemberInstanceUpdateOptions {
   dateCreated?: Date;
@@ -103,12 +103,12 @@ interface MemberListInstance {
 /**
  * Options to pass to create
  *
- * @property identity - A unique string identifier for this User in this Service. See the access tokens docs for more details.
- * @property roleSid - The role to be assigned to this member. Defaults to the roles specified on the Service.
- * @property lastConsumedMessageIndex - Field used to specify the last consumed Message index for the Channel for this Member.  Should only be used when recreating a Member from a backup/separate source.
- * @property lastConsumptionTimestamp - ISO8601 time indicating the last datetime the Member consumed a Message in the Channel.  Should only be used when recreating a Member from a backup/separate source
  * @property dateCreated - The ISO8601 time specifying the datetime the Members should be set as being created.  Will be set to the current time by the Chat service if not specified.  Note that this should only be used in cases where a Member is being recreated from a backup/separate source
  * @property dateUpdated - The ISO8601 time specifying the datetime the Member should be set as having been last updated.  Will be set to the null by the Chat service if not specified.  Note that this should only be used in cases where a Member is being recreated from a backup/separate source  and where a Member was previously updated.
+ * @property identity - A unique string identifier for this User in this Service. See the access tokens docs for more details.
+ * @property lastConsumedMessageIndex - Field used to specify the last consumed Message index for the Channel for this Member.  Should only be used when recreating a Member from a backup/separate source.
+ * @property lastConsumptionTimestamp - ISO8601 time indicating the last datetime the Member consumed a Message in the Channel.  Should only be used when recreating a Member from a backup/separate source
+ * @property roleSid - The role to be assigned to this member. Defaults to the roles specified on the Service.
  */
 interface MemberListInstanceCreateOptions {
   dateCreated?: Date;
@@ -122,6 +122,10 @@ interface MemberListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property identity - A unique string identifier for this User in this Service. See the access tokens docs for more details.
  * @property limit -
  *                         Upper limit for the number of records to return.
@@ -133,15 +137,11 @@ interface MemberListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
  */
 interface MemberListInstanceEachOptions {
   callback?: (item: MemberInstance, done: (err?: Error) => void) => void;
   done?: Function;
-  identity?: string|list;
+  identity?: string[];
   limit?: number;
   pageSize?: number;
 }
@@ -162,7 +162,7 @@ interface MemberListInstanceEachOptions {
  *                         efficient page size, i.e. min(limit, 1000)
  */
 interface MemberListInstanceOptions {
-  identity?: string|list;
+  identity?: string[];
   limit?: number;
   pageSize?: number;
 }
@@ -171,12 +171,12 @@ interface MemberListInstanceOptions {
  * Options to pass to page
  *
  * @property identity - A unique string identifier for this User in this Service. See the access tokens docs for more details.
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
  */
 interface MemberListInstancePageOptions {
-  identity?: string|list;
+  identity?: string[];
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;

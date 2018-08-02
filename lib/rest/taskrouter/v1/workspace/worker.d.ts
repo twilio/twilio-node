@@ -103,9 +103,9 @@ interface WorkerListInstance {
 /**
  * Options to pass to create
  *
- * @property friendlyName - String representing user-friendly name for the Worker.
  * @property activitySid - A valid Activity describing the worker's initial state.
  * @property attributes - JSON object describing this worker.
+ * @property friendlyName - String representing user-friendly name for the Worker.
  */
 interface WorkerListInstanceCreateOptions {
   activitySid?: string;
@@ -119,10 +119,11 @@ interface WorkerListInstanceCreateOptions {
  * @property activityName - Filter by workers that are in a particular Activity by Friendly Name
  * @property activitySid - Filter by workers that are in a particular Activity by SID
  * @property available - Filter by workers that are available or unavailable.
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property friendlyName - Filter by a worker's friendly name
- * @property targetWorkersExpression - Filter by workers that would match an expression on a TaskQueue.
- * @property taskQueueName - Filter by workers that are eligible for a TaskQueue by Friendly Name
- * @property taskQueueSid - Filter by workers that are eligible for a TaskQueue by SID
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -133,10 +134,9 @@ interface WorkerListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
+ * @property targetWorkersExpression - Filter by workers that would match an expression on a TaskQueue.
+ * @property taskQueueName - Filter by workers that are eligible for a TaskQueue by Friendly Name
+ * @property taskQueueSid - Filter by workers that are eligible for a TaskQueue by SID
  */
 interface WorkerListInstanceEachOptions {
   activityName?: string;
@@ -159,9 +159,6 @@ interface WorkerListInstanceEachOptions {
  * @property activitySid - Filter by workers that are in a particular Activity by SID
  * @property available - Filter by workers that are available or unavailable.
  * @property friendlyName - Filter by a worker's friendly name
- * @property targetWorkersExpression - Filter by workers that would match an expression on a TaskQueue.
- * @property taskQueueName - Filter by workers that are eligible for a TaskQueue by Friendly Name
- * @property taskQueueSid - Filter by workers that are eligible for a TaskQueue by SID
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -172,6 +169,9 @@ interface WorkerListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
+ * @property targetWorkersExpression - Filter by workers that would match an expression on a TaskQueue.
+ * @property taskQueueName - Filter by workers that are eligible for a TaskQueue by Friendly Name
+ * @property taskQueueSid - Filter by workers that are eligible for a TaskQueue by SID
  */
 interface WorkerListInstanceOptions {
   activityName?: string;
@@ -192,12 +192,12 @@ interface WorkerListInstanceOptions {
  * @property activitySid - Filter by workers that are in a particular Activity by SID
  * @property available - Filter by workers that are available or unavailable.
  * @property friendlyName - Filter by a worker's friendly name
+ * @property pageNumber - Page Number, this value is simply for client state
+ * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
  * @property targetWorkersExpression - Filter by workers that would match an expression on a TaskQueue.
  * @property taskQueueName - Filter by workers that are eligible for a TaskQueue by Friendly Name
  * @property taskQueueSid - Filter by workers that are eligible for a TaskQueue by SID
- * @property pageToken - PageToken provided by the API
- * @property pageNumber - Page Number, this value is simply for client state
- * @property pageSize - Number of records to return, defaults to 50
  */
 interface WorkerListInstancePageOptions {
   activityName?: string;

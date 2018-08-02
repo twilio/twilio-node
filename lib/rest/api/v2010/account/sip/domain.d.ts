@@ -27,13 +27,13 @@ declare function DomainList(version: V2010, accountSid: string): DomainListInsta
  *
  * @property authType - The auth_type
  * @property friendlyName - A user-specified, human-readable name for the trigger.
+ * @property sipRegistration - The sip_registration
  * @property voiceFallbackMethod - The voice_fallback_method
  * @property voiceFallbackUrl - The voice_fallback_url
  * @property voiceMethod - HTTP method to use with voice_url
  * @property voiceStatusCallbackMethod - The voice_status_callback_method
  * @property voiceStatusCallbackUrl - The voice_status_callback_url
  * @property voiceUrl - The voice_url
- * @property sipRegistration - The sip_registration
  */
 interface DomainInstanceUpdateOptions {
   authType?: string;
@@ -113,16 +113,16 @@ interface DomainListInstance {
 /**
  * Options to pass to create
  *
+ * @property authType - The types of authentication mapped to the domain
  * @property domainName - The unique address on Twilio to route SIP traffic
  * @property friendlyName - A user-specified, human-readable name for the trigger.
- * @property authType - The types of authentication mapped to the domain
- * @property voiceUrl - URL Twilio will request when receiving a call
- * @property voiceMethod - HTTP method to use with voice_url
- * @property voiceFallbackUrl - URL Twilio will request if an error occurs in executing TwiML
- * @property voiceFallbackMethod - HTTP method used with voice_fallback_url
- * @property voiceStatusCallbackUrl - URL that Twilio will request with status updates
- * @property voiceStatusCallbackMethod - The HTTP method Twilio will use to make requests to the StatusCallback URL.
  * @property sipRegistration - The sip_registration
+ * @property voiceFallbackMethod - HTTP method used with voice_fallback_url
+ * @property voiceFallbackUrl - URL Twilio will request if an error occurs in executing TwiML
+ * @property voiceMethod - HTTP method to use with voice_url
+ * @property voiceStatusCallbackMethod - The HTTP method Twilio will use to make requests to the StatusCallback URL.
+ * @property voiceStatusCallbackUrl - URL that Twilio will request with status updates
+ * @property voiceUrl - URL Twilio will request when receiving a call
  */
 interface DomainListInstanceCreateOptions {
   authType?: string;
@@ -140,6 +140,10 @@ interface DomainListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -150,10 +154,6 @@ interface DomainListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
  */
 interface DomainListInstanceEachOptions {
   callback?: (item: DomainInstance, done: (err?: Error) => void) => void;
@@ -184,9 +184,9 @@ interface DomainListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
  */
 interface DomainListInstancePageOptions {
   pageNumber?: number;

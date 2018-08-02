@@ -24,10 +24,10 @@ declare function WorkflowList(version: V1, workspaceSid: string): WorkflowListIn
 /**
  * Options to pass to update
  *
- * @property friendlyName - A string representing a human readable name for this Workflow.
  * @property assignmentCallbackUrl - A valid URL for the application that will process task assignment events.
- * @property fallbackAssignmentCallbackUrl - If the request to the AssignmentCallbackUrl fails, the assignment callback will be made to this URL.
  * @property configuration - JSON document configuring the rules for this Workflow.
+ * @property fallbackAssignmentCallbackUrl - If the request to the AssignmentCallbackUrl fails, the assignment callback will be made to this URL.
+ * @property friendlyName - A string representing a human readable name for this Workflow.
  * @property taskReservationTimeout - An integer value controlling how long in seconds TaskRouter will wait for a confirmation response from your application after assigning a Task to a worker.
  */
 interface WorkflowInstanceUpdateOptions {
@@ -104,10 +104,10 @@ interface WorkflowListInstance {
 /**
  * Options to pass to create
  *
- * @property friendlyName - A string representing a human readable name for this Workflow.
- * @property configuration - JSON document configuring the rules for this Workflow.
  * @property assignmentCallbackUrl - A valid URL for the application that will process task assignment events.
+ * @property configuration - JSON document configuring the rules for this Workflow.
  * @property fallbackAssignmentCallbackUrl - If the request to the AssignmentCallbackUrl fails, the assignment callback will be made to this URL.
+ * @property friendlyName - A string representing a human readable name for this Workflow.
  * @property taskReservationTimeout - An integer value controlling how long in seconds TaskRouter will wait for a confirmation response from your application after assigning a Task to a worker.
  */
 interface WorkflowListInstanceCreateOptions {
@@ -121,6 +121,10 @@ interface WorkflowListInstanceCreateOptions {
 /**
  * Options to pass to each
  *
+ * @property callback -
+ *                         Function to process each record. If this and a positional
+ *                         callback are passed, this one will be used
+ * @property done - Function to be called upon completion of streaming
  * @property friendlyName - Human readable description of this Workflow
  * @property limit -
  *                         Upper limit for the number of records to return.
@@ -132,10 +136,6 @@ interface WorkflowListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property callback -
- *                         Function to process each record. If this and a positional
- *                         callback are passed, this one will be used
- * @property done - Function to be called upon completion of streaming
  */
 interface WorkflowListInstanceEachOptions {
   callback?: (item: WorkflowInstance, done: (err?: Error) => void) => void;
@@ -170,9 +170,9 @@ interface WorkflowListInstanceOptions {
  * Options to pass to page
  *
  * @property friendlyName - Human readable description of this Workflow
- * @property pageToken - PageToken provided by the API
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
+ * @property pageToken - PageToken provided by the API
  */
 interface WorkflowListInstancePageOptions {
   friendlyName?: string;

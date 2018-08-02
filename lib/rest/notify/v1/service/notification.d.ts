@@ -33,23 +33,23 @@ interface NotificationListInstance {
 /**
  * Options to pass to create
  *
- * @property body - Indicates the notification body text.
- * @property priority - Two priorities defined: low and high.
- * @property ttl - This parameter specifies how long the notification is valid.
- * @property title - Indicates the notification title.
- * @property sound - Indicates a sound to be played.
  * @property action - Specifies the actions to be displayed for the notification.
- * @property data - This parameter specifies the custom key-value pairs of the notification's payload.
+ * @property alexa - The alexa
  * @property apn - APNS specific payload that overrides corresponding attributes in a generic payload for Bindings with the apn BindingType.
- * @property gcm - GCM specific payload that overrides corresponding attributes in generic payload for Bindings with gcm BindingType.
- * @property sms - SMS specific payload that overrides corresponding attributes in generic payload for Bindings with sms BindingType.
+ * @property body - Indicates the notification body text.
+ * @property data - This parameter specifies the custom key-value pairs of the notification's payload.
  * @property facebookMessenger - Messenger specific payload that overrides corresponding attributes in generic payload for Bindings with facebook-messenger BindingType.
  * @property fcm - FCM specific payload that overrides corresponding attributes in generic payload for Bindings with fcm BindingType.
- * @property segment - The segment
- * @property alexa - The alexa
- * @property toBinding - The destination address in a JSON object.
+ * @property gcm - GCM specific payload that overrides corresponding attributes in generic payload for Bindings with gcm BindingType.
  * @property identity - Delivery will be attempted only to Bindings with an Identity in this list.
+ * @property priority - Two priorities defined: low and high.
+ * @property segment - The segment
+ * @property sms - SMS specific payload that overrides corresponding attributes in generic payload for Bindings with sms BindingType.
+ * @property sound - Indicates a sound to be played.
  * @property tag - Delivery will be attempted only to Bindings that have all of the Tags in this list.
+ * @property title - Indicates the notification title.
+ * @property toBinding - The destination address in a JSON object.
+ * @property ttl - This parameter specifies how long the notification is valid.
  */
 interface NotificationListInstanceCreateOptions {
   action?: string;
@@ -60,14 +60,14 @@ interface NotificationListInstanceCreateOptions {
   facebookMessenger?: string;
   fcm?: string;
   gcm?: string;
-  identity?: string|list;
-  priority?: notification.priority;
-  segment?: string|list;
+  identity?: string[];
+  priority?: NotificationPriority;
+  segment?: string[];
   sms?: string;
   sound?: string;
-  tag?: string|list;
+  tag?: string[];
   title?: string;
-  toBinding?: string|list;
+  toBinding?: string[];
   ttl?: number;
 }
 
