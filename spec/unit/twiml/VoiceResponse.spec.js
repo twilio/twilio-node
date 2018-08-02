@@ -204,4 +204,11 @@ describe('create voice response TwiML', function() {
 
     expect(actual.toString()).toEqual('<?xml version="1.0" encoding="UTF-8"?><Response><Say><say-as interpret-as="spell-out" role="yymmdd">Words to speak</say-as></Say></Response>');
   });
+
+  it('should render namespaced attributes', function() {
+    var actual = new VoiceResponse();
+    actual.say().ssmlLang({'xml:lang': 'fr-FR'}, 'Bonjour!');
+
+    expect(actual.toString()).toEqual('<?xml version="1.0" encoding="UTF-8"?><Response><Say><lang xml:lang="fr-FR">Bonjour!</lang></Say></Response>');
+  });
 });
