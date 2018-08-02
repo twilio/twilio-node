@@ -197,4 +197,11 @@ describe('create voice response TwiML', function() {
 
     expect(actual.toString()).toEqual('<?xml version="1.0" encoding="UTF-8"?><Response><Dial>+10000000000<Ninja sword="always"/></Dial></Response>');
   });
+
+  it('should render attributes with dashes', function() {
+    var actual = new VoiceResponse();
+    actual.say().ssmlSayAs({'interpret-as': 'spell-out', role: 'yymmdd'}, 'Words to speak');
+
+    expect(actual.toString()).toEqual('<?xml version="1.0" encoding="UTF-8"?><Response><Say><say-as interpret-as="spell-out" role="yymmdd">Words to speak</say-as></Say></Response>');
+  });
 });
