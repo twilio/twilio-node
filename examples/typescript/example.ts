@@ -1,10 +1,11 @@
 import * as _ from 'lodash';
 import twilio = require('../../');
 import {
-    MessageInstance,
+    MessageInstance, MessageListInstance,
     MessageListInstanceCreateOptions
 } from '../../lib/rest/api/v2010/account/message';
 import {CallInstance} from "../../lib/rest/api/v2010/account/call";
+import {TrunkInstance} from "../../lib/rest/trunking/v1/trunk";
 
 const accountSid: string = process.env.TWILIO_ACCOUNT_SID || '';
 const token: string = process.env.TWILIO_AUTH_TOKEN || '';
@@ -54,13 +55,13 @@ const promise = client.messages.create({
   to: to,
   body: 'create using promises'
 });
-promise.then(function(message) {
+promise.then((message: MessageInstance) => {
   console.log('Created message using promises');
   console.log(message.sid);
 });
 
 // Create sip trunk using callback as first parameter
-client.trunking.v1.trunks.create(function(err, result) {
+client.trunking.v1.trunks.create((err: Error, result: TrunkInstance) => {
   console.log('Created default trunk');
   console.log(result.sid);
 });
@@ -70,7 +71,7 @@ client.trunking.v1.trunks.create(
   {
     friendlyName: 'sip trunking'
   },
-  function(err, result) {
+  (err: Error, result: TrunkInstance) => {
     console.log('Created trunk with friendly name');
     console.log(result.sid);
     console.log(result.friendlyName);
@@ -80,7 +81,7 @@ client.trunking.v1.trunks.create(
 const promiseTrunk = client.trunking.v1.trunks.create({
   friendlyName: 'promise trunking'
 });
-promiseTrunk.then(function(trunk) {
+promiseTrunk.then((trunk: TrunkInstance) => {
   console.log('Created trunk with friendly name and promises');
   console.log(trunk.sid);
   console.log(trunk.friendlyName);
@@ -89,14 +90,14 @@ promiseTrunk.then(function(trunk) {
 const trunkSid = 'TK7e37e59861c14bb80dde245cfaad5522';
 
 // Fetch trunk sid using callback
-client.trunking.v1.trunks(trunkSid).fetch(function(err, result) {
+client.trunking.v1.trunks(trunkSid).fetch((err: Error, result: TrunkInstance) => {
   console.log('Fetch trunk using callback');
   console.log(result.sid);
 });
 
 // Fetch trunk using promise
 const promiseTrunk2 = client.trunking.v1.trunks(trunkSid).fetch();
-promiseTrunk2.then(function(trunk) {
+promiseTrunk2.then((trunk: TrunkInstance) => {
   console.log('Fetch trunk using promise');
   console.log(trunk.sid);
 });
@@ -106,7 +107,7 @@ client.trunking.v1.trunks(trunkSid).update(
   {
     friendlyName: 'callback trunk'
   },
-  function(err, result) {
+  (err: Error, result: TrunkInstance) => {
     console.log('Updated using callbacks');
     console.log(result.sid);
     console.log(result.friendlyName);
@@ -117,23 +118,23 @@ client.trunking.v1.trunks(trunkSid).update(
 const promiseTrunk3 = client.trunking.v1.trunks(trunkSid).update({
   friendlyName: 'promise trunk'
 });
-promiseTrunk3.then(function(trunk) {
+promiseTrunk3.then((trunk: TrunkInstance) => {
   console.log('Updated trunk with friendly name and promises');
   console.log(trunk.sid);
   console.log(trunk.friendlyName);
 });
 
 // List messages using callbacks
-client.messages.list(function(err, messages) {
+client.messages.list((err: Error, messages: MessageInstance[]) => {
   console.log('Listing messages using callbacks');
-  _.each(messages, function(message) {
+  _.each(messages, message => {
     console.log(message.sid);
   });
 });
 
 // List messages using promises
 const promiseMessage = client.messages.list();
-promiseMessage.then(function(messages) {
+promiseMessage.then((messages: MessageInstance[]) => {
   console.log('Listing messages using promises');
   _.each(messages, function(message) {
     console.log(message.sid);
@@ -141,4 +142,4 @@ promiseMessage.then(function(messages) {
 });
 
 const twiml = new twilio.twiml.VoiceResponse();
-twiml.dial({})
+twiml.dial({}, '+12345678901');
