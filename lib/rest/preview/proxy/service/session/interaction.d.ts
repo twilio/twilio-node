@@ -244,18 +244,18 @@ declare class InteractionInstance extends SerializableClass {
   fetch(callback?: (error: Error | null, items: InteractionInstance) => any): void;
   inboundParticipantSid: string;
   inboundResourceSid: string;
-  inboundResourceStatus: interaction.resource_status;
+  inboundResourceStatus: InteractionResourceStatus;
   inboundResourceType: string;
   inboundResourceUrl: string;
   outboundParticipantSid: string;
   outboundResourceSid: string;
-  outboundResourceStatus: interaction.resource_status;
+  outboundResourceStatus: InteractionResourceStatus;
   outboundResourceType: string;
   outboundResourceUrl: string;
   serviceSid: string;
   sessionSid: string;
   sid: string;
-  status: interaction.status;
+  status: InteractionStatus;
   /**
    * Produce a plain JSON object version of the InteractionInstance for serialization.
    * Removes any circular references in the object.

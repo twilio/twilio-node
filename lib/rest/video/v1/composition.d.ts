@@ -283,7 +283,7 @@ declare class CompositionInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: CompositionInstance) => any): void;
-  format: composition.format;
+  format: CompositionFormat;
   links: string;
   /**
    * remove a CompositionInstance
@@ -295,7 +295,7 @@ declare class CompositionInstance extends SerializableClass {
   roomSid: string;
   sid: string;
   size: number;
-  status: composition.status;
+  status: CompositionStatus;
   /**
    * Produce a plain JSON object version of the CompositionInstance for serialization.
    * Removes any circular references in the object.

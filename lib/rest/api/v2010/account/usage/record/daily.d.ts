@@ -219,7 +219,7 @@ declare class DailyInstance extends SerializableClass {
 
   accountSid: string;
   apiVersion: string;
-  category: daily.category;
+  category: DailyCategory;
   count: string;
   countUnit: string;
   description: string;

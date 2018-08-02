@@ -243,7 +243,7 @@ declare class ModelBuildInstance extends SerializableClass {
    */
   remove(callback?: (error: Error | null, items: ModelBuildInstance) => any): void;
   sid: string;
-  status: model_build.status;
+  status: ModelBuildStatus;
   /**
    * Produce a plain JSON object version of the ModelBuildInstance for serialization.
    * Removes any circular references in the object.

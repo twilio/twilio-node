@@ -296,7 +296,7 @@ declare class TollFreeInstance extends SerializableClass {
   constructor(version: V2010, payload: TollFreePayload, accountSid: string);
 
   accountSid: string;
-  addressRequirements: toll_free.address_requirement;
+  addressRequirements: TollFreeAddressRequirement;
   addressSid: string;
   apiVersion: string;
   beta: boolean;

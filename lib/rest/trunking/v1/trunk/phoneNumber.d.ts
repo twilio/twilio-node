@@ -245,7 +245,7 @@ declare class PhoneNumberInstance extends SerializableClass {
 
   private _proxy: PhoneNumberContext;
   accountSid: string;
-  addressRequirements: phone_number.address_requirement;
+  addressRequirements: PhoneNumberAddressRequirement;
   apiVersion: string;
   beta: boolean;
   capabilities: string;

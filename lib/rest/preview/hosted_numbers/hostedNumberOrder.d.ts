@@ -355,7 +355,7 @@ declare class HostedNumberOrderInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: HostedNumberOrderInstance) => any): void;
   sid: string;
   signingDocumentSid: string;
-  status: hosted_number_order.status;
+  status: HostedNumberOrderStatus;
   /**
    * Produce a plain JSON object version of the HostedNumberOrderInstance for serialization.
    * Removes any circular references in the object.
@@ -374,7 +374,7 @@ declare class HostedNumberOrderInstance extends SerializableClass {
   verificationCallSids: string;
   verificationCode: string;
   verificationDocumentSid: string;
-  verificationType: hosted_number_order.verification_type;
+  verificationType: HostedNumberOrderVerificationType;
 }
 
 

@@ -265,10 +265,10 @@ declare class ServiceInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: ServiceInstance) => any): void;
-  geoMatchLevel: service.geo_match_level;
+  geoMatchLevel: ServiceGeoMatchLevel;
   interceptCallbackUrl: string;
   links: string;
-  numberSelectionBehavior: service.number_selection_behavior;
+  numberSelectionBehavior: ServiceNumberSelectionBehavior;
   outOfSessionCallbackUrl: string;
   /**
    * Access the phoneNumbers

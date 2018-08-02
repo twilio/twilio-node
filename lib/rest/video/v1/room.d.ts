@@ -306,7 +306,7 @@ declare class RoomInstance extends SerializableClass {
    */
   recordings();
   sid: string;
-  status: room.room_status;
+  status: RoomRoomStatus;
   statusCallback: string;
   statusCallbackMethod: string;
   /**
@@ -314,7 +314,7 @@ declare class RoomInstance extends SerializableClass {
    * Removes any circular references in the object.
    */
   toJSON(): any;
-  type: room.room_type;
+  type: RoomRoomType;
   uniqueName: string;
   /**
    * update a RoomInstance
@@ -324,7 +324,7 @@ declare class RoomInstance extends SerializableClass {
    */
   update(opts: RoomInstanceUpdateOptions, callback?: (error: Error | null, items: RoomInstance) => any): void;
   url: string;
-  videoCodecs: room.video_codec;
+  videoCodecs: RoomVideoCodec;
 }
 
 

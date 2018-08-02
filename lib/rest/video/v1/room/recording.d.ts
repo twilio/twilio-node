@@ -238,8 +238,8 @@ declare class RoomRecordingInstance extends SerializableClass {
 
   private _proxy: RoomRecordingContext;
   accountSid: string;
-  codec: room_recording.codec;
-  containerFormat: room_recording.format;
+  codec: RoomRecordingCodec;
+  containerFormat: RoomRecordingFormat;
   dateCreated: Date;
   duration: number;
   /**
@@ -260,14 +260,14 @@ declare class RoomRecordingInstance extends SerializableClass {
   sid: string;
   size: number;
   sourceSid: string;
-  status: room_recording.status;
+  status: RoomRecordingStatus;
   /**
    * Produce a plain JSON object version of the RoomRecordingInstance for serialization.
    * Removes any circular references in the object.
    */
   toJSON(): any;
   trackName: string;
-  type: room_recording.type;
+  type: RoomRecordingType;
   url: string;
 }
 

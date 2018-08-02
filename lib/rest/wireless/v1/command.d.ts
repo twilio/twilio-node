@@ -243,10 +243,10 @@ declare class CommandInstance extends SerializableClass {
   private _proxy: CommandContext;
   accountSid: string;
   command: string;
-  commandMode: command.command_mode;
+  commandMode: CommandCommandMode;
   dateCreated: Date;
   dateUpdated: Date;
-  direction: command.direction;
+  direction: CommandDirection;
   /**
    * fetch a CommandInstance
    *
@@ -255,7 +255,7 @@ declare class CommandInstance extends SerializableClass {
   fetch(callback?: (error: Error | null, items: CommandInstance) => any): void;
   sid: string;
   simSid: string;
-  status: command.status;
+  status: CommandStatus;
   /**
    * Produce a plain JSON object version of the CommandInstance for serialization.
    * Removes any circular references in the object.

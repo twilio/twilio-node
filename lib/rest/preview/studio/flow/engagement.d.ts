@@ -235,7 +235,7 @@ declare class EngagementInstance extends SerializableClass {
   flowSid: string;
   links: string;
   sid: string;
-  status: engagement.status;
+  status: EngagementStatus;
   /**
    * Access the steps
    */

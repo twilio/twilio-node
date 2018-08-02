@@ -316,7 +316,7 @@ declare class MessageInstance extends SerializableClass {
   dateCreated: Date;
   dateSent: Date;
   dateUpdated: Date;
-  direction: message.direction;
+  direction: MessageDirection;
   errorCode: number;
   errorMessage: string;
   /**
@@ -346,7 +346,7 @@ declare class MessageInstance extends SerializableClass {
    */
   remove(callback?: (error: Error | null, items: MessageInstance) => any): void;
   sid: string;
-  status: message.status;
+  status: MessageStatus;
   subresourceUris: string;
   to: string;
   /**

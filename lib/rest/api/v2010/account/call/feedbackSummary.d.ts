@@ -154,7 +154,7 @@ declare class FeedbackSummaryInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: FeedbackSummaryInstance) => any): void;
   sid: string;
   startDate: Date;
-  status: feedback_summary.status;
+  status: FeedbackSummaryStatus;
   /**
    * Produce a plain JSON object version of the FeedbackSummaryInstance for serialization.
    * Removes any circular references in the object.

@@ -266,7 +266,7 @@ declare class ParticipantInstance extends SerializableClass {
    * Access the messageInteractions
    */
   messageInteractions();
-  participantType: participant.participant_type;
+  participantType: ParticipantParticipantType;
   proxyIdentifier: string;
   /**
    * remove a ParticipantInstance

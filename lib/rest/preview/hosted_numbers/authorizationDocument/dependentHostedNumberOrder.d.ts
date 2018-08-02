@@ -256,7 +256,7 @@ declare class DependentHostedNumberOrderInstance extends SerializableClass {
   phoneNumber: string;
   sid: string;
   signingDocumentSid: string;
-  status: dependent_hosted_number_order.status;
+  status: DependentHostedNumberOrderStatus;
   /**
    * Produce a plain JSON object version of the DependentHostedNumberOrderInstance for serialization.
    * Removes any circular references in the object.
@@ -267,7 +267,7 @@ declare class DependentHostedNumberOrderInstance extends SerializableClass {
   verificationCallSids: string;
   verificationCode: string;
   verificationDocumentSid: string;
-  verificationType: dependent_hosted_number_order.verification_type;
+  verificationType: DependentHostedNumberOrderVerificationType;
 }
 
 export { DependentHostedNumberOrderInstance, DependentHostedNumberOrderList, DependentHostedNumberOrderListInstance, DependentHostedNumberOrderListInstanceEachOptions, DependentHostedNumberOrderListInstanceOptions, DependentHostedNumberOrderListInstancePageOptions, DependentHostedNumberOrderPage, DependentHostedNumberOrderPayload, DependentHostedNumberOrderResource, DependentHostedNumberOrderSolution }

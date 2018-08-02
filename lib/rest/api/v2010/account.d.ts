@@ -345,7 +345,7 @@ declare class AccountInstance extends SerializableClass {
    * Access the sip
    */
   sip();
-  status: account.status;
+  status: AccountStatus;
   subresourceUris: string;
   /**
    * Produce a plain JSON object version of the AccountInstance for serialization.
@@ -360,7 +360,7 @@ declare class AccountInstance extends SerializableClass {
    * Access the transcriptions
    */
   transcriptions();
-  type: account.type;
+  type: AccountType;
   /**
    * update a AccountInstance
    *

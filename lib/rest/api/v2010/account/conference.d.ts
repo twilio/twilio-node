@@ -283,7 +283,7 @@ declare class ConferenceInstance extends SerializableClass {
   recordings();
   region: string;
   sid: string;
-  status: conference.status;
+  status: ConferenceStatus;
   subresourceUris: string;
   /**
    * Produce a plain JSON object version of the ConferenceInstance for serialization.

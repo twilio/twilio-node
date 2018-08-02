@@ -247,7 +247,7 @@ declare class EngagementInstance extends SerializableClass {
    */
   remove(callback?: (error: Error | null, items: EngagementInstance) => any): void;
   sid: string;
-  status: engagement.status;
+  status: EngagementStatus;
   /**
    * Access the steps
    */

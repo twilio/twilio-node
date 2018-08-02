@@ -286,7 +286,7 @@ declare class TriggerInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: TriggerInstance) => any): void;
   friendlyName: string;
-  recurring: trigger.recurring;
+  recurring: TriggerRecurring;
   /**
    * remove a TriggerInstance
    *
@@ -299,7 +299,7 @@ declare class TriggerInstance extends SerializableClass {
    * Removes any circular references in the object.
    */
   toJSON(): any;
-  triggerBy: trigger.trigger_field;
+  triggerBy: TriggerTriggerField;
   triggerValue: string;
   /**
    * update a TriggerInstance
@@ -309,7 +309,7 @@ declare class TriggerInstance extends SerializableClass {
    */
   update(opts?: TriggerInstanceUpdateOptions, callback?: (error: Error | null, items: TriggerInstance) => any): void;
   uri: string;
-  usageCategory: trigger.usage_category;
+  usageCategory: TriggerUsageCategory;
   usageRecordUri: string;
 }
 

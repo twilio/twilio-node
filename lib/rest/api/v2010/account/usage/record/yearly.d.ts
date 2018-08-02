@@ -219,7 +219,7 @@ declare class YearlyInstance extends SerializableClass {
 
   accountSid: string;
   apiVersion: string;
-  category: yearly.category;
+  category: YearlyCategory;
   count: string;
   countUnit: string;
   description: string;

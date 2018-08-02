@@ -268,9 +268,9 @@ declare class RecordingInstance extends SerializableClass {
    */
   remove(callback?: (error: Error | null, items: RecordingInstance) => any): void;
   sid: string;
-  source: recording.source;
+  source: RecordingSource;
   startTime: Date;
-  status: recording.status;
+  status: RecordingStatus;
   /**
    * Produce a plain JSON object version of the RecordingInstance for serialization.
    * Removes any circular references in the object.

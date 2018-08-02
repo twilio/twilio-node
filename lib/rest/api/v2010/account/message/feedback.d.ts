@@ -99,7 +99,7 @@ declare class FeedbackInstance extends SerializableClass {
   dateCreated: Date;
   dateUpdated: Date;
   messageSid: string;
-  outcome: feedback.outcome;
+  outcome: FeedbackOutcome;
   /**
    * Produce a plain JSON object version of the FeedbackInstance for serialization.
    * Removes any circular references in the object.

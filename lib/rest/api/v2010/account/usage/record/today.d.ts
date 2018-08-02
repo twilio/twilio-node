@@ -219,7 +219,7 @@ declare class TodayInstance extends SerializableClass {
 
   accountSid: string;
   apiVersion: string;
-  category: today.category;
+  category: TodayCategory;
   count: string;
   countUnit: string;
   description: string;

@@ -327,7 +327,7 @@ declare class ReservationInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: ReservationInstance) => any): void;
   links: string;
-  reservationStatus: reservation.status;
+  reservationStatus: ReservationStatus;
   sid: string;
   taskSid: string;
   /**

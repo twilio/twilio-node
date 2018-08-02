@@ -296,7 +296,7 @@ declare class LocalInstance extends SerializableClass {
   constructor(version: V2010, payload: LocalPayload, accountSid: string);
 
   accountSid: string;
-  addressRequirements: local.address_requirement;
+  addressRequirements: LocalAddressRequirement;
   addressSid: string;
   apiVersion: string;
   beta: boolean;

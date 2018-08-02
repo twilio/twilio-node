@@ -227,7 +227,7 @@ declare class RecordInstance extends SerializableClass {
 
   accountSid: string;
   apiVersion: string;
-  category: record.category;
+  category: RecordCategory;
   count: string;
   countUnit: string;
   description: string;

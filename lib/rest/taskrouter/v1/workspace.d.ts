@@ -295,7 +295,7 @@ declare class WorkspaceInstance extends SerializableClass {
   friendlyName: string;
   links: string;
   multiTaskEnabled: boolean;
-  prioritizeQueueOrder: workspace.queue_order;
+  prioritizeQueueOrder: WorkspaceQueueOrder;
   /**
    * Access the realTimeStatistics
    */

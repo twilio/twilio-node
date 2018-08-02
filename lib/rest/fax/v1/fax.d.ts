@@ -287,7 +287,7 @@ declare class FaxInstance extends SerializableClass {
   apiVersion: string;
   dateCreated: Date;
   dateUpdated: Date;
-  direction: fax.direction;
+  direction: FaxDirection;
   duration: number;
   /**
    * fetch a FaxInstance
@@ -306,7 +306,7 @@ declare class FaxInstance extends SerializableClass {
   numPages: number;
   price: number;
   priceUnit: string;
-  quality: fax.quality;
+  quality: FaxQuality;
   /**
    * remove a FaxInstance
    *
@@ -314,7 +314,7 @@ declare class FaxInstance extends SerializableClass {
    */
   remove(callback?: (error: Error | null, items: FaxInstance) => any): void;
   sid: string;
-  status: fax.status;
+  status: FaxStatus;
   to: string;
   /**
    * Produce a plain JSON object version of the FaxInstance for serialization.

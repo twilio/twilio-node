@@ -248,7 +248,7 @@ declare class RoleInstance extends SerializableClass {
    * Removes any circular references in the object.
    */
   toJSON(): any;
-  type: role.role_type;
+  type: RoleRoleType;
   /**
    * update a RoleInstance
    *

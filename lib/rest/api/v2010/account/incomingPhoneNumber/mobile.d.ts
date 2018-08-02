@@ -296,7 +296,7 @@ declare class MobileInstance extends SerializableClass {
   constructor(version: V2010, payload: MobilePayload, accountSid: string);
 
   accountSid: string;
-  addressRequirements: mobile.address_requirement;
+  addressRequirements: MobileAddressRequirement;
   addressSid: string;
   apiVersion: string;
   beta: boolean;

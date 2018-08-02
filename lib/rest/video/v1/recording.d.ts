@@ -239,8 +239,8 @@ declare class RecordingInstance extends SerializableClass {
 
   private _proxy: RecordingContext;
   accountSid: string;
-  codec: recording.codec;
-  containerFormat: recording.format;
+  codec: RecordingCodec;
+  containerFormat: RecordingFormat;
   dateCreated: Date;
   duration: number;
   /**
@@ -260,14 +260,14 @@ declare class RecordingInstance extends SerializableClass {
   sid: string;
   size: number;
   sourceSid: string;
-  status: recording.status;
+  status: RecordingStatus;
   /**
    * Produce a plain JSON object version of the RecordingInstance for serialization.
    * Removes any circular references in the object.
    */
   toJSON(): any;
   trackName: string;
-  type: recording.type;
+  type: RecordingType;
   url: string;
 }
 

@@ -261,7 +261,7 @@ declare class CredentialInstance extends SerializableClass {
    * Removes any circular references in the object.
    */
   toJSON(): any;
-  type: credential.push_service;
+  type: CredentialPushService;
   /**
    * update a CredentialInstance
    *

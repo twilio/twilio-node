@@ -127,7 +127,7 @@ declare class FeedbackInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: FeedbackInstance) => any): void;
-  issues: feedback.issues;
+  issues: FeedbackIssues;
   qualityScore: number;
   sid: string;
   /**

@@ -236,7 +236,7 @@ declare class ConnectAppInstance extends SerializableClass {
   fetch(callback?: (error: Error | null, items: ConnectAppInstance) => any): void;
   friendlyName: string;
   homepageUrl: string;
-  permissions: connect_app.permission;
+  permissions: ConnectAppPermission;
   sid: string;
   /**
    * Produce a plain JSON object version of the ConnectAppInstance for serialization.

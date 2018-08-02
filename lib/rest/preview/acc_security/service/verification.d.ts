@@ -104,7 +104,7 @@ declare class VerificationInstance extends SerializableClass {
   constructor(version: AccSecurity, payload: VerificationPayload, serviceSid: string);
 
   accountSid: string;
-  channel: verification.channel;
+  channel: VerificationChannel;
   dateCreated: Date;
   dateUpdated: Date;
   serviceSid: string;

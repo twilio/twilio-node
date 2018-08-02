@@ -243,7 +243,7 @@ declare class SubscribedTrackInstance extends SerializableClass {
   dateCreated: Date;
   dateUpdated: Date;
   enabled: boolean;
-  kind: subscribed_track.kind;
+  kind: SubscribedTrackKind;
   name: string;
   publisherSid: string;
   roomSid: string;

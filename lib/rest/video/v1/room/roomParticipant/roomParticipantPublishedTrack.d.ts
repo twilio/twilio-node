@@ -206,7 +206,7 @@ declare class PublishedTrackInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: PublishedTrackInstance) => any): void;
-  kind: published_track.kind;
+  kind: PublishedTrackKind;
   name: string;
   participantSid: string;
   roomSid: string;

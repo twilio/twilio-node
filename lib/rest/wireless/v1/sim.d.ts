@@ -316,7 +316,7 @@ declare class SimInstance extends SerializableClass {
   smsFallbackUrl: string;
   smsMethod: string;
   smsUrl: string;
-  status: sim.status;
+  status: SimStatus;
   /**
    * Produce a plain JSON object version of the SimInstance for serialization.
    * Removes any circular references in the object.

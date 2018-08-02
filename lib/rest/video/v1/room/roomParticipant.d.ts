@@ -256,7 +256,7 @@ declare class ParticipantInstance extends SerializableClass {
   roomSid: string;
   sid: string;
   startTime: Date;
-  status: participant.status;
+  status: ParticipantStatus;
   /**
    * Access the subscribedTracks
    */

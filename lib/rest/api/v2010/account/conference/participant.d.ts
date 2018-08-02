@@ -328,7 +328,7 @@ declare class ParticipantInstance extends SerializableClass {
    */
   remove(callback?: (error: Error | null, items: ParticipantInstance) => any): void;
   startConferenceOnEnter: boolean;
-  status: participant.status;
+  status: ParticipantStatus;
   /**
    * Produce a plain JSON object version of the ParticipantInstance for serialization.
    * Removes any circular references in the object.

@@ -219,7 +219,7 @@ declare class YesterdayInstance extends SerializableClass {
 
   accountSid: string;
   apiVersion: string;
-  category: yesterday.category;
+  category: YesterdayCategory;
   count: string;
   countUnit: string;
   description: string;

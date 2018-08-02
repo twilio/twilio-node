@@ -211,7 +211,7 @@ declare class UserBindingInstance extends SerializableClass {
 
   private _proxy: UserBindingContext;
   accountSid: string;
-  bindingType: user_binding.binding_type;
+  bindingType: UserBindingBindingType;
   credentialSid: string;
   dateCreated: Date;
   dateUpdated: Date;

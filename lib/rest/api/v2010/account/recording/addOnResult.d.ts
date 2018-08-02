@@ -224,7 +224,7 @@ declare class AddOnResultInstance extends SerializableClass {
    */
   remove(callback?: (error: Error | null, items: AddOnResultInstance) => any): void;
   sid: string;
-  status: add_on_result.status;
+  status: AddOnResultStatus;
   subresourceUris: string;
   /**
    * Produce a plain JSON object version of the AddOnResultInstance for serialization.

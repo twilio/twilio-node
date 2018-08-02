@@ -214,7 +214,7 @@ declare class BindingInstance extends SerializableClass {
 
   private _proxy: BindingContext;
   accountSid: string;
-  bindingType: binding.binding_type;
+  bindingType: BindingBindingType;
   credentialSid: string;
   dateCreated: Date;
   dateUpdated: Date;

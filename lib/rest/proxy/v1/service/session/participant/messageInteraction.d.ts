@@ -256,12 +256,12 @@ declare class MessageInteractionInstance extends SerializableClass {
   fetch(callback?: (error: Error | null, items: MessageInteractionInstance) => any): void;
   inboundParticipantSid: string;
   inboundResourceSid: string;
-  inboundResourceStatus: message_interaction.resource_status;
+  inboundResourceStatus: MessageInteractionResourceStatus;
   inboundResourceType: string;
   inboundResourceUrl: string;
   outboundParticipantSid: string;
   outboundResourceSid: string;
-  outboundResourceStatus: message_interaction.resource_status;
+  outboundResourceStatus: MessageInteractionResourceStatus;
   outboundResourceType: string;
   outboundResourceUrl: string;
   participantSid: string;
@@ -273,7 +273,7 @@ declare class MessageInteractionInstance extends SerializableClass {
    * Removes any circular references in the object.
    */
   toJSON(): any;
-  type: message_interaction.type;
+  type: MessageInteractionType;
   url: string;
 }
 

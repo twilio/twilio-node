@@ -219,7 +219,7 @@ declare class MonthlyInstance extends SerializableClass {
 
   accountSid: string;
   apiVersion: string;
-  category: monthly.category;
+  category: MonthlyCategory;
   count: string;
   countUnit: string;
   description: string;

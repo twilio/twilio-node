@@ -222,13 +222,13 @@ declare class DependentPhoneNumberInstance extends SerializableClass {
   constructor(version: V2010, payload: DependentPhoneNumberPayload, accountSid: string, addressSid: string);
 
   accountSid: string;
-  addressRequirements: dependent_phone_number.address_requirement;
+  addressRequirements: DependentPhoneNumberAddressRequirement;
   apiVersion: string;
   capabilities: string;
   dateCreated: Date;
   dateUpdated: Date;
   emergencyAddressSid: string;
-  emergencyStatus: dependent_phone_number.emergency_status;
+  emergencyStatus: DependentPhoneNumberEmergencyStatus;
   friendlyName: string;
   phoneNumber: string;
   sid: string;

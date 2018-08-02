@@ -422,7 +422,7 @@ declare class CallInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: CallInstance) => any): void;
   sid: string;
   startTime: Date;
-  status: call.status;
+  status: CallStatus;
   subresourceUris: string;
   to: string;
   toFormatted: string;

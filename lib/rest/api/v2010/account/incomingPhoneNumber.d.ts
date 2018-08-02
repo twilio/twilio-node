@@ -379,7 +379,7 @@ declare class IncomingPhoneNumberInstance extends SerializableClass {
 
   private _proxy: IncomingPhoneNumberContext;
   accountSid: string;
-  addressRequirements: incoming_phone_number.address_requirement;
+  addressRequirements: IncomingPhoneNumberAddressRequirement;
   addressSid: string;
   apiVersion: string;
   /**
@@ -391,7 +391,7 @@ declare class IncomingPhoneNumberInstance extends SerializableClass {
   dateCreated: Date;
   dateUpdated: Date;
   emergencyAddressSid: string;
-  emergencyStatus: incoming_phone_number.emergency_status;
+  emergencyStatus: IncomingPhoneNumberEmergencyStatus;
   /**
    * fetch a IncomingPhoneNumberInstance
    *

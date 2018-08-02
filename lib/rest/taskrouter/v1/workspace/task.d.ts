@@ -316,7 +316,7 @@ declare class TaskInstance extends SerializableClass {
   accountSid: string;
   addons: string;
   age: number;
-  assignmentStatus: task.status;
+  assignmentStatus: TaskStatus;
   attributes: string;
   dateCreated: Date;
   dateUpdated: Date;

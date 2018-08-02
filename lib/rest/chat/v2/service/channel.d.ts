@@ -304,7 +304,7 @@ declare class ChannelInstance extends SerializableClass {
    * Removes any circular references in the object.
    */
   toJSON(): any;
-  type: channel.channel_type;
+  type: ChannelChannelType;
   uniqueName: string;
   /**
    * update a ChannelInstance

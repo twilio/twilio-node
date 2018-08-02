@@ -247,7 +247,7 @@ declare class ExecutionInstance extends SerializableClass {
    */
   remove(callback?: (error: Error | null, items: ExecutionInstance) => any): void;
   sid: string;
-  status: execution.status;
+  status: ExecutionStatus;
   /**
    * Access the steps
    */

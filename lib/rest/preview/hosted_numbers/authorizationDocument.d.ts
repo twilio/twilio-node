@@ -270,7 +270,7 @@ declare class AuthorizationDocumentInstance extends SerializableClass {
   fetch(callback?: (error: Error | null, items: AuthorizationDocumentInstance) => any): void;
   links: string;
   sid: string;
-  status: authorization_document.status;
+  status: AuthorizationDocumentStatus;
   /**
    * Produce a plain JSON object version of the AuthorizationDocumentInstance for serialization.
    * Removes any circular references in the object.

@@ -288,7 +288,7 @@ declare class SessionInstance extends SerializableClass {
    */
   interactions();
   links: string;
-  mode: session.mode;
+  mode: SessionMode;
   /**
    * Access the participants
    */
@@ -301,7 +301,7 @@ declare class SessionInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: SessionInstance) => any): void;
   serviceSid: string;
   sid: string;
-  status: session.status;
+  status: SessionStatus;
   /**
    * Produce a plain JSON object version of the SessionInstance for serialization.
    * Removes any circular references in the object.

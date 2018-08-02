@@ -327,7 +327,7 @@ declare class ServiceInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: ServiceInstance) => any): void;
-  scanMessageContent: service.scan_message_content;
+  scanMessageContent: ServiceScanMessageContent;
   /**
    * Access the shortCodes
    */

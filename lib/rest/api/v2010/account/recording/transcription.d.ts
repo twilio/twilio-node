@@ -226,7 +226,7 @@ declare class TranscriptionInstance extends SerializableClass {
    */
   remove(callback?: (error: Error | null, items: TranscriptionInstance) => any): void;
   sid: string;
-  status: transcription.status;
+  status: TranscriptionStatus;
   /**
    * Produce a plain JSON object version of the TranscriptionInstance for serialization.
    * Removes any circular references in the object.

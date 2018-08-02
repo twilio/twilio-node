@@ -165,7 +165,7 @@ declare class NotificationInstance extends SerializableClass {
   fcm: string;
   gcm: string;
   identities: string;
-  priority: notification.priority;
+  priority: NotificationPriority;
   segments: string;
   serviceSid: string;
   sid: string;

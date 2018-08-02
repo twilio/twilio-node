@@ -219,7 +219,7 @@ declare class AllTimeInstance extends SerializableClass {
 
   accountSid: string;
   apiVersion: string;
-  category: all_time.category;
+  category: AllTimeCategory;
   count: string;
   countUnit: string;
   description: string;
