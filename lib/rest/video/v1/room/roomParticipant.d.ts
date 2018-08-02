@@ -296,8 +296,8 @@ declare class ParticipantContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: ParticipantInstance) => any): void;
-  publishedTracks?: Twilio.Video.V1.RoomContext.ParticipantContext.PublishedTrackList;
-  subscribedTracks?: Twilio.Video.V1.RoomContext.ParticipantContext.SubscribedTrackList;
+  publishedTracks?: PublishedTrackList;
+  subscribedTracks?: SubscribedTrackList;
   /**
    * update a ParticipantInstance
    *

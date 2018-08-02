@@ -357,7 +357,7 @@ declare class SimContext {
    * @param callback - Callback to handle processed record
    */
   update(opts?: SimInstanceUpdateOptions, callback?: (error: Error | null, items: SimInstance) => any): void;
-  usage?: Twilio.Preview.Wireless.SimContext.UsageList;
+  usage?: UsageList;
 }
 
 export { SimContext, SimInstance, SimList, SimListInstance, SimListInstanceEachOptions, SimListInstanceOptions, SimListInstancePageOptions, SimPage, SimPayload, SimResource, SimSolution }

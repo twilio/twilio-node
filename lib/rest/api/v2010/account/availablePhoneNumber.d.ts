@@ -262,13 +262,13 @@ declare class AvailablePhoneNumberCountryContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: AvailablePhoneNumberCountryInstance) => any): void;
-  local?: Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.LocalList;
-  machineToMachine?: Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.MachineToMachineList;
-  mobile?: Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.MobileList;
-  national?: Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.NationalList;
-  sharedCost?: Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.SharedCostList;
-  tollFree?: Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.TollFreeList;
-  voip?: Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryContext.VoipList;
+  local?: LocalList;
+  machineToMachine?: MachineToMachineList;
+  mobile?: MobileList;
+  national?: NationalList;
+  sharedCost?: SharedCostList;
+  tollFree?: TollFreeList;
+  voip?: VoipList;
 }
 
 export { AvailablePhoneNumberCountryContext, AvailablePhoneNumberCountryInstance, AvailablePhoneNumberCountryList, AvailablePhoneNumberCountryListInstance, AvailablePhoneNumberCountryListInstanceEachOptions, AvailablePhoneNumberCountryListInstanceOptions, AvailablePhoneNumberCountryListInstancePageOptions, AvailablePhoneNumberCountryPage, AvailablePhoneNumberCountryPayload, AvailablePhoneNumberCountryResource, AvailablePhoneNumberCountrySolution }

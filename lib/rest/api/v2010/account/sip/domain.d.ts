@@ -341,15 +341,15 @@ declare class DomainContext {
    */
   constructor(version: V2010, accountSid: string, sid: string);
 
-  auth?: Twilio.Api.V2010.AccountContext.SipContext.DomainContext.AuthTypesList;
-  credentialListMappings?: Twilio.Api.V2010.AccountContext.SipContext.DomainContext.CredentialListMappingList;
+  auth?: AuthTypesList;
+  credentialListMappings?: CredentialListMappingList;
   /**
    * fetch a DomainInstance
    *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: DomainInstance) => any): void;
-  ipAccessControlListMappings?: Twilio.Api.V2010.AccountContext.SipContext.DomainContext.IpAccessControlListMappingList;
+  ipAccessControlListMappings?: IpAccessControlListMappingList;
   /**
    * remove a DomainInstance
    *

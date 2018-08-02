@@ -456,15 +456,15 @@ declare class CallContext {
    */
   constructor(version: V2010, accountSid: string, sid: string);
 
-  feedback?: Twilio.Api.V2010.AccountContext.CallContext.FeedbackList;
+  feedback?: FeedbackList;
   /**
    * fetch a CallInstance
    *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: CallInstance) => any): void;
-  notifications?: Twilio.Api.V2010.AccountContext.CallContext.NotificationList;
-  recordings?: Twilio.Api.V2010.AccountContext.CallContext.RecordingList;
+  notifications?: NotificationList;
+  recordings?: RecordingList;
   /**
    * remove a CallInstance
    *

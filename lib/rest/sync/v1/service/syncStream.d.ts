@@ -288,7 +288,7 @@ declare class SyncStreamContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: SyncStreamInstance) => any): void;
-  streamMessages?: Twilio.Sync.V1.ServiceContext.SyncStreamContext.StreamMessageList;
+  streamMessages?: StreamMessageList;
   /**
    * update a SyncStreamInstance
    *

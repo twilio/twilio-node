@@ -341,21 +341,21 @@ declare class TaskQueueContext {
    */
   constructor(version: V1, workspaceSid: string, sid: string);
 
-  cumulativeStatistics?: Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueueCumulativeStatisticsList;
+  cumulativeStatistics?: TaskQueueCumulativeStatisticsList;
   /**
    * fetch a TaskQueueInstance
    *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: TaskQueueInstance) => any): void;
-  realTimeStatistics?: Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueueRealTimeStatisticsList;
+  realTimeStatistics?: TaskQueueRealTimeStatisticsList;
   /**
    * remove a TaskQueueInstance
    *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: TaskQueueInstance) => any): void;
-  statistics?: Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueContext.TaskQueueStatisticsList;
+  statistics?: TaskQueueStatisticsList;
   /**
    * update a TaskQueueInstance
    *

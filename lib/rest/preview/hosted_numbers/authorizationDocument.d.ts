@@ -298,7 +298,7 @@ declare class AuthorizationDocumentContext {
    */
   constructor(version: HostedNumbers, sid: string);
 
-  dependentHostedNumberOrders?: Twilio.Preview.HostedNumbers.AuthorizationDocumentContext.DependentHostedNumberOrderList;
+  dependentHostedNumberOrders?: DependentHostedNumberOrderList;
   /**
    * fetch a AuthorizationDocumentInstance
    *

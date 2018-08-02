@@ -354,7 +354,7 @@ declare class SimContext {
    */
   constructor(version: V1, sid: string);
 
-  dataSessions?: Twilio.Wireless.V1.SimContext.DataSessionList;
+  dataSessions?: DataSessionList;
   /**
    * fetch a SimInstance
    *
@@ -368,7 +368,7 @@ declare class SimContext {
    * @param callback - Callback to handle processed record
    */
   update(opts?: SimInstanceUpdateOptions, callback?: (error: Error | null, items: SimInstance) => any): void;
-  usageRecords?: Twilio.Wireless.V1.SimContext.UsageRecordList;
+  usageRecords?: UsageRecordList;
 }
 
 export { SimContext, SimInstance, SimList, SimListInstance, SimListInstanceEachOptions, SimListInstanceOptions, SimListInstancePageOptions, SimPage, SimPayload, SimResource, SimSolution }

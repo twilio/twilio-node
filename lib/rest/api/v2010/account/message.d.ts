@@ -378,14 +378,14 @@ declare class MessageContext {
    */
   constructor(version: V2010, accountSid: string, sid: string);
 
-  feedback?: Twilio.Api.V2010.AccountContext.MessageContext.FeedbackList;
+  feedback?: FeedbackList;
   /**
    * fetch a MessageInstance
    *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: MessageInstance) => any): void;
-  media?: Twilio.Api.V2010.AccountContext.MessageContext.MediaList;
+  media?: MediaList;
   /**
    * remove a MessageInstance
    *

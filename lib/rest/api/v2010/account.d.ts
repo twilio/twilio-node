@@ -413,33 +413,33 @@ declare class AccountContext {
    */
   constructor(version: V2010, sid: string);
 
-  addresses?: Twilio.Api.V2010.AccountContext.AddressList;
-  applications?: Twilio.Api.V2010.AccountContext.ApplicationList;
-  authorizedConnectApps?: Twilio.Api.V2010.AccountContext.AuthorizedConnectAppList;
-  availablePhoneNumbers?: Twilio.Api.V2010.AccountContext.AvailablePhoneNumberCountryList;
-  calls?: Twilio.Api.V2010.AccountContext.CallList;
-  conferences?: Twilio.Api.V2010.AccountContext.ConferenceList;
-  connectApps?: Twilio.Api.V2010.AccountContext.ConnectAppList;
+  addresses?: AddressList;
+  applications?: ApplicationList;
+  authorizedConnectApps?: AuthorizedConnectAppList;
+  availablePhoneNumbers?: AvailablePhoneNumberCountryList;
+  calls?: CallList;
+  conferences?: ConferenceList;
+  connectApps?: ConnectAppList;
   /**
    * fetch a AccountInstance
    *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: AccountInstance) => any): void;
-  incomingPhoneNumbers?: Twilio.Api.V2010.AccountContext.IncomingPhoneNumberList;
-  keys?: Twilio.Api.V2010.AccountContext.KeyList;
-  messages?: Twilio.Api.V2010.AccountContext.MessageList;
-  newKeys?: Twilio.Api.V2010.AccountContext.NewKeyList;
-  newSigningKeys?: Twilio.Api.V2010.AccountContext.NewSigningKeyList;
-  notifications?: Twilio.Api.V2010.AccountContext.NotificationList;
-  outgoingCallerIds?: Twilio.Api.V2010.AccountContext.OutgoingCallerIdList;
-  queues?: Twilio.Api.V2010.AccountContext.QueueList;
-  recordings?: Twilio.Api.V2010.AccountContext.RecordingList;
-  shortCodes?: Twilio.Api.V2010.AccountContext.ShortCodeList;
-  signingKeys?: Twilio.Api.V2010.AccountContext.SigningKeyList;
-  sip?: Twilio.Api.V2010.AccountContext.SipList;
-  tokens?: Twilio.Api.V2010.AccountContext.TokenList;
-  transcriptions?: Twilio.Api.V2010.AccountContext.TranscriptionList;
+  incomingPhoneNumbers?: IncomingPhoneNumberList;
+  keys?: KeyList;
+  messages?: MessageList;
+  newKeys?: NewKeyList;
+  newSigningKeys?: NewSigningKeyList;
+  notifications?: NotificationList;
+  outgoingCallerIds?: OutgoingCallerIdList;
+  queues?: QueueList;
+  recordings?: RecordingList;
+  shortCodes?: ShortCodeList;
+  signingKeys?: SigningKeyList;
+  sip?: SipList;
+  tokens?: TokenList;
+  transcriptions?: TranscriptionList;
   /**
    * update a AccountInstance
    *
@@ -447,8 +447,8 @@ declare class AccountContext {
    * @param callback - Callback to handle processed record
    */
   update(opts?: AccountInstanceUpdateOptions, callback?: (error: Error | null, items: AccountInstance) => any): void;
-  usage?: Twilio.Api.V2010.AccountContext.UsageList;
-  validationRequests?: Twilio.Api.V2010.AccountContext.ValidationRequestList;
+  usage?: UsageList;
+  validationRequests?: ValidationRequestList;
 }
 
 export { AccountContext, AccountInstance, AccountList, AccountListInstance, AccountListInstanceCreateOptions, AccountListInstanceEachOptions, AccountListInstanceOptions, AccountListInstancePageOptions, AccountPage, AccountPayload, AccountResource, AccountSolution }

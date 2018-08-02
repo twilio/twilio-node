@@ -367,21 +367,21 @@ declare class ServiceContext {
    */
   constructor(version: V1, sid: string);
 
-  alphaSenders?: Twilio.Messaging.V1.ServiceContext.AlphaSenderList;
+  alphaSenders?: AlphaSenderList;
   /**
    * fetch a ServiceInstance
    *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: ServiceInstance) => any): void;
-  phoneNumbers?: Twilio.Messaging.V1.ServiceContext.PhoneNumberList;
+  phoneNumbers?: PhoneNumberList;
   /**
    * remove a ServiceInstance
    *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: ServiceInstance) => any): void;
-  shortCodes?: Twilio.Messaging.V1.ServiceContext.ShortCodeList;
+  shortCodes?: ShortCodeList;
   /**
    * update a ServiceInstance
    *

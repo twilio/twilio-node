@@ -369,26 +369,26 @@ declare class WorkspaceContext {
    */
   constructor(version: V1, sid: string);
 
-  activities?: Twilio.Taskrouter.V1.WorkspaceContext.ActivityList;
-  cumulativeStatistics?: Twilio.Taskrouter.V1.WorkspaceContext.WorkspaceCumulativeStatisticsList;
-  events?: Twilio.Taskrouter.V1.WorkspaceContext.EventList;
+  activities?: ActivityList;
+  cumulativeStatistics?: WorkspaceCumulativeStatisticsList;
+  events?: EventList;
   /**
    * fetch a WorkspaceInstance
    *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: WorkspaceInstance) => any): void;
-  realTimeStatistics?: Twilio.Taskrouter.V1.WorkspaceContext.WorkspaceRealTimeStatisticsList;
+  realTimeStatistics?: WorkspaceRealTimeStatisticsList;
   /**
    * remove a WorkspaceInstance
    *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: WorkspaceInstance) => any): void;
-  statistics?: Twilio.Taskrouter.V1.WorkspaceContext.WorkspaceStatisticsList;
-  taskChannels?: Twilio.Taskrouter.V1.WorkspaceContext.TaskChannelList;
-  taskQueues?: Twilio.Taskrouter.V1.WorkspaceContext.TaskQueueList;
-  tasks?: Twilio.Taskrouter.V1.WorkspaceContext.TaskList;
+  statistics?: WorkspaceStatisticsList;
+  taskChannels?: TaskChannelList;
+  taskQueues?: TaskQueueList;
+  tasks?: TaskList;
   /**
    * update a WorkspaceInstance
    *
@@ -396,8 +396,8 @@ declare class WorkspaceContext {
    * @param callback - Callback to handle processed record
    */
   update(opts?: WorkspaceInstanceUpdateOptions, callback?: (error: Error | null, items: WorkspaceInstance) => any): void;
-  workers?: Twilio.Taskrouter.V1.WorkspaceContext.WorkerList;
-  workflows?: Twilio.Taskrouter.V1.WorkspaceContext.WorkflowList;
+  workers?: WorkerList;
+  workflows?: WorkflowList;
 }
 
 export { WorkspaceContext, WorkspaceInstance, WorkspaceList, WorkspaceListInstance, WorkspaceListInstanceCreateOptions, WorkspaceListInstanceEachOptions, WorkspaceListInstanceOptions, WorkspaceListInstancePageOptions, WorkspacePage, WorkspacePayload, WorkspaceResource, WorkspaceSolution }

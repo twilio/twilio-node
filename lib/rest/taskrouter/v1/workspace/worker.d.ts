@@ -357,22 +357,22 @@ declare class WorkerContext {
    */
   constructor(version: V1, workspaceSid: string, sid: string);
 
-  cumulativeStatistics?: Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkersCumulativeStatisticsList;
+  cumulativeStatistics?: WorkersCumulativeStatisticsList;
   /**
    * fetch a WorkerInstance
    *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: WorkerInstance) => any): void;
-  realTimeStatistics?: Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkersRealTimeStatisticsList;
+  realTimeStatistics?: WorkersRealTimeStatisticsList;
   /**
    * remove a WorkerInstance
    *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: WorkerInstance) => any): void;
-  reservations?: Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.ReservationList;
-  statistics?: Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkerStatisticsList;
+  reservations?: ReservationList;
+  statistics?: WorkerStatisticsList;
   /**
    * update a WorkerInstance
    *
@@ -380,7 +380,7 @@ declare class WorkerContext {
    * @param callback - Callback to handle processed record
    */
   update(opts?: WorkerInstanceUpdateOptions, callback?: (error: Error | null, items: WorkerInstance) => any): void;
-  workerChannels?: Twilio.Taskrouter.V1.WorkspaceContext.WorkerContext.WorkerChannelList;
+  workerChannels?: WorkerChannelList;
 }
 
 export { WorkerContext, WorkerInstance, WorkerList, WorkerListInstance, WorkerListInstanceCreateOptions, WorkerListInstanceEachOptions, WorkerListInstanceOptions, WorkerListInstancePageOptions, WorkerPage, WorkerPayload, WorkerResource, WorkerSolution }

@@ -279,7 +279,7 @@ declare class InstalledAddOnContext {
    */
   constructor(version: Marketplace, sid: string);
 
-  extensions?: Twilio.Preview.Marketplace.InstalledAddOnContext.InstalledAddOnExtensionList;
+  extensions?: InstalledAddOnExtensionList;
   /**
    * fetch a InstalledAddOnInstance
    *

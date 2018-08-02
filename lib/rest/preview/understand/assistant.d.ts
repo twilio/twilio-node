@@ -324,10 +324,10 @@ declare class AssistantContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: AssistantInstance) => any): void;
-  fieldTypes?: Twilio.Preview.Understand.AssistantContext.FieldTypeList;
-  intents?: Twilio.Preview.Understand.AssistantContext.IntentList;
-  modelBuilds?: Twilio.Preview.Understand.AssistantContext.ModelBuildList;
-  queries?: Twilio.Preview.Understand.AssistantContext.QueryList;
+  fieldTypes?: FieldTypeList;
+  intents?: IntentList;
+  modelBuilds?: ModelBuildList;
+  queries?: QueryList;
   /**
    * remove a AssistantInstance
    *

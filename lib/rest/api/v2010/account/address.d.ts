@@ -334,7 +334,7 @@ declare class AddressContext {
    */
   constructor(version: V2010, accountSid: string, sid: string);
 
-  dependentPhoneNumbers?: Twilio.Api.V2010.AccountContext.AddressContext.DependentPhoneNumberList;
+  dependentPhoneNumbers?: DependentPhoneNumberList;
   /**
    * fetch a AddressInstance
    *

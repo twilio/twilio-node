@@ -325,15 +325,15 @@ declare class ServiceContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: ServiceInstance) => any): void;
-  phoneNumbers?: Twilio.Proxy.V1.ServiceContext.PhoneNumberList;
+  phoneNumbers?: PhoneNumberList;
   /**
    * remove a ServiceInstance
    *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: ServiceInstance) => any): void;
-  sessions?: Twilio.Proxy.V1.ServiceContext.SessionList;
-  shortCodes?: Twilio.Proxy.V1.ServiceContext.ShortCodeList;
+  sessions?: SessionList;
+  shortCodes?: ShortCodeList;
   /**
    * update a ServiceInstance
    *

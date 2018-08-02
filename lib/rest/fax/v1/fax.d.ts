@@ -349,7 +349,7 @@ declare class FaxContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: FaxInstance) => any): void;
-  media?: Twilio.Fax.V1.FaxContext.FaxMediaList;
+  media?: FaxMediaList;
   /**
    * remove a FaxInstance
    *

@@ -267,7 +267,7 @@ declare class EngagementContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: EngagementInstance) => any): void;
-  steps?: Twilio.Preview.Studio.FlowContext.EngagementContext.StepList;
+  steps?: StepList;
 }
 
 export { EngagementContext, EngagementInstance, EngagementList, EngagementListInstance, EngagementListInstanceCreateOptions, EngagementListInstanceEachOptions, EngagementListInstanceOptions, EngagementListInstancePageOptions, EngagementPage, EngagementPayload, EngagementResource, EngagementSolution }

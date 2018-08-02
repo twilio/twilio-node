@@ -295,7 +295,7 @@ declare class ServiceContext {
    */
   constructor(version: Sync, sid: string);
 
-  documents?: Twilio.Preview.Sync.ServiceContext.DocumentList;
+  documents?: DocumentList;
   /**
    * fetch a ServiceInstance
    *
@@ -308,8 +308,8 @@ declare class ServiceContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: ServiceInstance) => any): void;
-  syncLists?: Twilio.Preview.Sync.ServiceContext.SyncListList;
-  syncMaps?: Twilio.Preview.Sync.ServiceContext.SyncMapList;
+  syncLists?: SyncListList;
+  syncMaps?: SyncMapList;
   /**
    * update a ServiceInstance
    *

@@ -281,8 +281,8 @@ declare class ServiceContext {
    * @param callback - Callback to handle processed record
    */
   update(opts?: ServiceInstanceUpdateOptions, callback?: (error: Error | null, items: ServiceInstance) => any): void;
-  verificationChecks?: Twilio.Preview.AccSecurity.ServiceContext.VerificationCheckList;
-  verifications?: Twilio.Preview.AccSecurity.ServiceContext.VerificationList;
+  verificationChecks?: VerificationCheckList;
+  verifications?: VerificationList;
 }
 
 export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServiceListInstanceCreateOptions, ServiceListInstanceEachOptions, ServiceListInstanceOptions, ServiceListInstancePageOptions, ServicePage, ServicePayload, ServiceResource, ServiceSolution }

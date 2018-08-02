@@ -297,8 +297,8 @@ declare class SyncListContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: SyncListInstance) => any): void;
-  syncListItems?: Twilio.Sync.V1.ServiceContext.SyncListContext.SyncListItemList;
-  syncListPermissions?: Twilio.Sync.V1.ServiceContext.SyncListContext.SyncListPermissionList;
+  syncListItems?: SyncListItemList;
+  syncListPermissions?: SyncListPermissionList;
   /**
    * update a SyncListInstance
    *

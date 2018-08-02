@@ -240,7 +240,7 @@ declare class FlowContext {
    */
   constructor(version: Studio, sid: string);
 
-  engagements?: Twilio.Preview.Studio.FlowContext.EngagementList;
+  engagements?: EngagementList;
   /**
    * fetch a FlowInstance
    *

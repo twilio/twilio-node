@@ -320,8 +320,8 @@ declare class ConferenceContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: ConferenceInstance) => any): void;
-  participants?: Twilio.Api.V2010.AccountContext.ConferenceContext.ParticipantList;
-  recordings?: Twilio.Api.V2010.AccountContext.ConferenceContext.RecordingList;
+  participants?: ParticipantList;
+  recordings?: RecordingList;
   /**
    * update a ConferenceInstance
    *

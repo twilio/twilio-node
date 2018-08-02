@@ -270,7 +270,7 @@ declare class IpAccessControlListContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: IpAccessControlListInstance) => any): void;
-  ipAddresses?: Twilio.Api.V2010.AccountContext.SipContext.IpAccessControlListContext.IpAddressList;
+  ipAddresses?: IpAddressList;
   /**
    * remove a IpAccessControlListInstance
    *

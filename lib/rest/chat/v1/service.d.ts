@@ -499,7 +499,7 @@ declare class ServiceContext {
    */
   constructor(version: V1, sid: string);
 
-  channels?: Twilio.Chat.V1.ServiceContext.ChannelList;
+  channels?: ChannelList;
   /**
    * fetch a ServiceInstance
    *
@@ -512,7 +512,7 @@ declare class ServiceContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: ServiceInstance) => any): void;
-  roles?: Twilio.Chat.V1.ServiceContext.RoleList;
+  roles?: RoleList;
   /**
    * update a ServiceInstance
    *
@@ -520,7 +520,7 @@ declare class ServiceContext {
    * @param callback - Callback to handle processed record
    */
   update(opts?: ServiceInstanceUpdateOptions, callback?: (error: Error | null, items: ServiceInstance) => any): void;
-  users?: Twilio.Chat.V1.ServiceContext.UserList;
+  users?: UserList;
 }
 
 export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServiceListInstanceCreateOptions, ServiceListInstanceEachOptions, ServiceListInstanceOptions, ServiceListInstancePageOptions, ServicePage, ServicePayload, ServiceResource, ServiceSolution }

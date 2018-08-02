@@ -252,7 +252,7 @@ declare class StepContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: StepInstance) => any): void;
-  stepContext?: Twilio.Studio.V1.FlowContext.EngagementContext.StepContext.StepContextList;
+  stepContext?: StepContextList;
 }
 
 export { StepContext, StepInstance, StepList, StepListInstance, StepListInstanceEachOptions, StepListInstanceOptions, StepListInstancePageOptions, StepPage, StepPayload, StepResource, StepSolution }

@@ -346,8 +346,8 @@ declare class RoomContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: RoomInstance) => any): void;
-  participants?: Twilio.Video.V1.RoomContext.ParticipantList;
-  recordings?: Twilio.Video.V1.RoomContext.RoomRecordingList;
+  participants?: ParticipantList;
+  recordings?: RoomRecordingList;
   /**
    * update a RoomInstance
    *

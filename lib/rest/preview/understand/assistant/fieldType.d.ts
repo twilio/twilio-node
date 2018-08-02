@@ -281,7 +281,7 @@ declare class FieldTypeContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: FieldTypeInstance) => any): void;
-  fieldValues?: Twilio.Preview.Understand.AssistantContext.FieldTypeContext.FieldValueList;
+  fieldValues?: FieldValueList;
   /**
    * remove a FieldTypeInstance
    *

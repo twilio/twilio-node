@@ -223,7 +223,7 @@ declare class AvailableAddOnContext {
    */
   constructor(version: Marketplace, sid: string);
 
-  extensions?: Twilio.Preview.Marketplace.AvailableAddOnContext.AvailableAddOnExtensionList;
+  extensions?: AvailableAddOnExtensionList;
   /**
    * fetch a AvailableAddOnInstance
    *

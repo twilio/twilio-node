@@ -252,7 +252,7 @@ declare class ExecutionStepContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: ExecutionStepInstance) => any): void;
-  stepContext?: Twilio.Studio.V1.FlowContext.ExecutionContext.ExecutionStepContext.ExecutionStepContextList;
+  stepContext?: ExecutionStepContextList;
 }
 
 export { ExecutionStepContext, ExecutionStepInstance, ExecutionStepList, ExecutionStepListInstance, ExecutionStepListInstanceEachOptions, ExecutionStepListInstanceOptions, ExecutionStepListInstancePageOptions, ExecutionStepPage, ExecutionStepPayload, ExecutionStepResource, ExecutionStepSolution }

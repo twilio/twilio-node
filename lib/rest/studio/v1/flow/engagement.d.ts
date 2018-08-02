@@ -274,7 +274,7 @@ declare class EngagementContext {
    */
   constructor(version: V1, flowSid: string, sid: string);
 
-  engagementContext?: Twilio.Studio.V1.FlowContext.EngagementContext.EngagementContextList;
+  engagementContext?: EngagementContextList;
   /**
    * fetch a EngagementInstance
    *
@@ -287,7 +287,7 @@ declare class EngagementContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: EngagementInstance) => any): void;
-  steps?: Twilio.Studio.V1.FlowContext.EngagementContext.StepList;
+  steps?: StepList;
 }
 
 export { EngagementContext, EngagementInstance, EngagementList, EngagementListInstance, EngagementListInstanceCreateOptions, EngagementListInstanceEachOptions, EngagementListInstanceOptions, EngagementListInstancePageOptions, EngagementPage, EngagementPayload, EngagementResource, EngagementSolution }

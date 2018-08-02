@@ -351,14 +351,14 @@ declare class ServiceContext {
    */
   constructor(version: V1, sid: string);
 
-  bindings?: Twilio.Notify.V1.ServiceContext.BindingList;
+  bindings?: BindingList;
   /**
    * fetch a ServiceInstance
    *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: ServiceInstance) => any): void;
-  notifications?: Twilio.Notify.V1.ServiceContext.NotificationList;
+  notifications?: NotificationList;
   /**
    * remove a ServiceInstance
    *

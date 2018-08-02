@@ -451,7 +451,7 @@ declare class IncomingPhoneNumberContext {
    */
   constructor(version: V2010, accountSid: string, sid: string);
 
-  assignedAddOns?: Twilio.Api.V2010.AccountContext.IncomingPhoneNumberContext.AssignedAddOnList;
+  assignedAddOns?: AssignedAddOnList;
   /**
    * fetch a IncomingPhoneNumberInstance
    *

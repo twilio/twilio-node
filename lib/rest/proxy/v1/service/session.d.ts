@@ -339,8 +339,8 @@ declare class SessionContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: SessionInstance) => any): void;
-  interactions?: Twilio.Proxy.V1.ServiceContext.SessionContext.InteractionList;
-  participants?: Twilio.Proxy.V1.ServiceContext.SessionContext.ParticipantList;
+  interactions?: InteractionList;
+  participants?: ParticipantList;
   /**
    * remove a SessionInstance
    *

@@ -316,21 +316,21 @@ declare class WorkflowContext {
    */
   constructor(version: V1, workspaceSid: string, sid: string);
 
-  cumulativeStatistics?: Twilio.Taskrouter.V1.WorkspaceContext.WorkflowContext.WorkflowCumulativeStatisticsList;
+  cumulativeStatistics?: WorkflowCumulativeStatisticsList;
   /**
    * fetch a WorkflowInstance
    *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: WorkflowInstance) => any): void;
-  realTimeStatistics?: Twilio.Taskrouter.V1.WorkspaceContext.WorkflowContext.WorkflowRealTimeStatisticsList;
+  realTimeStatistics?: WorkflowRealTimeStatisticsList;
   /**
    * remove a WorkflowInstance
    *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: WorkflowInstance) => any): void;
-  statistics?: Twilio.Taskrouter.V1.WorkspaceContext.WorkflowContext.WorkflowStatisticsList;
+  statistics?: WorkflowStatisticsList;
   /**
    * update a WorkflowInstance
    *

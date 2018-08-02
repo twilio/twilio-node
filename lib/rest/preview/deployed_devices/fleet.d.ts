@@ -287,16 +287,16 @@ declare class FleetContext {
    */
   constructor(version: DeployedDevices, sid: string);
 
-  certificates?: Twilio.Preview.DeployedDevices.FleetContext.CertificateList;
-  deployments?: Twilio.Preview.DeployedDevices.FleetContext.DeploymentList;
-  devices?: Twilio.Preview.DeployedDevices.FleetContext.DeviceList;
+  certificates?: CertificateList;
+  deployments?: DeploymentList;
+  devices?: DeviceList;
   /**
    * fetch a FleetInstance
    *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: FleetInstance) => any): void;
-  keys?: Twilio.Preview.DeployedDevices.FleetContext.KeyList;
+  keys?: KeyList;
   /**
    * remove a FleetInstance
    *

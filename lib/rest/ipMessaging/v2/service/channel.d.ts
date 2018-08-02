@@ -342,9 +342,9 @@ declare class ChannelContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: ChannelInstance) => any): void;
-  invites?: Twilio.IpMessaging.V2.ServiceContext.ChannelContext.InviteList;
-  members?: Twilio.IpMessaging.V2.ServiceContext.ChannelContext.MemberList;
-  messages?: Twilio.IpMessaging.V2.ServiceContext.ChannelContext.MessageList;
+  invites?: InviteList;
+  members?: MemberList;
+  messages?: MessageList;
   /**
    * remove a ChannelInstance
    *
@@ -358,7 +358,7 @@ declare class ChannelContext {
    * @param callback - Callback to handle processed record
    */
   update(opts?: ChannelInstanceUpdateOptions, callback?: (error: Error | null, items: ChannelInstance) => any): void;
-  webhooks?: Twilio.IpMessaging.V2.ServiceContext.ChannelContext.WebhookList;
+  webhooks?: WebhookList;
 }
 
 export { ChannelContext, ChannelInstance, ChannelList, ChannelListInstance, ChannelListInstanceCreateOptions, ChannelListInstanceEachOptions, ChannelListInstanceOptions, ChannelListInstancePageOptions, ChannelPage, ChannelPayload, ChannelResource, ChannelSolution }

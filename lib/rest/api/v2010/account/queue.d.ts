@@ -280,7 +280,7 @@ declare class QueueContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: QueueInstance) => any): void;
-  members?: Twilio.Api.V2010.AccountContext.QueueContext.MemberList;
+  members?: MemberList;
   /**
    * remove a QueueInstance
    *

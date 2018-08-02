@@ -264,7 +264,7 @@ declare class CredentialListContext {
    */
   constructor(version: V2010, accountSid: string, sid: string);
 
-  credentials?: Twilio.Api.V2010.AccountContext.SipContext.CredentialListContext.CredentialList;
+  credentials?: CredentialList;
   /**
    * fetch a CredentialListInstance
    *

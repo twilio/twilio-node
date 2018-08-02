@@ -289,7 +289,7 @@ declare class ParticipantContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: ParticipantInstance) => any): void;
-  messageInteractions?: Twilio.Proxy.V1.ServiceContext.SessionContext.ParticipantContext.MessageInteractionList;
+  messageInteractions?: MessageInteractionList;
   /**
    * remove a ParticipantInstance
    *

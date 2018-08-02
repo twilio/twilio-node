@@ -287,7 +287,7 @@ declare class DocumentContext {
    */
   constructor(version: V1, serviceSid: string, sid: string);
 
-  documentPermissions?: Twilio.Sync.V1.ServiceContext.DocumentContext.DocumentPermissionList;
+  documentPermissions?: DocumentPermissionList;
   /**
    * fetch a DocumentInstance
    *

@@ -401,8 +401,8 @@ declare class ServiceContext {
    */
   constructor(version: V2, sid: string);
 
-  bindings?: Twilio.IpMessaging.V2.ServiceContext.BindingList;
-  channels?: Twilio.IpMessaging.V2.ServiceContext.ChannelList;
+  bindings?: BindingList;
+  channels?: ChannelList;
   /**
    * fetch a ServiceInstance
    *
@@ -415,7 +415,7 @@ declare class ServiceContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: ServiceInstance) => any): void;
-  roles?: Twilio.IpMessaging.V2.ServiceContext.RoleList;
+  roles?: RoleList;
   /**
    * update a ServiceInstance
    *
@@ -423,7 +423,7 @@ declare class ServiceContext {
    * @param callback - Callback to handle processed record
    */
   update(opts?: ServiceInstanceUpdateOptions, callback?: (error: Error | null, items: ServiceInstance) => any): void;
-  users?: Twilio.IpMessaging.V2.ServiceContext.UserList;
+  users?: UserList;
 }
 
 export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServiceListInstanceCreateOptions, ServiceListInstanceEachOptions, ServiceListInstanceOptions, ServiceListInstancePageOptions, ServicePage, ServicePayload, ServiceResource, ServiceSolution }

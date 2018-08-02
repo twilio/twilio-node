@@ -329,16 +329,16 @@ declare class TrunkContext {
    */
   constructor(version: V1, sid: string);
 
-  credentialsLists?: Twilio.Trunking.V1.TrunkContext.CredentialListList;
+  credentialsLists?: CredentialListList;
   /**
    * fetch a TrunkInstance
    *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: TrunkInstance) => any): void;
-  ipAccessControlLists?: Twilio.Trunking.V1.TrunkContext.IpAccessControlListList;
-  originationUrls?: Twilio.Trunking.V1.TrunkContext.OriginationUrlList;
-  phoneNumbers?: Twilio.Trunking.V1.TrunkContext.PhoneNumberList;
+  ipAccessControlLists?: IpAccessControlListList;
+  originationUrls?: OriginationUrlList;
+  phoneNumbers?: PhoneNumberList;
   /**
    * remove a TrunkInstance
    *

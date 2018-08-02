@@ -276,8 +276,8 @@ declare class SyncMapContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: SyncMapInstance) => any): void;
-  syncMapItems?: Twilio.Preview.Sync.ServiceContext.SyncMapContext.SyncMapItemList;
-  syncMapPermissions?: Twilio.Preview.Sync.ServiceContext.SyncMapContext.SyncMapPermissionList;
+  syncMapItems?: SyncMapItemList;
+  syncMapPermissions?: SyncMapPermissionList;
 }
 
 export { SyncMapContext, SyncMapInstance, SyncMapList, SyncMapListInstance, SyncMapListInstanceCreateOptions, SyncMapListInstanceEachOptions, SyncMapListInstanceOptions, SyncMapListInstancePageOptions, SyncMapPage, SyncMapPayload, SyncMapResource, SyncMapSolution }

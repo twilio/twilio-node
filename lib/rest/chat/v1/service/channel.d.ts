@@ -322,9 +322,9 @@ declare class ChannelContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: ChannelInstance) => any): void;
-  invites?: Twilio.Chat.V1.ServiceContext.ChannelContext.InviteList;
-  members?: Twilio.Chat.V1.ServiceContext.ChannelContext.MemberList;
-  messages?: Twilio.Chat.V1.ServiceContext.ChannelContext.MessageList;
+  invites?: InviteList;
+  members?: MemberList;
+  messages?: MessageList;
   /**
    * remove a ChannelInstance
    *

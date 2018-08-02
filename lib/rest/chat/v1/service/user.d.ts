@@ -314,7 +314,7 @@ declare class UserContext {
    * @param callback - Callback to handle processed record
    */
   update(opts?: UserInstanceUpdateOptions, callback?: (error: Error | null, items: UserInstance) => any): void;
-  userChannels?: Twilio.Chat.V1.ServiceContext.UserContext.UserChannelList;
+  userChannels?: UserChannelList;
 }
 
 export { UserContext, UserInstance, UserList, UserListInstance, UserListInstanceCreateOptions, UserListInstanceEachOptions, UserListInstanceOptions, UserListInstancePageOptions, UserPage, UserPayload, UserResource, UserSolution }

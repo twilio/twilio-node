@@ -306,7 +306,7 @@ declare class RecordingContext {
    */
   constructor(version: V2010, accountSid: string, sid: string);
 
-  addOnResults?: Twilio.Api.V2010.AccountContext.RecordingContext.AddOnResultList;
+  addOnResults?: AddOnResultList;
   /**
    * fetch a RecordingInstance
    *
@@ -319,7 +319,7 @@ declare class RecordingContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: RecordingInstance) => any): void;
-  transcriptions?: Twilio.Api.V2010.AccountContext.RecordingContext.TranscriptionList;
+  transcriptions?: TranscriptionList;
 }
 
 export { RecordingContext, RecordingInstance, RecordingList, RecordingListInstance, RecordingListInstanceEachOptions, RecordingListInstanceOptions, RecordingListInstancePageOptions, RecordingPage, RecordingPayload, RecordingResource, RecordingSolution }

@@ -111,7 +111,7 @@ declare class ExportContext {
    */
   constructor(version: BulkExports, resourceType: string);
 
-  days?: Twilio.Preview.BulkExports.ExportContext.DayList;
+  days?: DayList;
   /**
    * fetch a ExportInstance
    *

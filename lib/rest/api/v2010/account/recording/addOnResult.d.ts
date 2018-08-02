@@ -253,7 +253,7 @@ declare class AddOnResultContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: AddOnResultInstance) => any): void;
-  payloads?: Twilio.Api.V2010.AccountContext.RecordingContext.AddOnResultContext.PayloadList;
+  payloads?: PayloadList;
   /**
    * remove a AddOnResultInstance
    *

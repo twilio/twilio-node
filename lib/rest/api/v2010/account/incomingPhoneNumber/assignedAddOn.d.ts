@@ -265,7 +265,7 @@ declare class AssignedAddOnContext {
    */
   constructor(version: V2010, accountSid: string, resourceSid: string, sid: string);
 
-  extensions?: Twilio.Api.V2010.AccountContext.IncomingPhoneNumberContext.AssignedAddOnContext.AssignedAddOnExtensionList;
+  extensions?: AssignedAddOnExtensionList;
   /**
    * fetch a AssignedAddOnInstance
    *

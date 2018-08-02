@@ -388,7 +388,7 @@ declare class TaskContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: TaskInstance) => any): void;
-  reservations?: Twilio.Taskrouter.V1.WorkspaceContext.TaskContext.ReservationList;
+  reservations?: ReservationList;
   /**
    * update a TaskInstance
    *

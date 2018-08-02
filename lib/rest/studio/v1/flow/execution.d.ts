@@ -274,7 +274,7 @@ declare class ExecutionContext {
    */
   constructor(version: V1, flowSid: string, sid: string);
 
-  executionContext?: Twilio.Studio.V1.FlowContext.ExecutionContext.ExecutionContextList;
+  executionContext?: ExecutionContextList;
   /**
    * fetch a ExecutionInstance
    *
@@ -287,7 +287,7 @@ declare class ExecutionContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: ExecutionInstance) => any): void;
-  steps?: Twilio.Studio.V1.FlowContext.ExecutionContext.ExecutionStepList;
+  steps?: ExecutionStepList;
 }
 
 export { ExecutionContext, ExecutionInstance, ExecutionList, ExecutionListInstance, ExecutionListInstanceCreateOptions, ExecutionListInstanceEachOptions, ExecutionListInstanceOptions, ExecutionListInstancePageOptions, ExecutionPage, ExecutionPayload, ExecutionResource, ExecutionSolution }

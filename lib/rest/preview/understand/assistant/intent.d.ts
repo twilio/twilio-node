@@ -287,14 +287,14 @@ declare class IntentContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: IntentInstance) => any): void;
-  fields?: Twilio.Preview.Understand.AssistantContext.IntentContext.FieldList;
+  fields?: FieldList;
   /**
    * remove a IntentInstance
    *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: IntentInstance) => any): void;
-  samples?: Twilio.Preview.Understand.AssistantContext.IntentContext.SampleList;
+  samples?: SampleList;
   /**
    * update a IntentInstance
    *
