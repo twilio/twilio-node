@@ -37,7 +37,7 @@ interface AwsListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: AwsListInstanceCreateOptions, callback?: (error: Error | null, items: AwsListInstance) => any): Promise<AwsInstance>;
+  create(opts: AwsListInstanceCreateOptions, callback?: (error: Error | null, item: AwsInstance) => any): Promise<AwsInstance>;
   /**
    * Streams AwsInstance records from the API.
    *

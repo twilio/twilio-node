@@ -35,7 +35,7 @@ interface ExecutionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: ExecutionListInstanceCreateOptions, callback?: (error: Error | null, items: ExecutionListInstance) => any): Promise<ExecutionInstance>;
+  create(opts: ExecutionListInstanceCreateOptions, callback?: (error: Error | null, item: ExecutionInstance) => any): Promise<ExecutionInstance>;
   /**
    * Streams ExecutionInstance records from the API.
    *

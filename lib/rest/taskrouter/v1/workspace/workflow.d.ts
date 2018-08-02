@@ -49,7 +49,7 @@ interface WorkflowListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: WorkflowListInstanceCreateOptions, callback?: (error: Error | null, items: WorkflowListInstance) => any): Promise<WorkflowInstance>;
+  create(opts: WorkflowListInstanceCreateOptions, callback?: (error: Error | null, item: WorkflowInstance) => any): Promise<WorkflowInstance>;
   /**
    * Streams WorkflowInstance records from the API.
    *

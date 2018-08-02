@@ -56,7 +56,7 @@ interface TrunkListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: TrunkListInstanceCreateOptions, callback?: (error: Error | null, items: TrunkListInstance) => any): Promise<TrunkInstance>;
+  create(opts?: TrunkListInstanceCreateOptions, callback?: (error: Error | null, item: TrunkInstance) => any): Promise<TrunkInstance>;
   /**
    * Streams TrunkInstance records from the API.
    *

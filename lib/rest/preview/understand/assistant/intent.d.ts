@@ -43,7 +43,7 @@ interface IntentListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: IntentListInstanceCreateOptions, callback?: (error: Error | null, items: IntentListInstance) => any): Promise<IntentInstance>;
+  create(opts: IntentListInstanceCreateOptions, callback?: (error: Error | null, item: IntentInstance) => any): Promise<IntentInstance>;
   /**
    * Streams IntentInstance records from the API.
    *

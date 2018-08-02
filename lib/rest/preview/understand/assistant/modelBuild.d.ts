@@ -41,7 +41,7 @@ interface ModelBuildListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: ModelBuildListInstanceCreateOptions, callback?: (error: Error | null, items: ModelBuildListInstance) => any): Promise<ModelBuildInstance>;
+  create(opts?: ModelBuildListInstanceCreateOptions, callback?: (error: Error | null, item: ModelBuildInstance) => any): Promise<ModelBuildInstance>;
   /**
    * Streams ModelBuildInstance records from the API.
    *

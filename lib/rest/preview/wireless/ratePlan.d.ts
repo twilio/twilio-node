@@ -41,7 +41,7 @@ interface RatePlanListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: RatePlanListInstanceCreateOptions, callback?: (error: Error | null, items: RatePlanListInstance) => any): Promise<RatePlanInstance>;
+  create(opts?: RatePlanListInstanceCreateOptions, callback?: (error: Error | null, item: RatePlanInstance) => any): Promise<RatePlanInstance>;
   /**
    * Streams RatePlanInstance records from the API.
    *

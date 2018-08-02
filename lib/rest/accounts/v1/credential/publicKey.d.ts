@@ -37,7 +37,7 @@ interface PublicKeyListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: PublicKeyListInstanceCreateOptions, callback?: (error: Error | null, items: PublicKeyListInstance) => any): Promise<PublicKeyInstance>;
+  create(opts: PublicKeyListInstanceCreateOptions, callback?: (error: Error | null, item: PublicKeyInstance) => any): Promise<PublicKeyInstance>;
   /**
    * Streams PublicKeyInstance records from the API.
    *

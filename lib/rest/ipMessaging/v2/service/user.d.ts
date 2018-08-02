@@ -46,7 +46,7 @@ interface UserListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: UserListInstanceCreateOptions, callback?: (error: Error | null, items: UserListInstance) => any): Promise<UserInstance>;
+  create(opts: UserListInstanceCreateOptions, callback?: (error: Error | null, item: UserInstance) => any): Promise<UserInstance>;
   /**
    * Streams UserInstance records from the API.
    *

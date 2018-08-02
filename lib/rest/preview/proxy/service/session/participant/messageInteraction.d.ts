@@ -37,7 +37,7 @@ interface MessageInteractionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: MessageInteractionListInstanceCreateOptions, callback?: (error: Error | null, items: MessageInteractionListInstance) => any): Promise<MessageInteractionInstance>;
+  create(opts?: MessageInteractionListInstanceCreateOptions, callback?: (error: Error | null, item: MessageInteractionInstance) => any): Promise<MessageInteractionInstance>;
   /**
    * Streams MessageInteractionInstance records from the API.
    *

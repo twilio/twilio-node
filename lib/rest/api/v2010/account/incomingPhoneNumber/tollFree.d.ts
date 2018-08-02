@@ -28,7 +28,7 @@ interface TollFreeListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: TollFreeListInstanceCreateOptions, callback?: (error: Error | null, items: TollFreeListInstance) => any): Promise<TollFreeInstance>;
+  create(opts: TollFreeListInstanceCreateOptions, callback?: (error: Error | null, item: TollFreeInstance) => any): Promise<TollFreeInstance>;
   /**
    * Streams TollFreeInstance records from the API.
    *

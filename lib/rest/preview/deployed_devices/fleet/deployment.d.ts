@@ -41,7 +41,7 @@ interface DeploymentListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: DeploymentListInstanceCreateOptions, callback?: (error: Error | null, items: DeploymentListInstance) => any): Promise<DeploymentInstance>;
+  create(opts?: DeploymentListInstanceCreateOptions, callback?: (error: Error | null, item: DeploymentInstance) => any): Promise<DeploymentInstance>;
   /**
    * Streams DeploymentInstance records from the API.
    *

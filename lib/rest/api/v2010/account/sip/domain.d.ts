@@ -58,7 +58,7 @@ interface DomainListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: DomainListInstanceCreateOptions, callback?: (error: Error | null, items: DomainListInstance) => any): Promise<DomainInstance>;
+  create(opts: DomainListInstanceCreateOptions, callback?: (error: Error | null, item: DomainInstance) => any): Promise<DomainInstance>;
   /**
    * Streams DomainInstance records from the API.
    *

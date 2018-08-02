@@ -30,7 +30,7 @@ interface AuthRegistrationsCredentialListMappingListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: AuthRegistrationsCredentialListMappingListInstanceCreateOptions, callback?: (error: Error | null, items: AuthRegistrationsCredentialListMappingListInstance) => any): Promise<AuthRegistrationsCredentialListMappingInstance>;
+  create(opts: AuthRegistrationsCredentialListMappingListInstanceCreateOptions, callback?: (error: Error | null, item: AuthRegistrationsCredentialListMappingInstance) => any): Promise<AuthRegistrationsCredentialListMappingInstance>;
   /**
    * Streams AuthRegistrationsCredentialListMappingInstance records from the API.
    *

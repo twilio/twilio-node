@@ -47,7 +47,7 @@ interface OriginationUrlListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: OriginationUrlListInstanceCreateOptions, callback?: (error: Error | null, items: OriginationUrlListInstance) => any): Promise<OriginationUrlInstance>;
+  create(opts: OriginationUrlListInstanceCreateOptions, callback?: (error: Error | null, item: OriginationUrlInstance) => any): Promise<OriginationUrlInstance>;
   /**
    * Streams OriginationUrlInstance records from the API.
    *

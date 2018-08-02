@@ -32,7 +32,7 @@ interface FeedbackSummaryListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: FeedbackSummaryListInstanceCreateOptions, callback?: (error: Error | null, items: FeedbackSummaryListInstance) => any): Promise<FeedbackSummaryInstance>;
+  create(opts: FeedbackSummaryListInstanceCreateOptions, callback?: (error: Error | null, item: FeedbackSummaryInstance) => any): Promise<FeedbackSummaryInstance>;
   /**
    * Constructs a feedback_summary
    *

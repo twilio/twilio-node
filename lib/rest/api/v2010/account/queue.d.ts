@@ -41,7 +41,7 @@ interface QueueListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: QueueListInstanceCreateOptions, callback?: (error: Error | null, items: QueueListInstance) => any): Promise<QueueInstance>;
+  create(opts: QueueListInstanceCreateOptions, callback?: (error: Error | null, item: QueueInstance) => any): Promise<QueueInstance>;
   /**
    * Streams QueueInstance records from the API.
    *

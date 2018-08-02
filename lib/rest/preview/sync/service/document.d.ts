@@ -41,7 +41,7 @@ interface DocumentListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: DocumentListInstanceCreateOptions, callback?: (error: Error | null, items: DocumentListInstance) => any): Promise<DocumentInstance>;
+  create(opts?: DocumentListInstanceCreateOptions, callback?: (error: Error | null, item: DocumentInstance) => any): Promise<DocumentInstance>;
   /**
    * Streams DocumentInstance records from the API.
    *

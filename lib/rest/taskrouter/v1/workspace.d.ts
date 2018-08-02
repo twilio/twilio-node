@@ -62,7 +62,7 @@ interface WorkspaceListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: WorkspaceListInstanceCreateOptions, callback?: (error: Error | null, items: WorkspaceListInstance) => any): Promise<WorkspaceInstance>;
+  create(opts: WorkspaceListInstanceCreateOptions, callback?: (error: Error | null, item: WorkspaceInstance) => any): Promise<WorkspaceInstance>;
   /**
    * Streams WorkspaceInstance records from the API.
    *

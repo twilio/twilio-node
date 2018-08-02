@@ -29,7 +29,7 @@ interface CommandListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: CommandListInstanceCreateOptions, callback?: (error: Error | null, items: CommandListInstance) => any): Promise<CommandInstance>;
+  create(opts: CommandListInstanceCreateOptions, callback?: (error: Error | null, item: CommandInstance) => any): Promise<CommandInstance>;
   /**
    * Streams CommandInstance records from the API.
    *

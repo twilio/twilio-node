@@ -32,7 +32,7 @@ interface ParticipantListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: ParticipantListInstanceCreateOptions, callback?: (error: Error | null, items: ParticipantListInstance) => any): Promise<ParticipantInstance>;
+  create(opts: ParticipantListInstanceCreateOptions, callback?: (error: Error | null, item: ParticipantInstance) => any): Promise<ParticipantInstance>;
   /**
    * Streams ParticipantInstance records from the API.
    *

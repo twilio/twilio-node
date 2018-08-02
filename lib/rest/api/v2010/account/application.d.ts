@@ -67,7 +67,7 @@ interface ApplicationListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: ApplicationListInstanceCreateOptions, callback?: (error: Error | null, items: ApplicationListInstance) => any): Promise<ApplicationInstance>;
+  create(opts: ApplicationListInstanceCreateOptions, callback?: (error: Error | null, item: ApplicationInstance) => any): Promise<ApplicationInstance>;
   /**
    * Streams ApplicationInstance records from the API.
    *

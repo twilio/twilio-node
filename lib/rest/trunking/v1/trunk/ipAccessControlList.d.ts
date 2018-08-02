@@ -29,7 +29,7 @@ interface IpAccessControlListListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: IpAccessControlListListInstanceCreateOptions, callback?: (error: Error | null, items: IpAccessControlListListInstance) => any): Promise<IpAccessControlListInstance>;
+  create(opts: IpAccessControlListListInstanceCreateOptions, callback?: (error: Error | null, item: IpAccessControlListInstance) => any): Promise<IpAccessControlListInstance>;
   /**
    * Streams IpAccessControlListInstance records from the API.
    *

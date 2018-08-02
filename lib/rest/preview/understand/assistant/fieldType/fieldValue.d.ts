@@ -31,7 +31,7 @@ interface FieldValueListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: FieldValueListInstanceCreateOptions, callback?: (error: Error | null, items: FieldValueListInstance) => any): Promise<FieldValueInstance>;
+  create(opts: FieldValueListInstanceCreateOptions, callback?: (error: Error | null, item: FieldValueInstance) => any): Promise<FieldValueInstance>;
   /**
    * Streams FieldValueInstance records from the API.
    *

@@ -61,7 +61,7 @@ interface HostedNumberOrderListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: HostedNumberOrderListInstanceCreateOptions, callback?: (error: Error | null, items: HostedNumberOrderListInstance) => any): Promise<HostedNumberOrderInstance>;
+  create(opts: HostedNumberOrderListInstanceCreateOptions, callback?: (error: Error | null, item: HostedNumberOrderInstance) => any): Promise<HostedNumberOrderInstance>;
   /**
    * Streams HostedNumberOrderInstance records from the API.
    *

@@ -40,7 +40,7 @@ interface ShortCodeListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: ShortCodeListInstanceCreateOptions, callback?: (error: Error | null, items: ShortCodeListInstance) => any): Promise<ShortCodeInstance>;
+  create(opts: ShortCodeListInstanceCreateOptions, callback?: (error: Error | null, item: ShortCodeInstance) => any): Promise<ShortCodeInstance>;
   /**
    * Streams ShortCodeInstance records from the API.
    *

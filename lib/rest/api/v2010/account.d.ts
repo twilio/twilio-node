@@ -66,7 +66,7 @@ interface AccountListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: AccountListInstanceCreateOptions, callback?: (error: Error | null, items: AccountListInstance) => any): Promise<AccountInstance>;
+  create(opts?: AccountListInstanceCreateOptions, callback?: (error: Error | null, item: AccountInstance) => any): Promise<AccountInstance>;
   /**
    * Streams AccountInstance records from the API.
    *

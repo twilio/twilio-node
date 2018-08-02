@@ -148,7 +148,7 @@ declare class CompositionSettingsContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: CompositionSettingsInstanceCreateOptions, callback?: (error: Error | null, items: CompositionSettingsInstance) => any): Promise<CompositionSettingsInstance>;
+  create(opts: CompositionSettingsInstanceCreateOptions, callback?: (error: Error | null, item: CompositionSettingsInstance) => any): Promise<CompositionSettingsInstance>;
   /**
    * fetch a CompositionSettingsInstance
    *

@@ -44,7 +44,7 @@ interface FleetListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: FleetListInstanceCreateOptions, callback?: (error: Error | null, items: FleetListInstance) => any): Promise<FleetInstance>;
+  create(opts?: FleetListInstanceCreateOptions, callback?: (error: Error | null, item: FleetInstance) => any): Promise<FleetInstance>;
   /**
    * Streams FleetInstance records from the API.
    *

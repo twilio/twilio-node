@@ -40,7 +40,7 @@ interface PhoneNumberListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: PhoneNumberListInstanceCreateOptions, callback?: (error: Error | null, items: PhoneNumberListInstance) => any): Promise<PhoneNumberInstance>;
+  create(opts?: PhoneNumberListInstanceCreateOptions, callback?: (error: Error | null, item: PhoneNumberInstance) => any): Promise<PhoneNumberInstance>;
   /**
    * Streams PhoneNumberInstance records from the API.
    *

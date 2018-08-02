@@ -42,7 +42,7 @@ interface MemberListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: MemberListInstanceCreateOptions, callback?: (error: Error | null, items: MemberListInstance) => any): Promise<MemberInstance>;
+  create(opts: MemberListInstanceCreateOptions, callback?: (error: Error | null, item: MemberInstance) => any): Promise<MemberInstance>;
   /**
    * Streams MemberInstance records from the API.
    *

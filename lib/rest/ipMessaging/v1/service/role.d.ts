@@ -41,7 +41,7 @@ interface RoleListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: RoleListInstanceCreateOptions, callback?: (error: Error | null, items: RoleListInstance) => any): Promise<RoleInstance>;
+  create(opts: RoleListInstanceCreateOptions, callback?: (error: Error | null, item: RoleInstance) => any): Promise<RoleInstance>;
   /**
    * Streams RoleInstance records from the API.
    *

@@ -46,7 +46,7 @@ interface DeviceListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: DeviceListInstanceCreateOptions, callback?: (error: Error | null, items: DeviceListInstance) => any): Promise<DeviceInstance>;
+  create(opts?: DeviceListInstanceCreateOptions, callback?: (error: Error | null, item: DeviceInstance) => any): Promise<DeviceInstance>;
   /**
    * Streams DeviceInstance records from the API.
    *

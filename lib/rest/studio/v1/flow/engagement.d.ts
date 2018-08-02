@@ -35,7 +35,7 @@ interface EngagementListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: EngagementListInstanceCreateOptions, callback?: (error: Error | null, items: EngagementListInstance) => any): Promise<EngagementInstance>;
+  create(opts: EngagementListInstanceCreateOptions, callback?: (error: Error | null, item: EngagementInstance) => any): Promise<EngagementInstance>;
   /**
    * Streams EngagementInstance records from the API.
    *

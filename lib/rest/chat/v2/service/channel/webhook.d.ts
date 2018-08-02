@@ -56,7 +56,7 @@ interface WebhookListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: WebhookListInstanceCreateOptions, callback?: (error: Error | null, items: WebhookListInstance) => any): Promise<WebhookInstance>;
+  create(opts: WebhookListInstanceCreateOptions, callback?: (error: Error | null, item: WebhookInstance) => any): Promise<WebhookInstance>;
   /**
    * Streams WebhookInstance records from the API.
    *

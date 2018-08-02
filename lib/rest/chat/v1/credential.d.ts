@@ -50,7 +50,7 @@ interface CredentialListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: CredentialListInstanceCreateOptions, callback?: (error: Error | null, items: CredentialListInstance) => any): Promise<CredentialInstance>;
+  create(opts: CredentialListInstanceCreateOptions, callback?: (error: Error | null, item: CredentialInstance) => any): Promise<CredentialInstance>;
   /**
    * Streams CredentialInstance records from the API.
    *

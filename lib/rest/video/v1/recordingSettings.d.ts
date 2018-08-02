@@ -148,7 +148,7 @@ declare class RecordingSettingsContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: RecordingSettingsInstanceCreateOptions, callback?: (error: Error | null, items: RecordingSettingsInstance) => any): Promise<RecordingSettingsInstance>;
+  create(opts: RecordingSettingsInstanceCreateOptions, callback?: (error: Error | null, item: RecordingSettingsInstance) => any): Promise<RecordingSettingsInstance>;
   /**
    * fetch a RecordingSettingsInstance
    *

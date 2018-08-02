@@ -32,7 +32,7 @@ interface AssignedAddOnListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: AssignedAddOnListInstanceCreateOptions, callback?: (error: Error | null, items: AssignedAddOnListInstance) => any): Promise<AssignedAddOnInstance>;
+  create(opts: AssignedAddOnListInstanceCreateOptions, callback?: (error: Error | null, item: AssignedAddOnInstance) => any): Promise<AssignedAddOnInstance>;
   /**
    * Streams AssignedAddOnInstance records from the API.
    *

@@ -41,7 +41,7 @@ interface KeyListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: KeyListInstanceCreateOptions, callback?: (error: Error | null, items: KeyListInstance) => any): Promise<KeyInstance>;
+  create(opts?: KeyListInstanceCreateOptions, callback?: (error: Error | null, item: KeyInstance) => any): Promise<KeyInstance>;
   /**
    * Streams KeyInstance records from the API.
    *

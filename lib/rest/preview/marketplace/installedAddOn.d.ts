@@ -42,7 +42,7 @@ interface InstalledAddOnListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: InstalledAddOnListInstanceCreateOptions, callback?: (error: Error | null, items: InstalledAddOnListInstance) => any): Promise<InstalledAddOnInstance>;
+  create(opts: InstalledAddOnListInstanceCreateOptions, callback?: (error: Error | null, item: InstalledAddOnInstance) => any): Promise<InstalledAddOnInstance>;
   /**
    * Streams InstalledAddOnInstance records from the API.
    *

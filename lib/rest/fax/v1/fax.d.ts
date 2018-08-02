@@ -48,7 +48,7 @@ interface FaxListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: FaxListInstanceCreateOptions, callback?: (error: Error | null, items: FaxListInstance) => any): Promise<FaxInstance>;
+  create(opts: FaxListInstanceCreateOptions, callback?: (error: Error | null, item: FaxInstance) => any): Promise<FaxInstance>;
   /**
    * Streams FaxInstance records from the API.
    *

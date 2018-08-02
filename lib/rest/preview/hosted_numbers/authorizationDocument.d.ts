@@ -54,7 +54,7 @@ interface AuthorizationDocumentListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: AuthorizationDocumentListInstanceCreateOptions, callback?: (error: Error | null, items: AuthorizationDocumentListInstance) => any): Promise<AuthorizationDocumentInstance>;
+  create(opts: AuthorizationDocumentListInstanceCreateOptions, callback?: (error: Error | null, item: AuthorizationDocumentInstance) => any): Promise<AuthorizationDocumentInstance>;
   /**
    * Streams AuthorizationDocumentInstance records from the API.
    *

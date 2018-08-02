@@ -60,7 +60,7 @@ interface CallListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: CallListInstanceCreateOptions, callback?: (error: Error | null, items: CallListInstance) => any): Promise<CallInstance>;
+  create(opts: CallListInstanceCreateOptions, callback?: (error: Error | null, item: CallInstance) => any): Promise<CallInstance>;
   /**
    * Streams CallInstance records from the API.
    *

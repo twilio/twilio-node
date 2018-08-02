@@ -54,7 +54,7 @@ interface AddressListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: AddressListInstanceCreateOptions, callback?: (error: Error | null, items: AddressListInstance) => any): Promise<AddressInstance>;
+  create(opts: AddressListInstanceCreateOptions, callback?: (error: Error | null, item: AddressInstance) => any): Promise<AddressInstance>;
   /**
    * Streams AddressInstance records from the API.
    *

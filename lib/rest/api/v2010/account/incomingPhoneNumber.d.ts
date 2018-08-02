@@ -88,7 +88,7 @@ interface IncomingPhoneNumberListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: IncomingPhoneNumberListInstanceCreateOptions, callback?: (error: Error | null, items: IncomingPhoneNumberListInstance) => any): Promise<IncomingPhoneNumberInstance>;
+  create(opts?: IncomingPhoneNumberListInstanceCreateOptions, callback?: (error: Error | null, item: IncomingPhoneNumberInstance) => any): Promise<IncomingPhoneNumberInstance>;
   /**
    * Streams IncomingPhoneNumberInstance records from the API.
    *

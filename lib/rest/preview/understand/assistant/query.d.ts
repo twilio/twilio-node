@@ -41,7 +41,7 @@ interface QueryListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: QueryListInstanceCreateOptions, callback?: (error: Error | null, items: QueryListInstance) => any): Promise<QueryInstance>;
+  create(opts: QueryListInstanceCreateOptions, callback?: (error: Error | null, item: QueryInstance) => any): Promise<QueryInstance>;
   /**
    * Streams QueryInstance records from the API.
    *

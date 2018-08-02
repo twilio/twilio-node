@@ -34,7 +34,7 @@ interface CompositionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: CompositionListInstanceCreateOptions, callback?: (error: Error | null, items: CompositionListInstance) => any): Promise<CompositionInstance>;
+  create(opts?: CompositionListInstanceCreateOptions, callback?: (error: Error | null, item: CompositionInstance) => any): Promise<CompositionInstance>;
   /**
    * Streams CompositionInstance records from the API.
    *

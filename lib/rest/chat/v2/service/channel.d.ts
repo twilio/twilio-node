@@ -57,7 +57,7 @@ interface ChannelListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: ChannelListInstanceCreateOptions, callback?: (error: Error | null, items: ChannelListInstance) => any): Promise<ChannelInstance>;
+  create(opts?: ChannelListInstanceCreateOptions, callback?: (error: Error | null, item: ChannelInstance) => any): Promise<ChannelInstance>;
   /**
    * Streams ChannelInstance records from the API.
    *

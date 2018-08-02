@@ -47,7 +47,7 @@ interface WorkerListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: WorkerListInstanceCreateOptions, callback?: (error: Error | null, items: WorkerListInstance) => any): Promise<WorkerInstance>;
+  create(opts: WorkerListInstanceCreateOptions, callback?: (error: Error | null, item: WorkerInstance) => any): Promise<WorkerInstance>;
   /**
    * Streams WorkerInstance records from the API.
    *

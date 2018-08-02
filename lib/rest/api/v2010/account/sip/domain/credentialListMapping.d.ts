@@ -30,7 +30,7 @@ interface CredentialListMappingListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: CredentialListMappingListInstanceCreateOptions, callback?: (error: Error | null, items: CredentialListMappingListInstance) => any): Promise<CredentialListMappingInstance>;
+  create(opts: CredentialListMappingListInstanceCreateOptions, callback?: (error: Error | null, item: CredentialListMappingInstance) => any): Promise<CredentialListMappingInstance>;
   /**
    * Streams CredentialListMappingInstance records from the API.
    *

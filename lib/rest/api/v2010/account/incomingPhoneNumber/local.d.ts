@@ -28,7 +28,7 @@ interface LocalListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: LocalListInstanceCreateOptions, callback?: (error: Error | null, items: LocalListInstance) => any): Promise<LocalInstance>;
+  create(opts: LocalListInstanceCreateOptions, callback?: (error: Error | null, item: LocalInstance) => any): Promise<LocalInstance>;
   /**
    * Streams LocalInstance records from the API.
    *

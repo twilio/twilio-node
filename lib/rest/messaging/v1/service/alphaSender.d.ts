@@ -30,7 +30,7 @@ interface AlphaSenderListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: AlphaSenderListInstanceCreateOptions, callback?: (error: Error | null, items: AlphaSenderListInstance) => any): Promise<AlphaSenderInstance>;
+  create(opts: AlphaSenderListInstanceCreateOptions, callback?: (error: Error | null, item: AlphaSenderInstance) => any): Promise<AlphaSenderInstance>;
   /**
    * Streams AlphaSenderInstance records from the API.
    *

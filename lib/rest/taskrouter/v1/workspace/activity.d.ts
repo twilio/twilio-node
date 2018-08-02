@@ -39,7 +39,7 @@ interface ActivityListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: ActivityListInstanceCreateOptions, callback?: (error: Error | null, items: ActivityListInstance) => any): Promise<ActivityInstance>;
+  create(opts: ActivityListInstanceCreateOptions, callback?: (error: Error | null, item: ActivityInstance) => any): Promise<ActivityInstance>;
   /**
    * Streams ActivityInstance records from the API.
    *

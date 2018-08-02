@@ -44,7 +44,7 @@ interface SampleListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: SampleListInstanceCreateOptions, callback?: (error: Error | null, items: SampleListInstance) => any): Promise<SampleInstance>;
+  create(opts: SampleListInstanceCreateOptions, callback?: (error: Error | null, item: SampleInstance) => any): Promise<SampleInstance>;
   /**
    * Streams SampleInstance records from the API.
    *

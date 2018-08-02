@@ -41,7 +41,7 @@ interface CertificateListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: CertificateListInstanceCreateOptions, callback?: (error: Error | null, items: CertificateListInstance) => any): Promise<CertificateInstance>;
+  create(opts: CertificateListInstanceCreateOptions, callback?: (error: Error | null, item: CertificateInstance) => any): Promise<CertificateInstance>;
   /**
    * Streams CertificateInstance records from the API.
    *

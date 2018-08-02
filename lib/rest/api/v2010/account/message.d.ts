@@ -49,7 +49,7 @@ interface MessageListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: MessageListInstanceCreateOptions, callback?: (error: Error | null, items: MessageListInstance) => any): Promise<MessageInstance>;
+  create(opts: MessageListInstanceCreateOptions, callback?: (error: Error | null, item: MessageInstance) => any): Promise<MessageInstance>;
   /**
    * Streams MessageInstance records from the API.
    *

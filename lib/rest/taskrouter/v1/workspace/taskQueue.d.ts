@@ -53,7 +53,7 @@ interface TaskQueueListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: TaskQueueListInstanceCreateOptions, callback?: (error: Error | null, items: TaskQueueListInstance) => any): Promise<TaskQueueInstance>;
+  create(opts: TaskQueueListInstanceCreateOptions, callback?: (error: Error | null, item: TaskQueueInstance) => any): Promise<TaskQueueInstance>;
   /**
    * Streams TaskQueueInstance records from the API.
    *

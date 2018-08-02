@@ -30,7 +30,7 @@ interface IpAccessControlListMappingListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: IpAccessControlListMappingListInstanceCreateOptions, callback?: (error: Error | null, items: IpAccessControlListMappingListInstance) => any): Promise<IpAccessControlListMappingInstance>;
+  create(opts: IpAccessControlListMappingListInstanceCreateOptions, callback?: (error: Error | null, item: IpAccessControlListMappingInstance) => any): Promise<IpAccessControlListMappingInstance>;
   /**
    * Streams IpAccessControlListMappingInstance records from the API.
    *

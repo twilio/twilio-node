@@ -53,7 +53,7 @@ interface AssistantListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: AssistantListInstanceCreateOptions, callback?: (error: Error | null, items: AssistantListInstance) => any): Promise<AssistantInstance>;
+  create(opts?: AssistantListInstanceCreateOptions, callback?: (error: Error | null, item: AssistantInstance) => any): Promise<AssistantInstance>;
   /**
    * Streams AssistantInstance records from the API.
    *

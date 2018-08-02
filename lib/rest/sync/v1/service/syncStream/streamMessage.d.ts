@@ -28,7 +28,7 @@ interface StreamMessageListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: StreamMessageListInstanceCreateOptions, callback?: (error: Error | null, items: StreamMessageListInstance) => any): Promise<StreamMessageInstance>;
+  create(opts: StreamMessageListInstanceCreateOptions, callback?: (error: Error | null, item: StreamMessageInstance) => any): Promise<StreamMessageInstance>;
 }
 
 /**

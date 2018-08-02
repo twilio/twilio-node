@@ -28,7 +28,7 @@ interface FeedbackListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: FeedbackListInstanceCreateOptions, callback?: (error: Error | null, items: FeedbackListInstance) => any): Promise<FeedbackInstance>;
+  create(opts?: FeedbackListInstanceCreateOptions, callback?: (error: Error | null, item: FeedbackInstance) => any): Promise<FeedbackInstance>;
 }
 
 /**

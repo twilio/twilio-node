@@ -161,7 +161,7 @@ declare class FeedbackContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: FeedbackInstanceCreateOptions, callback?: (error: Error | null, items: FeedbackInstance) => any): Promise<FeedbackInstance>;
+  create(opts: FeedbackInstanceCreateOptions, callback?: (error: Error | null, item: FeedbackInstance) => any): Promise<FeedbackInstance>;
   /**
    * fetch a FeedbackInstance
    *

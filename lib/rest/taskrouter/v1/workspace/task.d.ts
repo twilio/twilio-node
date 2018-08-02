@@ -50,7 +50,7 @@ interface TaskListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: TaskListInstanceCreateOptions, callback?: (error: Error | null, items: TaskListInstance) => any): Promise<TaskInstance>;
+  create(opts?: TaskListInstanceCreateOptions, callback?: (error: Error | null, item: TaskInstance) => any): Promise<TaskInstance>;
   /**
    * Streams TaskInstance records from the API.
    *

@@ -48,7 +48,7 @@ interface TriggerListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: TriggerListInstanceCreateOptions, callback?: (error: Error | null, items: TriggerListInstance) => any): Promise<TriggerInstance>;
+  create(opts: TriggerListInstanceCreateOptions, callback?: (error: Error | null, item: TriggerInstance) => any): Promise<TriggerInstance>;
   /**
    * Streams TriggerInstance records from the API.
    *

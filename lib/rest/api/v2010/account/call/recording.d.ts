@@ -44,7 +44,7 @@ interface RecordingListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: RecordingListInstanceCreateOptions, callback?: (error: Error | null, items: RecordingListInstance) => any): Promise<RecordingInstance>;
+  create(opts?: RecordingListInstanceCreateOptions, callback?: (error: Error | null, item: RecordingInstance) => any): Promise<RecordingInstance>;
   /**
    * Streams RecordingInstance records from the API.
    *

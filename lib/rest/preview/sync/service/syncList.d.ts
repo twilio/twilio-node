@@ -32,7 +32,7 @@ interface SyncListListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: SyncListListInstanceCreateOptions, callback?: (error: Error | null, items: SyncListListInstance) => any): Promise<SyncListInstance>;
+  create(opts?: SyncListListInstanceCreateOptions, callback?: (error: Error | null, item: SyncListInstance) => any): Promise<SyncListInstance>;
   /**
    * Streams SyncListInstance records from the API.
    *

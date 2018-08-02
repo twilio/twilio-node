@@ -25,7 +25,7 @@ interface ValidationRequestListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: ValidationRequestListInstanceCreateOptions, callback?: (error: Error | null, items: ValidationRequestListInstance) => any): Promise<ValidationRequestInstance>;
+  create(opts: ValidationRequestListInstanceCreateOptions, callback?: (error: Error | null, item: ValidationRequestInstance) => any): Promise<ValidationRequestInstance>;
 }
 
 /**

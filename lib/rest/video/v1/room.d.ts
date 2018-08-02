@@ -46,7 +46,7 @@ interface RoomListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: RoomListInstanceCreateOptions, callback?: (error: Error | null, items: RoomListInstance) => any): Promise<RoomInstance>;
+  create(opts?: RoomListInstanceCreateOptions, callback?: (error: Error | null, item: RoomInstance) => any): Promise<RoomInstance>;
   /**
    * Streams RoomInstance records from the API.
    *

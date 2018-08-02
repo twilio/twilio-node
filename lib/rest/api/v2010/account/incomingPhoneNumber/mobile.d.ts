@@ -28,7 +28,7 @@ interface MobileListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: MobileListInstanceCreateOptions, callback?: (error: Error | null, items: MobileListInstance) => any): Promise<MobileInstance>;
+  create(opts: MobileListInstanceCreateOptions, callback?: (error: Error | null, item: MobileInstance) => any): Promise<MobileInstance>;
   /**
    * Streams MobileInstance records from the API.
    *

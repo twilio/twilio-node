@@ -46,7 +46,7 @@ interface ServiceListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: ServiceListInstanceCreateOptions, callback?: (error: Error | null, items: ServiceListInstance) => any): Promise<ServiceInstance>;
+  create(opts?: ServiceListInstanceCreateOptions, callback?: (error: Error | null, item: ServiceInstance) => any): Promise<ServiceInstance>;
   /**
    * Streams ServiceInstance records from the API.
    *

@@ -47,7 +47,7 @@ interface SyncMapItemListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: SyncMapItemListInstanceCreateOptions, callback?: (error: Error | null, items: SyncMapItemListInstance) => any): Promise<SyncMapItemInstance>;
+  create(opts: SyncMapItemListInstanceCreateOptions, callback?: (error: Error | null, item: SyncMapItemInstance) => any): Promise<SyncMapItemInstance>;
   /**
    * Streams SyncMapItemInstance records from the API.
    *

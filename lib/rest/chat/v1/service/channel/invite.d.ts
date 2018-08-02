@@ -31,7 +31,7 @@ interface InviteListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: InviteListInstanceCreateOptions, callback?: (error: Error | null, items: InviteListInstance) => any): Promise<InviteInstance>;
+  create(opts: InviteListInstanceCreateOptions, callback?: (error: Error | null, item: InviteInstance) => any): Promise<InviteInstance>;
   /**
    * Streams InviteInstance records from the API.
    *

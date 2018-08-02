@@ -43,7 +43,7 @@ interface IpAddressListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: IpAddressListInstanceCreateOptions, callback?: (error: Error | null, items: IpAddressListInstance) => any): Promise<IpAddressInstance>;
+  create(opts: IpAddressListInstanceCreateOptions, callback?: (error: Error | null, item: IpAddressInstance) => any): Promise<IpAddressInstance>;
   /**
    * Streams IpAddressInstance records from the API.
    *

@@ -54,7 +54,7 @@ interface SessionListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts?: SessionListInstanceCreateOptions, callback?: (error: Error | null, items: SessionListInstance) => any): Promise<SessionInstance>;
+  create(opts?: SessionListInstanceCreateOptions, callback?: (error: Error | null, item: SessionInstance) => any): Promise<SessionInstance>;
   /**
    * Streams SessionInstance records from the API.
    *

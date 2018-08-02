@@ -33,7 +33,7 @@ interface BindingListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  create(opts: BindingListInstanceCreateOptions, callback?: (error: Error | null, items: BindingListInstance) => any): Promise<BindingInstance>;
+  create(opts: BindingListInstanceCreateOptions, callback?: (error: Error | null, item: BindingInstance) => any): Promise<BindingInstance>;
   /**
    * Streams BindingInstance records from the API.
    *
