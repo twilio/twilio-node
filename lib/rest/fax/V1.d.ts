@@ -20,7 +20,7 @@ declare class V1 extends Version {
    */
   constructor(domain: Fax);
 
-  readonly faxes: FaxList;
+  readonly faxes: FaxListInstance;
 }
 
 export = V1;

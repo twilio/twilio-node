@@ -24,9 +24,9 @@ declare class V1 extends Version {
    */
   constructor(domain: Wireless);
 
-  readonly commands: CommandList;
-  readonly ratePlans: RatePlanList;
-  readonly sims: SimList;
+  readonly commands: CommandListInstance;
+  readonly ratePlans: RatePlanListInstance;
+  readonly sims: SimListInstance;
 }
 
 export = V1;

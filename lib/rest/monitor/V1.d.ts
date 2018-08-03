@@ -22,8 +22,8 @@ declare class V1 extends Version {
    */
   constructor(domain: Monitor);
 
-  readonly alerts: AlertList;
-  readonly events: EventList;
+  readonly alerts: AlertListInstance;
+  readonly events: EventListInstance;
 }
 
 export = V1;

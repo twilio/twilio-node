@@ -20,7 +20,7 @@ declare class V1 extends Version {
    */
   constructor(domain: Taskrouter);
 
-  readonly workspaces: WorkspaceList;
+  readonly workspaces: WorkspaceListInstance;
 }
 
 export = V1;

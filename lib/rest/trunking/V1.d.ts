@@ -20,7 +20,7 @@ declare class V1 extends Version {
    */
   constructor(domain: Trunking);
 
-  readonly trunks: TrunkList;
+  readonly trunks: TrunkListInstance;
 }
 
 export = V1;

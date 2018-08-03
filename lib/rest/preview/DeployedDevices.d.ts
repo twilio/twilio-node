@@ -20,7 +20,7 @@ declare class DeployedDevices extends Version {
    */
   constructor(domain: Preview);
 
-  readonly fleets: FleetList;
+  readonly fleets: FleetListInstance;
 }
 
 export = DeployedDevices;

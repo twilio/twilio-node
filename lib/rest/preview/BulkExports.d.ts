@@ -22,8 +22,8 @@ declare class BulkExports extends Version {
    */
   constructor(domain: Preview);
 
-  readonly exportConfiguration: ExportConfigurationList;
-  readonly exports: ExportList;
+  readonly exportConfiguration: ExportConfigurationListInstance;
+  readonly exports: ExportListInstance;
 }
 
 export = BulkExports;

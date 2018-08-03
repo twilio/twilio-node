@@ -20,7 +20,7 @@ declare class V1 extends Version {
    */
   constructor(domain: Proxy);
 
-  readonly services: ServiceList;
+  readonly services: ServiceListInstance;
 }
 
 export = V1;

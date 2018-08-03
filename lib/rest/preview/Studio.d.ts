@@ -20,7 +20,7 @@ declare class Studio extends Version {
    */
   constructor(domain: Preview);
 
-  readonly flows: FlowList;
+  readonly flows: FlowListInstance;
 }
 
 export = Studio;

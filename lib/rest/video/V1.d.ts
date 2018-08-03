@@ -28,11 +28,11 @@ declare class V1 extends Version {
    */
   constructor(domain: Video);
 
-  readonly compositionSettings: CompositionSettingsList;
-  readonly compositions: CompositionList;
-  readonly recordingSettings: RecordingSettingsList;
-  readonly recordings: RecordingList;
-  readonly rooms: RoomList;
+  readonly compositionSettings: CompositionSettingsListInstance;
+  readonly compositions: CompositionListInstance;
+  readonly recordingSettings: RecordingSettingsListInstance;
+  readonly recordings: RecordingListInstance;
+  readonly rooms: RoomListInstance;
 }
 
 export = V1;

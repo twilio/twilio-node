@@ -22,8 +22,8 @@ declare class HostedNumbers extends Version {
    */
   constructor(domain: Preview);
 
-  readonly authorizationDocuments: AuthorizationDocumentList;
-  readonly hostedNumberOrders: HostedNumberOrderList;
+  readonly authorizationDocuments: AuthorizationDocumentListInstance;
+  readonly hostedNumberOrders: HostedNumberOrderListInstance;
 }
 
 export = HostedNumbers;

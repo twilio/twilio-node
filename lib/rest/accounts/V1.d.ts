@@ -20,7 +20,7 @@ declare class V1 extends Version {
    */
   constructor(domain: Accounts);
 
-  readonly credentials: CredentialList;
+  readonly credentials: CredentialListInstance;
 }
 
 export = V1;

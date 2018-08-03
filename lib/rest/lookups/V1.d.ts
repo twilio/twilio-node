@@ -20,7 +20,7 @@ declare class V1 extends Version {
    */
   constructor(domain: Lookups);
 
-  readonly phoneNumbers: PhoneNumberList;
+  readonly phoneNumbers: PhoneNumberListInstance;
 }
 
 export = V1;

@@ -20,7 +20,7 @@ declare class Sync extends Version {
    */
   constructor(domain: Preview);
 
-  readonly services: ServiceList;
+  readonly services: ServiceListInstance;
 }
 
 export = Sync;

@@ -24,9 +24,9 @@ declare class Wireless extends Version {
    */
   constructor(domain: Preview);
 
-  readonly commands: CommandList;
-  readonly ratePlans: RatePlanList;
-  readonly sims: SimList;
+  readonly commands: CommandListInstance;
+  readonly ratePlans: RatePlanListInstance;
+  readonly sims: SimListInstance;
 }
 
 export = Wireless;

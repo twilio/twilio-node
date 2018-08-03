@@ -20,7 +20,7 @@ declare class Understand extends Version {
    */
   constructor(domain: Preview);
 
-  readonly assistants: AssistantList;
+  readonly assistants: AssistantListInstance;
 }
 
 export = Understand;

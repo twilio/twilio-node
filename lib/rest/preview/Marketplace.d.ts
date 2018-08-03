@@ -22,8 +22,8 @@ declare class Marketplace extends Version {
    */
   constructor(domain: Preview);
 
-  readonly availableAddOns: AvailableAddOnList;
-  readonly installedAddOns: InstalledAddOnList;
+  readonly availableAddOns: AvailableAddOnListInstance;
+  readonly installedAddOns: InstalledAddOnListInstance;
 }
 
 export = Marketplace;

@@ -24,9 +24,9 @@ declare class V1 extends Version {
    */
   constructor(domain: Pricing);
 
-  readonly messaging: MessagingList;
-  readonly phoneNumbers: PhoneNumberList;
-  readonly voice: VoiceList;
+  readonly messaging: MessagingListInstance;
+  readonly phoneNumbers: PhoneNumberListInstance;
+  readonly voice: VoiceListInstance;
 }
 
 export = V1;

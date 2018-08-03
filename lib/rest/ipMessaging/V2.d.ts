@@ -22,8 +22,8 @@ declare class V2 extends Version {
    */
   constructor(domain: IpMessaging);
 
-  readonly credentials: CredentialList;
-  readonly services: ServiceList;
+  readonly credentials: CredentialListInstance;
+  readonly services: ServiceListInstance;
 }
 
 export = V2;
