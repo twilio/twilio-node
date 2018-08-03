@@ -280,13 +280,13 @@ declare class InstalledAddOnContext {
    */
   constructor(version: Marketplace, sid: string);
 
-  extensions?: InstalledAddOnExtensionListInstance;
+  extensions: InstalledAddOnExtensionListInstance;
   /**
    * fetch a InstalledAddOnInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: InstalledAddOnInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: InstalledAddOnInstance) => any): Promise<InstalledAddOnInstance>;
   /**
    * remove a InstalledAddOnInstance
    *
@@ -299,7 +299,7 @@ declare class InstalledAddOnContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: InstalledAddOnInstanceUpdateOptions, callback?: (error: Error | null, items: InstalledAddOnInstance) => any): void;
+  update(opts?: InstalledAddOnInstanceUpdateOptions, callback?: (error: Error | null, items: InstalledAddOnInstance) => any): Promise<InstalledAddOnInstance>;
 }
 
 export { InstalledAddOnContext, InstalledAddOnInstance, InstalledAddOnList, InstalledAddOnListInstance, InstalledAddOnListInstanceCreateOptions, InstalledAddOnListInstanceEachOptions, InstalledAddOnListInstanceOptions, InstalledAddOnListInstancePageOptions, InstalledAddOnPage, InstalledAddOnPayload, InstalledAddOnResource, InstalledAddOnSolution }

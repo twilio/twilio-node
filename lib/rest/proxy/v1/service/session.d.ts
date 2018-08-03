@@ -340,9 +340,9 @@ declare class SessionContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: SessionInstance) => any): void;
-  interactions?: InteractionListInstance;
-  participants?: ParticipantListInstance;
+  fetch(callback?: (error: Error | null, items: SessionInstance) => any): Promise<SessionInstance>;
+  interactions: InteractionListInstance;
+  participants: ParticipantListInstance;
   /**
    * remove a SessionInstance
    *
@@ -355,7 +355,7 @@ declare class SessionContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: SessionInstanceUpdateOptions, callback?: (error: Error | null, items: SessionInstance) => any): void;
+  update(opts?: SessionInstanceUpdateOptions, callback?: (error: Error | null, items: SessionInstance) => any): Promise<SessionInstance>;
 }
 
 export { SessionContext, SessionInstance, SessionList, SessionListInstance, SessionListInstanceCreateOptions, SessionListInstanceEachOptions, SessionListInstanceOptions, SessionListInstancePageOptions, SessionPage, SessionPayload, SessionResource, SessionSolution }

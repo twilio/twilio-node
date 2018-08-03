@@ -275,7 +275,7 @@ declare class AlertContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AlertInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: AlertInstance) => any): Promise<AlertInstance>;
   /**
    * remove a AlertInstance
    *

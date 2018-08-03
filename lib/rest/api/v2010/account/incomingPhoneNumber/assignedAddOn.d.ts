@@ -266,13 +266,13 @@ declare class AssignedAddOnContext {
    */
   constructor(version: V2010, accountSid: string, resourceSid: string, sid: string);
 
-  extensions?: AssignedAddOnExtensionListInstance;
+  extensions: AssignedAddOnExtensionListInstance;
   /**
    * fetch a AssignedAddOnInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AssignedAddOnInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: AssignedAddOnInstance) => any): Promise<AssignedAddOnInstance>;
   /**
    * remove a AssignedAddOnInstance
    *

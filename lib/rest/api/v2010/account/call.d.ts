@@ -459,15 +459,15 @@ declare class CallContext {
    */
   constructor(version: V2010, accountSid: string, sid: string);
 
-  feedback?: FeedbackListInstance;
+  feedback: FeedbackListInstance;
   /**
    * fetch a CallInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CallInstance) => any): void;
-  notifications?: NotificationListInstance;
-  recordings?: RecordingListInstance;
+  fetch(callback?: (error: Error | null, items: CallInstance) => any): Promise<CallInstance>;
+  notifications: NotificationListInstance;
+  recordings: RecordingListInstance;
   /**
    * remove a CallInstance
    *
@@ -480,7 +480,7 @@ declare class CallContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: CallInstanceUpdateOptions, callback?: (error: Error | null, items: CallInstance) => any): void;
+  update(opts?: CallInstanceUpdateOptions, callback?: (error: Error | null, items: CallInstance) => any): Promise<CallInstance>;
 }
 
 export { CallContext, CallInstance, CallList, CallListInstance, CallListInstanceCreateOptions, CallListInstanceEachOptions, CallListInstanceOptions, CallListInstancePageOptions, CallPage, CallPayload, CallResource, CallSolution }

@@ -280,7 +280,7 @@ declare class ActivityContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ActivityInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: ActivityInstance) => any): Promise<ActivityInstance>;
   /**
    * remove a ActivityInstance
    *
@@ -293,7 +293,7 @@ declare class ActivityContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ActivityInstanceUpdateOptions, callback?: (error: Error | null, items: ActivityInstance) => any): void;
+  update(opts?: ActivityInstanceUpdateOptions, callback?: (error: Error | null, items: ActivityInstance) => any): Promise<ActivityInstance>;
 }
 
 export { ActivityContext, ActivityInstance, ActivityList, ActivityListInstance, ActivityListInstanceCreateOptions, ActivityListInstanceEachOptions, ActivityListInstanceOptions, ActivityListInstancePageOptions, ActivityPage, ActivityPayload, ActivityResource, ActivitySolution }

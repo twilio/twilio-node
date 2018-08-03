@@ -295,23 +295,23 @@ declare class IntentContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: IntentInstance) => any): void;
-  fields?: FieldListInstance;
+  fetch(callback?: (error: Error | null, items: IntentInstance) => any): Promise<IntentInstance>;
+  fields: FieldListInstance;
   /**
    * remove a IntentInstance
    *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: IntentInstance) => any): void;
-  samples?: SampleListInstance;
-  statistics?: IntentStatisticsListInstance;
+  samples: SampleListInstance;
+  statistics: IntentStatisticsListInstance;
   /**
    * update a IntentInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: IntentInstanceUpdateOptions, callback?: (error: Error | null, items: IntentInstance) => any): void;
+  update(opts?: IntentInstanceUpdateOptions, callback?: (error: Error | null, items: IntentInstance) => any): Promise<IntentInstance>;
 }
 
 export { IntentContext, IntentInstance, IntentList, IntentListInstance, IntentListInstanceCreateOptions, IntentListInstanceEachOptions, IntentListInstanceOptions, IntentListInstancePageOptions, IntentPage, IntentPayload, IntentResource, IntentSolution }

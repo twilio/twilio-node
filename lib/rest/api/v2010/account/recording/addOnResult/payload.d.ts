@@ -250,7 +250,7 @@ declare class PayloadContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: PayloadInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: PayloadInstance) => any): Promise<PayloadInstance>;
   /**
    * remove a PayloadInstance
    *

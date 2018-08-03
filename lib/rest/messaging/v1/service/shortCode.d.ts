@@ -253,7 +253,7 @@ declare class ShortCodeContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ShortCodeInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: ShortCodeInstance) => any): Promise<ShortCodeInstance>;
   /**
    * remove a ShortCodeInstance
    *

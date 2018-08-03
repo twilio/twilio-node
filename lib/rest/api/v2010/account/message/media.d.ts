@@ -253,7 +253,7 @@ declare class MediaContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: MediaInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: MediaInstance) => any): Promise<MediaInstance>;
   /**
    * remove a MediaInstance
    *

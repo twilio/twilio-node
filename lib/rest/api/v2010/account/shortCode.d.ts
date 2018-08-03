@@ -277,14 +277,14 @@ declare class ShortCodeContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ShortCodeInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: ShortCodeInstance) => any): Promise<ShortCodeInstance>;
   /**
    * update a ShortCodeInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ShortCodeInstanceUpdateOptions, callback?: (error: Error | null, items: ShortCodeInstance) => any): void;
+  update(opts?: ShortCodeInstanceUpdateOptions, callback?: (error: Error | null, items: ShortCodeInstance) => any): Promise<ShortCodeInstance>;
 }
 
 export { ShortCodeContext, ShortCodeInstance, ShortCodeList, ShortCodeListInstance, ShortCodeListInstanceEachOptions, ShortCodeListInstanceOptions, ShortCodeListInstancePageOptions, ShortCodePage, ShortCodePayload, ShortCodeResource, ShortCodeSolution }

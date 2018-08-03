@@ -244,7 +244,7 @@ declare class AuthRegistrationsCredentialListMappingContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AuthRegistrationsCredentialListMappingInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: AuthRegistrationsCredentialListMappingInstance) => any): Promise<AuthRegistrationsCredentialListMappingInstance>;
   /**
    * remove a AuthRegistrationsCredentialListMappingInstance
    *

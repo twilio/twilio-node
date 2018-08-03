@@ -270,7 +270,7 @@ declare class DeploymentContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: DeploymentInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: DeploymentInstance) => any): Promise<DeploymentInstance>;
   /**
    * remove a DeploymentInstance
    *
@@ -283,7 +283,7 @@ declare class DeploymentContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: DeploymentInstanceUpdateOptions, callback?: (error: Error | null, items: DeploymentInstance) => any): void;
+  update(opts?: DeploymentInstanceUpdateOptions, callback?: (error: Error | null, items: DeploymentInstance) => any): Promise<DeploymentInstance>;
 }
 
 export { DeploymentContext, DeploymentInstance, DeploymentList, DeploymentListInstance, DeploymentListInstanceCreateOptions, DeploymentListInstanceEachOptions, DeploymentListInstanceOptions, DeploymentListInstancePageOptions, DeploymentPage, DeploymentPayload, DeploymentResource, DeploymentSolution }

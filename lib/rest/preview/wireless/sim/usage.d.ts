@@ -140,7 +140,7 @@ declare class UsageContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: UsageInstanceFetchOptions, callback?: (error: Error | null, items: UsageInstance) => any): void;
+  fetch(opts?: UsageInstanceFetchOptions, callback?: (error: Error | null, items: UsageInstance) => any): Promise<UsageInstance>;
 }
 
 export { UsageContext, UsageInstance, UsageList, UsageListInstance, UsagePage, UsagePayload, UsageResource, UsageSolution }

@@ -178,7 +178,7 @@ declare class FeedbackSummaryContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: FeedbackSummaryInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: FeedbackSummaryInstance) => any): Promise<FeedbackSummaryInstance>;
   /**
    * remove a FeedbackSummaryInstance
    *

@@ -259,7 +259,7 @@ declare class AwsContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AwsInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: AwsInstance) => any): Promise<AwsInstance>;
   /**
    * remove a AwsInstance
    *
@@ -272,7 +272,7 @@ declare class AwsContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: AwsInstanceUpdateOptions, callback?: (error: Error | null, items: AwsInstance) => any): void;
+  update(opts?: AwsInstanceUpdateOptions, callback?: (error: Error | null, items: AwsInstance) => any): Promise<AwsInstance>;
 }
 
 export { AwsContext, AwsInstance, AwsList, AwsListInstance, AwsListInstanceCreateOptions, AwsListInstanceEachOptions, AwsListInstanceOptions, AwsListInstancePageOptions, AwsPage, AwsPayload, AwsResource, AwsSolution }

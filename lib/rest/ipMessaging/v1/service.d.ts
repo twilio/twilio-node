@@ -502,28 +502,28 @@ declare class ServiceContext {
    */
   constructor(version: V1, sid: string);
 
-  channels?: ChannelListInstance;
+  channels: ChannelListInstance;
   /**
    * fetch a ServiceInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ServiceInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance>;
   /**
    * remove a ServiceInstance
    *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: ServiceInstance) => any): void;
-  roles?: RoleListInstance;
+  roles: RoleListInstance;
   /**
    * update a ServiceInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ServiceInstanceUpdateOptions, callback?: (error: Error | null, items: ServiceInstance) => any): void;
-  users?: UserListInstance;
+  update(opts?: ServiceInstanceUpdateOptions, callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance>;
+  users: UserListInstance;
 }
 
 export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServiceListInstanceCreateOptions, ServiceListInstanceEachOptions, ServiceListInstanceOptions, ServiceListInstancePageOptions, ServicePage, ServicePayload, ServiceResource, ServiceSolution }

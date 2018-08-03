@@ -253,8 +253,8 @@ declare class AddOnResultContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AddOnResultInstance) => any): void;
-  payloads?: PayloadListInstance;
+  fetch(callback?: (error: Error | null, items: AddOnResultInstance) => any): Promise<AddOnResultInstance>;
+  payloads: PayloadListInstance;
   /**
    * remove a AddOnResultInstance
    *

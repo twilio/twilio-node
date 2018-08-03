@@ -269,14 +269,14 @@ declare class ConnectAppContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ConnectAppInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: ConnectAppInstance) => any): Promise<ConnectAppInstance>;
   /**
    * update a ConnectAppInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ConnectAppInstanceUpdateOptions, callback?: (error: Error | null, items: ConnectAppInstance) => any): void;
+  update(opts?: ConnectAppInstanceUpdateOptions, callback?: (error: Error | null, items: ConnectAppInstance) => any): Promise<ConnectAppInstance>;
 }
 
 export { ConnectAppContext, ConnectAppInstance, ConnectAppList, ConnectAppListInstance, ConnectAppListInstanceEachOptions, ConnectAppListInstanceOptions, ConnectAppListInstancePageOptions, ConnectAppPage, ConnectAppPayload, ConnectAppResource, ConnectAppSolution }

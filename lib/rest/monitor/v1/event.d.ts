@@ -278,7 +278,7 @@ declare class EventContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: EventInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: EventInstance) => any): Promise<EventInstance>;
 }
 
 export { EventContext, EventInstance, EventList, EventListInstance, EventListInstanceEachOptions, EventListInstanceOptions, EventListInstancePageOptions, EventPage, EventPayload, EventResource, EventSolution }

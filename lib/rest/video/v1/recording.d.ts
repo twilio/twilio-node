@@ -286,7 +286,7 @@ declare class RecordingContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: RecordingInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: RecordingInstance) => any): Promise<RecordingInstance>;
   /**
    * remove a RecordingInstance
    *

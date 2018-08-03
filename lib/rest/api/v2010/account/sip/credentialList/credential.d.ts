@@ -268,7 +268,7 @@ declare class CredentialContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CredentialInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: CredentialInstance) => any): Promise<CredentialInstance>;
   /**
    * remove a CredentialInstance
    *
@@ -281,7 +281,7 @@ declare class CredentialContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: CredentialInstanceUpdateOptions, callback?: (error: Error | null, items: CredentialInstance) => any): void;
+  update(opts?: CredentialInstanceUpdateOptions, callback?: (error: Error | null, items: CredentialInstance) => any): Promise<CredentialInstance>;
 }
 
 export { CredentialContext, CredentialInstance, CredentialList, CredentialListInstance, CredentialListInstanceCreateOptions, CredentialListInstanceEachOptions, CredentialListInstanceOptions, CredentialListInstancePageOptions, CredentialPage, CredentialPayload, CredentialResource, CredentialSolution }

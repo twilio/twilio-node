@@ -308,29 +308,29 @@ declare class ServiceContext {
    */
   constructor(version: V1, sid: string);
 
-  documents?: DocumentListInstance;
+  documents: DocumentListInstance;
   /**
    * fetch a ServiceInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ServiceInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance>;
   /**
    * remove a ServiceInstance
    *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: ServiceInstance) => any): void;
-  syncLists?: SyncListListInstance;
-  syncMaps?: SyncMapListInstance;
-  syncStreams?: SyncStreamListInstance;
+  syncLists: SyncListListInstance;
+  syncMaps: SyncMapListInstance;
+  syncStreams: SyncStreamListInstance;
   /**
    * update a ServiceInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ServiceInstanceUpdateOptions, callback?: (error: Error | null, items: ServiceInstance) => any): void;
+  update(opts?: ServiceInstanceUpdateOptions, callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance>;
 }
 
 export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServiceListInstanceCreateOptions, ServiceListInstanceEachOptions, ServiceListInstanceOptions, ServiceListInstancePageOptions, ServicePage, ServicePayload, ServiceResource, ServiceSolution }

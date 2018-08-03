@@ -364,7 +364,7 @@ declare class ApplicationContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ApplicationInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: ApplicationInstance) => any): Promise<ApplicationInstance>;
   /**
    * remove a ApplicationInstance
    *
@@ -377,7 +377,7 @@ declare class ApplicationContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ApplicationInstanceUpdateOptions, callback?: (error: Error | null, items: ApplicationInstance) => any): void;
+  update(opts?: ApplicationInstanceUpdateOptions, callback?: (error: Error | null, items: ApplicationInstance) => any): Promise<ApplicationInstance>;
 }
 
 export { ApplicationContext, ApplicationInstance, ApplicationList, ApplicationListInstance, ApplicationListInstanceCreateOptions, ApplicationListInstanceEachOptions, ApplicationListInstanceOptions, ApplicationListInstancePageOptions, ApplicationPage, ApplicationPayload, ApplicationResource, ApplicationSolution }

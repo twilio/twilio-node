@@ -436,42 +436,42 @@ declare class AccountContext {
    */
   constructor(version: V2010, sid: string);
 
-  addresses?: AddressListInstance;
-  applications?: ApplicationListInstance;
-  authorizedConnectApps?: AuthorizedConnectAppListInstance;
-  availablePhoneNumbers?: AvailablePhoneNumberCountryListInstance;
-  calls?: CallListInstance;
-  conferences?: ConferenceListInstance;
-  connectApps?: ConnectAppListInstance;
+  addresses: AddressListInstance;
+  applications: ApplicationListInstance;
+  authorizedConnectApps: AuthorizedConnectAppListInstance;
+  availablePhoneNumbers: AvailablePhoneNumberCountryListInstance;
+  calls: CallListInstance;
+  conferences: ConferenceListInstance;
+  connectApps: ConnectAppListInstance;
   /**
    * fetch a AccountInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AccountInstance) => any): void;
-  incomingPhoneNumbers?: IncomingPhoneNumberListInstance;
-  keys?: KeyListInstance;
-  messages?: MessageListInstance;
-  newKeys?: NewKeyListInstance;
-  newSigningKeys?: NewSigningKeyListInstance;
-  notifications?: NotificationListInstance;
-  outgoingCallerIds?: OutgoingCallerIdListInstance;
-  queues?: QueueListInstance;
-  recordings?: RecordingListInstance;
-  shortCodes?: ShortCodeListInstance;
-  signingKeys?: SigningKeyListInstance;
-  sip?: SipListInstance;
-  tokens?: TokenListInstance;
-  transcriptions?: TranscriptionListInstance;
+  fetch(callback?: (error: Error | null, items: AccountInstance) => any): Promise<AccountInstance>;
+  incomingPhoneNumbers: IncomingPhoneNumberListInstance;
+  keys: KeyListInstance;
+  messages: MessageListInstance;
+  newKeys: NewKeyListInstance;
+  newSigningKeys: NewSigningKeyListInstance;
+  notifications: NotificationListInstance;
+  outgoingCallerIds: OutgoingCallerIdListInstance;
+  queues: QueueListInstance;
+  recordings: RecordingListInstance;
+  shortCodes: ShortCodeListInstance;
+  signingKeys: SigningKeyListInstance;
+  sip: SipListInstance;
+  tokens: TokenListInstance;
+  transcriptions: TranscriptionListInstance;
   /**
    * update a AccountInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: AccountInstanceUpdateOptions, callback?: (error: Error | null, items: AccountInstance) => any): void;
-  usage?: UsageListInstance;
-  validationRequests?: ValidationRequestListInstance;
+  update(opts?: AccountInstanceUpdateOptions, callback?: (error: Error | null, items: AccountInstance) => any): Promise<AccountInstance>;
+  usage: UsageListInstance;
+  validationRequests: ValidationRequestListInstance;
 }
 
 export { AccountContext, AccountInstance, AccountList, AccountListInstance, AccountListInstanceCreateOptions, AccountListInstanceEachOptions, AccountListInstanceOptions, AccountListInstancePageOptions, AccountPage, AccountPayload, AccountResource, AccountSolution }

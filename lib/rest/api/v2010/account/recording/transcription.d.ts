@@ -254,7 +254,7 @@ declare class TranscriptionContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: TranscriptionInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: TranscriptionInstance) => any): Promise<TranscriptionInstance>;
   /**
    * remove a TranscriptionInstance
    *

@@ -227,7 +227,7 @@ declare class TaskChannelContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: TaskChannelInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: TaskChannelInstance) => any): Promise<TaskChannelInstance>;
 }
 
 export { TaskChannelContext, TaskChannelInstance, TaskChannelList, TaskChannelListInstance, TaskChannelListInstanceEachOptions, TaskChannelListInstanceOptions, TaskChannelListInstancePageOptions, TaskChannelPage, TaskChannelPayload, TaskChannelResource, TaskChannelSolution }

@@ -289,8 +289,8 @@ declare class ParticipantContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ParticipantInstance) => any): void;
-  messageInteractions?: MessageInteractionListInstance;
+  fetch(callback?: (error: Error | null, items: ParticipantInstance) => any): Promise<ParticipantInstance>;
+  messageInteractions: MessageInteractionListInstance;
   /**
    * remove a ParticipantInstance
    *

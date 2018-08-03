@@ -268,14 +268,14 @@ declare class AvailablePhoneNumberCountryContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AvailablePhoneNumberCountryInstance) => any): void;
-  local?: LocalListInstance;
-  machineToMachine?: MachineToMachineListInstance;
-  mobile?: MobileListInstance;
-  national?: NationalListInstance;
-  sharedCost?: SharedCostListInstance;
-  tollFree?: TollFreeListInstance;
-  voip?: VoipListInstance;
+  fetch(callback?: (error: Error | null, items: AvailablePhoneNumberCountryInstance) => any): Promise<AvailablePhoneNumberCountryInstance>;
+  local: LocalListInstance;
+  machineToMachine: MachineToMachineListInstance;
+  mobile: MobileListInstance;
+  national: NationalListInstance;
+  sharedCost: SharedCostListInstance;
+  tollFree: TollFreeListInstance;
+  voip: VoipListInstance;
 }
 
 export { AvailablePhoneNumberCountryContext, AvailablePhoneNumberCountryInstance, AvailablePhoneNumberCountryList, AvailablePhoneNumberCountryListInstance, AvailablePhoneNumberCountryListInstanceEachOptions, AvailablePhoneNumberCountryListInstanceOptions, AvailablePhoneNumberCountryListInstancePageOptions, AvailablePhoneNumberCountryPage, AvailablePhoneNumberCountryPayload, AvailablePhoneNumberCountryResource, AvailablePhoneNumberCountrySolution }

@@ -259,7 +259,7 @@ declare class FieldContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: FieldInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: FieldInstance) => any): Promise<FieldInstance>;
   /**
    * remove a FieldInstance
    *

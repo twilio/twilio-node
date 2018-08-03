@@ -319,28 +319,28 @@ declare class WorkflowContext {
    */
   constructor(version: V1, workspaceSid: string, sid: string);
 
-  cumulativeStatistics?: WorkflowCumulativeStatisticsListInstance;
+  cumulativeStatistics: WorkflowCumulativeStatisticsListInstance;
   /**
    * fetch a WorkflowInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: WorkflowInstance) => any): void;
-  realTimeStatistics?: WorkflowRealTimeStatisticsListInstance;
+  fetch(callback?: (error: Error | null, items: WorkflowInstance) => any): Promise<WorkflowInstance>;
+  realTimeStatistics: WorkflowRealTimeStatisticsListInstance;
   /**
    * remove a WorkflowInstance
    *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: WorkflowInstance) => any): void;
-  statistics?: WorkflowStatisticsListInstance;
+  statistics: WorkflowStatisticsListInstance;
   /**
    * update a WorkflowInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: WorkflowInstanceUpdateOptions, callback?: (error: Error | null, items: WorkflowInstance) => any): void;
+  update(opts?: WorkflowInstanceUpdateOptions, callback?: (error: Error | null, items: WorkflowInstance) => any): Promise<WorkflowInstance>;
 }
 
 export { WorkflowContext, WorkflowInstance, WorkflowList, WorkflowListInstance, WorkflowListInstanceCreateOptions, WorkflowListInstanceEachOptions, WorkflowListInstanceOptions, WorkflowListInstancePageOptions, WorkflowPage, WorkflowPayload, WorkflowResource, WorkflowSolution }

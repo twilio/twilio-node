@@ -245,14 +245,14 @@ declare class FlowContext {
    */
   constructor(version: V1, sid: string);
 
-  engagements?: EngagementListInstance;
-  executions?: ExecutionListInstance;
+  engagements: EngagementListInstance;
+  executions: ExecutionListInstance;
   /**
    * fetch a FlowInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: FlowInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: FlowInstance) => any): Promise<FlowInstance>;
   /**
    * remove a FlowInstance
    *

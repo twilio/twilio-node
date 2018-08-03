@@ -281,8 +281,8 @@ declare class FieldTypeContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: FieldTypeInstance) => any): void;
-  fieldValues?: FieldValueListInstance;
+  fetch(callback?: (error: Error | null, items: FieldTypeInstance) => any): Promise<FieldTypeInstance>;
+  fieldValues: FieldValueListInstance;
   /**
    * remove a FieldTypeInstance
    *
@@ -295,7 +295,7 @@ declare class FieldTypeContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: FieldTypeInstanceUpdateOptions, callback?: (error: Error | null, items: FieldTypeInstance) => any): void;
+  update(opts?: FieldTypeInstanceUpdateOptions, callback?: (error: Error | null, items: FieldTypeInstance) => any): Promise<FieldTypeInstance>;
 }
 
 export { FieldTypeContext, FieldTypeInstance, FieldTypeList, FieldTypeListInstance, FieldTypeListInstanceCreateOptions, FieldTypeListInstanceEachOptions, FieldTypeListInstanceOptions, FieldTypeListInstancePageOptions, FieldTypePage, FieldTypePayload, FieldTypeResource, FieldTypeSolution }

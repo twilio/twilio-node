@@ -119,7 +119,7 @@ declare class ExecutionContextContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ExecutionContextInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: ExecutionContextInstance) => any): Promise<ExecutionContextInstance>;
 }
 
 export { ExecutionContextContext, ExecutionContextInstance, ExecutionContextList, ExecutionContextListInstance, ExecutionContextPage, ExecutionContextPayload, ExecutionContextResource, ExecutionContextSolution }

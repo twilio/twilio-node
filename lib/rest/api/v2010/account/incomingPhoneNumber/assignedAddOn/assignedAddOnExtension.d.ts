@@ -239,7 +239,7 @@ declare class AssignedAddOnExtensionContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AssignedAddOnExtensionInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: AssignedAddOnExtensionInstance) => any): Promise<AssignedAddOnExtensionInstance>;
 }
 
 export { AssignedAddOnExtensionContext, AssignedAddOnExtensionInstance, AssignedAddOnExtensionList, AssignedAddOnExtensionListInstance, AssignedAddOnExtensionListInstanceEachOptions, AssignedAddOnExtensionListInstanceOptions, AssignedAddOnExtensionListInstancePageOptions, AssignedAddOnExtensionPage, AssignedAddOnExtensionPayload, AssignedAddOnExtensionResource, AssignedAddOnExtensionSolution }

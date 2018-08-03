@@ -324,10 +324,10 @@ declare class ChannelContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ChannelInstance) => any): void;
-  invites?: InviteListInstance;
-  members?: MemberListInstance;
-  messages?: MessageListInstance;
+  fetch(callback?: (error: Error | null, items: ChannelInstance) => any): Promise<ChannelInstance>;
+  invites: InviteListInstance;
+  members: MemberListInstance;
+  messages: MessageListInstance;
   /**
    * remove a ChannelInstance
    *
@@ -340,7 +340,7 @@ declare class ChannelContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ChannelInstanceUpdateOptions, callback?: (error: Error | null, items: ChannelInstance) => any): void;
+  update(opts?: ChannelInstanceUpdateOptions, callback?: (error: Error | null, items: ChannelInstance) => any): Promise<ChannelInstance>;
 }
 
 export { ChannelContext, ChannelInstance, ChannelList, ChannelListInstance, ChannelListInstanceCreateOptions, ChannelListInstanceEachOptions, ChannelListInstanceOptions, ChannelListInstancePageOptions, ChannelPage, ChannelPayload, ChannelResource, ChannelSolution }

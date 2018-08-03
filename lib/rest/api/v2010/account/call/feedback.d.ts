@@ -167,14 +167,14 @@ declare class FeedbackContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: FeedbackInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: FeedbackInstance) => any): Promise<FeedbackInstance>;
   /**
    * update a FeedbackInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: FeedbackInstanceUpdateOptions, callback?: (error: Error | null, items: FeedbackInstance) => any): void;
+  update(opts: FeedbackInstanceUpdateOptions, callback?: (error: Error | null, items: FeedbackInstance) => any): Promise<FeedbackInstance>;
 }
 
 export { FeedbackContext, FeedbackInstance, FeedbackList, FeedbackListInstance, FeedbackPage, FeedbackPayload, FeedbackResource, FeedbackSolution }

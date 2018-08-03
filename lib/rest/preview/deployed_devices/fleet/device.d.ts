@@ -299,7 +299,7 @@ declare class DeviceContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: DeviceInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: DeviceInstance) => any): Promise<DeviceInstance>;
   /**
    * remove a DeviceInstance
    *
@@ -312,7 +312,7 @@ declare class DeviceContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: DeviceInstanceUpdateOptions, callback?: (error: Error | null, items: DeviceInstance) => any): void;
+  update(opts?: DeviceInstanceUpdateOptions, callback?: (error: Error | null, items: DeviceInstance) => any): Promise<DeviceInstance>;
 }
 
 export { DeviceContext, DeviceInstance, DeviceList, DeviceListInstance, DeviceListInstanceCreateOptions, DeviceListInstanceEachOptions, DeviceListInstanceOptions, DeviceListInstancePageOptions, DevicePage, DevicePayload, DeviceResource, DeviceSolution }

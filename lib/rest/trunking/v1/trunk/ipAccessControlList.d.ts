@@ -246,7 +246,7 @@ declare class IpAccessControlListContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: IpAccessControlListInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: IpAccessControlListInstance) => any): Promise<IpAccessControlListInstance>;
   /**
    * remove a IpAccessControlListInstance
    *

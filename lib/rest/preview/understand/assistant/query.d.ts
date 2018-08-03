@@ -309,7 +309,7 @@ declare class QueryContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: QueryInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: QueryInstance) => any): Promise<QueryInstance>;
   /**
    * remove a QueryInstance
    *
@@ -322,7 +322,7 @@ declare class QueryContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: QueryInstanceUpdateOptions, callback?: (error: Error | null, items: QueryInstance) => any): void;
+  update(opts?: QueryInstanceUpdateOptions, callback?: (error: Error | null, items: QueryInstance) => any): Promise<QueryInstance>;
 }
 
 export { QueryContext, QueryInstance, QueryList, QueryListInstance, QueryListInstanceCreateOptions, QueryListInstanceEachOptions, QueryListInstanceOptions, QueryListInstancePageOptions, QueryPage, QueryPayload, QueryResource, QuerySolution }

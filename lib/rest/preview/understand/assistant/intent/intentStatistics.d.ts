@@ -122,7 +122,7 @@ declare class IntentStatisticsContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: IntentStatisticsInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: IntentStatisticsInstance) => any): Promise<IntentStatisticsInstance>;
 }
 
 export { IntentStatisticsContext, IntentStatisticsInstance, IntentStatisticsList, IntentStatisticsListInstance, IntentStatisticsPage, IntentStatisticsPayload, IntentStatisticsResource, IntentStatisticsSolution }

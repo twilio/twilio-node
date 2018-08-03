@@ -153,7 +153,7 @@ declare class WorkersCumulativeStatisticsContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: WorkersCumulativeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkersCumulativeStatisticsInstance) => any): void;
+  fetch(opts?: WorkersCumulativeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkersCumulativeStatisticsInstance) => any): Promise<WorkersCumulativeStatisticsInstance>;
 }
 
 export { WorkersCumulativeStatisticsContext, WorkersCumulativeStatisticsInstance, WorkersCumulativeStatisticsList, WorkersCumulativeStatisticsListInstance, WorkersCumulativeStatisticsPage, WorkersCumulativeStatisticsPayload, WorkersCumulativeStatisticsResource, WorkersCumulativeStatisticsSolution }

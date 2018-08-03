@@ -120,7 +120,7 @@ declare class NumberContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: NumberInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: NumberInstance) => any): Promise<NumberInstance>;
 }
 
 export { NumberContext, NumberInstance, NumberList, NumberListInstance, NumberPage, NumberPayload, NumberResource, NumberSolution }

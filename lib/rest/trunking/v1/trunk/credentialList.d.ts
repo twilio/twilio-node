@@ -246,7 +246,7 @@ declare class CredentialListContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CredentialListInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: CredentialListInstance) => any): Promise<CredentialListInstance>;
   /**
    * remove a CredentialListInstance
    *

@@ -136,14 +136,14 @@ declare class ExportConfigurationContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ExportConfigurationInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: ExportConfigurationInstance) => any): Promise<ExportConfigurationInstance>;
   /**
    * update a ExportConfigurationInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ExportConfigurationInstanceUpdateOptions, callback?: (error: Error | null, items: ExportConfigurationInstance) => any): void;
+  update(opts?: ExportConfigurationInstanceUpdateOptions, callback?: (error: Error | null, items: ExportConfigurationInstance) => any): Promise<ExportConfigurationInstance>;
 }
 
 export { ExportConfigurationContext, ExportConfigurationInstance, ExportConfigurationList, ExportConfigurationListInstance, ExportConfigurationPage, ExportConfigurationPayload, ExportConfigurationResource, ExportConfigurationSolution }

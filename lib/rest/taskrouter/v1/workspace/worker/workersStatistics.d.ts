@@ -138,7 +138,7 @@ declare class WorkersStatisticsContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: WorkersStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkersStatisticsInstance) => any): void;
+  fetch(opts?: WorkersStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkersStatisticsInstance) => any): Promise<WorkersStatisticsInstance>;
 }
 
 export { WorkersStatisticsContext, WorkersStatisticsInstance, WorkersStatisticsList, WorkersStatisticsListInstance, WorkersStatisticsPage, WorkersStatisticsPayload, WorkersStatisticsResource, WorkersStatisticsSolution }

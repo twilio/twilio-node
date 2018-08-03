@@ -154,7 +154,7 @@ declare class RecordingSettingsContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: RecordingSettingsInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: RecordingSettingsInstance) => any): Promise<RecordingSettingsInstance>;
 }
 
 export { RecordingSettingsContext, RecordingSettingsInstance, RecordingSettingsList, RecordingSettingsListInstance, RecordingSettingsPage, RecordingSettingsPayload, RecordingSettingsResource, RecordingSettingsSolution }

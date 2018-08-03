@@ -250,7 +250,7 @@ declare class IpAccessControlListMappingContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: IpAccessControlListMappingInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: IpAccessControlListMappingInstance) => any): Promise<IpAccessControlListMappingInstance>;
   /**
    * remove a IpAccessControlListMappingInstance
    *

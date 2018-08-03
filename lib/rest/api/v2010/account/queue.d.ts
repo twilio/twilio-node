@@ -280,8 +280,8 @@ declare class QueueContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: QueueInstance) => any): void;
-  members?: MemberListInstance;
+  fetch(callback?: (error: Error | null, items: QueueInstance) => any): Promise<QueueInstance>;
+  members: MemberListInstance;
   /**
    * remove a QueueInstance
    *
@@ -294,7 +294,7 @@ declare class QueueContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: QueueInstanceUpdateOptions, callback?: (error: Error | null, items: QueueInstance) => any): void;
+  update(opts?: QueueInstanceUpdateOptions, callback?: (error: Error | null, items: QueueInstance) => any): Promise<QueueInstance>;
 }
 
 export { QueueContext, QueueInstance, QueueList, QueueListInstance, QueueListInstanceCreateOptions, QueueListInstanceEachOptions, QueueListInstanceOptions, QueueListInstancePageOptions, QueuePage, QueuePayload, QueueResource, QueueSolution }

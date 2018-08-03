@@ -335,13 +335,13 @@ declare class AddressContext {
    */
   constructor(version: V2010, accountSid: string, sid: string);
 
-  dependentPhoneNumbers?: DependentPhoneNumberListInstance;
+  dependentPhoneNumbers: DependentPhoneNumberListInstance;
   /**
    * fetch a AddressInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AddressInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: AddressInstance) => any): Promise<AddressInstance>;
   /**
    * remove a AddressInstance
    *
@@ -354,7 +354,7 @@ declare class AddressContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: AddressInstanceUpdateOptions, callback?: (error: Error | null, items: AddressInstance) => any): void;
+  update(opts?: AddressInstanceUpdateOptions, callback?: (error: Error | null, items: AddressInstance) => any): Promise<AddressInstance>;
 }
 
 export { AddressContext, AddressInstance, AddressList, AddressListInstance, AddressListInstanceCreateOptions, AddressListInstanceEachOptions, AddressListInstanceOptions, AddressListInstancePageOptions, AddressPage, AddressPayload, AddressResource, AddressSolution }

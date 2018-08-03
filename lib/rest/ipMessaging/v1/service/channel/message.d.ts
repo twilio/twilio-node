@@ -298,7 +298,7 @@ declare class MessageContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: MessageInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: MessageInstance) => any): Promise<MessageInstance>;
   /**
    * remove a MessageInstance
    *
@@ -311,7 +311,7 @@ declare class MessageContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: MessageInstanceUpdateOptions, callback?: (error: Error | null, items: MessageInstance) => any): void;
+  update(opts?: MessageInstanceUpdateOptions, callback?: (error: Error | null, items: MessageInstance) => any): Promise<MessageInstance>;
 }
 
 export { MessageContext, MessageInstance, MessageList, MessageListInstance, MessageListInstanceCreateOptions, MessageListInstanceEachOptions, MessageListInstanceOptions, MessageListInstancePageOptions, MessagePage, MessagePayload, MessageResource, MessageSolution }

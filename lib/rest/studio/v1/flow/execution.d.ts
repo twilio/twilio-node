@@ -276,20 +276,20 @@ declare class ExecutionContext {
    */
   constructor(version: V1, flowSid: string, sid: string);
 
-  executionContext?: ExecutionContextListInstance;
+  executionContext: ExecutionContextListInstance;
   /**
    * fetch a ExecutionInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ExecutionInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: ExecutionInstance) => any): Promise<ExecutionInstance>;
   /**
    * remove a ExecutionInstance
    *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: ExecutionInstance) => any): void;
-  steps?: ExecutionStepListInstance;
+  steps: ExecutionStepListInstance;
 }
 
 export { ExecutionContext, ExecutionInstance, ExecutionList, ExecutionListInstance, ExecutionListInstanceCreateOptions, ExecutionListInstanceEachOptions, ExecutionListInstanceOptions, ExecutionListInstancePageOptions, ExecutionPage, ExecutionPayload, ExecutionResource, ExecutionSolution }

@@ -350,15 +350,15 @@ declare class SimContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: SimInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: SimInstance) => any): Promise<SimInstance>;
   /**
    * update a SimInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: SimInstanceUpdateOptions, callback?: (error: Error | null, items: SimInstance) => any): void;
-  usage?: UsageListInstance;
+  update(opts?: SimInstanceUpdateOptions, callback?: (error: Error | null, items: SimInstance) => any): Promise<SimInstance>;
+  usage: UsageListInstance;
 }
 
 export { SimContext, SimInstance, SimList, SimListInstance, SimListInstanceEachOptions, SimListInstanceOptions, SimListInstancePageOptions, SimPage, SimPayload, SimResource, SimSolution }

@@ -292,22 +292,22 @@ declare class SyncMapContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: SyncMapInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: SyncMapInstance) => any): Promise<SyncMapInstance>;
   /**
    * remove a SyncMapInstance
    *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: SyncMapInstance) => any): void;
-  syncMapItems?: SyncMapItemListInstance;
-  syncMapPermissions?: SyncMapPermissionListInstance;
+  syncMapItems: SyncMapItemListInstance;
+  syncMapPermissions: SyncMapPermissionListInstance;
   /**
    * update a SyncMapInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: SyncMapInstanceUpdateOptions, callback?: (error: Error | null, items: SyncMapInstance) => any): void;
+  update(opts?: SyncMapInstanceUpdateOptions, callback?: (error: Error | null, items: SyncMapInstance) => any): Promise<SyncMapInstance>;
 }
 
 export { SyncMapContext, SyncMapInstance, SyncMapList, SyncMapListInstance, SyncMapListInstanceCreateOptions, SyncMapListInstanceEachOptions, SyncMapListInstanceOptions, SyncMapListInstancePageOptions, SyncMapPage, SyncMapPayload, SyncMapResource, SyncMapSolution }

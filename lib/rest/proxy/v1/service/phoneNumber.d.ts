@@ -280,7 +280,7 @@ declare class PhoneNumberContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: PhoneNumberInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: PhoneNumberInstance) => any): Promise<PhoneNumberInstance>;
   /**
    * remove a PhoneNumberInstance
    *
@@ -293,7 +293,7 @@ declare class PhoneNumberContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: PhoneNumberInstanceUpdateOptions, callback?: (error: Error | null, items: PhoneNumberInstance) => any): void;
+  update(opts?: PhoneNumberInstanceUpdateOptions, callback?: (error: Error | null, items: PhoneNumberInstance) => any): Promise<PhoneNumberInstance>;
 }
 
 export { PhoneNumberContext, PhoneNumberInstance, PhoneNumberList, PhoneNumberListInstance, PhoneNumberListInstanceCreateOptions, PhoneNumberListInstanceEachOptions, PhoneNumberListInstanceOptions, PhoneNumberListInstancePageOptions, PhoneNumberPage, PhoneNumberPayload, PhoneNumberResource, PhoneNumberSolution }

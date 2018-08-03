@@ -281,7 +281,7 @@ declare class CertificateContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CertificateInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: CertificateInstance) => any): Promise<CertificateInstance>;
   /**
    * remove a CertificateInstance
    *
@@ -294,7 +294,7 @@ declare class CertificateContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: CertificateInstanceUpdateOptions, callback?: (error: Error | null, items: CertificateInstance) => any): void;
+  update(opts?: CertificateInstanceUpdateOptions, callback?: (error: Error | null, items: CertificateInstance) => any): Promise<CertificateInstance>;
 }
 
 export { CertificateContext, CertificateInstance, CertificateList, CertificateListInstance, CertificateListInstanceCreateOptions, CertificateListInstanceEachOptions, CertificateListInstanceOptions, CertificateListInstancePageOptions, CertificatePage, CertificatePayload, CertificateResource, CertificateSolution }

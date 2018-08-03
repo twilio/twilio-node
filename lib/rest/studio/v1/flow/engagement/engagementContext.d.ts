@@ -119,7 +119,7 @@ declare class EngagementContextContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: EngagementContextInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: EngagementContextInstance) => any): Promise<EngagementContextInstance>;
 }
 
 export { EngagementContextContext, EngagementContextInstance, EngagementContextList, EngagementContextListInstance, EngagementContextPage, EngagementContextPayload, EngagementContextResource, EngagementContextSolution }

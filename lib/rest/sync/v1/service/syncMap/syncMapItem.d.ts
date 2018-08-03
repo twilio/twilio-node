@@ -308,7 +308,7 @@ declare class SyncMapItemContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: SyncMapItemInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: SyncMapItemInstance) => any): Promise<SyncMapItemInstance>;
   /**
    * remove a SyncMapItemInstance
    *
@@ -321,7 +321,7 @@ declare class SyncMapItemContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: SyncMapItemInstanceUpdateOptions, callback?: (error: Error | null, items: SyncMapItemInstance) => any): void;
+  update(opts?: SyncMapItemInstanceUpdateOptions, callback?: (error: Error | null, items: SyncMapItemInstance) => any): Promise<SyncMapItemInstance>;
 }
 
 export { SyncMapItemContext, SyncMapItemInstance, SyncMapItemList, SyncMapItemListInstance, SyncMapItemListInstanceCreateOptions, SyncMapItemListInstanceEachOptions, SyncMapItemListInstanceOptions, SyncMapItemListInstancePageOptions, SyncMapItemPage, SyncMapItemPayload, SyncMapItemResource, SyncMapItemSolution }

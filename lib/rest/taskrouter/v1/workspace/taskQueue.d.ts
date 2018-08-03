@@ -344,28 +344,28 @@ declare class TaskQueueContext {
    */
   constructor(version: V1, workspaceSid: string, sid: string);
 
-  cumulativeStatistics?: TaskQueueCumulativeStatisticsListInstance;
+  cumulativeStatistics: TaskQueueCumulativeStatisticsListInstance;
   /**
    * fetch a TaskQueueInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: TaskQueueInstance) => any): void;
-  realTimeStatistics?: TaskQueueRealTimeStatisticsListInstance;
+  fetch(callback?: (error: Error | null, items: TaskQueueInstance) => any): Promise<TaskQueueInstance>;
+  realTimeStatistics: TaskQueueRealTimeStatisticsListInstance;
   /**
    * remove a TaskQueueInstance
    *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: TaskQueueInstance) => any): void;
-  statistics?: TaskQueueStatisticsListInstance;
+  statistics: TaskQueueStatisticsListInstance;
   /**
    * update a TaskQueueInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: TaskQueueInstanceUpdateOptions, callback?: (error: Error | null, items: TaskQueueInstance) => any): void;
+  update(opts?: TaskQueueInstanceUpdateOptions, callback?: (error: Error | null, items: TaskQueueInstance) => any): Promise<TaskQueueInstance>;
 }
 
 export { TaskQueueContext, TaskQueueInstance, TaskQueueList, TaskQueueListInstance, TaskQueueListInstanceCreateOptions, TaskQueueListInstanceEachOptions, TaskQueueListInstanceOptions, TaskQueueListInstancePageOptions, TaskQueuePage, TaskQueuePayload, TaskQueueResource, TaskQueueSolution }

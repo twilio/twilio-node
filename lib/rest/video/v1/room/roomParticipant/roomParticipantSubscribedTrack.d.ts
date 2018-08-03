@@ -74,7 +74,7 @@ interface SubscribedTrackListInstance {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: SubscribedTrackListInstanceUpdateOptions, callback?: (error: Error | null, items: SubscribedTrackListInstance) => any): void;
+  update(opts?: SubscribedTrackListInstanceUpdateOptions, callback?: (error: Error | null, items: SubscribedTrackListInstance) => any): Promise<SubscribedTrackInstance>;
 }
 
 /**

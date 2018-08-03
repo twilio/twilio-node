@@ -236,7 +236,7 @@ declare class PublishedTrackContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: PublishedTrackInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: PublishedTrackInstance) => any): Promise<PublishedTrackInstance>;
 }
 
 export { PublishedTrackContext, PublishedTrackInstance, PublishedTrackList, PublishedTrackListInstance, PublishedTrackListInstanceEachOptions, PublishedTrackListInstanceOptions, PublishedTrackListInstancePageOptions, PublishedTrackPage, PublishedTrackPayload, PublishedTrackResource, PublishedTrackSolution }

@@ -275,7 +275,7 @@ declare class RoleContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: RoleInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: RoleInstance) => any): Promise<RoleInstance>;
   /**
    * remove a RoleInstance
    *
@@ -288,7 +288,7 @@ declare class RoleContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: RoleInstanceUpdateOptions, callback?: (error: Error | null, items: RoleInstance) => any): void;
+  update(opts: RoleInstanceUpdateOptions, callback?: (error: Error | null, items: RoleInstance) => any): Promise<RoleInstance>;
 }
 
 export { RoleContext, RoleInstance, RoleList, RoleListInstance, RoleListInstanceCreateOptions, RoleListInstanceEachOptions, RoleListInstanceOptions, RoleListInstancePageOptions, RolePage, RolePayload, RoleResource, RoleSolution }

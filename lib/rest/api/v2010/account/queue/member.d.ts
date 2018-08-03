@@ -240,14 +240,14 @@ declare class MemberContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: MemberInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: MemberInstance) => any): Promise<MemberInstance>;
   /**
    * update a MemberInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: MemberInstanceUpdateOptions, callback?: (error: Error | null, items: MemberInstance) => any): void;
+  update(opts: MemberInstanceUpdateOptions, callback?: (error: Error | null, items: MemberInstance) => any): Promise<MemberInstance>;
 }
 
 export { MemberContext, MemberInstance, MemberList, MemberListInstance, MemberListInstanceEachOptions, MemberListInstanceOptions, MemberListInstancePageOptions, MemberPage, MemberPayload, MemberResource, MemberSolution }

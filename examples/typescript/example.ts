@@ -28,7 +28,7 @@ client.calls.each({
   }
 });
 
-client.calls.each((call: CallInstance) => {
+client.calls.each({}, (call: CallInstance) => {
   console.log(call.sid);
 });
 
@@ -42,12 +42,10 @@ const msgData: MessageListInstanceCreateOptions = {
 }
 
 // Send message using callback
-client.messages.create(msgData,
-  (err: Error, result: MessageInstance) => {
-    console.log('Created message using callback');
-    console.log(result.sid);
-  }
-);
+client.messages.create(msgData, (err, result) => {
+  console.log('Created message using callback');
+  console.log(result.sid);
+});
 
 // Send message using promise
 const promise = client.messages.create({
@@ -65,7 +63,7 @@ client.trunking.v1.trunks.create(
   {
     friendlyName: 'sip trunking'
   },
-  (err: Error, result: TrunkInstance) => {
+  (err, result) => {
     console.log('Created trunk with friendly name');
     console.log(result.sid);
     console.log(result.friendlyName);
@@ -119,7 +117,7 @@ promiseTrunk3.then((trunk: TrunkInstance) => {
 });
 
 // List messages using callbacks
-client.messages.list((err: Error, messages: MessageInstance[]) => {
+client.messages.list({}, (err, messages) => {
   console.log('Listing messages using callbacks');
   _.each(messages, message => {
     console.log(message.sid);

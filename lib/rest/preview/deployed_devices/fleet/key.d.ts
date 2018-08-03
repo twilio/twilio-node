@@ -279,7 +279,7 @@ declare class KeyContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: KeyInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: KeyInstance) => any): Promise<KeyInstance>;
   /**
    * remove a KeyInstance
    *
@@ -292,7 +292,7 @@ declare class KeyContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: KeyInstanceUpdateOptions, callback?: (error: Error | null, items: KeyInstance) => any): void;
+  update(opts?: KeyInstanceUpdateOptions, callback?: (error: Error | null, items: KeyInstance) => any): Promise<KeyInstance>;
 }
 
 export { KeyContext, KeyInstance, KeyList, KeyListInstance, KeyListInstanceCreateOptions, KeyListInstanceEachOptions, KeyListInstanceOptions, KeyListInstancePageOptions, KeyPage, KeyPayload, KeyResource, KeySolution }

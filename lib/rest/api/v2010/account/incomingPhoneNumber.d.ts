@@ -452,13 +452,13 @@ declare class IncomingPhoneNumberContext {
    */
   constructor(version: V2010, accountSid: string, sid: string);
 
-  assignedAddOns?: AssignedAddOnListInstance;
+  assignedAddOns: AssignedAddOnListInstance;
   /**
    * fetch a IncomingPhoneNumberInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: IncomingPhoneNumberInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: IncomingPhoneNumberInstance) => any): Promise<IncomingPhoneNumberInstance>;
   /**
    * remove a IncomingPhoneNumberInstance
    *
@@ -471,7 +471,7 @@ declare class IncomingPhoneNumberContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: IncomingPhoneNumberInstanceUpdateOptions, callback?: (error: Error | null, items: IncomingPhoneNumberInstance) => any): void;
+  update(opts?: IncomingPhoneNumberInstanceUpdateOptions, callback?: (error: Error | null, items: IncomingPhoneNumberInstance) => any): Promise<IncomingPhoneNumberInstance>;
 }
 
 export { IncomingPhoneNumberContext, IncomingPhoneNumberInstance, IncomingPhoneNumberList, IncomingPhoneNumberListInstance, IncomingPhoneNumberListInstanceCreateOptions, IncomingPhoneNumberListInstanceEachOptions, IncomingPhoneNumberListInstanceOptions, IncomingPhoneNumberListInstancePageOptions, IncomingPhoneNumberPage, IncomingPhoneNumberPayload, IncomingPhoneNumberResource, IncomingPhoneNumberSolution }

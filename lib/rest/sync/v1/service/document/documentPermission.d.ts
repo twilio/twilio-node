@@ -259,7 +259,7 @@ declare class DocumentPermissionContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: DocumentPermissionInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: DocumentPermissionInstance) => any): Promise<DocumentPermissionInstance>;
   /**
    * remove a DocumentPermissionInstance
    *
@@ -272,7 +272,7 @@ declare class DocumentPermissionContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: DocumentPermissionInstanceUpdateOptions, callback?: (error: Error | null, items: DocumentPermissionInstance) => any): void;
+  update(opts: DocumentPermissionInstanceUpdateOptions, callback?: (error: Error | null, items: DocumentPermissionInstance) => any): Promise<DocumentPermissionInstance>;
 }
 
 export { DocumentPermissionContext, DocumentPermissionInstance, DocumentPermissionList, DocumentPermissionListInstance, DocumentPermissionListInstanceEachOptions, DocumentPermissionListInstanceOptions, DocumentPermissionListInstancePageOptions, DocumentPermissionPage, DocumentPermissionPayload, DocumentPermissionResource, DocumentPermissionSolution }

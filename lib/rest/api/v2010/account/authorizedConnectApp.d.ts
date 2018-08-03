@@ -235,7 +235,7 @@ declare class AuthorizedConnectAppContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AuthorizedConnectAppInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: AuthorizedConnectAppInstance) => any): Promise<AuthorizedConnectAppInstance>;
 }
 
 export { AuthorizedConnectAppContext, AuthorizedConnectAppInstance, AuthorizedConnectAppList, AuthorizedConnectAppListInstance, AuthorizedConnectAppListInstanceEachOptions, AuthorizedConnectAppListInstanceOptions, AuthorizedConnectAppListInstancePageOptions, AuthorizedConnectAppPage, AuthorizedConnectAppPayload, AuthorizedConnectAppResource, AuthorizedConnectAppSolution }

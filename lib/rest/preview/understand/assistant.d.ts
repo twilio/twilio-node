@@ -327,11 +327,11 @@ declare class AssistantContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AssistantInstance) => any): void;
-  fieldTypes?: FieldTypeListInstance;
-  intents?: IntentListInstance;
-  modelBuilds?: ModelBuildListInstance;
-  queries?: QueryListInstance;
+  fetch(callback?: (error: Error | null, items: AssistantInstance) => any): Promise<AssistantInstance>;
+  fieldTypes: FieldTypeListInstance;
+  intents: IntentListInstance;
+  modelBuilds: ModelBuildListInstance;
+  queries: QueryListInstance;
   /**
    * remove a AssistantInstance
    *
@@ -344,7 +344,7 @@ declare class AssistantContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: AssistantInstanceUpdateOptions, callback?: (error: Error | null, items: AssistantInstance) => any): void;
+  update(opts?: AssistantInstanceUpdateOptions, callback?: (error: Error | null, items: AssistantInstance) => any): Promise<AssistantInstance>;
 }
 
 export { AssistantContext, AssistantInstance, AssistantList, AssistantListInstance, AssistantListInstanceCreateOptions, AssistantListInstanceEachOptions, AssistantListInstanceOptions, AssistantListInstancePageOptions, AssistantPage, AssistantPayload, AssistantResource, AssistantSolution }

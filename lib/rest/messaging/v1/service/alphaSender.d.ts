@@ -250,7 +250,7 @@ declare class AlphaSenderContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AlphaSenderInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: AlphaSenderInstance) => any): Promise<AlphaSenderInstance>;
   /**
    * remove a AlphaSenderInstance
    *

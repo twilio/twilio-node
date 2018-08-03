@@ -380,14 +380,14 @@ declare class MessageContext {
    */
   constructor(version: V2010, accountSid: string, sid: string);
 
-  feedback?: FeedbackListInstance;
+  feedback: FeedbackListInstance;
   /**
    * fetch a MessageInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: MessageInstance) => any): void;
-  media?: MediaListInstance;
+  fetch(callback?: (error: Error | null, items: MessageInstance) => any): Promise<MessageInstance>;
+  media: MediaListInstance;
   /**
    * remove a MessageInstance
    *
@@ -400,7 +400,7 @@ declare class MessageContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: MessageInstanceUpdateOptions, callback?: (error: Error | null, items: MessageInstance) => any): void;
+  update(opts: MessageInstanceUpdateOptions, callback?: (error: Error | null, items: MessageInstance) => any): Promise<MessageInstance>;
 }
 
 export { MessageContext, MessageInstance, MessageList, MessageListInstance, MessageListInstanceCreateOptions, MessageListInstanceEachOptions, MessageListInstanceOptions, MessageListInstancePageOptions, MessagePage, MessagePayload, MessageResource, MessageSolution }

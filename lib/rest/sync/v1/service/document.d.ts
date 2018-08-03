@@ -288,13 +288,13 @@ declare class DocumentContext {
    */
   constructor(version: V1, serviceSid: string, sid: string);
 
-  documentPermissions?: DocumentPermissionListInstance;
+  documentPermissions: DocumentPermissionListInstance;
   /**
    * fetch a DocumentInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: DocumentInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: DocumentInstance) => any): Promise<DocumentInstance>;
   /**
    * remove a DocumentInstance
    *
@@ -307,7 +307,7 @@ declare class DocumentContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: DocumentInstanceUpdateOptions, callback?: (error: Error | null, items: DocumentInstance) => any): void;
+  update(opts?: DocumentInstanceUpdateOptions, callback?: (error: Error | null, items: DocumentInstance) => any): Promise<DocumentInstance>;
 }
 
 export { DocumentContext, DocumentInstance, DocumentList, DocumentListInstance, DocumentListInstanceCreateOptions, DocumentListInstanceEachOptions, DocumentListInstanceOptions, DocumentListInstancePageOptions, DocumentPage, DocumentPayload, DocumentResource, DocumentSolution }

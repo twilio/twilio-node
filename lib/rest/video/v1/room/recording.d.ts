@@ -287,7 +287,7 @@ declare class RoomRecordingContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: RoomRecordingInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: RoomRecordingInstance) => any): Promise<RoomRecordingInstance>;
   /**
    * remove a RoomRecordingInstance
    *

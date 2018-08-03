@@ -250,7 +250,7 @@ declare class CredentialListMappingContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CredentialListMappingInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: CredentialListMappingInstance) => any): Promise<CredentialListMappingInstance>;
   /**
    * remove a CredentialListMappingInstance
    *

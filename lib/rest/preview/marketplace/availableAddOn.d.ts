@@ -224,13 +224,13 @@ declare class AvailableAddOnContext {
    */
   constructor(version: Marketplace, sid: string);
 
-  extensions?: AvailableAddOnExtensionListInstance;
+  extensions: AvailableAddOnExtensionListInstance;
   /**
    * fetch a AvailableAddOnInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AvailableAddOnInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: AvailableAddOnInstance) => any): Promise<AvailableAddOnInstance>;
 }
 
 export { AvailableAddOnContext, AvailableAddOnInstance, AvailableAddOnList, AvailableAddOnListInstance, AvailableAddOnListInstanceEachOptions, AvailableAddOnListInstanceOptions, AvailableAddOnListInstancePageOptions, AvailableAddOnPage, AvailableAddOnPayload, AvailableAddOnResource, AvailableAddOnSolution }

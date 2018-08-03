@@ -290,7 +290,7 @@ declare class SampleContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: SampleInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: SampleInstance) => any): Promise<SampleInstance>;
   /**
    * remove a SampleInstance
    *
@@ -303,7 +303,7 @@ declare class SampleContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: SampleInstanceUpdateOptions, callback?: (error: Error | null, items: SampleInstance) => any): void;
+  update(opts?: SampleInstanceUpdateOptions, callback?: (error: Error | null, items: SampleInstance) => any): Promise<SampleInstance>;
 }
 
 export { SampleContext, SampleInstance, SampleList, SampleListInstance, SampleListInstanceCreateOptions, SampleListInstanceEachOptions, SampleListInstanceOptions, SampleListInstancePageOptions, SamplePage, SamplePayload, SampleResource, SampleSolution }

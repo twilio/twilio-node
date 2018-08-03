@@ -270,8 +270,8 @@ declare class IpAccessControlListContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: IpAccessControlListInstance) => any): void;
-  ipAddresses?: IpAddressListInstance;
+  fetch(callback?: (error: Error | null, items: IpAccessControlListInstance) => any): Promise<IpAccessControlListInstance>;
+  ipAddresses: IpAddressListInstance;
   /**
    * remove a IpAccessControlListInstance
    *
@@ -284,7 +284,7 @@ declare class IpAccessControlListContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: IpAccessControlListInstanceUpdateOptions, callback?: (error: Error | null, items: IpAccessControlListInstance) => any): void;
+  update(opts: IpAccessControlListInstanceUpdateOptions, callback?: (error: Error | null, items: IpAccessControlListInstance) => any): Promise<IpAccessControlListInstance>;
 }
 
 export { IpAccessControlListContext, IpAccessControlListInstance, IpAccessControlListList, IpAccessControlListListInstance, IpAccessControlListListInstanceCreateOptions, IpAccessControlListListInstanceEachOptions, IpAccessControlListListInstanceOptions, IpAccessControlListListInstancePageOptions, IpAccessControlListPage, IpAccessControlListPayload, IpAccessControlListResource, IpAccessControlListSolution }

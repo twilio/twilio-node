@@ -329,7 +329,7 @@ declare class TriggerContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: TriggerInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: TriggerInstance) => any): Promise<TriggerInstance>;
   /**
    * remove a TriggerInstance
    *
@@ -342,7 +342,7 @@ declare class TriggerContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: TriggerInstanceUpdateOptions, callback?: (error: Error | null, items: TriggerInstance) => any): void;
+  update(opts?: TriggerInstanceUpdateOptions, callback?: (error: Error | null, items: TriggerInstance) => any): Promise<TriggerInstance>;
 }
 
 export { TriggerContext, TriggerInstance, TriggerList, TriggerListInstance, TriggerListInstanceCreateOptions, TriggerListInstanceEachOptions, TriggerListInstanceOptions, TriggerListInstancePageOptions, TriggerPage, TriggerPayload, TriggerResource, TriggerSolution }

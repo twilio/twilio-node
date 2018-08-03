@@ -291,7 +291,7 @@ declare class OriginationUrlContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: OriginationUrlInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: OriginationUrlInstance) => any): Promise<OriginationUrlInstance>;
   /**
    * remove a OriginationUrlInstance
    *
@@ -304,7 +304,7 @@ declare class OriginationUrlContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: OriginationUrlInstanceUpdateOptions, callback?: (error: Error | null, items: OriginationUrlInstance) => any): void;
+  update(opts?: OriginationUrlInstanceUpdateOptions, callback?: (error: Error | null, items: OriginationUrlInstance) => any): Promise<OriginationUrlInstance>;
 }
 
 export { OriginationUrlContext, OriginationUrlInstance, OriginationUrlList, OriginationUrlListInstance, OriginationUrlListInstanceCreateOptions, OriginationUrlListInstanceEachOptions, OriginationUrlListInstanceOptions, OriginationUrlListInstancePageOptions, OriginationUrlPage, OriginationUrlPayload, OriginationUrlResource, OriginationUrlSolution }

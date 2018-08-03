@@ -258,7 +258,7 @@ declare class UserBindingContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: UserBindingInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: UserBindingInstance) => any): Promise<UserBindingInstance>;
   /**
    * remove a UserBindingInstance
    *

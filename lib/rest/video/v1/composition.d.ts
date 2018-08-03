@@ -321,7 +321,7 @@ declare class CompositionContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CompositionInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: CompositionInstance) => any): Promise<CompositionInstance>;
   /**
    * remove a CompositionInstance
    *

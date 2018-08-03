@@ -347,16 +347,16 @@ declare class RoomContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: RoomInstance) => any): void;
-  participants?: ParticipantListInstance;
-  recordings?: RoomRecordingListInstance;
+  fetch(callback?: (error: Error | null, items: RoomInstance) => any): Promise<RoomInstance>;
+  participants: ParticipantListInstance;
+  recordings: RoomRecordingListInstance;
   /**
    * update a RoomInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: RoomInstanceUpdateOptions, callback?: (error: Error | null, items: RoomInstance) => any): void;
+  update(opts: RoomInstanceUpdateOptions, callback?: (error: Error | null, items: RoomInstance) => any): Promise<RoomInstance>;
 }
 
 export { RoomContext, RoomInstance, RoomList, RoomListInstance, RoomListInstanceCreateOptions, RoomListInstanceEachOptions, RoomListInstanceOptions, RoomListInstancePageOptions, RoomPage, RoomPayload, RoomResource, RoomSolution }

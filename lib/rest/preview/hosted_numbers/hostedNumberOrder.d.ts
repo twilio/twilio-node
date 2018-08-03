@@ -392,7 +392,7 @@ declare class HostedNumberOrderContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: HostedNumberOrderInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: HostedNumberOrderInstance) => any): Promise<HostedNumberOrderInstance>;
   /**
    * remove a HostedNumberOrderInstance
    *
@@ -405,7 +405,7 @@ declare class HostedNumberOrderContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: HostedNumberOrderInstanceUpdateOptions, callback?: (error: Error | null, items: HostedNumberOrderInstance) => any): void;
+  update(opts?: HostedNumberOrderInstanceUpdateOptions, callback?: (error: Error | null, items: HostedNumberOrderInstance) => any): Promise<HostedNumberOrderInstance>;
 }
 
 export { HostedNumberOrderContext, HostedNumberOrderInstance, HostedNumberOrderList, HostedNumberOrderListInstance, HostedNumberOrderListInstanceCreateOptions, HostedNumberOrderListInstanceEachOptions, HostedNumberOrderListInstanceOptions, HostedNumberOrderListInstancePageOptions, HostedNumberOrderPage, HostedNumberOrderPayload, HostedNumberOrderResource, HostedNumberOrderSolution }

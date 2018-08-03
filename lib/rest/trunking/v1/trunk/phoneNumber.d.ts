@@ -305,7 +305,7 @@ declare class PhoneNumberContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: PhoneNumberInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: PhoneNumberInstance) => any): Promise<PhoneNumberInstance>;
   /**
    * remove a PhoneNumberInstance
    *

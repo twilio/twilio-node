@@ -258,7 +258,7 @@ declare class OutgoingCallerIdContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: OutgoingCallerIdInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: OutgoingCallerIdInstance) => any): Promise<OutgoingCallerIdInstance>;
   /**
    * remove a OutgoingCallerIdInstance
    *
@@ -271,7 +271,7 @@ declare class OutgoingCallerIdContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: OutgoingCallerIdInstanceUpdateOptions, callback?: (error: Error | null, items: OutgoingCallerIdInstance) => any): void;
+  update(opts?: OutgoingCallerIdInstanceUpdateOptions, callback?: (error: Error | null, items: OutgoingCallerIdInstance) => any): Promise<OutgoingCallerIdInstance>;
 }
 
 export { OutgoingCallerIdContext, OutgoingCallerIdInstance, OutgoingCallerIdList, OutgoingCallerIdListInstance, OutgoingCallerIdListInstanceEachOptions, OutgoingCallerIdListInstanceOptions, OutgoingCallerIdListInstancePageOptions, OutgoingCallerIdPage, OutgoingCallerIdPayload, OutgoingCallerIdResource, OutgoingCallerIdSolution }

@@ -252,8 +252,8 @@ declare class ExecutionStepContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ExecutionStepInstance) => any): void;
-  stepContext?: ExecutionStepContextListInstance;
+  fetch(callback?: (error: Error | null, items: ExecutionStepInstance) => any): Promise<ExecutionStepInstance>;
+  stepContext: ExecutionStepContextListInstance;
 }
 
 export { ExecutionStepContext, ExecutionStepInstance, ExecutionStepList, ExecutionStepListInstance, ExecutionStepListInstanceEachOptions, ExecutionStepListInstanceOptions, ExecutionStepListInstancePageOptions, ExecutionStepPage, ExecutionStepPayload, ExecutionStepResource, ExecutionStepSolution }

@@ -362,30 +362,30 @@ declare class WorkerContext {
    */
   constructor(version: V1, workspaceSid: string, sid: string);
 
-  cumulativeStatistics?: WorkersCumulativeStatisticsListInstance;
+  cumulativeStatistics: WorkersCumulativeStatisticsListInstance;
   /**
    * fetch a WorkerInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: WorkerInstance) => any): void;
-  realTimeStatistics?: WorkersRealTimeStatisticsListInstance;
+  fetch(callback?: (error: Error | null, items: WorkerInstance) => any): Promise<WorkerInstance>;
+  realTimeStatistics: WorkersRealTimeStatisticsListInstance;
   /**
    * remove a WorkerInstance
    *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: WorkerInstance) => any): void;
-  reservations?: ReservationListInstance;
-  statistics?: WorkerStatisticsListInstance;
+  reservations: ReservationListInstance;
+  statistics: WorkerStatisticsListInstance;
   /**
    * update a WorkerInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: WorkerInstanceUpdateOptions, callback?: (error: Error | null, items: WorkerInstance) => any): void;
-  workerChannels?: WorkerChannelListInstance;
+  update(opts?: WorkerInstanceUpdateOptions, callback?: (error: Error | null, items: WorkerInstance) => any): Promise<WorkerInstance>;
+  workerChannels: WorkerChannelListInstance;
 }
 
 export { WorkerContext, WorkerInstance, WorkerList, WorkerListInstance, WorkerListInstanceCreateOptions, WorkerListInstanceEachOptions, WorkerListInstanceOptions, WorkerListInstancePageOptions, WorkerPage, WorkerPayload, WorkerResource, WorkerSolution }

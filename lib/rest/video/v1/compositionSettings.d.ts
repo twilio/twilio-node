@@ -154,7 +154,7 @@ declare class CompositionSettingsContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CompositionSettingsInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: CompositionSettingsInstance) => any): Promise<CompositionSettingsInstance>;
 }
 
 export { CompositionSettingsContext, CompositionSettingsInstance, CompositionSettingsList, CompositionSettingsListInstance, CompositionSettingsPage, CompositionSettingsPayload, CompositionSettingsResource, CompositionSettingsSolution }

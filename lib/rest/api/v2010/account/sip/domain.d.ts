@@ -344,15 +344,15 @@ declare class DomainContext {
    */
   constructor(version: V2010, accountSid: string, sid: string);
 
-  auth?: AuthTypesListInstance;
-  credentialListMappings?: CredentialListMappingListInstance;
+  auth: AuthTypesListInstance;
+  credentialListMappings: CredentialListMappingListInstance;
   /**
    * fetch a DomainInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: DomainInstance) => any): void;
-  ipAccessControlListMappings?: IpAccessControlListMappingListInstance;
+  fetch(callback?: (error: Error | null, items: DomainInstance) => any): Promise<DomainInstance>;
+  ipAccessControlListMappings: IpAccessControlListMappingListInstance;
   /**
    * remove a DomainInstance
    *
@@ -365,7 +365,7 @@ declare class DomainContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: DomainInstanceUpdateOptions, callback?: (error: Error | null, items: DomainInstance) => any): void;
+  update(opts?: DomainInstanceUpdateOptions, callback?: (error: Error | null, items: DomainInstance) => any): Promise<DomainInstance>;
 }
 
 export { DomainContext, DomainInstance, DomainList, DomainListInstance, DomainListInstanceCreateOptions, DomainListInstanceEachOptions, DomainListInstanceOptions, DomainListInstancePageOptions, DomainPage, DomainPayload, DomainResource, DomainSolution }

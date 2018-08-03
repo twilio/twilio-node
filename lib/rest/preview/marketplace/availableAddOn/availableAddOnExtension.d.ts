@@ -222,7 +222,7 @@ declare class AvailableAddOnExtensionContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AvailableAddOnExtensionInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: AvailableAddOnExtensionInstance) => any): Promise<AvailableAddOnExtensionInstance>;
 }
 
 export { AvailableAddOnExtensionContext, AvailableAddOnExtensionInstance, AvailableAddOnExtensionList, AvailableAddOnExtensionListInstance, AvailableAddOnExtensionListInstanceEachOptions, AvailableAddOnExtensionListInstanceOptions, AvailableAddOnExtensionListInstancePageOptions, AvailableAddOnExtensionPage, AvailableAddOnExtensionPayload, AvailableAddOnExtensionResource, AvailableAddOnExtensionSolution }

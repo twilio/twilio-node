@@ -349,8 +349,8 @@ declare class FaxContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: FaxInstance) => any): void;
-  media?: FaxMediaListInstance;
+  fetch(callback?: (error: Error | null, items: FaxInstance) => any): Promise<FaxInstance>;
+  media: FaxMediaListInstance;
   /**
    * remove a FaxInstance
    *
@@ -363,7 +363,7 @@ declare class FaxContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: FaxInstanceUpdateOptions, callback?: (error: Error | null, items: FaxInstance) => any): void;
+  update(opts?: FaxInstanceUpdateOptions, callback?: (error: Error | null, items: FaxInstance) => any): Promise<FaxInstance>;
 }
 
 export { FaxContext, FaxInstance, FaxList, FaxListInstance, FaxListInstanceCreateOptions, FaxListInstanceEachOptions, FaxListInstanceOptions, FaxListInstancePageOptions, FaxPage, FaxPayload, FaxResource, FaxSolution }

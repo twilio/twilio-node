@@ -287,7 +287,7 @@ declare class InteractionContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: InteractionInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: InteractionInstance) => any): Promise<InteractionInstance>;
   /**
    * remove a InteractionInstance
    *

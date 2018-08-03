@@ -276,20 +276,20 @@ declare class EngagementContext {
    */
   constructor(version: V1, flowSid: string, sid: string);
 
-  engagementContext?: EngagementContextListInstance;
+  engagementContext: EngagementContextListInstance;
   /**
    * fetch a EngagementInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: EngagementInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: EngagementInstance) => any): Promise<EngagementInstance>;
   /**
    * remove a EngagementInstance
    *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: EngagementInstance) => any): void;
-  steps?: StepListInstance;
+  steps: StepListInstance;
 }
 
 export { EngagementContext, EngagementInstance, EngagementList, EngagementListInstance, EngagementListInstanceCreateOptions, EngagementListInstanceEachOptions, EngagementListInstanceOptions, EngagementListInstancePageOptions, EngagementPage, EngagementPayload, EngagementResource, EngagementSolution }

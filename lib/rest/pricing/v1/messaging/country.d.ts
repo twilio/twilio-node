@@ -217,7 +217,7 @@ declare class CountryContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CountryInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: CountryInstance) => any): Promise<CountryInstance>;
 }
 
 export { CountryContext, CountryInstance, CountryList, CountryListInstance, CountryListInstanceEachOptions, CountryListInstanceOptions, CountryListInstancePageOptions, CountryPage, CountryPayload, CountryResource, CountrySolution }

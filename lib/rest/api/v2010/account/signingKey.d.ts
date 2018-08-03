@@ -237,7 +237,7 @@ declare class SigningKeyContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: SigningKeyInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: SigningKeyInstance) => any): Promise<SigningKeyInstance>;
   /**
    * remove a SigningKeyInstance
    *
@@ -250,7 +250,7 @@ declare class SigningKeyContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: SigningKeyInstanceUpdateOptions, callback?: (error: Error | null, items: SigningKeyInstance) => any): void;
+  update(opts?: SigningKeyInstanceUpdateOptions, callback?: (error: Error | null, items: SigningKeyInstance) => any): Promise<SigningKeyInstance>;
 }
 
 export { SigningKeyContext, SigningKeyInstance, SigningKeyList, SigningKeyListInstance, SigningKeyListInstanceEachOptions, SigningKeyListInstanceOptions, SigningKeyListInstancePageOptions, SigningKeyPage, SigningKeyPayload, SigningKeyResource, SigningKeySolution }

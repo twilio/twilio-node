@@ -189,7 +189,7 @@ declare class WorkflowCumulativeStatisticsContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  fetch(opts?: WorkflowCumulativeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkflowCumulativeStatisticsInstance) => any): void;
+  fetch(opts?: WorkflowCumulativeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkflowCumulativeStatisticsInstance) => any): Promise<WorkflowCumulativeStatisticsInstance>;
 }
 
 export { WorkflowCumulativeStatisticsContext, WorkflowCumulativeStatisticsInstance, WorkflowCumulativeStatisticsList, WorkflowCumulativeStatisticsListInstance, WorkflowCumulativeStatisticsPage, WorkflowCumulativeStatisticsPayload, WorkflowCumulativeStatisticsResource, WorkflowCumulativeStatisticsSolution }

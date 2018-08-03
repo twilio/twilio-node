@@ -260,7 +260,7 @@ declare class BindingContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: BindingInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: BindingInstance) => any): Promise<BindingInstance>;
   /**
    * remove a BindingInstance
    *

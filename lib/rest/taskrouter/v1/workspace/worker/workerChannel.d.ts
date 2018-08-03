@@ -265,14 +265,14 @@ declare class WorkerChannelContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: WorkerChannelInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: WorkerChannelInstance) => any): Promise<WorkerChannelInstance>;
   /**
    * update a WorkerChannelInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: WorkerChannelInstanceUpdateOptions, callback?: (error: Error | null, items: WorkerChannelInstance) => any): void;
+  update(opts?: WorkerChannelInstanceUpdateOptions, callback?: (error: Error | null, items: WorkerChannelInstance) => any): Promise<WorkerChannelInstance>;
 }
 
 export { WorkerChannelContext, WorkerChannelInstance, WorkerChannelList, WorkerChannelListInstance, WorkerChannelListInstanceEachOptions, WorkerChannelListInstanceOptions, WorkerChannelListInstancePageOptions, WorkerChannelPage, WorkerChannelPayload, WorkerChannelResource, WorkerChannelSolution }

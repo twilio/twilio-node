@@ -265,13 +265,13 @@ declare class CredentialListContext {
    */
   constructor(version: V2010, accountSid: string, sid: string);
 
-  credentials?: CredentialListInstance;
+  credentials: CredentialListInstance;
   /**
    * fetch a CredentialListInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CredentialListInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: CredentialListInstance) => any): Promise<CredentialListInstance>;
   /**
    * remove a CredentialListInstance
    *
@@ -284,7 +284,7 @@ declare class CredentialListContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: CredentialListInstanceUpdateOptions, callback?: (error: Error | null, items: CredentialListInstance) => any): void;
+  update(opts: CredentialListInstanceUpdateOptions, callback?: (error: Error | null, items: CredentialListInstance) => any): Promise<CredentialListInstance>;
 }
 
 export { CredentialListContext, CredentialListInstance, CredentialListList, CredentialListListInstance, CredentialListListInstanceCreateOptions, CredentialListListInstanceEachOptions, CredentialListListInstanceOptions, CredentialListListInstancePageOptions, CredentialListPage, CredentialListPayload, CredentialListResource, CredentialListSolution }

@@ -310,7 +310,7 @@ declare class UserContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: UserInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: UserInstance) => any): Promise<UserInstance>;
   /**
    * remove a UserInstance
    *
@@ -323,9 +323,9 @@ declare class UserContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: UserInstanceUpdateOptions, callback?: (error: Error | null, items: UserInstance) => any): void;
-  userBindings?: UserBindingListInstance;
-  userChannels?: UserChannelListInstance;
+  update(opts?: UserInstanceUpdateOptions, callback?: (error: Error | null, items: UserInstance) => any): Promise<UserInstance>;
+  userBindings: UserBindingListInstance;
+  userChannels: UserChannelListInstance;
 }
 
 export { UserContext, UserInstance, UserList, UserListInstance, UserListInstanceCreateOptions, UserListInstanceEachOptions, UserListInstanceOptions, UserListInstancePageOptions, UserPage, UserPayload, UserResource, UserSolution }

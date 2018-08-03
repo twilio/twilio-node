@@ -308,20 +308,20 @@ declare class RecordingContext {
    */
   constructor(version: V2010, accountSid: string, sid: string);
 
-  addOnResults?: AddOnResultListInstance;
+  addOnResults: AddOnResultListInstance;
   /**
    * fetch a RecordingInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: RecordingInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: RecordingInstance) => any): Promise<RecordingInstance>;
   /**
    * remove a RecordingInstance
    *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: RecordingInstance) => any): void;
-  transcriptions?: TranscriptionListInstance;
+  transcriptions: TranscriptionListInstance;
 }
 
 export { RecordingContext, RecordingInstance, RecordingList, RecordingListInstance, RecordingListInstanceEachOptions, RecordingListInstanceOptions, RecordingListInstancePageOptions, RecordingPage, RecordingPayload, RecordingResource, RecordingSolution }

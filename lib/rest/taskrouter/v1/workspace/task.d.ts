@@ -382,21 +382,21 @@ declare class TaskContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: TaskInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: TaskInstance) => any): Promise<TaskInstance>;
   /**
    * remove a TaskInstance
    *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: TaskInstance) => any): void;
-  reservations?: ReservationListInstance;
+  reservations: ReservationListInstance;
   /**
    * update a TaskInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: TaskInstanceUpdateOptions, callback?: (error: Error | null, items: TaskInstance) => any): void;
+  update(opts?: TaskInstanceUpdateOptions, callback?: (error: Error | null, items: TaskInstance) => any): Promise<TaskInstance>;
 }
 
 export { TaskContext, TaskInstance, TaskList, TaskListInstance, TaskListInstanceCreateOptions, TaskListInstanceEachOptions, TaskListInstanceOptions, TaskListInstancePageOptions, TaskPage, TaskPayload, TaskResource, TaskSolution }

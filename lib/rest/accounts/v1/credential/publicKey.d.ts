@@ -259,7 +259,7 @@ declare class PublicKeyContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: PublicKeyInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: PublicKeyInstance) => any): Promise<PublicKeyInstance>;
   /**
    * remove a PublicKeyInstance
    *
@@ -272,7 +272,7 @@ declare class PublicKeyContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: PublicKeyInstanceUpdateOptions, callback?: (error: Error | null, items: PublicKeyInstance) => any): void;
+  update(opts?: PublicKeyInstanceUpdateOptions, callback?: (error: Error | null, items: PublicKeyInstance) => any): Promise<PublicKeyInstance>;
 }
 
 export { PublicKeyContext, PublicKeyInstance, PublicKeyList, PublicKeyListInstance, PublicKeyListInstanceCreateOptions, PublicKeyListInstanceEachOptions, PublicKeyListInstanceOptions, PublicKeyListInstancePageOptions, PublicKeyPage, PublicKeyPayload, PublicKeyResource, PublicKeySolution }

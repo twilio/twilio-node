@@ -271,15 +271,15 @@ declare class SyncListContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: SyncListInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: SyncListInstance) => any): Promise<SyncListInstance>;
   /**
    * remove a SyncListInstance
    *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: SyncListInstance) => any): void;
-  syncListItems?: SyncListItemListInstance;
-  syncListPermissions?: SyncListPermissionListInstance;
+  syncListItems: SyncListItemListInstance;
+  syncListPermissions: SyncListPermissionListInstance;
 }
 
 export { SyncListContext, SyncListInstance, SyncListList, SyncListListInstance, SyncListListInstanceCreateOptions, SyncListListInstanceEachOptions, SyncListListInstanceOptions, SyncListListInstancePageOptions, SyncListPage, SyncListPayload, SyncListResource, SyncListSolution }

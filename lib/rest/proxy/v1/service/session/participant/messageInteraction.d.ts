@@ -295,7 +295,7 @@ declare class MessageInteractionContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: MessageInteractionInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: MessageInteractionInstance) => any): Promise<MessageInteractionInstance>;
 }
 
 export { MessageInteractionContext, MessageInteractionInstance, MessageInteractionList, MessageInteractionListInstance, MessageInteractionListInstanceCreateOptions, MessageInteractionListInstanceEachOptions, MessageInteractionListInstanceOptions, MessageInteractionListInstancePageOptions, MessageInteractionPage, MessageInteractionPayload, MessageInteractionResource, MessageInteractionSolution }

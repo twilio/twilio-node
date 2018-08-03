@@ -299,20 +299,20 @@ declare class AuthorizationDocumentContext {
    */
   constructor(version: HostedNumbers, sid: string);
 
-  dependentHostedNumberOrders?: DependentHostedNumberOrderListInstance;
+  dependentHostedNumberOrders: DependentHostedNumberOrderListInstance;
   /**
    * fetch a AuthorizationDocumentInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AuthorizationDocumentInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: AuthorizationDocumentInstance) => any): Promise<AuthorizationDocumentInstance>;
   /**
    * update a AuthorizationDocumentInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: AuthorizationDocumentInstanceUpdateOptions, callback?: (error: Error | null, items: AuthorizationDocumentInstance) => any): void;
+  update(opts?: AuthorizationDocumentInstanceUpdateOptions, callback?: (error: Error | null, items: AuthorizationDocumentInstance) => any): Promise<AuthorizationDocumentInstance>;
 }
 
 export { AuthorizationDocumentContext, AuthorizationDocumentInstance, AuthorizationDocumentList, AuthorizationDocumentListInstance, AuthorizationDocumentListInstanceCreateOptions, AuthorizationDocumentListInstanceEachOptions, AuthorizationDocumentListInstanceOptions, AuthorizationDocumentListInstancePageOptions, AuthorizationDocumentPage, AuthorizationDocumentPayload, AuthorizationDocumentResource, AuthorizationDocumentSolution }

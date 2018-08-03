@@ -333,16 +333,16 @@ declare class TrunkContext {
    */
   constructor(version: V1, sid: string);
 
-  credentialsLists?: CredentialListListInstance;
+  credentialsLists: CredentialListListInstance;
   /**
    * fetch a TrunkInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: TrunkInstance) => any): void;
-  ipAccessControlLists?: IpAccessControlListListInstance;
-  originationUrls?: OriginationUrlListInstance;
-  phoneNumbers?: PhoneNumberListInstance;
+  fetch(callback?: (error: Error | null, items: TrunkInstance) => any): Promise<TrunkInstance>;
+  ipAccessControlLists: IpAccessControlListListInstance;
+  originationUrls: OriginationUrlListInstance;
+  phoneNumbers: PhoneNumberListInstance;
   /**
    * remove a TrunkInstance
    *
@@ -355,7 +355,7 @@ declare class TrunkContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: TrunkInstanceUpdateOptions, callback?: (error: Error | null, items: TrunkInstance) => any): void;
+  update(opts?: TrunkInstanceUpdateOptions, callback?: (error: Error | null, items: TrunkInstance) => any): Promise<TrunkInstance>;
 }
 
 export { TrunkContext, TrunkInstance, TrunkList, TrunkListInstance, TrunkListInstanceCreateOptions, TrunkListInstanceEachOptions, TrunkListInstanceOptions, TrunkListInstancePageOptions, TrunkPage, TrunkPayload, TrunkResource, TrunkSolution }

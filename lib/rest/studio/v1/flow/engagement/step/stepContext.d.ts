@@ -126,7 +126,7 @@ declare class StepContextContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: StepContextInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: StepContextInstance) => any): Promise<StepContextInstance>;
 }
 
 export { StepContextContext, StepContextInstance, StepContextList, StepContextListInstance, StepContextPage, StepContextPayload, StepContextResource, StepContextSolution }

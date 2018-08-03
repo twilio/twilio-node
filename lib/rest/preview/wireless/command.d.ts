@@ -285,7 +285,7 @@ declare class CommandContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: CommandInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: CommandInstance) => any): Promise<CommandInstance>;
 }
 
 export { CommandContext, CommandInstance, CommandList, CommandListInstance, CommandListInstanceCreateOptions, CommandListInstanceEachOptions, CommandListInstanceOptions, CommandListInstancePageOptions, CommandPage, CommandPayload, CommandResource, CommandSolution }

@@ -321,16 +321,16 @@ declare class ConferenceContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ConferenceInstance) => any): void;
-  participants?: ParticipantListInstance;
-  recordings?: RecordingListInstance;
+  fetch(callback?: (error: Error | null, items: ConferenceInstance) => any): Promise<ConferenceInstance>;
+  participants: ParticipantListInstance;
+  recordings: RecordingListInstance;
   /**
    * update a ConferenceInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ConferenceInstanceUpdateOptions, callback?: (error: Error | null, items: ConferenceInstance) => any): void;
+  update(opts?: ConferenceInstanceUpdateOptions, callback?: (error: Error | null, items: ConferenceInstance) => any): Promise<ConferenceInstance>;
 }
 
 export { ConferenceContext, ConferenceInstance, ConferenceList, ConferenceListInstance, ConferenceListInstanceEachOptions, ConferenceListInstanceOptions, ConferenceListInstancePageOptions, ConferencePage, ConferencePayload, ConferenceResource, ConferenceSolution }

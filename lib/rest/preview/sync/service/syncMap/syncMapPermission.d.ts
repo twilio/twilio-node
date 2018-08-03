@@ -259,7 +259,7 @@ declare class SyncMapPermissionContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: SyncMapPermissionInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: SyncMapPermissionInstance) => any): Promise<SyncMapPermissionInstance>;
   /**
    * remove a SyncMapPermissionInstance
    *
@@ -272,7 +272,7 @@ declare class SyncMapPermissionContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: SyncMapPermissionInstanceUpdateOptions, callback?: (error: Error | null, items: SyncMapPermissionInstance) => any): void;
+  update(opts: SyncMapPermissionInstanceUpdateOptions, callback?: (error: Error | null, items: SyncMapPermissionInstance) => any): Promise<SyncMapPermissionInstance>;
 }
 
 export { SyncMapPermissionContext, SyncMapPermissionInstance, SyncMapPermissionList, SyncMapPermissionListInstance, SyncMapPermissionListInstanceEachOptions, SyncMapPermissionListInstanceOptions, SyncMapPermissionListInstancePageOptions, SyncMapPermissionPage, SyncMapPermissionPayload, SyncMapPermissionResource, SyncMapPermissionSolution }

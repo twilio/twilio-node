@@ -112,13 +112,13 @@ declare class ExportContext {
    */
   constructor(version: BulkExports, resourceType: string);
 
-  days?: DayListInstance;
+  days: DayListInstance;
   /**
    * fetch a ExportInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ExportInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: ExportInstance) => any): Promise<ExportInstance>;
 }
 
 export { ExportContext, ExportInstance, ExportList, ExportListInstance, ExportPage, ExportPayload, ExportResource, ExportSolution }

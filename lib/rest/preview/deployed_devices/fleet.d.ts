@@ -291,16 +291,16 @@ declare class FleetContext {
    */
   constructor(version: DeployedDevices, sid: string);
 
-  certificates?: CertificateListInstance;
-  deployments?: DeploymentListInstance;
-  devices?: DeviceListInstance;
+  certificates: CertificateListInstance;
+  deployments: DeploymentListInstance;
+  devices: DeviceListInstance;
   /**
    * fetch a FleetInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: FleetInstance) => any): void;
-  keys?: KeyListInstance;
+  fetch(callback?: (error: Error | null, items: FleetInstance) => any): Promise<FleetInstance>;
+  keys: KeyListInstance;
   /**
    * remove a FleetInstance
    *
@@ -313,7 +313,7 @@ declare class FleetContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: FleetInstanceUpdateOptions, callback?: (error: Error | null, items: FleetInstance) => any): void;
+  update(opts?: FleetInstanceUpdateOptions, callback?: (error: Error | null, items: FleetInstance) => any): Promise<FleetInstance>;
 }
 
 export { FleetContext, FleetInstance, FleetList, FleetListInstance, FleetListInstanceCreateOptions, FleetListInstanceEachOptions, FleetListInstanceOptions, FleetListInstancePageOptions, FleetPage, FleetPayload, FleetResource, FleetSolution }

@@ -259,7 +259,7 @@ declare class SyncListPermissionContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: SyncListPermissionInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: SyncListPermissionInstance) => any): Promise<SyncListPermissionInstance>;
   /**
    * remove a SyncListPermissionInstance
    *
@@ -272,7 +272,7 @@ declare class SyncListPermissionContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts: SyncListPermissionInstanceUpdateOptions, callback?: (error: Error | null, items: SyncListPermissionInstance) => any): void;
+  update(opts: SyncListPermissionInstanceUpdateOptions, callback?: (error: Error | null, items: SyncListPermissionInstance) => any): Promise<SyncListPermissionInstance>;
 }
 
 export { SyncListPermissionContext, SyncListPermissionInstance, SyncListPermissionList, SyncListPermissionListInstance, SyncListPermissionListInstanceEachOptions, SyncListPermissionListInstanceOptions, SyncListPermissionListInstancePageOptions, SyncListPermissionPage, SyncListPermissionPayload, SyncListPermissionResource, SyncListPermissionSolution }

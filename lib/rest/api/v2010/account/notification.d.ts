@@ -285,7 +285,7 @@ declare class NotificationContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: NotificationInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: NotificationInstance) => any): Promise<NotificationInstance>;
   /**
    * remove a NotificationInstance
    *

@@ -379,35 +379,35 @@ declare class WorkspaceContext {
    */
   constructor(version: V1, sid: string);
 
-  activities?: ActivityListInstance;
-  cumulativeStatistics?: WorkspaceCumulativeStatisticsListInstance;
-  events?: EventListInstance;
+  activities: ActivityListInstance;
+  cumulativeStatistics: WorkspaceCumulativeStatisticsListInstance;
+  events: EventListInstance;
   /**
    * fetch a WorkspaceInstance
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: WorkspaceInstance) => any): void;
-  realTimeStatistics?: WorkspaceRealTimeStatisticsListInstance;
+  fetch(callback?: (error: Error | null, items: WorkspaceInstance) => any): Promise<WorkspaceInstance>;
+  realTimeStatistics: WorkspaceRealTimeStatisticsListInstance;
   /**
    * remove a WorkspaceInstance
    *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: WorkspaceInstance) => any): void;
-  statistics?: WorkspaceStatisticsListInstance;
-  taskChannels?: TaskChannelListInstance;
-  taskQueues?: TaskQueueListInstance;
-  tasks?: TaskListInstance;
+  statistics: WorkspaceStatisticsListInstance;
+  taskChannels: TaskChannelListInstance;
+  taskQueues: TaskQueueListInstance;
+  tasks: TaskListInstance;
   /**
    * update a WorkspaceInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: WorkspaceInstanceUpdateOptions, callback?: (error: Error | null, items: WorkspaceInstance) => any): void;
-  workers?: WorkerListInstance;
-  workflows?: WorkflowListInstance;
+  update(opts?: WorkspaceInstanceUpdateOptions, callback?: (error: Error | null, items: WorkspaceInstance) => any): Promise<WorkspaceInstance>;
+  workers: WorkerListInstance;
+  workflows: WorkflowListInstance;
 }
 
 export { WorkspaceContext, WorkspaceInstance, WorkspaceList, WorkspaceListInstance, WorkspaceListInstanceCreateOptions, WorkspaceListInstanceEachOptions, WorkspaceListInstanceOptions, WorkspaceListInstancePageOptions, WorkspacePage, WorkspacePayload, WorkspaceResource, WorkspaceSolution }

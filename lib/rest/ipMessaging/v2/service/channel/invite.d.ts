@@ -268,7 +268,7 @@ declare class InviteContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: InviteInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: InviteInstance) => any): Promise<InviteInstance>;
   /**
    * remove a InviteInstance
    *

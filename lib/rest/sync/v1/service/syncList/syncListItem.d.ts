@@ -306,7 +306,7 @@ declare class SyncListItemContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: SyncListItemInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: SyncListItemInstance) => any): Promise<SyncListItemInstance>;
   /**
    * remove a SyncListItemInstance
    *
@@ -319,7 +319,7 @@ declare class SyncListItemContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: SyncListItemInstanceUpdateOptions, callback?: (error: Error | null, items: SyncListItemInstance) => any): void;
+  update(opts?: SyncListItemInstanceUpdateOptions, callback?: (error: Error | null, items: SyncListItemInstance) => any): Promise<SyncListItemInstance>;
 }
 
 export { SyncListItemContext, SyncListItemInstance, SyncListItemList, SyncListItemListInstance, SyncListItemListInstanceCreateOptions, SyncListItemListInstanceEachOptions, SyncListItemListInstanceOptions, SyncListItemListInstancePageOptions, SyncListItemPage, SyncListItemPayload, SyncListItemResource, SyncListItemSolution }

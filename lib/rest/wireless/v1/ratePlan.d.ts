@@ -308,7 +308,7 @@ declare class RatePlanContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: RatePlanInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: RatePlanInstance) => any): Promise<RatePlanInstance>;
   /**
    * remove a RatePlanInstance
    *
@@ -321,7 +321,7 @@ declare class RatePlanContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: RatePlanInstanceUpdateOptions, callback?: (error: Error | null, items: RatePlanInstance) => any): void;
+  update(opts?: RatePlanInstanceUpdateOptions, callback?: (error: Error | null, items: RatePlanInstance) => any): Promise<RatePlanInstance>;
 }
 
 export { RatePlanContext, RatePlanInstance, RatePlanList, RatePlanListInstance, RatePlanListInstanceCreateOptions, RatePlanListInstanceEachOptions, RatePlanListInstanceOptions, RatePlanListInstancePageOptions, RatePlanPage, RatePlanPayload, RatePlanResource, RatePlanSolution }

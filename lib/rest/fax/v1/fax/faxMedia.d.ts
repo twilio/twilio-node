@@ -231,7 +231,7 @@ declare class FaxMediaContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: FaxMediaInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: FaxMediaInstance) => any): Promise<FaxMediaInstance>;
   /**
    * remove a FaxMediaInstance
    *

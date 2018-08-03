@@ -282,21 +282,21 @@ declare class SyncStreamContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: SyncStreamInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: SyncStreamInstance) => any): Promise<SyncStreamInstance>;
   /**
    * remove a SyncStreamInstance
    *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: SyncStreamInstance) => any): void;
-  streamMessages?: StreamMessageListInstance;
+  streamMessages: StreamMessageListInstance;
   /**
    * update a SyncStreamInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: SyncStreamInstanceUpdateOptions, callback?: (error: Error | null, items: SyncStreamInstance) => any): void;
+  update(opts?: SyncStreamInstanceUpdateOptions, callback?: (error: Error | null, items: SyncStreamInstance) => any): Promise<SyncStreamInstance>;
 }
 
 export { SyncStreamContext, SyncStreamInstance, SyncStreamList, SyncStreamListInstance, SyncStreamListInstanceCreateOptions, SyncStreamListInstanceEachOptions, SyncStreamListInstanceOptions, SyncStreamListInstancePageOptions, SyncStreamPage, SyncStreamPayload, SyncStreamResource, SyncStreamSolution }

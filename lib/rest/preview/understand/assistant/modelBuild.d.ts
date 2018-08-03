@@ -276,7 +276,7 @@ declare class ModelBuildContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ModelBuildInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: ModelBuildInstance) => any): Promise<ModelBuildInstance>;
   /**
    * remove a ModelBuildInstance
    *
@@ -289,7 +289,7 @@ declare class ModelBuildContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ModelBuildInstanceUpdateOptions, callback?: (error: Error | null, items: ModelBuildInstance) => any): void;
+  update(opts?: ModelBuildInstanceUpdateOptions, callback?: (error: Error | null, items: ModelBuildInstance) => any): Promise<ModelBuildInstance>;
 }
 
 export { ModelBuildContext, ModelBuildInstance, ModelBuildList, ModelBuildListInstance, ModelBuildListInstanceCreateOptions, ModelBuildListInstanceEachOptions, ModelBuildListInstanceOptions, ModelBuildListInstancePageOptions, ModelBuildPage, ModelBuildPayload, ModelBuildResource, ModelBuildSolution }

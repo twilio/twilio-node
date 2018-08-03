@@ -303,7 +303,7 @@ declare class WebhookContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: WebhookInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: WebhookInstance) => any): Promise<WebhookInstance>;
   /**
    * remove a WebhookInstance
    *
@@ -316,7 +316,7 @@ declare class WebhookContext {
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: WebhookInstanceUpdateOptions, callback?: (error: Error | null, items: WebhookInstance) => any): void;
+  update(opts?: WebhookInstanceUpdateOptions, callback?: (error: Error | null, items: WebhookInstance) => any): Promise<WebhookInstance>;
 }
 
 export { WebhookContext, WebhookInstance, WebhookList, WebhookListInstance, WebhookListInstanceCreateOptions, WebhookListInstanceEachOptions, WebhookListInstanceOptions, WebhookListInstancePageOptions, WebhookPage, WebhookPayload, WebhookResource, WebhookSolution }

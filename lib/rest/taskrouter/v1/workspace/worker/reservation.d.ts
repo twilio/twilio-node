@@ -365,14 +365,14 @@ declare class ReservationContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: ReservationInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: ReservationInstance) => any): Promise<ReservationInstance>;
   /**
    * update a ReservationInstance
    *
    * @param opts - Options for request
    * @param callback - Callback to handle processed record
    */
-  update(opts?: ReservationInstanceUpdateOptions, callback?: (error: Error | null, items: ReservationInstance) => any): void;
+  update(opts?: ReservationInstanceUpdateOptions, callback?: (error: Error | null, items: ReservationInstance) => any): Promise<ReservationInstance>;
 }
 
 export { ReservationContext, ReservationInstance, ReservationList, ReservationListInstance, ReservationListInstanceEachOptions, ReservationListInstanceOptions, ReservationListInstancePageOptions, ReservationPage, ReservationPayload, ReservationResource, ReservationSolution }

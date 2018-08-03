@@ -244,7 +244,7 @@ declare class AuthCallsIpAccessControlListMappingContext {
    *
    * @param callback - Callback to handle processed record
    */
-  fetch(callback?: (error: Error | null, items: AuthCallsIpAccessControlListMappingInstance) => any): void;
+  fetch(callback?: (error: Error | null, items: AuthCallsIpAccessControlListMappingInstance) => any): Promise<AuthCallsIpAccessControlListMappingInstance>;
   /**
    * remove a AuthCallsIpAccessControlListMappingInstance
    *
