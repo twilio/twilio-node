@@ -34,25 +34,6 @@ interface MessagingSolution {
 }
 
 
-declare class MessagingPage extends Page<V1, MessagingPayload, MessagingResource, MessagingInstance> {
-  /**
-   * Initialize the MessagingPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: MessagingSolution);
-
-  /**
-   * Build an instance of MessagingInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: MessagingPayload): MessagingInstance;
-}
-
-
 declare class MessagingInstance extends SerializableClass {
   /**
    * Initialize the MessagingContext
@@ -74,6 +55,25 @@ declare class MessagingInstance extends SerializableClass {
    */
   toJSON(): any;
   url: string;
+}
+
+
+declare class MessagingPage extends Page<V1, MessagingPayload, MessagingResource, MessagingInstance> {
+  /**
+   * Initialize the MessagingPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: V1, response: Response<string>, solution: MessagingSolution);
+
+  /**
+   * Build an instance of MessagingInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: MessagingPayload): MessagingInstance;
 }
 
 export { MessagingInstance, MessagingList, MessagingListInstance, MessagingPage, MessagingPayload, MessagingResource, MessagingSolution }

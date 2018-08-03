@@ -173,25 +173,6 @@ interface DailySolution {
 }
 
 
-declare class DailyPage extends Page<V2010, DailyPayload, DailyResource, DailyInstance> {
-  /**
-   * Initialize the DailyPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: DailySolution);
-
-  /**
-   * Build an instance of DailyInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: DailyPayload): DailyInstance;
-}
-
-
 declare class DailyInstance extends SerializableClass {
   /**
    * Initialize the DailyContext
@@ -236,6 +217,25 @@ declare class DailyInstance extends SerializableClass {
   uri: string;
   usage: string;
   usageUnit: string;
+}
+
+
+declare class DailyPage extends Page<V2010, DailyPayload, DailyResource, DailyInstance> {
+  /**
+   * Initialize the DailyPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: V2010, response: Response<string>, solution: DailySolution);
+
+  /**
+   * Build an instance of DailyInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: DailyPayload): DailyInstance;
 }
 
 export { DailyInstance, DailyList, DailyListInstance, DailyListInstanceEachOptions, DailyListInstanceOptions, DailyListInstancePageOptions, DailyPage, DailyPayload, DailyResource, DailySolution }

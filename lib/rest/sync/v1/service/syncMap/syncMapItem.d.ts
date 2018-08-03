@@ -210,22 +210,36 @@ interface SyncMapItemSolution {
 }
 
 
-declare class SyncMapItemPage extends Page<V1, SyncMapItemPayload, SyncMapItemResource, SyncMapItemInstance> {
+declare class SyncMapItemContext {
   /**
-   * Initialize the SyncMapItemPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the SyncMapItemContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param serviceSid - The service_sid
+   * @param mapSid - The map_sid
+   * @param key - The key
    */
-  constructor(version: V1, response: Response<string>, solution: SyncMapItemSolution);
+  constructor(version: V1, serviceSid: string, mapSid: string, key: string);
 
   /**
-   * Build an instance of SyncMapItemInstance
+   * fetch a SyncMapItemInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: SyncMapItemPayload): SyncMapItemInstance;
+  fetch(callback?: (error: Error | null, items: SyncMapItemInstance) => any): Promise<SyncMapItemInstance>;
+  /**
+   * remove a SyncMapItemInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: SyncMapItemInstance) => any): void;
+  /**
+   * update a SyncMapItemInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: SyncMapItemInstanceUpdateOptions, callback?: (error: Error | null, items: SyncMapItemInstance) => any): Promise<SyncMapItemInstance>;
 }
 
 
@@ -292,36 +306,22 @@ declare class SyncMapItemInstance extends SerializableClass {
 }
 
 
-declare class SyncMapItemContext {
+declare class SyncMapItemPage extends Page<V1, SyncMapItemPayload, SyncMapItemResource, SyncMapItemInstance> {
   /**
-   * Initialize the SyncMapItemContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the SyncMapItemPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
-   * @param serviceSid - The service_sid
-   * @param mapSid - The map_sid
-   * @param key - The key
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, serviceSid: string, mapSid: string, key: string);
+  constructor(version: V1, response: Response<string>, solution: SyncMapItemSolution);
 
   /**
-   * fetch a SyncMapItemInstance
+   * Build an instance of SyncMapItemInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: SyncMapItemInstance) => any): Promise<SyncMapItemInstance>;
-  /**
-   * remove a SyncMapItemInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: SyncMapItemInstance) => any): void;
-  /**
-   * update a SyncMapItemInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: SyncMapItemInstanceUpdateOptions, callback?: (error: Error | null, items: SyncMapItemInstance) => any): Promise<SyncMapItemInstance>;
+  getInstance(payload: SyncMapItemPayload): SyncMapItemInstance;
 }
 
 export { SyncMapItemContext, SyncMapItemInstance, SyncMapItemList, SyncMapItemListInstance, SyncMapItemListInstanceCreateOptions, SyncMapItemListInstanceEachOptions, SyncMapItemListInstanceOptions, SyncMapItemListInstancePageOptions, SyncMapItemPage, SyncMapItemPayload, SyncMapItemResource, SyncMapItemSolution }

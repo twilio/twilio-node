@@ -250,22 +250,35 @@ interface ApplicationSolution {
 }
 
 
-declare class ApplicationPage extends Page<V2010, ApplicationPayload, ApplicationResource, ApplicationInstance> {
+declare class ApplicationContext {
   /**
-   * Initialize the ApplicationPage
+   * Initialize the ApplicationContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param accountSid - The account_sid
+   * @param sid - Fetch by unique Application Sid
    */
-  constructor(version: V2010, response: Response<string>, solution: ApplicationSolution);
+  constructor(version: V2010, accountSid: string, sid: string);
 
   /**
-   * Build an instance of ApplicationInstance
+   * fetch a ApplicationInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: ApplicationPayload): ApplicationInstance;
+  fetch(callback?: (error: Error | null, items: ApplicationInstance) => any): Promise<ApplicationInstance>;
+  /**
+   * remove a ApplicationInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: ApplicationInstance) => any): void;
+  /**
+   * update a ApplicationInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: ApplicationInstanceUpdateOptions, callback?: (error: Error | null, items: ApplicationInstance) => any): Promise<ApplicationInstance>;
 }
 
 
@@ -349,35 +362,22 @@ declare class ApplicationInstance extends SerializableClass {
 }
 
 
-declare class ApplicationContext {
+declare class ApplicationPage extends Page<V2010, ApplicationPayload, ApplicationResource, ApplicationInstance> {
   /**
-   * Initialize the ApplicationContext
+   * Initialize the ApplicationPage
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param sid - Fetch by unique Application Sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V2010, accountSid: string, sid: string);
+  constructor(version: V2010, response: Response<string>, solution: ApplicationSolution);
 
   /**
-   * fetch a ApplicationInstance
+   * Build an instance of ApplicationInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: ApplicationInstance) => any): Promise<ApplicationInstance>;
-  /**
-   * remove a ApplicationInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: ApplicationInstance) => any): void;
-  /**
-   * update a ApplicationInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: ApplicationInstanceUpdateOptions, callback?: (error: Error | null, items: ApplicationInstance) => any): Promise<ApplicationInstance>;
+  getInstance(payload: ApplicationPayload): ApplicationInstance;
 }
 
 export { ApplicationContext, ApplicationInstance, ApplicationList, ApplicationListInstance, ApplicationListInstanceCreateOptions, ApplicationListInstanceEachOptions, ApplicationListInstanceOptions, ApplicationListInstancePageOptions, ApplicationPage, ApplicationPayload, ApplicationResource, ApplicationSolution }

@@ -229,22 +229,42 @@ interface TaskQueueSolution {
 }
 
 
-declare class TaskQueuePage extends Page<V1, TaskQueuePayload, TaskQueueResource, TaskQueueInstance> {
+declare class TaskQueueContext {
   /**
-   * Initialize the TaskQueuePage
+   * Initialize the TaskQueueContext
+   *
+   * @property statistics - statistics resource
+   * @property realTimeStatistics - realTimeStatistics resource
+   * @property cumulativeStatistics - cumulativeStatistics resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param workspaceSid - The workspace_sid
+   * @param sid - The sid
    */
-  constructor(version: V1, response: Response<string>, solution: TaskQueueSolution);
+  constructor(version: V1, workspaceSid: string, sid: string);
 
+  cumulativeStatistics: TaskQueueCumulativeStatisticsListInstance;
   /**
-   * Build an instance of TaskQueueInstance
+   * fetch a TaskQueueInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: TaskQueuePayload): TaskQueueInstance;
+  fetch(callback?: (error: Error | null, items: TaskQueueInstance) => any): Promise<TaskQueueInstance>;
+  realTimeStatistics: TaskQueueRealTimeStatisticsListInstance;
+  /**
+   * remove a TaskQueueInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: TaskQueueInstance) => any): void;
+  statistics: TaskQueueStatisticsListInstance;
+  /**
+   * update a TaskQueueInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: TaskQueueInstanceUpdateOptions, callback?: (error: Error | null, items: TaskQueueInstance) => any): Promise<TaskQueueInstance>;
 }
 
 
@@ -330,42 +350,22 @@ declare class TaskQueueInstance extends SerializableClass {
 }
 
 
-declare class TaskQueueContext {
+declare class TaskQueuePage extends Page<V1, TaskQueuePayload, TaskQueueResource, TaskQueueInstance> {
   /**
-   * Initialize the TaskQueueContext
-   *
-   * @property statistics - statistics resource
-   * @property realTimeStatistics - realTimeStatistics resource
-   * @property cumulativeStatistics - cumulativeStatistics resource
+   * Initialize the TaskQueuePage
    *
    * @param version - Version of the resource
-   * @param workspaceSid - The workspace_sid
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, workspaceSid: string, sid: string);
+  constructor(version: V1, response: Response<string>, solution: TaskQueueSolution);
 
-  cumulativeStatistics: TaskQueueCumulativeStatisticsListInstance;
   /**
-   * fetch a TaskQueueInstance
+   * Build an instance of TaskQueueInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: TaskQueueInstance) => any): Promise<TaskQueueInstance>;
-  realTimeStatistics: TaskQueueRealTimeStatisticsListInstance;
-  /**
-   * remove a TaskQueueInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: TaskQueueInstance) => any): void;
-  statistics: TaskQueueStatisticsListInstance;
-  /**
-   * update a TaskQueueInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: TaskQueueInstanceUpdateOptions, callback?: (error: Error | null, items: TaskQueueInstance) => any): Promise<TaskQueueInstance>;
+  getInstance(payload: TaskQueuePayload): TaskQueueInstance;
 }
 
 export { TaskQueueContext, TaskQueueInstance, TaskQueueList, TaskQueueListInstance, TaskQueueListInstanceCreateOptions, TaskQueueListInstanceEachOptions, TaskQueueListInstanceOptions, TaskQueueListInstancePageOptions, TaskQueuePage, TaskQueuePayload, TaskQueueResource, TaskQueueSolution }

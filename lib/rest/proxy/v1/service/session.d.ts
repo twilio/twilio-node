@@ -223,22 +223,40 @@ interface SessionSolution {
 }
 
 
-declare class SessionPage extends Page<V1, SessionPayload, SessionResource, SessionInstance> {
+declare class SessionContext {
   /**
-   * Initialize the SessionPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the SessionContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property interactions - interactions resource
+   * @property participants - participants resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param serviceSid - Service Sid.
+   * @param sid - A string that uniquely identifies this Session.
    */
-  constructor(version: V1, response: Response<string>, solution: SessionSolution);
+  constructor(version: V1, serviceSid: string, sid: string);
 
   /**
-   * Build an instance of SessionInstance
+   * fetch a SessionInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: SessionPayload): SessionInstance;
+  fetch(callback?: (error: Error | null, items: SessionInstance) => any): Promise<SessionInstance>;
+  interactions: InteractionListInstance;
+  participants: ParticipantListInstance;
+  /**
+   * remove a SessionInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: SessionInstance) => any): void;
+  /**
+   * update a SessionInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: SessionInstanceUpdateOptions, callback?: (error: Error | null, items: SessionInstance) => any): Promise<SessionInstance>;
 }
 
 
@@ -322,40 +340,22 @@ declare class SessionInstance extends SerializableClass {
 }
 
 
-declare class SessionContext {
+declare class SessionPage extends Page<V1, SessionPayload, SessionResource, SessionInstance> {
   /**
-   * Initialize the SessionContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
-   *
-   * @property interactions - interactions resource
-   * @property participants - participants resource
+   * Initialize the SessionPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
-   * @param serviceSid - Service Sid.
-   * @param sid - A string that uniquely identifies this Session.
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, serviceSid: string, sid: string);
+  constructor(version: V1, response: Response<string>, solution: SessionSolution);
 
   /**
-   * fetch a SessionInstance
+   * Build an instance of SessionInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: SessionInstance) => any): Promise<SessionInstance>;
-  interactions: InteractionListInstance;
-  participants: ParticipantListInstance;
-  /**
-   * remove a SessionInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: SessionInstance) => any): void;
-  /**
-   * update a SessionInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: SessionInstanceUpdateOptions, callback?: (error: Error | null, items: SessionInstance) => any): Promise<SessionInstance>;
+  getInstance(payload: SessionPayload): SessionInstance;
 }
 
 export { SessionContext, SessionInstance, SessionList, SessionListInstance, SessionListInstanceCreateOptions, SessionListInstanceEachOptions, SessionListInstanceOptions, SessionListInstancePageOptions, SessionPage, SessionPayload, SessionResource, SessionSolution }

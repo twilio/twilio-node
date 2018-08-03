@@ -182,22 +182,33 @@ interface ServiceSolution {
 }
 
 
-declare class ServicePage extends Page<AccSecurity, ServicePayload, ServiceResource, ServiceInstance> {
+declare class ServiceContext {
   /**
-   * Initialize the ServicePagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the ServiceContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property verifications - verifications resource
+   * @property verificationChecks - verificationChecks resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param sid - Verification Service Instance SID.
    */
-  constructor(version: AccSecurity, response: Response<string>, solution: ServiceSolution);
+  constructor(version: AccSecurity, sid: string);
 
   /**
-   * Build an instance of ServiceInstance
+   * fetch a ServiceInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: ServicePayload): ServiceInstance;
+  fetch(callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance>;
+  /**
+   * update a ServiceInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: ServiceInstanceUpdateOptions, callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance>;
+  verificationChecks: VerificationCheckListInstance;
+  verifications: VerificationListInstance;
 }
 
 
@@ -258,33 +269,22 @@ declare class ServiceInstance extends SerializableClass {
 }
 
 
-declare class ServiceContext {
+declare class ServicePage extends Page<AccSecurity, ServicePayload, ServiceResource, ServiceInstance> {
   /**
-   * Initialize the ServiceContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
-   *
-   * @property verifications - verifications resource
-   * @property verificationChecks - verificationChecks resource
+   * Initialize the ServicePagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param sid - Verification Service Instance SID.
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: AccSecurity, sid: string);
+  constructor(version: AccSecurity, response: Response<string>, solution: ServiceSolution);
 
   /**
-   * fetch a ServiceInstance
+   * Build an instance of ServiceInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance>;
-  /**
-   * update a ServiceInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: ServiceInstanceUpdateOptions, callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance>;
-  verificationChecks: VerificationCheckListInstance;
-  verifications: VerificationListInstance;
+  getInstance(payload: ServicePayload): ServiceInstance;
 }
 
 export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServiceListInstanceCreateOptions, ServiceListInstanceEachOptions, ServiceListInstanceOptions, ServiceListInstancePageOptions, ServicePage, ServicePayload, ServiceResource, ServiceSolution }

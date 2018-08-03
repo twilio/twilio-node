@@ -169,22 +169,30 @@ interface WorkerChannelSolution {
 }
 
 
-declare class WorkerChannelPage extends Page<V1, WorkerChannelPayload, WorkerChannelResource, WorkerChannelInstance> {
+declare class WorkerChannelContext {
   /**
-   * Initialize the WorkerChannelPage
+   * Initialize the WorkerChannelContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param workspaceSid - The workspace_sid
+   * @param workerSid - The worker_sid
+   * @param sid - The sid
    */
-  constructor(version: V1, response: Response<string>, solution: WorkerChannelSolution);
+  constructor(version: V1, workspaceSid: string, workerSid: string, sid: string);
 
   /**
-   * Build an instance of WorkerChannelInstance
+   * fetch a WorkerChannelInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: WorkerChannelPayload): WorkerChannelInstance;
+  fetch(callback?: (error: Error | null, items: WorkerChannelInstance) => any): Promise<WorkerChannelInstance>;
+  /**
+   * update a WorkerChannelInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: WorkerChannelInstanceUpdateOptions, callback?: (error: Error | null, items: WorkerChannelInstance) => any): Promise<WorkerChannelInstance>;
 }
 
 
@@ -249,30 +257,22 @@ declare class WorkerChannelInstance extends SerializableClass {
 }
 
 
-declare class WorkerChannelContext {
+declare class WorkerChannelPage extends Page<V1, WorkerChannelPayload, WorkerChannelResource, WorkerChannelInstance> {
   /**
-   * Initialize the WorkerChannelContext
+   * Initialize the WorkerChannelPage
    *
    * @param version - Version of the resource
-   * @param workspaceSid - The workspace_sid
-   * @param workerSid - The worker_sid
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, workspaceSid: string, workerSid: string, sid: string);
+  constructor(version: V1, response: Response<string>, solution: WorkerChannelSolution);
 
   /**
-   * fetch a WorkerChannelInstance
+   * Build an instance of WorkerChannelInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: WorkerChannelInstance) => any): Promise<WorkerChannelInstance>;
-  /**
-   * update a WorkerChannelInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: WorkerChannelInstanceUpdateOptions, callback?: (error: Error | null, items: WorkerChannelInstance) => any): Promise<WorkerChannelInstance>;
+  getInstance(payload: WorkerChannelPayload): WorkerChannelInstance;
 }
 
 export { WorkerChannelContext, WorkerChannelInstance, WorkerChannelList, WorkerChannelListInstance, WorkerChannelListInstanceEachOptions, WorkerChannelListInstanceOptions, WorkerChannelListInstancePageOptions, WorkerChannelPage, WorkerChannelPayload, WorkerChannelResource, WorkerChannelSolution }

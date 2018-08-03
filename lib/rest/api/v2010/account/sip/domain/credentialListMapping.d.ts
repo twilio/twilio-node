@@ -167,22 +167,29 @@ interface CredentialListMappingSolution {
 }
 
 
-declare class CredentialListMappingPage extends Page<V2010, CredentialListMappingPayload, CredentialListMappingResource, CredentialListMappingInstance> {
+declare class CredentialListMappingContext {
   /**
-   * Initialize the CredentialListMappingPage
+   * Initialize the CredentialListMappingContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param accountSid - The account_sid
+   * @param domainSid - The domain_sid
+   * @param sid - The sid
    */
-  constructor(version: V2010, response: Response<string>, solution: CredentialListMappingSolution);
+  constructor(version: V2010, accountSid: string, domainSid: string, sid: string);
 
   /**
-   * Build an instance of CredentialListMappingInstance
+   * fetch a CredentialListMappingInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: CredentialListMappingPayload): CredentialListMappingInstance;
+  fetch(callback?: (error: Error | null, items: CredentialListMappingInstance) => any): Promise<CredentialListMappingInstance>;
+  /**
+   * remove a CredentialListMappingInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: CredentialListMappingInstance) => any): void;
 }
 
 
@@ -234,29 +241,22 @@ declare class CredentialListMappingInstance extends SerializableClass {
 }
 
 
-declare class CredentialListMappingContext {
+declare class CredentialListMappingPage extends Page<V2010, CredentialListMappingPayload, CredentialListMappingResource, CredentialListMappingInstance> {
   /**
-   * Initialize the CredentialListMappingContext
+   * Initialize the CredentialListMappingPage
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param domainSid - The domain_sid
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V2010, accountSid: string, domainSid: string, sid: string);
+  constructor(version: V2010, response: Response<string>, solution: CredentialListMappingSolution);
 
   /**
-   * fetch a CredentialListMappingInstance
+   * Build an instance of CredentialListMappingInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: CredentialListMappingInstance) => any): Promise<CredentialListMappingInstance>;
-  /**
-   * remove a CredentialListMappingInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: CredentialListMappingInstance) => any): void;
+  getInstance(payload: CredentialListMappingPayload): CredentialListMappingInstance;
 }
 
 export { CredentialListMappingContext, CredentialListMappingInstance, CredentialListMappingList, CredentialListMappingListInstance, CredentialListMappingListInstanceCreateOptions, CredentialListMappingListInstanceEachOptions, CredentialListMappingListInstanceOptions, CredentialListMappingListInstancePageOptions, CredentialListMappingPage, CredentialListMappingPayload, CredentialListMappingResource, CredentialListMappingSolution }

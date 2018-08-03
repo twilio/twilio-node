@@ -234,22 +234,31 @@ interface SimSolution {
 }
 
 
-declare class SimPage extends Page<Wireless, SimPayload, SimResource, SimInstance> {
+declare class SimContext {
   /**
-   * Initialize the SimPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the SimContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property usage - usage resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param sid - The sid
    */
-  constructor(version: Wireless, response: Response<string>, solution: SimSolution);
+  constructor(version: Wireless, sid: string);
 
   /**
-   * Build an instance of SimInstance
+   * fetch a SimInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: SimPayload): SimInstance;
+  fetch(callback?: (error: Error | null, items: SimInstance) => any): Promise<SimInstance>;
+  /**
+   * update a SimInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: SimInstanceUpdateOptions, callback?: (error: Error | null, items: SimInstance) => any): Promise<SimInstance>;
+  usage: UsageListInstance;
 }
 
 
@@ -334,31 +343,22 @@ declare class SimInstance extends SerializableClass {
 }
 
 
-declare class SimContext {
+declare class SimPage extends Page<Wireless, SimPayload, SimResource, SimInstance> {
   /**
-   * Initialize the SimContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
-   *
-   * @property usage - usage resource
+   * Initialize the SimPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: Wireless, sid: string);
+  constructor(version: Wireless, response: Response<string>, solution: SimSolution);
 
   /**
-   * fetch a SimInstance
+   * Build an instance of SimInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: SimInstance) => any): Promise<SimInstance>;
-  /**
-   * update a SimInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: SimInstanceUpdateOptions, callback?: (error: Error | null, items: SimInstance) => any): Promise<SimInstance>;
-  usage: UsageListInstance;
+  getInstance(payload: SimPayload): SimInstance;
 }
 
 export { SimContext, SimInstance, SimList, SimListInstance, SimListInstanceEachOptions, SimListInstanceOptions, SimListInstancePageOptions, SimPage, SimPayload, SimResource, SimSolution }

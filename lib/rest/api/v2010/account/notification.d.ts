@@ -184,22 +184,28 @@ interface NotificationSolution {
 }
 
 
-declare class NotificationPage extends Page<V2010, NotificationPayload, NotificationResource, NotificationInstance> {
+declare class NotificationContext {
   /**
-   * Initialize the NotificationPage
+   * Initialize the NotificationContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param accountSid - The account_sid
+   * @param sid - Fetch by unique notification Sid
    */
-  constructor(version: V2010, response: Response<string>, solution: NotificationSolution);
+  constructor(version: V2010, accountSid: string, sid: string);
 
   /**
-   * Build an instance of NotificationInstance
+   * fetch a NotificationInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: NotificationPayload): NotificationInstance;
+  fetch(callback?: (error: Error | null, items: NotificationInstance) => any): Promise<NotificationInstance>;
+  /**
+   * remove a NotificationInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: NotificationInstance) => any): void;
 }
 
 
@@ -270,28 +276,22 @@ declare class NotificationInstance extends SerializableClass {
 }
 
 
-declare class NotificationContext {
+declare class NotificationPage extends Page<V2010, NotificationPayload, NotificationResource, NotificationInstance> {
   /**
-   * Initialize the NotificationContext
+   * Initialize the NotificationPage
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param sid - Fetch by unique notification Sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V2010, accountSid: string, sid: string);
+  constructor(version: V2010, response: Response<string>, solution: NotificationSolution);
 
   /**
-   * fetch a NotificationInstance
+   * Build an instance of NotificationInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: NotificationInstance) => any): Promise<NotificationInstance>;
-  /**
-   * remove a NotificationInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: NotificationInstance) => any): void;
+  getInstance(payload: NotificationPayload): NotificationInstance;
 }
 
 export { NotificationContext, NotificationInstance, NotificationList, NotificationListInstance, NotificationListInstanceEachOptions, NotificationListInstanceOptions, NotificationListInstancePageOptions, NotificationPage, NotificationPayload, NotificationResource, NotificationSolution }

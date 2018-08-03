@@ -274,22 +274,34 @@ interface HostedNumberOrderSolution {
 }
 
 
-declare class HostedNumberOrderPage extends Page<HostedNumbers, HostedNumberOrderPayload, HostedNumberOrderResource, HostedNumberOrderInstance> {
+declare class HostedNumberOrderContext {
   /**
-   * Initialize the HostedNumberOrderPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the HostedNumberOrderContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param sid - HostedNumberOrder sid.
    */
-  constructor(version: HostedNumbers, response: Response<string>, solution: HostedNumberOrderSolution);
+  constructor(version: HostedNumbers, sid: string);
 
   /**
-   * Build an instance of HostedNumberOrderInstance
+   * fetch a HostedNumberOrderInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: HostedNumberOrderPayload): HostedNumberOrderInstance;
+  fetch(callback?: (error: Error | null, items: HostedNumberOrderInstance) => any): Promise<HostedNumberOrderInstance>;
+  /**
+   * remove a HostedNumberOrderInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: HostedNumberOrderInstance) => any): void;
+  /**
+   * update a HostedNumberOrderInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: HostedNumberOrderInstanceUpdateOptions, callback?: (error: Error | null, items: HostedNumberOrderInstance) => any): Promise<HostedNumberOrderInstance>;
 }
 
 
@@ -378,34 +390,22 @@ declare class HostedNumberOrderInstance extends SerializableClass {
 }
 
 
-declare class HostedNumberOrderContext {
+declare class HostedNumberOrderPage extends Page<HostedNumbers, HostedNumberOrderPayload, HostedNumberOrderResource, HostedNumberOrderInstance> {
   /**
-   * Initialize the HostedNumberOrderContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the HostedNumberOrderPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param sid - HostedNumberOrder sid.
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: HostedNumbers, sid: string);
+  constructor(version: HostedNumbers, response: Response<string>, solution: HostedNumberOrderSolution);
 
   /**
-   * fetch a HostedNumberOrderInstance
+   * Build an instance of HostedNumberOrderInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: HostedNumberOrderInstance) => any): Promise<HostedNumberOrderInstance>;
-  /**
-   * remove a HostedNumberOrderInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: HostedNumberOrderInstance) => any): void;
-  /**
-   * update a HostedNumberOrderInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: HostedNumberOrderInstanceUpdateOptions, callback?: (error: Error | null, items: HostedNumberOrderInstance) => any): Promise<HostedNumberOrderInstance>;
+  getInstance(payload: HostedNumberOrderPayload): HostedNumberOrderInstance;
 }
 
 export { HostedNumberOrderContext, HostedNumberOrderInstance, HostedNumberOrderList, HostedNumberOrderListInstance, HostedNumberOrderListInstanceCreateOptions, HostedNumberOrderListInstanceEachOptions, HostedNumberOrderListInstanceOptions, HostedNumberOrderListInstancePageOptions, HostedNumberOrderPage, HostedNumberOrderPayload, HostedNumberOrderResource, HostedNumberOrderSolution }

@@ -66,22 +66,23 @@ interface WorkflowStatisticsSolution {
 }
 
 
-declare class WorkflowStatisticsPage extends Page<V1, WorkflowStatisticsPayload, WorkflowStatisticsResource, WorkflowStatisticsInstance> {
+declare class WorkflowStatisticsContext {
   /**
-   * Initialize the WorkflowStatisticsPage
+   * Initialize the WorkflowStatisticsContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param workspaceSid - The workspace_sid
+   * @param workflowSid - The workflow_sid
    */
-  constructor(version: V1, response: Response<string>, solution: WorkflowStatisticsSolution);
+  constructor(version: V1, workspaceSid: string, workflowSid: string);
 
   /**
-   * Build an instance of WorkflowStatisticsInstance
+   * fetch a WorkflowStatisticsInstance
    *
-   * @param payload - Payload response from the API
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: WorkflowStatisticsPayload): WorkflowStatisticsInstance;
+  fetch(opts?: WorkflowStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkflowStatisticsInstance) => any): Promise<WorkflowStatisticsInstance>;
 }
 
 
@@ -125,23 +126,22 @@ declare class WorkflowStatisticsInstance extends SerializableClass {
 }
 
 
-declare class WorkflowStatisticsContext {
+declare class WorkflowStatisticsPage extends Page<V1, WorkflowStatisticsPayload, WorkflowStatisticsResource, WorkflowStatisticsInstance> {
   /**
-   * Initialize the WorkflowStatisticsContext
+   * Initialize the WorkflowStatisticsPage
    *
    * @param version - Version of the resource
-   * @param workspaceSid - The workspace_sid
-   * @param workflowSid - The workflow_sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, workspaceSid: string, workflowSid: string);
+  constructor(version: V1, response: Response<string>, solution: WorkflowStatisticsSolution);
 
   /**
-   * fetch a WorkflowStatisticsInstance
+   * Build an instance of WorkflowStatisticsInstance
    *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(opts?: WorkflowStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkflowStatisticsInstance) => any): Promise<WorkflowStatisticsInstance>;
+  getInstance(payload: WorkflowStatisticsPayload): WorkflowStatisticsInstance;
 }
 
 export { WorkflowStatisticsContext, WorkflowStatisticsInstance, WorkflowStatisticsList, WorkflowStatisticsListInstance, WorkflowStatisticsPage, WorkflowStatisticsPayload, WorkflowStatisticsResource, WorkflowStatisticsSolution }

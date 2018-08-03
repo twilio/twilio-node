@@ -186,22 +186,36 @@ interface IpAddressSolution {
 }
 
 
-declare class IpAddressPage extends Page<V2010, IpAddressPayload, IpAddressResource, IpAddressInstance> {
+declare class IpAddressContext {
   /**
-   * Initialize the IpAddressPage
+   * Initialize the IpAddressContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param accountSid - The account_sid
+   * @param ipAccessControlListSid - The ip_access_control_list_sid
+   * @param sid - The sid
    */
-  constructor(version: V2010, response: Response<string>, solution: IpAddressSolution);
+  constructor(version: V2010, accountSid: string, ipAccessControlListSid: string, sid: string);
 
   /**
-   * Build an instance of IpAddressInstance
+   * fetch a IpAddressInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: IpAddressPayload): IpAddressInstance;
+  fetch(callback?: (error: Error | null, items: IpAddressInstance) => any): Promise<IpAddressInstance>;
+  /**
+   * remove a IpAddressInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: IpAddressInstance) => any): void;
+  /**
+   * update a IpAddressInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: IpAddressInstanceUpdateOptions, callback?: (error: Error | null, items: IpAddressInstance) => any): Promise<IpAddressInstance>;
 }
 
 
@@ -264,36 +278,22 @@ declare class IpAddressInstance extends SerializableClass {
 }
 
 
-declare class IpAddressContext {
+declare class IpAddressPage extends Page<V2010, IpAddressPayload, IpAddressResource, IpAddressInstance> {
   /**
-   * Initialize the IpAddressContext
+   * Initialize the IpAddressPage
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param ipAccessControlListSid - The ip_access_control_list_sid
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V2010, accountSid: string, ipAccessControlListSid: string, sid: string);
+  constructor(version: V2010, response: Response<string>, solution: IpAddressSolution);
 
   /**
-   * fetch a IpAddressInstance
+   * Build an instance of IpAddressInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: IpAddressInstance) => any): Promise<IpAddressInstance>;
-  /**
-   * remove a IpAddressInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: IpAddressInstance) => any): void;
-  /**
-   * update a IpAddressInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: IpAddressInstanceUpdateOptions, callback?: (error: Error | null, items: IpAddressInstance) => any): Promise<IpAddressInstance>;
+  getInstance(payload: IpAddressPayload): IpAddressInstance;
 }
 
 export { IpAddressContext, IpAddressInstance, IpAddressList, IpAddressListInstance, IpAddressListInstanceCreateOptions, IpAddressListInstanceEachOptions, IpAddressListInstanceOptions, IpAddressListInstancePageOptions, IpAddressPage, IpAddressPayload, IpAddressResource, IpAddressSolution }

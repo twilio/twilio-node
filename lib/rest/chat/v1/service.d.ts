@@ -377,22 +377,41 @@ interface ServiceSolution {
 }
 
 
-declare class ServicePage extends Page<V1, ServicePayload, ServiceResource, ServiceInstance> {
+declare class ServiceContext {
   /**
-   * Initialize the ServicePage
+   * Initialize the ServiceContext
+   *
+   * @property channels - channels resource
+   * @property roles - roles resource
+   * @property users - users resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param sid - The sid
    */
-  constructor(version: V1, response: Response<string>, solution: ServiceSolution);
+  constructor(version: V1, sid: string);
 
+  channels: ChannelListInstance;
   /**
-   * Build an instance of ServiceInstance
+   * fetch a ServiceInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: ServicePayload): ServiceInstance;
+  fetch(callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance>;
+  /**
+   * remove a ServiceInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: ServiceInstance) => any): void;
+  roles: RoleListInstance;
+  /**
+   * update a ServiceInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: ServiceInstanceUpdateOptions, callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance>;
+  users: UserListInstance;
 }
 
 
@@ -489,41 +508,22 @@ declare class ServiceInstance extends SerializableClass {
 }
 
 
-declare class ServiceContext {
+declare class ServicePage extends Page<V1, ServicePayload, ServiceResource, ServiceInstance> {
   /**
-   * Initialize the ServiceContext
-   *
-   * @property channels - channels resource
-   * @property roles - roles resource
-   * @property users - users resource
+   * Initialize the ServicePage
    *
    * @param version - Version of the resource
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, sid: string);
+  constructor(version: V1, response: Response<string>, solution: ServiceSolution);
 
-  channels: ChannelListInstance;
   /**
-   * fetch a ServiceInstance
+   * Build an instance of ServiceInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance>;
-  /**
-   * remove a ServiceInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: ServiceInstance) => any): void;
-  roles: RoleListInstance;
-  /**
-   * update a ServiceInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: ServiceInstanceUpdateOptions, callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance>;
-  users: UserListInstance;
+  getInstance(payload: ServicePayload): ServiceInstance;
 }
 
 export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServiceListInstanceCreateOptions, ServiceListInstanceEachOptions, ServiceListInstanceOptions, ServiceListInstancePageOptions, ServicePage, ServicePayload, ServiceResource, ServiceSolution }

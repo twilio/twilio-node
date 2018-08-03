@@ -60,22 +60,28 @@ interface ExportConfigurationSolution {
 }
 
 
-declare class ExportConfigurationPage extends Page<BulkExports, ExportConfigurationPayload, ExportConfigurationResource, ExportConfigurationInstance> {
+declare class ExportConfigurationContext {
   /**
-   * Initialize the ExportConfigurationPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the ExportConfigurationContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param resourceType - The resource_type
    */
-  constructor(version: BulkExports, response: Response<string>, solution: ExportConfigurationSolution);
+  constructor(version: BulkExports, resourceType: string);
 
   /**
-   * Build an instance of ExportConfigurationInstance
+   * fetch a ExportConfigurationInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: ExportConfigurationPayload): ExportConfigurationInstance;
+  fetch(callback?: (error: Error | null, items: ExportConfigurationInstance) => any): Promise<ExportConfigurationInstance>;
+  /**
+   * update a ExportConfigurationInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: ExportConfigurationInstanceUpdateOptions, callback?: (error: Error | null, items: ExportConfigurationInstance) => any): Promise<ExportConfigurationInstance>;
 }
 
 
@@ -122,28 +128,22 @@ declare class ExportConfigurationInstance extends SerializableClass {
 }
 
 
-declare class ExportConfigurationContext {
+declare class ExportConfigurationPage extends Page<BulkExports, ExportConfigurationPayload, ExportConfigurationResource, ExportConfigurationInstance> {
   /**
-   * Initialize the ExportConfigurationContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the ExportConfigurationPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param resourceType - The resource_type
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: BulkExports, resourceType: string);
+  constructor(version: BulkExports, response: Response<string>, solution: ExportConfigurationSolution);
 
   /**
-   * fetch a ExportConfigurationInstance
+   * Build an instance of ExportConfigurationInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: ExportConfigurationInstance) => any): Promise<ExportConfigurationInstance>;
-  /**
-   * update a ExportConfigurationInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: ExportConfigurationInstanceUpdateOptions, callback?: (error: Error | null, items: ExportConfigurationInstance) => any): Promise<ExportConfigurationInstance>;
+  getInstance(payload: ExportConfigurationPayload): ExportConfigurationInstance;
 }
 
 export { ExportConfigurationContext, ExportConfigurationInstance, ExportConfigurationList, ExportConfigurationListInstance, ExportConfigurationPage, ExportConfigurationPayload, ExportConfigurationResource, ExportConfigurationSolution }

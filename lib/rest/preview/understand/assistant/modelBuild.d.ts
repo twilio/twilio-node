@@ -182,22 +182,35 @@ interface ModelBuildSolution {
 }
 
 
-declare class ModelBuildPage extends Page<Understand, ModelBuildPayload, ModelBuildResource, ModelBuildInstance> {
+declare class ModelBuildContext {
   /**
-   * Initialize the ModelBuildPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the ModelBuildContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param assistantSid - The assistant_sid
+   * @param sid - The sid
    */
-  constructor(version: Understand, response: Response<string>, solution: ModelBuildSolution);
+  constructor(version: Understand, assistantSid: string, sid: string);
 
   /**
-   * Build an instance of ModelBuildInstance
+   * fetch a ModelBuildInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: ModelBuildPayload): ModelBuildInstance;
+  fetch(callback?: (error: Error | null, items: ModelBuildInstance) => any): Promise<ModelBuildInstance>;
+  /**
+   * remove a ModelBuildInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: ModelBuildInstance) => any): void;
+  /**
+   * update a ModelBuildInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: ModelBuildInstanceUpdateOptions, callback?: (error: Error | null, items: ModelBuildInstance) => any): Promise<ModelBuildInstance>;
 }
 
 
@@ -261,35 +274,22 @@ declare class ModelBuildInstance extends SerializableClass {
 }
 
 
-declare class ModelBuildContext {
+declare class ModelBuildPage extends Page<Understand, ModelBuildPayload, ModelBuildResource, ModelBuildInstance> {
   /**
-   * Initialize the ModelBuildContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the ModelBuildPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param assistantSid - The assistant_sid
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: Understand, assistantSid: string, sid: string);
+  constructor(version: Understand, response: Response<string>, solution: ModelBuildSolution);
 
   /**
-   * fetch a ModelBuildInstance
+   * Build an instance of ModelBuildInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: ModelBuildInstance) => any): Promise<ModelBuildInstance>;
-  /**
-   * remove a ModelBuildInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: ModelBuildInstance) => any): void;
-  /**
-   * update a ModelBuildInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: ModelBuildInstanceUpdateOptions, callback?: (error: Error | null, items: ModelBuildInstance) => any): Promise<ModelBuildInstance>;
+  getInstance(payload: ModelBuildPayload): ModelBuildInstance;
 }
 
 export { ModelBuildContext, ModelBuildInstance, ModelBuildList, ModelBuildListInstance, ModelBuildListInstanceCreateOptions, ModelBuildListInstanceEachOptions, ModelBuildListInstanceOptions, ModelBuildListInstancePageOptions, ModelBuildPage, ModelBuildPayload, ModelBuildResource, ModelBuildSolution }

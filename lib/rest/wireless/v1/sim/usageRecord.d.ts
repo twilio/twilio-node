@@ -158,25 +158,6 @@ interface UsageRecordSolution {
 }
 
 
-declare class UsageRecordPage extends Page<V1, UsageRecordPayload, UsageRecordResource, UsageRecordInstance> {
-  /**
-   * Initialize the UsageRecordPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: UsageRecordSolution);
-
-  /**
-   * Build an instance of UsageRecordInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: UsageRecordPayload): UsageRecordInstance;
-}
-
-
 declare class UsageRecordInstance extends SerializableClass {
   /**
    * Initialize the UsageRecordContext
@@ -203,6 +184,25 @@ declare class UsageRecordInstance extends SerializableClass {
    * Removes any circular references in the object.
    */
   toJSON(): any;
+}
+
+
+declare class UsageRecordPage extends Page<V1, UsageRecordPayload, UsageRecordResource, UsageRecordInstance> {
+  /**
+   * Initialize the UsageRecordPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: V1, response: Response<string>, solution: UsageRecordSolution);
+
+  /**
+   * Build an instance of UsageRecordInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: UsageRecordPayload): UsageRecordInstance;
 }
 
 export { UsageRecordInstance, UsageRecordList, UsageRecordListInstance, UsageRecordListInstanceEachOptions, UsageRecordListInstanceOptions, UsageRecordListInstancePageOptions, UsageRecordPage, UsageRecordPayload, UsageRecordResource, UsageRecordSolution }

@@ -235,22 +235,37 @@ interface FaxSolution {
 }
 
 
-declare class FaxPage extends Page<V1, FaxPayload, FaxResource, FaxInstance> {
+declare class FaxContext {
   /**
-   * Initialize the FaxPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the FaxContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property media - media resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param sid - A string that uniquely identifies this fax.
    */
-  constructor(version: V1, response: Response<string>, solution: FaxSolution);
+  constructor(version: V1, sid: string);
 
   /**
-   * Build an instance of FaxInstance
+   * fetch a FaxInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: FaxPayload): FaxInstance;
+  fetch(callback?: (error: Error | null, items: FaxInstance) => any): Promise<FaxInstance>;
+  media: FaxMediaListInstance;
+  /**
+   * remove a FaxInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: FaxInstance) => any): void;
+  /**
+   * update a FaxInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: FaxInstanceUpdateOptions, callback?: (error: Error | null, items: FaxInstance) => any): Promise<FaxInstance>;
 }
 
 
@@ -333,37 +348,22 @@ declare class FaxInstance extends SerializableClass {
 }
 
 
-declare class FaxContext {
+declare class FaxPage extends Page<V1, FaxPayload, FaxResource, FaxInstance> {
   /**
-   * Initialize the FaxContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
-   *
-   * @property media - media resource
+   * Initialize the FaxPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
-   * @param sid - A string that uniquely identifies this fax.
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, sid: string);
+  constructor(version: V1, response: Response<string>, solution: FaxSolution);
 
   /**
-   * fetch a FaxInstance
+   * Build an instance of FaxInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: FaxInstance) => any): Promise<FaxInstance>;
-  media: FaxMediaListInstance;
-  /**
-   * remove a FaxInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: FaxInstance) => any): void;
-  /**
-   * update a FaxInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: FaxInstanceUpdateOptions, callback?: (error: Error | null, items: FaxInstance) => any): Promise<FaxInstance>;
+  getInstance(payload: FaxPayload): FaxInstance;
 }
 
 export { FaxContext, FaxInstance, FaxList, FaxListInstance, FaxListInstanceCreateOptions, FaxListInstanceEachOptions, FaxListInstanceOptions, FaxListInstancePageOptions, FaxPage, FaxPayload, FaxResource, FaxSolution }

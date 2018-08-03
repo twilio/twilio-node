@@ -204,22 +204,21 @@ interface CommandSolution {
 }
 
 
-declare class CommandPage extends Page<Wireless, CommandPayload, CommandResource, CommandInstance> {
+declare class CommandContext {
   /**
-   * Initialize the CommandPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the CommandContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param sid - The sid
    */
-  constructor(version: Wireless, response: Response<string>, solution: CommandSolution);
+  constructor(version: Wireless, sid: string);
 
   /**
-   * Build an instance of CommandInstance
+   * fetch a CommandInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: CommandPayload): CommandInstance;
+  fetch(callback?: (error: Error | null, items: CommandInstance) => any): Promise<CommandInstance>;
 }
 
 
@@ -271,21 +270,22 @@ declare class CommandInstance extends SerializableClass {
 }
 
 
-declare class CommandContext {
+declare class CommandPage extends Page<Wireless, CommandPayload, CommandResource, CommandInstance> {
   /**
-   * Initialize the CommandContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the CommandPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: Wireless, sid: string);
+  constructor(version: Wireless, response: Response<string>, solution: CommandSolution);
 
   /**
-   * fetch a CommandInstance
+   * Build an instance of CommandInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: CommandInstance) => any): Promise<CommandInstance>;
+  getInstance(payload: CommandPayload): CommandInstance;
 }
 
 export { CommandContext, CommandInstance, CommandList, CommandListInstance, CommandListInstanceCreateOptions, CommandListInstanceEachOptions, CommandListInstanceOptions, CommandListInstancePageOptions, CommandPage, CommandPayload, CommandResource, CommandSolution }

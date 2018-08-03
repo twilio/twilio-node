@@ -256,25 +256,6 @@ interface MachineToMachineSolution {
 }
 
 
-declare class MachineToMachinePage extends Page<V2010, MachineToMachinePayload, MachineToMachineResource, MachineToMachineInstance> {
-  /**
-   * Initialize the MachineToMachinePage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: MachineToMachineSolution);
-
-  /**
-   * Build an instance of MachineToMachineInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: MachineToMachinePayload): MachineToMachineInstance;
-}
-
-
 declare class MachineToMachineInstance extends SerializableClass {
   /**
    * Initialize the MachineToMachineContext
@@ -318,6 +299,25 @@ declare class MachineToMachineInstance extends SerializableClass {
    * Removes any circular references in the object.
    */
   toJSON(): any;
+}
+
+
+declare class MachineToMachinePage extends Page<V2010, MachineToMachinePayload, MachineToMachineResource, MachineToMachineInstance> {
+  /**
+   * Initialize the MachineToMachinePage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: V2010, response: Response<string>, solution: MachineToMachineSolution);
+
+  /**
+   * Build an instance of MachineToMachineInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: MachineToMachinePayload): MachineToMachineInstance;
 }
 
 export { MachineToMachineInstance, MachineToMachineList, MachineToMachineListInstance, MachineToMachineListInstanceEachOptions, MachineToMachineListInstanceOptions, MachineToMachineListInstancePageOptions, MachineToMachinePage, MachineToMachinePayload, MachineToMachineResource, MachineToMachineSolution }

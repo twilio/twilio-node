@@ -59,22 +59,23 @@ interface WorkflowRealTimeStatisticsSolution {
 }
 
 
-declare class WorkflowRealTimeStatisticsPage extends Page<V1, WorkflowRealTimeStatisticsPayload, WorkflowRealTimeStatisticsResource, WorkflowRealTimeStatisticsInstance> {
+declare class WorkflowRealTimeStatisticsContext {
   /**
-   * Initialize the WorkflowRealTimeStatisticsPage
+   * Initialize the WorkflowRealTimeStatisticsContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param workspaceSid - The workspace_sid
+   * @param workflowSid - The workflow_sid
    */
-  constructor(version: V1, response: Response<string>, solution: WorkflowRealTimeStatisticsSolution);
+  constructor(version: V1, workspaceSid: string, workflowSid: string);
 
   /**
-   * Build an instance of WorkflowRealTimeStatisticsInstance
+   * fetch a WorkflowRealTimeStatisticsInstance
    *
-   * @param payload - Payload response from the API
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: WorkflowRealTimeStatisticsPayload): WorkflowRealTimeStatisticsInstance;
+  fetch(opts?: WorkflowRealTimeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkflowRealTimeStatisticsInstance) => any): Promise<WorkflowRealTimeStatisticsInstance>;
 }
 
 
@@ -122,23 +123,22 @@ declare class WorkflowRealTimeStatisticsInstance extends SerializableClass {
 }
 
 
-declare class WorkflowRealTimeStatisticsContext {
+declare class WorkflowRealTimeStatisticsPage extends Page<V1, WorkflowRealTimeStatisticsPayload, WorkflowRealTimeStatisticsResource, WorkflowRealTimeStatisticsInstance> {
   /**
-   * Initialize the WorkflowRealTimeStatisticsContext
+   * Initialize the WorkflowRealTimeStatisticsPage
    *
    * @param version - Version of the resource
-   * @param workspaceSid - The workspace_sid
-   * @param workflowSid - The workflow_sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, workspaceSid: string, workflowSid: string);
+  constructor(version: V1, response: Response<string>, solution: WorkflowRealTimeStatisticsSolution);
 
   /**
-   * fetch a WorkflowRealTimeStatisticsInstance
+   * Build an instance of WorkflowRealTimeStatisticsInstance
    *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(opts?: WorkflowRealTimeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkflowRealTimeStatisticsInstance) => any): Promise<WorkflowRealTimeStatisticsInstance>;
+  getInstance(payload: WorkflowRealTimeStatisticsPayload): WorkflowRealTimeStatisticsInstance;
 }
 
 export { WorkflowRealTimeStatisticsContext, WorkflowRealTimeStatisticsInstance, WorkflowRealTimeStatisticsList, WorkflowRealTimeStatisticsListInstance, WorkflowRealTimeStatisticsPage, WorkflowRealTimeStatisticsPayload, WorkflowRealTimeStatisticsResource, WorkflowRealTimeStatisticsSolution }

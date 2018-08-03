@@ -178,22 +178,25 @@ interface EngagementSolution {
 }
 
 
-declare class EngagementPage extends Page<Studio, EngagementPayload, EngagementResource, EngagementInstance> {
+declare class EngagementContext {
   /**
-   * Initialize the EngagementPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the EngagementContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property steps - steps resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param flowSid - The flow_sid
+   * @param sid - The sid
    */
-  constructor(version: Studio, response: Response<string>, solution: EngagementSolution);
+  constructor(version: Studio, flowSid: string, sid: string);
 
   /**
-   * Build an instance of EngagementInstance
+   * fetch a EngagementInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: EngagementPayload): EngagementInstance;
+  fetch(callback?: (error: Error | null, items: EngagementInstance) => any): Promise<EngagementInstance>;
+  steps: StepListInstance;
 }
 
 
@@ -250,25 +253,22 @@ declare class EngagementInstance extends SerializableClass {
 }
 
 
-declare class EngagementContext {
+declare class EngagementPage extends Page<Studio, EngagementPayload, EngagementResource, EngagementInstance> {
   /**
-   * Initialize the EngagementContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
-   *
-   * @property steps - steps resource
+   * Initialize the EngagementPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param flowSid - The flow_sid
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: Studio, flowSid: string, sid: string);
+  constructor(version: Studio, response: Response<string>, solution: EngagementSolution);
 
   /**
-   * fetch a EngagementInstance
+   * Build an instance of EngagementInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: EngagementInstance) => any): Promise<EngagementInstance>;
-  steps: StepListInstance;
+  getInstance(payload: EngagementPayload): EngagementInstance;
 }
 
 export { EngagementContext, EngagementInstance, EngagementList, EngagementListInstance, EngagementListInstanceCreateOptions, EngagementListInstanceEachOptions, EngagementListInstanceOptions, EngagementListInstancePageOptions, EngagementPage, EngagementPayload, EngagementResource, EngagementSolution }

@@ -180,22 +180,35 @@ interface DeploymentSolution {
 }
 
 
-declare class DeploymentPage extends Page<DeployedDevices, DeploymentPayload, DeploymentResource, DeploymentInstance> {
+declare class DeploymentContext {
   /**
-   * Initialize the DeploymentPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the DeploymentContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param fleetSid - The fleet_sid
+   * @param sid - A string that uniquely identifies the Deployment.
    */
-  constructor(version: DeployedDevices, response: Response<string>, solution: DeploymentSolution);
+  constructor(version: DeployedDevices, fleetSid: string, sid: string);
 
   /**
-   * Build an instance of DeploymentInstance
+   * fetch a DeploymentInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: DeploymentPayload): DeploymentInstance;
+  fetch(callback?: (error: Error | null, items: DeploymentInstance) => any): Promise<DeploymentInstance>;
+  /**
+   * remove a DeploymentInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: DeploymentInstance) => any): void;
+  /**
+   * update a DeploymentInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: DeploymentInstanceUpdateOptions, callback?: (error: Error | null, items: DeploymentInstance) => any): Promise<DeploymentInstance>;
 }
 
 
@@ -255,35 +268,22 @@ declare class DeploymentInstance extends SerializableClass {
 }
 
 
-declare class DeploymentContext {
+declare class DeploymentPage extends Page<DeployedDevices, DeploymentPayload, DeploymentResource, DeploymentInstance> {
   /**
-   * Initialize the DeploymentContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the DeploymentPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param fleetSid - The fleet_sid
-   * @param sid - A string that uniquely identifies the Deployment.
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: DeployedDevices, fleetSid: string, sid: string);
+  constructor(version: DeployedDevices, response: Response<string>, solution: DeploymentSolution);
 
   /**
-   * fetch a DeploymentInstance
+   * Build an instance of DeploymentInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: DeploymentInstance) => any): Promise<DeploymentInstance>;
-  /**
-   * remove a DeploymentInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: DeploymentInstance) => any): void;
-  /**
-   * update a DeploymentInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: DeploymentInstanceUpdateOptions, callback?: (error: Error | null, items: DeploymentInstance) => any): Promise<DeploymentInstance>;
+  getInstance(payload: DeploymentPayload): DeploymentInstance;
 }
 
 export { DeploymentContext, DeploymentInstance, DeploymentList, DeploymentListInstance, DeploymentListInstanceCreateOptions, DeploymentListInstanceEachOptions, DeploymentListInstanceOptions, DeploymentListInstancePageOptions, DeploymentPage, DeploymentPayload, DeploymentResource, DeploymentSolution }

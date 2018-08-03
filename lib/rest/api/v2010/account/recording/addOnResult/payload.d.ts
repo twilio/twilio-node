@@ -157,22 +157,30 @@ interface PayloadSolution {
 }
 
 
-declare class PayloadPage extends Page<V2010, PayloadPayload, PayloadResource, PayloadInstance> {
+declare class PayloadContext {
   /**
-   * Initialize the PayloadPage
+   * Initialize the PayloadContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param accountSid - The account_sid
+   * @param referenceSid - The reference_sid
+   * @param addOnResultSid - The add_on_result_sid
+   * @param sid - Fetch by unique payload Sid
    */
-  constructor(version: V2010, response: Response<string>, solution: PayloadSolution);
+  constructor(version: V2010, accountSid: string, referenceSid: string, addOnResultSid: string, sid: string);
 
   /**
-   * Build an instance of PayloadInstance
+   * fetch a PayloadInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: PayloadPayload): PayloadInstance;
+  fetch(callback?: (error: Error | null, items: PayloadInstance) => any): Promise<PayloadInstance>;
+  /**
+   * remove a PayloadInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: PayloadInstance) => any): void;
 }
 
 
@@ -233,30 +241,22 @@ declare class PayloadInstance extends SerializableClass {
 }
 
 
-declare class PayloadContext {
+declare class PayloadPage extends Page<V2010, PayloadPayload, PayloadResource, PayloadInstance> {
   /**
-   * Initialize the PayloadContext
+   * Initialize the PayloadPage
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param referenceSid - The reference_sid
-   * @param addOnResultSid - The add_on_result_sid
-   * @param sid - Fetch by unique payload Sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V2010, accountSid: string, referenceSid: string, addOnResultSid: string, sid: string);
+  constructor(version: V2010, response: Response<string>, solution: PayloadSolution);
 
   /**
-   * fetch a PayloadInstance
+   * Build an instance of PayloadInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: PayloadInstance) => any): Promise<PayloadInstance>;
-  /**
-   * remove a PayloadInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: PayloadInstance) => any): void;
+  getInstance(payload: PayloadPayload): PayloadInstance;
 }
 
 export { PayloadContext, PayloadInstance, PayloadList, PayloadListInstance, PayloadListInstanceEachOptions, PayloadListInstanceOptions, PayloadListInstancePageOptions, PayloadPage, PayloadPayload, PayloadResource, PayloadSolution }

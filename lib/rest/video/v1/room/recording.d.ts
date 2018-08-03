@@ -190,22 +190,28 @@ interface RoomRecordingSolution {
 }
 
 
-declare class RoomRecordingPage extends Page<V1, RoomRecordingPayload, RoomRecordingResource, RoomRecordingInstance> {
+declare class RoomRecordingContext {
   /**
-   * Initialize the RoomRecordingPage
+   * Initialize the RoomRecordingContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param roomSid - The room_sid
+   * @param sid - The sid
    */
-  constructor(version: V1, response: Response<string>, solution: RoomRecordingSolution);
+  constructor(version: V1, roomSid: string, sid: string);
 
   /**
-   * Build an instance of RoomRecordingInstance
+   * fetch a RoomRecordingInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: RoomRecordingPayload): RoomRecordingInstance;
+  fetch(callback?: (error: Error | null, items: RoomRecordingInstance) => any): Promise<RoomRecordingInstance>;
+  /**
+   * remove a RoomRecordingInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: RoomRecordingInstance) => any): void;
 }
 
 
@@ -272,28 +278,22 @@ declare class RoomRecordingInstance extends SerializableClass {
 }
 
 
-declare class RoomRecordingContext {
+declare class RoomRecordingPage extends Page<V1, RoomRecordingPayload, RoomRecordingResource, RoomRecordingInstance> {
   /**
-   * Initialize the RoomRecordingContext
+   * Initialize the RoomRecordingPage
    *
    * @param version - Version of the resource
-   * @param roomSid - The room_sid
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, roomSid: string, sid: string);
+  constructor(version: V1, response: Response<string>, solution: RoomRecordingSolution);
 
   /**
-   * fetch a RoomRecordingInstance
+   * Build an instance of RoomRecordingInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: RoomRecordingInstance) => any): Promise<RoomRecordingInstance>;
-  /**
-   * remove a RoomRecordingInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: RoomRecordingInstance) => any): void;
+  getInstance(payload: RoomRecordingPayload): RoomRecordingInstance;
 }
 
 export { RoomRecordingContext, RoomRecordingInstance, RoomRecordingList, RoomRecordingListInstance, RoomRecordingListInstanceEachOptions, RoomRecordingListInstanceOptions, RoomRecordingListInstancePageOptions, RoomRecordingPage, RoomRecordingPayload, RoomRecordingResource, RoomRecordingSolution }

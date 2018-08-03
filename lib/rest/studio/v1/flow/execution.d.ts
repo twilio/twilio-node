@@ -181,22 +181,33 @@ interface ExecutionSolution {
 }
 
 
-declare class ExecutionPage extends Page<V1, ExecutionPayload, ExecutionResource, ExecutionInstance> {
+declare class ExecutionContext {
   /**
-   * Initialize the ExecutionPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the ExecutionContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property steps - steps resource
+   * @property executionContext - executionContext resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param flowSid - Flow Sid.
+   * @param sid - Execution Sid.
    */
-  constructor(version: V1, response: Response<string>, solution: ExecutionSolution);
+  constructor(version: V1, flowSid: string, sid: string);
 
+  executionContext: ExecutionContextListInstance;
   /**
-   * Build an instance of ExecutionInstance
+   * fetch a ExecutionInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: ExecutionPayload): ExecutionInstance;
+  fetch(callback?: (error: Error | null, items: ExecutionInstance) => any): Promise<ExecutionInstance>;
+  /**
+   * remove a ExecutionInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: ExecutionInstance) => any): void;
+  steps: ExecutionStepListInstance;
 }
 
 
@@ -263,33 +274,22 @@ declare class ExecutionInstance extends SerializableClass {
 }
 
 
-declare class ExecutionContext {
+declare class ExecutionPage extends Page<V1, ExecutionPayload, ExecutionResource, ExecutionInstance> {
   /**
-   * Initialize the ExecutionContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
-   *
-   * @property steps - steps resource
-   * @property executionContext - executionContext resource
+   * Initialize the ExecutionPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
-   * @param flowSid - Flow Sid.
-   * @param sid - Execution Sid.
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, flowSid: string, sid: string);
+  constructor(version: V1, response: Response<string>, solution: ExecutionSolution);
 
-  executionContext: ExecutionContextListInstance;
   /**
-   * fetch a ExecutionInstance
+   * Build an instance of ExecutionInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: ExecutionInstance) => any): Promise<ExecutionInstance>;
-  /**
-   * remove a ExecutionInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: ExecutionInstance) => any): void;
-  steps: ExecutionStepListInstance;
+  getInstance(payload: ExecutionPayload): ExecutionInstance;
 }
 
 export { ExecutionContext, ExecutionInstance, ExecutionList, ExecutionListInstance, ExecutionListInstanceCreateOptions, ExecutionListInstanceEachOptions, ExecutionListInstanceOptions, ExecutionListInstancePageOptions, ExecutionPage, ExecutionPayload, ExecutionResource, ExecutionSolution }

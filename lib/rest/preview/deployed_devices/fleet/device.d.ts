@@ -201,22 +201,35 @@ interface DeviceSolution {
 }
 
 
-declare class DevicePage extends Page<DeployedDevices, DevicePayload, DeviceResource, DeviceInstance> {
+declare class DeviceContext {
   /**
-   * Initialize the DevicePagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the DeviceContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param fleetSid - The fleet_sid
+   * @param sid - A string that uniquely identifies the Device.
    */
-  constructor(version: DeployedDevices, response: Response<string>, solution: DeviceSolution);
+  constructor(version: DeployedDevices, fleetSid: string, sid: string);
 
   /**
-   * Build an instance of DeviceInstance
+   * fetch a DeviceInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: DevicePayload): DeviceInstance;
+  fetch(callback?: (error: Error | null, items: DeviceInstance) => any): Promise<DeviceInstance>;
+  /**
+   * remove a DeviceInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: DeviceInstance) => any): void;
+  /**
+   * update a DeviceInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: DeviceInstanceUpdateOptions, callback?: (error: Error | null, items: DeviceInstance) => any): Promise<DeviceInstance>;
 }
 
 
@@ -284,35 +297,22 @@ declare class DeviceInstance extends SerializableClass {
 }
 
 
-declare class DeviceContext {
+declare class DevicePage extends Page<DeployedDevices, DevicePayload, DeviceResource, DeviceInstance> {
   /**
-   * Initialize the DeviceContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the DevicePagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param fleetSid - The fleet_sid
-   * @param sid - A string that uniquely identifies the Device.
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: DeployedDevices, fleetSid: string, sid: string);
+  constructor(version: DeployedDevices, response: Response<string>, solution: DeviceSolution);
 
   /**
-   * fetch a DeviceInstance
+   * Build an instance of DeviceInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: DeviceInstance) => any): Promise<DeviceInstance>;
-  /**
-   * remove a DeviceInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: DeviceInstance) => any): void;
-  /**
-   * update a DeviceInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: DeviceInstanceUpdateOptions, callback?: (error: Error | null, items: DeviceInstance) => any): Promise<DeviceInstance>;
+  getInstance(payload: DevicePayload): DeviceInstance;
 }
 
 export { DeviceContext, DeviceInstance, DeviceList, DeviceListInstance, DeviceListInstanceCreateOptions, DeviceListInstanceEachOptions, DeviceListInstanceOptions, DeviceListInstancePageOptions, DevicePage, DevicePayload, DeviceResource, DeviceSolution }

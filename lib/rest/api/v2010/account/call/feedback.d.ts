@@ -73,22 +73,36 @@ interface FeedbackSolution {
 }
 
 
-declare class FeedbackPage extends Page<V2010, FeedbackPayload, FeedbackResource, FeedbackInstance> {
+declare class FeedbackContext {
   /**
-   * Initialize the FeedbackPage
+   * Initialize the FeedbackContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param accountSid - The account_sid
+   * @param callSid - The call sid that uniquely identifies the call
    */
-  constructor(version: V2010, response: Response<string>, solution: FeedbackSolution);
+  constructor(version: V2010, accountSid: string, callSid: string);
 
   /**
-   * Build an instance of FeedbackInstance
+   * create a FeedbackInstance
    *
-   * @param payload - Payload response from the API
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: FeedbackPayload): FeedbackInstance;
+  create(opts: FeedbackInstanceCreateOptions, callback?: (error: Error | null, item: FeedbackInstance) => any): Promise<FeedbackInstance>;
+  /**
+   * fetch a FeedbackInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: FeedbackInstance) => any): Promise<FeedbackInstance>;
+  /**
+   * update a FeedbackInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts: FeedbackInstanceUpdateOptions, callback?: (error: Error | null, items: FeedbackInstance) => any): Promise<FeedbackInstance>;
 }
 
 
@@ -145,36 +159,22 @@ declare class FeedbackInstance extends SerializableClass {
 }
 
 
-declare class FeedbackContext {
+declare class FeedbackPage extends Page<V2010, FeedbackPayload, FeedbackResource, FeedbackInstance> {
   /**
-   * Initialize the FeedbackContext
+   * Initialize the FeedbackPage
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param callSid - The call sid that uniquely identifies the call
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V2010, accountSid: string, callSid: string);
+  constructor(version: V2010, response: Response<string>, solution: FeedbackSolution);
 
   /**
-   * create a FeedbackInstance
+   * Build an instance of FeedbackInstance
    *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  create(opts: FeedbackInstanceCreateOptions, callback?: (error: Error | null, item: FeedbackInstance) => any): Promise<FeedbackInstance>;
-  /**
-   * fetch a FeedbackInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  fetch(callback?: (error: Error | null, items: FeedbackInstance) => any): Promise<FeedbackInstance>;
-  /**
-   * update a FeedbackInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts: FeedbackInstanceUpdateOptions, callback?: (error: Error | null, items: FeedbackInstance) => any): Promise<FeedbackInstance>;
+  getInstance(payload: FeedbackPayload): FeedbackInstance;
 }
 
 export { FeedbackContext, FeedbackInstance, FeedbackList, FeedbackListInstance, FeedbackPage, FeedbackPayload, FeedbackResource, FeedbackSolution }

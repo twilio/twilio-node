@@ -232,22 +232,38 @@ interface AddressSolution {
 }
 
 
-declare class AddressPage extends Page<V2010, AddressPayload, AddressResource, AddressInstance> {
+declare class AddressContext {
   /**
-   * Initialize the AddressPage
+   * Initialize the AddressContext
+   *
+   * @property dependentPhoneNumbers - dependentPhoneNumbers resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param accountSid - The account_sid
+   * @param sid - The sid
    */
-  constructor(version: V2010, response: Response<string>, solution: AddressSolution);
+  constructor(version: V2010, accountSid: string, sid: string);
 
+  dependentPhoneNumbers: DependentPhoneNumberListInstance;
   /**
-   * Build an instance of AddressInstance
+   * fetch a AddressInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: AddressPayload): AddressInstance;
+  fetch(callback?: (error: Error | null, items: AddressInstance) => any): Promise<AddressInstance>;
+  /**
+   * remove a AddressInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: AddressInstance) => any): void;
+  /**
+   * update a AddressInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: AddressInstanceUpdateOptions, callback?: (error: Error | null, items: AddressInstance) => any): Promise<AddressInstance>;
 }
 
 
@@ -323,38 +339,22 @@ declare class AddressInstance extends SerializableClass {
 }
 
 
-declare class AddressContext {
+declare class AddressPage extends Page<V2010, AddressPayload, AddressResource, AddressInstance> {
   /**
-   * Initialize the AddressContext
-   *
-   * @property dependentPhoneNumbers - dependentPhoneNumbers resource
+   * Initialize the AddressPage
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V2010, accountSid: string, sid: string);
+  constructor(version: V2010, response: Response<string>, solution: AddressSolution);
 
-  dependentPhoneNumbers: DependentPhoneNumberListInstance;
   /**
-   * fetch a AddressInstance
+   * Build an instance of AddressInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: AddressInstance) => any): Promise<AddressInstance>;
-  /**
-   * remove a AddressInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: AddressInstance) => any): void;
-  /**
-   * update a AddressInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: AddressInstanceUpdateOptions, callback?: (error: Error | null, items: AddressInstance) => any): Promise<AddressInstance>;
+  getInstance(payload: AddressPayload): AddressInstance;
 }
 
 export { AddressContext, AddressInstance, AddressList, AddressListInstance, AddressListInstanceCreateOptions, AddressListInstanceEachOptions, AddressListInstanceOptions, AddressListInstancePageOptions, AddressPage, AddressPayload, AddressResource, AddressSolution }

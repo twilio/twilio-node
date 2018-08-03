@@ -165,22 +165,29 @@ interface AuthCallsCredentialListMappingSolution {
 }
 
 
-declare class AuthCallsCredentialListMappingPage extends Page<V2010, AuthCallsCredentialListMappingPayload, AuthCallsCredentialListMappingResource, AuthCallsCredentialListMappingInstance> {
+declare class AuthCallsCredentialListMappingContext {
   /**
-   * Initialize the AuthCallsCredentialListMappingPage
+   * Initialize the AuthCallsCredentialListMappingContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param accountSid - The account_sid
+   * @param domainSid - The domain_sid
+   * @param sid - Fetch by unique credential list Sid
    */
-  constructor(version: V2010, response: Response<string>, solution: AuthCallsCredentialListMappingSolution);
+  constructor(version: V2010, accountSid: string, domainSid: string, sid: string);
 
   /**
-   * Build an instance of AuthCallsCredentialListMappingInstance
+   * fetch a AuthCallsCredentialListMappingInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: AuthCallsCredentialListMappingPayload): AuthCallsCredentialListMappingInstance;
+  fetch(callback?: (error: Error | null, items: AuthCallsCredentialListMappingInstance) => any): Promise<AuthCallsCredentialListMappingInstance>;
+  /**
+   * remove a AuthCallsCredentialListMappingInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: AuthCallsCredentialListMappingInstance) => any): void;
 }
 
 
@@ -228,29 +235,22 @@ declare class AuthCallsCredentialListMappingInstance extends SerializableClass {
 }
 
 
-declare class AuthCallsCredentialListMappingContext {
+declare class AuthCallsCredentialListMappingPage extends Page<V2010, AuthCallsCredentialListMappingPayload, AuthCallsCredentialListMappingResource, AuthCallsCredentialListMappingInstance> {
   /**
-   * Initialize the AuthCallsCredentialListMappingContext
+   * Initialize the AuthCallsCredentialListMappingPage
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param domainSid - The domain_sid
-   * @param sid - Fetch by unique credential list Sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V2010, accountSid: string, domainSid: string, sid: string);
+  constructor(version: V2010, response: Response<string>, solution: AuthCallsCredentialListMappingSolution);
 
   /**
-   * fetch a AuthCallsCredentialListMappingInstance
+   * Build an instance of AuthCallsCredentialListMappingInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: AuthCallsCredentialListMappingInstance) => any): Promise<AuthCallsCredentialListMappingInstance>;
-  /**
-   * remove a AuthCallsCredentialListMappingInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: AuthCallsCredentialListMappingInstance) => any): void;
+  getInstance(payload: AuthCallsCredentialListMappingPayload): AuthCallsCredentialListMappingInstance;
 }
 
 export { AuthCallsCredentialListMappingContext, AuthCallsCredentialListMappingInstance, AuthCallsCredentialListMappingList, AuthCallsCredentialListMappingListInstance, AuthCallsCredentialListMappingListInstanceCreateOptions, AuthCallsCredentialListMappingListInstanceEachOptions, AuthCallsCredentialListMappingListInstanceOptions, AuthCallsCredentialListMappingListInstancePageOptions, AuthCallsCredentialListMappingPage, AuthCallsCredentialListMappingPayload, AuthCallsCredentialListMappingResource, AuthCallsCredentialListMappingSolution }

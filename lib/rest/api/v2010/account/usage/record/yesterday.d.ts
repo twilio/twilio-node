@@ -173,25 +173,6 @@ interface YesterdaySolution {
 }
 
 
-declare class YesterdayPage extends Page<V2010, YesterdayPayload, YesterdayResource, YesterdayInstance> {
-  /**
-   * Initialize the YesterdayPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: YesterdaySolution);
-
-  /**
-   * Build an instance of YesterdayInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: YesterdayPayload): YesterdayInstance;
-}
-
-
 declare class YesterdayInstance extends SerializableClass {
   /**
    * Initialize the YesterdayContext
@@ -236,6 +217,25 @@ declare class YesterdayInstance extends SerializableClass {
   uri: string;
   usage: string;
   usageUnit: string;
+}
+
+
+declare class YesterdayPage extends Page<V2010, YesterdayPayload, YesterdayResource, YesterdayInstance> {
+  /**
+   * Initialize the YesterdayPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: V2010, response: Response<string>, solution: YesterdaySolution);
+
+  /**
+   * Build an instance of YesterdayInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: YesterdayPayload): YesterdayInstance;
 }
 
 export { YesterdayInstance, YesterdayList, YesterdayListInstance, YesterdayListInstanceEachOptions, YesterdayListInstanceOptions, YesterdayListInstancePageOptions, YesterdayPage, YesterdayPayload, YesterdayResource, YesterdaySolution }

@@ -67,22 +67,27 @@ interface CompositionSettingsSolution {
 }
 
 
-declare class CompositionSettingsPage extends Page<V1, CompositionSettingsPayload, CompositionSettingsResource, CompositionSettingsInstance> {
+declare class CompositionSettingsContext {
   /**
-   * Initialize the CompositionSettingsPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the CompositionSettingsContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
    */
-  constructor(version: V1, response: Response<string>, solution: CompositionSettingsSolution);
+  constructor(version: V1);
 
   /**
-   * Build an instance of CompositionSettingsInstance
+   * create a CompositionSettingsInstance
    *
-   * @param payload - Payload response from the API
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: CompositionSettingsPayload): CompositionSettingsInstance;
+  create(opts: CompositionSettingsInstanceCreateOptions, callback?: (error: Error | null, item: CompositionSettingsInstance) => any): Promise<CompositionSettingsInstance>;
+  /**
+   * fetch a CompositionSettingsInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: CompositionSettingsInstance) => any): Promise<CompositionSettingsInstance>;
 }
 
 
@@ -134,27 +139,22 @@ declare class CompositionSettingsInstance extends SerializableClass {
 }
 
 
-declare class CompositionSettingsContext {
+declare class CompositionSettingsPage extends Page<V1, CompositionSettingsPayload, CompositionSettingsResource, CompositionSettingsInstance> {
   /**
-   * Initialize the CompositionSettingsContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the CompositionSettingsPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1);
+  constructor(version: V1, response: Response<string>, solution: CompositionSettingsSolution);
 
   /**
-   * create a CompositionSettingsInstance
+   * Build an instance of CompositionSettingsInstance
    *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  create(opts: CompositionSettingsInstanceCreateOptions, callback?: (error: Error | null, item: CompositionSettingsInstance) => any): Promise<CompositionSettingsInstance>;
-  /**
-   * fetch a CompositionSettingsInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  fetch(callback?: (error: Error | null, items: CompositionSettingsInstance) => any): Promise<CompositionSettingsInstance>;
+  getInstance(payload: CompositionSettingsPayload): CompositionSettingsInstance;
 }
 
 export { CompositionSettingsContext, CompositionSettingsInstance, CompositionSettingsList, CompositionSettingsListInstance, CompositionSettingsPage, CompositionSettingsPayload, CompositionSettingsResource, CompositionSettingsSolution }

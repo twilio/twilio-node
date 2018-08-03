@@ -165,22 +165,29 @@ interface UserBindingSolution {
 }
 
 
-declare class UserBindingPage extends Page<V2, UserBindingPayload, UserBindingResource, UserBindingInstance> {
+declare class UserBindingContext {
   /**
-   * Initialize the UserBindingPage
+   * Initialize the UserBindingContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param serviceSid - The service_sid
+   * @param userSid - The user_sid
+   * @param sid - The sid
    */
-  constructor(version: V2, response: Response<string>, solution: UserBindingSolution);
+  constructor(version: V2, serviceSid: string, userSid: string, sid: string);
 
   /**
-   * Build an instance of UserBindingInstance
+   * fetch a UserBindingInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: UserBindingPayload): UserBindingInstance;
+  fetch(callback?: (error: Error | null, items: UserBindingInstance) => any): Promise<UserBindingInstance>;
+  /**
+   * remove a UserBindingInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: UserBindingInstance) => any): void;
 }
 
 
@@ -242,29 +249,22 @@ declare class UserBindingInstance extends SerializableClass {
 }
 
 
-declare class UserBindingContext {
+declare class UserBindingPage extends Page<V2, UserBindingPayload, UserBindingResource, UserBindingInstance> {
   /**
-   * Initialize the UserBindingContext
+   * Initialize the UserBindingPage
    *
    * @param version - Version of the resource
-   * @param serviceSid - The service_sid
-   * @param userSid - The user_sid
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V2, serviceSid: string, userSid: string, sid: string);
+  constructor(version: V2, response: Response<string>, solution: UserBindingSolution);
 
   /**
-   * fetch a UserBindingInstance
+   * Build an instance of UserBindingInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: UserBindingInstance) => any): Promise<UserBindingInstance>;
-  /**
-   * remove a UserBindingInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: UserBindingInstance) => any): void;
+  getInstance(payload: UserBindingPayload): UserBindingInstance;
 }
 
 export { UserBindingContext, UserBindingInstance, UserBindingList, UserBindingListInstance, UserBindingListInstanceEachOptions, UserBindingListInstanceOptions, UserBindingListInstancePageOptions, UserBindingPage, UserBindingPayload, UserBindingResource, UserBindingSolution }

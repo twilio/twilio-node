@@ -176,22 +176,38 @@ interface IpAccessControlListSolution {
 }
 
 
-declare class IpAccessControlListPage extends Page<V2010, IpAccessControlListPayload, IpAccessControlListResource, IpAccessControlListInstance> {
+declare class IpAccessControlListContext {
   /**
-   * Initialize the IpAccessControlListPage
+   * Initialize the IpAccessControlListContext
+   *
+   * @property ipAddresses - ipAddresses resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param accountSid - The account_sid
+   * @param sid - Fetch by unique ip-access-control-list Sid
    */
-  constructor(version: V2010, response: Response<string>, solution: IpAccessControlListSolution);
+  constructor(version: V2010, accountSid: string, sid: string);
 
   /**
-   * Build an instance of IpAccessControlListInstance
+   * fetch a IpAccessControlListInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: IpAccessControlListPayload): IpAccessControlListInstance;
+  fetch(callback?: (error: Error | null, items: IpAccessControlListInstance) => any): Promise<IpAccessControlListInstance>;
+  ipAddresses: IpAddressListInstance;
+  /**
+   * remove a IpAccessControlListInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: IpAccessControlListInstance) => any): void;
+  /**
+   * update a IpAccessControlListInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts: IpAccessControlListInstanceUpdateOptions, callback?: (error: Error | null, items: IpAccessControlListInstance) => any): Promise<IpAccessControlListInstance>;
 }
 
 
@@ -253,38 +269,22 @@ declare class IpAccessControlListInstance extends SerializableClass {
 }
 
 
-declare class IpAccessControlListContext {
+declare class IpAccessControlListPage extends Page<V2010, IpAccessControlListPayload, IpAccessControlListResource, IpAccessControlListInstance> {
   /**
-   * Initialize the IpAccessControlListContext
-   *
-   * @property ipAddresses - ipAddresses resource
+   * Initialize the IpAccessControlListPage
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param sid - Fetch by unique ip-access-control-list Sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V2010, accountSid: string, sid: string);
+  constructor(version: V2010, response: Response<string>, solution: IpAccessControlListSolution);
 
   /**
-   * fetch a IpAccessControlListInstance
+   * Build an instance of IpAccessControlListInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: IpAccessControlListInstance) => any): Promise<IpAccessControlListInstance>;
-  ipAddresses: IpAddressListInstance;
-  /**
-   * remove a IpAccessControlListInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: IpAccessControlListInstance) => any): void;
-  /**
-   * update a IpAccessControlListInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts: IpAccessControlListInstanceUpdateOptions, callback?: (error: Error | null, items: IpAccessControlListInstance) => any): Promise<IpAccessControlListInstance>;
+  getInstance(payload: IpAccessControlListPayload): IpAccessControlListInstance;
 }
 
 export { IpAccessControlListContext, IpAccessControlListInstance, IpAccessControlListList, IpAccessControlListListInstance, IpAccessControlListListInstanceCreateOptions, IpAccessControlListListInstanceEachOptions, IpAccessControlListListInstanceOptions, IpAccessControlListListInstancePageOptions, IpAccessControlListPage, IpAccessControlListPayload, IpAccessControlListResource, IpAccessControlListSolution }

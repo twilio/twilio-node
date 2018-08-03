@@ -569,77 +569,74 @@ declare namespace VoiceResponse {
   }
 
 
-  class Say {
+  class Connect {
 
     /**
-     * Adding a Pause in <Say>
+     * <Room> TwiML Noun
      *
      * @param attributes - TwiML attributes
+     * @param name - Room name
      */
-    ssmlBreak(attributes?: VoiceResponse.SsmlBreakAttributes): void;
+    room(attributes: object, name: string): void;
+  }
+
+
+  class Dial {
+
     /**
-     * Emphasizing Words in <Say>
+     * <Client> TwiML Noun
      *
      * @param attributes - TwiML attributes
-     * @param words - Words to emphasize
+     * @param name - Client name
      */
-    ssmlEmphasis(attributes: VoiceResponse.SsmlEmphasisAttributes, words: string): void;
+    client(attributes: VoiceResponse.ClientAttributes, name: string): void;
     /**
-     * Specifying Another Language for Specific Words in <Say>
+     * <Conference> TwiML Noun
      *
      * @param attributes - TwiML attributes
-     * @param words - Words to speak
+     * @param name - Conference name
      */
-    ssmlLang(attributes: VoiceResponse.SsmlLangAttributes, words: string): void;
+    conference(attributes: VoiceResponse.ConferenceAttributes, name: string): void;
     /**
-     * Adding a Pause Between Paragraphs in <Say>
+     * <Number> TwiML Noun
      *
      * @param attributes - TwiML attributes
-     * @param words - Words to speak
+     * @param phoneNumber - Phone Number to dial
      */
-    ssmlP(attributes: object, words: string): void;
+    number(attributes: VoiceResponse.NumberAttributes, phoneNumber: string): void;
     /**
-     * Using Phonetic Pronunciation in <Say>
+     * <Queue> TwiML Noun
      *
      * @param attributes - TwiML attributes
-     * @param words - Words to speak
+     * @param name - Queue name
      */
-    ssmlPhoneme(attributes: VoiceResponse.SsmlPhonemeAttributes, words: string): void;
+    queue(attributes: VoiceResponse.QueueAttributes, name: string): void;
     /**
-     * Controling Volume, Speaking Rate, and Pitch in <Say>
+     * <Sim> TwiML Noun
      *
      * @param attributes - TwiML attributes
-     * @param words - Words to speak
+     * @param simSid - SIM SID
      */
-    ssmlProsody(attributes: VoiceResponse.SsmlProsodyAttributes, words: string): void;
+    sim(attributes: object, simSid: string): void;
     /**
-     * Adding A Pause Between Sentences in <Say>
+     * <Sip> TwiML Noun
      *
      * @param attributes - TwiML attributes
-     * @param words - Words to speak
+     * @param sipUrl - SIP URL
      */
-    ssmlS(attributes: object, words: string): void;
+    sip(attributes: VoiceResponse.SipAttributes, sipUrl: string): void;
+  }
+
+
+  class Enqueue {
+
     /**
-     * Controlling How Special Types of Words Are Spoken in <Say>
+     * <Task> TwiML Noun
      *
      * @param attributes - TwiML attributes
-     * @param words - Words to be interpreted
+     * @param body - TaskRouter task attributes
      */
-    ssmlSayAs(attributes: VoiceResponse.SsmlSayAsAttributes, words: string): void;
-    /**
-     * Pronouncing Acronyms and Abbreviations in <Say>
-     *
-     * @param attributes - TwiML attributes
-     * @param words - Words to be substituted
-     */
-    ssmlSub(attributes: VoiceResponse.SsmlSubAttributes, words: string): void;
-    /**
-     * Improving Pronunciation by Specifying Parts of Speech in <Say>
-     *
-     * @param attributes - TwiML attributes
-     * @param words - Words to speak
-     */
-    ssmlW(attributes: VoiceResponse.SsmlWAttributes, words: string): void;
+    task(attributes: VoiceResponse.TaskAttributes, body: string): void;
   }
 
 
@@ -739,77 +736,6 @@ declare namespace VoiceResponse {
      * @param words - Words to speak
      */
     ssmlW(attributes: VoiceResponse.SsmlWAttributes, words: string): void;
-  }
-
-
-  class Enqueue {
-
-    /**
-     * <Task> TwiML Noun
-     *
-     * @param attributes - TwiML attributes
-     * @param body - TaskRouter task attributes
-     */
-    task(attributes: VoiceResponse.TaskAttributes, body: string): void;
-  }
-
-
-  class Dial {
-
-    /**
-     * <Client> TwiML Noun
-     *
-     * @param attributes - TwiML attributes
-     * @param name - Client name
-     */
-    client(attributes: VoiceResponse.ClientAttributes, name: string): void;
-    /**
-     * <Conference> TwiML Noun
-     *
-     * @param attributes - TwiML attributes
-     * @param name - Conference name
-     */
-    conference(attributes: VoiceResponse.ConferenceAttributes, name: string): void;
-    /**
-     * <Number> TwiML Noun
-     *
-     * @param attributes - TwiML attributes
-     * @param phoneNumber - Phone Number to dial
-     */
-    number(attributes: VoiceResponse.NumberAttributes, phoneNumber: string): void;
-    /**
-     * <Queue> TwiML Noun
-     *
-     * @param attributes - TwiML attributes
-     * @param name - Queue name
-     */
-    queue(attributes: VoiceResponse.QueueAttributes, name: string): void;
-    /**
-     * <Sim> TwiML Noun
-     *
-     * @param attributes - TwiML attributes
-     * @param simSid - SIM SID
-     */
-    sim(attributes: object, simSid: string): void;
-    /**
-     * <Sip> TwiML Noun
-     *
-     * @param attributes - TwiML attributes
-     * @param sipUrl - SIP URL
-     */
-    sip(attributes: VoiceResponse.SipAttributes, sipUrl: string): void;
-  }
-
-
-  class Connect {
-
-    /**
-     * <Room> TwiML Noun
-     *
-     * @param attributes - TwiML attributes
-     * @param name - Room name
-     */
-    room(attributes: object, name: string): void;
   }
 }
 

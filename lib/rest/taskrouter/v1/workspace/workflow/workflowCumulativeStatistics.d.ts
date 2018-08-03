@@ -82,22 +82,23 @@ interface WorkflowCumulativeStatisticsSolution {
 }
 
 
-declare class WorkflowCumulativeStatisticsPage extends Page<V1, WorkflowCumulativeStatisticsPayload, WorkflowCumulativeStatisticsResource, WorkflowCumulativeStatisticsInstance> {
+declare class WorkflowCumulativeStatisticsContext {
   /**
-   * Initialize the WorkflowCumulativeStatisticsPage
+   * Initialize the WorkflowCumulativeStatisticsContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param workspaceSid - The workspace_sid
+   * @param workflowSid - The workflow_sid
    */
-  constructor(version: V1, response: Response<string>, solution: WorkflowCumulativeStatisticsSolution);
+  constructor(version: V1, workspaceSid: string, workflowSid: string);
 
   /**
-   * Build an instance of WorkflowCumulativeStatisticsInstance
+   * fetch a WorkflowCumulativeStatisticsInstance
    *
-   * @param payload - Payload response from the API
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: WorkflowCumulativeStatisticsPayload): WorkflowCumulativeStatisticsInstance;
+  fetch(opts?: WorkflowCumulativeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkflowCumulativeStatisticsInstance) => any): Promise<WorkflowCumulativeStatisticsInstance>;
 }
 
 
@@ -173,23 +174,22 @@ declare class WorkflowCumulativeStatisticsInstance extends SerializableClass {
 }
 
 
-declare class WorkflowCumulativeStatisticsContext {
+declare class WorkflowCumulativeStatisticsPage extends Page<V1, WorkflowCumulativeStatisticsPayload, WorkflowCumulativeStatisticsResource, WorkflowCumulativeStatisticsInstance> {
   /**
-   * Initialize the WorkflowCumulativeStatisticsContext
+   * Initialize the WorkflowCumulativeStatisticsPage
    *
    * @param version - Version of the resource
-   * @param workspaceSid - The workspace_sid
-   * @param workflowSid - The workflow_sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, workspaceSid: string, workflowSid: string);
+  constructor(version: V1, response: Response<string>, solution: WorkflowCumulativeStatisticsSolution);
 
   /**
-   * fetch a WorkflowCumulativeStatisticsInstance
+   * Build an instance of WorkflowCumulativeStatisticsInstance
    *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(opts?: WorkflowCumulativeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkflowCumulativeStatisticsInstance) => any): Promise<WorkflowCumulativeStatisticsInstance>;
+  getInstance(payload: WorkflowCumulativeStatisticsPayload): WorkflowCumulativeStatisticsInstance;
 }
 
 export { WorkflowCumulativeStatisticsContext, WorkflowCumulativeStatisticsInstance, WorkflowCumulativeStatisticsList, WorkflowCumulativeStatisticsListInstance, WorkflowCumulativeStatisticsPage, WorkflowCumulativeStatisticsPayload, WorkflowCumulativeStatisticsResource, WorkflowCumulativeStatisticsSolution }

@@ -160,22 +160,29 @@ interface InstalledAddOnExtensionSolution {
 }
 
 
-declare class InstalledAddOnExtensionPage extends Page<Marketplace, InstalledAddOnExtensionPayload, InstalledAddOnExtensionResource, InstalledAddOnExtensionInstance> {
+declare class InstalledAddOnExtensionContext {
   /**
-   * Initialize the InstalledAddOnExtensionPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the InstalledAddOnExtensionContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param installedAddOnSid - The installed_add_on_sid
+   * @param sid - The unique Extension Sid
    */
-  constructor(version: Marketplace, response: Response<string>, solution: InstalledAddOnExtensionSolution);
+  constructor(version: Marketplace, installedAddOnSid: string, sid: string);
 
   /**
-   * Build an instance of InstalledAddOnExtensionInstance
+   * fetch a InstalledAddOnExtensionInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: InstalledAddOnExtensionPayload): InstalledAddOnExtensionInstance;
+  fetch(callback?: (error: Error | null, items: InstalledAddOnExtensionInstance) => any): Promise<InstalledAddOnExtensionInstance>;
+  /**
+   * update a InstalledAddOnExtensionInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts: InstalledAddOnExtensionInstanceUpdateOptions, callback?: (error: Error | null, items: InstalledAddOnExtensionInstance) => any): Promise<InstalledAddOnExtensionInstance>;
 }
 
 
@@ -227,29 +234,22 @@ declare class InstalledAddOnExtensionInstance extends SerializableClass {
 }
 
 
-declare class InstalledAddOnExtensionContext {
+declare class InstalledAddOnExtensionPage extends Page<Marketplace, InstalledAddOnExtensionPayload, InstalledAddOnExtensionResource, InstalledAddOnExtensionInstance> {
   /**
-   * Initialize the InstalledAddOnExtensionContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the InstalledAddOnExtensionPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param installedAddOnSid - The installed_add_on_sid
-   * @param sid - The unique Extension Sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: Marketplace, installedAddOnSid: string, sid: string);
+  constructor(version: Marketplace, response: Response<string>, solution: InstalledAddOnExtensionSolution);
 
   /**
-   * fetch a InstalledAddOnExtensionInstance
+   * Build an instance of InstalledAddOnExtensionInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: InstalledAddOnExtensionInstance) => any): Promise<InstalledAddOnExtensionInstance>;
-  /**
-   * update a InstalledAddOnExtensionInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts: InstalledAddOnExtensionInstanceUpdateOptions, callback?: (error: Error | null, items: InstalledAddOnExtensionInstance) => any): Promise<InstalledAddOnExtensionInstance>;
+  getInstance(payload: InstalledAddOnExtensionPayload): InstalledAddOnExtensionInstance;
 }
 
 export { InstalledAddOnExtensionContext, InstalledAddOnExtensionInstance, InstalledAddOnExtensionList, InstalledAddOnExtensionListInstance, InstalledAddOnExtensionListInstanceEachOptions, InstalledAddOnExtensionListInstanceOptions, InstalledAddOnExtensionListInstancePageOptions, InstalledAddOnExtensionPage, InstalledAddOnExtensionPayload, InstalledAddOnExtensionResource, InstalledAddOnExtensionSolution }

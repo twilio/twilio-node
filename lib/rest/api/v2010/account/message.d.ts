@@ -260,22 +260,40 @@ interface MessageSolution {
 }
 
 
-declare class MessagePage extends Page<V2010, MessagePayload, MessageResource, MessageInstance> {
+declare class MessageContext {
   /**
-   * Initialize the MessagePage
+   * Initialize the MessageContext
+   *
+   * @property media - media resource
+   * @property feedback - feedback resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param accountSid - The account_sid
+   * @param sid - Fetch by unique message Sid
    */
-  constructor(version: V2010, response: Response<string>, solution: MessageSolution);
+  constructor(version: V2010, accountSid: string, sid: string);
 
+  feedback: FeedbackListInstance;
   /**
-   * Build an instance of MessageInstance
+   * fetch a MessageInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: MessagePayload): MessageInstance;
+  fetch(callback?: (error: Error | null, items: MessageInstance) => any): Promise<MessageInstance>;
+  media: MediaListInstance;
+  /**
+   * remove a MessageInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: MessageInstance) => any): void;
+  /**
+   * update a MessageInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts: MessageInstanceUpdateOptions, callback?: (error: Error | null, items: MessageInstance) => any): Promise<MessageInstance>;
 }
 
 
@@ -367,40 +385,22 @@ declare class MessageInstance extends SerializableClass {
 }
 
 
-declare class MessageContext {
+declare class MessagePage extends Page<V2010, MessagePayload, MessageResource, MessageInstance> {
   /**
-   * Initialize the MessageContext
-   *
-   * @property media - media resource
-   * @property feedback - feedback resource
+   * Initialize the MessagePage
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param sid - Fetch by unique message Sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V2010, accountSid: string, sid: string);
+  constructor(version: V2010, response: Response<string>, solution: MessageSolution);
 
-  feedback: FeedbackListInstance;
   /**
-   * fetch a MessageInstance
+   * Build an instance of MessageInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: MessageInstance) => any): Promise<MessageInstance>;
-  media: MediaListInstance;
-  /**
-   * remove a MessageInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: MessageInstance) => any): void;
-  /**
-   * update a MessageInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts: MessageInstanceUpdateOptions, callback?: (error: Error | null, items: MessageInstance) => any): Promise<MessageInstance>;
+  getInstance(payload: MessagePayload): MessageInstance;
 }
 
 export { MessageContext, MessageInstance, MessageList, MessageListInstance, MessageListInstanceCreateOptions, MessageListInstanceEachOptions, MessageListInstanceOptions, MessageListInstancePageOptions, MessagePage, MessagePayload, MessageResource, MessageSolution }

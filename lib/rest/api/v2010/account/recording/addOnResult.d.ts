@@ -158,22 +158,32 @@ interface AddOnResultSolution {
 }
 
 
-declare class AddOnResultPage extends Page<V2010, AddOnResultPayload, AddOnResultResource, AddOnResultInstance> {
+declare class AddOnResultContext {
   /**
-   * Initialize the AddOnResultPage
+   * Initialize the AddOnResultContext
+   *
+   * @property payloads - payloads resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param accountSid - The account_sid
+   * @param referenceSid - The reference_sid
+   * @param sid - Fetch by unique result Sid
    */
-  constructor(version: V2010, response: Response<string>, solution: AddOnResultSolution);
+  constructor(version: V2010, accountSid: string, referenceSid: string, sid: string);
 
   /**
-   * Build an instance of AddOnResultInstance
+   * fetch a AddOnResultInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: AddOnResultPayload): AddOnResultInstance;
+  fetch(callback?: (error: Error | null, items: AddOnResultInstance) => any): Promise<AddOnResultInstance>;
+  payloads: PayloadListInstance;
+  /**
+   * remove a AddOnResultInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: AddOnResultInstance) => any): void;
 }
 
 
@@ -235,32 +245,22 @@ declare class AddOnResultInstance extends SerializableClass {
 }
 
 
-declare class AddOnResultContext {
+declare class AddOnResultPage extends Page<V2010, AddOnResultPayload, AddOnResultResource, AddOnResultInstance> {
   /**
-   * Initialize the AddOnResultContext
-   *
-   * @property payloads - payloads resource
+   * Initialize the AddOnResultPage
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param referenceSid - The reference_sid
-   * @param sid - Fetch by unique result Sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V2010, accountSid: string, referenceSid: string, sid: string);
+  constructor(version: V2010, response: Response<string>, solution: AddOnResultSolution);
 
   /**
-   * fetch a AddOnResultInstance
+   * Build an instance of AddOnResultInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: AddOnResultInstance) => any): Promise<AddOnResultInstance>;
-  payloads: PayloadListInstance;
-  /**
-   * remove a AddOnResultInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: AddOnResultInstance) => any): void;
+  getInstance(payload: AddOnResultPayload): AddOnResultInstance;
 }
 
 export { AddOnResultContext, AddOnResultInstance, AddOnResultList, AddOnResultListInstance, AddOnResultListInstanceEachOptions, AddOnResultListInstanceOptions, AddOnResultListInstancePageOptions, AddOnResultPage, AddOnResultPayload, AddOnResultResource, AddOnResultSolution }

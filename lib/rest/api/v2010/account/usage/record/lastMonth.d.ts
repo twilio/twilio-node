@@ -173,25 +173,6 @@ interface LastMonthSolution {
 }
 
 
-declare class LastMonthPage extends Page<V2010, LastMonthPayload, LastMonthResource, LastMonthInstance> {
-  /**
-   * Initialize the LastMonthPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: LastMonthSolution);
-
-  /**
-   * Build an instance of LastMonthInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: LastMonthPayload): LastMonthInstance;
-}
-
-
 declare class LastMonthInstance extends SerializableClass {
   /**
    * Initialize the LastMonthContext
@@ -236,6 +217,25 @@ declare class LastMonthInstance extends SerializableClass {
   uri: string;
   usage: string;
   usageUnit: string;
+}
+
+
+declare class LastMonthPage extends Page<V2010, LastMonthPayload, LastMonthResource, LastMonthInstance> {
+  /**
+   * Initialize the LastMonthPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: V2010, response: Response<string>, solution: LastMonthSolution);
+
+  /**
+   * Build an instance of LastMonthInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: LastMonthPayload): LastMonthInstance;
 }
 
 export { LastMonthInstance, LastMonthList, LastMonthListInstance, LastMonthListInstanceEachOptions, LastMonthListInstanceOptions, LastMonthListInstancePageOptions, LastMonthPage, LastMonthPayload, LastMonthResource, LastMonthSolution }

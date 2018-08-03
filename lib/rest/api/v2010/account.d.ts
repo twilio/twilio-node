@@ -239,22 +239,75 @@ interface AccountSolution {
 }
 
 
-declare class AccountPage extends Page<V2010, AccountPayload, AccountResource, AccountInstance> {
+declare class AccountContext {
   /**
-   * Initialize the AccountPage
+   * Initialize the AccountContext
+   *
+   * @property addresses - addresses resource
+   * @property applications - applications resource
+   * @property authorizedConnectApps - authorizedConnectApps resource
+   * @property availablePhoneNumbers - availablePhoneNumbers resource
+   * @property calls - calls resource
+   * @property conferences - conferences resource
+   * @property connectApps - connectApps resource
+   * @property incomingPhoneNumbers - incomingPhoneNumbers resource
+   * @property keys - keys resource
+   * @property messages - messages resource
+   * @property newKeys - newKeys resource
+   * @property newSigningKeys - newSigningKeys resource
+   * @property notifications - notifications resource
+   * @property outgoingCallerIds - outgoingCallerIds resource
+   * @property queues - queues resource
+   * @property recordings - recordings resource
+   * @property signingKeys - signingKeys resource
+   * @property sip - sip resource
+   * @property shortCodes - shortCodes resource
+   * @property tokens - tokens resource
+   * @property transcriptions - transcriptions resource
+   * @property usage - usage resource
+   * @property validationRequests - validationRequests resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param sid - Fetch by unique Account Sid
    */
-  constructor(version: V2010, response: Response<string>, solution: AccountSolution);
+  constructor(version: V2010, sid: string);
 
+  addresses: AddressListInstance;
+  applications: ApplicationListInstance;
+  authorizedConnectApps: AuthorizedConnectAppListInstance;
+  availablePhoneNumbers: AvailablePhoneNumberCountryListInstance;
+  calls: CallListInstance;
+  conferences: ConferenceListInstance;
+  connectApps: ConnectAppListInstance;
   /**
-   * Build an instance of AccountInstance
+   * fetch a AccountInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: AccountPayload): AccountInstance;
+  fetch(callback?: (error: Error | null, items: AccountInstance) => any): Promise<AccountInstance>;
+  incomingPhoneNumbers: IncomingPhoneNumberListInstance;
+  keys: KeyListInstance;
+  messages: MessageListInstance;
+  newKeys: NewKeyListInstance;
+  newSigningKeys: NewSigningKeyListInstance;
+  notifications: NotificationListInstance;
+  outgoingCallerIds: OutgoingCallerIdListInstance;
+  queues: QueueListInstance;
+  recordings: RecordingListInstance;
+  shortCodes: ShortCodeListInstance;
+  signingKeys: SigningKeyListInstance;
+  sip: SipListInstance;
+  tokens: TokenListInstance;
+  transcriptions: TranscriptionListInstance;
+  /**
+   * update a AccountInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: AccountInstanceUpdateOptions, callback?: (error: Error | null, items: AccountInstance) => any): Promise<AccountInstance>;
+  usage: UsageListInstance;
+  validationRequests: ValidationRequestListInstance;
 }
 
 
@@ -403,75 +456,22 @@ declare class AccountInstance extends SerializableClass {
 }
 
 
-declare class AccountContext {
+declare class AccountPage extends Page<V2010, AccountPayload, AccountResource, AccountInstance> {
   /**
-   * Initialize the AccountContext
-   *
-   * @property addresses - addresses resource
-   * @property applications - applications resource
-   * @property authorizedConnectApps - authorizedConnectApps resource
-   * @property availablePhoneNumbers - availablePhoneNumbers resource
-   * @property calls - calls resource
-   * @property conferences - conferences resource
-   * @property connectApps - connectApps resource
-   * @property incomingPhoneNumbers - incomingPhoneNumbers resource
-   * @property keys - keys resource
-   * @property messages - messages resource
-   * @property newKeys - newKeys resource
-   * @property newSigningKeys - newSigningKeys resource
-   * @property notifications - notifications resource
-   * @property outgoingCallerIds - outgoingCallerIds resource
-   * @property queues - queues resource
-   * @property recordings - recordings resource
-   * @property signingKeys - signingKeys resource
-   * @property sip - sip resource
-   * @property shortCodes - shortCodes resource
-   * @property tokens - tokens resource
-   * @property transcriptions - transcriptions resource
-   * @property usage - usage resource
-   * @property validationRequests - validationRequests resource
+   * Initialize the AccountPage
    *
    * @param version - Version of the resource
-   * @param sid - Fetch by unique Account Sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V2010, sid: string);
+  constructor(version: V2010, response: Response<string>, solution: AccountSolution);
 
-  addresses: AddressListInstance;
-  applications: ApplicationListInstance;
-  authorizedConnectApps: AuthorizedConnectAppListInstance;
-  availablePhoneNumbers: AvailablePhoneNumberCountryListInstance;
-  calls: CallListInstance;
-  conferences: ConferenceListInstance;
-  connectApps: ConnectAppListInstance;
   /**
-   * fetch a AccountInstance
+   * Build an instance of AccountInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: AccountInstance) => any): Promise<AccountInstance>;
-  incomingPhoneNumbers: IncomingPhoneNumberListInstance;
-  keys: KeyListInstance;
-  messages: MessageListInstance;
-  newKeys: NewKeyListInstance;
-  newSigningKeys: NewSigningKeyListInstance;
-  notifications: NotificationListInstance;
-  outgoingCallerIds: OutgoingCallerIdListInstance;
-  queues: QueueListInstance;
-  recordings: RecordingListInstance;
-  shortCodes: ShortCodeListInstance;
-  signingKeys: SigningKeyListInstance;
-  sip: SipListInstance;
-  tokens: TokenListInstance;
-  transcriptions: TranscriptionListInstance;
-  /**
-   * update a AccountInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: AccountInstanceUpdateOptions, callback?: (error: Error | null, items: AccountInstance) => any): Promise<AccountInstance>;
-  usage: UsageListInstance;
-  validationRequests: ValidationRequestListInstance;
+  getInstance(payload: AccountPayload): AccountInstance;
 }
 
 export { AccountContext, AccountInstance, AccountList, AccountListInstance, AccountListInstanceCreateOptions, AccountListInstanceEachOptions, AccountListInstanceOptions, AccountListInstancePageOptions, AccountPage, AccountPayload, AccountResource, AccountSolution }

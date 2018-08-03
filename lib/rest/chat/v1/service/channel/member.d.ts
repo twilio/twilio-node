@@ -191,22 +191,36 @@ interface MemberSolution {
 }
 
 
-declare class MemberPage extends Page<V1, MemberPayload, MemberResource, MemberInstance> {
+declare class MemberContext {
   /**
-   * Initialize the MemberPage
+   * Initialize the MemberContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param serviceSid - The service_sid
+   * @param channelSid - The channel_sid
+   * @param sid - The sid
    */
-  constructor(version: V1, response: Response<string>, solution: MemberSolution);
+  constructor(version: V1, serviceSid: string, channelSid: string, sid: string);
 
   /**
-   * Build an instance of MemberInstance
+   * fetch a MemberInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: MemberPayload): MemberInstance;
+  fetch(callback?: (error: Error | null, items: MemberInstance) => any): Promise<MemberInstance>;
+  /**
+   * remove a MemberInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: MemberInstance) => any): void;
+  /**
+   * update a MemberInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: MemberInstanceUpdateOptions, callback?: (error: Error | null, items: MemberInstance) => any): Promise<MemberInstance>;
 }
 
 
@@ -273,36 +287,22 @@ declare class MemberInstance extends SerializableClass {
 }
 
 
-declare class MemberContext {
+declare class MemberPage extends Page<V1, MemberPayload, MemberResource, MemberInstance> {
   /**
-   * Initialize the MemberContext
+   * Initialize the MemberPage
    *
    * @param version - Version of the resource
-   * @param serviceSid - The service_sid
-   * @param channelSid - The channel_sid
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, serviceSid: string, channelSid: string, sid: string);
+  constructor(version: V1, response: Response<string>, solution: MemberSolution);
 
   /**
-   * fetch a MemberInstance
+   * Build an instance of MemberInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: MemberInstance) => any): Promise<MemberInstance>;
-  /**
-   * remove a MemberInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: MemberInstance) => any): void;
-  /**
-   * update a MemberInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: MemberInstanceUpdateOptions, callback?: (error: Error | null, items: MemberInstance) => any): Promise<MemberInstance>;
+  getInstance(payload: MemberPayload): MemberInstance;
 }
 
 export { MemberContext, MemberInstance, MemberList, MemberListInstance, MemberListInstanceCreateOptions, MemberListInstanceEachOptions, MemberListInstanceOptions, MemberListInstancePageOptions, MemberPage, MemberPayload, MemberResource, MemberSolution }

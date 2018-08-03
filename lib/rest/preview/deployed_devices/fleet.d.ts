@@ -185,22 +185,43 @@ interface FleetSolution {
 }
 
 
-declare class FleetPage extends Page<DeployedDevices, FleetPayload, FleetResource, FleetInstance> {
+declare class FleetContext {
   /**
-   * Initialize the FleetPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the FleetContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property devices - devices resource
+   * @property deployments - deployments resource
+   * @property certificates - certificates resource
+   * @property keys - keys resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param sid - A string that uniquely identifies the Fleet.
    */
-  constructor(version: DeployedDevices, response: Response<string>, solution: FleetSolution);
+  constructor(version: DeployedDevices, sid: string);
 
+  certificates: CertificateListInstance;
+  deployments: DeploymentListInstance;
+  devices: DeviceListInstance;
   /**
-   * Build an instance of FleetInstance
+   * fetch a FleetInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: FleetPayload): FleetInstance;
+  fetch(callback?: (error: Error | null, items: FleetInstance) => any): Promise<FleetInstance>;
+  keys: KeyListInstance;
+  /**
+   * remove a FleetInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: FleetInstance) => any): void;
+  /**
+   * update a FleetInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: FleetInstanceUpdateOptions, callback?: (error: Error | null, items: FleetInstance) => any): Promise<FleetInstance>;
 }
 
 
@@ -277,43 +298,22 @@ declare class FleetInstance extends SerializableClass {
 }
 
 
-declare class FleetContext {
+declare class FleetPage extends Page<DeployedDevices, FleetPayload, FleetResource, FleetInstance> {
   /**
-   * Initialize the FleetContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
-   *
-   * @property devices - devices resource
-   * @property deployments - deployments resource
-   * @property certificates - certificates resource
-   * @property keys - keys resource
+   * Initialize the FleetPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param sid - A string that uniquely identifies the Fleet.
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: DeployedDevices, sid: string);
+  constructor(version: DeployedDevices, response: Response<string>, solution: FleetSolution);
 
-  certificates: CertificateListInstance;
-  deployments: DeploymentListInstance;
-  devices: DeviceListInstance;
   /**
-   * fetch a FleetInstance
+   * Build an instance of FleetInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: FleetInstance) => any): Promise<FleetInstance>;
-  keys: KeyListInstance;
-  /**
-   * remove a FleetInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: FleetInstance) => any): void;
-  /**
-   * update a FleetInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: FleetInstanceUpdateOptions, callback?: (error: Error | null, items: FleetInstance) => any): Promise<FleetInstance>;
+  getInstance(payload: FleetPayload): FleetInstance;
 }
 
 export { FleetContext, FleetInstance, FleetList, FleetListInstance, FleetListInstanceCreateOptions, FleetListInstanceEachOptions, FleetListInstanceOptions, FleetListInstancePageOptions, FleetPage, FleetPayload, FleetResource, FleetSolution }

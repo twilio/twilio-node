@@ -173,22 +173,33 @@ interface SyncMapSolution {
 }
 
 
-declare class SyncMapPage extends Page<Sync, SyncMapPayload, SyncMapResource, SyncMapInstance> {
+declare class SyncMapContext {
   /**
-   * Initialize the SyncMapPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the SyncMapContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property syncMapItems - syncMapItems resource
+   * @property syncMapPermissions - syncMapPermissions resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param serviceSid - The service_sid
+   * @param sid - The sid
    */
-  constructor(version: Sync, response: Response<string>, solution: SyncMapSolution);
+  constructor(version: Sync, serviceSid: string, sid: string);
 
   /**
-   * Build an instance of SyncMapInstance
+   * fetch a SyncMapInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: SyncMapPayload): SyncMapInstance;
+  fetch(callback?: (error: Error | null, items: SyncMapInstance) => any): Promise<SyncMapInstance>;
+  /**
+   * remove a SyncMapInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: SyncMapInstance) => any): void;
+  syncMapItems: SyncMapItemListInstance;
+  syncMapPermissions: SyncMapPermissionListInstance;
 }
 
 
@@ -253,33 +264,22 @@ declare class SyncMapInstance extends SerializableClass {
 }
 
 
-declare class SyncMapContext {
+declare class SyncMapPage extends Page<Sync, SyncMapPayload, SyncMapResource, SyncMapInstance> {
   /**
-   * Initialize the SyncMapContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
-   *
-   * @property syncMapItems - syncMapItems resource
-   * @property syncMapPermissions - syncMapPermissions resource
+   * Initialize the SyncMapPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param serviceSid - The service_sid
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: Sync, serviceSid: string, sid: string);
+  constructor(version: Sync, response: Response<string>, solution: SyncMapSolution);
 
   /**
-   * fetch a SyncMapInstance
+   * Build an instance of SyncMapInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: SyncMapInstance) => any): Promise<SyncMapInstance>;
-  /**
-   * remove a SyncMapInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: SyncMapInstance) => any): void;
-  syncMapItems: SyncMapItemListInstance;
-  syncMapPermissions: SyncMapPermissionListInstance;
+  getInstance(payload: SyncMapPayload): SyncMapInstance;
 }
 
 export { SyncMapContext, SyncMapInstance, SyncMapList, SyncMapListInstance, SyncMapListInstanceCreateOptions, SyncMapListInstanceEachOptions, SyncMapListInstanceOptions, SyncMapListInstancePageOptions, SyncMapPage, SyncMapPayload, SyncMapResource, SyncMapSolution }

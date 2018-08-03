@@ -173,25 +173,6 @@ interface ThisMonthSolution {
 }
 
 
-declare class ThisMonthPage extends Page<V2010, ThisMonthPayload, ThisMonthResource, ThisMonthInstance> {
-  /**
-   * Initialize the ThisMonthPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: ThisMonthSolution);
-
-  /**
-   * Build an instance of ThisMonthInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: ThisMonthPayload): ThisMonthInstance;
-}
-
-
 declare class ThisMonthInstance extends SerializableClass {
   /**
    * Initialize the ThisMonthContext
@@ -236,6 +217,25 @@ declare class ThisMonthInstance extends SerializableClass {
   uri: string;
   usage: string;
   usageUnit: string;
+}
+
+
+declare class ThisMonthPage extends Page<V2010, ThisMonthPayload, ThisMonthResource, ThisMonthInstance> {
+  /**
+   * Initialize the ThisMonthPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: V2010, response: Response<string>, solution: ThisMonthSolution);
+
+  /**
+   * Build an instance of ThisMonthInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: ThisMonthPayload): ThisMonthInstance;
 }
 
 export { ThisMonthInstance, ThisMonthList, ThisMonthListInstance, ThisMonthListInstanceEachOptions, ThisMonthListInstanceOptions, ThisMonthListInstancePageOptions, ThisMonthPage, ThisMonthPayload, ThisMonthResource, ThisMonthSolution }

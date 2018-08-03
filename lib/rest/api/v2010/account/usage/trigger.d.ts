@@ -223,22 +223,35 @@ interface TriggerSolution {
 }
 
 
-declare class TriggerPage extends Page<V2010, TriggerPayload, TriggerResource, TriggerInstance> {
+declare class TriggerContext {
   /**
-   * Initialize the TriggerPage
+   * Initialize the TriggerContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param accountSid - The account_sid
+   * @param sid - Fetch by unique usage-trigger Sid
    */
-  constructor(version: V2010, response: Response<string>, solution: TriggerSolution);
+  constructor(version: V2010, accountSid: string, sid: string);
 
   /**
-   * Build an instance of TriggerInstance
+   * fetch a TriggerInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: TriggerPayload): TriggerInstance;
+  fetch(callback?: (error: Error | null, items: TriggerInstance) => any): Promise<TriggerInstance>;
+  /**
+   * remove a TriggerInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: TriggerInstance) => any): void;
+  /**
+   * update a TriggerInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: TriggerInstanceUpdateOptions, callback?: (error: Error | null, items: TriggerInstance) => any): Promise<TriggerInstance>;
 }
 
 
@@ -314,35 +327,22 @@ declare class TriggerInstance extends SerializableClass {
 }
 
 
-declare class TriggerContext {
+declare class TriggerPage extends Page<V2010, TriggerPayload, TriggerResource, TriggerInstance> {
   /**
-   * Initialize the TriggerContext
+   * Initialize the TriggerPage
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param sid - Fetch by unique usage-trigger Sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V2010, accountSid: string, sid: string);
+  constructor(version: V2010, response: Response<string>, solution: TriggerSolution);
 
   /**
-   * fetch a TriggerInstance
+   * Build an instance of TriggerInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: TriggerInstance) => any): Promise<TriggerInstance>;
-  /**
-   * remove a TriggerInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: TriggerInstance) => any): void;
-  /**
-   * update a TriggerInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: TriggerInstanceUpdateOptions, callback?: (error: Error | null, items: TriggerInstance) => any): Promise<TriggerInstance>;
+  getInstance(payload: TriggerPayload): TriggerInstance;
 }
 
 export { TriggerContext, TriggerInstance, TriggerList, TriggerListInstance, TriggerListInstanceCreateOptions, TriggerListInstanceEachOptions, TriggerListInstanceOptions, TriggerListInstancePageOptions, TriggerPage, TriggerPayload, TriggerResource, TriggerSolution }

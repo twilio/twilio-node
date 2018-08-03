@@ -53,25 +53,6 @@ interface NewKeySolution {
 }
 
 
-declare class NewKeyPage extends Page<V2010, NewKeyPayload, NewKeyResource, NewKeyInstance> {
-  /**
-   * Initialize the NewKeyPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: NewKeySolution);
-
-  /**
-   * Build an instance of NewKeyInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: NewKeyPayload): NewKeyInstance;
-}
-
-
 declare class NewKeyInstance extends SerializableClass {
   /**
    * Initialize the NewKeyContext
@@ -98,6 +79,25 @@ declare class NewKeyInstance extends SerializableClass {
    * Removes any circular references in the object.
    */
   toJSON(): any;
+}
+
+
+declare class NewKeyPage extends Page<V2010, NewKeyPayload, NewKeyResource, NewKeyInstance> {
+  /**
+   * Initialize the NewKeyPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: V2010, response: Response<string>, solution: NewKeySolution);
+
+  /**
+   * Build an instance of NewKeyInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: NewKeyPayload): NewKeyInstance;
 }
 
 export { NewKeyInstance, NewKeyList, NewKeyListInstance, NewKeyListInstanceCreateOptions, NewKeyPage, NewKeyPayload, NewKeyResource, NewKeySolution }

@@ -155,22 +155,30 @@ interface FlowSolution {
 }
 
 
-declare class FlowPage extends Page<Studio, FlowPayload, FlowResource, FlowInstance> {
+declare class FlowContext {
   /**
-   * Initialize the FlowPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the FlowContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property engagements - engagements resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param sid - The sid
    */
-  constructor(version: Studio, response: Response<string>, solution: FlowSolution);
+  constructor(version: Studio, sid: string);
 
+  engagements: EngagementListInstance;
   /**
-   * Build an instance of FlowInstance
+   * fetch a FlowInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: FlowPayload): FlowInstance;
+  fetch(callback?: (error: Error | null, items: FlowInstance) => any): Promise<FlowInstance>;
+  /**
+   * remove a FlowInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: FlowInstance) => any): void;
 }
 
 
@@ -230,30 +238,22 @@ declare class FlowInstance extends SerializableClass {
 }
 
 
-declare class FlowContext {
+declare class FlowPage extends Page<Studio, FlowPayload, FlowResource, FlowInstance> {
   /**
-   * Initialize the FlowContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
-   *
-   * @property engagements - engagements resource
+   * Initialize the FlowPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: Studio, sid: string);
+  constructor(version: Studio, response: Response<string>, solution: FlowSolution);
 
-  engagements: EngagementListInstance;
   /**
-   * fetch a FlowInstance
+   * Build an instance of FlowInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: FlowInstance) => any): Promise<FlowInstance>;
-  /**
-   * remove a FlowInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: FlowInstance) => any): void;
+  getInstance(payload: FlowPayload): FlowInstance;
 }
 
 export { FlowContext, FlowInstance, FlowList, FlowListInstance, FlowListInstanceEachOptions, FlowListInstanceOptions, FlowListInstancePageOptions, FlowPage, FlowPayload, FlowResource, FlowSolution }

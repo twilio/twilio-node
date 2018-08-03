@@ -178,22 +178,36 @@ interface CredentialSolution {
 }
 
 
-declare class CredentialPage extends Page<V2010, CredentialPayload, CredentialResource, CredentialInstance> {
+declare class CredentialContext {
   /**
-   * Initialize the CredentialPage
+   * Initialize the CredentialContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param accountSid - The account_sid
+   * @param credentialListSid - The credential_list_sid
+   * @param sid - The sid
    */
-  constructor(version: V2010, response: Response<string>, solution: CredentialSolution);
+  constructor(version: V2010, accountSid: string, credentialListSid: string, sid: string);
 
   /**
-   * Build an instance of CredentialInstance
+   * fetch a CredentialInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: CredentialPayload): CredentialInstance;
+  fetch(callback?: (error: Error | null, items: CredentialInstance) => any): Promise<CredentialInstance>;
+  /**
+   * remove a CredentialInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: CredentialInstance) => any): void;
+  /**
+   * update a CredentialInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: CredentialInstanceUpdateOptions, callback?: (error: Error | null, items: CredentialInstance) => any): Promise<CredentialInstance>;
 }
 
 
@@ -252,36 +266,22 @@ declare class CredentialInstance extends SerializableClass {
 }
 
 
-declare class CredentialContext {
+declare class CredentialPage extends Page<V2010, CredentialPayload, CredentialResource, CredentialInstance> {
   /**
-   * Initialize the CredentialContext
+   * Initialize the CredentialPage
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param credentialListSid - The credential_list_sid
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V2010, accountSid: string, credentialListSid: string, sid: string);
+  constructor(version: V2010, response: Response<string>, solution: CredentialSolution);
 
   /**
-   * fetch a CredentialInstance
+   * Build an instance of CredentialInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: CredentialInstance) => any): Promise<CredentialInstance>;
-  /**
-   * remove a CredentialInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: CredentialInstance) => any): void;
-  /**
-   * update a CredentialInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: CredentialInstanceUpdateOptions, callback?: (error: Error | null, items: CredentialInstance) => any): Promise<CredentialInstance>;
+  getInstance(payload: CredentialPayload): CredentialInstance;
 }
 
 export { CredentialContext, CredentialInstance, CredentialList, CredentialListInstance, CredentialListInstanceCreateOptions, CredentialListInstanceEachOptions, CredentialListInstanceOptions, CredentialListInstancePageOptions, CredentialPage, CredentialPayload, CredentialResource, CredentialSolution }

@@ -160,25 +160,6 @@ interface DataSessionSolution {
 }
 
 
-declare class DataSessionPage extends Page<V1, DataSessionPayload, DataSessionResource, DataSessionInstance> {
-  /**
-   * Initialize the DataSessionPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: DataSessionSolution);
-
-  /**
-   * Build an instance of DataSessionInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: DataSessionPayload): DataSessionInstance;
-}
-
-
 declare class DataSessionInstance extends SerializableClass {
   /**
    * Initialize the DataSessionContext
@@ -225,6 +206,25 @@ declare class DataSessionInstance extends SerializableClass {
    * Removes any circular references in the object.
    */
   toJSON(): any;
+}
+
+
+declare class DataSessionPage extends Page<V1, DataSessionPayload, DataSessionResource, DataSessionInstance> {
+  /**
+   * Initialize the DataSessionPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: V1, response: Response<string>, solution: DataSessionSolution);
+
+  /**
+   * Build an instance of DataSessionInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: DataSessionPayload): DataSessionInstance;
 }
 
 export { DataSessionInstance, DataSessionList, DataSessionListInstance, DataSessionListInstanceEachOptions, DataSessionListInstanceOptions, DataSessionListInstancePageOptions, DataSessionPage, DataSessionPayload, DataSessionResource, DataSessionSolution }

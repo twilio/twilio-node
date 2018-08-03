@@ -170,22 +170,35 @@ interface OutgoingCallerIdSolution {
 }
 
 
-declare class OutgoingCallerIdPage extends Page<V2010, OutgoingCallerIdPayload, OutgoingCallerIdResource, OutgoingCallerIdInstance> {
+declare class OutgoingCallerIdContext {
   /**
-   * Initialize the OutgoingCallerIdPage
+   * Initialize the OutgoingCallerIdContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param accountSid - The account_sid
+   * @param sid - Fetch by unique outgoing-caller-id Sid
    */
-  constructor(version: V2010, response: Response<string>, solution: OutgoingCallerIdSolution);
+  constructor(version: V2010, accountSid: string, sid: string);
 
   /**
-   * Build an instance of OutgoingCallerIdInstance
+   * fetch a OutgoingCallerIdInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: OutgoingCallerIdPayload): OutgoingCallerIdInstance;
+  fetch(callback?: (error: Error | null, items: OutgoingCallerIdInstance) => any): Promise<OutgoingCallerIdInstance>;
+  /**
+   * remove a OutgoingCallerIdInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: OutgoingCallerIdInstance) => any): void;
+  /**
+   * update a OutgoingCallerIdInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: OutgoingCallerIdInstanceUpdateOptions, callback?: (error: Error | null, items: OutgoingCallerIdInstance) => any): Promise<OutgoingCallerIdInstance>;
 }
 
 
@@ -243,35 +256,22 @@ declare class OutgoingCallerIdInstance extends SerializableClass {
 }
 
 
-declare class OutgoingCallerIdContext {
+declare class OutgoingCallerIdPage extends Page<V2010, OutgoingCallerIdPayload, OutgoingCallerIdResource, OutgoingCallerIdInstance> {
   /**
-   * Initialize the OutgoingCallerIdContext
+   * Initialize the OutgoingCallerIdPage
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param sid - Fetch by unique outgoing-caller-id Sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V2010, accountSid: string, sid: string);
+  constructor(version: V2010, response: Response<string>, solution: OutgoingCallerIdSolution);
 
   /**
-   * fetch a OutgoingCallerIdInstance
+   * Build an instance of OutgoingCallerIdInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: OutgoingCallerIdInstance) => any): Promise<OutgoingCallerIdInstance>;
-  /**
-   * remove a OutgoingCallerIdInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: OutgoingCallerIdInstance) => any): void;
-  /**
-   * update a OutgoingCallerIdInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: OutgoingCallerIdInstanceUpdateOptions, callback?: (error: Error | null, items: OutgoingCallerIdInstance) => any): Promise<OutgoingCallerIdInstance>;
+  getInstance(payload: OutgoingCallerIdPayload): OutgoingCallerIdInstance;
 }
 
 export { OutgoingCallerIdContext, OutgoingCallerIdInstance, OutgoingCallerIdList, OutgoingCallerIdListInstance, OutgoingCallerIdListInstanceEachOptions, OutgoingCallerIdListInstanceOptions, OutgoingCallerIdListInstancePageOptions, OutgoingCallerIdPage, OutgoingCallerIdPayload, OutgoingCallerIdResource, OutgoingCallerIdSolution }

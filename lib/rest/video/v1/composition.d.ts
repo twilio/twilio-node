@@ -220,22 +220,27 @@ interface CompositionSolution {
 }
 
 
-declare class CompositionPage extends Page<V1, CompositionPayload, CompositionResource, CompositionInstance> {
+declare class CompositionContext {
   /**
-   * Initialize the CompositionPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the CompositionContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param sid - The Composition Sid that uniquely identifies the Composition to fetch.
    */
-  constructor(version: V1, response: Response<string>, solution: CompositionSolution);
+  constructor(version: V1, sid: string);
 
   /**
-   * Build an instance of CompositionInstance
+   * fetch a CompositionInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: CompositionPayload): CompositionInstance;
+  fetch(callback?: (error: Error | null, items: CompositionInstance) => any): Promise<CompositionInstance>;
+  /**
+   * remove a CompositionInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: CompositionInstance) => any): void;
 }
 
 
@@ -307,27 +312,22 @@ declare class CompositionInstance extends SerializableClass {
 }
 
 
-declare class CompositionContext {
+declare class CompositionPage extends Page<V1, CompositionPayload, CompositionResource, CompositionInstance> {
   /**
-   * Initialize the CompositionContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the CompositionPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param sid - The Composition Sid that uniquely identifies the Composition to fetch.
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, sid: string);
+  constructor(version: V1, response: Response<string>, solution: CompositionSolution);
 
   /**
-   * fetch a CompositionInstance
+   * Build an instance of CompositionInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: CompositionInstance) => any): Promise<CompositionInstance>;
-  /**
-   * remove a CompositionInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: CompositionInstance) => any): void;
+  getInstance(payload: CompositionPayload): CompositionInstance;
 }
 
 export { CompositionContext, CompositionInstance, CompositionList, CompositionListInstance, CompositionListInstanceCreateOptions, CompositionListInstanceEachOptions, CompositionListInstanceOptions, CompositionListInstancePageOptions, CompositionPage, CompositionPayload, CompositionResource, CompositionSolution }

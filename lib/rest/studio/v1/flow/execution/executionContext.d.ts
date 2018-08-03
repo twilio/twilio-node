@@ -48,22 +48,22 @@ interface ExecutionContextSolution {
 }
 
 
-declare class ExecutionContextPage extends Page<V1, ExecutionContextPayload, ExecutionContextResource, ExecutionContextInstance> {
+declare class ExecutionContextContext {
   /**
-   * Initialize the ExecutionContextPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the ExecutionContextContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param flowSid - Flow Sid.
+   * @param executionSid - Execution Sid.
    */
-  constructor(version: V1, response: Response<string>, solution: ExecutionContextSolution);
+  constructor(version: V1, flowSid: string, executionSid: string);
 
   /**
-   * Build an instance of ExecutionContextInstance
+   * fetch a ExecutionContextInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: ExecutionContextPayload): ExecutionContextInstance;
+  fetch(callback?: (error: Error | null, items: ExecutionContextInstance) => any): Promise<ExecutionContextInstance>;
 }
 
 
@@ -104,22 +104,22 @@ declare class ExecutionContextInstance extends SerializableClass {
 }
 
 
-declare class ExecutionContextContext {
+declare class ExecutionContextPage extends Page<V1, ExecutionContextPayload, ExecutionContextResource, ExecutionContextInstance> {
   /**
-   * Initialize the ExecutionContextContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the ExecutionContextPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
-   * @param flowSid - Flow Sid.
-   * @param executionSid - Execution Sid.
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, flowSid: string, executionSid: string);
+  constructor(version: V1, response: Response<string>, solution: ExecutionContextSolution);
 
   /**
-   * fetch a ExecutionContextInstance
+   * Build an instance of ExecutionContextInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: ExecutionContextInstance) => any): Promise<ExecutionContextInstance>;
+  getInstance(payload: ExecutionContextPayload): ExecutionContextInstance;
 }
 
 export { ExecutionContextContext, ExecutionContextInstance, ExecutionContextList, ExecutionContextListInstance, ExecutionContextPage, ExecutionContextPayload, ExecutionContextResource, ExecutionContextSolution }

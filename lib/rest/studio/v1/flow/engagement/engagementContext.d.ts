@@ -48,22 +48,22 @@ interface EngagementContextSolution {
 }
 
 
-declare class EngagementContextPage extends Page<V1, EngagementContextPayload, EngagementContextResource, EngagementContextInstance> {
+declare class EngagementContextContext {
   /**
-   * Initialize the EngagementContextPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the EngagementContextContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param flowSid - Flow Sid.
+   * @param engagementSid - Engagement Sid.
    */
-  constructor(version: V1, response: Response<string>, solution: EngagementContextSolution);
+  constructor(version: V1, flowSid: string, engagementSid: string);
 
   /**
-   * Build an instance of EngagementContextInstance
+   * fetch a EngagementContextInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: EngagementContextPayload): EngagementContextInstance;
+  fetch(callback?: (error: Error | null, items: EngagementContextInstance) => any): Promise<EngagementContextInstance>;
 }
 
 
@@ -104,22 +104,22 @@ declare class EngagementContextInstance extends SerializableClass {
 }
 
 
-declare class EngagementContextContext {
+declare class EngagementContextPage extends Page<V1, EngagementContextPayload, EngagementContextResource, EngagementContextInstance> {
   /**
-   * Initialize the EngagementContextContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the EngagementContextPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
-   * @param flowSid - Flow Sid.
-   * @param engagementSid - Engagement Sid.
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, flowSid: string, engagementSid: string);
+  constructor(version: V1, response: Response<string>, solution: EngagementContextSolution);
 
   /**
-   * fetch a EngagementContextInstance
+   * Build an instance of EngagementContextInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: EngagementContextInstance) => any): Promise<EngagementContextInstance>;
+  getInstance(payload: EngagementContextPayload): EngagementContextInstance;
 }
 
 export { EngagementContextContext, EngagementContextInstance, EngagementContextList, EngagementContextListInstance, EngagementContextPage, EngagementContextPayload, EngagementContextResource, EngagementContextSolution }

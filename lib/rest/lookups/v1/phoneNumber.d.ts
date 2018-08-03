@@ -65,22 +65,22 @@ interface PhoneNumberSolution {
 }
 
 
-declare class PhoneNumberPage extends Page<V1, PhoneNumberPayload, PhoneNumberResource, PhoneNumberInstance> {
+declare class PhoneNumberContext {
   /**
-   * Initialize the PhoneNumberPage
+   * Initialize the PhoneNumberContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param phoneNumber - The phone_number
    */
-  constructor(version: V1, response: Response<string>, solution: PhoneNumberSolution);
+  constructor(version: V1, phoneNumber: string);
 
   /**
-   * Build an instance of PhoneNumberInstance
+   * fetch a PhoneNumberInstance
    *
-   * @param payload - Payload response from the API
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: PhoneNumberPayload): PhoneNumberInstance;
+  fetch(opts?: PhoneNumberInstanceFetchOptions, callback?: (error: Error | null, items: PhoneNumberInstance) => any): Promise<PhoneNumberInstance>;
 }
 
 
@@ -125,22 +125,22 @@ declare class PhoneNumberInstance extends SerializableClass {
 }
 
 
-declare class PhoneNumberContext {
+declare class PhoneNumberPage extends Page<V1, PhoneNumberPayload, PhoneNumberResource, PhoneNumberInstance> {
   /**
-   * Initialize the PhoneNumberContext
+   * Initialize the PhoneNumberPage
    *
    * @param version - Version of the resource
-   * @param phoneNumber - The phone_number
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, phoneNumber: string);
+  constructor(version: V1, response: Response<string>, solution: PhoneNumberSolution);
 
   /**
-   * fetch a PhoneNumberInstance
+   * Build an instance of PhoneNumberInstance
    *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(opts?: PhoneNumberInstanceFetchOptions, callback?: (error: Error | null, items: PhoneNumberInstance) => any): Promise<PhoneNumberInstance>;
+  getInstance(payload: PhoneNumberPayload): PhoneNumberInstance;
 }
 
 export { PhoneNumberContext, PhoneNumberInstance, PhoneNumberList, PhoneNumberListInstance, PhoneNumberPage, PhoneNumberPayload, PhoneNumberResource, PhoneNumberSolution }

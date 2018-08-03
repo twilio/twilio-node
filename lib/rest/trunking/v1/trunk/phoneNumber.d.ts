@@ -186,22 +186,28 @@ interface PhoneNumberSolution {
 }
 
 
-declare class PhoneNumberPage extends Page<V1, PhoneNumberPayload, PhoneNumberResource, PhoneNumberInstance> {
+declare class PhoneNumberContext {
   /**
-   * Initialize the PhoneNumberPage
+   * Initialize the PhoneNumberContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param trunkSid - The trunk_sid
+   * @param sid - The sid
    */
-  constructor(version: V1, response: Response<string>, solution: PhoneNumberSolution);
+  constructor(version: V1, trunkSid: string, sid: string);
 
   /**
-   * Build an instance of PhoneNumberInstance
+   * fetch a PhoneNumberInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: PhoneNumberPayload): PhoneNumberInstance;
+  fetch(callback?: (error: Error | null, items: PhoneNumberInstance) => any): Promise<PhoneNumberInstance>;
+  /**
+   * remove a PhoneNumberInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: PhoneNumberInstance) => any): void;
 }
 
 
@@ -290,28 +296,22 @@ declare class PhoneNumberInstance extends SerializableClass {
 }
 
 
-declare class PhoneNumberContext {
+declare class PhoneNumberPage extends Page<V1, PhoneNumberPayload, PhoneNumberResource, PhoneNumberInstance> {
   /**
-   * Initialize the PhoneNumberContext
+   * Initialize the PhoneNumberPage
    *
    * @param version - Version of the resource
-   * @param trunkSid - The trunk_sid
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, trunkSid: string, sid: string);
+  constructor(version: V1, response: Response<string>, solution: PhoneNumberSolution);
 
   /**
-   * fetch a PhoneNumberInstance
+   * Build an instance of PhoneNumberInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: PhoneNumberInstance) => any): Promise<PhoneNumberInstance>;
-  /**
-   * remove a PhoneNumberInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: PhoneNumberInstance) => any): void;
+  getInstance(payload: PhoneNumberPayload): PhoneNumberInstance;
 }
 
 export { PhoneNumberContext, PhoneNumberInstance, PhoneNumberList, PhoneNumberListInstance, PhoneNumberListInstanceCreateOptions, PhoneNumberListInstanceEachOptions, PhoneNumberListInstanceOptions, PhoneNumberListInstancePageOptions, PhoneNumberPage, PhoneNumberPayload, PhoneNumberResource, PhoneNumberSolution }

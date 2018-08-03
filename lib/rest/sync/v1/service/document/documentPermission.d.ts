@@ -167,22 +167,36 @@ interface DocumentPermissionSolution {
 }
 
 
-declare class DocumentPermissionPage extends Page<V1, DocumentPermissionPayload, DocumentPermissionResource, DocumentPermissionInstance> {
+declare class DocumentPermissionContext {
   /**
-   * Initialize the DocumentPermissionPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the DocumentPermissionContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param serviceSid - Sync Service Instance SID or unique name.
+   * @param documentSid - Sync Document SID or unique name.
+   * @param identity - Identity of the user to whom the Sync Document Permission applies.
    */
-  constructor(version: V1, response: Response<string>, solution: DocumentPermissionSolution);
+  constructor(version: V1, serviceSid: string, documentSid: string, identity: string);
 
   /**
-   * Build an instance of DocumentPermissionInstance
+   * fetch a DocumentPermissionInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: DocumentPermissionPayload): DocumentPermissionInstance;
+  fetch(callback?: (error: Error | null, items: DocumentPermissionInstance) => any): Promise<DocumentPermissionInstance>;
+  /**
+   * remove a DocumentPermissionInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: DocumentPermissionInstance) => any): void;
+  /**
+   * update a DocumentPermissionInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts: DocumentPermissionInstanceUpdateOptions, callback?: (error: Error | null, items: DocumentPermissionInstance) => any): Promise<DocumentPermissionInstance>;
 }
 
 
@@ -243,36 +257,22 @@ declare class DocumentPermissionInstance extends SerializableClass {
 }
 
 
-declare class DocumentPermissionContext {
+declare class DocumentPermissionPage extends Page<V1, DocumentPermissionPayload, DocumentPermissionResource, DocumentPermissionInstance> {
   /**
-   * Initialize the DocumentPermissionContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the DocumentPermissionPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
-   * @param serviceSid - Sync Service Instance SID or unique name.
-   * @param documentSid - Sync Document SID or unique name.
-   * @param identity - Identity of the user to whom the Sync Document Permission applies.
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, serviceSid: string, documentSid: string, identity: string);
+  constructor(version: V1, response: Response<string>, solution: DocumentPermissionSolution);
 
   /**
-   * fetch a DocumentPermissionInstance
+   * Build an instance of DocumentPermissionInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: DocumentPermissionInstance) => any): Promise<DocumentPermissionInstance>;
-  /**
-   * remove a DocumentPermissionInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: DocumentPermissionInstance) => any): void;
-  /**
-   * update a DocumentPermissionInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts: DocumentPermissionInstanceUpdateOptions, callback?: (error: Error | null, items: DocumentPermissionInstance) => any): Promise<DocumentPermissionInstance>;
+  getInstance(payload: DocumentPermissionPayload): DocumentPermissionInstance;
 }
 
 export { DocumentPermissionContext, DocumentPermissionInstance, DocumentPermissionList, DocumentPermissionListInstance, DocumentPermissionListInstanceEachOptions, DocumentPermissionListInstanceOptions, DocumentPermissionListInstancePageOptions, DocumentPermissionPage, DocumentPermissionPayload, DocumentPermissionResource, DocumentPermissionSolution }

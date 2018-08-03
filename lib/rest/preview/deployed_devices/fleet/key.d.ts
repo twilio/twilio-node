@@ -187,22 +187,35 @@ interface KeySolution {
 }
 
 
-declare class KeyPage extends Page<DeployedDevices, KeyPayload, KeyResource, KeyInstance> {
+declare class KeyContext {
   /**
-   * Initialize the KeyPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the KeyContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param fleetSid - The fleet_sid
+   * @param sid - A string that uniquely identifies the Key.
    */
-  constructor(version: DeployedDevices, response: Response<string>, solution: KeySolution);
+  constructor(version: DeployedDevices, fleetSid: string, sid: string);
 
   /**
-   * Build an instance of KeyInstance
+   * fetch a KeyInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: KeyPayload): KeyInstance;
+  fetch(callback?: (error: Error | null, items: KeyInstance) => any): Promise<KeyInstance>;
+  /**
+   * remove a KeyInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: KeyInstance) => any): void;
+  /**
+   * update a KeyInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: KeyInstanceUpdateOptions, callback?: (error: Error | null, items: KeyInstance) => any): Promise<KeyInstance>;
 }
 
 
@@ -264,35 +277,22 @@ declare class KeyInstance extends SerializableClass {
 }
 
 
-declare class KeyContext {
+declare class KeyPage extends Page<DeployedDevices, KeyPayload, KeyResource, KeyInstance> {
   /**
-   * Initialize the KeyContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the KeyPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param fleetSid - The fleet_sid
-   * @param sid - A string that uniquely identifies the Key.
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: DeployedDevices, fleetSid: string, sid: string);
+  constructor(version: DeployedDevices, response: Response<string>, solution: KeySolution);
 
   /**
-   * fetch a KeyInstance
+   * Build an instance of KeyInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: KeyInstance) => any): Promise<KeyInstance>;
-  /**
-   * remove a KeyInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: KeyInstance) => any): void;
-  /**
-   * update a KeyInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: KeyInstanceUpdateOptions, callback?: (error: Error | null, items: KeyInstance) => any): Promise<KeyInstance>;
+  getInstance(payload: KeyPayload): KeyInstance;
 }
 
 export { KeyContext, KeyInstance, KeyList, KeyListInstance, KeyListInstanceCreateOptions, KeyListInstanceEachOptions, KeyListInstanceOptions, KeyListInstancePageOptions, KeyPage, KeyPayload, KeyResource, KeySolution }

@@ -201,22 +201,34 @@ interface RatePlanSolution {
 }
 
 
-declare class RatePlanPage extends Page<Wireless, RatePlanPayload, RatePlanResource, RatePlanInstance> {
+declare class RatePlanContext {
   /**
-   * Initialize the RatePlanPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the RatePlanContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param sid - The sid
    */
-  constructor(version: Wireless, response: Response<string>, solution: RatePlanSolution);
+  constructor(version: Wireless, sid: string);
 
   /**
-   * Build an instance of RatePlanInstance
+   * fetch a RatePlanInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: RatePlanPayload): RatePlanInstance;
+  fetch(callback?: (error: Error | null, items: RatePlanInstance) => any): Promise<RatePlanInstance>;
+  /**
+   * remove a RatePlanInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: RatePlanInstance) => any): void;
+  /**
+   * update a RatePlanInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: RatePlanInstanceUpdateOptions, callback?: (error: Error | null, items: RatePlanInstance) => any): Promise<RatePlanInstance>;
 }
 
 
@@ -287,34 +299,22 @@ declare class RatePlanInstance extends SerializableClass {
 }
 
 
-declare class RatePlanContext {
+declare class RatePlanPage extends Page<Wireless, RatePlanPayload, RatePlanResource, RatePlanInstance> {
   /**
-   * Initialize the RatePlanContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the RatePlanPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: Wireless, sid: string);
+  constructor(version: Wireless, response: Response<string>, solution: RatePlanSolution);
 
   /**
-   * fetch a RatePlanInstance
+   * Build an instance of RatePlanInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: RatePlanInstance) => any): Promise<RatePlanInstance>;
-  /**
-   * remove a RatePlanInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: RatePlanInstance) => any): void;
-  /**
-   * update a RatePlanInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: RatePlanInstanceUpdateOptions, callback?: (error: Error | null, items: RatePlanInstance) => any): Promise<RatePlanInstance>;
+  getInstance(payload: RatePlanPayload): RatePlanInstance;
 }
 
 export { RatePlanContext, RatePlanInstance, RatePlanList, RatePlanListInstance, RatePlanListInstanceCreateOptions, RatePlanListInstanceEachOptions, RatePlanListInstanceOptions, RatePlanListInstancePageOptions, RatePlanPage, RatePlanPayload, RatePlanResource, RatePlanSolution }

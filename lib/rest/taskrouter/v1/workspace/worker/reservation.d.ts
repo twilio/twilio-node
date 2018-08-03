@@ -273,22 +273,30 @@ interface ReservationSolution {
 }
 
 
-declare class ReservationPage extends Page<V1, ReservationPayload, ReservationResource, ReservationInstance> {
+declare class ReservationContext {
   /**
-   * Initialize the ReservationPage
+   * Initialize the ReservationContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param workspaceSid - The workspace_sid
+   * @param workerSid - The worker_sid
+   * @param sid - The sid
    */
-  constructor(version: V1, response: Response<string>, solution: ReservationSolution);
+  constructor(version: V1, workspaceSid: string, workerSid: string, sid: string);
 
   /**
-   * Build an instance of ReservationInstance
+   * fetch a ReservationInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: ReservationPayload): ReservationInstance;
+  fetch(callback?: (error: Error | null, items: ReservationInstance) => any): Promise<ReservationInstance>;
+  /**
+   * update a ReservationInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: ReservationInstanceUpdateOptions, callback?: (error: Error | null, items: ReservationInstance) => any): Promise<ReservationInstance>;
 }
 
 
@@ -349,30 +357,22 @@ declare class ReservationInstance extends SerializableClass {
 }
 
 
-declare class ReservationContext {
+declare class ReservationPage extends Page<V1, ReservationPayload, ReservationResource, ReservationInstance> {
   /**
-   * Initialize the ReservationContext
+   * Initialize the ReservationPage
    *
    * @param version - Version of the resource
-   * @param workspaceSid - The workspace_sid
-   * @param workerSid - The worker_sid
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, workspaceSid: string, workerSid: string, sid: string);
+  constructor(version: V1, response: Response<string>, solution: ReservationSolution);
 
   /**
-   * fetch a ReservationInstance
+   * Build an instance of ReservationInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: ReservationInstance) => any): Promise<ReservationInstance>;
-  /**
-   * update a ReservationInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: ReservationInstanceUpdateOptions, callback?: (error: Error | null, items: ReservationInstance) => any): Promise<ReservationInstance>;
+  getInstance(payload: ReservationPayload): ReservationInstance;
 }
 
 export { ReservationContext, ReservationInstance, ReservationList, ReservationListInstance, ReservationListInstanceEachOptions, ReservationListInstanceOptions, ReservationListInstancePageOptions, ReservationPage, ReservationPayload, ReservationResource, ReservationSolution }

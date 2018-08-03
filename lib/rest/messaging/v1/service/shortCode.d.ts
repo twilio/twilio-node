@@ -168,22 +168,28 @@ interface ShortCodeSolution {
 }
 
 
-declare class ShortCodePage extends Page<V1, ShortCodePayload, ShortCodeResource, ShortCodeInstance> {
+declare class ShortCodeContext {
   /**
-   * Initialize the ShortCodePagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the ShortCodeContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param serviceSid - The service_sid
+   * @param sid - The sid
    */
-  constructor(version: V1, response: Response<string>, solution: ShortCodeSolution);
+  constructor(version: V1, serviceSid: string, sid: string);
 
   /**
-   * Build an instance of ShortCodeInstance
+   * fetch a ShortCodeInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: ShortCodePayload): ShortCodeInstance;
+  fetch(callback?: (error: Error | null, items: ShortCodeInstance) => any): Promise<ShortCodeInstance>;
+  /**
+   * remove a ShortCodeInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: ShortCodeInstance) => any): void;
 }
 
 
@@ -238,28 +244,22 @@ declare class ShortCodeInstance extends SerializableClass {
 }
 
 
-declare class ShortCodeContext {
+declare class ShortCodePage extends Page<V1, ShortCodePayload, ShortCodeResource, ShortCodeInstance> {
   /**
-   * Initialize the ShortCodeContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the ShortCodePagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
-   * @param serviceSid - The service_sid
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, serviceSid: string, sid: string);
+  constructor(version: V1, response: Response<string>, solution: ShortCodeSolution);
 
   /**
-   * fetch a ShortCodeInstance
+   * Build an instance of ShortCodeInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: ShortCodeInstance) => any): Promise<ShortCodeInstance>;
-  /**
-   * remove a ShortCodeInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: ShortCodeInstance) => any): void;
+  getInstance(payload: ShortCodePayload): ShortCodeInstance;
 }
 
 export { ShortCodeContext, ShortCodeInstance, ShortCodeList, ShortCodeListInstance, ShortCodeListInstanceCreateOptions, ShortCodeListInstanceEachOptions, ShortCodeListInstanceOptions, ShortCodeListInstancePageOptions, ShortCodePage, ShortCodePayload, ShortCodeResource, ShortCodeSolution }

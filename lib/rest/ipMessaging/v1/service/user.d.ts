@@ -193,22 +193,38 @@ interface UserSolution {
 }
 
 
-declare class UserPage extends Page<V1, UserPayload, UserResource, UserInstance> {
+declare class UserContext {
   /**
-   * Initialize the UserPage
+   * Initialize the UserContext
+   *
+   * @property userChannels - userChannels resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param serviceSid - The service_sid
+   * @param sid - The sid
    */
-  constructor(version: V1, response: Response<string>, solution: UserSolution);
+  constructor(version: V1, serviceSid: string, sid: string);
 
   /**
-   * Build an instance of UserInstance
+   * fetch a UserInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: UserPayload): UserInstance;
+  fetch(callback?: (error: Error | null, items: UserInstance) => any): Promise<UserInstance>;
+  /**
+   * remove a UserInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: UserInstance) => any): void;
+  /**
+   * update a UserInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: UserInstanceUpdateOptions, callback?: (error: Error | null, items: UserInstance) => any): Promise<UserInstance>;
+  userChannels: UserChannelListInstance;
 }
 
 
@@ -284,38 +300,22 @@ declare class UserInstance extends SerializableClass {
 }
 
 
-declare class UserContext {
+declare class UserPage extends Page<V1, UserPayload, UserResource, UserInstance> {
   /**
-   * Initialize the UserContext
-   *
-   * @property userChannels - userChannels resource
+   * Initialize the UserPage
    *
    * @param version - Version of the resource
-   * @param serviceSid - The service_sid
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, serviceSid: string, sid: string);
+  constructor(version: V1, response: Response<string>, solution: UserSolution);
 
   /**
-   * fetch a UserInstance
+   * Build an instance of UserInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: UserInstance) => any): Promise<UserInstance>;
-  /**
-   * remove a UserInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: UserInstance) => any): void;
-  /**
-   * update a UserInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: UserInstanceUpdateOptions, callback?: (error: Error | null, items: UserInstance) => any): Promise<UserInstance>;
-  userChannels: UserChannelListInstance;
+  getInstance(payload: UserPayload): UserInstance;
 }
 
 export { UserContext, UserInstance, UserList, UserListInstance, UserListInstanceCreateOptions, UserListInstanceEachOptions, UserListInstanceOptions, UserListInstancePageOptions, UserPage, UserPayload, UserResource, UserSolution }

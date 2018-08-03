@@ -150,22 +150,28 @@ interface FaxMediaSolution {
 }
 
 
-declare class FaxMediaPage extends Page<V1, FaxMediaPayload, FaxMediaResource, FaxMediaInstance> {
+declare class FaxMediaContext {
   /**
-   * Initialize the FaxMediaPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the FaxMediaContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param faxSid - Fax SID
+   * @param sid - A string that uniquely identifies this fax media
    */
-  constructor(version: V1, response: Response<string>, solution: FaxMediaSolution);
+  constructor(version: V1, faxSid: string, sid: string);
 
   /**
-   * Build an instance of FaxMediaInstance
+   * fetch a FaxMediaInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: FaxMediaPayload): FaxMediaInstance;
+  fetch(callback?: (error: Error | null, items: FaxMediaInstance) => any): Promise<FaxMediaInstance>;
+  /**
+   * remove a FaxMediaInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: FaxMediaInstance) => any): void;
 }
 
 
@@ -216,28 +222,22 @@ declare class FaxMediaInstance extends SerializableClass {
 }
 
 
-declare class FaxMediaContext {
+declare class FaxMediaPage extends Page<V1, FaxMediaPayload, FaxMediaResource, FaxMediaInstance> {
   /**
-   * Initialize the FaxMediaContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the FaxMediaPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
-   * @param faxSid - Fax SID
-   * @param sid - A string that uniquely identifies this fax media
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, faxSid: string, sid: string);
+  constructor(version: V1, response: Response<string>, solution: FaxMediaSolution);
 
   /**
-   * fetch a FaxMediaInstance
+   * Build an instance of FaxMediaInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: FaxMediaInstance) => any): Promise<FaxMediaInstance>;
-  /**
-   * remove a FaxMediaInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: FaxMediaInstance) => any): void;
+  getInstance(payload: FaxMediaPayload): FaxMediaInstance;
 }
 
 export { FaxMediaContext, FaxMediaInstance, FaxMediaList, FaxMediaListInstance, FaxMediaListInstanceEachOptions, FaxMediaListInstanceOptions, FaxMediaListInstancePageOptions, FaxMediaPage, FaxMediaPayload, FaxMediaResource, FaxMediaSolution }

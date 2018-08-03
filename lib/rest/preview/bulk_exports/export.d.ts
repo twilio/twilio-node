@@ -46,22 +46,24 @@ interface ExportSolution {
 }
 
 
-declare class ExportPage extends Page<BulkExports, ExportPayload, ExportResource, ExportInstance> {
+declare class ExportContext {
   /**
-   * Initialize the ExportPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the ExportContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property days - days resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param resourceType - The resource_type
    */
-  constructor(version: BulkExports, response: Response<string>, solution: ExportSolution);
+  constructor(version: BulkExports, resourceType: string);
 
+  days: DayListInstance;
   /**
-   * Build an instance of ExportInstance
+   * fetch a ExportInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: ExportPayload): ExportInstance;
+  fetch(callback?: (error: Error | null, items: ExportInstance) => any): Promise<ExportInstance>;
 }
 
 
@@ -101,24 +103,22 @@ declare class ExportInstance extends SerializableClass {
 }
 
 
-declare class ExportContext {
+declare class ExportPage extends Page<BulkExports, ExportPayload, ExportResource, ExportInstance> {
   /**
-   * Initialize the ExportContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
-   *
-   * @property days - days resource
+   * Initialize the ExportPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param resourceType - The resource_type
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: BulkExports, resourceType: string);
+  constructor(version: BulkExports, response: Response<string>, solution: ExportSolution);
 
-  days: DayListInstance;
   /**
-   * fetch a ExportInstance
+   * Build an instance of ExportInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: ExportInstance) => any): Promise<ExportInstance>;
+  getInstance(payload: ExportPayload): ExportInstance;
 }
 
 export { ExportContext, ExportInstance, ExportList, ExportListInstance, ExportPage, ExportPayload, ExportResource, ExportSolution }

@@ -241,22 +241,46 @@ interface WorkerSolution {
 }
 
 
-declare class WorkerPage extends Page<V1, WorkerPayload, WorkerResource, WorkerInstance> {
+declare class WorkerContext {
   /**
-   * Initialize the WorkerPage
+   * Initialize the WorkerContext
+   *
+   * @property realTimeStatistics - realTimeStatistics resource
+   * @property cumulativeStatistics - cumulativeStatistics resource
+   * @property statistics - statistics resource
+   * @property reservations - reservations resource
+   * @property workerChannels - workerChannels resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param workspaceSid - The workspace_sid
+   * @param sid - The sid
    */
-  constructor(version: V1, response: Response<string>, solution: WorkerSolution);
+  constructor(version: V1, workspaceSid: string, sid: string);
 
+  cumulativeStatistics: WorkersCumulativeStatisticsListInstance;
   /**
-   * Build an instance of WorkerInstance
+   * fetch a WorkerInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: WorkerPayload): WorkerInstance;
+  fetch(callback?: (error: Error | null, items: WorkerInstance) => any): Promise<WorkerInstance>;
+  realTimeStatistics: WorkersRealTimeStatisticsListInstance;
+  /**
+   * remove a WorkerInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: WorkerInstance) => any): void;
+  reservations: ReservationListInstance;
+  statistics: WorkerStatisticsListInstance;
+  /**
+   * update a WorkerInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: WorkerInstanceUpdateOptions, callback?: (error: Error | null, items: WorkerInstance) => any): Promise<WorkerInstance>;
+  workerChannels: WorkerChannelListInstance;
 }
 
 
@@ -346,46 +370,22 @@ declare class WorkerInstance extends SerializableClass {
 }
 
 
-declare class WorkerContext {
+declare class WorkerPage extends Page<V1, WorkerPayload, WorkerResource, WorkerInstance> {
   /**
-   * Initialize the WorkerContext
-   *
-   * @property realTimeStatistics - realTimeStatistics resource
-   * @property cumulativeStatistics - cumulativeStatistics resource
-   * @property statistics - statistics resource
-   * @property reservations - reservations resource
-   * @property workerChannels - workerChannels resource
+   * Initialize the WorkerPage
    *
    * @param version - Version of the resource
-   * @param workspaceSid - The workspace_sid
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, workspaceSid: string, sid: string);
+  constructor(version: V1, response: Response<string>, solution: WorkerSolution);
 
-  cumulativeStatistics: WorkersCumulativeStatisticsListInstance;
   /**
-   * fetch a WorkerInstance
+   * Build an instance of WorkerInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: WorkerInstance) => any): Promise<WorkerInstance>;
-  realTimeStatistics: WorkersRealTimeStatisticsListInstance;
-  /**
-   * remove a WorkerInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: WorkerInstance) => any): void;
-  reservations: ReservationListInstance;
-  statistics: WorkerStatisticsListInstance;
-  /**
-   * update a WorkerInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: WorkerInstanceUpdateOptions, callback?: (error: Error | null, items: WorkerInstance) => any): Promise<WorkerInstance>;
-  workerChannels: WorkerChannelListInstance;
+  getInstance(payload: WorkerPayload): WorkerInstance;
 }
 
 export { WorkerContext, WorkerInstance, WorkerList, WorkerListInstance, WorkerListInstanceCreateOptions, WorkerListInstanceEachOptions, WorkerListInstanceOptions, WorkerListInstancePageOptions, WorkerPage, WorkerPayload, WorkerResource, WorkerSolution }

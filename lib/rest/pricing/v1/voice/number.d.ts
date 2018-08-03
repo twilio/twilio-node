@@ -47,22 +47,21 @@ interface NumberSolution {
 }
 
 
-declare class NumberPage extends Page<V1, NumberPayload, NumberResource, NumberInstance> {
+declare class NumberContext {
   /**
-   * Initialize the NumberPage
+   * Initialize the NumberContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param number - The number
    */
-  constructor(version: V1, response: Response<string>, solution: NumberSolution);
+  constructor(version: V1, number: string);
 
   /**
-   * Build an instance of NumberInstance
+   * fetch a NumberInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: NumberPayload): NumberInstance;
+  fetch(callback?: (error: Error | null, items: NumberInstance) => any): Promise<NumberInstance>;
 }
 
 
@@ -106,21 +105,22 @@ declare class NumberInstance extends SerializableClass {
 }
 
 
-declare class NumberContext {
+declare class NumberPage extends Page<V1, NumberPayload, NumberResource, NumberInstance> {
   /**
-   * Initialize the NumberContext
+   * Initialize the NumberPage
    *
    * @param version - Version of the resource
-   * @param number - The number
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, number: string);
+  constructor(version: V1, response: Response<string>, solution: NumberSolution);
 
   /**
-   * fetch a NumberInstance
+   * Build an instance of NumberInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: NumberInstance) => any): Promise<NumberInstance>;
+  getInstance(payload: NumberPayload): NumberInstance;
 }
 
 export { NumberContext, NumberInstance, NumberList, NumberListInstance, NumberPage, NumberPayload, NumberResource, NumberSolution }

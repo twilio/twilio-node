@@ -209,22 +209,36 @@ interface WebhookSolution {
 }
 
 
-declare class WebhookPage extends Page<V2, WebhookPayload, WebhookResource, WebhookInstance> {
+declare class WebhookContext {
   /**
-   * Initialize the WebhookPage
+   * Initialize the WebhookContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param serviceSid - The service_sid
+   * @param channelSid - The channel_sid
+   * @param sid - The sid
    */
-  constructor(version: V2, response: Response<string>, solution: WebhookSolution);
+  constructor(version: V2, serviceSid: string, channelSid: string, sid: string);
 
   /**
-   * Build an instance of WebhookInstance
+   * fetch a WebhookInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: WebhookPayload): WebhookInstance;
+  fetch(callback?: (error: Error | null, items: WebhookInstance) => any): Promise<WebhookInstance>;
+  /**
+   * remove a WebhookInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: WebhookInstance) => any): void;
+  /**
+   * update a WebhookInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: WebhookInstanceUpdateOptions, callback?: (error: Error | null, items: WebhookInstance) => any): Promise<WebhookInstance>;
 }
 
 
@@ -287,36 +301,22 @@ declare class WebhookInstance extends SerializableClass {
 }
 
 
-declare class WebhookContext {
+declare class WebhookPage extends Page<V2, WebhookPayload, WebhookResource, WebhookInstance> {
   /**
-   * Initialize the WebhookContext
+   * Initialize the WebhookPage
    *
    * @param version - Version of the resource
-   * @param serviceSid - The service_sid
-   * @param channelSid - The channel_sid
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V2, serviceSid: string, channelSid: string, sid: string);
+  constructor(version: V2, response: Response<string>, solution: WebhookSolution);
 
   /**
-   * fetch a WebhookInstance
+   * Build an instance of WebhookInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: WebhookInstance) => any): Promise<WebhookInstance>;
-  /**
-   * remove a WebhookInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: WebhookInstance) => any): void;
-  /**
-   * update a WebhookInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: WebhookInstanceUpdateOptions, callback?: (error: Error | null, items: WebhookInstance) => any): Promise<WebhookInstance>;
+  getInstance(payload: WebhookPayload): WebhookInstance;
 }
 
 export { WebhookContext, WebhookInstance, WebhookList, WebhookListInstance, WebhookListInstanceCreateOptions, WebhookListInstanceEachOptions, WebhookListInstanceOptions, WebhookListInstancePageOptions, WebhookPage, WebhookPayload, WebhookResource, WebhookSolution }

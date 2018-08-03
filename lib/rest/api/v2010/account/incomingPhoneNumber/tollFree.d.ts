@@ -237,25 +237,6 @@ interface TollFreeSolution {
 }
 
 
-declare class TollFreePage extends Page<V2010, TollFreePayload, TollFreeResource, TollFreeInstance> {
-  /**
-   * Initialize the TollFreePage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: TollFreeSolution);
-
-  /**
-   * Build an instance of TollFreeInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: TollFreePayload): TollFreeInstance;
-}
-
-
 declare class TollFreeInstance extends SerializableClass {
   /**
    * Initialize the TollFreeContext
@@ -328,6 +309,25 @@ declare class TollFreeInstance extends SerializableClass {
   voiceFallbackUrl: string;
   voiceMethod: string;
   voiceUrl: string;
+}
+
+
+declare class TollFreePage extends Page<V2010, TollFreePayload, TollFreeResource, TollFreeInstance> {
+  /**
+   * Initialize the TollFreePage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: V2010, response: Response<string>, solution: TollFreeSolution);
+
+  /**
+   * Build an instance of TollFreeInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: TollFreePayload): TollFreeInstance;
 }
 
 export { TollFreeInstance, TollFreeList, TollFreeListInstance, TollFreeListInstanceCreateOptions, TollFreeListInstanceEachOptions, TollFreeListInstanceOptions, TollFreeListInstancePageOptions, TollFreePage, TollFreePayload, TollFreeResource, TollFreeSolution }

@@ -194,22 +194,34 @@ interface ParticipantSolution {
 }
 
 
-declare class ParticipantPage extends Page<V1, ParticipantPayload, ParticipantResource, ParticipantInstance> {
+declare class ParticipantContext {
   /**
-   * Initialize the ParticipantPage
+   * Initialize the ParticipantContext
+   *
+   * @property publishedTracks - publishedTracks resource
+   * @property subscribedTracks - subscribedTracks resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param roomSid - The room_sid
+   * @param sid - The sid
    */
-  constructor(version: V1, response: Response<string>, solution: ParticipantSolution);
+  constructor(version: V1, roomSid: string, sid: string);
 
   /**
-   * Build an instance of ParticipantInstance
+   * fetch a ParticipantInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: ParticipantPayload): ParticipantInstance;
+  fetch(callback?: (error: Error | null, items: ParticipantInstance) => any): Promise<ParticipantInstance>;
+  publishedTracks: PublishedTrackListInstance;
+  subscribedTracks: SubscribedTrackListInstance;
+  /**
+   * update a ParticipantInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: ParticipantInstanceUpdateOptions, callback?: (error: Error | null, items: ParticipantInstance) => any): Promise<ParticipantInstance>;
 }
 
 
@@ -279,34 +291,22 @@ declare class ParticipantInstance extends SerializableClass {
 }
 
 
-declare class ParticipantContext {
+declare class ParticipantPage extends Page<V1, ParticipantPayload, ParticipantResource, ParticipantInstance> {
   /**
-   * Initialize the ParticipantContext
-   *
-   * @property publishedTracks - publishedTracks resource
-   * @property subscribedTracks - subscribedTracks resource
+   * Initialize the ParticipantPage
    *
    * @param version - Version of the resource
-   * @param roomSid - The room_sid
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, roomSid: string, sid: string);
+  constructor(version: V1, response: Response<string>, solution: ParticipantSolution);
 
   /**
-   * fetch a ParticipantInstance
+   * Build an instance of ParticipantInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: ParticipantInstance) => any): Promise<ParticipantInstance>;
-  publishedTracks: PublishedTrackListInstance;
-  subscribedTracks: SubscribedTrackListInstance;
-  /**
-   * update a ParticipantInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: ParticipantInstanceUpdateOptions, callback?: (error: Error | null, items: ParticipantInstance) => any): Promise<ParticipantInstance>;
+  getInstance(payload: ParticipantPayload): ParticipantInstance;
 }
 
 export { ParticipantContext, ParticipantInstance, ParticipantList, ParticipantListInstance, ParticipantListInstanceEachOptions, ParticipantListInstanceOptions, ParticipantListInstancePageOptions, ParticipantPage, ParticipantPayload, ParticipantResource, ParticipantSolution }

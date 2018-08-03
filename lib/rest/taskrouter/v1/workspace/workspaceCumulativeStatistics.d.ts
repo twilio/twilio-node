@@ -79,22 +79,22 @@ interface WorkspaceCumulativeStatisticsSolution {
 }
 
 
-declare class WorkspaceCumulativeStatisticsPage extends Page<V1, WorkspaceCumulativeStatisticsPayload, WorkspaceCumulativeStatisticsResource, WorkspaceCumulativeStatisticsInstance> {
+declare class WorkspaceCumulativeStatisticsContext {
   /**
-   * Initialize the WorkspaceCumulativeStatisticsPage
+   * Initialize the WorkspaceCumulativeStatisticsContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param workspaceSid - The workspace_sid
    */
-  constructor(version: V1, response: Response<string>, solution: WorkspaceCumulativeStatisticsSolution);
+  constructor(version: V1, workspaceSid: string);
 
   /**
-   * Build an instance of WorkspaceCumulativeStatisticsInstance
+   * fetch a WorkspaceCumulativeStatisticsInstance
    *
-   * @param payload - Payload response from the API
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: WorkspaceCumulativeStatisticsPayload): WorkspaceCumulativeStatisticsInstance;
+  fetch(opts?: WorkspaceCumulativeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkspaceCumulativeStatisticsInstance) => any): Promise<WorkspaceCumulativeStatisticsInstance>;
 }
 
 
@@ -167,22 +167,22 @@ declare class WorkspaceCumulativeStatisticsInstance extends SerializableClass {
 }
 
 
-declare class WorkspaceCumulativeStatisticsContext {
+declare class WorkspaceCumulativeStatisticsPage extends Page<V1, WorkspaceCumulativeStatisticsPayload, WorkspaceCumulativeStatisticsResource, WorkspaceCumulativeStatisticsInstance> {
   /**
-   * Initialize the WorkspaceCumulativeStatisticsContext
+   * Initialize the WorkspaceCumulativeStatisticsPage
    *
    * @param version - Version of the resource
-   * @param workspaceSid - The workspace_sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, workspaceSid: string);
+  constructor(version: V1, response: Response<string>, solution: WorkspaceCumulativeStatisticsSolution);
 
   /**
-   * fetch a WorkspaceCumulativeStatisticsInstance
+   * Build an instance of WorkspaceCumulativeStatisticsInstance
    *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(opts?: WorkspaceCumulativeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkspaceCumulativeStatisticsInstance) => any): Promise<WorkspaceCumulativeStatisticsInstance>;
+  getInstance(payload: WorkspaceCumulativeStatisticsPayload): WorkspaceCumulativeStatisticsInstance;
 }
 
 export { WorkspaceCumulativeStatisticsContext, WorkspaceCumulativeStatisticsInstance, WorkspaceCumulativeStatisticsList, WorkspaceCumulativeStatisticsListInstance, WorkspaceCumulativeStatisticsPage, WorkspaceCumulativeStatisticsPayload, WorkspaceCumulativeStatisticsResource, WorkspaceCumulativeStatisticsSolution }

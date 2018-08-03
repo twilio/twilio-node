@@ -189,22 +189,35 @@ interface CertificateSolution {
 }
 
 
-declare class CertificatePage extends Page<DeployedDevices, CertificatePayload, CertificateResource, CertificateInstance> {
+declare class CertificateContext {
   /**
-   * Initialize the CertificatePagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the CertificateContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param fleetSid - The fleet_sid
+   * @param sid - A string that uniquely identifies the Certificate.
    */
-  constructor(version: DeployedDevices, response: Response<string>, solution: CertificateSolution);
+  constructor(version: DeployedDevices, fleetSid: string, sid: string);
 
   /**
-   * Build an instance of CertificateInstance
+   * fetch a CertificateInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: CertificatePayload): CertificateInstance;
+  fetch(callback?: (error: Error | null, items: CertificateInstance) => any): Promise<CertificateInstance>;
+  /**
+   * remove a CertificateInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: CertificateInstance) => any): void;
+  /**
+   * update a CertificateInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: CertificateInstanceUpdateOptions, callback?: (error: Error | null, items: CertificateInstance) => any): Promise<CertificateInstance>;
 }
 
 
@@ -266,35 +279,22 @@ declare class CertificateInstance extends SerializableClass {
 }
 
 
-declare class CertificateContext {
+declare class CertificatePage extends Page<DeployedDevices, CertificatePayload, CertificateResource, CertificateInstance> {
   /**
-   * Initialize the CertificateContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the CertificatePagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param fleetSid - The fleet_sid
-   * @param sid - A string that uniquely identifies the Certificate.
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: DeployedDevices, fleetSid: string, sid: string);
+  constructor(version: DeployedDevices, response: Response<string>, solution: CertificateSolution);
 
   /**
-   * fetch a CertificateInstance
+   * Build an instance of CertificateInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: CertificateInstance) => any): Promise<CertificateInstance>;
-  /**
-   * remove a CertificateInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: CertificateInstance) => any): void;
-  /**
-   * update a CertificateInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: CertificateInstanceUpdateOptions, callback?: (error: Error | null, items: CertificateInstance) => any): Promise<CertificateInstance>;
+  getInstance(payload: CertificatePayload): CertificateInstance;
 }
 
 export { CertificateContext, CertificateInstance, CertificateList, CertificateListInstance, CertificateListInstanceCreateOptions, CertificateListInstanceEachOptions, CertificateListInstanceOptions, CertificateListInstancePageOptions, CertificatePage, CertificatePayload, CertificateResource, CertificateSolution }

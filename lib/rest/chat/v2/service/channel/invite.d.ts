@@ -179,22 +179,29 @@ interface InviteSolution {
 }
 
 
-declare class InvitePage extends Page<V2, InvitePayload, InviteResource, InviteInstance> {
+declare class InviteContext {
   /**
-   * Initialize the InvitePage
+   * Initialize the InviteContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param serviceSid - The service_sid
+   * @param channelSid - The channel_sid
+   * @param sid - The sid
    */
-  constructor(version: V2, response: Response<string>, solution: InviteSolution);
+  constructor(version: V2, serviceSid: string, channelSid: string, sid: string);
 
   /**
-   * Build an instance of InviteInstance
+   * fetch a InviteInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: InvitePayload): InviteInstance;
+  fetch(callback?: (error: Error | null, items: InviteInstance) => any): Promise<InviteInstance>;
+  /**
+   * remove a InviteInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: InviteInstance) => any): void;
 }
 
 
@@ -252,29 +259,22 @@ declare class InviteInstance extends SerializableClass {
 }
 
 
-declare class InviteContext {
+declare class InvitePage extends Page<V2, InvitePayload, InviteResource, InviteInstance> {
   /**
-   * Initialize the InviteContext
+   * Initialize the InvitePage
    *
    * @param version - Version of the resource
-   * @param serviceSid - The service_sid
-   * @param channelSid - The channel_sid
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V2, serviceSid: string, channelSid: string, sid: string);
+  constructor(version: V2, response: Response<string>, solution: InviteSolution);
 
   /**
-   * fetch a InviteInstance
+   * Build an instance of InviteInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: InviteInstance) => any): Promise<InviteInstance>;
-  /**
-   * remove a InviteInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: InviteInstance) => any): void;
+  getInstance(payload: InvitePayload): InviteInstance;
 }
 
 export { InviteContext, InviteInstance, InviteList, InviteListInstance, InviteListInstanceCreateOptions, InviteListInstanceEachOptions, InviteListInstanceOptions, InviteListInstancePageOptions, InvitePage, InvitePayload, InviteResource, InviteSolution }

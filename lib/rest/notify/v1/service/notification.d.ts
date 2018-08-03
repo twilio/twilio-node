@@ -104,25 +104,6 @@ interface NotificationSolution {
 }
 
 
-declare class NotificationPage extends Page<V1, NotificationPayload, NotificationResource, NotificationInstance> {
-  /**
-   * Initialize the NotificationPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: NotificationSolution);
-
-  /**
-   * Build an instance of NotificationInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: NotificationPayload): NotificationInstance;
-}
-
-
 declare class NotificationInstance extends SerializableClass {
   /**
    * Initialize the NotificationContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
@@ -179,6 +160,25 @@ declare class NotificationInstance extends SerializableClass {
    */
   toJSON(): any;
   ttl: number;
+}
+
+
+declare class NotificationPage extends Page<V1, NotificationPayload, NotificationResource, NotificationInstance> {
+  /**
+   * Initialize the NotificationPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: V1, response: Response<string>, solution: NotificationSolution);
+
+  /**
+   * Build an instance of NotificationInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: NotificationPayload): NotificationInstance;
 }
 
 export { NotificationInstance, NotificationList, NotificationListInstance, NotificationListInstanceCreateOptions, NotificationPage, NotificationPayload, NotificationResource, NotificationSolution }

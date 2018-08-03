@@ -263,22 +263,36 @@ interface ParticipantSolution {
 }
 
 
-declare class ParticipantPage extends Page<V2010, ParticipantPayload, ParticipantResource, ParticipantInstance> {
+declare class ParticipantContext {
   /**
-   * Initialize the ParticipantPage
+   * Initialize the ParticipantContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param accountSid - The account_sid
+   * @param conferenceSid - The string that uniquely identifies this conference
+   * @param callSid - Fetch by unique participant Call SID
    */
-  constructor(version: V2010, response: Response<string>, solution: ParticipantSolution);
+  constructor(version: V2010, accountSid: string, conferenceSid: string, callSid: string);
 
   /**
-   * Build an instance of ParticipantInstance
+   * fetch a ParticipantInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: ParticipantPayload): ParticipantInstance;
+  fetch(callback?: (error: Error | null, items: ParticipantInstance) => any): Promise<ParticipantInstance>;
+  /**
+   * remove a ParticipantInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: ParticipantInstance) => any): void;
+  /**
+   * update a ParticipantInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: ParticipantInstanceUpdateOptions, callback?: (error: Error | null, items: ParticipantInstance) => any): Promise<ParticipantInstance>;
 }
 
 
@@ -345,36 +359,22 @@ declare class ParticipantInstance extends SerializableClass {
 }
 
 
-declare class ParticipantContext {
+declare class ParticipantPage extends Page<V2010, ParticipantPayload, ParticipantResource, ParticipantInstance> {
   /**
-   * Initialize the ParticipantContext
+   * Initialize the ParticipantPage
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param conferenceSid - The string that uniquely identifies this conference
-   * @param callSid - Fetch by unique participant Call SID
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V2010, accountSid: string, conferenceSid: string, callSid: string);
+  constructor(version: V2010, response: Response<string>, solution: ParticipantSolution);
 
   /**
-   * fetch a ParticipantInstance
+   * Build an instance of ParticipantInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: ParticipantInstance) => any): Promise<ParticipantInstance>;
-  /**
-   * remove a ParticipantInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: ParticipantInstance) => any): void;
-  /**
-   * update a ParticipantInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: ParticipantInstanceUpdateOptions, callback?: (error: Error | null, items: ParticipantInstance) => any): Promise<ParticipantInstance>;
+  getInstance(payload: ParticipantPayload): ParticipantInstance;
 }
 
 export { ParticipantContext, ParticipantInstance, ParticipantList, ParticipantListInstance, ParticipantListInstanceCreateOptions, ParticipantListInstanceEachOptions, ParticipantListInstanceOptions, ParticipantListInstancePageOptions, ParticipantPage, ParticipantPayload, ParticipantResource, ParticipantSolution }

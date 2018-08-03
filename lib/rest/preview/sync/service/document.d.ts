@@ -184,22 +184,38 @@ interface DocumentSolution {
 }
 
 
-declare class DocumentPage extends Page<Sync, DocumentPayload, DocumentResource, DocumentInstance> {
+declare class DocumentContext {
   /**
-   * Initialize the DocumentPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the DocumentContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property documentPermissions - documentPermissions resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param serviceSid - The service_sid
+   * @param sid - The sid
    */
-  constructor(version: Sync, response: Response<string>, solution: DocumentSolution);
+  constructor(version: Sync, serviceSid: string, sid: string);
 
+  documentPermissions: DocumentPermissionListInstance;
   /**
-   * Build an instance of DocumentInstance
+   * fetch a DocumentInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: DocumentPayload): DocumentInstance;
+  fetch(callback?: (error: Error | null, items: DocumentInstance) => any): Promise<DocumentInstance>;
+  /**
+   * remove a DocumentInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: DocumentInstance) => any): void;
+  /**
+   * update a DocumentInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts: DocumentInstanceUpdateOptions, callback?: (error: Error | null, items: DocumentInstance) => any): Promise<DocumentInstance>;
 }
 
 
@@ -269,38 +285,22 @@ declare class DocumentInstance extends SerializableClass {
 }
 
 
-declare class DocumentContext {
+declare class DocumentPage extends Page<Sync, DocumentPayload, DocumentResource, DocumentInstance> {
   /**
-   * Initialize the DocumentContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
-   *
-   * @property documentPermissions - documentPermissions resource
+   * Initialize the DocumentPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param serviceSid - The service_sid
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: Sync, serviceSid: string, sid: string);
+  constructor(version: Sync, response: Response<string>, solution: DocumentSolution);
 
-  documentPermissions: DocumentPermissionListInstance;
   /**
-   * fetch a DocumentInstance
+   * Build an instance of DocumentInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: DocumentInstance) => any): Promise<DocumentInstance>;
-  /**
-   * remove a DocumentInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: DocumentInstance) => any): void;
-  /**
-   * update a DocumentInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts: DocumentInstanceUpdateOptions, callback?: (error: Error | null, items: DocumentInstance) => any): Promise<DocumentInstance>;
+  getInstance(payload: DocumentPayload): DocumentInstance;
 }
 
 export { DocumentContext, DocumentInstance, DocumentList, DocumentListInstance, DocumentListInstanceCreateOptions, DocumentListInstanceEachOptions, DocumentListInstanceOptions, DocumentListInstancePageOptions, DocumentPage, DocumentPayload, DocumentResource, DocumentSolution }

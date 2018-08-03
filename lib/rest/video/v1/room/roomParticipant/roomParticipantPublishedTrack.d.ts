@@ -155,22 +155,23 @@ interface PublishedTrackSolution {
 }
 
 
-declare class PublishedTrackPage extends Page<V1, PublishedTrackPayload, PublishedTrackResource, PublishedTrackInstance> {
+declare class PublishedTrackContext {
   /**
-   * Initialize the PublishedTrackPage
+   * Initialize the PublishedTrackContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param roomSid - Unique Room identifier where this Track is published.
+   * @param participantSid - Unique Participant identifier that publishes this Track.
+   * @param sid - A 34 character string that uniquely identifies this resource.
    */
-  constructor(version: V1, response: Response<string>, solution: PublishedTrackSolution);
+  constructor(version: V1, roomSid: string, participantSid: string, sid: string);
 
   /**
-   * Build an instance of PublishedTrackInstance
+   * fetch a PublishedTrackInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: PublishedTrackPayload): PublishedTrackInstance;
+  fetch(callback?: (error: Error | null, items: PublishedTrackInstance) => any): Promise<PublishedTrackInstance>;
 }
 
 
@@ -220,23 +221,22 @@ declare class PublishedTrackInstance extends SerializableClass {
 }
 
 
-declare class PublishedTrackContext {
+declare class PublishedTrackPage extends Page<V1, PublishedTrackPayload, PublishedTrackResource, PublishedTrackInstance> {
   /**
-   * Initialize the PublishedTrackContext
+   * Initialize the PublishedTrackPage
    *
    * @param version - Version of the resource
-   * @param roomSid - Unique Room identifier where this Track is published.
-   * @param participantSid - Unique Participant identifier that publishes this Track.
-   * @param sid - A 34 character string that uniquely identifies this resource.
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, roomSid: string, participantSid: string, sid: string);
+  constructor(version: V1, response: Response<string>, solution: PublishedTrackSolution);
 
   /**
-   * fetch a PublishedTrackInstance
+   * Build an instance of PublishedTrackInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: PublishedTrackInstance) => any): Promise<PublishedTrackInstance>;
+  getInstance(payload: PublishedTrackPayload): PublishedTrackInstance;
 }
 
 export { PublishedTrackContext, PublishedTrackInstance, PublishedTrackList, PublishedTrackListInstance, PublishedTrackListInstanceEachOptions, PublishedTrackListInstanceOptions, PublishedTrackListInstancePageOptions, PublishedTrackPage, PublishedTrackPayload, PublishedTrackResource, PublishedTrackSolution }

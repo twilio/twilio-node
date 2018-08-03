@@ -214,22 +214,31 @@ interface AuthorizationDocumentSolution {
 }
 
 
-declare class AuthorizationDocumentPage extends Page<HostedNumbers, AuthorizationDocumentPayload, AuthorizationDocumentResource, AuthorizationDocumentInstance> {
+declare class AuthorizationDocumentContext {
   /**
-   * Initialize the AuthorizationDocumentPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the AuthorizationDocumentContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property dependentHostedNumberOrders - dependentHostedNumberOrders resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param sid - AuthorizationDocument sid.
    */
-  constructor(version: HostedNumbers, response: Response<string>, solution: AuthorizationDocumentSolution);
+  constructor(version: HostedNumbers, sid: string);
 
+  dependentHostedNumberOrders: DependentHostedNumberOrderListInstance;
   /**
-   * Build an instance of AuthorizationDocumentInstance
+   * fetch a AuthorizationDocumentInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: AuthorizationDocumentPayload): AuthorizationDocumentInstance;
+  fetch(callback?: (error: Error | null, items: AuthorizationDocumentInstance) => any): Promise<AuthorizationDocumentInstance>;
+  /**
+   * update a AuthorizationDocumentInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: AuthorizationDocumentInstanceUpdateOptions, callback?: (error: Error | null, items: AuthorizationDocumentInstance) => any): Promise<AuthorizationDocumentInstance>;
 }
 
 
@@ -288,31 +297,22 @@ declare class AuthorizationDocumentInstance extends SerializableClass {
 }
 
 
-declare class AuthorizationDocumentContext {
+declare class AuthorizationDocumentPage extends Page<HostedNumbers, AuthorizationDocumentPayload, AuthorizationDocumentResource, AuthorizationDocumentInstance> {
   /**
-   * Initialize the AuthorizationDocumentContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
-   *
-   * @property dependentHostedNumberOrders - dependentHostedNumberOrders resource
+   * Initialize the AuthorizationDocumentPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param sid - AuthorizationDocument sid.
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: HostedNumbers, sid: string);
+  constructor(version: HostedNumbers, response: Response<string>, solution: AuthorizationDocumentSolution);
 
-  dependentHostedNumberOrders: DependentHostedNumberOrderListInstance;
   /**
-   * fetch a AuthorizationDocumentInstance
+   * Build an instance of AuthorizationDocumentInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: AuthorizationDocumentInstance) => any): Promise<AuthorizationDocumentInstance>;
-  /**
-   * update a AuthorizationDocumentInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: AuthorizationDocumentInstanceUpdateOptions, callback?: (error: Error | null, items: AuthorizationDocumentInstance) => any): Promise<AuthorizationDocumentInstance>;
+  getInstance(payload: AuthorizationDocumentPayload): AuthorizationDocumentInstance;
 }
 
 export { AuthorizationDocumentContext, AuthorizationDocumentInstance, AuthorizationDocumentList, AuthorizationDocumentListInstance, AuthorizationDocumentListInstanceCreateOptions, AuthorizationDocumentListInstanceEachOptions, AuthorizationDocumentListInstanceOptions, AuthorizationDocumentListInstancePageOptions, AuthorizationDocumentPage, AuthorizationDocumentPayload, AuthorizationDocumentResource, AuthorizationDocumentSolution }

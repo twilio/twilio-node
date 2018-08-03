@@ -208,22 +208,36 @@ interface SyncListItemSolution {
 }
 
 
-declare class SyncListItemPage extends Page<V1, SyncListItemPayload, SyncListItemResource, SyncListItemInstance> {
+declare class SyncListItemContext {
   /**
-   * Initialize the SyncListItemPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the SyncListItemContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param serviceSid - The service_sid
+   * @param listSid - The list_sid
+   * @param index - The index
    */
-  constructor(version: V1, response: Response<string>, solution: SyncListItemSolution);
+  constructor(version: V1, serviceSid: string, listSid: string, index: number);
 
   /**
-   * Build an instance of SyncListItemInstance
+   * fetch a SyncListItemInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: SyncListItemPayload): SyncListItemInstance;
+  fetch(callback?: (error: Error | null, items: SyncListItemInstance) => any): Promise<SyncListItemInstance>;
+  /**
+   * remove a SyncListItemInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: SyncListItemInstance) => any): void;
+  /**
+   * update a SyncListItemInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: SyncListItemInstanceUpdateOptions, callback?: (error: Error | null, items: SyncListItemInstance) => any): Promise<SyncListItemInstance>;
 }
 
 
@@ -290,36 +304,22 @@ declare class SyncListItemInstance extends SerializableClass {
 }
 
 
-declare class SyncListItemContext {
+declare class SyncListItemPage extends Page<V1, SyncListItemPayload, SyncListItemResource, SyncListItemInstance> {
   /**
-   * Initialize the SyncListItemContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the SyncListItemPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
-   * @param serviceSid - The service_sid
-   * @param listSid - The list_sid
-   * @param index - The index
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, serviceSid: string, listSid: string, index: number);
+  constructor(version: V1, response: Response<string>, solution: SyncListItemSolution);
 
   /**
-   * fetch a SyncListItemInstance
+   * Build an instance of SyncListItemInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: SyncListItemInstance) => any): Promise<SyncListItemInstance>;
-  /**
-   * remove a SyncListItemInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: SyncListItemInstance) => any): void;
-  /**
-   * update a SyncListItemInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: SyncListItemInstanceUpdateOptions, callback?: (error: Error | null, items: SyncListItemInstance) => any): Promise<SyncListItemInstance>;
+  getInstance(payload: SyncListItemPayload): SyncListItemInstance;
 }
 
 export { SyncListItemContext, SyncListItemInstance, SyncListItemList, SyncListItemListInstance, SyncListItemListInstanceCreateOptions, SyncListItemListInstanceEachOptions, SyncListItemListInstanceOptions, SyncListItemListInstancePageOptions, SyncListItemPage, SyncListItemPayload, SyncListItemResource, SyncListItemSolution }

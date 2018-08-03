@@ -234,22 +234,33 @@ interface RoomSolution {
 }
 
 
-declare class RoomPage extends Page<V1, RoomPayload, RoomResource, RoomInstance> {
+declare class RoomContext {
   /**
-   * Initialize the RoomPage
+   * Initialize the RoomContext
+   *
+   * @property recordings - recordings resource
+   * @property participants - participants resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param sid - The Room Sid or name that uniquely identifies this resource.
    */
-  constructor(version: V1, response: Response<string>, solution: RoomSolution);
+  constructor(version: V1, sid: string);
 
   /**
-   * Build an instance of RoomInstance
+   * fetch a RoomInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: RoomPayload): RoomInstance;
+  fetch(callback?: (error: Error | null, items: RoomInstance) => any): Promise<RoomInstance>;
+  participants: ParticipantListInstance;
+  recordings: RoomRecordingListInstance;
+  /**
+   * update a RoomInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts: RoomInstanceUpdateOptions, callback?: (error: Error | null, items: RoomInstance) => any): Promise<RoomInstance>;
 }
 
 
@@ -330,33 +341,22 @@ declare class RoomInstance extends SerializableClass {
 }
 
 
-declare class RoomContext {
+declare class RoomPage extends Page<V1, RoomPayload, RoomResource, RoomInstance> {
   /**
-   * Initialize the RoomContext
-   *
-   * @property recordings - recordings resource
-   * @property participants - participants resource
+   * Initialize the RoomPage
    *
    * @param version - Version of the resource
-   * @param sid - The Room Sid or name that uniquely identifies this resource.
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, sid: string);
+  constructor(version: V1, response: Response<string>, solution: RoomSolution);
 
   /**
-   * fetch a RoomInstance
+   * Build an instance of RoomInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: RoomInstance) => any): Promise<RoomInstance>;
-  participants: ParticipantListInstance;
-  recordings: RoomRecordingListInstance;
-  /**
-   * update a RoomInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts: RoomInstanceUpdateOptions, callback?: (error: Error | null, items: RoomInstance) => any): Promise<RoomInstance>;
+  getInstance(payload: RoomPayload): RoomInstance;
 }
 
 export { RoomContext, RoomInstance, RoomList, RoomListInstance, RoomListInstanceCreateOptions, RoomListInstanceEachOptions, RoomListInstanceOptions, RoomListInstancePageOptions, RoomPage, RoomPayload, RoomResource, RoomSolution }

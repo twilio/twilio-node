@@ -209,22 +209,35 @@ interface QuerySolution {
 }
 
 
-declare class QueryPage extends Page<Understand, QueryPayload, QueryResource, QueryInstance> {
+declare class QueryContext {
   /**
-   * Initialize the QueryPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the QueryContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param assistantSid - The assistant_sid
+   * @param sid - The sid
    */
-  constructor(version: Understand, response: Response<string>, solution: QuerySolution);
+  constructor(version: Understand, assistantSid: string, sid: string);
 
   /**
-   * Build an instance of QueryInstance
+   * fetch a QueryInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: QueryPayload): QueryInstance;
+  fetch(callback?: (error: Error | null, items: QueryInstance) => any): Promise<QueryInstance>;
+  /**
+   * remove a QueryInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: QueryInstance) => any): void;
+  /**
+   * update a QueryInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: QueryInstanceUpdateOptions, callback?: (error: Error | null, items: QueryInstance) => any): Promise<QueryInstance>;
 }
 
 
@@ -294,35 +307,22 @@ declare class QueryInstance extends SerializableClass {
 }
 
 
-declare class QueryContext {
+declare class QueryPage extends Page<Understand, QueryPayload, QueryResource, QueryInstance> {
   /**
-   * Initialize the QueryContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the QueryPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param assistantSid - The assistant_sid
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: Understand, assistantSid: string, sid: string);
+  constructor(version: Understand, response: Response<string>, solution: QuerySolution);
 
   /**
-   * fetch a QueryInstance
+   * Build an instance of QueryInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: QueryInstance) => any): Promise<QueryInstance>;
-  /**
-   * remove a QueryInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: QueryInstance) => any): void;
-  /**
-   * update a QueryInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: QueryInstanceUpdateOptions, callback?: (error: Error | null, items: QueryInstance) => any): Promise<QueryInstance>;
+  getInstance(payload: QueryPayload): QueryInstance;
 }
 
 export { QueryContext, QueryInstance, QueryList, QueryListInstance, QueryListInstanceCreateOptions, QueryListInstanceEachOptions, QueryListInstanceOptions, QueryListInstancePageOptions, QueryPage, QueryPayload, QueryResource, QuerySolution }

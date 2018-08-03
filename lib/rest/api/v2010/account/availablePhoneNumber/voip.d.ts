@@ -256,25 +256,6 @@ interface VoipSolution {
 }
 
 
-declare class VoipPage extends Page<V2010, VoipPayload, VoipResource, VoipInstance> {
-  /**
-   * Initialize the VoipPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: VoipSolution);
-
-  /**
-   * Build an instance of VoipInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: VoipPayload): VoipInstance;
-}
-
-
 declare class VoipInstance extends SerializableClass {
   /**
    * Initialize the VoipContext
@@ -318,6 +299,25 @@ declare class VoipInstance extends SerializableClass {
    * Removes any circular references in the object.
    */
   toJSON(): any;
+}
+
+
+declare class VoipPage extends Page<V2010, VoipPayload, VoipResource, VoipInstance> {
+  /**
+   * Initialize the VoipPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: V2010, response: Response<string>, solution: VoipSolution);
+
+  /**
+   * Build an instance of VoipInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: VoipPayload): VoipInstance;
 }
 
 export { VoipInstance, VoipList, VoipListInstance, VoipListInstanceEachOptions, VoipListInstanceOptions, VoipListInstancePageOptions, VoipPage, VoipPayload, VoipResource, VoipSolution }

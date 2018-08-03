@@ -150,22 +150,22 @@ interface TaskChannelSolution {
 }
 
 
-declare class TaskChannelPage extends Page<V1, TaskChannelPayload, TaskChannelResource, TaskChannelInstance> {
+declare class TaskChannelContext {
   /**
-   * Initialize the TaskChannelPage
+   * Initialize the TaskChannelContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param workspaceSid - The workspace_sid
+   * @param sid - The sid
    */
-  constructor(version: V1, response: Response<string>, solution: TaskChannelSolution);
+  constructor(version: V1, workspaceSid: string, sid: string);
 
   /**
-   * Build an instance of TaskChannelInstance
+   * fetch a TaskChannelInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: TaskChannelPayload): TaskChannelInstance;
+  fetch(callback?: (error: Error | null, items: TaskChannelInstance) => any): Promise<TaskChannelInstance>;
 }
 
 
@@ -212,22 +212,22 @@ declare class TaskChannelInstance extends SerializableClass {
 }
 
 
-declare class TaskChannelContext {
+declare class TaskChannelPage extends Page<V1, TaskChannelPayload, TaskChannelResource, TaskChannelInstance> {
   /**
-   * Initialize the TaskChannelContext
+   * Initialize the TaskChannelPage
    *
    * @param version - Version of the resource
-   * @param workspaceSid - The workspace_sid
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, workspaceSid: string, sid: string);
+  constructor(version: V1, response: Response<string>, solution: TaskChannelSolution);
 
   /**
-   * fetch a TaskChannelInstance
+   * Build an instance of TaskChannelInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: TaskChannelInstance) => any): Promise<TaskChannelInstance>;
+  getInstance(payload: TaskChannelPayload): TaskChannelInstance;
 }
 
 export { TaskChannelContext, TaskChannelInstance, TaskChannelList, TaskChannelListInstance, TaskChannelListInstanceEachOptions, TaskChannelListInstanceOptions, TaskChannelListInstancePageOptions, TaskChannelPage, TaskChannelPayload, TaskChannelResource, TaskChannelSolution }

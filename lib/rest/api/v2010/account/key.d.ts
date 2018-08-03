@@ -155,22 +155,35 @@ interface KeySolution {
 }
 
 
-declare class KeyPage extends Page<V2010, KeyPayload, KeyResource, KeyInstance> {
+declare class KeyContext {
   /**
-   * Initialize the KeyPage
+   * Initialize the KeyContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param accountSid - The account_sid
+   * @param sid - The sid
    */
-  constructor(version: V2010, response: Response<string>, solution: KeySolution);
+  constructor(version: V2010, accountSid: string, sid: string);
 
   /**
-   * Build an instance of KeyInstance
+   * fetch a KeyInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: KeyPayload): KeyInstance;
+  fetch(callback?: (error: Error | null, items: KeyInstance) => any): Promise<KeyInstance>;
+  /**
+   * remove a KeyInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: KeyInstance) => any): void;
+  /**
+   * update a KeyInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: KeyInstanceUpdateOptions, callback?: (error: Error | null, items: KeyInstance) => any): Promise<KeyInstance>;
 }
 
 
@@ -222,35 +235,22 @@ declare class KeyInstance extends SerializableClass {
 }
 
 
-declare class KeyContext {
+declare class KeyPage extends Page<V2010, KeyPayload, KeyResource, KeyInstance> {
   /**
-   * Initialize the KeyContext
+   * Initialize the KeyPage
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V2010, accountSid: string, sid: string);
+  constructor(version: V2010, response: Response<string>, solution: KeySolution);
 
   /**
-   * fetch a KeyInstance
+   * Build an instance of KeyInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: KeyInstance) => any): Promise<KeyInstance>;
-  /**
-   * remove a KeyInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: KeyInstance) => any): void;
-  /**
-   * update a KeyInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: KeyInstanceUpdateOptions, callback?: (error: Error | null, items: KeyInstance) => any): Promise<KeyInstance>;
+  getInstance(payload: KeyPayload): KeyInstance;
 }
 
 export { KeyContext, KeyInstance, KeyList, KeyListInstance, KeyListInstanceEachOptions, KeyListInstanceOptions, KeyListInstancePageOptions, KeyPage, KeyPayload, KeyResource, KeySolution }

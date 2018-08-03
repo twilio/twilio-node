@@ -156,22 +156,32 @@ interface FlowSolution {
 }
 
 
-declare class FlowPage extends Page<V1, FlowPayload, FlowResource, FlowInstance> {
+declare class FlowContext {
   /**
-   * Initialize the FlowPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the FlowContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property engagements - engagements resource
+   * @property executions - executions resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param sid - A string that uniquely identifies this Flow.
    */
-  constructor(version: V1, response: Response<string>, solution: FlowSolution);
+  constructor(version: V1, sid: string);
 
+  engagements: EngagementListInstance;
+  executions: ExecutionListInstance;
   /**
-   * Build an instance of FlowInstance
+   * fetch a FlowInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: FlowPayload): FlowInstance;
+  fetch(callback?: (error: Error | null, items: FlowInstance) => any): Promise<FlowInstance>;
+  /**
+   * remove a FlowInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: FlowInstance) => any): void;
 }
 
 
@@ -233,32 +243,22 @@ declare class FlowInstance extends SerializableClass {
 }
 
 
-declare class FlowContext {
+declare class FlowPage extends Page<V1, FlowPayload, FlowResource, FlowInstance> {
   /**
-   * Initialize the FlowContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
-   *
-   * @property engagements - engagements resource
-   * @property executions - executions resource
+   * Initialize the FlowPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
-   * @param sid - A string that uniquely identifies this Flow.
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, sid: string);
+  constructor(version: V1, response: Response<string>, solution: FlowSolution);
 
-  engagements: EngagementListInstance;
-  executions: ExecutionListInstance;
   /**
-   * fetch a FlowInstance
+   * Build an instance of FlowInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: FlowInstance) => any): Promise<FlowInstance>;
-  /**
-   * remove a FlowInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: FlowInstance) => any): void;
+  getInstance(payload: FlowPayload): FlowInstance;
 }
 
 export { FlowContext, FlowInstance, FlowList, FlowListInstance, FlowListInstanceEachOptions, FlowListInstanceOptions, FlowListInstancePageOptions, FlowPage, FlowPayload, FlowResource, FlowSolution }

@@ -34,25 +34,6 @@ interface PhoneNumberSolution {
 }
 
 
-declare class PhoneNumberPage extends Page<V1, PhoneNumberPayload, PhoneNumberResource, PhoneNumberInstance> {
-  /**
-   * Initialize the PhoneNumberPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: PhoneNumberSolution);
-
-  /**
-   * Build an instance of PhoneNumberInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: PhoneNumberPayload): PhoneNumberInstance;
-}
-
-
 declare class PhoneNumberInstance extends SerializableClass {
   /**
    * Initialize the PhoneNumberContext
@@ -74,6 +55,25 @@ declare class PhoneNumberInstance extends SerializableClass {
    */
   toJSON(): any;
   url: string;
+}
+
+
+declare class PhoneNumberPage extends Page<V1, PhoneNumberPayload, PhoneNumberResource, PhoneNumberInstance> {
+  /**
+   * Initialize the PhoneNumberPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: V1, response: Response<string>, solution: PhoneNumberSolution);
+
+  /**
+   * Build an instance of PhoneNumberInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: PhoneNumberPayload): PhoneNumberInstance;
 }
 
 export { PhoneNumberInstance, PhoneNumberList, PhoneNumberListInstance, PhoneNumberPage, PhoneNumberPayload, PhoneNumberResource, PhoneNumberSolution }

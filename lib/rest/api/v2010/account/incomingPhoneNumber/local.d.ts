@@ -237,25 +237,6 @@ interface LocalSolution {
 }
 
 
-declare class LocalPage extends Page<V2010, LocalPayload, LocalResource, LocalInstance> {
-  /**
-   * Initialize the LocalPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: LocalSolution);
-
-  /**
-   * Build an instance of LocalInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: LocalPayload): LocalInstance;
-}
-
-
 declare class LocalInstance extends SerializableClass {
   /**
    * Initialize the LocalContext
@@ -328,6 +309,25 @@ declare class LocalInstance extends SerializableClass {
   voiceFallbackUrl: string;
   voiceMethod: string;
   voiceUrl: string;
+}
+
+
+declare class LocalPage extends Page<V2010, LocalPayload, LocalResource, LocalInstance> {
+  /**
+   * Initialize the LocalPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: V2010, response: Response<string>, solution: LocalSolution);
+
+  /**
+   * Build an instance of LocalInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: LocalPayload): LocalInstance;
 }
 
 export { LocalInstance, LocalList, LocalListInstance, LocalListInstanceCreateOptions, LocalListInstanceEachOptions, LocalListInstanceOptions, LocalListInstancePageOptions, LocalPage, LocalPayload, LocalResource, LocalSolution }

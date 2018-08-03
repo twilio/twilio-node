@@ -174,25 +174,6 @@ interface TaskQueuesStatisticsSolution {
 }
 
 
-declare class TaskQueuesStatisticsPage extends Page<V1, TaskQueuesStatisticsPayload, TaskQueuesStatisticsResource, TaskQueuesStatisticsInstance> {
-  /**
-   * Initialize the TaskQueuesStatisticsPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: TaskQueuesStatisticsSolution);
-
-  /**
-   * Build an instance of TaskQueuesStatisticsInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: TaskQueuesStatisticsPayload): TaskQueuesStatisticsInstance;
-}
-
-
 declare class TaskQueuesStatisticsInstance extends SerializableClass {
   /**
    * Initialize the TaskQueuesStatisticsContext
@@ -219,6 +200,25 @@ declare class TaskQueuesStatisticsInstance extends SerializableClass {
    */
   toJSON(): any;
   workspaceSid: string;
+}
+
+
+declare class TaskQueuesStatisticsPage extends Page<V1, TaskQueuesStatisticsPayload, TaskQueuesStatisticsResource, TaskQueuesStatisticsInstance> {
+  /**
+   * Initialize the TaskQueuesStatisticsPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: V1, response: Response<string>, solution: TaskQueuesStatisticsSolution);
+
+  /**
+   * Build an instance of TaskQueuesStatisticsInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: TaskQueuesStatisticsPayload): TaskQueuesStatisticsInstance;
 }
 
 export { TaskQueuesStatisticsInstance, TaskQueuesStatisticsList, TaskQueuesStatisticsListInstance, TaskQueuesStatisticsListInstanceEachOptions, TaskQueuesStatisticsListInstanceOptions, TaskQueuesStatisticsListInstancePageOptions, TaskQueuesStatisticsPage, TaskQueuesStatisticsPayload, TaskQueuesStatisticsResource, TaskQueuesStatisticsSolution }

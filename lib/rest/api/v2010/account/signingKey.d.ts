@@ -155,22 +155,35 @@ interface SigningKeySolution {
 }
 
 
-declare class SigningKeyPage extends Page<V2010, SigningKeyPayload, SigningKeyResource, SigningKeyInstance> {
+declare class SigningKeyContext {
   /**
-   * Initialize the SigningKeyPage
+   * Initialize the SigningKeyContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param accountSid - The account_sid
+   * @param sid - The sid
    */
-  constructor(version: V2010, response: Response<string>, solution: SigningKeySolution);
+  constructor(version: V2010, accountSid: string, sid: string);
 
   /**
-   * Build an instance of SigningKeyInstance
+   * fetch a SigningKeyInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: SigningKeyPayload): SigningKeyInstance;
+  fetch(callback?: (error: Error | null, items: SigningKeyInstance) => any): Promise<SigningKeyInstance>;
+  /**
+   * remove a SigningKeyInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: SigningKeyInstance) => any): void;
+  /**
+   * update a SigningKeyInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: SigningKeyInstanceUpdateOptions, callback?: (error: Error | null, items: SigningKeyInstance) => any): Promise<SigningKeyInstance>;
 }
 
 
@@ -222,35 +235,22 @@ declare class SigningKeyInstance extends SerializableClass {
 }
 
 
-declare class SigningKeyContext {
+declare class SigningKeyPage extends Page<V2010, SigningKeyPayload, SigningKeyResource, SigningKeyInstance> {
   /**
-   * Initialize the SigningKeyContext
+   * Initialize the SigningKeyPage
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V2010, accountSid: string, sid: string);
+  constructor(version: V2010, response: Response<string>, solution: SigningKeySolution);
 
   /**
-   * fetch a SigningKeyInstance
+   * Build an instance of SigningKeyInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: SigningKeyInstance) => any): Promise<SigningKeyInstance>;
-  /**
-   * remove a SigningKeyInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: SigningKeyInstance) => any): void;
-  /**
-   * update a SigningKeyInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: SigningKeyInstanceUpdateOptions, callback?: (error: Error | null, items: SigningKeyInstance) => any): Promise<SigningKeyInstance>;
+  getInstance(payload: SigningKeyPayload): SigningKeyInstance;
 }
 
 export { SigningKeyContext, SigningKeyInstance, SigningKeyList, SigningKeyListInstance, SigningKeyListInstanceEachOptions, SigningKeyListInstanceOptions, SigningKeyListInstancePageOptions, SigningKeyPage, SigningKeyPayload, SigningKeyResource, SigningKeySolution }

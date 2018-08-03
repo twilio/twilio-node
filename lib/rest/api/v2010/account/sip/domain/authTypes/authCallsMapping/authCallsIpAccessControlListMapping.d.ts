@@ -165,22 +165,29 @@ interface AuthCallsIpAccessControlListMappingSolution {
 }
 
 
-declare class AuthCallsIpAccessControlListMappingPage extends Page<V2010, AuthCallsIpAccessControlListMappingPayload, AuthCallsIpAccessControlListMappingResource, AuthCallsIpAccessControlListMappingInstance> {
+declare class AuthCallsIpAccessControlListMappingContext {
   /**
-   * Initialize the AuthCallsIpAccessControlListMappingPage
+   * Initialize the AuthCallsIpAccessControlListMappingContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param accountSid - The account_sid
+   * @param domainSid - The domain_sid
+   * @param sid - Fetch by unique IP Access Control List Sid
    */
-  constructor(version: V2010, response: Response<string>, solution: AuthCallsIpAccessControlListMappingSolution);
+  constructor(version: V2010, accountSid: string, domainSid: string, sid: string);
 
   /**
-   * Build an instance of AuthCallsIpAccessControlListMappingInstance
+   * fetch a AuthCallsIpAccessControlListMappingInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: AuthCallsIpAccessControlListMappingPayload): AuthCallsIpAccessControlListMappingInstance;
+  fetch(callback?: (error: Error | null, items: AuthCallsIpAccessControlListMappingInstance) => any): Promise<AuthCallsIpAccessControlListMappingInstance>;
+  /**
+   * remove a AuthCallsIpAccessControlListMappingInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: AuthCallsIpAccessControlListMappingInstance) => any): void;
 }
 
 
@@ -228,29 +235,22 @@ declare class AuthCallsIpAccessControlListMappingInstance extends SerializableCl
 }
 
 
-declare class AuthCallsIpAccessControlListMappingContext {
+declare class AuthCallsIpAccessControlListMappingPage extends Page<V2010, AuthCallsIpAccessControlListMappingPayload, AuthCallsIpAccessControlListMappingResource, AuthCallsIpAccessControlListMappingInstance> {
   /**
-   * Initialize the AuthCallsIpAccessControlListMappingContext
+   * Initialize the AuthCallsIpAccessControlListMappingPage
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param domainSid - The domain_sid
-   * @param sid - Fetch by unique IP Access Control List Sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V2010, accountSid: string, domainSid: string, sid: string);
+  constructor(version: V2010, response: Response<string>, solution: AuthCallsIpAccessControlListMappingSolution);
 
   /**
-   * fetch a AuthCallsIpAccessControlListMappingInstance
+   * Build an instance of AuthCallsIpAccessControlListMappingInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: AuthCallsIpAccessControlListMappingInstance) => any): Promise<AuthCallsIpAccessControlListMappingInstance>;
-  /**
-   * remove a AuthCallsIpAccessControlListMappingInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: AuthCallsIpAccessControlListMappingInstance) => any): void;
+  getInstance(payload: AuthCallsIpAccessControlListMappingPayload): AuthCallsIpAccessControlListMappingInstance;
 }
 
 export { AuthCallsIpAccessControlListMappingContext, AuthCallsIpAccessControlListMappingInstance, AuthCallsIpAccessControlListMappingList, AuthCallsIpAccessControlListMappingListInstance, AuthCallsIpAccessControlListMappingListInstanceCreateOptions, AuthCallsIpAccessControlListMappingListInstanceEachOptions, AuthCallsIpAccessControlListMappingListInstanceOptions, AuthCallsIpAccessControlListMappingListInstancePageOptions, AuthCallsIpAccessControlListMappingPage, AuthCallsIpAccessControlListMappingPayload, AuthCallsIpAccessControlListMappingResource, AuthCallsIpAccessControlListMappingSolution }

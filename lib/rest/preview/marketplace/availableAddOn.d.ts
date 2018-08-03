@@ -150,22 +150,24 @@ interface AvailableAddOnSolution {
 }
 
 
-declare class AvailableAddOnPage extends Page<Marketplace, AvailableAddOnPayload, AvailableAddOnResource, AvailableAddOnInstance> {
+declare class AvailableAddOnContext {
   /**
-   * Initialize the AvailableAddOnPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the AvailableAddOnContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property extensions - extensions resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param sid - The unique Available Add-on Sid
    */
-  constructor(version: Marketplace, response: Response<string>, solution: AvailableAddOnSolution);
+  constructor(version: Marketplace, sid: string);
 
+  extensions: AvailableAddOnExtensionListInstance;
   /**
-   * Build an instance of AvailableAddOnInstance
+   * fetch a AvailableAddOnInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: AvailableAddOnPayload): AvailableAddOnInstance;
+  fetch(callback?: (error: Error | null, items: AvailableAddOnInstance) => any): Promise<AvailableAddOnInstance>;
 }
 
 
@@ -213,24 +215,22 @@ declare class AvailableAddOnInstance extends SerializableClass {
 }
 
 
-declare class AvailableAddOnContext {
+declare class AvailableAddOnPage extends Page<Marketplace, AvailableAddOnPayload, AvailableAddOnResource, AvailableAddOnInstance> {
   /**
-   * Initialize the AvailableAddOnContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
-   *
-   * @property extensions - extensions resource
+   * Initialize the AvailableAddOnPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param sid - The unique Available Add-on Sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: Marketplace, sid: string);
+  constructor(version: Marketplace, response: Response<string>, solution: AvailableAddOnSolution);
 
-  extensions: AvailableAddOnExtensionListInstance;
   /**
-   * fetch a AvailableAddOnInstance
+   * Build an instance of AvailableAddOnInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: AvailableAddOnInstance) => any): Promise<AvailableAddOnInstance>;
+  getInstance(payload: AvailableAddOnPayload): AvailableAddOnInstance;
 }
 
 export { AvailableAddOnContext, AvailableAddOnInstance, AvailableAddOnList, AvailableAddOnListInstance, AvailableAddOnListInstanceEachOptions, AvailableAddOnListInstanceOptions, AvailableAddOnListInstancePageOptions, AvailableAddOnPage, AvailableAddOnPayload, AvailableAddOnResource, AvailableAddOnSolution }

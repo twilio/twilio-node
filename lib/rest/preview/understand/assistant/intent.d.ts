@@ -187,22 +187,42 @@ interface IntentSolution {
 }
 
 
-declare class IntentPage extends Page<Understand, IntentPayload, IntentResource, IntentInstance> {
+declare class IntentContext {
   /**
-   * Initialize the IntentPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the IntentContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property fields - fields resource
+   * @property samples - samples resource
+   * @property statistics - statistics resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param assistantSid - The assistant_sid
+   * @param sid - The sid
    */
-  constructor(version: Understand, response: Response<string>, solution: IntentSolution);
+  constructor(version: Understand, assistantSid: string, sid: string);
 
   /**
-   * Build an instance of IntentInstance
+   * fetch a IntentInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: IntentPayload): IntentInstance;
+  fetch(callback?: (error: Error | null, items: IntentInstance) => any): Promise<IntentInstance>;
+  fields: FieldListInstance;
+  /**
+   * remove a IntentInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: IntentInstance) => any): void;
+  samples: SampleListInstance;
+  statistics: IntentStatisticsListInstance;
+  /**
+   * update a IntentInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: IntentInstanceUpdateOptions, callback?: (error: Error | null, items: IntentInstance) => any): Promise<IntentInstance>;
 }
 
 
@@ -276,42 +296,22 @@ declare class IntentInstance extends SerializableClass {
 }
 
 
-declare class IntentContext {
+declare class IntentPage extends Page<Understand, IntentPayload, IntentResource, IntentInstance> {
   /**
-   * Initialize the IntentContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
-   *
-   * @property fields - fields resource
-   * @property samples - samples resource
-   * @property statistics - statistics resource
+   * Initialize the IntentPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param assistantSid - The assistant_sid
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: Understand, assistantSid: string, sid: string);
+  constructor(version: Understand, response: Response<string>, solution: IntentSolution);
 
   /**
-   * fetch a IntentInstance
+   * Build an instance of IntentInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: IntentInstance) => any): Promise<IntentInstance>;
-  fields: FieldListInstance;
-  /**
-   * remove a IntentInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: IntentInstance) => any): void;
-  samples: SampleListInstance;
-  statistics: IntentStatisticsListInstance;
-  /**
-   * update a IntentInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: IntentInstanceUpdateOptions, callback?: (error: Error | null, items: IntentInstance) => any): Promise<IntentInstance>;
+  getInstance(payload: IntentPayload): IntentInstance;
 }
 
 export { IntentContext, IntentInstance, IntentList, IntentListInstance, IntentListInstanceCreateOptions, IntentListInstanceEachOptions, IntentListInstanceOptions, IntentListInstancePageOptions, IntentPage, IntentPayload, IntentResource, IntentSolution }

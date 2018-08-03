@@ -222,22 +222,34 @@ interface ConferenceSolution {
 }
 
 
-declare class ConferencePage extends Page<V2010, ConferencePayload, ConferenceResource, ConferenceInstance> {
+declare class ConferenceContext {
   /**
-   * Initialize the ConferencePage
+   * Initialize the ConferenceContext
+   *
+   * @property participants - participants resource
+   * @property recordings - recordings resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param accountSid - The account_sid
+   * @param sid - Fetch by unique conference Sid
    */
-  constructor(version: V2010, response: Response<string>, solution: ConferenceSolution);
+  constructor(version: V2010, accountSid: string, sid: string);
 
   /**
-   * Build an instance of ConferenceInstance
+   * fetch a ConferenceInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: ConferencePayload): ConferenceInstance;
+  fetch(callback?: (error: Error | null, items: ConferenceInstance) => any): Promise<ConferenceInstance>;
+  participants: ParticipantListInstance;
+  recordings: RecordingListInstance;
+  /**
+   * update a ConferenceInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: ConferenceInstanceUpdateOptions, callback?: (error: Error | null, items: ConferenceInstance) => any): Promise<ConferenceInstance>;
 }
 
 
@@ -303,34 +315,22 @@ declare class ConferenceInstance extends SerializableClass {
 }
 
 
-declare class ConferenceContext {
+declare class ConferencePage extends Page<V2010, ConferencePayload, ConferenceResource, ConferenceInstance> {
   /**
-   * Initialize the ConferenceContext
-   *
-   * @property participants - participants resource
-   * @property recordings - recordings resource
+   * Initialize the ConferencePage
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param sid - Fetch by unique conference Sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V2010, accountSid: string, sid: string);
+  constructor(version: V2010, response: Response<string>, solution: ConferenceSolution);
 
   /**
-   * fetch a ConferenceInstance
+   * Build an instance of ConferenceInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: ConferenceInstance) => any): Promise<ConferenceInstance>;
-  participants: ParticipantListInstance;
-  recordings: RecordingListInstance;
-  /**
-   * update a ConferenceInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: ConferenceInstanceUpdateOptions, callback?: (error: Error | null, items: ConferenceInstance) => any): Promise<ConferenceInstance>;
+  getInstance(payload: ConferencePayload): ConferenceInstance;
 }
 
 export { ConferenceContext, ConferenceInstance, ConferenceList, ConferenceListInstance, ConferenceListInstanceEachOptions, ConferenceListInstanceOptions, ConferenceListInstancePageOptions, ConferencePage, ConferencePayload, ConferenceResource, ConferenceSolution }

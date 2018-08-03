@@ -35,25 +35,6 @@ interface VoiceSolution {
 }
 
 
-declare class VoicePage extends Page<V1, VoicePayload, VoiceResource, VoiceInstance> {
-  /**
-   * Initialize the VoicePage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: VoiceSolution);
-
-  /**
-   * Build an instance of VoiceInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: VoicePayload): VoiceInstance;
-}
-
-
 declare class VoiceInstance extends SerializableClass {
   /**
    * Initialize the VoiceContext
@@ -75,6 +56,25 @@ declare class VoiceInstance extends SerializableClass {
    */
   toJSON(): any;
   url: string;
+}
+
+
+declare class VoicePage extends Page<V1, VoicePayload, VoiceResource, VoiceInstance> {
+  /**
+   * Initialize the VoicePage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: V1, response: Response<string>, solution: VoiceSolution);
+
+  /**
+   * Build an instance of VoiceInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: VoicePayload): VoiceInstance;
 }
 
 export { VoiceInstance, VoiceList, VoiceListInstance, VoicePage, VoicePayload, VoiceResource, VoiceSolution }

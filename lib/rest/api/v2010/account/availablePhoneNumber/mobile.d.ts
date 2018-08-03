@@ -256,25 +256,6 @@ interface MobileSolution {
 }
 
 
-declare class MobilePage extends Page<V2010, MobilePayload, MobileResource, MobileInstance> {
-  /**
-   * Initialize the MobilePage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: MobileSolution);
-
-  /**
-   * Build an instance of MobileInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: MobilePayload): MobileInstance;
-}
-
-
 declare class MobileInstance extends SerializableClass {
   /**
    * Initialize the MobileContext
@@ -318,6 +299,25 @@ declare class MobileInstance extends SerializableClass {
    * Removes any circular references in the object.
    */
   toJSON(): any;
+}
+
+
+declare class MobilePage extends Page<V2010, MobilePayload, MobileResource, MobileInstance> {
+  /**
+   * Initialize the MobilePage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: V2010, response: Response<string>, solution: MobileSolution);
+
+  /**
+   * Build an instance of MobileInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: MobilePayload): MobileInstance;
 }
 
 export { MobileInstance, MobileList, MobileListInstance, MobileListInstanceEachOptions, MobileListInstanceOptions, MobileListInstancePageOptions, MobilePage, MobilePayload, MobileResource, MobileSolution }

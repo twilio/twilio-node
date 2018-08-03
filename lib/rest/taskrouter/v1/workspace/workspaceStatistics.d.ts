@@ -63,22 +63,22 @@ interface WorkspaceStatisticsSolution {
 }
 
 
-declare class WorkspaceStatisticsPage extends Page<V1, WorkspaceStatisticsPayload, WorkspaceStatisticsResource, WorkspaceStatisticsInstance> {
+declare class WorkspaceStatisticsContext {
   /**
-   * Initialize the WorkspaceStatisticsPage
+   * Initialize the WorkspaceStatisticsContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param workspaceSid - The workspace_sid
    */
-  constructor(version: V1, response: Response<string>, solution: WorkspaceStatisticsSolution);
+  constructor(version: V1, workspaceSid: string);
 
   /**
-   * Build an instance of WorkspaceStatisticsInstance
+   * fetch a WorkspaceStatisticsInstance
    *
-   * @param payload - Payload response from the API
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: WorkspaceStatisticsPayload): WorkspaceStatisticsInstance;
+  fetch(opts?: WorkspaceStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkspaceStatisticsInstance) => any): Promise<WorkspaceStatisticsInstance>;
 }
 
 
@@ -119,22 +119,22 @@ declare class WorkspaceStatisticsInstance extends SerializableClass {
 }
 
 
-declare class WorkspaceStatisticsContext {
+declare class WorkspaceStatisticsPage extends Page<V1, WorkspaceStatisticsPayload, WorkspaceStatisticsResource, WorkspaceStatisticsInstance> {
   /**
-   * Initialize the WorkspaceStatisticsContext
+   * Initialize the WorkspaceStatisticsPage
    *
    * @param version - Version of the resource
-   * @param workspaceSid - The workspace_sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, workspaceSid: string);
+  constructor(version: V1, response: Response<string>, solution: WorkspaceStatisticsSolution);
 
   /**
-   * fetch a WorkspaceStatisticsInstance
+   * Build an instance of WorkspaceStatisticsInstance
    *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(opts?: WorkspaceStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkspaceStatisticsInstance) => any): Promise<WorkspaceStatisticsInstance>;
+  getInstance(payload: WorkspaceStatisticsPayload): WorkspaceStatisticsInstance;
 }
 
 export { WorkspaceStatisticsContext, WorkspaceStatisticsInstance, WorkspaceStatisticsList, WorkspaceStatisticsListInstance, WorkspaceStatisticsPage, WorkspaceStatisticsPayload, WorkspaceStatisticsResource, WorkspaceStatisticsSolution }

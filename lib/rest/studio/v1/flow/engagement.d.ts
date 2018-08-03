@@ -181,22 +181,33 @@ interface EngagementSolution {
 }
 
 
-declare class EngagementPage extends Page<V1, EngagementPayload, EngagementResource, EngagementInstance> {
+declare class EngagementContext {
   /**
-   * Initialize the EngagementPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the EngagementContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property steps - steps resource
+   * @property engagementContext - engagementContext resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param flowSid - Flow Sid.
+   * @param sid - Engagement Sid.
    */
-  constructor(version: V1, response: Response<string>, solution: EngagementSolution);
+  constructor(version: V1, flowSid: string, sid: string);
 
+  engagementContext: EngagementContextListInstance;
   /**
-   * Build an instance of EngagementInstance
+   * fetch a EngagementInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: EngagementPayload): EngagementInstance;
+  fetch(callback?: (error: Error | null, items: EngagementInstance) => any): Promise<EngagementInstance>;
+  /**
+   * remove a EngagementInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: EngagementInstance) => any): void;
+  steps: StepListInstance;
 }
 
 
@@ -263,33 +274,22 @@ declare class EngagementInstance extends SerializableClass {
 }
 
 
-declare class EngagementContext {
+declare class EngagementPage extends Page<V1, EngagementPayload, EngagementResource, EngagementInstance> {
   /**
-   * Initialize the EngagementContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
-   *
-   * @property steps - steps resource
-   * @property engagementContext - engagementContext resource
+   * Initialize the EngagementPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
-   * @param flowSid - Flow Sid.
-   * @param sid - Engagement Sid.
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, flowSid: string, sid: string);
+  constructor(version: V1, response: Response<string>, solution: EngagementSolution);
 
-  engagementContext: EngagementContextListInstance;
   /**
-   * fetch a EngagementInstance
+   * Build an instance of EngagementInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: EngagementInstance) => any): Promise<EngagementInstance>;
-  /**
-   * remove a EngagementInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: EngagementInstance) => any): void;
-  steps: StepListInstance;
+  getInstance(payload: EngagementPayload): EngagementInstance;
 }
 
 export { EngagementContext, EngagementInstance, EngagementList, EngagementListInstance, EngagementListInstanceCreateOptions, EngagementListInstanceEachOptions, EngagementListInstanceOptions, EngagementListInstancePageOptions, EngagementPage, EngagementPayload, EngagementResource, EngagementSolution }

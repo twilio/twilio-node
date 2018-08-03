@@ -66,22 +66,23 @@ interface TaskQueueStatisticsSolution {
 }
 
 
-declare class TaskQueueStatisticsPage extends Page<V1, TaskQueueStatisticsPayload, TaskQueueStatisticsResource, TaskQueueStatisticsInstance> {
+declare class TaskQueueStatisticsContext {
   /**
-   * Initialize the TaskQueueStatisticsPage
+   * Initialize the TaskQueueStatisticsContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param workspaceSid - The workspace_sid
+   * @param taskQueueSid - The task_queue_sid
    */
-  constructor(version: V1, response: Response<string>, solution: TaskQueueStatisticsSolution);
+  constructor(version: V1, workspaceSid: string, taskQueueSid: string);
 
   /**
-   * Build an instance of TaskQueueStatisticsInstance
+   * fetch a TaskQueueStatisticsInstance
    *
-   * @param payload - Payload response from the API
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: TaskQueueStatisticsPayload): TaskQueueStatisticsInstance;
+  fetch(opts?: TaskQueueStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: TaskQueueStatisticsInstance) => any): Promise<TaskQueueStatisticsInstance>;
 }
 
 
@@ -125,23 +126,22 @@ declare class TaskQueueStatisticsInstance extends SerializableClass {
 }
 
 
-declare class TaskQueueStatisticsContext {
+declare class TaskQueueStatisticsPage extends Page<V1, TaskQueueStatisticsPayload, TaskQueueStatisticsResource, TaskQueueStatisticsInstance> {
   /**
-   * Initialize the TaskQueueStatisticsContext
+   * Initialize the TaskQueueStatisticsPage
    *
    * @param version - Version of the resource
-   * @param workspaceSid - The workspace_sid
-   * @param taskQueueSid - The task_queue_sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, workspaceSid: string, taskQueueSid: string);
+  constructor(version: V1, response: Response<string>, solution: TaskQueueStatisticsSolution);
 
   /**
-   * fetch a TaskQueueStatisticsInstance
+   * Build an instance of TaskQueueStatisticsInstance
    *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(opts?: TaskQueueStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: TaskQueueStatisticsInstance) => any): Promise<TaskQueueStatisticsInstance>;
+  getInstance(payload: TaskQueueStatisticsPayload): TaskQueueStatisticsInstance;
 }
 
 export { TaskQueueStatisticsContext, TaskQueueStatisticsInstance, TaskQueueStatisticsList, TaskQueueStatisticsListInstance, TaskQueueStatisticsPage, TaskQueueStatisticsPayload, TaskQueueStatisticsResource, TaskQueueStatisticsSolution }

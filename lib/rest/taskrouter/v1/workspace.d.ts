@@ -231,22 +231,55 @@ interface WorkspaceSolution {
 }
 
 
-declare class WorkspacePage extends Page<V1, WorkspacePayload, WorkspaceResource, WorkspaceInstance> {
+declare class WorkspaceContext {
   /**
-   * Initialize the WorkspacePage
+   * Initialize the WorkspaceContext
+   *
+   * @property activities - activities resource
+   * @property events - events resource
+   * @property tasks - tasks resource
+   * @property taskQueues - taskQueues resource
+   * @property workers - workers resource
+   * @property workflows - workflows resource
+   * @property statistics - statistics resource
+   * @property realTimeStatistics - realTimeStatistics resource
+   * @property cumulativeStatistics - cumulativeStatistics resource
+   * @property taskChannels - taskChannels resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param sid - The sid
    */
-  constructor(version: V1, response: Response<string>, solution: WorkspaceSolution);
+  constructor(version: V1, sid: string);
 
+  activities: ActivityListInstance;
+  cumulativeStatistics: WorkspaceCumulativeStatisticsListInstance;
+  events: EventListInstance;
   /**
-   * Build an instance of WorkspaceInstance
+   * fetch a WorkspaceInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: WorkspacePayload): WorkspaceInstance;
+  fetch(callback?: (error: Error | null, items: WorkspaceInstance) => any): Promise<WorkspaceInstance>;
+  realTimeStatistics: WorkspaceRealTimeStatisticsListInstance;
+  /**
+   * remove a WorkspaceInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: WorkspaceInstance) => any): void;
+  statistics: WorkspaceStatisticsListInstance;
+  taskChannels: TaskChannelListInstance;
+  taskQueues: TaskQueueListInstance;
+  tasks: TaskListInstance;
+  /**
+   * update a WorkspaceInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: WorkspaceInstanceUpdateOptions, callback?: (error: Error | null, items: WorkspaceInstance) => any): Promise<WorkspaceInstance>;
+  workers: WorkerListInstance;
+  workflows: WorkflowListInstance;
 }
 
 
@@ -359,55 +392,22 @@ declare class WorkspaceInstance extends SerializableClass {
 }
 
 
-declare class WorkspaceContext {
+declare class WorkspacePage extends Page<V1, WorkspacePayload, WorkspaceResource, WorkspaceInstance> {
   /**
-   * Initialize the WorkspaceContext
-   *
-   * @property activities - activities resource
-   * @property events - events resource
-   * @property tasks - tasks resource
-   * @property taskQueues - taskQueues resource
-   * @property workers - workers resource
-   * @property workflows - workflows resource
-   * @property statistics - statistics resource
-   * @property realTimeStatistics - realTimeStatistics resource
-   * @property cumulativeStatistics - cumulativeStatistics resource
-   * @property taskChannels - taskChannels resource
+   * Initialize the WorkspacePage
    *
    * @param version - Version of the resource
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, sid: string);
+  constructor(version: V1, response: Response<string>, solution: WorkspaceSolution);
 
-  activities: ActivityListInstance;
-  cumulativeStatistics: WorkspaceCumulativeStatisticsListInstance;
-  events: EventListInstance;
   /**
-   * fetch a WorkspaceInstance
+   * Build an instance of WorkspaceInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: WorkspaceInstance) => any): Promise<WorkspaceInstance>;
-  realTimeStatistics: WorkspaceRealTimeStatisticsListInstance;
-  /**
-   * remove a WorkspaceInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: WorkspaceInstance) => any): void;
-  statistics: WorkspaceStatisticsListInstance;
-  taskChannels: TaskChannelListInstance;
-  taskQueues: TaskQueueListInstance;
-  tasks: TaskListInstance;
-  /**
-   * update a WorkspaceInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: WorkspaceInstanceUpdateOptions, callback?: (error: Error | null, items: WorkspaceInstance) => any): Promise<WorkspaceInstance>;
-  workers: WorkerListInstance;
-  workflows: WorkflowListInstance;
+  getInstance(payload: WorkspacePayload): WorkspaceInstance;
 }
 
 export { WorkspaceContext, WorkspaceInstance, WorkspaceList, WorkspaceListInstance, WorkspaceListInstanceCreateOptions, WorkspaceListInstanceEachOptions, WorkspaceListInstanceOptions, WorkspaceListInstancePageOptions, WorkspacePage, WorkspacePayload, WorkspaceResource, WorkspaceSolution }

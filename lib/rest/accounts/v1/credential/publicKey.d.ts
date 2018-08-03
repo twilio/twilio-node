@@ -175,22 +175,34 @@ interface PublicKeySolution {
 }
 
 
-declare class PublicKeyPage extends Page<V1, PublicKeyPayload, PublicKeyResource, PublicKeyInstance> {
+declare class PublicKeyContext {
   /**
-   * Initialize the PublicKeyPage
+   * Initialize the PublicKeyContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param sid - Fetch by unique Credential Sid
    */
-  constructor(version: V1, response: Response<string>, solution: PublicKeySolution);
+  constructor(version: V1, sid: string);
 
   /**
-   * Build an instance of PublicKeyInstance
+   * fetch a PublicKeyInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: PublicKeyPayload): PublicKeyInstance;
+  fetch(callback?: (error: Error | null, items: PublicKeyInstance) => any): Promise<PublicKeyInstance>;
+  /**
+   * remove a PublicKeyInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: PublicKeyInstance) => any): void;
+  /**
+   * update a PublicKeyInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: PublicKeyInstanceUpdateOptions, callback?: (error: Error | null, items: PublicKeyInstance) => any): Promise<PublicKeyInstance>;
 }
 
 
@@ -245,34 +257,22 @@ declare class PublicKeyInstance extends SerializableClass {
 }
 
 
-declare class PublicKeyContext {
+declare class PublicKeyPage extends Page<V1, PublicKeyPayload, PublicKeyResource, PublicKeyInstance> {
   /**
-   * Initialize the PublicKeyContext
+   * Initialize the PublicKeyPage
    *
    * @param version - Version of the resource
-   * @param sid - Fetch by unique Credential Sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, sid: string);
+  constructor(version: V1, response: Response<string>, solution: PublicKeySolution);
 
   /**
-   * fetch a PublicKeyInstance
+   * Build an instance of PublicKeyInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: PublicKeyInstance) => any): Promise<PublicKeyInstance>;
-  /**
-   * remove a PublicKeyInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: PublicKeyInstance) => any): void;
-  /**
-   * update a PublicKeyInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: PublicKeyInstanceUpdateOptions, callback?: (error: Error | null, items: PublicKeyInstance) => any): Promise<PublicKeyInstance>;
+  getInstance(payload: PublicKeyPayload): PublicKeyInstance;
 }
 
 export { PublicKeyContext, PublicKeyInstance, PublicKeyList, PublicKeyListInstance, PublicKeyListInstanceCreateOptions, PublicKeyListInstanceEachOptions, PublicKeyListInstanceOptions, PublicKeyListInstancePageOptions, PublicKeyPage, PublicKeyPayload, PublicKeyResource, PublicKeySolution }

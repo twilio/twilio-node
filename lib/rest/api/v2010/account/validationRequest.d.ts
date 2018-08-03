@@ -63,25 +63,6 @@ interface ValidationRequestSolution {
 }
 
 
-declare class ValidationRequestPage extends Page<V2010, ValidationRequestPayload, ValidationRequestResource, ValidationRequestInstance> {
-  /**
-   * Initialize the ValidationRequestPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: ValidationRequestSolution);
-
-  /**
-   * Build an instance of ValidationRequestInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: ValidationRequestPayload): ValidationRequestInstance;
-}
-
-
 declare class ValidationRequestInstance extends SerializableClass {
   /**
    * Initialize the ValidationRequestContext
@@ -108,6 +89,25 @@ declare class ValidationRequestInstance extends SerializableClass {
    */
   toJSON(): any;
   validationCode: number;
+}
+
+
+declare class ValidationRequestPage extends Page<V2010, ValidationRequestPayload, ValidationRequestResource, ValidationRequestInstance> {
+  /**
+   * Initialize the ValidationRequestPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: V2010, response: Response<string>, solution: ValidationRequestSolution);
+
+  /**
+   * Build an instance of ValidationRequestInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: ValidationRequestPayload): ValidationRequestInstance;
 }
 
 export { ValidationRequestInstance, ValidationRequestList, ValidationRequestListInstance, ValidationRequestListInstanceCreateOptions, ValidationRequestPage, ValidationRequestPayload, ValidationRequestResource, ValidationRequestSolution }

@@ -51,22 +51,23 @@ interface StepContextSolution {
 }
 
 
-declare class StepContextPage extends Page<V1, StepContextPayload, StepContextResource, StepContextInstance> {
+declare class StepContextContext {
   /**
-   * Initialize the StepContextPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the StepContextContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param flowSid - Flow Sid.
+   * @param engagementSid - Engagement Sid.
+   * @param stepSid - Step Sid.
    */
-  constructor(version: V1, response: Response<string>, solution: StepContextSolution);
+  constructor(version: V1, flowSid: string, engagementSid: string, stepSid: string);
 
   /**
-   * Build an instance of StepContextInstance
+   * fetch a StepContextInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: StepContextPayload): StepContextInstance;
+  fetch(callback?: (error: Error | null, items: StepContextInstance) => any): Promise<StepContextInstance>;
 }
 
 
@@ -110,23 +111,22 @@ declare class StepContextInstance extends SerializableClass {
 }
 
 
-declare class StepContextContext {
+declare class StepContextPage extends Page<V1, StepContextPayload, StepContextResource, StepContextInstance> {
   /**
-   * Initialize the StepContextContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the StepContextPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
-   * @param flowSid - Flow Sid.
-   * @param engagementSid - Engagement Sid.
-   * @param stepSid - Step Sid.
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, flowSid: string, engagementSid: string, stepSid: string);
+  constructor(version: V1, response: Response<string>, solution: StepContextSolution);
 
   /**
-   * fetch a StepContextInstance
+   * Build an instance of StepContextInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: StepContextInstance) => any): Promise<StepContextInstance>;
+  getInstance(payload: StepContextPayload): StepContextInstance;
 }
 
 export { StepContextContext, StepContextInstance, StepContextList, StepContextListInstance, StepContextPage, StepContextPayload, StepContextResource, StepContextSolution }

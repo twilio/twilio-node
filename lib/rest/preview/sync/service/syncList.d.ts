@@ -173,22 +173,33 @@ interface SyncListSolution {
 }
 
 
-declare class SyncListPage extends Page<Sync, SyncListPayload, SyncListResource, SyncListInstance> {
+declare class SyncListContext {
   /**
-   * Initialize the SyncListPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the SyncListContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property syncListItems - syncListItems resource
+   * @property syncListPermissions - syncListPermissions resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param serviceSid - The service_sid
+   * @param sid - The sid
    */
-  constructor(version: Sync, response: Response<string>, solution: SyncListSolution);
+  constructor(version: Sync, serviceSid: string, sid: string);
 
   /**
-   * Build an instance of SyncListInstance
+   * fetch a SyncListInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: SyncListPayload): SyncListInstance;
+  fetch(callback?: (error: Error | null, items: SyncListInstance) => any): Promise<SyncListInstance>;
+  /**
+   * remove a SyncListInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: SyncListInstance) => any): void;
+  syncListItems: SyncListItemListInstance;
+  syncListPermissions: SyncListPermissionListInstance;
 }
 
 
@@ -253,33 +264,22 @@ declare class SyncListInstance extends SerializableClass {
 }
 
 
-declare class SyncListContext {
+declare class SyncListPage extends Page<Sync, SyncListPayload, SyncListResource, SyncListInstance> {
   /**
-   * Initialize the SyncListContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
-   *
-   * @property syncListItems - syncListItems resource
-   * @property syncListPermissions - syncListPermissions resource
+   * Initialize the SyncListPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param serviceSid - The service_sid
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: Sync, serviceSid: string, sid: string);
+  constructor(version: Sync, response: Response<string>, solution: SyncListSolution);
 
   /**
-   * fetch a SyncListInstance
+   * Build an instance of SyncListInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: SyncListInstance) => any): Promise<SyncListInstance>;
-  /**
-   * remove a SyncListInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: SyncListInstance) => any): void;
-  syncListItems: SyncListItemListInstance;
-  syncListPermissions: SyncListPermissionListInstance;
+  getInstance(payload: SyncListPayload): SyncListInstance;
 }
 
 export { SyncListContext, SyncListInstance, SyncListList, SyncListListInstance, SyncListListInstanceCreateOptions, SyncListListInstanceEachOptions, SyncListListInstanceOptions, SyncListListInstancePageOptions, SyncListPage, SyncListPayload, SyncListResource, SyncListSolution }

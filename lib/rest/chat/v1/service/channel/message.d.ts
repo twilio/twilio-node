@@ -196,22 +196,36 @@ interface MessageSolution {
 }
 
 
-declare class MessagePage extends Page<V1, MessagePayload, MessageResource, MessageInstance> {
+declare class MessageContext {
   /**
-   * Initialize the MessagePage
+   * Initialize the MessageContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param serviceSid - The service_sid
+   * @param channelSid - The channel_sid
+   * @param sid - The sid
    */
-  constructor(version: V1, response: Response<string>, solution: MessageSolution);
+  constructor(version: V1, serviceSid: string, channelSid: string, sid: string);
 
   /**
-   * Build an instance of MessageInstance
+   * fetch a MessageInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: MessagePayload): MessageInstance;
+  fetch(callback?: (error: Error | null, items: MessageInstance) => any): Promise<MessageInstance>;
+  /**
+   * remove a MessageInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: MessageInstance) => any): void;
+  /**
+   * update a MessageInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: MessageInstanceUpdateOptions, callback?: (error: Error | null, items: MessageInstance) => any): Promise<MessageInstance>;
 }
 
 
@@ -282,36 +296,22 @@ declare class MessageInstance extends SerializableClass {
 }
 
 
-declare class MessageContext {
+declare class MessagePage extends Page<V1, MessagePayload, MessageResource, MessageInstance> {
   /**
-   * Initialize the MessageContext
+   * Initialize the MessagePage
    *
    * @param version - Version of the resource
-   * @param serviceSid - The service_sid
-   * @param channelSid - The channel_sid
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, serviceSid: string, channelSid: string, sid: string);
+  constructor(version: V1, response: Response<string>, solution: MessageSolution);
 
   /**
-   * fetch a MessageInstance
+   * Build an instance of MessageInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: MessageInstance) => any): Promise<MessageInstance>;
-  /**
-   * remove a MessageInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: MessageInstance) => any): void;
-  /**
-   * update a MessageInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: MessageInstanceUpdateOptions, callback?: (error: Error | null, items: MessageInstance) => any): Promise<MessageInstance>;
+  getInstance(payload: MessagePayload): MessageInstance;
 }
 
 export { MessageContext, MessageInstance, MessageList, MessageListInstance, MessageListInstanceCreateOptions, MessageListInstanceEachOptions, MessageListInstanceOptions, MessageListInstancePageOptions, MessagePage, MessagePayload, MessageResource, MessageSolution }

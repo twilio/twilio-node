@@ -183,22 +183,38 @@ interface FieldTypeSolution {
 }
 
 
-declare class FieldTypePage extends Page<Understand, FieldTypePayload, FieldTypeResource, FieldTypeInstance> {
+declare class FieldTypeContext {
   /**
-   * Initialize the FieldTypePagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the FieldTypeContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property fieldValues - fieldValues resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param assistantSid - The assistant_sid
+   * @param sid - The sid
    */
-  constructor(version: Understand, response: Response<string>, solution: FieldTypeSolution);
+  constructor(version: Understand, assistantSid: string, sid: string);
 
   /**
-   * Build an instance of FieldTypeInstance
+   * fetch a FieldTypeInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: FieldTypePayload): FieldTypeInstance;
+  fetch(callback?: (error: Error | null, items: FieldTypeInstance) => any): Promise<FieldTypeInstance>;
+  fieldValues: FieldValueListInstance;
+  /**
+   * remove a FieldTypeInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: FieldTypeInstance) => any): void;
+  /**
+   * update a FieldTypeInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: FieldTypeInstanceUpdateOptions, callback?: (error: Error | null, items: FieldTypeInstance) => any): Promise<FieldTypeInstance>;
 }
 
 
@@ -264,38 +280,22 @@ declare class FieldTypeInstance extends SerializableClass {
 }
 
 
-declare class FieldTypeContext {
+declare class FieldTypePage extends Page<Understand, FieldTypePayload, FieldTypeResource, FieldTypeInstance> {
   /**
-   * Initialize the FieldTypeContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
-   *
-   * @property fieldValues - fieldValues resource
+   * Initialize the FieldTypePagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param assistantSid - The assistant_sid
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: Understand, assistantSid: string, sid: string);
+  constructor(version: Understand, response: Response<string>, solution: FieldTypeSolution);
 
   /**
-   * fetch a FieldTypeInstance
+   * Build an instance of FieldTypeInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: FieldTypeInstance) => any): Promise<FieldTypeInstance>;
-  fieldValues: FieldValueListInstance;
-  /**
-   * remove a FieldTypeInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: FieldTypeInstance) => any): void;
-  /**
-   * update a FieldTypeInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: FieldTypeInstanceUpdateOptions, callback?: (error: Error | null, items: FieldTypeInstance) => any): Promise<FieldTypeInstance>;
+  getInstance(payload: FieldTypePayload): FieldTypeInstance;
 }
 
 export { FieldTypeContext, FieldTypeInstance, FieldTypeList, FieldTypeListInstance, FieldTypeListInstanceCreateOptions, FieldTypeListInstanceEachOptions, FieldTypeListInstanceOptions, FieldTypeListInstancePageOptions, FieldTypePage, FieldTypePayload, FieldTypeResource, FieldTypeSolution }

@@ -194,22 +194,36 @@ interface SampleSolution {
 }
 
 
-declare class SamplePage extends Page<Understand, SamplePayload, SampleResource, SampleInstance> {
+declare class SampleContext {
   /**
-   * Initialize the SamplePagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the SampleContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param assistantSid - The assistant_sid
+   * @param intentSid - The intent_sid
+   * @param sid - The sid
    */
-  constructor(version: Understand, response: Response<string>, solution: SampleSolution);
+  constructor(version: Understand, assistantSid: string, intentSid: string, sid: string);
 
   /**
-   * Build an instance of SampleInstance
+   * fetch a SampleInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: SamplePayload): SampleInstance;
+  fetch(callback?: (error: Error | null, items: SampleInstance) => any): Promise<SampleInstance>;
+  /**
+   * remove a SampleInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: SampleInstance) => any): void;
+  /**
+   * update a SampleInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: SampleInstanceUpdateOptions, callback?: (error: Error | null, items: SampleInstance) => any): Promise<SampleInstance>;
 }
 
 
@@ -274,36 +288,22 @@ declare class SampleInstance extends SerializableClass {
 }
 
 
-declare class SampleContext {
+declare class SamplePage extends Page<Understand, SamplePayload, SampleResource, SampleInstance> {
   /**
-   * Initialize the SampleContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the SamplePagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param assistantSid - The assistant_sid
-   * @param intentSid - The intent_sid
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: Understand, assistantSid: string, intentSid: string, sid: string);
+  constructor(version: Understand, response: Response<string>, solution: SampleSolution);
 
   /**
-   * fetch a SampleInstance
+   * Build an instance of SampleInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: SampleInstance) => any): Promise<SampleInstance>;
-  /**
-   * remove a SampleInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: SampleInstance) => any): void;
-  /**
-   * update a SampleInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: SampleInstanceUpdateOptions, callback?: (error: Error | null, items: SampleInstance) => any): Promise<SampleInstance>;
+  getInstance(payload: SamplePayload): SampleInstance;
 }
 
 export { SampleContext, SampleInstance, SampleList, SampleListInstance, SampleListInstanceCreateOptions, SampleListInstanceEachOptions, SampleListInstanceOptions, SampleListInstancePageOptions, SamplePage, SamplePayload, SampleResource, SampleSolution }

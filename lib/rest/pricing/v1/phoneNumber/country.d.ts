@@ -145,22 +145,21 @@ interface CountrySolution {
 }
 
 
-declare class CountryPage extends Page<V1, CountryPayload, CountryResource, CountryInstance> {
+declare class CountryContext {
   /**
-   * Initialize the CountryPage
+   * Initialize the CountryContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param isoCountry - The iso_country
    */
-  constructor(version: V1, response: Response<string>, solution: CountrySolution);
+  constructor(version: V1, isoCountry: string);
 
   /**
-   * Build an instance of CountryInstance
+   * fetch a CountryInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: CountryPayload): CountryInstance;
+  fetch(callback?: (error: Error | null, items: CountryInstance) => any): Promise<CountryInstance>;
 }
 
 
@@ -200,21 +199,22 @@ declare class CountryInstance extends SerializableClass {
 }
 
 
-declare class CountryContext {
+declare class CountryPage extends Page<V1, CountryPayload, CountryResource, CountryInstance> {
   /**
-   * Initialize the CountryContext
+   * Initialize the CountryPage
    *
    * @param version - Version of the resource
-   * @param isoCountry - The iso_country
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, isoCountry: string);
+  constructor(version: V1, response: Response<string>, solution: CountrySolution);
 
   /**
-   * fetch a CountryInstance
+   * Build an instance of CountryInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: CountryInstance) => any): Promise<CountryInstance>;
+  getInstance(payload: CountryPayload): CountryInstance;
 }
 
 export { CountryContext, CountryInstance, CountryList, CountryListInstance, CountryListInstanceEachOptions, CountryListInstanceOptions, CountryListInstancePageOptions, CountryPage, CountryPayload, CountryResource, CountrySolution }

@@ -157,22 +157,28 @@ interface TranscriptionSolution {
 }
 
 
-declare class TranscriptionPage extends Page<V2010, TranscriptionPayload, TranscriptionResource, TranscriptionInstance> {
+declare class TranscriptionContext {
   /**
-   * Initialize the TranscriptionPage
+   * Initialize the TranscriptionContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param accountSid - The account_sid
+   * @param sid - Fetch by unique transcription SID
    */
-  constructor(version: V2010, response: Response<string>, solution: TranscriptionSolution);
+  constructor(version: V2010, accountSid: string, sid: string);
 
   /**
-   * Build an instance of TranscriptionInstance
+   * fetch a TranscriptionInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: TranscriptionPayload): TranscriptionInstance;
+  fetch(callback?: (error: Error | null, items: TranscriptionInstance) => any): Promise<TranscriptionInstance>;
+  /**
+   * remove a TranscriptionInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: TranscriptionInstance) => any): void;
 }
 
 
@@ -235,28 +241,22 @@ declare class TranscriptionInstance extends SerializableClass {
 }
 
 
-declare class TranscriptionContext {
+declare class TranscriptionPage extends Page<V2010, TranscriptionPayload, TranscriptionResource, TranscriptionInstance> {
   /**
-   * Initialize the TranscriptionContext
+   * Initialize the TranscriptionPage
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param sid - Fetch by unique transcription SID
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V2010, accountSid: string, sid: string);
+  constructor(version: V2010, response: Response<string>, solution: TranscriptionSolution);
 
   /**
-   * fetch a TranscriptionInstance
+   * Build an instance of TranscriptionInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: TranscriptionInstance) => any): Promise<TranscriptionInstance>;
-  /**
-   * remove a TranscriptionInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: TranscriptionInstance) => any): void;
+  getInstance(payload: TranscriptionPayload): TranscriptionInstance;
 }
 
 export { TranscriptionContext, TranscriptionInstance, TranscriptionList, TranscriptionListInstance, TranscriptionListInstanceEachOptions, TranscriptionListInstanceOptions, TranscriptionListInstancePageOptions, TranscriptionPage, TranscriptionPayload, TranscriptionResource, TranscriptionSolution }

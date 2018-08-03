@@ -161,22 +161,37 @@ interface AvailablePhoneNumberCountrySolution {
 }
 
 
-declare class AvailablePhoneNumberCountryPage extends Page<V2010, AvailablePhoneNumberCountryPayload, AvailablePhoneNumberCountryResource, AvailablePhoneNumberCountryInstance> {
+declare class AvailablePhoneNumberCountryContext {
   /**
-   * Initialize the AvailablePhoneNumberCountryPage
+   * Initialize the AvailablePhoneNumberCountryContext
+   *
+   * @property local - local resource
+   * @property tollFree - tollFree resource
+   * @property mobile - mobile resource
+   * @property national - national resource
+   * @property voip - voip resource
+   * @property sharedCost - sharedCost resource
+   * @property machineToMachine - machineToMachine resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param accountSid - The account_sid
+   * @param countryCode - The country_code
    */
-  constructor(version: V2010, response: Response<string>, solution: AvailablePhoneNumberCountrySolution);
+  constructor(version: V2010, accountSid: string, countryCode: string);
 
   /**
-   * Build an instance of AvailablePhoneNumberCountryInstance
+   * fetch a AvailablePhoneNumberCountryInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: AvailablePhoneNumberCountryPayload): AvailablePhoneNumberCountryInstance;
+  fetch(callback?: (error: Error | null, items: AvailablePhoneNumberCountryInstance) => any): Promise<AvailablePhoneNumberCountryInstance>;
+  local: LocalListInstance;
+  machineToMachine: MachineToMachineListInstance;
+  mobile: MobileListInstance;
+  national: NationalListInstance;
+  sharedCost: SharedCostListInstance;
+  tollFree: TollFreeListInstance;
+  voip: VoipListInstance;
 }
 
 
@@ -245,37 +260,22 @@ declare class AvailablePhoneNumberCountryInstance extends SerializableClass {
 }
 
 
-declare class AvailablePhoneNumberCountryContext {
+declare class AvailablePhoneNumberCountryPage extends Page<V2010, AvailablePhoneNumberCountryPayload, AvailablePhoneNumberCountryResource, AvailablePhoneNumberCountryInstance> {
   /**
-   * Initialize the AvailablePhoneNumberCountryContext
-   *
-   * @property local - local resource
-   * @property tollFree - tollFree resource
-   * @property mobile - mobile resource
-   * @property national - national resource
-   * @property voip - voip resource
-   * @property sharedCost - sharedCost resource
-   * @property machineToMachine - machineToMachine resource
+   * Initialize the AvailablePhoneNumberCountryPage
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param countryCode - The country_code
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V2010, accountSid: string, countryCode: string);
+  constructor(version: V2010, response: Response<string>, solution: AvailablePhoneNumberCountrySolution);
 
   /**
-   * fetch a AvailablePhoneNumberCountryInstance
+   * Build an instance of AvailablePhoneNumberCountryInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: AvailablePhoneNumberCountryInstance) => any): Promise<AvailablePhoneNumberCountryInstance>;
-  local: LocalListInstance;
-  machineToMachine: MachineToMachineListInstance;
-  mobile: MobileListInstance;
-  national: NationalListInstance;
-  sharedCost: SharedCostListInstance;
-  tollFree: TollFreeListInstance;
-  voip: VoipListInstance;
+  getInstance(payload: AvailablePhoneNumberCountryPayload): AvailablePhoneNumberCountryInstance;
 }
 
 export { AvailablePhoneNumberCountryContext, AvailablePhoneNumberCountryInstance, AvailablePhoneNumberCountryList, AvailablePhoneNumberCountryListInstance, AvailablePhoneNumberCountryListInstanceEachOptions, AvailablePhoneNumberCountryListInstanceOptions, AvailablePhoneNumberCountryListInstancePageOptions, AvailablePhoneNumberCountryPage, AvailablePhoneNumberCountryPayload, AvailablePhoneNumberCountryResource, AvailablePhoneNumberCountrySolution }

@@ -208,22 +208,42 @@ interface WorkflowSolution {
 }
 
 
-declare class WorkflowPage extends Page<V1, WorkflowPayload, WorkflowResource, WorkflowInstance> {
+declare class WorkflowContext {
   /**
-   * Initialize the WorkflowPage
+   * Initialize the WorkflowContext
+   *
+   * @property statistics - statistics resource
+   * @property realTimeStatistics - realTimeStatistics resource
+   * @property cumulativeStatistics - cumulativeStatistics resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param workspaceSid - The workspace_sid
+   * @param sid - The sid
    */
-  constructor(version: V1, response: Response<string>, solution: WorkflowSolution);
+  constructor(version: V1, workspaceSid: string, sid: string);
 
+  cumulativeStatistics: WorkflowCumulativeStatisticsListInstance;
   /**
-   * Build an instance of WorkflowInstance
+   * fetch a WorkflowInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: WorkflowPayload): WorkflowInstance;
+  fetch(callback?: (error: Error | null, items: WorkflowInstance) => any): Promise<WorkflowInstance>;
+  realTimeStatistics: WorkflowRealTimeStatisticsListInstance;
+  /**
+   * remove a WorkflowInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: WorkflowInstance) => any): void;
+  statistics: WorkflowStatisticsListInstance;
+  /**
+   * update a WorkflowInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: WorkflowInstanceUpdateOptions, callback?: (error: Error | null, items: WorkflowInstance) => any): Promise<WorkflowInstance>;
 }
 
 
@@ -305,42 +325,22 @@ declare class WorkflowInstance extends SerializableClass {
 }
 
 
-declare class WorkflowContext {
+declare class WorkflowPage extends Page<V1, WorkflowPayload, WorkflowResource, WorkflowInstance> {
   /**
-   * Initialize the WorkflowContext
-   *
-   * @property statistics - statistics resource
-   * @property realTimeStatistics - realTimeStatistics resource
-   * @property cumulativeStatistics - cumulativeStatistics resource
+   * Initialize the WorkflowPage
    *
    * @param version - Version of the resource
-   * @param workspaceSid - The workspace_sid
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, workspaceSid: string, sid: string);
+  constructor(version: V1, response: Response<string>, solution: WorkflowSolution);
 
-  cumulativeStatistics: WorkflowCumulativeStatisticsListInstance;
   /**
-   * fetch a WorkflowInstance
+   * Build an instance of WorkflowInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: WorkflowInstance) => any): Promise<WorkflowInstance>;
-  realTimeStatistics: WorkflowRealTimeStatisticsListInstance;
-  /**
-   * remove a WorkflowInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: WorkflowInstance) => any): void;
-  statistics: WorkflowStatisticsListInstance;
-  /**
-   * update a WorkflowInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: WorkflowInstanceUpdateOptions, callback?: (error: Error | null, items: WorkflowInstance) => any): Promise<WorkflowInstance>;
+  getInstance(payload: WorkflowPayload): WorkflowInstance;
 }
 
 export { WorkflowContext, WorkflowInstance, WorkflowList, WorkflowListInstance, WorkflowListInstanceCreateOptions, WorkflowListInstanceEachOptions, WorkflowListInstanceOptions, WorkflowListInstancePageOptions, WorkflowPage, WorkflowPayload, WorkflowResource, WorkflowSolution }

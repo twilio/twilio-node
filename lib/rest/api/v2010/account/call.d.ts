@@ -324,22 +324,42 @@ interface CallSolution {
 }
 
 
-declare class CallPage extends Page<V2010, CallPayload, CallResource, CallInstance> {
+declare class CallContext {
   /**
-   * Initialize the CallPage
+   * Initialize the CallContext
+   *
+   * @property recordings - recordings resource
+   * @property notifications - notifications resource
+   * @property feedback - feedback resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param accountSid - The account_sid
+   * @param sid - Call Sid that uniquely identifies the Call to fetch
    */
-  constructor(version: V2010, response: Response<string>, solution: CallSolution);
+  constructor(version: V2010, accountSid: string, sid: string);
 
+  feedback: FeedbackListInstance;
   /**
-   * Build an instance of CallInstance
+   * fetch a CallInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: CallPayload): CallInstance;
+  fetch(callback?: (error: Error | null, items: CallInstance) => any): Promise<CallInstance>;
+  notifications: NotificationListInstance;
+  recordings: RecordingListInstance;
+  /**
+   * remove a CallInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: CallInstance) => any): void;
+  /**
+   * update a CallInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: CallInstanceUpdateOptions, callback?: (error: Error | null, items: CallInstance) => any): Promise<CallInstance>;
 }
 
 
@@ -445,42 +465,22 @@ declare class CallInstance extends SerializableClass {
 }
 
 
-declare class CallContext {
+declare class CallPage extends Page<V2010, CallPayload, CallResource, CallInstance> {
   /**
-   * Initialize the CallContext
-   *
-   * @property recordings - recordings resource
-   * @property notifications - notifications resource
-   * @property feedback - feedback resource
+   * Initialize the CallPage
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param sid - Call Sid that uniquely identifies the Call to fetch
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V2010, accountSid: string, sid: string);
+  constructor(version: V2010, response: Response<string>, solution: CallSolution);
 
-  feedback: FeedbackListInstance;
   /**
-   * fetch a CallInstance
+   * Build an instance of CallInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: CallInstance) => any): Promise<CallInstance>;
-  notifications: NotificationListInstance;
-  recordings: RecordingListInstance;
-  /**
-   * remove a CallInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: CallInstance) => any): void;
-  /**
-   * update a CallInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: CallInstanceUpdateOptions, callback?: (error: Error | null, items: CallInstance) => any): Promise<CallInstance>;
+  getInstance(payload: CallPayload): CallInstance;
 }
 
 export { CallContext, CallInstance, CallList, CallListInstance, CallListInstanceCreateOptions, CallListInstanceEachOptions, CallListInstanceOptions, CallListInstancePageOptions, CallPage, CallPayload, CallResource, CallSolution }

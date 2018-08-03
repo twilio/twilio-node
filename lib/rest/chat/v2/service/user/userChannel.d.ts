@@ -144,25 +144,6 @@ interface UserChannelSolution {
 }
 
 
-declare class UserChannelPage extends Page<V2, UserChannelPayload, UserChannelResource, UserChannelInstance> {
-  /**
-   * Initialize the UserChannelPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2, response: Response<string>, solution: UserChannelSolution);
-
-  /**
-   * Build an instance of UserChannelInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: UserChannelPayload): UserChannelInstance;
-}
-
-
 declare class UserChannelInstance extends SerializableClass {
   /**
    * Initialize the UserChannelContext
@@ -196,6 +177,25 @@ declare class UserChannelInstance extends SerializableClass {
    */
   toJSON(): any;
   unreadMessagesCount: number;
+}
+
+
+declare class UserChannelPage extends Page<V2, UserChannelPayload, UserChannelResource, UserChannelInstance> {
+  /**
+   * Initialize the UserChannelPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: V2, response: Response<string>, solution: UserChannelSolution);
+
+  /**
+   * Build an instance of UserChannelInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: UserChannelPayload): UserChannelInstance;
 }
 
 export { UserChannelInstance, UserChannelList, UserChannelListInstance, UserChannelListInstanceEachOptions, UserChannelListInstanceOptions, UserChannelListInstancePageOptions, UserChannelPage, UserChannelPayload, UserChannelResource, UserChannelSolution }

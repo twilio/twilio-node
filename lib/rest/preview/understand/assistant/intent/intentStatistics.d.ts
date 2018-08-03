@@ -49,22 +49,22 @@ interface IntentStatisticsSolution {
 }
 
 
-declare class IntentStatisticsPage extends Page<Understand, IntentStatisticsPayload, IntentStatisticsResource, IntentStatisticsInstance> {
+declare class IntentStatisticsContext {
   /**
-   * Initialize the IntentStatisticsPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the IntentStatisticsContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param assistantSid - The assistant_sid
+   * @param intentSid - The intent_sid
    */
-  constructor(version: Understand, response: Response<string>, solution: IntentStatisticsSolution);
+  constructor(version: Understand, assistantSid: string, intentSid: string);
 
   /**
-   * Build an instance of IntentStatisticsInstance
+   * fetch a IntentStatisticsInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: IntentStatisticsPayload): IntentStatisticsInstance;
+  fetch(callback?: (error: Error | null, items: IntentStatisticsInstance) => any): Promise<IntentStatisticsInstance>;
 }
 
 
@@ -107,22 +107,22 @@ declare class IntentStatisticsInstance extends SerializableClass {
 }
 
 
-declare class IntentStatisticsContext {
+declare class IntentStatisticsPage extends Page<Understand, IntentStatisticsPayload, IntentStatisticsResource, IntentStatisticsInstance> {
   /**
-   * Initialize the IntentStatisticsContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the IntentStatisticsPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param assistantSid - The assistant_sid
-   * @param intentSid - The intent_sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: Understand, assistantSid: string, intentSid: string);
+  constructor(version: Understand, response: Response<string>, solution: IntentStatisticsSolution);
 
   /**
-   * fetch a IntentStatisticsInstance
+   * Build an instance of IntentStatisticsInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: IntentStatisticsInstance) => any): Promise<IntentStatisticsInstance>;
+  getInstance(payload: IntentStatisticsPayload): IntentStatisticsInstance;
 }
 
 export { IntentStatisticsContext, IntentStatisticsInstance, IntentStatisticsList, IntentStatisticsListInstance, IntentStatisticsPage, IntentStatisticsPayload, IntentStatisticsResource, IntentStatisticsSolution }

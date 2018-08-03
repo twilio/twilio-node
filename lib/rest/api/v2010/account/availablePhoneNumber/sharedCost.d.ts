@@ -256,25 +256,6 @@ interface SharedCostSolution {
 }
 
 
-declare class SharedCostPage extends Page<V2010, SharedCostPayload, SharedCostResource, SharedCostInstance> {
-  /**
-   * Initialize the SharedCostPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: SharedCostSolution);
-
-  /**
-   * Build an instance of SharedCostInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: SharedCostPayload): SharedCostInstance;
-}
-
-
 declare class SharedCostInstance extends SerializableClass {
   /**
    * Initialize the SharedCostContext
@@ -318,6 +299,25 @@ declare class SharedCostInstance extends SerializableClass {
    * Removes any circular references in the object.
    */
   toJSON(): any;
+}
+
+
+declare class SharedCostPage extends Page<V2010, SharedCostPayload, SharedCostResource, SharedCostInstance> {
+  /**
+   * Initialize the SharedCostPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: V2010, response: Response<string>, solution: SharedCostSolution);
+
+  /**
+   * Build an instance of SharedCostInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: SharedCostPayload): SharedCostInstance;
 }
 
 export { SharedCostInstance, SharedCostList, SharedCostListInstance, SharedCostListInstanceEachOptions, SharedCostListInstanceOptions, SharedCostListInstancePageOptions, SharedCostPage, SharedCostPayload, SharedCostResource, SharedCostSolution }

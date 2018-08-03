@@ -62,25 +62,6 @@ interface VerificationCheckSolution {
 }
 
 
-declare class VerificationCheckPage extends Page<AccSecurity, VerificationCheckPayload, VerificationCheckResource, VerificationCheckInstance> {
-  /**
-   * Initialize the VerificationCheckPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: AccSecurity, response: Response<string>, solution: VerificationCheckSolution);
-
-  /**
-   * Build an instance of VerificationCheckInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: VerificationCheckPayload): VerificationCheckInstance;
-}
-
-
 declare class VerificationCheckInstance extends SerializableClass {
   /**
    * Initialize the VerificationCheckContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
@@ -115,6 +96,25 @@ declare class VerificationCheckInstance extends SerializableClass {
    */
   toJSON(): any;
   valid: boolean;
+}
+
+
+declare class VerificationCheckPage extends Page<AccSecurity, VerificationCheckPayload, VerificationCheckResource, VerificationCheckInstance> {
+  /**
+   * Initialize the VerificationCheckPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: AccSecurity, response: Response<string>, solution: VerificationCheckSolution);
+
+  /**
+   * Build an instance of VerificationCheckInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: VerificationCheckPayload): VerificationCheckInstance;
 }
 
 export { VerificationCheckInstance, VerificationCheckList, VerificationCheckListInstance, VerificationCheckListInstanceCreateOptions, VerificationCheckPage, VerificationCheckPayload, VerificationCheckResource, VerificationCheckSolution }

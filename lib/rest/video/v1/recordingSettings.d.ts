@@ -67,22 +67,27 @@ interface RecordingSettingsSolution {
 }
 
 
-declare class RecordingSettingsPage extends Page<V1, RecordingSettingsPayload, RecordingSettingsResource, RecordingSettingsInstance> {
+declare class RecordingSettingsContext {
   /**
-   * Initialize the RecordingSettingsPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the RecordingSettingsContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
    */
-  constructor(version: V1, response: Response<string>, solution: RecordingSettingsSolution);
+  constructor(version: V1);
 
   /**
-   * Build an instance of RecordingSettingsInstance
+   * create a RecordingSettingsInstance
    *
-   * @param payload - Payload response from the API
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: RecordingSettingsPayload): RecordingSettingsInstance;
+  create(opts: RecordingSettingsInstanceCreateOptions, callback?: (error: Error | null, item: RecordingSettingsInstance) => any): Promise<RecordingSettingsInstance>;
+  /**
+   * fetch a RecordingSettingsInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: RecordingSettingsInstance) => any): Promise<RecordingSettingsInstance>;
 }
 
 
@@ -134,27 +139,22 @@ declare class RecordingSettingsInstance extends SerializableClass {
 }
 
 
-declare class RecordingSettingsContext {
+declare class RecordingSettingsPage extends Page<V1, RecordingSettingsPayload, RecordingSettingsResource, RecordingSettingsInstance> {
   /**
-   * Initialize the RecordingSettingsContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the RecordingSettingsPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1);
+  constructor(version: V1, response: Response<string>, solution: RecordingSettingsSolution);
 
   /**
-   * create a RecordingSettingsInstance
+   * Build an instance of RecordingSettingsInstance
    *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  create(opts: RecordingSettingsInstanceCreateOptions, callback?: (error: Error | null, item: RecordingSettingsInstance) => any): Promise<RecordingSettingsInstance>;
-  /**
-   * fetch a RecordingSettingsInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  fetch(callback?: (error: Error | null, items: RecordingSettingsInstance) => any): Promise<RecordingSettingsInstance>;
+  getInstance(payload: RecordingSettingsPayload): RecordingSettingsInstance;
 }
 
 export { RecordingSettingsContext, RecordingSettingsInstance, RecordingSettingsList, RecordingSettingsListInstance, RecordingSettingsPage, RecordingSettingsPayload, RecordingSettingsResource, RecordingSettingsSolution }

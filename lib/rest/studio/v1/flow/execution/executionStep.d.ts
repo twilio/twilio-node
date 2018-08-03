@@ -159,22 +159,26 @@ interface ExecutionStepSolution {
 }
 
 
-declare class ExecutionStepPage extends Page<V1, ExecutionStepPayload, ExecutionStepResource, ExecutionStepInstance> {
+declare class ExecutionStepContext {
   /**
-   * Initialize the ExecutionStepPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the ExecutionStepContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property stepContext - stepContext resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param flowSid - Flow Sid.
+   * @param executionSid - Execution Sid.
+   * @param sid - Step Sid.
    */
-  constructor(version: V1, response: Response<string>, solution: ExecutionStepSolution);
+  constructor(version: V1, flowSid: string, executionSid: string, sid: string);
 
   /**
-   * Build an instance of ExecutionStepInstance
+   * fetch a ExecutionStepInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: ExecutionStepPayload): ExecutionStepInstance;
+  fetch(callback?: (error: Error | null, items: ExecutionStepInstance) => any): Promise<ExecutionStepInstance>;
+  stepContext: ExecutionStepContextListInstance;
 }
 
 
@@ -234,26 +238,22 @@ declare class ExecutionStepInstance extends SerializableClass {
 }
 
 
-declare class ExecutionStepContext {
+declare class ExecutionStepPage extends Page<V1, ExecutionStepPayload, ExecutionStepResource, ExecutionStepInstance> {
   /**
-   * Initialize the ExecutionStepContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
-   *
-   * @property stepContext - stepContext resource
+   * Initialize the ExecutionStepPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
-   * @param flowSid - Flow Sid.
-   * @param executionSid - Execution Sid.
-   * @param sid - Step Sid.
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, flowSid: string, executionSid: string, sid: string);
+  constructor(version: V1, response: Response<string>, solution: ExecutionStepSolution);
 
   /**
-   * fetch a ExecutionStepInstance
+   * Build an instance of ExecutionStepInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: ExecutionStepInstance) => any): Promise<ExecutionStepInstance>;
-  stepContext: ExecutionStepContextListInstance;
+  getInstance(payload: ExecutionStepPayload): ExecutionStepInstance;
 }
 
 export { ExecutionStepContext, ExecutionStepInstance, ExecutionStepList, ExecutionStepListInstance, ExecutionStepListInstanceEachOptions, ExecutionStepListInstanceOptions, ExecutionStepListInstancePageOptions, ExecutionStepPage, ExecutionStepPayload, ExecutionStepResource, ExecutionStepSolution }

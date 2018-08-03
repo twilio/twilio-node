@@ -154,22 +154,22 @@ interface AuthorizedConnectAppSolution {
 }
 
 
-declare class AuthorizedConnectAppPage extends Page<V2010, AuthorizedConnectAppPayload, AuthorizedConnectAppResource, AuthorizedConnectAppInstance> {
+declare class AuthorizedConnectAppContext {
   /**
-   * Initialize the AuthorizedConnectAppPage
+   * Initialize the AuthorizedConnectAppContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param accountSid - The account_sid
+   * @param connectAppSid - The connect_app_sid
    */
-  constructor(version: V2010, response: Response<string>, solution: AuthorizedConnectAppSolution);
+  constructor(version: V2010, accountSid: string, connectAppSid: string);
 
   /**
-   * Build an instance of AuthorizedConnectAppInstance
+   * fetch a AuthorizedConnectAppInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: AuthorizedConnectAppPayload): AuthorizedConnectAppInstance;
+  fetch(callback?: (error: Error | null, items: AuthorizedConnectAppInstance) => any): Promise<AuthorizedConnectAppInstance>;
 }
 
 
@@ -220,22 +220,22 @@ declare class AuthorizedConnectAppInstance extends SerializableClass {
 }
 
 
-declare class AuthorizedConnectAppContext {
+declare class AuthorizedConnectAppPage extends Page<V2010, AuthorizedConnectAppPayload, AuthorizedConnectAppResource, AuthorizedConnectAppInstance> {
   /**
-   * Initialize the AuthorizedConnectAppContext
+   * Initialize the AuthorizedConnectAppPage
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param connectAppSid - The connect_app_sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V2010, accountSid: string, connectAppSid: string);
+  constructor(version: V2010, response: Response<string>, solution: AuthorizedConnectAppSolution);
 
   /**
-   * fetch a AuthorizedConnectAppInstance
+   * Build an instance of AuthorizedConnectAppInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: AuthorizedConnectAppInstance) => any): Promise<AuthorizedConnectAppInstance>;
+  getInstance(payload: AuthorizedConnectAppPayload): AuthorizedConnectAppInstance;
 }
 
 export { AuthorizedConnectAppContext, AuthorizedConnectAppInstance, AuthorizedConnectAppList, AuthorizedConnectAppListInstance, AuthorizedConnectAppListInstanceEachOptions, AuthorizedConnectAppListInstanceOptions, AuthorizedConnectAppListInstancePageOptions, AuthorizedConnectAppPage, AuthorizedConnectAppPayload, AuthorizedConnectAppResource, AuthorizedConnectAppSolution }

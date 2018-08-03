@@ -195,22 +195,35 @@ interface OriginationUrlSolution {
 }
 
 
-declare class OriginationUrlPage extends Page<V1, OriginationUrlPayload, OriginationUrlResource, OriginationUrlInstance> {
+declare class OriginationUrlContext {
   /**
-   * Initialize the OriginationUrlPage
+   * Initialize the OriginationUrlContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param trunkSid - The trunk_sid
+   * @param sid - The sid
    */
-  constructor(version: V1, response: Response<string>, solution: OriginationUrlSolution);
+  constructor(version: V1, trunkSid: string, sid: string);
 
   /**
-   * Build an instance of OriginationUrlInstance
+   * fetch a OriginationUrlInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: OriginationUrlPayload): OriginationUrlInstance;
+  fetch(callback?: (error: Error | null, items: OriginationUrlInstance) => any): Promise<OriginationUrlInstance>;
+  /**
+   * remove a OriginationUrlInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: OriginationUrlInstance) => any): void;
+  /**
+   * update a OriginationUrlInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: OriginationUrlInstanceUpdateOptions, callback?: (error: Error | null, items: OriginationUrlInstance) => any): Promise<OriginationUrlInstance>;
 }
 
 
@@ -276,35 +289,22 @@ declare class OriginationUrlInstance extends SerializableClass {
 }
 
 
-declare class OriginationUrlContext {
+declare class OriginationUrlPage extends Page<V1, OriginationUrlPayload, OriginationUrlResource, OriginationUrlInstance> {
   /**
-   * Initialize the OriginationUrlContext
+   * Initialize the OriginationUrlPage
    *
    * @param version - Version of the resource
-   * @param trunkSid - The trunk_sid
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, trunkSid: string, sid: string);
+  constructor(version: V1, response: Response<string>, solution: OriginationUrlSolution);
 
   /**
-   * fetch a OriginationUrlInstance
+   * Build an instance of OriginationUrlInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: OriginationUrlInstance) => any): Promise<OriginationUrlInstance>;
-  /**
-   * remove a OriginationUrlInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: OriginationUrlInstance) => any): void;
-  /**
-   * update a OriginationUrlInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: OriginationUrlInstanceUpdateOptions, callback?: (error: Error | null, items: OriginationUrlInstance) => any): Promise<OriginationUrlInstance>;
+  getInstance(payload: OriginationUrlPayload): OriginationUrlInstance;
 }
 
 export { OriginationUrlContext, OriginationUrlInstance, OriginationUrlList, OriginationUrlListInstance, OriginationUrlListInstanceCreateOptions, OriginationUrlListInstanceEachOptions, OriginationUrlListInstanceOptions, OriginationUrlListInstancePageOptions, OriginationUrlPage, OriginationUrlPayload, OriginationUrlResource, OriginationUrlSolution }

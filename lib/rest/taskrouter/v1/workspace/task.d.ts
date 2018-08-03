@@ -262,22 +262,38 @@ interface TaskSolution {
 }
 
 
-declare class TaskPage extends Page<V1, TaskPayload, TaskResource, TaskInstance> {
+declare class TaskContext {
   /**
-   * Initialize the TaskPage
+   * Initialize the TaskContext
+   *
+   * @property reservations - reservations resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param workspaceSid - The workspace_sid
+   * @param sid - The sid
    */
-  constructor(version: V1, response: Response<string>, solution: TaskSolution);
+  constructor(version: V1, workspaceSid: string, sid: string);
 
   /**
-   * Build an instance of TaskInstance
+   * fetch a TaskInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: TaskPayload): TaskInstance;
+  fetch(callback?: (error: Error | null, items: TaskInstance) => any): Promise<TaskInstance>;
+  /**
+   * remove a TaskInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: TaskInstance) => any): void;
+  reservations: ReservationListInstance;
+  /**
+   * update a TaskInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: TaskInstanceUpdateOptions, callback?: (error: Error | null, items: TaskInstance) => any): Promise<TaskInstance>;
 }
 
 
@@ -365,38 +381,22 @@ declare class TaskInstance extends SerializableClass {
 }
 
 
-declare class TaskContext {
+declare class TaskPage extends Page<V1, TaskPayload, TaskResource, TaskInstance> {
   /**
-   * Initialize the TaskContext
-   *
-   * @property reservations - reservations resource
+   * Initialize the TaskPage
    *
    * @param version - Version of the resource
-   * @param workspaceSid - The workspace_sid
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, workspaceSid: string, sid: string);
+  constructor(version: V1, response: Response<string>, solution: TaskSolution);
 
   /**
-   * fetch a TaskInstance
+   * Build an instance of TaskInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: TaskInstance) => any): Promise<TaskInstance>;
-  /**
-   * remove a TaskInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: TaskInstance) => any): void;
-  reservations: ReservationListInstance;
-  /**
-   * update a TaskInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: TaskInstanceUpdateOptions, callback?: (error: Error | null, items: TaskInstance) => any): Promise<TaskInstance>;
+  getInstance(payload: TaskPayload): TaskInstance;
 }
 
 export { TaskContext, TaskInstance, TaskList, TaskListInstance, TaskListInstanceCreateOptions, TaskListInstanceEachOptions, TaskListInstanceOptions, TaskListInstancePageOptions, TaskPage, TaskPayload, TaskResource, TaskSolution }

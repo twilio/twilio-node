@@ -55,25 +55,6 @@ interface TokenSolution {
 }
 
 
-declare class TokenPage extends Page<V2010, TokenPayload, TokenResource, TokenInstance> {
-  /**
-   * Initialize the TokenPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: TokenSolution);
-
-  /**
-   * Build an instance of TokenInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: TokenPayload): TokenInstance;
-}
-
-
 declare class TokenInstance extends SerializableClass {
   /**
    * Initialize the TokenContext
@@ -104,6 +85,25 @@ declare class TokenInstance extends SerializableClass {
   toJSON(): any;
   ttl: string;
   username: string;
+}
+
+
+declare class TokenPage extends Page<V2010, TokenPayload, TokenResource, TokenInstance> {
+  /**
+   * Initialize the TokenPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: V2010, response: Response<string>, solution: TokenSolution);
+
+  /**
+   * Build an instance of TokenInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: TokenPayload): TokenInstance;
 }
 
 export { TokenInstance, TokenList, TokenListInstance, TokenListInstanceCreateOptions, TokenPage, TokenPayload, TokenResource, TokenSolution }

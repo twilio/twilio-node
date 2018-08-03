@@ -156,22 +156,23 @@ interface StepSolution {
 }
 
 
-declare class StepPage extends Page<Studio, StepPayload, StepResource, StepInstance> {
+declare class StepContext {
   /**
-   * Initialize the StepPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the StepContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param flowSid - The flow_sid
+   * @param engagementSid - The engagement_sid
+   * @param sid - The sid
    */
-  constructor(version: Studio, response: Response<string>, solution: StepSolution);
+  constructor(version: Studio, flowSid: string, engagementSid: string, sid: string);
 
   /**
-   * Build an instance of StepInstance
+   * fetch a StepInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: StepPayload): StepInstance;
+  fetch(callback?: (error: Error | null, items: StepInstance) => any): Promise<StepInstance>;
 }
 
 
@@ -225,23 +226,22 @@ declare class StepInstance extends SerializableClass {
 }
 
 
-declare class StepContext {
+declare class StepPage extends Page<Studio, StepPayload, StepResource, StepInstance> {
   /**
-   * Initialize the StepContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the StepPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param flowSid - The flow_sid
-   * @param engagementSid - The engagement_sid
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: Studio, flowSid: string, engagementSid: string, sid: string);
+  constructor(version: Studio, response: Response<string>, solution: StepSolution);
 
   /**
-   * fetch a StepInstance
+   * Build an instance of StepInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: StepInstance) => any): Promise<StepInstance>;
+  getInstance(payload: StepPayload): StepInstance;
 }
 
 export { StepContext, StepInstance, StepList, StepListInstance, StepListInstanceEachOptions, StepListInstanceOptions, StepListInstancePageOptions, StepPage, StepPayload, StepResource, StepSolution }

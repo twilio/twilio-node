@@ -67,22 +67,22 @@ interface WorkersStatisticsSolution {
 }
 
 
-declare class WorkersStatisticsPage extends Page<V1, WorkersStatisticsPayload, WorkersStatisticsResource, WorkersStatisticsInstance> {
+declare class WorkersStatisticsContext {
   /**
-   * Initialize the WorkersStatisticsPage
+   * Initialize the WorkersStatisticsContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param workspaceSid - The workspace_sid
    */
-  constructor(version: V1, response: Response<string>, solution: WorkersStatisticsSolution);
+  constructor(version: V1, workspaceSid: string);
 
   /**
-   * Build an instance of WorkersStatisticsInstance
+   * fetch a WorkersStatisticsInstance
    *
-   * @param payload - Payload response from the API
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: WorkersStatisticsPayload): WorkersStatisticsInstance;
+  fetch(opts?: WorkersStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkersStatisticsInstance) => any): Promise<WorkersStatisticsInstance>;
 }
 
 
@@ -123,22 +123,22 @@ declare class WorkersStatisticsInstance extends SerializableClass {
 }
 
 
-declare class WorkersStatisticsContext {
+declare class WorkersStatisticsPage extends Page<V1, WorkersStatisticsPayload, WorkersStatisticsResource, WorkersStatisticsInstance> {
   /**
-   * Initialize the WorkersStatisticsContext
+   * Initialize the WorkersStatisticsPage
    *
    * @param version - Version of the resource
-   * @param workspaceSid - The workspace_sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, workspaceSid: string);
+  constructor(version: V1, response: Response<string>, solution: WorkersStatisticsSolution);
 
   /**
-   * fetch a WorkersStatisticsInstance
+   * Build an instance of WorkersStatisticsInstance
    *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(opts?: WorkersStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkersStatisticsInstance) => any): Promise<WorkersStatisticsInstance>;
+  getInstance(payload: WorkersStatisticsPayload): WorkersStatisticsInstance;
 }
 
 export { WorkersStatisticsContext, WorkersStatisticsInstance, WorkersStatisticsList, WorkersStatisticsListInstance, WorkersStatisticsPage, WorkersStatisticsPayload, WorkersStatisticsResource, WorkersStatisticsSolution }

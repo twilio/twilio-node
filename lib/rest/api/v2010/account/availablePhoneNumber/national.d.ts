@@ -256,25 +256,6 @@ interface NationalSolution {
 }
 
 
-declare class NationalPage extends Page<V2010, NationalPayload, NationalResource, NationalInstance> {
-  /**
-   * Initialize the NationalPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: NationalSolution);
-
-  /**
-   * Build an instance of NationalInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: NationalPayload): NationalInstance;
-}
-
-
 declare class NationalInstance extends SerializableClass {
   /**
    * Initialize the NationalContext
@@ -318,6 +299,25 @@ declare class NationalInstance extends SerializableClass {
    * Removes any circular references in the object.
    */
   toJSON(): any;
+}
+
+
+declare class NationalPage extends Page<V2010, NationalPayload, NationalResource, NationalInstance> {
+  /**
+   * Initialize the NationalPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: V2010, response: Response<string>, solution: NationalSolution);
+
+  /**
+   * Build an instance of NationalInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: NationalPayload): NationalInstance;
 }
 
 export { NationalInstance, NationalList, NationalListInstance, NationalListInstanceEachOptions, NationalListInstanceOptions, NationalListInstancePageOptions, NationalPage, NationalPayload, NationalResource, NationalSolution }

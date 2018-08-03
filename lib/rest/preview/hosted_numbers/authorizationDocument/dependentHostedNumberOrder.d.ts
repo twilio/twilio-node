@@ -189,25 +189,6 @@ interface DependentHostedNumberOrderSolution {
 }
 
 
-declare class DependentHostedNumberOrderPage extends Page<HostedNumbers, DependentHostedNumberOrderPayload, DependentHostedNumberOrderResource, DependentHostedNumberOrderInstance> {
-  /**
-   * Initialize the DependentHostedNumberOrderPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: HostedNumbers, response: Response<string>, solution: DependentHostedNumberOrderSolution);
-
-  /**
-   * Build an instance of DependentHostedNumberOrderInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: DependentHostedNumberOrderPayload): DependentHostedNumberOrderInstance;
-}
-
-
 declare class DependentHostedNumberOrderInstance extends SerializableClass {
   /**
    * Initialize the DependentHostedNumberOrderContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
@@ -268,6 +249,25 @@ declare class DependentHostedNumberOrderInstance extends SerializableClass {
   verificationCode: string;
   verificationDocumentSid: string;
   verificationType: DependentHostedNumberOrderVerificationType;
+}
+
+
+declare class DependentHostedNumberOrderPage extends Page<HostedNumbers, DependentHostedNumberOrderPayload, DependentHostedNumberOrderResource, DependentHostedNumberOrderInstance> {
+  /**
+   * Initialize the DependentHostedNumberOrderPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: HostedNumbers, response: Response<string>, solution: DependentHostedNumberOrderSolution);
+
+  /**
+   * Build an instance of DependentHostedNumberOrderInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: DependentHostedNumberOrderPayload): DependentHostedNumberOrderInstance;
 }
 
 export { DependentHostedNumberOrderInstance, DependentHostedNumberOrderList, DependentHostedNumberOrderListInstance, DependentHostedNumberOrderListInstanceEachOptions, DependentHostedNumberOrderListInstanceOptions, DependentHostedNumberOrderListInstancePageOptions, DependentHostedNumberOrderPage, DependentHostedNumberOrderPayload, DependentHostedNumberOrderResource, DependentHostedNumberOrderSolution }

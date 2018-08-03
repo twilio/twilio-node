@@ -180,22 +180,29 @@ interface InteractionSolution {
 }
 
 
-declare class InteractionPage extends Page<V1, InteractionPayload, InteractionResource, InteractionInstance> {
+declare class InteractionContext {
   /**
-   * Initialize the InteractionPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the InteractionContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param serviceSid - Service Sid.
+   * @param sessionSid - Session Sid.
+   * @param sid - A string that uniquely identifies this Interaction.
    */
-  constructor(version: V1, response: Response<string>, solution: InteractionSolution);
+  constructor(version: V1, serviceSid: string, sessionSid: string, sid: string);
 
   /**
-   * Build an instance of InteractionInstance
+   * fetch a InteractionInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: InteractionPayload): InteractionInstance;
+  fetch(callback?: (error: Error | null, items: InteractionInstance) => any): Promise<InteractionInstance>;
+  /**
+   * remove a InteractionInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: InteractionInstance) => any): void;
 }
 
 
@@ -271,29 +278,22 @@ declare class InteractionInstance extends SerializableClass {
 }
 
 
-declare class InteractionContext {
+declare class InteractionPage extends Page<V1, InteractionPayload, InteractionResource, InteractionInstance> {
   /**
-   * Initialize the InteractionContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the InteractionPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
-   * @param serviceSid - Service Sid.
-   * @param sessionSid - Session Sid.
-   * @param sid - A string that uniquely identifies this Interaction.
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, serviceSid: string, sessionSid: string, sid: string);
+  constructor(version: V1, response: Response<string>, solution: InteractionSolution);
 
   /**
-   * fetch a InteractionInstance
+   * Build an instance of InteractionInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: InteractionInstance) => any): Promise<InteractionInstance>;
-  /**
-   * remove a InteractionInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: InteractionInstance) => any): void;
+  getInstance(payload: InteractionPayload): InteractionInstance;
 }
 
 export { InteractionContext, InteractionInstance, InteractionList, InteractionListInstance, InteractionListInstanceEachOptions, InteractionListInstanceOptions, InteractionListInstancePageOptions, InteractionPage, InteractionPayload, InteractionResource, InteractionSolution }

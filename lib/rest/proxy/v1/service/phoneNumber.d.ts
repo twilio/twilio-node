@@ -184,22 +184,35 @@ interface PhoneNumberSolution {
 }
 
 
-declare class PhoneNumberPage extends Page<V1, PhoneNumberPayload, PhoneNumberResource, PhoneNumberInstance> {
+declare class PhoneNumberContext {
   /**
-   * Initialize the PhoneNumberPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the PhoneNumberContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param serviceSid - Service Sid.
+   * @param sid - A string that uniquely identifies this Phone Number.
    */
-  constructor(version: V1, response: Response<string>, solution: PhoneNumberSolution);
+  constructor(version: V1, serviceSid: string, sid: string);
 
   /**
-   * Build an instance of PhoneNumberInstance
+   * fetch a PhoneNumberInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: PhoneNumberPayload): PhoneNumberInstance;
+  fetch(callback?: (error: Error | null, items: PhoneNumberInstance) => any): Promise<PhoneNumberInstance>;
+  /**
+   * remove a PhoneNumberInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: PhoneNumberInstance) => any): void;
+  /**
+   * update a PhoneNumberInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: PhoneNumberInstanceUpdateOptions, callback?: (error: Error | null, items: PhoneNumberInstance) => any): Promise<PhoneNumberInstance>;
 }
 
 
@@ -265,35 +278,22 @@ declare class PhoneNumberInstance extends SerializableClass {
 }
 
 
-declare class PhoneNumberContext {
+declare class PhoneNumberPage extends Page<V1, PhoneNumberPayload, PhoneNumberResource, PhoneNumberInstance> {
   /**
-   * Initialize the PhoneNumberContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the PhoneNumberPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
-   * @param serviceSid - Service Sid.
-   * @param sid - A string that uniquely identifies this Phone Number.
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, serviceSid: string, sid: string);
+  constructor(version: V1, response: Response<string>, solution: PhoneNumberSolution);
 
   /**
-   * fetch a PhoneNumberInstance
+   * Build an instance of PhoneNumberInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: PhoneNumberInstance) => any): Promise<PhoneNumberInstance>;
-  /**
-   * remove a PhoneNumberInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: PhoneNumberInstance) => any): void;
-  /**
-   * update a PhoneNumberInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: PhoneNumberInstanceUpdateOptions, callback?: (error: Error | null, items: PhoneNumberInstance) => any): Promise<PhoneNumberInstance>;
+  getInstance(payload: PhoneNumberPayload): PhoneNumberInstance;
 }
 
 export { PhoneNumberContext, PhoneNumberInstance, PhoneNumberList, PhoneNumberListInstance, PhoneNumberListInstanceCreateOptions, PhoneNumberListInstanceEachOptions, PhoneNumberListInstanceOptions, PhoneNumberListInstancePageOptions, PhoneNumberPage, PhoneNumberPayload, PhoneNumberResource, PhoneNumberSolution }

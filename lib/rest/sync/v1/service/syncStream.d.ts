@@ -182,22 +182,38 @@ interface SyncStreamSolution {
 }
 
 
-declare class SyncStreamPage extends Page<V1, SyncStreamPayload, SyncStreamResource, SyncStreamInstance> {
+declare class SyncStreamContext {
   /**
-   * Initialize the SyncStreamPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the SyncStreamContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property streamMessages - streamMessages resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param serviceSid - Service Instance SID or unique name.
+   * @param sid - Stream SID or unique name.
    */
-  constructor(version: V1, response: Response<string>, solution: SyncStreamSolution);
+  constructor(version: V1, serviceSid: string, sid: string);
 
   /**
-   * Build an instance of SyncStreamInstance
+   * fetch a SyncStreamInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: SyncStreamPayload): SyncStreamInstance;
+  fetch(callback?: (error: Error | null, items: SyncStreamInstance) => any): Promise<SyncStreamInstance>;
+  /**
+   * remove a SyncStreamInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: SyncStreamInstance) => any): void;
+  streamMessages: StreamMessageListInstance;
+  /**
+   * update a SyncStreamInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: SyncStreamInstanceUpdateOptions, callback?: (error: Error | null, items: SyncStreamInstance) => any): Promise<SyncStreamInstance>;
 }
 
 
@@ -265,38 +281,22 @@ declare class SyncStreamInstance extends SerializableClass {
 }
 
 
-declare class SyncStreamContext {
+declare class SyncStreamPage extends Page<V1, SyncStreamPayload, SyncStreamResource, SyncStreamInstance> {
   /**
-   * Initialize the SyncStreamContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
-   *
-   * @property streamMessages - streamMessages resource
+   * Initialize the SyncStreamPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
-   * @param serviceSid - Service Instance SID or unique name.
-   * @param sid - Stream SID or unique name.
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, serviceSid: string, sid: string);
+  constructor(version: V1, response: Response<string>, solution: SyncStreamSolution);
 
   /**
-   * fetch a SyncStreamInstance
+   * Build an instance of SyncStreamInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: SyncStreamInstance) => any): Promise<SyncStreamInstance>;
-  /**
-   * remove a SyncStreamInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: SyncStreamInstance) => any): void;
-  streamMessages: StreamMessageListInstance;
-  /**
-   * update a SyncStreamInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: SyncStreamInstanceUpdateOptions, callback?: (error: Error | null, items: SyncStreamInstance) => any): Promise<SyncStreamInstance>;
+  getInstance(payload: SyncStreamPayload): SyncStreamInstance;
 }
 
 export { SyncStreamContext, SyncStreamInstance, SyncStreamList, SyncStreamListInstance, SyncStreamListInstanceCreateOptions, SyncStreamListInstanceEachOptions, SyncStreamListInstanceOptions, SyncStreamListInstancePageOptions, SyncStreamPage, SyncStreamPayload, SyncStreamResource, SyncStreamSolution }

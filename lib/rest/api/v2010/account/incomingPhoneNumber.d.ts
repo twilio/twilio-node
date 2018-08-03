@@ -317,22 +317,38 @@ interface IncomingPhoneNumberSolution {
 }
 
 
-declare class IncomingPhoneNumberPage extends Page<V2010, IncomingPhoneNumberPayload, IncomingPhoneNumberResource, IncomingPhoneNumberInstance> {
+declare class IncomingPhoneNumberContext {
   /**
-   * Initialize the IncomingPhoneNumberPage
+   * Initialize the IncomingPhoneNumberContext
+   *
+   * @property assignedAddOns - assignedAddOns resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param accountSid - The account_sid
+   * @param sid - Fetch by unique incoming-phone-number Sid
    */
-  constructor(version: V2010, response: Response<string>, solution: IncomingPhoneNumberSolution);
+  constructor(version: V2010, accountSid: string, sid: string);
 
+  assignedAddOns: AssignedAddOnListInstance;
   /**
-   * Build an instance of IncomingPhoneNumberInstance
+   * fetch a IncomingPhoneNumberInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: IncomingPhoneNumberPayload): IncomingPhoneNumberInstance;
+  fetch(callback?: (error: Error | null, items: IncomingPhoneNumberInstance) => any): Promise<IncomingPhoneNumberInstance>;
+  /**
+   * remove a IncomingPhoneNumberInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: IncomingPhoneNumberInstance) => any): void;
+  /**
+   * update a IncomingPhoneNumberInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: IncomingPhoneNumberInstanceUpdateOptions, callback?: (error: Error | null, items: IncomingPhoneNumberInstance) => any): Promise<IncomingPhoneNumberInstance>;
 }
 
 
@@ -440,38 +456,22 @@ declare class IncomingPhoneNumberInstance extends SerializableClass {
 }
 
 
-declare class IncomingPhoneNumberContext {
+declare class IncomingPhoneNumberPage extends Page<V2010, IncomingPhoneNumberPayload, IncomingPhoneNumberResource, IncomingPhoneNumberInstance> {
   /**
-   * Initialize the IncomingPhoneNumberContext
-   *
-   * @property assignedAddOns - assignedAddOns resource
+   * Initialize the IncomingPhoneNumberPage
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param sid - Fetch by unique incoming-phone-number Sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V2010, accountSid: string, sid: string);
+  constructor(version: V2010, response: Response<string>, solution: IncomingPhoneNumberSolution);
 
-  assignedAddOns: AssignedAddOnListInstance;
   /**
-   * fetch a IncomingPhoneNumberInstance
+   * Build an instance of IncomingPhoneNumberInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: IncomingPhoneNumberInstance) => any): Promise<IncomingPhoneNumberInstance>;
-  /**
-   * remove a IncomingPhoneNumberInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: IncomingPhoneNumberInstance) => any): void;
-  /**
-   * update a IncomingPhoneNumberInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: IncomingPhoneNumberInstanceUpdateOptions, callback?: (error: Error | null, items: IncomingPhoneNumberInstance) => any): Promise<IncomingPhoneNumberInstance>;
+  getInstance(payload: IncomingPhoneNumberPayload): IncomingPhoneNumberInstance;
 }
 
 export { IncomingPhoneNumberContext, IncomingPhoneNumberInstance, IncomingPhoneNumberList, IncomingPhoneNumberListInstance, IncomingPhoneNumberListInstanceCreateOptions, IncomingPhoneNumberListInstanceEachOptions, IncomingPhoneNumberListInstanceOptions, IncomingPhoneNumberListInstancePageOptions, IncomingPhoneNumberPage, IncomingPhoneNumberPayload, IncomingPhoneNumberResource, IncomingPhoneNumberSolution }

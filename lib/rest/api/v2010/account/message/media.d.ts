@@ -170,22 +170,29 @@ interface MediaSolution {
 }
 
 
-declare class MediaPage extends Page<V2010, MediaPayload, MediaResource, MediaInstance> {
+declare class MediaContext {
   /**
-   * Initialize the MediaPage
+   * Initialize the MediaContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param accountSid - The account_sid
+   * @param messageSid - The message_sid
+   * @param sid - Fetch by unique media Sid
    */
-  constructor(version: V2010, response: Response<string>, solution: MediaSolution);
+  constructor(version: V2010, accountSid: string, messageSid: string, sid: string);
 
   /**
-   * Build an instance of MediaInstance
+   * fetch a MediaInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: MediaPayload): MediaInstance;
+  fetch(callback?: (error: Error | null, items: MediaInstance) => any): Promise<MediaInstance>;
+  /**
+   * remove a MediaInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: MediaInstance) => any): void;
 }
 
 
@@ -237,29 +244,22 @@ declare class MediaInstance extends SerializableClass {
 }
 
 
-declare class MediaContext {
+declare class MediaPage extends Page<V2010, MediaPayload, MediaResource, MediaInstance> {
   /**
-   * Initialize the MediaContext
+   * Initialize the MediaPage
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param messageSid - The message_sid
-   * @param sid - Fetch by unique media Sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V2010, accountSid: string, messageSid: string, sid: string);
+  constructor(version: V2010, response: Response<string>, solution: MediaSolution);
 
   /**
-   * fetch a MediaInstance
+   * Build an instance of MediaInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: MediaInstance) => any): Promise<MediaInstance>;
-  /**
-   * remove a MediaInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: MediaInstance) => any): void;
+  getInstance(payload: MediaPayload): MediaInstance;
 }
 
 export { MediaContext, MediaInstance, MediaList, MediaListInstance, MediaListInstanceEachOptions, MediaListInstanceOptions, MediaListInstancePageOptions, MediaPage, MediaPayload, MediaResource, MediaSolution }

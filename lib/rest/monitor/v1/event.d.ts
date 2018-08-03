@@ -191,22 +191,21 @@ interface EventSolution {
 }
 
 
-declare class EventPage extends Page<V1, EventPayload, EventResource, EventInstance> {
+declare class EventContext {
   /**
-   * Initialize the EventPage
+   * Initialize the EventContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param sid - A 34 character string that uniquely identifies this event.
    */
-  constructor(version: V1, response: Response<string>, solution: EventSolution);
+  constructor(version: V1, sid: string);
 
   /**
-   * Build an instance of EventInstance
+   * fetch a EventInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: EventPayload): EventInstance;
+  fetch(callback?: (error: Error | null, items: EventInstance) => any): Promise<EventInstance>;
 }
 
 
@@ -264,21 +263,22 @@ declare class EventInstance extends SerializableClass {
 }
 
 
-declare class EventContext {
+declare class EventPage extends Page<V1, EventPayload, EventResource, EventInstance> {
   /**
-   * Initialize the EventContext
+   * Initialize the EventPage
    *
    * @param version - Version of the resource
-   * @param sid - A 34 character string that uniquely identifies this event.
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, sid: string);
+  constructor(version: V1, response: Response<string>, solution: EventSolution);
 
   /**
-   * fetch a EventInstance
+   * Build an instance of EventInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: EventInstance) => any): Promise<EventInstance>;
+  getInstance(payload: EventPayload): EventInstance;
 }
 
 export { EventContext, EventInstance, EventList, EventListInstance, EventListInstanceEachOptions, EventListInstanceOptions, EventListInstancePageOptions, EventPage, EventPayload, EventResource, EventSolution }

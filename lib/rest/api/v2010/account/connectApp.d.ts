@@ -179,22 +179,29 @@ interface ConnectAppSolution {
 }
 
 
-declare class ConnectAppPage extends Page<V2010, ConnectAppPayload, ConnectAppResource, ConnectAppInstance> {
+declare class ConnectAppContext {
   /**
-   * Initialize the ConnectAppPage
+   * Initialize the ConnectAppContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param accountSid - The account_sid
+   * @param sid - Fetch by unique connect-app Sid
    */
-  constructor(version: V2010, response: Response<string>, solution: ConnectAppSolution);
+  constructor(version: V2010, accountSid: string, sid: string);
 
   /**
-   * Build an instance of ConnectAppInstance
+   * fetch a ConnectAppInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: ConnectAppPayload): ConnectAppInstance;
+  fetch(callback?: (error: Error | null, items: ConnectAppInstance) => any): Promise<ConnectAppInstance>;
+  /**
+   * update a ConnectAppInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: ConnectAppInstanceUpdateOptions, callback?: (error: Error | null, items: ConnectAppInstance) => any): Promise<ConnectAppInstance>;
 }
 
 
@@ -254,29 +261,22 @@ declare class ConnectAppInstance extends SerializableClass {
 }
 
 
-declare class ConnectAppContext {
+declare class ConnectAppPage extends Page<V2010, ConnectAppPayload, ConnectAppResource, ConnectAppInstance> {
   /**
-   * Initialize the ConnectAppContext
+   * Initialize the ConnectAppPage
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param sid - Fetch by unique connect-app Sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V2010, accountSid: string, sid: string);
+  constructor(version: V2010, response: Response<string>, solution: ConnectAppSolution);
 
   /**
-   * fetch a ConnectAppInstance
+   * Build an instance of ConnectAppInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: ConnectAppInstance) => any): Promise<ConnectAppInstance>;
-  /**
-   * update a ConnectAppInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: ConnectAppInstanceUpdateOptions, callback?: (error: Error | null, items: ConnectAppInstance) => any): Promise<ConnectAppInstance>;
+  getInstance(payload: ConnectAppPayload): ConnectAppInstance;
 }
 
 export { ConnectAppContext, ConnectAppInstance, ConnectAppList, ConnectAppListInstance, ConnectAppListInstanceEachOptions, ConnectAppListInstanceOptions, ConnectAppListInstancePageOptions, ConnectAppPage, ConnectAppPayload, ConnectAppResource, ConnectAppSolution }

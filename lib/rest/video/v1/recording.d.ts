@@ -193,22 +193,27 @@ interface RecordingSolution {
 }
 
 
-declare class RecordingPage extends Page<V1, RecordingPayload, RecordingResource, RecordingInstance> {
+declare class RecordingContext {
   /**
-   * Initialize the RecordingPage
+   * Initialize the RecordingContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param sid - The Recording Sid that uniquely identifies the Recording to fetch.
    */
-  constructor(version: V1, response: Response<string>, solution: RecordingSolution);
+  constructor(version: V1, sid: string);
 
   /**
-   * Build an instance of RecordingInstance
+   * fetch a RecordingInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: RecordingPayload): RecordingInstance;
+  fetch(callback?: (error: Error | null, items: RecordingInstance) => any): Promise<RecordingInstance>;
+  /**
+   * remove a RecordingInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: RecordingInstance) => any): void;
 }
 
 
@@ -272,27 +277,22 @@ declare class RecordingInstance extends SerializableClass {
 }
 
 
-declare class RecordingContext {
+declare class RecordingPage extends Page<V1, RecordingPayload, RecordingResource, RecordingInstance> {
   /**
-   * Initialize the RecordingContext
+   * Initialize the RecordingPage
    *
    * @param version - Version of the resource
-   * @param sid - The Recording Sid that uniquely identifies the Recording to fetch.
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, sid: string);
+  constructor(version: V1, response: Response<string>, solution: RecordingSolution);
 
   /**
-   * fetch a RecordingInstance
+   * Build an instance of RecordingInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: RecordingInstance) => any): Promise<RecordingInstance>;
-  /**
-   * remove a RecordingInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: RecordingInstance) => any): void;
+  getInstance(payload: RecordingPayload): RecordingInstance;
 }
 
 export { RecordingContext, RecordingInstance, RecordingList, RecordingListInstance, RecordingListInstanceEachOptions, RecordingListInstanceOptions, RecordingListInstancePageOptions, RecordingPage, RecordingPayload, RecordingResource, RecordingSolution }

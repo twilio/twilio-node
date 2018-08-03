@@ -225,22 +225,42 @@ interface DomainSolution {
 }
 
 
-declare class DomainPage extends Page<V2010, DomainPayload, DomainResource, DomainInstance> {
+declare class DomainContext {
   /**
-   * Initialize the DomainPage
+   * Initialize the DomainContext
+   *
+   * @property ipAccessControlListMappings - ipAccessControlListMappings resource
+   * @property credentialListMappings - credentialListMappings resource
+   * @property auth - auth resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param accountSid - The account_sid
+   * @param sid - Fetch by unique Domain Sid
    */
-  constructor(version: V2010, response: Response<string>, solution: DomainSolution);
+  constructor(version: V2010, accountSid: string, sid: string);
 
+  auth: AuthTypesListInstance;
+  credentialListMappings: CredentialListMappingListInstance;
   /**
-   * Build an instance of DomainInstance
+   * fetch a DomainInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: DomainPayload): DomainInstance;
+  fetch(callback?: (error: Error | null, items: DomainInstance) => any): Promise<DomainInstance>;
+  ipAccessControlListMappings: IpAccessControlListMappingListInstance;
+  /**
+   * remove a DomainInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: DomainInstance) => any): void;
+  /**
+   * update a DomainInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: DomainInstanceUpdateOptions, callback?: (error: Error | null, items: DomainInstance) => any): Promise<DomainInstance>;
 }
 
 
@@ -330,42 +350,22 @@ declare class DomainInstance extends SerializableClass {
 }
 
 
-declare class DomainContext {
+declare class DomainPage extends Page<V2010, DomainPayload, DomainResource, DomainInstance> {
   /**
-   * Initialize the DomainContext
-   *
-   * @property ipAccessControlListMappings - ipAccessControlListMappings resource
-   * @property credentialListMappings - credentialListMappings resource
-   * @property auth - auth resource
+   * Initialize the DomainPage
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param sid - Fetch by unique Domain Sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V2010, accountSid: string, sid: string);
+  constructor(version: V2010, response: Response<string>, solution: DomainSolution);
 
-  auth: AuthTypesListInstance;
-  credentialListMappings: CredentialListMappingListInstance;
   /**
-   * fetch a DomainInstance
+   * Build an instance of DomainInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: DomainInstance) => any): Promise<DomainInstance>;
-  ipAccessControlListMappings: IpAccessControlListMappingListInstance;
-  /**
-   * remove a DomainInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: DomainInstance) => any): void;
-  /**
-   * update a DomainInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: DomainInstanceUpdateOptions, callback?: (error: Error | null, items: DomainInstance) => any): Promise<DomainInstance>;
+  getInstance(payload: DomainPayload): DomainInstance;
 }
 
 export { DomainContext, DomainInstance, DomainList, DomainListInstance, DomainListInstanceCreateOptions, DomainListInstanceEachOptions, DomainListInstanceOptions, DomainListInstancePageOptions, DomainPage, DomainPayload, DomainResource, DomainSolution }

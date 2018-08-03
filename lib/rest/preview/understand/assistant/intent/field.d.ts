@@ -172,22 +172,29 @@ interface FieldSolution {
 }
 
 
-declare class FieldPage extends Page<Understand, FieldPayload, FieldResource, FieldInstance> {
+declare class FieldContext {
   /**
-   * Initialize the FieldPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the FieldContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param assistantSid - The assistant_sid
+   * @param intentSid - The intent_sid
+   * @param sid - The sid
    */
-  constructor(version: Understand, response: Response<string>, solution: FieldSolution);
+  constructor(version: Understand, assistantSid: string, intentSid: string, sid: string);
 
   /**
-   * Build an instance of FieldInstance
+   * fetch a FieldInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: FieldPayload): FieldInstance;
+  fetch(callback?: (error: Error | null, items: FieldInstance) => any): Promise<FieldInstance>;
+  /**
+   * remove a FieldInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: FieldInstance) => any): void;
 }
 
 
@@ -243,29 +250,22 @@ declare class FieldInstance extends SerializableClass {
 }
 
 
-declare class FieldContext {
+declare class FieldPage extends Page<Understand, FieldPayload, FieldResource, FieldInstance> {
   /**
-   * Initialize the FieldContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the FieldPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param assistantSid - The assistant_sid
-   * @param intentSid - The intent_sid
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: Understand, assistantSid: string, intentSid: string, sid: string);
+  constructor(version: Understand, response: Response<string>, solution: FieldSolution);
 
   /**
-   * fetch a FieldInstance
+   * Build an instance of FieldInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: FieldInstance) => any): Promise<FieldInstance>;
-  /**
-   * remove a FieldInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: FieldInstance) => any): void;
+  getInstance(payload: FieldPayload): FieldInstance;
 }
 
 export { FieldContext, FieldInstance, FieldList, FieldListInstance, FieldListInstanceCreateOptions, FieldListInstanceEachOptions, FieldListInstanceOptions, FieldListInstancePageOptions, FieldPage, FieldPayload, FieldResource, FieldSolution }

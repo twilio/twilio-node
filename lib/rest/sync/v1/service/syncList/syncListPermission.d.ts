@@ -167,22 +167,36 @@ interface SyncListPermissionSolution {
 }
 
 
-declare class SyncListPermissionPage extends Page<V1, SyncListPermissionPayload, SyncListPermissionResource, SyncListPermissionInstance> {
+declare class SyncListPermissionContext {
   /**
-   * Initialize the SyncListPermissionPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the SyncListPermissionContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param serviceSid - Sync Service Instance SID or unique name.
+   * @param listSid - Sync List SID or unique name.
+   * @param identity - Identity of the user to whom the Sync List Permission applies.
    */
-  constructor(version: V1, response: Response<string>, solution: SyncListPermissionSolution);
+  constructor(version: V1, serviceSid: string, listSid: string, identity: string);
 
   /**
-   * Build an instance of SyncListPermissionInstance
+   * fetch a SyncListPermissionInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: SyncListPermissionPayload): SyncListPermissionInstance;
+  fetch(callback?: (error: Error | null, items: SyncListPermissionInstance) => any): Promise<SyncListPermissionInstance>;
+  /**
+   * remove a SyncListPermissionInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: SyncListPermissionInstance) => any): void;
+  /**
+   * update a SyncListPermissionInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts: SyncListPermissionInstanceUpdateOptions, callback?: (error: Error | null, items: SyncListPermissionInstance) => any): Promise<SyncListPermissionInstance>;
 }
 
 
@@ -243,36 +257,22 @@ declare class SyncListPermissionInstance extends SerializableClass {
 }
 
 
-declare class SyncListPermissionContext {
+declare class SyncListPermissionPage extends Page<V1, SyncListPermissionPayload, SyncListPermissionResource, SyncListPermissionInstance> {
   /**
-   * Initialize the SyncListPermissionContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the SyncListPermissionPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
-   * @param serviceSid - Sync Service Instance SID or unique name.
-   * @param listSid - Sync List SID or unique name.
-   * @param identity - Identity of the user to whom the Sync List Permission applies.
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, serviceSid: string, listSid: string, identity: string);
+  constructor(version: V1, response: Response<string>, solution: SyncListPermissionSolution);
 
   /**
-   * fetch a SyncListPermissionInstance
+   * Build an instance of SyncListPermissionInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: SyncListPermissionInstance) => any): Promise<SyncListPermissionInstance>;
-  /**
-   * remove a SyncListPermissionInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: SyncListPermissionInstance) => any): void;
-  /**
-   * update a SyncListPermissionInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts: SyncListPermissionInstanceUpdateOptions, callback?: (error: Error | null, items: SyncListPermissionInstance) => any): Promise<SyncListPermissionInstance>;
+  getInstance(payload: SyncListPermissionPayload): SyncListPermissionInstance;
 }
 
 export { SyncListPermissionContext, SyncListPermissionInstance, SyncListPermissionList, SyncListPermissionListInstance, SyncListPermissionListInstanceEachOptions, SyncListPermissionListInstanceOptions, SyncListPermissionListInstancePageOptions, SyncListPermissionPage, SyncListPermissionPayload, SyncListPermissionResource, SyncListPermissionSolution }

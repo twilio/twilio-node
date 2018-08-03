@@ -165,22 +165,29 @@ interface AuthRegistrationsCredentialListMappingSolution {
 }
 
 
-declare class AuthRegistrationsCredentialListMappingPage extends Page<V2010, AuthRegistrationsCredentialListMappingPayload, AuthRegistrationsCredentialListMappingResource, AuthRegistrationsCredentialListMappingInstance> {
+declare class AuthRegistrationsCredentialListMappingContext {
   /**
-   * Initialize the AuthRegistrationsCredentialListMappingPage
+   * Initialize the AuthRegistrationsCredentialListMappingContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param accountSid - The account_sid
+   * @param domainSid - The domain_sid
+   * @param sid - Fetch by unique credential list Sid
    */
-  constructor(version: V2010, response: Response<string>, solution: AuthRegistrationsCredentialListMappingSolution);
+  constructor(version: V2010, accountSid: string, domainSid: string, sid: string);
 
   /**
-   * Build an instance of AuthRegistrationsCredentialListMappingInstance
+   * fetch a AuthRegistrationsCredentialListMappingInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: AuthRegistrationsCredentialListMappingPayload): AuthRegistrationsCredentialListMappingInstance;
+  fetch(callback?: (error: Error | null, items: AuthRegistrationsCredentialListMappingInstance) => any): Promise<AuthRegistrationsCredentialListMappingInstance>;
+  /**
+   * remove a AuthRegistrationsCredentialListMappingInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: AuthRegistrationsCredentialListMappingInstance) => any): void;
 }
 
 
@@ -228,29 +235,22 @@ declare class AuthRegistrationsCredentialListMappingInstance extends Serializabl
 }
 
 
-declare class AuthRegistrationsCredentialListMappingContext {
+declare class AuthRegistrationsCredentialListMappingPage extends Page<V2010, AuthRegistrationsCredentialListMappingPayload, AuthRegistrationsCredentialListMappingResource, AuthRegistrationsCredentialListMappingInstance> {
   /**
-   * Initialize the AuthRegistrationsCredentialListMappingContext
+   * Initialize the AuthRegistrationsCredentialListMappingPage
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param domainSid - The domain_sid
-   * @param sid - Fetch by unique credential list Sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V2010, accountSid: string, domainSid: string, sid: string);
+  constructor(version: V2010, response: Response<string>, solution: AuthRegistrationsCredentialListMappingSolution);
 
   /**
-   * fetch a AuthRegistrationsCredentialListMappingInstance
+   * Build an instance of AuthRegistrationsCredentialListMappingInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: AuthRegistrationsCredentialListMappingInstance) => any): Promise<AuthRegistrationsCredentialListMappingInstance>;
-  /**
-   * remove a AuthRegistrationsCredentialListMappingInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: AuthRegistrationsCredentialListMappingInstance) => any): void;
+  getInstance(payload: AuthRegistrationsCredentialListMappingPayload): AuthRegistrationsCredentialListMappingInstance;
 }
 
 export { AuthRegistrationsCredentialListMappingContext, AuthRegistrationsCredentialListMappingInstance, AuthRegistrationsCredentialListMappingList, AuthRegistrationsCredentialListMappingListInstance, AuthRegistrationsCredentialListMappingListInstanceCreateOptions, AuthRegistrationsCredentialListMappingListInstanceEachOptions, AuthRegistrationsCredentialListMappingListInstanceOptions, AuthRegistrationsCredentialListMappingListInstancePageOptions, AuthRegistrationsCredentialListMappingPage, AuthRegistrationsCredentialListMappingPayload, AuthRegistrationsCredentialListMappingResource, AuthRegistrationsCredentialListMappingSolution }

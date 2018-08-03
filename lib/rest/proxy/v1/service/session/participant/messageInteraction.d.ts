@@ -190,22 +190,24 @@ interface MessageInteractionSolution {
 }
 
 
-declare class MessageInteractionPage extends Page<V1, MessageInteractionPayload, MessageInteractionResource, MessageInteractionInstance> {
+declare class MessageInteractionContext {
   /**
-   * Initialize the MessageInteractionPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the MessageInteractionContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param serviceSid - The service_sid
+   * @param sessionSid - The session_sid
+   * @param participantSid - The participant_sid
+   * @param sid - The sid
    */
-  constructor(version: V1, response: Response<string>, solution: MessageInteractionSolution);
+  constructor(version: V1, serviceSid: string, sessionSid: string, participantSid: string, sid: string);
 
   /**
-   * Build an instance of MessageInteractionInstance
+   * fetch a MessageInteractionInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: MessageInteractionPayload): MessageInteractionInstance;
+  fetch(callback?: (error: Error | null, items: MessageInteractionInstance) => any): Promise<MessageInteractionInstance>;
 }
 
 
@@ -278,24 +280,22 @@ declare class MessageInteractionInstance extends SerializableClass {
 }
 
 
-declare class MessageInteractionContext {
+declare class MessageInteractionPage extends Page<V1, MessageInteractionPayload, MessageInteractionResource, MessageInteractionInstance> {
   /**
-   * Initialize the MessageInteractionContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the MessageInteractionPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
-   * @param serviceSid - The service_sid
-   * @param sessionSid - The session_sid
-   * @param participantSid - The participant_sid
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, serviceSid: string, sessionSid: string, participantSid: string, sid: string);
+  constructor(version: V1, response: Response<string>, solution: MessageInteractionSolution);
 
   /**
-   * fetch a MessageInteractionInstance
+   * Build an instance of MessageInteractionInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: MessageInteractionInstance) => any): Promise<MessageInteractionInstance>;
+  getInstance(payload: MessageInteractionPayload): MessageInteractionInstance;
 }
 
 export { MessageInteractionContext, MessageInteractionInstance, MessageInteractionList, MessageInteractionListInstance, MessageInteractionListInstanceCreateOptions, MessageInteractionListInstanceEachOptions, MessageInteractionListInstanceOptions, MessageInteractionListInstancePageOptions, MessageInteractionPage, MessageInteractionPayload, MessageInteractionResource, MessageInteractionSolution }

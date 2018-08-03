@@ -188,22 +188,32 @@ interface ParticipantSolution {
 }
 
 
-declare class ParticipantPage extends Page<V1, ParticipantPayload, ParticipantResource, ParticipantInstance> {
+declare class ParticipantContext {
   /**
-   * Initialize the ParticipantPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the ParticipantContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property messageInteractions - messageInteractions resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param serviceSid - Service Sid.
+   * @param sessionSid - Session Sid.
+   * @param sid - A string that uniquely identifies this Participant.
    */
-  constructor(version: V1, response: Response<string>, solution: ParticipantSolution);
+  constructor(version: V1, serviceSid: string, sessionSid: string, sid: string);
 
   /**
-   * Build an instance of ParticipantInstance
+   * fetch a ParticipantInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: ParticipantPayload): ParticipantInstance;
+  fetch(callback?: (error: Error | null, items: ParticipantInstance) => any): Promise<ParticipantInstance>;
+  messageInteractions: MessageInteractionListInstance;
+  /**
+   * remove a ParticipantInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: ParticipantInstance) => any): void;
 }
 
 
@@ -271,32 +281,22 @@ declare class ParticipantInstance extends SerializableClass {
 }
 
 
-declare class ParticipantContext {
+declare class ParticipantPage extends Page<V1, ParticipantPayload, ParticipantResource, ParticipantInstance> {
   /**
-   * Initialize the ParticipantContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
-   *
-   * @property messageInteractions - messageInteractions resource
+   * Initialize the ParticipantPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
-   * @param serviceSid - Service Sid.
-   * @param sessionSid - Session Sid.
-   * @param sid - A string that uniquely identifies this Participant.
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, serviceSid: string, sessionSid: string, sid: string);
+  constructor(version: V1, response: Response<string>, solution: ParticipantSolution);
 
   /**
-   * fetch a ParticipantInstance
+   * Build an instance of ParticipantInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: ParticipantInstance) => any): Promise<ParticipantInstance>;
-  messageInteractions: MessageInteractionListInstance;
-  /**
-   * remove a ParticipantInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: ParticipantInstance) => any): void;
+  getInstance(payload: ParticipantPayload): ParticipantInstance;
 }
 
 export { ParticipantContext, ParticipantInstance, ParticipantList, ParticipantListInstance, ParticipantListInstanceCreateOptions, ParticipantListInstanceEachOptions, ParticipantListInstanceOptions, ParticipantListInstancePageOptions, ParticipantPage, ParticipantPayload, ParticipantResource, ParticipantSolution }

@@ -137,25 +137,6 @@ interface DaySolution {
 }
 
 
-declare class DayPage extends Page<BulkExports, DayPayload, DayResource, DayInstance> {
-  /**
-   * Initialize the DayPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: BulkExports, response: Response<string>, solution: DaySolution);
-
-  /**
-   * Build an instance of DayInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: DayPayload): DayInstance;
-}
-
-
 declare class DayInstance extends SerializableClass {
   /**
    * Initialize the DayContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
@@ -180,6 +161,25 @@ declare class DayInstance extends SerializableClass {
    * Removes any circular references in the object.
    */
   toJSON(): any;
+}
+
+
+declare class DayPage extends Page<BulkExports, DayPayload, DayResource, DayInstance> {
+  /**
+   * Initialize the DayPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: BulkExports, response: Response<string>, solution: DaySolution);
+
+  /**
+   * Build an instance of DayInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: DayPayload): DayInstance;
 }
 
 export { DayInstance, DayList, DayListInstance, DayListInstanceEachOptions, DayListInstanceOptions, DayListInstancePageOptions, DayPage, DayPayload, DayResource, DaySolution }

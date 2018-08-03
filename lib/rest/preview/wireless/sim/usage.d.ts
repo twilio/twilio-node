@@ -61,22 +61,22 @@ interface UsageSolution {
 }
 
 
-declare class UsagePage extends Page<Wireless, UsagePayload, UsageResource, UsageInstance> {
+declare class UsageContext {
   /**
-   * Initialize the UsagePagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the UsageContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param simSid - The sim_sid
    */
-  constructor(version: Wireless, response: Response<string>, solution: UsageSolution);
+  constructor(version: Wireless, simSid: string);
 
   /**
-   * Build an instance of UsageInstance
+   * fetch a UsageInstance
    *
-   * @param payload - Payload response from the API
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: UsagePayload): UsageInstance;
+  fetch(opts?: UsageInstanceFetchOptions, callback?: (error: Error | null, items: UsageInstance) => any): Promise<UsageInstance>;
 }
 
 
@@ -125,22 +125,22 @@ declare class UsageInstance extends SerializableClass {
 }
 
 
-declare class UsageContext {
+declare class UsagePage extends Page<Wireless, UsagePayload, UsageResource, UsageInstance> {
   /**
-   * Initialize the UsageContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the UsagePagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param simSid - The sim_sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: Wireless, simSid: string);
+  constructor(version: Wireless, response: Response<string>, solution: UsageSolution);
 
   /**
-   * fetch a UsageInstance
+   * Build an instance of UsageInstance
    *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(opts?: UsageInstanceFetchOptions, callback?: (error: Error | null, items: UsageInstance) => any): Promise<UsageInstance>;
+  getInstance(payload: UsagePayload): UsageInstance;
 }
 
 export { UsageContext, UsageInstance, UsageList, UsageListInstance, UsagePage, UsagePayload, UsageResource, UsageSolution }

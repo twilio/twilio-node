@@ -58,25 +58,6 @@ interface FeedbackSolution {
 }
 
 
-declare class FeedbackPage extends Page<V2010, FeedbackPayload, FeedbackResource, FeedbackInstance> {
-  /**
-   * Initialize the FeedbackPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: FeedbackSolution);
-
-  /**
-   * Build an instance of FeedbackInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: FeedbackPayload): FeedbackInstance;
-}
-
-
 declare class FeedbackInstance extends SerializableClass {
   /**
    * Initialize the FeedbackContext
@@ -106,6 +87,25 @@ declare class FeedbackInstance extends SerializableClass {
    */
   toJSON(): any;
   uri: string;
+}
+
+
+declare class FeedbackPage extends Page<V2010, FeedbackPayload, FeedbackResource, FeedbackInstance> {
+  /**
+   * Initialize the FeedbackPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: V2010, response: Response<string>, solution: FeedbackSolution);
+
+  /**
+   * Build an instance of FeedbackInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: FeedbackPayload): FeedbackInstance;
 }
 
 export { FeedbackInstance, FeedbackList, FeedbackListInstance, FeedbackListInstanceCreateOptions, FeedbackPage, FeedbackPayload, FeedbackResource, FeedbackSolution }

@@ -199,22 +199,33 @@ interface RecordingSolution {
 }
 
 
-declare class RecordingPage extends Page<V2010, RecordingPayload, RecordingResource, RecordingInstance> {
+declare class RecordingContext {
   /**
-   * Initialize the RecordingPage
+   * Initialize the RecordingContext
+   *
+   * @property transcriptions - transcriptions resource
+   * @property addOnResults - addOnResults resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param accountSid - The account_sid
+   * @param sid - Fetch by unique recording SID
    */
-  constructor(version: V2010, response: Response<string>, solution: RecordingSolution);
+  constructor(version: V2010, accountSid: string, sid: string);
 
+  addOnResults: AddOnResultListInstance;
   /**
-   * Build an instance of RecordingInstance
+   * fetch a RecordingInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: RecordingPayload): RecordingInstance;
+  fetch(callback?: (error: Error | null, items: RecordingInstance) => any): Promise<RecordingInstance>;
+  /**
+   * remove a RecordingInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: RecordingInstance) => any): void;
+  transcriptions: TranscriptionListInstance;
 }
 
 
@@ -295,33 +306,22 @@ declare class RecordingInstance extends SerializableClass {
 }
 
 
-declare class RecordingContext {
+declare class RecordingPage extends Page<V2010, RecordingPayload, RecordingResource, RecordingInstance> {
   /**
-   * Initialize the RecordingContext
-   *
-   * @property transcriptions - transcriptions resource
-   * @property addOnResults - addOnResults resource
+   * Initialize the RecordingPage
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param sid - Fetch by unique recording SID
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V2010, accountSid: string, sid: string);
+  constructor(version: V2010, response: Response<string>, solution: RecordingSolution);
 
-  addOnResults: AddOnResultListInstance;
   /**
-   * fetch a RecordingInstance
+   * Build an instance of RecordingInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: RecordingInstance) => any): Promise<RecordingInstance>;
-  /**
-   * remove a RecordingInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: RecordingInstance) => any): void;
-  transcriptions: TranscriptionListInstance;
+  getInstance(payload: RecordingPayload): RecordingInstance;
 }
 
 export { RecordingContext, RecordingInstance, RecordingList, RecordingListInstance, RecordingListInstanceEachOptions, RecordingListInstanceOptions, RecordingListInstancePageOptions, RecordingPage, RecordingPayload, RecordingResource, RecordingSolution }

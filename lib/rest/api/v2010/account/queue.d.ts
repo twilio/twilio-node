@@ -182,22 +182,38 @@ interface QueueSolution {
 }
 
 
-declare class QueuePage extends Page<V2010, QueuePayload, QueueResource, QueueInstance> {
+declare class QueueContext {
   /**
-   * Initialize the QueuePage
+   * Initialize the QueueContext
+   *
+   * @property members - members resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param accountSid - The account_sid
+   * @param sid - Fetch by unique queue Sid
    */
-  constructor(version: V2010, response: Response<string>, solution: QueueSolution);
+  constructor(version: V2010, accountSid: string, sid: string);
 
   /**
-   * Build an instance of QueueInstance
+   * fetch a QueueInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: QueuePayload): QueueInstance;
+  fetch(callback?: (error: Error | null, items: QueueInstance) => any): Promise<QueueInstance>;
+  members: MemberListInstance;
+  /**
+   * remove a QueueInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: QueueInstance) => any): void;
+  /**
+   * update a QueueInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: QueueInstanceUpdateOptions, callback?: (error: Error | null, items: QueueInstance) => any): Promise<QueueInstance>;
 }
 
 
@@ -263,38 +279,22 @@ declare class QueueInstance extends SerializableClass {
 }
 
 
-declare class QueueContext {
+declare class QueuePage extends Page<V2010, QueuePayload, QueueResource, QueueInstance> {
   /**
-   * Initialize the QueueContext
-   *
-   * @property members - members resource
+   * Initialize the QueuePage
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param sid - Fetch by unique queue Sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V2010, accountSid: string, sid: string);
+  constructor(version: V2010, response: Response<string>, solution: QueueSolution);
 
   /**
-   * fetch a QueueInstance
+   * Build an instance of QueueInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: QueueInstance) => any): Promise<QueueInstance>;
-  members: MemberListInstance;
-  /**
-   * remove a QueueInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: QueueInstance) => any): void;
-  /**
-   * update a QueueInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: QueueInstanceUpdateOptions, callback?: (error: Error | null, items: QueueInstance) => any): Promise<QueueInstance>;
+  getInstance(payload: QueuePayload): QueueInstance;
 }
 
 export { QueueContext, QueueInstance, QueueList, QueueListInstance, QueueListInstanceCreateOptions, QueueListInstanceEachOptions, QueueListInstanceOptions, QueueListInstancePageOptions, QueuePage, QueuePayload, QueueResource, QueueSolution }

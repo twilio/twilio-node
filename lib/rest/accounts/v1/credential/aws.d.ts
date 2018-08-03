@@ -175,22 +175,34 @@ interface AwsSolution {
 }
 
 
-declare class AwsPage extends Page<V1, AwsPayload, AwsResource, AwsInstance> {
+declare class AwsContext {
   /**
-   * Initialize the AwsPage
+   * Initialize the AwsContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param sid - The sid
    */
-  constructor(version: V1, response: Response<string>, solution: AwsSolution);
+  constructor(version: V1, sid: string);
 
   /**
-   * Build an instance of AwsInstance
+   * fetch a AwsInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: AwsPayload): AwsInstance;
+  fetch(callback?: (error: Error | null, items: AwsInstance) => any): Promise<AwsInstance>;
+  /**
+   * remove a AwsInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: AwsInstance) => any): void;
+  /**
+   * update a AwsInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: AwsInstanceUpdateOptions, callback?: (error: Error | null, items: AwsInstance) => any): Promise<AwsInstance>;
 }
 
 
@@ -245,34 +257,22 @@ declare class AwsInstance extends SerializableClass {
 }
 
 
-declare class AwsContext {
+declare class AwsPage extends Page<V1, AwsPayload, AwsResource, AwsInstance> {
   /**
-   * Initialize the AwsContext
+   * Initialize the AwsPage
    *
    * @param version - Version of the resource
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, sid: string);
+  constructor(version: V1, response: Response<string>, solution: AwsSolution);
 
   /**
-   * fetch a AwsInstance
+   * Build an instance of AwsInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: AwsInstance) => any): Promise<AwsInstance>;
-  /**
-   * remove a AwsInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: AwsInstance) => any): void;
-  /**
-   * update a AwsInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: AwsInstanceUpdateOptions, callback?: (error: Error | null, items: AwsInstance) => any): Promise<AwsInstance>;
+  getInstance(payload: AwsPayload): AwsInstance;
 }
 
 export { AwsContext, AwsInstance, AwsList, AwsListInstance, AwsListInstanceCreateOptions, AwsListInstanceEachOptions, AwsListInstanceOptions, AwsListInstancePageOptions, AwsPage, AwsPayload, AwsResource, AwsSolution }

@@ -167,22 +167,36 @@ interface SyncMapPermissionSolution {
 }
 
 
-declare class SyncMapPermissionPage extends Page<Sync, SyncMapPermissionPayload, SyncMapPermissionResource, SyncMapPermissionInstance> {
+declare class SyncMapPermissionContext {
   /**
-   * Initialize the SyncMapPermissionPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the SyncMapPermissionContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param serviceSid - The service_sid
+   * @param mapSid - Sync Map SID or unique name.
+   * @param identity - Identity of the user to whom the Sync Map Permission applies.
    */
-  constructor(version: Sync, response: Response<string>, solution: SyncMapPermissionSolution);
+  constructor(version: Sync, serviceSid: string, mapSid: string, identity: string);
 
   /**
-   * Build an instance of SyncMapPermissionInstance
+   * fetch a SyncMapPermissionInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: SyncMapPermissionPayload): SyncMapPermissionInstance;
+  fetch(callback?: (error: Error | null, items: SyncMapPermissionInstance) => any): Promise<SyncMapPermissionInstance>;
+  /**
+   * remove a SyncMapPermissionInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: SyncMapPermissionInstance) => any): void;
+  /**
+   * update a SyncMapPermissionInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts: SyncMapPermissionInstanceUpdateOptions, callback?: (error: Error | null, items: SyncMapPermissionInstance) => any): Promise<SyncMapPermissionInstance>;
 }
 
 
@@ -243,36 +257,22 @@ declare class SyncMapPermissionInstance extends SerializableClass {
 }
 
 
-declare class SyncMapPermissionContext {
+declare class SyncMapPermissionPage extends Page<Sync, SyncMapPermissionPayload, SyncMapPermissionResource, SyncMapPermissionInstance> {
   /**
-   * Initialize the SyncMapPermissionContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the SyncMapPermissionPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param serviceSid - The service_sid
-   * @param mapSid - Sync Map SID or unique name.
-   * @param identity - Identity of the user to whom the Sync Map Permission applies.
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: Sync, serviceSid: string, mapSid: string, identity: string);
+  constructor(version: Sync, response: Response<string>, solution: SyncMapPermissionSolution);
 
   /**
-   * fetch a SyncMapPermissionInstance
+   * Build an instance of SyncMapPermissionInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: SyncMapPermissionInstance) => any): Promise<SyncMapPermissionInstance>;
-  /**
-   * remove a SyncMapPermissionInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: SyncMapPermissionInstance) => any): void;
-  /**
-   * update a SyncMapPermissionInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts: SyncMapPermissionInstanceUpdateOptions, callback?: (error: Error | null, items: SyncMapPermissionInstance) => any): Promise<SyncMapPermissionInstance>;
+  getInstance(payload: SyncMapPermissionPayload): SyncMapPermissionInstance;
 }
 
 export { SyncMapPermissionContext, SyncMapPermissionInstance, SyncMapPermissionList, SyncMapPermissionListInstance, SyncMapPermissionListInstanceEachOptions, SyncMapPermissionListInstanceOptions, SyncMapPermissionListInstancePageOptions, SyncMapPermissionPage, SyncMapPermissionPayload, SyncMapPermissionResource, SyncMapPermissionSolution }

@@ -190,22 +190,35 @@ interface ActivitySolution {
 }
 
 
-declare class ActivityPage extends Page<V1, ActivityPayload, ActivityResource, ActivityInstance> {
+declare class ActivityContext {
   /**
-   * Initialize the ActivityPage
+   * Initialize the ActivityContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param workspaceSid - The workspace_sid
+   * @param sid - The sid
    */
-  constructor(version: V1, response: Response<string>, solution: ActivitySolution);
+  constructor(version: V1, workspaceSid: string, sid: string);
 
   /**
-   * Build an instance of ActivityInstance
+   * fetch a ActivityInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: ActivityPayload): ActivityInstance;
+  fetch(callback?: (error: Error | null, items: ActivityInstance) => any): Promise<ActivityInstance>;
+  /**
+   * remove a ActivityInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: ActivityInstance) => any): void;
+  /**
+   * update a ActivityInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: ActivityInstanceUpdateOptions, callback?: (error: Error | null, items: ActivityInstance) => any): Promise<ActivityInstance>;
 }
 
 
@@ -265,35 +278,22 @@ declare class ActivityInstance extends SerializableClass {
 }
 
 
-declare class ActivityContext {
+declare class ActivityPage extends Page<V1, ActivityPayload, ActivityResource, ActivityInstance> {
   /**
-   * Initialize the ActivityContext
+   * Initialize the ActivityPage
    *
    * @param version - Version of the resource
-   * @param workspaceSid - The workspace_sid
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, workspaceSid: string, sid: string);
+  constructor(version: V1, response: Response<string>, solution: ActivitySolution);
 
   /**
-   * fetch a ActivityInstance
+   * Build an instance of ActivityInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: ActivityInstance) => any): Promise<ActivityInstance>;
-  /**
-   * remove a ActivityInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: ActivityInstance) => any): void;
-  /**
-   * update a ActivityInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: ActivityInstanceUpdateOptions, callback?: (error: Error | null, items: ActivityInstance) => any): Promise<ActivityInstance>;
+  getInstance(payload: ActivityPayload): ActivityInstance;
 }
 
 export { ActivityContext, ActivityInstance, ActivityList, ActivityListInstance, ActivityListInstanceCreateOptions, ActivityListInstanceEachOptions, ActivityListInstanceOptions, ActivityListInstancePageOptions, ActivityPage, ActivityPayload, ActivityResource, ActivitySolution }

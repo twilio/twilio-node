@@ -183,22 +183,35 @@ interface RoleSolution {
 }
 
 
-declare class RolePage extends Page<V1, RolePayload, RoleResource, RoleInstance> {
+declare class RoleContext {
   /**
-   * Initialize the RolePage
+   * Initialize the RoleContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param serviceSid - The service_sid
+   * @param sid - The sid
    */
-  constructor(version: V1, response: Response<string>, solution: RoleSolution);
+  constructor(version: V1, serviceSid: string, sid: string);
 
   /**
-   * Build an instance of RoleInstance
+   * fetch a RoleInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: RolePayload): RoleInstance;
+  fetch(callback?: (error: Error | null, items: RoleInstance) => any): Promise<RoleInstance>;
+  /**
+   * remove a RoleInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: RoleInstance) => any): void;
+  /**
+   * update a RoleInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts: RoleInstanceUpdateOptions, callback?: (error: Error | null, items: RoleInstance) => any): Promise<RoleInstance>;
 }
 
 
@@ -260,35 +273,22 @@ declare class RoleInstance extends SerializableClass {
 }
 
 
-declare class RoleContext {
+declare class RolePage extends Page<V1, RolePayload, RoleResource, RoleInstance> {
   /**
-   * Initialize the RoleContext
+   * Initialize the RolePage
    *
    * @param version - Version of the resource
-   * @param serviceSid - The service_sid
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, serviceSid: string, sid: string);
+  constructor(version: V1, response: Response<string>, solution: RoleSolution);
 
   /**
-   * fetch a RoleInstance
+   * Build an instance of RoleInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: RoleInstance) => any): Promise<RoleInstance>;
-  /**
-   * remove a RoleInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: RoleInstance) => any): void;
-  /**
-   * update a RoleInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts: RoleInstanceUpdateOptions, callback?: (error: Error | null, items: RoleInstance) => any): Promise<RoleInstance>;
+  getInstance(payload: RolePayload): RoleInstance;
 }
 
 export { RoleContext, RoleInstance, RoleList, RoleListInstance, RoleListInstanceCreateOptions, RoleListInstanceEachOptions, RoleListInstanceOptions, RoleListInstancePageOptions, RolePage, RolePayload, RoleResource, RoleSolution }

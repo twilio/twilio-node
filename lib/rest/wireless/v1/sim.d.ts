@@ -238,22 +238,33 @@ interface SimSolution {
 }
 
 
-declare class SimPage extends Page<V1, SimPayload, SimResource, SimInstance> {
+declare class SimContext {
   /**
-   * Initialize the SimPage
+   * Initialize the SimContext
+   *
+   * @property usageRecords - usageRecords resource
+   * @property dataSessions - dataSessions resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param sid - The sid
    */
-  constructor(version: V1, response: Response<string>, solution: SimSolution);
+  constructor(version: V1, sid: string);
 
+  dataSessions: DataSessionListInstance;
   /**
-   * Build an instance of SimInstance
+   * fetch a SimInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: SimPayload): SimInstance;
+  fetch(callback?: (error: Error | null, items: SimInstance) => any): Promise<SimInstance>;
+  /**
+   * update a SimInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: SimInstanceUpdateOptions, callback?: (error: Error | null, items: SimInstance) => any): Promise<SimInstance>;
+  usageRecords: UsageRecordListInstance;
 }
 
 
@@ -344,33 +355,22 @@ declare class SimInstance extends SerializableClass {
 }
 
 
-declare class SimContext {
+declare class SimPage extends Page<V1, SimPayload, SimResource, SimInstance> {
   /**
-   * Initialize the SimContext
-   *
-   * @property usageRecords - usageRecords resource
-   * @property dataSessions - dataSessions resource
+   * Initialize the SimPage
    *
    * @param version - Version of the resource
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, sid: string);
+  constructor(version: V1, response: Response<string>, solution: SimSolution);
 
-  dataSessions: DataSessionListInstance;
   /**
-   * fetch a SimInstance
+   * Build an instance of SimInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: SimInstance) => any): Promise<SimInstance>;
-  /**
-   * update a SimInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: SimInstanceUpdateOptions, callback?: (error: Error | null, items: SimInstance) => any): Promise<SimInstance>;
-  usageRecords: UsageRecordListInstance;
+  getInstance(payload: SimPayload): SimInstance;
 }
 
 export { SimContext, SimInstance, SimList, SimListInstance, SimListInstanceEachOptions, SimListInstanceOptions, SimListInstancePageOptions, SimPage, SimPayload, SimResource, SimSolution }

@@ -215,22 +215,43 @@ interface TrunkSolution {
 }
 
 
-declare class TrunkPage extends Page<V1, TrunkPayload, TrunkResource, TrunkInstance> {
+declare class TrunkContext {
   /**
-   * Initialize the TrunkPage
+   * Initialize the TrunkContext
+   *
+   * @property originationUrls - originationUrls resource
+   * @property credentialsLists - credentialsLists resource
+   * @property ipAccessControlLists - ipAccessControlLists resource
+   * @property phoneNumbers - phoneNumbers resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param sid - The sid
    */
-  constructor(version: V1, response: Response<string>, solution: TrunkSolution);
+  constructor(version: V1, sid: string);
 
+  credentialsLists: CredentialListListInstance;
   /**
-   * Build an instance of TrunkInstance
+   * fetch a TrunkInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: TrunkPayload): TrunkInstance;
+  fetch(callback?: (error: Error | null, items: TrunkInstance) => any): Promise<TrunkInstance>;
+  ipAccessControlLists: IpAccessControlListListInstance;
+  originationUrls: OriginationUrlListInstance;
+  phoneNumbers: PhoneNumberListInstance;
+  /**
+   * remove a TrunkInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: TrunkInstance) => any): void;
+  /**
+   * update a TrunkInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: TrunkInstanceUpdateOptions, callback?: (error: Error | null, items: TrunkInstance) => any): Promise<TrunkInstance>;
 }
 
 
@@ -319,43 +340,22 @@ declare class TrunkInstance extends SerializableClass {
 }
 
 
-declare class TrunkContext {
+declare class TrunkPage extends Page<V1, TrunkPayload, TrunkResource, TrunkInstance> {
   /**
-   * Initialize the TrunkContext
-   *
-   * @property originationUrls - originationUrls resource
-   * @property credentialsLists - credentialsLists resource
-   * @property ipAccessControlLists - ipAccessControlLists resource
-   * @property phoneNumbers - phoneNumbers resource
+   * Initialize the TrunkPage
    *
    * @param version - Version of the resource
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, sid: string);
+  constructor(version: V1, response: Response<string>, solution: TrunkSolution);
 
-  credentialsLists: CredentialListListInstance;
   /**
-   * fetch a TrunkInstance
+   * Build an instance of TrunkInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: TrunkInstance) => any): Promise<TrunkInstance>;
-  ipAccessControlLists: IpAccessControlListListInstance;
-  originationUrls: OriginationUrlListInstance;
-  phoneNumbers: PhoneNumberListInstance;
-  /**
-   * remove a TrunkInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: TrunkInstance) => any): void;
-  /**
-   * update a TrunkInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: TrunkInstanceUpdateOptions, callback?: (error: Error | null, items: TrunkInstance) => any): Promise<TrunkInstance>;
+  getInstance(payload: TrunkPayload): TrunkInstance;
 }
 
 export { TrunkContext, TrunkInstance, TrunkList, TrunkListInstance, TrunkListInstanceCreateOptions, TrunkListInstanceEachOptions, TrunkListInstanceOptions, TrunkListInstancePageOptions, TrunkPage, TrunkPayload, TrunkResource, TrunkSolution }

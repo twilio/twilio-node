@@ -212,22 +212,28 @@ interface BindingSolution {
 }
 
 
-declare class BindingPage extends Page<V1, BindingPayload, BindingResource, BindingInstance> {
+declare class BindingContext {
   /**
-   * Initialize the BindingPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the BindingContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param serviceSid - The service_sid
+   * @param sid - The sid
    */
-  constructor(version: V1, response: Response<string>, solution: BindingSolution);
+  constructor(version: V1, serviceSid: string, sid: string);
 
   /**
-   * Build an instance of BindingInstance
+   * fetch a BindingInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: BindingPayload): BindingInstance;
+  fetch(callback?: (error: Error | null, items: BindingInstance) => any): Promise<BindingInstance>;
+  /**
+   * remove a BindingInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: BindingInstance) => any): void;
 }
 
 
@@ -292,28 +298,22 @@ declare class BindingInstance extends SerializableClass {
 }
 
 
-declare class BindingContext {
+declare class BindingPage extends Page<V1, BindingPayload, BindingResource, BindingInstance> {
   /**
-   * Initialize the BindingContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the BindingPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
-   * @param serviceSid - The service_sid
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, serviceSid: string, sid: string);
+  constructor(version: V1, response: Response<string>, solution: BindingSolution);
 
   /**
-   * fetch a BindingInstance
+   * Build an instance of BindingInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: BindingInstance) => any): Promise<BindingInstance>;
-  /**
-   * remove a BindingInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: BindingInstance) => any): void;
+  getInstance(payload: BindingPayload): BindingInstance;
 }
 
 export { BindingContext, BindingInstance, BindingList, BindingListInstance, BindingListInstanceCreateOptions, BindingListInstanceEachOptions, BindingListInstanceOptions, BindingListInstancePageOptions, BindingPage, BindingPayload, BindingResource, BindingSolution }

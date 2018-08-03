@@ -156,22 +156,24 @@ interface AssignedAddOnExtensionSolution {
 }
 
 
-declare class AssignedAddOnExtensionPage extends Page<V2010, AssignedAddOnExtensionPayload, AssignedAddOnExtensionResource, AssignedAddOnExtensionInstance> {
+declare class AssignedAddOnExtensionContext {
   /**
-   * Initialize the AssignedAddOnExtensionPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the AssignedAddOnExtensionContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param accountSid - The account_sid
+   * @param resourceSid - The resource_sid
+   * @param assignedAddOnSid - The assigned_add_on_sid
+   * @param sid - The unique Extension Sid
    */
-  constructor(version: V2010, response: Response<string>, solution: AssignedAddOnExtensionSolution);
+  constructor(version: V2010, accountSid: string, resourceSid: string, assignedAddOnSid: string, sid: string);
 
   /**
-   * Build an instance of AssignedAddOnExtensionInstance
+   * fetch a AssignedAddOnExtensionInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: AssignedAddOnExtensionPayload): AssignedAddOnExtensionInstance;
+  fetch(callback?: (error: Error | null, items: AssignedAddOnExtensionInstance) => any): Promise<AssignedAddOnExtensionInstance>;
 }
 
 
@@ -222,24 +224,22 @@ declare class AssignedAddOnExtensionInstance extends SerializableClass {
 }
 
 
-declare class AssignedAddOnExtensionContext {
+declare class AssignedAddOnExtensionPage extends Page<V2010, AssignedAddOnExtensionPayload, AssignedAddOnExtensionResource, AssignedAddOnExtensionInstance> {
   /**
-   * Initialize the AssignedAddOnExtensionContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the AssignedAddOnExtensionPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param resourceSid - The resource_sid
-   * @param assignedAddOnSid - The assigned_add_on_sid
-   * @param sid - The unique Extension Sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V2010, accountSid: string, resourceSid: string, assignedAddOnSid: string, sid: string);
+  constructor(version: V2010, response: Response<string>, solution: AssignedAddOnExtensionSolution);
 
   /**
-   * fetch a AssignedAddOnExtensionInstance
+   * Build an instance of AssignedAddOnExtensionInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: AssignedAddOnExtensionInstance) => any): Promise<AssignedAddOnExtensionInstance>;
+  getInstance(payload: AssignedAddOnExtensionPayload): AssignedAddOnExtensionInstance;
 }
 
 export { AssignedAddOnExtensionContext, AssignedAddOnExtensionInstance, AssignedAddOnExtensionList, AssignedAddOnExtensionListInstance, AssignedAddOnExtensionListInstanceEachOptions, AssignedAddOnExtensionListInstanceOptions, AssignedAddOnExtensionListInstancePageOptions, AssignedAddOnExtensionPage, AssignedAddOnExtensionPayload, AssignedAddOnExtensionResource, AssignedAddOnExtensionSolution }

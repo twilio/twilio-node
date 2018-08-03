@@ -164,25 +164,6 @@ interface DependentPhoneNumberSolution {
 }
 
 
-declare class DependentPhoneNumberPage extends Page<V2010, DependentPhoneNumberPayload, DependentPhoneNumberResource, DependentPhoneNumberInstance> {
-  /**
-   * Initialize the DependentPhoneNumberPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: DependentPhoneNumberSolution);
-
-  /**
-   * Build an instance of DependentPhoneNumberInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: DependentPhoneNumberPayload): DependentPhoneNumberInstance;
-}
-
-
 declare class DependentPhoneNumberInstance extends SerializableClass {
   /**
    * Initialize the DependentPhoneNumberContext
@@ -252,6 +233,25 @@ declare class DependentPhoneNumberInstance extends SerializableClass {
   voiceFallbackUrl: string;
   voiceMethod: string;
   voiceUrl: string;
+}
+
+
+declare class DependentPhoneNumberPage extends Page<V2010, DependentPhoneNumberPayload, DependentPhoneNumberResource, DependentPhoneNumberInstance> {
+  /**
+   * Initialize the DependentPhoneNumberPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: V2010, response: Response<string>, solution: DependentPhoneNumberSolution);
+
+  /**
+   * Build an instance of DependentPhoneNumberInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: DependentPhoneNumberPayload): DependentPhoneNumberInstance;
 }
 
 export { DependentPhoneNumberInstance, DependentPhoneNumberList, DependentPhoneNumberListInstance, DependentPhoneNumberListInstanceEachOptions, DependentPhoneNumberListInstanceOptions, DependentPhoneNumberListInstancePageOptions, DependentPhoneNumberPage, DependentPhoneNumberPayload, DependentPhoneNumberResource, DependentPhoneNumberSolution }

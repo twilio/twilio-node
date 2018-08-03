@@ -208,22 +208,43 @@ interface AssistantSolution {
 }
 
 
-declare class AssistantPage extends Page<Understand, AssistantPayload, AssistantResource, AssistantInstance> {
+declare class AssistantContext {
   /**
-   * Initialize the AssistantPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   * Initialize the AssistantContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @property fieldTypes - fieldTypes resource
+   * @property intents - intents resource
+   * @property modelBuilds - modelBuilds resource
+   * @property queries - queries resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param sid - The sid
    */
-  constructor(version: Understand, response: Response<string>, solution: AssistantSolution);
+  constructor(version: Understand, sid: string);
 
   /**
-   * Build an instance of AssistantInstance
+   * fetch a AssistantInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: AssistantPayload): AssistantInstance;
+  fetch(callback?: (error: Error | null, items: AssistantInstance) => any): Promise<AssistantInstance>;
+  fieldTypes: FieldTypeListInstance;
+  intents: IntentListInstance;
+  modelBuilds: ModelBuildListInstance;
+  queries: QueryListInstance;
+  /**
+   * remove a AssistantInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: AssistantInstance) => any): void;
+  /**
+   * update a AssistantInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: AssistantInstanceUpdateOptions, callback?: (error: Error | null, items: AssistantInstance) => any): Promise<AssistantInstance>;
 }
 
 
@@ -308,43 +329,22 @@ declare class AssistantInstance extends SerializableClass {
 }
 
 
-declare class AssistantContext {
+declare class AssistantPage extends Page<Understand, AssistantPayload, AssistantResource, AssistantInstance> {
   /**
-   * Initialize the AssistantContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
-   *
-   * @property fieldTypes - fieldTypes resource
-   * @property intents - intents resource
-   * @property modelBuilds - modelBuilds resource
-   * @property queries - queries resource
+   * Initialize the AssistantPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: Understand, sid: string);
+  constructor(version: Understand, response: Response<string>, solution: AssistantSolution);
 
   /**
-   * fetch a AssistantInstance
+   * Build an instance of AssistantInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: AssistantInstance) => any): Promise<AssistantInstance>;
-  fieldTypes: FieldTypeListInstance;
-  intents: IntentListInstance;
-  modelBuilds: ModelBuildListInstance;
-  queries: QueryListInstance;
-  /**
-   * remove a AssistantInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: AssistantInstance) => any): void;
-  /**
-   * update a AssistantInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: AssistantInstanceUpdateOptions, callback?: (error: Error | null, items: AssistantInstance) => any): Promise<AssistantInstance>;
+  getInstance(payload: AssistantPayload): AssistantInstance;
 }
 
 export { AssistantContext, AssistantInstance, AssistantList, AssistantListInstance, AssistantListInstanceCreateOptions, AssistantListInstanceEachOptions, AssistantListInstanceOptions, AssistantListInstancePageOptions, AssistantPage, AssistantPayload, AssistantResource, AssistantSolution }

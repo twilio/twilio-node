@@ -206,22 +206,42 @@ interface ChannelSolution {
 }
 
 
-declare class ChannelPage extends Page<V1, ChannelPayload, ChannelResource, ChannelInstance> {
+declare class ChannelContext {
   /**
-   * Initialize the ChannelPage
+   * Initialize the ChannelContext
+   *
+   * @property members - members resource
+   * @property messages - messages resource
+   * @property invites - invites resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param serviceSid - The service_sid
+   * @param sid - The sid
    */
-  constructor(version: V1, response: Response<string>, solution: ChannelSolution);
+  constructor(version: V1, serviceSid: string, sid: string);
 
   /**
-   * Build an instance of ChannelInstance
+   * fetch a ChannelInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: ChannelPayload): ChannelInstance;
+  fetch(callback?: (error: Error | null, items: ChannelInstance) => any): Promise<ChannelInstance>;
+  invites: InviteListInstance;
+  members: MemberListInstance;
+  messages: MessageListInstance;
+  /**
+   * remove a ChannelInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: ChannelInstance) => any): void;
+  /**
+   * update a ChannelInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: ChannelInstanceUpdateOptions, callback?: (error: Error | null, items: ChannelInstance) => any): Promise<ChannelInstance>;
 }
 
 
@@ -305,42 +325,22 @@ declare class ChannelInstance extends SerializableClass {
 }
 
 
-declare class ChannelContext {
+declare class ChannelPage extends Page<V1, ChannelPayload, ChannelResource, ChannelInstance> {
   /**
-   * Initialize the ChannelContext
-   *
-   * @property members - members resource
-   * @property messages - messages resource
-   * @property invites - invites resource
+   * Initialize the ChannelPage
    *
    * @param version - Version of the resource
-   * @param serviceSid - The service_sid
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, serviceSid: string, sid: string);
+  constructor(version: V1, response: Response<string>, solution: ChannelSolution);
 
   /**
-   * fetch a ChannelInstance
+   * Build an instance of ChannelInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: ChannelInstance) => any): Promise<ChannelInstance>;
-  invites: InviteListInstance;
-  members: MemberListInstance;
-  messages: MessageListInstance;
-  /**
-   * remove a ChannelInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: ChannelInstance) => any): void;
-  /**
-   * update a ChannelInstance
-   *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
-   */
-  update(opts?: ChannelInstanceUpdateOptions, callback?: (error: Error | null, items: ChannelInstance) => any): Promise<ChannelInstance>;
+  getInstance(payload: ChannelPayload): ChannelInstance;
 }
 
 export { ChannelContext, ChannelInstance, ChannelList, ChannelListInstance, ChannelListInstanceCreateOptions, ChannelListInstanceEachOptions, ChannelListInstanceOptions, ChannelListInstancePageOptions, ChannelPage, ChannelPayload, ChannelResource, ChannelSolution }

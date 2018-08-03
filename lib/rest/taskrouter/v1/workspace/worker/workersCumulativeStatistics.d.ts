@@ -68,22 +68,22 @@ interface WorkersCumulativeStatisticsSolution {
 }
 
 
-declare class WorkersCumulativeStatisticsPage extends Page<V1, WorkersCumulativeStatisticsPayload, WorkersCumulativeStatisticsResource, WorkersCumulativeStatisticsInstance> {
+declare class WorkersCumulativeStatisticsContext {
   /**
-   * Initialize the WorkersCumulativeStatisticsPage
+   * Initialize the WorkersCumulativeStatisticsContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param workspaceSid - The workspace_sid
    */
-  constructor(version: V1, response: Response<string>, solution: WorkersCumulativeStatisticsSolution);
+  constructor(version: V1, workspaceSid: string);
 
   /**
-   * Build an instance of WorkersCumulativeStatisticsInstance
+   * fetch a WorkersCumulativeStatisticsInstance
    *
-   * @param payload - Payload response from the API
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: WorkersCumulativeStatisticsPayload): WorkersCumulativeStatisticsInstance;
+  fetch(opts?: WorkersCumulativeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkersCumulativeStatisticsInstance) => any): Promise<WorkersCumulativeStatisticsInstance>;
 }
 
 
@@ -138,22 +138,22 @@ declare class WorkersCumulativeStatisticsInstance extends SerializableClass {
 }
 
 
-declare class WorkersCumulativeStatisticsContext {
+declare class WorkersCumulativeStatisticsPage extends Page<V1, WorkersCumulativeStatisticsPayload, WorkersCumulativeStatisticsResource, WorkersCumulativeStatisticsInstance> {
   /**
-   * Initialize the WorkersCumulativeStatisticsContext
+   * Initialize the WorkersCumulativeStatisticsPage
    *
    * @param version - Version of the resource
-   * @param workspaceSid - The workspace_sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, workspaceSid: string);
+  constructor(version: V1, response: Response<string>, solution: WorkersCumulativeStatisticsSolution);
 
   /**
-   * fetch a WorkersCumulativeStatisticsInstance
+   * Build an instance of WorkersCumulativeStatisticsInstance
    *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(opts?: WorkersCumulativeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: WorkersCumulativeStatisticsInstance) => any): Promise<WorkersCumulativeStatisticsInstance>;
+  getInstance(payload: WorkersCumulativeStatisticsPayload): WorkersCumulativeStatisticsInstance;
 }
 
 export { WorkersCumulativeStatisticsContext, WorkersCumulativeStatisticsInstance, WorkersCumulativeStatisticsList, WorkersCumulativeStatisticsListInstance, WorkersCumulativeStatisticsPage, WorkersCumulativeStatisticsPayload, WorkersCumulativeStatisticsResource, WorkersCumulativeStatisticsSolution }

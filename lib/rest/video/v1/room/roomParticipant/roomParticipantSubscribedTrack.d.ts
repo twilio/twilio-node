@@ -200,25 +200,6 @@ interface SubscribedTrackSolution {
 }
 
 
-declare class SubscribedTrackPage extends Page<V1, SubscribedTrackPayload, SubscribedTrackResource, SubscribedTrackInstance> {
-  /**
-   * Initialize the SubscribedTrackPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: SubscribedTrackSolution);
-
-  /**
-   * Build an instance of SubscribedTrackInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: SubscribedTrackPayload): SubscribedTrackInstance;
-}
-
-
 declare class SubscribedTrackInstance extends SerializableClass {
   /**
    * Initialize the SubscribedTrackContext
@@ -254,6 +235,25 @@ declare class SubscribedTrackInstance extends SerializableClass {
    * Removes any circular references in the object.
    */
   toJSON(): any;
+}
+
+
+declare class SubscribedTrackPage extends Page<V1, SubscribedTrackPayload, SubscribedTrackResource, SubscribedTrackInstance> {
+  /**
+   * Initialize the SubscribedTrackPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: V1, response: Response<string>, solution: SubscribedTrackSolution);
+
+  /**
+   * Build an instance of SubscribedTrackInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: SubscribedTrackPayload): SubscribedTrackInstance;
 }
 
 export { SubscribedTrackInstance, SubscribedTrackList, SubscribedTrackListInstance, SubscribedTrackListInstanceEachOptions, SubscribedTrackListInstanceOptions, SubscribedTrackListInstancePageOptions, SubscribedTrackListInstanceUpdateOptions, SubscribedTrackPage, SubscribedTrackPayload, SubscribedTrackResource, SubscribedTrackSolution }

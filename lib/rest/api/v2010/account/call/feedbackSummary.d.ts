@@ -83,22 +83,28 @@ interface FeedbackSummarySolution {
 }
 
 
-declare class FeedbackSummaryPage extends Page<V2010, FeedbackSummaryPayload, FeedbackSummaryResource, FeedbackSummaryInstance> {
+declare class FeedbackSummaryContext {
   /**
-   * Initialize the FeedbackSummaryPage
+   * Initialize the FeedbackSummaryContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param accountSid - The account_sid
+   * @param sid - The sid
    */
-  constructor(version: V2010, response: Response<string>, solution: FeedbackSummarySolution);
+  constructor(version: V2010, accountSid: string, sid: string);
 
   /**
-   * Build an instance of FeedbackSummaryInstance
+   * fetch a FeedbackSummaryInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: FeedbackSummaryPayload): FeedbackSummaryInstance;
+  fetch(callback?: (error: Error | null, items: FeedbackSummaryInstance) => any): Promise<FeedbackSummaryInstance>;
+  /**
+   * remove a FeedbackSummaryInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: FeedbackSummaryInstance) => any): void;
 }
 
 
@@ -163,28 +169,22 @@ declare class FeedbackSummaryInstance extends SerializableClass {
 }
 
 
-declare class FeedbackSummaryContext {
+declare class FeedbackSummaryPage extends Page<V2010, FeedbackSummaryPayload, FeedbackSummaryResource, FeedbackSummaryInstance> {
   /**
-   * Initialize the FeedbackSummaryContext
+   * Initialize the FeedbackSummaryPage
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V2010, accountSid: string, sid: string);
+  constructor(version: V2010, response: Response<string>, solution: FeedbackSummarySolution);
 
   /**
-   * fetch a FeedbackSummaryInstance
+   * Build an instance of FeedbackSummaryInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: FeedbackSummaryInstance) => any): Promise<FeedbackSummaryInstance>;
-  /**
-   * remove a FeedbackSummaryInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: FeedbackSummaryInstance) => any): void;
+  getInstance(payload: FeedbackSummaryPayload): FeedbackSummaryInstance;
 }
 
 export { FeedbackSummaryContext, FeedbackSummaryInstance, FeedbackSummaryList, FeedbackSummaryListInstance, FeedbackSummaryListInstanceCreateOptions, FeedbackSummaryPage, FeedbackSummaryPayload, FeedbackSummaryResource, FeedbackSummarySolution }

@@ -54,25 +54,6 @@ interface StreamMessageSolution {
 }
 
 
-declare class StreamMessagePage extends Page<V1, StreamMessagePayload, StreamMessageResource, StreamMessageInstance> {
-  /**
-   * Initialize the StreamMessagePagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V1, response: Response<string>, solution: StreamMessageSolution);
-
-  /**
-   * Build an instance of StreamMessageInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: StreamMessagePayload): StreamMessageInstance;
-}
-
-
 declare class StreamMessageInstance extends SerializableClass {
   /**
    * Initialize the StreamMessageContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
@@ -94,6 +75,25 @@ declare class StreamMessageInstance extends SerializableClass {
    * Removes any circular references in the object.
    */
   toJSON(): any;
+}
+
+
+declare class StreamMessagePage extends Page<V1, StreamMessagePayload, StreamMessageResource, StreamMessageInstance> {
+  /**
+   * Initialize the StreamMessagePagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: V1, response: Response<string>, solution: StreamMessageSolution);
+
+  /**
+   * Build an instance of StreamMessageInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: StreamMessagePayload): StreamMessageInstance;
 }
 
 export { StreamMessageInstance, StreamMessageList, StreamMessageListInstance, StreamMessageListInstanceCreateOptions, StreamMessagePage, StreamMessagePayload, StreamMessageResource, StreamMessageSolution }

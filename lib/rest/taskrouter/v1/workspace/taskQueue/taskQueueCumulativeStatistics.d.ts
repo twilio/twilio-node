@@ -81,22 +81,23 @@ interface TaskQueueCumulativeStatisticsSolution {
 }
 
 
-declare class TaskQueueCumulativeStatisticsPage extends Page<V1, TaskQueueCumulativeStatisticsPayload, TaskQueueCumulativeStatisticsResource, TaskQueueCumulativeStatisticsInstance> {
+declare class TaskQueueCumulativeStatisticsContext {
   /**
-   * Initialize the TaskQueueCumulativeStatisticsPage
+   * Initialize the TaskQueueCumulativeStatisticsContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param workspaceSid - The workspace_sid
+   * @param taskQueueSid - The task_queue_sid
    */
-  constructor(version: V1, response: Response<string>, solution: TaskQueueCumulativeStatisticsSolution);
+  constructor(version: V1, workspaceSid: string, taskQueueSid: string);
 
   /**
-   * Build an instance of TaskQueueCumulativeStatisticsInstance
+   * fetch a TaskQueueCumulativeStatisticsInstance
    *
-   * @param payload - Payload response from the API
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: TaskQueueCumulativeStatisticsPayload): TaskQueueCumulativeStatisticsInstance;
+  fetch(opts?: TaskQueueCumulativeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: TaskQueueCumulativeStatisticsInstance) => any): Promise<TaskQueueCumulativeStatisticsInstance>;
 }
 
 
@@ -170,23 +171,22 @@ declare class TaskQueueCumulativeStatisticsInstance extends SerializableClass {
 }
 
 
-declare class TaskQueueCumulativeStatisticsContext {
+declare class TaskQueueCumulativeStatisticsPage extends Page<V1, TaskQueueCumulativeStatisticsPayload, TaskQueueCumulativeStatisticsResource, TaskQueueCumulativeStatisticsInstance> {
   /**
-   * Initialize the TaskQueueCumulativeStatisticsContext
+   * Initialize the TaskQueueCumulativeStatisticsPage
    *
    * @param version - Version of the resource
-   * @param workspaceSid - The workspace_sid
-   * @param taskQueueSid - The task_queue_sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, workspaceSid: string, taskQueueSid: string);
+  constructor(version: V1, response: Response<string>, solution: TaskQueueCumulativeStatisticsSolution);
 
   /**
-   * fetch a TaskQueueCumulativeStatisticsInstance
+   * Build an instance of TaskQueueCumulativeStatisticsInstance
    *
-   * @param opts - Options for request
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(opts?: TaskQueueCumulativeStatisticsInstanceFetchOptions, callback?: (error: Error | null, items: TaskQueueCumulativeStatisticsInstance) => any): Promise<TaskQueueCumulativeStatisticsInstance>;
+  getInstance(payload: TaskQueueCumulativeStatisticsPayload): TaskQueueCumulativeStatisticsInstance;
 }
 
 export { TaskQueueCumulativeStatisticsContext, TaskQueueCumulativeStatisticsInstance, TaskQueueCumulativeStatisticsList, TaskQueueCumulativeStatisticsListInstance, TaskQueueCumulativeStatisticsPage, TaskQueueCumulativeStatisticsPayload, TaskQueueCumulativeStatisticsResource, TaskQueueCumulativeStatisticsSolution }

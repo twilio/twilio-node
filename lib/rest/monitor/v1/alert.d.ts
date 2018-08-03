@@ -176,22 +176,27 @@ interface AlertSolution {
 }
 
 
-declare class AlertPage extends Page<V1, AlertPayload, AlertResource, AlertInstance> {
+declare class AlertContext {
   /**
-   * Initialize the AlertPage
+   * Initialize the AlertContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param sid - The sid
    */
-  constructor(version: V1, response: Response<string>, solution: AlertSolution);
+  constructor(version: V1, sid: string);
 
   /**
-   * Build an instance of AlertInstance
+   * fetch a AlertInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: AlertPayload): AlertInstance;
+  fetch(callback?: (error: Error | null, items: AlertInstance) => any): Promise<AlertInstance>;
+  /**
+   * remove a AlertInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: AlertInstance) => any): void;
 }
 
 
@@ -261,27 +266,22 @@ declare class AlertInstance extends SerializableClass {
 }
 
 
-declare class AlertContext {
+declare class AlertPage extends Page<V1, AlertPayload, AlertResource, AlertInstance> {
   /**
-   * Initialize the AlertContext
+   * Initialize the AlertPage
    *
    * @param version - Version of the resource
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, sid: string);
+  constructor(version: V1, response: Response<string>, solution: AlertSolution);
 
   /**
-   * fetch a AlertInstance
+   * Build an instance of AlertInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: AlertInstance) => any): Promise<AlertInstance>;
-  /**
-   * remove a AlertInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: AlertInstance) => any): void;
+  getInstance(payload: AlertPayload): AlertInstance;
 }
 
 export { AlertContext, AlertInstance, AlertList, AlertListInstance, AlertListInstanceEachOptions, AlertListInstanceOptions, AlertListInstancePageOptions, AlertPage, AlertPayload, AlertResource, AlertSolution }

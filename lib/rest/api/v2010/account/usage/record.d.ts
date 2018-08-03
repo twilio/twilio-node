@@ -181,25 +181,6 @@ interface RecordSolution {
 }
 
 
-declare class RecordPage extends Page<V2010, RecordPayload, RecordResource, RecordInstance> {
-  /**
-   * Initialize the RecordPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: RecordSolution);
-
-  /**
-   * Build an instance of RecordInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: RecordPayload): RecordInstance;
-}
-
-
 declare class RecordInstance extends SerializableClass {
   /**
    * Initialize the RecordContext
@@ -244,6 +225,25 @@ declare class RecordInstance extends SerializableClass {
   uri: string;
   usage: string;
   usageUnit: string;
+}
+
+
+declare class RecordPage extends Page<V2010, RecordPayload, RecordResource, RecordInstance> {
+  /**
+   * Initialize the RecordPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: V2010, response: Response<string>, solution: RecordSolution);
+
+  /**
+   * Build an instance of RecordInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: RecordPayload): RecordInstance;
 }
 
 export { RecordInstance, RecordList, RecordListInstance, RecordListInstanceEachOptions, RecordListInstanceOptions, RecordListInstancePageOptions, RecordPage, RecordPayload, RecordResource, RecordSolution }

@@ -64,25 +64,6 @@ interface VerificationSolution {
 }
 
 
-declare class VerificationPage extends Page<AccSecurity, VerificationPayload, VerificationResource, VerificationInstance> {
-  /**
-   * Initialize the VerificationPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: AccSecurity, response: Response<string>, solution: VerificationSolution);
-
-  /**
-   * Build an instance of VerificationInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: VerificationPayload): VerificationInstance;
-}
-
-
 declare class VerificationInstance extends SerializableClass {
   /**
    * Initialize the VerificationContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
@@ -117,6 +98,25 @@ declare class VerificationInstance extends SerializableClass {
    */
   toJSON(): any;
   valid: boolean;
+}
+
+
+declare class VerificationPage extends Page<AccSecurity, VerificationPayload, VerificationResource, VerificationInstance> {
+  /**
+   * Initialize the VerificationPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: AccSecurity, response: Response<string>, solution: VerificationSolution);
+
+  /**
+   * Build an instance of VerificationInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: VerificationPayload): VerificationInstance;
 }
 
 export { VerificationInstance, VerificationList, VerificationListInstance, VerificationListInstanceCreateOptions, VerificationPage, VerificationPayload, VerificationResource, VerificationSolution }

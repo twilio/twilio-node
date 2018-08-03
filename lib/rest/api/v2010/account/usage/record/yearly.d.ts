@@ -173,25 +173,6 @@ interface YearlySolution {
 }
 
 
-declare class YearlyPage extends Page<V2010, YearlyPayload, YearlyResource, YearlyInstance> {
-  /**
-   * Initialize the YearlyPage
-   *
-   * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
-   */
-  constructor(version: V2010, response: Response<string>, solution: YearlySolution);
-
-  /**
-   * Build an instance of YearlyInstance
-   *
-   * @param payload - Payload response from the API
-   */
-  getInstance(payload: YearlyPayload): YearlyInstance;
-}
-
-
 declare class YearlyInstance extends SerializableClass {
   /**
    * Initialize the YearlyContext
@@ -236,6 +217,25 @@ declare class YearlyInstance extends SerializableClass {
   uri: string;
   usage: string;
   usageUnit: string;
+}
+
+
+declare class YearlyPage extends Page<V2010, YearlyPayload, YearlyResource, YearlyInstance> {
+  /**
+   * Initialize the YearlyPage
+   *
+   * @param version - Version of the resource
+   * @param response - Response from the API
+   * @param solution - Path solution
+   */
+  constructor(version: V2010, response: Response<string>, solution: YearlySolution);
+
+  /**
+   * Build an instance of YearlyInstance
+   *
+   * @param payload - Payload response from the API
+   */
+  getInstance(payload: YearlyPayload): YearlyInstance;
 }
 
 export { YearlyInstance, YearlyList, YearlyListInstance, YearlyListInstanceEachOptions, YearlyListInstanceOptions, YearlyListInstancePageOptions, YearlyPage, YearlyPayload, YearlyResource, YearlySolution }

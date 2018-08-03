@@ -200,22 +200,21 @@ interface CommandSolution {
 }
 
 
-declare class CommandPage extends Page<V1, CommandPayload, CommandResource, CommandInstance> {
+declare class CommandContext {
   /**
-   * Initialize the CommandPage
+   * Initialize the CommandContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param sid - The sid
    */
-  constructor(version: V1, response: Response<string>, solution: CommandSolution);
+  constructor(version: V1, sid: string);
 
   /**
-   * Build an instance of CommandInstance
+   * fetch a CommandInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: CommandPayload): CommandInstance;
+  fetch(callback?: (error: Error | null, items: CommandInstance) => any): Promise<CommandInstance>;
 }
 
 
@@ -265,21 +264,22 @@ declare class CommandInstance extends SerializableClass {
 }
 
 
-declare class CommandContext {
+declare class CommandPage extends Page<V1, CommandPayload, CommandResource, CommandInstance> {
   /**
-   * Initialize the CommandContext
+   * Initialize the CommandPage
    *
    * @param version - Version of the resource
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, sid: string);
+  constructor(version: V1, response: Response<string>, solution: CommandSolution);
 
   /**
-   * fetch a CommandInstance
+   * Build an instance of CommandInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: CommandInstance) => any): Promise<CommandInstance>;
+  getInstance(payload: CommandPayload): CommandInstance;
 }
 
 export { CommandContext, CommandInstance, CommandList, CommandListInstance, CommandListInstanceCreateOptions, CommandListInstanceEachOptions, CommandListInstanceOptions, CommandListInstancePageOptions, CommandPage, CommandPayload, CommandResource, CommandSolution }

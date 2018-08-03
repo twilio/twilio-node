@@ -165,22 +165,28 @@ interface IpAccessControlListSolution {
 }
 
 
-declare class IpAccessControlListPage extends Page<V1, IpAccessControlListPayload, IpAccessControlListResource, IpAccessControlListInstance> {
+declare class IpAccessControlListContext {
   /**
-   * Initialize the IpAccessControlListPage
+   * Initialize the IpAccessControlListContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param trunkSid - The trunk_sid
+   * @param sid - The sid
    */
-  constructor(version: V1, response: Response<string>, solution: IpAccessControlListSolution);
+  constructor(version: V1, trunkSid: string, sid: string);
 
   /**
-   * Build an instance of IpAccessControlListInstance
+   * fetch a IpAccessControlListInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: IpAccessControlListPayload): IpAccessControlListInstance;
+  fetch(callback?: (error: Error | null, items: IpAccessControlListInstance) => any): Promise<IpAccessControlListInstance>;
+  /**
+   * remove a IpAccessControlListInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: IpAccessControlListInstance) => any): void;
 }
 
 
@@ -231,28 +237,22 @@ declare class IpAccessControlListInstance extends SerializableClass {
 }
 
 
-declare class IpAccessControlListContext {
+declare class IpAccessControlListPage extends Page<V1, IpAccessControlListPayload, IpAccessControlListResource, IpAccessControlListInstance> {
   /**
-   * Initialize the IpAccessControlListContext
+   * Initialize the IpAccessControlListPage
    *
    * @param version - Version of the resource
-   * @param trunkSid - The trunk_sid
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V1, trunkSid: string, sid: string);
+  constructor(version: V1, response: Response<string>, solution: IpAccessControlListSolution);
 
   /**
-   * fetch a IpAccessControlListInstance
+   * Build an instance of IpAccessControlListInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: IpAccessControlListInstance) => any): Promise<IpAccessControlListInstance>;
-  /**
-   * remove a IpAccessControlListInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: IpAccessControlListInstance) => any): void;
+  getInstance(payload: IpAccessControlListPayload): IpAccessControlListInstance;
 }
 
 export { IpAccessControlListContext, IpAccessControlListInstance, IpAccessControlListList, IpAccessControlListListInstance, IpAccessControlListListInstanceCreateOptions, IpAccessControlListListInstanceEachOptions, IpAccessControlListListInstanceOptions, IpAccessControlListListInstancePageOptions, IpAccessControlListPage, IpAccessControlListPayload, IpAccessControlListResource, IpAccessControlListSolution }

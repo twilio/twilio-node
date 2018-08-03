@@ -174,22 +174,32 @@ interface AssignedAddOnSolution {
 }
 
 
-declare class AssignedAddOnPage extends Page<V2010, AssignedAddOnPayload, AssignedAddOnResource, AssignedAddOnInstance> {
+declare class AssignedAddOnContext {
   /**
-   * Initialize the AssignedAddOnPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the AssignedAddOnContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   *
+   * @property extensions - extensions resource
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param accountSid - The account_sid
+   * @param resourceSid - The resource_sid
+   * @param sid - The unique Installed Add-on Sid
    */
-  constructor(version: V2010, response: Response<string>, solution: AssignedAddOnSolution);
+  constructor(version: V2010, accountSid: string, resourceSid: string, sid: string);
 
+  extensions: AssignedAddOnExtensionListInstance;
   /**
-   * Build an instance of AssignedAddOnInstance
+   * fetch a AssignedAddOnInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: AssignedAddOnPayload): AssignedAddOnInstance;
+  fetch(callback?: (error: Error | null, items: AssignedAddOnInstance) => any): Promise<AssignedAddOnInstance>;
+  /**
+   * remove a AssignedAddOnInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: AssignedAddOnInstance) => any): void;
 }
 
 
@@ -253,32 +263,22 @@ declare class AssignedAddOnInstance extends SerializableClass {
 }
 
 
-declare class AssignedAddOnContext {
+declare class AssignedAddOnPage extends Page<V2010, AssignedAddOnPayload, AssignedAddOnResource, AssignedAddOnInstance> {
   /**
-   * Initialize the AssignedAddOnContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
-   *
-   * @property extensions - extensions resource
+   * Initialize the AssignedAddOnPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param resourceSid - The resource_sid
-   * @param sid - The unique Installed Add-on Sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V2010, accountSid: string, resourceSid: string, sid: string);
+  constructor(version: V2010, response: Response<string>, solution: AssignedAddOnSolution);
 
-  extensions: AssignedAddOnExtensionListInstance;
   /**
-   * fetch a AssignedAddOnInstance
+   * Build an instance of AssignedAddOnInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: AssignedAddOnInstance) => any): Promise<AssignedAddOnInstance>;
-  /**
-   * remove a AssignedAddOnInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: AssignedAddOnInstance) => any): void;
+  getInstance(payload: AssignedAddOnPayload): AssignedAddOnInstance;
 }
 
 export { AssignedAddOnContext, AssignedAddOnInstance, AssignedAddOnList, AssignedAddOnListInstance, AssignedAddOnListInstanceCreateOptions, AssignedAddOnListInstanceEachOptions, AssignedAddOnListInstanceOptions, AssignedAddOnListInstancePageOptions, AssignedAddOnPage, AssignedAddOnPayload, AssignedAddOnResource, AssignedAddOnSolution }

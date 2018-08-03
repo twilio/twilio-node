@@ -167,22 +167,29 @@ interface IpAccessControlListMappingSolution {
 }
 
 
-declare class IpAccessControlListMappingPage extends Page<V2010, IpAccessControlListMappingPayload, IpAccessControlListMappingResource, IpAccessControlListMappingInstance> {
+declare class IpAccessControlListMappingContext {
   /**
-   * Initialize the IpAccessControlListMappingPage
+   * Initialize the IpAccessControlListMappingContext
    *
    * @param version - Version of the resource
-   * @param response - Response from the API
-   * @param solution - Path solution
+   * @param accountSid - The account_sid
+   * @param domainSid - The domain_sid
+   * @param sid - The sid
    */
-  constructor(version: V2010, response: Response<string>, solution: IpAccessControlListMappingSolution);
+  constructor(version: V2010, accountSid: string, domainSid: string, sid: string);
 
   /**
-   * Build an instance of IpAccessControlListMappingInstance
+   * fetch a IpAccessControlListMappingInstance
    *
-   * @param payload - Payload response from the API
+   * @param callback - Callback to handle processed record
    */
-  getInstance(payload: IpAccessControlListMappingPayload): IpAccessControlListMappingInstance;
+  fetch(callback?: (error: Error | null, items: IpAccessControlListMappingInstance) => any): Promise<IpAccessControlListMappingInstance>;
+  /**
+   * remove a IpAccessControlListMappingInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: IpAccessControlListMappingInstance) => any): void;
 }
 
 
@@ -234,29 +241,22 @@ declare class IpAccessControlListMappingInstance extends SerializableClass {
 }
 
 
-declare class IpAccessControlListMappingContext {
+declare class IpAccessControlListMappingPage extends Page<V2010, IpAccessControlListMappingPayload, IpAccessControlListMappingResource, IpAccessControlListMappingInstance> {
   /**
-   * Initialize the IpAccessControlListMappingContext
+   * Initialize the IpAccessControlListMappingPage
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param domainSid - The domain_sid
-   * @param sid - The sid
+   * @param response - Response from the API
+   * @param solution - Path solution
    */
-  constructor(version: V2010, accountSid: string, domainSid: string, sid: string);
+  constructor(version: V2010, response: Response<string>, solution: IpAccessControlListMappingSolution);
 
   /**
-   * fetch a IpAccessControlListMappingInstance
+   * Build an instance of IpAccessControlListMappingInstance
    *
-   * @param callback - Callback to handle processed record
+   * @param payload - Payload response from the API
    */
-  fetch(callback?: (error: Error | null, items: IpAccessControlListMappingInstance) => any): Promise<IpAccessControlListMappingInstance>;
-  /**
-   * remove a IpAccessControlListMappingInstance
-   *
-   * @param callback - Callback to handle processed record
-   */
-  remove(callback?: (error: Error | null, items: IpAccessControlListMappingInstance) => any): void;
+  getInstance(payload: IpAccessControlListMappingPayload): IpAccessControlListMappingInstance;
 }
 
 export { IpAccessControlListMappingContext, IpAccessControlListMappingInstance, IpAccessControlListMappingList, IpAccessControlListMappingListInstance, IpAccessControlListMappingListInstanceCreateOptions, IpAccessControlListMappingListInstanceEachOptions, IpAccessControlListMappingListInstanceOptions, IpAccessControlListMappingListInstancePageOptions, IpAccessControlListMappingPage, IpAccessControlListMappingPayload, IpAccessControlListMappingResource, IpAccessControlListMappingSolution }
