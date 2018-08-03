@@ -60,13 +60,7 @@ promise.then((message: MessageInstance) => {
   console.log(message.sid);
 });
 
-// Create sip trunk using callback as first parameter
-client.trunking.v1.trunks.create((err: Error, result: TrunkInstance) => {
-  console.log('Created default trunk');
-  console.log(result.sid);
-});
-
-// Create sip trunk using callback as second parameter
+// Create sip trunk
 client.trunking.v1.trunks.create(
   {
     friendlyName: 'sip trunking'
