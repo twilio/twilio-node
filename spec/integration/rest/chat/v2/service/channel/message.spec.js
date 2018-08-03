@@ -670,7 +670,7 @@ describe('Message', function() {
           'date_updated': '2015-12-16T22:18:38Z',
           'last_updated_by': 'username',
           'was_edited': true,
-          'from': 'system',
+          'from': 'fromUser',
           'body': 'Hello',
           'index': 0,
           'type': 'text',

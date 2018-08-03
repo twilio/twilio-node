@@ -373,4 +373,38 @@ describe('Reservation', function() {
       promise.done();
     }
   );
+  it('should generate valid update_supervise_instruction response',
+    function() {
+      var body = JSON.stringify({
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'date_created': '2014-05-14T10:50:02Z',
+          'date_updated': '2014-05-15T16:03:42Z',
+          'links': {
+              'task': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+              'worker': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+              'workspace': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          },
+          'reservation_status': 'accepted',
+          'sid': 'WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'task_sid': 'WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'url': 'https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Tasks/WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Reservations/WRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'worker_name': 'Doug',
+          'worker_sid': 'WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'workspace_sid': 'WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+      });
+
+      holodeck.mock(new Response(200, body));
+
+      var promise = client.taskrouter.v1.workspaces('WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .tasks('WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                        .reservations('WRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update();
+      promise = promise.then(function(response) {
+        expect(response).toBeDefined();
+      }, function() {
+        throw new Error('failed');
+      });
+
+      promise.done();
+    }
+  );
 });
