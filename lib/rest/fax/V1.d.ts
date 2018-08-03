@@ -8,6 +8,7 @@
 import Fax = require('../Fax');
 import Version = require('../../base/Version');
 import { FaxList } from './v1/fax';
+import { FaxListInstance } from './v1/fax';
 
 
 declare class V1 extends Version {

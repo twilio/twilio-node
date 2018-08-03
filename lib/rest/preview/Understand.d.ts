@@ -8,6 +8,7 @@
 import Preview = require('../Preview');
 import Version = require('../../base/Version');
 import { AssistantList } from './understand/assistant';
+import { AssistantListInstance } from './understand/assistant';
 
 
 declare class Understand extends Version {

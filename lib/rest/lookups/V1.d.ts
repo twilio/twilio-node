@@ -8,6 +8,7 @@
 import Lookups = require('../Lookups');
 import Version = require('../../base/Version');
 import { PhoneNumberList } from './v1/phoneNumber';
+import { PhoneNumberListInstance } from './v1/phoneNumber';
 
 
 declare class V1 extends Version {

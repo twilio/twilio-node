@@ -8,8 +8,11 @@
 import Preview = require('../Preview');
 import Version = require('../../base/Version');
 import { CommandList } from './wireless/command';
+import { CommandListInstance } from './wireless/command';
 import { RatePlanList } from './wireless/ratePlan';
+import { RatePlanListInstance } from './wireless/ratePlan';
 import { SimList } from './wireless/sim';
+import { SimListInstance } from './wireless/sim';
 
 
 declare class Wireless extends Version {

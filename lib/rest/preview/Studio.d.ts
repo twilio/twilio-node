@@ -8,6 +8,7 @@
 import Preview = require('../Preview');
 import Version = require('../../base/Version');
 import { FlowList } from './studio/flow';
+import { FlowListInstance } from './studio/flow';
 
 
 declare class Studio extends Version {

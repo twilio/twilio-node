@@ -8,6 +8,7 @@
 import Preview = require('../Preview');
 import Version = require('../../base/Version');
 import { ServiceList } from './sync/service';
+import { ServiceListInstance } from './sync/service';
 
 
 declare class Sync extends Version {

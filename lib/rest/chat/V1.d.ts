@@ -8,7 +8,9 @@
 import Chat = require('../Chat');
 import Version = require('../../base/Version');
 import { CredentialList } from './v1/credential';
+import { CredentialListInstance } from './v1/credential';
 import { ServiceList } from './v1/service';
+import { ServiceListInstance } from './v1/service';
 
 
 declare class V1 extends Version {

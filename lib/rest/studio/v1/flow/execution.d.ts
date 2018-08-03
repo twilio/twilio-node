@@ -207,7 +207,7 @@ declare class ExecutionInstance extends SerializableClass {
    * @property flowSid - Flow Sid.
    * @property contactSid - Contact Sid.
    * @property contactChannelAddress - The phone number, SIP address or Client identifier that triggered this Execution.
-   * @property context - Flow state.
+   * @property context - The context
    * @property status - The Status of this Execution
    * @property dateCreated - The date this Execution was created
    * @property dateUpdated - The date this Execution was updated

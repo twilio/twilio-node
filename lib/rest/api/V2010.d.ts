@@ -9,6 +9,7 @@ import Api = require('../Api');
 import Version = require('../../base/Version');
 import { AccountContext } from './v2010/account';
 import { AccountList } from './v2010/account';
+import { AccountListInstance } from './v2010/account';
 
 
 declare class V2010 extends Version {

@@ -8,6 +8,7 @@
 import Preview = require('../Preview');
 import Version = require('../../base/Version');
 import { FleetList } from './deployed_devices/fleet';
+import { FleetListInstance } from './deployed_devices/fleet';
 
 
 declare class DeployedDevices extends Version {

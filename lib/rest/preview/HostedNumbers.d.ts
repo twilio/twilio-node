@@ -8,7 +8,9 @@
 import Preview = require('../Preview');
 import Version = require('../../base/Version');
 import { AuthorizationDocumentList } from './hosted_numbers/authorizationDocument';
+import { AuthorizationDocumentListInstance } from './hosted_numbers/authorizationDocument';
 import { HostedNumberOrderList } from './hosted_numbers/hostedNumberOrder';
+import { HostedNumberOrderListInstance } from './hosted_numbers/hostedNumberOrder';
 
 
 declare class HostedNumbers extends Version {

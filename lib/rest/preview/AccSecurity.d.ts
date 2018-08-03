@@ -8,6 +8,7 @@
 import Preview = require('../Preview');
 import Version = require('../../base/Version');
 import { ServiceList } from './acc_security/service';
+import { ServiceListInstance } from './acc_security/service';
 
 
 declare class AccSecurity extends Version {

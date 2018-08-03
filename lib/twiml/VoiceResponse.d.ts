@@ -13,6 +13,12 @@ declare class VoiceResponse {
   constructor();
 
   /**
+   * <Connect> TwiML Verb
+   *
+   * @param attributes - TwiML attributes
+   */
+  connect(attributes?: VoiceResponse.ConnectAttributes): VoiceResponse.Connect;
+  /**
    * <Dial> TwiML Verb
    *
    * @param attributes - TwiML attributes
@@ -219,6 +225,17 @@ declare namespace VoiceResponse {
     waitMethod?: string;
     waitUrl?: string;
     whisper?: string;
+  }
+
+  /**
+   * Options to pass to connect
+   *
+   * @property action - Action URL
+   * @property method - Action URL method
+   */
+  export interface ConnectAttributes {
+    action?: string;
+    method?: string;
   }
 
   /**
@@ -781,6 +798,18 @@ declare namespace VoiceResponse {
      * @param sipUrl - SIP URL
      */
     sip(attributes: VoiceResponse.SipAttributes, sipUrl: string): void;
+  }
+
+
+  class Connect {
+
+    /**
+     * <Room> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     * @param name - Room name
+     */
+    room(attributes: VideoResponse.RoomAttributes, name: string): void;
   }
 }
 

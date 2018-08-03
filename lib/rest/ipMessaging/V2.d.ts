@@ -8,7 +8,9 @@
 import IpMessaging = require('../IpMessaging');
 import Version = require('../../base/Version');
 import { CredentialList } from './v2/credential';
+import { CredentialListInstance } from './v2/credential';
 import { ServiceList } from './v2/service';
+import { ServiceListInstance } from './v2/service';
 
 
 declare class V2 extends Version {

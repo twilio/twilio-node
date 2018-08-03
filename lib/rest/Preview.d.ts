@@ -11,7 +11,6 @@ import DeployedDevices = require('./preview/DeployedDevices');
 import Domain = require('../base/Domain');
 import HostedNumbers = require('./preview/HostedNumbers');
 import Marketplace = require('./preview/Marketplace');
-import Proxy = require('./preview/Proxy');
 import Studio = require('./preview/Studio');
 import Sync = require('./preview/Sync');
 import Twilio = require('./Twilio');
@@ -55,7 +54,6 @@ declare class Preview extends Domain {
   readonly hosted_numbers: HostedNumbers;
   readonly installedAddOns: InstalledAddOnListInstance;
   readonly marketplace: Marketplace;
-  readonly proxy: Proxy;
   readonly ratePlans: RatePlanListInstance;
   readonly services: ServiceListInstance;
   readonly sims: SimListInstance;

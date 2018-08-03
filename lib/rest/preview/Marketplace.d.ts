@@ -8,7 +8,9 @@
 import Preview = require('../Preview');
 import Version = require('../../base/Version');
 import { AvailableAddOnList } from './marketplace/availableAddOn';
+import { AvailableAddOnListInstance } from './marketplace/availableAddOn';
 import { InstalledAddOnList } from './marketplace/installedAddOn';
+import { InstalledAddOnListInstance } from './marketplace/installedAddOn';
 
 
 declare class Marketplace extends Version {

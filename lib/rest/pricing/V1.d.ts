@@ -8,8 +8,11 @@
 import Pricing = require('../Pricing');
 import Version = require('../../base/Version');
 import { MessagingList } from './v1/messaging';
+import { MessagingListInstance } from './v1/messaging';
 import { PhoneNumberList } from './v1/phoneNumber';
+import { PhoneNumberListInstance } from './v1/phoneNumber';
 import { VoiceList } from './v1/voice';
+import { VoiceListInstance } from './v1/voice';
 
 
 declare class V1 extends Version {

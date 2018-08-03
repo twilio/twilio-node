@@ -8,6 +8,7 @@
 import Messaging = require('../Messaging');
 import Version = require('../../base/Version');
 import { ServiceList } from './v1/service';
+import { ServiceListInstance } from './v1/service';
 
 
 declare class V1 extends Version {

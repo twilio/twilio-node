@@ -8,6 +8,7 @@
 import Trunking = require('../Trunking');
 import Version = require('../../base/Version');
 import { TrunkList } from './v1/trunk';
+import { TrunkListInstance } from './v1/trunk';
 
 
 declare class V1 extends Version {

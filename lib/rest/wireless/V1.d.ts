@@ -8,8 +8,11 @@
 import Version = require('../../base/Version');
 import Wireless = require('../Wireless');
 import { CommandList } from './v1/command';
+import { CommandListInstance } from './v1/command';
 import { RatePlanList } from './v1/ratePlan';
+import { RatePlanListInstance } from './v1/ratePlan';
 import { SimList } from './v1/sim';
+import { SimListInstance } from './v1/sim';
 
 
 declare class V1 extends Version {

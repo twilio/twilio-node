@@ -8,6 +8,7 @@
 import Accounts = require('../Accounts');
 import Version = require('../../base/Version');
 import { CredentialList } from './v1/credential';
+import { CredentialListInstance } from './v1/credential';
 
 
 declare class V1 extends Version {

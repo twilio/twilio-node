@@ -8,7 +8,9 @@
 import Monitor = require('../Monitor');
 import Version = require('../../base/Version');
 import { AlertList } from './v1/alert';
+import { AlertListInstance } from './v1/alert';
 import { EventList } from './v1/event';
+import { EventListInstance } from './v1/event';
 
 
 declare class V1 extends Version {
