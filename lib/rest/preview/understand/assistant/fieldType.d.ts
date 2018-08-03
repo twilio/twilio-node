@@ -9,6 +9,7 @@ import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import Understand = require('../../Understand');
 import { FieldValueList } from './fieldType/fieldValue';
+import { FieldValueListInstance } from './fieldType/fieldValue';
 import { SerializableClass } from '../../../../interfaces';
 
 /**
@@ -236,7 +237,7 @@ declare class FieldTypeInstance extends SerializableClass {
   /**
    * Access the fieldValues
    */
-  fieldValues();
+  fieldValues(): FieldValueListInstance;
   friendlyName: string;
   links: string;
   /**
@@ -281,7 +282,7 @@ declare class FieldTypeContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: FieldTypeInstance) => any): void;
-  fieldValues?: FieldValueList;
+  fieldValues?: FieldValueListInstance;
   /**
    * remove a FieldTypeInstance
    *

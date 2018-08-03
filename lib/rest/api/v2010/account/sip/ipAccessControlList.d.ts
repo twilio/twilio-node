@@ -9,6 +9,7 @@ import Page = require('../../../../../base/Page');
 import Response = require('../../../../../http/response');
 import V2010 = require('../../../V2010');
 import { IpAddressList } from './ipAccessControlList/ipAddress';
+import { IpAddressListInstance } from './ipAccessControlList/ipAddress';
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
@@ -227,7 +228,7 @@ declare class IpAccessControlListInstance extends SerializableClass {
   /**
    * Access the ipAddresses
    */
-  ipAddresses();
+  ipAddresses(): IpAddressListInstance;
   /**
    * remove a IpAccessControlListInstance
    *
@@ -270,7 +271,7 @@ declare class IpAccessControlListContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: IpAccessControlListInstance) => any): void;
-  ipAddresses?: IpAddressList;
+  ipAddresses?: IpAddressListInstance;
   /**
    * remove a IpAccessControlListInstance
    *

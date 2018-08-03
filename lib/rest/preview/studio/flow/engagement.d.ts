@@ -10,6 +10,7 @@ import Response = require('../../../../http/response');
 import Studio = require('../../Studio');
 import { SerializableClass } from '../../../../interfaces';
 import { StepList } from './engagement/step';
+import { StepListInstance } from './engagement/step';
 
 type EngagementStatus = 'active'|'ended';
 
@@ -239,7 +240,7 @@ declare class EngagementInstance extends SerializableClass {
   /**
    * Access the steps
    */
-  steps();
+  steps(): StepListInstance;
   /**
    * Produce a plain JSON object version of the EngagementInstance for serialization.
    * Removes any circular references in the object.
@@ -267,7 +268,7 @@ declare class EngagementContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: EngagementInstance) => any): void;
-  steps?: StepList;
+  steps?: StepListInstance;
 }
 
 export { EngagementContext, EngagementInstance, EngagementList, EngagementListInstance, EngagementListInstanceCreateOptions, EngagementListInstanceEachOptions, EngagementListInstanceOptions, EngagementListInstancePageOptions, EngagementPage, EngagementPayload, EngagementResource, EngagementSolution }

@@ -10,8 +10,10 @@ import Response = require('../../../../http/response');
 import V1 = require('../../V1');
 import serialize = require('../../../../base/serialize');
 import { EngagementContextList } from './engagement/engagementContext';
+import { EngagementContextListInstance } from './engagement/engagementContext';
 import { SerializableClass } from '../../../../interfaces';
 import { StepList } from './engagement/step';
+import { StepListInstance } from './engagement/step';
 
 type EngagementStatus = 'active'|'ended';
 
@@ -231,7 +233,7 @@ declare class EngagementInstance extends SerializableClass {
   /**
    * Access the engagementContext
    */
-  engagementContext();
+  engagementContext(): EngagementContextListInstance;
   /**
    * fetch a EngagementInstance
    *
@@ -251,7 +253,7 @@ declare class EngagementInstance extends SerializableClass {
   /**
    * Access the steps
    */
-  steps();
+  steps(): StepListInstance;
   /**
    * Produce a plain JSON object version of the EngagementInstance for serialization.
    * Removes any circular references in the object.
@@ -274,7 +276,7 @@ declare class EngagementContext {
    */
   constructor(version: V1, flowSid: string, sid: string);
 
-  engagementContext?: EngagementContextList;
+  engagementContext?: EngagementContextListInstance;
   /**
    * fetch a EngagementInstance
    *
@@ -287,7 +289,7 @@ declare class EngagementContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: EngagementInstance) => any): void;
-  steps?: StepList;
+  steps?: StepListInstance;
 }
 
 export { EngagementContext, EngagementInstance, EngagementList, EngagementListInstance, EngagementListInstanceCreateOptions, EngagementListInstanceEachOptions, EngagementListInstanceOptions, EngagementListInstancePageOptions, EngagementPage, EngagementPayload, EngagementResource, EngagementSolution }

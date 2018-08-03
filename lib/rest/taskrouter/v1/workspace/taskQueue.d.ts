@@ -10,8 +10,11 @@ import Response = require('../../../../http/response');
 import V1 = require('../../V1');
 import { SerializableClass } from '../../../../interfaces';
 import { TaskQueueCumulativeStatisticsList } from './taskQueue/taskQueueCumulativeStatistics';
+import { TaskQueueCumulativeStatisticsListInstance } from './taskQueue/taskQueueCumulativeStatistics';
 import { TaskQueueRealTimeStatisticsList } from './taskQueue/taskQueueRealTimeStatistics';
+import { TaskQueueRealTimeStatisticsListInstance } from './taskQueue/taskQueueRealTimeStatistics';
 import { TaskQueueStatisticsList } from './taskQueue/taskQueueStatistics';
+import { TaskQueueStatisticsListInstance } from './taskQueue/taskQueueStatistics';
 
 type TaskQueueTaskOrder = 'FIFO'|'LIFO';
 
@@ -279,7 +282,7 @@ declare class TaskQueueInstance extends SerializableClass {
   /**
    * Access the cumulativeStatistics
    */
-  cumulativeStatistics();
+  cumulativeStatistics(): TaskQueueCumulativeStatisticsListInstance;
   dateCreated: Date;
   dateUpdated: Date;
   /**
@@ -294,7 +297,7 @@ declare class TaskQueueInstance extends SerializableClass {
   /**
    * Access the realTimeStatistics
    */
-  realTimeStatistics();
+  realTimeStatistics(): TaskQueueRealTimeStatisticsListInstance;
   /**
    * remove a TaskQueueInstance
    *
@@ -307,7 +310,7 @@ declare class TaskQueueInstance extends SerializableClass {
   /**
    * Access the statistics
    */
-  statistics();
+  statistics(): TaskQueueStatisticsListInstance;
   targetWorkers: string;
   taskOrder: TaskQueueTaskOrder;
   /**
@@ -341,21 +344,21 @@ declare class TaskQueueContext {
    */
   constructor(version: V1, workspaceSid: string, sid: string);
 
-  cumulativeStatistics?: TaskQueueCumulativeStatisticsList;
+  cumulativeStatistics?: TaskQueueCumulativeStatisticsListInstance;
   /**
    * fetch a TaskQueueInstance
    *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: TaskQueueInstance) => any): void;
-  realTimeStatistics?: TaskQueueRealTimeStatisticsList;
+  realTimeStatistics?: TaskQueueRealTimeStatisticsListInstance;
   /**
    * remove a TaskQueueInstance
    *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: TaskQueueInstance) => any): void;
-  statistics?: TaskQueueStatisticsList;
+  statistics?: TaskQueueStatisticsListInstance;
   /**
    * update a TaskQueueInstance
    *

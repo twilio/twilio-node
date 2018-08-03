@@ -10,6 +10,7 @@ import Response = require('../../../../http/response');
 import V1 = require('../../V1');
 import serialize = require('../../../../base/serialize');
 import { ReservationList } from './task/reservation';
+import { ReservationListInstance } from './task/reservation';
 import { SerializableClass } from '../../../../interfaces';
 
 type TaskStatus = 'pending'|'reserved'|'assigned'|'canceled'|'completed'|'wrapping';
@@ -338,7 +339,7 @@ declare class TaskInstance extends SerializableClass {
   /**
    * Access the reservations
    */
-  reservations();
+  reservations(): ReservationListInstance;
   sid: string;
   taskChannelSid: string;
   taskChannelUniqueName: string;
@@ -388,7 +389,7 @@ declare class TaskContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: TaskInstance) => any): void;
-  reservations?: ReservationList;
+  reservations?: ReservationListInstance;
   /**
    * update a TaskInstance
    *

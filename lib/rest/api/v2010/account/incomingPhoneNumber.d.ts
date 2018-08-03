@@ -10,6 +10,7 @@ import Response = require('../../../../http/response');
 import V2010 = require('../../V2010');
 import serialize = require('../../../../base/serialize');
 import { AssignedAddOnList } from './incomingPhoneNumber/assignedAddOn';
+import { AssignedAddOnListInstance } from './incomingPhoneNumber/assignedAddOn';
 import { SerializableClass } from '../../../../interfaces';
 
 type IncomingPhoneNumberAddressRequirement = 'none'|'any'|'local'|'foreign';
@@ -385,7 +386,7 @@ declare class IncomingPhoneNumberInstance extends SerializableClass {
   /**
    * Access the assignedAddOns
    */
-  assignedAddOns();
+  assignedAddOns(): AssignedAddOnListInstance;
   beta: boolean;
   capabilities: string;
   dateCreated: Date;
@@ -451,7 +452,7 @@ declare class IncomingPhoneNumberContext {
    */
   constructor(version: V2010, accountSid: string, sid: string);
 
-  assignedAddOns?: AssignedAddOnList;
+  assignedAddOns?: AssignedAddOnListInstance;
   /**
    * fetch a IncomingPhoneNumberInstance
    *

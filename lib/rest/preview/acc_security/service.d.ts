@@ -10,7 +10,9 @@ import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import { SerializableClass } from '../../../interfaces';
 import { VerificationCheckList } from './service/verificationCheck';
+import { VerificationCheckListInstance } from './service/verificationCheck';
 import { VerificationList } from './service/verification';
+import { VerificationListInstance } from './service/verification';
 
 /**
  * @description Initialize the ServiceList
@@ -248,11 +250,11 @@ declare class ServiceInstance extends SerializableClass {
   /**
    * Access the verificationChecks
    */
-  verificationChecks();
+  verificationChecks(): VerificationCheckListInstance;
   /**
    * Access the verifications
    */
-  verifications();
+  verifications(): VerificationListInstance;
 }
 
 
@@ -281,8 +283,8 @@ declare class ServiceContext {
    * @param callback - Callback to handle processed record
    */
   update(opts?: ServiceInstanceUpdateOptions, callback?: (error: Error | null, items: ServiceInstance) => any): void;
-  verificationChecks?: VerificationCheckList;
-  verifications?: VerificationList;
+  verificationChecks?: VerificationCheckListInstance;
+  verifications?: VerificationListInstance;
 }
 
 export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServiceListInstanceCreateOptions, ServiceListInstanceEachOptions, ServiceListInstanceOptions, ServiceListInstancePageOptions, ServicePage, ServicePayload, ServiceResource, ServiceSolution }

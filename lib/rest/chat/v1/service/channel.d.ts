@@ -10,8 +10,11 @@ import Response = require('../../../../http/response');
 import V1 = require('../../V1');
 import serialize = require('../../../../base/serialize');
 import { InviteList } from './channel/invite';
+import { InviteListInstance } from './channel/invite';
 import { MemberList } from './channel/member';
+import { MemberListInstance } from './channel/member';
 import { MessageList } from './channel/message';
+import { MessageListInstance } from './channel/message';
 import { SerializableClass } from '../../../../interfaces';
 
 type ChannelChannelType = 'public'|'private';
@@ -264,17 +267,17 @@ declare class ChannelInstance extends SerializableClass {
   /**
    * Access the invites
    */
-  invites();
+  invites(): InviteListInstance;
   links: string;
   /**
    * Access the members
    */
-  members();
+  members(): MemberListInstance;
   membersCount: number;
   /**
    * Access the messages
    */
-  messages();
+  messages(): MessageListInstance;
   messagesCount: number;
   /**
    * remove a ChannelInstance
@@ -322,9 +325,9 @@ declare class ChannelContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: ChannelInstance) => any): void;
-  invites?: InviteList;
-  members?: MemberList;
-  messages?: MessageList;
+  invites?: InviteListInstance;
+  members?: MemberListInstance;
+  messages?: MessageListInstance;
   /**
    * remove a ChannelInstance
    *

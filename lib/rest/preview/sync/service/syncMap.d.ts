@@ -10,7 +10,9 @@ import Response = require('../../../../http/response');
 import Sync = require('../../Sync');
 import { SerializableClass } from '../../../../interfaces';
 import { SyncMapItemList } from './syncMap/syncMapItem';
+import { SyncMapItemListInstance } from './syncMap/syncMapItem';
 import { SyncMapPermissionList } from './syncMap/syncMapPermission';
+import { SyncMapPermissionListInstance } from './syncMap/syncMapPermission';
 
 /**
  * @description Initialize the SyncMapList
@@ -236,11 +238,11 @@ declare class SyncMapInstance extends SerializableClass {
   /**
    * Access the syncMapItems
    */
-  syncMapItems();
+  syncMapItems(): SyncMapItemListInstance;
   /**
    * Access the syncMapPermissions
    */
-  syncMapPermissions();
+  syncMapPermissions(): SyncMapPermissionListInstance;
   /**
    * Produce a plain JSON object version of the SyncMapInstance for serialization.
    * Removes any circular references in the object.
@@ -276,8 +278,8 @@ declare class SyncMapContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: SyncMapInstance) => any): void;
-  syncMapItems?: SyncMapItemList;
-  syncMapPermissions?: SyncMapPermissionList;
+  syncMapItems?: SyncMapItemListInstance;
+  syncMapPermissions?: SyncMapPermissionListInstance;
 }
 
 export { SyncMapContext, SyncMapInstance, SyncMapList, SyncMapListInstance, SyncMapListInstanceCreateOptions, SyncMapListInstanceEachOptions, SyncMapListInstanceOptions, SyncMapListInstancePageOptions, SyncMapPage, SyncMapPayload, SyncMapResource, SyncMapSolution }

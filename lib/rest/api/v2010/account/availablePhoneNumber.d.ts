@@ -9,13 +9,20 @@ import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V2010 = require('../../V2010');
 import { LocalList } from './availablePhoneNumber/local';
+import { LocalListInstance } from './availablePhoneNumber/local';
 import { MachineToMachineList } from './availablePhoneNumber/machineToMachine';
+import { MachineToMachineListInstance } from './availablePhoneNumber/machineToMachine';
 import { MobileList } from './availablePhoneNumber/mobile';
+import { MobileListInstance } from './availablePhoneNumber/mobile';
 import { NationalList } from './availablePhoneNumber/national';
+import { NationalListInstance } from './availablePhoneNumber/national';
 import { SerializableClass } from '../../../../interfaces';
 import { SharedCostList } from './availablePhoneNumber/sharedCost';
+import { SharedCostListInstance } from './availablePhoneNumber/sharedCost';
 import { TollFreeList } from './availablePhoneNumber/tollFree';
+import { TollFreeListInstance } from './availablePhoneNumber/tollFree';
 import { VoipList } from './availablePhoneNumber/voip';
+import { VoipListInstance } from './availablePhoneNumber/voip';
 
 /**
  * @description Initialize the AvailablePhoneNumberCountryList
@@ -203,23 +210,23 @@ declare class AvailablePhoneNumberCountryInstance extends SerializableClass {
   /**
    * Access the local
    */
-  local();
+  local(): LocalListInstance;
   /**
    * Access the machineToMachine
    */
-  machineToMachine();
+  machineToMachine(): MachineToMachineListInstance;
   /**
    * Access the mobile
    */
-  mobile();
+  mobile(): MobileListInstance;
   /**
    * Access the national
    */
-  national();
+  national(): NationalListInstance;
   /**
    * Access the sharedCost
    */
-  sharedCost();
+  sharedCost(): SharedCostListInstance;
   subresourceUris: string;
   /**
    * Produce a plain JSON object version of the AvailablePhoneNumberCountryInstance for serialization.
@@ -229,12 +236,12 @@ declare class AvailablePhoneNumberCountryInstance extends SerializableClass {
   /**
    * Access the tollFree
    */
-  tollFree();
+  tollFree(): TollFreeListInstance;
   uri: string;
   /**
    * Access the voip
    */
-  voip();
+  voip(): VoipListInstance;
 }
 
 
@@ -262,13 +269,13 @@ declare class AvailablePhoneNumberCountryContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: AvailablePhoneNumberCountryInstance) => any): void;
-  local?: LocalList;
-  machineToMachine?: MachineToMachineList;
-  mobile?: MobileList;
-  national?: NationalList;
-  sharedCost?: SharedCostList;
-  tollFree?: TollFreeList;
-  voip?: VoipList;
+  local?: LocalListInstance;
+  machineToMachine?: MachineToMachineListInstance;
+  mobile?: MobileListInstance;
+  national?: NationalListInstance;
+  sharedCost?: SharedCostListInstance;
+  tollFree?: TollFreeListInstance;
+  voip?: VoipListInstance;
 }
 
 export { AvailablePhoneNumberCountryContext, AvailablePhoneNumberCountryInstance, AvailablePhoneNumberCountryList, AvailablePhoneNumberCountryListInstance, AvailablePhoneNumberCountryListInstanceEachOptions, AvailablePhoneNumberCountryListInstanceOptions, AvailablePhoneNumberCountryListInstancePageOptions, AvailablePhoneNumberCountryPage, AvailablePhoneNumberCountryPayload, AvailablePhoneNumberCountryResource, AvailablePhoneNumberCountrySolution }

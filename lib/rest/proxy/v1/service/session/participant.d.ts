@@ -9,6 +9,7 @@ import Page = require('../../../../../base/Page');
 import Response = require('../../../../../http/response');
 import V1 = require('../../../V1');
 import { MessageInteractionList } from './participant/messageInteraction';
+import { MessageInteractionListInstance } from './participant/messageInteraction';
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
@@ -249,7 +250,7 @@ declare class ParticipantInstance extends SerializableClass {
   /**
    * Access the messageInteractions
    */
-  messageInteractions();
+  messageInteractions(): MessageInteractionListInstance;
   proxyIdentifier: string;
   proxyIdentifierSid: string;
   /**
@@ -289,7 +290,7 @@ declare class ParticipantContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: ParticipantInstance) => any): void;
-  messageInteractions?: MessageInteractionList;
+  messageInteractions?: MessageInteractionListInstance;
   /**
    * remove a ParticipantInstance
    *

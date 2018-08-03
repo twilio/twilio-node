@@ -10,16 +10,26 @@ import Response = require('../../../http/response');
 import V1 = require('../V1');
 import serialize = require('../../../base/serialize');
 import { ActivityList } from './workspace/activity';
+import { ActivityListInstance } from './workspace/activity';
 import { EventList } from './workspace/event';
+import { EventListInstance } from './workspace/event';
 import { SerializableClass } from '../../../interfaces';
 import { TaskChannelList } from './workspace/taskChannel';
+import { TaskChannelListInstance } from './workspace/taskChannel';
 import { TaskList } from './workspace/task';
+import { TaskListInstance } from './workspace/task';
 import { TaskQueueList } from './workspace/taskQueue';
+import { TaskQueueListInstance } from './workspace/taskQueue';
 import { WorkerList } from './workspace/worker';
+import { WorkerListInstance } from './workspace/worker';
 import { WorkflowList } from './workspace/workflow';
+import { WorkflowListInstance } from './workspace/workflow';
 import { WorkspaceCumulativeStatisticsList } from './workspace/workspaceCumulativeStatistics';
+import { WorkspaceCumulativeStatisticsListInstance } from './workspace/workspaceCumulativeStatistics';
 import { WorkspaceRealTimeStatisticsList } from './workspace/workspaceRealTimeStatistics';
+import { WorkspaceRealTimeStatisticsListInstance } from './workspace/workspaceRealTimeStatistics';
 import { WorkspaceStatisticsList } from './workspace/workspaceStatistics';
+import { WorkspaceStatisticsListInstance } from './workspace/workspaceStatistics';
 
 type WorkspaceQueueOrder = 'FIFO'|'LIFO';
 
@@ -271,11 +281,11 @@ declare class WorkspaceInstance extends SerializableClass {
   /**
    * Access the activities
    */
-  activities();
+  activities(): ActivityListInstance;
   /**
    * Access the cumulativeStatistics
    */
-  cumulativeStatistics();
+  cumulativeStatistics(): WorkspaceCumulativeStatisticsListInstance;
   dateCreated: Date;
   dateUpdated: Date;
   defaultActivityName: string;
@@ -284,7 +294,7 @@ declare class WorkspaceInstance extends SerializableClass {
   /**
    * Access the events
    */
-  events();
+  events(): EventListInstance;
   eventsFilter: string;
   /**
    * fetch a WorkspaceInstance
@@ -299,7 +309,7 @@ declare class WorkspaceInstance extends SerializableClass {
   /**
    * Access the realTimeStatistics
    */
-  realTimeStatistics();
+  realTimeStatistics(): WorkspaceRealTimeStatisticsListInstance;
   /**
    * remove a WorkspaceInstance
    *
@@ -310,19 +320,19 @@ declare class WorkspaceInstance extends SerializableClass {
   /**
    * Access the statistics
    */
-  statistics();
+  statistics(): WorkspaceStatisticsListInstance;
   /**
    * Access the taskChannels
    */
-  taskChannels();
+  taskChannels(): TaskChannelListInstance;
   /**
    * Access the taskQueues
    */
-  taskQueues();
+  taskQueues(): TaskQueueListInstance;
   /**
    * Access the tasks
    */
-  tasks();
+  tasks(): TaskListInstance;
   timeoutActivityName: string;
   timeoutActivitySid: string;
   /**
@@ -341,11 +351,11 @@ declare class WorkspaceInstance extends SerializableClass {
   /**
    * Access the workers
    */
-  workers();
+  workers(): WorkerListInstance;
   /**
    * Access the workflows
    */
-  workflows();
+  workflows(): WorkflowListInstance;
 }
 
 
@@ -369,26 +379,26 @@ declare class WorkspaceContext {
    */
   constructor(version: V1, sid: string);
 
-  activities?: ActivityList;
-  cumulativeStatistics?: WorkspaceCumulativeStatisticsList;
-  events?: EventList;
+  activities?: ActivityListInstance;
+  cumulativeStatistics?: WorkspaceCumulativeStatisticsListInstance;
+  events?: EventListInstance;
   /**
    * fetch a WorkspaceInstance
    *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: WorkspaceInstance) => any): void;
-  realTimeStatistics?: WorkspaceRealTimeStatisticsList;
+  realTimeStatistics?: WorkspaceRealTimeStatisticsListInstance;
   /**
    * remove a WorkspaceInstance
    *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: WorkspaceInstance) => any): void;
-  statistics?: WorkspaceStatisticsList;
-  taskChannels?: TaskChannelList;
-  taskQueues?: TaskQueueList;
-  tasks?: TaskList;
+  statistics?: WorkspaceStatisticsListInstance;
+  taskChannels?: TaskChannelListInstance;
+  taskQueues?: TaskQueueListInstance;
+  tasks?: TaskListInstance;
   /**
    * update a WorkspaceInstance
    *
@@ -396,8 +406,8 @@ declare class WorkspaceContext {
    * @param callback - Callback to handle processed record
    */
   update(opts?: WorkspaceInstanceUpdateOptions, callback?: (error: Error | null, items: WorkspaceInstance) => any): void;
-  workers?: WorkerList;
-  workflows?: WorkflowList;
+  workers?: WorkerListInstance;
+  workflows?: WorkflowListInstance;
 }
 
 export { WorkspaceContext, WorkspaceInstance, WorkspaceList, WorkspaceListInstance, WorkspaceListInstanceCreateOptions, WorkspaceListInstanceEachOptions, WorkspaceListInstanceOptions, WorkspaceListInstancePageOptions, WorkspacePage, WorkspacePayload, WorkspaceResource, WorkspaceSolution }

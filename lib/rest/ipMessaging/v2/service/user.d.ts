@@ -10,7 +10,9 @@ import Response = require('../../../../http/response');
 import V2 = require('../../V2');
 import { SerializableClass } from '../../../../interfaces';
 import { UserBindingList } from './user/userBinding';
+import { UserBindingListInstance } from './user/userBinding';
 import { UserChannelList } from './user/userChannel';
+import { UserChannelListInstance } from './user/userChannel';
 
 type UserWebhookEnabledType = 'true'|'false';
 
@@ -282,11 +284,11 @@ declare class UserInstance extends SerializableClass {
   /**
    * Access the userBindings
    */
-  userBindings();
+  userBindings(): UserBindingListInstance;
   /**
    * Access the userChannels
    */
-  userChannels();
+  userChannels(): UserChannelListInstance;
 }
 
 
@@ -322,8 +324,8 @@ declare class UserContext {
    * @param callback - Callback to handle processed record
    */
   update(opts?: UserInstanceUpdateOptions, callback?: (error: Error | null, items: UserInstance) => any): void;
-  userBindings?: UserBindingList;
-  userChannels?: UserChannelList;
+  userBindings?: UserBindingListInstance;
+  userChannels?: UserChannelListInstance;
 }
 
 export { UserContext, UserInstance, UserList, UserListInstance, UserListInstanceCreateOptions, UserListInstanceEachOptions, UserListInstanceOptions, UserListInstancePageOptions, UserPage, UserPayload, UserResource, UserSolution }

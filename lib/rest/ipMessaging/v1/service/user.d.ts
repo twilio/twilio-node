@@ -10,6 +10,7 @@ import Response = require('../../../../http/response');
 import V1 = require('../../V1');
 import { SerializableClass } from '../../../../interfaces';
 import { UserChannelList } from './user/userChannel';
+import { UserChannelListInstance } from './user/userChannel';
 
 /**
  * @description Initialize the UserList
@@ -279,7 +280,7 @@ declare class UserInstance extends SerializableClass {
   /**
    * Access the userChannels
    */
-  userChannels();
+  userChannels(): UserChannelListInstance;
 }
 
 
@@ -314,7 +315,7 @@ declare class UserContext {
    * @param callback - Callback to handle processed record
    */
   update(opts?: UserInstanceUpdateOptions, callback?: (error: Error | null, items: UserInstance) => any): void;
-  userChannels?: UserChannelList;
+  userChannels?: UserChannelListInstance;
 }
 
 export { UserContext, UserInstance, UserList, UserListInstance, UserListInstanceCreateOptions, UserListInstanceEachOptions, UserListInstanceOptions, UserListInstancePageOptions, UserPage, UserPayload, UserResource, UserSolution }

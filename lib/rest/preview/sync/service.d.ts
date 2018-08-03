@@ -10,9 +10,12 @@ import Response = require('../../../http/response');
 import Sync = require('../Sync');
 import serialize = require('../../../base/serialize');
 import { DocumentList } from './service/document';
+import { DocumentListInstance } from './service/document';
 import { SerializableClass } from '../../../interfaces';
 import { SyncListList } from './service/syncList';
+import { SyncListListInstance } from './service/syncList';
 import { SyncMapList } from './service/syncMap';
+import { SyncMapListInstance } from './service/syncMap';
 
 /**
  * @description Initialize the ServiceList
@@ -240,7 +243,7 @@ declare class ServiceInstance extends SerializableClass {
   /**
    * Access the documents
    */
-  documents();
+  documents(): DocumentListInstance;
   /**
    * fetch a ServiceInstance
    *
@@ -260,11 +263,11 @@ declare class ServiceInstance extends SerializableClass {
   /**
    * Access the syncLists
    */
-  syncLists();
+  syncLists(): SyncListListInstance;
   /**
    * Access the syncMaps
    */
-  syncMaps();
+  syncMaps(): SyncMapListInstance;
   /**
    * Produce a plain JSON object version of the ServiceInstance for serialization.
    * Removes any circular references in the object.
@@ -295,7 +298,7 @@ declare class ServiceContext {
    */
   constructor(version: Sync, sid: string);
 
-  documents?: DocumentList;
+  documents?: DocumentListInstance;
   /**
    * fetch a ServiceInstance
    *
@@ -308,8 +311,8 @@ declare class ServiceContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: ServiceInstance) => any): void;
-  syncLists?: SyncListList;
-  syncMaps?: SyncMapList;
+  syncLists?: SyncListListInstance;
+  syncMaps?: SyncMapListInstance;
   /**
    * update a ServiceInstance
    *

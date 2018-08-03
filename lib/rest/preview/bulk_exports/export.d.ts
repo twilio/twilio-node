@@ -9,6 +9,7 @@ import BulkExports = require('../BulkExports');
 import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import { DayList } from './export/day';
+import { DayListInstance } from './export/day';
 import { SerializableClass } from '../../../interfaces';
 
 /**
@@ -82,7 +83,7 @@ declare class ExportInstance extends SerializableClass {
   /**
    * Access the days
    */
-  days();
+  days(): DayListInstance;
   /**
    * fetch a ExportInstance
    *
@@ -111,7 +112,7 @@ declare class ExportContext {
    */
   constructor(version: BulkExports, resourceType: string);
 
-  days?: DayList;
+  days?: DayListInstance;
   /**
    * fetch a ExportInstance
    *

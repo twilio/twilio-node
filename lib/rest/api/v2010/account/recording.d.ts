@@ -10,8 +10,10 @@ import Response = require('../../../../http/response');
 import V2010 = require('../../V2010');
 import serialize = require('../../../../base/serialize');
 import { AddOnResultList } from './recording/addOnResult';
+import { AddOnResultListInstance } from './recording/addOnResult';
 import { SerializableClass } from '../../../../interfaces';
 import { TranscriptionList } from './recording/transcription';
+import { TranscriptionListInstance } from './recording/transcription';
 
 type RecordingSource = 'DialVerb'|'Conference'|'OutboundAPI'|'Trunking'|'RecordVerb'|'StartCallRecordingAPI'|'StartConferenceRecordingAPI';
 
@@ -251,7 +253,7 @@ declare class RecordingInstance extends SerializableClass {
   /**
    * Access the addOnResults
    */
-  addOnResults();
+  addOnResults(): AddOnResultListInstance;
   apiVersion: string;
   callSid: string;
   channels: number;
@@ -288,7 +290,7 @@ declare class RecordingInstance extends SerializableClass {
   /**
    * Access the transcriptions
    */
-  transcriptions();
+  transcriptions(): TranscriptionListInstance;
   uri: string;
 }
 
@@ -306,7 +308,7 @@ declare class RecordingContext {
    */
   constructor(version: V2010, accountSid: string, sid: string);
 
-  addOnResults?: AddOnResultList;
+  addOnResults?: AddOnResultListInstance;
   /**
    * fetch a RecordingInstance
    *
@@ -319,7 +321,7 @@ declare class RecordingContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: RecordingInstance) => any): void;
-  transcriptions?: TranscriptionList;
+  transcriptions?: TranscriptionListInstance;
 }
 
 export { RecordingContext, RecordingInstance, RecordingList, RecordingListInstance, RecordingListInstanceEachOptions, RecordingListInstanceOptions, RecordingListInstancePageOptions, RecordingPage, RecordingPayload, RecordingResource, RecordingSolution }

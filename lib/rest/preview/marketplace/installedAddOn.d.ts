@@ -10,6 +10,7 @@ import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import serialize = require('../../../base/serialize');
 import { InstalledAddOnExtensionList } from './installedAddOn/installedAddOnExtension';
+import { InstalledAddOnExtensionListInstance } from './installedAddOn/installedAddOnExtension';
 import { SerializableClass } from '../../../interfaces';
 
 /**
@@ -235,7 +236,7 @@ declare class InstalledAddOnInstance extends SerializableClass {
   /**
    * Access the extensions
    */
-  extensions();
+  extensions(): InstalledAddOnExtensionListInstance;
   /**
    * fetch a InstalledAddOnInstance
    *
@@ -279,7 +280,7 @@ declare class InstalledAddOnContext {
    */
   constructor(version: Marketplace, sid: string);
 
-  extensions?: InstalledAddOnExtensionList;
+  extensions?: InstalledAddOnExtensionListInstance;
   /**
    * fetch a InstalledAddOnInstance
    *

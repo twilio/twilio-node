@@ -9,6 +9,7 @@ import Page = require('../../../../../base/Page');
 import Response = require('../../../../../http/response');
 import V2010 = require('../../../V2010');
 import { PayloadList } from './addOnResult/payload';
+import { PayloadListInstance } from './addOnResult/payload';
 import { SerializableClass } from '../../../../../interfaces';
 
 type AddOnResultStatus = 'canceled'|'completed'|'deleted'|'failed'|'in-progress'|'init'|'processing'|'queued';
@@ -215,7 +216,7 @@ declare class AddOnResultInstance extends SerializableClass {
   /**
    * Access the payloads
    */
-  payloads();
+  payloads(): PayloadListInstance;
   referenceSid: string;
   /**
    * remove a AddOnResultInstance
@@ -253,7 +254,7 @@ declare class AddOnResultContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: AddOnResultInstance) => any): void;
-  payloads?: PayloadList;
+  payloads?: PayloadListInstance;
   /**
    * remove a AddOnResultInstance
    *

@@ -10,7 +10,9 @@ import Response = require('../../../http/response');
 import V1 = require('../V1');
 import serialize = require('../../../base/serialize');
 import { BindingList } from './service/binding';
+import { BindingListInstance } from './service/binding';
 import { NotificationList } from './service/notification';
+import { NotificationListInstance } from './service/notification';
 import { SerializableClass } from '../../../interfaces';
 
 /**
@@ -292,7 +294,7 @@ declare class ServiceInstance extends SerializableClass {
   /**
    * Access the bindings
    */
-  bindings();
+  bindings(): BindingListInstance;
   dateCreated: Date;
   dateUpdated: Date;
   defaultAlexaNotificationProtocolVersion: string;
@@ -315,7 +317,7 @@ declare class ServiceInstance extends SerializableClass {
   /**
    * Access the notifications
    */
-  notifications();
+  notifications(): NotificationListInstance;
   /**
    * remove a ServiceInstance
    *
@@ -351,14 +353,14 @@ declare class ServiceContext {
    */
   constructor(version: V1, sid: string);
 
-  bindings?: BindingList;
+  bindings?: BindingListInstance;
   /**
    * fetch a ServiceInstance
    *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: ServiceInstance) => any): void;
-  notifications?: NotificationList;
+  notifications?: NotificationListInstance;
   /**
    * remove a ServiceInstance
    *

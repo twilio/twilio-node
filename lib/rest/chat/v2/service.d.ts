@@ -10,10 +10,14 @@ import Response = require('../../../http/response');
 import V2 = require('../V2');
 import serialize = require('../../../base/serialize');
 import { BindingList } from './service/binding';
+import { BindingListInstance } from './service/binding';
 import { ChannelList } from './service/channel';
+import { ChannelListInstance } from './service/channel';
 import { RoleList } from './service/role';
+import { RoleListInstance } from './service/role';
 import { SerializableClass } from '../../../interfaces';
 import { UserList } from './service/user';
+import { UserListInstance } from './service/user';
 
 /**
  * @description Initialize the ServiceList
@@ -325,11 +329,11 @@ declare class ServiceInstance extends SerializableClass {
   /**
    * Access the bindings
    */
-  bindings();
+  bindings(): BindingListInstance;
   /**
    * Access the channels
    */
-  channels();
+  channels(): ChannelListInstance;
   consumptionReportInterval: number;
   dateCreated: Date;
   dateUpdated: Date;
@@ -362,7 +366,7 @@ declare class ServiceInstance extends SerializableClass {
   /**
    * Access the roles
    */
-  roles();
+  roles(): RoleListInstance;
   sid: string;
   /**
    * Produce a plain JSON object version of the ServiceInstance for serialization.
@@ -381,7 +385,7 @@ declare class ServiceInstance extends SerializableClass {
   /**
    * Access the users
    */
-  users();
+  users(): UserListInstance;
   webhookFilters: string;
   webhookMethod: string;
 }
@@ -401,8 +405,8 @@ declare class ServiceContext {
    */
   constructor(version: V2, sid: string);
 
-  bindings?: BindingList;
-  channels?: ChannelList;
+  bindings?: BindingListInstance;
+  channels?: ChannelListInstance;
   /**
    * fetch a ServiceInstance
    *
@@ -415,7 +419,7 @@ declare class ServiceContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: ServiceInstance) => any): void;
-  roles?: RoleList;
+  roles?: RoleListInstance;
   /**
    * update a ServiceInstance
    *
@@ -423,7 +427,7 @@ declare class ServiceContext {
    * @param callback - Callback to handle processed record
    */
   update(opts?: ServiceInstanceUpdateOptions, callback?: (error: Error | null, items: ServiceInstance) => any): void;
-  users?: UserList;
+  users?: UserListInstance;
 }
 
 export { ServiceContext, ServiceInstance, ServiceList, ServiceListInstance, ServiceListInstanceCreateOptions, ServiceListInstanceEachOptions, ServiceListInstanceOptions, ServiceListInstancePageOptions, ServicePage, ServicePayload, ServiceResource, ServiceSolution }

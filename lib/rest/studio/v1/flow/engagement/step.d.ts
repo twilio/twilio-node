@@ -10,6 +10,7 @@ import Response = require('../../../../../http/response');
 import V1 = require('../../../V1');
 import { SerializableClass } from '../../../../../interfaces';
 import { StepContextList } from './step/stepContext';
+import { StepContextListInstance } from './step/stepContext';
 
 /**
  * @description Initialize the StepList
@@ -221,7 +222,7 @@ declare class StepInstance extends SerializableClass {
   /**
    * Access the stepContext
    */
-  stepContext();
+  stepContext(): StepContextListInstance;
   /**
    * Produce a plain JSON object version of the StepInstance for serialization.
    * Removes any circular references in the object.
@@ -252,7 +253,7 @@ declare class StepContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: StepInstance) => any): void;
-  stepContext?: StepContextList;
+  stepContext?: StepContextListInstance;
 }
 
 export { StepContext, StepInstance, StepList, StepListInstance, StepListInstanceEachOptions, StepListInstanceOptions, StepListInstancePageOptions, StepPage, StepPayload, StepResource, StepSolution }

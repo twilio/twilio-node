@@ -10,8 +10,10 @@ import Response = require('../../../../http/response');
 import V1 = require('../../V1');
 import serialize = require('../../../../base/serialize');
 import { PublishedTrackList } from './roomParticipant/roomParticipantPublishedTrack';
+import { PublishedTrackListInstance } from './roomParticipant/roomParticipantPublishedTrack';
 import { SerializableClass } from '../../../../interfaces';
 import { SubscribedTrackList } from './roomParticipant/roomParticipantSubscribedTrack';
+import { SubscribedTrackListInstance } from './roomParticipant/roomParticipantSubscribedTrack';
 
 type ParticipantStatus = 'connected'|'disconnected';
 
@@ -252,7 +254,7 @@ declare class ParticipantInstance extends SerializableClass {
   /**
    * Access the publishedTracks
    */
-  publishedTracks();
+  publishedTracks(): PublishedTrackListInstance;
   roomSid: string;
   sid: string;
   startTime: Date;
@@ -260,7 +262,7 @@ declare class ParticipantInstance extends SerializableClass {
   /**
    * Access the subscribedTracks
    */
-  subscribedTracks();
+  subscribedTracks(): SubscribedTrackListInstance;
   /**
    * Produce a plain JSON object version of the ParticipantInstance for serialization.
    * Removes any circular references in the object.
@@ -296,8 +298,8 @@ declare class ParticipantContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: ParticipantInstance) => any): void;
-  publishedTracks?: PublishedTrackList;
-  subscribedTracks?: SubscribedTrackList;
+  publishedTracks?: PublishedTrackListInstance;
+  subscribedTracks?: SubscribedTrackListInstance;
   /**
    * update a ParticipantInstance
    *

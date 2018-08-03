@@ -9,29 +9,52 @@ import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import V2010 = require('../V2010');
 import { AddressList } from './account/address';
+import { AddressListInstance } from './account/address';
 import { ApplicationList } from './account/application';
+import { ApplicationListInstance } from './account/application';
 import { AuthorizedConnectAppList } from './account/authorizedConnectApp';
+import { AuthorizedConnectAppListInstance } from './account/authorizedConnectApp';
 import { AvailablePhoneNumberCountryList } from './account/availablePhoneNumber';
+import { AvailablePhoneNumberCountryListInstance } from './account/availablePhoneNumber';
 import { CallList } from './account/call';
+import { CallListInstance } from './account/call';
 import { ConferenceList } from './account/conference';
+import { ConferenceListInstance } from './account/conference';
 import { ConnectAppList } from './account/connectApp';
+import { ConnectAppListInstance } from './account/connectApp';
 import { IncomingPhoneNumberList } from './account/incomingPhoneNumber';
+import { IncomingPhoneNumberListInstance } from './account/incomingPhoneNumber';
 import { KeyList } from './account/key';
+import { KeyListInstance } from './account/key';
 import { MessageList } from './account/message';
+import { MessageListInstance } from './account/message';
 import { NewKeyList } from './account/newKey';
+import { NewKeyListInstance } from './account/newKey';
 import { NewSigningKeyList } from './account/newSigningKey';
+import { NewSigningKeyListInstance } from './account/newSigningKey';
 import { NotificationList } from './account/notification';
+import { NotificationListInstance } from './account/notification';
 import { OutgoingCallerIdList } from './account/outgoingCallerId';
+import { OutgoingCallerIdListInstance } from './account/outgoingCallerId';
 import { QueueList } from './account/queue';
+import { QueueListInstance } from './account/queue';
 import { RecordingList } from './account/recording';
+import { RecordingListInstance } from './account/recording';
 import { SerializableClass } from '../../../interfaces';
 import { ShortCodeList } from './account/shortCode';
+import { ShortCodeListInstance } from './account/shortCode';
 import { SigningKeyList } from './account/signingKey';
+import { SigningKeyListInstance } from './account/signingKey';
 import { SipList } from './account/sip';
+import { SipListInstance } from './account/sip';
 import { TokenList } from './account/token';
+import { TokenListInstance } from './account/token';
 import { TranscriptionList } from './account/transcription';
+import { TranscriptionListInstance } from './account/transcription';
 import { UsageList } from './account/usage';
+import { UsageListInstance } from './account/usage';
 import { ValidationRequestList } from './account/validationRequest';
+import { ValidationRequestListInstance } from './account/validationRequest';
 
 type AccountStatus = 'active'|'suspended'|'closed';
 
@@ -260,32 +283,32 @@ declare class AccountInstance extends SerializableClass {
   /**
    * Access the addresses
    */
-  addresses();
+  addresses(): AddressListInstance;
   /**
    * Access the applications
    */
-  applications();
+  applications(): ApplicationListInstance;
   authToken: string;
   /**
    * Access the authorizedConnectApps
    */
-  authorizedConnectApps();
+  authorizedConnectApps(): AuthorizedConnectAppListInstance;
   /**
    * Access the availablePhoneNumbers
    */
-  availablePhoneNumbers();
+  availablePhoneNumbers(): AvailablePhoneNumberCountryListInstance;
   /**
    * Access the calls
    */
-  calls();
+  calls(): CallListInstance;
   /**
    * Access the conferences
    */
-  conferences();
+  conferences(): ConferenceListInstance;
   /**
    * Access the connectApps
    */
-  connectApps();
+  connectApps(): ConnectAppListInstance;
   dateCreated: Date;
   dateUpdated: Date;
   /**
@@ -298,53 +321,53 @@ declare class AccountInstance extends SerializableClass {
   /**
    * Access the incomingPhoneNumbers
    */
-  incomingPhoneNumbers();
+  incomingPhoneNumbers(): IncomingPhoneNumberListInstance;
   /**
    * Access the keys
    */
-  keys();
+  keys(): KeyListInstance;
   /**
    * Access the messages
    */
-  messages();
+  messages(): MessageListInstance;
   /**
    * Access the newKeys
    */
-  newKeys();
+  newKeys(): NewKeyListInstance;
   /**
    * Access the newSigningKeys
    */
-  newSigningKeys();
+  newSigningKeys(): NewSigningKeyListInstance;
   /**
    * Access the notifications
    */
-  notifications();
+  notifications(): NotificationListInstance;
   /**
    * Access the outgoingCallerIds
    */
-  outgoingCallerIds();
+  outgoingCallerIds(): OutgoingCallerIdListInstance;
   ownerAccountSid: string;
   /**
    * Access the queues
    */
-  queues();
+  queues(): QueueListInstance;
   /**
    * Access the recordings
    */
-  recordings();
+  recordings(): RecordingListInstance;
   /**
    * Access the shortCodes
    */
-  shortCodes();
+  shortCodes(): ShortCodeListInstance;
   sid: string;
   /**
    * Access the signingKeys
    */
-  signingKeys();
+  signingKeys(): SigningKeyListInstance;
   /**
    * Access the sip
    */
-  sip();
+  sip(): SipListInstance;
   status: AccountStatus;
   subresourceUris: string;
   /**
@@ -355,11 +378,11 @@ declare class AccountInstance extends SerializableClass {
   /**
    * Access the tokens
    */
-  tokens();
+  tokens(): TokenListInstance;
   /**
    * Access the transcriptions
    */
-  transcriptions();
+  transcriptions(): TranscriptionListInstance;
   type: AccountType;
   /**
    * update a AccountInstance
@@ -372,11 +395,11 @@ declare class AccountInstance extends SerializableClass {
   /**
    * Access the usage
    */
-  usage();
+  usage(): UsageListInstance;
   /**
    * Access the validationRequests
    */
-  validationRequests();
+  validationRequests(): ValidationRequestListInstance;
 }
 
 
@@ -413,33 +436,33 @@ declare class AccountContext {
    */
   constructor(version: V2010, sid: string);
 
-  addresses?: AddressList;
-  applications?: ApplicationList;
-  authorizedConnectApps?: AuthorizedConnectAppList;
-  availablePhoneNumbers?: AvailablePhoneNumberCountryList;
-  calls?: CallList;
-  conferences?: ConferenceList;
-  connectApps?: ConnectAppList;
+  addresses?: AddressListInstance;
+  applications?: ApplicationListInstance;
+  authorizedConnectApps?: AuthorizedConnectAppListInstance;
+  availablePhoneNumbers?: AvailablePhoneNumberCountryListInstance;
+  calls?: CallListInstance;
+  conferences?: ConferenceListInstance;
+  connectApps?: ConnectAppListInstance;
   /**
    * fetch a AccountInstance
    *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: AccountInstance) => any): void;
-  incomingPhoneNumbers?: IncomingPhoneNumberList;
-  keys?: KeyList;
-  messages?: MessageList;
-  newKeys?: NewKeyList;
-  newSigningKeys?: NewSigningKeyList;
-  notifications?: NotificationList;
-  outgoingCallerIds?: OutgoingCallerIdList;
-  queues?: QueueList;
-  recordings?: RecordingList;
-  shortCodes?: ShortCodeList;
-  signingKeys?: SigningKeyList;
-  sip?: SipList;
-  tokens?: TokenList;
-  transcriptions?: TranscriptionList;
+  incomingPhoneNumbers?: IncomingPhoneNumberListInstance;
+  keys?: KeyListInstance;
+  messages?: MessageListInstance;
+  newKeys?: NewKeyListInstance;
+  newSigningKeys?: NewSigningKeyListInstance;
+  notifications?: NotificationListInstance;
+  outgoingCallerIds?: OutgoingCallerIdListInstance;
+  queues?: QueueListInstance;
+  recordings?: RecordingListInstance;
+  shortCodes?: ShortCodeListInstance;
+  signingKeys?: SigningKeyListInstance;
+  sip?: SipListInstance;
+  tokens?: TokenListInstance;
+  transcriptions?: TranscriptionListInstance;
   /**
    * update a AccountInstance
    *
@@ -447,8 +470,8 @@ declare class AccountContext {
    * @param callback - Callback to handle processed record
    */
   update(opts?: AccountInstanceUpdateOptions, callback?: (error: Error | null, items: AccountInstance) => any): void;
-  usage?: UsageList;
-  validationRequests?: ValidationRequestList;
+  usage?: UsageListInstance;
+  validationRequests?: ValidationRequestListInstance;
 }
 
 export { AccountContext, AccountInstance, AccountList, AccountListInstance, AccountListInstanceCreateOptions, AccountListInstanceEachOptions, AccountListInstanceOptions, AccountListInstancePageOptions, AccountPage, AccountPayload, AccountResource, AccountSolution }

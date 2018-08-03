@@ -10,6 +10,7 @@ import Response = require('../../../http/response');
 import Wireless = require('../Wireless');
 import { SerializableClass } from '../../../interfaces';
 import { UsageList } from './sim/usage';
+import { UsageListInstance } from './sim/usage';
 
 /**
  * @description Initialize the SimList
@@ -325,7 +326,7 @@ declare class SimInstance extends SerializableClass {
   /**
    * Access the usage
    */
-  usage();
+  usage(): UsageListInstance;
   voiceFallbackMethod: string;
   voiceFallbackUrl: string;
   voiceMethod: string;
@@ -357,7 +358,7 @@ declare class SimContext {
    * @param callback - Callback to handle processed record
    */
   update(opts?: SimInstanceUpdateOptions, callback?: (error: Error | null, items: SimInstance) => any): void;
-  usage?: UsageList;
+  usage?: UsageListInstance;
 }
 
 export { SimContext, SimInstance, SimList, SimListInstance, SimListInstanceEachOptions, SimListInstanceOptions, SimListInstancePageOptions, SimPage, SimPayload, SimResource, SimSolution }

@@ -10,6 +10,7 @@ import Response = require('../../../http/response');
 import V1 = require('../V1');
 import serialize = require('../../../base/serialize');
 import { FaxMediaList } from './fax/faxMedia';
+import { FaxMediaListInstance } from './fax/faxMedia';
 import { SerializableClass } from '../../../interfaces';
 
 type FaxDirection = 'inbound'|'outbound';
@@ -300,7 +301,7 @@ declare class FaxInstance extends SerializableClass {
   /**
    * Access the media
    */
-  media();
+  media(): FaxMediaListInstance;
   mediaSid: string;
   mediaUrl: string;
   numPages: number;
@@ -349,7 +350,7 @@ declare class FaxContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: FaxInstance) => any): void;
-  media?: FaxMediaList;
+  media?: FaxMediaListInstance;
   /**
    * remove a FaxInstance
    *

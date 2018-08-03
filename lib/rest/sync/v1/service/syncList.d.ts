@@ -10,7 +10,9 @@ import Response = require('../../../../http/response');
 import V1 = require('../../V1');
 import { SerializableClass } from '../../../../interfaces';
 import { SyncListItemList } from './syncList/syncListItem';
+import { SyncListItemListInstance } from './syncList/syncListItem';
 import { SyncListPermissionList } from './syncList/syncListPermission';
+import { SyncListPermissionListInstance } from './syncList/syncListPermission';
 
 /**
  * @description Initialize the SyncListList
@@ -250,11 +252,11 @@ declare class SyncListInstance extends SerializableClass {
   /**
    * Access the syncListItems
    */
-  syncListItems();
+  syncListItems(): SyncListItemListInstance;
   /**
    * Access the syncListPermissions
    */
-  syncListPermissions();
+  syncListPermissions(): SyncListPermissionListInstance;
   /**
    * Produce a plain JSON object version of the SyncListInstance for serialization.
    * Removes any circular references in the object.
@@ -297,8 +299,8 @@ declare class SyncListContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: SyncListInstance) => any): void;
-  syncListItems?: SyncListItemList;
-  syncListPermissions?: SyncListPermissionList;
+  syncListItems?: SyncListItemListInstance;
+  syncListPermissions?: SyncListPermissionListInstance;
   /**
    * update a SyncListInstance
    *

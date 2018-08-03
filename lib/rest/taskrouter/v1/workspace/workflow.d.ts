@@ -10,8 +10,11 @@ import Response = require('../../../../http/response');
 import V1 = require('../../V1');
 import { SerializableClass } from '../../../../interfaces';
 import { WorkflowCumulativeStatisticsList } from './workflow/workflowCumulativeStatistics';
+import { WorkflowCumulativeStatisticsListInstance } from './workflow/workflowCumulativeStatistics';
 import { WorkflowRealTimeStatisticsList } from './workflow/workflowRealTimeStatistics';
+import { WorkflowRealTimeStatisticsListInstance } from './workflow/workflowRealTimeStatistics';
 import { WorkflowStatisticsList } from './workflow/workflowStatistics';
+import { WorkflowStatisticsListInstance } from './workflow/workflowStatistics';
 
 /**
  * @description Initialize the WorkflowList
@@ -256,7 +259,7 @@ declare class WorkflowInstance extends SerializableClass {
   /**
    * Access the cumulativeStatistics
    */
-  cumulativeStatistics();
+  cumulativeStatistics(): WorkflowCumulativeStatisticsListInstance;
   dateCreated: Date;
   dateUpdated: Date;
   documentContentType: string;
@@ -272,7 +275,7 @@ declare class WorkflowInstance extends SerializableClass {
   /**
    * Access the realTimeStatistics
    */
-  realTimeStatistics();
+  realTimeStatistics(): WorkflowRealTimeStatisticsListInstance;
   /**
    * remove a WorkflowInstance
    *
@@ -283,7 +286,7 @@ declare class WorkflowInstance extends SerializableClass {
   /**
    * Access the statistics
    */
-  statistics();
+  statistics(): WorkflowStatisticsListInstance;
   taskReservationTimeout: number;
   /**
    * Produce a plain JSON object version of the WorkflowInstance for serialization.
@@ -316,21 +319,21 @@ declare class WorkflowContext {
    */
   constructor(version: V1, workspaceSid: string, sid: string);
 
-  cumulativeStatistics?: WorkflowCumulativeStatisticsList;
+  cumulativeStatistics?: WorkflowCumulativeStatisticsListInstance;
   /**
    * fetch a WorkflowInstance
    *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: WorkflowInstance) => any): void;
-  realTimeStatistics?: WorkflowRealTimeStatisticsList;
+  realTimeStatistics?: WorkflowRealTimeStatisticsListInstance;
   /**
    * remove a WorkflowInstance
    *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: WorkflowInstance) => any): void;
-  statistics?: WorkflowStatisticsList;
+  statistics?: WorkflowStatisticsListInstance;
   /**
    * update a WorkflowInstance
    *

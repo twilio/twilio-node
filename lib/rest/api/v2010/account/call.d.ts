@@ -10,8 +10,11 @@ import Response = require('../../../../http/response');
 import V2010 = require('../../V2010');
 import serialize = require('../../../../base/serialize');
 import { FeedbackList } from './call/feedback';
+import { FeedbackListInstance } from './call/feedback';
 import { NotificationList } from './call/notification';
+import { NotificationListInstance } from './call/notification';
 import { RecordingList } from './call/recording';
+import { RecordingListInstance } from './call/recording';
 import { SerializableClass } from '../../../../interfaces';
 
 type CallEvent = 'initiated'|'ringing'|'answered'|'completed';
@@ -391,7 +394,7 @@ declare class CallInstance extends SerializableClass {
   /**
    * Access the feedback
    */
-  feedback();
+  feedback(): FeedbackListInstance;
   /**
    * fetch a CallInstance
    *
@@ -405,7 +408,7 @@ declare class CallInstance extends SerializableClass {
   /**
    * Access the notifications
    */
-  notifications();
+  notifications(): NotificationListInstance;
   parentCallSid: string;
   phoneNumberSid: string;
   price: number;
@@ -413,7 +416,7 @@ declare class CallInstance extends SerializableClass {
   /**
    * Access the recordings
    */
-  recordings();
+  recordings(): RecordingListInstance;
   /**
    * remove a CallInstance
    *
@@ -456,15 +459,15 @@ declare class CallContext {
    */
   constructor(version: V2010, accountSid: string, sid: string);
 
-  feedback?: FeedbackList;
+  feedback?: FeedbackListInstance;
   /**
    * fetch a CallInstance
    *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: CallInstance) => any): void;
-  notifications?: NotificationList;
-  recordings?: RecordingList;
+  notifications?: NotificationListInstance;
+  recordings?: RecordingListInstance;
   /**
    * remove a CallInstance
    *

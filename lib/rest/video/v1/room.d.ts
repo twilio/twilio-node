@@ -10,7 +10,9 @@ import Response = require('../../../http/response');
 import V1 = require('../V1');
 import serialize = require('../../../base/serialize');
 import { ParticipantList } from './room/roomParticipant';
+import { ParticipantListInstance } from './room/roomParticipant';
 import { RoomRecordingList } from './room/recording';
+import { RoomRecordingListInstance } from './room/recording';
 import { SerializableClass } from '../../../interfaces';
 
 type RoomRoomStatus = 'in-progress'|'completed'|'failed';
@@ -299,12 +301,12 @@ declare class RoomInstance extends SerializableClass {
   /**
    * Access the participants
    */
-  participants();
+  participants(): ParticipantListInstance;
   recordParticipantsOnConnect: boolean;
   /**
    * Access the recordings
    */
-  recordings();
+  recordings(): RoomRecordingListInstance;
   sid: string;
   status: RoomRoomStatus;
   statusCallback: string;
@@ -346,8 +348,8 @@ declare class RoomContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: RoomInstance) => any): void;
-  participants?: ParticipantList;
-  recordings?: RoomRecordingList;
+  participants?: ParticipantListInstance;
+  recordings?: RoomRecordingListInstance;
   /**
    * update a RoomInstance
    *

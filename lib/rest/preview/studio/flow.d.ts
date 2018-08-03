@@ -9,6 +9,7 @@ import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import Studio = require('../Studio');
 import { EngagementList } from './flow/engagement';
+import { EngagementListInstance } from './flow/engagement';
 import { SerializableClass } from '../../../interfaces';
 
 type FlowStatus = 'draft'|'published';
@@ -202,7 +203,7 @@ declare class FlowInstance extends SerializableClass {
   /**
    * Access the engagements
    */
-  engagements();
+  engagements(): EngagementListInstance;
   /**
    * fetch a FlowInstance
    *
@@ -240,7 +241,7 @@ declare class FlowContext {
    */
   constructor(version: Studio, sid: string);
 
-  engagements?: EngagementList;
+  engagements?: EngagementListInstance;
   /**
    * fetch a FlowInstance
    *

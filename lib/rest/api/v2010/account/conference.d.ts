@@ -10,7 +10,9 @@ import Response = require('../../../../http/response');
 import V2010 = require('../../V2010');
 import serialize = require('../../../../base/serialize');
 import { ParticipantList } from './conference/participant';
+import { ParticipantListInstance } from './conference/participant';
 import { RecordingList } from './conference/recording';
+import { RecordingListInstance } from './conference/recording';
 import { SerializableClass } from '../../../../interfaces';
 
 type ConferenceStatus = 'init'|'in-progress'|'completed';
@@ -276,11 +278,11 @@ declare class ConferenceInstance extends SerializableClass {
   /**
    * Access the participants
    */
-  participants();
+  participants(): ParticipantListInstance;
   /**
    * Access the recordings
    */
-  recordings();
+  recordings(): RecordingListInstance;
   region: string;
   sid: string;
   status: ConferenceStatus;
@@ -320,8 +322,8 @@ declare class ConferenceContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: ConferenceInstance) => any): void;
-  participants?: ParticipantList;
-  recordings?: RecordingList;
+  participants?: ParticipantListInstance;
+  recordings?: RecordingListInstance;
   /**
    * update a ConferenceInstance
    *

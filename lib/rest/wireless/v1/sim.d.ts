@@ -9,8 +9,10 @@ import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import V1 = require('../V1');
 import { DataSessionList } from './sim/dataSession';
+import { DataSessionListInstance } from './sim/dataSession';
 import { SerializableClass } from '../../../interfaces';
 import { UsageRecordList } from './sim/usageRecord';
+import { UsageRecordListInstance } from './sim/usageRecord';
 
 type SimStatus = 'new'|'ready'|'active'|'suspended'|'deactivated'|'canceled'|'scheduled'|'updating';
 
@@ -296,7 +298,7 @@ declare class SimInstance extends SerializableClass {
   /**
    * Access the dataSessions
    */
-  dataSessions();
+  dataSessions(): DataSessionListInstance;
   dateCreated: Date;
   dateUpdated: Date;
   eId: string;
@@ -334,7 +336,7 @@ declare class SimInstance extends SerializableClass {
   /**
    * Access the usageRecords
    */
-  usageRecords();
+  usageRecords(): UsageRecordListInstance;
   voiceFallbackMethod: string;
   voiceFallbackUrl: string;
   voiceMethod: string;
@@ -354,7 +356,7 @@ declare class SimContext {
    */
   constructor(version: V1, sid: string);
 
-  dataSessions?: DataSessionList;
+  dataSessions?: DataSessionListInstance;
   /**
    * fetch a SimInstance
    *
@@ -368,7 +370,7 @@ declare class SimContext {
    * @param callback - Callback to handle processed record
    */
   update(opts?: SimInstanceUpdateOptions, callback?: (error: Error | null, items: SimInstance) => any): void;
-  usageRecords?: UsageRecordList;
+  usageRecords?: UsageRecordListInstance;
 }
 
 export { SimContext, SimInstance, SimList, SimListInstance, SimListInstanceEachOptions, SimListInstanceOptions, SimListInstancePageOptions, SimPage, SimPayload, SimResource, SimSolution }

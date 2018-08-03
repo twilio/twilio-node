@@ -9,6 +9,7 @@ import Marketplace = require('../Marketplace');
 import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import { AvailableAddOnExtensionList } from './availableAddOn/availableAddOnExtension';
+import { AvailableAddOnExtensionListInstance } from './availableAddOn/availableAddOnExtension';
 import { SerializableClass } from '../../../interfaces';
 
 /**
@@ -192,7 +193,7 @@ declare class AvailableAddOnInstance extends SerializableClass {
   /**
    * Access the extensions
    */
-  extensions();
+  extensions(): AvailableAddOnExtensionListInstance;
   /**
    * fetch a AvailableAddOnInstance
    *
@@ -223,7 +224,7 @@ declare class AvailableAddOnContext {
    */
   constructor(version: Marketplace, sid: string);
 
-  extensions?: AvailableAddOnExtensionList;
+  extensions?: AvailableAddOnExtensionListInstance;
   /**
    * fetch a AvailableAddOnInstance
    *

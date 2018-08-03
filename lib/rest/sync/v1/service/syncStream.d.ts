@@ -10,6 +10,7 @@ import Response = require('../../../../http/response');
 import V1 = require('../../V1');
 import { SerializableClass } from '../../../../interfaces';
 import { StreamMessageList } from './syncStream/streamMessage';
+import { StreamMessageListInstance } from './syncStream/streamMessage';
 
 /**
  * @description Initialize the SyncStreamList
@@ -246,7 +247,7 @@ declare class SyncStreamInstance extends SerializableClass {
   /**
    * Access the streamMessages
    */
-  streamMessages();
+  streamMessages(): StreamMessageListInstance;
   /**
    * Produce a plain JSON object version of the SyncStreamInstance for serialization.
    * Removes any circular references in the object.
@@ -288,7 +289,7 @@ declare class SyncStreamContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: SyncStreamInstance) => any): void;
-  streamMessages?: StreamMessageList;
+  streamMessages?: StreamMessageListInstance;
   /**
    * update a SyncStreamInstance
    *

@@ -9,9 +9,12 @@ import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import V1 = require('../V1');
 import { PhoneNumberList } from './service/phoneNumber';
+import { PhoneNumberListInstance } from './service/phoneNumber';
 import { SerializableClass } from '../../../interfaces';
 import { SessionList } from './service/session';
+import { SessionListInstance } from './service/session';
 import { ShortCodeList } from './service/shortCode';
+import { ShortCodeListInstance } from './service/shortCode';
 
 type ServiceGeoMatchLevel = 'area-code'|'overlay'|'radius'|'country';
 
@@ -273,7 +276,7 @@ declare class ServiceInstance extends SerializableClass {
   /**
    * Access the phoneNumbers
    */
-  phoneNumbers();
+  phoneNumbers(): PhoneNumberListInstance;
   /**
    * remove a ServiceInstance
    *
@@ -283,11 +286,11 @@ declare class ServiceInstance extends SerializableClass {
   /**
    * Access the sessions
    */
-  sessions();
+  sessions(): SessionListInstance;
   /**
    * Access the shortCodes
    */
-  shortCodes();
+  shortCodes(): ShortCodeListInstance;
   sid: string;
   /**
    * Produce a plain JSON object version of the ServiceInstance for serialization.
@@ -325,15 +328,15 @@ declare class ServiceContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: ServiceInstance) => any): void;
-  phoneNumbers?: PhoneNumberList;
+  phoneNumbers?: PhoneNumberListInstance;
   /**
    * remove a ServiceInstance
    *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: ServiceInstance) => any): void;
-  sessions?: SessionList;
-  shortCodes?: ShortCodeList;
+  sessions?: SessionListInstance;
+  shortCodes?: ShortCodeListInstance;
   /**
    * update a ServiceInstance
    *

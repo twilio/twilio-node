@@ -10,9 +10,13 @@ import Response = require('../../../http/response');
 import Understand = require('../Understand');
 import serialize = require('../../../base/serialize');
 import { FieldTypeList } from './assistant/fieldType';
+import { FieldTypeListInstance } from './assistant/fieldType';
 import { IntentList } from './assistant/intent';
+import { IntentListInstance } from './assistant/intent';
 import { ModelBuildList } from './assistant/modelBuild';
+import { ModelBuildListInstance } from './assistant/modelBuild';
 import { QueryList } from './assistant/query';
+import { QueryListInstance } from './assistant/query';
 import { SerializableClass } from '../../../interfaces';
 
 /**
@@ -262,23 +266,23 @@ declare class AssistantInstance extends SerializableClass {
   /**
    * Access the fieldTypes
    */
-  fieldTypes();
+  fieldTypes(): FieldTypeListInstance;
   friendlyName: string;
   /**
    * Access the intents
    */
-  intents();
+  intents(): IntentListInstance;
   latestModelBuildSid: string;
   links: string;
   logQueries: boolean;
   /**
    * Access the modelBuilds
    */
-  modelBuilds();
+  modelBuilds(): ModelBuildListInstance;
   /**
    * Access the queries
    */
-  queries();
+  queries(): QueryListInstance;
   /**
    * remove a AssistantInstance
    *
@@ -324,10 +328,10 @@ declare class AssistantContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: AssistantInstance) => any): void;
-  fieldTypes?: FieldTypeList;
-  intents?: IntentList;
-  modelBuilds?: ModelBuildList;
-  queries?: QueryList;
+  fieldTypes?: FieldTypeListInstance;
+  intents?: IntentListInstance;
+  modelBuilds?: ModelBuildListInstance;
+  queries?: QueryListInstance;
   /**
    * remove a AssistantInstance
    *

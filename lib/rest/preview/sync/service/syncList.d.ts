@@ -10,7 +10,9 @@ import Response = require('../../../../http/response');
 import Sync = require('../../Sync');
 import { SerializableClass } from '../../../../interfaces';
 import { SyncListItemList } from './syncList/syncListItem';
+import { SyncListItemListInstance } from './syncList/syncListItem';
 import { SyncListPermissionList } from './syncList/syncListPermission';
+import { SyncListPermissionListInstance } from './syncList/syncListPermission';
 
 /**
  * @description Initialize the SyncListList
@@ -236,11 +238,11 @@ declare class SyncListInstance extends SerializableClass {
   /**
    * Access the syncListItems
    */
-  syncListItems();
+  syncListItems(): SyncListItemListInstance;
   /**
    * Access the syncListPermissions
    */
-  syncListPermissions();
+  syncListPermissions(): SyncListPermissionListInstance;
   /**
    * Produce a plain JSON object version of the SyncListInstance for serialization.
    * Removes any circular references in the object.
@@ -276,8 +278,8 @@ declare class SyncListContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: SyncListInstance) => any): void;
-  syncListItems?: SyncListItemList;
-  syncListPermissions?: SyncListPermissionList;
+  syncListItems?: SyncListItemListInstance;
+  syncListPermissions?: SyncListPermissionListInstance;
 }
 
 export { SyncListContext, SyncListInstance, SyncListList, SyncListListInstance, SyncListListInstanceCreateOptions, SyncListListInstanceEachOptions, SyncListListInstanceOptions, SyncListListInstancePageOptions, SyncListPage, SyncListPayload, SyncListResource, SyncListSolution }

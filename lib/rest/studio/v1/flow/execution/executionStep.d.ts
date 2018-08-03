@@ -9,6 +9,7 @@ import Page = require('../../../../../base/Page');
 import Response = require('../../../../../http/response');
 import V1 = require('../../../V1');
 import { ExecutionStepContextList } from './executionStep/executionStepContext';
+import { ExecutionStepContextListInstance } from './executionStep/executionStepContext';
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
@@ -221,7 +222,7 @@ declare class ExecutionStepInstance extends SerializableClass {
   /**
    * Access the stepContext
    */
-  stepContext();
+  stepContext(): ExecutionStepContextListInstance;
   /**
    * Produce a plain JSON object version of the ExecutionStepInstance for serialization.
    * Removes any circular references in the object.
@@ -252,7 +253,7 @@ declare class ExecutionStepContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: ExecutionStepInstance) => any): void;
-  stepContext?: ExecutionStepContextList;
+  stepContext?: ExecutionStepContextListInstance;
 }
 
 export { ExecutionStepContext, ExecutionStepInstance, ExecutionStepList, ExecutionStepListInstance, ExecutionStepListInstanceEachOptions, ExecutionStepListInstanceOptions, ExecutionStepListInstancePageOptions, ExecutionStepPage, ExecutionStepPayload, ExecutionStepResource, ExecutionStepSolution }

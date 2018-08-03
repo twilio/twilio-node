@@ -10,7 +10,9 @@ import Response = require('../../../../http/response');
 import V2010 = require('../../V2010');
 import serialize = require('../../../../base/serialize');
 import { FeedbackList } from './message/feedback';
+import { FeedbackListInstance } from './message/feedback';
 import { MediaList } from './message/media';
+import { MediaListInstance } from './message/media';
 import { SerializableClass } from '../../../../interfaces';
 
 type MessageAddressRetention = 'retain'|'discard';
@@ -322,7 +324,7 @@ declare class MessageInstance extends SerializableClass {
   /**
    * Access the feedback
    */
-  feedback();
+  feedback(): FeedbackListInstance;
   /**
    * fetch a MessageInstance
    *
@@ -333,7 +335,7 @@ declare class MessageInstance extends SerializableClass {
   /**
    * Access the media
    */
-  media();
+  media(): MediaListInstance;
   messagingServiceSid: string;
   numMedia: string;
   numSegments: string;
@@ -378,14 +380,14 @@ declare class MessageContext {
    */
   constructor(version: V2010, accountSid: string, sid: string);
 
-  feedback?: FeedbackList;
+  feedback?: FeedbackListInstance;
   /**
    * fetch a MessageInstance
    *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: MessageInstance) => any): void;
-  media?: MediaList;
+  media?: MediaListInstance;
   /**
    * remove a MessageInstance
    *

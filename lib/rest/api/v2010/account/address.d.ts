@@ -10,6 +10,7 @@ import Response = require('../../../../http/response');
 import V2010 = require('../../V2010');
 import serialize = require('../../../../base/serialize');
 import { DependentPhoneNumberList } from './address/dependentPhoneNumber';
+import { DependentPhoneNumberListInstance } from './address/dependentPhoneNumber';
 import { SerializableClass } from '../../../../interfaces';
 
 /**
@@ -285,7 +286,7 @@ declare class AddressInstance extends SerializableClass {
   /**
    * Access the dependentPhoneNumbers
    */
-  dependentPhoneNumbers();
+  dependentPhoneNumbers(): DependentPhoneNumberListInstance;
   emergencyEnabled: boolean;
   /**
    * fetch a AddressInstance
@@ -334,7 +335,7 @@ declare class AddressContext {
    */
   constructor(version: V2010, accountSid: string, sid: string);
 
-  dependentPhoneNumbers?: DependentPhoneNumberList;
+  dependentPhoneNumbers?: DependentPhoneNumberListInstance;
   /**
    * fetch a AddressInstance
    *

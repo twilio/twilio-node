@@ -10,6 +10,7 @@ import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import serialize = require('../../../base/serialize');
 import { DependentHostedNumberOrderList } from './authorizationDocument/dependentHostedNumberOrder';
+import { DependentHostedNumberOrderListInstance } from './authorizationDocument/dependentHostedNumberOrder';
 import { SerializableClass } from '../../../interfaces';
 
 type AuthorizationDocumentStatus = 'opened'|'signing'|'signed'|'canceled'|'failed';
@@ -260,7 +261,7 @@ declare class AuthorizationDocumentInstance extends SerializableClass {
   /**
    * Access the dependentHostedNumberOrders
    */
-  dependentHostedNumberOrders();
+  dependentHostedNumberOrders(): DependentHostedNumberOrderListInstance;
   email: string;
   /**
    * fetch a AuthorizationDocumentInstance
@@ -298,7 +299,7 @@ declare class AuthorizationDocumentContext {
    */
   constructor(version: HostedNumbers, sid: string);
 
-  dependentHostedNumberOrders?: DependentHostedNumberOrderList;
+  dependentHostedNumberOrders?: DependentHostedNumberOrderListInstance;
   /**
    * fetch a AuthorizationDocumentInstance
    *

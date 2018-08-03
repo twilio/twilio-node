@@ -9,6 +9,7 @@ import Page = require('../../../../../base/Page');
 import Response = require('../../../../../http/response');
 import V2010 = require('../../../V2010');
 import { AssignedAddOnExtensionList } from './assignedAddOn/assignedAddOnExtension';
+import { AssignedAddOnExtensionListInstance } from './assignedAddOn/assignedAddOnExtension';
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
@@ -225,7 +226,7 @@ declare class AssignedAddOnInstance extends SerializableClass {
   /**
    * Access the extensions
    */
-  extensions();
+  extensions(): AssignedAddOnExtensionListInstance;
   /**
    * fetch a AssignedAddOnInstance
    *
@@ -265,7 +266,7 @@ declare class AssignedAddOnContext {
    */
   constructor(version: V2010, accountSid: string, resourceSid: string, sid: string);
 
-  extensions?: AssignedAddOnExtensionList;
+  extensions?: AssignedAddOnExtensionListInstance;
   /**
    * fetch a AssignedAddOnInstance
    *

@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 import twilio = require('../../');
 import {
-    MessageInstance, MessageListInstance,
+    MessageInstance,
     MessageListInstanceCreateOptions
 } from '../../lib/rest/api/v2010/account/message';
 import {CallInstance} from "../../lib/rest/api/v2010/account/call";
@@ -15,7 +15,7 @@ const client = twilio(accountSid, token);
 let i: number = 0;
 client.calls.each({
   pageSize: 7,
-  callback: (call: CallInstance, done: (err?: Error) => void) => {
+  callback: (call, done) => {
     console.log(call.sid);
     i++;
     if (i === 10) {
@@ -84,7 +84,7 @@ promiseTrunk.then((trunk: TrunkInstance) => {
 const trunkSid = 'TK7e37e59861c14bb80dde245cfaad5522';
 
 // Fetch trunk sid using callback
-client.trunking.v1.trunks(trunkSid).fetch((err: Error, result: TrunkInstance) => {
+client.trunking.v1.trunks(trunkSid).fetch((err, result) => {
   console.log('Fetch trunk using callback');
   console.log(result.sid);
 });
@@ -101,7 +101,7 @@ client.trunking.v1.trunks(trunkSid).update(
   {
     friendlyName: 'callback trunk'
   },
-  (err: Error, result: TrunkInstance) => {
+  (err, result) => {
     console.log('Updated using callbacks');
     console.log(result.sid);
     console.log(result.friendlyName);

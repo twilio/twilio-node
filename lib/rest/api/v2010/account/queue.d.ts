@@ -9,6 +9,7 @@ import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V2010 = require('../../V2010');
 import { MemberList } from './queue/member';
+import { MemberListInstance } from './queue/member';
 import { SerializableClass } from '../../../../interfaces';
 
 /**
@@ -238,7 +239,7 @@ declare class QueueInstance extends SerializableClass {
   /**
    * Access the members
    */
-  members();
+  members(): MemberListInstance;
   /**
    * remove a QueueInstance
    *
@@ -280,7 +281,7 @@ declare class QueueContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: QueueInstance) => any): void;
-  members?: MemberList;
+  members?: MemberListInstance;
   /**
    * remove a QueueInstance
    *

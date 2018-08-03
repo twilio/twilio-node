@@ -9,8 +9,11 @@ import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import Understand = require('../../Understand');
 import { FieldList } from './intent/field';
+import { FieldListInstance } from './intent/field';
 import { IntentStatisticsList } from './intent/intentStatistics';
+import { IntentStatisticsListInstance } from './intent/intentStatistics';
 import { SampleList } from './intent/sample';
+import { SampleListInstance } from './intent/sample';
 import { SerializableClass } from '../../../../interfaces';
 
 /**
@@ -238,7 +241,7 @@ declare class IntentInstance extends SerializableClass {
   /**
    * Access the fields
    */
-  fields();
+  fields(): FieldListInstance;
   friendlyName: string;
   links: string;
   /**
@@ -250,12 +253,12 @@ declare class IntentInstance extends SerializableClass {
   /**
    * Access the samples
    */
-  samples();
+  samples(): SampleListInstance;
   sid: string;
   /**
    * Access the statistics
    */
-  statistics();
+  statistics(): IntentStatisticsListInstance;
   /**
    * Produce a plain JSON object version of the IntentInstance for serialization.
    * Removes any circular references in the object.
@@ -293,15 +296,15 @@ declare class IntentContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: IntentInstance) => any): void;
-  fields?: FieldList;
+  fields?: FieldListInstance;
   /**
    * remove a IntentInstance
    *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: IntentInstance) => any): void;
-  samples?: SampleList;
-  statistics?: IntentStatisticsList;
+  samples?: SampleListInstance;
+  statistics?: IntentStatisticsListInstance;
   /**
    * update a IntentInstance
    *

@@ -10,7 +10,9 @@ import Response = require('../../../../http/response');
 import V1 = require('../../V1');
 import serialize = require('../../../../base/serialize');
 import { InteractionList } from './session/interaction';
+import { InteractionListInstance } from './session/interaction';
 import { ParticipantList } from './session/participant';
+import { ParticipantListInstance } from './session/participant';
 import { SerializableClass } from '../../../../interfaces';
 
 type SessionMode = 'message-only'|'voice-only'|'voice-and-message';
@@ -286,13 +288,13 @@ declare class SessionInstance extends SerializableClass {
   /**
    * Access the interactions
    */
-  interactions();
+  interactions(): InteractionListInstance;
   links: string;
   mode: SessionMode;
   /**
    * Access the participants
    */
-  participants();
+  participants(): ParticipantListInstance;
   /**
    * remove a SessionInstance
    *
@@ -339,8 +341,8 @@ declare class SessionContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: SessionInstance) => any): void;
-  interactions?: InteractionList;
-  participants?: ParticipantList;
+  interactions?: InteractionListInstance;
+  participants?: ParticipantListInstance;
   /**
    * remove a SessionInstance
    *

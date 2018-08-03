@@ -10,6 +10,7 @@ import Response = require('../../../../http/response');
 import Sync = require('../../Sync');
 import serialize = require('../../../../base/serialize');
 import { DocumentPermissionList } from './document/documentPermission';
+import { DocumentPermissionListInstance } from './document/documentPermission';
 import { SerializableClass } from '../../../../interfaces';
 
 /**
@@ -234,7 +235,7 @@ declare class DocumentInstance extends SerializableClass {
   /**
    * Access the documentPermissions
    */
-  documentPermissions();
+  documentPermissions(): DocumentPermissionListInstance;
   /**
    * fetch a DocumentInstance
    *
@@ -280,7 +281,7 @@ declare class DocumentContext {
    */
   constructor(version: Sync, serviceSid: string, sid: string);
 
-  documentPermissions?: DocumentPermissionList;
+  documentPermissions?: DocumentPermissionListInstance;
   /**
    * fetch a DocumentInstance
    *

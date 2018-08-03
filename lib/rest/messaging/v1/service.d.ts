@@ -10,9 +10,12 @@ import Response = require('../../../http/response');
 import V1 = require('../V1');
 import serialize = require('../../../base/serialize');
 import { AlphaSenderList } from './service/alphaSender';
+import { AlphaSenderListInstance } from './service/alphaSender';
 import { PhoneNumberList } from './service/phoneNumber';
+import { PhoneNumberListInstance } from './service/phoneNumber';
 import { SerializableClass } from '../../../interfaces';
 import { ShortCodeList } from './service/shortCode';
+import { ShortCodeListInstance } from './service/shortCode';
 
 type ServiceScanMessageContent = 'inherit'|'enable'|'disable';
 
@@ -299,7 +302,7 @@ declare class ServiceInstance extends SerializableClass {
   /**
    * Access the alphaSenders
    */
-  alphaSenders();
+  alphaSenders(): AlphaSenderListInstance;
   areaCodeGeomatch: boolean;
   dateCreated: Date;
   dateUpdated: Date;
@@ -320,7 +323,7 @@ declare class ServiceInstance extends SerializableClass {
   /**
    * Access the phoneNumbers
    */
-  phoneNumbers();
+  phoneNumbers(): PhoneNumberListInstance;
   /**
    * remove a ServiceInstance
    *
@@ -331,7 +334,7 @@ declare class ServiceInstance extends SerializableClass {
   /**
    * Access the shortCodes
    */
-  shortCodes();
+  shortCodes(): ShortCodeListInstance;
   sid: string;
   smartEncoding: boolean;
   statusCallback: string;
@@ -367,21 +370,21 @@ declare class ServiceContext {
    */
   constructor(version: V1, sid: string);
 
-  alphaSenders?: AlphaSenderList;
+  alphaSenders?: AlphaSenderListInstance;
   /**
    * fetch a ServiceInstance
    *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: ServiceInstance) => any): void;
-  phoneNumbers?: PhoneNumberList;
+  phoneNumbers?: PhoneNumberListInstance;
   /**
    * remove a ServiceInstance
    *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: ServiceInstance) => any): void;
-  shortCodes?: ShortCodeList;
+  shortCodes?: ShortCodeListInstance;
   /**
    * update a ServiceInstance
    *

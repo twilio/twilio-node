@@ -9,11 +9,16 @@ import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import V1 = require('../../V1');
 import { ReservationList } from './worker/reservation';
+import { ReservationListInstance } from './worker/reservation';
 import { SerializableClass } from '../../../../interfaces';
 import { WorkerChannelList } from './worker/workerChannel';
+import { WorkerChannelListInstance } from './worker/workerChannel';
 import { WorkerStatisticsList } from './worker/workerStatistics';
+import { WorkerStatisticsListInstance } from './worker/workerStatistics';
 import { WorkersCumulativeStatisticsList } from './worker/workersCumulativeStatistics';
+import { WorkersCumulativeStatisticsListInstance } from './worker/workersCumulativeStatistics';
 import { WorkersRealTimeStatisticsList } from './worker/workersRealTimeStatistics';
+import { WorkersRealTimeStatisticsListInstance } from './worker/workersRealTimeStatistics';
 
 /**
  * @description Initialize the WorkerList
@@ -289,7 +294,7 @@ declare class WorkerInstance extends SerializableClass {
   /**
    * Access the cumulativeStatistics
    */
-  cumulativeStatistics();
+  cumulativeStatistics(): WorkersCumulativeStatisticsListInstance;
   dateCreated: Date;
   dateStatusChanged: Date;
   dateUpdated: Date;
@@ -304,7 +309,7 @@ declare class WorkerInstance extends SerializableClass {
   /**
    * Access the realTimeStatistics
    */
-  realTimeStatistics();
+  realTimeStatistics(): WorkersRealTimeStatisticsListInstance;
   /**
    * remove a WorkerInstance
    *
@@ -314,12 +319,12 @@ declare class WorkerInstance extends SerializableClass {
   /**
    * Access the reservations
    */
-  reservations();
+  reservations(): ReservationListInstance;
   sid: string;
   /**
    * Access the statistics
    */
-  statistics();
+  statistics(): WorkerStatisticsListInstance;
   /**
    * Produce a plain JSON object version of the WorkerInstance for serialization.
    * Removes any circular references in the object.
@@ -336,7 +341,7 @@ declare class WorkerInstance extends SerializableClass {
   /**
    * Access the workerChannels
    */
-  workerChannels();
+  workerChannels(): WorkerChannelListInstance;
   workspaceSid: string;
 }
 
@@ -357,22 +362,22 @@ declare class WorkerContext {
    */
   constructor(version: V1, workspaceSid: string, sid: string);
 
-  cumulativeStatistics?: WorkersCumulativeStatisticsList;
+  cumulativeStatistics?: WorkersCumulativeStatisticsListInstance;
   /**
    * fetch a WorkerInstance
    *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: WorkerInstance) => any): void;
-  realTimeStatistics?: WorkersRealTimeStatisticsList;
+  realTimeStatistics?: WorkersRealTimeStatisticsListInstance;
   /**
    * remove a WorkerInstance
    *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: WorkerInstance) => any): void;
-  reservations?: ReservationList;
-  statistics?: WorkerStatisticsList;
+  reservations?: ReservationListInstance;
+  statistics?: WorkerStatisticsListInstance;
   /**
    * update a WorkerInstance
    *
@@ -380,7 +385,7 @@ declare class WorkerContext {
    * @param callback - Callback to handle processed record
    */
   update(opts?: WorkerInstanceUpdateOptions, callback?: (error: Error | null, items: WorkerInstance) => any): void;
-  workerChannels?: WorkerChannelList;
+  workerChannels?: WorkerChannelListInstance;
 }
 
 export { WorkerContext, WorkerInstance, WorkerList, WorkerListInstance, WorkerListInstanceCreateOptions, WorkerListInstanceEachOptions, WorkerListInstanceOptions, WorkerListInstancePageOptions, WorkerPage, WorkerPayload, WorkerResource, WorkerSolution }

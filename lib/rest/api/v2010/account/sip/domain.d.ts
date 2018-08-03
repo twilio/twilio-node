@@ -10,8 +10,11 @@ import Response = require('../../../../../http/response');
 import V2010 = require('../../../V2010');
 import serialize = require('../../../../../base/serialize');
 import { AuthTypesList } from './domain/authTypes';
+import { AuthTypesListInstance } from './domain/authTypes';
 import { CredentialListMappingList } from './domain/credentialListMapping';
+import { CredentialListMappingListInstance } from './domain/credentialListMapping';
 import { IpAccessControlListMappingList } from './domain/ipAccessControlListMapping';
+import { IpAccessControlListMappingListInstance } from './domain/ipAccessControlListMapping';
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
@@ -276,12 +279,12 @@ declare class DomainInstance extends SerializableClass {
   /**
    * Access the auth
    */
-  auth();
+  auth(): AuthTypesListInstance;
   authType: string;
   /**
    * Access the credentialListMappings
    */
-  credentialListMappings();
+  credentialListMappings(): CredentialListMappingListInstance;
   dateCreated: Date;
   dateUpdated: Date;
   domainName: string;
@@ -295,7 +298,7 @@ declare class DomainInstance extends SerializableClass {
   /**
    * Access the ipAccessControlListMappings
    */
-  ipAccessControlListMappings();
+  ipAccessControlListMappings(): IpAccessControlListMappingListInstance;
   /**
    * remove a DomainInstance
    *
@@ -341,15 +344,15 @@ declare class DomainContext {
    */
   constructor(version: V2010, accountSid: string, sid: string);
 
-  auth?: AuthTypesList;
-  credentialListMappings?: CredentialListMappingList;
+  auth?: AuthTypesListInstance;
+  credentialListMappings?: CredentialListMappingListInstance;
   /**
    * fetch a DomainInstance
    *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: DomainInstance) => any): void;
-  ipAccessControlListMappings?: IpAccessControlListMappingList;
+  ipAccessControlListMappings?: IpAccessControlListMappingListInstance;
   /**
    * remove a DomainInstance
    *

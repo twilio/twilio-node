@@ -10,9 +10,13 @@ import Response = require('../../../http/response');
 import V1 = require('../V1');
 import serialize = require('../../../base/serialize');
 import { CredentialListList } from './trunk/credentialList';
+import { CredentialListListInstance } from './trunk/credentialList';
 import { IpAccessControlListList } from './trunk/ipAccessControlList';
+import { IpAccessControlListListInstance } from './trunk/ipAccessControlList';
 import { OriginationUrlList } from './trunk/originationUrl';
+import { OriginationUrlListInstance } from './trunk/originationUrl';
 import { PhoneNumberList } from './trunk/phoneNumber';
+import { PhoneNumberListInstance } from './trunk/phoneNumber';
 import { SerializableClass } from '../../../interfaces';
 
 type TrunkRecordingSetting = 'do-not-record'|'record-from-ringing'|'record-from-answer';
@@ -264,7 +268,7 @@ declare class TrunkInstance extends SerializableClass {
   /**
    * Access the credentialsLists
    */
-  credentialsLists();
+  credentialsLists(): CredentialListListInstance;
   dateCreated: Date;
   dateUpdated: Date;
   disasterRecoveryMethod: string;
@@ -280,16 +284,16 @@ declare class TrunkInstance extends SerializableClass {
   /**
    * Access the ipAccessControlLists
    */
-  ipAccessControlLists();
+  ipAccessControlLists(): IpAccessControlListListInstance;
   links: string;
   /**
    * Access the originationUrls
    */
-  originationUrls();
+  originationUrls(): OriginationUrlListInstance;
   /**
    * Access the phoneNumbers
    */
-  phoneNumbers();
+  phoneNumbers(): PhoneNumberListInstance;
   recording: string;
   /**
    * remove a TrunkInstance
@@ -329,16 +333,16 @@ declare class TrunkContext {
    */
   constructor(version: V1, sid: string);
 
-  credentialsLists?: CredentialListList;
+  credentialsLists?: CredentialListListInstance;
   /**
    * fetch a TrunkInstance
    *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: TrunkInstance) => any): void;
-  ipAccessControlLists?: IpAccessControlListList;
-  originationUrls?: OriginationUrlList;
-  phoneNumbers?: PhoneNumberList;
+  ipAccessControlLists?: IpAccessControlListListInstance;
+  originationUrls?: OriginationUrlListInstance;
+  phoneNumbers?: PhoneNumberListInstance;
   /**
    * remove a TrunkInstance
    *

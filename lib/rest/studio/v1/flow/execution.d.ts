@@ -10,7 +10,9 @@ import Response = require('../../../../http/response');
 import V1 = require('../../V1');
 import serialize = require('../../../../base/serialize');
 import { ExecutionContextList } from './execution/executionContext';
+import { ExecutionContextListInstance } from './execution/executionContext';
 import { ExecutionStepList } from './execution/executionStep';
+import { ExecutionStepListInstance } from './execution/executionStep';
 import { SerializableClass } from '../../../../interfaces';
 
 type ExecutionStatus = 'active'|'ended';
@@ -231,7 +233,7 @@ declare class ExecutionInstance extends SerializableClass {
   /**
    * Access the executionContext
    */
-  executionContext();
+  executionContext(): ExecutionContextListInstance;
   /**
    * fetch a ExecutionInstance
    *
@@ -251,7 +253,7 @@ declare class ExecutionInstance extends SerializableClass {
   /**
    * Access the steps
    */
-  steps();
+  steps(): ExecutionStepListInstance;
   /**
    * Produce a plain JSON object version of the ExecutionInstance for serialization.
    * Removes any circular references in the object.
@@ -274,7 +276,7 @@ declare class ExecutionContext {
    */
   constructor(version: V1, flowSid: string, sid: string);
 
-  executionContext?: ExecutionContextList;
+  executionContext?: ExecutionContextListInstance;
   /**
    * fetch a ExecutionInstance
    *
@@ -287,7 +289,7 @@ declare class ExecutionContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: ExecutionInstance) => any): void;
-  steps?: ExecutionStepList;
+  steps?: ExecutionStepListInstance;
 }
 
 export { ExecutionContext, ExecutionInstance, ExecutionList, ExecutionListInstance, ExecutionListInstanceCreateOptions, ExecutionListInstanceEachOptions, ExecutionListInstanceOptions, ExecutionListInstancePageOptions, ExecutionPage, ExecutionPayload, ExecutionResource, ExecutionSolution }

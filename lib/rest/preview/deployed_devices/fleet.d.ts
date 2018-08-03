@@ -9,9 +9,13 @@ import DeployedDevices = require('../DeployedDevices');
 import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import { CertificateList } from './fleet/certificate';
+import { CertificateListInstance } from './fleet/certificate';
 import { DeploymentList } from './fleet/deployment';
+import { DeploymentListInstance } from './fleet/deployment';
 import { DeviceList } from './fleet/device';
+import { DeviceListInstance } from './fleet/device';
 import { KeyList } from './fleet/key';
+import { KeyListInstance } from './fleet/key';
 import { SerializableClass } from '../../../interfaces';
 
 /**
@@ -225,18 +229,18 @@ declare class FleetInstance extends SerializableClass {
   /**
    * Access the certificates
    */
-  certificates();
+  certificates(): CertificateListInstance;
   dateCreated: Date;
   dateUpdated: Date;
   defaultDeploymentSid: string;
   /**
    * Access the deployments
    */
-  deployments();
+  deployments(): DeploymentListInstance;
   /**
    * Access the devices
    */
-  devices();
+  devices(): DeviceListInstance;
   /**
    * fetch a FleetInstance
    *
@@ -247,7 +251,7 @@ declare class FleetInstance extends SerializableClass {
   /**
    * Access the keys
    */
-  keys();
+  keys(): KeyListInstance;
   links: string;
   /**
    * remove a FleetInstance
@@ -287,16 +291,16 @@ declare class FleetContext {
    */
   constructor(version: DeployedDevices, sid: string);
 
-  certificates?: CertificateList;
-  deployments?: DeploymentList;
-  devices?: DeviceList;
+  certificates?: CertificateListInstance;
+  deployments?: DeploymentListInstance;
+  devices?: DeviceListInstance;
   /**
    * fetch a FleetInstance
    *
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: FleetInstance) => any): void;
-  keys?: KeyList;
+  keys?: KeyListInstance;
   /**
    * remove a FleetInstance
    *
