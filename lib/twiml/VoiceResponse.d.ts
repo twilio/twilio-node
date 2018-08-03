@@ -30,7 +30,7 @@ declare class VoiceResponse {
    *
    * @param attributes - TwiML attributes
    */
-  echo(attributes?: VoiceResponse.EchoAttributes): void;
+  echo(attributes?: object): void;
   /**
    * <Enqueue> TwiML Noun
    *
@@ -49,13 +49,13 @@ declare class VoiceResponse {
    *
    * @param attributes - TwiML attributes
    */
-  hangup(attributes?: VoiceResponse.HangupAttributes): void;
+  hangup(attributes?: object): void;
   /**
    * <Leave> TwiML Verb
    *
    * @param attributes - TwiML attributes
    */
-  leave(attributes?: VoiceResponse.LeaveAttributes): void;
+  leave(attributes?: object): void;
   /**
    * <Pause> TwiML Verb
    *
@@ -597,7 +597,7 @@ declare namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
-    ssmlP(attributes: VoiceResponse.SsmlPAttributes, words: string): void;
+    ssmlP(attributes: object, words: string): void;
     /**
      * Using Phonetic Pronunciation in <Say>
      *
@@ -618,7 +618,7 @@ declare namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
-    ssmlS(attributes: VoiceResponse.SsmlSAttributes, words: string): void;
+    ssmlS(attributes: object, words: string): void;
     /**
      * Controlling How Special Types of Words Are Spoken in <Say>
      *
@@ -696,7 +696,7 @@ declare namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
-    ssmlP(attributes: VoiceResponse.SsmlPAttributes, words: string): void;
+    ssmlP(attributes: object, words: string): void;
     /**
      * Using Phonetic Pronunciation in <Say>
      *
@@ -717,7 +717,7 @@ declare namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param words - Words to speak
      */
-    ssmlS(attributes: VoiceResponse.SsmlSAttributes, words: string): void;
+    ssmlS(attributes: object, words: string): void;
     /**
      * Controlling How Special Types of Words Are Spoken in <Say>
      *
@@ -790,7 +790,7 @@ declare namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param simSid - SIM SID
      */
-    sim(attributes: VoiceResponse.SimAttributes, simSid: string): void;
+    sim(attributes: object, simSid: string): void;
     /**
      * <Sip> TwiML Noun
      *
@@ -809,7 +809,7 @@ declare namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param name - Room name
      */
-    room(attributes: VideoResponse.RoomAttributes, name: string): void;
+    room(attributes: object, name: string): void;
   }
 }
 

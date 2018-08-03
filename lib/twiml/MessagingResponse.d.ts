@@ -69,14 +69,14 @@ declare namespace MessagingResponse {
      * @param attributes - TwiML attributes
      * @param message - Message Body
      */
-    body(attributes: MessagingResponse.BodyAttributes, message: string): void;
+    body(attributes: object, message: string): void;
     /**
      * <Media> TwiML Noun
      *
      * @param attributes - TwiML attributes
      * @param url - Media URL
      */
-    media(attributes: MessagingResponse.MediaAttributes, url: string): void;
+    media(attributes: object, url: string): void;
   }
 }
 
