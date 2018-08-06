@@ -1,11 +1,6 @@
 import * as _ from 'lodash';
 import twilio = require('../../');
-import {
-    MessageInstance,
-    MessageListInstanceCreateOptions
-} from '../../lib/rest/api/v2010/account/message';
-import {CallInstance} from "../../lib/rest/api/v2010/account/call";
-import {TrunkInstance} from "../../lib/rest/trunking/v1/trunk";
+import {MessageListInstanceCreateOptions} from '../../lib/rest/api/v2010/account/message';
 
 const accountSid: string = process.env.TWILIO_ACCOUNT_SID || '';
 const token: string = process.env.TWILIO_AUTH_TOKEN || '';
@@ -28,7 +23,7 @@ client.calls.each({
   }
 });
 
-client.calls.each({}, (call: CallInstance) => {
+client.calls.each({}, call => {
   console.log(call.sid);
 });
 
@@ -39,7 +34,7 @@ const msgData: MessageListInstanceCreateOptions = {
   from,
   to,
   body: 'create using callback'
-}
+};
 
 // Send message using callback
 client.messages.create(msgData, (err, result) => {
@@ -53,7 +48,7 @@ const promise = client.messages.create({
   to: to,
   body: 'create using promises'
 });
-promise.then((message: MessageInstance) => {
+promise.then(message => {
   console.log('Created message using promises');
   console.log(message.sid);
 });
@@ -73,7 +68,7 @@ client.trunking.v1.trunks.create(
 const promiseTrunk = client.trunking.v1.trunks.create({
   friendlyName: 'promise trunking'
 });
-promiseTrunk.then((trunk: TrunkInstance) => {
+promiseTrunk.then(trunk => {
   console.log('Created trunk with friendly name and promises');
   console.log(trunk.sid);
   console.log(trunk.friendlyName);
@@ -89,7 +84,7 @@ client.trunking.v1.trunks(trunkSid).fetch((err, result) => {
 
 // Fetch trunk using promise
 const promiseTrunk2 = client.trunking.v1.trunks(trunkSid).fetch();
-promiseTrunk2.then((trunk: TrunkInstance) => {
+promiseTrunk2.then(trunk => {
   console.log('Fetch trunk using promise');
   console.log(trunk.sid);
 });
@@ -110,7 +105,7 @@ client.trunking.v1.trunks(trunkSid).update(
 const promiseTrunk3 = client.trunking.v1.trunks(trunkSid).update({
   friendlyName: 'promise trunk'
 });
-promiseTrunk3.then((trunk: TrunkInstance) => {
+promiseTrunk3.then(trunk => {
   console.log('Updated trunk with friendly name and promises');
   console.log(trunk.sid);
   console.log(trunk.friendlyName);
@@ -126,7 +121,7 @@ client.messages.list({}, (err, messages) => {
 
 // List messages using promises
 const promiseMessage = client.messages.list();
-promiseMessage.then((messages: MessageInstance[]) => {
+promiseMessage.then(messages => {
   console.log('Listing messages using promises');
   _.each(messages, function(message) {
     console.log(message.sid);
