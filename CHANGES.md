@@ -1,6 +1,16 @@
 twilio-node changelog
 =====================
 
+[2018-08-09] Version 3.19.1
+----------------------------
+**Preview**
+- Add new Intent Statistics endpoint
+- Remove `ttl` from Assistants
+
+**Studio**
+- Studio is now GA
+
+
 [2018-08-03] Version 3.19.0
 ----------------------------
 **Library**
