@@ -9,6 +9,10 @@ import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import Understand = require('../Understand');
 import serialize = require('../../../base/serialize');
+import { AssistantFallbackActionsList } from './assistant/assistantFallbackActions';
+import { AssistantFallbackActionsListInstance } from './assistant/assistantFallbackActions';
+import { AssistantInitiationActionsList } from './assistant/assistantInitiationActions';
+import { AssistantInitiationActionsListInstance } from './assistant/assistantInitiationActions';
 import { FieldTypeList } from './assistant/fieldType';
 import { FieldTypeListInstance } from './assistant/fieldType';
 import { IntentList } from './assistant/intent';
@@ -32,17 +36,19 @@ declare function AssistantList(version: Understand): AssistantListInstance;
  *
  * @property callbackEvents - The callback_events
  * @property callbackUrl - The callback_url
+ * @property fallbackActions - The fallback_actions
  * @property friendlyName - A text description for the Assistant. It is non-unique and can up to 255 characters long.
+ * @property initiationActions - The initiation_actions
  * @property logQueries - A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
- * @property responseUrl - The webhook URL called to fetch the response to an incoming communication expressed in Assistant TwiML.
  * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
  */
 interface AssistantInstanceUpdateOptions {
   callbackEvents?: string;
   callbackUrl?: string;
+  fallbackActions?: string;
   friendlyName?: string;
+  initiationActions?: string;
   logQueries?: boolean;
-  responseUrl?: string;
   uniqueName?: string;
 }
 
@@ -114,17 +120,19 @@ interface AssistantListInstance {
  *
  * @property callbackEvents - The callback_events
  * @property callbackUrl - The callback_url
+ * @property fallbackActions - The fallback_actions
  * @property friendlyName - A text description for the Assistant. It is non-unique and can up to 255 characters long.
+ * @property initiationActions - The initiation_actions
  * @property logQueries - A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
- * @property responseUrl - The webhook URL called to fetch the response to an incoming communication expressed in Assistant TwiML.
  * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
  */
 interface AssistantListInstanceCreateOptions {
   callbackEvents?: string;
   callbackUrl?: string;
+  fallbackActions?: string;
   friendlyName?: string;
+  initiationActions?: string;
   logQueries?: boolean;
-  responseUrl?: string;
   uniqueName?: string;
 }
 
@@ -198,7 +206,6 @@ interface AssistantResource {
   latest_model_build_sid: string;
   links: string;
   log_queries: boolean;
-  response_url: string;
   sid: string;
   unique_name: string;
   url: string;
@@ -216,12 +223,16 @@ declare class AssistantContext {
    * @property intents - intents resource
    * @property modelBuilds - modelBuilds resource
    * @property queries - queries resource
+   * @property assistantFallbackActions - assistantFallbackActions resource
+   * @property assistantInitiationActions - assistantInitiationActions resource
    *
    * @param version - Version of the resource
    * @param sid - The sid
    */
   constructor(version: Understand, sid: string);
 
+  assistantFallbackActions: AssistantFallbackActionsListInstance;
+  assistantInitiationActions: AssistantInitiationActionsListInstance;
   /**
    * fetch a AssistantInstance
    *
@@ -262,7 +273,6 @@ declare class AssistantInstance extends SerializableClass {
    * @property sid - A 34 character string that uniquely identifies this resource.
    * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. You can use the unique name in the URL path. Unique up to 64 characters long.
    * @property url - The url
-   * @property responseUrl - The webhook URL called to fetch the response to an incoming communication expressed in Assistant TwiML.
    * @property callbackUrl - The callback_url
    * @property callbackEvents - The callback_events
    *
@@ -274,6 +284,14 @@ declare class AssistantInstance extends SerializableClass {
 
   private _proxy: AssistantContext;
   accountSid: string;
+  /**
+   * Access the assistantFallbackActions
+   */
+  assistantFallbackActions(): AssistantFallbackActionsListInstance;
+  /**
+   * Access the assistantInitiationActions
+   */
+  assistantInitiationActions(): AssistantInitiationActionsListInstance;
   callbackEvents: string;
   callbackUrl: string;
   dateCreated: Date;
@@ -310,7 +328,6 @@ declare class AssistantInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: AssistantInstance) => any): void;
-  responseUrl: string;
   sid: string;
   /**
    * Produce a plain JSON object version of the AssistantInstance for serialization.

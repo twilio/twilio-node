@@ -19,7 +19,6 @@ type ExecutionStatus = 'active'|'ended';
 
 /**
  * @description Initialize the ExecutionList
- * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
  *
  * @param version - Version of the resource
  * @param flowSid - Flow Sid.
@@ -183,7 +182,7 @@ interface ExecutionSolution {
 
 declare class ExecutionContext {
   /**
-   * Initialize the ExecutionContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the ExecutionContext
    *
    * @property steps - steps resource
    * @property executionContext - executionContext resource
@@ -213,7 +212,7 @@ declare class ExecutionContext {
 
 declare class ExecutionInstance extends SerializableClass {
   /**
-   * Initialize the ExecutionContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the ExecutionContext
    *
    * @property sid - A string that uniquely identifies this Execution.
    * @property accountSid - Account Sid.
@@ -276,7 +275,7 @@ declare class ExecutionInstance extends SerializableClass {
 
 declare class ExecutionPage extends Page<V1, ExecutionPayload, ExecutionResource, ExecutionInstance> {
   /**
-   * Initialize the ExecutionPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the ExecutionPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API

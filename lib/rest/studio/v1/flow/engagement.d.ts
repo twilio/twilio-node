@@ -19,7 +19,6 @@ type EngagementStatus = 'active'|'ended';
 
 /**
  * @description Initialize the EngagementList
- * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
  *
  * @param version - Version of the resource
  * @param flowSid - Flow Sid.
@@ -183,7 +182,7 @@ interface EngagementSolution {
 
 declare class EngagementContext {
   /**
-   * Initialize the EngagementContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the EngagementContext
    *
    * @property steps - steps resource
    * @property engagementContext - engagementContext resource
@@ -213,7 +212,7 @@ declare class EngagementContext {
 
 declare class EngagementInstance extends SerializableClass {
   /**
-   * Initialize the EngagementContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the EngagementContext
    *
    * @property sid - A string that uniquely identifies this Engagement.
    * @property accountSid - Account Sid.
@@ -276,7 +275,7 @@ declare class EngagementInstance extends SerializableClass {
 
 declare class EngagementPage extends Page<V1, EngagementPayload, EngagementResource, EngagementInstance> {
   /**
-   * Initialize the EngagementPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the EngagementPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API

@@ -18,7 +18,6 @@ type FlowStatus = 'draft'|'published';
 
 /**
  * @description Initialize the FlowList
- * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
  *
  * @param version - Version of the resource
  */
@@ -158,7 +157,7 @@ interface FlowSolution {
 
 declare class FlowContext {
   /**
-   * Initialize the FlowContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the FlowContext
    *
    * @property engagements - engagements resource
    * @property executions - executions resource
@@ -187,7 +186,7 @@ declare class FlowContext {
 
 declare class FlowInstance extends SerializableClass {
   /**
-   * Initialize the FlowContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the FlowContext
    *
    * @property sid - A string that uniquely identifies this Flow.
    * @property accountSid - Account Sid.
@@ -245,7 +244,7 @@ declare class FlowInstance extends SerializableClass {
 
 declare class FlowPage extends Page<V1, FlowPayload, FlowResource, FlowInstance> {
   /**
-   * Initialize the FlowPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the FlowPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API

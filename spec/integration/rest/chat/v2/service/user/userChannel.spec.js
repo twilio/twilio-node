@@ -47,10 +47,13 @@ describe('UserChannel', function() {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'channel_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'user_sid': 'USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'member_sid': 'MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'status': 'joined',
                   'last_consumed_message_index': 5,
                   'unread_messages_count': 5,
+                  'notification_level': 'default',
+                  'url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
                       'channel': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                       'member': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
@@ -81,10 +84,13 @@ describe('UserChannel', function() {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'channel_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'user_sid': 'USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'member_sid': 'MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'status': 'joined',
                   'last_consumed_message_index': 5,
                   'unread_messages_count': 5,
+                  'notification_level': 'default',
+                  'url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
                       'channel': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                       'member': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
@@ -120,10 +126,13 @@ describe('UserChannel', function() {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'channel_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'user_sid': 'USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'member_sid': 'MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'status': 'joined',
                   'last_consumed_message_index': 5,
                   'unread_messages_count': 5,
+                  'notification_level': 'default',
+                  'url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
                       'channel': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                       'member': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
@@ -180,10 +189,13 @@ describe('UserChannel', function() {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'channel_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'user_sid': 'USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'member_sid': 'MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'status': 'joined',
                   'last_consumed_message_index': 5,
                   'unread_messages_count': 5,
+                  'notification_level': 'default',
+                  'url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'links': {
                       'channel': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                       'member': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
@@ -226,6 +238,130 @@ describe('UserChannel', function() {
       var promise = client.chat.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .users('USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                   .userChannels.list();
+      promise = promise.then(function(response) {
+        expect(response).toBeDefined();
+      }, function() {
+        throw new Error('failed');
+      });
+
+      promise.done();
+    }
+  );
+  it('should generate valid fetch request',
+    function() {
+      holodeck.mock(new Response(500, '{}'));
+
+      var promise = client.chat.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                  .users('USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                  .userChannels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
+      promise = promise.then(function() {
+        throw new Error('failed');
+      }, function(error) {
+        expect(error.constructor).toBe(RestException.prototype.constructor);
+      });
+      promise.done();
+
+      var solution = {
+        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        userSid: 'USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        channelSid: 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+      };
+      var url = _.template('https://chat.twilio.com/v2/Services/<%= serviceSid %>/Users/<%= userSid %>/Channels/<%= channelSid %>')(solution);
+
+      holodeck.assertHasRequest(new Request({
+        method: 'GET',
+        url: url
+      }));
+    }
+  );
+  it('should generate valid fetch response',
+    function() {
+      var body = JSON.stringify({
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'channel_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'user_sid': 'USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'member_sid': 'MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'status': 'joined',
+          'last_consumed_message_index': 5,
+          'unread_messages_count': 5,
+          'notification_level': 'default',
+          'url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'links': {
+              'channel': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+              'member': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          }
+      });
+
+      holodeck.mock(new Response(200, body));
+
+      var promise = client.chat.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                  .users('USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                  .userChannels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
+      promise = promise.then(function(response) {
+        expect(response).toBeDefined();
+      }, function() {
+        throw new Error('failed');
+      });
+
+      promise.done();
+    }
+  );
+  it('should generate valid update request',
+    function() {
+      holodeck.mock(new Response(500, '{}'));
+
+      var opts = {notificationLevel: 'default'};
+      var promise = client.chat.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                  .users('USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                  .userChannels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
+      promise = promise.then(function() {
+        throw new Error('failed');
+      }, function(error) {
+        expect(error.constructor).toBe(RestException.prototype.constructor);
+      });
+      promise.done();
+
+      var solution = {
+        serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        userSid: 'USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        channelSid: 'CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+      };
+      var url = _.template('https://chat.twilio.com/v2/Services/<%= serviceSid %>/Users/<%= userSid %>/Channels/<%= channelSid %>')(solution);
+
+      var values = {NotificationLevel: 'default', };
+      holodeck.assertHasRequest(new Request({
+          method: 'POST',
+          url: url,
+          data: values
+      }));
+    }
+  );
+  it('should generate valid update response',
+    function() {
+      var body = JSON.stringify({
+          'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'service_sid': 'ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'channel_sid': 'CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'user_sid': 'USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'member_sid': 'MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'status': 'joined',
+          'last_consumed_message_index': 5,
+          'unread_messages_count': 5,
+          'notification_level': 'muted',
+          'url': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+          'links': {
+              'channel': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+              'member': 'https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          }
+      });
+
+      holodeck.mock(new Response(200, body));
+
+      var opts = {notificationLevel: 'default'};
+      var promise = client.chat.v2.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                  .users('USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+                                  .userChannels('CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').update(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {

@@ -12,16 +12,31 @@ import { SerializableClass } from '../../../../../interfaces';
 
 type UserChannelChannelStatus = 'joined'|'invited'|'not_participating';
 
+type UserChannelNotificationLevel = 'default'|'muted';
+
 /**
  * @description Initialize the UserChannelList
  *
  * @param version - Version of the resource
  * @param serviceSid - The unique id of the Service this channel belongs to.
- * @param userSid - A 34 character string that uniquely identifies this resource.
+ * @param userSid - The unique id of the User this Channel belongs to.
  */
 declare function UserChannelList(version: V2, serviceSid: string, userSid: string): UserChannelListInstance;
 
+/**
+ * Options to pass to update
+ *
+ * @property notificationLevel - Push notification level to be assigned to Channel of the User.
+ */
+interface UserChannelInstanceUpdateOptions {
+  notificationLevel: UserChannelNotificationLevel;
+}
+
 interface UserChannelListInstance {
+  /**
+   * @param sid - sid of instance
+   */
+  (sid: string): UserChannelContext;
   /**
    * Streams UserChannelInstance records from the API.
    *
@@ -36,6 +51,12 @@ interface UserChannelListInstance {
    * @param callback - Function to process each record
    */
   each(opts?: UserChannelListInstanceEachOptions, callback?: (item: UserChannelInstance, done: (err?: Error) => void) => void): void;
+  /**
+   * Constructs a user_channel
+   *
+   * @param channelSid - The unique id of a Channel.
+   */
+  get(channelSid: string): UserChannelContext;
   /**
    * Retrieve a single target page of UserChannelInstance records from the API.
    * Request is executed immediately
@@ -133,14 +154,44 @@ interface UserChannelResource {
   last_consumed_message_index: number;
   links: string;
   member_sid: string;
+  notification_level: UserChannelNotificationLevel;
   service_sid: string;
   status: UserChannelChannelStatus;
   unread_messages_count: number;
+  url: string;
+  user_sid: string;
 }
 
 interface UserChannelSolution {
   serviceSid?: string;
   userSid?: string;
+}
+
+
+declare class UserChannelContext {
+  /**
+   * Initialize the UserChannelContext
+   *
+   * @param version - Version of the resource
+   * @param serviceSid - The unique id of the Service those channels belong to.
+   * @param userSid - The unique id of a User.
+   * @param channelSid - The unique id of a Channel.
+   */
+  constructor(version: V2, serviceSid: string, userSid: string, channelSid: string);
+
+  /**
+   * fetch a UserChannelInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: UserChannelInstance) => any): Promise<UserChannelInstance>;
+  /**
+   * update a UserChannelInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts: UserChannelInstanceUpdateOptions, callback?: (error: Error | null, items: UserChannelInstance) => any): Promise<UserChannelInstance>;
 }
 
 
@@ -151,24 +202,36 @@ declare class UserChannelInstance extends SerializableClass {
    * @property accountSid - The unique id of the Account responsible for this channel.
    * @property serviceSid - The unique id of the Service this channel belongs to.
    * @property channelSid - The unique id of a Channel.
+   * @property userSid - The unique id of the User this Channel belongs to.
    * @property memberSid - The unique id of this User as a Member in this Channel.
    * @property status - The status of the User on this Channel.
    * @property lastConsumedMessageIndex - The index of the last read Message in this Channel for this User.
    * @property unreadMessagesCount - The count of unread Messages in this Channel for this User.
    * @property links - The links
+   * @property url - An absolute URL for this User Channel.
+   * @property notificationLevel - The notification level of the User for this Channel.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param serviceSid - The unique id of the Service this channel belongs to.
-   * @param userSid - A 34 character string that uniquely identifies this resource.
+   * @param userSid - The unique id of the User this Channel belongs to.
+   * @param channelSid - The unique id of a Channel.
    */
-  constructor(version: V2, payload: UserChannelPayload, serviceSid: string, userSid: string);
+  constructor(version: V2, payload: UserChannelPayload, serviceSid: string, userSid: string, channelSid: string);
 
+  private _proxy: UserChannelContext;
   accountSid: string;
   channelSid: string;
+  /**
+   * fetch a UserChannelInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  fetch(callback?: (error: Error | null, items: UserChannelInstance) => any): void;
   lastConsumedMessageIndex: number;
   links: string;
   memberSid: string;
+  notificationLevel: UserChannelNotificationLevel;
   serviceSid: string;
   status: UserChannelChannelStatus;
   /**
@@ -177,6 +240,15 @@ declare class UserChannelInstance extends SerializableClass {
    */
   toJSON(): any;
   unreadMessagesCount: number;
+  /**
+   * update a UserChannelInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts: UserChannelInstanceUpdateOptions, callback?: (error: Error | null, items: UserChannelInstance) => any): void;
+  url: string;
+  userSid: string;
 }
 
 
@@ -198,4 +270,4 @@ declare class UserChannelPage extends Page<V2, UserChannelPayload, UserChannelRe
   getInstance(payload: UserChannelPayload): UserChannelInstance;
 }
 
-export { UserChannelInstance, UserChannelList, UserChannelListInstance, UserChannelListInstanceEachOptions, UserChannelListInstanceOptions, UserChannelListInstancePageOptions, UserChannelPage, UserChannelPayload, UserChannelResource, UserChannelSolution }
+export { UserChannelContext, UserChannelInstance, UserChannelList, UserChannelListInstance, UserChannelListInstanceEachOptions, UserChannelListInstanceOptions, UserChannelListInstancePageOptions, UserChannelPage, UserChannelPayload, UserChannelResource, UserChannelSolution }

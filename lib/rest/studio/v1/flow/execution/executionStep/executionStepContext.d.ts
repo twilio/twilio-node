@@ -12,7 +12,6 @@ import { SerializableClass } from '../../../../../../interfaces';
 
 /**
  * @description Initialize the ExecutionStepContextList
- * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
  *
  * @param version - Version of the resource
  * @param flowSid - Flow Sid.
@@ -53,7 +52,7 @@ interface ExecutionStepContextSolution {
 
 declare class ExecutionStepContextContext {
   /**
-   * Initialize the ExecutionStepContextContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the ExecutionStepContextContext
    *
    * @param version - Version of the resource
    * @param flowSid - Flow Sid.
@@ -73,7 +72,7 @@ declare class ExecutionStepContextContext {
 
 declare class ExecutionStepContextInstance extends SerializableClass {
   /**
-   * Initialize the ExecutionStepContextContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the ExecutionStepContextContext
    *
    * @property accountSid - Account Sid.
    * @property context - Flow state.
@@ -113,7 +112,7 @@ declare class ExecutionStepContextInstance extends SerializableClass {
 
 declare class ExecutionStepContextPage extends Page<V1, ExecutionStepContextPayload, ExecutionStepContextResource, ExecutionStepContextInstance> {
   /**
-   * Initialize the ExecutionStepContextPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the ExecutionStepContextPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API

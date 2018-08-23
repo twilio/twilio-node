@@ -8,9 +8,10 @@
 import Domain = require('../base/Domain');
 import Twilio = require('./Twilio');
 import V1 = require('./pricing/V1');
+import V2 = require('./pricing/V2');
 import { MessagingListInstance } from './pricing/v1/messaging';
 import { PhoneNumberListInstance } from './pricing/v1/phoneNumber';
-import { VoiceListInstance } from './pricing/v1/voice';
+import { VoiceListInstance } from './pricing/v2/voice';
 
 
 declare class Pricing extends Domain {
@@ -24,6 +25,7 @@ declare class Pricing extends Domain {
   readonly messaging: MessagingListInstance;
   readonly phoneNumbers: PhoneNumberListInstance;
   readonly v1: V1;
+  readonly v2: V2;
   readonly voice: VoiceListInstance;
 }
 

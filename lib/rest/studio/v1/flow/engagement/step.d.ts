@@ -14,7 +14,6 @@ import { StepContextListInstance } from './step/stepContext';
 
 /**
  * @description Initialize the StepList
- * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
  *
  * @param version - Version of the resource
  * @param flowSid - Flow Sid.
@@ -161,7 +160,7 @@ interface StepSolution {
 
 declare class StepContext {
   /**
-   * Initialize the StepContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the StepContext
    *
    * @property stepContext - stepContext resource
    *
@@ -184,7 +183,7 @@ declare class StepContext {
 
 declare class StepInstance extends SerializableClass {
   /**
-   * Initialize the StepContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the StepContext
    *
    * @property sid - A string that uniquely identifies this Step.
    * @property accountSid - Account Sid.
@@ -240,7 +239,7 @@ declare class StepInstance extends SerializableClass {
 
 declare class StepPage extends Page<V1, StepPayload, StepResource, StepInstance> {
   /**
-   * Initialize the StepPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the StepPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API

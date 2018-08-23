@@ -1,6 +1,24 @@
 twilio-node changelog
 =====================
 
+[2018-08-23] Version 3.19.2
+----------------------------
+**Library**
+- PR #372: Tests for typescript. Thanks to @ekarson!
+
+**Api**
+- Add Proxy Active Sessions category to usage records
+
+**Chat**
+- Add User Channel instance resource
+
+**Preview**
+- Add `Actions` endpoints and remove `ResponseUrl` from assistants on the Understand api
+
+**Pricing**
+- add voice_country resource (v2)
+
+
 [2018-08-09] Version 3.19.1
 ----------------------------
 **Preview**

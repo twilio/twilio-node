@@ -8,8 +8,11 @@
 import Page = require('../../../../base/Page');
 import Response = require('../../../../http/response');
 import Understand = require('../../Understand');
+import serialize = require('../../../../base/serialize');
 import { FieldList } from './intent/field';
 import { FieldListInstance } from './intent/field';
+import { IntentActionsList } from './intent/intentActions';
+import { IntentActionsListInstance } from './intent/intentActions';
 import { IntentStatisticsList } from './intent/intentStatistics';
 import { IntentStatisticsListInstance } from './intent/intentStatistics';
 import { SampleList } from './intent/sample';
@@ -28,10 +31,12 @@ declare function IntentList(version: Understand, assistantSid: string): IntentLi
 /**
  * Options to pass to update
  *
+ * @property actions - The actions
  * @property friendlyName - A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
  * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
  */
 interface IntentInstanceUpdateOptions {
+  actions?: string;
   friendlyName?: string;
   uniqueName?: string;
 }
@@ -102,10 +107,12 @@ interface IntentListInstance {
 /**
  * Options to pass to create
  *
+ * @property actions - The actions
  * @property friendlyName - A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
  * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
  */
 interface IntentListInstanceCreateOptions {
+  actions?: string;
   friendlyName?: string;
   uniqueName: string;
 }
@@ -193,6 +200,7 @@ declare class IntentContext {
    *
    * @property fields - fields resource
    * @property samples - samples resource
+   * @property intentActions - intentActions resource
    * @property statistics - statistics resource
    *
    * @param version - Version of the resource
@@ -208,6 +216,7 @@ declare class IntentContext {
    */
   fetch(callback?: (error: Error | null, items: IntentInstance) => any): Promise<IntentInstance>;
   fields: FieldListInstance;
+  intentActions: IntentActionsListInstance;
   /**
    * remove a IntentInstance
    *
@@ -263,6 +272,10 @@ declare class IntentInstance extends SerializableClass {
    */
   fields(): FieldListInstance;
   friendlyName: string;
+  /**
+   * Access the intentActions
+   */
+  intentActions(): IntentActionsListInstance;
   links: string;
   /**
    * remove a IntentInstance

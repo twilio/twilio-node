@@ -268,8 +268,8 @@ declare class DomainInstance extends SerializableClass {
   /**
    * Initialize the DomainContext
    *
-   * @property accountSid - The unique id of the account that sent the message
-   * @property apiVersion - The Twilio API version used to process the message
+   * @property accountSid - The unique id of the account that sent the call
+   * @property apiVersion - The Twilio API version used to process the call
    * @property authType - The types of authentication mapped to the domain
    * @property dateCreated - The date this resource was created
    * @property dateUpdated - The date this resource was last updated

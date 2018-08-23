@@ -12,7 +12,6 @@ import { SerializableClass } from '../../../../../interfaces';
 
 /**
  * @description Initialize the EngagementContextList
- * PLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
  *
  * @param version - Version of the resource
  * @param flowSid - Flow Sid.
@@ -50,7 +49,7 @@ interface EngagementContextSolution {
 
 declare class EngagementContextContext {
   /**
-   * Initialize the EngagementContextContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the EngagementContextContext
    *
    * @param version - Version of the resource
    * @param flowSid - Flow Sid.
@@ -69,7 +68,7 @@ declare class EngagementContextContext {
 
 declare class EngagementContextInstance extends SerializableClass {
   /**
-   * Initialize the EngagementContextContextPLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the EngagementContextContext
    *
    * @property accountSid - Account Sid.
    * @property context - Flow state.
@@ -106,7 +105,7 @@ declare class EngagementContextInstance extends SerializableClass {
 
 declare class EngagementContextPage extends Page<V1, EngagementContextPayload, EngagementContextResource, EngagementContextInstance> {
   /**
-   * Initialize the EngagementContextPagePLEASE NOTE that this class contains beta products that are subject to change. Use them with caution.
+   * Initialize the EngagementContextPage
    *
    * @param version - Version of the resource
    * @param response - Response from the API
