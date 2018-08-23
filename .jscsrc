@@ -1,4 +1,5 @@
 {
+    "excludeFiles": [".git", "node_modules", "lib/**/*.d.ts", "index.d.ts"],
     "disallowSpacesInNamedFunctionExpression": {
         "beforeOpeningRoundBrace": true
     },
