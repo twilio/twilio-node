@@ -1,8 +1,8 @@
-import * as VoiceResponse from './lib/twiml/VoiceResponse';
-import * as MessagingResponse from './lib/twiml/MessagingResponse';
-import * as FaxResponse from './lib/twiml/FaxResponse';
-import * as webhookTools from './lib/webhooks/webhooks';
 import * as util from './lib/jwt/taskrouter/util';
+import * as FaxResponse from './lib/twiml/FaxResponse';
+import * as MessagingResponse from './lib/twiml/MessagingResponse';
+import * as VoiceResponse from './lib/twiml/VoiceResponse';
+import * as webhookTools from './lib/webhooks/webhooks';
 
 import TwilioClient = require('./lib/rest/Twilio');
 import AccessToken = require('./lib/jwt/AccessToken');
@@ -21,9 +21,9 @@ declare function twilio(
 
 declare namespace twilio {
   export interface TwimlInterface {
-    VoiceResponse: typeof VoiceResponse;
-    FaxResponse: typeof FaxResponse;
-    MessagingResponse: typeof MessagingResponse;
+    VoiceResponse: TwimlConstructor<VoiceResponse>;
+    FaxResponse: TwimlConstructor<FaxResponse>;
+    MessagingResponse: TwimlConstructor<MessagingResponse>;
   }
   export interface JwtInterface {
     AccessToken: typeof AccessToken;
