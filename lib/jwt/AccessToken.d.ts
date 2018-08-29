@@ -126,6 +126,7 @@ declare namespace AccessToken {
   > {}
 
   export interface VoiceGrantOptions {
+    incomingAllow?: boolean;
     outgoingApplicationSid?: string;
     outgoingApplicationParams?: object;
     pushCredentialSid?: string;
