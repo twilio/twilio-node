@@ -148,13 +148,15 @@ declare namespace AccessToken {
     /**
      * Time to live in seconds
      */
-    ttl: number /**
+    ttl?: number;
+    /**
      * The identity of the first person
-     */;
-    identity: string /**
+     */
+    identity?: string;
+    /**
      * Time from epoch in seconds for not before value
-     */;
-    nbf: number;
+     */
+    nbf?: number;
   }
 }
 
