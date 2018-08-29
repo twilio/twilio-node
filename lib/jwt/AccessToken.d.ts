@@ -27,7 +27,7 @@ declare class AccessToken {
    * Turns the access token instance into a JWT that can be used in the front-end
    * @param algorithm The algorithm to sign the JWT
    */
-  toJwt(algorithm: 'HS256' | 'HS384' | 'HS512'): string;
+  toJwt(algorithm?: 'HS256' | 'HS384' | 'HS512'): string;
 }
 
 declare namespace AccessToken {
