@@ -10,15 +10,15 @@ export interface RequestValidatorOptions {
   /**
    * The full URL (with query string) you used to configure the webhook with Twilio - overrides host/protocol options
    */
-  url: string;
+  url?: string;
   /**
    * Manually specify the host name used by Twilio in a number's webhook config
    */
-  host: string;
+  host?: string;
   /**
    * Manually specify the protocol used by Twilio in a number's webhook config
    */
-  protocol: string;
+  protocol?: string;
 }
 
 export interface WebhookOptions {
