@@ -27,7 +27,7 @@ declare class AccessToken {
    * Turns the access token instance into a JWT that can be used in the front-end
    * @param algorithm The algorithm to sign the JWT
    */
-  toJwt(algorithm: 'HS256' | 'HS384' | 'HS512'): string;
+  toJwt(algorithm?: 'HS256' | 'HS384' | 'HS512'): string;
 }
 
 declare namespace AccessToken {
@@ -126,6 +126,7 @@ declare namespace AccessToken {
   > {}
 
   export interface VoiceGrantOptions {
+    incomingAllow?: boolean;
     outgoingApplicationSid?: string;
     outgoingApplicationParams?: object;
     pushCredentialSid?: string;
@@ -148,13 +149,15 @@ declare namespace AccessToken {
     /**
      * Time to live in seconds
      */
-    ttl: number /**
+    ttl?: number;
+    /**
      * The identity of the first person
-     */;
-    identity: string /**
+     */
+    identity?: string;
+    /**
      * Time from epoch in seconds for not before value
-     */;
-    nbf: number;
+     */
+    nbf?: number;
   }
 }
 
