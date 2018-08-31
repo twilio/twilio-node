@@ -15,10 +15,22 @@ declare class MessagingResponse {
   /**
    * <Message> TwiML Verb
    *
+   * @param body - Message Body
+   */
+  message(body: string): MessagingResponse.Message;
+  /**
+   * <Message> TwiML Verb
+   *
    * @param attributes - TwiML attributes
    * @param body - Message Body
    */
   message(attributes: MessagingResponse.MessageAttributes, body: string): MessagingResponse.Message;
+  /**
+   * <Redirect> TwiML Verb
+   *
+   * @param url - Redirect URL
+   */
+  redirect(url: string): void;
   /**
    * <Redirect> TwiML Verb
    *
@@ -66,10 +78,22 @@ declare namespace MessagingResponse {
     /**
      * <Body> TwiML Noun
      *
+     * @param message - Message Body
+     */
+    body(message: string): void;
+    /**
+     * <Body> TwiML Noun
+     *
      * @param attributes - TwiML attributes
      * @param message - Message Body
      */
     body(attributes: object, message: string): void;
+    /**
+     * <Media> TwiML Noun
+     *
+     * @param url - Media URL
+     */
+    media(url: string): void;
     /**
      * <Media> TwiML Noun
      *
