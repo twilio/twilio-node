@@ -29,6 +29,18 @@ describe('The TwiML Capability Token Object', function () {
           authToken: 'bar'
       }) instanceof ClientCapability).toBe(true);
     });
+
+    it('should accept ttl option', function() {
+      var c = new ClientCapability({
+        accountSid: 'foo',
+        authToken: 'bar',
+        ttl: 7200
+      });
+      
+      expect(c.accountSid).toBe('foo');
+      expect(c.authToken).toBe('bar');
+      expect(c.ttl).toBe(7200);
+    })
   });
 
   describe('IncomingClientScope', function() {
