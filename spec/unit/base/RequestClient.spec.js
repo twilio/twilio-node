@@ -31,8 +31,11 @@ describe('lastResponse and lastRequest defined', function() {
     expect(client.lastRequest.url).toEqual('test-uri');
     expect(client.lastRequest.auth).toEqual('dGVzdC11c2VybmFtZTp0ZXN0LXBhc3N3b3Jk');
     expect(client.lastRequest.params).toEqual({'test-param-key': 'test-param-value'});
-    expect(client.lastRequest.headers).toEqual({'test-header-key': 'test-header-value',
-      'Authorization': 'Basic dGVzdC11c2VybmFtZTp0ZXN0LXBhc3N3b3Jk'});
+    expect(client.lastRequest.headers).toEqual({
+      'test-header-key': 'test-header-value',
+      'Authorization': 'Basic dGVzdC11c2VybmFtZTp0ZXN0LXBhc3N3b3Jk',
+      'Connection': 'close',
+    });
     expect(client.lastRequest.data).toEqual({'test-data-key': 'test-data-value'});
     expect(client.lastResponse).toBeDefined();
     expect(client.lastResponse.statusCode).toEqual(200);
@@ -72,8 +75,11 @@ describe('lastRequest defined, lastResponse undefined', function() {
     expect(client.lastRequest.url).toEqual('test-uri');
     expect(client.lastRequest.auth).toEqual('dGVzdC11c2VybmFtZTp0ZXN0LXBhc3N3b3Jk');
     expect(client.lastRequest.params).toEqual({'test-param-key': 'test-param-value'});
-    expect(client.lastRequest.headers).toEqual({'test-header-key': 'test-header-value',
-      'Authorization': 'Basic dGVzdC11c2VybmFtZTp0ZXN0LXBhc3N3b3Jk'});
+    expect(client.lastRequest.headers).toEqual({
+      'test-header-key': 'test-header-value',
+      'Authorization': 'Basic dGVzdC11c2VybmFtZTp0ZXN0LXBhc3N3b3Jk',
+      'Connection': 'close',
+    });
     expect(client.lastRequest.data).toEqual({'test-data-key': 'test-data-value'});
     expect(client.lastResponse).toBeUndefined();
   });
