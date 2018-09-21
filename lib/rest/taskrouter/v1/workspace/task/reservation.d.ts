@@ -15,7 +15,7 @@ type ReservationCallStatus = 'initiated'|'ringing'|'answered'|'completed';
 
 type ReservationConferenceEvent = 'start'|'end'|'join'|'leave'|'mute'|'hold'|'speaker';
 
-type ReservationStatus = 'pending'|'accepted'|'rejected'|'timeout'|'canceled'|'rescinded';
+type ReservationStatus = 'pending'|'accepted'|'rejected'|'timeout'|'canceled'|'rescinded'|'wrapping'|'completed';
 
 type ReservationSupervisorMode = 'monitor'|'whisper'|'barge';
 
@@ -96,7 +96,7 @@ interface ReservationInstanceUpdateOptions {
   conferenceRecordingStatusCallback?: string;
   conferenceRecordingStatusCallbackMethod?: string;
   conferenceStatusCallback?: string;
-  conferenceStatusCallbackEvent?: ReservationConferenceEvent[];
+  conferenceStatusCallbackEvent?: string[];
   conferenceStatusCallbackMethod?: string;
   conferenceTrim?: string;
   dequeueFrom?: string;
@@ -126,7 +126,7 @@ interface ReservationInstanceUpdateOptions {
   sipAuthUsername?: string;
   startConferenceOnEnter?: boolean;
   statusCallback?: string;
-  statusCallbackEvent?: ReservationCallStatus[];
+  statusCallbackEvent?: string[];
   statusCallbackMethod?: string;
   supervisor?: string;
   supervisorMode?: ReservationSupervisorMode;

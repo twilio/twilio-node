@@ -122,7 +122,7 @@ interface RoomListInstanceCreateOptions {
   statusCallbackMethod?: string;
   type?: RoomRoomType;
   uniqueName?: string;
-  videoCodecs?: RoomVideoCodec[];
+  videoCodecs?: string[];
 }
 
 /**
@@ -227,7 +227,7 @@ interface RoomResource {
   type: RoomRoomType;
   unique_name: string;
   url: string;
-  video_codecs: RoomVideoCodec;
+  video_codecs: string;
 }
 
 interface RoomSolution {
@@ -337,7 +337,7 @@ declare class RoomInstance extends SerializableClass {
    */
   update(opts: RoomInstanceUpdateOptions, callback?: (error: Error | null, items: RoomInstance) => any): void;
   url: string;
-  videoCodecs: RoomVideoCodec;
+  videoCodecs: string;
 }
 
 

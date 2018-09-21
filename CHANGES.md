@@ -1,6 +1,30 @@
 twilio-node changelog
 =====================
 
+[2018-09-21] Version 3.20.0
+----------------------------
+**Library**
+- PR #386: Close connections unless the header says otherwise. Thanks to @cjcodes!
+- PR #377: Fix TypeScript related issues. Thanks to @dkundel!
+
+**Api**
+- Add `call_sid_to_coach` parameter to participant create request
+- Add `voice_receive_mode` param to IncomingPhoneNumbers create
+
+**Preview**
+- Add `Form` resource to Authy preview given a `form_type`
+- Add Authy initial api-definitions in the 4 main resources: Services, Entities, Factors, Challenges
+
+**Pricing**
+- add voice_numbers resource (v2)
+
+**Verify**
+- Move from preview to beta **(breaking change)**
+
+**Video**
+- [Recordings] Expose `offset` property in resource
+
+
 [2018-08-23] Version 3.19.2
 ----------------------------
 **Library**

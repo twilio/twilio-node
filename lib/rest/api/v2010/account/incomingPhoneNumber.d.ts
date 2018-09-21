@@ -33,8 +33,8 @@ declare function IncomingPhoneNumberList(version: V2010, accountSid: string): In
  * @property accountSid - The new owner of the phone number
  * @property addressSid - Unique string that identifies the address associated with number
  * @property apiVersion - The Twilio REST API version to use
- * @property emergencyAddressSid - The emergency_address_sid
- * @property emergencyStatus - The emergency_status
+ * @property emergencyAddressSid - EmergencyAddress configuration to leverage emergency calling
+ * @property emergencyStatus - Status determining whether the number is enabled for emergency calling
  * @property friendlyName - A human readable description of this resource
  * @property identitySid - Unique string that identifies the identity associated with number
  * @property smsApplicationSid - Unique string that identifies the application
@@ -50,7 +50,7 @@ declare function IncomingPhoneNumberList(version: V2010, accountSid: string): In
  * @property voiceFallbackMethod - HTTP method used with fallback_url
  * @property voiceFallbackUrl - URL Twilio will request when an error occurs in TwiML
  * @property voiceMethod - HTTP method used with the voice url
- * @property voiceReceiveMode - The voice_receive_mode
+ * @property voiceReceiveMode - Incoming call type: `fax` or `voice`
  * @property voiceUrl - URL Twilio will request when receiving a call
  */
 interface IncomingPhoneNumberInstanceUpdateOptions {
@@ -150,8 +150,8 @@ interface IncomingPhoneNumberListInstance {
  * @property addressSid - Unique string that identifies the address associated with number
  * @property apiVersion - The Twilio Rest API version to use
  * @property areaCode - The desired area code for the new number
- * @property emergencyAddressSid - The emergency_address_sid
- * @property emergencyStatus - The emergency_status
+ * @property emergencyAddressSid - EmergencyAddress configuration to leverage emergency calling
+ * @property emergencyStatus - Status determining whether the number is enabled for emergency calling
  * @property friendlyName - A human readable description of this resource
  * @property identitySid - Unique string that identifies the identity associated with number
  * @property phoneNumber - The phone number
@@ -168,6 +168,7 @@ interface IncomingPhoneNumberListInstance {
  * @property voiceFallbackMethod - HTTP method used with fallback_url
  * @property voiceFallbackUrl - URL Twilio will request when an error occurs in TwiML
  * @property voiceMethod - HTTP method used with the voice url
+ * @property voiceReceiveMode - Incoming call type: `fax` or `voice`
  * @property voiceUrl - URL Twilio will request when receiving a call
  */
 interface IncomingPhoneNumberListInstanceCreateOptions {
@@ -192,6 +193,7 @@ interface IncomingPhoneNumberListInstanceCreateOptions {
   voiceFallbackMethod?: string;
   voiceFallbackUrl?: string;
   voiceMethod?: string;
+  voiceReceiveMode?: IncomingPhoneNumberVoiceReceiveMode;
   voiceUrl?: string;
 }
 
@@ -324,7 +326,7 @@ declare class IncomingPhoneNumberContext {
    * @property assignedAddOns - assignedAddOns resource
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
+   * @param accountSid - The unique sid that identifies this account
    * @param sid - Fetch by unique incoming-phone-number Sid
    */
   constructor(version: V2010, accountSid: string, sid: string);

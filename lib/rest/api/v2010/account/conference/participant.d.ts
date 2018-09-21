@@ -108,9 +108,10 @@ interface ParticipantListInstance {
  * Options to pass to create
  *
  * @property beep - Play a beep when the participant joins the conference.
+ * @property callSidToCoach - The string that uniquely identifies the participant that is being `coached`
  * @property conferenceRecord - Record the conference.
  * @property conferenceRecordingStatusCallback - Conference recording callback URL.
- * @property conferenceRecordingStatusCallbackEvent - The conference_recording_status_callback_event
+ * @property conferenceRecordingStatusCallbackEvent - Set which conference recording state changes should webhook to the `ConferenceRecordingStatusCallback`
  * @property conferenceRecordingStatusCallbackMethod - Method Twilio should use to request the `ConferenceRecordingStatusCallback` URL.
  * @property conferenceStatusCallback - Callback URL for conference events.
  * @property conferenceStatusCallbackEvent - Set which conference state changes should webhook to the `ConferenceStatusCallback`
@@ -124,7 +125,7 @@ interface ParticipantListInstance {
  * @property record - Record the agent and their conferences.
  * @property recordingChannels - Specify `mono` or `dual` recording channels.
  * @property recordingStatusCallback - The absolute URL for Twilio's webhook with recording status information.
- * @property recordingStatusCallbackEvent - The recording_status_callback_event
+ * @property recordingStatusCallbackEvent - Set which recording state changes should webhook to the `RecordingStatusCallback`
  * @property recordingStatusCallbackMethod - HTTP method for `RecordingStatusCallback`
  * @property region - The region where Twilio should mix the conference audio.
  * @property sipAuthPassword - SIP password for authentication.
@@ -140,6 +141,7 @@ interface ParticipantListInstance {
  */
 interface ParticipantListInstanceCreateOptions {
   beep?: string;
+  callSidToCoach?: string;
   conferenceRecord?: string;
   conferenceRecordingStatusCallback?: string;
   conferenceRecordingStatusCallbackEvent?: string[];
@@ -268,7 +270,7 @@ declare class ParticipantContext {
    * Initialize the ParticipantContext
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
+   * @param accountSid - The unique sid that identifies this account
    * @param conferenceSid - The string that uniquely identifies this conference
    * @param callSid - Fetch by unique participant Call SID
    */

@@ -98,7 +98,7 @@ interface BindingListInstance {
  *                         page size, i.e. min(limit, 1000)
  */
 interface BindingListInstanceEachOptions {
-  bindingType?: BindingBindingType[];
+  bindingType?: string[];
   callback?: (item: BindingInstance, done: (err?: Error) => void) => void;
   done?: Function;
   identity?: string[];
@@ -123,7 +123,7 @@ interface BindingListInstanceEachOptions {
  *                         efficient page size, i.e. min(limit, 1000)
  */
 interface BindingListInstanceOptions {
-  bindingType?: BindingBindingType[];
+  bindingType?: string[];
   identity?: string[];
   limit?: number;
   pageSize?: number;
@@ -139,7 +139,7 @@ interface BindingListInstanceOptions {
  * @property pageToken - PageToken provided by the API
  */
 interface BindingListInstancePageOptions {
-  bindingType?: BindingBindingType[];
+  bindingType?: string[];
   identity?: string[];
   pageNumber?: number;
   pageSize?: number;

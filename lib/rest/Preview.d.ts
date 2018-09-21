@@ -6,11 +6,13 @@
  */
 
 import AccSecurity = require('./preview/AccSecurity');
+import Authy = require('./preview/Authy');
 import BulkExports = require('./preview/BulkExports');
 import DeployedDevices = require('./preview/DeployedDevices');
 import Domain = require('../base/Domain');
 import HostedNumbers = require('./preview/HostedNumbers');
 import Marketplace = require('./preview/Marketplace');
+import Permissions = require('./preview/Permissions');
 import Sync = require('./preview/Sync');
 import Twilio = require('./Twilio');
 import Understand = require('./preview/Understand');
@@ -27,6 +29,7 @@ import { InstalledAddOnListInstance } from './preview/marketplace/installedAddOn
 import { RatePlanListInstance } from './preview/wireless/ratePlan';
 import { ServiceListInstance } from './preview/sync/service';
 import { SimListInstance } from './preview/wireless/sim';
+import { VoicePermissionListInstance } from './preview/permissions/voicePermission';
 
 
 declare class Preview extends Domain {
@@ -40,6 +43,7 @@ declare class Preview extends Domain {
   readonly acc_security: AccSecurity;
   readonly assistants: AssistantListInstance;
   readonly authorizationDocuments: AuthorizationDocumentListInstance;
+  readonly authy: Authy;
   readonly availableAddOns: AvailableAddOnListInstance;
   readonly bulk_exports: BulkExports;
   readonly commands: CommandListInstance;
@@ -51,11 +55,13 @@ declare class Preview extends Domain {
   readonly hosted_numbers: HostedNumbers;
   readonly installedAddOns: InstalledAddOnListInstance;
   readonly marketplace: Marketplace;
+  readonly permissions: Permissions;
   readonly ratePlans: RatePlanListInstance;
   readonly services: ServiceListInstance;
   readonly sims: SimListInstance;
   readonly sync: Sync;
   readonly understand: Understand;
+  readonly voicePermissions: VoicePermissionListInstance;
   readonly wireless: Wireless;
 }
 

@@ -22,6 +22,7 @@ import Studio = require('./Studio');
 import Sync = require('./Sync');
 import Taskrouter = require('./Taskrouter');
 import Trunking = require('./Trunking');
+import Verify = require('./Verify');
 import Video = require('./Video');
 import Wireless = require('./Wireless');
 
@@ -86,6 +87,7 @@ declare class Twilio {
    */
   validateSslCert(): Promise<any>;
   validationRequests: (typeof Api.prototype.account.validationRequests);
+  verify: Verify;
   video: Video;
   wireless: Wireless;
 }

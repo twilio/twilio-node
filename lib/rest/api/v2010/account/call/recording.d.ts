@@ -27,9 +27,11 @@ declare function RecordingList(version: V2010, accountSid: string, callSid: stri
 /**
  * Options to pass to update
  *
+ * @property pauseBehavior - Whether to record or not during the pause period.
  * @property status - The status to change the recording to.
  */
 interface RecordingInstanceUpdateOptions {
+  pauseBehavior?: string;
   status: RecordingStatus;
 }
 
@@ -99,10 +101,10 @@ interface RecordingListInstance {
 /**
  * Options to pass to create
  *
- * @property recordingChannels - The recording_channels
- * @property recordingStatusCallback - The recording_status_callback
- * @property recordingStatusCallbackEvent - The recording_status_callback_event
- * @property recordingStatusCallbackMethod - The recording_status_callback_method
+ * @property recordingChannels - The number of channels that the output recording will be configured with
+ * @property recordingStatusCallback - The callback URL for recording actions
+ * @property recordingStatusCallbackEvent - The recording status changes that should generate a callback
+ * @property recordingStatusCallbackMethod - The HTTP method Twilio should use when making a request to the RecordingStatusCallback URL
  * @property trim - Whether to trim the silence in the recording
  */
 interface RecordingListInstanceCreateOptions {

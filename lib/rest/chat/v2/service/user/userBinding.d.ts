@@ -98,7 +98,7 @@ interface UserBindingListInstance {
  *                         page size, i.e. min(limit, 1000)
  */
 interface UserBindingListInstanceEachOptions {
-  bindingType?: UserBindingBindingType[];
+  bindingType?: string[];
   callback?: (item: UserBindingInstance, done: (err?: Error) => void) => void;
   done?: Function;
   limit?: number;
@@ -121,7 +121,7 @@ interface UserBindingListInstanceEachOptions {
  *                         efficient page size, i.e. min(limit, 1000)
  */
 interface UserBindingListInstanceOptions {
-  bindingType?: UserBindingBindingType[];
+  bindingType?: string[];
   limit?: number;
   pageSize?: number;
 }
@@ -135,7 +135,7 @@ interface UserBindingListInstanceOptions {
  * @property pageToken - PageToken provided by the API
  */
 interface UserBindingListInstancePageOptions {
-  bindingType?: UserBindingBindingType[];
+  bindingType?: string[];
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;

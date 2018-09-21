@@ -27,9 +27,11 @@ declare function RecordingList(version: V2010, accountSid: string, conferenceSid
 /**
  * Options to pass to update
  *
+ * @property pauseBehavior - Whether to record or not during the pause period.
  * @property status - The status to change the recording to.
  */
 interface RecordingInstanceUpdateOptions {
+  pauseBehavior?: string;
   status: RecordingStatus;
 }
 

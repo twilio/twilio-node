@@ -180,6 +180,7 @@ interface RecordingResource {
   duration: number;
   grouping_sids: string;
   links: string;
+  offset: number;
   sid: string;
   size: number;
   source_sid: string;
@@ -234,6 +235,7 @@ declare class RecordingInstance extends SerializableClass {
    * @property codec - The codec used to encode the track.
    * @property groupingSids - A list of Sids related to this Recording.
    * @property trackName - The name that was given to the source track of this recording.
+   * @property offset - Offset in miliseconds for this track.
    * @property links - The links
    *
    * @param version - Version of the resource
@@ -256,6 +258,7 @@ declare class RecordingInstance extends SerializableClass {
   fetch(callback?: (error: Error | null, items: RecordingInstance) => any): void;
   groupingSids: string;
   links: string;
+  offset: number;
   /**
    * remove a RecordingInstance
    *

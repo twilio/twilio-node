@@ -19,6 +19,7 @@ declare function VoiceList(version: V2): VoiceListInstance;
 
 interface VoiceListInstance {
   countries?: object;
+  numbers?: object;
 }
 
 interface VoicePayload extends VoiceResource, Page.TwilioResponsePayload {

@@ -16,15 +16,15 @@ import { SerializableClass } from '../../../../../interfaces';
  * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param assistantSid - The assistant_sid
- * @param intentSid - The intent_sid
+ * @param assistantSid - The unique ID of the parent Assistant.
+ * @param intentSid - The unique ID of the Intent.
  */
 declare function IntentActionsList(version: Understand, assistantSid: string, intentSid: string): IntentActionsListInstance;
 
 /**
  * Options to pass to update
  *
- * @property actions - The actions
+ * @property actions - The JSON actions that instruct the Assistant how to perform this task.
  */
 interface IntentActionsInstanceUpdateOptions {
   actions?: string;
@@ -63,8 +63,8 @@ declare class IntentActionsContext {
    * Initialize the IntentActionsContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param assistantSid - The assistant_sid
-   * @param intentSid - The intent_sid
+   * @param assistantSid - The unique ID of the parent Assistant.
+   * @param intentSid - The unique ID of the Intent.
    */
   constructor(version: Understand, assistantSid: string, intentSid: string);
 
@@ -88,16 +88,16 @@ declare class IntentActionsInstance extends SerializableClass {
   /**
    * Initialize the IntentActionsContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
-   * @property accountSid - The account_sid
-   * @property assistantSid - The assistant_sid
-   * @property intentSid - The intent_sid
+   * @property accountSid - The unique ID of the Account that created this Field.
+   * @property assistantSid - The unique ID of the parent Assistant.
+   * @property intentSid - The unique ID of the Intent.
    * @property url - The url
    * @property data - The data
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param assistantSid - The assistant_sid
-   * @param intentSid - The intent_sid
+   * @param assistantSid - The unique ID of the parent Assistant.
+   * @param intentSid - The unique ID of the Intent.
    */
   constructor(version: Understand, payload: IntentActionsPayload, assistantSid: string, intentSid: string);
 

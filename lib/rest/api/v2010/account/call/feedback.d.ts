@@ -29,7 +29,7 @@ declare function FeedbackList(version: V2010, accountSid: string, callSid: strin
  * @property qualityScore - An integer from 1 to 5
  */
 interface FeedbackInstanceCreateOptions {
-  issue?: FeedbackIssues[];
+  issue?: string[];
   qualityScore: number;
 }
 
@@ -40,7 +40,7 @@ interface FeedbackInstanceCreateOptions {
  * @property qualityScore - An integer from 1 to 5
  */
 interface FeedbackInstanceUpdateOptions {
-  issue?: FeedbackIssues[];
+  issue?: string[];
   qualityScore: number;
 }
 
@@ -62,7 +62,7 @@ interface FeedbackResource {
   account_sid: string;
   date_created: Date;
   date_updated: Date;
-  issues: FeedbackIssues;
+  issues: string;
   quality_score: number;
   sid: string;
 }
@@ -141,7 +141,7 @@ declare class FeedbackInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: FeedbackInstance) => any): void;
-  issues: FeedbackIssues;
+  issues: string;
   qualityScore: number;
   sid: string;
   /**

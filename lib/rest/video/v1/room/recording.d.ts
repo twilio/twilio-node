@@ -175,6 +175,7 @@ interface RoomRecordingResource {
   duration: number;
   grouping_sids: string;
   links: string;
+  offset: number;
   room_sid: string;
   sid: string;
   size: number;
@@ -232,6 +233,7 @@ declare class RoomRecordingInstance extends SerializableClass {
    * @property codec - The codec
    * @property groupingSids - The grouping_sids
    * @property trackName - The track_name
+   * @property offset - The offset
    * @property roomSid - The room_sid
    * @property links - The links
    *
@@ -256,6 +258,7 @@ declare class RoomRecordingInstance extends SerializableClass {
   fetch(callback?: (error: Error | null, items: RoomRecordingInstance) => any): void;
   groupingSids: string;
   links: string;
+  offset: number;
   /**
    * remove a RoomRecordingInstance
    *
