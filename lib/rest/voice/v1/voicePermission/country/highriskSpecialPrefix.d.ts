@@ -6,8 +6,8 @@
  */
 
 import Page = require('../../../../../base/Page');
-import Permissions = require('../../../Permissions');
 import Response = require('../../../../../http/response');
+import V1 = require('../../../V1');
 import { SerializableClass } from '../../../../../interfaces';
 
 /**
@@ -15,9 +15,9 @@ import { SerializableClass } from '../../../../../interfaces';
  * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param parentIsoCode - The ISO country code
+ * @param isoCode - The ISO country code
  */
-declare function HighriskSpecialPrefixList(version: Permissions, parentIsoCode: string): HighriskSpecialPrefixListInstance;
+declare function HighriskSpecialPrefixList(version: V1, isoCode: string): HighriskSpecialPrefixListInstance;
 
 interface HighriskSpecialPrefixListInstance {
   /**
@@ -130,7 +130,7 @@ interface HighriskSpecialPrefixResource {
 }
 
 interface HighriskSpecialPrefixSolution {
-  parentIsoCode?: string;
+  isoCode?: string;
 }
 
 
@@ -138,13 +138,13 @@ declare class HighriskSpecialPrefixInstance extends SerializableClass {
   /**
    * Initialize the HighriskSpecialPrefixContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
-   * @property prefix - prefix string of phone number
+   * @property prefix - A prefix that includes the E.164 assigned country code
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param parentIsoCode - The ISO country code
+   * @param isoCode - The ISO country code
    */
-  constructor(version: Permissions, payload: HighriskSpecialPrefixPayload, parentIsoCode: string);
+  constructor(version: V1, payload: HighriskSpecialPrefixPayload, isoCode: string);
 
   prefix: string;
   /**
@@ -155,7 +155,7 @@ declare class HighriskSpecialPrefixInstance extends SerializableClass {
 }
 
 
-declare class HighriskSpecialPrefixPage extends Page<Permissions, HighriskSpecialPrefixPayload, HighriskSpecialPrefixResource, HighriskSpecialPrefixInstance> {
+declare class HighriskSpecialPrefixPage extends Page<V1, HighriskSpecialPrefixPayload, HighriskSpecialPrefixResource, HighriskSpecialPrefixInstance> {
   /**
    * Initialize the HighriskSpecialPrefixPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
@@ -163,7 +163,7 @@ declare class HighriskSpecialPrefixPage extends Page<Permissions, HighriskSpecia
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Permissions, response: Response<string>, solution: HighriskSpecialPrefixSolution);
+  constructor(version: V1, response: Response<string>, solution: HighriskSpecialPrefixSolution);
 
   /**
    * Build an instance of HighriskSpecialPrefixInstance

@@ -6,8 +6,8 @@
  */
 
 import Page = require('../../../../base/Page');
-import Permissions = require('../../Permissions');
 import Response = require('../../../../http/response');
+import V1 = require('../../V1');
 import serialize = require('../../../../base/serialize');
 import { HighriskSpecialPrefixList } from './country/highriskSpecialPrefix';
 import { HighriskSpecialPrefixListInstance } from './country/highriskSpecialPrefix';
@@ -19,7 +19,7 @@ import { SerializableClass } from '../../../../interfaces';
  *
  * @param version - Version of the resource
  */
-declare function CountryList(version: Permissions): CountryListInstance;
+declare function CountryList(version: V1): CountryListInstance;
 
 interface CountryListInstance {
   /**
@@ -83,17 +83,17 @@ interface CountryListInstance {
  * @property callback -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
- * @property continent - Filter the results by specified continent
+ * @property continent - Filter to retrieve the country permissions by specifying the continent
  * @property countryCode - country codes
  * @property done - Function to be called upon completion of streaming
- * @property highRiskSpecialNumbersEnabled - Filter the results by specified the status of high risk special
- * @property highRiskTollfraudNumbersEnabled - Filter the results by specified the status of high risk tollfraud special
- * @property isoCode - The ISO country code
+ * @property highRiskSpecialNumbersEnabled - Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled set to true / false
+ * @property highRiskTollfraudNumbersEnabled - Filter to retrieve the country permissions with dialing to high-risk toll fraud numbers enabled set to true / false
+ * @property isoCode - Filter to retrieve the country permissions by specifying the ISO country code
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
  *                         Default is no limit
- * @property lowRiskNumbersEnabled - Filter the results by specified  low risk special status
+ * @property lowRiskNumbersEnabled - Filter to retrieve the country permissions with dialing to low-risk numbers enabled set to true / false
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
@@ -117,16 +117,16 @@ interface CountryListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property continent - Filter the results by specified continent
+ * @property continent - Filter to retrieve the country permissions by specifying the continent
  * @property countryCode - country codes
- * @property highRiskSpecialNumbersEnabled - Filter the results by specified the status of high risk special
- * @property highRiskTollfraudNumbersEnabled - Filter the results by specified the status of high risk tollfraud special
- * @property isoCode - The ISO country code
+ * @property highRiskSpecialNumbersEnabled - Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled set to true / false
+ * @property highRiskTollfraudNumbersEnabled - Filter to retrieve the country permissions with dialing to high-risk toll fraud numbers enabled set to true / false
+ * @property isoCode - Filter to retrieve the country permissions by specifying the ISO country code
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
  *                         Default is no limit
- * @property lowRiskNumbersEnabled - Filter the results by specified  low risk special status
+ * @property lowRiskNumbersEnabled - Filter to retrieve the country permissions with dialing to low-risk numbers enabled set to true / false
  * @property pageSize -
  *                         Number of records to fetch per request,
  *                         when not set will use the default value of 50 records.
@@ -148,12 +148,12 @@ interface CountryListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property continent - Filter the results by specified continent
+ * @property continent - Filter to retrieve the country permissions by specifying the continent
  * @property countryCode - country codes
- * @property highRiskSpecialNumbersEnabled - Filter the results by specified the status of high risk special
- * @property highRiskTollfraudNumbersEnabled - Filter the results by specified the status of high risk tollfraud special
- * @property isoCode - The ISO country code
- * @property lowRiskNumbersEnabled - Filter the results by specified  low risk special status
+ * @property highRiskSpecialNumbersEnabled - Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled set to true / false
+ * @property highRiskTollfraudNumbersEnabled - Filter to retrieve the country permissions with dialing to high-risk toll fraud numbers enabled set to true / false
+ * @property isoCode - Filter to retrieve the country permissions by specifying the ISO country code
+ * @property lowRiskNumbersEnabled - Filter to retrieve the country permissions with dialing to low-risk numbers enabled set to true / false
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
@@ -198,7 +198,7 @@ declare class CountryContext {
    * @param version - Version of the resource
    * @param isoCode - The ISO country code
    */
-  constructor(version: Permissions, isoCode: string);
+  constructor(version: V1, isoCode: string);
 
   /**
    * fetch a CountryInstance
@@ -217,18 +217,18 @@ declare class CountryInstance extends SerializableClass {
    * @property isoCode - The ISO country code
    * @property name - Name of the country
    * @property continent - Name of the continent
-   * @property countryCodes - The list of country codes
-   * @property lowRiskNumbersEnabled - True, if low risk numbers are enabled, else false
-   * @property highRiskSpecialNumbersEnabled - True, if high risk special numbers are enabled, else false
-   * @property highRiskTollfraudNumbersEnabled - True, if high risk tollfraud numbers are enabled, else false
-   * @property url - The URL for this resource.
+   * @property countryCodes - The E.164 assigned country codes(s)
+   * @property lowRiskNumbersEnabled - true, if dialing to low-risk numbers is enabled, else false
+   * @property highRiskSpecialNumbersEnabled - true, if dialing to high-risk special services numbers is enabled, else false. This group of prefixes, are number ranges allocated by the corresponding country. They consist of number types such as premium numbers, special services, shared cost and others
+   * @property highRiskTollfraudNumbersEnabled - true, if dialing to high-risk toll fraud numbers is enabled, else false. This group of prefixes are narrow number ranges that have a high-risk of international revenue sharing fraud (IRSF) attacks also called toll fraud. The group of prefixes is formed through integration with anti-fraud databases and verified by analyzing calls on the Twilio Super Network. This group of prefixes are not available for download and are updated frequently
+   * @property url - The URL for this resource
    * @property links - The links
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param isoCode - The ISO country code
    */
-  constructor(version: Permissions, payload: CountryPayload, isoCode: string);
+  constructor(version: V1, payload: CountryPayload, isoCode: string);
 
   private _proxy: CountryContext;
   continent: string;
@@ -258,7 +258,7 @@ declare class CountryInstance extends SerializableClass {
 }
 
 
-declare class CountryPage extends Page<Permissions, CountryPayload, CountryResource, CountryInstance> {
+declare class CountryPage extends Page<V1, CountryPayload, CountryResource, CountryInstance> {
   /**
    * Initialize the CountryPagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
@@ -266,7 +266,7 @@ declare class CountryPage extends Page<Permissions, CountryPayload, CountryResou
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Permissions, response: Response<string>, solution: CountrySolution);
+  constructor(version: V1, response: Response<string>, solution: CountrySolution);
 
   /**
    * Build an instance of CountryInstance

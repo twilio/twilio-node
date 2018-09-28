@@ -35,8 +35,8 @@ describe('BulkCountryUpdate', function() {
       holodeck.mock(new Response(500, '{}'));
 
       var opts = {updateRequest: 'updateRequest'};
-      var promise = client.preview.permissions.voicePermissions
-                                              .bulkCountryUpdates.create(opts);
+      var promise = client.voice.v1.voicePermissions
+                                   .bulkCountryUpdates.create(opts);
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -44,7 +44,7 @@ describe('BulkCountryUpdate', function() {
       });
       promise.done();
 
-      var url = 'https://preview.twilio.com/permissions/VoicePermissions/BulkCountryUpdates';
+      var url = 'https://voice.twilio.com/v1/DialingPermissions/BulkCountryUpdates';
 
       var values = {UpdateRequest: 'updateRequest', };
       holodeck.assertHasRequest(new Request({
@@ -64,8 +64,8 @@ describe('BulkCountryUpdate', function() {
       holodeck.mock(new Response(201, body));
 
       var opts = {updateRequest: 'updateRequest'};
-      var promise = client.preview.permissions.voicePermissions
-                                              .bulkCountryUpdates.create(opts);
+      var promise = client.voice.v1.voicePermissions
+                                   .bulkCountryUpdates.create(opts);
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {

@@ -6,8 +6,8 @@
  */
 
 import Page = require('../../../../base/Page');
-import Permissions = require('../../Permissions');
 import Response = require('../../../../http/response');
+import V1 = require('../../V1');
 import { SerializableClass } from '../../../../interfaces';
 
 /**
@@ -16,7 +16,7 @@ import { SerializableClass } from '../../../../interfaces';
  *
  * @param version - Version of the resource
  */
-declare function BulkCountryUpdateList(version: Permissions): BulkCountryUpdateListInstance;
+declare function BulkCountryUpdateList(version: V1): BulkCountryUpdateListInstance;
 
 interface BulkCountryUpdateListInstance {
   /**
@@ -31,7 +31,7 @@ interface BulkCountryUpdateListInstance {
 /**
  * Options to pass to create
  *
- * @property updateRequest - Json list of update objects
+ * @property updateRequest - URL encoded JSON array of update objects
  */
 interface BulkCountryUpdateListInstanceCreateOptions {
   updateRequest: string;
@@ -53,13 +53,13 @@ declare class BulkCountryUpdateInstance extends SerializableClass {
   /**
    * Initialize the BulkCountryUpdateContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
-   * @property updateCount - The number of countries successfully updated
+   * @property updateCount - The number of countries updated
    * @property updateRequest - The update_request
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
    */
-  constructor(version: Permissions, payload: BulkCountryUpdatePayload);
+  constructor(version: V1, payload: BulkCountryUpdatePayload);
 
   /**
    * Produce a plain JSON object version of the BulkCountryUpdateInstance for serialization.
@@ -71,7 +71,7 @@ declare class BulkCountryUpdateInstance extends SerializableClass {
 }
 
 
-declare class BulkCountryUpdatePage extends Page<Permissions, BulkCountryUpdatePayload, BulkCountryUpdateResource, BulkCountryUpdateInstance> {
+declare class BulkCountryUpdatePage extends Page<V1, BulkCountryUpdatePayload, BulkCountryUpdateResource, BulkCountryUpdateInstance> {
   /**
    * Initialize the BulkCountryUpdatePagePLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
@@ -79,7 +79,7 @@ declare class BulkCountryUpdatePage extends Page<Permissions, BulkCountryUpdateP
    * @param response - Response from the API
    * @param solution - Path solution
    */
-  constructor(version: Permissions, response: Response<string>, solution: BulkCountryUpdateSolution);
+  constructor(version: V1, response: Response<string>, solution: BulkCountryUpdateSolution);
 
   /**
    * Build an instance of BulkCountryUpdateInstance

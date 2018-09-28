@@ -108,7 +108,6 @@ interface ParticipantListInstance {
  * Options to pass to create
  *
  * @property beep - Play a beep when the participant joins the conference.
- * @property callSidToCoach - The string that uniquely identifies the participant that is being `coached`
  * @property conferenceRecord - Record the conference.
  * @property conferenceRecordingStatusCallback - Conference recording callback URL.
  * @property conferenceRecordingStatusCallbackEvent - Set which conference recording state changes should webhook to the `ConferenceRecordingStatusCallback`
@@ -141,7 +140,6 @@ interface ParticipantListInstance {
  */
 interface ParticipantListInstanceCreateOptions {
   beep?: string;
-  callSidToCoach?: string;
   conferenceRecord?: string;
   conferenceRecordingStatusCallback?: string;
   conferenceRecordingStatusCallbackEvent?: string[];

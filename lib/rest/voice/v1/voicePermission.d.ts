@@ -6,7 +6,7 @@
  */
 
 import Page = require('../../../base/Page');
-import Permissions = require('../Permissions');
+import V1 = require('../V1');
 
 /**
  * @description Initialize the VoicePermissionList
@@ -14,12 +14,11 @@ import Permissions = require('../Permissions');
  *
  * @param version - Version of the resource
  */
-declare function VoicePermissionList(version: Permissions): VoicePermissionListInstance;
+declare function VoicePermissionList(version: V1): VoicePermissionListInstance;
 
 interface VoicePermissionListInstance {
   bulkCountryUpdates?: object;
   countries?: object;
-  settings?: object;
 }
 
 interface VoicePermissionPayload extends VoicePermissionResource, Page.TwilioResponsePayload {

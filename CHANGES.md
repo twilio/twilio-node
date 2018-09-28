@@ -1,6 +1,23 @@
 twilio-node changelog
 =====================
 
+[2018-09-28] Version 3.21.0
+----------------------------
+**Library**
+- PR #385: Include TTL option in ClientCapability. Thanks to @daviddelucca!
+
+**Api**
+- Set `call_sid_to_coach` parameter in participant to be `preview`
+
+**Preview**
+- Supported `totp` in Authy preview endpoints
+- Allowed `latest` in Authy Challenges endpoints
+
+**Voice**
+- changed path param name from parent_iso_code to iso_code for highrisk_special_prefixes api **(breaking change)**
+- added geo permissions public api
+
+
 [2018-09-21] Version 3.20.0
 ----------------------------
 **Library**

@@ -5,23 +5,23 @@
  *       /       /
  */
 
-import Preview = require('../Preview');
 import Version = require('../../base/Version');
-import { VoicePermissionList } from './permissions/voicePermission';
-import { VoicePermissionListInstance } from './permissions/voicePermission';
+import Voice = require('../Voice');
+import { VoicePermissionList } from './v1/voicePermission';
+import { VoicePermissionListInstance } from './v1/voicePermission';
 
 
-declare class Permissions extends Version {
+declare class V1 extends Version {
   /**
-   * Initialize the Permissions version of Preview
+   * Initialize the V1 version of Voice
    *
    * @property voicePermissions - voicePermissions resource
    *
    * @param domain - The twilio domain
    */
-  constructor(domain: Preview);
+  constructor(domain: Voice);
 
   readonly voicePermissions: VoicePermissionListInstance;
 }
 
-export = Permissions;
+export = V1;

@@ -24,6 +24,7 @@ import Taskrouter = require('./Taskrouter');
 import Trunking = require('./Trunking');
 import Verify = require('./Verify');
 import Video = require('./Video');
+import Voice = require('./Voice');
 import Wireless = require('./Wireless');
 
 declare class Twilio {
@@ -89,6 +90,7 @@ declare class Twilio {
   validationRequests: (typeof Api.prototype.account.validationRequests);
   verify: Verify;
   video: Video;
+  voice: Voice;
   wireless: Wireless;
 }
 

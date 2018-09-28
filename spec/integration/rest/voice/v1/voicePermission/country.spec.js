@@ -34,8 +34,8 @@ describe('Country', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.permissions.voicePermissions
-                                              .countries('US').fetch();
+      var promise = client.voice.v1.voicePermissions
+                                   .countries('US').fetch();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -44,7 +44,7 @@ describe('Country', function() {
       promise.done();
 
       var solution = {isoCode: 'US'};
-      var url = _.template('https://preview.twilio.com/permissions/VoicePermissions/Countries/<%= isoCode %>')(solution);
+      var url = _.template('https://voice.twilio.com/v1/DialingPermissions/Countries/<%= isoCode %>')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -64,16 +64,16 @@ describe('Country', function() {
           'low_risk_numbers_enabled': false,
           'high_risk_special_numbers_enabled': false,
           'high_risk_tollfraud_numbers_enabled': false,
-          'url': 'https://preview.twilio.com/permissions/VoicePermissions/Countries/US',
+          'url': 'https://voice.twilio.com/v1/DialingPermissions/Countries/US',
           'links': {
-              'highrisk_special_prefixes': 'https://preview.twilio.com/permissions/VoicePermissions/Countries/US/HighRiskSpecialPrefixes'
+              'highrisk_special_prefixes': 'https://voice.twilio.com/v1/DialingPermissions/Countries/US/HighRiskSpecialPrefixes'
           }
       });
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.permissions.voicePermissions
-                                              .countries('US').fetch();
+      var promise = client.voice.v1.voicePermissions
+                                   .countries('US').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
@@ -97,25 +97,25 @@ describe('Country', function() {
                   'low_risk_numbers_enabled': false,
                   'high_risk_special_numbers_enabled': false,
                   'high_risk_tollfraud_numbers_enabled': false,
-                  'url': 'https://preview.twilio.com/permissions/VoicePermissions/Countries/US',
+                  'url': 'https://voice.twilio.com/v1/DialingPermissions/Countries/US',
                   'links': {
-                      'highrisk_special_prefixes': 'https://preview.twilio.com/permissions/VoicePermissions/Countries/US/HighRiskSpecialPrefixes'
+                      'highrisk_special_prefixes': 'https://voice.twilio.com/v1/DialingPermissions/Countries/US/HighRiskSpecialPrefixes'
                   }
               }
           ],
           'meta': {
-              'first_page_url': 'https://preview.twilio.com/permissions/VoicePermissions/Countries?PageSize=50&Page=0',
+              'first_page_url': 'https://voice.twilio.com/v1/DialingPermissions/Countries?PageSize=50&Page=0',
               'key': 'content',
               'next_page_url': null,
               'page': 0,
               'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://preview.twilio.com/permissions/VoicePermissions/Countries?PageSize=50&Page=0'
+              'url': 'https://voice.twilio.com/v1/DialingPermissions/Countries?PageSize=50&Page=0'
           }
       });
       holodeck.mock(new Response(200, body));
-      client.preview.permissions.voicePermissions
-                                .countries.each(() => done());
+      client.voice.v1.voicePermissions
+                     .countries.each(() => done());
     }
   );
   it('should treat the second arg as a callback',
@@ -132,28 +132,28 @@ describe('Country', function() {
                   'low_risk_numbers_enabled': false,
                   'high_risk_special_numbers_enabled': false,
                   'high_risk_tollfraud_numbers_enabled': false,
-                  'url': 'https://preview.twilio.com/permissions/VoicePermissions/Countries/US',
+                  'url': 'https://voice.twilio.com/v1/DialingPermissions/Countries/US',
                   'links': {
-                      'highrisk_special_prefixes': 'https://preview.twilio.com/permissions/VoicePermissions/Countries/US/HighRiskSpecialPrefixes'
+                      'highrisk_special_prefixes': 'https://voice.twilio.com/v1/DialingPermissions/Countries/US/HighRiskSpecialPrefixes'
                   }
               }
           ],
           'meta': {
-              'first_page_url': 'https://preview.twilio.com/permissions/VoicePermissions/Countries?PageSize=50&Page=0',
+              'first_page_url': 'https://voice.twilio.com/v1/DialingPermissions/Countries?PageSize=50&Page=0',
               'key': 'content',
               'next_page_url': null,
               'page': 0,
               'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://preview.twilio.com/permissions/VoicePermissions/Countries?PageSize=50&Page=0'
+              'url': 'https://voice.twilio.com/v1/DialingPermissions/Countries?PageSize=50&Page=0'
           }
       });
       holodeck.mock(new Response(200, body));
-      client.preview.permissions.voicePermissions
-                                .countries.each({pageSize: 20}, () => done());
+      client.voice.v1.voicePermissions
+                     .countries.each({pageSize: 20}, () => done());
       holodeck.assertHasRequest(new Request({
           method: 'GET',
-          url: 'https://preview.twilio.com/permissions/VoicePermissions/Countries',
+          url: 'https://voice.twilio.com/v1/DialingPermissions/Countries',
           params: {PageSize: 20},
       }));
     }
@@ -172,33 +172,33 @@ describe('Country', function() {
                   'low_risk_numbers_enabled': false,
                   'high_risk_special_numbers_enabled': false,
                   'high_risk_tollfraud_numbers_enabled': false,
-                  'url': 'https://preview.twilio.com/permissions/VoicePermissions/Countries/US',
+                  'url': 'https://voice.twilio.com/v1/DialingPermissions/Countries/US',
                   'links': {
-                      'highrisk_special_prefixes': 'https://preview.twilio.com/permissions/VoicePermissions/Countries/US/HighRiskSpecialPrefixes'
+                      'highrisk_special_prefixes': 'https://voice.twilio.com/v1/DialingPermissions/Countries/US/HighRiskSpecialPrefixes'
                   }
               }
           ],
           'meta': {
-              'first_page_url': 'https://preview.twilio.com/permissions/VoicePermissions/Countries?PageSize=50&Page=0',
+              'first_page_url': 'https://voice.twilio.com/v1/DialingPermissions/Countries?PageSize=50&Page=0',
               'key': 'content',
               'next_page_url': null,
               'page': 0,
               'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://preview.twilio.com/permissions/VoicePermissions/Countries?PageSize=50&Page=0'
+              'url': 'https://voice.twilio.com/v1/DialingPermissions/Countries?PageSize=50&Page=0'
           }
       });
       holodeck.mock(new Response(200, body));
-      client.preview.permissions.voicePermissions
-                                .countries.each({callback: () => done()}, () => fail('wrong callback!'));
+      client.voice.v1.voicePermissions
+                     .countries.each({callback: () => done()}, () => fail('wrong callback!'));
     }
   );
   it('should generate valid list request',
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var promise = client.preview.permissions.voicePermissions
-                                              .countries.list();
+      var promise = client.voice.v1.voicePermissions
+                                   .countries.list();
       promise = promise.then(function() {
         throw new Error('failed');
       }, function(error) {
@@ -206,7 +206,7 @@ describe('Country', function() {
       });
       promise.done();
 
-      var url = 'https://preview.twilio.com/permissions/VoicePermissions/Countries';
+      var url = 'https://voice.twilio.com/v1/DialingPermissions/Countries';
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -228,27 +228,27 @@ describe('Country', function() {
                   'low_risk_numbers_enabled': false,
                   'high_risk_special_numbers_enabled': false,
                   'high_risk_tollfraud_numbers_enabled': false,
-                  'url': 'https://preview.twilio.com/permissions/VoicePermissions/Countries/US',
+                  'url': 'https://voice.twilio.com/v1/DialingPermissions/Countries/US',
                   'links': {
-                      'highrisk_special_prefixes': 'https://preview.twilio.com/permissions/VoicePermissions/Countries/US/HighRiskSpecialPrefixes'
+                      'highrisk_special_prefixes': 'https://voice.twilio.com/v1/DialingPermissions/Countries/US/HighRiskSpecialPrefixes'
                   }
               }
           ],
           'meta': {
-              'first_page_url': 'https://preview.twilio.com/permissions/VoicePermissions/Countries?PageSize=50&Page=0',
+              'first_page_url': 'https://voice.twilio.com/v1/DialingPermissions/Countries?PageSize=50&Page=0',
               'key': 'content',
               'next_page_url': null,
               'page': 0,
               'page_size': 50,
               'previous_page_url': null,
-              'url': 'https://preview.twilio.com/permissions/VoicePermissions/Countries?PageSize=50&Page=0'
+              'url': 'https://voice.twilio.com/v1/DialingPermissions/Countries?PageSize=50&Page=0'
           }
       });
 
       holodeck.mock(new Response(200, body));
 
-      var promise = client.preview.permissions.voicePermissions
-                                              .countries.list();
+      var promise = client.voice.v1.voicePermissions
+                                   .countries.list();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
       }, function() {
