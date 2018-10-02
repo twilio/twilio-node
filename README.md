@@ -1,4 +1,4 @@
-# twilio-node
+# TWILIO_NODE
 
 A node.js Twilio helper library.
 
