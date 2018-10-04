@@ -8,6 +8,7 @@
 import Domain = require('../base/Domain');
 import Twilio = require('./Twilio');
 import V1 = require('./video/V1');
+import { CompositionHookListInstance } from './video/v1/compositionHook';
 import { CompositionListInstance } from './video/v1/composition';
 import { CompositionSettingsListInstance } from './video/v1/compositionSettings';
 import { RecordingListInstance } from './video/v1/recording';
@@ -23,6 +24,7 @@ declare class Video extends Domain {
    */
   constructor(twilio: Twilio);
 
+  readonly compositionHooks: CompositionHookListInstance;
   readonly compositionSettings: CompositionSettingsListInstance;
   readonly compositions: CompositionListInstance;
   readonly recordingSettings: RecordingSettingsListInstance;

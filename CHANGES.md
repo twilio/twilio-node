@@ -1,6 +1,19 @@
 twilio-node changelog
 =====================
 
+[2018-10-04] Version 3.22.0
+----------------------------
+**Preview**
+- Renamed response headers for Challenge and Factors Signatures
+
+**Video**
+- [Composer] Add Composition Hook resources
+
+**Twiml**
+- Add `debug` to `Gather`
+- Add `participantIdentity` to `Room`
+
+
 [2018-09-28] Version 3.21.0
 ----------------------------
 **Library**

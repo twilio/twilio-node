@@ -329,6 +329,7 @@ declare namespace VoiceResponse {
    *
    * @property action - Action URL
    * @property bargeIn - Stop playing media upon speech
+   * @property debug - Allow debug for gather
    * @property finishOnKey - Finish gather on key
    * @property hints - Speech recognition hints
    * @property input - Input type Twilio should accept
@@ -345,6 +346,7 @@ declare namespace VoiceResponse {
   export interface GatherAttributes {
     action?: string;
     bargeIn?: boolean;
+    debug?: boolean;
     finishOnKey?: string;
     hints?: string;
     input?: string;
@@ -458,6 +460,15 @@ declare namespace VoiceResponse {
    */
   export interface RejectAttributes {
     reason?: RejectReason;
+  }
+
+  /**
+   * Options to pass to room
+   *
+   * @property participantidentity - Participant identity when connecting to the Room
+   */
+  export interface RoomAttributes {
+    participantidentity?: string;
   }
 
   /**
@@ -619,7 +630,7 @@ declare namespace VoiceResponse {
      * @param attributes - TwiML attributes
      * @param name - Room name
      */
-    room(attributes: object, name: string): void;
+    room(attributes: VoiceResponse.RoomAttributes, name: string): void;
   }
 
 

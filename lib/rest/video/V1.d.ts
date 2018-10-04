@@ -7,6 +7,8 @@
 
 import Version = require('../../base/Version');
 import Video = require('../Video');
+import { CompositionHookList } from './v1/compositionHook';
+import { CompositionHookListInstance } from './v1/compositionHook';
 import { CompositionList } from './v1/composition';
 import { CompositionListInstance } from './v1/composition';
 import { CompositionSettingsList } from './v1/compositionSettings';
@@ -23,16 +25,18 @@ declare class V1 extends Version {
   /**
    * Initialize the V1 version of Video
    *
-   * @property compositions - compositions resource
+   * @property compositionHooks - compositionHooks resource
    * @property compositionSettings - compositionSettings resource
    * @property recordings - recordings resource
    * @property recordingSettings - recordingSettings resource
+   * @property compositions - compositions resource
    * @property rooms - rooms resource
    *
    * @param domain - The twilio domain
    */
   constructor(domain: Video);
 
+  readonly compositionHooks: CompositionHookListInstance;
   readonly compositionSettings: CompositionSettingsListInstance;
   readonly compositions: CompositionListInstance;
   readonly recordingSettings: RecordingSettingsListInstance;
