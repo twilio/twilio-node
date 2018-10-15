@@ -75,12 +75,24 @@ declare class VoiceResponse {
    */
   pause(attributes?: VoiceResponse.PauseAttributes): void;
   /**
+   * <Pay> Twiml Verb
+   *
+   * @param attributes - TwiML attributes
+   */
+  pay(attributes?: VoiceResponse.PayAttributes): VoiceResponse.Pay;
+  /**
    * <Play> TwiML Verb
    *
    * @param attributes - TwiML attributes
    * @param url - Media URL
    */
   play(attributes?: VoiceResponse.PlayAttributes, url?: string): void;
+  /**
+   * <Prompt> Twiml Verb
+   *
+   * @param attributes - TwiML attributes
+   */
+  prompt(attributes?: VoiceResponse.PromptAttributes): VoiceResponse.Prompt;
   /**
    * <Queue> TwiML Noun
    *
@@ -180,6 +192,24 @@ declare namespace VoiceResponse {
   type GatherLanguage = 'af-ZA'|'id-ID'|'ms-MY'|'ca-ES'|'cs-CZ'|'da-DK'|'de-DE'|'en-AU'|'en-CA'|'en-GB'|'en-IN'|'en-IE'|'en-NZ'|'en-PH'|'en-ZA'|'en-US'|'es-AR'|'es-BO'|'es-CL'|'es-CO'|'es-CR'|'es-EC'|'es-SV'|'es-ES'|'es-US'|'es-GT'|'es-HN'|'es-MX'|'es-NI'|'es-PA'|'es-PY'|'es-PE'|'es-PR'|'es-DO'|'es-UY'|'es-VE'|'eu-ES'|'il-PH'|'fr-CA'|'fr-FR'|'gl-ES'|'hr-HR'|'zu-ZA'|'is-IS'|'it-IT'|'lt-LT'|'hu-HU'|'nl-NL'|'nb-NO'|'pl-PL'|'pt-BR'|'pt-PT'|'ro-RO'|'sk-SK'|'sl-SI'|'fi-FI'|'sv-SE'|'vi-VN'|'tr-TR'|'el-GR'|'bg-BG'|'ru-RU'|'sr-RS'|'uk-UA'|'he-IL'|'ar-IL'|'ar-JO'|'ar-AE'|'ar-BH'|'ar-DZ'|'ar-SA'|'ar-IQ'|'ar-KW'|'ar-MA'|'ar-TN'|'ar-OM'|'ar-PS'|'ar-QA'|'ar-LB'|'ar-EG'|'fa-IR'|'hi-IN'|'th-TH'|'ko-KR'|'cmn-Hant-TW'|'yue-Hant-HK'|'ja-JP'|'cmn-Hans-HK'|'cmn-Hans-CN';
 
   type NumberEvent = 'initiated'|'ringing'|'answered'|'completed';
+
+  type PayCurrency = 'usd'|'eur'|'gbp';
+
+  type PayInput = 'dtmf';
+
+  type PayLanguage = 'de-DE'|'en-AU'|'en-CA'|'en-GB'|'en-IN'|'en-IE'|'en-NZ'|'en-PH'|'en-ZA'|'en-US'|'es-ES'|'es-US'|'fr-CA'|'fr-FR'|'it-IT';
+
+  type PayStatusCallbackMethod = 'GET'|'POST';
+
+  type PayTokenType = 'one-time'|'reusable';
+
+  type PayValidCardTypes = 'visa'|'master-card'|'amex'|'maestro'|'discover'|'optima'|'jcb'|'diners-club'|'enroute';
+
+  type PromptCardType = 'visa'|'master-card'|'amex'|'maestro'|'discover'|'optima'|'jcb'|'diners-club'|'enroute';
+
+  type PromptErrorType = 'timeout'|'invalid-card-number'|'invalid-card-type'|'invalid-date'|'invalid-security-code'|'internal-error';
+
+  type PromptFor = 'payment-card-number'|'expiration-date'|'security-code'|'postal-code'|'payment-processing';
 
   type RecordTrim = 'trim-silence'|'do-not-trim';
 
@@ -401,6 +431,45 @@ declare namespace VoiceResponse {
   }
 
   /**
+   * Options to pass to pay
+   *
+   * @property action - Action URL
+   * @property chargeAmount - Amount to process. If value is greater than 0 then make the payment else create a payment token
+   * @property credentialSid - SID for API keys to communicate with payment provider
+   * @property currency - Currency of the amount attribute
+   * @property description - Details regarding the payment
+   * @property input - Input type Twilio should accept
+   * @property language - Language to use
+   * @property maxAttempts - Maximum number of allowed retries when gathering input
+   * @property paymentConnector - Unique name for payment connector
+   * @property postalCode - Prompt for postal code and it should be true/false or default postal code
+   * @property securityCode - Prompt for security code
+   * @property statusCallback - Status callback URL
+   * @property statusCallbackMethod - Status callback method
+   * @property timeout - Time to wait to gather input
+   * @property tokenType - Type of token
+   * @property validCardTypes - Comma separated accepted card types
+   */
+  export interface PayAttributes {
+    action?: string;
+    chargeAmount?: string;
+    credentialSid?: string;
+    currency?: PayCurrency;
+    description?: string;
+    input?: PayInput;
+    language?: PayLanguage;
+    maxAttempts?: number;
+    paymentConnector?: string;
+    postalCode?: string;
+    securityCode?: boolean;
+    statusCallback?: string;
+    statusCallbackMethod?: PayStatusCallbackMethod;
+    timeout?: number;
+    tokenType?: PayTokenType;
+    validCardTypes?: string;
+  }
+
+  /**
    * Options to pass to play
    *
    * @property digits - Play DTMF tones for digits
@@ -409,6 +478,21 @@ declare namespace VoiceResponse {
   export interface PlayAttributes {
     digits?: string;
     loop?: number;
+  }
+
+  /**
+   * Options to pass to prompt
+   *
+   * @property attempt - Current attempt count
+   * @property cardType - Type of the credit card
+   * @property errorType - Type of error
+   * @property for_ - Name of the credit card data element
+   */
+  export interface PromptAttributes {
+    attempt?: string;
+    cardType?: string;
+    errorType?: string;
+    for_?: PromptFor;
   }
 
   /**
@@ -784,6 +868,48 @@ declare namespace VoiceResponse {
 
 
   class Gather {
+
+    /**
+     * <Pause> TwiML Verb
+     *
+     * @param attributes - TwiML attributes
+     */
+    pause(attributes?: VoiceResponse.PauseAttributes): void;
+    /**
+     * <Play> TwiML Verb
+     *
+     * @param attributes - TwiML attributes
+     * @param url - Media URL
+     */
+    play(attributes?: VoiceResponse.PlayAttributes, url?: string): void;
+    /**
+     * <Say> TwiML Verb
+     *
+     * @param message - Message to say
+     */
+    say(message: string): VoiceResponse.Say;
+    /**
+     * <Say> TwiML Verb
+     *
+     * @param attributes - TwiML attributes
+     * @param message - Message to say
+     */
+    say(attributes: VoiceResponse.SayAttributes, message: string): VoiceResponse.Say;
+  }
+
+
+  class Pay {
+
+    /**
+     * <Prompt> Twiml Verb
+     *
+     * @param attributes - TwiML attributes
+     */
+    prompt(attributes?: VoiceResponse.PromptAttributes): VoiceResponse.Prompt;
+  }
+
+
+  class Prompt {
 
     /**
      * <Pause> TwiML Verb
