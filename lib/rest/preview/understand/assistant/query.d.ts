@@ -22,7 +22,7 @@ declare function QueryList(version: Understand, assistantSid: string): QueryList
 /**
  * Options to pass to update
  *
- * @property sampleSid - The sample_sid
+ * @property sampleSid - An optional reference to the Sample created from this query.
  * @property status - A string that described the query status. The values can be: pending_review, reviewed, discarded
  */
 interface QueryInstanceUpdateOptions {
@@ -59,7 +59,7 @@ interface QueryListInstance {
   /**
    * Constructs a query
    *
-   * @param sid - The sid
+   * @param sid - A 34 character string that uniquely identifies this resource.
    */
   get(sid: string): QueryContext;
   /**
@@ -96,18 +96,18 @@ interface QueryListInstance {
 /**
  * Options to pass to create
  *
- * @property field - Constraints the query to a given Field with an intent. Useful when you know the Field you are expecting. It accepts one field in the format intent-unique-name-1:field-unique-name
- * @property intents - Constraints the query to a set of intents. Useful when you need to constrain the paths the user can take. Intents should be comma separated intent-unique-name-1, intent-unique-name-2
+ * @property field - Constraints the query to a given Field with an task. Useful when you know the Field you are expecting. It accepts one field in the format task-unique-name-1:field-unique-name
  * @property language - An ISO language-country string of the sample.
  * @property modelBuild - The Model Build Sid or unique name of the Model Build to be queried.
  * @property query - A user-provided string that uniquely identifies this resource as an alternative to the sid. It can be up to 2048 characters long.
+ * @property tasks - Constraints the query to a set of tasks. Useful when you need to constrain the paths the user can take. Tasks should be comma separated task-unique-name-1, task-unique-name-2
  */
 interface QueryListInstanceCreateOptions {
   field?: string;
-  intents?: string;
   language: string;
   modelBuild?: string;
   query: string;
+  tasks?: string;
 }
 
 /**
@@ -214,8 +214,8 @@ declare class QueryContext {
    * Initialize the QueryContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param assistantSid - The assistant_sid
-   * @param sid - The sid
+   * @param assistantSid - The unique ID of the Assistant.
+   * @param sid - A 34 character string that uniquely identifies this resource.
    */
   constructor(version: Understand, assistantSid: string, sid: string);
 
@@ -248,7 +248,7 @@ declare class QueryInstance extends SerializableClass {
    * @property accountSid - The unique ID of the Account that created this Query.
    * @property dateCreated - The date that this resource was created
    * @property dateUpdated - The date that this resource was last updated
-   * @property results - The natural language analysis results which include the Intent recognized, the confidence score and a list of identified Fields.
+   * @property results - The natural language analysis results which include the Task recognized, the confidence score and a list of identified Fields.
    * @property language - An ISO language-country string of the sample.
    * @property modelBuildSid - The unique ID of the Model Build queried.
    * @property query - The end-user's natural language input.
@@ -262,7 +262,7 @@ declare class QueryInstance extends SerializableClass {
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param assistantSid - The unique ID of the parent Assistant.
-   * @param sid - The sid
+   * @param sid - A 34 character string that uniquely identifies this resource.
    */
   constructor(version: Understand, payload: QueryPayload, assistantSid: string, sid: string);
 

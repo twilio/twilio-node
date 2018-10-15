@@ -381,6 +381,17 @@ declare namespace VoiceResponse {
   }
 
   /**
+   * Options to pass to parameter
+   *
+   * @property name - The name of the custom parameter
+   * @property value - The value of the custom parameter
+   */
+  export interface ParameterAttributes {
+    name?: string;
+    value?: string;
+  }
+
+  /**
    * Options to pass to pause
    *
    * @property length - Length in seconds to pause
@@ -616,8 +627,45 @@ declare namespace VoiceResponse {
   }
 
 
+  class Client {
+
+    /**
+     * <Identity> TwiML Noun
+     *
+     * @param clientIdentity - Identity of the client to dial
+     */
+    identity(clientIdentity: string): void;
+    /**
+     * <Identity> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     * @param clientIdentity - Identity of the client to dial
+     */
+    identity(attributes: object, clientIdentity: string): void;
+    /**
+     * <Parameter> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     */
+    parameter(attributes?: VoiceResponse.ParameterAttributes): void;
+  }
+
+
   class Connect {
 
+    /**
+     * <Autopilot> TwiML Noun
+     *
+     * @param name - Autopilot assistant sid or unique name
+     */
+    autopilot(name: string): void;
+    /**
+     * <Autopilot> TwiML Noun
+     *
+     * @param attributes - TwiML attributes
+     * @param name - Autopilot assistant sid or unique name
+     */
+    autopilot(attributes: object, name: string): void;
     /**
      * <Room> TwiML Noun
      *
@@ -639,16 +687,16 @@ declare namespace VoiceResponse {
     /**
      * <Client> TwiML Noun
      *
-     * @param name - Client name
+     * @param identity - Client identity
      */
-    client(name: string): void;
+    client(identity: string): VoiceResponse.Client;
     /**
      * <Client> TwiML Noun
      *
      * @param attributes - TwiML attributes
-     * @param name - Client name
+     * @param identity - Client identity
      */
-    client(attributes: VoiceResponse.ClientAttributes, name: string): void;
+    client(attributes: VoiceResponse.ClientAttributes, identity: string): VoiceResponse.Client;
     /**
      * <Conference> TwiML Noun
      *

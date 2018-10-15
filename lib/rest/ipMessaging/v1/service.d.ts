@@ -427,7 +427,7 @@ declare class ServiceInstance extends SerializableClass {
    * @property defaultServiceRoleSid - The service role assigned to users when they are added to the service.
    * @property defaultChannelRoleSid - The channel role assigned to users when they are added to a channel.
    * @property defaultChannelCreatorRoleSid - The channel role assigned to a channel creator when joining a new channel.
-   * @property readStatusEnabled - Enable the Message Constumption Horizon feature.
+   * @property readStatusEnabled - Enable the Message Consumption Horizon feature.
    * @property reachabilityEnabled - Indicates whether the  the Reachability feature is enabled for this Service instance.
    * @property typingIndicatorTimeout - The amount of time after a "started typing" event when clients should assume that user is no longer typing, even if no "ended typing" message was received.
    * @property consumptionReportInterval - The interval between consumption reports submission batches from client endpoints.

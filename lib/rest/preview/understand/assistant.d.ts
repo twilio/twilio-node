@@ -17,13 +17,15 @@ import { DialogueList } from './assistant/dialogue';
 import { DialogueListInstance } from './assistant/dialogue';
 import { FieldTypeList } from './assistant/fieldType';
 import { FieldTypeListInstance } from './assistant/fieldType';
-import { IntentList } from './assistant/intent';
-import { IntentListInstance } from './assistant/intent';
 import { ModelBuildList } from './assistant/modelBuild';
 import { ModelBuildListInstance } from './assistant/modelBuild';
 import { QueryList } from './assistant/query';
 import { QueryListInstance } from './assistant/query';
 import { SerializableClass } from '../../../interfaces';
+import { StyleSheetList } from './assistant/styleSheet';
+import { StyleSheetListInstance } from './assistant/styleSheet';
+import { TaskList } from './assistant/task';
+import { TaskListInstance } from './assistant/task';
 
 /**
  * @description Initialize the AssistantList
@@ -36,12 +38,13 @@ declare function AssistantList(version: Understand): AssistantListInstance;
 /**
  * Options to pass to update
  *
- * @property callbackEvents - The callback_events
- * @property callbackUrl - The callback_url
- * @property fallbackActions - The JSON actions to be executed when the user's input is not recognized as matching any Intent.
+ * @property callbackEvents - Space-separated list of callback events that will trigger callbacks.
+ * @property callbackUrl - A user-provided URL to send event callbacks to.
+ * @property fallbackActions - The JSON actions to be executed when the user's input is not recognized as matching any Task.
  * @property friendlyName - A text description for the Assistant. It is non-unique and can up to 255 characters long.
  * @property initiationActions - The JSON actions to be executed on inbound phone calls when the Assistant has to say something first.
  * @property logQueries - A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
+ * @property styleSheet - The JSON object that holds the style sheet for the assistant
  * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
  */
 interface AssistantInstanceUpdateOptions {
@@ -51,6 +54,7 @@ interface AssistantInstanceUpdateOptions {
   friendlyName?: string;
   initiationActions?: string;
   logQueries?: boolean;
+  styleSheet?: string;
   uniqueName?: string;
 }
 
@@ -83,7 +87,7 @@ interface AssistantListInstance {
   /**
    * Constructs a assistant
    *
-   * @param sid - The sid
+   * @param sid - A 34 character string that uniquely identifies this resource.
    */
   get(sid: string): AssistantContext;
   /**
@@ -120,12 +124,13 @@ interface AssistantListInstance {
 /**
  * Options to pass to create
  *
- * @property callbackEvents - The callback_events
- * @property callbackUrl - The callback_url
- * @property fallbackActions - The JSON actions to be executed when the user's input is not recognized as matching any Intent.
+ * @property callbackEvents - Space-separated list of callback events that will trigger callbacks.
+ * @property callbackUrl - A user-provided URL to send event callbacks to.
+ * @property fallbackActions - The JSON actions to be executed when the user's input is not recognized as matching any Task.
  * @property friendlyName - A text description for the Assistant. It is non-unique and can up to 255 characters long.
  * @property initiationActions - The JSON actions to be executed on inbound phone calls when the Assistant has to say something first.
  * @property logQueries - A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
+ * @property styleSheet - The JSON object that holds the style sheet for the assistant
  * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
  */
 interface AssistantListInstanceCreateOptions {
@@ -135,6 +140,7 @@ interface AssistantListInstanceCreateOptions {
   friendlyName?: string;
   initiationActions?: string;
   logQueries?: boolean;
+  styleSheet?: string;
   uniqueName?: string;
 }
 
@@ -222,15 +228,16 @@ declare class AssistantContext {
    * Initialize the AssistantContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @property fieldTypes - fieldTypes resource
-   * @property intents - intents resource
+   * @property tasks - tasks resource
    * @property modelBuilds - modelBuilds resource
    * @property queries - queries resource
    * @property assistantFallbackActions - assistantFallbackActions resource
    * @property assistantInitiationActions - assistantInitiationActions resource
    * @property dialogues - dialogues resource
+   * @property styleSheet - styleSheet resource
    *
    * @param version - Version of the resource
-   * @param sid - The sid
+   * @param sid - A 34 character string that uniquely identifies this resource.
    */
   constructor(version: Understand, sid: string);
 
@@ -244,7 +251,6 @@ declare class AssistantContext {
    */
   fetch(callback?: (error: Error | null, items: AssistantInstance) => any): Promise<AssistantInstance>;
   fieldTypes: FieldTypeListInstance;
-  intents: IntentListInstance;
   modelBuilds: ModelBuildListInstance;
   queries: QueryListInstance;
   /**
@@ -253,6 +259,8 @@ declare class AssistantContext {
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: AssistantInstance) => any): void;
+  styleSheet: StyleSheetListInstance;
+  tasks: TaskListInstance;
   /**
    * update a AssistantInstance
    *
@@ -277,12 +285,12 @@ declare class AssistantInstance extends SerializableClass {
    * @property sid - A 34 character string that uniquely identifies this resource.
    * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. You can use the unique name in the URL path. Unique up to 64 characters long.
    * @property url - The url
-   * @property callbackUrl - The callback_url
-   * @property callbackEvents - The callback_events
+   * @property callbackUrl - A user-provided URL to send event callbacks to.
+   * @property callbackEvents - Space-separated list of callback events that will trigger callbacks.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - The sid
+   * @param sid - A 34 character string that uniquely identifies this resource.
    */
   constructor(version: Understand, payload: AssistantPayload, sid: string);
 
@@ -315,10 +323,6 @@ declare class AssistantInstance extends SerializableClass {
    */
   fieldTypes(): FieldTypeListInstance;
   friendlyName: string;
-  /**
-   * Access the intents
-   */
-  intents(): IntentListInstance;
   latestModelBuildSid: string;
   links: string;
   logQueries: boolean;
@@ -337,6 +341,14 @@ declare class AssistantInstance extends SerializableClass {
    */
   remove(callback?: (error: Error | null, items: AssistantInstance) => any): void;
   sid: string;
+  /**
+   * Access the styleSheet
+   */
+  styleSheet(): StyleSheetListInstance;
+  /**
+   * Access the tasks
+   */
+  tasks(): TaskListInstance;
   /**
    * Produce a plain JSON object version of the AssistantInstance for serialization.
    * Removes any circular references in the object.

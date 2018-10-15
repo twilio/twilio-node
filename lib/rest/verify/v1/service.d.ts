@@ -8,6 +8,7 @@
 import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import V1 = require('../V1');
+import serialize = require('../../../base/serialize');
 import { SerializableClass } from '../../../interfaces';
 import { VerificationCheckList } from './service/verificationCheck';
 import { VerificationCheckListInstance } from './service/verificationCheck';
@@ -27,10 +28,12 @@ declare function ServiceList(version: V1): ServiceListInstance;
  *
  * @property codeLength - Length of verification code. Valid values are 4-10
  * @property friendlyName - Friendly name of the service
+ * @property lookupEnabled - Indicates whether or not to perform a lookup with each verification started
  */
 interface ServiceInstanceUpdateOptions {
   codeLength?: number;
   friendlyName?: string;
+  lookupEnabled?: boolean;
 }
 
 interface ServiceListInstance {
@@ -101,10 +104,12 @@ interface ServiceListInstance {
  *
  * @property codeLength - Length of verification code. Valid values are 4-10
  * @property friendlyName - Friendly name of the service
+ * @property lookupEnabled - Indicates whether or not to perform a lookup with each verification started
  */
 interface ServiceListInstanceCreateOptions {
   codeLength?: number;
   friendlyName: string;
+  lookupEnabled?: boolean;
 }
 
 /**
@@ -174,6 +179,7 @@ interface ServiceResource {
   date_updated: Date;
   friendly_name: string;
   links: string;
+  lookup_enabled: boolean;
   sid: string;
   url: string;
 }
@@ -201,6 +207,12 @@ declare class ServiceContext {
    */
   fetch(callback?: (error: Error | null, items: ServiceInstance) => any): Promise<ServiceInstance>;
   /**
+   * remove a ServiceInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: ServiceInstance) => any): void;
+  /**
    * update a ServiceInstance
    *
    * @param opts - Options for request
@@ -220,6 +232,7 @@ declare class ServiceInstance extends SerializableClass {
    * @property accountSid - Account Sid.
    * @property friendlyName - Friendly name of the service
    * @property codeLength - Length of verification code. Valid values are 4-10
+   * @property lookupEnabled - Indicates whether or not to perform a lookup with each verification started
    * @property dateCreated - The date this Service was created
    * @property dateUpdated - The date this Service was updated
    * @property url - The url
@@ -244,6 +257,13 @@ declare class ServiceInstance extends SerializableClass {
   fetch(callback?: (error: Error | null, items: ServiceInstance) => any): void;
   friendlyName: string;
   links: string;
+  lookupEnabled: boolean;
+  /**
+   * remove a ServiceInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: ServiceInstance) => any): void;
   sid: string;
   /**
    * Produce a plain JSON object version of the ServiceInstance for serialization.

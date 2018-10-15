@@ -120,10 +120,10 @@ interface TaskQueueListInstance {
  * @property taskOrder - TaskOrder will determine which order the Tasks will be assigned to Workers.
  */
 interface TaskQueueListInstanceCreateOptions {
-  assignmentActivitySid: string;
+  assignmentActivitySid?: string;
   friendlyName: string;
   maxReservedWorkers?: number;
-  reservationActivitySid: string;
+  reservationActivitySid?: string;
   targetWorkers?: string;
   taskOrder?: TaskQueueTaskOrder;
 }

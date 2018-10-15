@@ -8,6 +8,7 @@
 import Page = require('../../../base/Page');
 import Response = require('../../../http/response');
 import V1 = require('../V1');
+import serialize = require('../../../base/serialize');
 import { SerializableClass } from '../../../interfaces';
 
 type CommandCommandMode = 'text'|'binary';
@@ -15,6 +16,8 @@ type CommandCommandMode = 'text'|'binary';
 type CommandDirection = 'from_sim'|'to_sim';
 
 type CommandStatus = 'queued'|'sent'|'delivered'|'received'|'failed';
+
+type CommandTransport = 'sms'|'ip';
 
 /**
  * @description Initialize the CommandList
@@ -93,6 +96,7 @@ interface CommandListInstance {
  * @property callbackUrl - Twilio will make a request to this URL when the Command has finished sending.
  * @property command - The message body of the Command or a Base64 encoded byte string in binary mode.
  * @property commandMode - A string representing which mode to send the SMS message using.
+ * @property deliveryReceiptRequested - The delivery_receipt_requested
  * @property includeSid - When sending a Command to a SIM in text mode, Twilio can automatically include the Sid of the Command in the message body, which could be used to ensure that the device does not process the same Command more than once.
  * @property sim - The Sid or UniqueName of the SIM to send the Command to.
  */
@@ -101,6 +105,7 @@ interface CommandListInstanceCreateOptions {
   callbackUrl?: string;
   command: string;
   commandMode?: CommandCommandMode;
+  deliveryReceiptRequested?: boolean;
   includeSid?: string;
   sim?: string;
 }
@@ -125,6 +130,7 @@ interface CommandListInstanceCreateOptions {
  *                         page size, i.e. min(limit, 1000)
  * @property sim - Only return Commands to or from this SIM.
  * @property status - Only return Commands with this status value.
+ * @property transport - The transport
  */
 interface CommandListInstanceEachOptions {
   callback?: (item: CommandInstance, done: (err?: Error) => void) => void;
@@ -134,6 +140,7 @@ interface CommandListInstanceEachOptions {
   pageSize?: number;
   sim?: string;
   status?: CommandStatus;
+  transport?: CommandTransport;
 }
 
 /**
@@ -152,6 +159,7 @@ interface CommandListInstanceEachOptions {
  *                         efficient page size, i.e. min(limit, 1000)
  * @property sim - Only return Commands to or from this SIM.
  * @property status - Only return Commands with this status value.
+ * @property transport - The transport
  */
 interface CommandListInstanceOptions {
   direction?: CommandDirection;
@@ -159,6 +167,7 @@ interface CommandListInstanceOptions {
   pageSize?: number;
   sim?: string;
   status?: CommandStatus;
+  transport?: CommandTransport;
 }
 
 /**
@@ -170,6 +179,7 @@ interface CommandListInstanceOptions {
  * @property pageToken - PageToken provided by the API
  * @property sim - Only return Commands to or from this SIM.
  * @property status - Only return Commands with this status value.
+ * @property transport - The transport
  */
 interface CommandListInstancePageOptions {
   direction?: CommandDirection;
@@ -178,6 +188,7 @@ interface CommandListInstancePageOptions {
   pageToken?: string;
   sim?: string;
   status?: CommandStatus;
+  transport?: CommandTransport;
 }
 
 interface CommandPayload extends CommandResource, Page.TwilioResponsePayload {
@@ -189,10 +200,12 @@ interface CommandResource {
   command_mode: CommandCommandMode;
   date_created: Date;
   date_updated: Date;
+  delivery_receipt_requested: boolean;
   direction: CommandDirection;
   sid: string;
   sim_sid: string;
   status: CommandStatus;
+  transport: CommandTransport;
   url: string;
 }
 
@@ -227,6 +240,8 @@ declare class CommandInstance extends SerializableClass {
    * @property simSid - The unique ID of the SIM that this Command was sent to or from.
    * @property command - The message being sent to or from the SIM.
    * @property commandMode - A string representing which mode the SMS was sent or received using.
+   * @property transport - The transport
+   * @property deliveryReceiptRequested - The delivery_receipt_requested
    * @property status - A string representing the status of the Command.
    * @property direction - The direction of the Command.
    * @property dateCreated - The date that this resource was created, given as GMT in ISO 8601 format.
@@ -245,6 +260,7 @@ declare class CommandInstance extends SerializableClass {
   commandMode: CommandCommandMode;
   dateCreated: Date;
   dateUpdated: Date;
+  deliveryReceiptRequested: boolean;
   direction: CommandDirection;
   /**
    * fetch a CommandInstance
@@ -260,6 +276,7 @@ declare class CommandInstance extends SerializableClass {
    * Removes any circular references in the object.
    */
   toJSON(): any;
+  transport: CommandTransport;
   url: string;
 }
 

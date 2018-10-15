@@ -60,6 +60,7 @@ describe('Service', function() {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'friendly_name': 'name',
           'code_length': 4,
+          'lookup_enabled': false,
           'date_created': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z',
           'url': 'https://verify.twilio.com/v1/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -110,6 +111,7 @@ describe('Service', function() {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'friendly_name': 'name',
           'code_length': 4,
+          'lookup_enabled': false,
           'date_created': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z',
           'url': 'https://verify.twilio.com/v1/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -124,6 +126,43 @@ describe('Service', function() {
       var promise = client.verify.v1.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').fetch();
       promise = promise.then(function(response) {
         expect(response).toBeDefined();
+      }, function() {
+        throw new Error('failed');
+      });
+
+      promise.done();
+    }
+  );
+  it('should generate valid remove request',
+    function() {
+      holodeck.mock(new Response(500, '{}'));
+
+      var promise = client.verify.v1.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
+      promise = promise.then(function() {
+        throw new Error('failed');
+      }, function(error) {
+        expect(error.constructor).toBe(RestException.prototype.constructor);
+      });
+      promise.done();
+
+      var solution = {sid: 'VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var url = _.template('https://verify.twilio.com/v1/Services/<%= sid %>')(solution);
+
+      holodeck.assertHasRequest(new Request({
+        method: 'DELETE',
+        url: url
+      }));
+    }
+  );
+  it('should generate valid delete response',
+    function() {
+      var body = JSON.stringify(null);
+
+      holodeck.mock(new Response(204, body));
+
+      var promise = client.verify.v1.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
+      promise = promise.then(function(response) {
+        expect(response).toBe(true);
       }, function() {
         throw new Error('failed');
       });
@@ -149,6 +188,7 @@ describe('Service', function() {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'friendly_name': 'name',
                   'code_length': 4,
+                  'lookup_enabled': false,
                   'date_created': '2015-07-30T20:00:00Z',
                   'date_updated': '2015-07-30T20:00:00Z',
                   'url': 'https://verify.twilio.com/v1/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -181,6 +221,7 @@ describe('Service', function() {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'friendly_name': 'name',
                   'code_length': 4,
+                  'lookup_enabled': false,
                   'date_created': '2015-07-30T20:00:00Z',
                   'date_updated': '2015-07-30T20:00:00Z',
                   'url': 'https://verify.twilio.com/v1/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -218,6 +259,7 @@ describe('Service', function() {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'friendly_name': 'name',
                   'code_length': 4,
+                  'lookup_enabled': false,
                   'date_created': '2015-07-30T20:00:00Z',
                   'date_updated': '2015-07-30T20:00:00Z',
                   'url': 'https://verify.twilio.com/v1/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -270,6 +312,7 @@ describe('Service', function() {
                   'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'friendly_name': 'name',
                   'code_length': 4,
+                  'lookup_enabled': false,
                   'date_created': '2015-07-30T20:00:00Z',
                   'date_updated': '2015-07-30T20:00:00Z',
                   'url': 'https://verify.twilio.com/v1/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -321,6 +364,7 @@ describe('Service', function() {
           'account_sid': 'ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'friendly_name': 'name',
           'code_length': 4,
+          'lookup_enabled': false,
           'date_created': '2015-07-30T20:00:00Z',
           'date_updated': '2015-07-30T20:00:00Z',
           'url': 'https://verify.twilio.com/v1/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',

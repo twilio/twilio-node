@@ -34,7 +34,7 @@ declare function ChannelList(version: V2, serviceSid: string): ChannelListInstan
 /**
  * Options to pass to update
  *
- * @property attributes - An optional metadata field you can use to store any data you wish.
+ * @property attributes - An optional string metadata field you can use to store any data you wish.
  * @property createdBy - Optional field to specify the Identity of the User that created the Channel.
  * @property dateCreated - The optional ISO8601 time specifying the datetime the Channel should be set as being created.
  * @property dateUpdated - The optional ISO8601 time specifying the datetime the Channel should be set as having been last updated.
@@ -116,7 +116,7 @@ interface ChannelListInstance {
 /**
  * Options to pass to create
  *
- * @property attributes - An optional metadata field you can use to store any data you wish.
+ * @property attributes - An optional string metadata field you can use to store any data you wish.
  * @property createdBy - Optional field to specify the Identity of the User that created the Channel.
  * @property dateCreated - The optional ISO8601 time specifying the datetime the Channel should be set as being created.
  * @property dateUpdated - The optional ISO8601 time specifying the datetime the Channel should be set as having been last updated.

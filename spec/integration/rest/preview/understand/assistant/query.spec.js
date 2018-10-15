@@ -67,9 +67,9 @@ describe('Query', function() {
           'sample_sid': 'UFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'assistant_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'results': {
-              'intent': {
+              'task': {
                   'name': 'name',
-                  'intent_sid': 'UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'task_sid': 'UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'confidence': 0.9
               },
               'entities': [
@@ -113,9 +113,9 @@ describe('Query', function() {
                   'sample_sid': 'UFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'assistant_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'results': {
-                      'intent': {
+                      'task': {
                           'name': 'name',
-                          'intent_sid': 'UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                          'task_sid': 'UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                           'confidence': 0.9
                       },
                       'entities': [
@@ -161,9 +161,9 @@ describe('Query', function() {
                   'sample_sid': 'UFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'assistant_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'results': {
-                      'intent': {
+                      'task': {
                           'name': 'name',
-                          'intent_sid': 'UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                          'task_sid': 'UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                           'confidence': 0.9
                       },
                       'entities': [
@@ -214,9 +214,9 @@ describe('Query', function() {
                   'sample_sid': 'UFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'assistant_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'results': {
-                      'intent': {
+                      'task': {
                           'name': 'name',
-                          'intent_sid': 'UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                          'task_sid': 'UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                           'confidence': 0.9
                       },
                       'entities': [
@@ -312,9 +312,9 @@ describe('Query', function() {
                   'sample_sid': 'UFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'assistant_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'results': {
-                      'intent': {
+                      'task': {
                           'name': 'name',
-                          'intent_sid': 'UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                          'task_sid': 'UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                           'confidence': 0.9
                       },
                       'entities': [
@@ -392,9 +392,9 @@ describe('Query', function() {
           'sample_sid': 'UFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'assistant_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'results': {
-              'intent': {
+              'task': {
                   'name': 'name',
-                  'intent_sid': 'UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'task_sid': 'UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'confidence': 0.9
               },
               'entities': [
@@ -462,9 +462,9 @@ describe('Query', function() {
           'sample_sid': 'UFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'assistant_sid': 'UAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
           'results': {
-              'intent': {
+              'task': {
                   'name': 'name',
-                  'intent_sid': 'UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  'task_sid': 'UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'confidence': 0.9
               },
               'entities': [
