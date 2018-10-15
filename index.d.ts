@@ -20,6 +20,7 @@ declare function twilio(
 ): TwilioClient;
 
 declare namespace twilio {
+  export import Twilio = TwilioClient;
   export interface TwimlInterface {
     VoiceResponse: TwimlConstructor<VoiceResponse>;
     FaxResponse: TwimlConstructor<FaxResponse>;
