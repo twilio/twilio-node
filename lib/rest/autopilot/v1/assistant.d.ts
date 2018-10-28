@@ -36,12 +36,12 @@ declare function AssistantList(version: V1): AssistantListInstance;
 /**
  * Options to pass to update
  *
- * @property callbackEvents - The callback_events
+ * @property callbackEvents - A space-separated list of callback events that will trigger callbacks
  * @property callbackUrl - The callback_url
- * @property defaults - A JSON object that defines the assistant's default tasks for various scenarios
+ * @property defaults - A JSON object that defines the assistant's [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios
  * @property friendlyName - A text description for the Assistant. It is non-unique and can be up to 255 characters long.
- * @property logQueries - A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
- * @property styleSheet - A JSON object that defines the assistant style sheet
+ * @property logQueries - A boolean that specifies whether queries should be logged for 30 days past training. If `false`, no queries will be stored. If `true`, queries will be stored for 30 days and deleted thereafter. Defaults to `true` if no value is provided.
+ * @property styleSheet - A JSON object that defines the assistant [style sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet)
  * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
  */
 interface AssistantInstanceUpdateOptions {
@@ -83,7 +83,7 @@ interface AssistantListInstance {
   /**
    * Constructs a assistant
    *
-   * @param sid - The sid
+   * @param sid - A 34-character string that uniquely identifies this resource.
    */
   get(sid: string): AssistantContext;
   /**
@@ -120,12 +120,12 @@ interface AssistantListInstance {
 /**
  * Options to pass to create
  *
- * @property callbackEvents - The callback_events
+ * @property callbackEvents - A space-separated list of callback events that will trigger callbacks
  * @property callbackUrl - The callback_url
- * @property defaults - A JSON object that defines the assistant's default tasks for various scenarios
+ * @property defaults - A JSON object that defines the assistant's [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios
  * @property friendlyName - A text description for the Assistant. It is non-unique and can be up to 255 characters long.
- * @property logQueries - A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
- * @property styleSheet - A JSON object that defines the assistant style sheet
+ * @property logQueries - A boolean that specifies whether queries should be logged for 30 days past training. If `false`, no queries will be stored. If `true`, queries will be stored for 30 days and deleted thereafter. Defaults to `true` if no value is provided.
+ * @property styleSheet - A JSON object that defines the assistant [style sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet)
  * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
  */
 interface AssistantListInstanceCreateOptions {
@@ -230,7 +230,7 @@ declare class AssistantContext {
    * @property dialogues - dialogues resource
    *
    * @param version - Version of the resource
-   * @param sid - The sid
+   * @param sid - A 34-character string that uniquely identifies this resource.
    */
   constructor(version: V1, sid: string);
 
@@ -271,18 +271,18 @@ declare class AssistantInstance extends SerializableClass {
    * @property dateCreated - The date that this resource was created
    * @property dateUpdated - The date that this resource was last updated
    * @property friendlyName - A text description for the Assistant. It is non-unique and can be up to 255 characters long.
-   * @property latestModelBuildSid - The unique ID (Sid) of the latest model build. Null if no model has been built.
+   * @property latestModelBuildSid - The latest_model_build_sid
    * @property links - The links
-   * @property logQueries - A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter.
-   * @property sid - A 34 character string that uniquely identifies this resource.
-   * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. You can use the unique name in the URL path. Unique up to 64 characters long.
+   * @property logQueries - A boolean that specifies whether queries should be logged for 30 days past training. If `false`, no queries will be stored. If `true`, queries will be stored for 30 days and deleted thereafter.
+   * @property sid - A 34-character string that uniquely identifies this resource.
+   * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
    * @property url - The url
    * @property callbackUrl - The callback_url
    * @property callbackEvents - The callback_events
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - The sid
+   * @param sid - A 34-character string that uniquely identifies this resource.
    */
   constructor(version: V1, payload: AssistantPayload, sid: string);
 

@@ -23,9 +23,9 @@ declare function SampleList(version: V1, assistantSid: string, taskSid: string):
 /**
  * Options to pass to update
  *
- * @property language - An ISO language-country string that specifies the language used for this sample. For example: en-US.
- * @property sourceChannel - The communication channel from which the sample was captured. It can be: voice, sms, chat, alexa, google-assistant, or slack. If not included the value will be null
- * @property taggedText - The text example of how end-users may express this task. The sample may contain Field tag blocks.
+ * @property language - An [ISO language-country string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) that specifies the language used for this sample. For example: `en-US`.
+ * @property sourceChannel - The communication channel from which the sample was captured. It can be: voice, sms, chat, alexa, google-assistant, or slack. If not included, the value will be `null`
+ * @property taggedText - The text example of how end-users may express this task. The sample may contain [Field tag blocks](https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging).
  */
 interface SampleInstanceUpdateOptions {
   language?: string;
@@ -62,7 +62,7 @@ interface SampleListInstance {
   /**
    * Constructs a sample
    *
-   * @param sid - The sid
+   * @param sid - A 34-character string that uniquely identifies this resource.
    */
   get(sid: string): SampleContext;
   /**
@@ -99,9 +99,9 @@ interface SampleListInstance {
 /**
  * Options to pass to create
  *
- * @property language - An ISO language-country string that specifies the language used for this sample. For example: en-US.
- * @property sourceChannel - The communication channel from which the sample was captured. It can be: voice, sms, chat, alexa, google-assistant, or slack. If not included the value will be null
- * @property taggedText - The text example of how end-users may express this task. The sample may contain Field tag blocks.
+ * @property language - An [ISO language-country string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) that specifies the language used for this sample. For example: `en-US`.
+ * @property sourceChannel - The communication channel from which the sample was captured. It can be: voice, sms, chat, alexa, google-assistant, or slack. If not included, the value will be `null`
+ * @property taggedText - The text example of how end-users may express this task. The sample may contain [Field tag blocks](https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging).
  */
 interface SampleListInstanceCreateOptions {
   language: string;
@@ -116,7 +116,7 @@ interface SampleListInstanceCreateOptions {
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
- * @property language - An ISO language-country string that specifies the language used for this sample. For example: en-US.
+ * @property language - An [ISO language-country string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) that specifies the language used for this sample. For example: `en-US`.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         each() guarantees never to return more than limit.
@@ -139,7 +139,7 @@ interface SampleListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property language - An ISO language-country string that specifies the language used for this sample. For example: en-US.
+ * @property language - An [ISO language-country string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) that specifies the language used for this sample. For example: `en-US`.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -160,7 +160,7 @@ interface SampleListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property language - An ISO language-country string that specifies the language used for this sample. For example: en-US.
+ * @property language - An [ISO language-country string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) that specifies the language used for this sample. For example: `en-US`.
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
@@ -199,9 +199,9 @@ declare class SampleContext {
    * Initialize the SampleContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param assistantSid - The assistant_sid
-   * @param taskSid - The task_sid
-   * @param sid - The sid
+   * @param assistantSid - The unique ID of the Assistant.
+   * @param taskSid - The unique ID of the Task associated with this Sample.
+   * @param sid - A 34-character string that uniquely identifies this resource.
    */
   constructor(version: V1, assistantSid: string, taskSid: string, sid: string);
 
@@ -235,18 +235,18 @@ declare class SampleInstance extends SerializableClass {
    * @property dateCreated - The date that this resource was created
    * @property dateUpdated - The date that this resource was last updated
    * @property taskSid - The unique ID of the Task associated with this Sample.
-   * @property language - An ISO language-country string that specifies the language used for this sample. For example: en-US.
+   * @property language - An [ISO language-country string](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) that specifies the language used for this sample. For example: `en-US`.
    * @property assistantSid - The unique ID of the Assistant.
-   * @property sid - A 34 character string that uniquely identifies this resource.
-   * @property taggedText - The text example of how end-users may express this task. The sample may contain Field tag blocks.
+   * @property sid - A 34-character string that uniquely identifies this resource.
+   * @property taggedText - The text example of how end-users may express this task. The sample may contain [Field tag blocks](https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging).
    * @property url - The url
-   * @property sourceChannel - The communication channel from which the sample was captured. It can be: voice, sms, chat, alexa, google-assistant, or slack. If not included the value will be null
+   * @property sourceChannel - The communication channel from which the sample was captured. It can be: voice, sms, chat, alexa, google-assistant, or slack. If not included, the value will be `null`
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param assistantSid - The unique ID of the Assistant.
    * @param taskSid - The unique ID of the Task associated with this Sample.
-   * @param sid - The sid
+   * @param sid - A 34-character string that uniquely identifies this resource.
    */
   constructor(version: V1, payload: SamplePayload, assistantSid: string, taskSid: string, sid: string);
 

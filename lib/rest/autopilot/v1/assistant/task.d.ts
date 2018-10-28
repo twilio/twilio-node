@@ -31,8 +31,8 @@ declare function TaskList(version: V1, assistantSid: string): TaskListInstance;
 /**
  * Options to pass to update
  *
- * @property actions - The actions
- * @property actionsUrl - The actions_url
+ * @property actions - A user-provided JSON object encoded as a string to specify the actions for this task. It is optional and non-unique.
+ * @property actionsUrl - User-provided HTTP endpoint where the assistant can fetch actions.
  * @property friendlyName - A user-provided string that identifies this resource. It is non-unique and can be up to 255 characters long.
  * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
  */
@@ -72,7 +72,7 @@ interface TaskListInstance {
   /**
    * Constructs a task
    *
-   * @param sid - The sid
+   * @param sid - A 34-character string that uniquely identifies this resource.
    */
   get(sid: string): TaskContext;
   /**
@@ -109,8 +109,8 @@ interface TaskListInstance {
 /**
  * Options to pass to create
  *
- * @property actions - The actions
- * @property actionsUrl - The actions_url
+ * @property actions - A user-provided JSON object encoded as a string to specify the actions for this task. It is optional and non-unique.
+ * @property actionsUrl - User-provided HTTP endpoint where the assistant can fetch actions.
  * @property friendlyName - A user-provided string that identifies this resource. It is non-unique and can be up to 255 characters long.
  * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
  */
@@ -209,8 +209,8 @@ declare class TaskContext {
    * @property statistics - statistics resource
    *
    * @param version - Version of the resource
-   * @param assistantSid - The assistant_sid
-   * @param sid - The sid
+   * @param assistantSid - The unique ID of the Assistant.
+   * @param sid - A 34-character string that uniquely identifies this resource.
    */
   constructor(version: V1, assistantSid: string, sid: string);
 
@@ -250,15 +250,15 @@ declare class TaskInstance extends SerializableClass {
    * @property friendlyName - A user-provided string that identifies this resource. It is non-unique and can be up to 255 characters long.
    * @property links - The links
    * @property assistantSid - The unique ID of the Assistant.
-   * @property sid - A 34 character string that uniquely identifies this resource.
+   * @property sid - A 34-character string that uniquely identifies this resource.
    * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
-   * @property actionsUrl - User-provided HTTP endpoint where the assistant can fetch actions.
+   * @property actionsUrl - A user-provided HTTP endpoint where the assistant can fetch actions.
    * @property url - The url
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param assistantSid - The unique ID of the Assistant.
-   * @param sid - The sid
+   * @param sid - A 34-character string that uniquely identifies this resource.
    */
   constructor(version: V1, payload: TaskPayload, assistantSid: string, sid: string);
 

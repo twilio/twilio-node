@@ -59,7 +59,7 @@ interface ModelBuildListInstance {
   /**
    * Constructs a model_build
    *
-   * @param sid - The sid
+   * @param sid - A 34-character string that uniquely identifies this resource.
    */
   get(sid: string): ModelBuildContext;
   /**
@@ -187,8 +187,8 @@ declare class ModelBuildContext {
    * Initialize the ModelBuildContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param assistantSid - The assistant_sid
-   * @param sid - The sid
+   * @param assistantSid - The unique ID of the parent Assistant.
+   * @param sid - A 34-character string that uniquely identifies this resource.
    */
   constructor(version: V1, assistantSid: string, sid: string);
 
@@ -222,7 +222,7 @@ declare class ModelBuildInstance extends SerializableClass {
    * @property dateCreated - The date that this resource was created
    * @property dateUpdated - The date that this resource was last updated
    * @property assistantSid - The unique ID of the parent Assistant.
-   * @property sid - A 34 character string that uniquely identifies this resource.
+   * @property sid - A 34-character string that uniquely identifies this resource.
    * @property status - A string that described the model build status. The values can be: `enqueued`, `building`, `completed`, `failed`
    * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
    * @property url - The url
@@ -232,7 +232,7 @@ declare class ModelBuildInstance extends SerializableClass {
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param assistantSid - The unique ID of the parent Assistant.
-   * @param sid - The sid
+   * @param sid - A 34-character string that uniquely identifies this resource.
    */
   constructor(version: V1, payload: ModelBuildPayload, assistantSid: string, sid: string);
 

@@ -15,7 +15,7 @@ import { SerializableClass } from '../../../../../interfaces';
  * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param assistantSid - The unique ID of the parent Assistant.
+ * @param assistantSid - The unique ID of the Assistant.
  * @param taskSid - The unique ID of the Task associated with this Field.
  */
 declare function TaskStatisticsList(version: V1, assistantSid: string, taskSid: string): TaskStatisticsListInstance;
@@ -54,8 +54,8 @@ declare class TaskStatisticsContext {
    * Initialize the TaskStatisticsContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param assistantSid - The assistant_sid
-   * @param taskSid - The task_sid
+   * @param assistantSid - The unique ID of the Assistant.
+   * @param taskSid - The unique ID of the Task associated with this Field.
    */
   constructor(version: V1, assistantSid: string, taskSid: string);
 
@@ -72,8 +72,8 @@ declare class TaskStatisticsInstance extends SerializableClass {
   /**
    * Initialize the TaskStatisticsContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
-   * @property accountSid - The unique ID of the Account that created this Field.
-   * @property assistantSid - The unique ID of the parent Assistant.
+   * @property accountSid - The unique ID of the Account that created this resource.
+   * @property assistantSid - The unique ID of the Assistant.
    * @property taskSid - The unique ID of the Task associated with this Field.
    * @property samplesCount - The total number of Samples associated with this Task.
    * @property fieldsCount - The total number of Fields associated with this Task.
@@ -81,7 +81,7 @@ declare class TaskStatisticsInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param assistantSid - The unique ID of the parent Assistant.
+   * @param assistantSid - The unique ID of the Assistant.
    * @param taskSid - The unique ID of the Task associated with this Field.
    */
   constructor(version: V1, payload: TaskStatisticsPayload, assistantSid: string, taskSid: string);

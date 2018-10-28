@@ -49,7 +49,7 @@ interface FieldValueListInstance {
   /**
    * Constructs a field_value
    *
-   * @param sid - The sid
+   * @param sid - A 34 character string that uniquely identifies this resource
    */
   get(sid: string): FieldValueContext;
   /**
@@ -186,9 +186,9 @@ declare class FieldValueContext {
    * Initialize the FieldValueContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param assistantSid - The assistant_sid
-   * @param fieldTypeSid - The field_type_sid
-   * @param sid - The sid
+   * @param assistantSid - The unique ID of the Assistant
+   * @param fieldTypeSid - The unique ID of the Field Type associated with this Field Value
+   * @param sid - A 34 character string that uniquely identifies this resource
    */
   constructor(version: V1, assistantSid: string, fieldTypeSid: string, sid: string);
 
@@ -226,7 +226,7 @@ declare class FieldValueInstance extends SerializableClass {
    * @param payload - The instance payload
    * @param assistantSid - The unique ID of the Assistant.
    * @param fieldTypeSid - The unique ID of the Field Type associated with this Field Value.
-   * @param sid - The sid
+   * @param sid - A 34 character string that uniquely identifies this resource
    */
   constructor(version: V1, payload: FieldValuePayload, assistantSid: string, fieldTypeSid: string, sid: string);
 

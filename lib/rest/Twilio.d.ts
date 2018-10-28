@@ -47,6 +47,7 @@ declare class Twilio {
   authy: Authy;
   autopilot: Autopilot;
   availablePhoneNumbers: (typeof Api.prototype.account.availablePhoneNumbers);
+  balance: (typeof Api.prototype.account.balance);
   calls: (typeof Api.prototype.account.calls);
   chat: Chat;
   conferences: (typeof Api.prototype.account.conferences);

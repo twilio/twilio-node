@@ -14,6 +14,7 @@ import { AddressListInstance } from './api/v2010/account/address';
 import { ApplicationListInstance } from './api/v2010/account/application';
 import { AuthorizedConnectAppListInstance } from './api/v2010/account/authorizedConnectApp';
 import { AvailablePhoneNumberCountryListInstance } from './api/v2010/account/availablePhoneNumber';
+import { BalanceListInstance } from './api/v2010/account/balance';
 import { CallListInstance } from './api/v2010/account/call';
 import { ConferenceListInstance } from './api/v2010/account/conference';
 import { ConnectAppListInstance } from './api/v2010/account/connectApp';
@@ -49,6 +50,7 @@ declare class Api extends Domain {
   readonly applications: ApplicationListInstance;
   readonly authorizedConnectApps: AuthorizedConnectAppListInstance;
   readonly availablePhoneNumbers: AvailablePhoneNumberCountryListInstance;
+  readonly balance: BalanceListInstance;
   readonly calls: CallListInstance;
   readonly conferences: ConferenceListInstance;
   readonly connectApps: ConnectAppListInstance;

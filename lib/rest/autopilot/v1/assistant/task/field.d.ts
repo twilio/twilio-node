@@ -15,7 +15,7 @@ import { SerializableClass } from '../../../../../interfaces';
  * PLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
  *
  * @param version - Version of the resource
- * @param assistantSid - The unique ID of the parent Assistant.
+ * @param assistantSid - The unique ID of the Assistant.
  * @param taskSid - The unique ID of the Task associated with this Field.
  */
 declare function FieldList(version: V1, assistantSid: string, taskSid: string): FieldListInstance;
@@ -49,7 +49,7 @@ interface FieldListInstance {
   /**
    * Constructs a field
    *
-   * @param sid - The sid
+   * @param sid - A 34-character string that uniquely identifies this resource.
    */
   get(sid: string): FieldContext;
   /**
@@ -86,7 +86,7 @@ interface FieldListInstance {
 /**
  * Options to pass to create
  *
- * @property fieldType - The unique name or sid of the FieldType. It can be any Built-in Field Type or the unique_name or sid of a custom Field Type.
+ * @property fieldType - The Field Type of this field. It can be either a Built-in Field Type or the unique_name or sid of a custom Field Type.
  * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
  */
 interface FieldListInstanceCreateOptions {
@@ -177,9 +177,9 @@ declare class FieldContext {
    * Initialize the FieldContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param assistantSid - The assistant_sid
-   * @param taskSid - The task_sid
-   * @param sid - The sid
+   * @param assistantSid - The unique ID of the Assistant.
+   * @param taskSid - The unique ID of the Task associated with this Field.
+   * @param sid - A 34-character string that uniquely identifies this resource.
    */
   constructor(version: V1, assistantSid: string, taskSid: string, sid: string);
 
@@ -205,18 +205,18 @@ declare class FieldInstance extends SerializableClass {
    * @property accountSid - The unique ID of the Account that created this Field.
    * @property dateCreated - The date that this resource was created
    * @property dateUpdated - The date that this resource was last updated
-   * @property fieldType - The Field Type of this field. It can be any Built-in Field Type or unique_name or the Field Type sid of a custom Field Type.
+   * @property fieldType - The Field Type of this field. It can be either a Built-in Field Type or the unique_name or sid of a custom Field Type.
    * @property taskSid - The unique ID of the Task associated with this Field.
-   * @property assistantSid - The unique ID of the parent Assistant.
-   * @property sid - A 34 character string that uniquely identifies this resource.
+   * @property assistantSid - The unique ID of the Assistant.
+   * @property sid - A 34-character string that uniquely identifies this resource.
    * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
    * @property url - The url
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param assistantSid - The unique ID of the parent Assistant.
+   * @param assistantSid - The unique ID of the Assistant.
    * @param taskSid - The unique ID of the Task associated with this Field.
-   * @param sid - The sid
+   * @param sid - A 34-character string that uniquely identifies this resource.
    */
   constructor(version: V1, payload: FieldPayload, assistantSid: string, taskSid: string, sid: string);
 

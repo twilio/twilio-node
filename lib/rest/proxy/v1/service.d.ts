@@ -32,6 +32,7 @@ declare function ServiceList(version: V1): ServiceListInstance;
  * Options to pass to update
  *
  * @property callbackUrl - URL Twilio will send callbacks to
+ * @property chatInstanceSid - The Chat Service Instance sid managed by Proxy Service
  * @property defaultTtl - Default TTL for Sessions in Service, in seconds.
  * @property geoMatchLevel - Whether proxy number selected must be in the same area code as the participant identifier.
  * @property interceptCallbackUrl - A URL for Twilio call before each Interaction.
@@ -41,6 +42,7 @@ declare function ServiceList(version: V1): ServiceListInstance;
  */
 interface ServiceInstanceUpdateOptions {
   callbackUrl?: string;
+  chatInstanceSid?: string;
   defaultTtl?: number;
   geoMatchLevel?: ServiceGeoMatchLevel;
   interceptCallbackUrl?: string;
@@ -116,6 +118,7 @@ interface ServiceListInstance {
  * Options to pass to create
  *
  * @property callbackUrl - URL Twilio will send callbacks to
+ * @property chatInstanceSid - The Chat Service Instance sid managed by Proxy Service
  * @property defaultTtl - Default TTL for Sessions in Service, in seconds.
  * @property geoMatchLevel - Whether proxy number selected must be in the same area code as the participant identifier.
  * @property interceptCallbackUrl - A URL for Twilio call before each Interaction.
@@ -125,6 +128,7 @@ interface ServiceListInstance {
  */
 interface ServiceListInstanceCreateOptions {
   callbackUrl?: string;
+  chatInstanceSid?: string;
   defaultTtl?: number;
   geoMatchLevel?: ServiceGeoMatchLevel;
   interceptCallbackUrl?: string;
@@ -196,6 +200,7 @@ interface ServicePayload extends ServiceResource, Page.TwilioResponsePayload {
 interface ServiceResource {
   account_sid: string;
   callback_url: string;
+  chat_instance_sid: string;
   date_created: Date;
   date_updated: Date;
   default_ttl: number;
@@ -258,6 +263,7 @@ declare class ServiceInstance extends SerializableClass {
    * @property sid - A string that uniquely identifies this Service.
    * @property uniqueName - A human-readable description of this resource.
    * @property accountSid - Account Sid.
+   * @property chatInstanceSid - The Chat Service Instance sid managed by Proxy Service
    * @property callbackUrl - URL Twilio will send callbacks to
    * @property defaultTtl - Default TTL for a Session, in seconds.
    * @property numberSelectionBehavior - What behavior to use when choosing a proxy number.
@@ -278,6 +284,7 @@ declare class ServiceInstance extends SerializableClass {
   private _proxy: ServiceContext;
   accountSid: string;
   callbackUrl: string;
+  chatInstanceSid: string;
   dateCreated: Date;
   dateUpdated: Date;
   defaultTtl: number;

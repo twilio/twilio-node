@@ -61,7 +61,7 @@ interface FieldTypeListInstance {
   /**
    * Constructs a field_type
    *
-   * @param sid - The sid
+   * @param sid - A 34-character string that uniquely identifies this resource.
    */
   get(sid: string): FieldTypeContext;
   /**
@@ -190,8 +190,8 @@ declare class FieldTypeContext {
    * @property fieldValues - fieldValues resource
    *
    * @param version - Version of the resource
-   * @param assistantSid - The assistant_sid
-   * @param sid - The sid
+   * @param assistantSid - The unique ID of the Assistant.
+   * @param sid - A 34-character string that uniquely identifies this resource.
    */
   constructor(version: V1, assistantSid: string, sid: string);
 
@@ -228,14 +228,14 @@ declare class FieldTypeInstance extends SerializableClass {
    * @property friendlyName - A user-provided string that identifies this resource. It is non-unique and can be up to 255 characters long.
    * @property links - The links
    * @property assistantSid - The unique ID of the Assistant.
-   * @property sid - A 34 character string that uniquely identifies this resource.
+   * @property sid - A 34-character string that uniquely identifies this resource.
    * @property uniqueName - A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
    * @property url - The url
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param assistantSid - The unique ID of the Assistant.
-   * @param sid - The sid
+   * @param sid - A 34-character string that uniquely identifies this resource.
    */
   constructor(version: V1, payload: FieldTypePayload, assistantSid: string, sid: string);
 

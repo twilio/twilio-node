@@ -14,6 +14,7 @@ import { AddressListInstance } from './v2010/account/address';
 import { ApplicationListInstance } from './v2010/account/application';
 import { AuthorizedConnectAppListInstance } from './v2010/account/authorizedConnectApp';
 import { AvailablePhoneNumberCountryListInstance } from './v2010/account/availablePhoneNumber';
+import { BalanceListInstance } from './v2010/account/balance';
 import { CallListInstance } from './v2010/account/call';
 import { ConferenceListInstance } from './v2010/account/conference';
 import { ConnectAppListInstance } from './v2010/account/connectApp';
@@ -45,6 +46,7 @@ declare class V2010 extends Version {
    * @property applications - applications resource
    * @property authorizedConnectApps - authorizedConnectApps resource
    * @property availablePhoneNumbers - availablePhoneNumbers resource
+   * @property balance - balance resource
    * @property calls - calls resource
    * @property conferences - conferences resource
    * @property connectApps - connectApps resource
@@ -75,6 +77,7 @@ declare class V2010 extends Version {
   readonly applications: ApplicationListInstance;
   readonly authorizedConnectApps: AuthorizedConnectAppListInstance;
   readonly availablePhoneNumbers: AvailablePhoneNumberCountryListInstance;
+  readonly balance: BalanceListInstance;
   readonly calls: CallListInstance;
   readonly conferences: ConferenceListInstance;
   readonly connectApps: ConnectAppListInstance;

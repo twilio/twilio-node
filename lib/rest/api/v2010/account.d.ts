@@ -16,6 +16,8 @@ import { AuthorizedConnectAppList } from './account/authorizedConnectApp';
 import { AuthorizedConnectAppListInstance } from './account/authorizedConnectApp';
 import { AvailablePhoneNumberCountryList } from './account/availablePhoneNumber';
 import { AvailablePhoneNumberCountryListInstance } from './account/availablePhoneNumber';
+import { BalanceList } from './account/balance';
+import { BalanceListInstance } from './account/balance';
 import { CallList } from './account/call';
 import { CallListInstance } from './account/call';
 import { ConferenceList } from './account/conference';
@@ -247,6 +249,7 @@ declare class AccountContext {
    * @property applications - applications resource
    * @property authorizedConnectApps - authorizedConnectApps resource
    * @property availablePhoneNumbers - availablePhoneNumbers resource
+   * @property balance - balance resource
    * @property calls - calls resource
    * @property conferences - conferences resource
    * @property connectApps - connectApps resource
@@ -276,6 +279,7 @@ declare class AccountContext {
   applications: ApplicationListInstance;
   authorizedConnectApps: AuthorizedConnectAppListInstance;
   availablePhoneNumbers: AvailablePhoneNumberCountryListInstance;
+  balance: BalanceListInstance;
   calls: CallListInstance;
   conferences: ConferenceListInstance;
   connectApps: ConnectAppListInstance;
@@ -350,6 +354,10 @@ declare class AccountInstance extends SerializableClass {
    * Access the availablePhoneNumbers
    */
   availablePhoneNumbers(): AvailablePhoneNumberCountryListInstance;
+  /**
+   * Access the balance
+   */
+  balance(): BalanceListInstance;
   /**
    * Access the calls
    */

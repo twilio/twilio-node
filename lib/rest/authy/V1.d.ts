@@ -17,8 +17,8 @@ declare class V1 extends Version {
   /**
    * Initialize the V1 version of Authy
    *
-   * @property services - services resource
    * @property forms - forms resource
+   * @property services - services resource
    *
    * @param domain - The twilio domain
    */

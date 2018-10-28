@@ -24,7 +24,7 @@ declare function TaskActionsList(version: V1, assistantSid: string, taskSid: str
 /**
  * Options to pass to update
  *
- * @property actions - The JSON actions that instruct the Assistant how to perform this task.
+ * @property actions - The JSON [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant how to perform this task.
  */
 interface TaskActionsInstanceUpdateOptions {
   actions?: string;
@@ -92,7 +92,7 @@ declare class TaskActionsInstance extends SerializableClass {
    * @property assistantSid - The unique ID of the parent Assistant.
    * @property taskSid - The unique ID of the Task.
    * @property url - The url
-   * @property data - The data
+   * @property data - The JSON [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant how to perform this task.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
