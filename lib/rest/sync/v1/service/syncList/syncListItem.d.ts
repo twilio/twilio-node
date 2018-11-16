@@ -28,11 +28,15 @@ declare function SyncListItemList(version: V1, serviceSid: string, listSid: stri
 /**
  * Options to pass to update
  *
+ * @property collectionTtl - Time-to-live of this item's parent List in seconds, defaults to no expiration.
  * @property data - Contains arbitrary user-defined, schema-less data that this List Item stores, represented by a JSON object, up to 16KB.
- * @property ttl - Time-to-live of this item in seconds, defaults to no expiration.
+ * @property itemTtl - Time-to-live of this item in seconds, defaults to no expiration.
+ * @property ttl - Alias for item_ttl
  */
 interface SyncListItemInstanceUpdateOptions {
+  collectionTtl?: number;
   data?: string;
+  itemTtl?: number;
   ttl?: number;
 }
 
@@ -102,11 +106,15 @@ interface SyncListItemListInstance {
 /**
  * Options to pass to create
  *
+ * @property collectionTtl - Time-to-live of this item's parent List in seconds, defaults to no expiration.
  * @property data - Contains arbitrary user-defined, schema-less data that this List Item stores, represented by a JSON object, up to 16KB.
- * @property ttl - Time-to-live of this item in seconds, defaults to no expiration.
+ * @property itemTtl - Time-to-live of this item in seconds, defaults to no expiration.
+ * @property ttl - Alias for item_ttl
  */
 interface SyncListItemListInstanceCreateOptions {
+  collectionTtl?: number;
   data: string;
+  itemTtl?: number;
   ttl?: number;
 }
 

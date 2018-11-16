@@ -72,7 +72,7 @@ describe('Query', function() {
                   'task_sid': 'UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'confidence': 0.9
               },
-              'entities': [
+              'fields': [
                   {
                       'name': 'name',
                       'value': 'value',
@@ -118,7 +118,7 @@ describe('Query', function() {
                           'task_sid': 'UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                           'confidence': 0.9
                       },
-                      'entities': [
+                      'fields': [
                           {
                               'name': 'name',
                               'value': 'value',
@@ -166,7 +166,7 @@ describe('Query', function() {
                           'task_sid': 'UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                           'confidence': 0.9
                       },
-                      'entities': [
+                      'fields': [
                           {
                               'name': 'name',
                               'value': 'value',
@@ -219,7 +219,7 @@ describe('Query', function() {
                           'task_sid': 'UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                           'confidence': 0.9
                       },
-                      'entities': [
+                      'fields': [
                           {
                               'name': 'name',
                               'value': 'value',
@@ -317,7 +317,7 @@ describe('Query', function() {
                           'task_sid': 'UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                           'confidence': 0.9
                       },
-                      'entities': [
+                      'fields': [
                           {
                               'name': 'name',
                               'value': 'value',
@@ -397,7 +397,7 @@ describe('Query', function() {
                   'task_sid': 'UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'confidence': 0.9
               },
-              'entities': [
+              'fields': [
                   {
                       'name': 'name',
                       'value': 'value',
@@ -467,7 +467,7 @@ describe('Query', function() {
                   'task_sid': 'UDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                   'confidence': 0.9
               },
-              'entities': [
+              'fields': [
                   {
                       'name': 'name',
                       'value': 'value',

@@ -28,11 +28,15 @@ declare function SyncMapItemList(version: V1, serviceSid: string, mapSid: string
 /**
  * Options to pass to update
  *
+ * @property collectionTtl - Time-to-live of this item's parent Map in seconds, defaults to no expiration.
  * @property data - Contains an arbitrary JSON object to be stored in this Map Item.
- * @property ttl - New time-to-live of this Map in seconds.
+ * @property itemTtl - Time-to-live of this item in seconds, defaults to no expiration.
+ * @property ttl - Alias for item_ttl
  */
 interface SyncMapItemInstanceUpdateOptions {
+  collectionTtl?: number;
   data?: string;
+  itemTtl?: number;
   ttl?: number;
 }
 
@@ -102,12 +106,16 @@ interface SyncMapItemListInstance {
 /**
  * Options to pass to create
  *
+ * @property collectionTtl - Time-to-live of this item's parent Map in seconds, defaults to no expiration.
  * @property data - Contains arbitrary user-defined, schema-less data that this Map Item stores, represented by a JSON object, up to 16KB.
+ * @property itemTtl - Time-to-live of this item in seconds, defaults to no expiration.
  * @property key - The unique user-defined key of this Map Item.
- * @property ttl - Time-to-live of this Map in seconds, defaults to no expiration.
+ * @property ttl - Alias for item_ttl
  */
 interface SyncMapItemListInstanceCreateOptions {
+  collectionTtl?: number;
   data: string;
+  itemTtl?: number;
   key: string;
   ttl?: number;
 }

@@ -26,9 +26,11 @@ declare function SyncListList(version: V1, serviceSid: string): SyncListListInst
 /**
  * Options to pass to update
  *
- * @property ttl - Time-to-live of this List in seconds, defaults to no expiration.
+ * @property collectionTtl - Time-to-live of this List in seconds, defaults to no expiration.
+ * @property ttl - Alias for collection_ttl
  */
 interface SyncListInstanceUpdateOptions {
+  collectionTtl?: number;
   ttl?: number;
 }
 
@@ -98,10 +100,12 @@ interface SyncListListInstance {
 /**
  * Options to pass to create
  *
- * @property ttl - Time-to-live of this List in seconds, defaults to no expiration.
+ * @property collectionTtl - Time-to-live of this List in seconds, defaults to no expiration.
+ * @property ttl - Alias for collection_ttl
  * @property uniqueName - Human-readable name for this list
  */
 interface SyncListListInstanceCreateOptions {
+  collectionTtl?: number;
   ttl?: number;
   uniqueName?: string;
 }

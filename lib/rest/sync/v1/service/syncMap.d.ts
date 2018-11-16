@@ -26,9 +26,11 @@ declare function SyncMapList(version: V1, serviceSid: string): SyncMapListInstan
 /**
  * Options to pass to update
  *
- * @property ttl - New time-to-live of this Map in seconds.
+ * @property collectionTtl - New time-to-live of this Map in seconds.
+ * @property ttl - Alias for collection_ttl
  */
 interface SyncMapInstanceUpdateOptions {
+  collectionTtl?: number;
   ttl?: number;
 }
 
@@ -98,10 +100,12 @@ interface SyncMapListInstance {
 /**
  * Options to pass to create
  *
- * @property ttl - Time-to-live of this Map in seconds, defaults to no expiration.
+ * @property collectionTtl - Time-to-live of this Map in seconds, defaults to no expiration.
+ * @property ttl - Alias for collection_ttl
  * @property uniqueName - Human-readable name for this map
  */
 interface SyncMapListInstanceCreateOptions {
+  collectionTtl?: number;
   ttl?: number;
   uniqueName?: string;
 }

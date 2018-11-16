@@ -203,9 +203,9 @@ declare namespace VoiceResponse {
 
   type PayTokenType = 'one-time'|'reusable';
 
-  type PayValidCardTypes = 'visa'|'master-card'|'amex'|'maestro'|'discover'|'optima'|'jcb'|'diners-club'|'enroute';
+  type PayValidCardTypes = 'visa'|'mastercard'|'amex'|'maestro'|'discover'|'optima'|'jcb'|'diners-club'|'enroute';
 
-  type PromptCardType = 'visa'|'master-card'|'amex'|'maestro'|'discover'|'optima'|'jcb'|'diners-club'|'enroute';
+  type PromptCardType = 'visa'|'mastercard'|'amex'|'maestro'|'discover'|'optima'|'jcb'|'diners-club'|'enroute';
 
   type PromptErrorType = 'timeout'|'invalid-card-number'|'invalid-card-type'|'invalid-date'|'invalid-security-code'|'internal-error';
 
@@ -435,7 +435,6 @@ declare namespace VoiceResponse {
    *
    * @property action - Action URL
    * @property chargeAmount - Amount to process. If value is greater than 0 then make the payment else create a payment token
-   * @property credentialSid - SID for API keys to communicate with payment provider
    * @property currency - Currency of the amount attribute
    * @property description - Details regarding the payment
    * @property input - Input type Twilio should accept
@@ -453,7 +452,6 @@ declare namespace VoiceResponse {
   export interface PayAttributes {
     action?: string;
     chargeAmount?: string;
-    credentialSid?: string;
     currency?: PayCurrency;
     description?: string;
     input?: PayInput;
