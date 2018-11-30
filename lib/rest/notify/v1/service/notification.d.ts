@@ -56,16 +56,20 @@ interface NotificationListInstance {
 interface NotificationListInstanceCreateOptions {
   action?: string;
   alexa?: string;
-  apn?: string;
+
+  //Possibly include interface for APN payload: 
+  //https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CreatingtheNotificationPayload.html#//apple_ref/doc/uid/TP40008194-CH10-SW1
+  apn?: object;
+
   body?: string;
-  data?: string;
-  facebookMessenger?: string;
-  fcm?: string;
-  gcm?: string;
+  data?: object;
+  facebookMessenger?: object;
+  fcm?: object;
+  gcm?: object;
   identity?: string[];
   priority?: NotificationPriority;
   segment?: string[];
-  sms?: string;
+  sms?: object;
   sound?: string;
   tag?: string[];
   title?: string;
@@ -80,7 +84,7 @@ interface NotificationResource {
   account_sid: string;
   action: string;
   alexa: string;
-  apn: string;
+  apn: object;
   body: string;
   data: string;
   date_created: Date;
