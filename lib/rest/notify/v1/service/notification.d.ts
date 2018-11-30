@@ -86,19 +86,19 @@ interface NotificationResource {
   alexa: string;
   apn: object;
   body: string;
-  data: string;
+  data: object;
   date_created: Date;
-  facebook_messenger: string;
-  fcm: string;
-  gcm: string;
-  identities: string;
+  facebook_messenger: object;
+  fcm: object;
+  gcm: object;
+  identities: string[];
   priority: NotificationPriority;
-  segments: string;
+  segments: string[];
   service_sid: string;
   sid: string;
-  sms: string;
+  sms: object;
   sound: string;
-  tags: string;
+  tags: string[];
   title: string;
   ttl: number;
 }
@@ -142,21 +142,21 @@ declare class NotificationInstance extends SerializableClass {
   accountSid: string;
   action: string;
   alexa: string;
-  apn: string;
+  apn: object;
   body: string;
-  data: string;
+  data: object;
   dateCreated: Date;
-  facebookMessenger: string;
-  fcm: string;
-  gcm: string;
-  identities: string;
+  facebookMessenger: object;
+  fcm: object;
+  gcm: object;
+  identities: string[];
   priority: NotificationPriority;
-  segments: string;
+  segments: string[];
   serviceSid: string;
   sid: string;
-  sms: string;
+  sms: object;
   sound: string;
-  tags: string;
+  tags: string[];
   title: string;
   /**
    * Produce a plain JSON object version of the NotificationInstance for serialization.
