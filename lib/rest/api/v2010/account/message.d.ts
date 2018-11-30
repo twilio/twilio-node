@@ -112,6 +112,7 @@ interface MessageListInstance {
  * @property contentRetention - The content_retention
  * @property forceDelivery - The force_delivery
  * @property from - The phone number that initiated the message
+ * @property interactiveData - JSON string representing interactive data message.
  * @property maxPrice - The total maximum price up to the fourth decimal in US dollars acceptable for the message to be delivered.
  * @property maxRate - The max_rate
  * @property mediaUrl - The URL of the media you wish to send out with the message.
@@ -130,6 +131,7 @@ interface MessageListInstanceCreateOptions {
   contentRetention?: MessageContentRetention;
   forceDelivery?: boolean;
   from?: string;
+  interactiveData?: string;
   maxPrice?: number;
   maxRate?: string;
   mediaUrl?: string[];

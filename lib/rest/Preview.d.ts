@@ -6,7 +6,6 @@
  */
 
 import AccSecurity = require('./preview/AccSecurity');
-import Authy = require('./preview/Authy');
 import BulkExports = require('./preview/BulkExports');
 import DeployedDevices = require('./preview/DeployedDevices');
 import Domain = require('../base/Domain');
@@ -41,7 +40,6 @@ declare class Preview extends Domain {
   readonly acc_security: AccSecurity;
   readonly assistants: AssistantListInstance;
   readonly authorizationDocuments: AuthorizationDocumentListInstance;
-  readonly authy: Authy;
   readonly availableAddOns: AvailableAddOnListInstance;
   readonly bulk_exports: BulkExports;
   readonly commands: CommandListInstance;

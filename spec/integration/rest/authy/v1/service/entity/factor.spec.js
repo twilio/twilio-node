@@ -34,7 +34,7 @@ describe('Factor', function() {
     function() {
       holodeck.mock(new Response(500, '{}'));
 
-      var opts = {binding: 'binding', factorType: 'factorType', friendlyName: 'friendlyName'};
+      var opts = {binding: 'binding', friendlyName: 'friendlyName', type: 'app-push'};
       var promise = client.authy.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .entities('identity')
                                    .factors.create(opts);
@@ -48,7 +48,7 @@ describe('Factor', function() {
       var solution = {serviceSid: 'ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', identity: 'identity'};
       var url = _.template('https://authy.twilio.com/v1/Services/<%= serviceSid %>/Entities/<%= identity %>/Factors')(solution);
 
-      var values = {Binding: 'binding', FactorType: 'factorType', FriendlyName: 'friendlyName', };
+      var values = {Binding: 'binding', FriendlyName: 'friendlyName', Type: 'app-push', };
       holodeck.assertHasRequest(new Request({
           method: 'POST',
           url: url,
@@ -77,7 +77,7 @@ describe('Factor', function() {
 
       holodeck.mock(new Response(201, body));
 
-      var opts = {binding: 'binding', factorType: 'factorType', friendlyName: 'friendlyName'};
+      var opts = {binding: 'binding', friendlyName: 'friendlyName', type: 'app-push'};
       var promise = client.authy.v1.services('ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
                                    .entities('identity')
                                    .factors.create(opts);

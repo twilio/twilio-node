@@ -25,6 +25,7 @@ declare function MemberList(version: V2, serviceSid: string, channelSid: string)
 /**
  * Options to pass to update
  *
+ * @property attributes - An optional string metadata field you can use to store any data you wish.
  * @property dateCreated - The ISO8601 time specifying the datetime the Members should be set as being created.
  * @property dateUpdated - The ISO8601 time specifying the datetime the Member should be set as having been last updated.
  * @property lastConsumedMessageIndex - Field used to specify the last consumed Message index for the Channel for this Member.
@@ -32,6 +33,7 @@ declare function MemberList(version: V2, serviceSid: string, channelSid: string)
  * @property roleSid - The role to be assigned to this member.
  */
 interface MemberInstanceUpdateOptions {
+  attributes?: string;
   dateCreated?: Date;
   dateUpdated?: Date;
   lastConsumedMessageIndex?: number;
@@ -105,6 +107,7 @@ interface MemberListInstance {
 /**
  * Options to pass to create
  *
+ * @property attributes - An optional string metadata field you can use to store any data you wish.
  * @property dateCreated - The ISO8601 time specifying the datetime the Members should be set as being created.  Will be set to the current time by the Chat service if not specified.  Note that this should only be used in cases where a Member is being recreated from a backup/separate source
  * @property dateUpdated - The ISO8601 time specifying the datetime the Member should be set as having been last updated.  Will be set to the null by the Chat service if not specified.  Note that this should only be used in cases where a Member is being recreated from a backup/separate source  and where a Member was previously updated.
  * @property identity - A unique string identifier for this User in this Service. See the access tokens docs for more details.
@@ -113,6 +116,7 @@ interface MemberListInstance {
  * @property roleSid - The role to be assigned to this member. Defaults to the roles specified on the Service.
  */
 interface MemberListInstanceCreateOptions {
+  attributes?: string;
   dateCreated?: Date;
   dateUpdated?: Date;
   identity: string;
@@ -189,6 +193,7 @@ interface MemberPayload extends MemberResource, Page.TwilioResponsePayload {
 
 interface MemberResource {
   account_sid: string;
+  attributes: string;
   channel_sid: string;
   date_created: Date;
   date_updated: Date;
@@ -255,6 +260,7 @@ declare class MemberInstance extends SerializableClass {
    * @property lastConsumedMessageIndex - An Integer representing index of the last Message this Member has read within this Channel
    * @property lastConsumptionTimestamp - An ISO8601 based timestamp string representing the datetime of the last Message read event for this Member within this Channel
    * @property url - An absolute URL for this member.
+   * @property attributes - An optional string metadata field you can use to store any data you wish.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
@@ -266,6 +272,7 @@ declare class MemberInstance extends SerializableClass {
 
   private _proxy: MemberContext;
   accountSid: string;
+  attributes: string;
   channelSid: string;
   dateCreated: Date;
   dateUpdated: Date;

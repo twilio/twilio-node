@@ -11,9 +11,11 @@ import V1 = require('../../../../V1');
 import serialize = require('../../../../../../base/serialize');
 import { SerializableClass } from '../../../../../../interfaces';
 
-type ChallengeChallengeReason = 'none'|'not_needed'|'not_requested';
+type ChallengeChallengeReasons = 'none'|'not_needed'|'not_requested';
 
-type ChallengeChallengeStatus = 'pending'|'expired'|'approved'|'denied';
+type ChallengeChallengeStatuses = 'pending'|'expired'|'approved'|'denied';
+
+type ChallengeFactorTypes = 'app-push'|'sms'|'totp';
 
 /**
  * @description Initialize the ChallengeList
@@ -82,13 +84,12 @@ interface ChallengeResource {
   factor_sid: string;
   hidden_details: string;
   identity: string;
-  reason: ChallengeChallengeReason;
+  responded_reason: ChallengeChallengeReasons;
   service_sid: string;
   sid: string;
-  status: ChallengeChallengeStatus;
-  type: string;
+  status: ChallengeChallengeStatuses;
+  type: ChallengeFactorTypes;
   url: string;
-  verification_sid: string;
 }
 
 interface ChallengeSolution {
@@ -146,12 +147,11 @@ declare class ChallengeInstance extends SerializableClass {
    * @property dateUpdated - The date this Challenge was updated
    * @property dateResponded - The date this Challenge was responded
    * @property expirationDate - The date this Challenge is expired
-   * @property verificationSid - Verification Sid.
    * @property status - The Status of this Challenge
-   * @property reason - The Reason of this Challenge `status`
+   * @property respondedReason - The Reason of this Challenge `status`
    * @property details - Public details provided to contextualize the Challenge
    * @property hiddenDetails - Hidden details provided to contextualize the Challenge
-   * @property type - The Factor Type of this Challenge
+   * @property type - The Type of this Challenge
    * @property url - The URL of this resource.
    *
    * @param version - Version of the resource
@@ -180,22 +180,22 @@ declare class ChallengeInstance extends SerializableClass {
   fetch(callback?: (error: Error | null, items: ChallengeInstance) => any): void;
   hiddenDetails: string;
   identity: string;
-  reason: ChallengeChallengeReason;
   /**
    * remove a ChallengeInstance
    *
    * @param callback - Callback to handle processed record
    */
   remove(callback?: (error: Error | null, items: ChallengeInstance) => any): void;
+  respondedReason: ChallengeChallengeReasons;
   serviceSid: string;
   sid: string;
-  status: ChallengeChallengeStatus;
+  status: ChallengeChallengeStatuses;
   /**
    * Produce a plain JSON object version of the ChallengeInstance for serialization.
    * Removes any circular references in the object.
    */
   toJSON(): any;
-  type: string;
+  type: ChallengeFactorTypes;
   /**
    * update a ChallengeInstance
    *
@@ -204,7 +204,6 @@ declare class ChallengeInstance extends SerializableClass {
    */
   update(opts?: ChallengeInstanceUpdateOptions, callback?: (error: Error | null, items: ChallengeInstance) => any): void;
   url: string;
-  verificationSid: string;
 }
 
 

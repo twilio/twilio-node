@@ -10,7 +10,7 @@ import Response = require('../../../http/response');
 import V1 = require('../V1');
 import { SerializableClass } from '../../../interfaces';
 
-type FormFormType = 'form-app-push'|'form-sms'|'form-totp';
+type FormFormTypes = 'form-app-push'|'form-sms'|'form-totp';
 
 /**
  * @description Initialize the FormList
@@ -28,9 +28,9 @@ interface FormListInstance {
   /**
    * Constructs a form
    *
-   * @param formType - The Form Type of this Form
+   * @param type - The Type of this Form
    */
-  get(formType: string): FormContext;
+  get(type: string): FormContext;
 }
 
 interface FormPayload extends FormResource, Page.TwilioResponsePayload {
@@ -38,8 +38,8 @@ interface FormPayload extends FormResource, Page.TwilioResponsePayload {
 
 interface FormResource {
   form_meta: string;
-  form_type: FormFormType;
   forms: string;
+  type: FormFormTypes;
   url: string;
 }
 
@@ -52,9 +52,9 @@ declare class FormContext {
    * Initialize the FormContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param formType - The Form Type of this Form
+   * @param type - The Type of this Form
    */
-  constructor(version: V1, formType: FormFormType);
+  constructor(version: V1, type: FormFormTypes);
 
   /**
    * fetch a FormInstance
@@ -69,16 +69,16 @@ declare class FormInstance extends SerializableClass {
   /**
    * Initialize the FormContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
-   * @property formType - The Form Type of this Form
-   * @property forms - Object that contains the available forms for this form type.
-   * @property formMeta - Additional information for the available forms for this form type.
-   * @property url - The URL to access the forms for this form type.
+   * @property type - The Type of this Form
+   * @property forms - Object that contains the available forms for this type.
+   * @property formMeta - Additional information for the available forms for this type.
+   * @property url - The URL to access the forms for this type.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param formType - The Form Type of this Form
+   * @param type - The Type of this Form
    */
-  constructor(version: V1, payload: FormPayload, formType: FormFormType);
+  constructor(version: V1, payload: FormPayload, type: FormFormTypes);
 
   private _proxy: FormContext;
   /**
@@ -88,13 +88,13 @@ declare class FormInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: FormInstance) => any): void;
   formMeta: string;
-  formType: FormFormType;
   forms: string;
   /**
    * Produce a plain JSON object version of the FormInstance for serialization.
    * Removes any circular references in the object.
    */
   toJSON(): any;
+  type: FormFormTypes;
   url: string;
 }
 

@@ -35,6 +35,7 @@ interface VerificationListInstance {
  * Options to pass to create
  *
  * @property channel - sms or call
+ * @property customCode - A pre-generated code
  * @property customMessage - A custom message for this verification
  * @property locale - Locale used in the sms or call.
  * @property sendDigits - Digits to send when a phone call is started
@@ -42,6 +43,7 @@ interface VerificationListInstance {
  */
 interface VerificationListInstanceCreateOptions {
   channel: string;
+  customCode?: string;
   customMessage?: string;
   locale?: string;
   sendDigits?: string;

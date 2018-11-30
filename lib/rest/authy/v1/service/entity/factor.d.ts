@@ -12,7 +12,9 @@ import { ChallengeList } from './factor/challenge';
 import { ChallengeListInstance } from './factor/challenge';
 import { SerializableClass } from '../../../../../interfaces';
 
-type FactorFactorStatus = 'unverified'|'verified';
+type FactorFactorStatuses = 'unverified'|'verified';
+
+type FactorFactorTypes = 'app-push'|'sms'|'totp';
 
 /**
  * @description Initialize the FactorList
@@ -100,15 +102,13 @@ interface FactorListInstance {
  * Options to pass to create
  *
  * @property binding - A unique binding for this Factor
- * @property config - Factor configuration
- * @property factorType - The Type of this Factor
  * @property friendlyName - The friendly name of this Factor
+ * @property type - The Type of this Factor
  */
 interface FactorListInstanceCreateOptions {
   binding: string;
-  config?: string;
-  factorType: string;
   friendlyName: string;
+  type: FactorFactorTypes;
 }
 
 /**
@@ -181,8 +181,8 @@ interface FactorResource {
   links: string;
   service_sid: string;
   sid: string;
-  status: FactorFactorStatus;
-  type: string;
+  status: FactorFactorStatuses;
+  type: FactorFactorTypes;
   url: string;
 }
 
@@ -279,13 +279,13 @@ declare class FactorInstance extends SerializableClass {
   remove(callback?: (error: Error | null, items: FactorInstance) => any): void;
   serviceSid: string;
   sid: string;
-  status: FactorFactorStatus;
+  status: FactorFactorStatuses;
   /**
    * Produce a plain JSON object version of the FactorInstance for serialization.
    * Removes any circular references in the object.
    */
   toJSON(): any;
-  type: string;
+  type: FactorFactorTypes;
   /**
    * update a FactorInstance
    *
