@@ -10,6 +10,8 @@ A node.js Twilio helper library.
 
 This library works with node versions 6, 8 and above.
 
+TypeScript is supported for TypeScript version 2.9 and above.
+
 ## Unreleased Features
 
 Some Twilio features that are exposed in this library are in Beta or Developer
