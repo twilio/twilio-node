@@ -28,10 +28,10 @@
   },
   "devDependencies": {
     "express": "3.x",
-    "jasmine-node": "2.0.0"
+    "jest": "^23.6.0"
   },
   "scripts": {
-    "test": "jasmine-node --captureExceptions spec"
+    "test": "jest spec"
   },
   "main": "./lib",
   "engines": {
