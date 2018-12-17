@@ -52,7 +52,7 @@
     "check": "npm run jshint && npm run jscs",
     "ci": "npm test && npm run nsp",
     "jsdoc": "jsdoc -r lib -d docs",
-    "nsp": "npm audit"
+    "nsp": "if [ `npm --version | cut -d'.' -f1` -ge \"6\" ]; then npm audit; else echo \"npm audit is not available for npm < 6.0\"; fi"
   },
   "files": [
     "lib",
