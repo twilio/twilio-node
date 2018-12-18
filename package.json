@@ -34,26 +34,25 @@
   "devDependencies": {
     "@types/lodash": "^4.14.104",
     "@types/node": "^9.4.6",
+    "eslint": "^5.10.0",
     "express": "^4.16.3",
-    "jasmine-node": "^1.14.5",
-    "jscs": "3.0.7",
+    "jasmine": "^3.3.1",
     "jsdoc": "3.5.5",
-    "jshint": "^2.8.0",
+    "jshint": "^2.9.7",
     "node-mocks-http": "^1.7.0",
-    "nsp": "^3.2.1",
     "proxyquire": "1.8.0",
     "typescript": "^2.8.3"
   },
   "scripts": {
     "test": "npm run test:javascript && npm run test:typescript",
-    "test:javascript": "jasmine-node --captureExceptions spec",
+    "test:javascript": "jasmine spec/**/**.spec.js",
     "test:typescript": "tsc examples/typescript/example.ts --noEmit --strict",
     "jshint": "jshint lib/rest/** lib/base/** lib/http/**",
-    "jscs": "jscs -c .jscsrc lib/base/** lib/http/** --fix",
+    "jscs": "eslint lib/base/**/**.js lib/http/**/**.js --fix",
     "check": "npm run jshint && npm run jscs",
     "ci": "npm test && npm run nsp",
     "jsdoc": "jsdoc -r lib -d docs",
-    "nsp": "nsp check"
+    "nsp": "if [ `npm --version | cut -d'.' -f1` -ge \"6\" ]; then npm audit; else echo \"npm audit is not available for npm < 6.0\"; fi"
   },
   "files": [
     "lib",
