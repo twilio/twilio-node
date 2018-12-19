@@ -14,7 +14,7 @@ import { SerializableClass } from '../../../../../../interfaces';
  * @description Initialize the IpAccessControlListMappingList
  *
  * @param version - Version of the resource
- * @param accountSid - The unique id of the Account that responsible for this resource.
+ * @param accountSid - The unique id of the Account that is responsible for this resource.
  * @param domainSid - A string that uniquely identifies the SIP Domain
  */
 declare function IpAccessControlListMappingList(version: V2010, accountSid: string, domainSid: string): IpAccessControlListMappingListInstance;
@@ -48,7 +48,7 @@ interface IpAccessControlListMappingListInstance {
   /**
    * Constructs a ip_access_control_list_mapping
    *
-   * @param sid - The sid
+   * @param sid - A 34 character string that uniquely identifies the resource to fetch.
    */
   get(sid: string): IpAccessControlListMappingContext;
   /**
@@ -85,7 +85,7 @@ interface IpAccessControlListMappingListInstance {
 /**
  * Options to pass to create
  *
- * @property ipAccessControlListSid - The ip_access_control_list_sid
+ * @property ipAccessControlListSid - The unique id of the IP access control list to map to the SIP domain
  */
 interface IpAccessControlListMappingListInstanceCreateOptions {
   ipAccessControlListSid: string;
@@ -172,9 +172,9 @@ declare class IpAccessControlListMappingContext {
    * Initialize the IpAccessControlListMappingContext
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param domainSid - The domain_sid
-   * @param sid - The sid
+   * @param accountSid - The unique id of the Account that is responsible for this resource.
+   * @param domainSid - A string that uniquely identifies the SIP Domain
+   * @param sid - A 34 character string that uniquely identifies the resource to fetch.
    */
   constructor(version: V2010, accountSid: string, domainSid: string, sid: string);
 
@@ -197,19 +197,19 @@ declare class IpAccessControlListMappingInstance extends SerializableClass {
   /**
    * Initialize the IpAccessControlListMappingContext
    *
-   * @property accountSid - The unique id of the Account that responsible for this resource.
+   * @property accountSid - The unique id of the Account that is responsible for this resource.
    * @property dateCreated - The date that this resource was created, given as GMT in RFC 2822 format.
    * @property dateUpdated - The date that this resource was last updated, given as GMT in RFC 2822 format.
    * @property friendlyName - A human readable descriptive text for this resource, up to 64 characters long.
    * @property sid - A 34 character string that uniquely identifies this resource.
    * @property uri - The URI for this resource, relative to https://api.twilio.com
-   * @property subresourceUris - The subresource_uris
+   * @property subresourceUris - The list of IP addresses associated with this domain.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The unique id of the Account that responsible for this resource.
+   * @param accountSid - The unique id of the Account that is responsible for this resource.
    * @param domainSid - A string that uniquely identifies the SIP Domain
-   * @param sid - The sid
+   * @param sid - A 34 character string that uniquely identifies the resource to fetch.
    */
   constructor(version: V2010, payload: IpAccessControlListMappingPayload, accountSid: string, domainSid: string, sid: string);
 

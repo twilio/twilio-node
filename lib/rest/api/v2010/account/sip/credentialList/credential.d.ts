@@ -14,15 +14,15 @@ import { SerializableClass } from '../../../../../../interfaces';
  * @description Initialize the CredentialList
  *
  * @param version - Version of the resource
- * @param accountSid - The unique id of the Account that responsible for this resource.
- * @param credentialListSid - The credential_list_sid
+ * @param accountSid - The unique id of the Account that is responsible for this resource.
+ * @param credentialListSid - The unique id that identifies the credential list that includes this credential
  */
 declare function CredentialList(version: V2010, accountSid: string, credentialListSid: string): CredentialListInstance;
 
 /**
  * Options to pass to update
  *
- * @property password - The password will not be returned in the response.
+ * @property password - The password will not be returned in the response
  */
 interface CredentialInstanceUpdateOptions {
   password?: string;
@@ -57,7 +57,7 @@ interface CredentialListInstance {
   /**
    * Constructs a credential
    *
-   * @param sid - The sid
+   * @param sid - The unique id that identifies the resource to fetch.
    */
   get(sid: string): CredentialContext;
   /**
@@ -183,9 +183,9 @@ declare class CredentialContext {
    * Initialize the CredentialContext
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param credentialListSid - The credential_list_sid
-   * @param sid - The sid
+   * @param accountSid - The unique id of the Account that is responsible for this resource.
+   * @param credentialListSid - The unique id that identifies the credential list that contains the desired credential
+   * @param sid - The unique id that identifies the resource to fetch.
    */
   constructor(version: V2010, accountSid: string, credentialListSid: string, sid: string);
 
@@ -216,8 +216,8 @@ declare class CredentialInstance extends SerializableClass {
    * Initialize the CredentialContext
    *
    * @property sid - A 34 character string that uniquely identifies this resource.
-   * @property accountSid - The unique id of the Account that responsible for this resource.
-   * @property credentialListSid - The credential_list_sid
+   * @property accountSid - The unique id of the Account that is responsible for this resource.
+   * @property credentialListSid - The unique id that identifies the credential list that includes this credential
    * @property username - The username for this credential.
    * @property dateCreated - The date that this resource was created, given as GMT in RFC 2822 format.
    * @property dateUpdated - The date that this resource was last updated, given as GMT in RFC 2822 format.
@@ -225,9 +225,9 @@ declare class CredentialInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The unique id of the Account that responsible for this resource.
-   * @param credentialListSid - The credential_list_sid
-   * @param sid - The sid
+   * @param accountSid - The unique id of the Account that is responsible for this resource.
+   * @param credentialListSid - The unique id that identifies the credential list that includes this credential
+   * @param sid - The unique id that identifies the resource to fetch.
    */
   constructor(version: V2010, payload: CredentialPayload, accountSid: string, credentialListSid: string, sid: string);
 

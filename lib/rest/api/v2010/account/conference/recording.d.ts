@@ -13,7 +13,7 @@ import { SerializableClass } from '../../../../../interfaces';
 
 type RecordingSource = 'DialVerb'|'Conference'|'OutboundAPI'|'Trunking'|'RecordVerb'|'StartCallRecordingAPI'|'StartConferenceRecordingAPI';
 
-type RecordingStatus = 'in-progress'|'paused'|'stopped'|'processing'|'completed'|'failed';
+type RecordingStatus = 'in-progress'|'paused'|'stopped'|'processing'|'completed'|'absent';
 
 /**
  * @description Initialize the RecordingList
@@ -246,7 +246,7 @@ declare class RecordingInstance extends SerializableClass {
    * @property status - The status of the recording.
    * @property channels - The number of channels in the final recording file as an integer.
    * @property source - The way in which this recording was created.
-   * @property errorCode - More information about the recording failure, if Status is failed.
+   * @property errorCode - More information about why the recording is missing, if Status is `absent`.
    * @property encryptionDetails - Details for how to decrypt the recording.
    * @property uri - The URI for this resource
    *

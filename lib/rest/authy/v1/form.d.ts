@@ -28,9 +28,9 @@ interface FormListInstance {
   /**
    * Constructs a form
    *
-   * @param type - The Type of this Form
+   * @param formType - The Type of this Form
    */
-  get(type: string): FormContext;
+  get(formType: string): FormContext;
 }
 
 interface FormPayload extends FormResource, Page.TwilioResponsePayload {
@@ -38,8 +38,8 @@ interface FormPayload extends FormResource, Page.TwilioResponsePayload {
 
 interface FormResource {
   form_meta: string;
+  form_type: FormFormTypes;
   forms: string;
-  type: FormFormTypes;
   url: string;
 }
 
@@ -52,9 +52,9 @@ declare class FormContext {
    * Initialize the FormContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
    * @param version - Version of the resource
-   * @param type - The Type of this Form
+   * @param formType - The Type of this Form
    */
-  constructor(version: V1, type: FormFormTypes);
+  constructor(version: V1, formType: FormFormTypes);
 
   /**
    * fetch a FormInstance
@@ -69,16 +69,16 @@ declare class FormInstance extends SerializableClass {
   /**
    * Initialize the FormContextPLEASE NOTE that this class contains preview products that are subject to change. Use them with caution. If you currently do not have developer preview access, please contact help@twilio.com.
    *
-   * @property type - The Type of this Form
+   * @property formType - The Type of this Form
    * @property forms - Object that contains the available forms for this type.
    * @property formMeta - Additional information for the available forms for this type.
    * @property url - The URL to access the forms for this type.
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param type - The Type of this Form
+   * @param formType - The Type of this Form
    */
-  constructor(version: V1, payload: FormPayload, type: FormFormTypes);
+  constructor(version: V1, payload: FormPayload, formType: FormFormTypes);
 
   private _proxy: FormContext;
   /**
@@ -88,13 +88,13 @@ declare class FormInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: FormInstance) => any): void;
   formMeta: string;
+  formType: FormFormTypes;
   forms: string;
   /**
    * Produce a plain JSON object version of the FormInstance for serialization.
    * Removes any circular references in the object.
    */
   toJSON(): any;
-  type: FormFormTypes;
   url: string;
 }
 

@@ -427,4 +427,41 @@ describe('Command', function() {
       promise.done();
     }
   );
+  it('should generate valid remove request',
+    function() {
+      holodeck.mock(new Response(500, '{}'));
+
+      var promise = client.wireless.v1.commands('DCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
+      promise = promise.then(function() {
+        throw new Error('failed');
+      }, function(error) {
+        expect(error.constructor).toBe(RestException.prototype.constructor);
+      });
+      promise.done();
+
+      var solution = {sid: 'DCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'};
+      var url = _.template('https://wireless.twilio.com/v1/Commands/<%= sid %>')(solution);
+
+      holodeck.assertHasRequest(new Request({
+        method: 'DELETE',
+        url: url
+      }));
+    }
+  );
+  it('should generate valid delete response',
+    function() {
+      var body = JSON.stringify(null);
+
+      holodeck.mock(new Response(204, body));
+
+      var promise = client.wireless.v1.commands('DCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').remove();
+      promise = promise.then(function(response) {
+        expect(response).toBe(true);
+      }, function() {
+        throw new Error('failed');
+      });
+
+      promise.done();
+    }
+  );
 });

@@ -17,7 +17,7 @@ import { TranscriptionListInstance } from './recording/transcription';
 
 type RecordingSource = 'DialVerb'|'Conference'|'OutboundAPI'|'Trunking'|'RecordVerb'|'StartCallRecordingAPI'|'StartConferenceRecordingAPI';
 
-type RecordingStatus = 'in-progress'|'paused'|'stopped'|'processing'|'completed'|'failed';
+type RecordingStatus = 'in-progress'|'paused'|'stopped'|'processing'|'completed'|'absent';
 
 /**
  * @description Initialize the RecordingList
@@ -90,7 +90,7 @@ interface RecordingListInstance {
  * @property callback -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
- * @property conferenceSid - The conference_sid
+ * @property conferenceSid - The unique ID for the conference associated with the recording.
  * @property dateCreated - Filter by date created
  * @property dateCreatedAfter - Filter by date created
  * @property dateCreatedBefore - Filter by date created
@@ -122,7 +122,7 @@ interface RecordingListInstanceEachOptions {
  * Options to pass to list
  *
  * @property callSid - Filter by call_sid
- * @property conferenceSid - The conference_sid
+ * @property conferenceSid - The unique ID for the conference associated with the recording.
  * @property dateCreated - Filter by date created
  * @property dateCreatedAfter - Filter by date created
  * @property dateCreatedBefore - Filter by date created
@@ -151,7 +151,7 @@ interface RecordingListInstanceOptions {
  * Options to pass to page
  *
  * @property callSid - Filter by call_sid
- * @property conferenceSid - The conference_sid
+ * @property conferenceSid - The unique ID for the conference associated with the recording.
  * @property dateCreated - Filter by date created
  * @property dateCreatedAfter - Filter by date created
  * @property dateCreatedBefore - Filter by date created
@@ -207,7 +207,7 @@ declare class RecordingContext {
    * @property addOnResults - addOnResults resource
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
+   * @param accountSid - The unique sid that identifies this account
    * @param sid - Fetch by unique recording SID
    */
   constructor(version: V2010, accountSid: string, sid: string);
@@ -247,10 +247,10 @@ declare class RecordingInstance extends SerializableClass {
    * @property status - The status of the recording.
    * @property channels - The number of channels in the final recording file as an integer.
    * @property source - The way in which this recording was created.
-   * @property errorCode - More information about the recording failure, if Status is failed.
+   * @property errorCode - More information about why the recording is missing, if Status is `absent`.
    * @property uri - The URI for this resource
    * @property encryptionDetails - Details for how to decrypt the recording.
-   * @property subresourceUris - The subresource_uris
+   * @property subresourceUris - A dictionary of URIs for related resources
    *
    * @param version - Version of the resource
    * @param payload - The instance payload

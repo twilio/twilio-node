@@ -55,7 +55,7 @@ interface CommandListInstance {
   /**
    * Constructs a command
    *
-   * @param sid - The sid
+   * @param sid - A 34 character string that uniquely identifies this resource.
    */
   get(sid: string): CommandContext;
   /**
@@ -96,7 +96,7 @@ interface CommandListInstance {
  * @property callbackUrl - Twilio will make a request to this URL when the Command has finished sending.
  * @property command - The message body of the Command or a Base64 encoded byte string in binary mode.
  * @property commandMode - A string representing which mode to send the SMS message using.
- * @property deliveryReceiptRequested - The delivery_receipt_requested
+ * @property deliveryReceiptRequested - A boolean representing whether to request delivery receipt from the recipient.
  * @property includeSid - When sending a Command to a SIM in text mode, Twilio can automatically include the Sid of the Command in the message body, which could be used to ensure that the device does not process the same Command more than once.
  * @property sim - The Sid or UniqueName of the SIM to send the Command to.
  */
@@ -130,7 +130,7 @@ interface CommandListInstanceCreateOptions {
  *                         page size, i.e. min(limit, 1000)
  * @property sim - Only return Commands to or from this SIM.
  * @property status - Only return Commands with this status value.
- * @property transport - The transport
+ * @property transport - Only return Commands with this transport value.
  */
 interface CommandListInstanceEachOptions {
   callback?: (item: CommandInstance, done: (err?: Error) => void) => void;
@@ -159,7 +159,7 @@ interface CommandListInstanceEachOptions {
  *                         efficient page size, i.e. min(limit, 1000)
  * @property sim - Only return Commands to or from this SIM.
  * @property status - Only return Commands with this status value.
- * @property transport - The transport
+ * @property transport - Only return Commands with this transport value.
  */
 interface CommandListInstanceOptions {
   direction?: CommandDirection;
@@ -179,7 +179,7 @@ interface CommandListInstanceOptions {
  * @property pageToken - PageToken provided by the API
  * @property sim - Only return Commands to or from this SIM.
  * @property status - Only return Commands with this status value.
- * @property transport - The transport
+ * @property transport - Only return Commands with this transport value.
  */
 interface CommandListInstancePageOptions {
   direction?: CommandDirection;
@@ -218,7 +218,7 @@ declare class CommandContext {
    * Initialize the CommandContext
    *
    * @param version - Version of the resource
-   * @param sid - The sid
+   * @param sid - A 34 character string that uniquely identifies this resource.
    */
   constructor(version: V1, sid: string);
 
@@ -228,6 +228,12 @@ declare class CommandContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: CommandInstance) => any): Promise<CommandInstance>;
+  /**
+   * remove a CommandInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: CommandInstance) => any): void;
 }
 
 
@@ -250,7 +256,7 @@ declare class CommandInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - The sid
+   * @param sid - A 34 character string that uniquely identifies this resource.
    */
   constructor(version: V1, payload: CommandPayload, sid: string);
 
@@ -268,6 +274,12 @@ declare class CommandInstance extends SerializableClass {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: CommandInstance) => any): void;
+  /**
+   * remove a CommandInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: CommandInstance) => any): void;
   sid: string;
   simSid: string;
   status: CommandStatus;

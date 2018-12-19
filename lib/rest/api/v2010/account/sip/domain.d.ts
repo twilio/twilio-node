@@ -28,18 +28,18 @@ declare function DomainList(version: V2010, accountSid: string): DomainListInsta
 /**
  * Options to pass to update
  *
- * @property authType - The auth_type
- * @property friendlyName - A user-specified, human-readable name for the trigger.
- * @property sipRegistration - The sip_registration
- * @property voiceFallbackMethod - The voice_fallback_method
- * @property voiceFallbackUrl - The voice_fallback_url
+ * @property domainName - The unique address on Twilio to route SIP traffic
+ * @property friendlyName - A user-specified, human-readable name for the domain.
+ * @property sipRegistration - If SIP registration is allowed
+ * @property voiceFallbackMethod - HTTP method used with voice_fallback_url
+ * @property voiceFallbackUrl - URL Twilio will request if an error occurs in executing TwiML
  * @property voiceMethod - HTTP method to use with voice_url
- * @property voiceStatusCallbackMethod - The voice_status_callback_method
- * @property voiceStatusCallbackUrl - The voice_status_callback_url
- * @property voiceUrl - The voice_url
+ * @property voiceStatusCallbackMethod - The HTTP method Twilio will use to make requests to the StatusCallback URL.
+ * @property voiceStatusCallbackUrl - URL that Twilio will request with status updates
+ * @property voiceUrl - URL Twilio will request when receiving a call
  */
 interface DomainInstanceUpdateOptions {
-  authType?: string;
+  domainName?: string;
   friendlyName?: string;
   sipRegistration?: boolean;
   voiceFallbackMethod?: string;
@@ -116,10 +116,9 @@ interface DomainListInstance {
 /**
  * Options to pass to create
  *
- * @property authType - The types of authentication mapped to the domain
  * @property domainName - The unique address on Twilio to route SIP traffic
- * @property friendlyName - A user-specified, human-readable name for the trigger.
- * @property sipRegistration - The sip_registration
+ * @property friendlyName - A user-specified, human-readable name for the domain.
+ * @property sipRegistration - If SIP registration is allowed
  * @property voiceFallbackMethod - HTTP method used with voice_fallback_url
  * @property voiceFallbackUrl - URL Twilio will request if an error occurs in executing TwiML
  * @property voiceMethod - HTTP method to use with voice_url
@@ -128,7 +127,6 @@ interface DomainListInstance {
  * @property voiceUrl - URL Twilio will request when receiving a call
  */
 interface DomainListInstanceCreateOptions {
-  authType?: string;
   domainName: string;
   friendlyName?: string;
   sipRegistration?: boolean;
@@ -234,7 +232,7 @@ declare class DomainContext {
    * @property auth - auth resource
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
+   * @param accountSid - The unique sid that identifies this account
    * @param sid - Fetch by unique Domain Sid
    */
   constructor(version: V2010, accountSid: string, sid: string);
@@ -268,13 +266,13 @@ declare class DomainInstance extends SerializableClass {
   /**
    * Initialize the DomainContext
    *
-   * @property accountSid - The unique id of the account that sent the call
+   * @property accountSid - The unique id of the account responsible for this domain
    * @property apiVersion - The Twilio API version used to process the call
    * @property authType - The types of authentication mapped to the domain
    * @property dateCreated - The date this resource was created
    * @property dateUpdated - The date this resource was last updated
    * @property domainName - The unique address on Twilio to route SIP traffic
-   * @property friendlyName - A user-specified, human-readable name for the trigger.
+   * @property friendlyName - A user-specified, human-readable name for the domain.
    * @property sid - A string that uniquely identifies the SIP Domain
    * @property uri - The URI for this resource
    * @property voiceFallbackMethod - HTTP method used with voice_fallback_url
@@ -283,7 +281,7 @@ declare class DomainInstance extends SerializableClass {
    * @property voiceStatusCallbackMethod - The HTTP method Twilio will use to make requests to the StatusCallback URL.
    * @property voiceStatusCallbackUrl - URL that Twilio will request with status updates
    * @property voiceUrl - URL Twilio will request when receiving a call
-   * @property subresourceUris - The subresource_uris
+   * @property subresourceUris - The list mapping resources associated with this resource.
    * @property sipRegistration - If SIP registration is allowed
    *
    * @param version - Version of the resource

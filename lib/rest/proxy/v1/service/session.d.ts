@@ -144,7 +144,7 @@ interface SessionListInstanceCreateOptions {
  *                         If no pageSize is defined but a limit is defined,
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
- * @property status - The Status of this Session
+ * @property status - The status
  * @property uniqueName - The unique_name
  */
 interface SessionListInstanceEachOptions {
@@ -169,7 +169,7 @@ interface SessionListInstanceEachOptions {
  *                         If no page_size is defined but a limit is defined,
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
- * @property status - The Status of this Session
+ * @property status - The status
  * @property uniqueName - The unique_name
  */
 interface SessionListInstanceOptions {
@@ -185,7 +185,7 @@ interface SessionListInstanceOptions {
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
- * @property status - The Status of this Session
+ * @property status - The status
  * @property uniqueName - The unique_name
  */
 interface SessionListInstancePageOptions {

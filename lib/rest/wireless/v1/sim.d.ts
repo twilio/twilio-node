@@ -84,7 +84,7 @@ interface SimListInstance {
   /**
    * Constructs a sim
    *
-   * @param sid - The sid
+   * @param sid - A 34 character string that uniquely identifies this resource.
    */
   get(sid: string): SimContext;
   /**
@@ -125,7 +125,7 @@ interface SimListInstance {
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
  * @property done - Function to be called upon completion of streaming
- * @property eId - The e_id
+ * @property eId - Only return Sims with this EID.
  * @property iccid - Return Sims with this Iccid.
  * @property limit -
  *                         Upper limit for the number of records to return.
@@ -138,7 +138,7 @@ interface SimListInstance {
  *                         each() will attempt to read the limit with the most efficient
  *                         page size, i.e. min(limit, 1000)
  * @property ratePlan - Only return Sims with this Rate Plan.
- * @property simRegistrationCode - The sim_registration_code
+ * @property simRegistrationCode - Only return Sims with this registration code.
  * @property status - Only return Sims with this status.
  */
 interface SimListInstanceEachOptions {
@@ -156,7 +156,7 @@ interface SimListInstanceEachOptions {
 /**
  * Options to pass to list
  *
- * @property eId - The e_id
+ * @property eId - Only return Sims with this EID.
  * @property iccid - Return Sims with this Iccid.
  * @property limit -
  *                         Upper limit for the number of records to return.
@@ -169,7 +169,7 @@ interface SimListInstanceEachOptions {
  *                         list() will attempt to read the limit with the most
  *                         efficient page size, i.e. min(limit, 1000)
  * @property ratePlan - Only return Sims with this Rate Plan.
- * @property simRegistrationCode - The sim_registration_code
+ * @property simRegistrationCode - Only return Sims with this registration code.
  * @property status - Only return Sims with this status.
  */
 interface SimListInstanceOptions {
@@ -185,13 +185,13 @@ interface SimListInstanceOptions {
 /**
  * Options to pass to page
  *
- * @property eId - The e_id
+ * @property eId - Only return Sims with this EID.
  * @property iccid - Return Sims with this Iccid.
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
  * @property ratePlan - Only return Sims with this Rate Plan.
- * @property simRegistrationCode - The sim_registration_code
+ * @property simRegistrationCode - Only return Sims with this registration code.
  * @property status - Only return Sims with this status.
  */
 interface SimListInstancePageOptions {
@@ -246,7 +246,7 @@ declare class SimContext {
    * @property dataSessions - dataSessions resource
    *
    * @param version - Version of the resource
-   * @param sid - The sid
+   * @param sid - A 34 character string that uniquely identifies this resource.
    */
   constructor(version: V1, sid: string);
 
@@ -257,6 +257,12 @@ declare class SimContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: SimInstance) => any): Promise<SimInstance>;
+  /**
+   * remove a SimInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: SimInstance) => any): void;
   /**
    * update a SimInstance
    *
@@ -298,7 +304,7 @@ declare class SimInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - The sid
+   * @param sid - A 34 character string that uniquely identifies this resource.
    */
   constructor(version: V1, payload: SimPayload, sid: string);
 
@@ -324,6 +330,12 @@ declare class SimInstance extends SerializableClass {
   ipAddress: string;
   links: string;
   ratePlanSid: string;
+  /**
+   * remove a SimInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: SimInstance) => any): void;
   sid: string;
   smsFallbackMethod: string;
   smsFallbackUrl: string;

@@ -20,7 +20,7 @@ declare function AwsList(version: V1): AwsListInstance;
 /**
  * Options to pass to update
  *
- * @property friendlyName - The friendly_name
+ * @property friendlyName - A human readable description of this resource
  */
 interface AwsInstanceUpdateOptions {
   friendlyName?: string;
@@ -55,7 +55,7 @@ interface AwsListInstance {
   /**
    * Constructs a aws
    *
-   * @param sid - The sid
+   * @param sid - Fetch by unique Credential Sid
    */
   get(sid: string): AwsContext;
   /**
@@ -92,9 +92,9 @@ interface AwsListInstance {
 /**
  * Options to pass to create
  *
- * @property accountSid - The account_sid
- * @property credentials - The credentials
- * @property friendlyName - The friendly_name
+ * @property accountSid - The Subaccount this Credential should be associated with.
+ * @property credentials - String containing AWS access credentials with format <AWS_ACCESS_KEY_ID>:<AWS_SECRET_ACCESS_KEY>
+ * @property friendlyName - A human readable description of this resource
  */
 interface AwsListInstanceCreateOptions {
   accountSid?: string;
@@ -180,7 +180,7 @@ declare class AwsContext {
    * Initialize the AwsContext
    *
    * @param version - Version of the resource
-   * @param sid - The sid
+   * @param sid - Fetch by unique Credential Sid
    */
   constructor(version: V1, sid: string);
 
@@ -210,16 +210,16 @@ declare class AwsInstance extends SerializableClass {
   /**
    * Initialize the AwsContext
    *
-   * @property sid - The sid
-   * @property accountSid - The account_sid
-   * @property friendlyName - The friendly_name
-   * @property dateCreated - The date_created
-   * @property dateUpdated - The date_updated
-   * @property url - The url
+   * @property sid - A 34 character string that uniquely identifies this resource.
+   * @property accountSid - AccountSid the Credential resource belongs to
+   * @property friendlyName - A human readable description of this resource
+   * @property dateCreated - The date this resource was created
+   * @property dateUpdated - The date this resource was last updated
+   * @property url - The URI for this resource, relative to `https://accounts.twilio.com`
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param sid - The sid
+   * @param sid - Fetch by unique Credential Sid
    */
   constructor(version: V1, payload: AwsPayload, sid: string);
 

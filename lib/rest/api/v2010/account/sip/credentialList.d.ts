@@ -183,7 +183,7 @@ declare class CredentialListContext {
    * @property credentials - credentials resource
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
+   * @param accountSid - The unique id of the Account that is responsible for this resource.
    * @param sid - Fetch by unique credential list Sid
    */
   constructor(version: V2010, accountSid: string, sid: string);
@@ -220,7 +220,7 @@ declare class CredentialListInstance extends SerializableClass {
    * @property dateUpdated - The date this resource was last updated
    * @property friendlyName - Human readable descriptive text
    * @property sid - A string that uniquely identifies this credential
-   * @property subresourceUris - The subresource_uris
+   * @property subresourceUris - The list of credentials associated with this credential list.
    * @property uri - The URI for this resource
    *
    * @param version - Version of the resource

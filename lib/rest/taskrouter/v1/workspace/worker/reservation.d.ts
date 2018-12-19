@@ -30,6 +30,7 @@ declare function ReservationList(version: V1, workspaceSid: string, workerSid: s
  * Options to pass to update
  *
  * @property beep - The beep
+ * @property beepOnCustomerEntrance - The beep_on_customer_entrance
  * @property callAccept - No
  * @property callFrom - Yes
  * @property callRecord - The call_record
@@ -52,6 +53,7 @@ declare function ReservationList(version: V1, workspaceSid: string, workerSid: s
  * @property dequeueTimeout - The dequeue_timeout
  * @property dequeueTo - The dequeue_to
  * @property earlyMedia - The early_media
+ * @property endConferenceOnCustomerExit - The end_conference_on_customer_exit
  * @property endConferenceOnExit - The end_conference_on_exit
  * @property from - The from
  * @property instruction - Yes
@@ -81,6 +83,7 @@ declare function ReservationList(version: V1, workspaceSid: string, workerSid: s
  */
 interface ReservationInstanceUpdateOptions {
   beep?: string;
+  beepOnCustomerEntrance?: boolean;
   callAccept?: boolean;
   callFrom?: string;
   callRecord?: string;
@@ -103,6 +106,7 @@ interface ReservationInstanceUpdateOptions {
   dequeueTimeout?: number;
   dequeueTo?: string;
   earlyMedia?: boolean;
+  endConferenceOnCustomerExit?: boolean;
   endConferenceOnExit?: boolean;
   from?: string;
   instruction?: string;

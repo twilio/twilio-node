@@ -14,7 +14,7 @@ import { SerializableClass } from '../../../../../../../../interfaces';
  * @description Initialize the AuthRegistrationsCredentialListMappingList
  *
  * @param version - Version of the resource
- * @param accountSid - The unique id of the account that sent the call
+ * @param accountSid - The unique id of the account responsible for this domain
  * @param domainSid - A string that uniquely identifies the SIP Domain
  */
 declare function AuthRegistrationsCredentialListMappingList(version: V2010, accountSid: string, domainSid: string): AuthRegistrationsCredentialListMappingListInstance;
@@ -203,7 +203,7 @@ declare class AuthRegistrationsCredentialListMappingInstance extends Serializabl
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The unique id of the account that sent the call
+   * @param accountSid - The unique id of the account responsible for this domain
    * @param domainSid - A string that uniquely identifies the SIP Domain
    * @param sid - Fetch by unique credential list Sid
    */

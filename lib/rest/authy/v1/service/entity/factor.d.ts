@@ -102,13 +102,13 @@ interface FactorListInstance {
  * Options to pass to create
  *
  * @property binding - A unique binding for this Factor
+ * @property factorType - The Type of this Factor
  * @property friendlyName - The friendly name of this Factor
- * @property type - The Type of this Factor
  */
 interface FactorListInstanceCreateOptions {
   binding: string;
+  factorType: FactorFactorTypes;
   friendlyName: string;
-  type: FactorFactorTypes;
 }
 
 /**
@@ -176,13 +176,13 @@ interface FactorResource {
   date_created: Date;
   date_updated: Date;
   entity_sid: string;
+  factor_type: FactorFactorTypes;
   friendly_name: string;
   identity: string;
   links: string;
   service_sid: string;
   sid: string;
   status: FactorFactorStatuses;
-  type: FactorFactorTypes;
   url: string;
 }
 
@@ -241,7 +241,7 @@ declare class FactorInstance extends SerializableClass {
    * @property dateUpdated - The date this Factor was updated
    * @property friendlyName - A human readable description of this resource.
    * @property status - The Status of this Factor
-   * @property type - The Type of this Factor
+   * @property factorType - The Type of this Factor
    * @property url - The URL of this resource.
    * @property links - Nested resource URLs.
    *
@@ -262,6 +262,7 @@ declare class FactorInstance extends SerializableClass {
   dateCreated: Date;
   dateUpdated: Date;
   entitySid: string;
+  factorType: FactorFactorTypes;
   /**
    * fetch a FactorInstance
    *
@@ -285,7 +286,6 @@ declare class FactorInstance extends SerializableClass {
    * Removes any circular references in the object.
    */
   toJSON(): any;
-  type: FactorFactorTypes;
   /**
    * update a FactorInstance
    *

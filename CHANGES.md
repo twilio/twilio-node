@@ -1,6 +1,35 @@
 twilio-node changelog
 =====================
 
+[2018-12-19] Version 3.26.0
+----------------------------
+**Library**
+- PR #405: Fix security audits. Thanks to @cjcodes!
+- PR #393: Updates scmp to version 2.0.0. Thanks to @philnash!
+
+**Authy**
+- Reverted the change to `FactorType` and `FormType`, avoiding conflicts with Helper Libraries reserved words (`type`) **(breaking change)**
+
+**Proxy**
+- Remove incorrect parameter for Session List
+
+**Studio**
+- Support date created filtering on list of executions
+
+**Taskrouter**
+- Adding ability to Create, Modify and Delete Task Channels.
+
+**Verify**
+- Add `SkipSmsToLandlines`, `TtsName`, `DtmfInputRequired` optional parameters on Service resource creation or update.
+
+**Wireless**
+- Added delete action on Command resource.
+- Added delete action on Sim resource.
+
+**Twiml**
+- Change `currency` from enum to string for `Pay` **(breaking change)**
+
+
 [2018-11-30] Version 3.25.0
 ----------------------------
 **Api**

@@ -42,8 +42,8 @@ describe('Form', function() {
       });
       promise.done();
 
-      var solution = {type: 'form-app-push'};
-      var url = _.template('https://authy.twilio.com/v1/Forms/<%= type %>')(solution);
+      var solution = {formType: 'form-app-push'};
+      var url = _.template('https://authy.twilio.com/v1/Forms/<%= formType %>')(solution);
 
       holodeck.assertHasRequest(new Request({
         method: 'GET',
@@ -54,7 +54,7 @@ describe('Form', function() {
   it('should generate valid fetch response',
     function() {
       var body = JSON.stringify({
-          'type': 'form-sms',
+          'form_type': 'form-sms',
           'forms': {
               'create_factor': {},
               'verify_factor': {},

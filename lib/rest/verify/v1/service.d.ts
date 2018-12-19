@@ -27,13 +27,19 @@ declare function ServiceList(version: V1): ServiceListInstance;
  * Options to pass to update
  *
  * @property codeLength - Length of verification code. Valid values are 4-10
+ * @property dtmfInputRequired - Indicates whether or not to require a random number input to deliver the verify code via phone calls
  * @property friendlyName - Friendly name of the service
  * @property lookupEnabled - Indicates whether or not to perform a lookup with each verification started
+ * @property skipSmsToLandlines - Indicates whether or not to ignore SMS verifications for landlines
+ * @property ttsName - Alternative to be used as Service friendly name in phone calls
  */
 interface ServiceInstanceUpdateOptions {
   codeLength?: number;
+  dtmfInputRequired?: boolean;
   friendlyName?: string;
   lookupEnabled?: boolean;
+  skipSmsToLandlines?: boolean;
+  ttsName?: string;
 }
 
 interface ServiceListInstance {
@@ -103,13 +109,19 @@ interface ServiceListInstance {
  * Options to pass to create
  *
  * @property codeLength - Length of verification code. Valid values are 4-10
+ * @property dtmfInputRequired - Indicates whether or not to require a random number input to deliver the verify code via phone calls
  * @property friendlyName - Friendly name of the service
  * @property lookupEnabled - Indicates whether or not to perform a lookup with each verification started
+ * @property skipSmsToLandlines - Indicates whether or not to ignore SMS verifications for landlines
+ * @property ttsName - Alternative to be used as Service friendly name in phone calls
  */
 interface ServiceListInstanceCreateOptions {
   codeLength?: number;
+  dtmfInputRequired?: boolean;
   friendlyName: string;
   lookupEnabled?: boolean;
+  skipSmsToLandlines?: boolean;
+  ttsName?: string;
 }
 
 /**
@@ -177,10 +189,13 @@ interface ServiceResource {
   code_length: number;
   date_created: Date;
   date_updated: Date;
+  dtmf_input_required: boolean;
   friendly_name: string;
   links: string;
   lookup_enabled: boolean;
   sid: string;
+  skip_sms_to_landlines: boolean;
+  tts_name: string;
   url: string;
 }
 
@@ -233,6 +248,9 @@ declare class ServiceInstance extends SerializableClass {
    * @property friendlyName - Friendly name of the service
    * @property codeLength - Length of verification code. Valid values are 4-10
    * @property lookupEnabled - Indicates whether or not to perform a lookup with each verification started
+   * @property skipSmsToLandlines - Indicates whether or not to ignore SMS verifications for landlines
+   * @property dtmfInputRequired - Indicates whether or not to require a random number input to deliver the verify code via phone calls
+   * @property ttsName - Alternative to be used as Service friendly name in phone calls
    * @property dateCreated - The date this Service was created
    * @property dateUpdated - The date this Service was updated
    * @property url - The url
@@ -249,6 +267,7 @@ declare class ServiceInstance extends SerializableClass {
   codeLength: number;
   dateCreated: Date;
   dateUpdated: Date;
+  dtmfInputRequired: boolean;
   /**
    * fetch a ServiceInstance
    *
@@ -265,11 +284,13 @@ declare class ServiceInstance extends SerializableClass {
    */
   remove(callback?: (error: Error | null, items: ServiceInstance) => any): void;
   sid: string;
+  skipSmsToLandlines: boolean;
   /**
    * Produce a plain JSON object version of the ServiceInstance for serialization.
    * Removes any circular references in the object.
    */
   toJSON(): any;
+  ttsName: string;
   /**
    * update a ServiceInstance
    *

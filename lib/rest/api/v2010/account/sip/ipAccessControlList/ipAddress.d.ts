@@ -14,17 +14,17 @@ import { SerializableClass } from '../../../../../../interfaces';
  * @description Initialize the IpAddressList
  *
  * @param version - Version of the resource
- * @param accountSid - The unique id of the Account that responsible for this resource.
- * @param ipAccessControlListSid - The ip_access_control_list_sid
+ * @param accountSid - The unique id of the Account that is responsible for this resource.
+ * @param ipAccessControlListSid - The unique id of the IpAccessControlList resource that includes this resource.
  */
 declare function IpAddressList(version: V2010, accountSid: string, ipAccessControlListSid: string): IpAddressListInstance;
 
 /**
  * Options to pass to update
  *
- * @property cidrPrefixLength - The cidr_prefix_length
- * @property friendlyName - The friendly_name
- * @property ipAddress - The ip_address
+ * @property cidrPrefixLength - An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
+ * @property friendlyName - A human readable descriptive text for this resource, up to 64 characters long.
+ * @property ipAddress - An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
  */
 interface IpAddressInstanceUpdateOptions {
   cidrPrefixLength?: number;
@@ -61,7 +61,7 @@ interface IpAddressListInstance {
   /**
    * Constructs a ip_address
    *
-   * @param sid - The sid
+   * @param sid - A string that identifies the IpAddress resource to fetch
    */
   get(sid: string): IpAddressContext;
   /**
@@ -98,9 +98,9 @@ interface IpAddressListInstance {
 /**
  * Options to pass to create
  *
- * @property cidrPrefixLength - The cidr_prefix_length
- * @property friendlyName - The friendly_name
- * @property ipAddress - The ip_address
+ * @property cidrPrefixLength - An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
+ * @property friendlyName - A human readable descriptive text for this resource, up to 64 characters long.
+ * @property ipAddress - An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
  */
 interface IpAddressListInstanceCreateOptions {
   cidrPrefixLength?: number;
@@ -191,9 +191,9 @@ declare class IpAddressContext {
    * Initialize the IpAddressContext
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param ipAccessControlListSid - The ip_access_control_list_sid
-   * @param sid - The sid
+   * @param accountSid - The unique sid that identifies this account
+   * @param ipAccessControlListSid - The IpAccessControlList Sid that identifies the IpAddress resources to fetch
+   * @param sid - A string that identifies the IpAddress resource to fetch
    */
   constructor(version: V2010, accountSid: string, ipAccessControlListSid: string, sid: string);
 
@@ -224,20 +224,20 @@ declare class IpAddressInstance extends SerializableClass {
    * Initialize the IpAddressContext
    *
    * @property sid - A 34 character string that uniquely identifies this resource.
-   * @property accountSid - The unique id of the Account that responsible for this resource.
+   * @property accountSid - The unique id of the Account that is responsible for this resource.
    * @property friendlyName - A human readable descriptive text for this resource, up to 64 characters long.
    * @property ipAddress - An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
    * @property cidrPrefixLength - An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
-   * @property ipAccessControlListSid - The ip_access_control_list_sid
+   * @property ipAccessControlListSid - The unique id of the IpAccessControlList resource that includes this resource.
    * @property dateCreated - The date that this resource was created, given as GMT in RFC 2822 format.
    * @property dateUpdated - The date that this resource was last updated, given as GMT in RFC 2822 format.
    * @property uri - The URI for this resource, relative to https://api.twilio.com
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The unique id of the Account that responsible for this resource.
-   * @param ipAccessControlListSid - The ip_access_control_list_sid
-   * @param sid - The sid
+   * @param accountSid - The unique id of the Account that is responsible for this resource.
+   * @param ipAccessControlListSid - The unique id of the IpAccessControlList resource that includes this resource.
+   * @param sid - A string that identifies the IpAddress resource to fetch
    */
   constructor(version: V2010, payload: IpAddressPayload, accountSid: string, ipAccessControlListSid: string, sid: string);
 

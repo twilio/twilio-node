@@ -58,7 +58,7 @@ interface IpAccessControlListListInstance {
   /**
    * Constructs a ip_access_control_list
    *
-   * @param sid - Fetch by unique IpAccessControlList Sid
+   * @param sid - A string that identifies the resource to fetch
    */
   get(sid: string): IpAccessControlListContext;
   /**
@@ -183,8 +183,8 @@ declare class IpAccessControlListContext {
    * @property ipAddresses - ipAddresses resource
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
-   * @param sid - Fetch by unique IpAccessControlList Sid
+   * @param accountSid - The unique sid that identifies this account
+   * @param sid - A string that identifies the resource to fetch
    */
   constructor(version: V2010, accountSid: string, sid: string);
 
@@ -220,13 +220,13 @@ declare class IpAccessControlListInstance extends SerializableClass {
    * @property friendlyName - A human readable description of this resource
    * @property dateCreated - The date this resource was created
    * @property dateUpdated - The date this resource was last updated
-   * @property subresourceUris - The subresource_uris
+   * @property subresourceUris - The IP addresses associated with this resource.
    * @property uri - The URI for this resource
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
    * @param accountSid - A 34 character string that uniquely identifies this resource.
-   * @param sid - Fetch by unique IpAccessControlList Sid
+   * @param sid - A string that identifies the resource to fetch
    */
   constructor(version: V2010, payload: IpAccessControlListPayload, accountSid: string, sid: string);
 

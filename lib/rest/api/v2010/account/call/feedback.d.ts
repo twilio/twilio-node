@@ -17,7 +17,7 @@ type FeedbackIssues = 'audio-latency'|'digits-not-captured'|'dropped-call'|'impe
  * @description Initialize the FeedbackList
  *
  * @param version - Version of the resource
- * @param accountSid - The account_sid
+ * @param accountSid - The unique sid that identifies this account
  * @param callSid - A 34-character string that uniquely identifies the Call resource.
  */
 declare function FeedbackList(version: V2010, accountSid: string, callSid: string): FeedbackListInstance;
@@ -26,7 +26,7 @@ declare function FeedbackList(version: V2010, accountSid: string, callSid: strin
  * Options to pass to create
  *
  * @property issue - Issues experienced during the call
- * @property qualityScore - An integer from 1 to 5
+ * @property qualityScore - The call quality expressed as an integer from 1 to 5
  */
 interface FeedbackInstanceCreateOptions {
   issue?: string[];
@@ -37,7 +37,7 @@ interface FeedbackInstanceCreateOptions {
  * Options to pass to update
  *
  * @property issue - Issues experienced during the call
- * @property qualityScore - An integer from 1 to 5
+ * @property qualityScore - The call quality expressed as an integer from 1 to 5
  */
 interface FeedbackInstanceUpdateOptions {
   issue?: string[];
@@ -78,7 +78,7 @@ declare class FeedbackContext {
    * Initialize the FeedbackContext
    *
    * @param version - Version of the resource
-   * @param accountSid - The account_sid
+   * @param accountSid - The unique sid that identifies this account
    * @param callSid - The call sid that uniquely identifies the call
    */
   constructor(version: V2010, accountSid: string, callSid: string);
@@ -110,16 +110,16 @@ declare class FeedbackInstance extends SerializableClass {
   /**
    * Initialize the FeedbackContext
    *
-   * @property accountSid - The account_sid
-   * @property dateCreated - The date_created
-   * @property dateUpdated - The date_updated
-   * @property issues - The issues
+   * @property accountSid - The unique sid that identifies this account
+   * @property dateCreated - The date this resource was created
+   * @property dateUpdated - The date this resource was last updated
+   * @property issues - Issues experienced during the call
    * @property qualityScore - 1 to 5 quality score
-   * @property sid - The sid
+   * @property sid - A string that uniquely identifies this feedback resource
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The account_sid
+   * @param accountSid - The unique sid that identifies this account
    * @param callSid - A 34-character string that uniquely identifies the Call resource.
    */
   constructor(version: V2010, payload: FeedbackPayload, accountSid: string, callSid: string);

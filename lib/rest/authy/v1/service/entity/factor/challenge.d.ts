@@ -82,13 +82,13 @@ interface ChallengeResource {
   entity_sid: string;
   expiration_date: Date;
   factor_sid: string;
+  factor_type: ChallengeFactorTypes;
   hidden_details: string;
   identity: string;
   responded_reason: ChallengeChallengeReasons;
   service_sid: string;
   sid: string;
   status: ChallengeChallengeStatuses;
-  type: ChallengeFactorTypes;
   url: string;
 }
 
@@ -151,7 +151,7 @@ declare class ChallengeInstance extends SerializableClass {
    * @property respondedReason - The Reason of this Challenge `status`
    * @property details - Public details provided to contextualize the Challenge
    * @property hiddenDetails - Hidden details provided to contextualize the Challenge
-   * @property type - The Type of this Challenge
+   * @property factorType - The Factor Type of this Challenge
    * @property url - The URL of this resource.
    *
    * @param version - Version of the resource
@@ -172,6 +172,7 @@ declare class ChallengeInstance extends SerializableClass {
   entitySid: string;
   expirationDate: Date;
   factorSid: string;
+  factorType: ChallengeFactorTypes;
   /**
    * fetch a ChallengeInstance
    *
@@ -195,7 +196,6 @@ declare class ChallengeInstance extends SerializableClass {
    * Removes any circular references in the object.
    */
   toJSON(): any;
-  type: ChallengeFactorTypes;
   /**
    * update a ChallengeInstance
    *

@@ -14,7 +14,7 @@ import { SerializableClass } from '../../../../../../../../interfaces';
  * @description Initialize the AuthCallsIpAccessControlListMappingList
  *
  * @param version - Version of the resource
- * @param accountSid - The unique id of the account that sent the call
+ * @param accountSid - The unique id of the account responsible for this domain
  * @param domainSid - A string that uniquely identifies the SIP Domain
  */
 declare function AuthCallsIpAccessControlListMappingList(version: V2010, accountSid: string, domainSid: string): AuthCallsIpAccessControlListMappingListInstance;
@@ -203,7 +203,7 @@ declare class AuthCallsIpAccessControlListMappingInstance extends SerializableCl
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The unique id of the account that sent the call
+   * @param accountSid - The unique id of the account responsible for this domain
    * @param domainSid - A string that uniquely identifies the SIP Domain
    * @param sid - Fetch by unique IP Access Control List Sid
    */

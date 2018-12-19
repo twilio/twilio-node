@@ -14,7 +14,7 @@ import { SerializableClass } from '../../../../../../../../interfaces';
  * @description Initialize the AuthCallsCredentialListMappingList
  *
  * @param version - Version of the resource
- * @param accountSid - The unique id of the account that sent the call
+ * @param accountSid - The unique id of the account responsible for this domain
  * @param domainSid - A string that uniquely identifies the SIP Domain
  */
 declare function AuthCallsCredentialListMappingList(version: V2010, accountSid: string, domainSid: string): AuthCallsCredentialListMappingListInstance;
@@ -203,7 +203,7 @@ declare class AuthCallsCredentialListMappingInstance extends SerializableClass {
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param accountSid - The unique id of the account that sent the call
+   * @param accountSid - The unique id of the account responsible for this domain
    * @param domainSid - A string that uniquely identifies the SIP Domain
    * @param sid - Fetch by unique credential list Sid
    */

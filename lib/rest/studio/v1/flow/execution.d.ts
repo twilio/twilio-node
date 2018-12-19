@@ -107,6 +107,8 @@ interface ExecutionListInstanceCreateOptions {
  * @property callback -
  *                         Function to process each record. If this and a positional
  *                         callback are passed, this one will be used
+ * @property dateCreatedFrom - Only show Executions that started on or after this ISO8601 date-time.
+ * @property dateCreatedTo - Only show Executions that started before this this ISO8601 date-time.
  * @property done - Function to be called upon completion of streaming
  * @property limit -
  *                         Upper limit for the number of records to return.
@@ -121,6 +123,8 @@ interface ExecutionListInstanceCreateOptions {
  */
 interface ExecutionListInstanceEachOptions {
   callback?: (item: ExecutionInstance, done: (err?: Error) => void) => void;
+  dateCreatedFrom?: Date;
+  dateCreatedTo?: Date;
   done?: Function;
   limit?: number;
   pageSize?: number;
@@ -129,6 +133,8 @@ interface ExecutionListInstanceEachOptions {
 /**
  * Options to pass to list
  *
+ * @property dateCreatedFrom - Only show Executions that started on or after this ISO8601 date-time.
+ * @property dateCreatedTo - Only show Executions that started before this this ISO8601 date-time.
  * @property limit -
  *                         Upper limit for the number of records to return.
  *                         list() guarantees never to return more than limit.
@@ -141,6 +147,8 @@ interface ExecutionListInstanceEachOptions {
  *                         efficient page size, i.e. min(limit, 1000)
  */
 interface ExecutionListInstanceOptions {
+  dateCreatedFrom?: Date;
+  dateCreatedTo?: Date;
   limit?: number;
   pageSize?: number;
 }
@@ -148,11 +156,15 @@ interface ExecutionListInstanceOptions {
 /**
  * Options to pass to page
  *
+ * @property dateCreatedFrom - Only show Executions that started on or after this ISO8601 date-time.
+ * @property dateCreatedTo - Only show Executions that started before this this ISO8601 date-time.
  * @property pageNumber - Page Number, this value is simply for client state
  * @property pageSize - Number of records to return, defaults to 50
  * @property pageToken - PageToken provided by the API
  */
 interface ExecutionListInstancePageOptions {
+  dateCreatedFrom?: Date;
+  dateCreatedTo?: Date;
   pageNumber?: number;
   pageSize?: number;
   pageToken?: string;

@@ -14,15 +14,31 @@ import { SerializableClass } from '../../../../interfaces';
  * @description Initialize the TaskChannelList
  *
  * @param version - Version of the resource
- * @param workspaceSid - The workspace_sid
+ * @param workspaceSid - The unique ID of the Workspace that this TaskChannel belongs to.
  */
 declare function TaskChannelList(version: V1, workspaceSid: string): TaskChannelListInstance;
+
+/**
+ * Options to pass to update
+ *
+ * @property friendlyName - Toggle the FriendlyName for the TaskChannel
+ */
+interface TaskChannelInstanceUpdateOptions {
+  friendlyName?: string;
+}
 
 interface TaskChannelListInstance {
   /**
    * @param sid - sid of instance
    */
   (sid: string): TaskChannelContext;
+  /**
+   * create a TaskChannelInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  create(opts: TaskChannelListInstanceCreateOptions, callback?: (error: Error | null, item: TaskChannelInstance) => any): Promise<TaskChannelInstance>;
   /**
    * Streams TaskChannelInstance records from the API.
    *
@@ -72,6 +88,17 @@ interface TaskChannelListInstance {
    * @param callback - Callback to handle list of records
    */
   page(opts?: TaskChannelListInstancePageOptions, callback?: (error: Error | null, items: TaskChannelPage) => any): Promise<TaskChannelPage>;
+}
+
+/**
+ * Options to pass to create
+ *
+ * @property friendlyName - String representing user-friendly name for the TaskChannel
+ * @property uniqueName - String representing unique name for the TaskChannel
+ */
+interface TaskChannelListInstanceCreateOptions {
+  friendlyName: string;
+  uniqueName: string;
 }
 
 /**
@@ -139,6 +166,7 @@ interface TaskChannelResource {
   date_created: Date;
   date_updated: Date;
   friendly_name: string;
+  links: string;
   sid: string;
   unique_name: string;
   url: string;
@@ -166,6 +194,19 @@ declare class TaskChannelContext {
    * @param callback - Callback to handle processed record
    */
   fetch(callback?: (error: Error | null, items: TaskChannelInstance) => any): Promise<TaskChannelInstance>;
+  /**
+   * remove a TaskChannelInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: TaskChannelInstance) => any): void;
+  /**
+   * update a TaskChannelInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: TaskChannelInstanceUpdateOptions, callback?: (error: Error | null, items: TaskChannelInstance) => any): Promise<TaskChannelInstance>;
 }
 
 
@@ -173,18 +214,19 @@ declare class TaskChannelInstance extends SerializableClass {
   /**
    * Initialize the TaskChannelContext
    *
-   * @property accountSid - The account_sid
-   * @property dateCreated - The date_created
-   * @property dateUpdated - The date_updated
-   * @property friendlyName - The friendly_name
-   * @property sid - The sid
-   * @property uniqueName - The unique_name
-   * @property workspaceSid - The workspace_sid
+   * @property accountSid - The unique ID of the Account that owns this TaskChannel.
+   * @property dateCreated - The date this TaskChannel was created.
+   * @property dateUpdated - The date this TaskChannel was updated.
+   * @property friendlyName - The friendly name of this TaskChannel
+   * @property sid - The unique ID for this TaskChannel.
+   * @property uniqueName - The unique name of TaskChannel, such as 'voice', 'sms', etc.
+   * @property workspaceSid - The unique ID of the Workspace that this TaskChannel belongs to.
    * @property url - The url
+   * @property links - The links
    *
    * @param version - Version of the resource
    * @param payload - The instance payload
-   * @param workspaceSid - The workspace_sid
+   * @param workspaceSid - The unique ID of the Workspace that this TaskChannel belongs to.
    * @param sid - The sid
    */
   constructor(version: V1, payload: TaskChannelPayload, workspaceSid: string, sid: string);
@@ -200,6 +242,13 @@ declare class TaskChannelInstance extends SerializableClass {
    */
   fetch(callback?: (error: Error | null, items: TaskChannelInstance) => any): void;
   friendlyName: string;
+  links: string;
+  /**
+   * remove a TaskChannelInstance
+   *
+   * @param callback - Callback to handle processed record
+   */
+  remove(callback?: (error: Error | null, items: TaskChannelInstance) => any): void;
   sid: string;
   /**
    * Produce a plain JSON object version of the TaskChannelInstance for serialization.
@@ -207,6 +256,13 @@ declare class TaskChannelInstance extends SerializableClass {
    */
   toJSON(): any;
   uniqueName: string;
+  /**
+   * update a TaskChannelInstance
+   *
+   * @param opts - Options for request
+   * @param callback - Callback to handle processed record
+   */
+  update(opts?: TaskChannelInstanceUpdateOptions, callback?: (error: Error | null, items: TaskChannelInstance) => any): void;
   url: string;
   workspaceSid: string;
 }
@@ -230,4 +286,4 @@ declare class TaskChannelPage extends Page<V1, TaskChannelPayload, TaskChannelRe
   getInstance(payload: TaskChannelPayload): TaskChannelInstance;
 }
 
-export { TaskChannelContext, TaskChannelInstance, TaskChannelList, TaskChannelListInstance, TaskChannelListInstanceEachOptions, TaskChannelListInstanceOptions, TaskChannelListInstancePageOptions, TaskChannelPage, TaskChannelPayload, TaskChannelResource, TaskChannelSolution }
+export { TaskChannelContext, TaskChannelInstance, TaskChannelList, TaskChannelListInstance, TaskChannelListInstanceCreateOptions, TaskChannelListInstanceEachOptions, TaskChannelListInstanceOptions, TaskChannelListInstancePageOptions, TaskChannelPage, TaskChannelPayload, TaskChannelResource, TaskChannelSolution }
