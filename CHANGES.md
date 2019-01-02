@@ -1,6 +1,12 @@
 twilio-node changelog
 =====================
 
+[2019-01-02] Version 3.26.1
+----------------------------
+**Insights**
+- Initial revision.
+
+
 [2018-12-19] Version 3.26.0
 ----------------------------
 **Library**
